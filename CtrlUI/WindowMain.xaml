@@ -1,0 +1,834 @@
+﻿<Window x:Class="CtrlUI.WindowMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CtrlUI"
+        xmlns:styles="clr-namespace:CtrlUI.Styles"
+        RenderOptions.BitmapScalingMode="HighQuality"
+        mc:Ignorable="d"
+        Title="CtrlUI (Beta)"
+        Width="1280"
+        Height="720"
+        MinWidth="1024"
+        MinHeight="720"
+        Background="#1D1D1D">
+
+    <!-- Grid Application -->
+    <Grid Name="grid_App">
+        <!-- Grid Main -->
+        <Grid Name="grid_Main">
+            <Grid.Background>
+                <ImageBrush x:Name="grid_Main_img_Background" Stretch="UniformToFill"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Top Buttons -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Button Name="button_MenuHamburger" Margin="16,10,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Open the main menu">
+                    <Image Source="Assets/Icons/Hamburger.png"/>
+                </Button>
+                <Button Name="button_MenuSearch" Margin="10,10,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Open the search panel">
+                    <Image Source="Assets/Icons/Search.png"/>
+                </Button>
+                <Button Name="button_MenuSorting" Margin="10,10,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Sort by name">
+                    <Image Source="Assets/Icons/Sorting.png"/>
+                </Button>
+            </StackPanel>
+
+            <!-- Application Lists -->
+            <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
+                <StackPanel Margin="20,10,20,0">
+                    <StackPanel Name="sp_Games">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Games"/>
+                            <TextBlock Name="tb_Games_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockGray}"/>
+                        </StackPanel>
+                        <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
+                        <ListBox Name="lb_Games" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_Apps">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Apps &amp; Media"/>
+                            <TextBlock Name="tb_Apps_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockGray}"/>
+                        </StackPanel>
+                        <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                        <ListBox Name="lb_Apps" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_Emulators">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Emulators"/>
+                            <TextBlock Name="tb_Emulators_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockGray}"/>
+                        </StackPanel>
+                        <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
+                        <ListBox Name="lb_Emulators" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_Shortcuts">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcuts"/>
+                            <TextBlock Name="tb_Shortcuts_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockGray}"/>
+                        </StackPanel>
+                        <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
+                        <ListBox Name="lb_Shortcuts" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_Processes">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Processes"/>
+                            <TextBlock Name="tb_Processes_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockGray}"/>
+                        </StackPanel>
+                        <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
+                        <ListBox Name="lb_Processes" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Controller Help -->
+            <styles:ScrollViewerLoopHorizontal x:Name="sp_ControllerHelp" Grid.Row="2" VerticalAlignment="Bottom" Style="{StaticResource ScrollViewerHorizontal}">
+                <StackPanel Opacity="0.50" Orientation="Horizontal">
+                    <StackPanel.Background>
+                        <SolidColorBrush Color="#1D1D1D" Opacity="0.80"/>
+                    </StackPanel.Background>
+
+                    <StackPanel Name="sp_ControllerHelpLeft" Orientation="Horizontal" Margin="5,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/ButtonLeft.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Name="txt_ControllerHelpLeft" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Left"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpUp" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/ButtonUp.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Name="txt_ControllerHelpUp" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Up"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpRight" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Name="txt_ControllerHelpRight" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Right"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpDown" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/ButtonDown.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Name="txt_ControllerHelpDown" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Down"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpBack" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/BackOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Name="txt_ControllerHelpBack" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Back"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpStart" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/StartOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Name="txt_ControllerHelpStart" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Start"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpGuide" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/GuideOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Name="txt_ControllerHelpGuide" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Switch app"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpGuideHold" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/GuideHoldOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Keyboard"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpScreenshot" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/LbOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="+"/>
+                        <Image Source="Assets/Icons/Buttons/BackOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Screenshot"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpLb" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/LbOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Name="txt_ControllerHelpLb" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Start"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpAltF4" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/LbOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="+"/>
+                        <Image Source="Assets/Icons/Buttons/StartOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Alt+F4"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpRb" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/RbOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Name="txt_ControllerHelpRb" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Start"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpAltTab" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/RbOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="+"/>
+                        <Image Source="Assets/Icons/Buttons/BackOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Name="tb_ControllerHelpAltTab" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Win+Tab"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpAltEnter" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/RbOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="+"/>
+                        <Image Source="Assets/Icons/Buttons/StartOn.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Alt+Enter"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpVolume" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="Assets/Icons/Buttons/LtOn.png" Height="25" Opacity="0.80"/>
+                        <Image Source="Assets/Icons/Buttons/RtOn.png" Height="25" Margin="5,0,0,0" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Volume"/>
+                    </StackPanel>
+                </StackPanel>
+            </styles:ScrollViewerLoopHorizontal>
+        </Grid>
+
+        <!-- Popup - Main Menu -->
+        <Grid Name="grid_Popup_MainMenu" Visibility="Collapsed">
+            <Grid Margin="200,15,200,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Name="img_Menu_Controller0" Opacity="0.30" Width="30" Source="Assets/Icons/Controller-Accent.png"/>
+                            <Image Name="img_Menu_Controller1" Opacity="0.30" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
+                            <Image Name="img_Menu_Controller2" Opacity="0.30" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
+                            <Image Name="img_Menu_Controller3" Opacity="0.30" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="25,0,0,0">
+                            <Image Name="img_Menu_SteamStatus" Opacity="0.30" Width="30"/>
+                            <Image Name="img_Menu_UplayStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_OriginStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_GoGStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_BethesdaStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_EpicStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_BlizzardStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_DirectXInput" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Main Menu"/>
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                </StackPanel>
+
+                <ListBox Grid.Row="1" Name="listbox_MainMenu" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemPaddingWhiteVertical}" Style="{StaticResource ListBoxVertical}">
+                    <StackPanel Name="menuButtonMenu" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Hamburger.png" Width="50"/>
+                        <TextBlock Margin="15,0,0,0" Text="Close application main menu" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonSearch" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Search.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Open application search panel" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonWindowsStart" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Windows.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Show Windows start menu" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonSorting" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Sorting.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Name="menuButtonSorting_TextBlock" Margin="15,0,0,0" Text="Sort applications by name" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonFullScreen" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/FullScreen.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Switch between screen modes" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonMoveMonitor" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/MonitorNext.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Move CtrlUI to the next monitor" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonSwitchMonitor" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/MonitorSwitch.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Switch your display monitors" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonMediaControl" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Media.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Control your playing media" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonAudioDevice" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/VolumeUp.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Switch audio playback device" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonFps" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Fps.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Show or hide the fps overlayer" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonRunExe" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Run.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Launch an executable file from disk" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonAppRun" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/RunApp.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Run a Windows store application" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonAppAdd" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Manage.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Add new application to the list" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonCloseLaunchers" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Closing.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Close other running launchers" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonDisconnect" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Stream.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Disconnect active remote streams" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonShutdown" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Shutdown.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Close CtrlUI or shutdown the PC" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonSettings" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Settings.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Open application settings" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonHelp" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Help.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Show application help" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </ListBox>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_MainMenu_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Popup - Search -->
+        <Grid Name="grid_Popup_Search" Visibility="Collapsed">
+            <Grid Margin="200,40,200,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"> 
+                        <Run Text="Search for an app" Style="{StaticResource RunWhiteLight}" FontSize="{DynamicResource TextSizeTitle}"/> 
+                        <Run Name="grid_Popup_Search_Count_TextBlock" Style="{StaticResource RunGrayLight}" FontSize="{DynamicResource TextSizeSubTitle}"/>
+                    </TextBlock>
+
+                    <Grid>
+                        <TextBox Name="grid_Popup_Search_textbox_Search" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparent}" styles:TextboxPlaceholder.Placeholder="Search application..."/>
+                        <Button Name="grid_Popup_Search_button_ResetSearch" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the search panel">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/Buttons/ButtonLeft.png" Height="22" Width="22" Margin="0,0,5,0"/>
+                                <Image Source="Assets/Icons/TextClear.png" Height="25" Width="25"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <TextBlock Name="grid_Popup_Search_textblock_Result" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <ListBox Grid.Row="1" Name="lb_Search" Focusable="False" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanel}"/>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_Search_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+                <Button Name="grid_Popup_Search_button_KeyboardController" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Open or close the keyboard">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/GuideHoldOff.png" Height="30" Opacity="0.80" Margin="0,0,10,0"/>
+                        <Image Source="Assets/Icons/Keyboard.png" Height="35" Width="35" Margin="0,0,-2,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Popup - Welcome -->
+        <Grid Name="grid_Popup_Welcome" Visibility="Collapsed">
+            <Grid Margin="200,40,200,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Welcome to Controller User Interface"/>
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Now it's time to quickly setup some basics to get you going along with the application."/>
+                        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Connect your controller and set it up in DirectXInput and then you will able to use it in this application."/>
+                        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Once you have a controller connected through DirectXInput you can always access CtrlUI by pressing on the 'Guide' button."/>
+                        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="If you are running into an issue or can't find something, you might find your answer on the 'Help' page located in the main menu."/>
+                        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="Here are some popular applications for you to setup and easily launch later on, you can add all the applications you want later on by clicking on the 'Add application' button in the main menu."/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                            <Button Name="grid_Popup_Welcome_button_Kodi" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_Kodi"/>
+                            </Button>
+                            <Button Name="grid_Popup_Welcome_button_Spotify" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_Spotify"/>
+                            </Button>
+                            <Button Name="grid_Popup_Welcome_button_Steam" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_Steam"/>
+                            </Button>
+                            <Button Name="grid_Popup_Welcome_button_Origin" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_Origin"/>
+                            </Button>
+                            <Button Name="grid_Popup_Welcome_button_Uplay" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_Uplay"/>
+                            </Button>
+                            <Button Name="grid_Popup_Welcome_button_GoG" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_GoG"/>
+                            </Button>
+                            <Button Name="grid_Popup_Welcome_button_Battle" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_Battle"/>
+                            </Button>
+                            <Button Name="grid_Popup_Welcome_button_PS4Remote" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_PS4Remote"/>
+                            </Button>
+                        </StackPanel>
+
+                        <Button Name="grid_Popup_Welcome_button_LaunchDirectXInput" Margin="0,20,0,0" Content="Launch DirectXInput" Style="{StaticResource ButtonAccentWhite}"/>
+                        <Button Name="grid_Popup_Welcome_button_Start" Margin="0,10,0,0" Content="Let's get started" Style="{StaticResource ButtonAccentWhite}"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_Welcome_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Popup - Media -->
+        <Grid Name="grid_Popup_Media" Visibility="Collapsed">
+            <Grid Margin="200,40,200,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Media Control"/>
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="You can control the volume with the left and right triggers."/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+                    <Button Name="grid_Popup_Media_Previous" Width="140" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                        <Image Source="Assets/Icons/Previous.png"/>
+                    </Button>
+                    <Button Name="grid_Popup_Media_PlayPause" Margin="60,0,0,0" Width="150" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                        <Image Source="Assets/Icons/Media.png"/>
+                    </Button>
+                    <Button Name="grid_Popup_Media_Next" Margin="60,0,0,0" Width="140" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                        <Image Source="Assets/Icons/Next.png"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_Media_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Popup - Manage -->
+        <Grid Name="grid_Popup_Manage" Visibility="Collapsed">
+            <Grid Width="800" Margin="0,40,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock Name="grid_Popup_Manage_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Manage"/>
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Left" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application image:"/>
+                        <Button Name="btn_AddAppLogo" BorderBrush="#F1F1F1" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Change application image">
+                            <Image Name="img_AddAppLogo" Margin="0,5,0,5" Width="120" Height="120" Source="Assets/Apps/Unknown.png"/>
+                        </Button>
+
+                        <StackPanel Name="sp_AddAppName">
+                            <TextBlock Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application name:"/>
+                            <TextBox Name="tb_AddAppName" Text="Select application executable file first" VerticalContentAlignment="Center" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}"/>
+                        </StackPanel>
+
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application category:"/>
+                        <Button Name="btn_Manage_AddAppCategory" Style="{StaticResource ButtonAccentWhite}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="image_Manage_AddAppCategory" Height="25" Source="Assets/Apps/Unknown.png" VerticalAlignment="Center"/>
+                                <TextBlock Name="textblock_Manage_AddAppCategory" Margin="5,0,0,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBlockWhite}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <StackPanel Name="sp_AddAppExePath">
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application executable:"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Name="tb_AddAppExePath" Margin="0,0,10,0" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                <Button Grid.Column="1" Name="btn_AddAppExePath" MinWidth="320" Content="Select application executable file" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Name="sp_AddAppPathLaunch">
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application launch folder:"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Name="tb_AddAppPathLaunch" Margin="0,0,10,0" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                <Button Grid.Column="1" Name="btn_AddAppPathLaunch" MinWidth="320" Content="Select application launch folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Name="sp_AddAppPathRoms" Visibility="Collapsed">
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Emulator rom folder:"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Name="tb_AddAppPathRoms" Margin="0,0,10,0" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                <Button Grid.Column="1" Name="btn_AddAppPathRoms" MinWidth="320" Content="Select emulator rom folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Name="sp_AddAppArgument">
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application launch argument:"/>
+                            <TextBox Name="tb_AddAppArgument" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        </StackPanel>
+
+                        <CheckBox Name="checkbox_AddFilePickerLaunch" Margin="0,10,0,0" Content="Select a file to open with, on the application launch" Visibility="Collapsed" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>
+                        <!--<CheckBox Name="checkbox_AddRunAsAdmin" Margin="0,10,0,0" Content="Launch application with admin privileges (not user)" Visibility="Collapsed" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>
+                        <CheckBox Name="checkbox_AddRunAsUser" Margin="0,10,0,0" Content="Launch application with normal privileges (not admin)" Visibility="Collapsed" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>-->
+
+                        <Button Name="btn_Manage_SaveEditApp" Margin="0,10,0,0" Content="Add or edit the application above" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Manage_AddUwpAdd" Margin="0,10,0,0" Content="Add a Windows store application" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <Grid Name="grid_EditMoveApp" Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Name="btn_Manage_MoveAppLeft" Content="Move application to the left" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Grid.Column="1" Name="btn_Manage_MoveAppRight" Margin="10,0,0,0" Content="Move application to the right" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        </Grid>
+
+                        <Button Name="btn_Manage_Cancel" Margin="0,10,0,0" Content="Cancel" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_Manage_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Popup - Settings -->
+        <Grid Name="grid_Popup_Settings" Visibility="Collapsed">
+            <Grid Margin="200,40,200,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Settings"/>
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Margin="0,0,0,0" Text="Startup Settings"/>
+                        <CheckBox Name="cb_SettingsLaunchFullscreen" Content="Launch application in fullscreen" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will show the application in fullscreen mode when launched." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsLaunchMinimized" Content="Launch the application minimized" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will minimize the application automatically when launched." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <TextBlock Name="textblock_SettingsDisplayMonitor" Text="Default monitor to launch CtrlUI on" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Monitor that CtrlUI, keyboard controller and fps overlayer appears on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Slider Name="slider_SettingsDisplayMonitor" Width="400" Maximum="12" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
+
+                        <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will launch CtrlUI when you start Windows automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsLaunchDirectXInput" Content="Launch DirectXInput on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will launch DirectXInput when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsLaunchFpsOverlayer" Content="Launch Fps Overlayer on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will launch Fps Overlayer when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcut Settings"/>
+                        <CheckBox Name="cb_SettingsShortcutVolume" Content="Control the volume with your controller (In app)" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will allow you to change the volume with the controller triggers." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsShortcutAltEnter" Content="Press Alt and Enter with RB and Start combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will allow you to use Alt and Enter when you press RB and Start on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsShortcutAltTab" Content="Press Alt and Tab with RB and Back combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will allow you to use Alt and Tab when you press RB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsShortcutWinTab" Content="Press Win and Tab with RB and Back combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will allow you to use Win and Tab when you press RB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsShortcutAltF4" Content="Press Alt and F4 with LB and Start combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will allow you to use Alt and F4 when you press LB and Start on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsShortcutScreenshot" Content="Create screenshot with LB and Back combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will allow you to take a screenshot when you press LB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Interface Settings"/>
+                        <CheckBox Name="cb_SettingsShowOtherShortcuts" Content="Show found executable shortcuts" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will show your executable desktop and set folder shortcuts in a list so they can be opened." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsShowOtherProcesses" Content="Show all other application processes" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will show currently running applications in the processes list so they can be shown." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsHideAppProcesses" Content="Hide added apps from the processes" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will hide all the added applications from the processes list to prevent double apps." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsCloseMediaScreen" Content="Close media screen after selection" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will close the media control screen after making a single selection on the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsMinimizeAppOnShow" Content="Minimize when showing application" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will minimize CtrlUI when you launch a new application or show a running process." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsHideBatteryLevel" Content="Hide the controller battery level status" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will hide the controller battery level status and clock icon from the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsHideMouseCursor" Content="Hide the mouse cursor when inactive" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will hide the mouse cursor when not moved for a couple seconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsHideControllerHelp" Content="Hide the controller help buttons" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will hide the controller help buttons on the screen bottom." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsShowHiddenFilesFolders" Content="Show hidden files and folders" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will show hidden files and folders in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsHideNetworkDrives" Content="Hide network drives in file browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will hide mounted network drives in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsInterfaceSound" Content="Enable the user interface sounds" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will play user interface sounds on certain actions." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsDesktopBackground" Content="Use PC's desktop background" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will set your PC's desktop background in CtrlUI." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <TextBlock Name="textblock_SettingsFontSize" Text="Adjust the application font size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Select the font size that you want to use in this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Slider Name="slider_SettingsFontSize" Width="400" Maximum="8" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
+
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Network Settings"/>
+                        <TextBlock Text="CtrlUI sockets client and server ports:" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="The sockets are used to receive information from DirectXInput." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="txt_SettingsSocketClientPortStart" Style="{StaticResource TextBoxBlack}" Width="120" HorizontalAlignment="Left"/>
+                            <TextBox Name="txt_SettingsSocketClientPortRange" IsEnabled="False" Style="{StaticResource TextBoxBlack}" Width="120" Margin="5,0,0,0" HorizontalAlignment="Left"/>
+                        </StackPanel>
+
+                        <Button Name="btn_Settings_AppQuickLaunch" Margin="0,20,0,0" Content="Change quick launch app: Quick Launch" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Visibility="Collapsed" Name="btn_Settings_AddSteamLibrary" Margin="0,10,0,0" Content="Add CtrlUI to Steam Library" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Settings_AddGeforceExperience" Margin="0,10,0,0" Content="Add CtrlUI to GeForce Experience" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Visibility="Collapsed" Name="btn_Settings_AccentColor" Margin="0,10,0,0" Content="Change accent color" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Settings_ChangeShortcutsDirectory" Margin="0,10,0,0" Content="Change the shortcuts extra scan folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Settings_ChangeBackground" Margin="0,10,0,0" Content="Change the background image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Settings_LaunchDirectXInput" Margin="0,10,0,0" Content="Launch DirectXInput application" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Settings_CheckControllers" Margin="0,10,0,0" Content="Manage Windows controllers" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Settings_CheckForUpdate" Margin="0,10,0,10" Content="Check for application update" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_Settings_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Popup - Help -->
+        <Grid Name="grid_Popup_Help" Visibility="Collapsed">
+            <Grid Margin="200,40,200,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Help"/>
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
+                    <StackPanel>
+                        <Button Name="btn_Help_Focus" Height="0" Width="0"/>
+                        <StackPanel Name="sp_Help"/>
+                        <Button Name="btn_Help_ProjectWebsite" Margin="0,35,0,0" Content="Visit Project Website" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Help_OpenDonation" Margin="0,10,0,0" Content="Open Donation Page" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_Help_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Popup - File Picker -->
+        <Grid Name="grid_Popup_FilePicker" Visibility="Collapsed">
+            <Grid Margin="200,40,200,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock Name="grid_Popup_FilePicker_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="File Browser"/>
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <TextBlock Name="grid_Popup_FilePicker_txt_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Description"/>
+                </StackPanel>
+
+                <Grid Name="grid_Popup_Filepicker_Row1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ListBox Grid.Row="0" Name="lb_FilePicker" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemString}" Style="{StaticResource ListBoxVertical}"/>
+                        <Button Grid.Row="1" Margin="0,10,0,10" Name="grid_Popup_FilePicker_button_SelectFolder" Content="Select the currently opened folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                    </Grid>
+
+                    <styles:ScrollViewerLoopVertical ScrollLoopStep="2" Grid.Column="1" Style="{StaticResource ScrollViewerVertical}" Width="320" x:Name="grid_Popup_FilePicker_stackpanel_Description" Visibility="Collapsed">
+                        <StackPanel Margin="5,0,5,0">
+                            <Image Width="310" MaxHeight="215" Name="grid_Popup_FilePicker_image_Description" HorizontalAlignment="Left"/>
+                            <TextBlock Margin="0,5,0,0" Name="grid_Popup_FilePicker_textblock_Description" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}"/>
+                        </StackPanel>
+                    </styles:ScrollViewerLoopVertical>
+                </Grid>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_FilePicker_button_ControllerRight" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+                <Button Name="grid_Popup_FilePicker_button_ControllerUp" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Go a folder up" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonUp.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Up.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+                <Button Name="grid_Popup_FilePicker_button_ControllerLeft" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Sort the files and folders" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonLeft.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Sorting.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Popup - MessageBox -->
+        <Grid Name="grid_Popup_MessageBox" Visibility="Collapsed">
+            <Grid Margin="200,40,200,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock Name="grid_MessageBox_Question" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Question"/>
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <TextBlock Name="grid_MessageBox_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Description"/>
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
+                    <StackPanel>
+                        <ListBox Name="lb_MessageBox" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemString}" Style="{StaticResource ListBoxVertical}"/>
+                        <TextBlock Name="grid_MessageBox_Subtitle" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" TextAlignment="Center" TextWrapping="Wrap" Text="Subtitle"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_MessageBox_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Status - Window Active -->
+        <Grid Name="grid_WindowActive" Background="#1D1D1D" Opacity="0" IsHitTestVisible="False">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="45" TextAlignment="Center" TextWrapping="Wrap" Text="Application window is not activated."/>
+        </Grid>
+
+        <!-- Status - Clock and Battery -->
+        <Grid MinHeight="40" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,10,20,0">
+            <TextBlock Name="txt_Main_Date" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockGrayLight}"/>
+        </Grid>
+        <Grid MinHeight="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="20,10,20,0">
+            <StackPanel Orientation="Horizontal">
+                <Image Name="img_Main_Battery" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="Assets/Icons/Battery/BatteryVerDis100.png" Height="36"/>
+                <TextBlock Name="txt_Main_Battery" Visibility="Collapsed" Margin="0,0,5,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="0%"/>
+
+                <Image Name="img_Main_Time" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="Assets/Clock/1200.png" Height="40"/>
+                <TextBlock Name="txt_Main_Time" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Status - Message Status -->
+        <Grid Name="grid_Message_Status" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,55,20,0" Visibility="Collapsed">
+            <Grid.Background>
+                <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
+            </Grid.Background>
+
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="15,10,10,10" Orientation="Horizontal">
+                    <Image Name="grid_Message_Status_Image" Source="Assets/Icons/Controller.png" Height="40" Margin="0,0,15,0"/>
+                    <TextBlock Name="grid_Message_Status_Text" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Changed" Margin="0,0,15,0"/>
+                </StackPanel>
+                <Rectangle Fill="#00C7FF" Width="4"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,379 @@
+﻿<ResourceDictionary
+    x:Class="CtrlUI.Styles.MainStyles"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Accent Color -->
+    <Color x:Key="ApplicationAccentLight">#00C7FF</Color>
+    <Color x:Key="ApplicationAccentDark">#00A9FF</Color>
+
+    <!-- Text Sizes -->
+    <sys:Double x:Key="TextSizeTiny">10</sys:Double>
+    <sys:Double x:Key="TextSizeInterface">16</sys:Double>
+    <sys:Double x:Key="TextSizeSmall">18</sys:Double>
+    <sys:Double x:Key="TextSizeMedium">20</sys:Double>
+    <sys:Double x:Key="TextSizeLarge">24</sys:Double>
+    <sys:Double x:Key="TextSizeHuge">28</sys:Double>
+    <sys:Double x:Key="TextSizeSubTitle">60</sys:Double>
+    <sys:Double x:Key="TextSizeTitle">75</sys:Double>
+
+    <!-- Focus Visual Style -->
+    <Style x:Key="FocusVisualStyleSolidBlack">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderBrush="#1D1D1D" Background="#301D1D1D" BorderThickness="2" SnapsToDevicePixels="True"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="FocusVisualStyleSolidWhite">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderBrush="#F1F1F1" Background="#30F1F1F1" BorderThickness="2" SnapsToDevicePixels="True"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Text Styles-->
+    <Style x:Key="EmptyTextBlock" TargetType="TextBlock">
+        <Style.Triggers>
+            <Trigger Property="Text" Value="">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="RunBlack" TargetType="Run">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#1D1D1D"/>
+    </Style>
+    <Style x:Key="TextBlockBlack" BasedOn="{StaticResource EmptyTextBlock}" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#1D1D1D"/>
+    </Style>
+    <Style x:Key="RunBlackLight" TargetType="Run">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#1D1D1D"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+    <Style x:Key="TextBlockBlackLight" BasedOn="{StaticResource EmptyTextBlock}" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#1D1D1D"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+
+    <Style x:Key="RunWhite" TargetType="Run">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+    </Style>
+    <Style x:Key="TextBlockWhite" BasedOn="{StaticResource EmptyTextBlock}" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+    </Style>
+    <Style x:Key="RunWhiteLight" TargetType="Run">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+    <Style x:Key="TextBlockWhiteLight" BasedOn="{StaticResource EmptyTextBlock}" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+
+    <Style x:Key="RunGray" TargetType="Run">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#888"/>
+    </Style>
+    <Style x:Key="TextBlockGray" BasedOn="{StaticResource EmptyTextBlock}" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#888"/>
+    </Style>
+    <Style x:Key="RunGrayLight" TargetType="Run">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#888"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+    <Style x:Key="TextBlockGrayLight" BasedOn="{StaticResource EmptyTextBlock}" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#888"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+
+    <Style x:Key="TextBlockAccent" BasedOn="{StaticResource EmptyTextBlock}" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#00C7FF"/>
+    </Style>
+    <Style x:Key="TextBlockAccentLight" BasedOn="{StaticResource EmptyTextBlock}" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#00C7FF"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+
+    <!--ComboBox Styles-->
+    <Style x:Key="ComboBoxWhite" TargetType="ComboBox">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="BorderBrush" Value="#F1F1F1"/>
+        <Setter Property="BorderThickness" Value="2"/>
+    </Style>
+    <Style x:Key="ComboBoxBlack" TargetType="ComboBox">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="#1D1D1D"/>
+        <Setter Property="BorderBrush" Value="#1D1D1D"/>
+        <Setter Property="BorderThickness" Value="2"/>
+    </Style>
+
+    <!--CheckBox Styles-->
+    <Style x:Key="CheckBoxWhite" TargetType="CheckBox">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Template" Value="{StaticResource CheckBoxTemplateAccent}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="5,-3,0,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="BorderBrush" Value="#F1F1F1"/>
+    </Style>
+    <Style x:Key="CheckBoxBlack" TargetType="CheckBox">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Template" Value="{StaticResource CheckBoxTemplateAccent}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidBlack}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="5,-3,0,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#1D1D1D"/>
+        <Setter Property="BorderBrush" Value="#1D1D1D"/>
+    </Style>
+
+    <!--TextBox Styles-->
+    <Style x:Key="TextBoxWhite" TargetType="TextBox">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="BorderBrush" Value="#F1F1F1"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="CaretBrush" Value="#F1F1F1"/>
+        <Setter Property="Padding" Value="0,5,0,5"/>
+    </Style>
+    <Style x:Key="TextBoxBlack" TargetType="TextBox">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="BorderBrush" Value="#1D1D1D"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="#1D1D1D"/>
+        <Setter Property="CaretBrush" Value="#1D1D1D"/>
+        <Setter Property="Padding" Value="0,5,0,5"/>
+    </Style>
+    <Style x:Key="TextBoxTransparent" TargetType="TextBox">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="CaretBrush" Value="#F1F1F1"/>
+        <Setter Property="Padding" Value="0,5,0,5"/>
+    </Style>
+    <Style x:Key="PasswordBoxWhite" TargetType="PasswordBox">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="BorderBrush" Value="#F1F1F1"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="Padding" Value="0,5,0,5"/>
+    </Style>
+    <Style x:Key="PasswordBoxBlack" TargetType="PasswordBox">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="BorderBrush" Value="#1D1D1D"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="#1D1D1D"/>
+        <Setter Property="Padding" Value="0,5,0,5"/>
+    </Style>
+
+    <!--Rectangle Styles-->
+    <Style x:Key="RectangleHorizontalAccent" TargetType="Rectangle">
+        <Setter Property="Height" Value="2"/>
+        <Setter Property="Fill" Value="#00C7FF"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+
+    <!--ProgressBar Styles-->
+    <Style x:Key="ProgressBarAccent" TargetType="ProgressBar">
+        <Setter Property="Height" Value="3"/>
+        <Setter Property="Margin" Value="0,3,0,3"/>
+        <Setter Property="Background" Value="#CDCDCD"/>
+        <Setter Property="BorderBrush" Value="#CDCDCD"/>
+        <Setter Property="Foreground" Value="#00C7FF"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+
+    <!--Button Styles-->
+    <Style x:Key="ButtonAccentWhite" TargetType="Button">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeSmall}"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="Background" Value="#00C7FF"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="#00C7FF"/>
+        <Setter Property="Padding" Value="10,5,10,5"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplateWhite}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
+    </Style>
+    <Style x:Key="ButtonAccentBlack" TargetType="Button">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeSmall}"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="Background" Value="#00C7FF"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="#00C7FF"/>
+        <Setter Property="Padding" Value="10,5,10,5"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplateBlack}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidBlack}"/>
+    </Style>
+    <Style x:Key="ButtonImageTransparentNoBorder" TargetType="Button">
+        <Setter Property="Foreground" Value="Transparent"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplateTransparent}"/>
+    </Style>
+    <Style x:Key="ButtonImageTransparentWhiteBorder" TargetType="Button">
+        <Setter Property="Foreground" Value="Transparent"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplateWhite}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
+    </Style>
+    <Style x:Key="ButtonImageTransparentBlackBorder" TargetType="Button">
+        <Setter Property="Foreground" Value="Transparent"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplateBlack}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidBlack}"/>
+    </Style>
+    <Style x:Key="ButtonKeyboard" TargetType="Button">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeMedium}"/>
+        <Setter Property="MinHeight" Value="45"/>
+        <Setter Property="MinWidth" Value="47"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="4,0,0,0"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="Background" Value="#00C7FF"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="#00C7FF"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplateWhite}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
+    </Style>
+
+    <!--Slider Styles-->
+    <Style x:Key="SliderBlack" TargetType="Slider">
+        <Setter Property="Foreground" Value="#00C7FF"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="IsMoveToPointEnabled" Value="True"/>
+        <Setter Property="IsSnapToTickEnabled" Value="True"/>
+        <Setter Property="Template" Value="{StaticResource SliderTemplateAccent}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
+    </Style>
+    <Style x:Key="SliderWhite" TargetType="Slider">
+        <Setter Property="Foreground" Value="#00C7FF"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="IsMoveToPointEnabled" Value="True"/>
+        <Setter Property="IsSnapToTickEnabled" Value="True"/>
+        <Setter Property="Template" Value="{StaticResource SliderTemplateAccent}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidBlack}"/>
+    </Style>
+
+    <!--ListBox Styles-->
+    <Style x:Key="ListBoxWrapPanel" TargetType="ListBox">
+        <Setter Property="Template" Value="{StaticResource ListBoxWrapPanelTemplate}"/>
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="ListBoxUniformGrid" TargetType="ListBox">
+        <Setter Property="Template" Value="{StaticResource ListBoxUniformGridTemplate}"/>
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="ListBoxVertical" TargetType="ListBox">
+        <Setter Property="Template" Value="{StaticResource ListBoxVerticalTemplate}"/>
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="ListBoxHorizontal" TargetType="ListBox">
+        <Setter Property="Template" Value="{StaticResource ListBoxHorizontalTemplate}"/>
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeInterface}"/>
+        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+    <Style x:Key="ListBoxMenuStackPanel" TargetType="StackPanel">
+        <Setter Property="Width" Value="90"/>
+        <Setter Property="Height" Value="80"/>
+    </Style>
+
+    <Style x:Key="ListBoxItemNoPaddingBlack" TargetType="ListBoxItem">
+        <Setter Property="Padding" Value="0,0,0,0"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Template" Value="{StaticResource ListBoxItemTemplateBlack}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidBlack}"/>
+    </Style>
+
+    <Style x:Key="ListBoxItemPaddingWhiteVertical" TargetType="ListBoxItem">
+        <Setter Property="Padding" Value="0,3,0,3"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Template" Value="{StaticResource ListBoxItemTemplateWhite}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
+    </Style>
+
+    <Style x:Key="ListBoxItemNoPaddingWhite" TargetType="ListBoxItem">
+        <Setter Property="Padding" Value="0,0,0,0"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Template" Value="{StaticResource ListBoxItemTemplateWhite}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
+    </Style>
+
+    <Style x:Key="ListBoxItemDisabled" TargetType="ListBoxItem">
+        <Setter Property="IsEnabled" Value="False"/>
+    </Style>
+
+    <!--ScrollViewer Styles-->
+    <Style x:Key="ScrollViewer" TargetType="ScrollViewer">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+    </Style>
+
+    <Style x:Key="ScrollViewerHorizontal" TargetType="ScrollViewer">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+        <EventSetter Event="PreviewMouseWheel" Handler="ScrollViewer_PreviewMouseWheel"/>
+    </Style>
+
+    <Style x:Key="ScrollViewerVertical" TargetType="ScrollViewer">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+    </Style>
+</ResourceDictionary>

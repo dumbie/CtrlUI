@@ -1,0 +1,1391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{85D51D84-9E14-4AB1-B86E-03816D901042}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CtrlUI</RootNamespace>
+    <AssemblyName>CtrlUI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetPlatformVersion>8.0</TargetPlatformVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>CtrlUI.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\App.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="Windows">
+      <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RegistryFunctions.cs" />
+    <Compile Include="QuickActionFunctions.cs" />
+    <Compile Include="Resources\InputOutput\InputHotkey.cs" />
+    <Compile Include="Resources\InputOutput\InputMessage.cs" />
+    <Compile Include="Resources\InputOutput\InputKeyboard.cs" />
+    <Compile Include="AppTasksFunctions.cs" />
+    <Compile Include="AppTasks.cs" />
+    <Compile Include="AppVariables.cs" />
+    <Compile Include="Resources\IMMDevice\IMMDevice.cs" />
+    <Compile Include="Resources\IMMDevice\PolicyConfig.cs" />
+    <Compile Include="SocketHandlers.cs" />
+    <Compile Include="Styles\ControlTemplates.xaml.cs">
+      <DependentUpon>ControlTemplates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\MainStyles.xaml.cs">
+      <DependentUpon>MainStyles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SwitchAudioDevice.cs" />
+    <Compile Include="ControllerFunctions.cs" />
+    <Compile Include="ControllerHandlers.cs" />
+    <Compile Include="HelpFunctions.cs" />
+    <Compile Include="ImageFunctions.cs" />
+    <Compile Include="ListSorting.cs" />
+    <Compile Include="MessageBoxHandlers.cs" />
+    <Compile Include="MessageBoxFunctions.cs" />
+    <Compile Include="ProcessWin32Functions.cs" />
+    <Compile Include="ProcessUwpFunctions.cs" />
+    <Compile Include="SearchFunctions.cs" />
+    <Compile Include="SoundPlayer.cs" />
+    <Compile Include="InterfaceHandlers.cs" />
+    <Compile Include="InterfaceMenu.cs" />
+    <Compile Include="InterfaceFunctions.cs" />
+    <Compile Include="JsonFunctions.cs" />
+    <Compile Include="ListHandlers.cs" />
+    <Compile Include="ListFunctions.cs" />
+    <Compile Include="WindowMain.cs" />
+    <Compile Include="ManageFunctions.cs" />
+    <Compile Include="MediaFunctions.cs" />
+    <Compile Include="Styles\ScrollViewerLoopCode.cs" />
+    <Compile Include="Styles\TextboxPlaceholderCode.cs" />
+    <Compile Include="PickerFunctions.cs" />
+    <Compile Include="PickerHandlers.cs" />
+    <Compile Include="PopupFunctions.cs" />
+    <Compile Include="Resources\ExtractIco\ExtractIco.cs" />
+    <Compile Include="ShortcutFunctions.cs" />
+    <Compile Include="ProcessFunctions.cs" />
+    <Compile Include="PopupHandlers.cs" />
+    <Compile Include="Properties\AssemblyVersion.cs" />
+    <Compile Include="Resources\Settings\SettingsLoad.cs" />
+    <Compile Include="Resources\Settings\SettingsSave.cs" />
+    <Compile Include="Resources\Settings\SettingsCheck.cs" />
+    <Compile Include="SettingsFunctions.cs" />
+    <Page Include="Styles\ControlTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Scrollbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\MainStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Apps\Battle.net.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Bethesda.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\DirectXInput.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Epic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Assets\Icons\Emulator.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Game.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\VolumeUp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\MonitorNext.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\TextClear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\GuideHoldOff-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\GuideHoldOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\GuideHoldOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Clock\100.png" />
+    <Resource Include="Assets\Clock\1000.png" />
+    <Resource Include="Assets\Clock\1001.png" />
+    <Resource Include="Assets\Clock\1002.png" />
+    <Resource Include="Assets\Clock\1003.png" />
+    <Resource Include="Assets\Clock\1004.png" />
+    <Resource Include="Assets\Clock\1005.png" />
+    <Resource Include="Assets\Clock\1006.png" />
+    <Resource Include="Assets\Clock\1007.png" />
+    <Resource Include="Assets\Clock\1008.png" />
+    <Resource Include="Assets\Clock\1009.png" />
+    <Resource Include="Assets\Clock\101.png" />
+    <Resource Include="Assets\Clock\1010.png" />
+    <Resource Include="Assets\Clock\1011.png" />
+    <Resource Include="Assets\Clock\1012.png" />
+    <Resource Include="Assets\Clock\1013.png" />
+    <Resource Include="Assets\Clock\1014.png" />
+    <Resource Include="Assets\Clock\1015.png" />
+    <Resource Include="Assets\Clock\1016.png" />
+    <Resource Include="Assets\Clock\1017.png" />
+    <Resource Include="Assets\Clock\1018.png" />
+    <Resource Include="Assets\Clock\1019.png" />
+    <Resource Include="Assets\Clock\102.png" />
+    <Resource Include="Assets\Clock\1020.png" />
+    <Resource Include="Assets\Clock\1021.png" />
+    <Resource Include="Assets\Clock\1022.png" />
+    <Resource Include="Assets\Clock\1023.png" />
+    <Resource Include="Assets\Clock\1024.png" />
+    <Resource Include="Assets\Clock\1025.png" />
+    <Resource Include="Assets\Clock\1026.png" />
+    <Resource Include="Assets\Clock\1027.png" />
+    <Resource Include="Assets\Clock\1028.png" />
+    <Resource Include="Assets\Clock\1029.png" />
+    <Resource Include="Assets\Clock\103.png" />
+    <Resource Include="Assets\Clock\1030.png" />
+    <Resource Include="Assets\Clock\1031.png" />
+    <Resource Include="Assets\Clock\1032.png" />
+    <Resource Include="Assets\Clock\1033.png" />
+    <Resource Include="Assets\Clock\1034.png" />
+    <Resource Include="Assets\Clock\1035.png" />
+    <Resource Include="Assets\Clock\1036.png" />
+    <Resource Include="Assets\Clock\1037.png" />
+    <Resource Include="Assets\Clock\1038.png" />
+    <Resource Include="Assets\Clock\1039.png" />
+    <Resource Include="Assets\Clock\104.png" />
+    <Resource Include="Assets\Clock\1040.png" />
+    <Resource Include="Assets\Clock\1041.png" />
+    <Resource Include="Assets\Clock\1042.png" />
+    <Resource Include="Assets\Clock\1043.png" />
+    <Resource Include="Assets\Clock\1044.png" />
+    <Resource Include="Assets\Clock\1045.png" />
+    <Resource Include="Assets\Clock\1046.png" />
+    <Resource Include="Assets\Clock\1047.png" />
+    <Resource Include="Assets\Clock\1048.png" />
+    <Resource Include="Assets\Clock\1049.png" />
+    <Resource Include="Assets\Clock\105.png" />
+    <Resource Include="Assets\Clock\1050.png" />
+    <Resource Include="Assets\Clock\1051.png" />
+    <Resource Include="Assets\Clock\1052.png" />
+    <Resource Include="Assets\Clock\1053.png" />
+    <Resource Include="Assets\Clock\1054.png" />
+    <Resource Include="Assets\Clock\1055.png" />
+    <Resource Include="Assets\Clock\1056.png" />
+    <Resource Include="Assets\Clock\1057.png" />
+    <Resource Include="Assets\Clock\1058.png" />
+    <Resource Include="Assets\Clock\1059.png" />
+    <Resource Include="Assets\Clock\106.png" />
+    <Resource Include="Assets\Clock\107.png" />
+    <Resource Include="Assets\Clock\108.png" />
+    <Resource Include="Assets\Clock\109.png" />
+    <Resource Include="Assets\Clock\110.png" />
+    <Resource Include="Assets\Clock\1100.png" />
+    <Resource Include="Assets\Clock\1101.png" />
+    <Resource Include="Assets\Clock\1102.png" />
+    <Resource Include="Assets\Clock\1103.png" />
+    <Resource Include="Assets\Clock\1104.png" />
+    <Resource Include="Assets\Clock\1105.png" />
+    <Resource Include="Assets\Clock\1106.png" />
+    <Resource Include="Assets\Clock\1107.png" />
+    <Resource Include="Assets\Clock\1108.png" />
+    <Resource Include="Assets\Clock\1109.png" />
+    <Resource Include="Assets\Clock\111.png" />
+    <Resource Include="Assets\Clock\1110.png" />
+    <Resource Include="Assets\Clock\1111.png" />
+    <Resource Include="Assets\Clock\1112.png" />
+    <Resource Include="Assets\Clock\1113.png" />
+    <Resource Include="Assets\Clock\1114.png" />
+    <Resource Include="Assets\Clock\1115.png" />
+    <Resource Include="Assets\Clock\1116.png" />
+    <Resource Include="Assets\Clock\1117.png" />
+    <Resource Include="Assets\Clock\1118.png" />
+    <Resource Include="Assets\Clock\1119.png" />
+    <Resource Include="Assets\Clock\112.png" />
+    <Resource Include="Assets\Clock\1120.png" />
+    <Resource Include="Assets\Clock\1121.png" />
+    <Resource Include="Assets\Clock\1122.png" />
+    <Resource Include="Assets\Clock\1123.png" />
+    <Resource Include="Assets\Clock\1124.png" />
+    <Resource Include="Assets\Clock\1125.png" />
+    <Resource Include="Assets\Clock\1126.png" />
+    <Resource Include="Assets\Clock\1127.png" />
+    <Resource Include="Assets\Clock\1128.png" />
+    <Resource Include="Assets\Clock\1129.png" />
+    <Resource Include="Assets\Clock\113.png" />
+    <Resource Include="Assets\Clock\1130.png" />
+    <Resource Include="Assets\Clock\1131.png" />
+    <Resource Include="Assets\Clock\1132.png" />
+    <Resource Include="Assets\Clock\1133.png" />
+    <Resource Include="Assets\Clock\1134.png" />
+    <Resource Include="Assets\Clock\1135.png" />
+    <Resource Include="Assets\Clock\1136.png" />
+    <Resource Include="Assets\Clock\1137.png" />
+    <Resource Include="Assets\Clock\1138.png" />
+    <Resource Include="Assets\Clock\1139.png" />
+    <Resource Include="Assets\Clock\114.png" />
+    <Resource Include="Assets\Clock\1140.png" />
+    <Resource Include="Assets\Clock\1141.png" />
+    <Resource Include="Assets\Clock\1142.png" />
+    <Resource Include="Assets\Clock\1143.png" />
+    <Resource Include="Assets\Clock\1144.png" />
+    <Resource Include="Assets\Clock\1145.png" />
+    <Resource Include="Assets\Clock\1146.png" />
+    <Resource Include="Assets\Clock\1147.png" />
+    <Resource Include="Assets\Clock\1148.png" />
+    <Resource Include="Assets\Clock\1149.png" />
+    <Resource Include="Assets\Clock\115.png" />
+    <Resource Include="Assets\Clock\1150.png" />
+    <Resource Include="Assets\Clock\1151.png" />
+    <Resource Include="Assets\Clock\1152.png" />
+    <Resource Include="Assets\Clock\1153.png" />
+    <Resource Include="Assets\Clock\1154.png" />
+    <Resource Include="Assets\Clock\1155.png" />
+    <Resource Include="Assets\Clock\1156.png" />
+    <Resource Include="Assets\Clock\1157.png" />
+    <Resource Include="Assets\Clock\1158.png" />
+    <Resource Include="Assets\Clock\1159.png" />
+    <Resource Include="Assets\Clock\116.png" />
+    <Resource Include="Assets\Clock\117.png" />
+    <Resource Include="Assets\Clock\118.png" />
+    <Resource Include="Assets\Clock\119.png" />
+    <Resource Include="Assets\Clock\120.png" />
+    <Resource Include="Assets\Clock\1200.png" />
+    <Resource Include="Assets\Clock\1201.png" />
+    <Resource Include="Assets\Clock\1202.png" />
+    <Resource Include="Assets\Clock\1203.png" />
+    <Resource Include="Assets\Clock\1204.png" />
+    <Resource Include="Assets\Clock\1205.png" />
+    <Resource Include="Assets\Clock\1206.png" />
+    <Resource Include="Assets\Clock\1207.png" />
+    <Resource Include="Assets\Clock\1208.png" />
+    <Resource Include="Assets\Clock\1209.png" />
+    <Resource Include="Assets\Clock\121.png" />
+    <Resource Include="Assets\Clock\1210.png" />
+    <Resource Include="Assets\Clock\1211.png" />
+    <Resource Include="Assets\Clock\1212.png" />
+    <Resource Include="Assets\Clock\1213.png" />
+    <Resource Include="Assets\Clock\1214.png" />
+    <Resource Include="Assets\Clock\1215.png" />
+    <Resource Include="Assets\Clock\1216.png" />
+    <Resource Include="Assets\Clock\1217.png" />
+    <Resource Include="Assets\Clock\1218.png" />
+    <Resource Include="Assets\Clock\1219.png" />
+    <Resource Include="Assets\Clock\122.png" />
+    <Resource Include="Assets\Clock\1220.png" />
+    <Resource Include="Assets\Clock\1221.png" />
+    <Resource Include="Assets\Clock\1222.png" />
+    <Resource Include="Assets\Clock\1223.png" />
+    <Resource Include="Assets\Clock\1224.png" />
+    <Resource Include="Assets\Clock\1225.png" />
+    <Resource Include="Assets\Clock\1226.png" />
+    <Resource Include="Assets\Clock\1227.png" />
+    <Resource Include="Assets\Clock\1228.png" />
+    <Resource Include="Assets\Clock\1229.png" />
+    <Resource Include="Assets\Clock\123.png" />
+    <Resource Include="Assets\Clock\1230.png" />
+    <Resource Include="Assets\Clock\1231.png" />
+    <Resource Include="Assets\Clock\1232.png" />
+    <Resource Include="Assets\Clock\1233.png" />
+    <Resource Include="Assets\Clock\1234.png" />
+    <Resource Include="Assets\Clock\1235.png" />
+    <Resource Include="Assets\Clock\1236.png" />
+    <Resource Include="Assets\Clock\1237.png" />
+    <Resource Include="Assets\Clock\1238.png" />
+    <Resource Include="Assets\Clock\1239.png" />
+    <Resource Include="Assets\Clock\124.png" />
+    <Resource Include="Assets\Clock\1240.png" />
+    <Resource Include="Assets\Clock\1241.png" />
+    <Resource Include="Assets\Clock\1242.png" />
+    <Resource Include="Assets\Clock\1243.png" />
+    <Resource Include="Assets\Clock\1244.png" />
+    <Resource Include="Assets\Clock\1245.png" />
+    <Resource Include="Assets\Clock\1246.png" />
+    <Resource Include="Assets\Clock\1247.png" />
+    <Resource Include="Assets\Clock\1248.png" />
+    <Resource Include="Assets\Clock\1249.png" />
+    <Resource Include="Assets\Clock\125.png" />
+    <Resource Include="Assets\Clock\1250.png" />
+    <Resource Include="Assets\Clock\1251.png" />
+    <Resource Include="Assets\Clock\1252.png" />
+    <Resource Include="Assets\Clock\1253.png" />
+    <Resource Include="Assets\Clock\1254.png" />
+    <Resource Include="Assets\Clock\1255.png" />
+    <Resource Include="Assets\Clock\1256.png" />
+    <Resource Include="Assets\Clock\1257.png" />
+    <Resource Include="Assets\Clock\1258.png" />
+    <Resource Include="Assets\Clock\1259.png" />
+    <Resource Include="Assets\Clock\126.png" />
+    <Resource Include="Assets\Clock\127.png" />
+    <Resource Include="Assets\Clock\128.png" />
+    <Resource Include="Assets\Clock\129.png" />
+    <Resource Include="Assets\Clock\130.png" />
+    <Resource Include="Assets\Clock\131.png" />
+    <Resource Include="Assets\Clock\132.png" />
+    <Resource Include="Assets\Clock\133.png" />
+    <Resource Include="Assets\Clock\134.png" />
+    <Resource Include="Assets\Clock\135.png" />
+    <Resource Include="Assets\Clock\136.png" />
+    <Resource Include="Assets\Clock\137.png" />
+    <Resource Include="Assets\Clock\138.png" />
+    <Resource Include="Assets\Clock\139.png" />
+    <Resource Include="Assets\Clock\140.png" />
+    <Resource Include="Assets\Clock\141.png" />
+    <Resource Include="Assets\Clock\142.png" />
+    <Resource Include="Assets\Clock\143.png" />
+    <Resource Include="Assets\Clock\144.png" />
+    <Resource Include="Assets\Clock\145.png" />
+    <Resource Include="Assets\Clock\146.png" />
+    <Resource Include="Assets\Clock\147.png" />
+    <Resource Include="Assets\Clock\148.png" />
+    <Resource Include="Assets\Clock\149.png" />
+    <Resource Include="Assets\Clock\150.png" />
+    <Resource Include="Assets\Clock\151.png" />
+    <Resource Include="Assets\Clock\152.png" />
+    <Resource Include="Assets\Clock\153.png" />
+    <Resource Include="Assets\Clock\154.png" />
+    <Resource Include="Assets\Clock\155.png" />
+    <Resource Include="Assets\Clock\156.png" />
+    <Resource Include="Assets\Clock\157.png" />
+    <Resource Include="Assets\Clock\158.png" />
+    <Resource Include="Assets\Clock\159.png" />
+    <Resource Include="Assets\Clock\200.png" />
+    <Resource Include="Assets\Clock\201.png" />
+    <Resource Include="Assets\Clock\202.png" />
+    <Resource Include="Assets\Clock\203.png" />
+    <Resource Include="Assets\Clock\204.png" />
+    <Resource Include="Assets\Clock\205.png" />
+    <Resource Include="Assets\Clock\206.png" />
+    <Resource Include="Assets\Clock\207.png" />
+    <Resource Include="Assets\Clock\208.png" />
+    <Resource Include="Assets\Clock\209.png" />
+    <Resource Include="Assets\Clock\210.png" />
+    <Resource Include="Assets\Clock\211.png" />
+    <Resource Include="Assets\Clock\212.png" />
+    <Resource Include="Assets\Clock\213.png" />
+    <Resource Include="Assets\Clock\214.png" />
+    <Resource Include="Assets\Clock\215.png" />
+    <Resource Include="Assets\Clock\216.png" />
+    <Resource Include="Assets\Clock\217.png" />
+    <Resource Include="Assets\Clock\218.png" />
+    <Resource Include="Assets\Clock\219.png" />
+    <Resource Include="Assets\Clock\220.png" />
+    <Resource Include="Assets\Clock\221.png" />
+    <Resource Include="Assets\Clock\222.png" />
+    <Resource Include="Assets\Clock\223.png" />
+    <Resource Include="Assets\Clock\224.png" />
+    <Resource Include="Assets\Clock\225.png" />
+    <Resource Include="Assets\Clock\226.png" />
+    <Resource Include="Assets\Clock\227.png" />
+    <Resource Include="Assets\Clock\228.png" />
+    <Resource Include="Assets\Clock\229.png" />
+    <Resource Include="Assets\Clock\230.png" />
+    <Resource Include="Assets\Clock\231.png" />
+    <Resource Include="Assets\Clock\232.png" />
+    <Resource Include="Assets\Clock\233.png" />
+    <Resource Include="Assets\Clock\234.png" />
+    <Resource Include="Assets\Clock\235.png" />
+    <Resource Include="Assets\Clock\236.png" />
+    <Resource Include="Assets\Clock\237.png" />
+    <Resource Include="Assets\Clock\238.png" />
+    <Resource Include="Assets\Clock\239.png" />
+    <Resource Include="Assets\Clock\240.png" />
+    <Resource Include="Assets\Clock\241.png" />
+    <Resource Include="Assets\Clock\242.png" />
+    <Resource Include="Assets\Clock\243.png" />
+    <Resource Include="Assets\Clock\244.png" />
+    <Resource Include="Assets\Clock\245.png" />
+    <Resource Include="Assets\Clock\246.png" />
+    <Resource Include="Assets\Clock\247.png" />
+    <Resource Include="Assets\Clock\248.png" />
+    <Resource Include="Assets\Clock\249.png" />
+    <Resource Include="Assets\Clock\250.png" />
+    <Resource Include="Assets\Clock\251.png" />
+    <Resource Include="Assets\Clock\252.png" />
+    <Resource Include="Assets\Clock\253.png" />
+    <Resource Include="Assets\Clock\254.png" />
+    <Resource Include="Assets\Clock\255.png" />
+    <Resource Include="Assets\Clock\256.png" />
+    <Resource Include="Assets\Clock\257.png" />
+    <Resource Include="Assets\Clock\258.png" />
+    <Resource Include="Assets\Clock\259.png" />
+    <Resource Include="Assets\Clock\300.png" />
+    <Resource Include="Assets\Clock\301.png" />
+    <Resource Include="Assets\Clock\302.png" />
+    <Resource Include="Assets\Clock\303.png" />
+    <Resource Include="Assets\Clock\304.png" />
+    <Resource Include="Assets\Clock\305.png" />
+    <Resource Include="Assets\Clock\306.png" />
+    <Resource Include="Assets\Clock\307.png" />
+    <Resource Include="Assets\Clock\308.png" />
+    <Resource Include="Assets\Clock\309.png" />
+    <Resource Include="Assets\Clock\310.png" />
+    <Resource Include="Assets\Clock\311.png" />
+    <Resource Include="Assets\Clock\312.png" />
+    <Resource Include="Assets\Clock\313.png" />
+    <Resource Include="Assets\Clock\314.png" />
+    <Resource Include="Assets\Clock\315.png" />
+    <Resource Include="Assets\Clock\316.png" />
+    <Resource Include="Assets\Clock\317.png" />
+    <Resource Include="Assets\Clock\318.png" />
+    <Resource Include="Assets\Clock\319.png" />
+    <Resource Include="Assets\Clock\320.png" />
+    <Resource Include="Assets\Clock\321.png" />
+    <Resource Include="Assets\Clock\322.png" />
+    <Resource Include="Assets\Clock\323.png" />
+    <Resource Include="Assets\Clock\324.png" />
+    <Resource Include="Assets\Clock\325.png" />
+    <Resource Include="Assets\Clock\326.png" />
+    <Resource Include="Assets\Clock\327.png" />
+    <Resource Include="Assets\Clock\328.png" />
+    <Resource Include="Assets\Clock\329.png" />
+    <Resource Include="Assets\Clock\330.png" />
+    <Resource Include="Assets\Clock\331.png" />
+    <Resource Include="Assets\Clock\332.png" />
+    <Resource Include="Assets\Clock\333.png" />
+    <Resource Include="Assets\Clock\334.png" />
+    <Resource Include="Assets\Clock\335.png" />
+    <Resource Include="Assets\Clock\336.png" />
+    <Resource Include="Assets\Clock\337.png" />
+    <Resource Include="Assets\Clock\338.png" />
+    <Resource Include="Assets\Clock\339.png" />
+    <Resource Include="Assets\Clock\340.png" />
+    <Resource Include="Assets\Clock\341.png" />
+    <Resource Include="Assets\Clock\342.png" />
+    <Resource Include="Assets\Clock\343.png" />
+    <Resource Include="Assets\Clock\344.png" />
+    <Resource Include="Assets\Clock\345.png" />
+    <Resource Include="Assets\Clock\346.png" />
+    <Resource Include="Assets\Clock\347.png" />
+    <Resource Include="Assets\Clock\348.png" />
+    <Resource Include="Assets\Clock\349.png" />
+    <Resource Include="Assets\Clock\350.png" />
+    <Resource Include="Assets\Clock\351.png" />
+    <Resource Include="Assets\Clock\352.png" />
+    <Resource Include="Assets\Clock\353.png" />
+    <Resource Include="Assets\Clock\354.png" />
+    <Resource Include="Assets\Clock\355.png" />
+    <Resource Include="Assets\Clock\356.png" />
+    <Resource Include="Assets\Clock\357.png" />
+    <Resource Include="Assets\Clock\358.png" />
+    <Resource Include="Assets\Clock\359.png" />
+    <Resource Include="Assets\Clock\400.png" />
+    <Resource Include="Assets\Clock\401.png" />
+    <Resource Include="Assets\Clock\402.png" />
+    <Resource Include="Assets\Clock\403.png" />
+    <Resource Include="Assets\Clock\404.png" />
+    <Resource Include="Assets\Clock\405.png" />
+    <Resource Include="Assets\Clock\406.png" />
+    <Resource Include="Assets\Clock\407.png" />
+    <Resource Include="Assets\Clock\408.png" />
+    <Resource Include="Assets\Clock\409.png" />
+    <Resource Include="Assets\Clock\410.png" />
+    <Resource Include="Assets\Clock\411.png" />
+    <Resource Include="Assets\Clock\412.png" />
+    <Resource Include="Assets\Clock\413.png" />
+    <Resource Include="Assets\Clock\414.png" />
+    <Resource Include="Assets\Clock\415.png" />
+    <Resource Include="Assets\Clock\416.png" />
+    <Resource Include="Assets\Clock\417.png" />
+    <Resource Include="Assets\Clock\418.png" />
+    <Resource Include="Assets\Clock\419.png" />
+    <Resource Include="Assets\Clock\420.png" />
+    <Resource Include="Assets\Clock\421.png" />
+    <Resource Include="Assets\Clock\422.png" />
+    <Resource Include="Assets\Clock\423.png" />
+    <Resource Include="Assets\Clock\424.png" />
+    <Resource Include="Assets\Clock\425.png" />
+    <Resource Include="Assets\Clock\426.png" />
+    <Resource Include="Assets\Clock\427.png" />
+    <Resource Include="Assets\Clock\428.png" />
+    <Resource Include="Assets\Clock\429.png" />
+    <Resource Include="Assets\Clock\430.png" />
+    <Resource Include="Assets\Clock\431.png" />
+    <Resource Include="Assets\Clock\432.png" />
+    <Resource Include="Assets\Clock\433.png" />
+    <Resource Include="Assets\Clock\434.png" />
+    <Resource Include="Assets\Clock\435.png" />
+    <Resource Include="Assets\Clock\436.png" />
+    <Resource Include="Assets\Clock\437.png" />
+    <Resource Include="Assets\Clock\438.png" />
+    <Resource Include="Assets\Clock\439.png" />
+    <Resource Include="Assets\Clock\440.png" />
+    <Resource Include="Assets\Clock\441.png" />
+    <Resource Include="Assets\Clock\442.png" />
+    <Resource Include="Assets\Clock\443.png" />
+    <Resource Include="Assets\Clock\444.png" />
+    <Resource Include="Assets\Clock\445.png" />
+    <Resource Include="Assets\Clock\446.png" />
+    <Resource Include="Assets\Clock\447.png" />
+    <Resource Include="Assets\Clock\448.png" />
+    <Resource Include="Assets\Clock\449.png" />
+    <Resource Include="Assets\Clock\450.png" />
+    <Resource Include="Assets\Clock\451.png" />
+    <Resource Include="Assets\Clock\452.png" />
+    <Resource Include="Assets\Clock\453.png" />
+    <Resource Include="Assets\Clock\454.png" />
+    <Resource Include="Assets\Clock\455.png" />
+    <Resource Include="Assets\Clock\456.png" />
+    <Resource Include="Assets\Clock\457.png" />
+    <Resource Include="Assets\Clock\458.png" />
+    <Resource Include="Assets\Clock\459.png" />
+    <Resource Include="Assets\Clock\500.png" />
+    <Resource Include="Assets\Clock\501.png" />
+    <Resource Include="Assets\Clock\502.png" />
+    <Resource Include="Assets\Clock\503.png" />
+    <Resource Include="Assets\Clock\504.png" />
+    <Resource Include="Assets\Clock\505.png" />
+    <Resource Include="Assets\Clock\506.png" />
+    <Resource Include="Assets\Clock\507.png" />
+    <Resource Include="Assets\Clock\508.png" />
+    <Resource Include="Assets\Clock\509.png" />
+    <Resource Include="Assets\Clock\510.png" />
+    <Resource Include="Assets\Clock\511.png" />
+    <Resource Include="Assets\Clock\512.png" />
+    <Resource Include="Assets\Clock\513.png" />
+    <Resource Include="Assets\Clock\514.png" />
+    <Resource Include="Assets\Clock\515.png" />
+    <Resource Include="Assets\Clock\516.png" />
+    <Resource Include="Assets\Clock\517.png" />
+    <Resource Include="Assets\Clock\518.png" />
+    <Resource Include="Assets\Clock\519.png" />
+    <Resource Include="Assets\Clock\520.png" />
+    <Resource Include="Assets\Clock\521.png" />
+    <Resource Include="Assets\Clock\522.png" />
+    <Resource Include="Assets\Clock\523.png" />
+    <Resource Include="Assets\Clock\524.png" />
+    <Resource Include="Assets\Clock\525.png" />
+    <Resource Include="Assets\Clock\526.png" />
+    <Resource Include="Assets\Clock\527.png" />
+    <Resource Include="Assets\Clock\528.png" />
+    <Resource Include="Assets\Clock\529.png" />
+    <Resource Include="Assets\Clock\530.png" />
+    <Resource Include="Assets\Clock\531.png" />
+    <Resource Include="Assets\Clock\532.png" />
+    <Resource Include="Assets\Clock\533.png" />
+    <Resource Include="Assets\Clock\534.png" />
+    <Resource Include="Assets\Clock\535.png" />
+    <Resource Include="Assets\Clock\536.png" />
+    <Resource Include="Assets\Clock\537.png" />
+    <Resource Include="Assets\Clock\538.png" />
+    <Resource Include="Assets\Clock\539.png" />
+    <Resource Include="Assets\Clock\540.png" />
+    <Resource Include="Assets\Clock\541.png" />
+    <Resource Include="Assets\Clock\542.png" />
+    <Resource Include="Assets\Clock\543.png" />
+    <Resource Include="Assets\Clock\544.png" />
+    <Resource Include="Assets\Clock\545.png" />
+    <Resource Include="Assets\Clock\546.png" />
+    <Resource Include="Assets\Clock\547.png" />
+    <Resource Include="Assets\Clock\548.png" />
+    <Resource Include="Assets\Clock\549.png" />
+    <Resource Include="Assets\Clock\550.png" />
+    <Resource Include="Assets\Clock\551.png" />
+    <Resource Include="Assets\Clock\552.png" />
+    <Resource Include="Assets\Clock\553.png" />
+    <Resource Include="Assets\Clock\554.png" />
+    <Resource Include="Assets\Clock\555.png" />
+    <Resource Include="Assets\Clock\556.png" />
+    <Resource Include="Assets\Clock\557.png" />
+    <Resource Include="Assets\Clock\558.png" />
+    <Resource Include="Assets\Clock\559.png" />
+    <Resource Include="Assets\Clock\600.png" />
+    <Resource Include="Assets\Clock\601.png" />
+    <Resource Include="Assets\Clock\602.png" />
+    <Resource Include="Assets\Clock\603.png" />
+    <Resource Include="Assets\Clock\604.png" />
+    <Resource Include="Assets\Clock\605.png" />
+    <Resource Include="Assets\Clock\606.png" />
+    <Resource Include="Assets\Clock\607.png" />
+    <Resource Include="Assets\Clock\608.png" />
+    <Resource Include="Assets\Clock\609.png" />
+    <Resource Include="Assets\Clock\610.png" />
+    <Resource Include="Assets\Clock\611.png" />
+    <Resource Include="Assets\Clock\612.png" />
+    <Resource Include="Assets\Clock\613.png" />
+    <Resource Include="Assets\Clock\614.png" />
+    <Resource Include="Assets\Clock\615.png" />
+    <Resource Include="Assets\Clock\616.png" />
+    <Resource Include="Assets\Clock\617.png" />
+    <Resource Include="Assets\Clock\618.png" />
+    <Resource Include="Assets\Clock\619.png" />
+    <Resource Include="Assets\Clock\620.png" />
+    <Resource Include="Assets\Clock\621.png" />
+    <Resource Include="Assets\Clock\622.png" />
+    <Resource Include="Assets\Clock\623.png" />
+    <Resource Include="Assets\Clock\624.png" />
+    <Resource Include="Assets\Clock\625.png" />
+    <Resource Include="Assets\Clock\626.png" />
+    <Resource Include="Assets\Clock\627.png" />
+    <Resource Include="Assets\Clock\628.png" />
+    <Resource Include="Assets\Clock\629.png" />
+    <Resource Include="Assets\Clock\630.png" />
+    <Resource Include="Assets\Clock\631.png" />
+    <Resource Include="Assets\Clock\632.png" />
+    <Resource Include="Assets\Clock\633.png" />
+    <Resource Include="Assets\Clock\634.png" />
+    <Resource Include="Assets\Clock\635.png" />
+    <Resource Include="Assets\Clock\636.png" />
+    <Resource Include="Assets\Clock\637.png" />
+    <Resource Include="Assets\Clock\638.png" />
+    <Resource Include="Assets\Clock\639.png" />
+    <Resource Include="Assets\Clock\640.png" />
+    <Resource Include="Assets\Clock\641.png" />
+    <Resource Include="Assets\Clock\642.png" />
+    <Resource Include="Assets\Clock\643.png" />
+    <Resource Include="Assets\Clock\644.png" />
+    <Resource Include="Assets\Clock\645.png" />
+    <Resource Include="Assets\Clock\646.png" />
+    <Resource Include="Assets\Clock\647.png" />
+    <Resource Include="Assets\Clock\648.png" />
+    <Resource Include="Assets\Clock\649.png" />
+    <Resource Include="Assets\Clock\650.png" />
+    <Resource Include="Assets\Clock\651.png" />
+    <Resource Include="Assets\Clock\652.png" />
+    <Resource Include="Assets\Clock\653.png" />
+    <Resource Include="Assets\Clock\654.png" />
+    <Resource Include="Assets\Clock\655.png" />
+    <Resource Include="Assets\Clock\656.png" />
+    <Resource Include="Assets\Clock\657.png" />
+    <Resource Include="Assets\Clock\658.png" />
+    <Resource Include="Assets\Clock\659.png" />
+    <Resource Include="Assets\Clock\700.png" />
+    <Resource Include="Assets\Clock\701.png" />
+    <Resource Include="Assets\Clock\702.png" />
+    <Resource Include="Assets\Clock\703.png" />
+    <Resource Include="Assets\Clock\704.png" />
+    <Resource Include="Assets\Clock\705.png" />
+    <Resource Include="Assets\Clock\706.png" />
+    <Resource Include="Assets\Clock\707.png" />
+    <Resource Include="Assets\Clock\708.png" />
+    <Resource Include="Assets\Clock\709.png" />
+    <Resource Include="Assets\Clock\710.png" />
+    <Resource Include="Assets\Clock\711.png" />
+    <Resource Include="Assets\Clock\712.png" />
+    <Resource Include="Assets\Clock\713.png" />
+    <Resource Include="Assets\Clock\714.png" />
+    <Resource Include="Assets\Clock\715.png" />
+    <Resource Include="Assets\Clock\716.png" />
+    <Resource Include="Assets\Clock\717.png" />
+    <Resource Include="Assets\Clock\718.png" />
+    <Resource Include="Assets\Clock\719.png" />
+    <Resource Include="Assets\Clock\720.png" />
+    <Resource Include="Assets\Clock\721.png" />
+    <Resource Include="Assets\Clock\722.png" />
+    <Resource Include="Assets\Clock\723.png" />
+    <Resource Include="Assets\Clock\724.png" />
+    <Resource Include="Assets\Clock\725.png" />
+    <Resource Include="Assets\Clock\726.png" />
+    <Resource Include="Assets\Clock\727.png" />
+    <Resource Include="Assets\Clock\728.png" />
+    <Resource Include="Assets\Clock\729.png" />
+    <Resource Include="Assets\Clock\730.png" />
+    <Resource Include="Assets\Clock\731.png" />
+    <Resource Include="Assets\Clock\732.png" />
+    <Resource Include="Assets\Clock\733.png" />
+    <Resource Include="Assets\Clock\734.png" />
+    <Resource Include="Assets\Clock\735.png" />
+    <Resource Include="Assets\Clock\736.png" />
+    <Resource Include="Assets\Clock\737.png" />
+    <Resource Include="Assets\Clock\738.png" />
+    <Resource Include="Assets\Clock\739.png" />
+    <Resource Include="Assets\Clock\740.png" />
+    <Resource Include="Assets\Clock\741.png" />
+    <Resource Include="Assets\Clock\742.png" />
+    <Resource Include="Assets\Clock\743.png" />
+    <Resource Include="Assets\Clock\744.png" />
+    <Resource Include="Assets\Clock\745.png" />
+    <Resource Include="Assets\Clock\746.png" />
+    <Resource Include="Assets\Clock\747.png" />
+    <Resource Include="Assets\Clock\748.png" />
+    <Resource Include="Assets\Clock\749.png" />
+    <Resource Include="Assets\Clock\750.png" />
+    <Resource Include="Assets\Clock\751.png" />
+    <Resource Include="Assets\Clock\752.png" />
+    <Resource Include="Assets\Clock\753.png" />
+    <Resource Include="Assets\Clock\754.png" />
+    <Resource Include="Assets\Clock\755.png" />
+    <Resource Include="Assets\Clock\756.png" />
+    <Resource Include="Assets\Clock\757.png" />
+    <Resource Include="Assets\Clock\758.png" />
+    <Resource Include="Assets\Clock\759.png" />
+    <Resource Include="Assets\Clock\800.png" />
+    <Resource Include="Assets\Clock\801.png" />
+    <Resource Include="Assets\Clock\802.png" />
+    <Resource Include="Assets\Clock\803.png" />
+    <Resource Include="Assets\Clock\804.png" />
+    <Resource Include="Assets\Clock\805.png" />
+    <Resource Include="Assets\Clock\806.png" />
+    <Resource Include="Assets\Clock\807.png" />
+    <Resource Include="Assets\Clock\808.png" />
+    <Resource Include="Assets\Clock\809.png" />
+    <Resource Include="Assets\Clock\810.png" />
+    <Resource Include="Assets\Clock\811.png" />
+    <Resource Include="Assets\Clock\812.png" />
+    <Resource Include="Assets\Clock\813.png" />
+    <Resource Include="Assets\Clock\814.png" />
+    <Resource Include="Assets\Clock\815.png" />
+    <Resource Include="Assets\Clock\816.png" />
+    <Resource Include="Assets\Clock\817.png" />
+    <Resource Include="Assets\Clock\818.png" />
+    <Resource Include="Assets\Clock\819.png" />
+    <Resource Include="Assets\Clock\820.png" />
+    <Resource Include="Assets\Clock\821.png" />
+    <Resource Include="Assets\Clock\822.png" />
+    <Resource Include="Assets\Clock\823.png" />
+    <Resource Include="Assets\Clock\824.png" />
+    <Resource Include="Assets\Clock\825.png" />
+    <Resource Include="Assets\Clock\826.png" />
+    <Resource Include="Assets\Clock\827.png" />
+    <Resource Include="Assets\Clock\828.png" />
+    <Resource Include="Assets\Clock\829.png" />
+    <Resource Include="Assets\Clock\830.png" />
+    <Resource Include="Assets\Clock\831.png" />
+    <Resource Include="Assets\Clock\832.png" />
+    <Resource Include="Assets\Clock\833.png" />
+    <Resource Include="Assets\Clock\834.png" />
+    <Resource Include="Assets\Clock\835.png" />
+    <Resource Include="Assets\Clock\836.png" />
+    <Resource Include="Assets\Clock\837.png" />
+    <Resource Include="Assets\Clock\838.png" />
+    <Resource Include="Assets\Clock\839.png" />
+    <Resource Include="Assets\Clock\840.png" />
+    <Resource Include="Assets\Clock\841.png" />
+    <Resource Include="Assets\Clock\842.png" />
+    <Resource Include="Assets\Clock\843.png" />
+    <Resource Include="Assets\Clock\844.png" />
+    <Resource Include="Assets\Clock\845.png" />
+    <Resource Include="Assets\Clock\846.png" />
+    <Resource Include="Assets\Clock\847.png" />
+    <Resource Include="Assets\Clock\848.png" />
+    <Resource Include="Assets\Clock\849.png" />
+    <Resource Include="Assets\Clock\850.png" />
+    <Resource Include="Assets\Clock\851.png" />
+    <Resource Include="Assets\Clock\852.png" />
+    <Resource Include="Assets\Clock\853.png" />
+    <Resource Include="Assets\Clock\854.png" />
+    <Resource Include="Assets\Clock\855.png" />
+    <Resource Include="Assets\Clock\856.png" />
+    <Resource Include="Assets\Clock\857.png" />
+    <Resource Include="Assets\Clock\858.png" />
+    <Resource Include="Assets\Clock\859.png" />
+    <Resource Include="Assets\Clock\900.png" />
+    <Resource Include="Assets\Clock\901.png" />
+    <Resource Include="Assets\Clock\902.png" />
+    <Resource Include="Assets\Clock\903.png" />
+    <Resource Include="Assets\Clock\904.png" />
+    <Resource Include="Assets\Clock\905.png" />
+    <Resource Include="Assets\Clock\906.png" />
+    <Resource Include="Assets\Clock\907.png" />
+    <Resource Include="Assets\Clock\908.png" />
+    <Resource Include="Assets\Clock\909.png" />
+    <Resource Include="Assets\Clock\910.png" />
+    <Resource Include="Assets\Clock\911.png" />
+    <Resource Include="Assets\Clock\912.png" />
+    <Resource Include="Assets\Clock\913.png" />
+    <Resource Include="Assets\Clock\914.png" />
+    <Resource Include="Assets\Clock\915.png" />
+    <Resource Include="Assets\Clock\916.png" />
+    <Resource Include="Assets\Clock\917.png" />
+    <Resource Include="Assets\Clock\918.png" />
+    <Resource Include="Assets\Clock\919.png" />
+    <Resource Include="Assets\Clock\920.png" />
+    <Resource Include="Assets\Clock\921.png" />
+    <Resource Include="Assets\Clock\922.png" />
+    <Resource Include="Assets\Clock\923.png" />
+    <Resource Include="Assets\Clock\924.png" />
+    <Resource Include="Assets\Clock\925.png" />
+    <Resource Include="Assets\Clock\926.png" />
+    <Resource Include="Assets\Clock\927.png" />
+    <Resource Include="Assets\Clock\928.png" />
+    <Resource Include="Assets\Clock\929.png" />
+    <Resource Include="Assets\Clock\930.png" />
+    <Resource Include="Assets\Clock\931.png" />
+    <Resource Include="Assets\Clock\932.png" />
+    <Resource Include="Assets\Clock\933.png" />
+    <Resource Include="Assets\Clock\934.png" />
+    <Resource Include="Assets\Clock\935.png" />
+    <Resource Include="Assets\Clock\936.png" />
+    <Resource Include="Assets\Clock\937.png" />
+    <Resource Include="Assets\Clock\938.png" />
+    <Resource Include="Assets\Clock\939.png" />
+    <Resource Include="Assets\Clock\940.png" />
+    <Resource Include="Assets\Clock\941.png" />
+    <Resource Include="Assets\Clock\942.png" />
+    <Resource Include="Assets\Clock\943.png" />
+    <Resource Include="Assets\Clock\944.png" />
+    <Resource Include="Assets\Clock\945.png" />
+    <Resource Include="Assets\Clock\946.png" />
+    <Resource Include="Assets\Clock\947.png" />
+    <Resource Include="Assets\Clock\948.png" />
+    <Resource Include="Assets\Clock\949.png" />
+    <Resource Include="Assets\Clock\950.png" />
+    <Resource Include="Assets\Clock\951.png" />
+    <Resource Include="Assets\Clock\952.png" />
+    <Resource Include="Assets\Clock\953.png" />
+    <Resource Include="Assets\Clock\954.png" />
+    <Resource Include="Assets\Clock\955.png" />
+    <Resource Include="Assets\Clock\956.png" />
+    <Resource Include="Assets\Clock\957.png" />
+    <Resource Include="Assets\Clock\958.png" />
+    <Resource Include="Assets\Clock\959.png" />
+    <Resource Include="Assets\Icons\Controller-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\File.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Minimize.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Switch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Remove.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Check.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Restart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\MonitorSwitch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Windows.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Assets\Roms\Mario Kart 64.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Nintendo 64.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Nintendo GameCube.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Mario Kart 64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Origin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Rom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Sega Dreamcast.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Sony PlayStation 1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Sony PlayStation 2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Remote Play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Sony PlayStation 3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Sony PlayStation 4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Nintendo Switch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Unknown-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Uplay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\GoG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Spotify.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Nintendo Wii U.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Microsoft Xbox 360.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Xbox.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BoxArt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Assets\Icons\StatusRunning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Media.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Run.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Controller-Accent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\BackOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\LbOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\LtOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\RbOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\RtOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\StartOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\GuideOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\BackOff-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\ButtonDown-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\ButtonLeft-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\ButtonRight-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\ButtonUp-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\GuideOff-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\LbOff-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\LtOff-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\RbOff-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\RtOff-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\StartOff-Dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\BackOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\ButtonDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\ButtonLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\ButtonRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\ButtonUp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\GuideOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\LbOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\LtOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\RbOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\RtOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\StartOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\App.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\MiniMaxi.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Closing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\RunApp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Battery\BatteryVerCharge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Keyboard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\StatusAvailable.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\StatusLauncher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\StatusStore.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Sorting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\FileBat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\ThumbLeftOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Buttons\ThumbRightOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Fps.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Assets\Roms\Sony PSP.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Sony Vita.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Super Mario 64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Super Mario 64.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\BatteryLow.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\Click.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\ClickRight.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\Confirm.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\KeyboardMove.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\KeyboardPress.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\PopupClose.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\PopupOpen.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\PromptOpen.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\PromptClose.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\Refresh.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\Screenshot.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Assets\Icons\Controller.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Manage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Minus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Plus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Profiles\Apps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\AppsBlacklistProcess.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\AppsBlacklistShortcut.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="..\..\ArnoldVinkCertificate\ArnoldVinkCertificate.cer">
+      <Link>Resources\ArnoldVinkCertificate.cer</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <Content Include="Profiles\AppsBlacklistShortcutUri.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\AppsOtherLaunchers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\FileLocations.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\App.manifest" />
+    <None Include="Properties\App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\Battery\BatteryVerDis10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Battery\BatteryVerDis100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Battery\BatteryVerDis20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Battery\BatteryVerDis30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Battery\BatteryVerDis40.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Battery\BatteryVerDis50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Battery\BatteryVerDis60.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Battery\BatteryVerDis70.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Battery\BatteryVerDis80.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Battery\BatteryVerDis90.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Battery\BatteryVerNoBattery.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Stream.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <EmbeddedResource Include="Assets\AppIcon.ico" />
+    <Content Include="Assets\Apps\Microsoft Edge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Kodi.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Unknown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Steam.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Nintendo 64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Assets\Icons\Hamburger.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Fullscreen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Shutdown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibraryShared\LibraryShared.csproj">
+      <Project>{318363b3-3252-438d-8f71-7a271a276da6}</Project>
+      <Name>LibraryShared</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Shell32">
+      <Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(SolutionDir)SignToolExe.exe</PostBuildEvent>
+  </PropertyGroup>
+</Project>

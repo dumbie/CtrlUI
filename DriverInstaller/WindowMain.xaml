@@ -1,0 +1,30 @@
+﻿<Window x:Class="DriverInstaller.WindowMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DriverInstaller"
+        mc:Ignorable="d"
+        Title="Driver Installer"
+        Height="450"
+        Width="500"
+        ResizeMode="CanMinimize"
+        Background="#F1F1F1"
+        Topmost="True">
+
+    <Grid Margin="10,5,10,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <StackPanel>
+                <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Driver Installer"/>
+                <ProgressBar Name="progressbar_Status" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch" IsIndeterminate="True"/>
+            </StackPanel>
+        </Grid>
+
+        <TextBox Grid.Row="1" Name="textbox_Status" Foreground="#888" Style="{StaticResource TextBoxTransparent}"/>
+    </Grid>
+</Window>

@@ -1,0 +1,49 @@
+﻿<ResourceDictionary
+    x:Class="CtrlUI.Styles.DataTemplates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:styles="clr-namespace:CtrlUI.Styles">
+
+    <!-- ListboxItemApp -->
+    <DataTemplate x:Key="ListBoxItemApp">
+        <StackPanel Width="110" MinHeight="115" Margin="3,0,3,0">
+            <Image Source="{Binding ImageBitmap}" Height="90" MaxWidth="70"/>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,-8,0,-5">
+                <Image VerticalAlignment="Center" Margin="0,0,3,0" Source="/Assets/Icons/StatusAvailable.png" Height="8" Opacity="0.80" Visibility="{Binding StatusAvailable}"/>
+                <Image VerticalAlignment="Center" Margin="0,0,0,0" Source="/Assets/Icons/StatusRunning.png" Height="8" Opacity="0.80" Visibility="{Binding StatusRunning}"/>
+                <Image VerticalAlignment="Center" Margin="3,0,0,0" Source="/Assets/Icons/StatusStore.png" Height="8" Opacity="0.80" Visibility="{Binding StatusStore}"/>
+                <Image VerticalAlignment="Center" Margin="3,0,0,0" Source="/Assets/Icons/StatusLauncher.png" Height="8" Opacity="0.80" Visibility="{Binding StatusLauncher}"/>
+                <TextBlock VerticalAlignment="Center" Margin="3,0,0,0" Text="{Binding ProcessRunningCount}" FontSize="{DynamicResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
+            </StackPanel>
+            <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
+                <TextBlock Text="{Binding Name}" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+            </styles:ScrollViewerLoopHorizontal>
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- ListboxItemString -->
+    <DataTemplate x:Key="ListBoxItemString">
+        <StackPanel Margin="5" Orientation="Horizontal">
+            <Image Source="{Binding ImageBitmap}" MaxHeight="50" MaxWidth="50"/>
+            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+            <TextBlock Text="{Binding NameSub}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- ListBoxItemRom -->
+    <DataTemplate x:Key="ListBoxItemRom">
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="{Binding ImageBitmap}" Width="170" Height="115"/>
+            <styles:ScrollViewerLoopVertical Grid.Row="1" Width="170" Height="55" ScrollViewer.VerticalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerVertical}">
+                <TextBlock TextAlignment="Center" TextWrapping="Wrap">
+                    <Run Text="{Binding Name}" Style="{StaticResource RunWhite}" FontSize="{StaticResource TextSizeMedium}"/>
+                    <Run Text="{Binding NameSub}" Style="{StaticResource RunGray}" FontSize="{StaticResource TextSizeMedium}"/>
+                </TextBlock>
+            </styles:ScrollViewerLoopVertical>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

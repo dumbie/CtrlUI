@@ -1,0 +1,17 @@
+[
+  {
+    "CodeName": "SonyDualShock12",
+    "ProductIDs": [ "0x0001" ],
+    "VendorID": "0x0810"
+  },
+  {
+    "CodeName": "SonyDualShock3",
+    "ProductIDs": [ "0x0268" ],
+    "VendorID": "0x054c"
+  },
+  {
+    "CodeName": "SonyDualShock4",
+    "ProductIDs": [ "0x05c4", "0x09cc", "0x0ba0" ],
+    "VendorID": "0x054c"
+  }
+]

@@ -1,0 +1,30 @@
+﻿<Window x:Class="FpsOverlayer.WindowApplications"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FpsOverlayer"
+        xmlns:styles="clr-namespace:CtrlUI.Styles"
+        mc:Ignorable="d"
+        Title="Application Positions"
+        MinHeight="550"
+        Height="550"
+        MinWidth="465"
+        MaxWidth="465"
+        Background="#F1F1F1">
+
+    <!-- Grid Applications -->
+    <Grid Margin="10,5,0,0" HorizontalAlignment="Left">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBox Name="textbox_AddApp" Width="300" Text="Process name" styles:TextboxPlaceholder.Placeholder="Process name" Style="{StaticResource TextBoxBlack}"/>
+            <Button Name="button_AddApp" Margin="10,0,0,0" Content="Add process" Style="{StaticResource ButtonAccentBlack}"/>
+        </StackPanel>
+
+        <ListBox Grid.Row="1" Name="listbox_Apps" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingBlack}" ItemTemplate="{StaticResource ListBoxItemAppPosition}" Style="{StaticResource ListBoxVertical}"/>
+    </Grid>
+</Window>

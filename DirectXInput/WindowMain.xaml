@@ -1,0 +1,339 @@
+﻿<Window x:Class="DirectXInput.WindowMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DirectXInput"
+        mc:Ignorable="d"
+        Title="DirectXInput (Beta)"
+        ShowInTaskbar="False"
+        Background="#1D1D1D"
+        MinHeight="700"
+        Height="700"
+        MinWidth="680"
+        MaxWidth="680"
+        Width="680">
+
+    <!-- Grid Application -->
+    <Grid Name="grid_App">
+        <!-- Grid Main -->
+        <Grid Name="grid_Main">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Grid Menu -->
+            <Grid Name="grid_Menu" Grid.Column="0" Width="95" Background="#1D1D1D">
+                <ListBox Name="lb_Menu" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" Style="{StaticResource ListBoxVertical}">
+                    <StackPanel Name="menuButtonController" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage your controller">
+                        <Image Source="Assets/Icons/Controller.png" Width="55" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Controller" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonButtons" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage the button mapping">
+                        <Image Source="Assets/Icons/Buttons.png" Width="55" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Mapping" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonSettings" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application settings">
+                        <Image Source="Assets/Icons/Settings.png" Width="55" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Settings" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonHelp" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                        <Image Source="Assets/Icons/Help.png" Width="55" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Help" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </ListBox>
+            </Grid>
+
+            <!-- Grid Controller -->
+            <Grid Name="grid_Controller" Grid.Column="1" Background="#F1F1F1" Visibility="Visible">
+                <Grid Margin="10,5,10,10" HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Controller"/>
+                            <Rectangle Margin="0,25,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
+                            <StackPanel>
+                                <TextBlock Text="Welcome to DirectXInput, please connect your direct input controllers to get started." TextWrapping="Wrap" Margin="0,0,5,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Vertical" Margin="0,5,0,0">
+                                    <Button Name="button_Controller0" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the first controller">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="Assets/Icons/Controller-Dark.png" Width="30" Margin="0,0,10,0"/>
+                                            <TextBlock Name="textblock_Controller0" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Name="button_Controller1" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the second controller">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="Assets/Icons/Controller-Dark.png" Width="30" Margin="0,0,10,0"/>
+                                            <TextBlock Name="textblock_Controller1" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Name="button_Controller2" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the third controller">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="Assets/Icons/Controller-Dark.png" Width="30" Margin="0,0,10,0"/>
+                                            <TextBlock Name="textblock_Controller2" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Name="button_Controller3" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the fourth controller">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="Assets/Icons/Controller-Dark.png" Width="30" Margin="0,0,10,0"/>
+                                            <TextBlock Name="textblock_Controller3" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+
+                                <TextBlock Margin="0,10,0,0" Name="txt_Controller_Information" Text="Please connect a direct input controller to your device to get started." Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Name="txt_Manage_Information" Text="To set a new manage controller press on the controller 'Start' button." Style="{StaticResource TextBlockGray}"/>
+
+                                <Button Margin="0,10,0,0" Name="btn_SearchNewControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Search for recently connected controllers"/>
+                                <Button Margin="0,10,0,0" Name="btn_CheckControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Manage the Windows game controllers"/>
+                                <Button Margin="0,10,0,0" Name="btn_CheckDeviceManager" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Open the Windows device manager"/>
+                                <Button Margin="0,10,0,0" Name="btn_DebugInformation" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Copy controller debug information"/>
+                                <Button Margin="0,10,0,0" Name="btn_RemoveController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Remove manage controller profile"/>
+                                <Button Margin="0,10,0,0" Name="btn_DisconnectController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect manage controller"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!-- Grid Buttons -->
+            <Grid Name="grid_Buttons" Grid.Column="1" Background="#F1F1F1" Visibility="Collapsed">
+                <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Mapping"/>
+                            <ProgressBar Margin="0,25,0,0" Name="pb_UpdateProgress" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch" Value="100"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
+                            <StackPanel>
+                                <TextBlock Name="txt_Application_Status" Text="Click on a button that you want to change on the controller:" Style="{StaticResource TextBlockGray}"/>
+
+                                <Grid Name="grid_ControllerPreview" Width="500" Height="255" Margin="0,5,0,0">
+                                    <Grid.Background>
+                                        <ImageBrush ImageSource="Assets/Controller.png"/>
+                                    </Grid.Background>
+
+                                    <!-- Preview -->
+                                    <Image Name="img_ControllerPreview_Rumble" Source="Assets/ControllerRumble.png" Visibility="Collapsed"/>
+
+                                    <Image Name="img_ControllerPreview_ButtonA" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="370,109,105,121"/>
+                                    <Image Name="img_ControllerPreview_ButtonB" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="394,85,81,145"/>
+                                    <Image Name="img_ControllerPreview_ButtonX" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="346,85,130,145"/>
+                                    <Image Name="img_ControllerPreview_ButtonY" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="370,60,105,170"/>
+
+                                    <Image Name="img_ControllerPreview_ButtonBack" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="197,57,278,173"/>
+                                    <Image Name="img_ControllerPreview_ButtonStart" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="278,57,196,173"/>
+                                    <Image Name="img_ControllerPreview_ButtonGuide" Source="Assets/ButtonPress.png" Width="30" Height="30" Margin="236,56,235,169"/>
+
+                                    <Image Name="img_ControllerPreview_ButtonThumbLeft" Source="Assets/ButtonPress.png" Width="42" Height="42" Margin="178,117,280,96"/>
+                                    <Image Name="img_ControllerPreview_ButtonThumbRight" Source="Assets/ButtonPress.png" Width="42" Height="42" Margin="282,117,176,96"/>
+
+                                    <StackPanel Margin="282,117,176,96" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Image Name="img_ControllerPreview_RightAxe" Source="Assets/ControllerAxe.png" Width="25" Height="25"/>
+                                    </StackPanel>
+                                    <StackPanel Margin="178,117,280,96" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Image Name="img_ControllerPreview_LeftAxe" Source="Assets/ControllerAxe.png" Width="25" Height="25"/>
+                                    </StackPanel>
+
+                                    <Image Name="img_ControllerPreview_DPadLeft" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="65,85,410,145"/>
+                                    <Image Name="img_ControllerPreview_DPadUp" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="106,45,369,185"/>
+                                    <Image Name="img_ControllerPreview_DPadRight" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="147,85,328,145"/>
+                                    <Image Name="img_ControllerPreview_DPadDown" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="106,123,369,107"/>
+
+                                    <Image Name="img_ControllerPreview_ButtonShoulderLeft" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="16,7,459,223"/>
+                                    <Image Name="img_ControllerPreview_TriggerLeft" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="11,47,464,183"/>
+                                    <Image Name="img_ControllerPreview_ButtonShoulderRight" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="460,7,15,223"/>
+                                    <Image Name="img_ControllerPreview_TriggerRight" Source="Assets/ButtonPress.png" Width="25" Height="25" Margin="465,47,10,183"/>
+
+                                    <!-- Mapping -->
+                                    <Button Name="btn_SetA" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button A" Height="24" Width="24" Margin="371,109,105,122" ToolTipService.ToolTip="Map Button A"/>
+                                    <Button Name="btn_SetB" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button B" Height="24" Width="24" Margin="395,85,81,146" ToolTipService.ToolTip="Map Button B"/>
+                                    <Button Name="btn_SetX" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button X" Height="24" Width="24" Margin="347,85,129,146" ToolTipService.ToolTip="Map Button X"/>
+                                    <Button Name="btn_SetY" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Y" Height="24" Width="24" Margin="371,61,105,170" ToolTipService.ToolTip="Map Button Y"/>
+
+                                    <Button Name="btn_SetShoulderLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button LB" Margin="0,0,445,220" Height="35" Width="55" ToolTipService.ToolTip="Map Left Shoulder"/>
+                                    <Button Name="btn_SetShoulderRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button RB" Margin="445,0,0,220" Height="35" Width="55" ToolTipService.ToolTip="Map Right Shoulder"/>
+
+                                    <Button Name="btn_SetThumbLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Thumb Left" Margin="179,118,281,97" Height="40" Width="40" ToolTipService.ToolTip="Map Left Thumb"/>
+                                    <Button Name="btn_SetThumbRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Thumb Right" Margin="282,118,178,97" Height="40" Width="40" ToolTipService.ToolTip="Map Right Thumb"/>
+
+                                    <Button Name="btn_SetTriggerLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Trigger Left" Margin="3,39,457,176" Height="40" Width="40" ToolTipService.ToolTip="Map Left Trigger"/>
+                                    <Button Name="btn_SetTriggerRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Trigger Right" Margin="457,39,3,176" Height="40" Width="40" ToolTipService.ToolTip="Map Right Trigger"/>
+
+                                    <Button Name="btn_SetBack" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Back" Margin="195,60,275,175" Width="30" Height="20" ToolTipService.ToolTip="Map Button Back"/>
+                                    <Button Name="btn_SetGuide" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Guide" Margin="235,55,235,170" Height="30" Width="30" ToolTipService.ToolTip="Map Button Guide"/>
+                                    <Button Name="btn_SetStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Start" Margin="275,60,195,175" Width="30" Height="20" ToolTipService.ToolTip="Map Button Start"/>
+                                </Grid>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                                    <Button Name="btn_RumbleTestLight" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Light"/>
+                                    <Button Name="btn_RumbleTestHeavy" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Heavy" Margin="5,0,0,0"/>
+                                </StackPanel>
+
+                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Button Settings"/>
+                                <CheckBox Name="cb_ControllerFakeGuideButton" Style="{StaticResource CheckBoxBlack}" Content="Fake Start and Back combined press as the Guide button"/>
+                                <TextBlock Text="Enabling this will fake the Start and Back button combined as the Guide button on a controller without the Guide button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Trigger Settings"/>
+                                <CheckBox Name="cb_ControllerUseButtonTriggers" Style="{StaticResource CheckBoxBlack}" Content="Use the controller triggers as press buttons"/>
+                                <TextBlock Text="Enabling this will change your triggers into buttons." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="D-Pad Settings"/>
+                                <CheckBox Name="cb_ControllerDPadFourWayMovement" Content="Change your D-Pad into four way only presses" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will disable the half way D-Pad button press directions." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Thumb Settings"/>
+                                <CheckBox Name="cb_ControllerThumbFlipMovement" Content="Flip the left and right thumb sticks movement" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will flip the left and right thumb sticks." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Name="cb_ControllerThumbFlipAxesLeft" Content="Flip the axes movement on left thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will flip the axes on the left thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Name="cb_ControllerThumbFlipAxesRight" Content="Flip the axes movement on right thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will flip the axes on the right thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Name="cb_ControllerThumbReverseAxesLeft" Content="Reverse the axes movement on left thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will reverse the axes on the left thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Name="cb_ControllerThumbReverseAxesRight" Content="Reverse the axes movement on right thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will reverse the axes on the right thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Rumble Settings"/>
+                                <TextBlock Name="textblock_ControllerRumbleStrength" Style="{StaticResource TextBlockBlack}" Text="Rumble strength"/>
+                                <TextBlock Text="Changes the controllers rumble strength accordingly." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <Slider Name="slider_ControllerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Led Settings"/>
+                                <TextBlock Name="textblock_ControllerLedBrightness" Style="{StaticResource TextBlockBlack}" Text="Led brightness"/>
+                                <TextBlock Text="Changes the controllers led brightness accordingly." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <Slider Name="slider_ControllerLedBrightness" Minimum="1" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!-- Grid Settings -->
+            <Grid Name="grid_Settings" Grid.Column="1" Background="#F1F1F1" Visibility="Collapsed">
+                <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Settings"/>
+                            <Rectangle Margin="0,25,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Launch Settings"/>
+                                <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will launch DirectXInput when you start Windows automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcut Settings"/>
+                                <CheckBox Name="cb_SettingsShortcutDisconnectBluetooth" Content="Disconnect the controller with Guide and Start combined" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will unplug the Xbox controller and disconnect your controller from Bluetooth when the Guide and Start buttons are pressed together." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Name="cb_SettingsExclusiveGuide" Margin="0,10,0,0" Content="Make the Guide button exclusive for CtrlUI apps usage" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will block the Guide button for other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Name="cb_SettingsShortcutLaunchCtrlUI" Margin="0,10,0,0" Content="Open CtrlUI by pressing the Guide button shortly" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will launch CtrlUI when the Guide button is shortly pressed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Name="cb_SettingsShortcutLaunchKeyboardController" Content="Open Keyboard Controller by holding the Guide button" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will launch Keyboard Controller when the Guide button is hold." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Name="cb_SettingsPlaySoundBatteryLow" Content="Play warning sound when the battery level gets low" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will play a warning sound when the controllers battery gets low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <Button Name="btn_Settings_InstallDrivers" Margin="0,15,0,0" Content="Click here to install the required drivers" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                <Button Name="btn_Settings_CheckForUpdate" Margin="0,10,0,0" Content="Check for available application update" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!-- Grid Help -->
+            <Grid Name="grid_Help" Grid.Column="1" Background="#F1F1F1" Visibility="Collapsed">
+                <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Help"/>
+                            <Rectangle Margin="0,25,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Margin="0,0,0,5">
+                        <ScrollViewer Name="scroll_Help" Style="{StaticResource ScrollViewerVertical}">
+                            <StackPanel Name="sp_Help" Margin="0,0,10,0"/>
+                        </ScrollViewer>
+                    </Grid>
+
+                    <Grid Grid.Row="2" Margin="0,5,0,5">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="btn_Help_ProjectWebsite" Content="Visit Project Website" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                            <Button Name="btn_Help_OpenDonation" Margin="10,0,0,0" Content="Open Donation Page" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!-- Overlap Information -->
+            <Grid Grid.Column="1">
+                <StackPanel HorizontalAlignment="Right" Margin="10,5,10,5">
+                    <TextBlock Name="txt_ManageControllerLatency" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Latency"/>
+                    <TextBlock Name="txt_ManageControllerBattery" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Battery level"/>
+                    <TextBlock Name="txt_ManageControllerName" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Controller"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!-- Status - Window Active -->
+        <Grid Name="grid_WindowActive" Background="#1D1D1D" Opacity="0" IsHitTestVisible="False">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="35" TextAlignment="Center" TextWrapping="Wrap" Text="Application window is not activated."/>
+        </Grid>
+
+        <!-- Message - MessageBox -->
+        <Grid Name="grid_Message_MessageBox" MinWidth="500" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="60" Background="#F1F1F1" Visibility="Collapsed">
+            <StackPanel Margin="10,5,10,10">
+                <TextBlock Name="grid_MessageBox_Text" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" TextWrapping="Wrap" Text="Question"/>
+                <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                <TextBlock Name="grid_MessageBox_Description" Style="{StaticResource TextBlockGray}" TextWrapping="Wrap" Text="Description"/>
+                <Button Name="grid_MessageBox_Btn1" Style="{StaticResource ButtonAccentBlack}" Margin="0,10,0,0"/>
+                <Button Name="grid_MessageBox_Btn2" Style="{StaticResource ButtonAccentBlack}" Margin="0,10,0,0"/>
+                <Button Name="grid_MessageBox_Btn3" Style="{StaticResource ButtonAccentBlack}" Margin="0,10,0,0"/>
+                <Button Name="grid_MessageBox_Btn4" Style="{StaticResource ButtonAccentBlack}" Margin="0,10,0,0"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
