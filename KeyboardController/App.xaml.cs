@@ -15,7 +15,7 @@ namespace KeyboardController
             try
             {
                 //Check the application status
-                Application_LaunchCheck("Keyboard Controller", "KeyboardController", false);
+                Application_LaunchCheck("Keyboard Controller", "KeyboardController", false, false);
 
                 //Open the window main from application
                 vWindowMain.Show();

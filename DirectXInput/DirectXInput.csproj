@@ -95,16 +95,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\ControlTemplates.xaml.cs">
+      <Link>Styles\ControlTemplates.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainStyles.xaml.cs">
+      <Link>Styles\MainStyles.xaml.cs</Link>
+    </Compile>
     <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="..\CtrlUI\Styles\MainStyles.xaml.cs">
-      <Link>Styles\MainStyles.xaml.cs</Link>
-      <DependentUpon>MainStyles.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\CtrlUI\Styles\ControlTemplates.xaml.cs">
-      <Link>Styles\ControlTemplates.xaml.cs</Link>
-      <DependentUpon>ControlTemplates.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -137,17 +135,17 @@
     <Compile Include="SettingsFunctions.cs" />
     <Compile Include="SocketHandlers.cs" />
     <Compile Include="SoundPlayer.cs" />
-    <Page Include="..\CtrlUI\Styles\ControlTemplates.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\ControlTemplates.xaml">
       <Link>Styles\ControlTemplates.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\CtrlUI\Styles\MainStyles.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainStyles.xaml">
       <Link>Styles\MainStyles.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\CtrlUI\Styles\Scrollbar.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\Scrollbar.xaml">
       <Link>Styles\Scrollbar.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -12,10 +12,12 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using Windows.Management.Deployment;
+using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.ProcessClasses;
+using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.AppImport;
 using static LibraryShared.Classes;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace CtrlUI
 {

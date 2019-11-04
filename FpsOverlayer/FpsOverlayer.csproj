@@ -109,15 +109,13 @@
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkColorPicker\ColorSelector.xaml.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.xaml.cs</Link>
     </Compile>
-    <Compile Include="..\CtrlUI\Styles\MainStyles.xaml.cs">
-      <Link>Styles\MainStyles.xaml.cs</Link>
-      <DependentUpon>MainStyles.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\CtrlUI\Styles\ControlTemplates.xaml.cs">
+    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\ControlTemplates.xaml.cs">
       <Link>Styles\ControlTemplates.xaml.cs</Link>
-      <DependentUpon>ControlTemplates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\CtrlUI\Styles\TextBoxPlaceholderCode.cs">
+    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainStyles.xaml.cs">
+      <Link>Styles\MainStyles.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\TextBoxPlaceholderCode.cs">
       <Link>Styles\TextBoxPlaceholderCode.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -150,17 +148,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\ctrlui\styles\ControlTemplates.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\ControlTemplates.xaml">
       <Link>Styles\ControlTemplates.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\ctrlui\styles\MainStyles.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainStyles.xaml">
       <Link>Styles\MainStyles.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\ctrlui\styles\Scrollbar.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\Scrollbar.xaml">
       <Link>Styles\Scrollbar.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
+using static ArnoldVinkCode.ProcessWin32Functions;
 
 namespace DriverInstaller
 {

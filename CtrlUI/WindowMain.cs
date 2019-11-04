@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.AppImport;
 using static LibraryShared.Classes;
 using static LibraryShared.OutputKeyboard;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace CtrlUI
 {

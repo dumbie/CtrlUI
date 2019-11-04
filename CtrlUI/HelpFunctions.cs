@@ -5,7 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
+using static ArnoldVinkCode.ProcessFunctions;
 
 namespace CtrlUI
 {

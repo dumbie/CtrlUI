@@ -6,9 +6,9 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.ProcessFunctions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace DirectXInput
 {

@@ -7,7 +7,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
+using static ArnoldVinkCode.ProcessWin32Functions;
 
 namespace Updater
 {
@@ -50,7 +50,7 @@ namespace Updater
             {
                 //Check if previous update files are in the way
                 if (File.Exists("UpdaterNew.exe")) { try { File.Delete("UpdaterNew.exe"); } catch { } }
-                if (File.Exists("CtrlUI-Update.zip")) { try { File.Delete("CtrlUI-Update.zip"); } catch { } }
+                if (File.Exists("App-Update.zip")) { try { File.Delete("App-Update.zip"); } catch { } }
 
                 //Check if CtrlUI is running and close it
                 bool CtrlUIRunning = false;
@@ -91,13 +91,13 @@ namespace Updater
                 try
                 {
                     WebClient WebClient = new WebClient();
-                    WebClient.Headers[HttpRequestHeader.UserAgent] = "CtrlUI Updater";
+                    WebClient.Headers[HttpRequestHeader.UserAgent] = "Application Updater";
                     WebClient.DownloadProgressChanged += (object Object, DownloadProgressChangedEventArgs Args) =>
                     {
                         ProgressBarUpdate(Args.ProgressPercentage, false);
                         TextBlockUpdate("Downloading update file: " + Args.ProgressPercentage + "%");
                     };
-                    await WebClient.DownloadFileTaskAsync(new Uri("http://download.arnoldvink.com/?dl=CtrlUI.zip"), "CtrlUI-Update.zip");
+                    await WebClient.DownloadFileTaskAsync(new Uri("http://download.arnoldvink.com/?dl=CtrlUI.zip"), "App-Update.zip");
                     Debug.WriteLine("Update file has been downloaded");
                 }
                 catch
@@ -110,7 +110,7 @@ namespace Updater
                 {
                     //Extract the downloaded update archive
                     TextBlockUpdate("Updating the application to the latest version.");
-                    using (ZipArchive ZipArchive = ZipFile.OpenRead("CtrlUI-Update.zip"))
+                    using (ZipArchive ZipArchive = ZipFile.OpenRead("App-Update.zip"))
                     {
                         foreach (ZipArchiveEntry ZipFile in ZipArchive.Entries)
                         {
@@ -131,8 +131,10 @@ namespace Updater
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsPositionProcess.json".ToLower())) { Debug.WriteLine("Skipping: FpsPositionProcess.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Controllers.json".ToLower())) { Debug.WriteLine("Skipping: Controllers.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Background.png".ToLower())) { Debug.WriteLine("Skipping: Background.png"); continue; }
+
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlUI.exe.Config".ToLower())) { Debug.WriteLine("Skipping: CtrlUI.exe.Config"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectXInput.exe.Config".ToLower())) { Debug.WriteLine("Skipping: DirectXInput.exe.Config"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("KeyboardController.exe.Config".ToLower())) { Debug.WriteLine("Skipping: KeyboardController.exe.Config"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsOverlayer.exe.Config".ToLower())) { Debug.WriteLine("Skipping: FpsOverlayer.exe.Config"); continue; }
 
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Updater.exe".ToLower()))
@@ -155,10 +157,10 @@ namespace Updater
 
                 //Delete the update installation zip file
                 TextBlockUpdate("Cleaning up the update installation files.");
-                if (File.Exists("CtrlUI-Update.zip"))
+                if (File.Exists("App-Update.zip"))
                 {
-                    Debug.WriteLine("Removing: CtrlUI-Update.zip");
-                    File.Delete("CtrlUI-Update.zip");
+                    Debug.WriteLine("Removing: App-Update.zip");
+                    File.Delete("App-Update.zip");
                 }
 
                 //Start CtrlUI after the update has completed.
@@ -190,7 +192,7 @@ namespace Updater
                 }
 
                 //Close the application
-                await Application_Exit("CtrlUI has been updated, closing in a bit.");
+                await Application_Exit("Application has been updated, closing in a bit.");
             }
             catch { }
         }
@@ -213,10 +215,10 @@ namespace Updater
                 Debug.WriteLine("Exiting Updater.");
 
                 //Delete the update installation zip file
-                if (File.Exists("CtrlUI-Update.zip"))
+                if (File.Exists("App-Update.zip"))
                 {
-                    Debug.WriteLine("Removing: CtrlUI-Update.zip");
-                    File.Delete("CtrlUI-Update.zip");
+                    Debug.WriteLine("Removing: App-Update.zip");
+                    File.Delete("App-Update.zip");
                 }
 
                 //Set the exit reason text message

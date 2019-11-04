@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
+using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.AppLaunchCheck;
 
@@ -19,7 +19,7 @@ namespace CtrlUI
                 vPrevFocusedProcess = GetFocusedProcess();
 
                 //Check the application status
-                Application_LaunchCheck("CtrlUI", "CtrlUI", false);
+                Application_LaunchCheck("CtrlUI", "CtrlUI", false, false);
 
                 //Open the window main from application
                 vWindowMain.Show();

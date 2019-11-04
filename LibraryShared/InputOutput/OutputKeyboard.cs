@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using static LibraryShared.AppImport;
+using static ArnoldVinkCode.AVInteropDll;
 
 namespace LibraryShared
 {

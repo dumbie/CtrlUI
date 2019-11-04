@@ -6,8 +6,8 @@ using System.IO;
 using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static LibraryShared.AppLaunchCheck;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace AdminLauncher
 {
@@ -34,7 +34,7 @@ namespace AdminLauncher
                 SchTask_WorkingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
                 //Check application status
-                Application_LaunchCheck(SchTask_Description, "KeyboardController-Admin", false);
+                Application_LaunchCheck(SchTask_Description, "KeyboardController-Admin", false, false);
 
                 //Check if the task already exists
                 int ResultCheckTask = CheckTask();

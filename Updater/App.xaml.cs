@@ -14,7 +14,7 @@ namespace Updater
             try
             {
                 //Check the application status
-                Application_LaunchCheck("CtrlUI Updater", "Updater", false);
+                Application_LaunchCheck("Application Updater", "Updater", false, true);
 
                 //Open the window main from application
                 vWindowMain.Show();

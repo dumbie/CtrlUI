@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using static LibraryShared.AppImport;
+using static ArnoldVinkCode.AVInteropCom;
 
 namespace IMMDevice
 {

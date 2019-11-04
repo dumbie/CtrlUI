@@ -5,13 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using static LibraryShared.AppImport;
+using static ArnoldVinkCode.AVInteropDll;
 
 namespace LibraryShared
 {
     public partial class AppLaunchCheck
     {
-        public static void Application_LaunchCheck(string ApplicationName, string ProcessName, bool PriorityRealTime)
+        public static void Application_LaunchCheck(string ApplicationName, string ProcessName, bool PriorityRealTime, bool skipFileCheck)
         {
             try
             {
@@ -43,18 +43,21 @@ namespace LibraryShared
                 }
 
                 //Check for missing application files
-                string[] ApplicationFiles = { "CtrlUI.exe", "CtrlUI.exe.Config", "CtrlUI-Admin.exe", "CtrlUI-Admin.exe.Config", "DirectXInput.exe", "DirectXInput.exe.Config", "DirectXInput-Admin.exe", "DirectXInput-Admin.exe.Config", "DriverInstaller.exe", "DriverInstaller.exe.Config", "FpsOverlayer.exe", "FpsOverlayer.exe.Config", "FpsOverlayer-Admin.exe", "FpsOverlayer-Admin.exe.Config", "FpsOverlayer-Launcher.exe", "FpsOverlayer-Launcher.exe.Config", "KeyboardController.exe", "KeyboardController.exe.Config", "KeyboardController-Admin.exe", "KeyboardController-Admin.exe.Config", "KeyboardController-Launcher.exe", "KeyboardController-Launcher.exe.Config", "Updater.exe", "Updater.exe.Config" };
-                string[] ProfileFiles = { "Profiles\\Apps.json", "Profiles\\AppsBlacklistProcess.json", "Profiles\\AppsBlacklistShortcut.json", "Profiles\\AppsBlacklistShortcutUri.json", "Profiles\\AppsOtherLaunchers.json", "Profiles\\AppsOtherTools.json", "Profiles\\FileLocations.json", "Profiles\\Controllers.json", "Profiles\\ControllersSupported.json", "Profiles\\FpsBlacklistProcess.json", "Profiles\\FpsPositionProcess.json" };
-                string[] ResourcesFiles = { "Resources\\ArnoldVinkCertificate.cer", "Resources\\LibraryShared.dll", "Resources\\LibraryUsb.dll" };
-                string[] AssetsFiles = { "Assets\\Background.png", "Assets\\BoxArt.png" };
-                ApplicationFiles = ApplicationFiles.Concat(ProfileFiles).Concat(ResourcesFiles).Concat(AssetsFiles).ToArray();
-                foreach (string CheckFile in ApplicationFiles)
+                if (!skipFileCheck)
                 {
-                    if (!File.Exists(CheckFile))
+                    string[] ApplicationFiles = { "CtrlUI.exe", "CtrlUI.exe.Config", "CtrlUI-Admin.exe", "CtrlUI-Admin.exe.Config", "DirectXInput.exe", "DirectXInput.exe.Config", "DirectXInput-Admin.exe", "DirectXInput-Admin.exe.Config", "DriverInstaller.exe", "DriverInstaller.exe.Config", "FpsOverlayer.exe", "FpsOverlayer.exe.Config", "FpsOverlayer-Admin.exe", "FpsOverlayer-Admin.exe.Config", "FpsOverlayer-Launcher.exe", "FpsOverlayer-Launcher.exe.Config", "KeyboardController.exe", "KeyboardController.exe.Config", "KeyboardController-Admin.exe", "KeyboardController-Admin.exe.Config", "KeyboardController-Launcher.exe", "KeyboardController-Launcher.exe.Config", "Updater.exe", "Updater.exe.Config" };
+                    string[] ProfileFiles = { "Profiles\\Apps.json", "Profiles\\AppsBlacklistProcess.json", "Profiles\\AppsBlacklistShortcut.json", "Profiles\\AppsBlacklistShortcutUri.json", "Profiles\\AppsOtherLaunchers.json", "Profiles\\AppsOtherTools.json", "Profiles\\FileLocations.json", "Profiles\\Controllers.json", "Profiles\\ControllersSupported.json", "Profiles\\FpsBlacklistProcess.json", "Profiles\\FpsPositionProcess.json" };
+                    string[] ResourcesFiles = { "Resources\\ArnoldVinkCertificate.cer", "Resources\\LibraryShared.dll", "Resources\\LibraryUsb.dll" };
+                    string[] AssetsFiles = { "Assets\\Background.png", "Assets\\BoxArt.png" };
+                    ApplicationFiles = ApplicationFiles.Concat(ProfileFiles).Concat(ResourcesFiles).Concat(AssetsFiles).ToArray();
+                    foreach (string CheckFile in ApplicationFiles)
                     {
-                        MessageBox.Show("File: " + CheckFile + " could not be found, please check your installation.", ApplicationName);
-                        Environment.Exit(0);
-                        return;
+                        if (!File.Exists(CheckFile))
+                        {
+                            MessageBox.Show("File: " + CheckFile + " could not be found, please check your installation.", ApplicationName);
+                            Environment.Exit(0);
+                            return;
+                        }
                     }
                 }
 
@@ -71,36 +74,16 @@ namespace LibraryShared
                 }
 
                 //Check - If the updater failed to cleanup
-                if (File.Exists("CtrlUI-Update.zip"))
+                if (File.Exists("App-Update.zip"))
                 {
                     try
                     {
-                        File.Delete("CtrlUI-Update.zip");
+                        File.Delete("App-Update.zip");
                     }
                     catch { }
                 }
             }
             catch { }
-        }
-
-        public bool Application_RunningAsAdmin(Process TargetProcess)
-        {
-            try
-            {
-                IntPtr tokenHandle = IntPtr.Zero;
-                try
-                {
-                    OpenProcessToken(TargetProcess.Handle, DesiredAccessFlags.TOKEN_ADJUST_DEFAULT, out tokenHandle);
-                    CloseHandle(tokenHandle);
-                    return false;
-                }
-                catch
-                {
-                    CloseHandle(tokenHandle);
-                    return true;
-                }
-            }
-            catch { return false; }
         }
     }
 }

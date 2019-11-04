@@ -9,7 +9,8 @@ using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using static LibraryShared.AppImport;
+using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
 
 namespace CtrlUI

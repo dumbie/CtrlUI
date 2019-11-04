@@ -2,9 +2,10 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace DirectXInput
 {

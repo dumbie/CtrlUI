@@ -5,8 +5,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace DirectXInput
 {

@@ -12,9 +12,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVInteropDll;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
-using static LibraryShared.AppImport;
 using static LibraryShared.Classes;
 
 namespace FpsOverlayer

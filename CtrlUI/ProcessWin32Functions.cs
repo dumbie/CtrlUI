@@ -8,9 +8,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.ProcessClasses;
+using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace CtrlUI
 {

@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.ProcessClasses;
+using static ArnoldVinkCode.ProcessFunctions;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
-using static LibraryShared.Classes;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace FpsOverlayer
 {

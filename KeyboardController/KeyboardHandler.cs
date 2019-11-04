@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
-using static LibraryShared.AppImport;
+using static ArnoldVinkCode.AVInteropDll;
 
 namespace KeyboardController
 {

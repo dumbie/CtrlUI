@@ -8,11 +8,11 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.ProcessFunctions;
 using static KeyboardController.AppVariables;
-using static LibraryShared.AppImport;
 using static LibraryShared.Classes;
 using static LibraryShared.OutputKeyboard;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace KeyboardController
 {

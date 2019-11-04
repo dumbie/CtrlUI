@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using static LibraryShared.AppImport;
+using static ArnoldVinkCode.AVInteropCom;
 using static LibraryShared.Classes;
 
 namespace CtrlUI

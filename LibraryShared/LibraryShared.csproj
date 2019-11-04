@@ -61,6 +61,9 @@
     <Compile Include="..\..\ArnoldVinkCode\Extensions\AVExtensions.cs">
       <Link>ArnoldVinkCode\Extensions\AVExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessClasses.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessClasses.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessFunctions.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessFunctions.cs</Link>
     </Compile>
@@ -103,6 +106,12 @@
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVFunctions.cs">
       <Link>ArnoldVinkCode\Functions\AVFunctions.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Interop\Desktop\AVInteropCom.cs">
+      <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Interop\Desktop\AVInteropDll.cs">
+      <Link>ArnoldVinkCode\Interop\AVInteropDll.cs</Link>
+    </Compile>
     <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
@@ -111,8 +120,6 @@
     <Compile Include="Classes\FpsPositionProcess.cs" />
     <Compile Include="Classes\FileLocation.cs" />
     <Compile Include="Classes\DataBindString.cs" />
-    <Compile Include="Interop\AppImportCom.cs" />
-    <Compile Include="Interop\AppImportDll.cs" />
     <Compile Include="Classes\ControllerConnected.cs" />
     <Compile Include="Classes\ControllerInput.cs" />
     <Compile Include="Classes\ControllerProfile.cs" />
@@ -123,8 +130,6 @@
     <Compile Include="Classes\DataBindFile.cs" />
     <Compile Include="Classes\KeysModifiers.cs" />
     <Compile Include="Classes\KeysVirtual.cs" />
-    <Compile Include="Classes\ProcessFocus.cs" />
-    <Compile Include="Classes\ProcessUwp.cs" />
     <Compile Include="InputOutput\OutputKeyboard.cs" />
     <Compile Include="InputOutput\OutputMouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

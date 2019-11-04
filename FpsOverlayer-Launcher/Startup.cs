@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static LibraryShared.AppLaunchCheck;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace AdminLauncher
 {
@@ -17,7 +17,7 @@ namespace AdminLauncher
             try
             {
                 //Check application status
-                Application_LaunchCheck("Fps Overlayer Launcher", "FpsOverlayer-Launcher", false);
+                Application_LaunchCheck("Fps Overlayer Launcher", "FpsOverlayer-Launcher", false, false);
 
                 //Enable launch requirements
                 InstallCertificate(@"Resources\ArnoldVinkCertificate.cer");

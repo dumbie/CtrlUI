@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Updater"
         mc:Ignorable="d"
-        Title="CtrlUI Updater"
+        Title="Application Updater"
         Height="125"
         Width="500"
         ResizeMode="CanMinimize"
@@ -13,7 +13,7 @@
         Topmost="True">
 
     <StackPanel Margin="10,5,10,5">
-        <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="CtrlUI Updater"/>
+        <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Updater"/>
         <ProgressBar Name="progressbar_Status" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch" IsIndeterminate="True"/>
         <TextBlock Name="textblock_Status" Style="{StaticResource TextBlockGray}" Text="Checking for new application update."/>
     </StackPanel>

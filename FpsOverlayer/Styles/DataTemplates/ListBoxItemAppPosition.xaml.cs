@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using static LibraryShared.Classes;
 
-namespace CtrlUI.Styles
+namespace ArnoldVinkCode.Styles
 {
     public partial class ListBoxItemAppPosition : ResourceDictionary
     {

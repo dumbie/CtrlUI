@@ -1,5 +1,5 @@
 ﻿using System.Windows.Interop;
-using static LibraryShared.AppImport;
+using static ArnoldVinkCode.AVInteropDll;
 
 namespace CtrlUI
 {

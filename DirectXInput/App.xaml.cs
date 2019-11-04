@@ -14,7 +14,7 @@ namespace DirectXInput
             try
             {
                 //Check application status
-                Application_LaunchCheck("DirectXInput", "DirectXInput", true);
+                Application_LaunchCheck("DirectXInput", "DirectXInput", true, false);
 
                 await vWindowMain.Startup();
             }

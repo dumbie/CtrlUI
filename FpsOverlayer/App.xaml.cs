@@ -16,7 +16,7 @@ namespace FpsOverlayer
             try
             {
                 //Check the application status
-                Application_LaunchCheck("Fps Overlayer", "FpsOverlayer", false);
+                Application_LaunchCheck("Fps Overlayer", "FpsOverlayer", false, false);
 
                 //Open the window main from application
                 vWindowMain.Show();

@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static LibraryShared.AppLaunchCheck;
 
 namespace AdminLauncher
@@ -34,7 +34,7 @@ namespace AdminLauncher
                 SchTask_WorkingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
                 //Check application status
-                Application_LaunchCheck(SchTask_Description, "CtrlUI-Admin", false);
+                Application_LaunchCheck(SchTask_Description, "CtrlUI-Admin", false, false);
 
                 //Check if the task already exists
                 int ResultCheckTask = CheckTask();

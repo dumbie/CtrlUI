@@ -14,7 +14,7 @@ namespace DriverInstaller
             try
             {
                 //Check application status
-                Application_LaunchCheck("Driver Installer", "DriverInstaller", false);
+                Application_LaunchCheck("Driver Installer", "DriverInstaller", false, false);
 
                 //Open the window main from application
                 vWindowMain.Show();

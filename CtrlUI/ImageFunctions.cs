@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using static LibraryShared.AppImport;
+using static ArnoldVinkCode.AVInteropDll;
 
 namespace CtrlUI
 {

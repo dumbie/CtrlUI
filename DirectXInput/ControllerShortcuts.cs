@@ -3,9 +3,10 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace DirectXInput
 {
