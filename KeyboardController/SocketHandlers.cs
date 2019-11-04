@@ -1,8 +1,9 @@
 ﻿using ArnoldVinkCode;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSocketClass;
+using static ArnoldVinkCode.AVClassConverters;
 using static KeyboardController.AppVariables;
-using static LibraryShared.ClassConverters;
 using static LibraryShared.Classes;
 
 namespace KeyboardController
@@ -10,7 +11,7 @@ namespace KeyboardController
     partial class WindowMain
     {
         //Handle received socket data
-        public async Task ReceivedSocketHandler(byte[] receivedBytes)
+        public async Task ReceivedSocketHandler(TcpClient tcpClient, byte[] receivedBytes)
         {
             try
             {
@@ -18,7 +19,7 @@ namespace KeyboardController
                 {
                     try
                     {
-                        await ReceivedSocketHandlerThread(receivedBytes);
+                        await ReceivedSocketHandlerThread(tcpClient, receivedBytes);
                     }
                     catch { }
                 }
@@ -27,7 +28,7 @@ namespace KeyboardController
             catch { }
         }
 
-        async Task ReceivedSocketHandlerThread(byte[] receivedBytes)
+        async Task ReceivedSocketHandlerThread(TcpClient tcpClient, byte[] receivedBytes)
         {
             try
             {

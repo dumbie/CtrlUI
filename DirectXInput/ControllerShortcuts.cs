@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Processes;
+using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace DirectXInput
 {

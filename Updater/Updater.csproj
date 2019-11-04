@@ -102,8 +102,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessFunctions.cs">
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessNtQueryInformation.cs">
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessNtQueryInformation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessUwpFunctions.cs">
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessUwpFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessWin32Functions.cs">
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVActions.cs">
       <Link>LibraryShared\ArnoldVinkCode\Functions\AVActions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVClassConverters.cs">
+      <Link>LibraryShared\ArnoldVinkCode\Functions\AVClassConverters.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVFunctions.cs">
       <Link>LibraryShared\ArnoldVinkCode\Functions\AVFunctions.cs</Link>
@@ -118,9 +133,6 @@
     <Compile Include="..\LibraryShared\AppLaunchCheck.cs">
       <Link>LibraryShared\AppLaunchCheck.cs</Link>
     </Compile>
-    <Compile Include="..\LibraryShared\Classes\ClassConverters.cs">
-      <Link>LibraryShared\Classes\ClassConverters.cs</Link>
-    </Compile>
     <Compile Include="..\LibraryShared\Classes\ProcessFocus.cs">
       <Link>LibraryShared\Classes\ProcessFocus.cs</Link>
     </Compile>
@@ -132,18 +144,6 @@
     </Compile>
     <Compile Include="..\LibraryShared\Interop\AppImportDll.cs">
       <Link>LibraryShared\Interop\AppImportDll.cs</Link>
-    </Compile>
-    <Compile Include="..\LibraryShared\Processes\ProcessFunctions.cs">
-      <Link>LibraryShared\Processes\ProcessFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\LibraryShared\Processes\ProcessNtQueryInformation.cs">
-      <Link>LibraryShared\Processes\ProcessNtQueryInformation.cs</Link>
-    </Compile>
-    <Compile Include="..\LibraryShared\Processes\ProcessUwpFunctions.cs">
-      <Link>LibraryShared\Processes\ProcessUwpFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\LibraryShared\Processes\ProcessWin32Functions.cs">
-      <Link>LibraryShared\Processes\ProcessWin32Functions.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

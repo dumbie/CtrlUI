@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Processes;
+using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace DirectXInput
 {

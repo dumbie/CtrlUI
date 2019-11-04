@@ -5,8 +5,8 @@ using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
 using static ArnoldVinkCode.ArnoldVinkSocketClass;
+using static ArnoldVinkCode.AVClassConverters;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ClassConverters;
 using static LibraryShared.Classes;
 
 namespace CtrlUI

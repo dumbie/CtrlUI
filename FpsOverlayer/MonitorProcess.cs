@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Processes;
+using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace FpsOverlayer
 {

@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Processes;
+using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace CtrlUI
 {

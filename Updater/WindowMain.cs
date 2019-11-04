@@ -7,7 +7,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
-using static LibraryShared.Processes;
+using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace Updater
 {

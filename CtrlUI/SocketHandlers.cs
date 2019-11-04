@@ -1,8 +1,9 @@
 ﻿using ArnoldVinkCode;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSocketClass;
+using static ArnoldVinkCode.AVClassConverters;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ClassConverters;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -10,7 +11,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle received socket data
-        public async Task ReceivedSocketHandler(byte[] receivedBytes)
+        public async Task ReceivedSocketHandler(TcpClient tcpClient, byte[] receivedBytes)
         {
             try
             {
@@ -18,7 +19,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        await ReceivedSocketHandlerThread(receivedBytes);
+                        await ReceivedSocketHandlerThread(tcpClient, receivedBytes);
                     }
                     catch { }
                 }
@@ -27,7 +28,7 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task ReceivedSocketHandlerThread(byte[] receivedBytes)
+        async Task ReceivedSocketHandlerThread(TcpClient tcpClient, byte[] receivedBytes)
         {
             try
             {

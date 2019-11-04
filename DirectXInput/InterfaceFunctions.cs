@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Processes;
+using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace DirectXInput
 {

@@ -61,6 +61,18 @@
     <Compile Include="..\..\ArnoldVinkCode\Extensions\AVExtensions.cs">
       <Link>ArnoldVinkCode\Extensions\AVExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessFunctions.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessNtQueryInformation.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessNtQueryInformation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessUwpFunctions.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessUwpFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessWin32Functions.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkSockets\SocketClass.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClass.cs</Link>
     </Compile>
@@ -82,6 +94,9 @@
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVAnimations.cs">
       <Link>ArnoldVinkCode\Functions\AVAnimations.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVClassConverters.cs">
+      <Link>ArnoldVinkCode\Functions\AVClassConverters.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVDownloader.cs">
       <Link>ArnoldVinkCode\Functions\AVDownloader.cs</Link>
     </Compile>
@@ -92,7 +107,6 @@
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="AppLaunchCheck.cs" />
-    <Compile Include="Classes\ClassConverters.cs" />
     <Compile Include="Classes\ShortcutDetails.cs" />
     <Compile Include="Classes\FpsPositionProcess.cs" />
     <Compile Include="Classes\FileLocation.cs" />
@@ -113,10 +127,6 @@
     <Compile Include="Classes\ProcessUwp.cs" />
     <Compile Include="InputOutput\OutputKeyboard.cs" />
     <Compile Include="InputOutput\OutputMouse.cs" />
-    <Compile Include="Processes\ProcessFunctions.cs" />
-    <Compile Include="Processes\ProcessNtQueryInformation.cs" />
-    <Compile Include="Processes\ProcessUwpFunctions.cs" />
-    <Compile Include="Processes\ProcessWin32Functions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

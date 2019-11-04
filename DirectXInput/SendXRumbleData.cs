@@ -166,7 +166,7 @@ namespace DirectXInput
                     }
                     else if (TargetController.Any(x => x.CodeName == "SonyDualShock12"))
                     {
-                        //Wired USB Output - DualShock 2
+                        //Wired USB Output - DualShock 1 and 2
                         int HeavyMotorDS2 = Convert.ToInt32(HeavyMotor) / 2;
                         byte[] OutputReport = new byte[Controller.OutputReport.Length];
                         OutputReport[0] = 0x01;
@@ -175,7 +175,7 @@ namespace DirectXInput
 
                         //Send data to the controller
                         NativeMethods_Hid.WriteFile(Controller.HidDevice.DeviceHandle, OutputReport, (uint)OutputReport.Length, out uint bytesWritten, IntPtr.Zero);
-                        Debug.WriteLine("UsbRumb DS2");
+                        Debug.WriteLine("UsbRumb DS1 and 2");
                     }
                 }
             }

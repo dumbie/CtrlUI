@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Sockets;
 using static ArnoldVinkCode.ArnoldVinkSocketClass;
+using static ArnoldVinkCode.AVClassConverters;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.ClassConverters;
 
 namespace DirectXInput
 {

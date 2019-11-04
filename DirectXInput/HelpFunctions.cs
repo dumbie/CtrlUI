@@ -13,13 +13,13 @@ namespace DirectXInput
             if (sp_Help.Children.Count == 0)
             {
                 sp_Help.Children.Add(new TextBlock() { Text = "Why is my controller not working properly?", Style = (Style)App.Current.Resources["TextBlockBlack"] });
-                sp_Help.Children.Add(new TextBlock() { Text = "Make sure that your connected controller is a DirectInput controller that has two thumb sticks and a D-Pad, if you are using a DualShock 2 controller enable the analog mode.", Style = (Style)App.Current.Resources["TextBlockGray"], TextWrapping = TextWrapping.Wrap });
+                sp_Help.Children.Add(new TextBlock() { Text = "Make sure that your connected controller is a DirectInput controller that has two thumb sticks and a D-Pad, if you are using a DualShock 1 or 2 controller enable the analog mode.", Style = (Style)App.Current.Resources["TextBlockGray"], TextWrapping = TextWrapping.Wrap });
 
                 sp_Help.Children.Add(new TextBlock() { Text = "\r\nWhy is my controller not detected while connected?", Style = (Style)App.Current.Resources["TextBlockBlack"] });
                 sp_Help.Children.Add(new TextBlock() { Text = "Some users may need to launch DirectXInput as administrator before the controller can be detected and converted to a Xbox controller.", Style = (Style)App.Current.Resources["TextBlockGray"], TextWrapping = TextWrapping.Wrap });
 
                 sp_Help.Children.Add(new TextBlock() { Text = "\r\nWhy is my controller rumble not working at all?", Style = (Style)App.Current.Resources["TextBlockBlack"] });
-                sp_Help.Children.Add(new TextBlock() { Text = "Only a few controllers like the DualShock 2, 3 and 4 currently have rumble support because rumble support needs to be manually added for each controller.", Style = (Style)App.Current.Resources["TextBlockGray"], TextWrapping = TextWrapping.Wrap });
+                sp_Help.Children.Add(new TextBlock() { Text = "Only a few controllers like the DualShock 1, 2, 3 and 4 currently have rumble support because rumble support needs to be manually added for each controller.", Style = (Style)App.Current.Resources["TextBlockGray"], TextWrapping = TextWrapping.Wrap });
 
                 sp_Help.Children.Add(new TextBlock() { Text = "\r\nWhy does my DualShock 3 not respond?", Style = (Style)App.Current.Resources["TextBlockBlack"] });
                 sp_Help.Children.Add(new TextBlock() { Text = "If your DualShock 3 was not connected during the driver installation, you may need to reinstall the drivers while the DualShock 3 is connected to use your controller, you can install the drivers again on the 'Settings' tab.", Style = (Style)App.Current.Resources["TextBlockGray"], TextWrapping = TextWrapping.Wrap });

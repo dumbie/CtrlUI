@@ -3,8 +3,8 @@ using System;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSocketClass;
+using static ArnoldVinkCode.AVClassConverters;
 using static DirectXInput.AppVariables;
-using static LibraryShared.ClassConverters;
 using static LibraryShared.Classes;
 
 namespace DirectXInput
@@ -12,7 +12,7 @@ namespace DirectXInput
     partial class WindowMain
     {
         //Handle received socket data
-        public async Task ReceivedSocketHandler(byte[] receivedBytes)
+        public async Task ReceivedSocketHandler(TcpClient tcpClient, byte[] receivedBytes)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace DirectXInput
                 {
                     try
                     {
-                        ReceivedSocketHandlerThread(receivedBytes);
+                        ReceivedSocketHandlerThread(tcpClient, receivedBytes);
                     }
                     catch { }
                 }
@@ -29,7 +29,7 @@ namespace DirectXInput
             catch { }
         }
 
-        void ReceivedSocketHandlerThread(byte[] receivedBytes)
+        void ReceivedSocketHandlerThread(TcpClient tcpClient, byte[] receivedBytes)
         {
             try
             {

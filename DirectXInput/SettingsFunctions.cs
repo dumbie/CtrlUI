@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using static DirectXInput.AppVariables;
-using static LibraryShared.Processes;
+using static ArnoldVinkCode.ArnoldVinkProcesses;
 
 namespace DirectXInput
 {
