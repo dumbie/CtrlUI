@@ -221,7 +221,7 @@ namespace DirectXInput
                 {
                     if (!CheckRunningProcessByName("DriverInstaller", false))
                     {
-                        ProcessLauncherWin32("DriverInstaller.exe", "", "");
+                        ProcessLauncherWin32("DriverInstaller.exe", "", "", false, false);
                         await Application_Exit(true);
                     }
                 }

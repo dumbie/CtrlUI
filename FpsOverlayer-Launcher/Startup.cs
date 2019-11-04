@@ -24,7 +24,7 @@ namespace AdminLauncher
                 SecureUIAPathsAllow();
 
                 //Run the fps overlayer
-                ProcessLauncherWin32("FpsOverlayer.exe", "", "");
+                ProcessLauncherWin32("FpsOverlayer.exe", "", "", false, false);
 
                 //Disable launch requirements
                 await Task.Delay(5000);

@@ -44,91 +44,28 @@ namespace LibraryShared
                 }
 
                 //Start focusing on the application
-                if (ToTopWindow || SetForeground)
+                if (SetWindowState)
                 {
-                    int LoopCountFocus = 0;
-                    while (true)
-                    {
-                        if (SetWindowState)
-                        {
-                            ShowWindow(TargetWindowHandle, ShowCommand);
-                            await Task.Delay(10);
-                        }
-
-                        if (SwitchWindow)
-                        {
-                            SwitchToThisWindow(TargetWindowHandle, true);
-                            await Task.Delay(10);
-                        }
-
-                        if (ToTopWindow)
-                        {
-                            BringWindowToTop(TargetWindowHandle);
-                            await Task.Delay(10);
-                        }
-
-                        if (SetForeground)
-                        {
-                            uint ThreadIdCurrent = GetCurrentThreadId();
-                            uint ThreadIdTarget = GetWindowThreadProcessId(TargetWindowHandle, out int ProcessIdTarget);
-
-                            //Get previous focused application
-                            uint ThreadIdForeground = 0;
-                            ProcessFocus ForegroundProcessCurrent1 = GetFocusedProcess();
-                            if (ForegroundProcessCurrent1 != null)
-                            {
-                                ThreadIdForeground = GetWindowThreadProcessId(ForegroundProcessCurrent1.WindowHandle, out int ProcessIdForeground);
-                            }
-
-                            if (ThreadIdTarget != 0) { AttachThreadInput(ThreadIdTarget, ThreadIdCurrent, true); }
-                            if (ThreadIdForeground != 0) { AttachThreadInput(ThreadIdForeground, ThreadIdCurrent, true); }
-                            await Task.Delay(10);
-
-                            AllowSetForegroundWindow(ProcessIdTarget);
-                            await Task.Delay(10);
-
-                            SetForegroundWindow(TargetWindowHandle);
-                            await Task.Delay(10);
-
-                            if (ThreadIdTarget != 0) { AttachThreadInput(ThreadIdTarget, ThreadIdCurrent, false); }
-                            if (ThreadIdForeground != 0) { AttachThreadInput(ThreadIdForeground, ThreadIdCurrent, false); }
-                            await Task.Delay(10);
-                        }
-
-                        //Check if the focused window has changed
-                        ProcessFocus ForegroundProcessCurrent2 = GetFocusedProcess();
-                        if (ForegroundProcessCurrent2 != null && ForegroundProcessCurrent2.WindowHandle == TargetWindowHandle)
-                        {
-                            Debug.WriteLine("Succesfully changed the foreground window.");
-                            break;
-                        }
-
-                        //Check if the loop needs to be ended
-                        if (LoopCountFocus >= 15)
-                        {
-                            //if (!Silent) { Popup_Show_Status("Close", "Application can't be shown, in tray?"); }
-                            Debug.WriteLine("Application is in the tray or can't be shown or hidden.");
-                            break;
-                        }
-                        else
-                        {
-                            LoopCountFocus++;
-                        }
-                    }
+                    ShowWindow(TargetWindowHandle, ShowCommand);
+                    await Task.Delay(10);
                 }
-                else
-                {
-                    if (SetWindowState)
-                    {
-                        ShowWindow(TargetWindowHandle, ShowCommand);
-                        await Task.Delay(10);
-                    }
 
-                    if (SwitchWindow)
-                    {
-                        SwitchToThisWindow(TargetWindowHandle, true);
-                        await Task.Delay(10);
-                    }
+                if (SwitchWindow)
+                {
+                    SwitchToThisWindow(TargetWindowHandle, true);
+                    await Task.Delay(10);
+                }
+
+                if (ToTopWindow)
+                {
+                    BringWindowToTop(TargetWindowHandle);
+                    await Task.Delay(10);
+                }
+
+                if (SetForeground)
+                {
+                    SetForegroundWindow(TargetWindowHandle);
+                    await Task.Delay(10);
                 }
 
                 //Disable the process window as top most

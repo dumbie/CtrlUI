@@ -382,11 +382,17 @@ namespace CtrlUI
 
                 if (!SilentClose)
                 {
+                    //Force focus on CtrlUI
+                    FocusWindowHandlePrepare("CtrlUI", Process.GetCurrentProcess().MainWindowHandle, 0, false, true, true, true, true, true);
+
+                    //Show the question messagebox
                     Result = await Popup_Show_MessageBox("Do you really want to close CtrlUI?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);
                 }
 
                 if (SilentClose || (Result != null && Result == Answer1))
                 {
+                    Debug.WriteLine("Exiting CtrlUI.");
+
                     CloseProcessesByName("KeyboardController", false);
                     TasksBackgroundStop();
 

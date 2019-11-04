@@ -254,6 +254,8 @@ namespace DirectXInput
 
                 if (Result == 1)
                 {
+                    Debug.WriteLine("Exiting DirectXInput.");
+
                     CloseProcessesByName("KeyboardController", false);
                     TasksBackgroundStop();
                     await StopAllControllers();

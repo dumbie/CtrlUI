@@ -615,6 +615,7 @@ namespace CtrlUI
 
                     //Force focus on CtrlUI
                     FocusWindowHandlePrepare("CtrlUI", Process.GetCurrentProcess().MainWindowHandle, 0, false, true, true, true, true, false);
+                    await Task.Delay(500);
 
                     //Press tab to gain focus on interface
                     if (Keyboard.FocusedElement == null)

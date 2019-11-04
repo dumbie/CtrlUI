@@ -28,7 +28,7 @@ namespace DirectXInput
         {
             try
             {
-                ProcessLauncherWin32(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\control.exe", "", "joy.cpl");
+                ProcessLauncherWin32(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\control.exe", "", "joy.cpl", false, false);
             }
             catch { }
         }
@@ -38,7 +38,7 @@ namespace DirectXInput
         {
             try
             {
-                ProcessLauncherWin32(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\devmgmt.msc", "", "");
+                ProcessLauncherWin32(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\devmgmt.msc", "", "", false, false);
             }
             catch { }
         }
@@ -56,7 +56,7 @@ namespace DirectXInput
                     {
                         if (!CheckRunningProcessByName("Updater", false))
                         {
-                            ProcessLauncherWin32("Updater.exe", "", "");
+                            ProcessLauncherWin32("Updater.exe", "", "", false, false);
                             await Application_Exit(true);
                         }
                     }

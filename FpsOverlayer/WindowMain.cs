@@ -566,6 +566,8 @@ namespace FpsOverlayer
         {
             try
             {
+                Debug.WriteLine("Exiting Fps Overlayer.");
+
                 vHardwareComputer.Close();
                 TasksBackgroundStop();
                 TrayNotifyIcon.Visible = false;

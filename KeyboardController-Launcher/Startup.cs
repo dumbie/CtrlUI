@@ -24,7 +24,7 @@ namespace AdminLauncher
                 SecureUIAPathsAllow();
 
                 //Run the keyboard controller
-                ProcessLauncherWin32("KeyboardController.exe", "", "");
+                ProcessLauncherWin32("KeyboardController.exe", "", "", false, false);
 
                 //Disable launch requirements
                 await Task.Delay(5000);

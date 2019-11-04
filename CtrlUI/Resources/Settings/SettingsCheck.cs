@@ -23,7 +23,7 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["LaunchMinimized"] == null) { SettingSave("LaunchMinimized", "False"); }
                 if (ConfigurationManager.AppSettings["ShowOtherShortcuts"] == null) { SettingSave("ShowOtherShortcuts", "True"); }
                 if (ConfigurationManager.AppSettings["ShowOtherProcesses"] == null) { SettingSave("ShowOtherProcesses", "True"); }
-                if (ConfigurationManager.AppSettings["HideAppProcesses"] == null) { SettingSave("HideAppProcesses", "True"); }
+                if (ConfigurationManager.AppSettings["HideAppProcesses"] == null) { SettingSave("HideAppProcesses", "False"); }
 
                 if (ConfigurationManager.AppSettings["DirectoryShortcuts"] == null) { SettingSave("DirectoryShortcuts", Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Shortcuts"); }
                 if (ConfigurationManager.AppSettings["HideBatteryLevel"] == null) { SettingSave("HideBatteryLevel", "False"); }

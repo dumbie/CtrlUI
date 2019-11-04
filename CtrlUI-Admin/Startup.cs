@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
 using static LibraryShared.AppLaunchCheck;
+using static LibraryShared.Processes;
 
 namespace AdminLauncher
 {
@@ -71,11 +72,7 @@ namespace AdminLauncher
                     int Result = await AVMessageBox.MessageBoxPopup(SchTask_Description, "It seems like this is the first time you are using the helper or the application path has changed so you will have to accept the upcoming administrator prompt, after that you will be able to run this helper without the administrator prompt.", "Continue", "Cancel", "", "");
                     if (Result == 1)
                     {
-                        Process LaunchProcess = new Process();
-                        LaunchProcess.StartInfo.WorkingDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-                        LaunchProcess.StartInfo.FileName = Assembly.GetEntryAssembly().Location;
-                        LaunchProcess.StartInfo.Verb = "runas";
-                        LaunchProcess.Start();
+                        await ProcessLauncherWin32Async(Assembly.GetEntryAssembly().Location, Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "", true, false);
                         Environment.Exit(0);
                         return;
                     }

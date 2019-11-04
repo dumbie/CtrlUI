@@ -564,6 +564,8 @@ namespace KeyboardController
         {
             try
             {
+                Debug.WriteLine("Exiting Keyboard Controller.");
+
                 //Stop the background tasks
                 TasksBackgroundStop();
 

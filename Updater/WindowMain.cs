@@ -165,28 +165,28 @@ namespace Updater
                 if (CtrlUIRunning)
                 {
                     TextBlockUpdate("Running the updated version of CtrlUI.");
-                    ProcessLauncherWin32("CtrlUI-Admin.exe", "", "");
+                    ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", false, false);
                 }
 
                 //Start DirectXInput after the update has completed.
                 if (DirectXInputRunning)
                 {
                     TextBlockUpdate("Running the updated version of DirectXInput.");
-                    ProcessLauncherWin32("DirectXInput-Admin.exe", "", "");
+                    ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", false, false);
                 }
 
                 //Start KeyboardController after the update has completed.
                 if (KeyboardControllerRunning)
                 {
                     TextBlockUpdate("Running the updated version of KeyboardController.");
-                    ProcessLauncherWin32("KeyboardController-Admin.exe", "", "");
+                    ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", false, false);
                 }
 
                 //Start FpsOverlayer after the update has completed.
                 if (FpsOverlayerRunning)
                 {
                     TextBlockUpdate("Running the updated version of FpsOverlayer.");
-                    ProcessLauncherWin32("FpsOverlayer-Admin.exe", "", "");
+                    ProcessLauncherWin32("FpsOverlayer-Admin.exe", "", "", false, false);
                 }
 
                 //Close the application
@@ -210,6 +210,8 @@ namespace Updater
         {
             try
             {
+                Debug.WriteLine("Exiting Updater.");
+
                 //Delete the update installation zip file
                 if (File.Exists("CtrlUI-Update.zip"))
                 {

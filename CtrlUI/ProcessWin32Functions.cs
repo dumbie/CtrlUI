@@ -79,7 +79,7 @@ namespace CtrlUI
                 }
 
                 //Launch the Win32 application
-                ProcessLauncherWin32(PathExe, PathLaunch, Argument);
+                ProcessLauncherWin32(PathExe, PathLaunch, Argument, false, false);
 
                 //Minimize the CtrlUI window
                 if (AllowMinimize && ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }

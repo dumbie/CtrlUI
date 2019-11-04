@@ -71,8 +71,22 @@ namespace DirectXInput
 
         void NotifyIcon_Website(object sender, EventArgs args) { Process.Start("https://projects.arnoldvink.com"); }
 
-        async void NotifyIcon_MouseUp(object sender, MouseEventArgs args) { if (args.Button == MouseButtons.Middle) { await Application_Exit(true); } }
+        async void NotifyIcon_MouseUp(object sender, MouseEventArgs args)
+        {
+            try
+            {
+                if (args.Button == MouseButtons.Middle) { await StopAllControllers(); }
+            }
+            catch { }
+        }
 
-        async void NotifyIcon_Exit(object sender, EventArgs args) { await Application_Exit(true); }
+        async void NotifyIcon_Exit(object sender, EventArgs args)
+        {
+            try
+            {
+                await Application_Exit(true);
+            }
+            catch { }
+        }
     }
 }

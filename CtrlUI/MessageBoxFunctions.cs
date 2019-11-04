@@ -1,12 +1,12 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Processes;
 
 namespace CtrlUI
 {
@@ -99,10 +99,10 @@ namespace CtrlUI
             {
                 PlayInterfaceSound("PromptClose", false);
 
-                //Reset popup variables
-                vMessageBoxOpen = false;
+                //Reset messagebox variables
                 vMessageBoxCancelled = true;
-                //vMessageBoxResultCurrent = null;
+                //vMessageBoxResult = null;
+                vMessageBoxOpen = false;
 
                 //Hide the popup with animation
                 AVAnimations.Ani_Visibility(grid_Popup_MessageBox, false, false, 0.10);
@@ -164,12 +164,7 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Restart the PC
-                        Process LaunchProcess = new Process();
-                        LaunchProcess.StartInfo.UseShellExecute = false;
-                        LaunchProcess.StartInfo.CreateNoWindow = true;
-                        LaunchProcess.StartInfo.FileName = "shutdown";
-                        LaunchProcess.StartInfo.Arguments = "/r /t 0";
-                        LaunchProcess.Start();
+                        ProcessLauncherWin32("shutdown", "", "/r /t 0", false, true);
 
                         //Close CtrlUI
                         await Application_Exit(true);
@@ -182,12 +177,7 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Shutdown the PC
-                        Process LaunchProcess = new Process();
-                        LaunchProcess.StartInfo.UseShellExecute = false;
-                        LaunchProcess.StartInfo.CreateNoWindow = true;
-                        LaunchProcess.StartInfo.FileName = "shutdown";
-                        LaunchProcess.StartInfo.Arguments = "/s /t 0";
-                        LaunchProcess.Start();
+                        ProcessLauncherWin32("shutdown", "", "/s /t 0", false, true);
 
                         //Close CtrlUI
                         await Application_Exit(true);

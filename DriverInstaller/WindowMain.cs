@@ -95,9 +95,11 @@ namespace DriverInstaller
         {
             try
             {
+                Debug.WriteLine("Exiting Driver Installer.");
+
                 //Run DirectXInput after the drivers installed
                 TextBoxAppend("Running the DirectXInput application.");
-                ProcessLauncherWin32("DirectXInput-Admin.exe", "", "");
+                ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", false, false);
 
                 //Set the exit reason text message
                 TextBoxAppend(ExitMessage);
