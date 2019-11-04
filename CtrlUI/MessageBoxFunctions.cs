@@ -164,7 +164,7 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Restart the PC
-                        ProcessLauncherWin32("shutdown", "", "/r /t 0", false, true);
+                        await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /t 0", false, true);
 
                         //Close CtrlUI
                         await Application_Exit(true);
@@ -177,7 +177,7 @@ namespace CtrlUI
                         await CloseLaunchers(true);
 
                         //Shutdown the PC
-                        ProcessLauncherWin32("shutdown", "", "/s /t 0", false, true);
+                        await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /t 0", false, true);
 
                         //Close CtrlUI
                         await Application_Exit(true);

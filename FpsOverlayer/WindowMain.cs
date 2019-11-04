@@ -570,6 +570,7 @@ namespace FpsOverlayer
 
                 vHardwareComputer.Close();
                 TasksBackgroundStop();
+
                 TrayNotifyIcon.Visible = false;
                 Environment.Exit(0);
                 return;

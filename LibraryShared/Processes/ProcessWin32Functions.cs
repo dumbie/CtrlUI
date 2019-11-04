@@ -32,8 +32,14 @@ namespace LibraryShared
                     {
                         Process LaunchProcess = new Process();
                         LaunchProcess.StartInfo.FileName = PathExe;
-                        LaunchProcess.StartInfo.WorkingDirectory = PathLaunch;
-                        LaunchProcess.StartInfo.Arguments = Argument;
+                        if (!string.IsNullOrWhiteSpace(PathLaunch))
+                        {
+                            LaunchProcess.StartInfo.WorkingDirectory = PathLaunch;
+                        }
+                        if (!string.IsNullOrWhiteSpace(Argument))
+                        {
+                            LaunchProcess.StartInfo.Arguments = Argument;
+                        }
 
                         if (CreateNoWindow)
                         {
@@ -88,8 +94,14 @@ namespace LibraryShared
                     {
                         Process LaunchProcess = new Process();
                         LaunchProcess.StartInfo.FileName = PathExe;
-                        LaunchProcess.StartInfo.WorkingDirectory = PathLaunch;
-                        LaunchProcess.StartInfo.Arguments = Argument;
+                        if (!string.IsNullOrWhiteSpace(PathLaunch))
+                        {
+                            LaunchProcess.StartInfo.WorkingDirectory = PathLaunch;
+                        }
+                        if (!string.IsNullOrWhiteSpace(Argument))
+                        {
+                            LaunchProcess.StartInfo.Arguments = Argument;
+                        }
 
                         if (CreateNoWindow)
                         {
