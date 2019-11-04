@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
+using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -13,7 +14,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Show and close Messagebox Popup
-        async Task<DataBindString> Popup_Show_MessageBox(string Question, string Subtitle, string Description, List<DataBindString> Answers)
+        public async Task<DataBindString> Popup_Show_MessageBox(string Question, string Subtitle, string Description, List<DataBindString> Answers)
         {
             try
             {

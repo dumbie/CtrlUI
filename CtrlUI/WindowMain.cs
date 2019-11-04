@@ -12,6 +12,7 @@ using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
+using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.OutputKeyboard;
 
@@ -363,7 +364,7 @@ namespace CtrlUI
         }
 
         //Close the application
-        async Task Application_Exit(bool SilentClose)
+        public async Task Application_Exit(bool SilentClose)
         {
             try
             {

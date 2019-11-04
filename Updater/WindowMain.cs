@@ -50,7 +50,7 @@ namespace Updater
             {
                 //Check if previous update files are in the way
                 if (File.Exists("UpdaterNew.exe")) { try { File.Delete("UpdaterNew.exe"); } catch { } }
-                if (File.Exists("App-Update.zip")) { try { File.Delete("App-Update.zip"); } catch { } }
+                if (File.Exists("AppUpdate.zip")) { try { File.Delete("AppUpdate.zip"); } catch { } }
 
                 //Check if CtrlUI is running and close it
                 bool CtrlUIRunning = false;
@@ -97,7 +97,7 @@ namespace Updater
                         ProgressBarUpdate(Args.ProgressPercentage, false);
                         TextBlockUpdate("Downloading update file: " + Args.ProgressPercentage + "%");
                     };
-                    await WebClient.DownloadFileTaskAsync(new Uri("http://download.arnoldvink.com/?dl=CtrlUI.zip"), "App-Update.zip");
+                    await WebClient.DownloadFileTaskAsync(new Uri("http://download.arnoldvink.com/?dl=CtrlUI.zip"), "AppUpdate.zip");
                     Debug.WriteLine("Update file has been downloaded");
                 }
                 catch
@@ -110,7 +110,7 @@ namespace Updater
                 {
                     //Extract the downloaded update archive
                     TextBlockUpdate("Updating the application to the latest version.");
-                    using (ZipArchive ZipArchive = ZipFile.OpenRead("App-Update.zip"))
+                    using (ZipArchive ZipArchive = ZipFile.OpenRead("AppUpdate.zip"))
                     {
                         foreach (ZipArchiveEntry ZipFile in ZipArchive.Entries)
                         {
@@ -157,37 +157,37 @@ namespace Updater
 
                 //Delete the update installation zip file
                 TextBlockUpdate("Cleaning up the update installation files.");
-                if (File.Exists("App-Update.zip"))
+                if (File.Exists("AppUpdate.zip"))
                 {
-                    Debug.WriteLine("Removing: App-Update.zip");
-                    File.Delete("App-Update.zip");
+                    Debug.WriteLine("Removing: AppUpdate.zip");
+                    File.Delete("AppUpdate.zip");
                 }
 
                 //Start CtrlUI after the update has completed.
                 if (CtrlUIRunning)
                 {
-                    TextBlockUpdate("Running the updated version of CtrlUI.");
+                    TextBlockUpdate("Running the updated version of the application.");
                     ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", false, false);
                 }
 
                 //Start DirectXInput after the update has completed.
                 if (DirectXInputRunning)
                 {
-                    TextBlockUpdate("Running the updated version of DirectXInput.");
+                    TextBlockUpdate("Running the updated version of the application.");
                     ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", false, false);
                 }
 
                 //Start KeyboardController after the update has completed.
                 if (KeyboardControllerRunning)
                 {
-                    TextBlockUpdate("Running the updated version of KeyboardController.");
+                    TextBlockUpdate("Running the updated version of the application.");
                     ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", false, false);
                 }
 
                 //Start FpsOverlayer after the update has completed.
                 if (FpsOverlayerRunning)
                 {
-                    TextBlockUpdate("Running the updated version of FpsOverlayer.");
+                    TextBlockUpdate("Running the updated version of the application.");
                     ProcessLauncherWin32("FpsOverlayer-Admin.exe", "", "", false, false);
                 }
 
@@ -215,10 +215,10 @@ namespace Updater
                 Debug.WriteLine("Exiting Updater.");
 
                 //Delete the update installation zip file
-                if (File.Exists("App-Update.zip"))
+                if (File.Exists("AppUpdate.zip"))
                 {
-                    Debug.WriteLine("Removing: App-Update.zip");
-                    File.Delete("App-Update.zip");
+                    Debug.WriteLine("Removing: AppUpdate.zip");
+                    File.Delete("AppUpdate.zip");
                 }
 
                 //Set the exit reason text message

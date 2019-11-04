@@ -116,6 +116,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppUpdate.cs" />
     <Compile Include="RegistryFunctions.cs" />
     <Compile Include="QuickActionFunctions.cs" />
     <Compile Include="Resources\InputOutput\InputHotkey.cs" />

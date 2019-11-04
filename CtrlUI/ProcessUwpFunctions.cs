@@ -17,6 +17,7 @@ using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
+using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI

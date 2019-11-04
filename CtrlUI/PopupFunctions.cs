@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using static CtrlUI.AppVariables;
+using static CtrlUI.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -201,7 +202,7 @@ namespace CtrlUI
         }
 
         //Show the status popup
-        void Popup_Show_Status(string IconName, string Message)
+        public void Popup_Show_Status(string IconName, string Message)
         {
             try
             {

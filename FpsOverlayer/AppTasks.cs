@@ -5,8 +5,6 @@ namespace FpsOverlayer
 {
     public class AppTasks
     {
-        public static bool IsTaskRunning(CancellationTokenSource TaskToken) { return TaskToken != null && !TaskToken.IsCancellationRequested; }
-
         public static Task vTask_TraceEventProcess = null;
         public static CancellationTokenSource vTaskToken_TraceEventProcess = null;
 

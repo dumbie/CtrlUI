@@ -10,10 +10,10 @@ using static ArnoldVinkCode.AVInteropDll;
 
 namespace CtrlUI
 {
-    partial class WindowMain
+    partial class ImageFunctions
     {
         //Convert file to a string
-        string FileToString(string[] StringSource)
+        public static string FileToString(string[] StringSource)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace CtrlUI
         }
 
         //Convert file to a BitmapImage
-        BitmapImage FileToBitmapImage(string[] ImageSource, IntPtr MainWindowHandle, int PixelWidth)
+        public static BitmapImage FileToBitmapImage(string[] ImageSource, IntPtr MainWindowHandle, int PixelWidth)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace CtrlUI
         }
 
         //Get the process window icon
-        BitmapImage WindowIconToBitmapImage(IntPtr MainWindowHandle)
+        public static BitmapImage WindowIconToBitmapImage(IntPtr MainWindowHandle)
         {
             try
             {

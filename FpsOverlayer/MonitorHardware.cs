@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVActions;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
 
@@ -52,7 +53,7 @@ namespace FpsOverlayer
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_MonitorHardware))
+                while (TaskRunningCheck(vTaskToken_MonitorHardware))
                 {
                     try
                     {

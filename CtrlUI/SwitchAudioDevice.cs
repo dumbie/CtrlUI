@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVInteropCom;
+using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI

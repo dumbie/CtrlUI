@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
+using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI

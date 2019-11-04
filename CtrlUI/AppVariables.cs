@@ -39,6 +39,9 @@ namespace CtrlUI
         public static DispatcherTimer vDispatcherTimer = new DispatcherTimer();
         public static string[] vListTabTarget = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Shortcuts", "lb_Processes" };
 
+        //Update Variables
+        public static bool vCheckingForUpdate = false;
+
         //Busy Variables
         public static bool vBusyRefreshingApps = false;
 

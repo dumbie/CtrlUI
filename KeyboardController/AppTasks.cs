@@ -6,8 +6,6 @@ namespace KeyboardController
 {
     public partial class WindowMain
     {
-        public static bool IsTaskRunning(CancellationTokenSource TaskToken) { return TaskToken != null && !TaskToken.IsCancellationRequested; }
-
         public static Task vTask_UpdateWindowStatus = null;
         public static CancellationTokenSource vTaskToken_UpdateWindowStatus = null;
 

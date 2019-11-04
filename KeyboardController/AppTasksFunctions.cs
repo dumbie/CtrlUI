@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 
 namespace KeyboardController
 {
@@ -8,7 +9,7 @@ namespace KeyboardController
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_UpdateWindowStatus))
+                while (TaskRunningCheck(vTaskToken_UpdateWindowStatus))
                 {
                     await UpdateWindowStatus();
                     await Task.Delay(500);

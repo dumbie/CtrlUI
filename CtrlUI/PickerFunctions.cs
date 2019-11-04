@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static CtrlUI.AppVariables;
+using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI

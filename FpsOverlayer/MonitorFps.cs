@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVActions;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
 
@@ -48,7 +49,7 @@ namespace FpsOverlayer
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_TraceEventOutput))
+                while (TaskRunningCheck(vTaskToken_TraceEventOutput))
                 {
                     try
                     {

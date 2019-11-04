@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static FpsOverlayer.AppTasks;
@@ -29,7 +30,7 @@ namespace FpsOverlayer
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_MonitorProcess))
+                while (TaskRunningCheck(vTaskToken_MonitorProcess))
                 {
                     try
                     {

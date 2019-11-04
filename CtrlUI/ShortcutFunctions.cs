@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
+using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI

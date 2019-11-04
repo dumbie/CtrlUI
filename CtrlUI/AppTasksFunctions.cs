@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -9,7 +10,7 @@ namespace CtrlUI
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_UpdateClock))
+                while (TaskRunningCheck(vTaskToken_UpdateClock))
                 {
                     UpdateClock();
                     await Task.Delay(5000);
@@ -22,7 +23,7 @@ namespace CtrlUI
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_UpdateWindowStatus))
+                while (TaskRunningCheck(vTaskToken_UpdateWindowStatus))
                 {
                     await UpdateWindowStatus();
                     await Task.Delay(500);
@@ -35,7 +36,7 @@ namespace CtrlUI
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_ControllerConnected))
+                while (TaskRunningCheck(vTaskToken_ControllerConnected))
                 {
                     UpdateControllerConnected();
                     await Task.Delay(2500);
@@ -48,7 +49,7 @@ namespace CtrlUI
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_UpdateAppRunningStatus))
+                while (TaskRunningCheck(vTaskToken_UpdateAppRunningStatus))
                 {
                     CheckAppRunningStatus(null);
                     await Task.Delay(5000);
@@ -61,7 +62,7 @@ namespace CtrlUI
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_UpdateAppRunningTime))
+                while (TaskRunningCheck(vTaskToken_UpdateAppRunningTime))
                 {
                     UpdateAppRunningTime();
                     await Task.Delay(30000);
@@ -74,7 +75,7 @@ namespace CtrlUI
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_UpdateApplications))
+                while (TaskRunningCheck(vTaskToken_UpdateApplications))
                 {
                     if (vAppActivated)
                     {
@@ -90,7 +91,7 @@ namespace CtrlUI
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_ShowHideMouse))
+                while (TaskRunningCheck(vTaskToken_ShowHideMouse))
                 {
                     await MouseCursorHide();
                     await Task.Delay(3000);

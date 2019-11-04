@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 
 namespace DirectXInput
 {
@@ -8,7 +9,7 @@ namespace DirectXInput
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_UpdateWindowStatus))
+                while (TaskRunningCheck(vTaskToken_UpdateWindowStatus))
                 {
                     UpdateWindowStatus();
                     await Task.Delay(500);
@@ -21,7 +22,7 @@ namespace DirectXInput
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_ControllerMonitor))
+                while (TaskRunningCheck(vTaskToken_ControllerMonitor))
                 {
                     await MonitorControllers();
                     await Task.Delay(2000);
@@ -34,7 +35,7 @@ namespace DirectXInput
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_ControllerTimeout))
+                while (TaskRunningCheck(vTaskToken_ControllerTimeout))
                 {
                     CheckControllersTimeout();
                     await Task.Delay(1000);
@@ -47,7 +48,7 @@ namespace DirectXInput
         {
             try
             {
-                while (IsTaskRunning(vTaskToken_ControllerBattery))
+                while (TaskRunningCheck(vTaskToken_ControllerBattery))
                 {
                     await CheckControllersLowBattery();
                     await Task.Delay(10000);

@@ -1,11 +1,9 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
-using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 
@@ -49,22 +47,9 @@ namespace DirectXInput
         {
             try
             {
-                string ResCurrentVersion = await AVDownloader.DownloadStringAsync(5000, "DirectXInput", null, new Uri("http://download.arnoldvink.com/CtrlUI.zip-version.txt" + "?nc=" + Environment.TickCount));
-                if (!string.IsNullOrWhiteSpace(ResCurrentVersion) && ResCurrentVersion != Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0])
-                {
-                    int Result = await MessageBoxPopup("A newer version has been found: v" + ResCurrentVersion, "Do you want to update the application to the newest version now?", "Update now", "Cancel", "", "");
-                    if (Result == 1)
-                    {
-                        if (!CheckRunningProcessByName("Updater", false))
-                        {
-                            ProcessLauncherWin32("Updater.exe", "", "", false, false);
-                            await Application_Exit(true);
-                        }
-                    }
-                }
-                else { await MessageBoxPopup("No new application update has been found.", "", "Ok", "", "", ""); }
+                await CheckForAppUpdate(false);
             }
-            catch { await MessageBoxPopup("Failed to check for the latest application version", "Please check your internet connection and try again.", "Ok", "", "", ""); }
+            catch { }
         }
 
         //Create startup shortcut
