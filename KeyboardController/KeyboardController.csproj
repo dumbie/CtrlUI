@@ -113,6 +113,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainColors.xaml">
+      <Link>Styles\MainColors.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainStyles.xaml">
       <Link>Styles\MainStyles.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

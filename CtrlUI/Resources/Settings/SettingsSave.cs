@@ -149,6 +149,13 @@ namespace CtrlUI
                     AdjustApplicationFontSize();
                 };
 
+                colorpicker_ColorAccent.SelectedColorChanged += (Color color) =>
+                {
+                    SettingSave("ColorAccentLight", color.ToString());
+                    SettingSave("ColorAccentDark", "#888");
+                    App.vWindowMain.ChangeAccentColor();
+                };
+
                 slider_SettingsDisplayMonitor.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsDisplayMonitor.Text = "Default monitor to launch CtrlUI on: " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);

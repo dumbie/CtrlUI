@@ -18,7 +18,7 @@
 
     <Grid Name="grid_Application">
         <Grid.Background>
-            <SolidColorBrush Color="#00C7FF" Opacity="0.50"/>
+            <SolidColorBrush Color="{DynamicResource ApplicationAccentLightColor}" Opacity="0.50"/>
         </Grid.Background>
 
         <Grid Name="grid_Keyboard" Margin="2">

@@ -93,8 +93,8 @@ namespace FpsOverlayer
                 //Get default monitor
                 ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
                 configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-
                 Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+
                 int MonitorNumber = Convert.ToInt32(config.AppSettings.Settings["DisplayMonitor"].Value);
 
                 //Get the target screen

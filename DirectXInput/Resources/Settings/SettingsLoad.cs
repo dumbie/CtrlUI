@@ -16,8 +16,8 @@ namespace DirectXInput
             {
                 ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
                 configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-
                 Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+
                 string SocketServerIp = Convert.ToString(config.AppSettings.Settings["SocketClientIp"].Value);
                 int SocketServerPort = Convert.ToInt32(config.AppSettings.Settings["SocketClientPort"].Value);
 

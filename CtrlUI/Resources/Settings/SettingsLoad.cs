@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -63,6 +64,10 @@ namespace CtrlUI
                 //Load the application font size
                 textblock_SettingsFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
                 slider_SettingsFontSize.Value = Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
+
+                //Load the application accent color
+                string ColorAccent = ConfigurationManager.AppSettings["ColorAccentLight"].ToString();
+                colorpicker_ColorAccent.Background = new BrushConverter().ConvertFrom(ColorAccent) as SolidColorBrush;
 
                 //Load the display monitor
                 textblock_SettingsDisplayMonitor.Text = "Default monitor to launch CtrlUI on: " + Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);

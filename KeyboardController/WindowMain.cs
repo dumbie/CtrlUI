@@ -53,6 +53,7 @@ namespace KeyboardController
                 //Check application settings
                 WindowSettings.Settings_Check();
                 WindowSettings.Settings_LoadSocket();
+                WindowSettings.Settings_LoadAccentColor();
 
                 //Create tray icon
                 Application_CreateTrayMenu();
@@ -168,8 +169,8 @@ namespace KeyboardController
                 //Get default monitor
                 ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
                 configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-
                 Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+
                 int MonitorNumber = Convert.ToInt32(config.AppSettings.Settings["DisplayMonitor"].Value);
 
                 //Get the target screen

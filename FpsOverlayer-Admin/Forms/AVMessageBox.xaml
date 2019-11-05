@@ -12,7 +12,7 @@
         AllowsTransparency="True"
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
-        Background="#00C7FF"
+        Background="{DynamicResource ApplicationAccentLightBrush}"
         Title="Administrator Helper">
     <!-- Grid - MessageBox -->
     <Grid MaxWidth="600" Background="#F1F1F1" Margin="2">

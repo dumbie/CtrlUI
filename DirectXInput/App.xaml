@@ -6,6 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/MainColors.xaml"/>
                 <ResourceDictionary Source="Styles/ControlTemplates.xaml"/>
                 <ResourceDictionary Source="Styles/MainStyles.xaml"/>
                 <ResourceDictionary Source="Styles/Scrollbar.xaml"/>
