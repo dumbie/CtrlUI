@@ -76,7 +76,7 @@ namespace KeyboardController
                 TasksBackgroundStart();
 
                 //Enable the socket server
-                await vSocketServer.SocketServerSwitch(false, false);
+                vSocketServer.SocketServerEnable();
                 vSocketServer.EventBytesReceived += ReceivedSocketHandler;
 
                 Debug.WriteLine("Application has launched.");

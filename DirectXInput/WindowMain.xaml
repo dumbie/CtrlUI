@@ -270,7 +270,6 @@
                                 <TextBlock Text="Enabling this will play a warning sound when the controllers battery gets low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <Button Name="btn_Settings_InstallDrivers" Margin="0,15,0,0" Content="Click here to install the required drivers" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
-                                <Button Name="btn_Settings_CheckForUpdate" Margin="0,10,0,0" Content="Check for available application update" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>

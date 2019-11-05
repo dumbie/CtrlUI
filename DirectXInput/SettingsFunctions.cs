@@ -42,16 +42,6 @@ namespace DirectXInput
             catch { }
         }
 
-        //Check for available update
-        async void btn_Settings_CheckForUpdate_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await CheckForAppUpdate(false);
-            }
-            catch { }
-        }
-
         //Create startup shortcut
         void ManageShortcutStartup()
         {

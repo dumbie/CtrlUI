@@ -166,7 +166,6 @@ namespace DirectXInput
                 //Settings functions
                 btn_CheckControllers.Click += btn_CheckControllers_Click;
                 btn_CheckDeviceManager.Click += btn_CheckDeviceManager_Click;
-                btn_Settings_CheckForUpdate.Click += btn_Settings_CheckForUpdate_Click;
                 btn_Settings_InstallDrivers.Click += btn_Settings_InstallDrivers_Click;
 
                 //Help functions
