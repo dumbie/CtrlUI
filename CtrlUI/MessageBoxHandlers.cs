@@ -25,7 +25,10 @@ namespace CtrlUI
         {
             try
             {
-                if (e.Key == Key.Space) { MessageBoxSetResult(); }
+                if (e.Key == Key.Space)
+                {
+                    MessageBoxSetResult();
+                }
             }
             catch { }
         }
@@ -41,7 +44,7 @@ namespace CtrlUI
                 //Check which mouse button is pressed
                 if (e.ClickCount == 1)
                 {
-                    if (!vMousePressDownRightClick)
+                    if (vMousePressDownLeftClick)
                     {
                         MessageBoxSetResult();
                     }

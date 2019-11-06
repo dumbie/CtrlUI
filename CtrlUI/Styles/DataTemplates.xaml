@@ -30,6 +30,11 @@
         </StackPanel>
     </DataTemplate>
 
+    <!-- ListboxItemColor -->
+    <DataTemplate x:Key="ListboxItemColor">
+        <Rectangle Fill="{Binding}" Width="70" Height="70"/>
+    </DataTemplate>
+
     <!-- ListBoxItemRom -->
     <DataTemplate x:Key="ListBoxItemRom">
         <Grid Margin="5">

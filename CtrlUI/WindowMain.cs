@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
-using System.Windows.Media;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
@@ -95,7 +94,7 @@ namespace CtrlUI
                 RegistryEnableLinkedConnections();
 
                 //Change application accent color
-                ChangeAccentColor();
+                ChangeApplicationAccentColor();
 
                 //Update the clock
                 UpdateClock();
@@ -194,30 +193,6 @@ namespace CtrlUI
                 vSocketServer.EventBytesReceived += ReceivedSocketHandler;
 
                 Debug.WriteLine("Application has launched.");
-            }
-            catch { }
-        }
-
-        //Change application accent color
-        void ChangeAccentColor()
-        {
-            try
-            {
-                Debug.WriteLine("Adjusting the application accent color.");
-
-                string colorHexLight = ConfigurationManager.AppSettings["ColorAccentLight"].ToString();
-                SolidColorBrush targetSolidColorBrushLight = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;
-
-                string colorHexDark = ConfigurationManager.AppSettings["ColorAccentDark"].ToString();
-                SolidColorBrush targetSolidColorBrushDark = new BrushConverter().ConvertFrom(colorHexDark) as SolidColorBrush;
-
-                Color targetColorLight = Color.FromArgb(targetSolidColorBrushLight.Color.A, targetSolidColorBrushLight.Color.R, targetSolidColorBrushLight.Color.G, targetSolidColorBrushLight.Color.B);
-                Color targetColorDark = Color.FromArgb(targetSolidColorBrushDark.Color.A, targetSolidColorBrushDark.Color.R, targetSolidColorBrushDark.Color.G, targetSolidColorBrushDark.Color.B);
-
-                App.Current.Resources["ApplicationAccentLightColor"] = targetColorLight;
-                App.Current.Resources["ApplicationAccentDarkColor"] = targetColorDark;
-                App.Current.Resources["ApplicationAccentLightBrush"] = targetSolidColorBrushLight;
-                App.Current.Resources["ApplicationAccentDarkBrush"] = targetSolidColorBrushDark;
             }
             catch { }
         }

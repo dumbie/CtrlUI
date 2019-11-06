@@ -82,9 +82,9 @@ namespace CtrlUI
                 grid_Popup_MainMenu_button_Close.Click += Button_Popup_Close_Click;
                 listbox_MainMenu.PreviewKeyUp += ListBox_Menu_KeyPressUp;
                 listbox_MainMenu.PreviewMouseUp += ListBox_Menu_MousePressUp;
-                button_MenuHamburger.PreviewMouseUp += Button_MenuHamburger_MousePressUp;
-                button_MenuSearch.PreviewMouseUp += Button_MenuSearch_MousePressUp;
-                button_MenuSorting.PreviewMouseUp += Button_MenuSorting_MousePressUp;
+                button_MenuHamburger.Click += Button_MenuHamburger_Click;
+                button_MenuSearch.Click += Button_MenuSearch_Click;
+                button_MenuSorting.Click += Button_MenuSorting_Click;
 
                 //App list functions
                 lb_Search.PreviewKeyUp += ListBox_Apps_KeyPressUp;
@@ -147,6 +147,11 @@ namespace CtrlUI
                 btn_Settings_ChangeBackground.Click += Button_ShowFilePicker;
                 btn_Settings_ChangeShortcutsDirectory.Click += Button_ShowFilePicker;
 
+                //Color Picker functions
+                grid_Popup_ColorPicker_button_ControllerRight.Click += Button_Popup_Close_Click;
+                lb_ColorPicker.PreviewKeyUp += ListBox_ColorPicker_KeyPressUp;
+                lb_ColorPicker.PreviewMouseUp += ListBox_ColorPicker_MousePressUp;
+
                 //Welcome functions
                 grid_Popup_Welcome_button_LaunchDirectXInput.Click += Button_LaunchDirectXInput_Click;
                 grid_Popup_Welcome_button_Start.Click += Button_Popup_Close_Click;
@@ -165,6 +170,7 @@ namespace CtrlUI
                 btn_Settings_CheckControllers.Click += Button_Settings_CheckControllers_Click;
                 btn_Settings_CheckForUpdate.Click += Button_Settings_CheckForUpdate_Click;
                 btn_Settings_AddGeforceExperience.Click += Button_Settings_AddGeforceExperience_Click;
+                btn_Settings_ColorPickerAccent.Click += Button_Settings_ColorPickerAccent;
 
                 //Help functions
                 btn_Help_ProjectWebsite.Click += Button_Help_ProjectWebsite_Click;

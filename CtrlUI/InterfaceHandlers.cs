@@ -10,7 +10,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle hamburger mouse presses
-        async void Button_MenuHamburger_MousePressUp(object sender, MouseButtonEventArgs e)
+        async void Button_MenuHamburger_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace CtrlUI
         }
 
         //Handle search mouse presses
-        async void Button_MenuSearch_MousePressUp(object sender, MouseButtonEventArgs e)
+        async void Button_MenuSearch_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace CtrlUI
         }
 
         //Handle sorting mouse presses
-        void Button_MenuSorting_MousePressUp(object sender, MouseButtonEventArgs e)
+        void Button_MenuSorting_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -65,13 +65,15 @@ namespace CtrlUI
             try
             {
                 //Reset the previous mouse click states
+                vMousePressDownLeftClick = false;
                 vMousePressDownRightClick = false;
                 vMousePressDownXButton1 = false;
 
                 //Check which mouse button is pressed
                 if (e.ClickCount == 1)
                 {
-                    if (e.RightButton == MouseButtonState.Pressed) { vMousePressDownRightClick = true; }
+                    if (e.LeftButton == MouseButtonState.Pressed) { vMousePressDownLeftClick = true; }
+                    else if (e.RightButton == MouseButtonState.Pressed) { vMousePressDownRightClick = true; }
                     else if (e.XButton1 == MouseButtonState.Pressed) { vMousePressDownXButton1 = true; }
                 }
             }

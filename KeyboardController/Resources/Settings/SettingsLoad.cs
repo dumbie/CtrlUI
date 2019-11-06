@@ -39,15 +39,11 @@ namespace KeyboardController
 
                 string colorHexLight = Convert.ToString(config.AppSettings.Settings["ColorAccentLight"].Value);
                 SolidColorBrush targetSolidColorBrushLight = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;
+                SolidColorBrush targetSolidColorBrushDark = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;
+                targetSolidColorBrushDark.Opacity = 0.50;
 
-                string colorHexDark = Convert.ToString(config.AppSettings.Settings["ColorAccentDark"].Value);
-                SolidColorBrush targetSolidColorBrushDark = new BrushConverter().ConvertFrom(colorHexDark) as SolidColorBrush;
-
-                Color targetColorLight = Color.FromArgb(targetSolidColorBrushLight.Color.A, targetSolidColorBrushLight.Color.R, targetSolidColorBrushLight.Color.G, targetSolidColorBrushLight.Color.B);
-                Color targetColorDark = Color.FromArgb(targetSolidColorBrushDark.Color.A, targetSolidColorBrushDark.Color.R, targetSolidColorBrushDark.Color.G, targetSolidColorBrushDark.Color.B);
-
-                App.Current.Resources["ApplicationAccentLightColor"] = targetColorLight;
-                App.Current.Resources["ApplicationAccentDarkColor"] = targetColorDark;
+                App.Current.Resources["ApplicationAccentLightColor"] = targetSolidColorBrushLight.Color;
+                App.Current.Resources["ApplicationAccentDarkColor"] = targetSolidColorBrushDark.Color;
                 App.Current.Resources["ApplicationAccentLightBrush"] = targetSolidColorBrushLight;
                 App.Current.Resources["ApplicationAccentDarkBrush"] = targetSolidColorBrushDark;
             }

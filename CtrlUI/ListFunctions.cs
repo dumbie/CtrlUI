@@ -103,6 +103,8 @@ namespace CtrlUI
                 TextSearch.SetTextPath(lb_Processes, "Name");
                 lb_Processes.ItemsSource = List_Processes;
 
+                lb_ColorPicker.ItemsSource = List_ColorPicker;
+
                 lb_Search.IsTextSearchEnabled = true;
                 lb_Search.IsTextSearchCaseSensitive = false;
                 TextSearch.SetTextPath(lb_Search, "Name");

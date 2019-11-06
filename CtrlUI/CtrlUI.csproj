@@ -101,15 +101,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkColorPicker\ColorPicker.xaml.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorPicker.xaml.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkColorPicker\ColorSelector.xaml.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.xaml.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\ControlTemplates.xaml.cs">
-      <Link>Styles\ControlTemplates.xaml.cs</Link>
-    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainStyles.xaml.cs">
       <Link>Styles\MainStyles.xaml.cs</Link>
     </Compile>
@@ -123,6 +114,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppUpdate.cs" />
+    <Compile Include="ColorFunctions.cs" />
     <Compile Include="RegistryFunctions.cs" />
     <Compile Include="QuickActionFunctions.cs" />
     <Compile Include="Resources\InputOutput\InputHotkey.cs" />
@@ -167,16 +159,6 @@
     <Compile Include="Resources\Settings\SettingsSave.cs" />
     <Compile Include="Resources\Settings\SettingsCheck.cs" />
     <Compile Include="SettingsFunctions.cs" />
-    <Page Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkColorPicker\ColorPicker.xaml">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorPicker.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkColorPicker\ColorSelector.xaml">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\ControlTemplates.xaml">
       <Link>Styles\ControlTemplates.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -212,9 +194,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkColorPicker\ColorSelector.png">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.png</Link>
-    </Resource>
     <Content Include="Assets\Apps\Battle.net.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

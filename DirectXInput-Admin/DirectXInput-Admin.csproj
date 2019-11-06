@@ -76,9 +76,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\ControlTemplates.xaml.cs">
-      <Link>Styles\ControlTemplates.xaml.cs</Link>
-    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainStyles.xaml.cs">
       <Link>Styles\MainStyles.xaml.cs</Link>
     </Compile>

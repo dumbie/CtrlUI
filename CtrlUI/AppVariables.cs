@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
@@ -34,6 +35,7 @@ namespace CtrlUI
         public static int vMouseLastInteraction = Environment.TickCount;
         public static PointWin vMousePreviousPosition = new PointWin();
         public static bool vSingleTappedEvent = true;
+        public static bool vMousePressDownLeftClick = false;
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
         public static DispatcherTimer vDispatcherTimer = new DispatcherTimer();
@@ -59,6 +61,10 @@ namespace CtrlUI
         public static bool vPopupOpen = false;
         public static FrameworkElement vPopupTargetElement = null;
         public static FrameworkElement vPopupPreviousFocus = null;
+
+        //ColorPicker Variables
+        public static bool vColorPickerOpen = false;
+        public static FrameworkElement vColorPickerPreviousFocus = null;
 
         //Search Variables
         public static bool vSearchOpen = false;
@@ -137,6 +143,7 @@ namespace CtrlUI
         public static ObservableCollection<DataBindApp> List_Shortcuts = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Processes = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Search = new ObservableCollection<DataBindApp>();
+        public static ObservableCollection<SolidColorBrush> List_ColorPicker = new ObservableCollection<SolidColorBrush>();
         public static ObservableCollection<DataBindFile> List_FilePicker = new ObservableCollection<DataBindFile>();
     }
 }

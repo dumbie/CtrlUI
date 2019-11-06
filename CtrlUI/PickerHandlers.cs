@@ -129,12 +129,12 @@ namespace CtrlUI
         {
             try
             {
-                ListBox ListboxSender = (sender as ListBox);
-                DataBindFile SelectedItem = (DataBindFile)ListboxSender.SelectedItem;
-                //Debug.WriteLine("File picker selection has changed to: " + SelectedItem.Name);
-
                 if (vFilePickerShowRoms)
                 {
+                    ListBox ListboxSender = (sender as ListBox);
+                    DataBindFile SelectedItem = (DataBindFile)ListboxSender.SelectedItem;
+                    //Debug.WriteLine("File picker selection has changed to: " + SelectedItem.Name);
+
                     grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Visible;
                     grid_Popup_FilePicker_image_Description.Source = SelectedItem.ImageBitmap;
                     if (string.IsNullOrWhiteSpace(SelectedItem.Description))
@@ -165,7 +165,7 @@ namespace CtrlUI
                     {
                         await FilePicker_GoFolderUp();
                     }
-                    else
+                    else if (vMousePressDownLeftClick)
                     {
                         await lb_FilePicker_LeftClick();
                     }

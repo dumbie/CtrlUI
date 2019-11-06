@@ -31,7 +31,7 @@ namespace CtrlUI
                     {
                         await lb_AppList_RightClick(sender);
                     }
-                    else
+                    else if (vMousePressDownLeftClick)
                     {
                         await lb_AppList_LeftClick(sender);
                     }

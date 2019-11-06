@@ -65,10 +65,6 @@ namespace CtrlUI
                 textblock_SettingsFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
                 slider_SettingsFontSize.Value = Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
 
-                //Load the application accent color
-                string ColorAccent = ConfigurationManager.AppSettings["ColorAccentLight"].ToString();
-                colorpicker_ColorAccent.Background = new BrushConverter().ConvertFrom(ColorAccent) as SolidColorBrush;
-
                 //Load the display monitor
                 textblock_SettingsDisplayMonitor.Text = "Default monitor to launch CtrlUI on: " + Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
                 slider_SettingsDisplayMonitor.Value = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);

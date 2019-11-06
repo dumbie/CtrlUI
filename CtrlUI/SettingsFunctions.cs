@@ -115,6 +115,16 @@ namespace CtrlUI
             catch { Debug.WriteLine("Failed creating startup shortcut."); }
         }
 
+        //Show the color picker popup
+        async void Button_Settings_ColorPickerAccent(object sender, RoutedEventArgs args)
+        {
+            try
+            {
+                await Popup_ShowHide_ColorPicker(false);
+            }
+            catch { }
+        }
+
         //Create geforce experience shortcut
         async void Button_Settings_AddGeforceExperience_Click(object sender, RoutedEventArgs args)
         {
