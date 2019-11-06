@@ -153,7 +153,7 @@ namespace CtrlUI
             catch { }
         }
 
-        //Handle file picker mouse/touch tapped
+        //Handle color picker mouse/touch tapped
         async void ListBox_ColorPicker_MousePressUp(object sender, MouseButtonEventArgs e)
         {
             try
@@ -173,7 +173,7 @@ namespace CtrlUI
             catch { }
         }
 
-        //Handle file picker keyboard/controller tapped
+        //Handle color picker keyboard/controller tapped
         async void ListBox_ColorPicker_KeyPressUp(object sender, KeyEventArgs e)
         {
             try
@@ -186,7 +186,7 @@ namespace CtrlUI
             catch { }
         }
 
-        //Handle file picker left click
+        //Handle color picker left click
         async Task lb_ColorPicker_LeftClick()
         {
             try

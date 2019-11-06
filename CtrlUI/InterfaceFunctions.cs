@@ -116,6 +116,9 @@ namespace CtrlUI
                 grid_Popup_Media_Previous.Click += Button_Media_PreviousItem;
                 grid_Popup_Media_PlayPause.Click += Button_Media_PlayPause;
                 grid_Popup_Media_Next.Click += Button_Media_NextItem;
+                grid_Popup_Media_VolumeMute.Click += Button_Media_VolumeMute;
+                grid_Popup_Media_VolumeDown.Click += Button_Media_VolumeDown;
+                grid_Popup_Media_VolumeUp.Click += Button_Media_VolumeUp;
 
                 //Popup functions
                 grid_Popup_FilePicker_button_ControllerRight.Click += Button_FilePicker_button_ControllerRight_Click;
