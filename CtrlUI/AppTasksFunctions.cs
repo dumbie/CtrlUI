@@ -71,6 +71,19 @@ namespace CtrlUI
             catch { }
         }
 
+        async void vTaskAction_UpdateMediaInformation()
+        {
+            try
+            {
+                while (TaskRunningCheck(vTaskToken_UpdateMediaInformation))
+                {
+                    await UpdateCurrentMediaInformation();
+                    await Task.Delay(1000);
+                }
+            }
+            catch { }
+        }
+
         async void vTaskAction_UpdateApplications()
         {
             try

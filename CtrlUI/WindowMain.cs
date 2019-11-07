@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -37,18 +36,6 @@ namespace CtrlUI
                 Debug.WriteLine("Application source initialized.");
             }
             catch { }
-        }
-
-        public static byte[] GetStringToBytes(string value)
-        {
-            SoapHexBinary shb = SoapHexBinary.Parse(value);
-            return shb.Value;
-        }
-
-        public static string GetBytesToString(byte[] value)
-        {
-            SoapHexBinary shb = new SoapHexBinary(value);
-            return shb.ToString();
         }
 
         //Window Startup

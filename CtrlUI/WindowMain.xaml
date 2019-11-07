@@ -225,7 +225,7 @@
                     </StackPanel>
                     <StackPanel Name="menuButtonSwitchMonitor" Orientation="Horizontal">
                         <Image Source="Assets/Icons/MonitorSwitch.png" Width="50" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="15,0,0,0" Text="Switch your display monitors" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Switch active display monitors" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonMediaControl" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Media.png" Width="50" HorizontalAlignment="Center"/>
@@ -404,35 +404,55 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0">
                     <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Media Control"/>
                     <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
-                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="You also can control the volume with the left and right triggers."/>
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="You also can control the volume with the left and right triggers."/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
-                    <Button Name="grid_Popup_Media_Previous" Width="140" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                <StackPanel Name="grid_Popup_Media_Information" Visibility="Collapsed" Grid.Row="1" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+                    <Grid Margin="0,0,15,0" Height="140" Width="140" VerticalAlignment="Center">
+                        <Grid.Background>
+                            <SolidColorBrush Color="#222"/>
+                        </Grid.Background>
+                        <Image Name="grid_Popup_Media_Information_Thumbnail"/>
+                    </Grid>
+
+                    <StackPanel VerticalAlignment="Center" MaxWidth="600">
+                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
+                            <TextBlock Name="grid_Popup_Media_Information_Artist" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}" Text="Artist"/>
+                        </styles:ScrollViewerLoopHorizontal>
+                        <ProgressBar MinWidth="200" Name="grid_Popup_Media_Information_Progress" Margin="0,5,0,0" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch"/>
+                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
+                            <TextBlock Name="grid_Popup_Media_Information_Title" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeLarge}" Text="Title"/>
+                        </styles:ScrollViewerLoopHorizontal>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+                    <Button Name="grid_Popup_Media_Previous" Width="100" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                         <Image Source="Assets/Icons/Previous.png"/>
                     </Button>
-                    <Button Name="grid_Popup_Media_PlayPause" Margin="60,0,0,0" Width="150" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                    <Button Name="grid_Popup_Media_PlayPause" Margin="50,0,0,0" Width="110" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                         <Image Source="Assets/Icons/Media.png"/>
                     </Button>
-                    <Button Name="grid_Popup_Media_Next" Margin="60,0,0,0" Width="140" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                    <Button Name="grid_Popup_Media_Next" Margin="50,0,0,0" Width="100" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                         <Image Source="Assets/Icons/Next.png"/>
                     </Button>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+                <StackPanel Grid.Row="3" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
                     <Button Name="grid_Popup_Media_VolumeMute" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                         <Image Source="Assets/Icons/VolumeMute.png"/>
                     </Button>
-                    <Button Name="grid_Popup_Media_VolumeDown" Margin="60,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                    <Button Name="grid_Popup_Media_VolumeDown" Margin="50,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                         <Image Source="Assets/Icons/VolumeDown.png"/>
                     </Button>
-                    <Button Name="grid_Popup_Media_VolumeUp" Margin="60,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                    <Button Name="grid_Popup_Media_VolumeUp" Margin="50,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                         <Image Source="Assets/Icons/VolumeUp.png"/>
                     </Button>
                 </StackPanel>

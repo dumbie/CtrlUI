@@ -25,6 +25,9 @@ namespace CtrlUI
         public static Task vTask_UpdateAppRunningTime = null;
         public static CancellationTokenSource vTaskToken_UpdateAppRunningTime = null;
 
+        public static Task vTask_UpdateMediaInformation = null;
+        public static CancellationTokenSource vTaskToken_UpdateMediaInformation = null;
+
         public static Task vTask_ShowHideMouse = null;
         public static CancellationTokenSource vTaskToken_ShowHideMouse = null;
 
@@ -45,11 +48,14 @@ namespace CtrlUI
                 vTaskToken_UpdateAppRunningStatus = new CancellationTokenSource();
                 vTask_UpdateAppRunningStatus = AVActions.TaskStart(vTaskAction_UpdateAppRunningStatus, vTaskToken_UpdateAppRunningStatus);
 
+                vTaskToken_UpdateApplications = new CancellationTokenSource();
+                vTask_UpdateApplications = AVActions.TaskStart(vTaskAction_UpdateApplications, vTaskToken_UpdateApplications);
+
                 vTaskToken_UpdateAppRunningTime = new CancellationTokenSource();
                 vTask_UpdateAppRunningTime = AVActions.TaskStart(vTaskAction_UpdateAppRunningTime, vTaskToken_UpdateAppRunningTime);
 
-                vTaskToken_UpdateApplications = new CancellationTokenSource();
-                vTask_UpdateApplications = AVActions.TaskStart(vTaskAction_UpdateApplications, vTaskToken_UpdateApplications);
+                vTaskToken_UpdateMediaInformation = new CancellationTokenSource();
+                vTask_UpdateMediaInformation = AVActions.TaskStart(vTaskAction_UpdateMediaInformation, vTaskToken_UpdateMediaInformation);
 
                 if (ConfigurationManager.AppSettings["HideMouseCursor"] == "True")
                 {
@@ -70,6 +76,7 @@ namespace CtrlUI
                 vTaskToken_UpdateAppRunningStatus.Cancel();
                 vTaskToken_UpdateApplications.Cancel();
                 vTaskToken_UpdateAppRunningTime.Cancel();
+                vTaskToken_UpdateMediaInformation.Cancel();
                 vTaskToken_ShowHideMouse.Cancel();
             }
             catch { }
