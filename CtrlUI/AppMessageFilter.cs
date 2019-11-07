@@ -5,7 +5,8 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        void ReceiveInput(ref MSG WindowMessage, ref bool Handled)
+        //Handle received filter messages
+        void ReceivedFilterMessage(ref MSG WindowMessage, ref bool Handled)
         {
             try
             {

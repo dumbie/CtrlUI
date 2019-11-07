@@ -180,12 +180,12 @@ namespace CtrlUI
                 btn_Help_OpenDonation.Click += Button_Help_OpenDonation_Click;
 
                 //Global functions
-                this.PreviewDrop += Application_DragDropFile;
                 this.PreviewMouseMove += WindowMain_MouseMove;
                 this.PreviewMouseDown += WindowMain_PreviewMouseDown;
                 this.PreviewKeyUp += WindowMain_KeyPressUp;
 
                 //Allow files to be dropped into window
+                this.PreviewDrop += Application_DragDropFile;
                 this.AllowDrop = true;
 
                 Debug.WriteLine("Registered all the interface handlers.");

@@ -30,7 +30,7 @@ namespace FpsOverlayer
             try
             {
                 //Get application interop window handle
-                IntPtr InteropHandle = new WindowInteropHelper(this).Handle;
+                IntPtr InteropHandle = new WindowInteropHelper(this).EnsureHandle();
 
                 //Set the window style
                 IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);

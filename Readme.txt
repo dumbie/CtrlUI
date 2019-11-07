@@ -41,7 +41,7 @@ Keyboard Controller is an on screen keyboard which can be used by your controlle
 - A DirectInput game controller connected through DirectXInput.
 
 | Special thanks
-HidLibrary, ScpDriver and OpenHardwareMonitor.
+HidLibrary, ScpDriver and LibreHardwareMonitor.
 
 | Support and bug reporting
 When you are walking into any problems or a bug you can go to my help page at https://help.arnoldvink.com so I can try to help you out and get everything working.

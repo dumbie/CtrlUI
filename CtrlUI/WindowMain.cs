@@ -27,9 +27,9 @@ namespace CtrlUI
         {
             try
             {
-                IntPtr InteropHandle = new WindowInteropHelper(this).Handle;
+                IntPtr InteropHandle = new WindowInteropHelper(this).EnsureHandle();
 
-                ComponentDispatcher.ThreadFilterMessage += ReceiveInput;
+                ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
 
                 RegisterHotKey(InteropHandle, HotKeyRegisterId, (byte)KeysModifiers.Win, (byte)KeysVirtual.CapsLock);
 

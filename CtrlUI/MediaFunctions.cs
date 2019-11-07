@@ -134,6 +134,17 @@ namespace CtrlUI
                 if (mediaTimeline.EndTime != new TimeSpan())
                 {
                     mediaProgress = mediaTimeline.Position.TotalSeconds * 100 / mediaTimeline.EndTime.TotalSeconds;
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        grid_Popup_Media_Information_Progress.Visibility = Visibility.Visible;
+                    });
+                }
+                else
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        grid_Popup_Media_Information_Progress.Visibility = Visibility.Collapsed;
+                    });
                 }
 
                 //Load the media thumbnail image
