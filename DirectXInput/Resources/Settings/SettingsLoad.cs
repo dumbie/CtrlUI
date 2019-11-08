@@ -3,30 +3,11 @@ using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using static DirectXInput.AppVariables;
 
 namespace DirectXInput
 {
     partial class WindowMain
     {
-        //Load - Socket server settings
-        void Settings_LoadSocket()
-        {
-            try
-            {
-                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-                Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-
-                string SocketServerIp = Convert.ToString(config.AppSettings.Settings["SocketClientIp"].Value);
-                int SocketServerPort = Convert.ToInt32(config.AppSettings.Settings["SocketClientPort"].Value);
-
-                vSocketServer.vTcpListenerIp = SocketServerIp;
-                vSocketServer.vTcpListenerPort = SocketServerPort + 1;
-            }
-            catch { }
-        }
-
         //Load - Application Settings
         async Task Settings_Load()
         {

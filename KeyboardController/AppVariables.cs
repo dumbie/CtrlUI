@@ -24,7 +24,7 @@ namespace KeyboardController
         public static bool vMouseHoldingLeft = false;
 
         //Socket Variables
-        public static ArnoldVinkSocketServer vSocketServer = new ArnoldVinkSocketServer();
+        public static ArnoldVinkSocketServer vSocketServer = null;
 
         //Controller Variables
         public static bool vControllerBusy = false;

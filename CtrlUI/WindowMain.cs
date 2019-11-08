@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -45,7 +46,6 @@ namespace CtrlUI
             {
                 //Initialize Settings
                 Settings_Check();
-                Settings_LoadSocket();
                 await Settings_Load();
                 Settings_Save();
 
@@ -176,10 +176,22 @@ namespace CtrlUI
                 UpdateControllerConnected();
 
                 //Enable the socket server
-                vSocketServer.SocketServerEnable();
-                vSocketServer.EventBytesReceived += ReceivedSocketHandler;
+                EnableSocketServer();
 
                 Debug.WriteLine("Application has launched.");
+            }
+            catch { }
+        }
+
+        //Enable the socket server
+        private void EnableSocketServer()
+        {
+            try
+            {
+                int SocketServerPort = Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]);
+
+                vSocketServer = new ArnoldVinkSocketServer("127.0.0.1", SocketServerPort);
+                vSocketServer.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }
         }

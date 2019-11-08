@@ -188,7 +188,7 @@ namespace CtrlUI
                     txt_SettingsSocketClientPortStart.BorderBrush = BrushValid;
                     txt_SettingsSocketClientPortRange.BorderBrush = BrushValid;
                     txt_SettingsSocketClientPortRange.Text = Convert.ToString(NewServerPort + 2);
-                    SettingSave("SocketClientPort", txt_SettingsSocketClientPortStart.Text);
+                    SettingSave("ServerPort", txt_SettingsSocketClientPortStart.Text);
                 };
             }
             catch { }

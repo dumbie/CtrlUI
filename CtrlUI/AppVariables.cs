@@ -133,7 +133,7 @@ namespace CtrlUI
         public static int vControllerDelay_Global = Environment.TickCount;
 
         //Socket Variables
-        public static ArnoldVinkSocketServer vSocketServer = new ArnoldVinkSocketServer();
+        public static ArnoldVinkSocketServer vSocketServer = null;
         public static ArnoldVinkSocketClient vSocketClient = new ArnoldVinkSocketClient();
 
         //Application Lists

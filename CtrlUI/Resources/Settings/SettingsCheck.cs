@@ -44,8 +44,7 @@ namespace CtrlUI
 
                 if (ConfigurationManager.AppSettings["ColorAccentLight"] == null) { SettingSave("ColorAccentLight", "#00C7FF"); }
 
-                if (ConfigurationManager.AppSettings["SocketClientIp"] == null) { SettingSave("SocketClientIp", "127.0.0.1"); }
-                if (ConfigurationManager.AppSettings["SocketClientPort"] == null) { SettingSave("SocketClientPort", "1010"); }
+                if (ConfigurationManager.AppSettings["ServerPort"] == null) { SettingSave("ServerPort", "1010"); }
 
                 if (ConfigurationManager.AppSettings["LaunchDirectXInput"] == null) { SettingSave("LaunchDirectXInput", "False"); }
             }

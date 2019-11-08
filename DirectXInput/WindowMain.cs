@@ -24,7 +24,6 @@ namespace DirectXInput
             {
                 //Initialize Settings
                 Settings_Check();
-                Settings_LoadSocket();
                 await Settings_Load();
                 Settings_Save();
 
@@ -78,10 +77,26 @@ namespace DirectXInput
                 SettingSave("AppFirstLaunch", "False");
 
                 //Enable the socket server
-                vSocketServer.SocketServerEnable();
-                vSocketServer.EventBytesReceived += ReceivedSocketHandler;
+                EnableSocketServer();
 
                 Debug.WriteLine("Application has launched.");
+            }
+            catch { }
+        }
+
+        //Enable the socket server
+        private void EnableSocketServer()
+        {
+            try
+            {
+                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
+                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
+                Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+
+                int SocketServerPort = Convert.ToInt32(config.AppSettings.Settings["ServerPort"].Value) + 1;
+
+                vSocketServer = new ArnoldVinkSocketServer("127.0.0.1", SocketServerPort);
+                vSocketServer.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }
         }

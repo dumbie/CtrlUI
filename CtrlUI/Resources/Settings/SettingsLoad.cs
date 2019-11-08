@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
@@ -14,20 +13,6 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Load - Socket server settings
-        void Settings_LoadSocket()
-        {
-            try
-            {
-                string SocketServerIp = Convert.ToString(ConfigurationManager.AppSettings["SocketClientIp"]);
-                int SocketServerPort = Convert.ToInt32(ConfigurationManager.AppSettings["SocketClientPort"]);
-
-                vSocketServer.vTcpListenerIp = SocketServerIp;
-                vSocketServer.vTcpListenerPort = SocketServerPort;
-            }
-            catch { }
-        }
-
         //Load - Application Settings
         async Task Settings_Load()
         {
@@ -57,8 +42,8 @@ namespace CtrlUI
                 cb_SettingsLaunchFpsOverlayer.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFpsOverlayer"]);
 
                 //Load the socket used ports
-                txt_SettingsSocketClientPortStart.Text = Convert.ToString(ConfigurationManager.AppSettings["SocketClientPort"]);
-                txt_SettingsSocketClientPortRange.Text = Convert.ToString(Convert.ToInt32(ConfigurationManager.AppSettings["SocketClientPort"]) + 2);
+                txt_SettingsSocketClientPortStart.Text = Convert.ToString(ConfigurationManager.AppSettings["ServerPort"]);
+                txt_SettingsSocketClientPortRange.Text = Convert.ToString(Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]) + 2);
 
                 //Load the application font size
                 textblock_SettingsFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);

@@ -52,7 +52,6 @@ namespace KeyboardController
             {
                 //Check application settings
                 WindowSettings.Settings_Check();
-                WindowSettings.Settings_LoadSocket();
                 WindowSettings.Settings_LoadAccentColor();
 
                 //Create tray icon
@@ -77,10 +76,26 @@ namespace KeyboardController
                 TasksBackgroundStart();
 
                 //Enable the socket server
-                vSocketServer.SocketServerEnable();
-                vSocketServer.EventBytesReceived += ReceivedSocketHandler;
+                EnableSocketServer();
 
                 Debug.WriteLine("Application has launched.");
+            }
+            catch { }
+        }
+
+        //Enable the socket server
+        private void EnableSocketServer()
+        {
+            try
+            {
+                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
+                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
+                Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+
+                int SocketServerPort = Convert.ToInt32(config.AppSettings.Settings["ServerPort"].Value) + 2;
+
+                vSocketServer = new ArnoldVinkSocketServer("127.0.0.1", SocketServerPort);
+                vSocketServer.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }
         }

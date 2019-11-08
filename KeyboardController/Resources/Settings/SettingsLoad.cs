@@ -2,30 +2,11 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Media;
-using static KeyboardController.AppVariables;
 
 namespace KeyboardController
 {
     public partial class WindowSettings
     {
-        //Load - Socket server settings
-        public static void Settings_LoadSocket()
-        {
-            try
-            {
-                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-                Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-
-                string SocketServerIp = Convert.ToString(config.AppSettings.Settings["SocketClientIp"].Value);
-                int SocketServerPort = Convert.ToInt32(config.AppSettings.Settings["SocketClientPort"].Value);
-
-                vSocketServer.vTcpListenerIp = SocketServerIp;
-                vSocketServer.vTcpListenerPort = SocketServerPort + 2;
-            }
-            catch { }
-        }
-
         //Load - Accent Color settings
         public static void Settings_LoadAccentColor()
         {
