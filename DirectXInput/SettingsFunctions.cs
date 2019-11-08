@@ -48,30 +48,36 @@ namespace DirectXInput
             try
             {
                 //Set application shortcut paths
-                string TargetFilePath_Admin = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
-                string TargetName_Admin = Assembly.GetEntryAssembly().GetName().Name;
-                string TargetFileShortcut_Admin = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + TargetName_Admin + ".url";
+                string TargetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
+                string TargetName = Assembly.GetEntryAssembly().GetName().Name;
+                string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + TargetName + ".url";
 
                 //Check if the shortcut already exists
-                if (!File.Exists(TargetFileShortcut_Admin))
+                if (!File.Exists(TargetFileShortcut))
                 {
-                    Debug.WriteLine("Adding application to Windows startup");
-                    using (StreamWriter StreamWriter = new StreamWriter(TargetFileShortcut_Admin))
+                    Debug.WriteLine("Adding application to Windows startup.");
+                    using (StreamWriter StreamWriter = new StreamWriter(TargetFileShortcut))
                     {
                         StreamWriter.WriteLine("[InternetShortcut]");
-                        StreamWriter.WriteLine("URL=" + TargetFilePath_Admin);
-                        StreamWriter.WriteLine("IconFile=" + TargetFilePath_Admin.Replace("file:///", ""));
+                        StreamWriter.WriteLine("URL=" + TargetFilePath);
+                        StreamWriter.WriteLine("IconFile=" + TargetFilePath.Replace("file:///", ""));
                         StreamWriter.WriteLine("IconIndex=0");
                         StreamWriter.Flush();
                     }
                 }
                 else
                 {
-                    Debug.WriteLine("Removing application from Windows startup");
-                    if (File.Exists(TargetFileShortcut_Admin)) { File.Delete(TargetFileShortcut_Admin); }
+                    Debug.WriteLine("Removing application from Windows startup.");
+                    if (File.Exists(TargetFileShortcut))
+                    {
+                        File.Delete(TargetFileShortcut);
+                    }
                 }
             }
-            catch { }
+            catch
+            {
+                Debug.WriteLine("Failed creating startup shortcut.");
+            }
         }
 
         //Install drivers buttons

@@ -83,38 +83,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Create startup shortcut
-        void ManageShortcutStartup()
-        {
-            try
-            {
-                //Set application shortcut paths
-                string TargetFilePath_Admin = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
-                string TargetName_Admin = Assembly.GetEntryAssembly().GetName().Name;
-                string TargetFileShortcut_Admin = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + TargetName_Admin + ".url";
-
-                //Check if the shortcut already exists
-                if (!File.Exists(TargetFileShortcut_Admin))
-                {
-                    Debug.WriteLine("Adding application to Windows startup");
-                    using (StreamWriter StreamWriter = new StreamWriter(TargetFileShortcut_Admin))
-                    {
-                        StreamWriter.WriteLine("[InternetShortcut]");
-                        StreamWriter.WriteLine("URL=" + TargetFilePath_Admin);
-                        StreamWriter.WriteLine("IconFile=" + TargetFilePath_Admin.Replace("file:///", ""));
-                        StreamWriter.WriteLine("IconIndex=0");
-                        StreamWriter.Flush();
-                    }
-                }
-                else
-                {
-                    Debug.WriteLine("Removing application from Windows startup");
-                    if (File.Exists(TargetFileShortcut_Admin)) { File.Delete(TargetFileShortcut_Admin); }
-                }
-            }
-            catch { Debug.WriteLine("Failed creating startup shortcut."); }
-        }
-
         //Show the color picker popup
         async void Button_Settings_ColorPickerAccent(object sender, RoutedEventArgs args)
         {
@@ -125,17 +93,55 @@ namespace CtrlUI
             catch { }
         }
 
+        //Create startup shortcut
+        void ManageShortcutStartup()
+        {
+            try
+            {
+                //Set application shortcut paths
+                string TargetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
+                string TargetName = Assembly.GetEntryAssembly().GetName().Name;
+                string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + TargetName + ".url";
+
+                //Check if the shortcut already exists
+                if (!File.Exists(TargetFileShortcut))
+                {
+                    Debug.WriteLine("Adding application to Windows startup.");
+                    using (StreamWriter StreamWriter = new StreamWriter(TargetFileShortcut))
+                    {
+                        StreamWriter.WriteLine("[InternetShortcut]");
+                        StreamWriter.WriteLine("URL=" + TargetFilePath);
+                        StreamWriter.WriteLine("IconFile=" + TargetFilePath.Replace("file:///", ""));
+                        StreamWriter.WriteLine("IconIndex=0");
+                        StreamWriter.Flush();
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("Removing application from Windows startup.");
+                    if (File.Exists(TargetFileShortcut))
+                    {
+                        File.Delete(TargetFileShortcut);
+                    }
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed creating startup shortcut.");
+            }
+        }
+
         //Create geforce experience shortcut
         async void Button_Settings_AddGeforceExperience_Click(object sender, RoutedEventArgs args)
         {
             try
             {
                 //Set application shortcut paths
-                string TargetFilePath_Admin = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
-                string TargetName_Admin = Assembly.GetEntryAssembly().GetName().Name;
-                string TargetFileShortcut_Admin = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\" + TargetName_Admin + ".url";
-                string TargetFileBoxArtFile_Admin = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\" + TargetName_Admin + "\\box-art.png";
-                string TargetFileBoxArtDirectory_Admin = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\" + TargetName_Admin;
+                string TargetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
+                string TargetName = Assembly.GetEntryAssembly().GetName().Name;
+                string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\" + TargetName + ".url";
+                string TargetFileBoxArtFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\" + TargetName + "\\box-art.png";
+                string TargetFileBoxArtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\" + TargetName;
 
                 //Check if the shortcut folder exists
                 if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\"))
@@ -145,22 +151,22 @@ namespace CtrlUI
                 }
 
                 //Check if the shortcut already exists
-                if (!File.Exists(TargetFileShortcut_Admin))
+                if (!File.Exists(TargetFileShortcut))
                 {
                     Debug.WriteLine("Adding application to GeForce Experience");
 
-                    using (StreamWriter StreamWriter = new StreamWriter(TargetFileShortcut_Admin))
+                    using (StreamWriter StreamWriter = new StreamWriter(TargetFileShortcut))
                     {
                         StreamWriter.WriteLine("[InternetShortcut]");
-                        StreamWriter.WriteLine("URL=" + TargetFilePath_Admin);
-                        StreamWriter.WriteLine("IconFile=" + TargetFilePath_Admin.Replace("file:///", ""));
+                        StreamWriter.WriteLine("URL=" + TargetFilePath);
+                        StreamWriter.WriteLine("IconFile=" + TargetFilePath.Replace("file:///", ""));
                         StreamWriter.WriteLine("IconIndex=0");
                         StreamWriter.Flush();
                     }
 
                     //Copy art box to the Streaming Assets directory
-                    Directory.CreateDirectory(TargetFileBoxArtFile_Admin.Replace("\\box-art.png", ""));
-                    File.Copy("Assets\\BoxArt.png", TargetFileBoxArtFile_Admin, true);
+                    Directory.CreateDirectory(TargetFileBoxArtFile.Replace("\\box-art.png", ""));
+                    File.Copy("Assets\\BoxArt.png", TargetFileBoxArtFile, true);
 
                     btn_Settings_AddGeforceExperience.Content = "Remove CtrlUI from GeForce Experience";
 
@@ -175,8 +181,8 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Removing application from GeForce Experience");
-                    if (File.Exists(TargetFileShortcut_Admin)) { File.Delete(TargetFileShortcut_Admin); }
-                    if (Directory.Exists(TargetFileBoxArtDirectory_Admin)) { Directory.Delete(TargetFileBoxArtDirectory_Admin, true); }
+                    if (File.Exists(TargetFileShortcut)) { File.Delete(TargetFileShortcut); }
+                    if (Directory.Exists(TargetFileBoxArtDirectory)) { Directory.Delete(TargetFileBoxArtDirectory, true); }
 
                     btn_Settings_AddGeforceExperience.Content = "Add CtrlUI to GeForce Experience";
 
