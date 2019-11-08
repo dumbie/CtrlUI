@@ -2,7 +2,7 @@
 {
     public class HidDeviceCapabilities
     {
-        internal HidDeviceCapabilities(NativeMethods_Hid.HIDP_CAPS capabilities)
+        public HidDeviceCapabilities(NativeMethods_Hid.HIDP_CAPS capabilities)
         {
             Usage = capabilities.Usage;
             UsagePage = capabilities.UsagePage;

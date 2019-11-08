@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static LibraryUsb.NativeMethods_DeviceManager;
 using static LibraryUsb.NativeMethods_Hid;
-using static LibraryUsb.NativeMethods_SetupDi;
+using static LibraryUsb.NativeMethods_SetupApi;
 using static LibraryUsb.NativeMethods_WinUsb;
 
 namespace LibraryUsb
@@ -27,14 +28,17 @@ namespace LibraryUsb
         public byte BulkIn = 0xFF;
         public byte BulkOut = 0xFF;
 
-        public virtual bool OpenDeviceClass(bool Initialize)
+        public bool OpenDeviceClass(bool Initialize)
         {
             string DevicePath = string.Empty;
-            if (Find(GuidClass, ref DevicePath)) { return OpenDevicePath(DevicePath, Initialize); }
+            if (Find(GuidClass, ref DevicePath))
+            {
+                return OpenDevicePath(DevicePath, Initialize);
+            }
             return false;
         }
 
-        public virtual bool OpenDevicePath(string DevicePath, bool Initialize)
+        public bool OpenDevicePath(string DevicePath, bool Initialize)
         {
             this.DevicePath = DevicePath.ToUpper();
             if (GetDeviceHandle(this.DevicePath))
@@ -43,26 +47,35 @@ namespace LibraryUsb
                 {
                     if (WinUsb_Initialize(FileHandle, ref WinUsbHandle))
                     {
-                        if (InitializeDevice()) { IsActive = true; }
+                        if (InitializeDevice())
+                        {
+                            IsActive = true;
+                        }
                         else
                         {
                             WinUsb_Free(WinUsbHandle);
                             WinUsbHandle = (IntPtr)INVALID_HANDLE_VALUE;
                         }
                     }
-                    else { CloseHandle(FileHandle); }
+                    else
+                    {
+                        CloseHandle(FileHandle);
+                    }
                 }
-                else { IsActive = true; }
+                else
+                {
+                    IsActive = true;
+                }
             }
 
             return IsActive;
         }
 
-        public virtual bool Dispose()
+        public bool Dispose()
         {
             IsActive = false;
 
-            if (!(WinUsbHandle == (IntPtr)INVALID_HANDLE_VALUE))
+            if (WinUsbHandle != (IntPtr)INVALID_HANDLE_VALUE)
             {
                 WinUsb_AbortPipe(WinUsbHandle, IntIn);
                 WinUsb_AbortPipe(WinUsbHandle, BulkIn);
@@ -75,64 +88,13 @@ namespace LibraryUsb
             if (FileHandle != IntPtr.Zero)
             {
                 CloseHandle(FileHandle);
-
                 FileHandle = IntPtr.Zero;
             }
 
             return true;
         }
 
-        internal USB_DEVICE_DESCRIPTOR ReadDescriptor(ref int Transferred)
-        {
-            USB_DEVICE_DESCRIPTOR USB_DEVICE_DESCRIPTOR = new USB_DEVICE_DESCRIPTOR();
-            int USB_DEVICE_DESCRIPTOR_SIZE = Marshal.SizeOf(USB_DEVICE_DESCRIPTOR);
-            WinUsb_GetDescriptor(WinUsbHandle, 0x01, 0, 0, ref USB_DEVICE_DESCRIPTOR, USB_DEVICE_DESCRIPTOR_SIZE, ref Transferred);
-            return USB_DEVICE_DESCRIPTOR;
-        }
-
-        public virtual bool ReadIntPipe(byte[] Buffer, int Length, ref int Transferred)
-        {
-            if (!IsActive) return false;
-
-            return WinUsb_ReadPipe(WinUsbHandle, IntIn, Buffer, Length, ref Transferred, IntPtr.Zero);
-        }
-
-        public virtual bool ReadBulkPipe(byte[] Buffer, int Length, ref int Transferred)
-        {
-            if (!IsActive) return false;
-
-            return WinUsb_ReadPipe(WinUsbHandle, BulkIn, Buffer, Length, ref Transferred, IntPtr.Zero);
-        }
-
-        public virtual bool WriteIntPipe(byte[] Buffer, int Length, ref int Transferred)
-        {
-            if (!IsActive) return false;
-
-            return WinUsb_WritePipe(WinUsbHandle, IntOut, Buffer, Length, ref Transferred, IntPtr.Zero);
-        }
-
-        public virtual bool WriteBulkPipe(byte[] Buffer, int Length, ref int Transferred)
-        {
-            if (!IsActive) return false;
-
-            return WinUsb_WritePipe(WinUsbHandle, BulkOut, Buffer, Length, ref Transferred, IntPtr.Zero);
-        }
-
-        public virtual bool SendTransfer(byte RequestType, byte Request, ushort Value, byte[] Buffer, ref int Transferred)
-        {
-            if (!IsActive) return false;
-
-            WINUSB_SETUP_PACKET Setup = new WINUSB_SETUP_PACKET();
-            Setup.RequestType = RequestType;
-            Setup.Request = Request;
-            Setup.Value = Value;
-            Setup.Index = 0;
-            Setup.Length = (ushort)Buffer.Length;
-
-            return WinUsb_ControlTransfer(WinUsbHandle, Setup, Buffer, Buffer.Length, ref Transferred, IntPtr.Zero);
-        }
-
-        public virtual bool Plugin(int Serial)
+        public bool Plugin(int Serial)
         {
             if (IsActive)
             {
@@ -150,12 +112,12 @@ namespace LibraryUsb
                 Buffer[6] = (byte)((Serial >> 16) & 0xFF);
                 Buffer[7] = (byte)((Serial >> 24) & 0xFF);
 
-                return NativeMethods_DevMan.DeviceIoControl(FileHandle, 0x2A4000, Buffer, Buffer.Length, null, 0, ref Transferred, IntPtr.Zero);
+                return DeviceIoControl(FileHandle, 0x2A4000, Buffer, Buffer.Length, null, 0, ref Transferred, IntPtr.Zero);
             }
             return false;
         }
 
-        public virtual bool Unplug(int Serial)
+        public bool Unplug(int Serial)
         {
             if (IsActive)
             {
@@ -173,12 +135,12 @@ namespace LibraryUsb
                 Buffer[6] = (byte)((Serial >> 16) & 0xFF);
                 Buffer[7] = (byte)((Serial >> 24) & 0xFF);
 
-                return NativeMethods_DevMan.DeviceIoControl(FileHandle, 0x2A4004, Buffer, Buffer.Length, null, 0, ref Transferred, IntPtr.Zero);
+                return DeviceIoControl(FileHandle, 0x2A4004, Buffer, Buffer.Length, null, 0, ref Transferred, IntPtr.Zero);
             }
             return false;
         }
 
-        public virtual bool UnplugAll()
+        public bool UnplugAll()
         {
             if (IsActive)
             {
@@ -190,23 +152,12 @@ namespace LibraryUsb
                 Buffer[2] = 0x00;
                 Buffer[3] = 0x00;
 
-                return NativeMethods_DevMan.DeviceIoControl(FileHandle, 0x2A4004, Buffer, Buffer.Length, null, 0, ref Transfered, IntPtr.Zero);
-            }
-
-            return false;
-        }
-
-        public virtual bool Report(byte[] Input, byte[] Output)
-        {
-            if (IsActive)
-            {
-                int Transferred = 0;
-                return NativeMethods_DevMan.DeviceIoControl(FileHandle, 0x2A400C, Input, Input.Length, Output, Output.Length, ref Transferred, IntPtr.Zero) && Transferred > 0;
+                return DeviceIoControl(FileHandle, 0x2A4004, Buffer, Buffer.Length, null, 0, ref Transfered, IntPtr.Zero);
             }
             return false;
         }
 
-        protected virtual bool Find(Guid Target, ref string Path)
+        private bool Find(Guid Target, ref string Path)
         {
             IntPtr detailDataBuffer = IntPtr.Zero;
             IntPtr deviceInfoSet = IntPtr.Zero;
@@ -214,7 +165,8 @@ namespace LibraryUsb
             try
             {
                 SP_DEVICE_INTERFACE_DATA DeviceInterfaceData = new SP_DEVICE_INTERFACE_DATA(), da = new SP_DEVICE_INTERFACE_DATA();
-                int bufferSize = 0, memberIndex = 0;
+                int bufferSize = 0;
+                int memberIndex = 0;
 
                 deviceInfoSet = SetupDiGetClassDevs(ref Target, IntPtr.Zero, IntPtr.Zero, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
 
@@ -235,7 +187,10 @@ namespace LibraryUsb
                             Path = Marshal.PtrToStringAuto(pDevicePathName).ToUpper();
                             Marshal.FreeHGlobal(detailDataBuffer);
 
-                            if (memberIndex == 0) return true;
+                            if (memberIndex == 0)
+                            {
+                                return true;
+                            }
                         }
                         else
                         {
@@ -255,6 +210,7 @@ namespace LibraryUsb
             {
                 SetupDiDestroyDeviceInfoList(deviceInfoSet);
             }
+
             if (detailDataBuffer != IntPtr.Zero)
             {
                 Marshal.FreeHGlobal(detailDataBuffer);
@@ -263,7 +219,7 @@ namespace LibraryUsb
             return false;
         }
 
-        protected virtual bool GetDeviceInstance(ref string Instance)
+        private bool GetDeviceInstance(ref string Instance)
         {
             IntPtr detailDataBuffer = IntPtr.Zero;
             IntPtr deviceInfoSet = IntPtr.Zero;
@@ -271,7 +227,8 @@ namespace LibraryUsb
             try
             {
                 SP_DEVICE_INTERFACE_DATA DeviceInterfaceData = new SP_DEVICE_INTERFACE_DATA(), da = new SP_DEVICE_INTERFACE_DATA();
-                int bufferSize = 0, memberIndex = 0;
+                int bufferSize = 0;
+                int memberIndex = 0;
 
                 deviceInfoSet = SetupDiGetClassDevs(ref GuidClass, IntPtr.Zero, IntPtr.Zero, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
 
@@ -322,6 +279,7 @@ namespace LibraryUsb
             {
                 SetupDiDestroyDeviceInfoList(deviceInfoSet);
             }
+
             if (detailDataBuffer != IntPtr.Zero)
             {
                 Marshal.FreeHGlobal(detailDataBuffer);
@@ -330,33 +288,38 @@ namespace LibraryUsb
             return false;
         }
 
-        protected virtual bool GetDeviceHandle(string Path)
+        private bool GetDeviceHandle(string devicePath)
         {
             SECURITY_ATTRIBUTES security = new SECURITY_ATTRIBUTES();
             security.lpSecurityDescriptor = IntPtr.Zero;
             security.bInheritHandle = true;
             security.nLength = Marshal.SizeOf(security);
 
-            int flags = FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED;
+            uint fileAttributes = (uint)FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL | (uint)FILE_FLAG.FILE_FLAG_OVERLAPPED;
+            uint desiredAccess = (uint)GENERIC_MODE.GENERIC_WRITE | (uint)GENERIC_MODE.GENERIC_READ;
+            uint shareMode = (uint)FILE_SHARE.FILE_SHARE_READ | (uint)FILE_SHARE.FILE_SHARE_WRITE;
 
-            FileHandle = CreateFile(Path, (GENERIC_WRITE | GENERIC_READ), FILE_SHARE_READ | FILE_SHARE_WRITE, ref security, OPEN_EXISTING, flags, 0);
+            FileHandle = CreateFile(devicePath, desiredAccess, shareMode, ref security, OPEN_EXISTING, fileAttributes, 0);
 
-            if (FileHandle == IntPtr.Zero || FileHandle == (IntPtr)INVALID_HANDLE_VALUE) { FileHandle = IntPtr.Zero; }
+            if (FileHandle == IntPtr.Zero || FileHandle == (IntPtr)INVALID_HANDLE_VALUE)
+            {
+                FileHandle = IntPtr.Zero;
+            }
 
-            return !(FileHandle == IntPtr.Zero);
+            return FileHandle != IntPtr.Zero;
         }
 
-        protected virtual bool UsbEndpointDirectionIn(int addr)
+        private bool UsbEndpointDirectionIn(int addr)
         {
             return (addr & 0x80) == 0x80;
         }
 
-        protected virtual bool UsbEndpointDirectionOut(int addr)
+        private bool UsbEndpointDirectionOut(int addr)
         {
             return (addr & 0x80) == 0x00;
         }
 
-        protected virtual bool InitializeDevice()
+        private bool InitializeDevice()
         {
             try
             {
@@ -369,12 +332,12 @@ namespace LibraryUsb
                     {
                         WinUsb_QueryPipe(WinUsbHandle, 0, Convert.ToByte(i), ref pipeInfo);
 
-                        if (((pipeInfo.PipeType == USBD_PIPE_TYPE.UsbdPipeTypeBulk) & UsbEndpointDirectionIn(pipeInfo.PipeId)))
+                        if ((pipeInfo.PipeType == USBD_PIPE_TYPE.UsbdPipeTypeBulk) & UsbEndpointDirectionIn(pipeInfo.PipeId))
                         {
                             BulkIn = pipeInfo.PipeId;
                             WinUsb_FlushPipe(WinUsbHandle, BulkIn);
                         }
-                        else if (((pipeInfo.PipeType == USBD_PIPE_TYPE.UsbdPipeTypeBulk) & UsbEndpointDirectionOut(pipeInfo.PipeId)))
+                        else if ((pipeInfo.PipeType == USBD_PIPE_TYPE.UsbdPipeTypeBulk) & UsbEndpointDirectionOut(pipeInfo.PipeId))
                         {
                             BulkOut = pipeInfo.PipeId;
                             WinUsb_FlushPipe(WinUsbHandle, BulkOut);
@@ -401,7 +364,7 @@ namespace LibraryUsb
             return false;
         }
 
-        protected virtual bool RestartDevice(String InstanceId)
+        private bool RestartDevice(string InstanceId)
         {
             IntPtr deviceInfoSet = IntPtr.Zero;
 

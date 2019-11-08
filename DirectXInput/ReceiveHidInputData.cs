@@ -25,10 +25,10 @@ namespace DirectXInput
                     try
                     {
                         //Read data from the controller
-                        bool Readed = NativeMethods_Hid.ReadFile(Controller.HidDevice.DeviceHandle, Controller.InputReport, (uint)Controller.InputReport.Length, out uint bytesRead, IntPtr.Zero);
+                        bool ReadFile = NativeMethods_Hid.ReadFile(Controller.HidDevice.DeviceHandle, Controller.InputReport, (uint)Controller.InputReport.Length, out uint bytesRead, IntPtr.Zero);
 
                         //Check if there is data from the controller
-                        if (!Readed)
+                        if (!ReadFile)
                         {
                             Debug.WriteLine("Failed to read input data from hid controller: " + Controller.NumberId);
                             continue;

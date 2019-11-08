@@ -82,8 +82,8 @@ namespace DirectXInput
                         byte[] SendBytes = SerializeObjectToBytes(socketSend);
 
                         //Send socket data
-                        TcpClient socketClient = vSocketClient.SocketClientCheck(DeserializedBytes.SourceIp, DeserializedBytes.SourcePort, vSocketServer.vTcpListenerTimeout);
-                        vSocketClient.SocketClientSendBytes(socketClient, SendBytes, vSocketServer.vTcpListenerTimeout, false);
+                        TcpClient socketClient = vSocketClient.SocketClientCheck(DeserializedBytes.SourceIp, DeserializedBytes.SourcePort, vSocketClient.vTcpClientTimeout);
+                        vSocketClient.SocketClientSendBytes(socketClient, SendBytes, vSocketClient.vTcpClientTimeout, false);
                     }
                 }
             }

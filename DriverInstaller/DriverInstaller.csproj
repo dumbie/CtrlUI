@@ -94,8 +94,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DevMan\DevMan-SetupApi.cs" />
-    <Compile Include="DevMan\NativeMethods_SetupApi.cs" />
+    <Compile Include="DeviceManager.cs" />
     <Compile Include="DriverInstall.cs" />
     <Compile Include="WindowMain.cs" />
   </ItemGroup>
@@ -118,6 +117,10 @@
       <Project>{318363b3-3252-438d-8f71-7a271a276da6}</Project>
       <Name>LibraryShared</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\LibraryUsb\LibraryUsb.csproj">
+      <Project>{a9092d5a-1b08-4ea8-b684-0e2ac4d1af1a}</Project>
+      <Name>LibraryUsb</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

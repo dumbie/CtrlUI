@@ -1,12 +1,12 @@
 ﻿using ArnoldVinkCode;
+using LibraryUsb;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using static LibraryShared.Classes;
 using static DirectXInput.AppVariables;
-using LibraryUsb;
+using static LibraryShared.Classes;
 using static LibraryUsb.HidDevices;
 using static LibraryUsb.NativeMethods_Hid;
 
@@ -76,6 +76,9 @@ namespace DirectXInput
                 {
                     try
                     {
+                        //Check if the device is a game controller
+                        if (!EnumDevice.Description.EndsWith("game controller")) { continue; }
+
                         //Read information from the controller
                         HidDevice FoundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.Description, EnumDevice.HardwareId);
 
@@ -86,7 +89,6 @@ namespace DirectXInput
                         //Filter the controller by id and description
                         if (ProductHexId == "0x0000" && VendorHexId == "0x0000") { continue; } //Unknown
                         if (ProductHexId == "0x028e" && VendorHexId == "0x045e") { continue; } //Xbox 360
-                        if (!FoundHidDevice.Description.EndsWith("game controller")) { continue; }
 
                         //Get controller product information
                         string ProductNameString = FoundHidDevice.Attributes.ProductName;

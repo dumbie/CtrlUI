@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using static LibraryUsb.NativeMethods_Hid;
+using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace LibraryUsb
 {

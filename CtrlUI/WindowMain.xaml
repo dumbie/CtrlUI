@@ -433,7 +433,7 @@
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+                <StackPanel Grid.Row="2" Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
                     <Button Name="grid_Popup_Media_Previous" Width="100" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                         <Image Source="Assets/Icons/Previous.png"/>
                     </Button>

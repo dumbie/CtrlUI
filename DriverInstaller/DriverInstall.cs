@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using static DriverInstaller.Driver.DevMan;
+using static DriverInstaller.DeviceManager;
+using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace DriverInstaller
 {
@@ -53,7 +54,7 @@ namespace DriverInstaller
                     TextBoxAppend("Virtual Bus Driver created.");
                 }
 
-                if (Install(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DiirFlags.DIIRFLAG_FORCE_INF, ref RebootRequired))
+                if (Install(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref RebootRequired))
                 {
                     TextBoxAppend("Virtual Bus Driver installed.");
                 }
@@ -69,7 +70,7 @@ namespace DriverInstaller
         {
             try
             {
-                if (Install(@"Resources\Drivers\Ds3WinUsb\Ds3WinUsb.inf", DiirFlags.DIIRFLAG_FORCE_INF, ref RebootRequired))
+                if (Install(@"Resources\Drivers\Ds3WinUsb\Ds3WinUsb.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref RebootRequired))
                 {
                     TextBoxAppend("DS3 USB Driver installed.");
                 }
@@ -90,7 +91,7 @@ namespace DriverInstaller
                     TextBoxAppend("HidGuardian Driver created.");
                 }
 
-                if (Install(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DiirFlags.DIIRFLAG_FORCE_INF, ref RebootRequired))
+                if (Install(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref RebootRequired))
                 {
                     TextBoxAppend("HidGuardian Driver installed.");
                 }

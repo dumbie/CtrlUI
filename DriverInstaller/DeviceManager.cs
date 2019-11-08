@@ -1,26 +1,33 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using static LibraryUsb.NativeMethods_SetupApi;
 
-namespace DriverInstaller.Driver
+namespace DriverInstaller
 {
-    public static partial class DevMan
+    public static partial class DeviceManager
     {
-        public static bool Install(string driverPackageInfPath, DiirFlags flag, ref bool rebootRequired)
+        public static bool Install(string driverPackageInfPath, DIIRFLAG flag, ref bool rebootRequired)
         {
             try
             {
                 return DiInstallDriver(IntPtr.Zero, driverPackageInfPath, (uint)flag, ref rebootRequired);
             }
-            catch { return false; }
+            catch
+            {
+                return false;
+            }
         }
 
-        public static bool Uninstall(string driverPackageInfPath, DiirFlags flag, ref bool rebootRequired)
+        public static bool Uninstall(string driverPackageInfPath, DIIRFLAG flag, ref bool rebootRequired)
         {
             try
             {
                 return DiUninstallDriver(IntPtr.Zero, driverPackageInfPath, (uint)flag, ref rebootRequired);
             }
-            catch { return false; }
+            catch
+            {
+                return false;
+            }
         }
 
         public static bool Create(string className, Guid classGuid, string node)
@@ -94,7 +101,7 @@ namespace DriverInstaller.Driver
                                 int nBytes = 256;
                                 IntPtr ptrInstanceBuf = Marshal.AllocHGlobal(nBytes);
 
-                                CM_Get_Device_ID(deviceInterfaceData2.Flags, ptrInstanceBuf, nBytes, 0);
+                                CM_Get_Device_ID(deviceInterfaceData2.DevInst, ptrInstanceBuf, nBytes, 0);
                                 instanceId = (Marshal.PtrToStringAuto(ptrInstanceBuf) ?? string.Empty).ToUpper();
 
                                 Marshal.FreeHGlobal(ptrInstanceBuf);
@@ -134,7 +141,7 @@ namespace DriverInstaller.Driver
                     SP_REMOVEDEVICE_PARAMS props = new SP_REMOVEDEVICE_PARAMS();
                     props.ClassInstallHeader = new SP_CLASSINSTALL_HEADER();
                     props.ClassInstallHeader.cbSize = Marshal.SizeOf(props.ClassInstallHeader);
-                    props.ClassInstallHeader.InstallFunction = DIF_REMOVE;
+                    props.ClassInstallHeader.installFunction = DIF_REMOVE;
                     props.Scope = DI_REMOVEDEVICE_GLOBAL;
                     props.HwProfile = 0x00;
 

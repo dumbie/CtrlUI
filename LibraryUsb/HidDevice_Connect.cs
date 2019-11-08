@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static LibraryUsb.NativeMethods_Bluetooth;
+using static LibraryUsb.NativeMethods_DeviceManager;
+using static LibraryUsb.NativeMethods_Hid;
+using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace LibraryUsb
 {
@@ -13,21 +17,23 @@ namespace LibraryUsb
         {
             try
             {
+                //Debug.WriteLine("Opening device: " + DevicePath);
+
                 //Try to open the device exclusively
-                DeviceShareMode = 0;
-                DeviceHandle = DeviceOpen(DevicePath, DeviceAccessMode, DeviceReadWriteMode, DeviceShareMode);
+                uint DeviceShareMode = (uint)FILE_SHARE.FILE_SHARE_NONE;
+                DeviceHandle = DeviceOpen(DevicePath, DeviceShareMode);
                 IsExclusive = true;
 
                 //If failed to open exclusively open normally
-                if (DeviceHandle.ToInt32() == NativeMethods_Hid.INVALID_HANDLE_VALUE)
+                if (DeviceHandle.ToInt32() == INVALID_HANDLE_VALUE)
                 {
                     //Debug.WriteLine("Failed to open device exclusively, opening normally.");
-                    DeviceShareMode = NativeMethods_Hid.FILE_SHARE_READ | NativeMethods_Hid.FILE_SHARE_WRITE;
-                    DeviceHandle = DeviceOpen(DevicePath, DeviceAccessMode, DeviceReadWriteMode, DeviceShareMode);
+                    DeviceShareMode = (uint)FILE_SHARE.FILE_SHARE_READ | (uint)FILE_SHARE.FILE_SHARE_WRITE;
+                    DeviceHandle = DeviceOpen(DevicePath, DeviceShareMode);
                     IsExclusive = false;
                 }
 
-                return DeviceHandle.ToInt32() != NativeMethods_Hid.INVALID_HANDLE_VALUE;
+                return DeviceHandle.ToInt32() != INVALID_HANDLE_VALUE;
             }
             catch (Exception ex)
             {
@@ -49,32 +55,36 @@ namespace LibraryUsb
                 //Set and parse the mac address
                 byte[] MacAddressBytes = new byte[8];
                 string[] MacAddressSplit = { $"{MacAddressRaw[0]}{MacAddressRaw[1]}", $"{MacAddressRaw[2]}{MacAddressRaw[3]}", $"{MacAddressRaw[4]}{MacAddressRaw[5]}", $"{MacAddressRaw[6]}{MacAddressRaw[7]}", $"{MacAddressRaw[8]}{MacAddressRaw[9]}", $"{MacAddressRaw[10]}{MacAddressRaw[11]}" };
-                for (int i = 0; i < 6; i++) { MacAddressBytes[5 - i] = Convert.ToByte(MacAddressSplit[i], 16); }
+                for (int i = 0; i < 6; i++)
+                {
+                    MacAddressBytes[5 - i] = Convert.ToByte(MacAddressSplit[i], 16);
+                }
+
                 Debug.WriteLine("Disconnecting bluetooth device: " + MacAddressRaw);
 
                 //Disconnect the device from bluetooth
-                NativeMethods_Bluetooth.BLUETOOTH_FIND_RADIO_PARAMS RadioFindParams = new NativeMethods_Bluetooth.BLUETOOTH_FIND_RADIO_PARAMS();
+                BLUETOOTH_FIND_RADIO_PARAMS RadioFindParams = new BLUETOOTH_FIND_RADIO_PARAMS();
                 RadioFindParams.dwSize = Marshal.SizeOf(RadioFindParams);
 
                 int Transferred = 0;
                 IntPtr BluetoothHandle = IntPtr.Zero;
-                IntPtr RadioHandle = NativeMethods_Bluetooth.BluetoothFindFirstRadio(ref RadioFindParams, ref BluetoothHandle);
+                IntPtr RadioHandle = BluetoothFindFirstRadio(ref RadioFindParams, ref BluetoothHandle);
 
                 bool ControllerDisconnected = false;
                 while (!ControllerDisconnected)
                 {
-                    ControllerDisconnected = NativeMethods_DevMan.DeviceIoControl(BluetoothHandle, NativeMethods_Bluetooth.IOCTL_BTH_DISCONNECT_DEVICE, MacAddressBytes, MacAddressBytes.Length, null, 0, ref Transferred, IntPtr.Zero);
-                    NativeMethods_Hid.CloseHandle(BluetoothHandle);
+                    ControllerDisconnected = DeviceIoControl(BluetoothHandle, IOCTL_BTH_DISCONNECT_DEVICE, MacAddressBytes, MacAddressBytes.Length, null, 0, ref Transferred, IntPtr.Zero);
+                    CloseHandle(BluetoothHandle);
                     if (!ControllerDisconnected)
                     {
-                        if (!NativeMethods_Bluetooth.BluetoothFindNextRadio(RadioHandle, ref BluetoothHandle))
+                        if (!BluetoothFindNextRadio(RadioHandle, ref BluetoothHandle))
                         {
                             ControllerDisconnected = true;
                         }
                     }
                 }
 
-                NativeMethods_Bluetooth.BluetoothFindRadioClose(RadioHandle);
+                BluetoothFindRadioClose(RadioHandle);
                 Debug.WriteLine("Bluetooth disconnected succesfully: " + ControllerDisconnected);
             }
             catch { }
@@ -86,47 +96,47 @@ namespace LibraryUsb
             try
             {
                 Guid HidGuid = Guid.Empty;
-                NativeMethods_Hid.HidD_GetHidGuid(ref HidGuid);
+                HidD_GetHidGuid(ref HidGuid);
 
-                IntPtr DeviceClass = NativeMethods_Hid.SetupDiGetClassDevs(ref HidGuid, ConvertPathToInstanceId(), 0, NativeMethods_Hid.DIGCF_DEVICEINTERFACE);
-                NativeMethods_Hid.SP_DEVINFO_DATA DeviceInfoData = new NativeMethods_Hid.SP_DEVINFO_DATA();
+                IntPtr DeviceClass = SetupDiGetClassDevs(ref HidGuid, ConvertPathToInstanceId(), 0, DIGCF_DEVICEINTERFACE);
+                SP_DEVINFO_DATA DeviceInfoData = new SP_DEVINFO_DATA();
                 DeviceInfoData.cbSize = Marshal.SizeOf(DeviceInfoData);
 
-                bool DeviceStatus = NativeMethods_Hid.SetupDiEnumDeviceInfo(DeviceClass, 0, ref DeviceInfoData);
+                bool DeviceStatus = SetupDiEnumDeviceInfo(DeviceClass, 0, ref DeviceInfoData);
                 if (!DeviceStatus)
                 {
                     Debug.WriteLine("SetupDi: Failed getting device info.");
-                    NativeMethods_Hid.SetupDiDestroyDeviceInfoList(DeviceClass);
+                    SetupDiDestroyDeviceInfoList(DeviceClass);
                     return false;
                 }
 
-                NativeMethods_SetupDi.SP_PROPCHANGE_PARAMS PropertyParams = new NativeMethods_SetupDi.SP_PROPCHANGE_PARAMS();
+                SP_PROPCHANGE_PARAMS PropertyParams = new SP_PROPCHANGE_PARAMS();
                 PropertyParams.classInstallHeader.cbSize = Marshal.SizeOf(PropertyParams.classInstallHeader);
-                PropertyParams.classInstallHeader.installFunction = NativeMethods_SetupDi.DIF_PROPERTYCHANGE;
-                PropertyParams.Scope = NativeMethods_SetupDi.DICS_FLAG_GLOBAL;
+                PropertyParams.classInstallHeader.installFunction = DIF_PROPERTYCHANGE;
+                PropertyParams.Scope = DICS_FLAG_GLOBAL;
 
                 //Set disable param
-                PropertyParams.stateChange = NativeMethods_SetupDi.DICS_DISABLE;
+                PropertyParams.stateChange = DICS_DISABLE;
 
                 //Prepare the device
-                DeviceStatus = NativeMethods_SetupDi.SetupDiSetClassInstallParams(DeviceClass, ref DeviceInfoData, ref PropertyParams, Marshal.SizeOf(PropertyParams));
+                DeviceStatus = SetupDiSetClassInstallParams(DeviceClass, ref DeviceInfoData, ref PropertyParams, Marshal.SizeOf(PropertyParams));
                 if (!DeviceStatus)
                 {
                     Debug.WriteLine("SetupDi: Failed to set install params.");
-                    NativeMethods_Hid.SetupDiDestroyDeviceInfoList(DeviceClass);
+                    SetupDiDestroyDeviceInfoList(DeviceClass);
                     return false;
                 }
 
                 //Disable the device
-                DeviceStatus = NativeMethods_SetupDi.SetupDiCallClassInstaller(NativeMethods_SetupDi.DIF_PROPERTYCHANGE, DeviceClass, ref DeviceInfoData);
+                DeviceStatus = SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, DeviceClass, ref DeviceInfoData);
                 if (!DeviceStatus)
                 {
                     Debug.WriteLine("SetupDi: Failed to disable the device.");
-                    NativeMethods_Hid.SetupDiDestroyDeviceInfoList(DeviceClass);
+                    SetupDiDestroyDeviceInfoList(DeviceClass);
                     return false;
                 }
 
-                NativeMethods_Hid.SetupDiDestroyDeviceInfoList(DeviceClass);
+                SetupDiDestroyDeviceInfoList(DeviceClass);
                 return true;
             }
             catch
@@ -142,47 +152,47 @@ namespace LibraryUsb
             try
             {
                 Guid HidGuid = Guid.Empty;
-                NativeMethods_Hid.HidD_GetHidGuid(ref HidGuid);
+                HidD_GetHidGuid(ref HidGuid);
 
-                IntPtr DeviceClass = NativeMethods_Hid.SetupDiGetClassDevs(ref HidGuid, ConvertPathToInstanceId(), 0, NativeMethods_Hid.DIGCF_DEVICEINTERFACE);
-                NativeMethods_Hid.SP_DEVINFO_DATA DeviceInfoData = new NativeMethods_Hid.SP_DEVINFO_DATA();
+                IntPtr DeviceClass = SetupDiGetClassDevs(ref HidGuid, ConvertPathToInstanceId(), 0, DIGCF_DEVICEINTERFACE);
+                SP_DEVINFO_DATA DeviceInfoData = new SP_DEVINFO_DATA();
                 DeviceInfoData.cbSize = Marshal.SizeOf(DeviceInfoData);
 
-                bool DeviceStatus = NativeMethods_Hid.SetupDiEnumDeviceInfo(DeviceClass, 0, ref DeviceInfoData);
+                bool DeviceStatus = SetupDiEnumDeviceInfo(DeviceClass, 0, ref DeviceInfoData);
                 if (!DeviceStatus)
                 {
                     Debug.WriteLine("SetupDi: Failed getting device info.");
-                    NativeMethods_Hid.SetupDiDestroyDeviceInfoList(DeviceClass);
+                    SetupDiDestroyDeviceInfoList(DeviceClass);
                     return false;
                 }
 
-                NativeMethods_SetupDi.SP_PROPCHANGE_PARAMS PropertyParams = new NativeMethods_SetupDi.SP_PROPCHANGE_PARAMS();
+                SP_PROPCHANGE_PARAMS PropertyParams = new SP_PROPCHANGE_PARAMS();
                 PropertyParams.classInstallHeader.cbSize = Marshal.SizeOf(PropertyParams.classInstallHeader);
-                PropertyParams.classInstallHeader.installFunction = NativeMethods_SetupDi.DIF_PROPERTYCHANGE;
-                PropertyParams.Scope = NativeMethods_SetupDi.DICS_FLAG_GLOBAL;
+                PropertyParams.classInstallHeader.installFunction = DIF_PROPERTYCHANGE;
+                PropertyParams.Scope = DICS_FLAG_GLOBAL;
 
                 //Set enable param
-                PropertyParams.stateChange = NativeMethods_SetupDi.DICS_ENABLE;
+                PropertyParams.stateChange = DICS_ENABLE;
 
                 //Prepare the device
-                DeviceStatus = NativeMethods_SetupDi.SetupDiSetClassInstallParams(DeviceClass, ref DeviceInfoData, ref PropertyParams, Marshal.SizeOf(PropertyParams));
+                DeviceStatus = SetupDiSetClassInstallParams(DeviceClass, ref DeviceInfoData, ref PropertyParams, Marshal.SizeOf(PropertyParams));
                 if (!DeviceStatus)
                 {
                     Debug.WriteLine("SetupDi: Failed to set install params.");
-                    NativeMethods_Hid.SetupDiDestroyDeviceInfoList(DeviceClass);
+                    SetupDiDestroyDeviceInfoList(DeviceClass);
                     return false;
                 }
 
                 //Enable the device
-                DeviceStatus = NativeMethods_SetupDi.SetupDiCallClassInstaller(NativeMethods_SetupDi.DIF_PROPERTYCHANGE, DeviceClass, ref DeviceInfoData);
+                DeviceStatus = SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, DeviceClass, ref DeviceInfoData);
                 if (!DeviceStatus)
                 {
                     Debug.WriteLine("SetupDi: Failed to enable the device.");
-                    NativeMethods_Hid.SetupDiDestroyDeviceInfoList(DeviceClass);
+                    SetupDiDestroyDeviceInfoList(DeviceClass);
                     return false;
                 }
 
-                NativeMethods_Hid.SetupDiDestroyDeviceInfoList(DeviceClass);
+                SetupDiDestroyDeviceInfoList(DeviceClass);
                 return true;
             }
             catch
@@ -203,7 +213,10 @@ namespace LibraryUsb
                 if (InstanceId.EndsWith("\\")) { InstanceId = InstanceId.Remove(InstanceId.Length - 1); }
                 return InstanceId;
             }
-            catch { return string.Empty; }
+            catch
+            {
+                return string.Empty;
+            }
         }
     }
 }

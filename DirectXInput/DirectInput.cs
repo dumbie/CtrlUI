@@ -22,7 +22,7 @@ namespace DirectXInput
                     Debug.WriteLine("Initializing direct input for: " + Controller.Connected.DisplayName);
 
                     //Open the selected controller
-                    if (!OpenController(Controller))
+                    if (!await OpenController(Controller))
                     {
                         Debug.WriteLine("Failed to initialize direct input for: " + Controller.Connected.DisplayName);
                         AVActions.ActionDispatcherInvoke(delegate
@@ -227,7 +227,7 @@ namespace DirectXInput
         }
 
         //Open the desired controller
-        bool OpenController(ControllerStatus Controller)
+        async Task<bool> OpenController(ControllerStatus Controller)
         {
             try
             {
@@ -279,24 +279,18 @@ namespace DirectXInput
                         Controller.OutputReport = new byte[Controller.HidDevice.Capabilities.OutputReportByteLength];
 
                         //Read data from the controller
-                        bool ReadedFile = false;
-                        Task ReadControllerTask = new Task(() =>
-                        {
-                            ReadedFile = NativeMethods_Hid.ReadFile(Controller.HidDevice.DeviceHandle, Controller.InputReport, (uint)Controller.InputReport.Length, out uint bytesRead, IntPtr.Zero);
-                        });
-                        ReadControllerTask.Start();
-                        bool ReadControllerTaskResult = ReadControllerTask.Wait(2000);
+                        bool ReadFile = await Controller.HidDevice.ReadFileTimeout(Controller.InputReport, (uint)Controller.InputReport.Length, IntPtr.Zero, Controller.MilliSecondsReadTime);
 
                         //Check if the controller connected
-                        if (!ReadControllerTaskResult || !ReadedFile)
+                        if (!ReadFile)
                         {
-                            Debug.WriteLine("Invalid hid device: " + Controller.Connected.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadControllerTaskResult);
+                            Debug.WriteLine("Invalid hid device: " + Controller.Connected.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadFile);
                             vControllerBlockedPaths.Add(Controller.Connected.Path);
                             return false;
                         }
                         else if (!Controller.InputReport.Take(5).Any(x => x != 0))
                         {
-                            Debug.WriteLine("Invalid hid data: " + Controller.Connected.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadControllerTaskResult);
+                            Debug.WriteLine("Invalid hid data: " + Controller.Connected.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadFile);
                             return false;
                         }
                         else

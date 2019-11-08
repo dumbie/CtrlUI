@@ -20,7 +20,8 @@ namespace LibraryShared
 
             //Controller Connected
             public int LastActive = 0;
-            public int TimeoutMilliSeconds = 4000;
+            public int MilliSecondsReadTime = 2000;
+            public int MilliSecondsTimeout = 4000;
             public ControllerConnected Connected = null;
 
             //Controller Task

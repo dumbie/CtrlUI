@@ -14,10 +14,6 @@ namespace LibraryUsb
         public HidDeviceCapabilities Capabilities { get; }
         public HidDeviceAttributes Attributes { get; }
 
-        private uint DeviceAccessMode = 0; //0 = NonOverlapped / 1 = Overlapped
-        private uint DeviceReadWriteMode = GENERIC_READ | GENERIC_WRITE;
-        private uint DeviceShareMode = FILE_SHARE_READ | FILE_SHARE_WRITE;
-
         public HidDevice(string devicePath, string description, string hardwareId)
         {
             try
@@ -136,7 +132,10 @@ namespace LibraryUsb
 
                 return returnDeviceAttributes;
             }
-            catch { return null; }
+            catch
+            {
+                return null;
+            }
         }
 
         private HidDeviceCapabilities GetDeviceCapabilities()
@@ -154,23 +153,26 @@ namespace LibraryUsb
 
                 return new HidDeviceCapabilities(deviceCapabilities);
             }
-            catch { return null; }
+            catch
+            {
+                return null;
+            }
         }
 
-        private IntPtr DeviceOpen(string devicePath, uint accessMode, uint readWriteMode, uint shareMode)
+        private IntPtr DeviceOpen(string devicePath, uint shareMode)
         {
             IntPtr CreateResult = IntPtr.Zero;
             try
             {
-                int flags = 0;
-                if (accessMode == 1) { flags = FILE_FLAG_OVERLAPPED; }
-
                 SECURITY_ATTRIBUTES security = new SECURITY_ATTRIBUTES();
                 security.lpSecurityDescriptor = IntPtr.Zero;
                 security.bInheritHandle = true;
                 security.nLength = Marshal.SizeOf(security);
 
-                CreateResult = CreateFile(devicePath, readWriteMode, shareMode, ref security, OPEN_EXISTING, flags, 0);
+                uint fileAttributes = (uint)FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL | (uint)FILE_FLAG.FILE_FLAG_NORMAL;
+                uint desiredAccess = (uint)GENERIC_MODE.GENERIC_WRITE | (uint)GENERIC_MODE.GENERIC_READ;
+
+                CreateResult = CreateFile(devicePath, desiredAccess, shareMode, ref security, OPEN_EXISTING, fileAttributes, 0);
             }
             catch { }
             return CreateResult;

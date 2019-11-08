@@ -24,8 +24,8 @@ namespace DirectXInput
                     byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                     //Send socket data
-                    TcpClient socketClient = vSocketClient.SocketClientCheck(vSocketServer.vTcpListenerIp, vSocketServer.vTcpListenerPort - 1, vSocketServer.vTcpListenerTimeout);
-                    vSocketClient.SocketClientSendBytes(socketClient, SerializedData, vSocketServer.vTcpListenerTimeout, false);
+                    TcpClient socketClient = vSocketClient.SocketClientCheck(vSocketServer.vTcpListenerIp, vSocketServer.vTcpListenerPort - 1, vSocketClient.vTcpClientTimeout);
+                    vSocketClient.SocketClientSendBytes(socketClient, SerializedData, vSocketClient.vTcpClientTimeout, false);
 
                     //Update delay time
                     Controller.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayPollingTicks;
@@ -49,8 +49,8 @@ namespace DirectXInput
                     byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                     //Send socket data
-                    TcpClient socketClient = vSocketClient.SocketClientCheck(vSocketServer.vTcpListenerIp, vSocketServer.vTcpListenerPort + 1, vSocketServer.vTcpListenerTimeout);
-                    vSocketClient.SocketClientSendBytes(socketClient, SerializedData, vSocketServer.vTcpListenerTimeout, false);
+                    TcpClient socketClient = vSocketClient.SocketClientCheck(vSocketServer.vTcpListenerIp, vSocketServer.vTcpListenerPort + 1, vSocketClient.vTcpClientTimeout);
+                    vSocketClient.SocketClientSendBytes(socketClient, SerializedData, vSocketClient.vTcpClientTimeout, false);
 
                     //Update delay time
                     Controller.Delay_KeyboardControllerShortcut = Environment.TickCount + vControllerDelayPollingTicks;

@@ -3,98 +3,96 @@ using System.Runtime.InteropServices;
 
 namespace LibraryUsb
 {
-    internal static class NativeMethods_WinUsb
+    public static class NativeMethods_WinUsb
     {
-        internal const int FILE_ATTRIBUTE_NORMAL = 0x80;
-
-        internal enum USBD_PIPE_TYPE
+        public enum USBD_PIPE_TYPE
         {
             UsbdPipeTypeControl = 0,
             UsbdPipeTypeIsochronous = 1,
             UsbdPipeTypeBulk = 2,
-            UsbdPipeTypeInterrupt = 3,
+            UsbdPipeTypeInterrupt = 3
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct USB_INTERFACE_DESCRIPTOR
+        public struct USB_INTERFACE_DESCRIPTOR
         {
-            internal byte bLength;
-            internal byte bDescriptorType;
-            internal byte bInterfaceNumber;
-            internal byte bAlternateSetting;
-            internal byte bNumEndpoints;
-            internal byte bInterfaceClass;
-            internal byte bInterfaceSubClass;
-            internal byte bInterfaceProtocol;
-            internal byte iInterface;
+            public byte bLength;
+            public byte bDescriptorType;
+            public byte bInterfaceNumber;
+            public byte bAlternateSetting;
+            public byte bNumEndpoints;
+            public byte bInterfaceClass;
+            public byte bInterfaceSubClass;
+            public byte bInterfaceProtocol;
+            public byte iInterface;
         }
 
         [StructLayout(LayoutKind.Explicit, Size = 18, CharSet = CharSet.Auto)]
-        internal struct USB_DEVICE_DESCRIPTOR
+        public struct USB_DEVICE_DESCRIPTOR
         {
-            [FieldOffset(0)] internal byte bLength;
-            [FieldOffset(1)] internal byte bDescriptorType;
-            [FieldOffset(2)] internal ushort bcdUSB;
-            [FieldOffset(4)] internal byte bDeviceClass;
-            [FieldOffset(5)] internal byte bDeviceSubClass;
-            [FieldOffset(6)] internal byte bDeviceProtocol;
-            [FieldOffset(7)] internal byte bMaxPacketSize0;
-            [FieldOffset(8)] internal ushort idVendor;
-            [FieldOffset(10)] internal ushort idProduct;
-            [FieldOffset(12)] internal ushort bcdDevice;
-            [FieldOffset(14)] internal byte iVendor;
-            [FieldOffset(15)] internal byte iProduct;
-            [FieldOffset(16)] internal byte iSerialNumber;
-            [FieldOffset(17)] internal byte bNumConfigurations;
+            [FieldOffset(0)] public byte bLength;
+            [FieldOffset(1)] public byte bDescriptorType;
+            [FieldOffset(2)] public ushort bcdUSB;
+            [FieldOffset(4)] public byte bDeviceClass;
+            [FieldOffset(5)] public byte bDeviceSubClass;
+            [FieldOffset(6)] public byte bDeviceProtocol;
+            [FieldOffset(7)] public byte bMaxPacketSize0;
+            [FieldOffset(8)] public ushort idVendor;
+            [FieldOffset(10)] public ushort idProduct;
+            [FieldOffset(12)] public ushort bcdDevice;
+            [FieldOffset(14)] public byte iVendor;
+            [FieldOffset(15)] public byte iProduct;
+            [FieldOffset(16)] public byte iSerialNumber;
+            [FieldOffset(17)] public byte bNumConfigurations;
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct WINUSB_PIPE_INFORMATION
+        public struct WINUSB_PIPE_INFORMATION
         {
-            internal USBD_PIPE_TYPE PipeType;
-            internal byte PipeId;
-            internal ushort MaximumPacketSize;
-            internal byte Interval;
+            public USBD_PIPE_TYPE PipeType;
+            public byte PipeId;
+            public ushort MaximumPacketSize;
+            public byte Interval;
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        internal struct WINUSB_SETUP_PACKET
+        public struct WINUSB_SETUP_PACKET
         {
-            internal byte RequestType;
-            internal byte Request;
-            internal ushort Value;
-            internal ushort Index;
-            internal ushort Length;
+            public byte RequestType;
+            public byte Request;
+            public ushort Value;
+            public ushort Index;
+            public ushort Length;
         }
 
         [DllImport("winusb.dll")]
-        internal static extern bool WinUsb_Initialize(IntPtr DeviceHandle, ref IntPtr InterfaceHandle);
+        public static extern bool WinUsb_Initialize(IntPtr DeviceHandle, ref IntPtr InterfaceHandle);
 
         [DllImport("winusb.dll")]
-        internal static extern bool WinUsb_GetDescriptor(IntPtr InterfaceHandle, byte DescriptorType, byte Index, ushort LanguageID, ref USB_DEVICE_DESCRIPTOR UsbAltDeviceDescriptor, int BufferLength, ref int LengthTransferred);
+        public static extern bool WinUsb_GetDescriptor(IntPtr InterfaceHandle, byte DescriptorType, byte Index, ushort LanguageID, ref USB_DEVICE_DESCRIPTOR UsbAltDeviceDescriptor, int BufferLength, ref int LengthTransferred);
 
         [DllImport("winusb.dll")]
-        internal static extern bool WinUsb_QueryInterfaceSettings(IntPtr InterfaceHandle, byte AlternateInterfaceNumber, ref USB_INTERFACE_DESCRIPTOR UsbAltInterfaceDescriptor);
+        public static extern bool WinUsb_QueryInterfaceSettings(IntPtr InterfaceHandle, byte AlternateInterfaceNumber, ref USB_INTERFACE_DESCRIPTOR UsbAltInterfaceDescriptor);
 
         [DllImport("winusb.dll")]
-        internal static extern bool WinUsb_QueryPipe(IntPtr InterfaceHandle, byte AlternateInterfaceNumber, byte PipeIndex, ref WINUSB_PIPE_INFORMATION PipeInformation);
+        public static extern bool WinUsb_QueryPipe(IntPtr InterfaceHandle, byte AlternateInterfaceNumber, byte PipeIndex, ref WINUSB_PIPE_INFORMATION PipeInformation);
 
         [DllImport("winusb.dll")]
-        internal static extern bool WinUsb_AbortPipe(IntPtr InterfaceHandle, byte PipeID);
+        public static extern bool WinUsb_AbortPipe(IntPtr InterfaceHandle, byte PipeID);
 
         [DllImport("winusb.dll")]
-        internal static extern bool WinUsb_FlushPipe(IntPtr InterfaceHandle, byte PipeID);
+        public static extern bool WinUsb_FlushPipe(IntPtr InterfaceHandle, byte PipeID);
 
         [DllImport("winusb.dll")]
-        internal static extern bool WinUsb_ControlTransfer(IntPtr InterfaceHandle, WINUSB_SETUP_PACKET SetupPacket, byte[] Buffer, int BufferLength, ref int LengthTransferred, IntPtr Overlapped);
+        public static extern bool WinUsb_ControlTransfer(IntPtr InterfaceHandle, WINUSB_SETUP_PACKET SetupPacket, byte[] Buffer, int BufferLength, ref int LengthTransferred, IntPtr Overlapped);
 
         [DllImport("winusb.dll")]
-        internal static extern bool WinUsb_ReadPipe(IntPtr InterfaceHandle, byte PipeID, byte[] Buffer, int BufferLength, ref int LengthTransferred, IntPtr Overlapped);
+        public static extern bool WinUsb_ReadPipe(IntPtr InterfaceHandle, byte PipeID, byte[] Buffer, int BufferLength, ref int LengthTransferred, IntPtr Overlapped);
 
         [DllImport("winusb.dll")]
-        internal static extern bool WinUsb_WritePipe(IntPtr InterfaceHandle, byte PipeID, byte[] Buffer, int BufferLength, ref int LengthTransferred, IntPtr Overlapped);
+        public static extern bool WinUsb_WritePipe(IntPtr InterfaceHandle, byte PipeID, byte[] Buffer, int BufferLength, ref int LengthTransferred, IntPtr Overlapped);
 
         [DllImport("winusb.dll")]
-        internal static extern bool WinUsb_Free(IntPtr InterfaceHandle);
+        public static extern bool WinUsb_Free(IntPtr InterfaceHandle);
     }
 }

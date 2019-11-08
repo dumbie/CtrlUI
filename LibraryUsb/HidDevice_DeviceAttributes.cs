@@ -2,7 +2,7 @@
 {
     public class HidDeviceAttributes
     {
-        internal HidDeviceAttributes(NativeMethods_Hid.HIDD_ATTRIBUTES attributes)
+        public HidDeviceAttributes(NativeMethods_Hid.HIDD_ATTRIBUTES attributes)
         {
             VendorId = attributes.VendorID;
             ProductId = attributes.ProductID;
