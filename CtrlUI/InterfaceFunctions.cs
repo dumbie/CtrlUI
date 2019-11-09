@@ -132,6 +132,7 @@ namespace CtrlUI
                 grid_Popup_Welcome_button_Close.Click += Button_Popup_Close_Click;
 
                 //Search functions
+                lb_Search.PreviewKeyDown += ListBox_Search_KeyPressDown;
                 grid_Popup_Search_textbox_Search.TextChanged += Grid_Popup_Search_textbox_Search_TextChanged;
                 grid_Popup_Search_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Search_button_KeyboardController.Click += Button_KeyboardController_Click;

@@ -1,29 +1,14 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Classes;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
-        async void Grid_Popup_Search_button_ResetSearch_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //Reset the popup to defaults
-                await Popup_Reset_Search(true);
-            }
-            catch { }
-        }
-
         //Hide or show the search
         async Task Popup_ShowHide_Search(bool ForceShow)
         {
@@ -152,48 +137,6 @@ namespace CtrlUI
                     grid_Popup_Search_Count_TextBlock.Text = " " + List_Search.Count.ToString();
                     grid_Popup_Search_textblock_Result.Visibility = Visibility.Collapsed;
                     lb_Search.SelectedIndex = 0;
-                }
-            }
-            catch { }
-        }
-
-        void Grid_Popup_Search_textbox_Search_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-                string stringSearch = grid_Popup_Search_textbox_Search.Text;
-                if (!string.IsNullOrWhiteSpace(stringSearch) && stringSearch != "Search application...")
-                {
-                    //Clear the current popup list
-                    List_Search.Clear();
-                    GC.Collect();
-
-                    //Search for applications
-                    IEnumerable<DataBindApp> searchResult = CombineAppLists(true, true).Where(x => x.Name.ToLower().Contains(stringSearch.ToLower()));
-                    foreach (DataBindApp result in searchResult)
-                    {
-                        try
-                        {
-                            List_Search.Add(result);
-                        }
-                        catch { }
-                    }
-
-                    //Update the search results count
-                    UpdateSearchResults();
-
-                    Debug.WriteLine("Search application: " + stringSearch);
-                }
-                else
-                {
-                    //Clear the current popup list
-                    List_Search.Clear();
-                    GC.Collect();
-
-                    //Reset the search text
-                    grid_Popup_Search_Count_TextBlock.Text = string.Empty;
-                    grid_Popup_Search_textblock_Result.Text = "Please enter a search term above.";
-                    grid_Popup_Search_textblock_Result.Visibility = Visibility.Visible;
                 }
             }
             catch { }
