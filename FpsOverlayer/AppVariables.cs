@@ -11,12 +11,14 @@ namespace FpsOverlayer
 {
     public class AppVariables
     {
-        //Variables
+        //Application Variables
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        public static int vCurrentProcessId = Process.GetCurrentProcess().Id;
         public static int vTargetProcessId = -1;
         public static string vTargetProcessTitle = string.Empty;
         public static bool vManualHidden = false;
+
+        //Process Variables
+        public static Process vProcessCurrent = Process.GetCurrentProcess();
 
         //Frames per second
         public static int vLastFrameTimeAdded = 0;

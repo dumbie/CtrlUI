@@ -290,7 +290,7 @@ namespace CtrlUI
                     await Task.Delay(1000);
 
                     //Force focus on CtrlUI
-                    FocusWindowHandlePrepare("CtrlUI", Process.GetCurrentProcess().MainWindowHandle, 0, false, true, true, true, true, true);
+                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, true);
                 }
             }
             catch { }

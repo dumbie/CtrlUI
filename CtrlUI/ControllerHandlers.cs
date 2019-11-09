@@ -146,7 +146,8 @@ namespace CtrlUI
                     if (ControllerInput.ButtonA)
                     {
                         Debug.WriteLine("Button: APressed");
-                        KeyPressSingle((byte)KeysVirtual.Space, false);
+
+                        KeySendSingle((byte)KeysVirtual.Space, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayMedium = true;
@@ -157,7 +158,7 @@ namespace CtrlUI
 
                         if (Popup_Any_Open())
                         {
-                            KeyPressSingle((byte)KeysVirtual.Escape, false);
+                            KeySendSingle((byte)KeysVirtual.Escape, vProcessCurrent.MainWindowHandle);
                         }
                         else
                         {
@@ -171,7 +172,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: YPressed");
 
-                        KeyPressSingle((byte)KeysVirtual.Back, false);
+                        KeySendSingle((byte)KeysVirtual.Back, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayMedium = true;
@@ -182,7 +183,7 @@ namespace CtrlUI
 
                         if (vFilePickerOpen)
                         {
-                            KeyPressSingle((byte)KeysVirtual.Delete, false);
+                            KeySendSingle((byte)KeysVirtual.Delete, vProcessCurrent.MainWindowHandle);
                         }
                         else if (vSearchOpen)
                         {
@@ -200,6 +201,8 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: ShoulderLeftPressed");
                         PlayInterfaceSound("ClickRight", false);
+
+                        //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
 
                         ControllerUsed = true;
@@ -209,7 +212,8 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: ShoulderRightPressed");
                         PlayInterfaceSound("ClickRight", false);
-                        KeyPressSingle((byte)KeysVirtual.Tab, false);
+
+                        KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -234,7 +238,8 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: ThumbLeftPressed");
                         PlayInterfaceSound("ClickRight", false);
-                        KeyPressSingle((byte)KeysVirtual.Home, false);
+
+                        KeySendSingle((byte)KeysVirtual.Home, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -243,7 +248,8 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: ThumbRightPressed");
                         PlayInterfaceSound("ClickRight", false);
-                        KeyPressSingle((byte)KeysVirtual.End, false);
+
+                        KeySendSingle((byte)KeysVirtual.End, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -280,7 +286,8 @@ namespace CtrlUI
                     if (ControllerInput.DPadLeft)
                     {
                         Debug.WriteLine("Button: DPadLeftPressed");
-                        KeyPressSingle((byte)KeysVirtual.Left, false);
+
+                        KeySendSingle((byte)KeysVirtual.Left, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -288,7 +295,8 @@ namespace CtrlUI
                     else if (ControllerInput.DPadUp)
                     {
                         Debug.WriteLine("Button: DPadUpPressed");
-                        KeyPressSingle((byte)KeysVirtual.Up, false);
+
+                        KeySendSingle((byte)KeysVirtual.Up, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -296,7 +304,8 @@ namespace CtrlUI
                     else if (ControllerInput.DPadRight)
                     {
                         Debug.WriteLine("Button: DPadRightPressed");
-                        KeyPressSingle((byte)KeysVirtual.Right, false);
+
+                        KeySendSingle((byte)KeysVirtual.Right, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -304,7 +313,8 @@ namespace CtrlUI
                     else if (ControllerInput.DPadDown)
                     {
                         Debug.WriteLine("Button: DPadDownPressed");
-                        KeyPressSingle((byte)KeysVirtual.Down, false);
+
+                        KeySendSingle((byte)KeysVirtual.Down, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -391,28 +401,28 @@ namespace CtrlUI
                     //Left stick movement
                     if (ControllerInput.ThumbLeftX < -10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
                     {
-                        KeyPressSingle((byte)KeysVirtual.Left, false);
+                        KeySendSingle((byte)KeysVirtual.Left, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.ThumbLeftY > 10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
                     {
-                        KeyPressSingle((byte)KeysVirtual.Up, false);
+                        KeySendSingle((byte)KeysVirtual.Up, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.ThumbLeftX > 10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
                     {
-                        KeyPressSingle((byte)KeysVirtual.Right, false);
+                        KeySendSingle((byte)KeysVirtual.Right, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.ThumbLeftY < -10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
                     {
-                        KeyPressSingle((byte)KeysVirtual.Down, false);
+                        KeySendSingle((byte)KeysVirtual.Down, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -422,7 +432,8 @@ namespace CtrlUI
                     if (ControllerInput.ThumbRightX < -10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
                     {
                         PlayInterfaceSound("ClickRight", false);
-                        KeyPressSingle((byte)KeysVirtual.Home, false);
+
+                        KeySendSingle((byte)KeysVirtual.Home, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -430,7 +441,8 @@ namespace CtrlUI
                     else if (ControllerInput.ThumbRightY > 10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
                     {
                         PlayInterfaceSound("ClickRight", false);
-                        KeyPressSingle((byte)KeysVirtual.Prior, false);
+
+                        KeySendSingle((byte)KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -438,7 +450,8 @@ namespace CtrlUI
                     else if (ControllerInput.ThumbRightX > 10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
                     {
                         PlayInterfaceSound("ClickRight", false);
-                        KeyPressSingle((byte)KeysVirtual.End, false);
+
+                        KeySendSingle((byte)KeysVirtual.End, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -446,7 +459,8 @@ namespace CtrlUI
                     else if (ControllerInput.ThumbRightY < -10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
                     {
                         PlayInterfaceSound("ClickRight", false);
-                        KeyPressSingle((byte)KeysVirtual.Next, false);
+
+                        KeySendSingle((byte)KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;

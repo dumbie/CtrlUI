@@ -157,7 +157,7 @@ namespace CtrlUI
                 //Force focus on CtrlUI
                 if (ConfigurationManager.AppSettings["LaunchMinimized"] == "False")
                 {
-                    FocusWindowHandlePrepare("CtrlUI", Process.GetCurrentProcess().MainWindowHandle, 0, false, true, true, true, true, true);
+                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, true);
                 }
 
                 //Check settings if this is the first application launch
@@ -386,7 +386,7 @@ namespace CtrlUI
                 if (!SilentClose)
                 {
                     //Force focus on CtrlUI
-                    FocusWindowHandlePrepare("CtrlUI", Process.GetCurrentProcess().MainWindowHandle, 0, false, true, true, true, true, true);
+                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, true);
 
                     //Show the question messagebox
                     Result = await Popup_Show_MessageBox("Do you really want to close CtrlUI?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);

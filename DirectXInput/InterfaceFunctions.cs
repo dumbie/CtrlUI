@@ -192,7 +192,7 @@ namespace DirectXInput
                     {
                         if (WindowState == WindowState.Maximized) { vAppMaximized = true; } else { vAppMaximized = false; }
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
-                        if (vCurrentProcessId == FocusedAppId)
+                        if (vProcessCurrent.Id == FocusedAppId)
                         {
                             vAppActivated = true;
                             grid_WindowActive.Opacity = 0;

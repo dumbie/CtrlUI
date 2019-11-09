@@ -54,7 +54,7 @@ namespace DirectXInput
             {
                 using (RegistryKey RegisteryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    RegisteryKeyLocalMachine.CreateSubKey(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters\Whitelist\" + vCurrentProcessId);
+                    RegisteryKeyLocalMachine.CreateSubKey(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters\Whitelist\" + vProcessCurrent.Id);
                 }
 
                 Debug.WriteLine("Allowed DirectXInput process in HidGuardian.");

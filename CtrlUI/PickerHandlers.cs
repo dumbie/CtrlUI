@@ -200,11 +200,12 @@ namespace CtrlUI
             {
                 if (e.Key == Key.Up && lb_FilePicker.SelectedIndex == 0)
                 {
+                    //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                     KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
                 }
                 else if (e.Key == Key.Down && (lb_FilePicker.Items.Count - 1) == lb_FilePicker.SelectedIndex)
                 {
-                    KeyPressSingle((byte)KeysVirtual.Tab, false);
+                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }

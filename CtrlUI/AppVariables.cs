@@ -22,7 +22,6 @@ namespace CtrlUI
         public static int vAppCurrentMonitor = 0;
         public static CultureInfo vAppCultureInfo = new CultureInfo("en-US");
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        public static int vCurrentProcessId = Process.GetCurrentProcess().Id;
         public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static string[] vAppsBlacklistShortcut = new string[] { };
         public static string[] vAppsBlacklistShortcutUri = new string[] { };
@@ -47,9 +46,12 @@ namespace CtrlUI
         //Busy Variables
         public static bool vBusyRefreshingApps = false;
 
-        //App Status Variables
+        //Process Variables
+        public static Process vProcessCurrent = Process.GetCurrentProcess();
         public static Process vProcessDirectXInput = null;
         public static Process vProcessKeyboardController = null;
+
+        //App Status Variables
         public static ProcessFocus vPrevFocusedProcess = null;
         public static WindowState vAppPrevWindowState = WindowState.Normal;
         public static bool vChangingWindow = false;

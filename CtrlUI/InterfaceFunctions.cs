@@ -239,7 +239,7 @@ namespace CtrlUI
                     {
                         if (WindowState == WindowState.Maximized) { vAppMaximized = true; } else { vAppMaximized = false; }
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
-                        if (vCurrentProcessId == FocusedAppId)
+                        if (vProcessCurrent.Id == FocusedAppId)
                         {
                             grid_WindowActive.Opacity = 0;
                             grid_App.IsHitTestVisible = true;
@@ -413,7 +413,7 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("No focus listbox found or no longer focusable, pressing tab.");
-                    KeyPressSingle((byte)KeysVirtual.Tab, false);
+                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch
@@ -503,7 +503,7 @@ namespace CtrlUI
                         if (WhileLoop >= 30)
                         {
                             Debug.WriteLine("Failed focusing on the element after " + WhileLoop + " times, pressing tab.");
-                            KeyPressSingle((byte)KeysVirtual.Tab, false);
+                            KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                             return;
                         }
 
@@ -518,7 +518,7 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Failed focusing on the element directly, pressing tab.");
-                    KeyPressSingle((byte)KeysVirtual.Tab, false);
+                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch
@@ -626,14 +626,14 @@ namespace CtrlUI
                     }
 
                     //Force focus on CtrlUI
-                    FocusWindowHandlePrepare("CtrlUI", Process.GetCurrentProcess().MainWindowHandle, 0, false, true, true, true, true, false);
-                    await Task.Delay(500);
+                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, false);
 
                     //Press tab to gain focus on interface
                     if (Keyboard.FocusedElement == null)
                     {
-                        Debug.WriteLine("No focused element, pressing on the tab key.");
-                        KeyPressSingle((byte)KeysVirtual.Tab, false);
+                        Debug.WriteLine("No focused element, sending tab key.");
+                        await Task.Delay(1000);
+                        KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                     }
                 }
                 else
@@ -757,7 +757,10 @@ namespace CtrlUI
                 WindowState = WindowState.Minimized;
 
                 //Wait for application to minimize
-                if (Delay) { await Task.Delay(1000); }
+                if (Delay)
+                {
+                    await Task.Delay(1000);
+                }
             }
             catch { }
         }

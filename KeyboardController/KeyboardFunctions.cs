@@ -68,17 +68,43 @@ namespace KeyboardController
                     KeyPressSingle((byte)KeysVirtual.M, false);
                     return;
                 }
-                else if (sendKeyVirtual == (byte)KeysVirtual.LeftWindows) { KeyPressSingle(sendKeyVirtual, false); return; }
-                else if (sendKeyVirtual == (byte)KeysVirtual.Up) { KeyPressSingle(sendKeyVirtual, true); return; }
-                else if (sendKeyVirtual == (byte)KeysVirtual.Down) { KeyPressSingle(sendKeyVirtual, true); return; }
-                else if (sendKeyVirtual == (byte)KeysVirtual.Left) { KeyPressSingle(sendKeyVirtual, true); return; }
-                else if (sendKeyVirtual == (byte)KeysVirtual.Right) { KeyPressSingle(sendKeyVirtual, true); return; }
+                else if (sendKeyVirtual == (byte)KeysVirtual.LeftWindows)
+                {
+                    KeyPressSingle(sendKeyVirtual, false);
+                    return;
+                }
+                else if (sendKeyVirtual == (byte)KeysVirtual.Up)
+                {
+                    KeyPressSingle(sendKeyVirtual, true);
+                    return;
+                }
+                else if (sendKeyVirtual == (byte)KeysVirtual.Down)
+                {
+                    KeyPressSingle(sendKeyVirtual, true);
+                    return;
+                }
+                else if (sendKeyVirtual == (byte)KeysVirtual.Left)
+                {
+                    KeyPressSingle(sendKeyVirtual, true);
+                    return;
+                }
+                else if (sendKeyVirtual == (byte)KeysVirtual.Right)
+                {
+                    KeyPressSingle(sendKeyVirtual, true);
+                    return;
+                }
 
                 //Check if the caps lock is enabled
                 if (vCapsEnabled)
                 {
-                    if (sendKeyVirtual == (byte)KeysVirtual.Control) { KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.C, false); }
-                    else if (sendKeyVirtual == (byte)KeysVirtual.Menu) { KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.V, false); }
+                    if (sendKeyVirtual == (byte)KeysVirtual.Control)
+                    {
+                        KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.C, false);
+                    }
+                    else if (sendKeyVirtual == (byte)KeysVirtual.Menu)
+                    {
+                        KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.V, false);
+                    }
                     else
                     {
                         KeyPressCombo((byte)KeysVirtual.Shift, sendKeyVirtual, false);

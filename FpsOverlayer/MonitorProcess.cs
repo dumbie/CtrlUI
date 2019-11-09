@@ -64,7 +64,7 @@ namespace FpsOverlayer
                         ResetFpsCounter();
 
                         //Check if the foreground window is fps overlayer
-                        if (vCurrentProcessId == ForegroundProcess.Process.Id)
+                        if (vProcessCurrent.Id == ForegroundProcess.Process.Id)
                         {
                             //Debug.WriteLine("Current process is fps overlayer.");
                             await Task.Delay(1000);

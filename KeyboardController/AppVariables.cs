@@ -8,9 +8,11 @@ namespace KeyboardController
 {
     partial class AppVariables
     {
-        //Variables
+        //Application Variables
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        public static int vCurrentProcessId = Process.GetCurrentProcess().Id;
+
+        //Process Variables
+        public static Process vProcessCurrent = Process.GetCurrentProcess();
 
         //Interaction Variables
         public static DispatcherTimer vDispatcherTimer = new DispatcherTimer();

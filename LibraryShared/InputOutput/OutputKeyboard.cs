@@ -18,6 +18,16 @@ namespace LibraryShared
             catch { }
         }
 
+        ////Send combo key press
+        //public static void KeySendCombo(byte Modifier, byte virtualKey, IntPtr WindowHandle)
+        //{
+        //    try
+        //    {
+        //        //PostMessage and SendMessage does not support key combinations
+        //    }
+        //    catch { }
+        //}
+
         //Simulate single key press
         public static void KeyPressSingle(byte virtualKey, bool ExtendedKey)
         {

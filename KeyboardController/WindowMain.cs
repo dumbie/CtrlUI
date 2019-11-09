@@ -510,34 +510,31 @@ namespace KeyboardController
             try
             {
                 int FocusedAppId = GetFocusedProcess().Process.Id;
-                if (vCurrentProcessId == FocusedAppId)
+                if (vProcessCurrent.Id == FocusedAppId)
                 {
                     if (vKeysEnabled)
                     {
                         vKeysEnabled = false;
                         Popup_Show_Status("Keyboard blocked from usage.");
 
-                        //Disable all the key rows
-                        AVActions.ActionDispatcherInvoke(delegate
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
                         {
+                            //Disable all the key rows
                             foreach (FrameworkElement child in sp_Row0.Children) { child.IsEnabled = false; }
                             foreach (FrameworkElement child in sp_Row1.Children) { child.IsEnabled = false; }
                             foreach (FrameworkElement child in sp_Row2.Children) { child.IsEnabled = false; }
                             foreach (FrameworkElement child in sp_Row3.Children) { child.IsEnabled = false; }
                             foreach (FrameworkElement child in sp_Row4.Children) { child.IsEnabled = false; }
                             foreach (FrameworkElement child in sp_Row5.Children) { child.IsEnabled = false; }
-                        });
 
-                        //Focus on the close button
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate
-                        {
+                            //Focus on the close button
                             await Task.Delay(10);
                             key_Close.IsEnabled = true;
                             await Task.Delay(10);
                             key_Close.Focus();
                             Keyboard.Focus(key_Close);
                             await Task.Delay(10);
-                            KeyPressSingle((byte)KeysVirtual.Tab, false);
+                            KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         });
                     }
                 }
@@ -548,15 +545,20 @@ namespace KeyboardController
                         vKeysEnabled = true;
                         Popup_Show_Status("Keyboard enabled for usage.");
 
-                        //Enable all the key rows
-                        AVActions.ActionDispatcherInvoke(delegate
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
                         {
+                            //Enable all the key rows
                             foreach (FrameworkElement child in sp_Row0.Children) { child.IsEnabled = true; }
                             foreach (FrameworkElement child in sp_Row1.Children) { child.IsEnabled = true; }
                             foreach (FrameworkElement child in sp_Row2.Children) { child.IsEnabled = true; }
                             foreach (FrameworkElement child in sp_Row3.Children) { child.IsEnabled = true; }
                             foreach (FrameworkElement child in sp_Row4.Children) { child.IsEnabled = true; }
                             foreach (FrameworkElement child in sp_Row5.Children) { child.IsEnabled = true; }
+
+                            //Focus on the active button
+                            await Task.Delay(10);
+                            KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                            //Improve: mouse click on the window to enable arrow movement.
                         });
                     }
                 }

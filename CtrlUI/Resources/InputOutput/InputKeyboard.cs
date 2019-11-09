@@ -71,14 +71,14 @@ namespace CtrlUI
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
                     if (vListTabTarget.Any(x => x == parentListbox.Name))
                     {
-                        KeyPressSingle((byte)KeysVirtual.Tab, false);
+                        KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         Handled = true;
                         return;
                     }
                 }
                 else if (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider))
                 {
-                    KeyPressSingle((byte)KeysVirtual.Tab, false);
+                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                     Handled = true;
                     return;
                 }
@@ -97,6 +97,7 @@ namespace CtrlUI
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
                     if (vListTabTarget.Any(x => x == parentListbox.Name))
                     {
+                        //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
                         Handled = true;
                         return;
@@ -104,6 +105,7 @@ namespace CtrlUI
                 }
                 else if (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider))
                 {
+                    //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                     KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
                     Handled = true;
                     return;

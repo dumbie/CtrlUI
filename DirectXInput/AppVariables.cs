@@ -13,7 +13,6 @@ namespace DirectXInput
     {
         //Application Variables
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        public static int vCurrentProcessId = Process.GetCurrentProcess().Id;
         public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static string[] vAppsOtherTools = new string[] { };
 
@@ -26,10 +25,13 @@ namespace DirectXInput
         public static bool vMessageBoxPopupCancelled = false;
         public static int vMessageBoxPopupResult = 0;
 
-        //App Status Variables
+        //Process Variables
+        public static Process vProcessCurrent = Process.GetCurrentProcess();
         public static Process vProcessCtrlUI = null;
         public static bool vProcessCtrlUIActivated = false;
         public static Process vProcessKeyboardController = null;
+
+        //App Status Variables
         public static bool vAppMaximized = false;
         public static bool vAppMinimized = false;
         public static bool vAppActivated = true;
