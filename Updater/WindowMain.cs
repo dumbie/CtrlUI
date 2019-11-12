@@ -84,6 +84,12 @@ namespace Updater
                     CloseProcess.Kill();
                 }
 
+                //Check if Driver Installer is running and close it
+                foreach (Process CloseProcess in Process.GetProcessesByName("DriverInstaller"))
+                {
+                    CloseProcess.Kill();
+                }
+
                 //Wait for applications to have closed
                 await Task.Delay(1000);
 
@@ -106,9 +112,20 @@ namespace Updater
                     return;
                 }
 
+                //Delete the old drivers directory
                 try
                 {
-                    //Extract the downloaded update archive
+                    if (Directory.Exists("Resources/Drivers"))
+                    {
+                        Debug.WriteLine("Removing: Drivers directory.");
+                        Directory.Delete("Resources/Drivers", true);
+                    }
+                }
+                catch { }
+
+                //Extract the downloaded update archive
+                try
+                {
                     TextBlockUpdate("Updating the application to the latest version.");
                     using (ZipArchive ZipArchive = ZipFile.OpenRead("AppUpdate.zip"))
                     {
