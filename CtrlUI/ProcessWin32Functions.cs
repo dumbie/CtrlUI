@@ -271,11 +271,23 @@ namespace CtrlUI
                         return IntPtr.Zero;
                     }
 
+                    DataBindString cancelString = new DataBindString();
+                    cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
+                    cancelString.Name = "Cancel";
+                    multiAnswers.Add(cancelString);
+
                     //Ask which window needs to be shown
                     DataBindString Result = await Popup_Show_MessageBox(AppTitle + " has multiple windows open", "", "Please select the window that you wish to be shown:", multiAnswers);
                     if (Result != null)
                     {
-                        return multiVariables[multiAnswers.IndexOf(Result)];
+                        if (Result == cancelString)
+                        {
+                            return IntPtr.Zero;
+                        }
+                        else
+                        {
+                            return multiVariables[multiAnswers.IndexOf(Result)];
+                        }
                     }
                     else
                     {

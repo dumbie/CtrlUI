@@ -71,7 +71,7 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
@@ -124,10 +124,9 @@
     <Compile Include="AppTasksFunctions.cs" />
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppVariables.cs" />
-    <Compile Include="Resources\IMMDevice\IMMDevice.cs" />
-    <Compile Include="Resources\IMMDevice\PolicyConfig.cs" />
     <Compile Include="SearchHandlers.cs" />
     <Compile Include="SocketHandlers.cs" />
+    <Compile Include="SwitchDisplayMonitor.cs" />
     <Compile Include="SwitchAudioDevice.cs" />
     <Compile Include="ControllerFunctions.cs" />
     <Compile Include="ControllerHandlers.cs" />

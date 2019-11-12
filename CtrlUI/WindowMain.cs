@@ -207,17 +207,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Switch the display monitor
-        void SwitchDisplayMonitor()
-        {
-            try
-            {
-                Popup_Show_Status("MonitorSwitch", "Switching display monitor");
-                KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.P, false);
-            }
-            catch { }
-        }
-
         //Move application to the next monitor
         void AppMoveMonitor()
         {
