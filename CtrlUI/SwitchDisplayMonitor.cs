@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVSwitchDisplayMonitor;
 using static CtrlUI.ImageFunctions;
@@ -18,27 +19,22 @@ namespace CtrlUI
 
                 List<DataBindString> Answers = new List<DataBindString>();
 
-                ////Get all the connected display monitors
-                //List<DisplayMonitorSummary> devicesList = ListDisplayMonitors();
+                //Get all the connected display monitors
+                List<DisplayMonitorSummary> monitorsList = ListDisplayMonitors();
 
                 //Add all display monitors to answers list
-                //foreach (DisplayMonitorSummary displayMonitor in devicesList)
-                //{
-                //    DataBindString Answer0 = new DataBindString();
-                //    Answer0.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1);
-                //    Answer0.Name = displayMonitor.Name;
-                //    Answers.Add(Answer0);
-                //}
+                foreach (DisplayMonitorSummary displayMonitor in monitorsList)
+                {
+                    DataBindString Answer0 = new DataBindString();
+                    Answer0.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1);
+                    Answer0.Name = displayMonitor.Name;
+                    Answers.Add(Answer0);
+                }
 
                 DataBindString Answer1 = new DataBindString();
                 Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1);
                 Answer1.Name = "Primary monitor";
                 Answers.Add(Answer1);
-
-                DataBindString Answer4 = new DataBindString();
-                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1);
-                Answer4.Name = "Secondary monitor";
-                Answers.Add(Answer4);
 
                 DataBindString Answer2 = new DataBindString();
                 Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1);
@@ -61,33 +57,35 @@ namespace CtrlUI
                 {
                     if (ResultMultiple == Answer1)
                     {
+                        Popup_Show_Status("MonitorSwitch", "Switching primary monitor");
                         EnableMonitorFirst();
-                    }
-                    else if (ResultMultiple == Answer4)
-                    {
-                        EnableMonitorSecond();
                     }
                     else if (ResultMultiple == Answer2)
                     {
+                        Popup_Show_Status("MonitorSwitch", "Cloning display monitor");
                         EnableMonitorCloneMode();
                     }
                     else if (ResultMultiple == Answer3)
                     {
+                        Popup_Show_Status("MonitorSwitch", "Extending display monitor");
                         EnableMonitorExtendMode();
                     }
                     else if (ResultMultiple == cancelString)
                     {
                         return;
                     }
-                    //else
-                    //{
-                    //    ////Change the default device
-                    //    //DisplayMonitorSummary ChangeDevice = devicesList.Where(x => x.Name.ToLower() == ResultMultiple.Name.ToLower()).FirstOrDefault();
-                    //    //if (ChangeDevice != null)
-                    //    //{
-                    //    //    Debug.WriteLine("Switching to display monitor: " + ChangeDevice.Id);
-                    //    //}
-                    //}
+                    else
+                    {
+                        DisplayMonitorSummary changeDevice = monitorsList.Where(x => x.Name.ToLower() == ResultMultiple.Name.ToLower()).FirstOrDefault();
+                        if (changeDevice != null)
+                        {
+                            Popup_Show_Status("MonitorSwitch", "Switching display monitor");
+                            if (!SwitchPrimaryMonitor(changeDevice.Id))
+                            {
+                                Popup_Show_Status("MonitorSwitch", "Failed switching monitor");
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
