@@ -94,8 +94,8 @@ namespace KeyboardController
 
                 int SocketServerPort = Convert.ToInt32(config.AppSettings.Settings["ServerPort"].Value) + 2;
 
-                vSocketServer = new ArnoldVinkSocketServer("127.0.0.1", SocketServerPort);
-                vSocketServer.EventBytesReceived += ReceivedSocketHandler;
+                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
+                vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }
         }
@@ -587,7 +587,8 @@ namespace KeyboardController
                 //Stop the background tasks
                 TasksBackgroundStop();
 
-                await vSocketServer.SocketServerDisable();
+                //Disable the socket server
+                await vArnoldVinkSockets.SocketServerDisable();
 
                 //Play window close sound and animation
                 AVAnimations.Ani_Visibility(this, false, false, 0.10);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
-using static ArnoldVinkCode.ArnoldVinkSocketClass;
+using System.Threading.Tasks;
+using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -10,7 +11,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Send controller output to CtrlUI
-        void OutputAppCtrlUI(ControllerStatus Controller)
+        async Task OutputAppCtrlUI(ControllerStatus Controller)
         {
             try
             {
@@ -18,14 +19,14 @@ namespace DirectXInput
                 {
                     //Prepare socket data
                     SocketSendContainer socketSend = new SocketSendContainer();
-                    socketSend.SourceIp = vSocketServer.vTcpListenerIp;
-                    socketSend.SourcePort = vSocketServer.vTcpListenerPort;
+                    socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
+                    socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
                     socketSend.Object = Controller.InputCurrent;
                     byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                     //Send socket data
-                    TcpClient socketClient = vSocketClient.SocketClientCheck(vSocketServer.vTcpListenerIp, vSocketServer.vTcpListenerPort - 1, vSocketClient.vTcpClientTimeout);
-                    vSocketClient.SocketClientSendBytes(socketClient, SerializedData, vSocketClient.vTcpClientTimeout, false);
+                    TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort - 1, vArnoldVinkSockets.vTcpClientTimeout);
+                    await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
 
                     //Update delay time
                     Controller.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayPollingTicks;
@@ -35,7 +36,7 @@ namespace DirectXInput
         }
 
         //Send controller output to Keyboard Controller
-        void OutputAppKeyboardController(ControllerStatus Controller)
+        async Task OutputAppKeyboardController(ControllerStatus Controller)
         {
             try
             {
@@ -43,14 +44,14 @@ namespace DirectXInput
                 {
                     //Prepare socket data
                     SocketSendContainer socketSend = new SocketSendContainer();
-                    socketSend.SourceIp = vSocketServer.vTcpListenerIp;
-                    socketSend.SourcePort = vSocketServer.vTcpListenerPort;
+                    socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
+                    socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
                     socketSend.Object = Controller.InputCurrent;
                     byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                     //Send socket data
-                    TcpClient socketClient = vSocketClient.SocketClientCheck(vSocketServer.vTcpListenerIp, vSocketServer.vTcpListenerPort + 1, vSocketClient.vTcpClientTimeout);
-                    vSocketClient.SocketClientSendBytes(socketClient, SerializedData, vSocketClient.vTcpClientTimeout, false);
+                    TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 1, vArnoldVinkSockets.vTcpClientTimeout);
+                    await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
 
                     //Update delay time
                     Controller.Delay_KeyboardControllerShortcut = Environment.TickCount + vControllerDelayPollingTicks;

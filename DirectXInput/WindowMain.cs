@@ -95,8 +95,8 @@ namespace DirectXInput
 
                 int SocketServerPort = Convert.ToInt32(config.AppSettings.Settings["ServerPort"].Value) + 1;
 
-                vSocketServer = new ArnoldVinkSocketServer("127.0.0.1", SocketServerPort);
-                vSocketServer.EventBytesReceived += ReceivedSocketHandler;
+                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
+                vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }
         }
@@ -275,8 +275,8 @@ namespace DirectXInput
                     TasksBackgroundStop();
                     await StopAllControllers();
 
-                    vSocketClient.SocketClientDisconnectAll();
-                    await vSocketServer.SocketServerDisable();
+                    //Disable the socket server
+                    await vArnoldVinkSockets.SocketServerDisable();
 
                     TrayNotifyIcon.Visible = false;
                     Environment.Exit(0);

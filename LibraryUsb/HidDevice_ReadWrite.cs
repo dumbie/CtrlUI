@@ -19,7 +19,7 @@ namespace LibraryUsb
                 Task timeoutTask = await Task.WhenAny(readTask, delayTask);
                 if (timeoutTask == readTask)
                 {
-                    return await readTask;
+                    return readTask.Result;
                 }
             }
             catch { }

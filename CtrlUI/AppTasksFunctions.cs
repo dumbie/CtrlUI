@@ -38,8 +38,8 @@ namespace CtrlUI
             {
                 while (TaskRunningCheck(vTaskToken_ControllerConnected))
                 {
-                    UpdateControllerConnected();
-                    await Task.Delay(2500);
+                    await UpdateControllerConnected();
+                    await Task.Delay(2000);
                 }
             }
             catch { }

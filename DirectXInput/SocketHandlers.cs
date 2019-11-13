@@ -2,7 +2,7 @@
 using System;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using static ArnoldVinkCode.ArnoldVinkSocketClass;
+using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -16,11 +16,11 @@ namespace DirectXInput
         {
             try
             {
-                void TaskAction()
+                async void TaskAction()
                 {
                     try
                     {
-                        ReceivedSocketHandlerThread(tcpClient, receivedBytes);
+                        await ReceivedSocketHandlerThread(tcpClient, receivedBytes);
                     }
                     catch { }
                 }
@@ -29,7 +29,7 @@ namespace DirectXInput
             catch { }
         }
 
-        void ReceivedSocketHandlerThread(TcpClient tcpClient, byte[] receivedBytes)
+        async Task ReceivedSocketHandlerThread(TcpClient tcpClient, byte[] receivedBytes)
         {
             try
             {
@@ -76,14 +76,14 @@ namespace DirectXInput
 
                         //Prepare socket data
                         SocketSendContainer socketSend = new SocketSendContainer();
-                        socketSend.SourceIp = vSocketServer.vTcpListenerIp;
-                        socketSend.SourcePort = vSocketServer.vTcpListenerPort;
+                        socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
+                        socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
                         socketSend.Object = sendInfo;
                         byte[] SendBytes = SerializeObjectToBytes(socketSend);
 
                         //Send socket data
-                        TcpClient socketClient = vSocketClient.SocketClientCheck(DeserializedBytes.SourceIp, DeserializedBytes.SourcePort, vSocketClient.vTcpClientTimeout);
-                        vSocketClient.SocketClientSendBytes(socketClient, SendBytes, vSocketClient.vTcpClientTimeout, false);
+                        TcpClient socketClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(DeserializedBytes.SourceIp, DeserializedBytes.SourcePort, vArnoldVinkSockets.vTcpClientTimeout);
+                        await vArnoldVinkSockets.TcpClientSendBytes(socketClient, SendBytes, vArnoldVinkSockets.vTcpClientTimeout, false);
                     }
                 }
             }

@@ -82,14 +82,11 @@
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkSockets\SocketClient.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClient.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkSockets\SocketClientVariables.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClientVariables.cs</Link>
-    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkSockets\SocketServer.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketServer.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkSockets\SocketServerVariables.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketServerVariables.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkSockets\SocketVariables.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketVariables.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVActions.cs">
       <Link>ArnoldVinkCode\Functions\AVActions.cs</Link>

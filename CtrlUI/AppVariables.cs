@@ -134,9 +134,8 @@ namespace CtrlUI
         public static int vControllerDelay_Activate = Environment.TickCount;
         public static int vControllerDelay_Global = Environment.TickCount;
 
-        //Socket Variables
-        public static ArnoldVinkSocketServer vSocketServer = null;
-        public static ArnoldVinkSocketClient vSocketClient = new ArnoldVinkSocketClient();
+        //Sockets Variables
+        public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
         public static ObservableCollection<DataBindApp> List_Games = new ObservableCollection<DataBindApp>();

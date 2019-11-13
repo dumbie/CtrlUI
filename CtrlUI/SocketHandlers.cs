@@ -1,7 +1,8 @@
 ﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using static ArnoldVinkCode.ArnoldVinkSocketClass;
+using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -36,7 +37,7 @@ namespace CtrlUI
                 SocketSendContainer DeserializedBytes = DeserializeBytesToClass<SocketSendContainer>(receivedBytes);
 
                 //Get the source server ip and port
-                //Debug.WriteLine("Received socket from: " + DeserializedBytes.SourceIp + ":" + DeserializedBytes.SourcePort);
+                //Debug.WriteLine("Received socket from (C): " + DeserializedBytes.SourceIp + ":" + DeserializedBytes.SourcePort + "/" + DeserializedBytes.Object);
 
                 //Check what kind of object was received
                 if (DeserializedBytes.Object is ControllerInput)

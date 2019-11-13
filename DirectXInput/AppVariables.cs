@@ -51,9 +51,8 @@ namespace DirectXInput
         public static ControllerStatus vController2 = new ControllerStatus();
         public static ControllerStatus vController3 = new ControllerStatus();
 
-        //Socket Variables
-        public static ArnoldVinkSocketServer vSocketServer = null;
-        public static ArnoldVinkSocketClient vSocketClient = new ArnoldVinkSocketClient();
+        //Sockets Variables
+        public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
         public static ObservableCollection<ControllerProfile> List_ControllerProfile = new ObservableCollection<ControllerProfile>();

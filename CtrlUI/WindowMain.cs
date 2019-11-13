@@ -173,7 +173,7 @@ namespace CtrlUI
                 UpdateControllerHelp();
 
                 //Update the controller connection status
-                UpdateControllerConnected();
+                await UpdateControllerConnected();
 
                 //Enable the socket server
                 EnableSocketServer();
@@ -190,8 +190,8 @@ namespace CtrlUI
             {
                 int SocketServerPort = Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]);
 
-                vSocketServer = new ArnoldVinkSocketServer("127.0.0.1", SocketServerPort);
-                vSocketServer.EventBytesReceived += ReceivedSocketHandler;
+                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
+                vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }
         }
@@ -388,8 +388,8 @@ namespace CtrlUI
                     CloseProcessesByName("KeyboardController", false);
                     TasksBackgroundStop();
 
-                    vSocketClient.SocketClientDisconnectAll();
-                    await vSocketServer.SocketServerDisable();
+                    //Disable the socket server
+                    await vArnoldVinkSockets.SocketServerDisable();
 
                     Environment.Exit(0);
                 }

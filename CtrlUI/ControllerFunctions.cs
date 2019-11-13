@@ -2,9 +2,10 @@
 using System;
 using System.Configuration;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using static ArnoldVinkCode.ArnoldVinkSocketClass;
+using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
@@ -15,7 +16,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Update the controller status icons
-        void UpdateControllerConnected()
+        async Task UpdateControllerConnected()
         {
             try
             {
@@ -33,31 +34,33 @@ namespace CtrlUI
                 }
 
                 //Request the controller status from DirectXInput
-                RequestControllerStatus("0");
-                RequestControllerStatus("1");
-                RequestControllerStatus("2");
-                RequestControllerStatus("3");
+                await RequestControllerStatus("0");
+                await RequestControllerStatus("1");
+                await RequestControllerStatus("2");
+                await RequestControllerStatus("3");
             }
             catch { }
         }
 
         //Request the controller status from DirectXInput
-        void RequestControllerStatus(string ControllerId)
+        async Task RequestControllerStatus(string ControllerId)
         {
             try
             {
+                //Debug.WriteLine("Requesting controller status information.");
+
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
-                socketSend.SourceIp = vSocketServer.vTcpListenerIp;
-                socketSend.SourcePort = vSocketServer.vTcpListenerPort;
+                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
+                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
                 socketSend.Object = new string[] { "ControllerInfo", ControllerId };
 
                 //Request controller status
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                TcpClient socketClient = vSocketClient.SocketClientCheck(vSocketServer.vTcpListenerIp, vSocketServer.vTcpListenerPort + 1, vSocketClient.vTcpClientTimeout);
-                vSocketClient.SocketClientSendBytes(socketClient, SerializedData, vSocketClient.vTcpClientTimeout, false);
+                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 1, vArnoldVinkSockets.vTcpClientTimeout);
+                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
             }
             catch { }
         }

@@ -24,7 +24,7 @@ namespace DirectXInput
                 {
                     if (Controller.Manage)
                     {
-                        OutputAppKeyboardController(Controller);
+                        await OutputAppKeyboardController(Controller);
                     }
                     BlockOutput = true;
                 }
@@ -33,7 +33,7 @@ namespace DirectXInput
                 {
                     if (Controller.Manage)
                     {
-                        OutputAppCtrlUI(Controller);
+                        await OutputAppCtrlUI(Controller);
                     }
                     if (vProcessCtrlUIActivated)
                     {
