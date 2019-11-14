@@ -38,17 +38,17 @@ namespace CtrlUI
 
                 DataBindString Answer5 = new DataBindString();
                 Answer5.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Run.png" }, IntPtr.Zero, -1);
-                Answer5.Name = "Launch executable file from disk";
+                Answer5.Name = "Launch an executable file from disk";
                 Answers.Add(Answer5);
 
                 DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Windows.png" }, IntPtr.Zero, -1);
-                Answer2.Name = "Show Windows start menu";
+                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Media.png" }, IntPtr.Zero, -1);
+                Answer2.Name = "Control playing media and volume";
                 Answers.Add(Answer2);
 
                 DataBindString Answer3 = new DataBindString();
-                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1);
-                Answer3.Name = "Open Windows File Explorer";
+                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Windows.png" }, IntPtr.Zero, -1);
+                Answer3.Name = "Show the Windows start menu";
                 Answers.Add(Answer3);
 
                 //Improve: check if the xbox app is installed
@@ -76,13 +76,13 @@ namespace CtrlUI
                 {
                     await RunExecutableFile();
                 }
-                else if (Result == Answer2)
+                else if (Result == Answer3)
                 {
                     ShowWindowStartMenu();
                 }
-                else if (Result == Answer3)
+                else if (Result == Answer2)
                 {
-                    await LaunchWindowsFileExplorer();
+                    await Popup_Show(grid_Popup_Media, grid_Popup_Media_PlayPause, true);
                 }
                 else if (Result == Answer4)
                 {
@@ -92,16 +92,16 @@ namespace CtrlUI
             catch { }
         }
 
-        //Launch windows File Explorer
-        async Task LaunchWindowsFileExplorer()
-        {
-            try
-            {
-                //await ProcessLauncherWin32Prepare(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\explorer.exe", "", "", true, true, false);
-                await ProcessLauncherUwpPrepare("File Explorer", "c5e2524a-ea46-4f67-841f-6a9465d9d515_cw5n1h2txyewy!App", string.Empty, false, false);
-            }
-            catch { }
-        }
+        ////Launch windows File Explorer
+        //async Task LaunchWindowsFileExplorer()
+        //{
+        //    try
+        //    {
+        //        //await ProcessLauncherWin32Prepare(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\explorer.exe", "", "", true, true, false);
+        //        //await ProcessLauncherUwpPrepare("File Explorer", "c5e2524a-ea46-4f67-841f-6a9465d9d515_cw5n1h2txyewy!App", string.Empty, false, false);
+        //    }
+        //    catch { }
+        //}
 
         //Launch windows Xbox Companion
         async Task LaunchXboxCompanion()

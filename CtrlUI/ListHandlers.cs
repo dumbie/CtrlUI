@@ -77,48 +77,7 @@ namespace CtrlUI
                     }
                     else if (SelectedItem.Category == "Shortcut")
                     {
-                        //Get the process running time
-                        string ProcessRunningTime = ApplicationRuntimeString(ProcessRuntimeMinutes(GetProcessById(SelectedItem.ProcessId)), "shortcut process");
-
-                        List<DataBindString> Answers = new List<DataBindString>();
-                        DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
-                        Answer1.Name = "Remove shortcut file";
-                        Answers.Add(Answer1);
-
-                        DataBindString cancelString = new DataBindString();
-                        cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                        cancelString.Name = "Cancel";
-                        Answers.Add(cancelString);
-
-                        DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + SelectedItem.Name + "?", ProcessRunningTime, SelectedItem.PathExe, Answers);
-                        if (Result != null)
-                        {
-                            if (Result == Answer1)
-                            {
-                                Popup_Show_Status("Minus", "Removed shortcut " + SelectedItem.Name);
-                                Debug.WriteLine("Removing shortcut: " + SelectedItem.Name + " path: " + SelectedItem.ShortcutPath);
-
-                                //Remove shortcut file if exists
-                                if (File.Exists(SelectedItem.ShortcutPath))
-                                {
-                                    //Delete the shortcut file
-                                    File.Delete(SelectedItem.ShortcutPath);
-
-                                    //Remove the shortcut from the lists
-                                    List_Shortcuts.Remove(SelectedItem);
-                                    List_Search.Remove(SelectedItem);
-
-                                    //Refresh the application lists
-                                    ShowHideEmptyList(true, true);
-                                    ListsUpdateCount();
-                                    UpdateSearchResults();
-                                }
-
-                                //Select the previous index
-                                await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex, true);
-                            }
-                        }
+                        await RightClickShortcut(ListboxSender, ListboxSelectedIndex, SelectedItem);
                     }
                     else
                     {
@@ -153,6 +112,83 @@ namespace CtrlUI
                                 await RemoveAppFromList(SelectedItem);
                             }
                         }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        async Task RightClickShortcut(ListBox ListboxSender, int ListboxSelectedIndex, DataBindApp SelectedItem)
+        {
+            try
+            {
+                //Get the process running time
+                string ProcessRunningTime = ApplicationRuntimeString(ProcessRuntimeMinutes(GetProcessById(SelectedItem.ProcessId)), "shortcut process");
+
+                List<DataBindString> Answers = new List<DataBindString>();
+
+                DataBindString Answer1 = new DataBindString();
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
+                Answer1.Name = "Remove shortcut file";
+                Answers.Add(Answer1);
+
+                DataBindString Answer2 = new DataBindString();
+                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Hide.png" }, IntPtr.Zero, -1);
+                Answer2.Name = "Hide shortcut file";
+                Answers.Add(Answer2);
+
+                DataBindString cancelString = new DataBindString();
+                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
+                cancelString.Name = "Cancel";
+                Answers.Add(cancelString);
+
+                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + SelectedItem.Name + "?", ProcessRunningTime, SelectedItem.PathExe, Answers);
+                if (Result != null)
+                {
+                    if (Result == Answer1)
+                    {
+                        Popup_Show_Status("Minus", "Removed shortcut " + SelectedItem.Name);
+                        Debug.WriteLine("Removing shortcut: " + SelectedItem.Name + " path: " + SelectedItem.ShortcutPath);
+
+                        //Remove shortcut file if exists
+                        if (File.Exists(SelectedItem.ShortcutPath))
+                        {
+                            //Delete the shortcut file
+                            File.Delete(SelectedItem.ShortcutPath);
+
+                            //Remove the shortcut from the lists
+                            List_Shortcuts.Remove(SelectedItem);
+                            List_Search.Remove(SelectedItem);
+
+                            //Refresh the application lists
+                            ShowHideEmptyList(true, true);
+                            ListsUpdateCount();
+                            UpdateSearchResults();
+                        }
+
+                        //Select the previous index
+                        await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex, true);
+                    }
+                    else if (Result == Answer2)
+                    {
+                        Popup_Show_Status("Hide", "Hiding shortcut " + SelectedItem.Name);
+                        Debug.WriteLine("Hiding shortcut: " + SelectedItem.Name + " path: " + SelectedItem.ShortcutPath);
+
+                        //Add shortcut file to the ignore list
+                        vAppsBlacklistShortcut.Add(SelectedItem.Name);
+                        JsonSaveAppsBlacklistShortcut();
+
+                        //Remove the shortcut from the lists
+                        List_Shortcuts.Remove(SelectedItem);
+                        List_Search.Remove(SelectedItem);
+
+                        //Refresh the application lists
+                        ShowHideEmptyList(true, true);
+                        ListsUpdateCount();
+                        UpdateSearchResults();
+
+                        //Select the previous index
+                        await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex, true);
                     }
                 }
             }

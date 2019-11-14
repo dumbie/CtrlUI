@@ -23,7 +23,7 @@ namespace CtrlUI
         public static CultureInfo vAppCultureInfo = new CultureInfo("en-US");
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        public static string[] vAppsBlacklistShortcut = new string[] { };
+        public static List<string> vAppsBlacklistShortcut = new List<string>();
         public static string[] vAppsBlacklistShortcutUri = new string[] { };
         public static string[] vAppsOtherLaunchers = new string[] { };
         public static List<FileLocation> vFileLocations = new List<FileLocation>();
