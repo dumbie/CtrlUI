@@ -202,13 +202,13 @@ namespace DirectXInput
                     int Result = await MessageBoxPopup("Do you really want to remove this controller?", "This will reset the manage controller to it's defaults and disconnect it.", "Remove controller", "Cancel", "", "");
                     if (Result == 1)
                     {
-                        Debug.WriteLine("Removed the controller: " + ManageController.Connected.DisplayName);
+                        Debug.WriteLine("Removed the controller: " + ManageController.Details.DisplayName);
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            txt_Controller_Information.Text = "Removed the controller: " + ManageController.Connected.DisplayName;
+                            txt_Controller_Information.Text = "Removed the controller: " + ManageController.Details.DisplayName;
                         });
 
-                        List_ControllerProfile.Remove(ManageController.Connected.Profile);
+                        List_ControllerProfile.Remove(ManageController.Details.Profile);
                         await StopController(ManageController, false);
 
                         //Save changes to Json file

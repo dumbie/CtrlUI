@@ -26,16 +26,16 @@ namespace DirectXInput
         }
 
         //Auto connect connected controllers
-        async Task AutoConnectController(ControllerConnected ConnectedController)
+        async Task AutoConnectController(ControllerDetails ConnectedController)
         {
             try
             {
                 //Check if the controller is already in use
                 bool ControllerInuse = false;
-                if (vController0.Connected != null && vController0.Connected.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController1.Connected != null && vController1.Connected.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController2.Connected != null && vController2.Connected.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController3.Connected != null && vController3.Connected.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController0.Connected() && vController0.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController1.Connected() && vController1.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController2.Connected() && vController2.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController3.Connected() && vController3.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
                 if (ControllerInuse) { return; }
 
                 //Check if the controller is in block list
@@ -51,48 +51,44 @@ namespace DirectXInput
                 Debug.WriteLine("Found a connected controller to use: " + ConnectedController.DisplayName);
 
                 //Connect the controller to available slot
-                if (vController0.Connected == null)
+                if (!vController0.Connected())
                 {
-                    vController0.NumberId = 0;
-                    vController0.Connected = ConnectedController;
+                    vController0.Details = ConnectedController;
                     await StartControllerDirectInput(vController0);
 
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        textblock_Controller0.Text = vController0.Connected.DisplayName;
+                        textblock_Controller0.Text = vController0.Details.DisplayName;
                     });
                 }
-                else if (vController1.Connected == null)
+                else if (!vController1.Connected())
                 {
-                    vController1.NumberId = 1;
-                    vController1.Connected = ConnectedController;
+                    vController1.Details = ConnectedController;
                     await StartControllerDirectInput(vController1);
 
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        textblock_Controller1.Text = vController1.Connected.DisplayName;
+                        textblock_Controller1.Text = vController1.Details.DisplayName;
                     });
                 }
-                else if (vController2.Connected == null)
+                else if (!vController2.Connected())
                 {
-                    vController2.NumberId = 2;
-                    vController2.Connected = ConnectedController;
+                    vController2.Details = ConnectedController;
                     await StartControllerDirectInput(vController2);
 
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        textblock_Controller2.Text = vController2.Connected.DisplayName;
+                        textblock_Controller2.Text = vController2.Details.DisplayName;
                     });
                 }
-                else if (vController3.Connected == null)
+                else if (!vController3.Connected())
                 {
-                    vController3.NumberId = 3;
-                    vController3.Connected = ConnectedController;
+                    vController3.Details = ConnectedController;
                     await StartControllerDirectInput(vController3);
 
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        textblock_Controller3.Text = vController3.Connected.DisplayName;
+                        textblock_Controller3.Text = vController3.Details.DisplayName;
                     });
                 }
             }
@@ -105,10 +101,10 @@ namespace DirectXInput
             try
             {
                 //Debug.WriteLine("There is currently no manage controller.");
-                if (vController0.Connected != null && GetManageController() == null) { SetManageController(vController0); }
-                else if (vController1.Connected != null && GetManageController() == null) { SetManageController(vController1); }
-                else if (vController2.Connected != null && GetManageController() == null) { SetManageController(vController2); }
-                else if (vController3.Connected != null && GetManageController() == null) { SetManageController(vController3); }
+                if (vController0.Connected() && GetManageController() == null) { SetManageController(vController0); }
+                else if (vController1.Connected() && GetManageController() == null) { SetManageController(vController1); }
+                else if (vController2.Connected() && GetManageController() == null) { SetManageController(vController2); }
+                else if (vController3.Connected() && GetManageController() == null) { SetManageController(vController3); }
                 else if (GetManageController() == null)
                 {
                     //Debug.WriteLine("No other connected controller found to manage.");
@@ -129,7 +125,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected != null && !Controller.Manage)
+                if (Controller.Connected() && !Controller.Manage)
                 {
                     Debug.WriteLine("Setted the new manage controller to: " + Controller.NumberId);
 
@@ -138,7 +134,7 @@ namespace DirectXInput
 
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        txt_ManageControllerName.Text = Controller.Connected.DisplayName;
+                        txt_ManageControllerName.Text = Controller.Details.DisplayName;
                         UpdateControllerSettingsInterface(Controller);
                     });
                 }
@@ -207,7 +203,7 @@ namespace DirectXInput
                 {
                     string RawPackets = "(Out" + ManageController.OutputReport.Length + "/In" + ManageController.InputReport.Length + ")";
                     RawPackets += "(Offset" + ManageController.InputHeaderByteOffset + ")";
-                    RawPackets += "(ProductId" + ManageController.Connected.Profile.ProductID + "/VendorId" + ManageController.Connected.Profile.VendorID + ")";
+                    RawPackets += "(ProductId" + ManageController.Details.Profile.ProductID + "/VendorId" + ManageController.Details.Profile.VendorID + ")";
 
                     for (int Packet = 0; Packet < ManageController.InputReport.Length - ManageController.InputHeaderByteOffset; Packet++) { RawPackets = RawPackets + " " + ManageController.InputReport[Packet + ManageController.InputHeaderByteOffset]; }
                     Clipboard.SetText(RawPackets);

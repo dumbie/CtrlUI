@@ -63,7 +63,7 @@ namespace DirectXInput
         }
 
         //Allow the controller in HidGuardian
-        public void HidGuardianAllowController(ControllerConnected ConnectedController)
+        public void HidGuardianAllowController(ControllerDetails ConnectedController)
         {
             try
             {

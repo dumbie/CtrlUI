@@ -555,7 +555,7 @@ namespace CtrlUI
                 //Check if the mouse has moved since the last time
                 GetCursorPos(out PointWin MouseCurrentPosition);
 
-                bool LastInteraction = Environment.TickCount - vMouseLastInteraction > 8000;
+                bool LastInteraction = Environment.TickCount - vMouseLastInteraction > 6000;
                 bool LastMovement = MouseCurrentPosition.X == vMousePreviousPosition.X && MouseCurrentPosition.Y == vMousePreviousPosition.Y;
 
                 if (LastInteraction && LastMovement)

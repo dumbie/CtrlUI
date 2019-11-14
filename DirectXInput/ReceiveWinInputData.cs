@@ -16,10 +16,10 @@ namespace DirectXInput
         {
             try
             {
-                Debug.WriteLine("Receive and Translate Win DirectInput for: " + Controller.Connected.DisplayName);
+                Debug.WriteLine("Receive and Translate Win DirectInput for: " + Controller.Details.DisplayName);
 
                 //Wake up the USB DS3 controller
-                IEnumerable<ControllerSupported> TargetController = List_ControllerSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Connected.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Connected.Profile.VendorID.ToLower()));
+                IEnumerable<ControllerSupported> TargetController = List_ControllerSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
                 if (TargetController.Any(x => x.CodeName == "SonyDualShock3"))
                 {
                     Debug.WriteLine("Waking up the USB PS3 controller");
@@ -78,7 +78,7 @@ namespace DirectXInput
                         ThumbRightY = (int)32767.5 - (ThumbRightY * 257);
 
                         //Flip the thumbs
-                        if (Controller.Connected.Profile.ThumbFlipMovement)
+                        if (Controller.Details.Profile.ThumbFlipMovement)
                         {
                             int CurrentLeftX = ThumbLeftX;
                             int CurrentLeftY = ThumbLeftY;
@@ -91,14 +91,14 @@ namespace DirectXInput
                         }
 
                         //Flip thumb axes
-                        if (Controller.Connected.Profile.ThumbFlipAxesLeft)
+                        if (Controller.Details.Profile.ThumbFlipAxesLeft)
                         {
                             int CurrentLeftX = ThumbLeftX;
                             int CurrentLeftY = ThumbLeftY;
                             ThumbLeftX = CurrentLeftY;
                             ThumbLeftY = CurrentLeftX;
                         }
-                        if (Controller.Connected.Profile.ThumbFlipAxesRight)
+                        if (Controller.Details.Profile.ThumbFlipAxesRight)
                         {
                             int CurrentRightX = ThumbRightX;
                             int CurrentRightY = ThumbRightY;
@@ -107,12 +107,12 @@ namespace DirectXInput
                         }
 
                         //Reverse the thumbs
-                        if (Controller.Connected.Profile.ThumbReverseAxesLeft)
+                        if (Controller.Details.Profile.ThumbReverseAxesLeft)
                         {
                             ThumbLeftX = -ThumbLeftX;
                             ThumbLeftY = -ThumbLeftY;
                         }
-                        if (Controller.Connected.Profile.ThumbReverseAxesRight)
+                        if (Controller.Details.Profile.ThumbReverseAxesRight)
                         {
                             ThumbRightX = -ThumbRightX;
                             ThumbRightY = -ThumbRightY;
@@ -136,12 +136,12 @@ namespace DirectXInput
                             Controller.InputCurrent.TriggerLeft = Controller.InputReport[OffsetTriggerLeft];
                             Controller.InputCurrent.TriggerRight = Controller.InputReport[OffsetTriggerRight];
                         }
-                        else if (!Controller.Connected.Profile.UseButtonTriggers)
+                        else if (!Controller.Details.Profile.UseButtonTriggers)
                         {
                             Debug.WriteLine("Controller without triggers detected.");
 
                             AVActions.ActionDispatcherInvoke(delegate { cb_ControllerUseButtonTriggers.IsChecked = true; });
-                            Controller.Connected.Profile.UseButtonTriggers = true;
+                            Controller.Details.Profile.UseButtonTriggers = true;
 
                             //Save changes to Json file
                             JsonSaveControllerProfile();
@@ -177,7 +177,7 @@ namespace DirectXInput
                         Controller.InputCurrent.DPadRight = ((byte)Controller.InputReport[OffsetButtonsGroup1] & (1 << 4)) != 0;
                         Controller.InputCurrent.DPadDown = ((byte)Controller.InputReport[OffsetButtonsGroup1] & (1 << 6)) != 0;
                         byte DPadState = (byte)(((Controller.InputCurrent.DPadRight ? 1 : 0) << 0) | ((Controller.InputCurrent.DPadLeft ? 1 : 0) << 1) | ((Controller.InputCurrent.DPadDown ? 1 : 0) << 2) | ((Controller.InputCurrent.DPadUp ? 1 : 0) << 3));
-                        if (Controller.Connected.Profile.DPadFourWayMovement)
+                        if (Controller.Details.Profile.DPadFourWayMovement)
                         {
                             switch (DPadState)
                             {
@@ -212,19 +212,19 @@ namespace DirectXInput
                             if (ButtonMapId != -1)
                             {
                                 Debug.WriteLine("Mapped new button to: " + ButtonMapId);
-                                if (Controller.Mapping[1] == "Button A") { Controller.Connected.Profile.ButtonA = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button B") { Controller.Connected.Profile.ButtonB = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button X") { Controller.Connected.Profile.ButtonX = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Y") { Controller.Connected.Profile.ButtonY = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button LB") { Controller.Connected.Profile.ButtonShoulderLeft = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button RB") { Controller.Connected.Profile.ButtonShoulderRight = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Back") { Controller.Connected.Profile.ButtonBack = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Start") { Controller.Connected.Profile.ButtonStart = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Guide") { Controller.Connected.Profile.ButtonGuide = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Thumb Left") { Controller.Connected.Profile.ButtonThumbLeft = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Thumb Right") { Controller.Connected.Profile.ButtonThumbRight = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Trigger Left") { Controller.Connected.Profile.ButtonTriggerLeft = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Trigger Right") { Controller.Connected.Profile.ButtonTriggerRight = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button A") { Controller.Details.Profile.ButtonA = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button B") { Controller.Details.Profile.ButtonB = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button X") { Controller.Details.Profile.ButtonX = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button Y") { Controller.Details.Profile.ButtonY = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button LB") { Controller.Details.Profile.ButtonShoulderLeft = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button RB") { Controller.Details.Profile.ButtonShoulderRight = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button Back") { Controller.Details.Profile.ButtonBack = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button Start") { Controller.Details.Profile.ButtonStart = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button Guide") { Controller.Details.Profile.ButtonGuide = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button Thumb Left") { Controller.Details.Profile.ButtonThumbLeft = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button Thumb Right") { Controller.Details.Profile.ButtonThumbRight = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button Trigger Left") { Controller.Details.Profile.ButtonTriggerLeft = ButtonMapId; }
+                                if (Controller.Mapping[1] == "Button Trigger Right") { Controller.Details.Profile.ButtonTriggerRight = ButtonMapId; }
 
                                 //Reset controller button mapping
                                 Controller.Mapping[0] = "Done";
@@ -237,22 +237,22 @@ namespace DirectXInput
                         else
                         {
                             //Set button mapping input data
-                            if (Controller.Connected.Profile.ButtonA == null) { Controller.InputCurrent.ButtonA = Controller.InputCurrent.RawBytes[26]; } else { Controller.InputCurrent.ButtonA = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonA.Value]; }
-                            if (Controller.Connected.Profile.ButtonB == null) { Controller.InputCurrent.ButtonB = Controller.InputCurrent.RawBytes[25]; } else { Controller.InputCurrent.ButtonB = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonB.Value]; }
-                            if (Controller.Connected.Profile.ButtonX == null) { Controller.InputCurrent.ButtonX = Controller.InputCurrent.RawBytes[27]; } else { Controller.InputCurrent.ButtonX = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonX.Value]; }
-                            if (Controller.Connected.Profile.ButtonY == null) { Controller.InputCurrent.ButtonY = Controller.InputCurrent.RawBytes[24]; } else { Controller.InputCurrent.ButtonY = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonY.Value]; }
-                            if (Controller.Connected.Profile.ButtonBack == null) { Controller.InputCurrent.ButtonBack = Controller.InputCurrent.RawBytes[0]; } else { Controller.InputCurrent.ButtonBack = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonBack.Value]; }
-                            if (Controller.Connected.Profile.ButtonStart == null) { Controller.InputCurrent.ButtonStart = Controller.InputCurrent.RawBytes[3]; } else { Controller.InputCurrent.ButtonStart = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonStart.Value]; }
-                            if (Controller.Connected.Profile.ButtonGuide == null) { Controller.InputCurrent.ButtonGuide = Controller.InputCurrent.RawBytes[40]; } else { Controller.InputCurrent.ButtonGuide = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonGuide.Value]; }
-                            if (Controller.Connected.Profile.ButtonTriggerLeft == null) { Controller.InputCurrent.ButtonTriggerLeft = Controller.InputCurrent.RawBytes[20]; } else { Controller.InputCurrent.ButtonTriggerLeft = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonTriggerLeft.Value]; }
-                            if (Controller.Connected.Profile.ButtonTriggerRight == null) { Controller.InputCurrent.ButtonTriggerRight = Controller.InputCurrent.RawBytes[21]; } else { Controller.InputCurrent.ButtonTriggerRight = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonTriggerRight.Value]; }
-                            if (Controller.Connected.Profile.ButtonShoulderLeft == null) { Controller.InputCurrent.ButtonShoulderLeft = Controller.InputCurrent.RawBytes[22]; } else { Controller.InputCurrent.ButtonShoulderLeft = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonShoulderLeft.Value]; }
-                            if (Controller.Connected.Profile.ButtonShoulderRight == null) { Controller.InputCurrent.ButtonShoulderRight = Controller.InputCurrent.RawBytes[23]; } else { Controller.InputCurrent.ButtonShoulderRight = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonShoulderRight.Value]; }
-                            if (Controller.Connected.Profile.ButtonThumbLeft == null) { Controller.InputCurrent.ButtonThumbLeft = Controller.InputCurrent.RawBytes[1]; } else { Controller.InputCurrent.ButtonThumbLeft = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonThumbLeft.Value]; }
-                            if (Controller.Connected.Profile.ButtonThumbRight == null) { Controller.InputCurrent.ButtonThumbRight = Controller.InputCurrent.RawBytes[2]; } else { Controller.InputCurrent.ButtonThumbRight = Controller.InputCurrent.RawBytes[Controller.Connected.Profile.ButtonThumbRight.Value]; }
+                            if (Controller.Details.Profile.ButtonA == null) { Controller.InputCurrent.ButtonA = Controller.InputCurrent.RawBytes[26]; } else { Controller.InputCurrent.ButtonA = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonA.Value]; }
+                            if (Controller.Details.Profile.ButtonB == null) { Controller.InputCurrent.ButtonB = Controller.InputCurrent.RawBytes[25]; } else { Controller.InputCurrent.ButtonB = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonB.Value]; }
+                            if (Controller.Details.Profile.ButtonX == null) { Controller.InputCurrent.ButtonX = Controller.InputCurrent.RawBytes[27]; } else { Controller.InputCurrent.ButtonX = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonX.Value]; }
+                            if (Controller.Details.Profile.ButtonY == null) { Controller.InputCurrent.ButtonY = Controller.InputCurrent.RawBytes[24]; } else { Controller.InputCurrent.ButtonY = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonY.Value]; }
+                            if (Controller.Details.Profile.ButtonBack == null) { Controller.InputCurrent.ButtonBack = Controller.InputCurrent.RawBytes[0]; } else { Controller.InputCurrent.ButtonBack = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonBack.Value]; }
+                            if (Controller.Details.Profile.ButtonStart == null) { Controller.InputCurrent.ButtonStart = Controller.InputCurrent.RawBytes[3]; } else { Controller.InputCurrent.ButtonStart = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonStart.Value]; }
+                            if (Controller.Details.Profile.ButtonGuide == null) { Controller.InputCurrent.ButtonGuide = Controller.InputCurrent.RawBytes[40]; } else { Controller.InputCurrent.ButtonGuide = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonGuide.Value]; }
+                            if (Controller.Details.Profile.ButtonTriggerLeft == null) { Controller.InputCurrent.ButtonTriggerLeft = Controller.InputCurrent.RawBytes[20]; } else { Controller.InputCurrent.ButtonTriggerLeft = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonTriggerLeft.Value]; }
+                            if (Controller.Details.Profile.ButtonTriggerRight == null) { Controller.InputCurrent.ButtonTriggerRight = Controller.InputCurrent.RawBytes[21]; } else { Controller.InputCurrent.ButtonTriggerRight = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonTriggerRight.Value]; }
+                            if (Controller.Details.Profile.ButtonShoulderLeft == null) { Controller.InputCurrent.ButtonShoulderLeft = Controller.InputCurrent.RawBytes[22]; } else { Controller.InputCurrent.ButtonShoulderLeft = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonShoulderLeft.Value]; }
+                            if (Controller.Details.Profile.ButtonShoulderRight == null) { Controller.InputCurrent.ButtonShoulderRight = Controller.InputCurrent.RawBytes[23]; } else { Controller.InputCurrent.ButtonShoulderRight = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonShoulderRight.Value]; }
+                            if (Controller.Details.Profile.ButtonThumbLeft == null) { Controller.InputCurrent.ButtonThumbLeft = Controller.InputCurrent.RawBytes[1]; } else { Controller.InputCurrent.ButtonThumbLeft = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonThumbLeft.Value]; }
+                            if (Controller.Details.Profile.ButtonThumbRight == null) { Controller.InputCurrent.ButtonThumbRight = Controller.InputCurrent.RawBytes[2]; } else { Controller.InputCurrent.ButtonThumbRight = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonThumbRight.Value]; }
 
                             //Fake Guide button press with Start and Back
-                            if (Controller.Connected.Profile.FakeGuideButton && Controller.InputCurrent.ButtonStart && Controller.InputCurrent.ButtonBack)
+                            if (Controller.Details.Profile.FakeGuideButton && Controller.InputCurrent.ButtonStart && Controller.InputCurrent.ButtonBack)
                             {
                                 Controller.InputCurrent.ButtonStart = false;
                                 Controller.InputCurrent.ButtonBack = false;

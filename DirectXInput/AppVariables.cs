@@ -46,10 +46,10 @@ namespace DirectXInput
         public static int vControllerDelayLongTicks = 750;
         public static bool vControllerRumbleTest = false;
         public static List<string> vControllerBlockedPaths = new List<string>();
-        public static ControllerStatus vController0 = new ControllerStatus();
-        public static ControllerStatus vController1 = new ControllerStatus();
-        public static ControllerStatus vController2 = new ControllerStatus();
-        public static ControllerStatus vController3 = new ControllerStatus();
+        public static ControllerStatus vController0 = new ControllerStatus(0);
+        public static ControllerStatus vController1 = new ControllerStatus(1);
+        public static ControllerStatus vController2 = new ControllerStatus(2);
+        public static ControllerStatus vController3 = new ControllerStatus(3);
 
         //Sockets Variables
         public static ArnoldVinkSockets vArnoldVinkSockets = null;

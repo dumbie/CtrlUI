@@ -2,7 +2,7 @@
 {
     public partial class Classes
     {
-        public class ControllerConnected
+        public class ControllerDetails
         {
             public string DisplayName { get; set; }
             public string Path { get; set; }

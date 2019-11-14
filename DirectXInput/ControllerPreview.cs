@@ -65,7 +65,7 @@ namespace DirectXInput
                             if (Controller.InputCurrent.ButtonThumbRight) { img_ControllerPreview_ButtonThumbRight.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonThumbRight.Visibility = Visibility.Collapsed; }
 
                             //Triggers
-                            if (!Controller.Connected.Profile.UseButtonTriggers)
+                            if (!Controller.Details.Profile.UseButtonTriggers)
                             {
                                 img_ControllerPreview_TriggerLeft.Opacity = (double)(Controller.InputCurrent.TriggerLeft * 257) / 65535;
                                 img_ControllerPreview_TriggerRight.Opacity = (double)(Controller.InputCurrent.TriggerRight * 257) / 65535;

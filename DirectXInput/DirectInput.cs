@@ -17,14 +17,14 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected != null)
+                if (Controller.Connected())
                 {
-                    Debug.WriteLine("Initializing direct input for: " + Controller.Connected.DisplayName);
+                    Debug.WriteLine("Initializing direct input for: " + Controller.Details.DisplayName);
 
                     //Open the selected controller
                     if (!await OpenController(Controller))
                     {
-                        Debug.WriteLine("Failed to initialize direct input for: " + Controller.Connected.DisplayName);
+                        Debug.WriteLine("Failed to initialize direct input for: " + Controller.Details.DisplayName);
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             txt_Controller_Information.Text = "The controller is no longer connected or supported.";
@@ -37,14 +37,14 @@ namespace DirectXInput
                     //Open the Xbox 360 bus driver
                     if (!await OpenX360Bus(Controller))
                     {
-                        Debug.WriteLine("Failed to open x360 bus driver for: " + Controller.Connected.DisplayName);
+                        Debug.WriteLine("Failed to open x360 bus driver for: " + Controller.Details.DisplayName);
                         return false;
                     }
 
                     //Set controller interface information
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        txt_Controller_Information.Text = "Connected controller " + (Controller.NumberId + 1) + ": " + Controller.Connected.DisplayName;
+                        txt_Controller_Information.Text = "Connected controller " + (Controller.NumberId + 1) + ": " + Controller.Details.DisplayName;
                     });
 
                     //Update the controller interface settings
@@ -54,7 +54,7 @@ namespace DirectXInput
                     Controller.LastActive = Environment.TickCount;
 
                     //Start Translating DirectInput Controller Threads
-                    if (Controller.Connected.Type == "Win")
+                    if (Controller.Details.Type == "Win")
                     {
                         Controller.InputTaskToken = new CancellationTokenSource();
                         async void TaskAction()
@@ -95,18 +95,18 @@ namespace DirectXInput
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    cb_ControllerFakeGuideButton.IsChecked = Controller.Connected.Profile.FakeGuideButton;
-                    cb_ControllerUseButtonTriggers.IsChecked = Controller.Connected.Profile.UseButtonTriggers;
-                    cb_ControllerDPadFourWayMovement.IsChecked = Controller.Connected.Profile.DPadFourWayMovement;
-                    cb_ControllerThumbFlipMovement.IsChecked = Controller.Connected.Profile.ThumbFlipMovement;
-                    cb_ControllerThumbFlipAxesLeft.IsChecked = Controller.Connected.Profile.ThumbFlipAxesLeft;
-                    cb_ControllerThumbFlipAxesRight.IsChecked = Controller.Connected.Profile.ThumbFlipAxesRight;
-                    cb_ControllerThumbReverseAxesLeft.IsChecked = Controller.Connected.Profile.ThumbReverseAxesLeft;
-                    cb_ControllerThumbReverseAxesRight.IsChecked = Controller.Connected.Profile.ThumbReverseAxesRight;
-                    textblock_ControllerRumbleStrength.Text = "Rumble strength: " + Convert.ToInt32(Controller.Connected.Profile.RumbleStrength) + "%";
-                    slider_ControllerRumbleStrength.Value = Controller.Connected.Profile.RumbleStrength;
-                    textblock_ControllerLedBrightness.Text = "Led brightness: " + Convert.ToInt32(Controller.Connected.Profile.LedBrightness) + "%";
-                    slider_ControllerLedBrightness.Value = Controller.Connected.Profile.LedBrightness;
+                    cb_ControllerFakeGuideButton.IsChecked = Controller.Details.Profile.FakeGuideButton;
+                    cb_ControllerUseButtonTriggers.IsChecked = Controller.Details.Profile.UseButtonTriggers;
+                    cb_ControllerDPadFourWayMovement.IsChecked = Controller.Details.Profile.DPadFourWayMovement;
+                    cb_ControllerThumbFlipMovement.IsChecked = Controller.Details.Profile.ThumbFlipMovement;
+                    cb_ControllerThumbFlipAxesLeft.IsChecked = Controller.Details.Profile.ThumbFlipAxesLeft;
+                    cb_ControllerThumbFlipAxesRight.IsChecked = Controller.Details.Profile.ThumbFlipAxesRight;
+                    cb_ControllerThumbReverseAxesLeft.IsChecked = Controller.Details.Profile.ThumbReverseAxesLeft;
+                    cb_ControllerThumbReverseAxesRight.IsChecked = Controller.Details.Profile.ThumbReverseAxesRight;
+                    textblock_ControllerRumbleStrength.Text = "Rumble strength: " + Convert.ToInt32(Controller.Details.Profile.RumbleStrength) + "%";
+                    slider_ControllerRumbleStrength.Value = Controller.Details.Profile.RumbleStrength;
+                    textblock_ControllerLedBrightness.Text = "Led brightness: " + Convert.ToInt32(Controller.Details.Profile.LedBrightness) + "%";
+                    slider_ControllerLedBrightness.Value = Controller.Details.Profile.LedBrightness;
                 });
             }
             catch { }
@@ -118,12 +118,12 @@ namespace DirectXInput
             try
             {
                 //Update user interface controller status
-                if (Controller.Connected != null)
+                if (Controller.Connected())
                 {
-                    Debug.WriteLine("Disconnecting the controller " + Controller.NumberId + ": " + Controller.Connected.DisplayName);
+                    Debug.WriteLine("Disconnecting the controller " + Controller.NumberId + ": " + Controller.Details.DisplayName);
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        txt_Controller_Information.Text = "Disconnected controller " + (Controller.NumberId + 1) + ": " + Controller.Connected.DisplayName;
+                        txt_Controller_Information.Text = "Disconnected controller " + (Controller.NumberId + 1) + ": " + Controller.Details.DisplayName;
                         if (Controller.NumberId == 0) { textblock_Controller0.Text = "No controller connected"; }
                         else if (Controller.NumberId == 1) { textblock_Controller1.Text = "No controller connected"; }
                         else if (Controller.NumberId == 2) { textblock_Controller2.Text = "No controller connected"; }
@@ -153,9 +153,6 @@ namespace DirectXInput
                     Controller.X360Device.Dispose();
                     Controller.X360Device = null;
 
-                    //Reset the controller connect status
-                    Controller.NumberId = -1;
-
                     //Reset the input and output report
                     Controller.XInputData = new byte[28];
                     Controller.XOutputData = new byte[8];
@@ -180,7 +177,7 @@ namespace DirectXInput
                     //Disconnect controller from bluetooth
                     try
                     {
-                        if (Controller.Connected.Wireless) { Controller.HidDevice.DisconnectBluetooth(); }
+                        if (Controller.Details.Wireless) { Controller.HidDevice.DisconnectBluetooth(); }
                     }
                     catch { Debug.WriteLine("Failed disconnecting device from bluetooth."); }
 
@@ -195,7 +192,7 @@ namespace DirectXInput
                 }
 
                 //Dispose the connected controller
-                Controller.Connected = null;
+                Controller.Details = null;
 
                 Debug.WriteLine("Succesfully stopped the direct input controller.");
                 return true;
@@ -232,13 +229,13 @@ namespace DirectXInput
             try
             {
                 //Find and connect to win controller
-                if (Controller.Connected.Type == "Win")
+                if (Controller.Details.Type == "Win")
                 {
                     Controller.WinUsbDevice = new WinUsbDevice();
-                    if (!Controller.WinUsbDevice.OpenDevicePath(Controller.Connected.Path, true))
+                    if (!Controller.WinUsbDevice.OpenDevicePath(Controller.Details.Path, true))
                     {
-                        Debug.WriteLine("Invalid winusb device: " + Controller.Connected.DisplayName);
-                        vControllerBlockedPaths.Add(Controller.Connected.Path);
+                        Debug.WriteLine("Invalid winusb device: " + Controller.Details.DisplayName);
+                        vControllerBlockedPaths.Add(Controller.Details.Path);
                         return false;
                     }
                     else
@@ -247,15 +244,15 @@ namespace DirectXInput
                         Controller.InputReport = new byte[Controller.WinUsbDevice.IntIn];
                         Controller.OutputReport = new byte[Controller.WinUsbDevice.IntOut];
 
-                        Debug.WriteLine("Opened the winusb controller: " + Controller.Connected.DisplayName);
-                        vControllerBlockedPaths.Remove(Controller.Connected.Path);
+                        Debug.WriteLine("Opened the winusb controller: " + Controller.Details.DisplayName);
+                        vControllerBlockedPaths.Remove(Controller.Details.Path);
                         return true;
                     }
                 }
                 //Find and connect to hid controller
                 else
                 {
-                    Controller.HidDevice = new HidDevice(Controller.Connected.Path, Controller.Connected.DisplayName, Controller.Connected.HardwareId);
+                    Controller.HidDevice = new HidDevice(Controller.Details.Path, Controller.Details.DisplayName, Controller.Details.HardwareId);
 
                     //Disable and enable device to allow exclusive
                     bool DisabledDevice = Controller.HidDevice.DisableDevice();
@@ -263,13 +260,13 @@ namespace DirectXInput
 
                     if (!DisabledDevice && !EnabledDevice)
                     {
-                        Debug.WriteLine("Device no longer connected: " + Controller.Connected.DisplayName);
+                        Debug.WriteLine("Device no longer connected: " + Controller.Details.DisplayName);
                         return false;
                     }
                     else if (!Controller.HidDevice.OpenDeviceExclusively())
                     {
-                        Debug.WriteLine("Invalid hid device: " + Controller.Connected.DisplayName);
-                        vControllerBlockedPaths.Add(Controller.Connected.Path);
+                        Debug.WriteLine("Invalid hid device: " + Controller.Details.DisplayName);
+                        vControllerBlockedPaths.Add(Controller.Details.Path);
                         return false;
                     }
                     else
@@ -284,19 +281,19 @@ namespace DirectXInput
                         //Check if the controller connected
                         if (!ReadFile)
                         {
-                            Debug.WriteLine("Invalid hid device: " + Controller.Connected.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadFile);
-                            vControllerBlockedPaths.Add(Controller.Connected.Path);
+                            Debug.WriteLine("Invalid hid device: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadFile);
+                            vControllerBlockedPaths.Add(Controller.Details.Path);
                             return false;
                         }
                         else if (!Controller.InputReport.Take(5).Any(x => x != 0))
                         {
-                            Debug.WriteLine("Invalid hid data: " + Controller.Connected.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadFile);
+                            Debug.WriteLine("Invalid hid data: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadFile);
                             return false;
                         }
                         else
                         {
-                            Debug.WriteLine("Opened the hid controller: " + Controller.Connected.DisplayName);
-                            vControllerBlockedPaths.Remove(Controller.Connected.Path);
+                            Debug.WriteLine("Opened the hid controller: " + Controller.Details.DisplayName);
+                            vControllerBlockedPaths.Remove(Controller.Details.Path);
                             return true;
                         }
                     }

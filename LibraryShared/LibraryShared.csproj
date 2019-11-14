@@ -128,14 +128,14 @@
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="AppLaunchCheck.cs" />
+    <Compile Include="Classes\ControllerStatusSummary.cs" />
     <Compile Include="Classes\ShortcutDetails.cs" />
     <Compile Include="Classes\FpsPositionProcess.cs" />
     <Compile Include="Classes\FileLocation.cs" />
     <Compile Include="Classes\DataBindString.cs" />
-    <Compile Include="Classes\ControllerConnected.cs" />
+    <Compile Include="Classes\ControllerDetails.cs" />
     <Compile Include="Classes\ControllerInput.cs" />
     <Compile Include="Classes\ControllerProfile.cs" />
-    <Compile Include="Classes\ControllerStatusSend.cs" />
     <Compile Include="Classes\ControllerStatus.cs" />
     <Compile Include="Classes\ControllerSupported.cs" />
     <Compile Include="Classes\DataBindApp.cs" />

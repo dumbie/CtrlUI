@@ -35,7 +35,7 @@ namespace DirectXInput
                 Controller.XInputData[21] = TranslateByte_0xFF(8, Controller.InputCurrent.ThumbRightY);
 
                 //Triggers
-                if (!Controller.Connected.Profile.UseButtonTriggers)
+                if (!Controller.Details.Profile.UseButtonTriggers)
                 {
                     Controller.XInputData[12] = Controller.InputCurrent.TriggerLeft;
                     Controller.XInputData[13] = Controller.InputCurrent.TriggerRight;

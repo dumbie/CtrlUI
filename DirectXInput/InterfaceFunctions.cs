@@ -48,7 +48,7 @@ namespace DirectXInput
                     ControllerStatus ManageController = GetManageController();
                     if (ManageController != null)
                     {
-                        ManageController.Connected.Profile.FakeGuideButton = cb_ControllerFakeGuideButton.IsChecked.Value;
+                        ManageController.Details.Profile.FakeGuideButton = cb_ControllerFakeGuideButton.IsChecked.Value;
                         JsonSaveControllerProfile();
                     }
                 };
@@ -58,7 +58,7 @@ namespace DirectXInput
                     ControllerStatus ManageController = GetManageController();
                     if (ManageController != null)
                     {
-                        ManageController.Connected.Profile.UseButtonTriggers = cb_ControllerUseButtonTriggers.IsChecked.Value;
+                        ManageController.Details.Profile.UseButtonTriggers = cb_ControllerUseButtonTriggers.IsChecked.Value;
                         JsonSaveControllerProfile();
                     }
                 };
@@ -68,7 +68,7 @@ namespace DirectXInput
                     ControllerStatus ManageController = GetManageController();
                     if (ManageController != null)
                     {
-                        ManageController.Connected.Profile.DPadFourWayMovement = cb_ControllerDPadFourWayMovement.IsChecked.Value;
+                        ManageController.Details.Profile.DPadFourWayMovement = cb_ControllerDPadFourWayMovement.IsChecked.Value;
                         JsonSaveControllerProfile();
                     }
                 };
@@ -78,7 +78,7 @@ namespace DirectXInput
                     ControllerStatus ManageController = GetManageController();
                     if (ManageController != null)
                     {
-                        ManageController.Connected.Profile.ThumbFlipMovement = cb_ControllerThumbFlipMovement.IsChecked.Value;
+                        ManageController.Details.Profile.ThumbFlipMovement = cb_ControllerThumbFlipMovement.IsChecked.Value;
                         JsonSaveControllerProfile();
                     }
                 };
@@ -88,7 +88,7 @@ namespace DirectXInput
                     ControllerStatus ManageController = GetManageController();
                     if (ManageController != null)
                     {
-                        ManageController.Connected.Profile.ThumbFlipAxesLeft = cb_ControllerThumbFlipAxesLeft.IsChecked.Value;
+                        ManageController.Details.Profile.ThumbFlipAxesLeft = cb_ControllerThumbFlipAxesLeft.IsChecked.Value;
                         JsonSaveControllerProfile();
                     }
                 };
@@ -98,7 +98,7 @@ namespace DirectXInput
                     ControllerStatus ManageController = GetManageController();
                     if (ManageController != null)
                     {
-                        ManageController.Connected.Profile.ThumbFlipAxesRight = cb_ControllerThumbFlipAxesRight.IsChecked.Value;
+                        ManageController.Details.Profile.ThumbFlipAxesRight = cb_ControllerThumbFlipAxesRight.IsChecked.Value;
                         JsonSaveControllerProfile();
                     }
                 };
@@ -108,7 +108,7 @@ namespace DirectXInput
                     ControllerStatus ManageController = GetManageController();
                     if (ManageController != null)
                     {
-                        ManageController.Connected.Profile.ThumbReverseAxesLeft = cb_ControllerThumbReverseAxesLeft.IsChecked.Value;
+                        ManageController.Details.Profile.ThumbReverseAxesLeft = cb_ControllerThumbReverseAxesLeft.IsChecked.Value;
                         JsonSaveControllerProfile();
                     }
                 };
@@ -118,7 +118,7 @@ namespace DirectXInput
                     ControllerStatus ManageController = GetManageController();
                     if (ManageController != null)
                     {
-                        ManageController.Connected.Profile.ThumbReverseAxesRight = cb_ControllerThumbReverseAxesRight.IsChecked.Value;
+                        ManageController.Details.Profile.ThumbReverseAxesRight = cb_ControllerThumbReverseAxesRight.IsChecked.Value;
                         JsonSaveControllerProfile();
                     }
                 };
@@ -129,7 +129,7 @@ namespace DirectXInput
                     if (ManageController != null)
                     {
                         textblock_ControllerRumbleStrength.Text = "Rumble strength: " + slider_ControllerRumbleStrength.Value.ToString("0") + "%";
-                        ManageController.Connected.Profile.RumbleStrength = Convert.ToInt32(slider_ControllerRumbleStrength.Value);
+                        ManageController.Details.Profile.RumbleStrength = Convert.ToInt32(slider_ControllerRumbleStrength.Value);
                         JsonSaveControllerProfile();
                     }
                 };
@@ -140,7 +140,7 @@ namespace DirectXInput
                     if (ManageController != null)
                     {
                         textblock_ControllerLedBrightness.Text = "Led brightness: " + slider_ControllerLedBrightness.Value.ToString("0") + "%";
-                        ManageController.Connected.Profile.LedBrightness = Convert.ToInt32(slider_ControllerLedBrightness.Value);
+                        ManageController.Details.Profile.LedBrightness = Convert.ToInt32(slider_ControllerLedBrightness.Value);
                         JsonSaveControllerProfile();
 
                         //Update the controller led

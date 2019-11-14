@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -33,17 +34,14 @@ namespace CtrlUI
                     return;
                 }
 
-                //Request the controller status from DirectXInput
-                await RequestControllerStatus("0");
-                await RequestControllerStatus("1");
-                await RequestControllerStatus("2");
-                await RequestControllerStatus("3");
+                //Request controller status from DirectXInput
+                await RequestControllerStatus();
             }
             catch { }
         }
 
         //Request the controller status from DirectXInput
-        async Task RequestControllerStatus(string ControllerId)
+        async Task RequestControllerStatus()
         {
             try
             {
@@ -53,7 +51,7 @@ namespace CtrlUI
                 SocketSendContainer socketSend = new SocketSendContainer();
                 socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
                 socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
-                socketSend.Object = new string[] { "ControllerInfo", ControllerId };
+                socketSend.Object = "ControllerStatusSummaryList";
 
                 //Request controller status
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
@@ -66,85 +64,84 @@ namespace CtrlUI
         }
 
         //Update the controller status from DirectXInput
-        void UpdateControllerStatus(ControllerStatusSend ControllerStatusSend)
+        void UpdateControllerStatus(List<ControllerStatusSummary> controllerStatusSummaryList)
         {
             try
             {
-                //Get the status controller id
-                int ControllerIdInt = ControllerStatusSend.NumberId;
-                string ControllerIdString = Convert.ToString(ControllerStatusSend.NumberId);
-                //Debug.WriteLine("Received controller status for: " + ControllerIdInt);
-
-                //Get the target controller
-                Image ImageTarget = null;
-                ControllerStatusSend ControllerTarget = null;
-                if (ControllerIdInt == 0)
+                //Update the controller status
+                foreach (ControllerStatusSummary controllerStatusNew in controllerStatusSummaryList)
                 {
-                    ImageTarget = img_Menu_Controller0;
-                    ControllerTarget = vController0;
-                }
-                else if (ControllerIdInt == 1)
-                {
-                    ImageTarget = img_Menu_Controller1;
-                    ControllerTarget = vController1;
-                }
-                else if (ControllerIdInt == 2)
-                {
-                    ImageTarget = img_Menu_Controller2;
-                    ControllerTarget = vController2;
-                }
-                else if (ControllerIdInt == 3)
-                {
-                    ImageTarget = img_Menu_Controller3;
-                    ControllerTarget = vController3;
-                }
-
-                //Show controller connection popup and update the controller menu images
-                if (ControllerTarget.Connected != ControllerStatusSend.Connected)
-                {
-                    if (ControllerStatusSend.Connected)
+                    //Get current controller status
+                    Image controllerStatusImage = null;
+                    ControllerStatusSummary controllerStatusOld = null;
+                    if (controllerStatusNew.NumberId == 0)
                     {
-                        AVActions.ActionDispatcherInvoke(delegate { ImageTarget.Opacity = 1.00; });
-                        string ControllerIdDisplay = Convert.ToString(ControllerIdInt + 1);
-                        Popup_Show_Status("Controller", "Connected (" + ControllerIdDisplay + ")");
+                        controllerStatusImage = img_Menu_Controller0;
+                        controllerStatusOld = vController0;
                     }
-                    else
+                    else if (controllerStatusNew.NumberId == 1)
                     {
-                        AVActions.ActionDispatcherInvoke(delegate { ImageTarget.Opacity = 0.30; });
-                        string ControllerIdDisplay = Convert.ToString(ControllerIdInt + 1);
-                        Popup_Show_Status("Controller", "Disconnected (" + ControllerIdDisplay + ")");
-                        if (vControllerActiveId == ControllerIdString) { HideBatteryStatus(true); }
+                        controllerStatusImage = img_Menu_Controller1;
+                        controllerStatusOld = vController1;
                     }
-                }
+                    else if (controllerStatusNew.NumberId == 2)
+                    {
+                        controllerStatusImage = img_Menu_Controller2;
+                        controllerStatusOld = vController2;
+                    }
+                    else if (controllerStatusNew.NumberId == 3)
+                    {
+                        controllerStatusImage = img_Menu_Controller3;
+                        controllerStatusOld = vController3;
+                    }
 
-                //Check if the controller is manage controller
-                if (ControllerStatusSend.Manage && vControllerActiveId != ControllerIdString)
-                {
-                    ActivateController(ControllerIdString);
-                }
+                    //Show controller connection popup and update the controller menu image
+                    if (controllerStatusOld.Connected != controllerStatusNew.Connected)
+                    {
+                        if (controllerStatusNew.Connected)
+                        {
+                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 1.00; });
+                            string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
+                            Popup_Show_Status("Controller", "Connected (" + ControllerIdDisplay + ")");
+                        }
+                        else
+                        {
+                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 0.30; });
+                            string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
+                            Popup_Show_Status("Controller", "Disconnected (" + ControllerIdDisplay + ")");
+                            if (vControllerActiveId == controllerStatusNew.NumberId) { HideBatteryStatus(true); }
+                        }
+                    }
 
-                //Update the battery icons and level
-                if (ControllerStatusSend.Manage)
-                {
-                    UpdateBatteryStatus(ControllerIdString, ControllerStatusSend.BatteryPercentageCurrent);
-                }
+                    //Check if the controller is manage controller
+                    if (controllerStatusNew.Manage && vControllerActiveId != controllerStatusNew.NumberId)
+                    {
+                        ActivateController(controllerStatusNew.NumberId);
+                    }
 
-                //Update the controller status for comparison
-                if (ControllerIdInt == 0)
-                {
-                    vController0 = ControllerStatusSend;
-                }
-                else if (ControllerIdInt == 1)
-                {
-                    vController1 = ControllerStatusSend;
-                }
-                else if (ControllerIdInt == 2)
-                {
-                    vController2 = ControllerStatusSend;
-                }
-                else if (ControllerIdInt == 3)
-                {
-                    vController3 = ControllerStatusSend;
+                    //Update the battery icons and level
+                    if (controllerStatusNew.Manage)
+                    {
+                        UpdateBatteryStatus(controllerStatusNew.BatteryPercentageCurrent);
+                    }
+
+                    //Update the controller status for comparison
+                    if (controllerStatusNew.NumberId == 0)
+                    {
+                        vController0 = controllerStatusNew;
+                    }
+                    else if (controllerStatusNew.NumberId == 1)
+                    {
+                        vController1 = controllerStatusNew;
+                    }
+                    else if (controllerStatusNew.NumberId == 2)
+                    {
+                        vController2 = controllerStatusNew;
+                    }
+                    else if (controllerStatusNew.NumberId == 3)
+                    {
+                        vController3 = controllerStatusNew;
+                    }
                 }
             }
             catch { }
@@ -171,7 +168,7 @@ namespace CtrlUI
         }
 
         //Update the battery icons and level
-        void UpdateBatteryStatus(string ControllerId, int BatteryPercentageCurrent)
+        void UpdateBatteryStatus(int BatteryPercentageCurrent)
         {
             try
             {
@@ -240,13 +237,13 @@ namespace CtrlUI
         }
 
         //Set a controller as the active controller
-        void ActivateController(string ControllerId)
+        void ActivateController(int controllerId)
         {
             try
             {
-                if (ControllerId == "0")
+                if (controllerId == 0)
                 {
-                    vControllerActiveId = ControllerId;
+                    vControllerActiveId = controllerId;
                     Popup_Show_Status("Controller", "Activated (1)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -256,9 +253,9 @@ namespace CtrlUI
                         img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
                     });
                 }
-                else if (ControllerId == "1")
+                else if (controllerId == 1)
                 {
-                    vControllerActiveId = ControllerId;
+                    vControllerActiveId = controllerId;
                     Popup_Show_Status("Controller", "Activated (2)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -268,9 +265,9 @@ namespace CtrlUI
                         img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
                     });
                 }
-                else if (ControllerId == "2")
+                else if (controllerId == 2)
                 {
-                    vControllerActiveId = ControllerId;
+                    vControllerActiveId = controllerId;
                     Popup_Show_Status("Controller", "Activated (3)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -280,9 +277,9 @@ namespace CtrlUI
                         img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
                     });
                 }
-                else if (ControllerId == "3")
+                else if (controllerId == 3)
                 {
-                    vControllerActiveId = ControllerId;
+                    vControllerActiveId = controllerId;
                     Popup_Show_Status("Controller", "Activated (4)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {

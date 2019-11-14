@@ -53,7 +53,7 @@ namespace DirectXInput
                             //Check if controller is wireless
                             bool ConnectedWireless = EnumDevice.DevicePath.ToLower().Contains("00805f9b34fb");
 
-                            ControllerConnected NewController = new ControllerConnected()
+                            ControllerDetails NewController = new ControllerDetails()
                             {
                                 Type = "Win",
                                 Profile = ProfileList.FirstOrDefault(),
@@ -118,7 +118,7 @@ namespace DirectXInput
                             //Check if controller is wireless
                             bool ConnectedWireless = FoundHidDevice.DevicePath.ToLower().Contains("00805f9b34fb");
 
-                            ControllerConnected NewController = new ControllerConnected()
+                            ControllerDetails NewController = new ControllerDetails()
                             {
                                 Type = "Hid",
                                 Profile = ProfileList.FirstOrDefault(),

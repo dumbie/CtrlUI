@@ -26,7 +26,7 @@ namespace DirectXInput
                     if (TestLight) { LightMotor = 255; } else { LightMotor = Controller.XOutputData[4]; }
 
                     //Adjust the rumble strength
-                    double ControllerRumbleStrength = Convert.ToDouble(Controller.Connected.Profile.RumbleStrength) / 100;
+                    double ControllerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.RumbleStrength) / 100;
                     HeavyMotor = Convert.ToByte(HeavyMotor * ControllerRumbleStrength);
                     LightMotor = Convert.ToByte(LightMotor * ControllerRumbleStrength);
                     Debug.WriteLine("Rumble Heavy motor: " + HeavyMotor + " / Light Motor: " + LightMotor);
@@ -48,8 +48,8 @@ namespace DirectXInput
                     }
 
                     //Check which controller is connected
-                    IEnumerable<ControllerSupported> TargetController = List_ControllerSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Connected.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Connected.Profile.VendorID.ToLower()));
-                    if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && Controller.Connected.Wireless)
+                    IEnumerable<ControllerSupported> TargetController = List_ControllerSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
+                    if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && Controller.Details.Wireless)
                     {
                         //Bluetooth Output - DualShock 4
                         byte[] OutputReport = new byte[Controller.OutputReport.Length];
@@ -62,7 +62,7 @@ namespace DirectXInput
                         OutputReport[12] = 0; //Led Off Duration
 
                         //Set the controller led color
-                        double ControllerLedBrightness = Convert.ToDouble(Controller.Connected.Profile.LedBrightness) / 100;
+                        double ControllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
                         if (Controller.NumberId == 0)
                         {
                             OutputReport[8] = Convert.ToByte(10 * ControllerLedBrightness); //Red
@@ -92,7 +92,7 @@ namespace DirectXInput
                         NativeMethods_Hid.HidD_SetOutputReport(Controller.HidDevice.DeviceHandle, OutputReport, OutputReport.Length);
                         Debug.WriteLine("BlueRumb DS4");
                     }
-                    else if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && !Controller.Connected.Wireless)
+                    else if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && !Controller.Details.Wireless)
                     {
                         //Wired USB Output - DualShock 4
                         byte[] OutputReport = new byte[Controller.OutputReport.Length];
@@ -104,7 +104,7 @@ namespace DirectXInput
                         OutputReport[10] = 0; //Led Off Duration
 
                         //Set the controller led color
-                        double ControllerLedBrightness = Convert.ToDouble(Controller.Connected.Profile.LedBrightness) / 100;
+                        double ControllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
                         if (Controller.NumberId == 0)
                         {
                             OutputReport[6] = Convert.ToByte(10 * ControllerLedBrightness); //Red

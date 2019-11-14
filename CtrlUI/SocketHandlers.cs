@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -52,10 +53,10 @@ namespace CtrlUI
                         vControllerBusy = false;
                     }
                 }
-                else if (DeserializedBytes.Object is ControllerStatusSend)
+                else if (DeserializedBytes.Object is List<ControllerStatusSummary>)
                 {
-                    ControllerStatusSend receivedControllerStatusSend = (ControllerStatusSend)DeserializedBytes.Object;
-                    UpdateControllerStatus(receivedControllerStatusSend);
+                    List<ControllerStatusSummary> controllerStatusSummaryList = (List<ControllerStatusSummary>)DeserializedBytes.Object;
+                    UpdateControllerStatus(controllerStatusSummaryList);
                 }
             }
             catch { }

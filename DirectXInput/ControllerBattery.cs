@@ -17,8 +17,8 @@ namespace DirectXInput
             try
             {
                 //Check which controller is connected
-                IEnumerable<ControllerSupported> TargetController = List_ControllerSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Connected.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Connected.Profile.VendorID.ToLower()));
-                if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && Controller.Connected.Wireless)
+                IEnumerable<ControllerSupported> TargetController = List_ControllerSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
+                if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && Controller.Details.Wireless)
                 {
                     //Bluetooth - DualShock 4
                     int BatteryOffset = 30 + Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset;
@@ -36,7 +36,7 @@ namespace DirectXInput
                         Controller.BatteryPercentageCurrent = RawBattery;
                     }
                 }
-                else if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && !Controller.Connected.Wireless)
+                else if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && !Controller.Details.Wireless)
                 {
                     //Wired USB - DualShock 4
                     Controller.BatteryPercentageCurrent = -2;
@@ -58,7 +58,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected != null && Controller.InputReport != null && Controller.BatteryPercentageCurrent > 0)
+                if (Controller.Connected() && Controller.InputReport != null && Controller.BatteryPercentageCurrent > 0)
                 {
                     int LowBatteryLevelRange = 20;
                     //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has a low battery level " + Controller.BatteryPercentageCurrent + "/" + Controller.BatteryPercentagePrevious);

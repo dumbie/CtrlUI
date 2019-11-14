@@ -10,6 +10,11 @@ namespace LibraryShared
     {
         public class ControllerStatus
         {
+            public ControllerStatus(int numberId)
+            {
+                NumberId = numberId;
+            }
+
             //Controller Status
             public int NumberId = -1;
             public bool Manage = false;
@@ -18,11 +23,12 @@ namespace LibraryShared
             public int BatteryPercentageCurrent = -1; //-1 Unknown, -2 Charging
             public int BatteryPercentagePrevious = -1; //-1 Unknown, -2 Charging
 
-            //Controller Connected
+            //Controller Details
             public int LastActive = 0;
             public int MilliSecondsReadTime = 2000;
             public int MilliSecondsTimeout = 4000;
-            public ControllerConnected Connected = null;
+            public bool Connected() { return Details != null; }
+            public ControllerDetails Details = null;
 
             //Controller Task
             public Task InputTask = null;
