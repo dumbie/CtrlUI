@@ -132,7 +132,7 @@ namespace CtrlUI
                 //Focus on the first available listbox
                 if (vMainMenuPreviousFocus == null)
                 {
-                    await FocusOnListbox(TopVisibleListBox(), true, false, -1, true);
+                    await FocusOnListbox(TopVisibleListBox(), true, false, -1);
                 }
 
                 //Check settings if DirectXInput launches on start

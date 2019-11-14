@@ -167,7 +167,7 @@ namespace CtrlUI
                         }
 
                         //Select the previous index
-                        await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex, true);
+                        await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
                     }
                     else if (Result == Answer2)
                     {
@@ -188,7 +188,7 @@ namespace CtrlUI
                         UpdateSearchResults();
 
                         //Select the previous index
-                        await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex, true);
+                        await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
                     }
                 }
             }
@@ -281,7 +281,7 @@ namespace CtrlUI
                             }
 
                             //Select the previous index
-                            await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex, true);
+                            await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
                         }
                         else if (Result == Answer2)
                         {
@@ -302,7 +302,7 @@ namespace CtrlUI
                                 UpdateSearchResults();
 
                                 //Select the previous index
-                                await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex, true);
+                                await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
                             }
                             else
                             {
@@ -369,7 +369,7 @@ namespace CtrlUI
                             }
 
                             //Select the previous index
-                            await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex, true);
+                            await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
                         }
                         else if (Result == Answer2)
                         {
@@ -390,7 +390,7 @@ namespace CtrlUI
                                 UpdateSearchResults();
 
                                 //Select the previous index
-                                await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex, true);
+                                await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
                             }
                             else
                             {

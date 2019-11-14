@@ -81,7 +81,7 @@ namespace CtrlUI
                 if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
 
                 //Focus on first listbox answer
-                await FocusOnListbox(lb_MessageBox, true, false, -1, false);
+                await FocusOnListbox(lb_MessageBox, true, false, -1);
 
                 //Wait for user messagebox input
                 while (vMessageBoxResult == null && !vMessageBoxCancelled) { await Task.Delay(500); }
@@ -119,8 +119,8 @@ namespace CtrlUI
 
                 while (grid_Popup_MessageBox.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
-                //Focus on the previous element
-                if (vMessageBoxPreviousFocus != null) { await FocusOnElement(vMessageBoxPreviousFocus, 0, 0); }
+                //Force focus on an element
+                if (vMessageBoxPreviousFocus != null) { await FocusOnElement(vMessageBoxPreviousFocus); }
             }
             catch { }
         }

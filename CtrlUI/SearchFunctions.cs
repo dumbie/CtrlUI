@@ -52,8 +52,8 @@ namespace CtrlUI
 
                 vSearchOpen = true;
 
-                //Focus on the textbox
-                await FocusOnElement(grid_Popup_Search_textbox_Search, 0, 0);
+                //Force focus on an element
+                await FocusOnElement(grid_Popup_Search_textbox_Search);
             }
             catch { }
         }
@@ -77,10 +77,10 @@ namespace CtrlUI
                 if (CheckKeyboardEnabled()) { grid_Popup_Search_button_KeyboardController.Visibility = Visibility.Visible; }
                 else { grid_Popup_Search_button_KeyboardController.Visibility = Visibility.Collapsed; }
 
-                //Focus on the textbox
+                //Force focus on an element
                 if (FocusTextbox)
                 {
-                    await FocusOnElement(grid_Popup_Search_textbox_Search, 0, 0);
+                    await FocusOnElement(grid_Popup_Search_textbox_Search);
                 }
             }
             catch { }
@@ -114,8 +114,8 @@ namespace CtrlUI
 
                     while (grid_Popup_Search.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
-                    //Focus on the desired element
-                    if (FocusElement != null) { await FocusOnElement(FocusElement, 0, 0); }
+                    //Force focus on an element
+                    if (FocusElement != null) { await FocusOnElement(FocusElement); }
                 }
             }
             catch { }

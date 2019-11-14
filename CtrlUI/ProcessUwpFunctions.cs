@@ -460,7 +460,7 @@ namespace CtrlUI
                                     {
                                         await AVActions.ActionDispatcherInvokeAsync(async delegate
                                         {
-                                            await ListBoxRemoveAll(lb_Processes, List_Processes, x => x.PathExe.ToLower() == ProcessExecutablePath.ToLower(), true);
+                                            await ListBoxRemoveAll(lb_Processes, List_Processes, x => x.PathExe.ToLower() == ProcessExecutablePath.ToLower());
                                         });
                                         continue;
                                     }
@@ -502,7 +502,7 @@ namespace CtrlUI
                     //Remove no longer running and invalid processes
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => !ActiveProcesses.Contains(x.WindowHandle) && x.Type == "UWP", true);
+                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => !ActiveProcesses.Contains(x.WindowHandle) && x.Type == "UWP");
                     });
                 }
                 else
@@ -510,7 +510,7 @@ namespace CtrlUI
                     //There is no uwp application running
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => x.Type == "UWP", true);
+                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => x.Type == "UWP");
                     });
                 }
             }

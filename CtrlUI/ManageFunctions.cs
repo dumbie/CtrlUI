@@ -97,11 +97,11 @@ namespace CtrlUI
                     ListboxSelectedIndex = lb_Search.SelectedIndex;
                     List_Search.Remove(RemoveApp);
                     UpdateSearchResults();
-                    await FocusOnListbox(ListBoxSender, false, false, ListboxSelectedIndex, true);
+                    await FocusOnListbox(ListBoxSender, false, false, ListboxSelectedIndex);
                 }
                 else
                 {
-                    await FocusOnListbox(ListBoxSender, false, false, ListboxSelectedIndex, true);
+                    await FocusOnListbox(ListBoxSender, false, false, ListboxSelectedIndex);
                 }
 
                 //Save changes to Json file
@@ -432,9 +432,9 @@ namespace CtrlUI
                     ListsUpdateCount();
 
                     //Focus on the application list
-                    if (SelectedAddCategory == "Game") { await FocusOnListbox(lb_Games, false, true, -1, true); }
-                    else if (SelectedAddCategory == "App") { await FocusOnListbox(lb_Apps, false, true, -1, true); }
-                    else if (SelectedAddCategory == "Emulator") { await FocusOnListbox(lb_Emulators, false, true, -1, true); }
+                    if (SelectedAddCategory == "Game") { await FocusOnListbox(lb_Games, false, true, -1); }
+                    else if (SelectedAddCategory == "App") { await FocusOnListbox(lb_Apps, false, true, -1); }
+                    else if (SelectedAddCategory == "Emulator") { await FocusOnListbox(lb_Emulators, false, true, -1); }
                 }
                 else
                 {
@@ -523,13 +523,13 @@ namespace CtrlUI
                         //Focus on the item listbox
                         if (vSearchOpen)
                         {
-                            await FocusOnListbox(lb_Search, false, false, -1, true);
+                            await FocusOnListbox(lb_Search, false, false, -1);
                         }
                         else
                         {
-                            if (vEditAppDataBind.Category == "Game") { await FocusOnListbox(lb_Games, false, true, -1, true); }
-                            else if (vEditAppDataBind.Category == "App") { await FocusOnListbox(lb_Apps, false, true, -1, true); }
-                            else if (vEditAppDataBind.Category == "Emulator") { await FocusOnListbox(lb_Emulators, false, true, -1, true); }
+                            if (vEditAppDataBind.Category == "Game") { await FocusOnListbox(lb_Games, false, true, -1); }
+                            else if (vEditAppDataBind.Category == "App") { await FocusOnListbox(lb_Apps, false, true, -1); }
+                            else if (vEditAppDataBind.Category == "Emulator") { await FocusOnListbox(lb_Emulators, false, true, -1); }
                         }
                     }
                     else
@@ -543,13 +543,13 @@ namespace CtrlUI
                         //Focus on the item listbox
                         if (vSearchOpen)
                         {
-                            await FocusOnListbox(lb_Search, false, false, -1, true);
+                            await FocusOnListbox(lb_Search, false, false, -1);
                         }
                         else
                         {
-                            if (vEditAppDataBind.Category == "Game") { await FocusOnListbox(lb_Games, false, false, -1, true); }
-                            else if (vEditAppDataBind.Category == "App") { await FocusOnListbox(lb_Apps, false, false, -1, true); }
-                            else if (vEditAppDataBind.Category == "Emulator") { await FocusOnListbox(lb_Emulators, false, false, -1, true); }
+                            if (vEditAppDataBind.Category == "Game") { await FocusOnListbox(lb_Games, false, false, -1); }
+                            else if (vEditAppDataBind.Category == "App") { await FocusOnListbox(lb_Apps, false, false, -1); }
+                            else if (vEditAppDataBind.Category == "Emulator") { await FocusOnListbox(lb_Emulators, false, false, -1); }
                         }
                     }
 

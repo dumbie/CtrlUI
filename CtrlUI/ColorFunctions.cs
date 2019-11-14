@@ -93,7 +93,7 @@ namespace CtrlUI
                 vColorPickerOpen = true;
 
                 //Focus on the file picker listbox
-                await FocusOnListbox(lb_ColorPicker, false, false, -1, true);
+                await FocusOnListbox(lb_ColorPicker, false, false, -1);
             }
             catch { }
         }
@@ -146,8 +146,8 @@ namespace CtrlUI
 
                     while (grid_Popup_ColorPicker.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
-                    //Focus on the desired element
-                    if (FocusElement != null) { await FocusOnElement(FocusElement, 0, 0); }
+                    //Force focus on an element
+                    if (FocusElement != null) { await FocusOnElement(FocusElement); }
                 }
             }
             catch { }

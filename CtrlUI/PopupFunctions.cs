@@ -53,7 +53,7 @@ namespace CtrlUI
                 vMainMenuOpen = true;
 
                 //Focus on the menu listbox
-                await FocusOnListbox(listbox_MainMenu, false, false, -1, false);
+                await FocusOnListbox(listbox_MainMenu, false, false, -1);
 
                 //Update the clock with date
                 UpdateClock();
@@ -92,8 +92,8 @@ namespace CtrlUI
                     //Update the clock without date
                     UpdateClock();
 
-                    //Focus on the desired element
-                    if (FocusElement != null) { await FocusOnElement(FocusElement, 0, 0); }
+                    //Force focus on an element
+                    if (FocusElement != null) { await FocusOnElement(FocusElement); }
                 }
             }
             catch { }
@@ -127,8 +127,8 @@ namespace CtrlUI
 
                     vPopupOpen = true;
 
-                    //Focus on the desired element
-                    if (FocusElement != null) { await FocusOnElement(FocusElement, 0, 0); }
+                    //Force focus on an element
+                    if (FocusElement != null) { await FocusOnElement(FocusElement); }
                 }
             }
             catch { }
@@ -159,8 +159,8 @@ namespace CtrlUI
 
                     while (vPopupTargetElement.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
-                    //Focus on the desired element
-                    if (FocusElement != null) { await FocusOnElement(FocusElement, 0, 0); }
+                    //Force focus on an element
+                    if (FocusElement != null) { await FocusOnElement(FocusElement); }
                 }
             }
             catch { }

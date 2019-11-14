@@ -414,7 +414,7 @@ namespace CtrlUI
                 }
 
                 //Focus on the file picker listbox
-                await FocusOnListbox(lb_FilePicker, false, false, TargetIndex, true);
+                await FocusOnListbox(lb_FilePicker, false, false, TargetIndex);
             }
             catch { }
         }
@@ -483,8 +483,8 @@ namespace CtrlUI
 
                 while (grid_Popup_FilePicker.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
-                //Focus on the previous element
-                if (vFilePickerPreviousFocus != null) { await FocusOnElement(vFilePickerPreviousFocus, 0, 0); }
+                //Force focus on an element
+                if (vFilePickerPreviousFocus != null) { await FocusOnElement(vFilePickerPreviousFocus); }
             }
             catch { }
         }

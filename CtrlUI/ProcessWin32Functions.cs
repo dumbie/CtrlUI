@@ -766,7 +766,7 @@ namespace CtrlUI
                                 {
                                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                                     {
-                                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => Path.GetFileNameWithoutExtension(x.PathExe.ToLower()) == Path.GetFileNameWithoutExtension(ProcessExecutablePath.ToLower()), true);
+                                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => Path.GetFileNameWithoutExtension(x.PathExe.ToLower()) == Path.GetFileNameWithoutExtension(ProcessExecutablePath.ToLower()));
                                     });
                                     continue;
                                 }
@@ -815,7 +815,7 @@ namespace CtrlUI
                     //Remove no longer running and invalid processes
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => !ActiveProcesses.Contains(x.ProcessId) && (x.Type == "Win32" || x.Type == "Win32Store"), true);
+                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => !ActiveProcesses.Contains(x.ProcessId) && (x.Type == "Win32" || x.Type == "Win32Store"));
                     });
                 }
             }

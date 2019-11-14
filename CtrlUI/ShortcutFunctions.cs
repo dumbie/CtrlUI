@@ -123,7 +123,7 @@ namespace CtrlUI
                 //Remove shortcuts that are no longer available from the list
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => !DirectoryFiles.Any(y => y.Name.Replace(".lnk", string.Empty).Replace(".url", string.Empty).Replace(".exe - Shortcut", string.Empty).Replace(" - Shortcut", string.Empty) == x.Name), true);
+                    await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => !DirectoryFiles.Any(y => y.Name.Replace(".lnk", string.Empty).Replace(".url", string.Empty).Replace(".exe - Shortcut", string.Empty).Replace(" - Shortcut", string.Empty) == x.Name));
                 });
 
                 //Get shortcut information and add it to the list
@@ -197,7 +197,7 @@ namespace CtrlUI
                 {
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == FilenameLower, true);
+                        await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == FilenameLower);
                     });
                     return;
                 }

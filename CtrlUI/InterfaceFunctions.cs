@@ -376,8 +376,56 @@ namespace CtrlUI
             catch { }
         }
 
-        //Keyboard focus on listbox
-        async Task FocusOnListbox(ListBox FocusListBox, bool FirstIndex, bool LastIndex, int IndexNumber, bool Horizontal)
+        //Force focus on an element
+        async Task FocusOnElement(FrameworkElement focusElement)
+        {
+            try
+            {
+                if (focusElement != null && focusElement.Focusable && focusElement.Visibility == Visibility.Visible)
+                {
+                    int WhileLoop = 0;
+                    while (Keyboard.FocusedElement != focusElement)
+                    {
+                        //Update the element layout
+                        focusElement.UpdateLayout();
+
+                        //Logical focus on the element
+                        focusElement.Focus();
+
+                        //Keyboard focus on the element
+                        Keyboard.Focus(focusElement);
+
+                        //Mouse capture the element
+                        Mouse.Capture(focusElement);
+
+                        if (WhileLoop >= 30)
+                        {
+                            Debug.WriteLine("Failed focusing on the element after " + WhileLoop + " times, pressing tab key.");
+                            KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                            return;
+                        }
+
+                        WhileLoop++;
+                        await Task.Delay(10);
+                    }
+
+                    //Debug.WriteLine("Forced keyboard focus on: " + focusElement);
+                }
+                else
+                {
+                    Debug.WriteLine("Focus element cannot be focused on, pressing tab key.");
+                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed focusing on the element, pressing tab key.");
+                KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+            }
+        }
+
+        //Force focus on a listbox
+        async Task FocusOnListbox(ListBox FocusListBox, bool FirstIndex, bool LastIndex, int IndexNumber)
         {
             try
             {
@@ -394,36 +442,29 @@ namespace CtrlUI
                     int SelectedIndex = FocusListBox.SelectedIndex;
                     bool FirstIndexSelected = SelectedIndex == 0;
                     bool LastIndexSelected = SelectedIndex == FocusListBox.Items.Count - 1;
-                    object ScrollListBoxItem = FocusListBox.Items[SelectedIndex];
+
+                    //Force focus on an element
                     ListBoxItem FocusListBoxItem = (ListBoxItem)FocusListBox.ItemContainerGenerator.ContainerFromInd‌​ex(SelectedIndex);
-                    if (Horizontal)
-                    {
-                        if (FirstIndexSelected) { await FocusOnElement(FocusListBoxItem, (byte)KeysVirtual.Left, 0); }
-                        else if (LastIndexSelected) { await FocusOnElement(FocusListBoxItem, (byte)KeysVirtual.Right, 0); }
-                        else { await FocusOnElement(FocusListBoxItem, (byte)KeysVirtual.Right, (byte)KeysVirtual.Left); }
-                        FocusListBox.ScrollIntoView(ScrollListBoxItem);
-                    }
-                    else
-                    {
-                        if (FirstIndexSelected) { await FocusOnElement(FocusListBoxItem, (byte)KeysVirtual.Up, 0); }
-                        else if (LastIndexSelected) { await FocusOnElement(FocusListBoxItem, (byte)KeysVirtual.Down, 0); }
-                        else { await FocusOnElement(FocusListBoxItem, (byte)KeysVirtual.Down, (byte)KeysVirtual.Up); }
-                        FocusListBox.ScrollIntoView(ScrollListBoxItem);
-                    }
+                    await FocusOnElement(FocusListBoxItem);
+
+                    //Scroll to the listbox item
+                    object ScrollListBoxItem = FocusListBox.Items[SelectedIndex];
+                    FocusListBox.ScrollIntoView(ScrollListBoxItem);
                 }
                 else
                 {
-                    Debug.WriteLine("No focus listbox found or no longer focusable, pressing tab.");
+                    Debug.WriteLine("Listbox cannot be focused on, pressing tab key.");
                     KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch
             {
-                Debug.WriteLine("Failed focusing on the listbox.");
+                Debug.WriteLine("Failed focusing on the listbox, pressing tab key.");
+                KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
             }
         }
 
-        //Select an listbox item index
+        //Select a listbox item index
         void ListBoxSelectItem(ListBox FocusListBox, bool FirstIndex, bool LastIndex, int IndexNumber)
         {
             try
@@ -461,7 +502,7 @@ namespace CtrlUI
         }
 
         //Remove all matching items from a listbox
-        async Task ListBoxRemoveAll<T>(ListBox ListBox, Collection<T> Collection, Func<T, bool> RemoveCondition, bool Horizontal)
+        async Task ListBoxRemoveAll<T>(ListBox ListBox, Collection<T> Collection, Func<T, bool> RemoveCondition)
         {
             try
             {
@@ -473,7 +514,7 @@ namespace CtrlUI
                     if (Keyboard.FocusedElement == ListBox)
                     {
                         Debug.WriteLine(ListBox.Name + " " + (ListCount - ListBox.Items.Count) + " items have been removed, selecting the listbox.");
-                        await FocusOnListbox(ListBox, false, false, ListSelectedIndex, Horizontal);
+                        await FocusOnListbox(ListBox, false, false, ListSelectedIndex);
                     }
                     else
                     {
@@ -485,46 +526,6 @@ namespace CtrlUI
             catch
             {
                 Debug.WriteLine("Failed removing all from listbox.");
-            }
-        }
-
-        //keyboard focus on element
-        async Task FocusOnElement(FrameworkElement FocusElement, byte SingleKey, byte DoubleKey)
-        {
-            try
-            {
-                if (FocusElement != null && FocusElement.Focusable && FocusElement.Visibility == Visibility.Visible)
-                {
-                    int WhileLoop = 0;
-                    while (Keyboard.FocusedElement != FocusElement)
-                    {
-                        FocusElement.Focus();
-                        Keyboard.Focus(FocusElement);
-
-                        if (WhileLoop >= 30)
-                        {
-                            Debug.WriteLine("Failed focusing on the element after " + WhileLoop + " times, pressing tab.");
-                            KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                            return;
-                        }
-
-                        WhileLoop++;
-                        await Task.Delay(10);
-                    }
-
-                    if (SingleKey != 0) { KeyPressSingle(SingleKey, false); }
-                    if (DoubleKey != 0) { KeyPressSingle(DoubleKey, false); }
-                    //Debug.WriteLine("Forced the keyboard focus on: " + FocusElement);
-                }
-                else
-                {
-                    Debug.WriteLine("Failed focusing on the element directly, pressing tab.");
-                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                }
-            }
-            catch
-            {
-                Debug.WriteLine("Failed focusing on the element.");
             }
         }
 

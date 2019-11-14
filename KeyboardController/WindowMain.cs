@@ -132,6 +132,9 @@ namespace KeyboardController
                 await Task.Delay(10);
 
                 //Focus on the beginning key
+                key_g.UpdateLayout();
+                key_g.Focus();
+                Keyboard.Focus(key_g);
                 Mouse.Capture(key_g);
                 await Task.Delay(10);
 
@@ -166,6 +169,9 @@ namespace KeyboardController
                 await Task.Delay(10);
 
                 //Focus on the beginning key
+                key_g.UpdateLayout();
+                key_g.Focus();
+                Keyboard.Focus(key_g);
                 Mouse.Capture(key_g);
                 await Task.Delay(10);
 
@@ -526,14 +532,20 @@ namespace KeyboardController
                             foreach (FrameworkElement child in sp_Row3.Children) { child.IsEnabled = false; }
                             foreach (FrameworkElement child in sp_Row4.Children) { child.IsEnabled = false; }
                             foreach (FrameworkElement child in sp_Row5.Children) { child.IsEnabled = false; }
-
-                            //Focus on the close button
                             await Task.Delay(10);
+
+                            //Enable the close button
                             key_Close.IsEnabled = true;
                             await Task.Delay(10);
+
+                            //Focus on the close button
+                            key_Close.UpdateLayout();
                             key_Close.Focus();
                             Keyboard.Focus(key_Close);
+                            Mouse.Capture(key_Close);
                             await Task.Delay(10);
+
+                            //Activate the close button
                             KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         });
                     }
