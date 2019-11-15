@@ -182,8 +182,9 @@ namespace DirectXInput
             {
                 vProcessCtrlUI = GetProcessByName("CtrlUI", false);
                 vProcessKeyboardController = GetProcessByName("KeyboardController", false);
-
                 int FocusedAppId = GetFocusedProcess().Process.Id;
+
+                //Check if CtrlUI is currently activated
                 if (vProcessCtrlUI != null && vProcessCtrlUI.Id == FocusedAppId) { vProcessCtrlUIActivated = true; } else { vProcessCtrlUIActivated = false; }
 
                 AVActions.ActionDispatcherInvoke(delegate

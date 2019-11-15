@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
 using static KeyboardController.AppVariables;
@@ -136,7 +137,7 @@ namespace KeyboardController
                 await Task.Delay(10);
 
                 //Focus on the requested key
-                await FocusOnElement(focusKey);
+                await FocusOnElement(focusKey, true, vProcessCurrent.MainWindowHandle);
                 await Task.Delay(10);
 
                 //Store the previous cursor position
@@ -518,6 +519,7 @@ namespace KeyboardController
             try
             {
                 int FocusedAppId = GetFocusedProcess().Process.Id;
+
                 if (vProcessCurrent.Id == FocusedAppId)
                 {
                     if (vKeysEnabled)

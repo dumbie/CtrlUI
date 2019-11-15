@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -147,7 +148,10 @@ namespace CtrlUI
                     while (grid_Popup_ColorPicker.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
                     //Force focus on an element
-                    if (FocusElement != null) { await FocusOnElement(FocusElement); }
+                    if (FocusElement != null)
+                    {
+                        await FocusOnElement(FocusElement, false, vProcessCurrent.MainWindowHandle);
+                    }
                 }
             }
             catch { }

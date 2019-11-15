@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -484,7 +485,10 @@ namespace CtrlUI
                 while (grid_Popup_FilePicker.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
                 //Force focus on an element
-                if (vFilePickerPreviousFocus != null) { await FocusOnElement(vFilePickerPreviousFocus); }
+                if (vFilePickerPreviousFocus != null)
+                {
+                    await FocusOnElement(vFilePickerPreviousFocus, false, vProcessCurrent.MainWindowHandle);
+                }
             }
             catch { }
         }

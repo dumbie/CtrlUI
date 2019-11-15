@@ -133,20 +133,13 @@ namespace CtrlUI
                 //Check settings if DirectXInput launches on start
                 if (ConfigurationManager.AppSettings["LaunchDirectXInput"] == "True")
                 {
-                    if (!CheckRunningProcessByName("DirectXInput", false))
-                    {
-                        ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", true, false);
-                    }
+                    LaunchDirectXInput();
                 }
 
                 //Check settings if Fps Overlayer launches on start
                 if (ConfigurationManager.AppSettings["LaunchFpsOverlayer"] == "True")
                 {
-                    if (!CheckRunningProcessByName("FpsOverlayer", false))
-                    {
-                        ProcessLauncherWin32("FpsOverlayer-Admin.exe", "", "", true, false);
-                        await Task.Delay(1000);
-                    }
+                    await ShowFpsOverlayer();
                 }
 
                 //Force window focus on CtrlUI

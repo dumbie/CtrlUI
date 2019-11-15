@@ -103,6 +103,9 @@
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVFunctions.cs">
       <Link>ArnoldVinkCode\Functions\AVFunctions.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVInterface.cs">
+      <Link>ArnoldVinkCode\Functions\AVInterface.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVSwitchAudioDevice\AVSwitchAudioDevice.cs">
       <Link>ArnoldVinkCode\Functions\AVSwitchAudioDevice\AVSwitchAudioDevice.cs</Link>
     </Compile>

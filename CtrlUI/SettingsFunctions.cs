@@ -66,10 +66,7 @@ namespace CtrlUI
         {
             try
             {
-                if (!CheckRunningProcessByName("DirectXInput", false))
-                {
-                    ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", true, false);
-                }
+                LaunchDirectXInput();
             }
             catch { }
         }

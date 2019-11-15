@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -37,7 +38,10 @@ namespace CtrlUI
                 PlayInterfaceSound("PopupOpen", false);
 
                 //Save previous focused element
-                if (Keyboard.FocusedElement != null) { vSearchPreviousFocus = (FrameworkElement)Keyboard.FocusedElement; }
+                if (Keyboard.FocusedElement != null)
+                {
+                    vSearchPreviousFocus = (FrameworkElement)Keyboard.FocusedElement;
+                }
 
                 //Show the popup with animation
                 AVAnimations.Ani_Visibility(grid_Popup_Search, true, true, 0.10);
@@ -53,7 +57,14 @@ namespace CtrlUI
                 vSearchOpen = true;
 
                 //Force focus on an element
-                await FocusOnElement(grid_Popup_Search_textbox_Search);
+                if (vAppActivated && vControllerAnyConnected())
+                {
+                    await FocusOnElement(grid_Popup_Search_button_KeyboardControllerButton, false, vProcessCurrent.MainWindowHandle);
+                }
+                else
+                {
+                    await FocusOnElement(grid_Popup_Search_textbox_Search, false, vProcessCurrent.MainWindowHandle);
+                }
             }
             catch { }
         }
@@ -69,18 +80,34 @@ namespace CtrlUI
 
                 //Reset the search text
                 grid_Popup_Search_Count_TextBlock.Text = string.Empty;
-                grid_Popup_Search_textbox_Search.Text = string.Empty;
+
+                if (FocusTextbox)
+                {
+                    grid_Popup_Search_textbox_Search.Text = string.Empty;
+                }
+                else
+                {
+                    grid_Popup_Search_textbox_Search.Text = "Search application...";
+                }
+
                 grid_Popup_Search_textblock_Result.Text = "Please enter a search term above.";
                 grid_Popup_Search_textblock_Result.Visibility = Visibility.Visible;
+                grid_Popup_Search_button_KeyboardControllerButton.Visibility = Visibility.Visible;
 
                 //Show or hide the keyboard icon
-                if (CheckKeyboardEnabled()) { grid_Popup_Search_button_KeyboardController.Visibility = Visibility.Visible; }
-                else { grid_Popup_Search_button_KeyboardController.Visibility = Visibility.Collapsed; }
+                if (CheckKeyboardEnabled())
+                {
+                    grid_Popup_Search_button_KeyboardControllerIcon.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    grid_Popup_Search_button_KeyboardControllerIcon.Visibility = Visibility.Collapsed;
+                }
 
                 //Force focus on an element
                 if (FocusTextbox)
                 {
-                    await FocusOnElement(grid_Popup_Search_textbox_Search);
+                    await FocusOnElement(grid_Popup_Search_textbox_Search, false, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }
@@ -112,10 +139,16 @@ namespace CtrlUI
                     else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
                     else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
 
-                    while (grid_Popup_Search.Visibility == Visibility.Visible) { await Task.Delay(10); }
+                    while (grid_Popup_Search.Visibility == Visibility.Visible)
+                    {
+                        await Task.Delay(10);
+                    }
 
                     //Force focus on an element
-                    if (FocusElement != null) { await FocusOnElement(FocusElement); }
+                    if (FocusElement != null)
+                    {
+                        await FocusOnElement(FocusElement, false, vProcessCurrent.MainWindowHandle);
+                    }
                 }
             }
             catch { }
@@ -131,11 +164,13 @@ namespace CtrlUI
                     grid_Popup_Search_Count_TextBlock.Text = string.Empty;
                     grid_Popup_Search_textblock_Result.Text = "No search results found.";
                     grid_Popup_Search_textblock_Result.Visibility = Visibility.Visible;
+                    grid_Popup_Search_button_KeyboardControllerButton.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     grid_Popup_Search_Count_TextBlock.Text = " " + List_Search.Count.ToString();
                     grid_Popup_Search_textblock_Result.Visibility = Visibility.Collapsed;
+                    grid_Popup_Search_button_KeyboardControllerButton.Visibility = Visibility.Collapsed;
                     lb_Search.SelectedIndex = 0;
                 }
             }

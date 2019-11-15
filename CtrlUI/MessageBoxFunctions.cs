@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
@@ -120,7 +121,10 @@ namespace CtrlUI
                 while (grid_Popup_MessageBox.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
                 //Force focus on an element
-                if (vMessageBoxPreviousFocus != null) { await FocusOnElement(vMessageBoxPreviousFocus); }
+                if (vMessageBoxPreviousFocus != null)
+                {
+                    await FocusOnElement(vMessageBoxPreviousFocus, false, vProcessCurrent.MainWindowHandle);
+                }
             }
             catch { }
         }

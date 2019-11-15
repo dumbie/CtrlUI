@@ -25,7 +25,7 @@ namespace CtrlUI
             {
                 while (TaskRunningCheck(vTaskToken_UpdateWindowStatus))
                 {
-                    await UpdateWindowStatus();
+                    UpdateWindowStatus();
                     await Task.Delay(500);
                 }
             }

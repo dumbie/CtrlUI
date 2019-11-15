@@ -300,7 +300,7 @@
                     </TextBlock>
 
                     <Grid>
-                        <TextBox Name="grid_Popup_Search_textbox_Search" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparent}" styles:TextboxPlaceholder.Placeholder="Search application..."/>
+                        <TextBox Name="grid_Popup_Search_textbox_Search" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparent}" Text="Search application..." styles:TextboxPlaceholder.Placeholder="Search application..."/>
                         <Button Name="grid_Popup_Search_button_ResetSearch" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the search panel">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Icons/Buttons/ButtonLeft.png" Height="22" Width="22" Margin="0,0,5,0"/>
@@ -311,6 +311,7 @@
 
                     <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
                     <TextBlock Name="grid_Popup_Search_textblock_Result" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" HorizontalAlignment="Center"/>
+                    <Button Name="grid_Popup_Search_button_KeyboardControllerButton" Style="{StaticResource ButtonAccentWhite}" HorizontalAlignment="Center" Margin="0,10,0,10" Content="Open or close the keyboard"/>
                 </StackPanel>
 
                 <ListBox Grid.Row="1" Name="lb_Search" Focusable="False" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanel}"/>
@@ -324,7 +325,7 @@
                         <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
                     </StackPanel>
                 </Button>
-                <Button Name="grid_Popup_Search_button_KeyboardController" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Open or close the keyboard">
+                <Button Name="grid_Popup_Search_button_KeyboardControllerIcon" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Open or close the keyboard">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Icons/Buttons/GuideHoldOff.png" Height="30" Opacity="0.80" Margin="0,0,10,0"/>
                         <Image Source="Assets/Icons/Keyboard.png" Height="35" Width="35" Margin="0,0,-2,0" />
@@ -833,7 +834,8 @@
             <Grid Margin="200,40,200,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.80*"/>
+                    <RowDefinition Height="0.20*"/>
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0">
@@ -842,12 +844,8 @@
                     <TextBlock Name="grid_MessageBox_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Description"/>
                 </StackPanel>
 
-                <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
-                    <StackPanel>
-                        <ListBox Name="lb_MessageBox" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemString}" Style="{StaticResource ListBoxVertical}"/>
-                        <TextBlock Name="grid_MessageBox_Subtitle" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" TextAlignment="Center" TextWrapping="Wrap" Text="Subtitle"/>
-                    </StackPanel>
-                </ScrollViewer>
+                <ListBox Grid.Row="1" Name="lb_MessageBox" VerticalAlignment="Top" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemString}" Style="{StaticResource ListBoxVertical}"/>
+                <TextBlock Grid.Row="2" Name="grid_MessageBox_Subtitle" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" TextAlignment="Center" TextWrapping="Wrap" Text="Subtitle"/>
             </Grid>
 
             <!-- Shortcuts -->

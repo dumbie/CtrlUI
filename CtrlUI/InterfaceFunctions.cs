@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -135,7 +136,8 @@ namespace CtrlUI
                 lb_Search.PreviewKeyDown += ListBox_Search_KeyPressDown;
                 grid_Popup_Search_textbox_Search.TextChanged += Grid_Popup_Search_textbox_Search_TextChanged;
                 grid_Popup_Search_button_Close.Click += Button_Popup_Close_Click;
-                grid_Popup_Search_button_KeyboardController.Click += Button_KeyboardController_Click;
+                grid_Popup_Search_button_KeyboardControllerIcon.Click += Button_SearchKeyboardController_Click;
+                grid_Popup_Search_button_KeyboardControllerButton.Click += Button_SearchKeyboardController_Click;
                 grid_Popup_Search_button_ResetSearch.Click += Grid_Popup_Search_button_ResetSearch_Click;
 
                 //File Picker functions
@@ -226,28 +228,26 @@ namespace CtrlUI
         }
 
         //Update the current window status
-        async Task UpdateWindowStatus()
+        void UpdateWindowStatus()
         {
             try
             {
                 vProcessDirectXInput = GetProcessByName("DirectXInput", false);
                 vProcessKeyboardController = GetProcessByName("KeyboardController", false);
-                int FocusedAppId = GetFocusedProcess().Process.Id;
+                int focusedAppId = GetFocusedProcess().Process.Id;
+                bool appActivated = false;
 
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                AVActions.ActionDispatcherInvoke(delegate
                 {
                     try
                     {
                         if (WindowState == WindowState.Maximized) { vAppMaximized = true; } else { vAppMaximized = false; }
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
-                        if (vProcessCurrent.Id == FocusedAppId)
+                        if (vProcessCurrent.Id == focusedAppId)
                         {
                             grid_WindowActive.Opacity = 0;
                             grid_App.IsHitTestVisible = true;
-                            if (!vAppActivated)
-                            {
-                                await RefreshApplicationLists(false, false, false, false);
-                            }
+                            if (!vAppActivated) { appActivated = true; }
                             vAppActivated = true;
                         }
                         else
@@ -259,6 +259,23 @@ namespace CtrlUI
                     }
                     catch { }
                 });
+
+                //Check if application window activated
+                if (appActivated)
+                {
+                    AppWindowActivated();
+                }
+            }
+            catch { }
+        }
+
+        //Application window activated event
+        void AppWindowActivated()
+        {
+            try
+            {
+                Debug.WriteLine("Welcome back to the application.");
+                //await RefreshApplicationLists(false, false, false, false);
             }
             catch { }
         }
@@ -376,54 +393,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Force focus on an element
-        async Task FocusOnElement(FrameworkElement focusElement)
-        {
-            try
-            {
-                if (focusElement != null && focusElement.Focusable && focusElement.Visibility == Visibility.Visible)
-                {
-                    int WhileLoop = 0;
-                    while (Keyboard.FocusedElement != focusElement)
-                    {
-                        //Update the element layout
-                        focusElement.UpdateLayout();
-
-                        //Logical focus on the element
-                        focusElement.Focus();
-
-                        //Keyboard focus on the element
-                        Keyboard.Focus(focusElement);
-
-                        //Mouse capture the element
-                        Mouse.Capture(focusElement);
-
-                        if (WhileLoop >= 30)
-                        {
-                            Debug.WriteLine("Failed focusing on the element after " + WhileLoop + " times, pressing tab key.");
-                            KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                            return;
-                        }
-
-                        WhileLoop++;
-                        await Task.Delay(10);
-                    }
-
-                    //Debug.WriteLine("Forced keyboard focus on: " + focusElement);
-                }
-                else
-                {
-                    Debug.WriteLine("Focus element cannot be focused on, pressing tab key.");
-                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                }
-            }
-            catch
-            {
-                Debug.WriteLine("Failed focusing on the element, pressing tab key.");
-                KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-            }
-        }
-
         //Force focus on a listbox
         async Task FocusOnListbox(ListBox FocusListBox, bool FirstIndex, bool LastIndex, int IndexNumber)
         {
@@ -445,7 +414,7 @@ namespace CtrlUI
 
                     //Force focus on an element
                     ListBoxItem FocusListBoxItem = (ListBoxItem)FocusListBox.ItemContainerGenerator.ContainerFromInd‌​ex(SelectedIndex);
-                    await FocusOnElement(FocusListBoxItem);
+                    await FocusOnElement(FocusListBoxItem, false, vProcessCurrent.MainWindowHandle);
 
                     //Scroll to the listbox item
                     object ScrollListBoxItem = FocusListBox.Items[SelectedIndex];
@@ -565,7 +534,10 @@ namespace CtrlUI
                     {
                         //Move the mouse cursor
                         Point LocationFromScreen = new Point();
-                        AVActions.ActionDispatcherInvoke(delegate { LocationFromScreen = this.PointToScreen(new Point(255, 44)); });
+                        AVActions.ActionDispatcherInvoke(delegate
+                        {
+                            LocationFromScreen = this.PointToScreen(new Point(255, 44));
+                        });
 
                         int TargetX = Convert.ToInt32(LocationFromScreen.X);
                         int TargetY = Convert.ToInt32(LocationFromScreen.Y);
@@ -573,7 +545,10 @@ namespace CtrlUI
                         await Task.Delay(10);
 
                         //Hide the mouse cursor
-                        AVActions.ActionDispatcherInvoke(delegate { Mouse.SetCursor(Cursors.None); });
+                        AVActions.ActionDispatcherInvoke(delegate
+                        {
+                            Mouse.SetCursor(Cursors.None);
+                        });
 
                         //Debug.WriteLine("Mouse has not moved, hiding the cursor.");
                     }

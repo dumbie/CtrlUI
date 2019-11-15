@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 
@@ -93,7 +94,10 @@ namespace CtrlUI
                     UpdateClock();
 
                     //Force focus on an element
-                    if (FocusElement != null) { await FocusOnElement(FocusElement); }
+                    if (FocusElement != null)
+                    {
+                        await FocusOnElement(FocusElement, false, vProcessCurrent.MainWindowHandle);
+                    }
                 }
             }
             catch { }
@@ -128,7 +132,10 @@ namespace CtrlUI
                     vPopupOpen = true;
 
                     //Force focus on an element
-                    if (FocusElement != null) { await FocusOnElement(FocusElement); }
+                    if (FocusElement != null)
+                    {
+                        await FocusOnElement(FocusElement, false, vProcessCurrent.MainWindowHandle);
+                    }
                 }
             }
             catch { }
@@ -160,7 +167,10 @@ namespace CtrlUI
                     while (vPopupTargetElement.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
                     //Force focus on an element
-                    if (FocusElement != null) { await FocusOnElement(FocusElement); }
+                    if (FocusElement != null)
+                    {
+                        await FocusOnElement(FocusElement, false, vProcessCurrent.MainWindowHandle);
+                    }
                 }
             }
             catch { }

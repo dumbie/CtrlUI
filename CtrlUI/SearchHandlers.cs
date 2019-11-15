@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.OutputKeyboard;
@@ -36,6 +37,17 @@ namespace CtrlUI
             {
                 //Reset the popup to defaults
                 await Popup_Reset_Search(true);
+            }
+            catch { }
+        }
+
+        //Open the keyboard controller
+        async void Button_SearchKeyboardController_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await CloseShowKeyboardController();
+                await FocusOnElement(grid_Popup_Search_textbox_Search, false, vProcessCurrent.MainWindowHandle);
             }
             catch { }
         }
@@ -77,6 +89,7 @@ namespace CtrlUI
                     grid_Popup_Search_Count_TextBlock.Text = string.Empty;
                     grid_Popup_Search_textblock_Result.Text = "Please enter a search term above.";
                     grid_Popup_Search_textblock_Result.Visibility = Visibility.Visible;
+                    grid_Popup_Search_button_KeyboardControllerButton.Visibility = Visibility.Visible;
                 }
             }
             catch { }
