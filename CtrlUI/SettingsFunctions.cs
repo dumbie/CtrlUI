@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
@@ -54,20 +55,20 @@ namespace CtrlUI
                 DataBindString Result = await Popup_Show_MessageBox("This will open a window you can't controller", "", "You can always return back to CtrlUI using the 'Guide' button on your controller or you can use the Keyboard Controller's mouse function.", Answers);
                 if (Result != null && Result == Answer1)
                 {
-                    await ProcessLauncherWin32Prepare(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\control.exe", "", "joy.cpl", true, true, false);
+                    ProcessLauncherWin32(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\control.exe", "", "joy.cpl", false, false);
                 }
             }
             catch { }
         }
 
         //Launch DirectXInput application
-        async void Button_LaunchDirectXInput_Click(object sender, RoutedEventArgs e)
+        void Button_LaunchDirectXInput_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (!CheckRunningProcessByName("DirectXInput", false))
                 {
-                    await ProcessLauncherWin32Prepare("DirectXInput-Admin.exe", "", "", true, true, false);
+                    ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", true, false);
                 }
             }
             catch { }

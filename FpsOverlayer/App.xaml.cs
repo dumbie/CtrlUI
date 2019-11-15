@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using static LibraryShared.AppLaunchCheck;
 
 namespace FpsOverlayer
@@ -16,7 +17,7 @@ namespace FpsOverlayer
             try
             {
                 //Check the application status
-                Application_LaunchCheck("Fps Overlayer", "FpsOverlayer", false, false);
+                Application_LaunchCheck("Fps Overlayer", "FpsOverlayer", ProcessPriorityClass.High, false);
 
                 //Open the window main from application
                 vWindowMain.Show();

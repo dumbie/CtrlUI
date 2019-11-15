@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using static LibraryShared.AppLaunchCheck;
 
 namespace Updater
@@ -14,7 +15,7 @@ namespace Updater
             try
             {
                 //Check the application status
-                Application_LaunchCheck("Application Updater", "Updater", false, true);
+                Application_LaunchCheck("Application Updater", "Updater", ProcessPriorityClass.Normal, true);
 
                 //Open the window main from application
                 vWindowMain.Show();

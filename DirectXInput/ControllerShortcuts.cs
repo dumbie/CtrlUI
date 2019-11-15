@@ -155,7 +155,7 @@ namespace DirectXInput
 
                     if (!CheckRunningProcessByName("KeyboardController", false))
                     {
-                        ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", false, false);
+                        ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
                     }
                 }
             }
@@ -173,7 +173,7 @@ namespace DirectXInput
 
                     if (!CheckRunningProcessByName("CtrlUI", false))
                     {
-                        ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", false, false);
+                        ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", true, false);
                     }
                 }
             }

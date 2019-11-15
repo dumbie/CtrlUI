@@ -17,7 +17,7 @@ namespace AdminLauncher
             try
             {
                 //Check application status
-                Application_LaunchCheck("Keyboard Controller Launcher", "KeyboardController-Launcher", false, false);
+                Application_LaunchCheck("Keyboard Controller Launcher", "KeyboardController-Launcher", ProcessPriorityClass.Normal, false);
 
                 //Enable launch requirements
                 InstallCertificate(@"Resources\ArnoldVinkCertificate.cer");

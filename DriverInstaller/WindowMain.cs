@@ -99,7 +99,7 @@ namespace DriverInstaller
 
                 //Run DirectXInput after the drivers installed
                 TextBoxAppend("Running the DirectXInput application.");
-                ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", false, false);
+                ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", true, false);
 
                 //Set the exit reason text message
                 TextBoxAppend(ExitMessage);

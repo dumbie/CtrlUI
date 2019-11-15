@@ -24,7 +24,7 @@ namespace KeyboardController
                 if (Environment.TickCount >= vControllerDelay_Mouse)
                 {
                     //Emulate mouse movement
-                    MouseMovement(ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY);
+                    MouseMovementThumb(ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY);
 
                     //Emulate mouse scrolling or move the keyboard window
                     if (Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardMode"]) == 0)
@@ -33,7 +33,7 @@ namespace KeyboardController
                     }
                     else
                     {
-                        MouseWheelScrolling(ControllerInput.ThumbRightX, ControllerInput.ThumbRightY);
+                        MouseWheelScrollingThumb(ControllerInput.ThumbRightX, ControllerInput.ThumbRightY);
                     }
 
                     //Emulate mouse click left

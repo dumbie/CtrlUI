@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using static LibraryShared.AppLaunchCheck;
 
 namespace KeyboardController
@@ -15,7 +16,7 @@ namespace KeyboardController
             try
             {
                 //Check the application status
-                Application_LaunchCheck("Keyboard Controller", "KeyboardController", false, false);
+                Application_LaunchCheck("Keyboard Controller", "KeyboardController", ProcessPriorityClass.High, false);
 
                 //Open the window main from application
                 vWindowMain.Show();

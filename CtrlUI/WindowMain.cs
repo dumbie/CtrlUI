@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -129,18 +130,12 @@ namespace CtrlUI
                 //Start application tasks
                 TasksBackgroundStart();
 
-                //Focus on the first available listbox
-                if (vMainMenuPreviousFocus == null)
-                {
-                    await FocusOnListbox(TopVisibleListBox(), true, false, -1);
-                }
-
                 //Check settings if DirectXInput launches on start
                 if (ConfigurationManager.AppSettings["LaunchDirectXInput"] == "True")
                 {
                     if (!CheckRunningProcessByName("DirectXInput", false))
                     {
-                        await ProcessLauncherWin32Prepare("DirectXInput-Admin.exe", "", "", true, true, false);
+                        ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", true, false);
                     }
                 }
 
@@ -149,19 +144,28 @@ namespace CtrlUI
                 {
                     if (!CheckRunningProcessByName("FpsOverlayer", false))
                     {
-                        await ProcessLauncherWin32Prepare("FpsOverlayer-Admin.exe", "", "", true, true, false);
+                        ProcessLauncherWin32("FpsOverlayer-Admin.exe", "", "", true, false);
                         await Task.Delay(1000);
                     }
                 }
 
-                //Force focus on CtrlUI
+                //Force window focus on CtrlUI
                 if (ConfigurationManager.AppSettings["LaunchMinimized"] == "False")
                 {
                     FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, true);
                 }
 
+                //Focus on the first available listbox
+                if (vMainMenuPreviousFocus == null)
+                {
+                    await FocusOnListbox(TopVisibleListBox(), true, false, -1);
+                }
+
                 //Check settings if this is the first application launch
-                if (ConfigurationManager.AppSettings["AppFirstLaunch"] == "True") { await AddFirstLaunchApps(); }
+                if (ConfigurationManager.AppSettings["AppFirstLaunch"] == "True")
+                {
+                    await AddFirstLaunchApps();
+                }
 
                 //Check for available application update
                 if (DateTime.Now.Subtract(DateTime.Parse(ConfigurationManager.AppSettings["AppUpdateCheck"], vAppCultureInfo)).Days >= 5)

@@ -20,7 +20,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Launch a win32 application manually
-        async Task ProcessLauncherWin32Prepare(string PathExe, string PathLaunch, string Argument, bool Silent, bool IgnoreRunning, bool AllowMinimize)
+        async Task ProcessLauncherWin32Prepare(string PathExe, string PathLaunch, string Argument, bool Silent, bool IgnoreRunning, bool AllowMinimize, bool runAsAdmin, bool createNoWindow)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace CtrlUI
                 }
 
                 //Launch the Win32 application
-                ProcessLauncherWin32(PathExe, PathLaunch, Argument, false, false);
+                ProcessLauncherWin32(PathExe, PathLaunch, Argument, runAsAdmin, createNoWindow);
 
                 //Minimize the CtrlUI window
                 if (AllowMinimize && ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
@@ -115,7 +115,7 @@ namespace CtrlUI
                 }
 
                 //Launch the Win32 application
-                await ProcessLauncherWin32Prepare(PathExe, PathLaunch, Argument, true, false, true);
+                await ProcessLauncherWin32Prepare(PathExe, PathLaunch, Argument, true, false, true, false, false);
             }
             catch { }
         }
@@ -557,7 +557,7 @@ namespace CtrlUI
                 }
 
                 //Launch the Win32 application
-                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchArguments, true, true, true);
+                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchArguments, true, true, true, false, false);
                 return true;
             }
             catch
@@ -633,7 +633,7 @@ namespace CtrlUI
                 }
 
                 //Launch the Win32 application
-                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchArguments, true, true, true);
+                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchArguments, true, true, true, false, false);
                 return true;
             }
             catch
@@ -684,7 +684,7 @@ namespace CtrlUI
                 Debug.WriteLine("Launching win32: " + LaunchApp.Name + " from: " + LaunchApp.Category + " path: " + LaunchApp.PathExe);
 
                 //Launch the Win32 application
-                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchApp.Argument, true, true, true);
+                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchApp.Argument, true, true, true, false, false);
                 return true;
             }
             catch

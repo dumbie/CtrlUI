@@ -13,6 +13,7 @@ using static ArnoldVinkCode.ProcessFunctions;
 using static KeyboardController.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.OutputKeyboard;
+using static LibraryShared.OutputMouse;
 
 namespace KeyboardController
 {
@@ -66,8 +67,8 @@ namespace KeyboardController
                 //Play window open sound
                 PlayInterfaceSound("PopupOpen", false);
 
-                //Focus default key on the keyboard
-                await FocusOnKeyboard();
+                //Activate keyboard window and focus on key
+                await ActivateKeyboardWindow(key_g);
 
                 //Make window able to drag from border
                 this.MouseDown += WindowMain_MouseDown;
@@ -113,13 +114,16 @@ namespace KeyboardController
             catch { }
         }
 
-        //Focus a key on the keyboard
-        async Task FocusOnKeyboard()
+        //Activate keyboard window and focus on key
+        async Task ActivateKeyboardWindow(FrameworkElement focusKey)
         {
             try
             {
                 //Get the current active screen
                 Screen targetScreen = GetActiveScreen();
+
+                //Change the window opacity
+                this.Opacity = 0.01;
 
                 //Move the window to top left
                 this.Top = targetScreen.WorkingArea.Top;
@@ -131,11 +135,8 @@ namespace KeyboardController
                 grid_Application.Width = targetScreen.WorkingArea.Width;
                 await Task.Delay(10);
 
-                //Focus on the beginning key
-                key_g.UpdateLayout();
-                key_g.Focus();
-                Keyboard.Focus(key_g);
-                Mouse.Capture(key_g);
+                //Focus on the requested key
+                await FocusOnElement(focusKey);
                 await Task.Delay(10);
 
                 //Store the previous cursor position
@@ -148,9 +149,10 @@ namespace KeyboardController
                 SetCursorPos(TargetX, TargetY);
                 await Task.Delay(10);
 
-                //Click on the application window
-                uint mouseFlags = (uint)(MouseEvents.MOUSEEVENTF_LEFTDOWN | MouseEvents.MOUSEEVENTF_LEFTUP);
-                mouse_event(mouseFlags, 0, 0, 0, IntPtr.Zero);
+                //Click on the application window twice
+                MousePressSingle(false);
+                await Task.Delay(10);
+                MousePressSingle(false);
                 await Task.Delay(10);
 
                 //Resize the application
@@ -537,16 +539,6 @@ namespace KeyboardController
                             //Enable the close button
                             key_Close.IsEnabled = true;
                             await Task.Delay(10);
-
-                            //Focus on the close button
-                            key_Close.UpdateLayout();
-                            key_Close.Focus();
-                            Keyboard.Focus(key_Close);
-                            Mouse.Capture(key_Close);
-                            await Task.Delay(10);
-
-                            //Activate the close button
-                            KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         });
                     }
                 }
@@ -566,11 +558,10 @@ namespace KeyboardController
                             foreach (FrameworkElement child in sp_Row3.Children) { child.IsEnabled = true; }
                             foreach (FrameworkElement child in sp_Row4.Children) { child.IsEnabled = true; }
                             foreach (FrameworkElement child in sp_Row5.Children) { child.IsEnabled = true; }
-
-                            //Focus on the active button
                             await Task.Delay(10);
-                            KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                            //Improve: mouse click on the window to enable arrow movement.
+
+                            //Activate keyboard window and focus on key
+                            await ActivateKeyboardWindow(key_g);
                         });
                     }
                 }

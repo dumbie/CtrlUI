@@ -556,7 +556,7 @@ namespace CtrlUI
                 //Check if the mouse has moved since the last time
                 GetCursorPos(out PointWin MouseCurrentPosition);
 
-                bool LastInteraction = Environment.TickCount - vMouseLastInteraction > 6000;
+                bool LastInteraction = Environment.TickCount - vMouseLastInteraction > 5000;
                 bool LastMovement = MouseCurrentPosition.X == vMousePreviousPosition.X && MouseCurrentPosition.Y == vMousePreviousPosition.Y;
 
                 if (LastInteraction && LastMovement)
@@ -631,10 +631,10 @@ namespace CtrlUI
                     FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, false);
 
                     //Press tab to gain focus on interface
+                    await Task.Delay(1000);
                     if (Keyboard.FocusedElement == null)
                     {
                         Debug.WriteLine("No focused element, sending tab key.");
-                        await Task.Delay(1000);
                         KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                     }
                 }

@@ -10,7 +10,7 @@ namespace LibraryShared
 {
     public partial class AppLaunchCheck
     {
-        public static void Application_LaunchCheck(string ApplicationName, string ProcessName, bool PriorityRealTime, bool skipFileCheck)
+        public static void Application_LaunchCheck(string ApplicationName, string ProcessName, ProcessPriorityClass priorityLevel, bool skipFileCheck)
         {
             try
             {
@@ -27,11 +27,8 @@ namespace LibraryShared
                 //Set the working directory to executable directory
                 Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
 
-                //Set the application priority to realtime
-                if (PriorityRealTime)
-                {
-                    Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.RealTime;
-                }
+                //Set the application priority level
+                Process.GetCurrentProcess().PriorityClass = priorityLevel;
 
                 //Check - Windows version check
                 if (AVFunctions.DevOsVersion() < 10)

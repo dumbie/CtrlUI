@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using static LibraryShared.AppLaunchCheck;
 
 namespace DirectXInput
@@ -14,7 +15,7 @@ namespace DirectXInput
             try
             {
                 //Check application status
-                Application_LaunchCheck("DirectXInput", "DirectXInput", true, false);
+                Application_LaunchCheck("DirectXInput", "DirectXInput", ProcessPriorityClass.RealTime, false);
 
                 await vWindowMain.Startup();
             }

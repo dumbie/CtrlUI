@@ -34,7 +34,7 @@ namespace AdminLauncher
                 SchTask_WorkingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
                 //Check application status
-                Application_LaunchCheck(SchTask_Description, "DirectXInput-Admin", false, false);
+                Application_LaunchCheck(SchTask_Description, "DirectXInput-Admin", ProcessPriorityClass.Normal, false);
 
                 //Check if the task already exists
                 int ResultCheckTask = CheckTask();

@@ -101,7 +101,10 @@ namespace CtrlUI
                 //Check if the media popup is opened
                 bool MediaPopupOpen = false;
                 await AVActions.ActionDispatcherInvokeAsync(delegate { MediaPopupOpen = grid_Popup_Media.Visibility == Visibility.Visible; });
-                if (!MediaPopupOpen) { return; }
+                if (!MediaPopupOpen)
+                {
+                    return;
+                }
 
                 GlobalSystemMediaTransportControlsSessionManager smtcSessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
                 GlobalSystemMediaTransportControlsSession smtcSession = smtcSessionManager.GetCurrentSession();

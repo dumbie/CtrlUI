@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -45,7 +46,7 @@ namespace CtrlUI
 
                     //Update the interface status
                     if (!Silent) { Popup_Show_Status("MiniMaxi", "Showing " + TitleTarget); }
-                    Debug.WriteLine("Showing app window: " + TitleTarget);
+                    Debug.WriteLine("Showing application window: " + TitleTarget);
 
                     //Focus on an application window handle
                     async void TaskAction()
@@ -182,7 +183,7 @@ namespace CtrlUI
                 if (vFilePickerCancelled) { return; }
 
                 //Launch the Win32 application
-                await ProcessLauncherWin32Prepare(vFilePickerResult.PathFile, "", "", false, false, true);
+                await ProcessLauncherWin32Prepare(vFilePickerResult.PathFile, "", "", false, false, true, false, false);
             }
             catch { }
         }
@@ -286,7 +287,7 @@ namespace CtrlUI
                     //Launch the fps overlayer
                     Popup_Show_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");
-                    await ProcessLauncherWin32Prepare("FpsOverlayer-Admin.exe", "", "", true, true, false);
+                    ProcessLauncherWin32("FpsOverlayer-Admin.exe", "", "", true, false);
                     await Task.Delay(1000);
 
                     //Force focus on CtrlUI
@@ -313,7 +314,11 @@ namespace CtrlUI
                     //Launch the keyboard controller
                     Popup_Show_Status("Keyboard", "Showing on screen keyboard");
                     Debug.WriteLine("Showing on screen keyboard");
-                    await ProcessLauncherWin32Prepare("KeyboardController-Admin.exe", "", "", true, true, false);
+                    ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
+                    await Task.Delay(1000);
+
+                    //Force focus on CtrlUI
+                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, true);
                 }
             }
             catch { }

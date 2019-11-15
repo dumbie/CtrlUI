@@ -140,7 +140,6 @@
     <Compile Include="Classes\ControllerSupported.cs" />
     <Compile Include="Classes\DataBindApp.cs" />
     <Compile Include="Classes\DataBindFile.cs" />
-    <Compile Include="Classes\KeysModifiers.cs" />
     <Compile Include="Classes\KeysVirtual.cs" />
     <Compile Include="InputOutput\OutputKeyboard.cs" />
     <Compile Include="InputOutput\OutputMouse.cs" />

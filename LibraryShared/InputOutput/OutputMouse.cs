@@ -8,7 +8,7 @@ namespace LibraryShared
     public partial class OutputMouse
     {
         //Move the mouse matching the thumb stick
-        public static void MouseMovement(int ThumbHorizontal, int ThumbVertical)
+        public static void MouseMovementThumb(int ThumbHorizontal, int ThumbVertical)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace LibraryShared
         }
 
         //Scroll mouse wheel matching the thumb stick
-        public static void MouseWheelScrolling(int ThumbHorizontal, int ThumbVertical)
+        public static void MouseWheelScrollingThumb(int ThumbHorizontal, int ThumbVertical)
         {
             try
             {

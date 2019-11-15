@@ -146,6 +146,12 @@
     <Compile Include="..\LibraryShared\AppLaunchCheck.cs">
       <Link>LibraryShared\AppLaunchCheck.cs</Link>
     </Compile>
+    <Compile Include="..\LibraryShared\Classes\KeysVirtual.cs">
+      <Link>LibraryShared\Classes\KeysVirtual.cs</Link>
+    </Compile>
+    <Compile Include="..\LibraryShared\InputOutput\OutputKeyboard.cs">
+      <Link>LibraryShared\InputOutput\OutputKeyboard.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
