@@ -144,7 +144,10 @@ namespace CtrlUI
                 //Handle Alt + Key press
                 if (e.KeyboardDevice.Modifiers == ModifierKeys.Alt)
                 {
-                    if (e.SystemKey == Key.Enter) { AppSwitchScreenMode(false, false); }
+                    if (e.SystemKey == Key.Enter)
+                    {
+                        await AppSwitchScreenMode(false, false);
+                    }
                 }
                 //Handle Ctrl + Key press
                 else if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)

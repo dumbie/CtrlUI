@@ -56,7 +56,7 @@ namespace CtrlUI
                 else if (DeserializedBytes.Object is List<ControllerStatusSummary>)
                 {
                     List<ControllerStatusSummary> controllerStatusSummaryList = (List<ControllerStatusSummary>)DeserializedBytes.Object;
-                    UpdateControllerStatus(controllerStatusSummaryList);
+                    await UpdateControllerStatus(controllerStatusSummaryList);
                 }
             }
             catch { }

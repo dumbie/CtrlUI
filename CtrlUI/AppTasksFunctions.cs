@@ -106,7 +106,7 @@ namespace CtrlUI
             {
                 while (TaskRunningCheck(vTaskToken_ShowHideMouse))
                 {
-                    await MouseCursorHide();
+                    await MouseCursorCheckMovement();
                     await Task.Delay(3000);
                 }
             }

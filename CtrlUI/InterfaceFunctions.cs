@@ -506,13 +506,14 @@ namespace CtrlUI
                 //Update the last mouse interaction time
                 vMouseLastInteraction = Environment.TickCount;
 
-                //Get the current mouse cursor
-                Cursor CurrentMouseCursor = null;
-                AVActions.ActionDispatcherInvoke(delegate { CurrentMouseCursor = this.Cursor; });
-                if (CurrentMouseCursor == Cursors.None)
+                //Set the mouse cursor when not visible
+                AVActions.ActionDispatcherInvoke(delegate
                 {
-                    AVActions.ActionDispatcherInvoke(delegate { Mouse.SetCursor(Cursors.Arrow); });
-                }
+                    if (this.Cursor == Cursors.None)
+                    {
+                        Mouse.SetCursor(Cursors.Arrow);
+                    }
+                });
             }
             catch { }
         }
@@ -522,39 +523,59 @@ namespace CtrlUI
         {
             try
             {
-                //Check if the mouse has moved since the last time
-                GetCursorPos(out PointWin MouseCurrentPosition);
+                //Update the last mouse interaction time
+                vMouseLastInteraction = Environment.TickCount;
 
-                bool LastInteraction = Environment.TickCount - vMouseLastInteraction > 5000;
-                bool LastMovement = MouseCurrentPosition.X == vMousePreviousPosition.X && MouseCurrentPosition.Y == vMousePreviousPosition.Y;
-
-                if (LastInteraction && LastMovement)
+                //Check if the mouse hide setting is enabled
+                if (ConfigurationManager.AppSettings["HideMouseCursor"] == "False")
                 {
-                    if (vAppActivated && vControllerAnyConnected() && vProcessKeyboardController == null)
-                    {
-                        //Move the mouse cursor
-                        Point LocationFromScreen = new Point();
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            LocationFromScreen = this.PointToScreen(new Point(255, 44));
-                        });
-
-                        int TargetX = Convert.ToInt32(LocationFromScreen.X);
-                        int TargetY = Convert.ToInt32(LocationFromScreen.Y);
-                        SetCursorPos(TargetX, TargetY);
-                        await Task.Delay(10);
-
-                        //Hide the mouse cursor
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            Mouse.SetCursor(Cursors.None);
-                        });
-
-                        //Debug.WriteLine("Mouse has not moved, hiding the cursor.");
-                    }
+                    return;
                 }
 
-                //Update the last mouse interaction time
+                //Check if the application is active and any controller is connected
+                if (vAppActivated && vControllerAnyConnected() && vProcessKeyboardController == null)
+                {
+                    //Move the mouse cursor
+                    Point LocationFromScreen = new Point();
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        LocationFromScreen = this.PointToScreen(new Point(255, 44));
+                    });
+
+                    int TargetX = Convert.ToInt32(LocationFromScreen.X);
+                    int TargetY = Convert.ToInt32(LocationFromScreen.Y);
+                    SetCursorPos(TargetX, TargetY);
+                    await Task.Delay(10);
+
+                    //Hide the mouse cursor
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        Mouse.SetCursor(Cursors.None);
+                    });
+
+                    //Debug.WriteLine("Hiding the mouse cursor.");
+                }
+            }
+            catch { }
+        }
+
+        //Check if the mouse cursor has moved
+        async Task MouseCursorCheckMovement()
+        {
+            try
+            {
+                //Get the current mouse position
+                GetCursorPos(out PointWin MouseCurrentPosition);
+
+                //Check if the mouse has moved since the last time
+                bool LastInteraction = Environment.TickCount - vMouseLastInteraction > 5000;
+                bool LastMovement = MouseCurrentPosition.X == vMousePreviousPosition.X && MouseCurrentPosition.Y == vMousePreviousPosition.Y;
+                if (LastInteraction && LastMovement)
+                {
+                    await MouseCursorHide();
+                }
+
+                //Update the previous mouse position
                 vMousePreviousPosition = MouseCurrentPosition;
             }
             catch { }
@@ -594,11 +615,11 @@ namespace CtrlUI
                     {
                         if (vAppPrevWindowState == WindowState.Maximized)
                         {
-                            AppSwitchScreenMode(true, false);
+                            await AppSwitchScreenMode(true, false);
                         }
                         else
                         {
-                            AppSwitchScreenMode(false, true);
+                            await AppSwitchScreenMode(false, true);
                         }
                     }
 
@@ -743,7 +764,7 @@ namespace CtrlUI
         }
 
         //Switch application between fullscreen and windowed
-        void AppSwitchScreenMode(bool ForceMaximized, bool ForceNormal)
+        async Task AppSwitchScreenMode(bool ForceMaximized, bool ForceNormal)
         {
             try
             {
@@ -773,6 +794,9 @@ namespace CtrlUI
 
                     vAppMaximized = false;
                 }
+
+                //Hide the mouse cursor
+                await MouseCursorHide();
             }
             catch { }
         }

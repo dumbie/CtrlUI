@@ -66,8 +66,14 @@ namespace CtrlUI
                 }
 
                 //Check settings if need to start in fullscreen of minimized
-                if (ConfigurationManager.AppSettings["LaunchFullscreen"] == "True") { AppSwitchScreenMode(true, false); }
-                else if (ConfigurationManager.AppSettings["LaunchMinimized"] == "True") { await AppMinimize(false); }
+                if (ConfigurationManager.AppSettings["LaunchFullscreen"] == "True")
+                {
+                    await AppSwitchScreenMode(true, false);
+                }
+                else if (ConfigurationManager.AppSettings["LaunchMinimized"] == "True")
+                {
+                    await AppMinimize(false);
+                }
 
                 //Restore the last known window size and center the application
                 if (ConfigurationManager.AppSettings["LaunchFullscreen"] == "False" && ConfigurationManager.AppSettings["LaunchMinimized"] == "False")
@@ -205,7 +211,7 @@ namespace CtrlUI
         }
 
         //Move application to the next monitor
-        void AppMoveMonitor()
+        async Task AppMoveMonitor()
         {
             try
             {
@@ -228,10 +234,18 @@ namespace CtrlUI
                 }
 
                 bool IsMaximized = vAppMaximized;
-                if (IsMaximized) { AppSwitchScreenMode(false, true); }
+                if (IsMaximized)
+                {
+                    await AppSwitchScreenMode(false, true);
+                }
+
                 AdjustScreenSizeMonitor(vAppCurrentMonitor, false, true, true, false);
                 SettingSave("DisplayMonitor", vAppCurrentMonitor.ToString());
-                if (IsMaximized) { AppSwitchScreenMode(true, false); }
+
+                if (IsMaximized)
+                {
+                    await AppSwitchScreenMode(true, false);
+                }
             }
             catch { }
         }

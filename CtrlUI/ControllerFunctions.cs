@@ -64,7 +64,7 @@ namespace CtrlUI
         }
 
         //Update the controller status from DirectXInput
-        void UpdateControllerStatus(List<ControllerStatusSummary> controllerStatusSummaryList)
+        async Task UpdateControllerStatus(List<ControllerStatusSummary> controllerStatusSummaryList)
         {
             try
             {
@@ -95,24 +95,6 @@ namespace CtrlUI
                         controllerStatusOld = vController3;
                     }
 
-                    //Show controller connection popup and update the controller menu image
-                    if (controllerStatusOld.Connected != controllerStatusNew.Connected)
-                    {
-                        if (controllerStatusNew.Connected)
-                        {
-                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 1.00; });
-                            string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
-                            Popup_Show_Status("Controller", "Connected (" + ControllerIdDisplay + ")");
-                        }
-                        else
-                        {
-                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 0.30; });
-                            string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
-                            Popup_Show_Status("Controller", "Disconnected (" + ControllerIdDisplay + ")");
-                            if (vControllerActiveId == controllerStatusNew.NumberId) { HideBatteryStatus(true); }
-                        }
-                    }
-
                     //Check if the controller is manage controller
                     if (controllerStatusNew.Manage && vControllerActiveId != controllerStatusNew.NumberId)
                     {
@@ -141,6 +123,26 @@ namespace CtrlUI
                     else if (controllerStatusNew.NumberId == 3)
                     {
                         vController3 = controllerStatusNew;
+                    }
+
+                    //Show controller connection popup and update the controller menu image
+                    if (controllerStatusOld.Connected != controllerStatusNew.Connected)
+                    {
+                        if (controllerStatusNew.Connected)
+                        {
+                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 1.00; });
+                            string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
+                            Popup_Show_Status("Controller", "Connected (" + ControllerIdDisplay + ")");
+                            //Hide the mouse cursor
+                            await MouseCursorHide();
+                        }
+                        else
+                        {
+                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 0.30; });
+                            string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
+                            Popup_Show_Status("Controller", "Disconnected (" + ControllerIdDisplay + ")");
+                            if (vControllerActiveId == controllerStatusNew.NumberId) { HideBatteryStatus(true); }
+                        }
                     }
                 }
             }
