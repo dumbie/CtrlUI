@@ -43,15 +43,15 @@ namespace CtrlUI
         }
 
         //Check the top or bottom listbox
-        ListBox TopVisibleListBox()
+        ListBox TopVisibleListBoxWithItems()
         {
             try
             {
-                if (sp_Games.Visibility == Visibility.Visible) { return lb_Games; }
-                else if (sp_Apps.Visibility == Visibility.Visible) { return lb_Apps; }
-                else if (sp_Emulators.Visibility == Visibility.Visible) { return lb_Emulators; }
-                else if (sp_Shortcuts.Visibility == Visibility.Visible) { return lb_Shortcuts; }
-                else if (sp_Processes.Visibility == Visibility.Visible) { return lb_Processes; }
+                if (sp_Games.Visibility == Visibility.Visible && lb_Games.Items.Count > 0) { return lb_Games; }
+                else if (sp_Apps.Visibility == Visibility.Visible && lb_Apps.Items.Count > 0) { return lb_Apps; }
+                else if (sp_Emulators.Visibility == Visibility.Visible && lb_Emulators.Items.Count > 0) { return lb_Emulators; }
+                else if (sp_Shortcuts.Visibility == Visibility.Visible && lb_Shortcuts.Items.Count > 0) { return lb_Shortcuts; }
+                else if (sp_Processes.Visibility == Visibility.Visible && lb_Processes.Items.Count > 0) { return lb_Processes; }
             }
             catch { }
             return null;
@@ -404,21 +404,21 @@ namespace CtrlUI
                     //Update the listbox layout
                     FocusListBox.UpdateLayout();
 
-                    //Select an listbox item index
-                    ListBoxSelectItem(FocusListBox, FirstIndex, LastIndex, IndexNumber);
+                    //Select a listbox item index
+                    ListBoxSelectIndex(FocusListBox, FirstIndex, LastIndex, IndexNumber);
 
                     //Focus on the listbox and item
                     int SelectedIndex = FocusListBox.SelectedIndex;
-                    bool FirstIndexSelected = SelectedIndex == 0;
-                    bool LastIndexSelected = SelectedIndex == FocusListBox.Items.Count - 1;
+
+                    //Scroll to the listbox item
+                    object ScrollListBoxItem = FocusListBox.Items[SelectedIndex];
+                    FocusListBox.ScrollIntoView(ScrollListBoxItem);
 
                     //Force focus on an element
                     ListBoxItem FocusListBoxItem = (ListBoxItem)FocusListBox.ItemContainerGenerator.ContainerFromInd‌​ex(SelectedIndex);
                     await FocusOnElement(FocusListBoxItem, false, vProcessCurrent.MainWindowHandle);
 
-                    //Scroll to the listbox item
-                    object ScrollListBoxItem = FocusListBox.Items[SelectedIndex];
-                    FocusListBox.ScrollIntoView(ScrollListBoxItem);
+                    Debug.WriteLine("Focusing on listbox index: " + SelectedIndex);
                 }
                 else
                 {
@@ -434,7 +434,7 @@ namespace CtrlUI
         }
 
         //Select a listbox item index
-        void ListBoxSelectItem(ListBox FocusListBox, bool FirstIndex, bool LastIndex, int IndexNumber)
+        void ListBoxSelectIndex(ListBox FocusListBox, bool FirstIndex, bool LastIndex, int IndexNumber)
         {
             try
             {
@@ -488,7 +488,7 @@ namespace CtrlUI
                     else
                     {
                         Debug.WriteLine(ListBox.Name + " " + (ListCount - ListBox.Items.Count) + " items have been removed, selecting the index.");
-                        ListBoxSelectItem(ListBox, false, false, ListSelectedIndex);
+                        ListBoxSelectIndex(ListBox, false, false, ListSelectedIndex);
                     }
                 }
             }

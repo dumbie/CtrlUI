@@ -271,7 +271,7 @@ namespace CtrlUI
         }
 
         //Launch DirectXInput application
-       void LaunchDirectXInput()
+        void LaunchDirectXInput()
         {
             try
             {

@@ -45,7 +45,7 @@ namespace CtrlUI
         {
             try
             {
-                ListBox ListboxSender = (sender as ListBox);
+                ListBox ListboxSender = (ListBox)sender;
                 if (ListboxSender.SelectedItems.Count > 0 && ListboxSender.SelectedIndex != -1)
                 {
                     DataBindApp SelectedItem = (DataBindApp)ListboxSender.SelectedItem;
@@ -66,7 +66,7 @@ namespace CtrlUI
         {
             try
             {
-                ListBox ListboxSender = (sender as ListBox);
+                ListBox ListboxSender = (ListBox)sender;
                 int ListboxSelectedIndex = ListboxSender.SelectedIndex;
                 if (ListboxSender.SelectedItems.Count > 0 && ListboxSelectedIndex != -1)
                 {
@@ -109,7 +109,11 @@ namespace CtrlUI
                             }
                             else if (Result == Answer2)
                             {
-                                await RemoveAppFromList(SelectedItem);
+                                //Remove application from the list
+                                await RemoveAppFromList(SelectedItem, true, true, false);
+
+                                //Select the previous index
+                                await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
                             }
                         }
                     }
@@ -156,14 +160,8 @@ namespace CtrlUI
                             //Delete the shortcut file
                             File.Delete(SelectedItem.ShortcutPath);
 
-                            //Remove the shortcut from the lists
-                            List_Shortcuts.Remove(SelectedItem);
-                            List_Search.Remove(SelectedItem);
-
-                            //Refresh the application lists
-                            ShowHideEmptyList(true, true);
-                            ListsUpdateCount();
-                            UpdateSearchResults();
+                            //Remove application from the list
+                            await RemoveAppFromList(SelectedItem, false, false, true);
                         }
 
                         //Select the previous index
@@ -178,14 +176,8 @@ namespace CtrlUI
                         vAppsBlacklistShortcut.Add(SelectedItem.Name);
                         JsonSaveAppsBlacklistShortcut();
 
-                        //Remove the shortcut from the lists
-                        List_Shortcuts.Remove(SelectedItem);
-                        List_Search.Remove(SelectedItem);
-
-                        //Refresh the application lists
-                        ShowHideEmptyList(true, true);
-                        ListsUpdateCount();
-                        UpdateSearchResults();
+                        //Remove application from the list
+                        await RemoveAppFromList(SelectedItem, false, false, true);
 
                         //Select the previous index
                         await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
@@ -265,14 +257,8 @@ namespace CtrlUI
                             bool ClosedProcess = await CloseProcessUwpByWindowHandle(SelectedItem.Name, SelectedItem.ProcessId, SelectedItem.WindowHandle);
                             if (ClosedProcess)
                             {
-                                //Remove process from list
-                                List_Processes.Remove(SelectedItem);
-                                List_Search.Remove(SelectedItem);
-
-                                //Refresh the application lists
-                                ShowHideEmptyList(true, true);
-                                ListsUpdateCount();
-                                UpdateSearchResults();
+                                //Remove application from the list
+                                await RemoveAppFromList(SelectedItem, false, false, true);
                             }
                             else
                             {
@@ -292,14 +278,8 @@ namespace CtrlUI
 
                                 await RestartProcessUwp(SelectedItem.Name, SelectedItem.PathExe, SelectedItem.Argument, SelectedItem.ProcessId, SelectedItem.WindowHandle);
 
-                                //Remove process from list
-                                List_Processes.Remove(SelectedItem);
-                                List_Search.Remove(SelectedItem);
-
                                 //Refresh the application lists
-                                ShowHideEmptyList(true, true);
-                                ListsUpdateCount();
-                                UpdateSearchResults();
+                                await RefreshApplicationLists(false, false, false, false);
 
                                 //Select the previous index
                                 await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
@@ -347,14 +327,8 @@ namespace CtrlUI
                                 bool ClosedProcess = CloseProcessById(SelectedItem.ProcessId);
                                 if (ClosedProcess)
                                 {
-                                    //Remove process from list
-                                    List_Processes.Remove(SelectedItem);
-                                    List_Search.Remove(SelectedItem);
-
-                                    //Refresh the application lists
-                                    ShowHideEmptyList(true, true);
-                                    ListsUpdateCount();
-                                    UpdateSearchResults();
+                                    //Remove application from the list
+                                    await RemoveAppFromList(SelectedItem, false, false, true);
                                 }
                                 else
                                 {
@@ -380,14 +354,8 @@ namespace CtrlUI
 
                                 await RestartProcessWin32(SelectedItem.ProcessId, SelectedItem.PathExe, SelectedItem.PathLaunch, SelectedItem.Argument);
 
-                                //Remove process from list
-                                List_Processes.Remove(SelectedItem);
-                                List_Search.Remove(SelectedItem);
-
-                                //Refresh the application lists
-                                ShowHideEmptyList(true, true);
-                                ListsUpdateCount();
-                                UpdateSearchResults();
+                                //Remove application from the list
+                                await RemoveAppFromList(SelectedItem, false, false, true);
 
                                 //Select the previous index
                                 await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);

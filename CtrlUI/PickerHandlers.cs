@@ -131,7 +131,7 @@ namespace CtrlUI
             {
                 if (vFilePickerShowRoms)
                 {
-                    ListBox ListboxSender = (sender as ListBox);
+                    ListBox ListboxSender = (ListBox)sender;
                     DataBindFile SelectedItem = (DataBindFile)ListboxSender.SelectedItem;
                     //Debug.WriteLine("File picker selection has changed to: " + SelectedItem.Name);
 

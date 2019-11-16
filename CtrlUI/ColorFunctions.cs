@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVInterface;
@@ -78,7 +79,15 @@ namespace CtrlUI
                 PlayInterfaceSound("PopupOpen", false);
 
                 //Save previous focused element
-                if (Keyboard.FocusedElement != null) { vColorPickerPreviousFocus = (FrameworkElement)Keyboard.FocusedElement; }
+                if (Keyboard.FocusedElement != null)
+                {
+                    vColorPickerElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
+                    if (vColorPickerElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
+                    {
+                        vColorPickerElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vColorPickerElementFocus.FocusPrevious);
+                        vColorPickerElementFocus.FocusIndex = vColorPickerElementFocus.FocusListBox.SelectedIndex;
+                    }
+                }
 
                 //Show the popup with animation
                 AVAnimations.Ani_Visibility(grid_Popup_ColorPicker, true, true, 0.10);
@@ -86,7 +95,7 @@ namespace CtrlUI
 
                 if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 0.02, true, false, 0.10); }
                 if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 0.02, true, false, 0.10); }
-                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 0.02, true, false, 0.10); }
+                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 0.02, true, false, 0.10); }
                 //if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 0.02, true, false, 0.10); }
                 if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 0.02, true, false, 0.10); }
                 if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
@@ -119,7 +128,7 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task Popup_Close_ColorPicker(FrameworkElement FocusElement)
+        async Task Popup_Close_ColorPicker()
         {
             try
             {
@@ -140,7 +149,7 @@ namespace CtrlUI
                     if (!Popup_Any_Open()) { AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10); }
                     else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
                     else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
-                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 1, true, true, 0.10); }
+                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 1, true, true, 0.10); }
                     else if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 1, true, true, 0.10); }
                     else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
                     else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
@@ -148,10 +157,21 @@ namespace CtrlUI
                     while (grid_Popup_ColorPicker.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
                     //Force focus on an element
-                    if (FocusElement != null)
+                    if (vColorPickerElementFocus.FocusTarget != null)
                     {
-                        await FocusOnElement(FocusElement, false, vProcessCurrent.MainWindowHandle);
+                        await FocusOnElement(vColorPickerElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
                     }
+                    else if (vColorPickerElementFocus.FocusListBox != null)
+                    {
+                        await FocusOnListbox(vColorPickerElementFocus.FocusListBox, false, false, vColorPickerElementFocus.FocusIndex);
+                    }
+                    else
+                    {
+                        await FocusOnElement(vColorPickerElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
+                    }
+
+                    //Reset previous focus
+                    vColorPickerElementFocus.Reset();
                 }
             }
             catch { }
@@ -200,7 +220,7 @@ namespace CtrlUI
                     SolidColorBrush selectedSolidColorBrush = (SolidColorBrush)lb_ColorPicker.SelectedItem;
                     SettingSave("ColorAccentLight", selectedSolidColorBrush.ToString());
                     ChangeApplicationAccentColor();
-                    await Popup_Close_ColorPicker(vColorPickerPreviousFocus);
+                    await Popup_Close_ColorPicker();
                 }
             }
             catch { }

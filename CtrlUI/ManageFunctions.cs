@@ -59,60 +59,78 @@ namespace CtrlUI
         }
 
         //Remove application from the list
-        async Task RemoveAppFromList(DataBindApp RemoveApp)
+        async Task RemoveAppFromList(DataBindApp RemoveApp, bool SaveJson, bool RemoveImageFile, bool Silent)
         {
             try
             {
                 int ListboxSelectedIndex = -1;
                 ListBox ListBoxSender = null;
 
-                //Delete application from the list
+                //Delete application from the lists
                 if (RemoveApp.Category == "Game")
                 {
                     ListBoxSender = lb_Games;
-                    ListboxSelectedIndex = lb_Games.SelectedIndex;
+                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
                     List_Games.Remove(RemoveApp);
                 }
                 else if (RemoveApp.Category == "App")
                 {
                     ListBoxSender = lb_Apps;
-                    ListboxSelectedIndex = lb_Apps.SelectedIndex;
+                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
                     List_Apps.Remove(RemoveApp);
                 }
                 else if (RemoveApp.Category == "Emulator")
                 {
                     ListBoxSender = lb_Emulators;
-                    ListboxSelectedIndex = lb_Emulators.SelectedIndex;
+                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
                     List_Emulators.Remove(RemoveApp);
                 }
+                else if (RemoveApp.Category == "Process")
+                {
+                    ListBoxSender = lb_Processes;
+                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
+                    List_Processes.Remove(RemoveApp);
+                }
+                else if (RemoveApp.Category == "Shortcut")
+                {
+                    ListBoxSender = lb_Shortcuts;
+                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
+                    List_Shortcuts.Remove(RemoveApp);
+                }
 
-                //Refresh the application lists
-                ShowHideEmptyList(true, true);
-                ListsUpdateCount();
-
-                //Select the previous index
+                //Delete application from search results
                 if (vSearchOpen)
                 {
                     ListBoxSender = lb_Search;
-                    ListboxSelectedIndex = lb_Search.SelectedIndex;
+                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
                     List_Search.Remove(RemoveApp);
-                    UpdateSearchResults();
-                    await FocusOnListbox(ListBoxSender, false, false, ListboxSelectedIndex);
                 }
-                else
-                {
-                    await FocusOnListbox(ListBoxSender, false, false, ListboxSelectedIndex);
-                }
+
+                //Refresh the application lists
+                await RefreshApplicationLists(true, true, false, false);
+
+                //Select the previous index
+                await FocusOnListbox(ListBoxSender, false, false, ListboxSelectedIndex);
 
                 //Save changes to Json file
-                JsonSaveApps();
+                if (SaveJson)
+                {
+                    JsonSaveApps();
+                }
 
                 //Remove application image files
-                if (File.Exists("Assets\\Apps\\" + RemoveApp.Name + ".png")) { File.Delete("Assets\\Apps\\" + RemoveApp.Name + ".png"); }
-                if (File.Exists("Assets\\Apps\\" + Path.GetFileNameWithoutExtension(RemoveApp.PathExe) + ".png")) { File.Delete("Assets\\Apps\\" + Path.GetFileNameWithoutExtension(RemoveApp.PathExe) + ".png"); }
+                if (RemoveImageFile)
+                {
+                    if (File.Exists("Assets\\Apps\\" + RemoveApp.Name + ".png")) { File.Delete("Assets\\Apps\\" + RemoveApp.Name + ".png"); }
+                    if (File.Exists("Assets\\Apps\\" + Path.GetFileNameWithoutExtension(RemoveApp.PathExe) + ".png")) { File.Delete("Assets\\Apps\\" + Path.GetFileNameWithoutExtension(RemoveApp.PathExe) + ".png"); }
+                }
 
-                Popup_Show_Status("Minus", "Removed " + RemoveApp.Name);
-                Debug.WriteLine("Removing application: " + RemoveApp.Name);
+                //Show removed notification
+                if (!Silent)
+                {
+                    Popup_Show_Status("Minus", "Removed " + RemoveApp.Name);
+                    Debug.WriteLine("Removed application: " + RemoveApp.Name);
+                }
             }
             catch { }
         }
@@ -424,12 +442,10 @@ namespace CtrlUI
                     AddAppToList(new DataBindApp() { Category = SelectedAddCategory, Name = tb_AddAppName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, FilePickerLaunch = (bool)checkbox_AddFilePickerLaunch.IsChecked }, true, true);
 
                     //Close the open popup
-                    vPopupPreviousFocus = null;
                     await Popup_Close_Top();
 
                     //Refresh the application lists
-                    ShowHideEmptyList(true, true);
-                    ListsUpdateCount();
+                    await RefreshApplicationLists(true, true, false, false);
 
                     //Focus on the application list
                     if (SelectedAddCategory == "Game") { await FocusOnListbox(lb_Games, false, true, -1); }
@@ -498,8 +514,8 @@ namespace CtrlUI
                     JsonSaveApps();
 
                     //Close the open popup
-                    vPopupPreviousFocus = null;
                     await Popup_Close_Top();
+                    await Task.Delay(500);
 
                     //Focus on the application list
                     if (vEditAppCategoryPrevious != vEditAppDataBind.Category)
@@ -514,13 +530,7 @@ namespace CtrlUI
                         else if (vEditAppCategoryPrevious == "App") { List_Apps.Remove(vEditAppDataBind); }
                         else if (vEditAppCategoryPrevious == "Emulator") { List_Emulators.Remove(vEditAppDataBind); }
 
-                        //Sort the lists by number
-                        if (vSortType == "Number")
-                        {
-                            SortAppLists(true, true);
-                        }
-
-                        //Focus on the item listbox
+                        //Focus on the edited item listbox
                         if (vSearchOpen)
                         {
                             await FocusOnListbox(lb_Search, false, false, -1);
@@ -531,15 +541,15 @@ namespace CtrlUI
                             else if (vEditAppDataBind.Category == "App") { await FocusOnListbox(lb_Apps, false, true, -1); }
                             else if (vEditAppDataBind.Category == "Emulator") { await FocusOnListbox(lb_Emulators, false, true, -1); }
                         }
+
+                        ////Sort the lists by number
+                        //if (vSortType == "Number")
+                        //{
+                        //    SortAppLists(true, true);
+                        //}
                     }
                     else
                     {
-                        //Sort the lists by number
-                        if (vSortType == "Number")
-                        {
-                            SortAppLists(true, true);
-                        }
-
                         //Focus on the item listbox
                         if (vSearchOpen)
                         {
@@ -551,11 +561,16 @@ namespace CtrlUI
                             else if (vEditAppDataBind.Category == "App") { await FocusOnListbox(lb_Apps, false, false, -1); }
                             else if (vEditAppDataBind.Category == "Emulator") { await FocusOnListbox(lb_Emulators, false, false, -1); }
                         }
+
+                        ////Sort the lists by number
+                        //if (vSortType == "Number")
+                        //{
+                        //    SortAppLists(true, true);
+                        //}
                     }
 
                     //Refresh the application lists
-                    ShowHideEmptyList(true, true);
-                    ListsUpdateCount();
+                    await RefreshApplicationLists(true, true, false, false);
                 }
             }
             catch { }

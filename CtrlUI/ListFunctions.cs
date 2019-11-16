@@ -27,8 +27,8 @@ namespace CtrlUI
             catch { return null; }
         }
 
-        //Refresh all the application lists
-        async Task RefreshApplicationLists(bool ShowStatus, bool PlaySound, bool SkipListLoad, bool SkipRunningStatus)
+        //Refresh the application lists
+        async Task RefreshApplicationLists(bool SkipListLoading, bool SkipRunningStatus, bool ShowNotification, bool PlaySound)
         {
             try
             {
@@ -43,16 +43,16 @@ namespace CtrlUI
                     vBusyRefreshingApps = true;
                 }
 
-                if (ShowStatus) { Popup_Show_Status("Refresh", "Refreshing applications"); }
+                if (ShowNotification) { Popup_Show_Status("Refresh", "Refreshing applications"); }
                 if (PlaySound) { PlayInterfaceSound("Refresh", false); }
 
                 //Load all the active processes
                 IEnumerable<Process> ProcessesList = null;
-                if (!SkipListLoad || !SkipRunningStatus)
+                if (!SkipListLoading || !SkipRunningStatus)
                 {
                     ProcessesList = Process.GetProcesses();
 
-                    if (!SkipListLoad)
+                    if (!SkipListLoading)
                     {
                         await ListLoadProcessesUwp(false);
                         await ListLoadProcessesWin32(ProcessesList, false);
@@ -65,8 +65,10 @@ namespace CtrlUI
                     }
                 }
 
+                //Refresh the application lists
                 ShowHideEmptyList(true, true);
                 ListsUpdateCount();
+                UpdateSearchResults();
 
                 vBusyRefreshingApps = false;
             }

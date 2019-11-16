@@ -117,7 +117,7 @@ namespace CtrlUI
                 //Load Json apps blacklist process
                 JsonLoadAppsBlacklistProcess();
 
-                //Refresh the application lists stats
+                //Refresh the application lists
                 ShowHideEmptyList(false, false);
                 ListsUpdateCount();
 
@@ -149,9 +149,9 @@ namespace CtrlUI
                 }
 
                 //Focus on the first available listbox
-                if (vMainMenuPreviousFocus == null)
+                if (vMainMenuElementFocus.FocusPrevious == null)
                 {
-                    await FocusOnListbox(TopVisibleListBox(), true, false, -1);
+                    await FocusOnListbox(TopVisibleListBoxWithItems(), true, false, -1);
                 }
 
                 //Check settings if this is the first application launch

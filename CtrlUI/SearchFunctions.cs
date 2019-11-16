@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
@@ -40,7 +41,12 @@ namespace CtrlUI
                 //Save previous focused element
                 if (Keyboard.FocusedElement != null)
                 {
-                    vSearchPreviousFocus = (FrameworkElement)Keyboard.FocusedElement;
+                    vSearchElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
+                    if (vSearchElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
+                    {
+                        vSearchElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vSearchElementFocus.FocusPrevious);
+                        vSearchElementFocus.FocusIndex = vSearchElementFocus.FocusListBox.SelectedIndex;
+                    }
                 }
 
                 //Show the popup with animation
@@ -49,7 +55,7 @@ namespace CtrlUI
 
                 if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 0.02, true, false, 0.10); }
                 if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 0.02, true, false, 0.10); }
-                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 0.02, true, false, 0.10); }
+                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 0.02, true, false, 0.10); }
                 if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 0.02, true, false, 0.10); }
                 //if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 0.02, true, false, 0.10); }
                 if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
@@ -113,7 +119,7 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task Popup_Close_Search(FrameworkElement FocusElement)
+        async Task Popup_Close_Search()
         {
             try
             {
@@ -134,7 +140,7 @@ namespace CtrlUI
                     if (!Popup_Any_Open()) { AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10); }
                     else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
                     else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
-                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 1, true, true, 0.10); }
+                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 1, true, true, 0.10); }
                     else if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 1, true, true, 0.10); }
                     else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
                     else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
@@ -145,10 +151,21 @@ namespace CtrlUI
                     }
 
                     //Force focus on an element
-                    if (FocusElement != null)
+                    if (vSearchElementFocus.FocusTarget != null)
                     {
-                        await FocusOnElement(FocusElement, false, vProcessCurrent.MainWindowHandle);
+                        await FocusOnElement(vSearchElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
                     }
+                    else if (vSearchElementFocus.FocusListBox != null)
+                    {
+                        await FocusOnListbox(vSearchElementFocus.FocusListBox, false, false, vSearchElementFocus.FocusIndex);
+                    }
+                    else
+                    {
+                        await FocusOnElement(vSearchElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
+                    }
+
+                    //Reset previous focus
+                    vSearchElementFocus.Reset();
                 }
             }
             catch { }
@@ -162,6 +179,7 @@ namespace CtrlUI
                 if (List_Search.Count == 0)
                 {
                     grid_Popup_Search_Count_TextBlock.Text = string.Empty;
+                    grid_Popup_Search_textbox_Search.Text = string.Empty;
                     grid_Popup_Search_textblock_Result.Text = "No search results found.";
                     grid_Popup_Search_textblock_Result.Visibility = Visibility.Visible;
                     grid_Popup_Search_button_KeyboardControllerButton.Visibility = Visibility.Visible;

@@ -61,20 +61,20 @@ namespace CtrlUI
 
         //Popup Variables
         public static bool vPopupOpen = false;
-        public static FrameworkElement vPopupTargetElement = null;
-        public static FrameworkElement vPopupPreviousFocus = null;
+        public static FrameworkElement vPopupElementTarget = null;
+        public static FrameworkElementFocus vPopupElementFocus = new FrameworkElementFocus();
 
         //ColorPicker Variables
         public static bool vColorPickerOpen = false;
-        public static FrameworkElement vColorPickerPreviousFocus = null;
+        public static FrameworkElementFocus vColorPickerElementFocus = new FrameworkElementFocus();
 
         //Search Variables
         public static bool vSearchOpen = false;
-        public static FrameworkElement vSearchPreviousFocus = null;
+        public static FrameworkElementFocus vSearchElementFocus = new FrameworkElementFocus();
 
         //MainMenu Variables
         public static bool vMainMenuOpen = false;
-        public static FrameworkElement vMainMenuPreviousFocus = null;
+        public static FrameworkElementFocus vMainMenuElementFocus = new FrameworkElementFocus();
 
         //Sort Variables
         public static string vSortType = "Number"; //Number/Name
@@ -83,14 +83,14 @@ namespace CtrlUI
         public static bool vMessageBoxOpen = false;
         public static bool vMessageBoxCancelled = false;
         public static DataBindString vMessageBoxResult = null;
-        public static FrameworkElement vMessageBoxPreviousFocus = null;
+        public static FrameworkElementFocus vMessageBoxElementFocus = new FrameworkElementFocus();
 
         //File Picker Variables
         public static bool vFilePickerOpen = false;
         public static bool vFilePickerCancelled = false;
         public static bool vFilePickerCompleted = false;
         public static DataBindFile vFilePickerResult = null;
-        public static FrameworkElement vFilePickerPreviousFocus = null;
+        public static FrameworkElementFocus vFilePickerElementFocus = new FrameworkElementFocus();
         public static List<int> vFilePickerNavigateIndexes = new List<int>();
         public static string vFilePickerCurrentPath = string.Empty;
         public static string vFilePickerPreviousPath = string.Empty;

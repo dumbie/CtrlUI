@@ -33,11 +33,21 @@ namespace CtrlUI
                 //Save previous focus element
                 if (PreviousFocus != null)
                 {
-                    vFilePickerPreviousFocus = PreviousFocus;
+                    vFilePickerElementFocus.FocusPrevious = PreviousFocus;
+                    if (vFilePickerElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
+                    {
+                        vFilePickerElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vFilePickerElementFocus.FocusPrevious);
+                        vFilePickerElementFocus.FocusIndex = vFilePickerElementFocus.FocusListBox.SelectedIndex;
+                    }
                 }
                 else if (!vFilePickerOpen && Keyboard.FocusedElement != null)
                 {
-                    vFilePickerPreviousFocus = (FrameworkElement)Keyboard.FocusedElement;
+                    vFilePickerElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
+                    if (vFilePickerElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
+                    {
+                        vFilePickerElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vFilePickerElementFocus.FocusPrevious);
+                        vFilePickerElementFocus.FocusIndex = vFilePickerElementFocus.FocusListBox.SelectedIndex;
+                    }
                 }
 
                 //Reset file picker variables
@@ -70,7 +80,7 @@ namespace CtrlUI
 
                 if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 0.02, true, false, 0.10); }
                 //if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 0.02, true, false, 0.10); }
-                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 0.02, true, false, 0.10); }
+                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 0.02, true, false, 0.10); }
                 if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 0.02, true, false, 0.10); }
                 if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 0.02, true, false, 0.10); }
                 if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
@@ -477,7 +487,7 @@ namespace CtrlUI
                 if (!Popup_Any_Open()) { AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10); }
                 else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
                 else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
-                else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 1, true, true, 0.10); }
+                else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 1, true, true, 0.10); }
                 else if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 1, true, true, 0.10); }
                 else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
                 else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
@@ -485,10 +495,21 @@ namespace CtrlUI
                 while (grid_Popup_FilePicker.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
                 //Force focus on an element
-                if (vFilePickerPreviousFocus != null)
+                if (vFilePickerElementFocus.FocusTarget != null)
                 {
-                    await FocusOnElement(vFilePickerPreviousFocus, false, vProcessCurrent.MainWindowHandle);
+                    await FocusOnElement(vFilePickerElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
                 }
+                else if (vFilePickerElementFocus.FocusListBox != null)
+                {
+                    await FocusOnListbox(vFilePickerElementFocus.FocusListBox, false, false, vFilePickerElementFocus.FocusIndex);
+                }
+                else
+                {
+                    await FocusOnElement(vFilePickerElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
+                }
+
+                //Reset previous focus
+                vFilePickerElementFocus.Reset();
             }
             catch { }
         }

@@ -162,7 +162,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            await RefreshApplicationLists(true, true, false, false);
+                            await RefreshApplicationLists(false, false, true, true);
                         }
 
                         ControllerUsed = true;

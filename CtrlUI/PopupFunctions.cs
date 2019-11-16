@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
@@ -37,7 +38,12 @@ namespace CtrlUI
                 //Save previous focused element
                 if (Keyboard.FocusedElement != null)
                 {
-                    vMainMenuPreviousFocus = (FrameworkElement)Keyboard.FocusedElement;
+                    vMainMenuElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
+                    if (vMainMenuElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
+                    {
+                        vMainMenuElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vMainMenuElementFocus.FocusPrevious);
+                        vMainMenuElementFocus.FocusIndex = vMainMenuElementFocus.FocusListBox.SelectedIndex;
+                    }
                 }
 
                 //Show the popup with animation
@@ -46,7 +52,7 @@ namespace CtrlUI
 
                 if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 0.02, true, false, 0.10); }
                 if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 0.02, true, false, 0.10); }
-                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 0.02, true, false, 0.10); }
+                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 0.02, true, false, 0.10); }
                 if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 0.02, true, false, 0.10); }
                 if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 0.02, true, false, 0.10); }
                 //if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
@@ -66,7 +72,7 @@ namespace CtrlUI
         }
 
         //Close all the open popups
-        async Task Popup_Close_MainMenu(FrameworkElement FocusElement)
+        async Task Popup_Close_MainMenu()
         {
             try
             {
@@ -83,7 +89,7 @@ namespace CtrlUI
                     if (!Popup_Any_Open()) { AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10); }
                     else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
                     else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
-                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 1, true, true, 0.10); }
+                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 1, true, true, 0.10); }
                     else if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 1, true, true, 0.10); }
                     else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
                     else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
@@ -94,10 +100,21 @@ namespace CtrlUI
                     UpdateClock();
 
                     //Force focus on an element
-                    if (FocusElement != null)
+                    if (vMainMenuElementFocus.FocusTarget != null)
                     {
-                        await FocusOnElement(FocusElement, false, vProcessCurrent.MainWindowHandle);
+                        await FocusOnElement(vMainMenuElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
                     }
+                    else if (vMainMenuElementFocus.FocusListBox != null)
+                    {
+                        await FocusOnListbox(vMainMenuElementFocus.FocusListBox, false, false, vMainMenuElementFocus.FocusIndex);
+                    }
+                    else
+                    {
+                        await FocusOnElement(vMainMenuElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
+                    }
+
+                    //Reset previous focus
+                    vMainMenuElementFocus.Reset();
                 }
             }
             catch { }
@@ -113,10 +130,18 @@ namespace CtrlUI
                     PlayInterfaceSound("PopupOpen", false);
 
                     //Update popup variables
-                    vPopupTargetElement = ShowPopup;
+                    vPopupElementTarget = ShowPopup;
 
                     //Save previous focused element
-                    if (Keyboard.FocusedElement != null) { vPopupPreviousFocus = (FrameworkElement)Keyboard.FocusedElement; }
+                    if (Keyboard.FocusedElement != null)
+                    {
+                        vPopupElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
+                        if (vPopupElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
+                        {
+                            vPopupElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vPopupElementFocus.FocusPrevious);
+                            vPopupElementFocus.FocusIndex = vPopupElementFocus.FocusListBox.SelectedIndex;
+                        }
+                    }
 
                     //Show the popup with animation
                     AVAnimations.Ani_Visibility(ShowPopup, true, true, 0.10);
@@ -142,7 +167,7 @@ namespace CtrlUI
         }
 
         //Close all the open popups
-        async Task Popup_Close(FrameworkElement FocusElement)
+        async Task Popup_Close()
         {
             try
             {
@@ -154,23 +179,34 @@ namespace CtrlUI
                     vPopupOpen = false;
 
                     //Hide the popup with animation
-                    AVAnimations.Ani_Visibility(vPopupTargetElement, false, false, 0.10);
+                    AVAnimations.Ani_Visibility(vPopupElementTarget, false, false, 0.10);
 
                     if (!Popup_Any_Open()) { AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10); }
                     else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
                     else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
-                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 1, true, true, 0.10); }
+                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 1, true, true, 0.10); }
                     else if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 1, true, true, 0.10); }
                     else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
                     else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
 
-                    while (vPopupTargetElement.Visibility == Visibility.Visible) { await Task.Delay(10); }
+                    while (vPopupElementTarget.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
                     //Force focus on an element
-                    if (FocusElement != null)
+                    if (vPopupElementFocus.FocusTarget != null)
                     {
-                        await FocusOnElement(FocusElement, false, vProcessCurrent.MainWindowHandle);
+                        await FocusOnElement(vPopupElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
                     }
+                    else if (vPopupElementFocus.FocusListBox != null)
+                    {
+                        await FocusOnListbox(vPopupElementFocus.FocusListBox, false, false, vPopupElementFocus.FocusIndex);
+                    }
+                    else
+                    {
+                        await FocusOnElement(vPopupElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
+                    }
+
+                    //Reset previous focus
+                    vPopupElementFocus.Reset();
                 }
             }
             catch { }
@@ -183,10 +219,10 @@ namespace CtrlUI
             {
                 if (vMessageBoxOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_MessageBox(); }); }
                 else if (vFilePickerOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_FilePicker(false, false); }); }
-                else if (vPopupOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close(vPopupPreviousFocus); }); }
-                else if (vColorPickerOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_ColorPicker(vColorPickerPreviousFocus); }); }
-                else if (vSearchOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_Search(vSearchPreviousFocus); }); }
-                else if (vMainMenuOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_MainMenu(vMainMenuPreviousFocus); }); }
+                else if (vPopupOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close(); }); }
+                else if (vColorPickerOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_ColorPicker(); }); }
+                else if (vSearchOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_Search(); }); }
+                else if (vMainMenuOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_MainMenu(); }); }
             }
             catch { }
         }
@@ -198,10 +234,10 @@ namespace CtrlUI
             {
                 if (vMessageBoxOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_MessageBox(); }); }
                 if (vFilePickerOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_FilePicker(false, false); }); }
-                if (vPopupOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close(vPopupPreviousFocus); }); }
-                if (vColorPickerOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_ColorPicker(vColorPickerPreviousFocus); }); }
-                if (vSearchOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_Search(vSearchPreviousFocus); }); }
-                if (vMainMenuOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_MainMenu(vMainMenuPreviousFocus); }); }
+                if (vPopupOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close(); }); }
+                if (vColorPickerOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_ColorPicker(); }); }
+                if (vSearchOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_Search(); }); }
+                if (vMainMenuOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_MainMenu(); }); }
             }
             catch { }
         }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.ProcessWin32Functions;
@@ -19,11 +20,22 @@ namespace CtrlUI
         {
             try
             {
-                //Save previous focus element and play open sound
+                //Check if the message box is already open
                 if (!vMessageBoxOpen)
                 {
+                    //Play the opening sound
                     PlayInterfaceSound("PromptOpen", false);
-                    if (Keyboard.FocusedElement != null) { vMessageBoxPreviousFocus = (FrameworkElement)Keyboard.FocusedElement; }
+
+                    //Save previous focused element
+                    if (Keyboard.FocusedElement != null)
+                    {
+                        vMessageBoxElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
+                        if (vMessageBoxElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
+                        {
+                            vMessageBoxElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vMessageBoxElementFocus.FocusPrevious);
+                            vMessageBoxElementFocus.FocusIndex = vMessageBoxElementFocus.FocusListBox.SelectedIndex;
+                        }
+                    }
                 }
 
                 //Reset messagebox variables
@@ -76,7 +88,7 @@ namespace CtrlUI
 
                 //if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 0.02, true, false, 0.10); }
                 if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 0.02, true, false, 0.10); }
-                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 0.02, true, false, 0.10); }
+                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 0.02, true, false, 0.10); }
                 if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 0.02, true, false, 0.10); }
                 if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 0.02, true, false, 0.10); }
                 if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
@@ -113,7 +125,7 @@ namespace CtrlUI
                 if (!Popup_Any_Open()) { AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10); }
                 else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
                 else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
-                else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 1, true, true, 0.10); }
+                else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 1, true, true, 0.10); }
                 else if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 1, true, true, 0.10); }
                 else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
                 else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
@@ -121,10 +133,21 @@ namespace CtrlUI
                 while (grid_Popup_MessageBox.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
                 //Force focus on an element
-                if (vMessageBoxPreviousFocus != null)
+                if (vMessageBoxElementFocus.FocusTarget != null)
                 {
-                    await FocusOnElement(vMessageBoxPreviousFocus, false, vProcessCurrent.MainWindowHandle);
+                    await FocusOnElement(vMessageBoxElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
                 }
+                else if (vMessageBoxElementFocus.FocusListBox != null)
+                {
+                    await FocusOnListbox(vMessageBoxElementFocus.FocusListBox, false, false, vMessageBoxElementFocus.FocusIndex);
+                }
+                else
+                {
+                    await FocusOnElement(vMessageBoxElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
+                }
+
+                //Reset previous focus
+                vMessageBoxElementFocus.Reset();
             }
             catch { }
         }
