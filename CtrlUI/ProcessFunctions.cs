@@ -17,8 +17,8 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Focus on an application window handle
-        void FocusWindowHandlePrepare(string TitleTarget, IntPtr TargetWindowHandle, int ShowCommand, bool SetWindowState, bool SwitchWindow, bool ToTopWindow, bool SetForeground, bool TempTopMost, bool Silent)
+        //Focus on a process window
+        void FocusProcessWindowPrepare(string titleTarget, int processIdTarget, IntPtr windowHandleTarget, int windowStateCommand, bool setWindowState, bool setTempTopMost, bool Silent)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace CtrlUI
                     vChangingWindow = true;
 
                     //Check if process is available
-                    if (TargetWindowHandle == null)
+                    if (windowHandleTarget == null)
                     {
                         if (!Silent) { Popup_Show_Status("Close", "App no longer running"); }
                         Debug.WriteLine("Show application no longer seems to be running.");
@@ -36,7 +36,7 @@ namespace CtrlUI
                     }
 
                     //Check if process is available
-                    if (TargetWindowHandle == IntPtr.Zero)
+                    if (windowHandleTarget == IntPtr.Zero)
                     {
                         if (!Silent) { Popup_Show_Status("Close", "App can't be shown"); }
                         Debug.WriteLine("Application can't be shown, window handle is empty.");
@@ -45,15 +45,15 @@ namespace CtrlUI
                     }
 
                     //Update the interface status
-                    if (!Silent) { Popup_Show_Status("MiniMaxi", "Showing " + TitleTarget); }
-                    Debug.WriteLine("Showing application window: " + TitleTarget);
+                    if (!Silent) { Popup_Show_Status("MiniMaxi", "Showing " + titleTarget); }
+                    Debug.WriteLine("Showing application window: " + titleTarget);
 
                     //Focus on an application window handle
                     async void TaskAction()
                     {
                         try
                         {
-                            await FocusWindowHandle(TitleTarget, TargetWindowHandle, ShowCommand, SetWindowState, SwitchWindow, ToTopWindow, SetForeground, TempTopMost);
+                            await FocusProcessWindow(titleTarget, processIdTarget, windowHandleTarget, windowStateCommand, setWindowState, setTempTopMost);
                         }
                         catch { }
                     }
@@ -95,7 +95,7 @@ namespace CtrlUI
                         if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                         //Force focus on the app
-                        FocusWindowHandlePrepare(LaunchApp.Name, ProcessWindowHandle, 0, false, true, true, true, false, false);
+                        FocusProcessWindowPrepare(LaunchApp.Name, LaunchApp.ProcessId, ProcessWindowHandle, 0, false, false, false);
                     }
                     else
                     {
@@ -307,7 +307,7 @@ namespace CtrlUI
                     await Task.Delay(1000);
 
                     //Force focus on CtrlUI
-                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, true);
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
                 }
             }
             catch { }
@@ -327,7 +327,7 @@ namespace CtrlUI
                     await Task.Delay(1000);
 
                     //Force focus on CtrlUI
-                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, true);
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
                 }
             }
             catch { }
@@ -354,7 +354,7 @@ namespace CtrlUI
                     await Task.Delay(1000);
 
                     //Force focus on CtrlUI
-                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, true);
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
                 }
             }
             catch { }
@@ -374,7 +374,7 @@ namespace CtrlUI
                     await Task.Delay(1000);
 
                     //Force focus on CtrlUI
-                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, true);
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
                 }
             }
             catch { }

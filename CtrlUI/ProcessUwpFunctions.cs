@@ -55,14 +55,15 @@ namespace CtrlUI
             try
             {
                 //Show the uwp process
-                FocusWindowHandlePrepare(ProcessName, ProcessWindowHandle, 0, false, true, true, true, false, true);
+                GetWindowThreadProcessId(ProcessWindowHandle, out int ProcessIdTarget);
+                FocusProcessWindowPrepare(ProcessName, ProcessIdTarget, ProcessWindowHandle, 0, false, false, true);
                 await Task.Delay(500);
 
                 //Get the process id
                 ProcessUwp UwpRunningNew = GetUwpProcessFromAppUserModelId(PathExe).Where(x => x.WindowHandle == ProcessWindowHandle).FirstOrDefault();
                 if (UwpRunningNew != null)
                 {
-                    Debug.WriteLine("Uwp workaround process id: " + UwpRunningNew.ProcessId);
+                    Debug.WriteLine("Uwp workaround process id: " + UwpRunningNew.ProcessId + " vs " + ProcessIdTarget);
                     return UwpRunningNew.ProcessId;
                 }
             }
@@ -78,7 +79,7 @@ namespace CtrlUI
                 if (ProcessWindowHandle != IntPtr.Zero)
                 {
                     //Show the process
-                    FocusWindowHandlePrepare(ProcessName, ProcessWindowHandle, 0, false, true, true, true, false, true);
+                    FocusProcessWindowPrepare(ProcessName, ProcessId, ProcessWindowHandle, 0, false, false, true);
                     await Task.Delay(500);
 
                     //Close the process or app
@@ -208,6 +209,8 @@ namespace CtrlUI
         {
             try
             {
+                Debug.WriteLine("Checking launch process UWP: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
+
                 //Check Uwp process has multiple processes
                 ProcessMultipleCheck ProcessMultipleCheck = await CheckMultiProcessUwp(LaunchApp);
                 if (ProcessMultipleCheck.Status == "NoProcess") { return true; }
@@ -282,7 +285,7 @@ namespace CtrlUI
                         if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                         //Force focus on the app
-                        FocusWindowHandlePrepare(LaunchApp.Name, ProcessMultipleCheck.ProcessUwp.WindowHandle, 0, false, true, true, true, false, false);
+                        FocusProcessWindowPrepare(LaunchApp.Name, ProcessMultipleCheck.ProcessUwp.ProcessId, ProcessMultipleCheck.ProcessUwp.WindowHandle, 0, false, false, false);
                         return false;
                     }
                     else if (Result == Answer2)

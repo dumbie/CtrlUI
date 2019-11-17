@@ -311,6 +311,8 @@ namespace CtrlUI
         {
             try
             {
+                Debug.WriteLine("Checking launch process Win32: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
+
                 //Check Win32 process has multiple processes
                 ProcessMultipleCheck ProcessMultipleCheck = await CheckMultiProcessWin32(LaunchApp);
                 if (ProcessMultipleCheck.Status == "NoProcess") { return true; }
@@ -394,7 +396,7 @@ namespace CtrlUI
                             if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                             //Force focus on the app
-                            FocusWindowHandlePrepare(LaunchApp.Name, ProcessWindowHandle, 0, false, true, true, true, false, false);
+                            FocusProcessWindowPrepare(LaunchApp.Name, ProcessMultipleCheck.Process.Id, ProcessWindowHandle, 0, false, false, false);
                         }
                         else
                         {

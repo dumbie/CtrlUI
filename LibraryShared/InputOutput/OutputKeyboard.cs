@@ -28,7 +28,7 @@ namespace LibraryShared
         //    catch { }
         //}
 
-        //Simulate single key press
+        //Simulate single key press up and down
         public static void KeyPressSingle(byte virtualKey, bool ExtendedKey)
         {
             try
@@ -47,6 +47,25 @@ namespace LibraryShared
                 keybd_event(virtualKey, scanByte, KeyFlagsDown, 0); //Key Press
                 Thread.Sleep(10);
                 keybd_event(virtualKey, scanByte, KeyFlagsUp, 0); //Key Release
+            }
+            catch { }
+        }
+
+        //Simulate single key press down only
+        public static void KeyPressSingleDown(byte virtualKey, bool ExtendedKey)
+        {
+            try
+            {
+                byte scanByte = Convert.ToByte(MapVirtualKey(virtualKey, MAPVK_VK_TO_VSC));
+                uint KeyFlagsDown = KEYEVENTF_NONE;
+
+                if (ExtendedKey)
+                {
+                    scanByte = Convert.ToByte(MapVirtualKey(virtualKey, MAPVK_VK_TO_VSC_EX));
+                    KeyFlagsDown = KEYEVENTF_EXTENDEDKEY | KEYEVENTF_NONE;
+                }
+
+                keybd_event(virtualKey, scanByte, KeyFlagsDown, 0); //Key Press
             }
             catch { }
         }

@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
-using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -151,7 +150,7 @@ namespace CtrlUI
                 //Force window focus on CtrlUI
                 if (ConfigurationManager.AppSettings["LaunchMinimized"] == "False")
                 {
-                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, true);
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
                 }
 
                 //Focus on the first available listbox
@@ -386,7 +385,7 @@ namespace CtrlUI
                 if (!SilentClose)
                 {
                     //Force focus on CtrlUI
-                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, true);
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
 
                     //Show the question messagebox
                     Result = await Popup_Show_MessageBox("Do you really want to close CtrlUI?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);

@@ -228,7 +228,7 @@ namespace CtrlUI
         }
 
         //Update the current window status
-        void UpdateWindowStatus()
+        async Task UpdateWindowStatus()
         {
             try
             {
@@ -263,19 +263,24 @@ namespace CtrlUI
                 //Check if application window activated
                 if (appActivated)
                 {
-                    AppWindowActivated();
+                    await AppWindowActivated();
                 }
             }
             catch { }
         }
 
         //Application window activated event
-        void AppWindowActivated()
+        async Task AppWindowActivated()
         {
             try
             {
                 Debug.WriteLine("Welcome back to the application.");
+
+                //Refresh running applications
                 //await RefreshApplicationLists(false, false, false, false);
+
+                //Hide the mouse cursor
+                await MouseCursorHide();
             }
             catch { }
         }
@@ -624,15 +629,7 @@ namespace CtrlUI
                     }
 
                     //Force focus on CtrlUI
-                    FocusWindowHandlePrepare("CtrlUI", vProcessCurrent.MainWindowHandle, 0, false, true, true, true, true, false);
-
-                    //Press tab to gain focus on interface
-                    await Task.Delay(1000);
-                    if (Keyboard.FocusedElement == null)
-                    {
-                        Debug.WriteLine("No focused element, sending tab key.");
-                        KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                    }
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false);
                 }
                 else
                 {
@@ -676,7 +673,7 @@ namespace CtrlUI
                                     if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                                     //Force focus on the app
-                                    FocusWindowHandlePrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.WindowHandle, 0, false, true, true, true, false, false);
+                                    FocusProcessWindowPrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.Process.Id, vPrevFocusedProcess.WindowHandle, 0, false, false, false);
                                 }
                                 else if (Result == Answer2)
                                 {

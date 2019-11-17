@@ -15,7 +15,7 @@ namespace DirectXInput
             try
             {
                 //Check application status
-                Application_LaunchCheck("DirectXInput", "DirectXInput", ProcessPriorityClass.RealTime, false);
+                Application_LaunchCheck("DirectXInput", "DirectXInput", ProcessPriorityClass.High, false);
 
                 await vWindowMain.Startup();
             }
