@@ -28,7 +28,7 @@ namespace CtrlUI
         }
 
         //Refresh the application lists
-        async Task RefreshApplicationLists(bool SkipListLoading, bool SkipRunningStatus, bool ShowNotification, bool PlaySound)
+        async Task RefreshApplicationLists(bool SkipListLoading, bool SkipRunningStatus, bool SkipListStats, bool ShowNotification, bool PlaySound)
         {
             try
             {
@@ -65,10 +65,13 @@ namespace CtrlUI
                     }
                 }
 
-                //Refresh the application lists
-                ShowHideEmptyList(true, true);
-                ListsUpdateCount();
-                UpdateSearchResults();
+                //Refresh the application list stats
+                if (!SkipListStats)
+                {
+                    ShowHideEmptyList(true, true);
+                    ListsUpdateCount();
+                    UpdateSearchResults();
+                }
 
                 vBusyRefreshingApps = false;
             }

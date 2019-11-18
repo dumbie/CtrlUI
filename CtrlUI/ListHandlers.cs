@@ -279,7 +279,7 @@ namespace CtrlUI
                                 await RestartProcessUwp(SelectedItem.Name, SelectedItem.PathExe, SelectedItem.Argument, SelectedItem.ProcessId, SelectedItem.WindowHandle);
 
                                 //Refresh the application lists
-                                await RefreshApplicationLists(false, false, false, false);
+                                await RefreshApplicationLists(false, false, false, false, false);
 
                                 //Select the previous index
                                 await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -151,18 +150,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Check if process is valid by name
-        bool ValidateProcessByName(string ProcessName, bool CheckEmpty, bool CheckBlacklist)
-        {
-            try
-            {
-                if (CheckEmpty && string.IsNullOrWhiteSpace(ProcessName)) { return false; }
-                if (CheckBlacklist && vAppsBlacklistProcess.Any(x => x.ToLower() == ProcessName.ToLower())) { return false; }
-            }
-            catch { }
-            return true;
-        }
-
         //Run an selected executable file
         async Task RunExecutableFile()
         {
@@ -226,7 +213,7 @@ namespace CtrlUI
                     }
 
                     //Refresh the application lists
-                    await RefreshApplicationLists(false, false, false, false);
+                    await RefreshApplicationLists(false, false, false, false, false);
                 }
             }
             catch { }

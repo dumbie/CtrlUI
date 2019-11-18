@@ -602,8 +602,14 @@ namespace CtrlUI
                     {
                         try
                         {
+                            //Check if application title is blacklisted
+                            bool titleBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == ForegroundProcess.Title.ToLower());
+
+                            //Check if application process is blacklisted
+                            bool processBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == ForegroundProcess.Process.ProcessName.ToLower());
+
                             //Save previous focused application
-                            if (ValidateProcessByName(ForegroundProcess.Title, true, true) && ValidateProcessByName(ForegroundProcess.Process.ProcessName, true, true))
+                            if (!titleBlacklisted && !processBlacklisted)
                             {
                                 vPrevFocusedProcess = ForegroundProcess;
                             }
@@ -636,92 +642,98 @@ namespace CtrlUI
                     Debug.WriteLine("Hiding the CtrlUI window.");
                     PlayInterfaceSound("PopupClose", false);
 
-                    //Look for the process and recover
-                    bool NoPreviousApp = false;
-                    if (vPrevFocusedProcess != null)
+                    //Check if a previous process is available
+                    if (vPrevFocusedProcess == null)
                     {
-                        //Validate the previous process
-                        if (ValidateProcessByName(vPrevFocusedProcess.Title, true, true) && ValidateProcessByName(vPrevFocusedProcess.Process.ProcessName, true, true) && CheckRunningProcessByName(vPrevFocusedProcess.Process.ProcessName, false))
+                        Popup_Show_Status("Close", "No app to show found");
+                        Debug.WriteLine("Previous process not found.");
+                        return;
+                    }
+
+                    //Check if application title is blacklisted
+                    if (vAppsBlacklistProcess.Any(x => x.ToLower() == vPrevFocusedProcess.Title.ToLower()))
+                    {
+                        Popup_Show_Status("Close", "App is blacklisted");
+                        Debug.WriteLine("Previous process title is blacklisted.");
+                        return;
+                    }
+
+                    //Check if application process is blacklisted
+                    if (vAppsBlacklistProcess.Any(x => x.ToLower() == vPrevFocusedProcess.Process.ProcessName.ToLower()))
+                    {
+                        Popup_Show_Status("Close", "App is blacklisted");
+                        Debug.WriteLine("Previous process name is blacklisted.");
+                        return;
+                    }
+
+                    //Check if application process is still running
+                    if (!CheckRunningProcessByName(vPrevFocusedProcess.Process.ProcessName, false))
+                    {
+                        Popup_Show_Status("Close", "App no longer running");
+                        Debug.WriteLine("Previous process is no longer running.");
+                        return;
+                    }
+
+                    List<DataBindString> Answers = new List<DataBindString>();
+                    DataBindString Answer1 = new DataBindString();
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1);
+                    Answer1.Name = "Return to application";
+                    Answers.Add(Answer1);
+
+                    DataBindString Answer2 = new DataBindString();
+                    Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1);
+                    Answer2.Name = "Close the application";
+                    Answers.Add(Answer2);
+
+                    DataBindString Answer3 = new DataBindString();
+                    Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Minimize.png" }, IntPtr.Zero, -1);
+                    Answer3.Name = "Minimize CtrlUI";
+                    Answers.Add(Answer3);
+
+                    DataBindString cancelString = new DataBindString();
+                    cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
+                    cancelString.Name = "Cancel";
+                    Answers.Add(cancelString);
+
+                    DataBindString Result = await Popup_Show_MessageBox("Return to previous application or minimize?", "", "You can always return to " + vPrevFocusedProcess.Title + " later on.", Answers);
+                    if (Result != null)
+                    {
+                        if (Result == Answer1)
                         {
-                            List<DataBindString> Answers = new List<DataBindString>();
-                            DataBindString Answer1 = new DataBindString();
-                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1);
-                            Answer1.Name = "Return to application";
-                            Answers.Add(Answer1);
+                            //Minimize the CtrlUI window
+                            if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
-                            DataBindString Answer2 = new DataBindString();
-                            Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1);
-                            Answer2.Name = "Close the application";
-                            Answers.Add(Answer2);
+                            //Force focus on the app
+                            FocusProcessWindowPrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.Process.Id, vPrevFocusedProcess.WindowHandle, 0, false, false, false);
+                        }
+                        else if (Result == Answer2)
+                        {
+                            Popup_Show_Status("Closing", "Closing " + vPrevFocusedProcess.Title);
+                            Debug.WriteLine("Closing process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Process.Id + " / " + vPrevFocusedProcess.WindowHandle);
 
-                            DataBindString Answer3 = new DataBindString();
-                            Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Minimize.png" }, IntPtr.Zero, -1);
-                            Answer3.Name = "Minimize CtrlUI";
-                            Answers.Add(Answer3);
-
-                            DataBindString cancelString = new DataBindString();
-                            cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                            cancelString.Name = "Cancel";
-                            Answers.Add(cancelString);
-
-                            DataBindString Result = await Popup_Show_MessageBox("Return to previous application or minimize?", "", "You can always return to " + vPrevFocusedProcess.Title + " later on.", Answers);
-                            if (Result != null)
+                            //Check if the application is UWP or Win32
+                            if (CheckProcessIsUwp(vPrevFocusedProcess.WindowHandle))
                             {
-                                if (Result == Answer1)
+                                bool ClosedProcess = await CloseProcessUwpByWindowHandle(vPrevFocusedProcess.Title, vPrevFocusedProcess.Process.Id, vPrevFocusedProcess.WindowHandle);
+                                if (ClosedProcess)
                                 {
-                                    //Minimize the CtrlUI window
-                                    if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
-
-                                    //Force focus on the app
-                                    FocusProcessWindowPrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.Process.Id, vPrevFocusedProcess.WindowHandle, 0, false, false, false);
+                                    vPrevFocusedProcess = null;
                                 }
-                                else if (Result == Answer2)
+                            }
+                            else
+                            {
+                                bool ClosedProcess = CloseProcessById(vPrevFocusedProcess.Process.Id);
+                                if (ClosedProcess)
                                 {
-                                    Popup_Show_Status("Closing", "Closing " + vPrevFocusedProcess.Title);
-                                    Debug.WriteLine("Closing process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Process.Id + " / " + vPrevFocusedProcess.WindowHandle);
-
-                                    //Check if the application is UWP or Win32
-                                    if (CheckProcessIsUwp(vPrevFocusedProcess.WindowHandle))
-                                    {
-                                        bool ClosedProcess = await CloseProcessUwpByWindowHandle(vPrevFocusedProcess.Title, vPrevFocusedProcess.Process.Id, vPrevFocusedProcess.WindowHandle);
-                                        if (ClosedProcess)
-                                        {
-                                            vPrevFocusedProcess = null;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        bool ClosedProcess = CloseProcessById(vPrevFocusedProcess.Process.Id);
-                                        if (ClosedProcess)
-                                        {
-                                            vPrevFocusedProcess = null;
-                                        }
-                                    }
-                                }
-                                else if (Result == Answer3)
-                                {
-                                    //Minimize the CtrlUI window
-                                    await AppMinimize(false);
+                                    vPrevFocusedProcess = null;
                                 }
                             }
                         }
-                        else
+                        else if (Result == Answer3)
                         {
-                            Debug.WriteLine("Previous process is not valid.");
-                            NoPreviousApp = true;
+                            //Minimize the CtrlUI window
+                            await AppMinimize(false);
                         }
-                    }
-                    else
-                    {
-                        Debug.WriteLine("No previous process found.");
-                        NoPreviousApp = true;
-                    }
-
-                    //Show notification if no application is found
-                    if (NoPreviousApp)
-                    {
-                        Popup_Show_Status("Close", "No app to show found");
-                        Debug.WriteLine("No application to show found.");
                     }
                 }
             }

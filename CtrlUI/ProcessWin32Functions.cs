@@ -740,8 +740,14 @@ namespace CtrlUI
                             //Get the process title
                             string ProcessTitle = GetWindowTitleFromProcess(AllProcess);
 
-                            //Validate the process by name
-                            if (!ValidateProcessByName(ProcessTitle, true, true) || !ValidateProcessByName(AllProcess.ProcessName, true, true))
+                            //Check if application title is blacklisted
+                            if (vAppsBlacklistProcess.Any(x => x.ToLower() == ProcessTitle.ToLower()))
+                            {
+                                continue;
+                            }
+
+                            //Check if application process is blacklisted
+                            if (vAppsBlacklistProcess.Any(x => x.ToLower() == AllProcess.ProcessName.ToLower()))
                             {
                                 continue;
                             }

@@ -107,7 +107,7 @@ namespace CtrlUI
                 }
 
                 //Refresh the application lists
-                await RefreshApplicationLists(true, true, false, false);
+                await RefreshApplicationLists(true, true, false, false, false);
 
                 //Select the previous index
                 await FocusOnListbox(ListBoxSender, false, false, ListboxSelectedIndex);
@@ -445,7 +445,7 @@ namespace CtrlUI
                     await Popup_Close_Top();
 
                     //Refresh the application lists
-                    await RefreshApplicationLists(true, true, false, false);
+                    await RefreshApplicationLists(true, true, false, false, false);
 
                     //Focus on the application list
                     if (SelectedAddCategory == "Game") { await FocusOnListbox(lb_Games, false, true, -1); }
@@ -570,7 +570,7 @@ namespace CtrlUI
                     }
 
                     //Refresh the application lists
-                    await RefreshApplicationLists(true, true, false, false);
+                    await RefreshApplicationLists(true, true, false, false, false);
                 }
             }
             catch { }

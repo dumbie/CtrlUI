@@ -161,7 +161,7 @@ namespace CtrlUI
                     else if (e.Key == Key.F2) { await QuickActionPrompt(); }
                     else if (e.Key == Key.F3) { await Popup_ShowHide_Search(false); }
                     else if (e.Key == Key.F4) { SortAppLists(false, false); }
-                    else if (e.Key == Key.F5) { await RefreshApplicationLists(false, false, true, true); }
+                    else if (e.Key == Key.F5) { await RefreshApplicationLists(false, false, false, true, true); }
                     else if (e.Key == Key.F6) { await Popup_ShowHide_MainMenu(false); }
                 }
             }
