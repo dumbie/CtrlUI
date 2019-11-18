@@ -16,9 +16,6 @@ namespace CtrlUI
         public static Task vTask_UpdateWindowStatus = null;
         public static CancellationTokenSource vTaskToken_UpdateWindowStatus = null;
 
-        public static Task vTask_UpdateAppRunningStatus = null;
-        public static CancellationTokenSource vTaskToken_UpdateAppRunningStatus = null;
-
         public static Task vTask_UpdateApplications = null;
         public static CancellationTokenSource vTaskToken_UpdateApplications = null;
 
@@ -45,9 +42,6 @@ namespace CtrlUI
                 vTaskToken_ControllerConnected = new CancellationTokenSource();
                 vTask_ControllerConnected = AVActions.TaskStart(vTaskAction_ControllerConnected, vTaskToken_ControllerConnected);
 
-                vTaskToken_UpdateAppRunningStatus = new CancellationTokenSource();
-                vTask_UpdateAppRunningStatus = AVActions.TaskStart(vTaskAction_UpdateAppRunningStatus, vTaskToken_UpdateAppRunningStatus);
-
                 vTaskToken_UpdateApplications = new CancellationTokenSource();
                 vTask_UpdateApplications = AVActions.TaskStart(vTaskAction_UpdateApplications, vTaskToken_UpdateApplications);
 
@@ -73,7 +67,6 @@ namespace CtrlUI
                 vTaskToken_ControllerConnected.Cancel();
                 vTaskToken_UpdateClock.Cancel();
                 vTaskToken_UpdateWindowStatus.Cancel();
-                vTaskToken_UpdateAppRunningStatus.Cancel();
                 vTaskToken_UpdateApplications.Cancel();
                 vTaskToken_UpdateAppRunningTime.Cancel();
                 vTaskToken_UpdateMediaInformation.Cancel();

@@ -38,6 +38,9 @@
                 <Button Name="button_MenuSorting" Margin="10,10,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Sort by name">
                     <Image Source="Assets/Icons/Sorting.png"/>
                 </Button>
+                <Button Name="button_MenuRefresh" Margin="10,10,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Refresh applications">
+                    <Image Source="Assets/Icons/Refresh.png"/>
+                </Button>
             </StackPanel>
 
             <!-- Application Lists -->

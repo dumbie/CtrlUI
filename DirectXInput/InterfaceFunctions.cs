@@ -180,8 +180,8 @@ namespace DirectXInput
         {
             try
             {
-                vProcessCtrlUI = GetProcessByName("CtrlUI", false);
-                vProcessKeyboardController = GetProcessByName("KeyboardController", false);
+                vProcessCtrlUI = GetProcessByNameOrTitle("CtrlUI", false);
+                vProcessKeyboardController = GetProcessByNameOrTitle("KeyboardController", false);
                 int FocusedAppId = GetFocusedProcess().Process.Id;
 
                 //Check if CtrlUI is currently activated
@@ -220,7 +220,7 @@ namespace DirectXInput
                 int Result = await MessageBoxPopup("Welcome to DirectXInput", "It seems like you have not yet installed the required drivers to use this application, please make sure that you have installed the required drivers.\n\nDirectXInput will be closed during the installation of the required drivers.\n\nIf you just installed the drivers and this message shows up restart your PC.", "Install the drivers", "Close application", "", "");
                 if (Result == 1)
                 {
-                    if (!CheckRunningProcessByName("DriverInstaller", false))
+                    if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false))
                     {
                         ProcessLauncherWin32("DriverInstaller.exe", "", "", false, false);
                         await Application_Exit(true);

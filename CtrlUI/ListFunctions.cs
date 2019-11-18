@@ -182,7 +182,10 @@ namespace CtrlUI
                 }
 
                 //Save changes to Json file
-                if (ApplicationUpdated) { JsonSaveApps(); }
+                if (ApplicationUpdated)
+                {
+                    JsonSaveApps();
+                }
             }
             catch { }
         }

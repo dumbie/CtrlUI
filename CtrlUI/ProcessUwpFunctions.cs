@@ -392,7 +392,7 @@ namespace CtrlUI
                     return;
                 }
 
-                Process AllProcess = GetProcessByName("ApplicationFrameHost", false);
+                Process AllProcess = GetProcessByNameOrTitle("ApplicationFrameHost", false);
                 if (AllProcess != null)
                 {
                     //Show refresh status message

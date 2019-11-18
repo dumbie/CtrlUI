@@ -239,7 +239,7 @@ namespace DirectXInput
                 {
                     try
                     {
-                        CloseProcessesByName(CloseTool, false);
+                        CloseProcessesByNameOrTitle(CloseTool, false);
                     }
                     catch { }
                 }
@@ -271,7 +271,7 @@ namespace DirectXInput
                 {
                     Debug.WriteLine("Exiting DirectXInput.");
 
-                    CloseProcessesByName("KeyboardController", false);
+                    CloseProcessesByNameOrTitle("KeyboardController", false);
                     TasksBackgroundStop();
                     await StopAllControllers();
 

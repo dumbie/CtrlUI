@@ -86,6 +86,7 @@ namespace CtrlUI
                 button_MenuHamburger.Click += Button_MenuHamburger_Click;
                 button_MenuSearch.Click += Button_MenuSearch_Click;
                 button_MenuSorting.Click += Button_MenuSorting_Click;
+                button_MenuRefresh.Click += Button_MenuRefresh_Click;
 
                 //App list functions
                 lb_Search.PreviewKeyUp += ListBox_Apps_KeyPressUp;
@@ -232,8 +233,8 @@ namespace CtrlUI
         {
             try
             {
-                vProcessDirectXInput = GetProcessByName("DirectXInput", false);
-                vProcessKeyboardController = GetProcessByName("KeyboardController", false);
+                vProcessDirectXInput = GetProcessByNameOrTitle("DirectXInput", false);
+                vProcessKeyboardController = GetProcessByNameOrTitle("KeyboardController", false);
                 int focusedAppId = GetFocusedProcess().Process.Id;
                 bool appActivated = false;
 
@@ -275,9 +276,6 @@ namespace CtrlUI
             try
             {
                 Debug.WriteLine("Welcome back to the application.");
-
-                //Refresh running applications
-                //await RefreshApplicationLists(false, false, false, false);
 
                 //Hide the mouse cursor
                 await MouseCursorHide();
@@ -667,7 +665,7 @@ namespace CtrlUI
                     }
 
                     //Check if application process is still running
-                    if (!CheckRunningProcessByName(vPrevFocusedProcess.Process.ProcessName, false))
+                    if (!CheckRunningProcessByNameOrTitle(vPrevFocusedProcess.Process.ProcessName, false))
                     {
                         Popup_Show_Status("Close", "App no longer running");
                         Debug.WriteLine("Previous process is no longer running.");

@@ -16,7 +16,7 @@ namespace CtrlUI
         {
             try
             {
-                bool DirectXRunning = CheckRunningProcessByName("DirectXInput", false);
+                bool DirectXRunning = CheckRunningProcessByNameOrTitle("DirectXInput", false);
                 bool KeyboardSettings = File.ReadAllText("DirectXInput.exe.Config").Contains("\"ShortcutLaunchKeyboardController\" value=\"True\"");
                 if (DirectXRunning && KeyboardSettings) { return true; }
                 else { return false; }

@@ -153,7 +153,7 @@ namespace DirectXInput
                 {
                     Debug.WriteLine("Shortcut launch keyboard controller has been pressed.");
 
-                    if (!CheckRunningProcessByName("KeyboardController", false))
+                    if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
                     {
                         ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
                     }
@@ -171,7 +171,7 @@ namespace DirectXInput
                 {
                     Debug.WriteLine("Shortcut launch CtrlUI has been pressed.");
 
-                    if (!CheckRunningProcessByName("CtrlUI", false))
+                    if (!CheckRunningProcessByNameOrTitle("CtrlUI", false))
                     {
                         ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", true, false);
                     }

@@ -395,7 +395,7 @@ namespace CtrlUI
                 {
                     Debug.WriteLine("Exiting CtrlUI.");
 
-                    CloseProcessesByName("KeyboardController", false);
+                    CloseProcessesByNameOrTitle("KeyboardController", false);
                     TasksBackgroundStop();
 
                     //Disable the socket server

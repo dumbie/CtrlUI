@@ -41,7 +41,7 @@ namespace CtrlUI
                 //Check if process is running
                 if (!IgnoreRunning)
                 {
-                    if (CheckRunningProcessByName(Path.GetFileNameWithoutExtension(PathExe), false))
+                    if (CheckRunningProcessByNameOrTitle(Path.GetFileNameWithoutExtension(PathExe), false))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
@@ -110,7 +110,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    CloseProcessesByName(Path.GetFileNameWithoutExtension(PathExe), false);
+                    CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(PathExe), false);
                     await Task.Delay(1000);
                 }
 
@@ -126,7 +126,7 @@ namespace CtrlUI
             try
             {
                 List<DataBindString> multiAnswers = new List<DataBindString>();
-                Process[] multiVariables = GetProcessesByName(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false, false);
+                Process[] multiVariables = GetProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false, true);
                 if (multiVariables.Any())
                 {
                     if (multiVariables.Count() > 1)
@@ -325,7 +325,7 @@ namespace CtrlUI
                     Debug.WriteLine("Closing processes: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
 
                     //Close the process
-                    bool ClosedProcess = CloseProcessesByName(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false);
+                    bool ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false);
                     if (ClosedProcess)
                     {
                         //Updating running status
@@ -417,7 +417,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            bool ClosedProcess = CloseProcessesByName(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false);
+                            bool ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false);
                             if (ClosedProcess)
                             {
                                 //Updating running status

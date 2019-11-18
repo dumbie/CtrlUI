@@ -207,7 +207,7 @@ namespace CtrlUI
                     {
                         try
                         {
-                            CloseProcessesByName(CloseLauncher, false);
+                            CloseProcessesByNameOrTitle(CloseLauncher, false);
                         }
                         catch { }
                     }
@@ -242,10 +242,10 @@ namespace CtrlUI
                     Popup_Show_Status("Stream", "Disconnecting remote streams");
 
                     //Disconnect Steam Streaming
-                    CloseProcessesByName("steam", false);
+                    CloseProcessesByNameOrTitle("steam", false);
 
                     //Disconnect GeForce Experience
-                    CloseProcessesByName("nvstreamer", false);
+                    CloseProcessesByNameOrTitle("nvstreamer", false);
 
                     //Disconnect Parsec Streaming
                     KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.F3, false);
@@ -262,7 +262,7 @@ namespace CtrlUI
         {
             try
             {
-                if (!CheckRunningProcessByName("DirectXInput", false))
+                if (!CheckRunningProcessByNameOrTitle("DirectXInput", false))
                 {
                     Popup_Show_Status("Controller", "Launching DirectXInput");
                     Debug.WriteLine("Launching DirectXInput");
@@ -279,11 +279,11 @@ namespace CtrlUI
             try
             {
                 //Close the fps overlayer
-                if (CheckRunningProcessByName("FpsOverlayer", false))
+                if (CheckRunningProcessByNameOrTitle("FpsOverlayer", false))
                 {
                     Popup_Show_Status("Close", "Closing Fps Overlayer");
                     Debug.WriteLine("Closing Fps Overlayer");
-                    CloseProcessesByName("FpsOverlayer", false);
+                    CloseProcessesByNameOrTitle("FpsOverlayer", false);
                 }
                 else
                 {
@@ -305,7 +305,7 @@ namespace CtrlUI
         {
             try
             {
-                if (!CheckRunningProcessByName("FpsOverlayer", false))
+                if (!CheckRunningProcessByNameOrTitle("FpsOverlayer", false))
                 {
                     //Launch the fps overlayer
                     Popup_Show_Status("Fps", "Showing Fps Overlayer");
@@ -326,11 +326,11 @@ namespace CtrlUI
             try
             {
                 //Close the keyboard controller
-                if (CheckRunningProcessByName("KeyboardController", false))
+                if (CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
                     Popup_Show_Status("Close", "Closing on screen keyboard");
                     Debug.WriteLine("Closing on screen keyboard");
-                    CloseProcessesByName("KeyboardController", false);
+                    CloseProcessesByNameOrTitle("KeyboardController", false);
                 }
                 else
                 {
@@ -352,7 +352,7 @@ namespace CtrlUI
         {
             try
             {
-                if (!CheckRunningProcessByName("KeyboardController", false))
+                if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
                     //Launch the keyboard controller
                     Popup_Show_Status("Keyboard", "Showing on screen keyboard");

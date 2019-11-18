@@ -39,6 +39,16 @@ namespace CtrlUI
             catch { }
         }
 
+        //Handle refresh mouse presses
+        async void Button_MenuRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await RefreshApplicationLists(false, false, false, true, true);
+            }
+            catch { }
+        }
+
         //Open the keyboard controller
         async void Button_KeyboardController_Click(object sender, RoutedEventArgs e)
         {
