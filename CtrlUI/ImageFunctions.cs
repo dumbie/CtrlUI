@@ -78,12 +78,12 @@ namespace CtrlUI
                             ImageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                             ImageToBitmapImage.UriSource = new Uri("Assets\\Roms\\" + ImageFileSafe + ".png", UriKind.RelativeOrAbsolute);
                         }
-                        else if (File.Exists(ImageFileLower) && !ImageFileLower.EndsWith(".exe") && !ImageFileLower.EndsWith(".dll") && !ImageFileLower.EndsWith(".tmp"))
+                        else if (File.Exists(ImageFileLower) && !ImageFileLower.EndsWith(".exe") && !ImageFileLower.EndsWith(".dll") && !ImageFileLower.EndsWith(".bin") && !ImageFileLower.EndsWith(".tmp"))
                         {
                             ImageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                             ImageToBitmapImage.UriSource = new Uri(ImageFileLower, UriKind.RelativeOrAbsolute);
                         }
-                        else if (File.Exists(ImageFileLower) && (ImageFileLower.EndsWith(".exe") || ImageFileLower.EndsWith(".dll") || ImageFileLower.EndsWith(".tmp")))
+                        else if (File.Exists(ImageFileLower) && (ImageFileLower.EndsWith(".exe") || ImageFileLower.EndsWith(".dll") || ImageFileLower.EndsWith(".bin") || ImageFileLower.EndsWith(".tmp")))
                         {
                             ImageToBitmapImage.CreateOptions = BitmapCreateOptions.None;
                             System.Drawing.Bitmap IconImage = ExtractIco.ExtractIco.GetBitmapFromExePath(ImageFileLower);

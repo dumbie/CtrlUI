@@ -51,7 +51,7 @@ namespace CtrlUI
             {
                 while (TaskRunningCheck(vTaskToken_UpdateAppRunningStatus))
                 {
-                    CheckAppRunningStatus(null);
+                    await RefreshApplicationLists(true, false, false, false);
                     await Task.Delay(5000);
                 }
             }
