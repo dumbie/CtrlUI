@@ -26,6 +26,7 @@ namespace CtrlUI
         public static List<string> vAppsBlacklistShortcut = new List<string>();
         public static string[] vAppsBlacklistShortcutUri = new string[] { };
         public static string[] vAppsOtherLaunchers = new string[] { };
+        public static string[] vShortcutLocations = new string[] { };
         public static List<FileLocation> vFileLocations = new List<FileLocation>();
         public static string[] vAppsBlacklistProcess = new string[] { };
         public static string[] vAppsShortcutProtocol = new string[] { };

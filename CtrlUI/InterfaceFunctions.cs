@@ -152,7 +152,6 @@ namespace CtrlUI
                 btn_AddAppPathLaunch.Click += Button_ShowFilePicker;
                 btn_AddAppPathRoms.Click += Button_ShowFilePicker;
                 btn_Settings_ChangeBackground.Click += Button_ShowFilePicker;
-                btn_Settings_ChangeShortcutsDirectory.Click += Button_ShowFilePicker;
 
                 //Color Picker functions
                 grid_Popup_ColorPicker_button_ControllerRight.Click += Button_Popup_Close_Click;

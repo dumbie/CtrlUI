@@ -1259,6 +1259,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <Content Include="Profiles\ShortcutLocations.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\App.manifest" />
     <None Include="Properties\App.config" />
   </ItemGroup>

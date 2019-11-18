@@ -637,7 +637,7 @@
 
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Interface Settings"/>
                         <CheckBox Name="cb_SettingsShowOtherShortcuts" Content="Show found executable shortcuts" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will show your executable desktop and set folder shortcuts in a list so they can be opened." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <TextBlock Text="Enabling this will show all your executable shortcuts in a list so they can easily be opened." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                         <CheckBox Name="cb_SettingsShowOtherProcesses" Content="Show all other application processes" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                         <TextBlock Text="Enabling this will show currently running applications in the processes list so they can be shown." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
@@ -690,8 +690,6 @@
                         <Button Name="btn_Settings_AppQuickLaunch" Margin="0,20,0,0" Content="Change quick launch app: Quick Launch" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         <Button Visibility="Collapsed" Name="btn_Settings_AddSteamLibrary" Margin="0,10,0,0" Content="Add CtrlUI to Steam Library" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         <Button Name="btn_Settings_AddGeforceExperience" Margin="0,10,0,0" Content="Add CtrlUI to GeForce Experience" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Button Visibility="Collapsed" Name="btn_Settings_AccentColor" Margin="0,10,0,0" Content="Change accent color" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Button Name="btn_Settings_ChangeShortcutsDirectory" Margin="0,10,0,0" Content="Change the shortcuts extra scan folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         <Button Name="btn_Settings_ChangeBackground" Margin="0,10,0,0" Content="Change the background image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         <Button Name="btn_Settings_LaunchDirectXInput" Margin="0,10,0,0" Content="Launch DirectXInput application" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         <Button Name="btn_Settings_CheckControllers" Margin="0,10,0,0" Content="Manage Windows controllers" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>

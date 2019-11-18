@@ -25,7 +25,6 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["ShowOtherProcesses"] == null) { SettingSave("ShowOtherProcesses", "True"); }
                 if (ConfigurationManager.AppSettings["HideAppProcesses"] == null) { SettingSave("HideAppProcesses", "False"); }
 
-                if (ConfigurationManager.AppSettings["DirectoryShortcuts"] == null) { SettingSave("DirectoryShortcuts", Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Shortcuts"); }
                 if (ConfigurationManager.AppSettings["HideBatteryLevel"] == null) { SettingSave("HideBatteryLevel", "False"); }
                 if (ConfigurationManager.AppSettings["HideMouseCursor"] == null) { SettingSave("HideMouseCursor", "True"); }
                 if (ConfigurationManager.AppSettings["HideControllerHelp"] == null) { SettingSave("HideControllerHelp", "False"); }

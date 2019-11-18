@@ -746,27 +746,6 @@ namespace CtrlUI
                     UpdateBackgroundImage();
                 }
 
-                //Settings change shortcuts directory
-                else if (ButtonName == "btn_Settings_ChangeShortcutsDirectory")
-                {
-                    vFilePickerFilterIn = new string[] { };
-                    vFilePickerFilterOut = new string[] { };
-                    vFilePickerTitle = "Shortcut Folder";
-                    vFilePickerDescription = "Please select a new shortcut folder:";
-                    vFilePickerShowNoFile = false;
-                    vFilePickerShowRoms = false;
-                    vFilePickerShowFiles = false;
-                    vFilePickerShowDirectories = true;
-                    grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                    await Popup_Show_FilePicker("PC", -1, false, null);
-
-                    while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
-                    if (vFilePickerCancelled) { return; }
-
-                    //Save the new shortcuts directory path
-                    SettingSave("DirectoryShortcuts", vFilePickerResult.PathFile);
-                }
-
                 //First launch quick setup
                 else if (ButtonName == "grid_Popup_Welcome_button_Steam")
                 {

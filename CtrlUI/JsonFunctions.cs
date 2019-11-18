@@ -58,6 +58,22 @@ namespace CtrlUI
             }
         }
 
+        //Read shortcut locations from Json file (Deserialize)
+        void JsonLoadShortcutLocations()
+        {
+            try
+            {
+                string JsonFile = File.ReadAllText(@"Profiles\ShortcutLocations.json");
+                vShortcutLocations = JsonConvert.DeserializeObject<string[]>(JsonFile);
+
+                Debug.WriteLine("Reading Json shortcut locations completed.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed Reading Json shortcut locations: " + ex.Message);
+            }
+        }
+
         //Read file locations from Json file (Deserialize)
         void JsonLoadFileLocations()
         {

@@ -92,30 +92,27 @@ namespace CtrlUI
                     return;
                 }
 
-                //Get all files from the public/user desktop and shortcut folder
-                string ShortcutsDirectory = Convert.ToString(ConfigurationManager.AppSettings["DirectoryShortcuts"]);
-
-                DirectoryInfo DirectoryInfoUser = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-                IEnumerable<FileInfo> DirectoryFiles = DirectoryInfoUser.GetFiles();
-
-                //Merge the list with public desktop shortcuts
-                try
+                //Get all files from the shortcut directories
+                IEnumerable<FileInfo> directoryShortcuts = Enumerable.Empty<FileInfo>();
+                foreach (string shortcutFolder in vShortcutLocations)
                 {
-                    DirectoryInfo DirectoryInfoPublic = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory));
-                    DirectoryFiles = DirectoryFiles.Concat(DirectoryInfoPublic.GetFiles());
+                    try
+                    {
+                        string editedShortcutFolder = shortcutFolder;
+                        editedShortcutFolder = editedShortcutFolder.Replace("%DESKTOPUSER%", Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+                        editedShortcutFolder = editedShortcutFolder.Replace("%DESKTOPPUBLIC%", Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory));
+                        if (Directory.Exists(editedShortcutFolder))
+                        {
+                            DirectoryInfo directoryInfo = new DirectoryInfo(editedShortcutFolder);
+                            IEnumerable<FileInfo> filterShortcuts = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).Where(x => x.Name.ToLower().EndsWith(".url") || x.Name.ToLower().EndsWith(".lnk"));
+                            directoryShortcuts = directoryShortcuts.Concat(filterShortcuts);
+                        }
+                    }
+                    catch { }
                 }
-                catch { }
-
-                //Merge the list with custom folder shortcuts
-                try
-                {
-                    DirectoryInfo DirectoryInfoCustom = new DirectoryInfo(ShortcutsDirectory);
-                    DirectoryFiles = DirectoryFiles.Concat(DirectoryInfoCustom.GetFiles());
-                }
-                catch { }
 
                 //Sort and filter the list by shortcut name
-                DirectoryFiles = DirectoryFiles.Where(x => x.Name.ToLower().EndsWith(".url") || x.Name.ToLower().EndsWith(".lnk")).OrderBy(x => x.Name);
+                directoryShortcuts = directoryShortcuts.OrderBy(x => x.Name);
 
                 //Show refresh status message
                 if (ShowStatus)
@@ -126,11 +123,11 @@ namespace CtrlUI
                 //Remove shortcuts that are no longer available from the list
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => !DirectoryFiles.Any(y => y.Name.Replace(".lnk", string.Empty).Replace(".url", string.Empty).Replace(".exe - Shortcut", string.Empty).Replace(" - Shortcut", string.Empty) == x.Name));
+                    await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => !directoryShortcuts.Any(y => y.Name.Replace(".lnk", string.Empty).Replace(".url", string.Empty).Replace(".exe - Shortcut", string.Empty).Replace(" - Shortcut", string.Empty) == x.Name));
                 });
 
                 //Get shortcut information and add it to the list
-                foreach (FileInfo file in DirectoryFiles)
+                foreach (FileInfo file in directoryShortcuts)
                 {
                     try
                     {
@@ -174,7 +171,10 @@ namespace CtrlUI
                     catch { }
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed loading shortcuts: " + ex.Message);
+            }
         }
 
         async Task ShortcutAddToListWithDetails(ShortcutDetails shortcutDetails)

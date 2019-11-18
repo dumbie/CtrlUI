@@ -113,6 +113,9 @@ namespace CtrlUI
                 //Load Json file locations
                 JsonLoadFileLocations();
 
+                //Load Json shortcut locations
+                JsonLoadShortcutLocations();
+
                 //Load Json apps blacklist shortcuts
                 JsonLoadAppsBlacklistShortcut();
 
