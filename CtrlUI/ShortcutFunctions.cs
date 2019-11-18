@@ -118,7 +118,10 @@ namespace CtrlUI
                 DirectoryFiles = DirectoryFiles.Where(x => x.Name.ToLower().EndsWith(".url") || x.Name.ToLower().EndsWith(".lnk")).OrderBy(x => x.Name);
 
                 //Show refresh status message
-                if (ShowStatus) { Popup_Show_Status("Refresh", "Refreshing shortcuts"); }
+                if (ShowStatus)
+                {
+                    Popup_Show_Status("Refresh", "Refreshing shortcuts");
+                }
 
                 //Remove shortcuts that are no longer available from the list
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
@@ -187,17 +190,17 @@ namespace CtrlUI
 
                 //Get the shortcut target file name
                 string TargetPathLower = shortcutDetails.TargetPath.ToLower();
-                string FilenameLower = Path.GetFileNameWithoutExtension(TargetPathLower);
                 Visibility ShortcutLauncher = Visibility.Collapsed;
                 Visibility ShortcutWindowStore = Visibility.Collapsed;
                 string ShortcutType = "Win32";
 
                 //Check if already in combined list and remove it
-                if (CombineAppLists(false, false).Any(x => Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == FilenameLower))
+                if (CombineAppLists(false, false).Any(x => x.PathExe.ToLower() == TargetPathLower))
                 {
+                    //Debug.WriteLine("Shortcut is already in other list: " + TargetPathLower);
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == FilenameLower);
+                        await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == TargetPathLower);
                     });
                     return;
                 }

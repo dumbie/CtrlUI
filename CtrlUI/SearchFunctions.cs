@@ -179,7 +179,6 @@ namespace CtrlUI
                 if (List_Search.Count == 0)
                 {
                     grid_Popup_Search_Count_TextBlock.Text = string.Empty;
-                    grid_Popup_Search_textbox_Search.Text = string.Empty;
                     grid_Popup_Search_textblock_Result.Text = "No search results found.";
                     grid_Popup_Search_textblock_Result.Visibility = Visibility.Visible;
                     grid_Popup_Search_button_KeyboardControllerButton.Visibility = Visibility.Visible;
