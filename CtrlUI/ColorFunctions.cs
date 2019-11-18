@@ -18,7 +18,7 @@ namespace CtrlUI
         public uint[] uintColors =
         {
             //Grayscale
-            0xFF000000,0xFFFFFFFF,0xFFEEEEEE,0xFFD3D3D3,0xFFA9A9A9,
+            0xFF000000,0xFF444444,0xFF888888,0xFFA9A9A9,0xFFC3C3C3,
 
             //Colors
             0xFFFFFF00,0xFFFFE135,0xFFF3DB32,0xFFF8DE7E,0xFFADFF2F,0xFFB2CF5D,0xFF9CB651,0xFFC1D881,0xFF10C96F,

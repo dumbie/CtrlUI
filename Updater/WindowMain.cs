@@ -144,6 +144,7 @@ namespace Updater
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsOtherLaunchers.json".ToLower())) { Debug.WriteLine("Skipping: AppsOtherLaunchers.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsOtherTools.json".ToLower())) { Debug.WriteLine("Skipping: AppsOtherTools.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FileLocations.json".ToLower())) { Debug.WriteLine("Skipping: FileLocations.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("ShortcutLocations.json".ToLower())) { Debug.WriteLine("Skipping: ShortcutLocations.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsBlacklistProcess.json".ToLower())) { Debug.WriteLine("Skipping: FpsBlacklistProcess.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsPositionProcess.json".ToLower())) { Debug.WriteLine("Skipping: FpsPositionProcess.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Controllers.json".ToLower())) { Debug.WriteLine("Skipping: Controllers.json"); continue; }
