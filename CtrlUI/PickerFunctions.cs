@@ -567,11 +567,11 @@ namespace CtrlUI
 
                     if (UwpApplication || vFilePickerResult.PathFile != "App")
                     {
-                        checkbox_AddFilePickerLaunch.Visibility = Visibility.Collapsed;
+                        checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
-                        checkbox_AddFilePickerLaunch.Visibility = Visibility.Visible;
+                        checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible;
                     }
                 }
                 //Change the quick launch app

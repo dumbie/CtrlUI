@@ -136,15 +136,29 @@ namespace LibraryShared
                 }
             }
 
-            private bool PrivFilePickerLaunch;
-            public bool FilePickerLaunch
+            private bool PrivLaunchFilePicker;
+            public bool LaunchFilePicker
             {
-                get { return this.PrivFilePickerLaunch; }
+                get { return this.PrivLaunchFilePicker; }
                 set
                 {
-                    if (this.PrivFilePickerLaunch != value)
+                    if (this.PrivLaunchFilePicker != value)
                     {
-                        this.PrivFilePickerLaunch = value;
+                        this.PrivLaunchFilePicker = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private bool PrivLaunchKeyboard;
+            public bool LaunchKeyboard
+            {
+                get { return this.PrivLaunchKeyboard; }
+                set
+                {
+                    if (this.PrivLaunchKeyboard != value)
+                    {
+                        this.PrivLaunchKeyboard = value;
                         NotifyPropertyChanged();
                     }
                 }

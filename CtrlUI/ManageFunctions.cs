@@ -183,7 +183,8 @@ namespace CtrlUI
                     tb_AddAppPathLaunch.Text = vEditAppDataBind.PathLaunch;
                     tb_AddAppPathRoms.Text = vEditAppDataBind.PathRoms;
                     tb_AddAppArgument.Text = vEditAppDataBind.Argument;
-                    checkbox_AddFilePickerLaunch.IsChecked = vEditAppDataBind.FilePickerLaunch;
+                    checkbox_AddLaunchFilePicker.IsChecked = vEditAppDataBind.LaunchFilePicker;
+                    checkbox_AddLaunchKeyboard.IsChecked = vEditAppDataBind.LaunchKeyboard;
 
                     //Hide and show situation based settings
                     if (vEditAppDataBind.Type == "UWP")
@@ -192,7 +193,7 @@ namespace CtrlUI
                         sp_AddAppExePath.Visibility = Visibility.Collapsed;
                         sp_AddAppPathLaunch.Visibility = Visibility.Collapsed;
                         sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
-                        checkbox_AddFilePickerLaunch.Visibility = Visibility.Collapsed;
+                        checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
                         sp_AddAppArgument.Visibility = Visibility.Collapsed;
                     }
                     else
@@ -201,7 +202,7 @@ namespace CtrlUI
                         sp_AddAppExePath.Visibility = Visibility.Visible;
                         sp_AddAppPathLaunch.Visibility = Visibility.Visible;
                         if (vEditAppDataBind.Category == "Emulator") { sp_AddAppPathRoms.Visibility = Visibility.Visible; } else { sp_AddAppPathRoms.Visibility = Visibility.Collapsed; }
-                        if (vEditAppDataBind.Category == "App") { checkbox_AddFilePickerLaunch.Visibility = Visibility.Visible; } else { checkbox_AddFilePickerLaunch.Visibility = Visibility.Collapsed; }
+                        if (vEditAppDataBind.Category == "App") { checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible; } else { checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed; }
                         sp_AddAppArgument.Visibility = Visibility.Visible;
                     }
 
@@ -242,14 +243,15 @@ namespace CtrlUI
                 tb_AddAppPathLaunch.Text = DropApp.PathLaunch;
                 tb_AddAppPathRoms.Text = string.Empty;
                 tb_AddAppArgument.Text = string.Empty;
-                checkbox_AddFilePickerLaunch.IsChecked = false;
+                checkbox_AddLaunchFilePicker.IsChecked = false;
+                checkbox_AddLaunchKeyboard.IsChecked = false;
 
                 //Hide and show situation based settings
                 sp_AddAppName.Visibility = Visibility.Visible;
                 sp_AddAppExePath.Visibility = Visibility.Visible;
                 sp_AddAppPathLaunch.Visibility = Visibility.Visible;
                 sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
-                checkbox_AddFilePickerLaunch.Visibility = Visibility.Collapsed;
+                checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
                 sp_AddAppArgument.Visibility = Visibility.Visible;
 
                 //Show the manage popup
@@ -288,14 +290,15 @@ namespace CtrlUI
                 tb_AddAppPathLaunch.Text = string.Empty;
                 tb_AddAppPathRoms.Text = string.Empty;
                 tb_AddAppArgument.Text = string.Empty;
-                checkbox_AddFilePickerLaunch.IsChecked = false;
+                checkbox_AddLaunchFilePicker.IsChecked = false;
+                checkbox_AddLaunchKeyboard.IsChecked = false;
 
                 //Hide and show situation based settings
                 sp_AddAppName.Visibility = Visibility.Visible;
                 sp_AddAppExePath.Visibility = Visibility.Visible;
                 sp_AddAppPathLaunch.Visibility = Visibility.Visible;
                 sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
-                checkbox_AddFilePickerLaunch.Visibility = Visibility.Collapsed;
+                checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
                 sp_AddAppArgument.Visibility = Visibility.Visible;
 
                 //Show the manage popup
@@ -439,7 +442,7 @@ namespace CtrlUI
                     Popup_Show_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding application: " + tb_AddAppName.Text + " to the list.");
 
-                    AddAppToList(new DataBindApp() { Category = SelectedAddCategory, Name = tb_AddAppName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, FilePickerLaunch = (bool)checkbox_AddFilePickerLaunch.IsChecked }, true, true);
+                    AddAppToList(new DataBindApp() { Category = SelectedAddCategory, Name = tb_AddAppName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked }, true, true);
 
                     //Close the open popup
                     await Popup_Close_Top();
@@ -503,7 +506,8 @@ namespace CtrlUI
                     vEditAppDataBind.PathLaunch = tb_AddAppPathLaunch.Text;
                     vEditAppDataBind.PathRoms = tb_AddAppPathRoms.Text;
                     vEditAppDataBind.Argument = tb_AddAppArgument.Text;
-                    vEditAppDataBind.FilePickerLaunch = (bool)checkbox_AddFilePickerLaunch.IsChecked;
+                    vEditAppDataBind.LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked;
+                    vEditAppDataBind.LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked;
                     vEditAppDataBind.StatusAvailable = Visibility.Collapsed;
                     vEditAppDataBind.ImageBitmap = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, IntPtr.Zero, 90);
 

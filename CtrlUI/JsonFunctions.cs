@@ -143,7 +143,7 @@ namespace CtrlUI
         {
             try
             {
-                var JsonFilterList = CombineAppLists(false, false).Select(x => new { x.Number, x.Category, x.Type, x.Name, x.PathImage, x.PathExe, x.PathLaunch, x.PathRoms, x.Argument, x.QuickLaunch, x.FilePickerLaunch, x.RunningTime });
+                var JsonFilterList = CombineAppLists(false, false).Select(x => new { x.Number, x.Category, x.Type, x.Name, x.PathImage, x.PathExe, x.PathLaunch, x.PathRoms, x.Argument, x.QuickLaunch, x.LaunchFilePicker, x.LaunchKeyboard, x.RunningTime });
                 string SerializedList = JsonConvert.SerializeObject(JsonFilterList);
                 File.WriteAllText(@"Profiles\Apps.json", SerializedList);
 

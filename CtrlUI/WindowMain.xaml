@@ -547,7 +547,9 @@
                             <TextBox Name="tb_AddAppArgument" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
-                        <CheckBox Name="checkbox_AddFilePickerLaunch" Margin="0,10,0,0" Content="Select a file to open with, on the application launch" Visibility="Collapsed" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>
+                        <CheckBox Name="checkbox_AddLaunchFilePicker" Margin="0,10,0,0" Content="Select a file to open with when launching this application" Visibility="Collapsed" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>
+                        <CheckBox Name="checkbox_AddLaunchKeyboard" Margin="0,10,0,0" Content="Open the keyboard controller when launching this application" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>
+
                         <!--<CheckBox Name="checkbox_AddRunAsAdmin" Margin="0,10,0,0" Content="Launch application with admin privileges (not user)" Visibility="Collapsed" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>
                         <CheckBox Name="checkbox_AddRunAsUser" Margin="0,10,0,0" Content="Launch application with normal privileges (not admin)" Visibility="Collapsed" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>-->
 

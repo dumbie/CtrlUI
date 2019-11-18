@@ -102,29 +102,40 @@ namespace CtrlUI
                         Debug.WriteLine("Show application has no window.");
                     }
                 }
-                else if (LaunchApp.StatusLauncher == Visibility.Visible)
-                {
-                    Popup_Show_Status("App", "Launching " + LaunchApp.Name);
-                    Debug.WriteLine("Launching url protocol: " + LaunchApp.PathExe);
-                    Process.Start(LaunchApp.PathExe);
-                }
-                else if (LaunchApp.Category == "Emulator")
-                {
-                    await LaunchProcessDatabindWin32Emulator(LaunchApp);
-                }
-                else if (LaunchApp.FilePickerLaunch)
-                {
-                    await LaunchProcessDatabindWin32FilePicker(LaunchApp);
-                }
                 else
                 {
-                    if (LaunchApp.Type == "UWP")
+                    bool appLaunched = false;
+                    if (LaunchApp.StatusLauncher == Visibility.Visible)
                     {
-                        await LaunchProcessDatabindUwp(LaunchApp);
+                        Popup_Show_Status("App", "Launching " + LaunchApp.Name);
+                        Debug.WriteLine("Launching url protocol: " + LaunchApp.PathExe);
+                        Process.Start(LaunchApp.PathExe);
+                        appLaunched = true;
+                    }
+                    else if (LaunchApp.Category == "Emulator")
+                    {
+                        appLaunched = await LaunchProcessDatabindWin32Emulator(LaunchApp);
+                    }
+                    else if (LaunchApp.LaunchFilePicker)
+                    {
+                        appLaunched = await LaunchProcessDatabindWin32FilePicker(LaunchApp);
                     }
                     else
                     {
-                        await LaunchProcessDatabindWin32(LaunchApp);
+                        if (LaunchApp.Type == "UWP")
+                        {
+                            appLaunched = await LaunchProcessDatabindUwp(LaunchApp);
+                        }
+                        else
+                        {
+                            appLaunched = await LaunchProcessDatabindWin32(LaunchApp);
+                        }
+                    }
+
+                    //Launch the keyboard controller
+                    if (appLaunched && LaunchApp.LaunchKeyboard)
+                    {
+                        await ShowKeyboardController(true);
                     }
                 }
             }
@@ -348,14 +359,14 @@ namespace CtrlUI
         }
 
         //Show the keyboard controller
-        async Task ShowKeyboardController()
+        async Task ShowKeyboardController(bool silent)
         {
             try
             {
                 if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
                     //Launch the keyboard controller
-                    Popup_Show_Status("Keyboard", "Showing on screen keyboard");
+                    if (!silent) { Popup_Show_Status("Keyboard", "Showing on screen keyboard"); }
                     Debug.WriteLine("Showing on screen keyboard");
                     ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
                     await Task.Delay(1000);
