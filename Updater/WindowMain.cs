@@ -230,7 +230,7 @@ namespace Updater
         {
             try
             {
-                Debug.WriteLine("Exiting Updater.");
+                Debug.WriteLine("Exiting application.");
 
                 //Delete the update installation zip file
                 if (File.Exists("AppUpdate.zip"))

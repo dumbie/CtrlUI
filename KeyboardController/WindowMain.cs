@@ -587,7 +587,11 @@ namespace KeyboardController
         {
             try
             {
-                Debug.WriteLine("Exiting Keyboard Controller.");
+                Debug.WriteLine("Exiting application.");
+
+                //Play window close sound and animation
+                AVAnimations.Ani_Visibility(this, false, false, 0.10);
+                PlayInterfaceSound("PopupClose", false);
 
                 //Stop the background tasks
                 TasksBackgroundStop();
@@ -595,13 +599,10 @@ namespace KeyboardController
                 //Disable the socket server
                 await vArnoldVinkSockets.SocketServerDisable();
 
-                //Play window close sound and animation
-                AVAnimations.Ani_Visibility(this, false, false, 0.10);
-                PlayInterfaceSound("PopupClose", false);
-                await Task.Delay(1000);
+                //Hide the visible tray icon
+                TrayNotifyIcon.Visible = false;
 
                 //Close the application
-                TrayNotifyIcon.Visible = false;
                 Environment.Exit(0);
             }
             catch { }

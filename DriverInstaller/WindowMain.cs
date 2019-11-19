@@ -95,7 +95,7 @@ namespace DriverInstaller
         {
             try
             {
-                Debug.WriteLine("Exiting Driver Installer.");
+                Debug.WriteLine("Exiting application.");
 
                 //Run DirectXInput after the drivers installed
                 TextBoxAppend("Running the DirectXInput application.");

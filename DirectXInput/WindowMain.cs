@@ -264,21 +264,32 @@ namespace DirectXInput
             try
             {
                 int Result = 2; //Cancel
-                if (!SilentClose) { Result = await MessageBoxPopup("Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", "Close", "Cancel", "", ""); }
-                else { Result = 1; }
+                if (!SilentClose)
+                {
+                    Result = await MessageBoxPopup("Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", "Close", "Cancel", "", "");
+                }
+                else
+                {
+                    Result = 1;
+                }
 
                 if (Result == 1)
                 {
-                    Debug.WriteLine("Exiting DirectXInput.");
+                    Debug.WriteLine("Exiting application.");
 
-                    CloseProcessesByNameOrTitle("KeyboardController", false);
+                    //Stop the background tasks
                     TasksBackgroundStop();
+
+                    //Disconnect all the controllers
                     await StopAllControllers();
 
                     //Disable the socket server
                     await vArnoldVinkSockets.SocketServerDisable();
 
+                    //Hide the visible tray icon
                     TrayNotifyIcon.Visible = false;
+
+                    //Close the application
                     Environment.Exit(0);
                     return true;
                 }

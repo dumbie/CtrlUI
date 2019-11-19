@@ -72,10 +72,9 @@ namespace CtrlUI
                     ListsUpdateCount();
                     UpdateSearchResults();
                 }
-
-                vBusyRefreshingApps = false;
             }
             catch { }
+            vBusyRefreshingApps = false;
         }
 
         //Bind the lists to the listbox elements

@@ -566,14 +566,19 @@ namespace FpsOverlayer
         {
             try
             {
-                Debug.WriteLine("Exiting Fps Overlayer.");
+                Debug.WriteLine("Exiting application.");
 
+                //Stop monitoring the hardware
                 vHardwareComputer.Close();
+
+                //Stop the background tasks
                 TasksBackgroundStop();
 
+                //Hide the visible tray icon
                 TrayNotifyIcon.Visible = false;
+
+                //Close the application
                 Environment.Exit(0);
-                return;
             }
             catch { }
         }

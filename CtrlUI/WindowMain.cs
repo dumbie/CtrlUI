@@ -10,7 +10,6 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -396,14 +395,15 @@ namespace CtrlUI
 
                 if (SilentClose || (Result != null && Result == Answer1))
                 {
-                    Debug.WriteLine("Exiting CtrlUI.");
+                    Debug.WriteLine("Exiting application.");
 
-                    CloseProcessesByNameOrTitle("KeyboardController", false);
+                    //Stop the background tasks
                     TasksBackgroundStop();
 
                     //Disable the socket server
                     await vArnoldVinkSockets.SocketServerDisable();
 
+                    //Close the application
                     Environment.Exit(0);
                 }
             }
