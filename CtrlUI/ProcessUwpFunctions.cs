@@ -49,74 +49,13 @@ namespace CtrlUI
             }
         }
 
-        //Get an uwp application process id by 
-        async Task<int> GetUwpProcessIdByWindowHandle(string ProcessName, string PathExe, IntPtr ProcessWindowHandle)
-        {
-            try
-            {
-                //Show the uwp process
-                GetWindowThreadProcessId(ProcessWindowHandle, out int ProcessIdTarget);
-                FocusProcessWindowPrepare(ProcessName, ProcessIdTarget, ProcessWindowHandle, 0, false, false, true);
-                await Task.Delay(500);
-
-                //Get the process id
-                ProcessUwp UwpRunningNew = GetUwpProcessFromAppUserModelId(PathExe).Where(x => x.WindowHandle == ProcessWindowHandle).FirstOrDefault();
-                if (UwpRunningNew != null)
-                {
-                    Debug.WriteLine("Uwp workaround process id: " + UwpRunningNew.ProcessId + " vs " + ProcessIdTarget);
-                    return UwpRunningNew.ProcessId;
-                }
-            }
-            catch { }
-            return -1;
-        }
-
-        //Close an uwp application by window handle
-        async Task<bool> CloseProcessUwpByWindowHandle(string ProcessName, int ProcessId, IntPtr ProcessWindowHandle)
-        {
-            try
-            {
-                if (ProcessWindowHandle != IntPtr.Zero)
-                {
-                    //Show the process
-                    FocusProcessWindowPrepare(ProcessName, ProcessId, ProcessWindowHandle, 0, false, false, true);
-                    await Task.Delay(500);
-
-                    //Close the process or app
-                    return CloseProcessByWindowHandle(ProcessWindowHandle);
-                }
-                else if (ProcessId > 0)
-                {
-                    //Close the process or app
-                    return CloseProcessById(ProcessId);
-                }
-            }
-            catch { }
-            return false;
-        }
-
-        //Restart a uwp process or app
-        async Task RestartProcessUwp(string ProcessName, string PathExe, string Argument, int ProcessId, IntPtr ProcessWindowHandle)
-        {
-            try
-            {
-                //Close the process or app
-                await CloseProcessUwpByWindowHandle(ProcessName, ProcessId, ProcessWindowHandle);
-                await Task.Delay(1000);
-
-                //Relaunch the process or app
-                await ProcessLauncherUwpPrepare(ProcessName, PathExe, Argument, true, true);
-            }
-            catch { }
-        }
-
         //Check Uwp process has multiple processes
         async Task<ProcessMultipleCheck> CheckMultiProcessUwp(DataBindApp LaunchApp)
         {
             try
             {
                 List<DataBindString> multiAnswers = new List<DataBindString>();
-                List<ProcessUwp> multiVariables = GetUwpProcessFromAppUserModelId(LaunchApp.PathExe);
+                List<ProcessUwp> multiVariables = UwpGetProcessFromAppUserModelId(LaunchApp.PathExe);
                 if (multiVariables.Any())
                 {
                     if (multiVariables.Count > 1)
@@ -491,9 +430,12 @@ namespace CtrlUI
                                     continue;
                                 }
 
-                                //Get image from the exe path
-                                string UwpImagePath = GetUwpAppImagePath(ProcessExecutablePath);
-                                BitmapImage AppBitmapImage = FileToBitmapImage(new string[] { ProcessTitle, AllProcess.ProcessName, UwpImagePath }, IntPtr.Zero, 90);
+                                //Get detailed application information
+                                Package appPackage = UwpGetAppPackageFromAppUserModelId(ProcessExecutablePath);
+                                AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
+
+                                //Load the application image
+                                BitmapImage AppBitmapImage = FileToBitmapImage(new string[] { ProcessTitle, AllProcess.ProcessName, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, IntPtr.Zero, 90);
 
                                 //Set Windows Store Status
                                 Visibility StoreStatus = Visibility.Visible;
@@ -556,48 +498,52 @@ namespace CtrlUI
         {
             try
             {
-                //Set application filters
-                string[] WhiteListFamily = new string[] { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe" };
-                string[] BlackListIdentifier = new string[] { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!PdfReader" };
+                //Set uwp application filters
+                string[] whiteListFamilyName = new string[] { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe" };
+                string[] blackListFamilyNameId = new string[] { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!PdfReader" };
 
-                //Get all the installed UWP apps
-                PackageManager DeployPackageManager = new PackageManager();
-                string CurrentUserIdentity = WindowsIdentity.GetCurrent().User.Value;
-                IEnumerable<Package> AppPackages = DeployPackageManager.FindPackagesForUser(CurrentUserIdentity);
-                foreach (Package AppPackage in AppPackages)
+                //Get all the installed uwp apps
+                PackageManager deployPackageManager = new PackageManager();
+                string currentUserIdentity = WindowsIdentity.GetCurrent().User.Value;
+                IEnumerable<Package> appPackages = deployPackageManager.FindPackagesForUser(currentUserIdentity);
+                foreach (Package appPackage in appPackages)
                 {
                     try
                     {
-                        string AppName = string.Empty;
-                        string AppImagePath = string.Empty;
-                        string AppIdentifier = string.Empty;
-                        string AppFamilyName = AppPackage.Id.FamilyName;
+                        //Get basic application information
+                        string appFamilyName = appPackage.Id.FamilyName;
 
                         //Check if the application is in whitelist
-                        if (!WhiteListFamily.Contains(AppFamilyName))
+                        if (!whiteListFamilyName.Contains(appFamilyName))
                         {
                             //Filter out system apps and others
-                            if (AppPackage.IsBundle) { continue; }
-                            if (AppPackage.IsOptional) { continue; }
-                            if (AppPackage.IsFramework) { continue; }
-                            if (AppPackage.IsResourcePackage) { continue; }
-                            if (AppPackage.SignatureKind != PackageSignatureKind.Store) { continue; }
+                            if (appPackage.IsBundle) { continue; }
+                            if (appPackage.IsOptional) { continue; }
+                            if (appPackage.IsFramework) { continue; }
+                            if (appPackage.IsResourcePackage) { continue; }
+                            if (appPackage.SignatureKind != PackageSignatureKind.Store) { continue; }
                         }
 
                         //Get detailed application information
-                        GetUwpAppDetailsFromPackage(AppPackage, ref AppName, ref AppImagePath, ref AppIdentifier);
+                        AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
 
-                        //Check if an application name is valid
-                        if (string.IsNullOrWhiteSpace(AppName) || AppName.StartsWith("ms-resource")) { continue; }
+                        //Check if application name is valid
+                        if (string.IsNullOrWhiteSpace(appxDetails.DisplayName) || appxDetails.DisplayName.StartsWith("ms-resource"))
+                        {
+                            continue;
+                        }
 
                         //Check if the application is in blacklist
-                        if (BlackListIdentifier.Contains(AppIdentifier)) { continue; }
+                        if (blackListFamilyNameId.Contains(appxDetails.FamilyNameId))
+                        {
+                            continue;
+                        }
 
                         //Load the application image
-                        BitmapImage UwpListImage = FileToBitmapImage(new string[] { AppImagePath }, IntPtr.Zero, 50);
+                        BitmapImage UwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, IntPtr.Zero, 50);
 
                         //Add the application to the list
-                        targetList.Add(new DataBindFile() { Type = "App", Name = AppName, PathFile = AppIdentifier, PathImage = AppImagePath, ImageBitmap = UwpListImage });
+                        targetList.Add(new DataBindFile() { Type = "App", Name = appxDetails.DisplayName, PathFile = appxDetails.FamilyNameId, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = UwpListImage });
                     }
                     catch { }
                 }
@@ -621,8 +567,14 @@ namespace CtrlUI
                         if (!string.IsNullOrWhiteSpace(ListApp.PathImage) && !File.Exists(ListApp.PathImage))
                         {
                             Debug.WriteLine("Uwp application image not found: " + ListApp.PathImage);
-                            ListApp.PathImage = GetUwpAppImagePath(ListApp.PathExe);
-                            ListApp.ImageBitmap = FileToBitmapImage(new string[] { ListApp.Name, ListApp.PathImage }, IntPtr.Zero, 90);
+
+                            //Get detailed application information
+                            Package appPackage = UwpGetAppPackageFromAppUserModelId(ListApp.PathExe);
+                            AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
+
+                            //Update the application icons
+                            ListApp.PathImage = appxDetails.SquareLargestLogoPath;
+                            ListApp.ImageBitmap = FileToBitmapImage(new string[] { ListApp.Name, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, IntPtr.Zero, 90);
                             UpdatedImages = true;
                         }
                     }

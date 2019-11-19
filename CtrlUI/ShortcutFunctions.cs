@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using Windows.ApplicationModel;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
@@ -226,7 +227,13 @@ namespace CtrlUI
                     //Check if shortcut is windows store app
                     ShortcutType = "UWP";
                     ShortcutWindowStore = Visibility.Visible;
-                    shortcutDetails.IconPath = GetUwpAppImagePath(shortcutDetails.TargetPath);
+
+                    //Get detailed application information
+                    Package appPackage = UwpGetAppPackageFromAppUserModelId(shortcutDetails.TargetPath);
+                    AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
+
+                    //Set the application icon path
+                    shortcutDetails.IconPath = appxDetails.SquareLargestLogoPath;
                 }
                 else
                 {

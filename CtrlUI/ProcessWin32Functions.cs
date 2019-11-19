@@ -97,29 +97,6 @@ namespace CtrlUI
             }
         }
 
-        //Restart a win32 process or app
-        async Task RestartProcessWin32(int ProcessId, string PathExe, string PathLaunch, string Argument)
-        {
-            try
-            {
-                //Close the process or app
-                if (ProcessId > 0)
-                {
-                    CloseProcessById(ProcessId);
-                    await Task.Delay(1000);
-                }
-                else
-                {
-                    CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(PathExe), false);
-                    await Task.Delay(1000);
-                }
-
-                //Launch the Win32 application
-                await ProcessLauncherWin32Prepare(PathExe, PathLaunch, Argument, true, false, true, false, false);
-            }
-            catch { }
-        }
-
         //Check Win32 process has multiple processes
         async Task<ProcessMultipleCheck> CheckMultiProcessWin32(DataBindApp LaunchApp)
         {

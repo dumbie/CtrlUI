@@ -325,7 +325,7 @@ namespace CtrlUI
                         if (ListApp.Type == "UWP")
                         {
                             //Check UWP application
-                            List<ProcessUwp> ProcessesUwp = GetUwpProcessFromAppUserModelId(ListApp.PathExe);
+                            List<ProcessUwp> ProcessesUwp = UwpGetProcessFromAppUserModelId(ListApp.PathExe);
                             if (ProcessesUwp.Any())
                             {
                                 ListApp.ProcessId = ProcessesUwp.FirstOrDefault().ProcessId;
