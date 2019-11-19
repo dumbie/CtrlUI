@@ -277,6 +277,9 @@ namespace DirectXInput
                 {
                     Debug.WriteLine("Exiting application.");
 
+                    //Close the keyboard controller
+                    CloseProcessesByNameOrTitle("KeyboardController", false);
+
                     //Stop the background tasks
                     TasksBackgroundStop();
 
