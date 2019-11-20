@@ -148,6 +148,7 @@ namespace CtrlUI
         {
             try
             {
+                //Improve: add Win32Store restarting support
                 Debug.WriteLine("Checking launch process UWP: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
 
                 //Check Uwp process has multiple processes
@@ -288,9 +289,9 @@ namespace CtrlUI
         {
             try
             {
-                //Check if uwp process is running
-                bool AlreadyRunning = await LaunchProcessCheckUwp(LaunchApp);
-                if (!AlreadyRunning)
+                //Check if UWP process is running
+                bool alreadyRunning = await LaunchProcessCheckUwp(LaunchApp);
+                if (!alreadyRunning)
                 {
                     Debug.WriteLine("Uwp process is already running, skipping the launch.");
                     return false;
@@ -443,7 +444,7 @@ namespace CtrlUI
                                 //Add the process to the list
                                 AVActions.ActionDispatcherInvoke(delegate
                                 {
-                                    List_Processes.Add(new DataBindApp() { ProcessId = ProcessId, WindowHandle = WindowHandle, Category = "Process", Type = "UWP", ImageBitmap = AppBitmapImage, Name = ProcessTitle, ProcessName = ProcessTitle, PathExe = ProcessExecutablePath, StatusStore = StoreStatus, RunningTime = ProcessRunningTime });
+                                    List_Processes.Add(new DataBindApp() { Type = "UWP", Category = "Process", ProcessId = ProcessId, WindowHandle = WindowHandle, ImageBitmap = AppBitmapImage, Name = ProcessTitle, ProcessName = ProcessTitle, PathExe = ProcessExecutablePath, StatusStore = StoreStatus, RunningTime = ProcessRunningTime });
                                 });
                             }
                         }
@@ -543,7 +544,7 @@ namespace CtrlUI
                         BitmapImage UwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, IntPtr.Zero, 50);
 
                         //Add the application to the list
-                        targetList.Add(new DataBindFile() { Type = "App", Name = appxDetails.DisplayName, PathFile = appxDetails.FamilyNameId, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = UwpListImage });
+                        targetList.Add(new DataBindFile() { Type = "App", Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.FamilyNameId, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = UwpListImage });
                     }
                     catch { }
                 }
@@ -560,7 +561,7 @@ namespace CtrlUI
                 bool UpdatedImages = false;
 
                 //Update all the uwp apps image paths
-                foreach (DataBindApp ListApp in CombineAppLists(false, false).Where(x => x.Type == "UWP"))
+                foreach (DataBindApp ListApp in CombineAppLists(false, false).Where(x => x.Type == "UWP" || x.Type == "Win32Store"))
                 {
                     try
                     {

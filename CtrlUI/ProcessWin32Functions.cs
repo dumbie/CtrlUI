@@ -631,9 +631,9 @@ namespace CtrlUI
         {
             try
             {
-                //Check if win32 process is running
-                bool AlreadyRunning = await LaunchProcessCheckWin32(LaunchApp);
-                if (!AlreadyRunning)
+                //Check if Win32 process is running
+                bool alreadyRunning = await LaunchProcessCheckWin32(LaunchApp);
+                if (!alreadyRunning)
                 {
                     Debug.WriteLine("Win32 process is already running, skipping the launch.");
                     return false;
@@ -779,10 +779,10 @@ namespace CtrlUI
                             string ProcessArgument = GetLaunchArgumentsFromProcess(AllProcess, ProcessExecutablePath);
 
                             //Check if the process is a win32 store app
-                            string AppUserModel = GetAppUserModelIdFromProcess(AllProcess);
-                            if (!string.IsNullOrWhiteSpace(AppUserModel))
+                            string appUserModelId = GetAppUserModelIdFromProcess(AllProcess);
+                            if (!string.IsNullOrWhiteSpace(appUserModelId))
                             {
-                                ProcessExecutablePath = AppUserModel;
+                                ProcessExecutablePath = appUserModelId;
                                 StoreStatus = Visibility.Visible;
                                 ApplicationType = "Win32Store";
                                 //Debug.WriteLine("Process " + ProcessTitle + " is a win32 store application.");
@@ -791,7 +791,7 @@ namespace CtrlUI
                             //Add the process to the list
                             AVActions.ActionDispatcherInvoke(delegate
                             {
-                                List_Processes.Add(new DataBindApp() { ProcessId = AllProcess.Id, Category = "Process", Type = ApplicationType, ImageBitmap = IconBitmapImage, Name = ProcessTitle, ProcessName = AllProcess.ProcessName, PathExe = ProcessExecutablePath, Argument = ProcessArgument, StatusStore = StoreStatus, RunningTime = ProcessRunningTime });
+                                List_Processes.Add(new DataBindApp() { Type = ApplicationType, Category = "Process", ProcessId = AllProcess.Id, ImageBitmap = IconBitmapImage, Name = ProcessTitle, ProcessName = AllProcess.ProcessName, PathExe = ProcessExecutablePath, Argument = ProcessArgument, StatusStore = StoreStatus, RunningTime = ProcessRunningTime });
                             });
                         }
                         catch { }

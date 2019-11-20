@@ -48,7 +48,7 @@ namespace CtrlUI
                     else if (SelStackPanel.Name == "menuButtonRunExe") { await RunExecutableFile(); }
                     else if (SelStackPanel.Name == "menuButtonAppRun") { await RunUwpApplication(); }
                     else if (SelStackPanel.Name == "menuButtonAppAdd") { await Popup_Show_AppAdd(); }
-                    else if (SelStackPanel.Name == "menuButtonFps") { await CloseShowFpsOverlayer(); }
+                    else if (SelStackPanel.Name == "menuButtonFps") { CloseShowFpsOverlayer(); }
                     else if (SelStackPanel.Name == "menuButtonSettings") { await ShowLoadSettingsPopup(); }
                     else if (SelStackPanel.Name == "menuButtonHelp") { await Popup_Show(grid_Popup_Help, btn_Help_Focus, true); }
                     else if (SelStackPanel.Name == "menuButtonCloseLaunchers") { await CloseLaunchers(false); }

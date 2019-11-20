@@ -441,8 +441,7 @@ namespace CtrlUI
 
                     Popup_Show_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding application: " + tb_AddAppName.Text + " to the list.");
-
-                    AddAppToList(new DataBindApp() { Category = SelectedAddCategory, Name = tb_AddAppName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked }, true, true);
+                    AddAppToList(new DataBindApp() { Type = "Win32", Category = SelectedAddCategory, Name = tb_AddAppName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked }, true, true);
 
                     //Close the open popup
                     await Popup_Close_Top();
@@ -650,7 +649,7 @@ namespace CtrlUI
 
                 Popup_Show_Status("Plus", "Added " + vFilePickerResult.Name);
                 Debug.WriteLine("Adding uwp app: " + vFilePickerResult.Name + " Path " + vFilePickerResult.PathFile + " Image " + vFilePickerResult.PathImage);
-                AddAppToList(new DataBindApp() { Category = SelectedAddCategoryTag, Name = vFilePickerResult.Name, PathExe = vFilePickerResult.PathFile, PathImage = vFilePickerResult.PathImage, Type = "UWP" }, true, true);
+                AddAppToList(new DataBindApp() { Type = "UWP", Category = SelectedAddCategoryTag, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, PathExe = vFilePickerResult.PathFile, PathImage = vFilePickerResult.PathImage, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked }, true, true);
             }
             catch { }
         }
@@ -664,7 +663,8 @@ namespace CtrlUI
                 SettingSave("AppFirstLaunch", "False");
 
                 //Add default uwp applications to the list
-                AddAppToList(new DataBindApp() { Category = "App", Name = "Xbox", PathExe = "Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp", Type = "UWP" }, true, true);
+                AddAppToList(new DataBindApp() { Type = "UWP", Category = "App", Name = "Microsoft Edge", NameExe = "MicrosoftEdge.exe", PathExe = "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge", LaunchKeyboard = true }, true, true);
+                AddAppToList(new DataBindApp() { Type = "UWP", Category = "App", Name = "Xbox", NameExe = "XboxApp.exe", PathExe = "Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp" }, true, true);
 
                 //Check for applications in current user registry
                 using (RegistryKey RegisteryKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
@@ -678,7 +678,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Category = "App", Name = "Kodi", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "App", Name = "Kodi", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Kodi.IsEnabled = false;
@@ -696,7 +696,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Category = "Game", Name = "Steam", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), Argument = "-bigpicture", QuickLaunch = true }, true, true);
+                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Steam", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), Argument = "-bigpicture", QuickLaunch = true }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Steam.IsEnabled = false;
@@ -718,7 +718,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Category = "Game", Name = "Origin", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Origin", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Origin.IsEnabled = false;
@@ -736,7 +736,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Category = "Game", Name = "GoG", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "GoG", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_GoG.IsEnabled = false;
@@ -754,7 +754,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Category = "Game", Name = "Uplay", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Uplay", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Uplay.IsEnabled = false;
@@ -772,7 +772,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Category = "Game", Name = "Battle.net", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Battle.net", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Battle.IsEnabled = false;
@@ -790,7 +790,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Category = "App", Name = "Remote Play", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "App", Name = "Remote Play", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_PS4Remote.IsEnabled = false;
@@ -805,7 +805,7 @@ namespace CtrlUI
                 if (File.Exists(SpotifyExePath))
                 {
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Category = "App", Name = "Spotify", PathExe = SpotifyExePath, PathLaunch = Path.GetDirectoryName(SpotifyExePath) }, true, true);
+                    AddAppToList(new DataBindApp() { Type = "Win32", Category = "App", Name = "Spotify", PathExe = SpotifyExePath, PathLaunch = Path.GetDirectoryName(SpotifyExePath) }, true, true);
 
                     //Disable the icon after selection
                     grid_Popup_Welcome_button_Spotify.IsEnabled = false;

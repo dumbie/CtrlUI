@@ -234,6 +234,9 @@ namespace CtrlUI
 
                     //Set the application icon path
                     shortcutDetails.IconPath = appxDetails.SquareLargestLogoPath;
+
+                    //Set the applicaton exe name
+                    shortcutDetails.NameExe = appxDetails.ExecutableName;
                 }
                 else
                 {
@@ -255,7 +258,7 @@ namespace CtrlUI
                 //Add the shortcut to the list
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    List_Shortcuts.Add(new DataBindApp() { Category = "Shortcut", Type = ShortcutType, Name = shortcutDetails.Name, ImageBitmap = IconBitmapImage, ImagePath = shortcutDetails.IconPath, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = ShortcutWindowStore, StatusLauncher = ShortcutLauncher, TimeCreation = shortcutDetails.TimeModify });
+                    List_Shortcuts.Add(new DataBindApp() { Type = ShortcutType, Category = "Shortcut", Name = shortcutDetails.Name, NameExe = shortcutDetails.NameExe, ImageBitmap = IconBitmapImage, ImagePath = shortcutDetails.IconPath, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = ShortcutWindowStore, StatusLauncher = ShortcutLauncher, TimeCreation = shortcutDetails.TimeModify });
                 });
             }
             catch

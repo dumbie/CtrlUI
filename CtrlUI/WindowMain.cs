@@ -146,7 +146,7 @@ namespace CtrlUI
                 //Check settings if Fps Overlayer launches on start
                 if (ConfigurationManager.AppSettings["LaunchFpsOverlayer"] == "True")
                 {
-                    await ShowFpsOverlayer();
+                    LaunchFpsOverlayer();
                 }
 
                 //Force window focus on CtrlUI

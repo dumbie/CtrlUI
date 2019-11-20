@@ -94,13 +94,13 @@ namespace DirectXInput
                 {
                     if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController == null)
                     {
-                        Debug.WriteLine("Guide short press, showing ctrlui.");
+                        Debug.WriteLine("Guide short press showing ctrlui.");
                         LaunchCtrlUI();
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
                     }
-                    else if (Controller.InputCurrent.ButtonGuideLong)
+                    else if (Controller.InputCurrent.ButtonGuideLong && vProcessKeyboardController == null)
                     {
                         Debug.WriteLine("Guide long press showing keyboard controller.");
                         LaunchKeyboardController();
@@ -109,7 +109,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Disconnect controller from Bluetooth
-                    else if ((Controller.InputCurrent.ButtonGuide || Controller.InputCurrent.ButtonGuideShort) && Controller.InputCurrent.ButtonStart)
+                    else if ((Controller.InputCurrent.ButtonGuide || Controller.InputCurrent.ButtonGuideShort || Controller.InputCurrent.ButtonGuideLong) && Controller.InputCurrent.ButtonStart)
                     {
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutDisconnectBluetooth"]))
                         {

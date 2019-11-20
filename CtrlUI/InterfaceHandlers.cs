@@ -50,11 +50,11 @@ namespace CtrlUI
         }
 
         //Open the keyboard controller
-        async void Button_KeyboardController_Click(object sender, RoutedEventArgs e)
+        void Button_KeyboardController_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await CloseShowKeyboardController();
+                CloseShowKeyboardController();
             }
             catch { }
         }
@@ -99,7 +99,7 @@ namespace CtrlUI
                 string DroppedFile = DroppedFiles.FirstOrDefault();
                 if (DroppedFile.EndsWith(".exe"))
                 {
-                    DataBindApp DropApp = new DataBindApp() { PathExe = DroppedFile, PathLaunch = Path.GetDirectoryName(DroppedFile) };
+                    DataBindApp DropApp = new DataBindApp() { Type = "Win32", PathExe = DroppedFile, PathLaunch = Path.GetDirectoryName(DroppedFile) };
                     await Popup_Show_AppDrop(DropApp);
                 }
             }

@@ -8,7 +8,7 @@
             public string DisplayName = string.Empty;
             public string FullPackageName = string.Empty;
             public string InstallPath = string.Empty;
-            public string Executable = string.Empty;
+            public string ExecutableName = string.Empty;
             public string Square30x30Logo = string.Empty;
             public string Square70x70Logo = string.Empty;
             public string Square150x150Logo = string.Empty;

@@ -135,7 +135,7 @@ namespace CtrlUI
                     //Launch the keyboard controller
                     if (appLaunched && LaunchApp.LaunchKeyboard)
                     {
-                        await ShowKeyboardController(true);
+                        LaunchKeyboardController(true);
                     }
                 }
             }
@@ -285,7 +285,7 @@ namespace CtrlUI
         }
 
         //Close or show the Fps Overlayer
-        async Task CloseShowFpsOverlayer()
+        void CloseShowFpsOverlayer()
         {
             try
             {
@@ -302,17 +302,13 @@ namespace CtrlUI
                     Popup_Show_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");
                     ProcessLauncherWin32("FpsOverlayer-Admin.exe", "", "", true, false);
-                    await Task.Delay(1000);
-
-                    //Force focus on CtrlUI
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
                 }
             }
             catch { }
         }
 
-        //Show the Fps Overlayer
-        async Task ShowFpsOverlayer()
+        //Launch the Fps Overlayer
+        void LaunchFpsOverlayer()
         {
             try
             {
@@ -322,17 +318,13 @@ namespace CtrlUI
                     Popup_Show_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");
                     ProcessLauncherWin32("FpsOverlayer-Admin.exe", "", "", true, false);
-                    await Task.Delay(1000);
-
-                    //Force focus on CtrlUI
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
                 }
             }
             catch { }
         }
 
         //Close or show the keyboard controller
-        async Task CloseShowKeyboardController()
+        void CloseShowKeyboardController()
         {
             try
             {
@@ -349,17 +341,13 @@ namespace CtrlUI
                     Popup_Show_Status("Keyboard", "Showing on screen keyboard");
                     Debug.WriteLine("Showing on screen keyboard");
                     ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
-                    await Task.Delay(1000);
-
-                    //Force focus on CtrlUI
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
                 }
             }
             catch { }
         }
 
-        //Show the keyboard controller
-        async Task ShowKeyboardController(bool silent)
+        //Launch the keyboard controller
+        void LaunchKeyboardController(bool silent)
         {
             try
             {
@@ -369,10 +357,6 @@ namespace CtrlUI
                     if (!silent) { Popup_Show_Status("Keyboard", "Showing on screen keyboard"); }
                     Debug.WriteLine("Showing on screen keyboard");
                     ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
-                    await Task.Delay(1000);
-
-                    //Force focus on CtrlUI
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
                 }
             }
             catch { }

@@ -322,9 +322,12 @@ namespace CtrlUI
                 {
                     try
                     {
+                        //Debug.WriteLine("Checking application status: " + ListApp.Type + "/" + ListApp.Category + "/" + ListApp.Name + "/" + ListApp.PathExe);
+                        string targetProcessName = string.Empty;
+
+                        //Check UWP app user model id
                         if (ListApp.Type == "UWP")
                         {
-                            //Check UWP application
                             List<ProcessUwp> ProcessesUwp = UwpGetProcessFromAppUserModelId(ListApp.PathExe);
                             if (ProcessesUwp.Any())
                             {
@@ -348,38 +351,40 @@ namespace CtrlUI
 
                                 continue;
                             }
+                            else
+                            {
+                                targetProcessName = Path.GetFileNameWithoutExtension(ListApp.NameExe).ToLower();
+                                //Debug.WriteLine("Uwp app is not running, checking by exe name: " + targetProcessName);
+                            }
                         }
-                        //Improve
-                        //else if (ListApp.Type == "Win32Store")
-                        //{
-                        //    //Check Win32Store application
-                        //}
                         else
                         {
-                            //Check Win32 application
-                            IEnumerable<Process> ProcessesWin32 = ProcessesList.Where(x => x.ProcessName.ToLower() == Path.GetFileNameWithoutExtension(ListApp.PathExe).ToLower() || x.Id == ListApp.ProcessId);
-                            if (ProcessesWin32.Any())
+                            Path.GetFileNameWithoutExtension(ListApp.PathExe).ToLower();
+                        }
+
+                        //Check Win32 or Win32Store application
+                        IEnumerable<Process> ProcessesWin32 = ProcessesList.Where(x => x.ProcessName.ToLower() == targetProcessName || x.Id == ListApp.ProcessId);
+                        if (ProcessesWin32.Any())
+                        {
+                            ListApp.ProcessId = ProcessesWin32.FirstOrDefault().Id;
+                            ListApp.WindowHandle = ProcessesWin32.FirstOrDefault().MainWindowHandle;
+
+                            if (ListApp.StatusRunning == Visibility.Collapsed)
                             {
-                                ListApp.ProcessId = ProcessesWin32.FirstOrDefault().Id;
-                                ListApp.WindowHandle = ProcessesWin32.FirstOrDefault().MainWindowHandle;
-
-                                if (ListApp.StatusRunning == Visibility.Collapsed)
-                                {
-                                    ListApp.StatusRunning = Visibility.Visible;
-                                    ListApp.RunningTimeLastUpdate = Environment.TickCount;
-                                }
-
-                                if (ProcessesWin32.Count() > 1)
-                                {
-                                    ListApp.ProcessRunningCount = Convert.ToString(ProcessesWin32.Count());
-                                }
-                                else
-                                {
-                                    ListApp.ProcessRunningCount = string.Empty;
-                                }
-
-                                continue;
+                                ListApp.StatusRunning = Visibility.Visible;
+                                ListApp.RunningTimeLastUpdate = Environment.TickCount;
                             }
+
+                            if (ProcessesWin32.Count() > 1)
+                            {
+                                ListApp.ProcessRunningCount = Convert.ToString(ProcessesWin32.Count());
+                            }
+                            else
+                            {
+                                ListApp.ProcessRunningCount = string.Empty;
+                            }
+
+                            continue;
                         }
 
                         //Process not found reset the status
@@ -389,7 +394,10 @@ namespace CtrlUI
                         ListApp.RunningTimeLastUpdate = 0;
                         ListApp.ProcessRunningCount = string.Empty;
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Failed checking application status: " + ex.Message);
+                    }
                 }
             }
             catch { }

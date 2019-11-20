@@ -93,6 +93,20 @@ namespace LibraryShared
                 }
             }
 
+            private string PrivNameExe;
+            public string NameExe
+            {
+                get { return this.PrivNameExe; }
+                set
+                {
+                    if (this.PrivNameExe != value)
+                    {
+                        this.PrivNameExe = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private string PrivNameSub;
             public string NameSub
             {
