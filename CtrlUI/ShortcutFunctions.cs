@@ -136,7 +136,6 @@ namespace CtrlUI
                         //Read shortcut file information
                         ShortcutDetails shortcutDetails = ReadShortcutFile(file.FullName);
                         string targetPathLower = shortcutDetails.TargetPath.ToLower();
-                        string fileNameStripped = file.Name.Replace(".lnk", string.Empty).Replace(".url", string.Empty).Replace(".exe - Shortcut", string.Empty).Replace(" - Shortcut", string.Empty);
 
                         //Check if already in combined list and remove it
                         if (CombineAppLists(false, false).Any(x => x.PathExe.ToLower() == targetPathLower))
@@ -157,7 +156,7 @@ namespace CtrlUI
                         }
 
                         //Check if shortcut is in shortcut blacklist
-                        if (vAppsBlacklistShortcut.Any(x => x.ToLower() == fileNameStripped.ToLower()))
+                        if (vAppsBlacklistShortcut.Any(x => x.ToLower() == shortcutDetails.Name.ToLower()))
                         {
                             //Debug.WriteLine("Shortcut is on the blacklist skipping: " + fileNameStripped.ToLower());
                             continue;

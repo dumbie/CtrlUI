@@ -197,7 +197,7 @@ namespace CtrlUI
                 if (vFilePickerCancelled) { return; }
 
                 //Launch the Win32 application
-                await ProcessLauncherWin32Prepare(vFilePickerResult.PathFile, "", "", false, false, true, false, false);
+                await ProcessLauncherWin32Prepare(vFilePickerResult.PathFile, "", "", false, true, false, false);
             }
             catch { }
         }

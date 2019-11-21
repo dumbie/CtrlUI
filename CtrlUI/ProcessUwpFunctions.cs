@@ -152,6 +152,7 @@ namespace CtrlUI
         {
             try
             {
+                bool targetingWin32Store = false;
                 Debug.WriteLine("Checking launch process UWP: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
 
                 //Check if uwp app has any processes
@@ -160,7 +161,8 @@ namespace CtrlUI
                 {
                     //Check if Win32Store app has any processes
                     Debug.WriteLine("Found no uwp process, checking for Win32Store process.");
-                    processMultipleCheck = await CheckMultiProcessWin32(LaunchApp);
+                    processMultipleCheck = await CheckMultiProcessWin32(LaunchApp, true);
+                    targetingWin32Store = true;
                 }
 
                 //Check the multiple check result
@@ -168,32 +170,16 @@ namespace CtrlUI
                 if (processMultipleCheck.Status == "Cancel") { return false; }
                 if (processMultipleCheck.Status == "CloseAll")
                 {
-                    Popup_Show_Status("Closing", "Closing " + LaunchApp.Name);
-                    Debug.WriteLine("Closing uwp processes: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
-
-                    //Get the process id by window handle
-                    if (LaunchApp.ProcessId <= 0)
+                    if (targetingWin32Store)
                     {
-                        LaunchApp.ProcessId = await GetUwpProcessIdByWindowHandle(LaunchApp.Name, LaunchApp.PathExe, LaunchApp.WindowHandle);
-                    }
-
-                    //Close the process or app
-                    bool ClosedProcess = CloseProcessById(LaunchApp.ProcessId);
-                    if (ClosedProcess)
-                    {
-                        //Updating running status
-                        LaunchApp.StatusRunning = Visibility.Collapsed;
-                        LaunchApp.RunningTimeLastUpdate = 0;
-
-                        //Update process count
-                        LaunchApp.ProcessRunningCount = string.Empty;
+                        //Close all processes Win32Store
+                        CloseAllProcessesWin32ByDataBindApp(LaunchApp, true);
                     }
                     else
                     {
-                        Popup_Show_Status("Closing", "Failed to close the app");
-                        Debug.WriteLine("Failed to close the uwp application.");
+                        //Close all processes UWP
+                        await CloseAllProcessesUwpByDataBindApp(LaunchApp);
                     }
-
                     return false;
                 }
 
@@ -292,6 +278,40 @@ namespace CtrlUI
                 Debug.WriteLine("Failed closing or showing the app: " + ex.Message);
             }
             return true;
+        }
+
+        //Close all processes UWP
+        async Task CloseAllProcessesUwpByDataBindApp(DataBindApp LaunchApp)
+        {
+            try
+            {
+                Popup_Show_Status("Closing", "Closing " + LaunchApp.Name);
+                Debug.WriteLine("Closing uwp processes: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
+
+                //Get the process id by window handle
+                if (LaunchApp.ProcessId <= 0)
+                {
+                    LaunchApp.ProcessId = await GetUwpProcessIdByWindowHandle(LaunchApp.Name, LaunchApp.PathExe, LaunchApp.WindowHandle);
+                }
+
+                //Close the process or app
+                bool ClosedProcess = CloseProcessById(LaunchApp.ProcessId);
+                if (ClosedProcess)
+                {
+                    //Updating running status
+                    LaunchApp.StatusRunning = Visibility.Collapsed;
+                    LaunchApp.RunningTimeLastUpdate = 0;
+
+                    //Update process count
+                    LaunchApp.ProcessRunningCount = string.Empty;
+                }
+                else
+                {
+                    Popup_Show_Status("Closing", "Failed to close the app");
+                    Debug.WriteLine("Failed to close the uwp application.");
+                }
+            }
+            catch { }
         }
 
         //Launch an uwp databind app

@@ -20,7 +20,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Launch a win32 application manually
-        async Task ProcessLauncherWin32Prepare(string PathExe, string PathLaunch, string Argument, bool Silent, bool IgnoreRunning, bool AllowMinimize, bool runAsAdmin, bool createNoWindow)
+        async Task ProcessLauncherWin32Prepare(string PathExe, string PathLaunch, string Argument, bool Silent, bool AllowMinimize, bool runAsAdmin, bool createNoWindow)
         {
             try
             {
@@ -36,42 +36,6 @@ namespace CtrlUI
                     await Popup_Show_MessageBox("App exe not found, please edit the application", "", "You can do this by interacting with the application and than click on the 'Edit app' button.", Answers);
                     Debug.WriteLine("Launch executable not found");
                     return;
-                }
-
-                //Check if process is running
-                if (!IgnoreRunning)
-                {
-                    if (CheckRunningProcessByNameOrTitle(Path.GetFileNameWithoutExtension(PathExe), false))
-                    {
-                        List<DataBindString> Answers = new List<DataBindString>();
-                        DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
-                        Answer1.Name = "Run new instance";
-                        Answers.Add(Answer1);
-
-                        DataBindString cancelString = new DataBindString();
-                        cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                        cancelString.Name = "Cancel";
-                        Answers.Add(cancelString);
-
-                        //Show the messagebox
-                        DataBindString Result = await Popup_Show_MessageBox(Path.GetFileNameWithoutExtension(PathExe) + " is already running", "", "Would you like to run another instance?", Answers);
-                        if (Result != null)
-                        {
-                            if (Result == cancelString)
-                            {
-                                Popup_Show_Status("App", Path.GetFileNameWithoutExtension(PathExe) + " is already running");
-                                Debug.WriteLine(Path.GetFileNameWithoutExtension(PathExe) + " is already running");
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            Popup_Show_Status("App", Path.GetFileNameWithoutExtension(PathExe) + " is already running");
-                            Debug.WriteLine(Path.GetFileNameWithoutExtension(PathExe) + " is already running");
-                            return;
-                        }
-                    }
                 }
 
                 //Show launching message
@@ -97,13 +61,22 @@ namespace CtrlUI
             }
         }
 
-        //Check Win32 process has multiple processes
-        async Task<ProcessMulti> CheckMultiProcessWin32(DataBindApp LaunchApp)
+        //Check Win32 and Win32Store process has multiple processes
+        async Task<ProcessMulti> CheckMultiProcessWin32(DataBindApp LaunchApp, bool checkWin32Store)
         {
             try
             {
                 List<DataBindString> multiAnswers = new List<DataBindString>();
-                Process[] multiVariables = GetProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false, true);
+                Process[] multiVariables = null;
+                if (checkWin32Store)
+                {
+                    multiVariables = GetProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.NameExe), false, true);
+                }
+                else
+                {
+                    multiVariables = GetProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false, true);
+                }
+
                 if (multiVariables.Any())
                 {
                     if (multiVariables.Count() > 1)
@@ -287,31 +260,13 @@ namespace CtrlUI
                 Debug.WriteLine("Checking launch process Win32: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
 
                 //Check Win32 process has multiple processes
-                ProcessMulti processMultipleCheck = await CheckMultiProcessWin32(LaunchApp);
+                ProcessMulti processMultipleCheck = await CheckMultiProcessWin32(LaunchApp, false);
                 if (processMultipleCheck.Status == "NoProcess") { return true; }
                 if (processMultipleCheck.Status == "Cancel") { return false; }
                 if (processMultipleCheck.Status == "CloseAll")
                 {
-                    Popup_Show_Status("Closing", "Closing " + LaunchApp.Name);
-                    Debug.WriteLine("Closing processes: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
-
-                    //Close the process
-                    bool ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false);
-                    if (ClosedProcess)
-                    {
-                        //Updating running status
-                        LaunchApp.StatusRunning = Visibility.Collapsed;
-                        LaunchApp.RunningTimeLastUpdate = 0;
-
-                        //Update process count
-                        LaunchApp.ProcessRunningCount = string.Empty;
-                    }
-                    else
-                    {
-                        Popup_Show_Status("Closing", "Failed to close the app");
-                        Debug.WriteLine("Failed to close the application.");
-                    }
-
+                    //Close all processes Win32
+                    CloseAllProcessesWin32ByDataBindApp(LaunchApp, false);
                     return false;
                 }
 
@@ -446,6 +401,43 @@ namespace CtrlUI
             return true;
         }
 
+        //Close all processes Win32 or Win32Store
+        void CloseAllProcessesWin32ByDataBindApp(DataBindApp LaunchApp, bool checkWin32Store)
+        {
+            try
+            {
+                Popup_Show_Status("Closing", "Closing " + LaunchApp.Name);
+                Debug.WriteLine("Closing processes: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
+
+                //Close the process
+                bool ClosedProcess = false;
+                if (checkWin32Store)
+                {
+                    ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.NameExe), false);
+                }
+                else
+                {
+                    ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false);
+                }
+
+                if (ClosedProcess)
+                {
+                    //Updating running status
+                    LaunchApp.StatusRunning = Visibility.Collapsed;
+                    LaunchApp.RunningTimeLastUpdate = 0;
+
+                    //Update process count
+                    LaunchApp.ProcessRunningCount = string.Empty;
+                }
+                else
+                {
+                    Popup_Show_Status("Closing", "Failed to close the app");
+                    Debug.WriteLine("Failed to close the application.");
+                }
+            }
+            catch { }
+        }
+
         //Launch a win32 databind emulator with filepicker
         async Task<bool> LaunchProcessDatabindWin32Emulator(DataBindApp LaunchApp)
         {
@@ -530,7 +522,7 @@ namespace CtrlUI
                 }
 
                 //Launch the Win32 application
-                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchArguments, true, true, true, false, false);
+                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchArguments, true, true, false, false);
                 return true;
             }
             catch
@@ -606,7 +598,7 @@ namespace CtrlUI
                 }
 
                 //Launch the Win32 application
-                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchArguments, true, true, true, false, false);
+                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchArguments, true, true, false, false);
                 return true;
             }
             catch
@@ -657,7 +649,7 @@ namespace CtrlUI
                 Debug.WriteLine("Launching Win32: " + LaunchApp.Name + " from: " + LaunchApp.Category + " path: " + LaunchApp.PathExe);
 
                 //Launch the Win32 application
-                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchApp.Argument, true, true, true, false, false);
+                await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchApp.Argument, true, true, false, false);
                 return true;
             }
             catch
