@@ -78,7 +78,7 @@ namespace CtrlUI
                 if (!Silent)
                 {
                     Popup_Show_Status("App", "Launching " + Path.GetFileNameWithoutExtension(PathExe));
-                    Debug.WriteLine("Launching win32: " + Path.GetFileNameWithoutExtension(PathExe));
+                    Debug.WriteLine("Launching Win32: " + Path.GetFileNameWithoutExtension(PathExe));
                 }
 
                 //Launch the Win32 application
@@ -98,7 +98,7 @@ namespace CtrlUI
         }
 
         //Check Win32 process has multiple processes
-        async Task<ProcessMultipleCheck> CheckMultiProcessWin32(DataBindApp LaunchApp)
+        async Task<ProcessMulti> CheckMultiProcessWin32(DataBindApp LaunchApp)
         {
             try
             {
@@ -145,75 +145,71 @@ namespace CtrlUI
                         {
                             if (Result == Answer2)
                             {
-                                ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                                ProcessMultipleCheckNew.Status = "CloseAll";
-                                return ProcessMultipleCheckNew;
+                                ProcessMulti processMultiNew = new ProcessMulti();
+                                processMultiNew.Status = "CloseAll";
+                                return processMultiNew;
                             }
                             else if (Result == cancelString)
                             {
-                                ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                                ProcessMultipleCheckNew.Status = "Cancel";
-                                return ProcessMultipleCheckNew;
+                                ProcessMulti processMultiNew = new ProcessMulti();
+                                processMultiNew.Status = "Cancel";
+                                return processMultiNew;
                             }
                             else
                             {
-                                ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                                ProcessMultipleCheckNew.Process = multiVariables[multiAnswers.IndexOf(Result)];
-                                return ProcessMultipleCheckNew;
+                                return ConvertProcessToProcessMulti(multiVariables[multiAnswers.IndexOf(Result)]);
                             }
                         }
                         else
                         {
-                            ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                            ProcessMultipleCheckNew.Status = "Cancel";
-                            return ProcessMultipleCheckNew;
+                            ProcessMulti processMultiNew = new ProcessMulti();
+                            processMultiNew.Status = "Cancel";
+                            return processMultiNew;
                         }
                     }
                     else
                     {
-                        ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                        ProcessMultipleCheckNew.Process = multiVariables.FirstOrDefault();
-                        return ProcessMultipleCheckNew;
+                        return ConvertProcessToProcessMulti(multiVariables.FirstOrDefault());
                     }
                 }
                 else
                 {
-                    ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                    ProcessMultipleCheckNew.Status = "NoProcess";
-                    return ProcessMultipleCheckNew;
+                    ProcessMulti processMultiNew = new ProcessMulti();
+                    processMultiNew.Status = "NoProcess";
+                    return processMultiNew;
                 }
             }
             catch
             {
-                ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                ProcessMultipleCheckNew.Status = "NoProcess";
-                return ProcessMultipleCheckNew;
+                ProcessMulti processMultiNew = new ProcessMulti();
+                processMultiNew.Status = "NoProcess";
+                return processMultiNew;
             }
         }
 
         //Check Win32 process has multiple windows
-        async Task<IntPtr> CheckMultiWindowWin32(string AppTitle, Process ProcessTarget)
+        async Task<IntPtr> CheckProcessMultiWindowWin32(string AppTitle, ProcessMulti ProcessTarget)
         {
             try
             {
-                if (ProcessTarget.Threads.Count > 1)
+                if (ProcessTarget.ProcessThreads.Count > 1)
                 {
-                    Debug.WriteLine("Found window threads: " + ProcessTarget.Threads.Count);
+                    Debug.WriteLine("Found window threads: " + ProcessTarget.ProcessThreads.Count);
 
                     List<DataBindString> multiAnswers = new List<DataBindString>();
                     List<IntPtr> multiVariables = new List<IntPtr>();
-                    foreach (ProcessThread ThreadProcess in ProcessTarget.Threads)
+                    foreach (ProcessThread ThreadProcess in ProcessTarget.ProcessThreads)
                     {
                         foreach (IntPtr ThreadWindowHandle in EnumThreadWindows(ThreadProcess.Id))
                         {
                             try
                             {
                                 //Validate the window handle
-                                if (ThreadWindowHandle == ProcessTarget.MainWindowHandle || ValidateWindowHandle(ThreadWindowHandle))
+                                if (ThreadWindowHandle == ProcessTarget.WindowHandle || ValidateWindowHandle(ThreadWindowHandle))
                                 {
                                     //Get window title
                                     string ClassNameString = GetWindowTitleFromWindowHandle(ThreadWindowHandle);
-                                    if (ThreadWindowHandle == ProcessTarget.MainWindowHandle) { ClassNameString += " (Main Window)"; }
+                                    if (ThreadWindowHandle == ProcessTarget.WindowHandle) { ClassNameString += " (Main Window)"; }
                                     if (multiAnswers.Where(x => x.Name.ToLower() == ClassNameString.ToLower()).Any()) { ClassNameString += " (" + multiAnswers.Count + ")"; }
 
                                     DataBindString Answer1 = new DataBindString();
@@ -221,7 +217,7 @@ namespace CtrlUI
                                     Answer1.Name = ClassNameString;
 
                                     //Add window to selection
-                                    if (ThreadWindowHandle == ProcessTarget.MainWindowHandle)
+                                    if (ThreadWindowHandle == ProcessTarget.WindowHandle)
                                     {
                                         multiAnswers.Insert(0, Answer1);
                                         multiVariables.Insert(0, ThreadWindowHandle);
@@ -274,7 +270,7 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Single thread process.");
-                    return ProcessTarget.MainWindowHandle;
+                    return ProcessTarget.WindowHandle;
                 }
             }
             catch
@@ -291,12 +287,10 @@ namespace CtrlUI
                 Debug.WriteLine("Checking launch process Win32: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
 
                 //Check Win32 process has multiple processes
-                ProcessMultipleCheck ProcessMultipleCheck = await CheckMultiProcessWin32(LaunchApp);
-                if (ProcessMultipleCheck.Status == "NoProcess") { return true; }
-                if (ProcessMultipleCheck.Status == "Cancel") { return false; }
-
-                //Close all the processes
-                if (ProcessMultipleCheck.Status == "CloseAll")
+                ProcessMulti processMultipleCheck = await CheckMultiProcessWin32(LaunchApp);
+                if (processMultipleCheck.Status == "NoProcess") { return true; }
+                if (processMultipleCheck.Status == "Cancel") { return false; }
+                if (processMultipleCheck.Status == "CloseAll")
                 {
                     Popup_Show_Status("Closing", "Closing " + LaunchApp.Name);
                     Debug.WriteLine("Closing processes: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
@@ -350,7 +344,7 @@ namespace CtrlUI
 
                 //Check application category
                 string ApplicationRuntime = string.Empty;
-                if (LaunchApp.Category == "Shortcut")
+                if (LaunchApp.Category == AppCategory.Shortcut)
                 {
                     ApplicationRuntime = ApplicationRuntimeString(ProcessRuntimeMinutes(GetProcessById(LaunchApp.ProcessId)), "shortcut process");
                 }
@@ -366,14 +360,14 @@ namespace CtrlUI
                     if (Result == Answer1)
                     {
                         //Check if process has multiple windows
-                        IntPtr ProcessWindowHandle = await CheckMultiWindowWin32(LaunchApp.Name, ProcessMultipleCheck.Process);
-                        if (ProcessWindowHandle != IntPtr.Zero)
+                        IntPtr processWindowHandle = await CheckProcessMultiWindowWin32(LaunchApp.Name, processMultipleCheck);
+                        if (processWindowHandle != IntPtr.Zero)
                         {
                             //Minimize the CtrlUI window
                             if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                             //Force focus on the app
-                            FocusProcessWindowPrepare(LaunchApp.Name, ProcessMultipleCheck.Process.Id, ProcessWindowHandle, 0, false, false, false);
+                            FocusProcessWindowPrepare(LaunchApp.Name, processMultipleCheck.ProcessId, processWindowHandle, 0, false, false, false);
                         }
                         else
                         {
@@ -388,9 +382,9 @@ namespace CtrlUI
                         Debug.WriteLine("Closing application: " + LaunchApp.Name);
 
                         //Close the process
-                        if (ProcessMultipleCheck.Process != null)
+                        if (processMultipleCheck != null)
                         {
-                            CloseProcessById(ProcessMultipleCheck.Process.Id);
+                            CloseProcessById(processMultipleCheck.ProcessId);
                         }
                         else
                         {
@@ -416,16 +410,16 @@ namespace CtrlUI
                     else if (Result == Answer3)
                     {
                         Popup_Show_Status("Switch", "Restarting " + LaunchApp.Name);
-                        Debug.WriteLine("Restarting application: " + LaunchApp.Name + " / " + ProcessMultipleCheck.Process.Id + " / " + ProcessMultipleCheck.Process.MainWindowHandle);
+                        Debug.WriteLine("Restarting application: " + LaunchApp.Name + " / " + processMultipleCheck.ProcessId + " / " + processMultipleCheck.WindowHandle);
 
                         string LaunchArgument = LaunchApp.Argument;
-                        if (LaunchApp.Category == "Emulator")
+                        if (LaunchApp.Category == AppCategory.Emulator)
                         {
                             if (string.IsNullOrWhiteSpace(LaunchApp.RomPath)) { LaunchArgument = string.Empty; }
                             else { LaunchArgument += LaunchApp.RomPath; }
                         }
 
-                        await RestartProcessWin32(ProcessMultipleCheck.Process.Id, LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchArgument);
+                        await RestartProcessWin32(processMultipleCheck.ProcessId, LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchArgument);
                         return false;
                     }
                     else if (Result == Answer4)
@@ -660,7 +654,7 @@ namespace CtrlUI
 
                 //Show application launch message
                 Popup_Show_Status("App", "Launching " + LaunchApp.Name);
-                Debug.WriteLine("Launching win32: " + LaunchApp.Name + " from: " + LaunchApp.Category + " path: " + LaunchApp.PathExe);
+                Debug.WriteLine("Launching Win32: " + LaunchApp.Name + " from: " + LaunchApp.Category + " path: " + LaunchApp.PathExe);
 
                 //Launch the Win32 application
                 await ProcessLauncherWin32Prepare(LaunchApp.PathExe, LaunchApp.PathLaunch, LaunchApp.Argument, true, true, true, false, false);
@@ -711,8 +705,8 @@ namespace CtrlUI
                     {
                         try
                         {
-                            string ApplicationType = "Win32";
-                            Visibility StoreStatus = Visibility.Collapsed;
+                            ProcessType applicationType = ProcessType.Win32;
+                            Visibility storeStatus = Visibility.Collapsed;
 
                             //Get the process title
                             string ProcessTitle = GetWindowTitleFromProcess(AllProcess);
@@ -764,7 +758,7 @@ namespace CtrlUI
                             int ProcessRunningTime = ProcessRuntimeMinutes(AllProcess);
 
                             //Check if process is already in process list and update it
-                            DataBindApp ProcessApp = List_Processes.Where(x => x.ProcessId == AllProcess.Id && (x.Type == "Win32" || x.Type == "Win32Store")).FirstOrDefault();
+                            DataBindApp ProcessApp = List_Processes.Where(x => x.ProcessId == AllProcess.Id && (x.Type == ProcessType.Win32 || x.Type == ProcessType.Win32Store)).FirstOrDefault();
                             if (ProcessApp != null)
                             {
                                 if (ProcessApp.Name != ProcessTitle) { ProcessApp.Name = ProcessTitle; }
@@ -778,20 +772,20 @@ namespace CtrlUI
                             //Get process launch arguments
                             string ProcessArgument = GetLaunchArgumentsFromProcess(AllProcess, ProcessExecutablePath);
 
-                            //Check if the process is a win32 store app
+                            //Check if the process is a Win32Store app
                             string appUserModelId = GetAppUserModelIdFromProcess(AllProcess);
                             if (!string.IsNullOrWhiteSpace(appUserModelId))
                             {
                                 ProcessExecutablePath = appUserModelId;
-                                StoreStatus = Visibility.Visible;
-                                ApplicationType = "Win32Store";
-                                //Debug.WriteLine("Process " + ProcessTitle + " is a win32 store application.");
+                                storeStatus = Visibility.Visible;
+                                applicationType = ProcessType.Win32Store;
+                                //Debug.WriteLine("Process " + ProcessTitle + " is a Win32Store application.");
                             }
 
                             //Add the process to the list
                             AVActions.ActionDispatcherInvoke(delegate
                             {
-                                List_Processes.Add(new DataBindApp() { Type = ApplicationType, Category = "Process", ProcessId = AllProcess.Id, ImageBitmap = IconBitmapImage, Name = ProcessTitle, ProcessName = AllProcess.ProcessName, PathExe = ProcessExecutablePath, Argument = ProcessArgument, StatusStore = StoreStatus, RunningTime = ProcessRunningTime });
+                                List_Processes.Add(new DataBindApp() { Type = applicationType, Category = AppCategory.Process, ProcessId = AllProcess.Id, ImageBitmap = IconBitmapImage, Name = ProcessTitle, ProcessName = AllProcess.ProcessName, PathExe = ProcessExecutablePath, Argument = ProcessArgument, StatusStore = storeStatus, RunningTime = ProcessRunningTime });
                             });
                         }
                         catch { }
@@ -800,7 +794,7 @@ namespace CtrlUI
                     //Remove no longer running and invalid processes
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => !ActiveProcesses.Contains(x.ProcessId) && (x.Type == "Win32" || x.Type == "Win32Store"));
+                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => !ActiveProcesses.Contains(x.ProcessId) && (x.Type == ProcessType.Win32 || x.Type == ProcessType.Win32Store));
                     });
                 }
             }

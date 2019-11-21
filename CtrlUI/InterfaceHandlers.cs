@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -99,7 +100,7 @@ namespace CtrlUI
                 string DroppedFile = DroppedFiles.FirstOrDefault();
                 if (DroppedFile.EndsWith(".exe"))
                 {
-                    DataBindApp DropApp = new DataBindApp() { Type = "Win32", PathExe = DroppedFile, PathLaunch = Path.GetDirectoryName(DroppedFile) };
+                    DataBindApp DropApp = new DataBindApp() { Type = ProcessType.Win32, PathExe = DroppedFile, PathLaunch = Path.GetDirectoryName(DroppedFile) };
                     await Popup_Show_AppDrop(DropApp);
                 }
             }

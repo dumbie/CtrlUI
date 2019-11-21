@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
+using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
@@ -190,43 +191,43 @@ namespace CtrlUI
                 }
 
                 //Get the shortcut target file name
-                string TargetPathLower = shortcutDetails.TargetPath.ToLower();
-                Visibility ShortcutLauncher = Visibility.Collapsed;
-                Visibility ShortcutWindowStore = Visibility.Collapsed;
-                string ShortcutType = "Win32";
+                string targetPathLower = shortcutDetails.TargetPath.ToLower();
+                Visibility shortcutLauncher = Visibility.Collapsed;
+                Visibility shortcutWindowStore = Visibility.Collapsed;
+                ProcessType shortcutProcessType = ProcessType.Win32;
 
                 //Check if already in combined list and remove it
-                if (CombineAppLists(false, false).Any(x => x.PathExe.ToLower() == TargetPathLower))
+                if (CombineAppLists(false, false).Any(x => x.PathExe.ToLower() == targetPathLower))
                 {
                     //Debug.WriteLine("Shortcut is already in other list: " + TargetPathLower);
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == TargetPathLower);
+                        await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
                     });
                     return;
                 }
 
                 //Check if executable or launcher app shortcut
-                if (TargetPathLower.EndsWith(".exe"))
+                if (targetPathLower.EndsWith(".exe"))
                 {
                     //Check if the executable still exists
-                    if (!File.Exists(TargetPathLower)) { return; }
+                    if (!File.Exists(targetPathLower)) { return; }
                 }
-                else if (TargetPathLower.EndsWith(".bat"))
+                else if (targetPathLower.EndsWith(".bat"))
                 {
                     //Check if the bat file still exists
-                    if (!File.Exists(TargetPathLower)) { return; }
+                    if (!File.Exists(targetPathLower)) { return; }
                 }
-                else if (TargetPathLower.Contains("://"))
+                else if (targetPathLower.Contains("://"))
                 {
                     //Check if shortcut is url protocol
-                    ShortcutLauncher = Visibility.Visible;
+                    shortcutLauncher = Visibility.Visible;
                 }
-                else if (!TargetPathLower.Contains("/") && TargetPathLower.Contains("!") && TargetPathLower.Contains("_"))
+                else if (!targetPathLower.Contains("/") && targetPathLower.Contains("!") && targetPathLower.Contains("_"))
                 {
                     //Check if shortcut is windows store app
-                    ShortcutType = "UWP";
-                    ShortcutWindowStore = Visibility.Visible;
+                    shortcutProcessType = ProcessType.UWP;
+                    shortcutWindowStore = Visibility.Visible;
 
                     //Get detailed application information
                     Package appPackage = UwpGetAppPackageFromAppUserModelId(shortcutDetails.TargetPath);
@@ -246,19 +247,19 @@ namespace CtrlUI
 
                 //Get icon image from the path
                 BitmapImage IconBitmapImage = null;
-                if (TargetPathLower.EndsWith(".bat"))
+                if (targetPathLower.EndsWith(".bat"))
                 {
                     IconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.IconPath, "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, 90);
                 }
                 else
                 {
-                    IconBitmapImage = FileToBitmapImage(new string[] { TargetPathLower, shortcutDetails.IconPath }, IntPtr.Zero, 90);
+                    IconBitmapImage = FileToBitmapImage(new string[] { targetPathLower, shortcutDetails.IconPath }, IntPtr.Zero, 90);
                 }
 
                 //Add the shortcut to the list
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    List_Shortcuts.Add(new DataBindApp() { Type = ShortcutType, Category = "Shortcut", Name = shortcutDetails.Name, NameExe = shortcutDetails.NameExe, ImageBitmap = IconBitmapImage, ImagePath = shortcutDetails.IconPath, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = ShortcutWindowStore, StatusLauncher = ShortcutLauncher, TimeCreation = shortcutDetails.TimeModify });
+                    List_Shortcuts.Add(new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Name, NameExe = shortcutDetails.NameExe, ImageBitmap = IconBitmapImage, ImagePath = shortcutDetails.IconPath, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusLauncher = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify });
                 });
             }
             catch

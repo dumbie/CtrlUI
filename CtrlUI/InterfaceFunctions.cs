@@ -322,13 +322,13 @@ namespace CtrlUI
                 {
                     try
                     {
-                        //Debug.WriteLine("Checking application status: " + ListApp.Type + "/" + ListApp.Category + "/" + ListApp.Name + "/" + ListApp.PathExe);
+                        Debug.WriteLine("Checking application status: " + ListApp.Type + "/" + ListApp.Category + "/" + ListApp.Name + "/" + ListApp.PathExe);
                         string targetProcessName = string.Empty;
 
                         //Check UWP app user model id
-                        if (ListApp.Type == "UWP")
+                        if (ListApp.Type == ProcessType.UWP)
                         {
-                            List<ProcessUwp> ProcessesUwp = UwpGetProcessFromAppUserModelId(ListApp.PathExe);
+                            List<ProcessMulti> ProcessesUwp = UwpGetProcessFromAppUserModelId(ListApp.PathExe);
                             if (ProcessesUwp.Any())
                             {
                                 ListApp.ProcessId = ProcessesUwp.FirstOrDefault().ProcessId;
@@ -354,12 +354,13 @@ namespace CtrlUI
                             else
                             {
                                 targetProcessName = Path.GetFileNameWithoutExtension(ListApp.NameExe).ToLower();
-                                //Debug.WriteLine("Uwp app is not running, checking by exe name: " + targetProcessName);
+                                //Debug.WriteLine("Uwp app is not running, checking by Win32Store exe name: " + targetProcessName);
                             }
                         }
                         else
                         {
-                            Path.GetFileNameWithoutExtension(ListApp.PathExe).ToLower();
+                            targetProcessName = Path.GetFileNameWithoutExtension(ListApp.PathExe).ToLower();
+                            //Debug.WriteLine("Uwp app is not running, checking by Win32 exe name: " + targetProcessName);
                         }
 
                         //Check Win32 or Win32Store application

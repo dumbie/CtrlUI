@@ -131,6 +131,7 @@
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="AppLaunchCheck.cs" />
+    <Compile Include="Classes\AppCategory.cs" />
     <Compile Include="Classes\AppxDetails.cs" />
     <Compile Include="Classes\AppxFactory.cs" />
     <Compile Include="Classes\FrameworkElementFocus.cs" />

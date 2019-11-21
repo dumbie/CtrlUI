@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -27,19 +28,19 @@ namespace CtrlUI
                 }
 
                 //Check if the exe file is available
-                if (AddApp.Type != "UWP" && !File.Exists(AddApp.PathExe))
+                if (AddApp.Type != ProcessType.UWP && !File.Exists(AddApp.PathExe))
                 {
                     AddApp.StatusAvailable = Visibility.Visible;
                 }
 
                 //Check if the rom folder is available
-                if (AddApp.Category == "Emulator" && !Directory.Exists(AddApp.PathRoms))
+                if (AddApp.Category == AppCategory.Emulator && !Directory.Exists(AddApp.PathRoms))
                 {
                     AddApp.StatusAvailable = Visibility.Visible;
                 }
 
                 //Check if application is an uwp app
-                if (AddApp.Type == "UWP")
+                if (AddApp.Type == ProcessType.UWP)
                 {
                     AddApp.StatusStore = Visibility.Visible;
                 }
@@ -48,9 +49,9 @@ namespace CtrlUI
                 if (LoadImage) { AddApp.ImageBitmap = FileToBitmapImage(new string[] { AddApp.Name, AddApp.PathExe, AddApp.PathImage }, IntPtr.Zero, 90); }
 
                 //Add application to the list
-                if (AddApp.Category == "Game") { List_Games.Add(AddApp); }
-                else if (AddApp.Category == "App") { List_Apps.Add(AddApp); }
-                else if (AddApp.Category == "Emulator") { List_Emulators.Add(AddApp); }
+                if (AddApp.Category == AppCategory.Game) { List_Games.Add(AddApp); }
+                else if (AddApp.Category == AppCategory.App) { List_Apps.Add(AddApp); }
+                else if (AddApp.Category == AppCategory.Emulator) { List_Emulators.Add(AddApp); }
 
                 //Save changes to Json file
                 if (GenerateAppNumber) { JsonSaveApps(); }
@@ -67,31 +68,31 @@ namespace CtrlUI
                 ListBox ListBoxSender = null;
 
                 //Delete application from the lists
-                if (RemoveApp.Category == "Game")
+                if (RemoveApp.Category == AppCategory.Game)
                 {
                     ListBoxSender = lb_Games;
                     ListboxSelectedIndex = ListBoxSender.SelectedIndex;
                     List_Games.Remove(RemoveApp);
                 }
-                else if (RemoveApp.Category == "App")
+                else if (RemoveApp.Category == AppCategory.App)
                 {
                     ListBoxSender = lb_Apps;
                     ListboxSelectedIndex = ListBoxSender.SelectedIndex;
                     List_Apps.Remove(RemoveApp);
                 }
-                else if (RemoveApp.Category == "Emulator")
+                else if (RemoveApp.Category == AppCategory.Emulator)
                 {
                     ListBoxSender = lb_Emulators;
                     ListboxSelectedIndex = ListBoxSender.SelectedIndex;
                     List_Emulators.Remove(RemoveApp);
                 }
-                else if (RemoveApp.Category == "Process")
+                else if (RemoveApp.Category == AppCategory.Process)
                 {
                     ListBoxSender = lb_Processes;
                     ListboxSelectedIndex = ListBoxSender.SelectedIndex;
                     List_Processes.Remove(RemoveApp);
                 }
-                else if (RemoveApp.Category == "Shortcut")
+                else if (RemoveApp.Category == AppCategory.Shortcut)
                 {
                     ListBoxSender = lb_Shortcuts;
                     ListboxSelectedIndex = ListBoxSender.SelectedIndex;
@@ -162,13 +163,13 @@ namespace CtrlUI
                     vEditAppCategoryPrevious = vEditAppDataBind.Category;
 
                     //Load the application category
-                    if (vEditAppDataBind.Category == "App")
+                    if (vEditAppDataBind.Category == AppCategory.App)
                     {
                         textblock_Manage_AddAppCategory.Text = "App & Media";
                     }
                     else
                     {
-                        textblock_Manage_AddAppCategory.Text = vEditAppDataBind.Category;
+                        textblock_Manage_AddAppCategory.Text = vEditAppDataBind.Category.ToString();
                     }
 
                     image_Manage_AddAppCategory.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + vEditAppDataBind.Category + ".png" }, IntPtr.Zero, -1);
@@ -187,7 +188,7 @@ namespace CtrlUI
                     checkbox_AddLaunchKeyboard.IsChecked = vEditAppDataBind.LaunchKeyboard;
 
                     //Hide and show situation based settings
-                    if (vEditAppDataBind.Type == "UWP")
+                    if (vEditAppDataBind.Type == ProcessType.UWP)
                     {
                         sp_AddAppName.Visibility = Visibility.Collapsed;
                         sp_AddAppExePath.Visibility = Visibility.Collapsed;
@@ -201,8 +202,8 @@ namespace CtrlUI
                         sp_AddAppName.Visibility = Visibility.Visible;
                         sp_AddAppExePath.Visibility = Visibility.Visible;
                         sp_AddAppPathLaunch.Visibility = Visibility.Visible;
-                        if (vEditAppDataBind.Category == "Emulator") { sp_AddAppPathRoms.Visibility = Visibility.Visible; } else { sp_AddAppPathRoms.Visibility = Visibility.Collapsed; }
-                        if (vEditAppDataBind.Category == "App") { checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible; } else { checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed; }
+                        if (vEditAppDataBind.Category == AppCategory.Emulator) { sp_AddAppPathRoms.Visibility = Visibility.Visible; } else { sp_AddAppPathRoms.Visibility = Visibility.Collapsed; }
+                        if (vEditAppDataBind.Category == AppCategory.App) { checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible; } else { checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed; }
                         sp_AddAppArgument.Visibility = Visibility.Visible;
                     }
 
@@ -324,7 +325,7 @@ namespace CtrlUI
             try
             {
                 //Check the selected application category
-                string SelectedAddCategory = btn_Manage_AddAppCategory.Tag.ToString();
+                Enum.TryParse(btn_Manage_AddAppCategory.Tag.ToString(), out AppCategory selectedAddCategory);
 
                 //Check if there is an application name set
                 if (string.IsNullOrWhiteSpace(tb_AddAppName.Text) || tb_AddAppName.Text == "Select application executable file first")
@@ -366,7 +367,7 @@ namespace CtrlUI
                 }
 
                 //Check if application is emulator and validate the rom path
-                if (SelectedAddCategory == "Emulator")
+                if (selectedAddCategory == AppCategory.Emulator)
                 {
                     if (string.IsNullOrWhiteSpace(tb_AddAppPathRoms.Text))
                     {
@@ -393,7 +394,7 @@ namespace CtrlUI
                 }
 
                 //Check if the application paths exist for non uwp apps
-                if (vEditAppDataBind != null && vEditAppDataBind.Type != "UWP")
+                if (vEditAppDataBind != null && vEditAppDataBind.Type != ProcessType.UWP)
                 {
                     if (!File.Exists(tb_AddAppExePath.Text))
                     {
@@ -441,7 +442,7 @@ namespace CtrlUI
 
                     Popup_Show_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding application: " + tb_AddAppName.Text + " to the list.");
-                    AddAppToList(new DataBindApp() { Type = "Win32", Category = SelectedAddCategory, Name = tb_AddAppName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked }, true, true);
+                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = selectedAddCategory, Name = tb_AddAppName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked }, true, true);
 
                     //Close the open popup
                     await Popup_Close_Top();
@@ -450,9 +451,9 @@ namespace CtrlUI
                     await RefreshApplicationLists(true, true, false, false, false);
 
                     //Focus on the application list
-                    if (SelectedAddCategory == "Game") { await FocusOnListbox(lb_Games, false, true, -1); }
-                    else if (SelectedAddCategory == "App") { await FocusOnListbox(lb_Apps, false, true, -1); }
-                    else if (SelectedAddCategory == "Emulator") { await FocusOnListbox(lb_Emulators, false, true, -1); }
+                    if (selectedAddCategory == AppCategory.Game) { await FocusOnListbox(lb_Games, false, true, -1); }
+                    else if (selectedAddCategory == AppCategory.App) { await FocusOnListbox(lb_Apps, false, true, -1); }
+                    else if (selectedAddCategory == AppCategory.Emulator) { await FocusOnListbox(lb_Emulators, false, true, -1); }
                 }
                 else
                 {
@@ -499,7 +500,7 @@ namespace CtrlUI
                     }
 
                     //Edit application in the list
-                    vEditAppDataBind.Category = SelectedAddCategory;
+                    vEditAppDataBind.Category = selectedAddCategory;
                     vEditAppDataBind.Name = tb_AddAppName.Text;
                     vEditAppDataBind.PathExe = tb_AddAppExePath.Text;
                     vEditAppDataBind.PathLaunch = tb_AddAppPathLaunch.Text;
@@ -524,14 +525,14 @@ namespace CtrlUI
                     if (vEditAppCategoryPrevious != vEditAppDataBind.Category)
                     {
                         //Add application to new category
-                        if (vEditAppDataBind.Category == "Game") { List_Games.Add(vEditAppDataBind); }
-                        else if (vEditAppDataBind.Category == "App") { List_Apps.Add(vEditAppDataBind); }
-                        else if (vEditAppDataBind.Category == "Emulator") { List_Emulators.Add(vEditAppDataBind); }
+                        if (vEditAppDataBind.Category == AppCategory.Game) { List_Games.Add(vEditAppDataBind); }
+                        else if (vEditAppDataBind.Category == AppCategory.App) { List_Apps.Add(vEditAppDataBind); }
+                        else if (vEditAppDataBind.Category == AppCategory.Emulator) { List_Emulators.Add(vEditAppDataBind); }
 
                         //Remove the edited application
-                        if (vEditAppCategoryPrevious == "Game") { List_Games.Remove(vEditAppDataBind); }
-                        else if (vEditAppCategoryPrevious == "App") { List_Apps.Remove(vEditAppDataBind); }
-                        else if (vEditAppCategoryPrevious == "Emulator") { List_Emulators.Remove(vEditAppDataBind); }
+                        if (vEditAppCategoryPrevious == AppCategory.Game) { List_Games.Remove(vEditAppDataBind); }
+                        else if (vEditAppCategoryPrevious == AppCategory.App) { List_Apps.Remove(vEditAppDataBind); }
+                        else if (vEditAppCategoryPrevious == AppCategory.Emulator) { List_Emulators.Remove(vEditAppDataBind); }
 
                         //Focus on the edited item listbox
                         if (vSearchOpen)
@@ -540,9 +541,9 @@ namespace CtrlUI
                         }
                         else
                         {
-                            if (vEditAppDataBind.Category == "Game") { await FocusOnListbox(lb_Games, false, true, -1); }
-                            else if (vEditAppDataBind.Category == "App") { await FocusOnListbox(lb_Apps, false, true, -1); }
-                            else if (vEditAppDataBind.Category == "Emulator") { await FocusOnListbox(lb_Emulators, false, true, -1); }
+                            if (vEditAppDataBind.Category == AppCategory.Game) { await FocusOnListbox(lb_Games, false, true, -1); }
+                            else if (vEditAppDataBind.Category == AppCategory.App) { await FocusOnListbox(lb_Apps, false, true, -1); }
+                            else if (vEditAppDataBind.Category == AppCategory.Emulator) { await FocusOnListbox(lb_Emulators, false, true, -1); }
                         }
 
                         ////Sort the lists by number
@@ -560,9 +561,9 @@ namespace CtrlUI
                         }
                         else
                         {
-                            if (vEditAppDataBind.Category == "Game") { await FocusOnListbox(lb_Games, false, false, -1); }
-                            else if (vEditAppDataBind.Category == "App") { await FocusOnListbox(lb_Apps, false, false, -1); }
-                            else if (vEditAppDataBind.Category == "Emulator") { await FocusOnListbox(lb_Emulators, false, false, -1); }
+                            if (vEditAppDataBind.Category == AppCategory.Game) { await FocusOnListbox(lb_Games, false, false, -1); }
+                            else if (vEditAppDataBind.Category == AppCategory.App) { await FocusOnListbox(lb_Apps, false, false, -1); }
+                            else if (vEditAppDataBind.Category == AppCategory.Emulator) { await FocusOnListbox(lb_Emulators, false, false, -1); }
                         }
 
                         ////Sort the lists by number
@@ -603,9 +604,10 @@ namespace CtrlUI
             try
             {
                 //Check the selected application category
-                string SelectedAddCategoryTag = btn_Manage_AddAppCategory.Tag.ToString();
+                Enum.TryParse(btn_Manage_AddAppCategory.Tag.ToString(), out AppCategory selectedAddCategory);
                 string SelectedAddCategoryContent = textblock_Manage_AddAppCategory.Text;
-                if (SelectedAddCategoryTag == "Emulator")
+
+                if (selectedAddCategory == AppCategory.Emulator)
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -649,7 +651,7 @@ namespace CtrlUI
 
                 Popup_Show_Status("Plus", "Added " + vFilePickerResult.Name);
                 Debug.WriteLine("Adding uwp app: " + vFilePickerResult.Name + " Path " + vFilePickerResult.PathFile + " Image " + vFilePickerResult.PathImage);
-                AddAppToList(new DataBindApp() { Type = "UWP", Category = SelectedAddCategoryTag, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, PathExe = vFilePickerResult.PathFile, PathImage = vFilePickerResult.PathImage, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked }, true, true);
+                AddAppToList(new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, PathExe = vFilePickerResult.PathFile, PathImage = vFilePickerResult.PathImage, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked }, true, true);
             }
             catch { }
         }
@@ -663,8 +665,8 @@ namespace CtrlUI
                 SettingSave("AppFirstLaunch", "False");
 
                 //Add default uwp applications to the list
-                AddAppToList(new DataBindApp() { Type = "UWP", Category = "App", Name = "Microsoft Edge", NameExe = "MicrosoftEdge.exe", PathExe = "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge", LaunchKeyboard = true }, true, true);
-                AddAppToList(new DataBindApp() { Type = "UWP", Category = "App", Name = "Xbox", NameExe = "XboxApp.exe", PathExe = "Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp" }, true, true);
+                AddAppToList(new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.App, Name = "Microsoft Edge", NameExe = "MicrosoftEdge.exe", PathExe = "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge", LaunchKeyboard = true }, true, true);
+                AddAppToList(new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.App, Name = "Xbox", NameExe = "XboxApp.exe", PathExe = "Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp" }, true, true);
 
                 //Check for applications in current user registry
                 using (RegistryKey RegisteryKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
@@ -678,7 +680,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "App", Name = "Kodi", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Kodi", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Kodi.IsEnabled = false;
@@ -696,7 +698,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Steam", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), Argument = "-bigpicture", QuickLaunch = true }, true, true);
+                                AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Steam", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), Argument = "-bigpicture", QuickLaunch = true }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Steam.IsEnabled = false;
@@ -718,7 +720,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Origin", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Origin", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Origin.IsEnabled = false;
@@ -736,7 +738,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "GoG", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "GoG", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_GoG.IsEnabled = false;
@@ -754,7 +756,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Uplay", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Uplay", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Uplay.IsEnabled = false;
@@ -772,7 +774,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Battle.net", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Battle.net", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Battle.IsEnabled = false;
@@ -790,7 +792,7 @@ namespace CtrlUI
                             if (File.Exists(RegKeyExePath))
                             {
                                 //Add application to the list
-                                AddAppToList(new DataBindApp() { Type = "Win32", Category = "App", Name = "Remote Play", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
+                                AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Remote Play", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) }, true, true);
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_PS4Remote.IsEnabled = false;
@@ -805,7 +807,7 @@ namespace CtrlUI
                 if (File.Exists(SpotifyExePath))
                 {
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = "Win32", Category = "App", Name = "Spotify", PathExe = SpotifyExePath, PathLaunch = Path.GetDirectoryName(SpotifyExePath) }, true, true);
+                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Spotify", PathExe = SpotifyExePath, PathLaunch = Path.GetDirectoryName(SpotifyExePath) }, true, true);
 
                     //Disable the icon after selection
                     grid_Popup_Welcome_button_Spotify.IsEnabled = false;

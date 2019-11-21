@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
@@ -69,23 +70,37 @@ namespace CtrlUI
             }
         }
 
+        //Convert Process to a ProcessMulti
+        ProcessMulti ConvertProcessToProcessMulti(Process convertProcess)
+        {
+            ProcessMulti convertedProcess = new ProcessMulti();
+            try
+            {
+                convertedProcess.ProcessId = convertProcess.Id;
+                convertedProcess.ProcessThreads = convertProcess.Threads;
+                convertedProcess.WindowHandle = convertProcess.MainWindowHandle;
+            }
+            catch { }
+            return convertedProcess;
+        }
+
         //Check which launch method needs to be used
         async Task LaunchProcessSelector(DataBindApp LaunchApp)
         {
             try
             {
-                if (LaunchApp.Category == "Process")
+                if (LaunchApp.Category == AppCategory.Process)
                 {
                     //Check if process has multiple windows
                     IntPtr ProcessWindowHandle = IntPtr.Zero;
-                    if (LaunchApp.Type == "UWP")
+                    if (LaunchApp.Type == ProcessType.UWP)
                     {
                         ProcessWindowHandle = LaunchApp.WindowHandle;
                     }
                     else
                     {
-                        Process ShowProcess = GetProcessById(LaunchApp.ProcessId);
-                        ProcessWindowHandle = await CheckMultiWindowWin32(LaunchApp.Name, ShowProcess);
+                        ProcessMulti multiProcess = ConvertProcessToProcessMulti(GetProcessById(LaunchApp.ProcessId));
+                        ProcessWindowHandle = await CheckProcessMultiWindowWin32(LaunchApp.Name, multiProcess);
                     }
 
                     if (ProcessWindowHandle != IntPtr.Zero)
@@ -112,7 +127,7 @@ namespace CtrlUI
                         Process.Start(LaunchApp.PathExe);
                         appLaunched = true;
                     }
-                    else if (LaunchApp.Category == "Emulator")
+                    else if (LaunchApp.Category == AppCategory.Emulator)
                     {
                         appLaunched = await LaunchProcessDatabindWin32Emulator(LaunchApp);
                     }
@@ -122,7 +137,7 @@ namespace CtrlUI
                     }
                     else
                     {
-                        if (LaunchApp.Type == "UWP")
+                        if (LaunchApp.Type == ProcessType.UWP || LaunchApp.Type == ProcessType.Win32Store)
                         {
                             appLaunched = await LaunchProcessDatabindUwp(LaunchApp);
                         }

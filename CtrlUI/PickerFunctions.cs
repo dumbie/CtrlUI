@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVInterface;
+using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -578,7 +579,7 @@ namespace CtrlUI
                 else if (ButtonName == "btn_Settings_AppQuickLaunch")
                 {
                     //Add all apps to the string list
-                    vFilePickerStrings = CombineAppLists(false, false).Select(x => new[] { x.Name, x.Category }).ToArray();
+                    vFilePickerStrings = CombineAppLists(false, false).Select(x => new[] { x.Name, x.Category.ToString() }).ToArray();
 
                     vFilePickerFilterIn = new string[] { };
                     vFilePickerFilterOut = new string[] { };
@@ -764,7 +765,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Steam", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile), Argument = "-bigpicture", QuickLaunch = true }, true, true);
+                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Steam", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile), Argument = "-bigpicture", QuickLaunch = true }, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -787,7 +788,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Origin", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Origin", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -810,7 +811,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Uplay", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Uplay", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -833,7 +834,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "GoG", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "GoG", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -856,7 +857,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = "Win32", Category = "Game", Name = "Battle.net", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Battle.net", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -879,7 +880,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = "Win32", Category = "App", Name = "Remote Play", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Remote Play", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -902,7 +903,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = "Win32", Category = "App", Name = "Kodi", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Kodi", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -925,7 +926,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = "Win32", Category = "App", Name = "Spotify", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Spotify", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;

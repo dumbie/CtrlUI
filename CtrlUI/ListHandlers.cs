@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
@@ -73,11 +74,11 @@ namespace CtrlUI
                 if (ListboxSender.SelectedItems.Count > 0 && ListboxSelectedIndex != -1)
                 {
                     DataBindApp SelectedItem = (DataBindApp)ListboxSender.SelectedItem;
-                    if (SelectedItem.Category == "Process")
+                    if (SelectedItem.Category == AppCategory.Process)
                     {
                         await RightClickProcess(ListboxSender, ListboxSelectedIndex, SelectedItem);
                     }
-                    else if (SelectedItem.Category == "Shortcut")
+                    else if (SelectedItem.Category == AppCategory.Shortcut)
                     {
                         await RightClickShortcut(ListboxSender, ListboxSelectedIndex, SelectedItem);
                     }
@@ -226,7 +227,7 @@ namespace CtrlUI
         {
             try
             {
-                if (SelectedItem.Type == "UWP" || SelectedItem.Type == "Win32Store")
+                if (SelectedItem.Type == ProcessType.UWP || SelectedItem.Type == ProcessType.Win32Store)
                 {
                     //Get the process running time
                     string ProcessRunningTime = ApplicationRuntimeString(SelectedItem.RunningTime, "process");

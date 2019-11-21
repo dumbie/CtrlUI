@@ -50,17 +50,17 @@ namespace CtrlUI
         }
 
         //Check Uwp process has multiple processes
-        async Task<ProcessMultipleCheck> CheckMultiProcessUwp(DataBindApp LaunchApp)
+        async Task<ProcessMulti> CheckMultiProcessUwp(DataBindApp LaunchApp)
         {
             try
             {
                 List<DataBindString> multiAnswers = new List<DataBindString>();
-                List<ProcessUwp> multiVariables = UwpGetProcessFromAppUserModelId(LaunchApp.PathExe);
+                List<ProcessMulti> multiVariables = UwpGetProcessFromAppUserModelId(LaunchApp.PathExe);
                 if (multiVariables.Any())
                 {
                     if (multiVariables.Count > 1)
                     {
-                        foreach (ProcessUwp multiProcess in multiVariables)
+                        foreach (ProcessMulti multiProcess in multiVariables)
                         {
                             try
                             {
@@ -97,49 +97,45 @@ namespace CtrlUI
                         {
                             if (Result == Answer2)
                             {
-                                ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                                ProcessMultipleCheckNew.Status = "CloseAll";
-                                return ProcessMultipleCheckNew;
+                                ProcessMulti processMultiNew = new ProcessMulti();
+                                processMultiNew.Status = "CloseAll";
+                                return processMultiNew;
                             }
                             else if (Result == cancelString)
                             {
-                                ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                                ProcessMultipleCheckNew.Status = "Cancel";
-                                return ProcessMultipleCheckNew;
+                                ProcessMulti processMultiNew = new ProcessMulti();
+                                processMultiNew.Status = "Cancel";
+                                return processMultiNew;
                             }
                             else
                             {
-                                ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                                ProcessMultipleCheckNew.ProcessUwp = multiVariables[multiAnswers.IndexOf(Result)];
-                                return ProcessMultipleCheckNew;
+                                return multiVariables[multiAnswers.IndexOf(Result)];
                             }
                         }
                         else
                         {
-                            ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                            ProcessMultipleCheckNew.Status = "Cancel";
-                            return ProcessMultipleCheckNew;
+                            ProcessMulti processMultiNew = new ProcessMulti();
+                            processMultiNew.Status = "Cancel";
+                            return processMultiNew;
                         }
                     }
                     else
                     {
-                        ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                        ProcessMultipleCheckNew.ProcessUwp = multiVariables.FirstOrDefault();
-                        return ProcessMultipleCheckNew;
+                        return multiVariables.FirstOrDefault();
                     }
                 }
                 else
                 {
-                    ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                    ProcessMultipleCheckNew.Status = "NoProcess";
-                    return ProcessMultipleCheckNew;
+                    ProcessMulti processMultiNew = new ProcessMulti();
+                    processMultiNew.Status = "NoProcess";
+                    return processMultiNew;
                 }
             }
             catch
             {
-                ProcessMultipleCheck ProcessMultipleCheckNew = new ProcessMultipleCheck();
-                ProcessMultipleCheckNew.Status = "NoProcess";
-                return ProcessMultipleCheckNew;
+                ProcessMulti processMultiNew = new ProcessMulti();
+                processMultiNew.Status = "NoProcess";
+                return processMultiNew;
             }
         }
 
@@ -148,21 +144,26 @@ namespace CtrlUI
         {
             try
             {
-                //Improve: add Win32Store restarting support
                 Debug.WriteLine("Checking launch process UWP: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
 
-                //Check Uwp process has multiple processes
-                ProcessMultipleCheck ProcessMultipleCheck = await CheckMultiProcessUwp(LaunchApp);
-                if (ProcessMultipleCheck.Status == "NoProcess") { return true; }
-                if (ProcessMultipleCheck.Status == "Cancel") { return false; }
+                //Check if uwp app has any processes
+                ProcessMulti processMultipleCheck = await CheckMultiProcessUwp(LaunchApp);
+                if (processMultipleCheck.Status == "NoProcess")
+                {
+                    //Check if Win32Store app has any processes
+                    Debug.WriteLine("Found no uwp process, checking for Win32Store process.");
+                    processMultipleCheck = await CheckMultiProcessWin32(LaunchApp);
+                }
 
-                //Close all the processes
-                if (ProcessMultipleCheck.Status == "CloseAll")
+                //Check the multiple check result
+                if (processMultipleCheck.Status == "NoProcess") { return true; }
+                if (processMultipleCheck.Status == "Cancel") { return false; }
+                if (processMultipleCheck.Status == "CloseAll")
                 {
                     Popup_Show_Status("Closing", "Closing " + LaunchApp.Name);
                     Debug.WriteLine("Closing uwp processes: " + LaunchApp.Name + " / " + LaunchApp.ProcessId + " / " + LaunchApp.WindowHandle);
 
-                    //Check the process id
+                    //Get the process id by window handle
                     if (LaunchApp.ProcessId <= 0)
                     {
                         LaunchApp.ProcessId = await GetUwpProcessIdByWindowHandle(LaunchApp.Name, LaunchApp.PathExe, LaunchApp.WindowHandle);
@@ -225,16 +226,17 @@ namespace CtrlUI
                         if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                         //Force focus on the app
-                        FocusProcessWindowPrepare(LaunchApp.Name, ProcessMultipleCheck.ProcessUwp.ProcessId, ProcessMultipleCheck.ProcessUwp.WindowHandle, 0, false, false, false);
+                        FocusProcessWindowPrepare(LaunchApp.Name, processMultipleCheck.ProcessId, processMultipleCheck.WindowHandle, 0, false, false, false);
+
                         return false;
                     }
                     else if (Result == Answer2)
                     {
                         Popup_Show_Status("Closing", "Closing " + LaunchApp.Name);
-                        Debug.WriteLine("Closing uwp application: " + LaunchApp.Name + " / " + ProcessMultipleCheck.ProcessUwp.ProcessId + " / " + ProcessMultipleCheck.ProcessUwp.WindowHandle);
+                        Debug.WriteLine("Closing uwp application: " + LaunchApp.Name + " / " + processMultipleCheck.ProcessId + " / " + processMultipleCheck.WindowHandle);
 
                         //Close the process or app
-                        bool ClosedProcess = await CloseProcessUwpByWindowHandle(LaunchApp.Name, ProcessMultipleCheck.ProcessUwp.ProcessId, ProcessMultipleCheck.ProcessUwp.WindowHandle);
+                        bool ClosedProcess = await CloseProcessUwpByWindowHandle(LaunchApp.Name, processMultipleCheck.ProcessId, processMultipleCheck.WindowHandle);
                         if (ClosedProcess)
                         {
                             //Updating running status
@@ -257,7 +259,7 @@ namespace CtrlUI
                         Popup_Show_Status("Switch", "Restarting " + LaunchApp.Name);
                         Debug.WriteLine("Restarting uwp application: " + LaunchApp.Name);
 
-                        await RestartProcessUwp(LaunchApp.Name, LaunchApp.PathExe, LaunchApp.Argument, ProcessMultipleCheck.ProcessUwp.ProcessId, ProcessMultipleCheck.ProcessUwp.WindowHandle);
+                        await RestartProcessUwp(LaunchApp.Name, LaunchApp.PathExe, LaunchApp.Argument, processMultipleCheck.ProcessId, processMultipleCheck.WindowHandle);
                         return false;
                     }
                     else if (Result == Answer4)
@@ -276,10 +278,10 @@ namespace CtrlUI
                     return false;
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 Popup_Show_Status("Close", "Failed showing or closing app");
-                Debug.WriteLine("Failed closing or showing the application.");
+                Debug.WriteLine("Failed closing or showing the app: " + ex.Message);
             }
             return true;
         }
@@ -422,7 +424,7 @@ namespace CtrlUI
                                 int ProcessRunningTime = ProcessRuntimeMinutes(GetProcessById(ProcessId));
 
                                 //Check if process is already in process list and update it
-                                DataBindApp ProcessApp = List_Processes.Where(z => z.WindowHandle == WindowHandle && z.Type == "UWP").FirstOrDefault();
+                                DataBindApp ProcessApp = List_Processes.Where(z => z.WindowHandle == WindowHandle && z.Type == ProcessType.UWP).FirstOrDefault();
                                 if (ProcessApp != null)
                                 {
                                     if (ProcessId != -1 && ProcessApp.ProcessId != ProcessId) { ProcessApp.ProcessId = ProcessId; }
@@ -444,7 +446,7 @@ namespace CtrlUI
                                 //Add the process to the list
                                 AVActions.ActionDispatcherInvoke(delegate
                                 {
-                                    List_Processes.Add(new DataBindApp() { Type = "UWP", Category = "Process", ProcessId = ProcessId, WindowHandle = WindowHandle, ImageBitmap = AppBitmapImage, Name = ProcessTitle, ProcessName = ProcessTitle, PathExe = ProcessExecutablePath, StatusStore = StoreStatus, RunningTime = ProcessRunningTime });
+                                    List_Processes.Add(new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.Process, ProcessId = ProcessId, WindowHandle = WindowHandle, ImageBitmap = AppBitmapImage, Name = ProcessTitle, ProcessName = ProcessTitle, PathExe = ProcessExecutablePath, StatusStore = StoreStatus, RunningTime = ProcessRunningTime });
                                 });
                             }
                         }
@@ -454,7 +456,7 @@ namespace CtrlUI
                     //Remove no longer running and invalid processes
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => !ActiveProcesses.Contains(x.WindowHandle) && x.Type == "UWP");
+                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => !ActiveProcesses.Contains(x.WindowHandle) && x.Type == ProcessType.UWP);
                     });
                 }
                 else
@@ -462,7 +464,7 @@ namespace CtrlUI
                     //There is no uwp application running
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => x.Type == "UWP");
+                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => x.Type == ProcessType.UWP);
                     });
                 }
             }
@@ -561,7 +563,7 @@ namespace CtrlUI
                 bool UpdatedImages = false;
 
                 //Update all the uwp apps image paths
-                foreach (DataBindApp ListApp in CombineAppLists(false, false).Where(x => x.Type == "UWP" || x.Type == "Win32Store"))
+                foreach (DataBindApp ListApp in CombineAppLists(false, false).Where(x => x.Type == ProcessType.UWP || x.Type == ProcessType.Win32Store))
                 {
                     try
                     {

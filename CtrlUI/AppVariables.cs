@@ -109,7 +109,7 @@ namespace CtrlUI
         //Manage Variables
         public static ListBox vEditAppListBox = null;
         public static DataBindApp vEditAppDataBind = null;
-        public static string vEditAppCategoryPrevious = string.Empty;
+        public static AppCategory vEditAppCategoryPrevious = AppCategory.App;
 
         //Controller Variables
         public static int vControllerActiveId = 0;

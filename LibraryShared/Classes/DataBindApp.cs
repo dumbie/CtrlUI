@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.ProcessClasses;
 
 namespace LibraryShared
 {
@@ -24,8 +25,8 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivCategory;
-            public string Category
+            private AppCategory PrivCategory;
+            public AppCategory Category
             {
                 get { return this.PrivCategory; }
                 set
@@ -38,8 +39,8 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivType;
-            public string Type
+            private ProcessType PrivType;
+            public ProcessType Type
             {
                 get { return this.PrivType; }
                 set
