@@ -79,7 +79,7 @@ namespace CtrlUI
         }
 
         //Get all the shortcuts and update the list
-        async Task ListLoadShortcuts(bool ShowStatus)
+        async Task ListLoadShortcuts(bool showStatus)
         {
             try
             {
@@ -92,6 +92,12 @@ namespace CtrlUI
                     List_Shortcuts.Clear();
                     GC.Collect();
                     return;
+                }
+
+                //Show refresh status message
+                if (showStatus)
+                {
+                    Popup_Show_Status("Refresh", "Refreshing shortcuts");
                 }
 
                 //Get all files from the shortcut directories
@@ -116,12 +122,6 @@ namespace CtrlUI
                 //Sort and filter the list by shortcut name
                 directoryShortcuts = directoryShortcuts.OrderBy(x => x.Name);
 
-                //Show refresh status message
-                if (ShowStatus)
-                {
-                    Popup_Show_Status("Refresh", "Refreshing shortcuts");
-                }
-
                 //Remove shortcuts that are no longer available from the list
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
@@ -133,42 +133,45 @@ namespace CtrlUI
                 {
                     try
                     {
+                        //Read shortcut file information
+                        ShortcutDetails shortcutDetails = ReadShortcutFile(file.FullName);
+                        string targetPathLower = shortcutDetails.TargetPath.ToLower();
                         string fileNameStripped = file.Name.Replace(".lnk", string.Empty).Replace(".url", string.Empty).Replace(".exe - Shortcut", string.Empty).Replace(" - Shortcut", string.Empty);
+
+                        //Check if already in combined list and remove it
+                        if (CombineAppLists(false, false).Any(x => x.PathExe.ToLower() == targetPathLower))
+                        {
+                            //Debug.WriteLine("Shortcut is already in other list: " + targetPathLower);
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate
+                            {
+                                await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
+                            });
+                            continue;
+                        }
+
+                        //Check if shortcut is already in the shortcut list
+                        if (List_Shortcuts.Any(x => x.PathExe.ToLower() == targetPathLower))
+                        {
+                            //Debug.WriteLine("Shortcut is already in list skipping: " + targetPathLower);
+                            continue;
+                        }
 
                         //Check if shortcut is in shortcut blacklist
                         if (vAppsBlacklistShortcut.Any(x => x.ToLower() == fileNameStripped.ToLower()))
                         {
-                            //Debug.WriteLine("Shortcut is on the blacklist skipping: " + fileNameStripped);
+                            //Debug.WriteLine("Shortcut is on the blacklist skipping: " + fileNameStripped.ToLower());
                             continue;
                         }
 
-                        //Check if shortcut is already in the list
-                        if (List_Shortcuts.Any(x => x.ShortcutPath.ToLower() == file.FullName.ToLower()))
+                        //Check if shortcut uri is in shortcut uri blacklist
+                        if (vAppsBlacklistShortcutUri.Any(x => targetPathLower.Contains(x.ToLower())))
                         {
-                            //Debug.WriteLine("Shortcut is already in list skipping: " + fileNameStripped);
+                            //Debug.WriteLine("Shortcut uri is on the uri blacklist skipping: " + targetPathLower);
                             continue;
                         }
 
-                        //Read shortcut file information
-                        ShortcutDetails shortcutDetails = ReadShortcutFile(file.FullName);
-                        string TargetPathLower = shortcutDetails.TargetPath.ToLower();
-
-                        //Check if shortcut uri is in blacklist
-                        if (vAppsBlacklistShortcutUri.Any(x => TargetPathLower.Contains(x.ToLower())))
-                        {
-                            //Debug.WriteLine("Shortcut is on the uri blacklist skipping: " + TargetPathLower);
-                            continue;
-                        }
-
-                        //Check if shortcut is already in the list
-                        if (List_Shortcuts.Any(x => x.PathExe.ToLower() == TargetPathLower))
-                        {
-                            //Debug.WriteLine("Shortcut is already in list skipping: " + TargetPathLower);
-                            continue;
-                        }
-
-                        //Add the shortcut to list
-                        await ShortcutAddToListWithDetails(shortcutDetails);
+                        //Add shortcut to the shortcuts list
+                        ShortcutAddToListWithDetails(shortcutDetails);
                     }
                     catch { }
                 }
@@ -179,7 +182,8 @@ namespace CtrlUI
             }
         }
 
-        async Task ShortcutAddToListWithDetails(ShortcutDetails shortcutDetails)
+        //Add shortcut to the shortcuts list
+        void ShortcutAddToListWithDetails(ShortcutDetails shortcutDetails)
         {
             try
             {
@@ -195,17 +199,6 @@ namespace CtrlUI
                 Visibility shortcutLauncher = Visibility.Collapsed;
                 Visibility shortcutWindowStore = Visibility.Collapsed;
                 ProcessType shortcutProcessType = ProcessType.Win32;
-
-                //Check if already in combined list and remove it
-                if (CombineAppLists(false, false).Any(x => x.PathExe.ToLower() == targetPathLower))
-                {
-                    //Debug.WriteLine("Shortcut is already in other list: " + TargetPathLower);
-                    await AVActions.ActionDispatcherInvokeAsync(async delegate
-                    {
-                        await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
-                    });
-                    return;
-                }
 
                 //Check if executable or launcher app shortcut
                 if (targetPathLower.EndsWith(".exe"))

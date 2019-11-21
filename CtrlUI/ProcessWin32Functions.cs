@@ -737,15 +737,17 @@ namespace CtrlUI
 
                             //Get the executable path
                             string ProcessExecutablePath = GetExecutablePathFromProcess(AllProcess);
+                            string ProcessExecutablePathLowerName = Path.GetFileNameWithoutExtension(ProcessExecutablePath.ToLower());
 
                             //Check if already in combined list and remove it
                             if (ConfigurationManager.AppSettings["HideAppProcesses"] == "True")
                             {
-                                if (CurrentApps.Any(x => Path.GetFileNameWithoutExtension(x.PathExe.ToLower()) == Path.GetFileNameWithoutExtension(ProcessExecutablePath.ToLower())))
+                                if (CurrentApps.Any(x => Path.GetFileNameWithoutExtension(x.PathExe.ToLower()) == ProcessExecutablePathLowerName))
                                 {
+                                    //Debug.WriteLine("Process is already in other list: " + ProcessExecutablePathLowerName);
                                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                                     {
-                                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => Path.GetFileNameWithoutExtension(x.PathExe.ToLower()) == Path.GetFileNameWithoutExtension(ProcessExecutablePath.ToLower()));
+                                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => Path.GetFileNameWithoutExtension(x.PathExe.ToLower()) == ProcessExecutablePathLowerName);
                                     });
                                     continue;
                                 }
