@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using static ArnoldVinkCode.ProcessClasses;
+using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -27,10 +28,22 @@ namespace CtrlUI
                     AddApp.Number = GetHighestAppNumber();
                 }
 
-                //Check if the exe file is available
-                if (AddApp.Type != ProcessType.UWP && !File.Exists(AddApp.PathExe))
+                //Check if Win32 application still exists
+                if (AddApp.Type == ProcessType.Win32)
                 {
-                    AddApp.StatusAvailable = Visibility.Visible;
+                    if (!File.Exists(AddApp.PathExe))
+                    {
+                        AddApp.StatusAvailable = Visibility.Visible;
+                    }
+                }
+
+                //Check if UWP or Win32Store application still exists
+                if (AddApp.Type == ProcessType.UWP || AddApp.Type == ProcessType.Win32Store)
+                {
+                    if (UwpGetAppPackageFromAppUserModelId(AddApp.PathExe) == null)
+                    {
+                        AddApp.StatusAvailable = Visibility.Visible;
+                    }
                 }
 
                 //Check if the rom folder is available

@@ -322,7 +322,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        Debug.WriteLine("Checking application status: " + ListApp.Type + "/" + ListApp.Category + "/" + ListApp.Name + "/" + ListApp.PathExe);
+                        //Debug.WriteLine("Checking application status: " + ListApp.Type + "/" + ListApp.Category + "/" + ListApp.Name + "/" + ListApp.PathExe);
                         string targetProcessName = string.Empty;
 
                         //Check UWP app user model id

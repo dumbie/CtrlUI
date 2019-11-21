@@ -24,7 +24,7 @@ namespace CtrlUI
         {
             try
             {
-                //Check if the application exe file exists
+                //Check if the application exists
                 if (!File.Exists(PathExe))
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
@@ -157,7 +157,7 @@ namespace CtrlUI
                             }
                             else
                             {
-                                return ConvertProcessToProcessMulti(multiVariables[multiAnswers.IndexOf(Result)]);
+                                return ConvertProcessToProcessMulti(ProcessType.Win32, multiVariables[multiAnswers.IndexOf(Result)]);
                             }
                         }
                         else
@@ -169,7 +169,7 @@ namespace CtrlUI
                     }
                     else
                     {
-                        return ConvertProcessToProcessMulti(multiVariables.FirstOrDefault());
+                        return ConvertProcessToProcessMulti(ProcessType.Win32, multiVariables.FirstOrDefault());
                     }
                 }
                 else

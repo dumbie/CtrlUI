@@ -71,11 +71,12 @@ namespace CtrlUI
         }
 
         //Convert Process to a ProcessMulti
-        ProcessMulti ConvertProcessToProcessMulti(Process convertProcess)
+        ProcessMulti ConvertProcessToProcessMulti(ProcessType processType, Process convertProcess)
         {
             ProcessMulti convertedProcess = new ProcessMulti();
             try
             {
+                convertedProcess.Type = processType;
                 convertedProcess.ProcessId = convertProcess.Id;
                 convertedProcess.ProcessThreads = convertProcess.Threads;
                 convertedProcess.WindowHandle = convertProcess.MainWindowHandle;
@@ -99,7 +100,7 @@ namespace CtrlUI
                     }
                     else
                     {
-                        ProcessMulti multiProcess = ConvertProcessToProcessMulti(GetProcessById(LaunchApp.ProcessId));
+                        ProcessMulti multiProcess = ConvertProcessToProcessMulti(ProcessType.Win32, GetProcessById(LaunchApp.ProcessId));
                         ProcessWindowHandle = await CheckProcessMultiWindowWin32(LaunchApp.Name, multiProcess);
                     }
 

@@ -29,6 +29,14 @@ namespace CtrlUI
         {
             try
             {
+                //Check if the application exists
+                if (UwpGetAppPackageFromAppUserModelId(PathExe) == null)
+                {
+                    Popup_Show_Status("Close", "Application not found");
+                    Debug.WriteLine("Launch application not found, possibly uninstalled.");
+                    return;
+                }
+
                 //Show launching message
                 if (!Silent)
                 {
