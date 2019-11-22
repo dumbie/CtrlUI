@@ -8,8 +8,8 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
-using static LibraryShared.Classes;
-using static LibraryShared.OutputKeyboard;
+using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputKeyboard;
 
 namespace CtrlUI
 {

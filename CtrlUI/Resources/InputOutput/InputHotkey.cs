@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows.Interop;
-using static LibraryShared.Classes;
+using static ArnoldVinkCode.AVInputOutputClass;
 
 namespace CtrlUI
 {

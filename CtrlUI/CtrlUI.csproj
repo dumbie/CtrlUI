@@ -102,13 +102,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainStyles.xaml.cs">
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml.cs">
       <Link>Styles\MainStyles.xaml.cs</Link>
+      <DependentUpon>MainStyles.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\ScrollViewerLoopCode.cs">
-      <Link>Styles\ScrollViewerLoopCode.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\TextBoxPlaceholderCode.cs">
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\TextBoxPlaceholderCode.cs">
       <Link>Styles\TextBoxPlaceholderCode.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -126,6 +124,7 @@
     <Compile Include="AppVariables.cs" />
     <Compile Include="SearchHandlers.cs" />
     <Compile Include="SocketHandlers.cs" />
+    <Compile Include="Styles\ScrollViewerLoopCode.cs" />
     <Compile Include="SwitchDisplayMonitor.cs" />
     <Compile Include="SwitchAudioDevice.cs" />
     <Compile Include="ControllerFunctions.cs" />
@@ -160,27 +159,27 @@
     <Compile Include="Resources\Settings\SettingsSave.cs" />
     <Compile Include="Resources\Settings\SettingsCheck.cs" />
     <Compile Include="SettingsFunctions.cs" />
-    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\ControlTemplates.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates.xaml">
       <Link>Styles\ControlTemplates.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainColors.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\MainColors.xaml">
       <Link>Styles\MainColors.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainStyles.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml">
       <Link>Styles\MainStyles.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\Scrollbar.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\Scrollbar.xaml">
       <Link>Styles\Scrollbar.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\DataTemplates.xaml">
+    <Page Include="Styles\DataTemplates\DataTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,9 +5,9 @@ using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static KeyboardController.AppVariables;
-using static LibraryShared.Classes;
-using static LibraryShared.OutputKeyboard;
 
 namespace KeyboardController
 {

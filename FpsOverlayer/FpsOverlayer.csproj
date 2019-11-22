@@ -103,16 +103,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkColorPicker\ColorPicker.xaml.cs">
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorPicker.xaml.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorPicker.xaml.cs</Link>
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkColorPicker\ColorSelector.xaml.cs">
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.xaml.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.xaml.cs</Link>
+      <DependentUpon>ColorSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainStyles.xaml.cs">
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml.cs">
       <Link>Styles\MainStyles.xaml.cs</Link>
+      <DependentUpon>MainStyles.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Xaml\Desktop\TextBoxPlaceholderCode.cs">
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\TextBoxPlaceholderCode.cs">
       <Link>Styles\TextBoxPlaceholderCode.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -135,32 +138,32 @@
     <Compile Include="MonitorFps.cs" />
     <Compile Include="MonitorHardware.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Page Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkColorPicker\ColorPicker.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorPicker.xaml">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorPicker.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkColorPicker\ColorSelector.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.xaml">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\ControlTemplates.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates.xaml">
       <Link>Styles\ControlTemplates.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainColors.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\MainColors.xaml">
       <Link>Styles\MainColors.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\MainStyles.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml">
       <Link>Styles\MainStyles.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\..\ArnoldVinkCode\Xaml\Desktop\Scrollbar.xaml">
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\Scrollbar.xaml">
       <Link>Styles\Scrollbar.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -187,7 +190,7 @@
   <ItemGroup>
     <Resource Include="Assets\Icons\Down.png" />
     <Resource Include="Assets\Icons\Up.png" />
-    <Resource Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkColorPicker\ColorSelector.png">
+    <Resource Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.png">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.png</Link>
     </Resource>
     <Content Include="Resources\LibreHardwareMonitorLib.dll">

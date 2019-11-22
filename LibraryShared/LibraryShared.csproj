@@ -58,82 +58,95 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\ArnoldVinkCode\Extensions\AVExtensions.cs">
-      <Link>ArnoldVinkCode\Extensions\AVExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessClasses.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessClasses.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessNtQueryInformation.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessNtQueryInformation.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessUwpFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessUwpFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkProcesses\ProcessWin32Functions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkSockets\SocketClass.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClass.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkSockets\SocketClient.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClient.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkSockets\SocketServer.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketServer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\ArnoldVinkSockets\SocketVariables.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketVariables.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVActions.cs">
-      <Link>ArnoldVinkCode\Functions\AVActions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVAnimations.cs">
-      <Link>ArnoldVinkCode\Functions\AVAnimations.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVClassConverters.cs">
-      <Link>ArnoldVinkCode\Functions\AVClassConverters.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVDownloader.cs">
-      <Link>ArnoldVinkCode\Functions\AVDownloader.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\AVFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVInterface.cs">
-      <Link>ArnoldVinkCode\Functions\AVInterface.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVSwitchAudioDevice\AVSwitchAudioDevice.cs">
-      <Link>ArnoldVinkCode\Functions\AVSwitchAudioDevice\AVSwitchAudioDevice.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVSwitchAudioDevice\IMMDevice\IMMDevice.cs">
-      <Link>ArnoldVinkCode\Functions\AVSwitchAudioDevice\IMMDevice\IMMDevice.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVSwitchAudioDevice\IMMDevice\PolicyConfig.cs">
-      <Link>ArnoldVinkCode\Functions\AVSwitchAudioDevice\IMMDevice\PolicyConfig.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVSwitchDisplayMonitor\AVSwitchDisplayMonitor.cs">
-      <Link>ArnoldVinkCode\Functions\AVSwitchDisplayMonitor\AVSwitchDisplayMonitor.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Functions\Desktop\AVSwitchDisplayMonitor\InteropDll.cs">
-      <Link>ArnoldVinkCode\Functions\AVSwitchDisplayMonitor\InteropDll.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Interop\Desktop\AVInteropCom.cs">
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Interop\Desktop\AVInteropDll.cs">
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropDll.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropDll.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputClass.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputClass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputKeyboard.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputKeyboard.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputMouse.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputMouse.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ClassAppxDetails.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ClassAppxDetails.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ClassAppxFactory.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ClassAppxFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessClasses.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessClasses.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessFunctions.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessNtQueryInformation.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessNtQueryInformation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessUwpFunctions.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessUwpFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClass.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClient.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketServer.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketServer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketVariables.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketVariables.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVActions.cs">
+      <Link>ArnoldVinkCode\Functions\AVActions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAnimations.cs">
+      <Link>ArnoldVinkCode\Functions\AVAnimations.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVClassConverters.cs">
+      <Link>ArnoldVinkCode\Functions\AVClassConverters.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDownloader.cs">
+      <Link>ArnoldVinkCode\Functions\AVDownloader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFunctions.cs">
+      <Link>ArnoldVinkCode\Functions\AVFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVInterface.cs">
+      <Link>ArnoldVinkCode\Functions\AVInterface.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSwitchAudioDevice\AVSwitchAudioDevice.cs">
+      <Link>ArnoldVinkCode\Functions\AVSwitchAudioDevice\AVSwitchAudioDevice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSwitchAudioDevice\IMMDevice\IMMDevice.cs">
+      <Link>ArnoldVinkCode\Functions\AVSwitchAudioDevice\IMMDevice\IMMDevice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSwitchAudioDevice\IMMDevice\PolicyConfig.cs">
+      <Link>ArnoldVinkCode\Functions\AVSwitchAudioDevice\IMMDevice\PolicyConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSwitchDisplayMonitor\AVSwitchDisplayMonitor.cs">
+      <Link>ArnoldVinkCode\Functions\AVSwitchDisplayMonitor\AVSwitchDisplayMonitor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSwitchDisplayMonitor\InteropDll.cs">
+      <Link>ArnoldVinkCode\Functions\AVSwitchDisplayMonitor\InteropDll.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Shared\Extensions\AVExtensions.cs">
+      <Link>ArnoldVinkCode\Extensions\AVExtensions.cs</Link>
     </Compile>
     <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="AppLaunchCheck.cs" />
     <Compile Include="Classes\AppCategory.cs" />
-    <Compile Include="Classes\AppxDetails.cs" />
-    <Compile Include="Classes\AppxFactory.cs" />
     <Compile Include="Classes\FrameworkElementFocus.cs" />
     <Compile Include="Classes\ControllerStatusSummary.cs" />
     <Compile Include="Classes\ShortcutDetails.cs" />
@@ -147,9 +160,6 @@
     <Compile Include="Classes\ControllerSupported.cs" />
     <Compile Include="Classes\DataBindApp.cs" />
     <Compile Include="Classes\DataBindFile.cs" />
-    <Compile Include="Classes\KeysVirtual.cs" />
-    <Compile Include="InputOutput\OutputKeyboard.cs" />
-    <Compile Include="InputOutput\OutputMouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

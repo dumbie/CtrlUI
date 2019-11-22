@@ -2,10 +2,11 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVInputOutputMouse;
 using static KeyboardController.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.OutputKeyboard;
-using static LibraryShared.OutputMouse;
 
 namespace KeyboardController
 {

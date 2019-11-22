@@ -8,13 +8,13 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVInputOutputMouse;
 using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
 using static KeyboardController.AppVariables;
-using static LibraryShared.Classes;
-using static LibraryShared.OutputKeyboard;
-using static LibraryShared.OutputMouse;
 
 namespace KeyboardController
 {
