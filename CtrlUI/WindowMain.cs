@@ -133,7 +133,7 @@ namespace CtrlUI
                 ValidateAppNumbers();
 
                 //Update uwp application images
-                UpdateUwpAppImages();
+                UpdateUwpApplicationImages();
 
                 //Start application tasks
                 TasksBackgroundStart();

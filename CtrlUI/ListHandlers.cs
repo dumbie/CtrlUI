@@ -227,6 +227,7 @@ namespace CtrlUI
         {
             try
             {
+                //Improve: detect if selected item is Win32Store properly
                 if (SelectedItem.Type == ProcessType.UWP || SelectedItem.Type == ProcessType.Win32Store)
                 {
                     //Get the process running time
@@ -257,7 +258,7 @@ namespace CtrlUI
                             Debug.WriteLine("Closing uwp process: " + SelectedItem.Name + " / " + SelectedItem.ProcessId + " / " + SelectedItem.WindowHandle);
 
                             //Close the process or app
-                            bool ClosedProcess = await CloseProcessUwpByWindowHandle(SelectedItem.Name, SelectedItem.ProcessId, SelectedItem.WindowHandle);
+                            bool ClosedProcess = await CloseProcessUwpByWindowHandleOrProcessId(SelectedItem.Name, SelectedItem.ProcessId, SelectedItem.WindowHandle);
                             if (ClosedProcess)
                             {
                                 //Remove application from the list

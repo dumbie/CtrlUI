@@ -740,7 +740,7 @@ namespace CtrlUI
                             //Check if the application is UWP or Win32
                             if (CheckProcessIsUwp(vPrevFocusedProcess.WindowHandle))
                             {
-                                bool ClosedProcess = await CloseProcessUwpByWindowHandle(vPrevFocusedProcess.Title, vPrevFocusedProcess.Process.Id, vPrevFocusedProcess.WindowHandle);
+                                bool ClosedProcess = await CloseProcessUwpByWindowHandleOrProcessId(vPrevFocusedProcess.Title, vPrevFocusedProcess.Process.Id, vPrevFocusedProcess.WindowHandle);
                                 if (ClosedProcess)
                                 {
                                     vPrevFocusedProcess = null;

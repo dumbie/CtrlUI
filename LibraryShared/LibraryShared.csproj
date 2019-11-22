@@ -58,6 +58,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
     </Compile>

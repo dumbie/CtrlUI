@@ -108,7 +108,7 @@ namespace CtrlUI
         {
             try
             {
-                await ProcessLauncherUwpPrepare("Xbox Companion", "Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp", string.Empty, false, false);
+                await LaunchProcessManuallyUwpAndWin32Store("Xbox Companion", "Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp", string.Empty, false, false);
             }
             catch { }
         }

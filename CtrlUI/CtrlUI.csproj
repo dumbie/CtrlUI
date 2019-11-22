@@ -114,6 +114,15 @@
     </Compile>
     <Compile Include="AppUpdate.cs" />
     <Compile Include="ColorFunctions.cs" />
+    <Compile Include="Processes\ProcessUwpCheck.cs" />
+    <Compile Include="Processes\ProcessUwpOther.cs" />
+    <Compile Include="Processes\ProcessUwpList.cs" />
+    <Compile Include="Processes\ProcessUwpClose.cs" />
+    <Compile Include="Processes\ProcessWin32Close.cs" />
+    <Compile Include="Processes\ProcessWin32StoreCheck.cs" />
+    <Compile Include="Processes\ProcessWin32Check.cs" />
+    <Compile Include="Processes\ProcessWin32StoreClose.cs" />
+    <Compile Include="Processes\ProcessWin32List.cs" />
     <Compile Include="RegistryFunctions.cs" />
     <Compile Include="QuickActionFunctions.cs" />
     <Compile Include="Resources\InputOutput\InputHotkey.cs" />
@@ -134,8 +143,8 @@
     <Compile Include="ListSorting.cs" />
     <Compile Include="MessageBoxHandlers.cs" />
     <Compile Include="MessageBoxFunctions.cs" />
-    <Compile Include="ProcessWin32Functions.cs" />
-    <Compile Include="ProcessUwpFunctions.cs" />
+    <Compile Include="Processes\ProcessWin32Launch.cs" />
+    <Compile Include="Processes\ProcessUwpLaunch.cs" />
     <Compile Include="SearchFunctions.cs" />
     <Compile Include="SoundPlayer.cs" />
     <Compile Include="InterfaceHandlers.cs" />
@@ -152,7 +161,7 @@
     <Compile Include="PopupFunctions.cs" />
     <Compile Include="Resources\ExtractIco\ExtractIco.cs" />
     <Compile Include="ShortcutFunctions.cs" />
-    <Compile Include="ProcessFunctions.cs" />
+    <Compile Include="Processes\ProcessFunctions.cs" />
     <Compile Include="PopupHandlers.cs" />
     <Compile Include="Properties\AssemblyVersion.cs" />
     <Compile Include="Resources\Settings\SettingsLoad.cs" />

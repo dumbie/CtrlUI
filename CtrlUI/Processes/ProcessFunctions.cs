@@ -71,38 +71,51 @@ namespace CtrlUI
             }
         }
 
-        //Convert Process to a ProcessMulti
-        ProcessMulti ConvertProcessToProcessMulti(ProcessType processType, Process convertProcess)
+        //Get ProcessMulti from DataBindApp
+        async Task<ProcessMulti> GetProcessMultiFromDataBindApp(DataBindApp checkApp)
         {
-            ProcessMulti convertedProcess = new ProcessMulti();
             try
             {
-                convertedProcess.Type = processType;
-                convertedProcess.ProcessId = convertProcess.Id;
-                convertedProcess.ProcessThreads = convertProcess.Threads;
-                convertedProcess.WindowHandle = convertProcess.MainWindowHandle;
+                ProcessMulti processMultipleCheck = await CheckProcessMultiUwp(checkApp);
+                if (processMultipleCheck != null)
+                {
+                    Debug.WriteLine("Found an UWP multi process.");
+                    return processMultipleCheck;
+                }
+                processMultipleCheck = await CheckProcessMultiWin32Store(checkApp);
+                if (processMultipleCheck != null)
+                {
+                    Debug.WriteLine("Found a Win32Store multi process.");
+                    return processMultipleCheck;
+                }
+                processMultipleCheck = await CheckProcessMultiWin32(checkApp);
+                if (processMultipleCheck != null)
+                {
+                    Debug.WriteLine("Found a Win32 multi process.");
+                    return processMultipleCheck;
+                }
             }
             catch { }
-            return convertedProcess;
+            return null;
         }
 
         //Check which launch method needs to be used
-        async Task LaunchProcessSelector(DataBindApp LaunchApp)
+        async Task LaunchProcessSelector(DataBindApp launchApp)
         {
             try
             {
-                if (LaunchApp.Category == AppCategory.Process)
+                if (launchApp.Category == AppCategory.Process)
                 {
                     //Check if process has multiple windows
                     IntPtr ProcessWindowHandle = IntPtr.Zero;
-                    if (LaunchApp.Type == ProcessType.UWP)
+                    if (launchApp.Type == ProcessType.UWP)
                     {
-                        ProcessWindowHandle = LaunchApp.WindowHandle;
+                        ProcessWindowHandle = launchApp.WindowHandle;
                     }
-                    else
+                    else if (launchApp.Type == ProcessType.Win32 || launchApp.Type == ProcessType.Win32Store)
                     {
-                        ProcessMulti multiProcess = ConvertProcessToProcessMulti(ProcessType.Win32, GetProcessById(LaunchApp.ProcessId));
-                        ProcessWindowHandle = await CheckProcessMultiWindowWin32(LaunchApp.Name, multiProcess);
+                        ProcessMulti multiProcess = ConvertProcessToProcessMulti(ProcessType.Win32, GetProcessById(launchApp.ProcessId));
+                        ProcessWindowHandle = await CheckProcessWindowsWin32AndWin32Store(launchApp.Name, multiProcess);
                     }
 
                     if (ProcessWindowHandle != IntPtr.Zero)
@@ -111,7 +124,7 @@ namespace CtrlUI
                         if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                         //Force focus on the app
-                        FocusProcessWindowPrepare(LaunchApp.Name, LaunchApp.ProcessId, ProcessWindowHandle, 0, false, false, false);
+                        FocusProcessWindowPrepare(launchApp.Name, launchApp.ProcessId, ProcessWindowHandle, 0, false, false, false);
                     }
                     else
                     {
@@ -122,35 +135,35 @@ namespace CtrlUI
                 else
                 {
                     bool appLaunched = false;
-                    if (LaunchApp.StatusLauncher == Visibility.Visible)
+                    if (launchApp.StatusLauncher == Visibility.Visible)
                     {
-                        Popup_Show_Status("App", "Launching " + LaunchApp.Name);
-                        Debug.WriteLine("Launching url protocol: " + LaunchApp.PathExe);
-                        Process.Start(LaunchApp.PathExe);
+                        Popup_Show_Status("App", "Launching " + launchApp.Name);
+                        Debug.WriteLine("Launching url protocol: " + launchApp.PathExe);
+                        Process.Start(launchApp.PathExe);
                         appLaunched = true;
                     }
-                    else if (LaunchApp.Category == AppCategory.Emulator)
+                    else if (launchApp.Category == AppCategory.Emulator)
                     {
-                        appLaunched = await LaunchProcessDatabindWin32Emulator(LaunchApp);
+                        appLaunched = await LaunchProcessDatabindWin32Emulator(launchApp);
                     }
-                    else if (LaunchApp.LaunchFilePicker)
+                    else if (launchApp.LaunchFilePicker)
                     {
-                        appLaunched = await LaunchProcessDatabindWin32FilePicker(LaunchApp);
+                        appLaunched = await LaunchProcessDatabindWin32FilePicker(launchApp);
                     }
                     else
                     {
-                        if (LaunchApp.Type == ProcessType.UWP || LaunchApp.Type == ProcessType.Win32Store)
+                        if (launchApp.Type == ProcessType.UWP || launchApp.Type == ProcessType.Win32Store)
                         {
-                            appLaunched = await LaunchProcessDatabindUwp(LaunchApp);
+                            appLaunched = await LaunchProcessDatabindUwpAndWin32Store(launchApp);
                         }
                         else
                         {
-                            appLaunched = await LaunchProcessDatabindWin32(LaunchApp);
+                            appLaunched = await LaunchProcessDatabindWin32(launchApp);
                         }
                     }
 
                     //Launch the keyboard controller
-                    if (appLaunched && LaunchApp.LaunchKeyboard)
+                    if (appLaunched && launchApp.LaunchKeyboard)
                     {
                         LaunchKeyboardController(true);
                     }
@@ -198,7 +211,32 @@ namespace CtrlUI
                 if (vFilePickerCancelled) { return; }
 
                 //Launch the Win32 application
-                await ProcessLauncherWin32Prepare(vFilePickerResult.PathFile, "", "", false, true, false, false);
+                await LaunchProcessManuallyWin32(vFilePickerResult.PathFile, "", "", false, true, false, false);
+            }
+            catch { }
+        }
+
+        //Run an selected uwp application
+        async Task RunUwpApplication()
+        {
+            try
+            {
+                vFilePickerFilterIn = new string[] { };
+                vFilePickerFilterOut = new string[] { };
+                vFilePickerTitle = "Windows Store Applications";
+                vFilePickerDescription = "Please select a Windows store application to run:";
+                vFilePickerShowNoFile = false;
+                vFilePickerShowRoms = false;
+                vFilePickerShowFiles = false;
+                vFilePickerShowDirectories = false;
+                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                await Popup_Show_FilePicker("UWP", -1, false, null);
+
+                while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
+                if (vFilePickerCancelled) { return; }
+
+                //Launch the selected uwp app
+                await LaunchProcessManuallyUwpAndWin32Store(vFilePickerResult.Name, vFilePickerResult.PathFile, string.Empty, false, true);
             }
             catch { }
         }

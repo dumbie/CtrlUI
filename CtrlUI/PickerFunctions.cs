@@ -193,7 +193,7 @@ namespace CtrlUI
                     grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
 
                     //Add uwp applications to the filepicker list
-                    UwpAppListAll(List_FilePicker);
+                    ListLoadAllUwpApplications(List_FilePicker);
 
                     //Sort the uwp application list by name
                     SortObservableCollection(List_FilePicker, x => x.Name, null, true);
