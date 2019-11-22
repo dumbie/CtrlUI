@@ -384,6 +384,24 @@ namespace LibraryShared
                 }
             }
 
+            private Visibility? PrivStatusSuspended;
+            public Visibility? StatusSuspended
+            {
+                get
+                {
+                    if (this.PrivStatusSuspended == null) { return Visibility.Collapsed; }
+                    else { return this.PrivStatusSuspended; }
+                }
+                set
+                {
+                    if (this.PrivStatusSuspended != value)
+                    {
+                        this.PrivStatusSuspended = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private Visibility? PrivStatusStore;
             public Visibility? StatusStore
             {

@@ -323,6 +323,12 @@ namespace CtrlUI
 
                             //Force focus on the app
                             FocusProcessWindowPrepare(LaunchApp.Name, processMultipleCheck.ProcessId, processWindowHandle, 0, false, false, false);
+
+                            //Launch the keyboard controller
+                            if (LaunchApp.LaunchKeyboard)
+                            {
+                                LaunchKeyboardController(true);
+                            }
                         }
                         else
                         {
@@ -334,30 +340,33 @@ namespace CtrlUI
                     else if (Result == Answer2)
                     {
                         Popup_Show_Status("Closing", "Closing " + LaunchApp.Name);
-                        Debug.WriteLine("Closing application: " + LaunchApp.Name);
+                        Debug.WriteLine("Closing win32 application: " + LaunchApp.Name);
 
                         //Close the process
+                        bool ClosedProcess = false;
                         if (processMultipleCheck != null)
                         {
-                            CloseProcessById(processMultipleCheck.ProcessId);
+                            ClosedProcess = CloseProcessById(processMultipleCheck.ProcessId);
                         }
                         else
                         {
-                            bool ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false);
-                            if (ClosedProcess)
-                            {
-                                //Updating running status
-                                LaunchApp.StatusRunning = Visibility.Collapsed;
-                                LaunchApp.RunningTimeLastUpdate = 0;
+                            ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false);
+                        }
 
-                                //Update process count
-                                LaunchApp.ProcessRunningCount = string.Empty;
-                            }
-                            else
-                            {
-                                Popup_Show_Status("Closing", "Failed to close the app");
-                                Debug.WriteLine("Failed to close the application.");
-                            }
+                        //Check if process closed
+                        if (ClosedProcess)
+                        {
+                            //Updating running status
+                            LaunchApp.StatusRunning = Visibility.Collapsed;
+                            LaunchApp.RunningTimeLastUpdate = 0;
+
+                            //Update process count
+                            LaunchApp.ProcessRunningCount = string.Empty;
+                        }
+                        else
+                        {
+                            Popup_Show_Status("Closing", "Failed to close the app");
+                            Debug.WriteLine("Failed to close the application.");
                         }
 
                         return false;

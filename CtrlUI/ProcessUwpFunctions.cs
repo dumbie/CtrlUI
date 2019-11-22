@@ -222,15 +222,45 @@ namespace CtrlUI
                         //Force focus on the app
                         FocusProcessWindowPrepare(LaunchApp.Name, processMultipleCheck.ProcessId, processMultipleCheck.WindowHandle, 0, false, false, false);
 
+                        //Launch the keyboard controller
+                        if (LaunchApp.LaunchKeyboard)
+                        {
+                            LaunchKeyboardController(true);
+                        }
+
                         return false;
                     }
                     else if (Result == Answer2)
                     {
                         Popup_Show_Status("Closing", "Closing " + LaunchApp.Name);
-                        Debug.WriteLine("Closing uwp application: " + LaunchApp.Name + " / " + processMultipleCheck.ProcessId + " / " + processMultipleCheck.WindowHandle);
+                        Debug.WriteLine("Closing uwp application: " + LaunchApp.Name);
 
-                        //Close the process or app
-                        bool ClosedProcess = await CloseProcessUwpByWindowHandle(LaunchApp.Name, processMultipleCheck.ProcessId, processMultipleCheck.WindowHandle);
+                        //Close the process
+                        bool ClosedProcess = false;
+                        if (processMultipleCheck != null)
+                        {
+                            if (targetingWin32Store)
+                            {
+                                ClosedProcess = CloseProcessById(processMultipleCheck.ProcessId);
+                            }
+                            else
+                            {
+                                ClosedProcess = await CloseProcessUwpByWindowHandle(LaunchApp.Name, processMultipleCheck.ProcessId, processMultipleCheck.WindowHandle);
+                            }
+                        }
+                        else
+                        {
+                            if (targetingWin32Store)
+                            {
+                                ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.NameExe), false);
+                            }
+                            else
+                            {
+                                ClosedProcess = await CloseProcessUwpByWindowHandle(LaunchApp.Name, LaunchApp.ProcessId, LaunchApp.WindowHandle);
+                            }
+                        }
+
+                        //Check if process closed
                         if (ClosedProcess)
                         {
                             //Updating running status

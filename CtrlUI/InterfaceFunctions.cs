@@ -333,11 +333,20 @@ namespace CtrlUI
                             {
                                 ListApp.ProcessId = ProcessesUwp.FirstOrDefault().ProcessId;
                                 ListApp.WindowHandle = ProcessesUwp.FirstOrDefault().WindowHandle;
+                                ListApp.RunningTimeLastUpdate = Environment.TickCount;
 
-                                if (ListApp.StatusRunning == Visibility.Collapsed)
+                                //Update the application status icons
+                                Process targetProcess = GetProcessById(ListApp.ProcessId);
+                                bool processSuspended = CheckProcessSuspended(targetProcess);
+                                if (targetProcess == null || processSuspended)
+                                {
+                                    ListApp.StatusRunning = Visibility.Collapsed;
+                                    ListApp.StatusSuspended = Visibility.Visible;
+                                }
+                                else
                                 {
                                     ListApp.StatusRunning = Visibility.Visible;
-                                    ListApp.RunningTimeLastUpdate = Environment.TickCount;
+                                    ListApp.StatusSuspended = Visibility.Collapsed;
                                 }
 
                                 if (ProcessesUwp.Count > 1)
@@ -369,11 +378,20 @@ namespace CtrlUI
                         {
                             ListApp.ProcessId = ProcessesWin32.FirstOrDefault().Id;
                             ListApp.WindowHandle = ProcessesWin32.FirstOrDefault().MainWindowHandle;
+                            ListApp.RunningTimeLastUpdate = Environment.TickCount;
 
-                            if (ListApp.StatusRunning == Visibility.Collapsed)
+                            //Update the application status icons
+                            Process targetProcess = GetProcessById(ListApp.ProcessId);
+                            bool processSuspended = CheckProcessSuspended(targetProcess);
+                            if (targetProcess == null || processSuspended)
+                            {
+                                ListApp.StatusRunning = Visibility.Collapsed;
+                                ListApp.StatusSuspended = Visibility.Visible;
+                            }
+                            else
                             {
                                 ListApp.StatusRunning = Visibility.Visible;
-                                ListApp.RunningTimeLastUpdate = Environment.TickCount;
+                                ListApp.StatusSuspended = Visibility.Collapsed;
                             }
 
                             if (ProcessesWin32.Count() > 1)
@@ -392,6 +410,7 @@ namespace CtrlUI
                         ListApp.ProcessId = -1;
                         ListApp.WindowHandle = IntPtr.Zero;
                         ListApp.StatusRunning = Visibility.Collapsed;
+                        ListApp.StatusSuspended = Visibility.Collapsed;
                         ListApp.RunningTimeLastUpdate = 0;
                         ListApp.ProcessRunningCount = string.Empty;
                     }
