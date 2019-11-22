@@ -115,13 +115,13 @@
     <Compile Include="AppUpdate.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="Processes\ProcessUwpCheck.cs" />
+    <Compile Include="Processes\ProcessUwpRestart.cs" />
     <Compile Include="Processes\ProcessUwpOther.cs" />
     <Compile Include="Processes\ProcessUwpList.cs" />
     <Compile Include="Processes\ProcessUwpClose.cs" />
+    <Compile Include="Processes\ProcessWin32Restart.cs" />
     <Compile Include="Processes\ProcessWin32Close.cs" />
-    <Compile Include="Processes\ProcessWin32StoreCheck.cs" />
     <Compile Include="Processes\ProcessWin32Check.cs" />
-    <Compile Include="Processes\ProcessWin32StoreClose.cs" />
     <Compile Include="Processes\ProcessWin32List.cs" />
     <Compile Include="RegistryFunctions.cs" />
     <Compile Include="QuickActionFunctions.cs" />

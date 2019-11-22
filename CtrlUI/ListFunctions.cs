@@ -61,7 +61,7 @@ namespace CtrlUI
 
                     if (!SkipRunningStatus)
                     {
-                        CheckAppRunningStatus(ProcessesList);
+                        await CheckAppRunningStatus(ProcessesList);
                     }
                 }
 

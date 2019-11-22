@@ -18,62 +18,68 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Add application to the specific list
-        void AddAppToList(DataBindApp AddApp, bool GenerateAppNumber, bool LoadImage)
+        void AddAppToList(DataBindApp dataBindApp, bool generateAppNumber, bool loadAppImage)
         {
             try
             {
                 //Generate application number
-                if (GenerateAppNumber)
+                if (generateAppNumber)
                 {
-                    AddApp.Number = GetHighestAppNumber();
+                    dataBindApp.Number = GetHighestAppNumber();
                 }
 
                 //Check if Win32 application still exists
-                if (AddApp.Type == ProcessType.Win32)
+                if (dataBindApp.Type == ProcessType.Win32)
                 {
-                    if (!File.Exists(AddApp.PathExe))
+                    if (!File.Exists(dataBindApp.PathExe))
                     {
-                        AddApp.StatusAvailable = Visibility.Visible;
+                        dataBindApp.StatusAvailable = Visibility.Visible;
                     }
                 }
 
                 //Check if UWP or Win32Store application still exists
-                if (AddApp.Type == ProcessType.UWP || AddApp.Type == ProcessType.Win32Store)
+                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
-                    if (UwpGetAppPackageFromAppUserModelId(AddApp.PathExe) == null)
+                    if (UwpGetAppPackageFromAppUserModelId(dataBindApp.PathExe) == null)
                     {
-                        AddApp.StatusAvailable = Visibility.Visible;
+                        dataBindApp.StatusAvailable = Visibility.Visible;
                     }
                 }
 
                 //Check if the rom folder is available
-                if (AddApp.Category == AppCategory.Emulator && !Directory.Exists(AddApp.PathRoms))
+                if (dataBindApp.Category == AppCategory.Emulator && !Directory.Exists(dataBindApp.PathRoms))
                 {
-                    AddApp.StatusAvailable = Visibility.Visible;
+                    dataBindApp.StatusAvailable = Visibility.Visible;
                 }
 
                 //Check if application is an uwp app
-                if (AddApp.Type == ProcessType.UWP)
+                if (dataBindApp.Type == ProcessType.UWP)
                 {
-                    AddApp.StatusStore = Visibility.Visible;
+                    dataBindApp.StatusStore = Visibility.Visible;
                 }
 
                 //Load and set application image
-                if (LoadImage) { AddApp.ImageBitmap = FileToBitmapImage(new string[] { AddApp.Name, AddApp.PathExe, AddApp.PathImage }, IntPtr.Zero, 90); }
+                if (loadAppImage)
+                {
+                    dataBindApp.ImageBitmap = FileToBitmapImage(new string[] { dataBindApp.Name, dataBindApp.PathExe, dataBindApp.PathImage }, IntPtr.Zero, 90);
+                }
 
                 //Add application to the list
-                if (AddApp.Category == AppCategory.Game) { List_Games.Add(AddApp); }
-                else if (AddApp.Category == AppCategory.App) { List_Apps.Add(AddApp); }
-                else if (AddApp.Category == AppCategory.Emulator) { List_Emulators.Add(AddApp); }
+                if (dataBindApp.Category == AppCategory.Game) { List_Games.Add(dataBindApp); }
+                else if (dataBindApp.Category == AppCategory.App) { List_Apps.Add(dataBindApp); }
+                else if (dataBindApp.Category == AppCategory.Emulator) { List_Emulators.Add(dataBindApp); }
 
                 //Save changes to Json file
-                if (GenerateAppNumber) { JsonSaveApps(); }
+                if (generateAppNumber)
+                {
+                    JsonSaveApps();
+                }
             }
             catch { }
         }
 
         //Remove application from the list
-        async Task RemoveAppFromList(DataBindApp RemoveApp, bool SaveJson, bool RemoveImageFile, bool Silent)
+        async Task RemoveAppFromList(DataBindApp dataBindApp, bool saveJson, bool removeImageFile, bool silent)
         {
             try
             {
@@ -81,35 +87,35 @@ namespace CtrlUI
                 ListBox ListBoxSender = null;
 
                 //Delete application from the lists
-                if (RemoveApp.Category == AppCategory.Game)
+                if (dataBindApp.Category == AppCategory.Game)
                 {
                     ListBoxSender = lb_Games;
                     ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Games.Remove(RemoveApp);
+                    List_Games.Remove(dataBindApp);
                 }
-                else if (RemoveApp.Category == AppCategory.App)
+                else if (dataBindApp.Category == AppCategory.App)
                 {
                     ListBoxSender = lb_Apps;
                     ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Apps.Remove(RemoveApp);
+                    List_Apps.Remove(dataBindApp);
                 }
-                else if (RemoveApp.Category == AppCategory.Emulator)
+                else if (dataBindApp.Category == AppCategory.Emulator)
                 {
                     ListBoxSender = lb_Emulators;
                     ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Emulators.Remove(RemoveApp);
+                    List_Emulators.Remove(dataBindApp);
                 }
-                else if (RemoveApp.Category == AppCategory.Process)
+                else if (dataBindApp.Category == AppCategory.Process)
                 {
                     ListBoxSender = lb_Processes;
                     ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Processes.Remove(RemoveApp);
+                    List_Processes.Remove(dataBindApp);
                 }
-                else if (RemoveApp.Category == AppCategory.Shortcut)
+                else if (dataBindApp.Category == AppCategory.Shortcut)
                 {
                     ListBoxSender = lb_Shortcuts;
                     ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Shortcuts.Remove(RemoveApp);
+                    List_Shortcuts.Remove(dataBindApp);
                 }
 
                 //Delete application from search results
@@ -117,7 +123,7 @@ namespace CtrlUI
                 {
                     ListBoxSender = lb_Search;
                     ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Search.Remove(RemoveApp);
+                    List_Search.Remove(dataBindApp);
                 }
 
                 //Refresh the application lists
@@ -127,23 +133,23 @@ namespace CtrlUI
                 await FocusOnListbox(ListBoxSender, false, false, ListboxSelectedIndex);
 
                 //Save changes to Json file
-                if (SaveJson)
+                if (saveJson)
                 {
                     JsonSaveApps();
                 }
 
                 //Remove application image files
-                if (RemoveImageFile)
+                if (removeImageFile)
                 {
-                    if (File.Exists("Assets\\Apps\\" + RemoveApp.Name + ".png")) { File.Delete("Assets\\Apps\\" + RemoveApp.Name + ".png"); }
-                    if (File.Exists("Assets\\Apps\\" + Path.GetFileNameWithoutExtension(RemoveApp.PathExe) + ".png")) { File.Delete("Assets\\Apps\\" + Path.GetFileNameWithoutExtension(RemoveApp.PathExe) + ".png"); }
+                    if (File.Exists("Assets\\Apps\\" + dataBindApp.Name + ".png")) { File.Delete("Assets\\Apps\\" + dataBindApp.Name + ".png"); }
+                    if (File.Exists("Assets\\Apps\\" + Path.GetFileNameWithoutExtension(dataBindApp.PathExe) + ".png")) { File.Delete("Assets\\Apps\\" + Path.GetFileNameWithoutExtension(dataBindApp.PathExe) + ".png"); }
                 }
 
                 //Show removed notification
-                if (!Silent)
+                if (!silent)
                 {
-                    Popup_Show_Status("Minus", "Removed " + RemoveApp.Name);
-                    Debug.WriteLine("Removed application: " + RemoveApp.Name);
+                    Popup_Show_Status("Minus", "Removed " + dataBindApp.Name);
+                    Debug.WriteLine("Removed application: " + dataBindApp.Name);
                 }
             }
             catch { }

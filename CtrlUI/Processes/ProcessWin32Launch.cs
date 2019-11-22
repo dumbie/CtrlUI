@@ -57,13 +57,13 @@ namespace CtrlUI
         }
 
         //Launch a win32 databind app
-        async Task<bool> LaunchProcessDatabindWin32(DataBindApp launchApp)
+        async Task<bool> LaunchProcessDatabindWin32(DataBindApp dataBindApp)
         {
             try
             {
                 //Check if Win32 process is running
-                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(launchApp);
-                bool alreadyRunning = await CheckLaunchProcessWin32(processMulti, launchApp);
+                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(dataBindApp, true);
+                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(processMulti, dataBindApp);
                 if (!alreadyRunning)
                 {
                     Debug.WriteLine("Win32 process is already running, skipping the launch.");
@@ -71,9 +71,9 @@ namespace CtrlUI
                 }
 
                 //Check if the application exists
-                if (!File.Exists(launchApp.PathExe))
+                if (!File.Exists(dataBindApp.PathExe))
                 {
-                    launchApp.StatusAvailable = Visibility.Visible;
+                    dataBindApp.StatusAvailable = Visibility.Visible;
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -87,15 +87,15 @@ namespace CtrlUI
                 }
                 else
                 {
-                    launchApp.StatusAvailable = Visibility.Collapsed;
+                    dataBindApp.StatusAvailable = Visibility.Collapsed;
                 }
 
                 //Show application launch message
-                Popup_Show_Status("App", "Launching " + launchApp.Name);
-                Debug.WriteLine("Launching Win32: " + launchApp.Name + " from: " + launchApp.Category + " path: " + launchApp.PathExe);
+                Popup_Show_Status("App", "Launching " + dataBindApp.Name);
+                Debug.WriteLine("Launching Win32: " + dataBindApp.Name + " from: " + dataBindApp.Category + " path: " + dataBindApp.PathExe);
 
                 //Launch the Win32 application
-                await LaunchProcessManuallyWin32(launchApp.PathExe, launchApp.PathLaunch, launchApp.Argument, true, true, false, false);
+                await LaunchProcessManuallyWin32(dataBindApp.PathExe, dataBindApp.PathLaunch, dataBindApp.Argument, true, true, false, false);
                 return true;
             }
             catch
@@ -107,13 +107,13 @@ namespace CtrlUI
         }
 
         //Launch a win32 databind app with filepicker
-        async Task<bool> LaunchProcessDatabindWin32FilePicker(DataBindApp launchApp)
+        async Task<bool> LaunchProcessDatabindWin32FilePicker(DataBindApp dataBindApp)
         {
             try
             {
                 //Check if Win32 process is running
-                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(launchApp);
-                bool alreadyRunning = await CheckLaunchProcessWin32(processMulti, launchApp);
+                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(dataBindApp, true);
+                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(processMulti, dataBindApp);
                 if (!alreadyRunning)
                 {
                     Debug.WriteLine("Win32 process is already running, skipping the launch.");
@@ -121,9 +121,9 @@ namespace CtrlUI
                 }
 
                 //Check if the application exe file exists
-                if (!File.Exists(launchApp.PathExe))
+                if (!File.Exists(dataBindApp.PathExe))
                 {
-                    launchApp.StatusAvailable = Visibility.Visible;
+                    dataBindApp.StatusAvailable = Visibility.Visible;
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -136,14 +136,14 @@ namespace CtrlUI
                 }
                 else
                 {
-                    launchApp.StatusAvailable = Visibility.Collapsed;
+                    dataBindApp.StatusAvailable = Visibility.Collapsed;
                 }
 
                 //Select a file from list to launch
                 vFilePickerFilterIn = new string[] { };
                 vFilePickerFilterOut = new string[] { };
                 vFilePickerTitle = "File Selection";
-                vFilePickerDescription = "Please select a file to load in " + launchApp.Name + ":";
+                vFilePickerDescription = "Please select a file to load in " + dataBindApp.Name + ":";
                 vFilePickerShowNoFile = true;
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
@@ -157,19 +157,19 @@ namespace CtrlUI
                 string LaunchArguments = string.Empty;
                 if (!string.IsNullOrWhiteSpace(vFilePickerResult.PathFile))
                 {
-                    LaunchArguments = launchApp.Argument + " \"" + vFilePickerResult.PathFile + "\"";
-                    Popup_Show_Status("App", "Launching " + launchApp.Name + " with selected file");
-                    Debug.WriteLine("Launching app: " + launchApp.Name + " file: " + LaunchArguments);
+                    LaunchArguments = dataBindApp.Argument + " \"" + vFilePickerResult.PathFile + "\"";
+                    Popup_Show_Status("App", "Launching " + dataBindApp.Name + " with selected file");
+                    Debug.WriteLine("Launching app: " + dataBindApp.Name + " file: " + LaunchArguments);
                 }
                 else
                 {
-                    LaunchArguments = launchApp.Argument;
-                    Popup_Show_Status("App", "Launching " + launchApp.Name);
-                    Debug.WriteLine("Launching app: " + launchApp.Name + " without a file");
+                    LaunchArguments = dataBindApp.Argument;
+                    Popup_Show_Status("App", "Launching " + dataBindApp.Name);
+                    Debug.WriteLine("Launching app: " + dataBindApp.Name + " without a file");
                 }
 
                 //Launch the Win32 application
-                await LaunchProcessManuallyWin32(launchApp.PathExe, launchApp.PathLaunch, LaunchArguments, true, true, false, false);
+                await LaunchProcessManuallyWin32(dataBindApp.PathExe, dataBindApp.PathLaunch, LaunchArguments, true, true, false, false);
                 return true;
             }
             catch
@@ -181,13 +181,13 @@ namespace CtrlUI
         }
 
         //Launch a win32 databind emulator with filepicker
-        async Task<bool> LaunchProcessDatabindWin32Emulator(DataBindApp launchApp)
+        async Task<bool> LaunchProcessDatabindWin32Emulator(DataBindApp dataBindApp)
         {
             try
             {
                 //Check if win32 process is running
-                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(launchApp);
-                bool alreadyRunning = await CheckLaunchProcessWin32(processMulti, launchApp);
+                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(dataBindApp, true);
+                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(processMulti, dataBindApp);
                 if (!alreadyRunning)
                 {
                     Debug.WriteLine("Win32 process is already running, skipping the launch.");
@@ -195,9 +195,9 @@ namespace CtrlUI
                 }
 
                 //Check if the application exe file exists
-                if (!File.Exists(launchApp.PathExe))
+                if (!File.Exists(dataBindApp.PathExe))
                 {
-                    launchApp.StatusAvailable = Visibility.Visible;
+                    dataBindApp.StatusAvailable = Visibility.Visible;
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -210,13 +210,13 @@ namespace CtrlUI
                 }
                 else
                 {
-                    launchApp.StatusAvailable = Visibility.Collapsed;
+                    dataBindApp.StatusAvailable = Visibility.Collapsed;
                 }
 
                 //Check if the rom folder location exists
-                if (!Directory.Exists(launchApp.PathRoms))
+                if (!Directory.Exists(dataBindApp.PathRoms))
                 {
-                    launchApp.StatusAvailable = Visibility.Visible;
+                    dataBindApp.StatusAvailable = Visibility.Visible;
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -229,20 +229,20 @@ namespace CtrlUI
                 }
                 else
                 {
-                    launchApp.StatusAvailable = Visibility.Collapsed;
+                    dataBindApp.StatusAvailable = Visibility.Collapsed;
                 }
 
                 //Select a file from list to launch
                 vFilePickerFilterIn = new string[] { };
                 vFilePickerFilterOut = new string[] { "jpg", "png" };
                 vFilePickerTitle = "Rom Selection";
-                vFilePickerDescription = "Please select a rom file to load in " + launchApp.Name + ":";
+                vFilePickerDescription = "Please select a rom file to load in " + dataBindApp.Name + ":";
                 vFilePickerShowNoFile = false;
                 vFilePickerShowRoms = true;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker(launchApp.PathRoms, -1, false, null);
+                await Popup_Show_FilePicker(dataBindApp.PathRoms, -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return false; }
@@ -250,22 +250,22 @@ namespace CtrlUI
                 string LaunchArguments = string.Empty;
                 if (!string.IsNullOrWhiteSpace(vFilePickerResult.PathFile))
                 {
-                    LaunchArguments = launchApp.Argument + " \"" + vFilePickerResult.PathFile + "\"";
-                    launchApp.RomPath = " \"" + vFilePickerResult.PathFile + "\"";
+                    LaunchArguments = dataBindApp.Argument + " \"" + vFilePickerResult.PathFile + "\"";
+                    dataBindApp.RomPath = " \"" + vFilePickerResult.PathFile + "\"";
 
-                    Popup_Show_Status("App", "Launching " + launchApp.Name + " with the rom");
-                    Debug.WriteLine("Launching emulator: " + launchApp.Name + " rom: " + LaunchArguments);
+                    Popup_Show_Status("App", "Launching " + dataBindApp.Name + " with the rom");
+                    Debug.WriteLine("Launching emulator: " + dataBindApp.Name + " rom: " + LaunchArguments);
                 }
                 else
                 {
-                    launchApp.RomPath = string.Empty;
+                    dataBindApp.RomPath = string.Empty;
 
-                    Popup_Show_Status("App", "Launching " + launchApp.Name);
-                    Debug.WriteLine("Launching emulator: " + launchApp.Name + " without a rom");
+                    Popup_Show_Status("App", "Launching " + dataBindApp.Name);
+                    Debug.WriteLine("Launching emulator: " + dataBindApp.Name + " without a rom");
                 }
 
                 //Launch the Win32 application
-                await LaunchProcessManuallyWin32(launchApp.PathExe, launchApp.PathLaunch, LaunchArguments, true, true, false, false);
+                await LaunchProcessManuallyWin32(dataBindApp.PathExe, dataBindApp.PathLaunch, LaunchArguments, true, true, false, false);
                 return true;
             }
             catch

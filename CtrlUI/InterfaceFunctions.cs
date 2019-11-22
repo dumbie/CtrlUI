@@ -301,7 +301,7 @@ namespace CtrlUI
         }
 
         //Check the applications running status
-        void CheckAppRunningStatus(IEnumerable<Process> ProcessesList)
+        async Task CheckAppRunningStatus(IEnumerable<Process> ProcessesList)
         {
             try
             {
@@ -319,105 +319,57 @@ namespace CtrlUI
                 UpdateAppRunningIcon(img_Menu_BlizzardStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "battle.net"));
 
                 //Update all the apps running status
-                foreach (DataBindApp ListApp in CombineAppLists(true, false).Where(x => x.StatusLauncher == Visibility.Collapsed))
+                foreach (DataBindApp dataBindApp in CombineAppLists(true, false).Where(x => x.StatusLauncher == Visibility.Collapsed))
                 {
                     try
                     {
                         //Debug.WriteLine("Checking application status: " + ListApp.Type + "/" + ListApp.Category + "/" + ListApp.Name + "/" + ListApp.PathExe);
-                        string targetProcessName = string.Empty;
 
-                        //Check UWP app user model id
-                        if (ListApp.Type == ProcessType.UWP)
+                        //Get the process multi from DataBindApp
+                        ProcessMulti multiProcess = await GetProcessMultiFromDataBindApp(dataBindApp, false);
+
+                        //Check if the process multi is running
+                        if (multiProcess == null)
                         {
-                            List<ProcessMulti> ProcessesUwp = UwpGetProcessFromAppUserModelId(ListApp.PathExe);
-                            if (ProcessesUwp.Any())
-                            {
-                                ListApp.ProcessId = ProcessesUwp.FirstOrDefault().ProcessId;
-                                ListApp.WindowHandle = ProcessesUwp.FirstOrDefault().WindowHandle;
-                                ListApp.RunningTimeLastUpdate = Environment.TickCount;
-
-                                //Update the application status icons
-                                Process targetProcess = GetProcessById(ListApp.ProcessId);
-                                bool processSuspended = CheckProcessSuspended(targetProcess);
-                                if (targetProcess == null || processSuspended)
-                                {
-                                    ListApp.StatusRunning = Visibility.Collapsed;
-                                    ListApp.StatusSuspended = Visibility.Visible;
-                                }
-                                else
-                                {
-                                    ListApp.StatusRunning = Visibility.Visible;
-                                    ListApp.StatusSuspended = Visibility.Collapsed;
-                                }
-
-                                if (ProcessesUwp.Count > 1)
-                                {
-                                    ListApp.ProcessRunningCount = Convert.ToString(ProcessesUwp.Count);
-                                }
-                                else
-                                {
-                                    ListApp.ProcessRunningCount = string.Empty;
-                                }
-
-                                continue;
-                            }
-                            else
-                            {
-                                targetProcessName = Path.GetFileNameWithoutExtension(ListApp.NameExe).ToLower();
-                                //Debug.WriteLine("Uwp app is not running, checking by Win32Store exe name: " + targetProcessName);
-                            }
-                        }
-                        else
-                        {
-                            targetProcessName = Path.GetFileNameWithoutExtension(ListApp.PathExe).ToLower();
-                            //Debug.WriteLine("Uwp app is not running, checking by Win32 exe name: " + targetProcessName);
-                        }
-
-                        //Check Win32 or Win32Store application
-                        IEnumerable<Process> ProcessesWin32 = ProcessesList.Where(x => x.ProcessName.ToLower() == targetProcessName || x.Id == ListApp.ProcessId);
-                        if (ProcessesWin32.Any())
-                        {
-                            ListApp.ProcessId = ProcessesWin32.FirstOrDefault().Id;
-                            ListApp.WindowHandle = ProcessesWin32.FirstOrDefault().MainWindowHandle;
-                            ListApp.RunningTimeLastUpdate = Environment.TickCount;
-
-                            //Update the application status icons
-                            Process targetProcess = GetProcessById(ListApp.ProcessId);
-                            bool processSuspended = CheckProcessSuspended(targetProcess);
-                            if (targetProcess == null || processSuspended)
-                            {
-                                ListApp.StatusRunning = Visibility.Collapsed;
-                                ListApp.StatusSuspended = Visibility.Visible;
-                            }
-                            else
-                            {
-                                ListApp.StatusRunning = Visibility.Visible;
-                                ListApp.StatusSuspended = Visibility.Collapsed;
-                            }
-
-                            if (ProcessesWin32.Count() > 1)
-                            {
-                                ListApp.ProcessRunningCount = Convert.ToString(ProcessesWin32.Count());
-                            }
-                            else
-                            {
-                                ListApp.ProcessRunningCount = string.Empty;
-                            }
-
+                            dataBindApp.ProcessId = -1;
+                            dataBindApp.WindowHandle = IntPtr.Zero;
+                            dataBindApp.StatusRunning = Visibility.Collapsed;
+                            dataBindApp.StatusSuspended = Visibility.Collapsed;
+                            dataBindApp.RunningTimeLastUpdate = 0;
+                            dataBindApp.ProcessRunningCount = string.Empty;
                             continue;
                         }
 
-                        //Process not found reset the status
-                        ListApp.ProcessId = -1;
-                        ListApp.WindowHandle = IntPtr.Zero;
-                        ListApp.StatusRunning = Visibility.Collapsed;
-                        ListApp.StatusSuspended = Visibility.Collapsed;
-                        ListApp.RunningTimeLastUpdate = 0;
-                        ListApp.ProcessRunningCount = string.Empty;
+                        //Check process multi application status
+                        if (multiProcess.ProcessId > 0) { dataBindApp.ProcessId = multiProcess.ProcessId; }
+                        if (multiProcess.WindowHandle != IntPtr.Zero) { dataBindApp.WindowHandle = multiProcess.WindowHandle; }
+                        dataBindApp.RunningTimeLastUpdate = Environment.TickCount;
+
+                        //Update the application status icons
+                        bool processSuspended = CheckProcessSuspended(multiProcess.ProcessThreads);
+                        if (processSuspended)
+                        {
+                            dataBindApp.StatusRunning = Visibility.Collapsed;
+                            dataBindApp.StatusSuspended = Visibility.Visible;
+                        }
+                        else
+                        {
+                            dataBindApp.StatusRunning = Visibility.Visible;
+                            dataBindApp.StatusSuspended = Visibility.Collapsed;
+                        }
+
+                        if (multiProcess.ProcessCount > 1)
+                        {
+                            dataBindApp.ProcessRunningCount = Convert.ToString(multiProcess.ProcessCount);
+                        }
+                        else
+                        {
+                            dataBindApp.ProcessRunningCount = string.Empty;
+                        }
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine("Failed checking application status: " + ex.Message);
+                        Debug.WriteLine("Failed checking application status: " + dataBindApp.Name + "/" + ex.Message);
                     }
                 }
             }

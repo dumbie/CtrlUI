@@ -135,7 +135,7 @@ namespace CtrlUI
                                 DataBindApp ProcessApp = List_Processes.Where(z => z.WindowHandle == WindowHandle && z.Type == ProcessType.UWP).FirstOrDefault();
                                 if (ProcessApp != null)
                                 {
-                                    if (ProcessId != -1 && ProcessApp.ProcessId != ProcessId) { ProcessApp.ProcessId = ProcessId; }
+                                    if (ProcessId > 0) { ProcessApp.ProcessId = ProcessId; }
                                     if (ProcessApp.Name != ProcessTitle) { ProcessApp.Name = ProcessTitle; }
                                     ProcessApp.RunningTime = ProcessRunningTime;
                                     continue;

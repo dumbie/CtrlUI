@@ -46,22 +46,22 @@ namespace CtrlUI
         }
 
         //Launch an UWP or Win32Store databind app
-        async Task<bool> LaunchProcessDatabindUwpAndWin32Store(DataBindApp launchApp)
+        async Task<bool> LaunchProcessDatabindUwpAndWin32Store(DataBindApp dataBindApp)
         {
             try
             {
                 //Check if UWP or Win32Store process is running
-                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(launchApp);
+                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(dataBindApp, true);
                 if (processMulti != null)
                 {
                     bool alreadyRunning = false;
                     if (processMulti.Type == ProcessType.UWP)
                     {
-                        alreadyRunning = await CheckLaunchProcessUwp(processMulti, launchApp);
+                        alreadyRunning = await CheckLaunchProcessUwp(processMulti, dataBindApp);
                     }
                     else if (processMulti.Type == ProcessType.Win32Store)
                     {
-                        alreadyRunning = await CheckLaunchProcessWin32Store(processMulti, launchApp);
+                        alreadyRunning = await CheckLaunchProcessWin32andWin32Store(processMulti, dataBindApp);
                     }
 
                     if (!alreadyRunning)
@@ -72,9 +72,9 @@ namespace CtrlUI
                 }
 
                 //Check if the application exists
-                if (UwpGetAppPackageFromAppUserModelId(launchApp.PathExe) == null)
+                if (UwpGetAppPackageFromAppUserModelId(dataBindApp.PathExe) == null)
                 {
-                    launchApp.StatusAvailable = Visibility.Visible;
+                    dataBindApp.StatusAvailable = Visibility.Visible;
 
                     Popup_Show_Status("Close", "Application not found");
                     Debug.WriteLine("Launch application not found, possibly uninstalled.");
@@ -82,15 +82,15 @@ namespace CtrlUI
                 }
                 else
                 {
-                    launchApp.StatusAvailable = Visibility.Collapsed;
+                    dataBindApp.StatusAvailable = Visibility.Collapsed;
                 }
 
                 //Show application launch message
-                Popup_Show_Status("App", "Launching " + launchApp.Name);
-                Debug.WriteLine("Launching UWP or Win32Store: " + launchApp.Name + " from: " + launchApp.Category + " path: " + launchApp.PathExe);
+                Popup_Show_Status("App", "Launching " + dataBindApp.Name);
+                Debug.WriteLine("Launching UWP or Win32Store: " + dataBindApp.Name + " from: " + dataBindApp.Category + " path: " + dataBindApp.PathExe);
 
                 //Launch the UWP application
-                await LaunchProcessManuallyUwpAndWin32Store(launchApp.Name, launchApp.PathExe, launchApp.Argument, true, true);
+                await LaunchProcessManuallyUwpAndWin32Store(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, true, true);
                 return true;
             }
             catch

@@ -5,10 +5,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
-using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
@@ -17,15 +15,15 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Check if process has multiple processes
-        async Task<ProcessMulti> CheckProcessMultiWin32(DataBindApp LaunchApp)
+        async Task<ProcessMulti> CheckProcessMultiWin32AndWin32Store(string processName, string executableName, ProcessType processType, bool selectProcess)
         {
             try
             {
                 List<DataBindString> multiAnswers = new List<DataBindString>();
-                Process[] multiVariables = GetProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(LaunchApp.PathExe), false, true);
+                Process[] multiVariables = GetProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(executableName), false, true);
                 if (multiVariables.Any())
                 {
-                    if (multiVariables.Count() > 1)
+                    if (selectProcess && multiVariables.Count() > 1)
                     {
                         foreach (Process multiProcess in multiVariables)
                         {
@@ -59,39 +57,43 @@ namespace CtrlUI
                         cancelString.Name = "Cancel";
                         multiAnswers.Add(cancelString);
 
-                        DataBindString Result = await Popup_Show_MessageBox(LaunchApp.Name + " has multiple running instances", "", "Please select the instance that you wish to interact with:", multiAnswers);
+                        DataBindString Result = await Popup_Show_MessageBox(processName + " has multiple running instances", "", "Please select the instance that you wish to interact with:", multiAnswers);
                         if (Result != null)
                         {
                             if (Result == Answer2)
                             {
                                 ProcessMulti processMultiNew = new ProcessMulti();
-                                processMultiNew.Type = ProcessType.Win32;
+                                processMultiNew.Type = processType;
                                 processMultiNew.Status = "CloseAll";
                                 return processMultiNew;
                             }
                             else if (Result == cancelString)
                             {
                                 ProcessMulti processMultiNew = new ProcessMulti();
-                                processMultiNew.Type = ProcessType.Win32;
+                                processMultiNew.Type = processType;
                                 processMultiNew.Status = "Cancel";
                                 return processMultiNew;
                             }
                             else
                             {
-                                return ConvertProcessToProcessMulti(ProcessType.Win32, multiVariables[multiAnswers.IndexOf(Result)]);
+                                ProcessMulti returnProcess = ConvertProcessToProcessMulti(processType, multiVariables[multiAnswers.IndexOf(Result)]);
+                                returnProcess.ProcessCount = multiVariables.Count();
+                                return returnProcess;
                             }
                         }
                         else
                         {
                             ProcessMulti processMultiNew = new ProcessMulti();
-                            processMultiNew.Type = ProcessType.Win32;
+                            processMultiNew.Type = processType;
                             processMultiNew.Status = "Cancel";
                             return processMultiNew;
                         }
                     }
                     else
                     {
-                        return ConvertProcessToProcessMulti(ProcessType.Win32, multiVariables.FirstOrDefault());
+                        ProcessMulti returnProcess = ConvertProcessToProcessMulti(processType, multiVariables.FirstOrDefault());
+                        returnProcess.ProcessCount = multiVariables.Count();
+                        return returnProcess;
                     }
                 }
             }
@@ -100,19 +102,19 @@ namespace CtrlUI
         }
 
         //Check process status before launching (True = Continue)
-        async Task<bool> CheckLaunchProcessWin32(ProcessMulti processMulti, DataBindApp launchApp)
+        async Task<bool> CheckLaunchProcessWin32andWin32Store(ProcessMulti processMulti, DataBindApp dataBindApp)
         {
             try
             {
-                Debug.WriteLine("Checking launch process Win32: " + launchApp.Name + " / " + launchApp.ProcessId + " / " + launchApp.WindowHandle);
+                Debug.WriteLine("Checking launch process Win32 or Win32Store: " + dataBindApp.Name + " / " + dataBindApp.ProcessId + " / " + dataBindApp.WindowHandle);
 
                 //Check the multi process results
                 if (processMulti.Status == null) { return true; }
                 if (processMulti.Status == "Cancel") { return false; }
                 if (processMulti.Status == "CloseAll")
                 {
-                    //Close all processes Win32
-                    CloseAllProcessesWin32ByDataBindApp(launchApp);
+                    //Close all processes Win32 or Win32Store
+                    await CloseAllProcessesWin32AndWin32StoreByDataBindApp(dataBindApp, true, false);
                     return false;
                 }
 
@@ -145,33 +147,33 @@ namespace CtrlUI
 
                 //Check application runtime
                 string ApplicationRuntime = string.Empty;
-                if (launchApp.Category == AppCategory.Shortcut)
+                if (dataBindApp.Category == AppCategory.Shortcut)
                 {
-                    ApplicationRuntime = ApplicationRuntimeString(ProcessRuntimeMinutes(GetProcessById(launchApp.ProcessId)), "shortcut process");
+                    ApplicationRuntime = ApplicationRuntimeString(ProcessRuntimeMinutes(GetProcessById(dataBindApp.ProcessId)), "shortcut process");
                 }
                 else
                 {
-                    ApplicationRuntime = ApplicationRuntimeString(launchApp.RunningTime, "application");
+                    ApplicationRuntime = ApplicationRuntimeString(dataBindApp.RunningTime, "application");
                 }
 
                 //Show the messagebox
-                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + launchApp.Name + "?", ApplicationRuntime, "", Answers);
+                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", ApplicationRuntime, "", Answers);
                 if (Result != null)
                 {
                     if (Result == Answer1)
                     {
                         //Check if process has multiple windows
-                        IntPtr processWindowHandle = await CheckProcessWindowsWin32AndWin32Store(launchApp.Name, processMulti);
+                        IntPtr processWindowHandle = await CheckProcessWindowsWin32AndWin32Store(dataBindApp.Name, processMulti);
                         if (processWindowHandle != IntPtr.Zero)
                         {
                             //Minimize the CtrlUI window
                             if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                             //Force focus on the app
-                            FocusProcessWindowPrepare(launchApp.Name, processMulti.ProcessId, processWindowHandle, 0, false, false, false);
+                            FocusProcessWindowPrepare(dataBindApp.Name, processMulti.ProcessId, processWindowHandle, 0, false, false, false);
 
                             //Launch the keyboard controller
-                            if (launchApp.LaunchKeyboard)
+                            if (dataBindApp.LaunchKeyboard)
                             {
                                 LaunchKeyboardController(true);
                             }
@@ -185,58 +187,20 @@ namespace CtrlUI
                     }
                     else if (Result == Answer2)
                     {
-                        Popup_Show_Status("Closing", "Closing " + launchApp.Name);
-                        Debug.WriteLine("Closing Win32 application: " + launchApp.Name);
-
-                        //Close the process
-                        bool ClosedProcess = false;
-                        if (processMulti != null)
-                        {
-                            ClosedProcess = CloseProcessById(processMulti.ProcessId);
-                        }
-                        else
-                        {
-                            ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(launchApp.PathExe), false);
-                        }
-
-                        //Check if process closed
-                        if (ClosedProcess)
-                        {
-                            //Updating running status
-                            launchApp.StatusRunning = Visibility.Collapsed;
-                            launchApp.StatusSuspended = Visibility.Collapsed;
-                            launchApp.RunningTimeLastUpdate = 0;
-
-                            //Update process count
-                            launchApp.ProcessRunningCount = string.Empty;
-                        }
-                        else
-                        {
-                            Popup_Show_Status("Closing", "Failed to close the app");
-                            Debug.WriteLine("Failed to close the application.");
-                        }
-
+                        await CloseSingleProcessWin32AndWin32StoreByDataBindApp(processMulti, dataBindApp, true, false);
                         return false;
                     }
                     else if (Result == Answer3)
                     {
-                        Popup_Show_Status("Switch", "Restarting " + launchApp.Name);
-                        Debug.WriteLine("Restarting Win32 application: " + launchApp.Name + " / " + processMulti.ProcessId + " / " + processMulti.WindowHandle);
-
-                        string LaunchArgument = launchApp.Argument;
-                        if (launchApp.Category == AppCategory.Emulator)
+                        //Check the application restart type
+                        if (processMulti.Type == ProcessType.Win32Store)
                         {
-                            if (string.IsNullOrWhiteSpace(launchApp.RomPath))
-                            {
-                                LaunchArgument = string.Empty;
-                            }
-                            else
-                            {
-                                LaunchArgument += launchApp.RomPath;
-                            }
+                            await RestartPrepareWin32Store(processMulti, dataBindApp);
                         }
-
-                        await RestartProcessWin32(processMulti.ProcessId, launchApp.PathExe, launchApp.PathLaunch, LaunchArgument);
+                        else
+                        {
+                            await RestartPrepareWin32(processMulti, dataBindApp);
+                        }
                         return false;
                     }
                     else if (Result == Answer4)
@@ -345,7 +309,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Debug.WriteLine("Single thread process.");
+                    Debug.WriteLine("Single window thread process.");
                     return processTarget.WindowHandle;
                 }
             }

@@ -9,8 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
-using static ArnoldVinkCode.ProcessUwpFunctions;
-using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -69,56 +67,22 @@ namespace CtrlUI
         {
             try
             {
-                ListBox ListboxSender = (ListBox)sender;
-                int ListboxSelectedIndex = ListboxSender.SelectedIndex;
-                if (ListboxSender.SelectedItems.Count > 0 && ListboxSelectedIndex != -1)
+                ListBox listboxSender = (ListBox)sender;
+                int listboxSelectedIndex = listboxSender.SelectedIndex;
+                if (listboxSender.SelectedItems.Count > 0 && listboxSelectedIndex != -1)
                 {
-                    DataBindApp SelectedItem = (DataBindApp)ListboxSender.SelectedItem;
-                    if (SelectedItem.Category == AppCategory.Process)
+                    DataBindApp selectedItem = (DataBindApp)listboxSender.SelectedItem;
+                    if (selectedItem.Category == AppCategory.Process)
                     {
-                        await RightClickProcess(ListboxSender, ListboxSelectedIndex, SelectedItem);
+                        await RightClickProcess(listboxSender, listboxSelectedIndex, selectedItem);
                     }
-                    else if (SelectedItem.Category == AppCategory.Shortcut)
+                    else if (selectedItem.Category == AppCategory.Shortcut)
                     {
-                        await RightClickShortcut(ListboxSender, ListboxSelectedIndex, SelectedItem);
+                        await RightClickShortcut(listboxSender, listboxSelectedIndex, selectedItem);
                     }
                     else
                     {
-                        Debug.WriteLine("Editing app: " + SelectedItem.Name + " from: " + ListboxSender.Name);
-
-                        //Show the messagebox popup with options
-                        List<DataBindString> Answers = new List<DataBindString>();
-                        DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Edit.png" }, IntPtr.Zero, -1);
-                        Answer1.Name = "Edit this application";
-                        Answers.Add(Answer1);
-
-                        DataBindString Answer2 = new DataBindString();
-                        Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
-                        Answer2.Name = "Remove application";
-                        Answers.Add(Answer2);
-
-                        DataBindString cancelString = new DataBindString();
-                        cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                        cancelString.Name = "Cancel";
-                        Answers.Add(cancelString);
-
-                        DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + SelectedItem.Name + "?", ApplicationRuntimeString(SelectedItem.RunningTime, "application"), "", Answers);
-                        if (Result != null)
-                        {
-                            if (Result == Answer1)
-                            {
-                                await Popup_Show_AppEdit(ListboxSender);
-                            }
-                            else if (Result == Answer2)
-                            {
-                                //Remove application from the list
-                                await RemoveAppFromList(SelectedItem, true, true, false);
-
-                                //Select the previous index
-                                await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
-                            }
-                        }
+                        await RightClickList(listboxSender, listboxSelectedIndex, selectedItem);
                     }
                 }
             }
@@ -190,6 +154,125 @@ namespace CtrlUI
             catch { }
         }
 
+        async Task RightClickList(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
+        {
+            try
+            {
+                Debug.WriteLine("Editing app: " + dataBindApp.Name + " from: " + listboxSender.Name);
+
+                //Show the messagebox popup with options
+                List<DataBindString> Answers = new List<DataBindString>();
+                DataBindString Answer1 = new DataBindString();
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Edit.png" }, IntPtr.Zero, -1);
+                Answer1.Name = "Edit this application";
+                Answers.Add(Answer1);
+
+                DataBindString Answer2 = new DataBindString();
+                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
+                Answer2.Name = "Remove application";
+                Answers.Add(Answer2);
+
+                DataBindString cancelString = new DataBindString();
+                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
+                cancelString.Name = "Cancel";
+                Answers.Add(cancelString);
+
+                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", ApplicationRuntimeString(dataBindApp.RunningTime, "application"), "", Answers);
+                if (Result != null)
+                {
+                    if (Result == Answer1)
+                    {
+                        await Popup_Show_AppEdit(listboxSender);
+                    }
+                    else if (Result == Answer2)
+                    {
+                        //Remove application from the list
+                        await RemoveAppFromList(dataBindApp, true, true, false);
+
+                        //Select the previous index
+                        await FocusOnListbox(listboxSender, false, false, listboxSelectedIndex);
+                    }
+                }
+            }
+            catch { }
+        }
+
+        async Task RightClickProcess(ListBox ListboxSender, int ListboxSelectedIndex, DataBindApp dataBindApp)
+        {
+            try
+            {
+                //Get the process multi from databindapp
+                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(dataBindApp, false);
+
+                //Get the process running time
+                string ProcessRunningTime = ApplicationRuntimeString(dataBindApp.RunningTime, "process");
+
+                List<DataBindString> Answers = new List<DataBindString>();
+                DataBindString Answer0 = new DataBindString();
+                Answer0.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Fullscreen.png" }, IntPtr.Zero, -1);
+                Answer0.Name = "Show the process";
+                Answers.Add(Answer0);
+
+                DataBindString Answer1 = new DataBindString();
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1);
+                Answer1.Name = "Close the process";
+                Answers.Add(Answer1);
+
+                DataBindString Answer2 = new DataBindString();
+                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1);
+                Answer2.Name = "Restart process";
+                Answers.Add(Answer2);
+
+                DataBindString cancelString = new DataBindString();
+                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
+                cancelString.Name = "Cancel";
+                Answers.Add(cancelString);
+
+                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", ProcessRunningTime, "", Answers);
+                if (Result != null)
+                {
+                    if (Result == Answer0)
+                    {
+                        await ShowApplicationByDataBindApp(dataBindApp);
+                    }
+                    else if (Result == Answer1)
+                    {
+                        if (processMulti.Type == ProcessType.UWP)
+                        {
+                            await CloseSingleProcessUwpByDataBindApp(processMulti, dataBindApp, false, true);
+                        }
+                        else
+                        {
+                            await CloseSingleProcessWin32AndWin32StoreByDataBindApp(processMulti, dataBindApp, false, true);
+                        }
+                    }
+                    else if (Result == Answer2)
+                    {
+                        //Restart the process
+                        if (processMulti.Type == ProcessType.UWP)
+                        {
+                            await RestartPrepareUwp(processMulti, dataBindApp);
+                        }
+                        else if (processMulti.Type == ProcessType.Win32Store)
+                        {
+                            await RestartPrepareWin32Store(processMulti, dataBindApp);
+                        }
+                        else
+                        {
+                            await RestartPrepareWin32(processMulti, dataBindApp);
+                        }
+
+                        //Refresh the application lists
+                        await RefreshApplicationLists(false, false, false, false, false);
+
+                        //Select the previous index
+                        await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
+                    }
+                }
+            }
+            catch { }
+        }
+
         string ApplicationRuntimeString(int RunningTime, string Category)
         {
             try
@@ -220,160 +303,10 @@ namespace CtrlUI
             {
                 return Convert.ToInt32(DateTime.Now.Subtract(TargetProcess.StartTime).TotalMinutes);
             }
-            catch { return -1; }
-        }
-
-        async Task RightClickProcess(ListBox ListboxSender, int ListboxSelectedIndex, DataBindApp SelectedItem)
-        {
-            try
+            catch
             {
-                //Improve: detect if selected item is Win32Store properly
-                if (SelectedItem.Type == ProcessType.UWP || SelectedItem.Type == ProcessType.Win32Store)
-                {
-                    //Get the process running time
-                    string ProcessRunningTime = ApplicationRuntimeString(SelectedItem.RunningTime, "process");
-
-                    List<DataBindString> Answers = new List<DataBindString>();
-                    DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1);
-                    Answer1.Name = "Close the process";
-                    Answers.Add(Answer1);
-
-                    DataBindString Answer2 = new DataBindString();
-                    Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1);
-                    Answer2.Name = "Restart process";
-                    Answers.Add(Answer2);
-
-                    DataBindString cancelString = new DataBindString();
-                    cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                    cancelString.Name = "Cancel";
-                    Answers.Add(cancelString);
-
-                    DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + SelectedItem.Name + "?", ProcessRunningTime, "", Answers);
-                    if (Result != null)
-                    {
-                        if (Result == Answer1)
-                        {
-                            Popup_Show_Status("Closing", "Closing " + SelectedItem.Name);
-                            Debug.WriteLine("Closing uwp process: " + SelectedItem.Name + " / " + SelectedItem.ProcessId + " / " + SelectedItem.WindowHandle);
-
-                            //Close the process or app
-                            bool ClosedProcess = await CloseProcessUwpByWindowHandleOrProcessId(SelectedItem.Name, SelectedItem.ProcessId, SelectedItem.WindowHandle);
-                            if (ClosedProcess)
-                            {
-                                //Remove application from the list
-                                await RemoveAppFromList(SelectedItem, false, false, true);
-                            }
-                            else
-                            {
-                                Popup_Show_Status("Closing", "Failed to close the process");
-                                Debug.WriteLine("Failed to close the uwp process.");
-                            }
-
-                            //Select the previous index
-                            await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
-                        }
-                        else if (Result == Answer2)
-                        {
-                            if (!string.IsNullOrWhiteSpace(SelectedItem.PathExe))
-                            {
-                                Popup_Show_Status("Switch", "Restarting " + SelectedItem.Name);
-                                Debug.WriteLine("Restarting uwp process: " + SelectedItem.Name + " / Arg: " + SelectedItem.Argument);
-
-                                await RestartProcessUwp(SelectedItem.Name, SelectedItem.PathExe, SelectedItem.Argument, SelectedItem.ProcessId, SelectedItem.WindowHandle);
-
-                                //Refresh the application lists
-                                await RefreshApplicationLists(false, false, false, false, false);
-
-                                //Select the previous index
-                                await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
-                            }
-                            else
-                            {
-                                Popup_Show_Status("Close", "Failed restarting " + SelectedItem.Name);
-                                Debug.WriteLine("Failed to restart process: " + SelectedItem.Name);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    //Get the process running time
-                    string ProcessRunningTime = ApplicationRuntimeString(SelectedItem.RunningTime, "process");
-
-                    List<DataBindString> Answers = new List<DataBindString>();
-                    DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1);
-                    Answer1.Name = "Close the process";
-                    Answers.Add(Answer1);
-
-                    DataBindString Answer2 = new DataBindString();
-                    Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1);
-                    Answer2.Name = "Restart process";
-                    Answers.Add(Answer2);
-
-                    DataBindString cancelString = new DataBindString();
-                    cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                    cancelString.Name = "Cancel";
-                    Answers.Add(cancelString);
-
-                    DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + SelectedItem.Name + "?", ProcessRunningTime, "", Answers);
-                    if (Result != null)
-                    {
-                        if (Result == Answer1)
-                        {
-                            if (SelectedItem.ProcessId > 0)
-                            {
-                                Popup_Show_Status("Closing", "Closing " + SelectedItem.Name);
-                                Debug.WriteLine("Closing process: " + SelectedItem.Name + " / " + SelectedItem.ProcessId + " / " + SelectedItem.WindowHandle);
-
-                                //Close the process or app
-                                bool ClosedProcess = CloseProcessById(SelectedItem.ProcessId);
-                                if (ClosedProcess)
-                                {
-                                    //Remove application from the list
-                                    await RemoveAppFromList(SelectedItem, false, false, true);
-                                }
-                                else
-                                {
-                                    Popup_Show_Status("Closing", "Failed to close the process");
-                                    Debug.WriteLine("Failed to close the process.");
-                                }
-                            }
-                            else
-                            {
-                                Popup_Show_Status("Closing", "Process to close is not visible");
-                                Debug.WriteLine("Process to close is not visible");
-                            }
-
-                            //Select the previous index
-                            await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
-                        }
-                        else if (Result == Answer2)
-                        {
-                            if (!string.IsNullOrWhiteSpace(SelectedItem.PathExe))
-                            {
-                                Popup_Show_Status("Switch", "Restarting " + SelectedItem.Name);
-                                Debug.WriteLine("Restarting process: " + SelectedItem.Name + " / Arg: " + SelectedItem.Argument);
-
-                                await RestartProcessWin32(SelectedItem.ProcessId, SelectedItem.PathExe, SelectedItem.PathLaunch, SelectedItem.Argument);
-
-                                //Remove application from the list
-                                await RemoveAppFromList(SelectedItem, false, false, true);
-
-                                //Select the previous index
-                                await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
-                            }
-                            else
-                            {
-                                Popup_Show_Status("Close", "Failed restarting " + SelectedItem.Name);
-                                Debug.WriteLine("Failed to restart process: " + SelectedItem.Name);
-                            }
-                        }
-                    }
-                }
+                return -1;
             }
-            catch { }
         }
     }
 }
