@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
+using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
 {
@@ -76,7 +77,7 @@ namespace CtrlUI
                 Popup_Reset_ColorPicker();
 
                 //Show the search popup
-                PlayInterfaceSound("PopupOpen", false);
+                PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
                 //Save previous focused element
                 if (Keyboard.FocusedElement != null)
@@ -134,7 +135,7 @@ namespace CtrlUI
             {
                 if (vColorPickerOpen)
                 {
-                    PlayInterfaceSound("PopupClose", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
 
                     //Reset popup variables
                     vColorPickerOpen = false;

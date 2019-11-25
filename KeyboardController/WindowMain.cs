@@ -15,6 +15,7 @@ using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
 using static KeyboardController.AppVariables;
+using static LibraryShared.SoundPlayer;
 
 namespace KeyboardController
 {
@@ -54,7 +55,9 @@ namespace KeyboardController
             {
                 //Check application settings
                 WindowSettings.Settings_Check();
-                WindowSettings.Settings_LoadAccentColor();
+                WindowSettings.Settings_Load_CtrlUI();
+                WindowSettings.Settings_Load_AccentColor();
+                WindowSettings.Settings_Load_SoundVolume();
 
                 //Create tray icon
                 Application_CreateTrayMenu();
@@ -66,7 +69,7 @@ namespace KeyboardController
                 UpdateKeyboardMode();
 
                 //Play window open sound
-                PlayInterfaceSound("PopupOpen", false);
+                PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
                 //Activate keyboard window and focus on key
                 await ActivateKeyboardWindow(key_g);
@@ -90,11 +93,7 @@ namespace KeyboardController
         {
             try
             {
-                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-                Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-
-                int SocketServerPort = Convert.ToInt32(config.AppSettings.Settings["ServerPort"].Value) + 2;
+                int SocketServerPort = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["ServerPort"].Value) + 2;
 
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
@@ -191,11 +190,7 @@ namespace KeyboardController
             try
             {
                 //Get default monitor
-                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-                Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-
-                int MonitorNumber = Convert.ToInt32(config.AppSettings.Settings["DisplayMonitor"].Value);
+                int MonitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
 
                 //Get the target screen
                 if (MonitorNumber > 0)
@@ -290,7 +285,7 @@ namespace KeyboardController
         {
             try
             {
-                PlayInterfaceSound("KeyboardPress", false);
+                PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardPress", false);
                 Debug.WriteLine("Switching caps lock.");
 
                 //Disable hardware capslock
@@ -591,7 +586,7 @@ namespace KeyboardController
 
                 //Play window close sound and animation
                 AVAnimations.Ani_Visibility(this, false, false, 0.10);
-                PlayInterfaceSound("PopupClose", false);
+                PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
 
                 //Stop the background tasks
                 TasksBackgroundStop();

@@ -15,6 +15,7 @@ using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
 {
@@ -28,7 +29,7 @@ namespace CtrlUI
                 //Play the popup opening sound
                 if (!vFilePickerOpen)
                 {
-                    PlayInterfaceSound("PopupOpen", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
                 }
 
                 //Save previous focus element
@@ -447,7 +448,7 @@ namespace CtrlUI
         {
             try
             {
-                PlayInterfaceSound("PopupClose", false);
+                PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
 
                 //Reset and update popup variables
                 vFilePickerOpen = false;

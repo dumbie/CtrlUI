@@ -21,6 +21,7 @@ using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
 {
@@ -572,7 +573,7 @@ namespace CtrlUI
                 if (vAppMinimized || !vAppActivated)
                 {
                     Debug.WriteLine("Showing the CtrlUI window.");
-                    PlayInterfaceSound("PopupOpen", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
                     //Get previous focused application
                     ProcessFocus ForegroundProcess = GetFocusedProcess();
@@ -618,7 +619,7 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Hiding the CtrlUI window.");
-                    PlayInterfaceSound("PopupClose", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
 
                     //Check if a previous process is available
                     if (vPrevFocusedProcess == null)

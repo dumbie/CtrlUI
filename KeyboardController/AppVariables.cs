@@ -10,6 +10,8 @@ namespace KeyboardController
     {
         //Application Variables
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        public static Configuration vConfigurationCtrlUI = null;
+        public static double vInterfaceSoundVolume = 0.90;
 
         //Process Variables
         public static Process vProcessCurrent = Process.GetCurrentProcess();

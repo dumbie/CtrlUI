@@ -3,11 +3,27 @@ using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using static DirectXInput.AppVariables;
 
 namespace DirectXInput
 {
     partial class WindowMain
     {
+        //Load - CtrlUI Settings
+        async Task Settings_Load_CtrlUI()
+        {
+            try
+            {
+                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
+                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
+                vConfigurationCtrlUI = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+            }
+            catch (Exception Ex)
+            {
+                await MessageBoxPopup("Failed to load the CtrlUI settings.", Ex.Message, "Ok", "", "", "");
+            }
+        }
+
         //Load - Application Settings
         async Task Settings_Load()
         {
@@ -26,7 +42,10 @@ namespace DirectXInput
                 string TargetFileStartup_Admin = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + TargetName_Admin + ".url";
                 if (File.Exists(TargetFileStartup_Admin)) { cb_SettingsWindowsStartup.IsChecked = true; }
             }
-            catch (Exception Ex) { await MessageBoxPopup("Failed to load the application settings.", Ex.Message, "Ok", "", "", ""); }
+            catch (Exception Ex)
+            {
+                await MessageBoxPopup("Failed to load the application settings.", Ex.Message, "Ok", "", "", "");
+            }
         }
     }
 }

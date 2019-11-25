@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput
 {
@@ -54,7 +54,7 @@ namespace DirectXInput
         }
 
         //Check controller for low battery level
-        async Task ControllerLowBattery(ControllerStatus Controller)
+        void ControllerLowBattery(ControllerStatus Controller)
         {
             try
             {
@@ -65,11 +65,7 @@ namespace DirectXInput
                     if (Controller.BatteryPercentageCurrent <= LowBatteryLevelRange && (Controller.BatteryPercentagePrevious > LowBatteryLevelRange || Controller.BatteryPercentagePrevious == -1))
                     {
                         Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level.");
-                        PlayInterfaceSound("BatteryLow", true);
-                        await Task.Delay(1000);
-                        PlayInterfaceSound("BatteryLow", true);
-                        await Task.Delay(1000);
-                        PlayInterfaceSound("BatteryLow", true);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "BatteryLow", true);
                     }
 
                     Controller.BatteryPercentagePrevious = Controller.BatteryPercentageCurrent;
@@ -79,16 +75,16 @@ namespace DirectXInput
         }
 
         //Check for timed out controllers
-        async Task CheckControllersLowBattery()
+        void CheckControllersLowBattery()
         {
             try
             {
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["PlaySoundBatteryLow"]))
                 {
-                    await ControllerLowBattery(vController0);
-                    await ControllerLowBattery(vController1);
-                    await ControllerLowBattery(vController2);
-                    await ControllerLowBattery(vController3);
+                    ControllerLowBattery(vController0);
+                    ControllerLowBattery(vController1);
+                    ControllerLowBattery(vController2);
+                    ControllerLowBattery(vController3);
                 }
             }
             catch { }

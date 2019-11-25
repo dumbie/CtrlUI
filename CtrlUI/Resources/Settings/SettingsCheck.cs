@@ -14,7 +14,11 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["AppFirstLaunch"] == null) { SettingSave("AppFirstLaunch", "True"); }
                 if (ConfigurationManager.AppSettings["AppUpdateCheck"] == null) { SettingSave("AppUpdateCheck", DateTime.Now.ToString(vAppCultureInfo)); }
                 if (ConfigurationManager.AppSettings["AppFontSize"] == null) { SettingSave("AppFontSize", "0"); }
-                if (ConfigurationManager.AppSettings["DisplayMonitor"] == null) { SettingSave("DisplayMonitor", "0"); }
+                if (ConfigurationManager.AppSettings["SoundVolume"] == null) { SettingSave("SoundVolume", "70"); }
+
+                if (ConfigurationManager.AppSettings["DisplayMonitor"] == null) { SettingSave("DisplayMonitor", "0"); } //Shared
+                if (ConfigurationManager.AppSettings["ColorAccentLight"] == null) { SettingSave("ColorAccentLight", "#00C7FF"); } //Shared
+                if (ConfigurationManager.AppSettings["ServerPort"] == null) { SettingSave("ServerPort", "1010"); } //Shared
 
                 if (ConfigurationManager.AppSettings["WindowSizeWidth"] == null) { SettingSave("WindowSizeWidth", "1280"); }
                 if (ConfigurationManager.AppSettings["WindowSizeHeight"] == null) { SettingSave("WindowSizeHeight", "720"); }
@@ -40,10 +44,6 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["ShortcutAltTab"] == null) { SettingSave("ShortcutAltTab", "True"); }
                 if (ConfigurationManager.AppSettings["ShortcutWinTab"] == null) { SettingSave("ShortcutWinTab", "False"); }
                 if (ConfigurationManager.AppSettings["ShortcutScreenshot"] == null) { SettingSave("ShortcutScreenshot", "True"); }
-
-                if (ConfigurationManager.AppSettings["ColorAccentLight"] == null) { SettingSave("ColorAccentLight", "#00C7FF"); }
-
-                if (ConfigurationManager.AppSettings["ServerPort"] == null) { SettingSave("ServerPort", "1010"); }
 
                 if (ConfigurationManager.AppSettings["LaunchDirectXInput"] == null) { SettingSave("LaunchDirectXInput", "False"); }
             }

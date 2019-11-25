@@ -24,6 +24,7 @@ namespace DirectXInput
             {
                 //Initialize Settings
                 Settings_Check();
+                await Settings_Load_CtrlUI();
                 await Settings_Load();
                 Settings_Save();
 
@@ -89,11 +90,7 @@ namespace DirectXInput
         {
             try
             {
-                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-                Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-
-                int SocketServerPort = Convert.ToInt32(config.AppSettings.Settings["ServerPort"].Value) + 1;
+                int SocketServerPort = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["ServerPort"].Value) + 1;
 
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;

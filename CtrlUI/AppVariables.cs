@@ -30,6 +30,7 @@ namespace CtrlUI
         public static List<FileLocation> vFileLocations = new List<FileLocation>();
         public static string[] vAppsBlacklistProcess = new string[] { };
         public static string[] vAppsShortcutProtocol = new string[] { };
+        public static double vInterfaceSoundVolume = 0.70;
 
         //Interaction Variables
         public static int vMouseLastInteraction = Environment.TickCount;

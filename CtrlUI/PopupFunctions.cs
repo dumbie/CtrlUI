@@ -7,6 +7,7 @@ using System.Windows.Input;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
+using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
 {
@@ -33,7 +34,7 @@ namespace CtrlUI
                     return;
                 }
 
-                PlayInterfaceSound("PopupOpen", false);
+                PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
                 //Save previous focused element
                 if (Keyboard.FocusedElement != null)
@@ -78,7 +79,7 @@ namespace CtrlUI
             {
                 if (vMainMenuOpen)
                 {
-                    PlayInterfaceSound("PopupClose", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
 
                     //Reset popup variables
                     vMainMenuOpen = false;
@@ -127,7 +128,7 @@ namespace CtrlUI
             {
                 if (!vPopupOpen)
                 {
-                    PlayInterfaceSound("PopupOpen", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
                     //Update popup variables
                     vPopupElementTarget = ShowPopup;
@@ -173,7 +174,7 @@ namespace CtrlUI
             {
                 if (vPopupOpen)
                 {
-                    PlayInterfaceSound("PopupClose", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
 
                     //Reset popup variables
                     vPopupOpen = false;

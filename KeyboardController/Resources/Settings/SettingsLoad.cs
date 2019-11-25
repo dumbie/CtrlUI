@@ -2,23 +2,20 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Media;
+using static KeyboardController.AppVariables;
 
 namespace KeyboardController
 {
     public partial class WindowSettings
     {
         //Load - Accent Color settings
-        public static void Settings_LoadAccentColor()
+        public static void Settings_Load_AccentColor()
         {
             try
             {
                 Debug.WriteLine("Adjusting the application accent color.");
 
-                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-                Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-
-                string colorHexLight = Convert.ToString(config.AppSettings.Settings["ColorAccentLight"].Value);
+                string colorHexLight = Convert.ToString(vConfigurationCtrlUI.AppSettings.Settings["ColorAccentLight"].Value);
                 SolidColorBrush targetSolidColorBrushLight = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;
                 SolidColorBrush targetSolidColorBrushDark = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;
                 targetSolidColorBrushDark.Opacity = 0.50;
@@ -31,6 +28,31 @@ namespace KeyboardController
             catch { }
         }
 
+        //Load the sound volume
+        public static void Settings_Load_SoundVolume()
+        {
+            try
+            {
+                vInterfaceSoundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) / 100;
+            }
+            catch { }
+        }
+
+        //Load - CtrlUI Settings
+        public static void Settings_Load_CtrlUI()
+        {
+            try
+            {
+                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
+                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
+                vConfigurationCtrlUI = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+            }
+            catch (Exception Ex)
+            {
+                Debug.WriteLine("Failed to load the CtrlUI settings: " + Ex.Message);
+            }
+        }
+
         //Load - Application Settings
         void Settings_Load()
         {
@@ -41,8 +63,16 @@ namespace KeyboardController
 
                 combobox_KeyboardLayout.SelectedIndex = Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardLayout"]);
                 cb_SettingsInterfaceSound.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["InterfaceSound"]);
+
+                //Load the sound volume
+                textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) + "%";
+                slider_SettingsSoundVolume.Value = Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]);
+                vInterfaceSoundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) / 100;
             }
-            catch (Exception Ex) { Debug.WriteLine("Failed to load the application settings: " + Ex.Message); }
+            catch (Exception Ex)
+            {
+                Debug.WriteLine("Failed to load the application settings: " + Ex.Message);
+            }
         }
     }
 }

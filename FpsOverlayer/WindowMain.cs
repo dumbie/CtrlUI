@@ -55,6 +55,7 @@ namespace FpsOverlayer
             {
                 //Check application settings
                 App.vWindowSettings.Settings_Check();
+                WindowSettings.Settings_Load_CtrlUI();
 
                 //Update the fps overlay style
                 UpdateFpsOverlayStyle();
@@ -91,11 +92,7 @@ namespace FpsOverlayer
             try
             {
                 //Get default monitor
-                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-                Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-
-                int MonitorNumber = Convert.ToInt32(config.AppSettings.Settings["DisplayMonitor"].Value);
+                int MonitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
 
                 //Get the target screen
                 if (MonitorNumber > 0)

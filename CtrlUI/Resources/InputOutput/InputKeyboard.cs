@@ -7,6 +7,7 @@ using System.Windows.Interop;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
+using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
 {
@@ -22,25 +23,25 @@ namespace CtrlUI
 
                 if (UsedVirtualKey == (int)KeysVirtual.Left)
                 {
-                    PlayInterfaceSound("Click", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "Click", false);
                 }
                 else if (UsedVirtualKey == (int)KeysVirtual.Up)
                 {
-                    PlayInterfaceSound("Click", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "Click", false);
                     NavigateUp(ref Handled);
                 }
                 else if (UsedVirtualKey == (int)KeysVirtual.Right)
                 {
-                    PlayInterfaceSound("Click", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "Click", false);
                 }
                 else if (UsedVirtualKey == (int)KeysVirtual.Down)
                 {
-                    PlayInterfaceSound("Click", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "Click", false);
                     NavigateDown(ref Handled);
                 }
                 else if (UsedVirtualKey == (int)KeysVirtual.Space)
                 {
-                    PlayInterfaceSound("Confirm", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "Confirm", false);
                 }
             }
             catch { }

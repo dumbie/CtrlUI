@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
 {
@@ -43,8 +44,14 @@ namespace CtrlUI
                     vBusyRefreshingApps = true;
                 }
 
-                if (ShowNotification) { Popup_Show_Status("Refresh", "Refreshing applications"); }
-                if (PlaySound) { PlayInterfaceSound("Refresh", false); }
+                if (ShowNotification)
+                {
+                    Popup_Show_Status("Refresh", "Refreshing applications");
+                }
+                if (PlaySound)
+                {
+                    PlayInterfaceSound(vInterfaceSoundVolume, "Refresh", false);
+                }
 
                 //Load all the active processes
                 IEnumerable<Process> ProcessesList = null;

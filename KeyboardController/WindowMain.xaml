@@ -17,11 +17,13 @@
             SnapsToDevicePixels="True"
             Opacity="0.01">
 
+    <!-- Grid Application -->
     <Grid Name="grid_Application">
         <Grid.Background>
             <SolidColorBrush Color="{DynamicResource ApplicationAccentLightColor}" Opacity="0.50"/>
         </Grid.Background>
 
+        <!-- Grid Keyboard -->
         <Grid Name="grid_Keyboard" Margin="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

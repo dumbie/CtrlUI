@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
+using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
 {
@@ -36,7 +37,7 @@ namespace CtrlUI
                 await Popup_Reset_Search(false);
 
                 //Show the search popup
-                PlayInterfaceSound("PopupOpen", false);
+                PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
                 //Save previous focused element
                 if (Keyboard.FocusedElement != null)
@@ -125,7 +126,7 @@ namespace CtrlUI
             {
                 if (vSearchOpen)
                 {
-                    PlayInterfaceSound("PopupClose", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
 
                     //Reset popup variables
                     vSearchOpen = false;

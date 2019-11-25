@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
@@ -53,6 +54,11 @@ namespace CtrlUI
                 textblock_SettingsDisplayMonitor.Text = "Default monitor to launch CtrlUI on: " + Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
                 slider_SettingsDisplayMonitor.Value = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
                 slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count() - 1;
+
+                //Load the sound volume
+                textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) + "%";
+                slider_SettingsSoundVolume.Value = Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]);
+                vInterfaceSoundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) / 100;
 
                 //Set the application name to string to check shortcuts
                 string TargetName_Admin = Assembly.GetEntryAssembly().GetName().Name;

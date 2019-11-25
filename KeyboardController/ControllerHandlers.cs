@@ -7,6 +7,7 @@ using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInputOutputMouse;
 using static KeyboardController.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.SoundPlayer;
 
 namespace KeyboardController
 {
@@ -107,7 +108,7 @@ namespace KeyboardController
                     //Send internal arrow left key
                     if (ControllerInput.DPadLeft)
                     {
-                        PlayInterfaceSound("KeyboardMove", false);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardMove", false);
                         KeySendSingle((byte)KeysVirtual.Left, Process.GetCurrentProcess().MainWindowHandle);
 
                         ControllerUsed = true;
@@ -116,7 +117,7 @@ namespace KeyboardController
                     //Send internal arrow right key
                     else if (ControllerInput.DPadRight)
                     {
-                        PlayInterfaceSound("KeyboardMove", false);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardMove", false);
                         KeySendSingle((byte)KeysVirtual.Right, Process.GetCurrentProcess().MainWindowHandle);
 
                         ControllerUsed = true;
@@ -125,7 +126,7 @@ namespace KeyboardController
                     //Send internal arrow up key
                     else if (ControllerInput.DPadUp)
                     {
-                        PlayInterfaceSound("KeyboardMove", false);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardMove", false);
                         KeySendSingle((byte)KeysVirtual.Up, Process.GetCurrentProcess().MainWindowHandle);
 
                         ControllerUsed = true;
@@ -134,7 +135,7 @@ namespace KeyboardController
                     //Send internal arrow down key
                     else if (ControllerInput.DPadDown)
                     {
-                        PlayInterfaceSound("KeyboardMove", false);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardMove", false);
                         KeySendSingle((byte)KeysVirtual.Down, Process.GetCurrentProcess().MainWindowHandle);
 
                         ControllerUsed = true;
@@ -152,7 +153,7 @@ namespace KeyboardController
                     //Send external enter key
                     else if (ControllerInput.ButtonB)
                     {
-                        PlayInterfaceSound("KeyboardPress", false);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardPress", false);
                         KeyPressSingle((byte)KeysVirtual.Return, false);
 
                         ControllerUsed = true;
@@ -161,7 +162,7 @@ namespace KeyboardController
                     //Send external space key
                     else if (ControllerInput.ButtonY)
                     {
-                        PlayInterfaceSound("KeyboardPress", false);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardPress", false);
                         KeyPressSingle((byte)KeysVirtual.Space, false);
 
                         ControllerUsed = true;
@@ -170,7 +171,7 @@ namespace KeyboardController
                     //Send external backspace key
                     else if (ControllerInput.ButtonX)
                     {
-                        PlayInterfaceSound("KeyboardPress", false);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardPress", false);
                         KeyPressSingle((byte)KeysVirtual.Back, false);
 
                         ControllerUsed = true;
@@ -180,7 +181,7 @@ namespace KeyboardController
                     //Send external arrow left key
                     else if (ControllerInput.ButtonShoulderLeft)
                     {
-                        PlayInterfaceSound("KeyboardPress", false);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardPress", false);
                         KeyPressSingle((byte)KeysVirtual.Left, false);
 
                         ControllerUsed = true;
@@ -189,7 +190,7 @@ namespace KeyboardController
                     //Send external arrow right key
                     else if (ControllerInput.ButtonShoulderRight)
                     {
-                        PlayInterfaceSound("KeyboardPress", false);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardPress", false);
                         KeyPressSingle((byte)KeysVirtual.Right, false);
 
                         ControllerUsed = true;
@@ -199,7 +200,7 @@ namespace KeyboardController
                     //Send external shift+tab
                     else if (ControllerInput.TriggerLeft > 0)
                     {
-                        PlayInterfaceSound("KeyboardPress", false);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardPress", false);
                         KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
 
                         ControllerUsed = true;
@@ -208,7 +209,7 @@ namespace KeyboardController
                     //Send external tab
                     else if (ControllerInput.TriggerRight > 0)
                     {
-                        PlayInterfaceSound("KeyboardPress", false);
+                        PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardPress", false);
                         KeyPressSingle((byte)KeysVirtual.Tab, false);
 
                         ControllerUsed = true;

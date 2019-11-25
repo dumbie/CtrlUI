@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static KeyboardController.AppVariables;
+using static LibraryShared.SoundPlayer;
 
 namespace KeyboardController
 {
@@ -57,7 +58,7 @@ namespace KeyboardController
                 }
                 catch { }
                 Debug.WriteLine("Sending key: " + sendKeyName + "/" + sendKeyVirtual);
-                PlayInterfaceSound("KeyboardPress", false);
+                PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardPress", false);
 
                 //Check for keys that are not caps capable
                 if (sendKeyName == "DotCom")

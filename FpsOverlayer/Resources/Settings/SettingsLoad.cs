@@ -2,11 +2,27 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Media;
+using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
 {
     public partial class WindowSettings
     {
+        //Load - CtrlUI Settings
+        public static void Settings_Load_CtrlUI()
+        {
+            try
+            {
+                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
+                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
+                vConfigurationCtrlUI = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+            }
+            catch (Exception Ex)
+            {
+                Debug.WriteLine("Failed to load the CtrlUI settings: " + Ex.Message);
+            }
+        }
+
         //Load - Application Settings
         void Settings_Load()
         {

@@ -12,6 +12,7 @@ using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
 {
@@ -457,7 +458,7 @@ namespace CtrlUI
                         return;
                     }
 
-                    PlayInterfaceSound("Confirm", false);
+                    PlayInterfaceSound(vInterfaceSoundVolume, "Confirm", false);
 
                     Popup_Show_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding application: " + tb_AddAppName.Text + " to the list.");
@@ -666,7 +667,7 @@ namespace CtrlUI
                     return;
                 }
 
-                PlayInterfaceSound("Confirm", false);
+                PlayInterfaceSound(vInterfaceSoundVolume, "Confirm", false);
 
                 Popup_Show_Status("Plus", "Added " + vFilePickerResult.Name);
                 Debug.WriteLine("Adding uwp app: " + vFilePickerResult.Name + " Path " + vFilePickerResult.PathFile + " Image " + vFilePickerResult.PathImage);

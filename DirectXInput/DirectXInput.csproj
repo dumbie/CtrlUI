@@ -132,7 +132,6 @@
     <Compile Include="PrepareXInputData.cs" />
     <Compile Include="SettingsFunctions.cs" />
     <Compile Include="SocketHandlers.cs" />
-    <Compile Include="SoundPlayer.cs" />
     <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates.xaml">
       <Link>Styles\ControlTemplates.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
