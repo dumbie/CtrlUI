@@ -54,7 +54,11 @@ namespace CtrlUI
                     {
                         try
                         {
-                            await FocusProcessWindow(titleTarget, processIdTarget, windowHandleTarget, windowStateCommand, setWindowState, setTempTopMost);
+                            bool windowFocused = await FocusProcessWindow(titleTarget, processIdTarget, windowHandleTarget, windowStateCommand, setWindowState, setTempTopMost);
+                            if (!windowFocused)
+                            {
+                                Popup_Show_Status("Close", "Failed showing the app");
+                            }
                         }
                         catch { }
                     }
@@ -63,40 +67,48 @@ namespace CtrlUI
                     vChangingWindow = false;
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 Popup_Show_Status("Close", "Failed showing the app");
-                Debug.WriteLine("Failed showing the application, perhaps it is no longer running?");
+                Debug.WriteLine("Failed showing the application, no longer running? " + ex.Message);
                 vChangingWindow = false;
             }
         }
 
         //Get ProcessMulti from DataBindApp
-        async Task<ProcessMulti> GetProcessMultiFromDataBindApp(DataBindApp dataBindApp, bool selectProcess)
+        async Task UpdateDataBindAppProcessMulti(DataBindApp dataBindApp, bool selectProcess)
         {
             try
             {
                 ProcessMulti processMultipleCheck = await CheckProcessMultiUwp(dataBindApp, selectProcess);
                 if (processMultipleCheck != null)
                 {
-                    //Debug.WriteLine("Found an UWP multi process.");
-                    return processMultipleCheck;
+                    //Debug.WriteLine("Found an UWP multi process for: " + dataBindApp.Name);
+                    dataBindApp.ProcessMulti = processMultipleCheck;
+                    return;
                 }
                 processMultipleCheck = await CheckProcessMultiWin32AndWin32Store(dataBindApp.Name, dataBindApp.NameExe, ProcessType.Win32Store, selectProcess);
                 if (processMultipleCheck != null)
                 {
-                    //Debug.WriteLine("Found a Win32Store multi process.");
-                    return processMultipleCheck;
+                    //Debug.WriteLine("Found a Win32Store multi process for: " + dataBindApp.Name);
+                    dataBindApp.ProcessMulti = processMultipleCheck;
+                    return;
                 }
                 processMultipleCheck = await CheckProcessMultiWin32AndWin32Store(dataBindApp.Name, dataBindApp.PathExe, ProcessType.Win32, selectProcess);
                 if (processMultipleCheck != null)
                 {
-                    //Debug.WriteLine("Found a Win32 multi process.");
-                    return processMultipleCheck;
+                    //Debug.WriteLine("Found a Win32 multi process for: " + dataBindApp.Name);
+                    dataBindApp.ProcessMulti = processMultipleCheck;
+                    return;
+                }
+                if (processMultipleCheck == null)
+                {
+                    //Debug.WriteLine("No multi process found for: " + dataBindApp.Name);
+                    dataBindApp.ProcessMulti = processMultipleCheck;
+                    return;
                 }
             }
             catch { }
-            return null;
         }
 
         //Check which launch method needs to be used
@@ -156,24 +168,24 @@ namespace CtrlUI
             try
             {
                 //Check if application has multiple windows
-                IntPtr ProcessWindowHandle = IntPtr.Zero;
+                IntPtr processWindowHandle = IntPtr.Zero;
                 if (dataBindApp.Type == ProcessType.UWP)
                 {
-                    ProcessWindowHandle = dataBindApp.WindowHandle;
+                    processWindowHandle = dataBindApp.ProcessMulti.WindowHandle;
                 }
                 else if (dataBindApp.Type == ProcessType.Win32 || dataBindApp.Type == ProcessType.Win32Store)
                 {
-                    ProcessMulti multiProcess = ConvertProcessToProcessMulti(ProcessType.Win32, GetProcessById(dataBindApp.ProcessId));
-                    ProcessWindowHandle = await CheckProcessWindowsWin32AndWin32Store(dataBindApp.Name, multiProcess);
+                    processWindowHandle = await CheckProcessWindowsWin32AndWin32Store(dataBindApp);
                 }
 
-                if (ProcessWindowHandle != IntPtr.Zero)
+                //Check if application window has been found
+                if (processWindowHandle != IntPtr.Zero)
                 {
                     //Minimize the CtrlUI window
                     if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                     //Force focus on the app
-                    FocusProcessWindowPrepare(dataBindApp.Name, dataBindApp.ProcessId, ProcessWindowHandle, 0, false, false, false);
+                    FocusProcessWindowPrepare(dataBindApp.Name, dataBindApp.ProcessMulti.Identifier, processWindowHandle, 0, false, false, false);
                 }
                 else
                 {

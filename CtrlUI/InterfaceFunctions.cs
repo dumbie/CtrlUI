@@ -326,28 +326,25 @@ namespace CtrlUI
                     {
                         //Debug.WriteLine("Checking application status: " + ListApp.Type + "/" + ListApp.Category + "/" + ListApp.Name + "/" + ListApp.PathExe);
 
-                        //Get the process multi from DataBindApp
-                        ProcessMulti multiProcess = await GetProcessMultiFromDataBindApp(dataBindApp, false);
+                        //Update the process multi from DataBindApp
+                        await UpdateDataBindAppProcessMulti(dataBindApp, false);
 
                         //Check if the process multi is running
-                        if (multiProcess == null)
+                        if (dataBindApp.ProcessMulti == null)
                         {
-                            dataBindApp.ProcessId = -1;
-                            dataBindApp.WindowHandle = IntPtr.Zero;
+                            //Debug.WriteLine("Application is not running: " + dataBindApp.Name);
                             dataBindApp.StatusRunning = Visibility.Collapsed;
                             dataBindApp.StatusSuspended = Visibility.Collapsed;
+                            dataBindApp.RunningProcessCount = string.Empty;
                             dataBindApp.RunningTimeLastUpdate = 0;
-                            dataBindApp.ProcessRunningCount = string.Empty;
                             continue;
                         }
 
                         //Check process multi application status
-                        if (multiProcess.ProcessId > 0) { dataBindApp.ProcessId = multiProcess.ProcessId; }
-                        if (multiProcess.WindowHandle != IntPtr.Zero) { dataBindApp.WindowHandle = multiProcess.WindowHandle; }
                         dataBindApp.RunningTimeLastUpdate = Environment.TickCount;
 
                         //Update the application status icons
-                        bool processSuspended = CheckProcessSuspended(multiProcess.ProcessThreads);
+                        bool processSuspended = CheckProcessSuspended(dataBindApp.ProcessMulti.Threads);
                         if (processSuspended)
                         {
                             dataBindApp.StatusRunning = Visibility.Collapsed;
@@ -359,13 +356,14 @@ namespace CtrlUI
                             dataBindApp.StatusSuspended = Visibility.Collapsed;
                         }
 
-                        if (multiProcess.ProcessCount > 1)
+                        //Update the application running count
+                        if (dataBindApp.ProcessMulti.Count > 1)
                         {
-                            dataBindApp.ProcessRunningCount = Convert.ToString(multiProcess.ProcessCount);
+                            dataBindApp.RunningProcessCount = Convert.ToString(dataBindApp.ProcessMulti.Count);
                         }
                         else
                         {
-                            dataBindApp.ProcessRunningCount = string.Empty;
+                            dataBindApp.RunningProcessCount = string.Empty;
                         }
                     }
                     catch (Exception ex)

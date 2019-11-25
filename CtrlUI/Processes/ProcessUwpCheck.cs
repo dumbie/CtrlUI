@@ -64,20 +64,20 @@ namespace CtrlUI
                             {
                                 ProcessMulti processMultiNew = new ProcessMulti();
                                 processMultiNew.Type = ProcessType.UWP;
-                                processMultiNew.Status = "CloseAll";
+                                processMultiNew.Action = "CloseAll";
                                 return processMultiNew;
                             }
                             else if (Result == cancelString)
                             {
                                 ProcessMulti processMultiNew = new ProcessMulti();
                                 processMultiNew.Type = ProcessType.UWP;
-                                processMultiNew.Status = "Cancel";
+                                processMultiNew.Action = "Cancel";
                                 return processMultiNew;
                             }
                             else
                             {
                                 ProcessMulti returnProcess = multiVariables[multiAnswers.IndexOf(Result)];
-                                returnProcess.ProcessCount = multiVariables.Count();
+                                returnProcess.Count = multiVariables.Count();
                                 return returnProcess;
                             }
                         }
@@ -85,14 +85,14 @@ namespace CtrlUI
                         {
                             ProcessMulti processMultiNew = new ProcessMulti();
                             processMultiNew.Type = ProcessType.UWP;
-                            processMultiNew.Status = "Cancel";
+                            processMultiNew.Action = "Cancel";
                             return processMultiNew;
                         }
                     }
                     else
                     {
                         ProcessMulti returnProcess = multiVariables.FirstOrDefault();
-                        returnProcess.ProcessCount = multiVariables.Count();
+                        returnProcess.Count = multiVariables.Count();
                         return returnProcess;
                     }
                 }
@@ -102,16 +102,16 @@ namespace CtrlUI
         }
 
         //Check process status before launching (True = Continue)
-        async Task<bool> CheckLaunchProcessUwp(ProcessMulti processMulti, DataBindApp dataBindApp)
+        async Task<bool> CheckLaunchProcessUwp(DataBindApp dataBindApp)
         {
             try
             {
-                Debug.WriteLine("Checking launch process UWP: " + dataBindApp.Name + " / " + dataBindApp.ProcessId + " / " + dataBindApp.WindowHandle);
+                Debug.WriteLine("Checking launch process UWP: " + dataBindApp.Name + " / " + dataBindApp.ProcessMulti.Identifier + " / " + dataBindApp.ProcessMulti.WindowHandle);
 
                 //Check the multiple check result
-                if (processMulti.Status == null) { return true; }
-                if (processMulti.Status == "Cancel") { return false; }
-                if (processMulti.Status == "CloseAll")
+                if (dataBindApp.ProcessMulti == null) { return true; }
+                if (dataBindApp.ProcessMulti.Action == "Cancel") { return false; }
+                if (dataBindApp.ProcessMulti.Action == "CloseAll")
                 {
                     //Close all processes UWP
                     await CloseAllProcessesUwpByDataBindApp(dataBindApp, true, false);
@@ -145,11 +145,12 @@ namespace CtrlUI
                 cancelString.Name = "Cancel";
                 Answers.Add(cancelString);
 
-                //Check application runtime
+                //Get the process running time
                 string ApplicationRuntime = string.Empty;
                 if (dataBindApp.Category == AppCategory.Shortcut)
                 {
-                    ApplicationRuntime = ApplicationRuntimeString(ProcessRuntimeMinutes(GetProcessById(dataBindApp.ProcessId)), "shortcut process");
+                    int processRunningTimeInt = ProcessRuntimeMinutes(GetProcessById(dataBindApp.ProcessMulti.Identifier));
+                    ApplicationRuntime = ApplicationRuntimeString(processRunningTimeInt, "shortcut process");
                 }
                 else
                 {
@@ -166,7 +167,7 @@ namespace CtrlUI
                         if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                         //Force focus on the app
-                        FocusProcessWindowPrepare(dataBindApp.Name, processMulti.ProcessId, processMulti.WindowHandle, 0, false, false, false);
+                        FocusProcessWindowPrepare(dataBindApp.Name, dataBindApp.ProcessMulti.Identifier, dataBindApp.ProcessMulti.WindowHandle, 0, false, false, false);
 
                         //Launch the keyboard controller
                         if (dataBindApp.LaunchKeyboard)
@@ -178,15 +179,15 @@ namespace CtrlUI
                     }
                     else if (Result == Answer2)
                     {
-                        await CloseSingleProcessUwpByDataBindApp(processMulti, dataBindApp, true, false);
+                        await CloseSingleProcessUwpByDataBindApp(dataBindApp, true, false);
                         return false;
                     }
                     else if (Result == Answer3)
                     {
                         Popup_Show_Status("Switch", "Restarting " + dataBindApp.Name);
-                        Debug.WriteLine("Restarting UWP application: " + dataBindApp.Name + " / " + processMulti.ProcessId + " / " + processMulti.WindowHandle);
+                        Debug.WriteLine("Restarting UWP application: " + dataBindApp.Name + " / " + dataBindApp.ProcessMulti.Identifier + " / " + dataBindApp.ProcessMulti.WindowHandle);
 
-                        await RestartProcessUwp(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, processMulti.ProcessId, processMulti.WindowHandle);
+                        await RestartProcessUwp(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, dataBindApp.ProcessMulti.Identifier, dataBindApp.ProcessMulti.WindowHandle);
                         return false;
                     }
                     else if (Result == Answer4)

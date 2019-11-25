@@ -8,7 +8,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task RestartPrepareUwp(ProcessMulti processMulti, DataBindApp dataBindApp)
+        async Task RestartPrepareUwp(DataBindApp dataBindApp)
         {
             try
             {
@@ -20,9 +20,9 @@ namespace CtrlUI
                 }
 
                 Popup_Show_Status("Switch", "Restarting " + dataBindApp.Name);
-                Debug.WriteLine("Restarting UWP application: " + dataBindApp.Name + " / " + processMulti.ProcessId + " / " + processMulti.WindowHandle);
+                Debug.WriteLine("Restarting UWP application: " + dataBindApp.Name + " / " + dataBindApp.ProcessMulti.Identifier + " / " + dataBindApp.ProcessMulti.WindowHandle);
 
-                await RestartProcessUwp(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, dataBindApp.ProcessId, dataBindApp.WindowHandle);
+                await RestartProcessUwp(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, dataBindApp.ProcessMulti.Identifier, dataBindApp.ProcessMulti.WindowHandle);
             }
             catch { }
         }

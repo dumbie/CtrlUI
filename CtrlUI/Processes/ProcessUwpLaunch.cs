@@ -50,23 +50,25 @@ namespace CtrlUI
         {
             try
             {
+                //Update the process multi from DataBindApp
+                await UpdateDataBindAppProcessMulti(dataBindApp, true);
+
                 //Check if UWP or Win32Store process is running
-                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(dataBindApp, true);
-                if (processMulti != null)
+                if (dataBindApp.ProcessMulti != null)
                 {
                     bool alreadyRunning = false;
-                    if (processMulti.Type == ProcessType.UWP)
+                    if (dataBindApp.ProcessMulti.Type == ProcessType.UWP)
                     {
-                        alreadyRunning = await CheckLaunchProcessUwp(processMulti, dataBindApp);
+                        alreadyRunning = await CheckLaunchProcessUwp(dataBindApp);
                     }
-                    else if (processMulti.Type == ProcessType.Win32Store)
+                    else if (dataBindApp.ProcessMulti.Type == ProcessType.Win32Store)
                     {
-                        alreadyRunning = await CheckLaunchProcessWin32andWin32Store(processMulti, dataBindApp);
+                        alreadyRunning = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
                     }
 
                     if (!alreadyRunning)
                     {
-                        Debug.WriteLine(processMulti.Type + " process is already running, skipping the launch.");
+                        Debug.WriteLine(dataBindApp.ProcessMulti.Type + " process is already running, skipping the launch.");
                         return false;
                     }
                 }

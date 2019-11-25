@@ -11,33 +11,23 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Close single UWP process
-        async Task CloseSingleProcessUwpByDataBindApp(ProcessMulti processMulti, DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
+        async Task CloseSingleProcessUwpByDataBindApp(DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
         {
             try
             {
                 Popup_Show_Status("Closing", "Closing " + dataBindApp.Name);
                 Debug.WriteLine("Closing UWP application: " + dataBindApp.Name);
 
-                //Close the process
-                bool ClosedProcess = false;
-                if (processMulti != null)
-                {
-                    ClosedProcess = await CloseProcessUwpByWindowHandleOrProcessId(dataBindApp.Name, processMulti.ProcessId, processMulti.WindowHandle);
-                }
-                else
-                {
-                    ClosedProcess = await CloseProcessUwpByWindowHandleOrProcessId(dataBindApp.Name, dataBindApp.ProcessId, dataBindApp.WindowHandle);
-                }
-
-                //Check if process closed
-                if (ClosedProcess)
+                //Close the process or app
+                bool closedProcess = await CloseProcessUwpByWindowHandleOrProcessId(dataBindApp.Name, dataBindApp.ProcessMulti.Identifier, dataBindApp.ProcessMulti.WindowHandle);
+                if (closedProcess)
                 {
                     //Reset the process running status
                     if (resetProcess)
                     {
                         dataBindApp.StatusRunning = Visibility.Collapsed;
                         dataBindApp.StatusSuspended = Visibility.Collapsed;
-                        dataBindApp.ProcessRunningCount = string.Empty;
+                        dataBindApp.RunningProcessCount = string.Empty;
                         dataBindApp.RunningTimeLastUpdate = 0;
                     }
 
@@ -62,24 +52,25 @@ namespace CtrlUI
             try
             {
                 Popup_Show_Status("Closing", "Closing " + dataBindApp.Name);
-                Debug.WriteLine("Closing UWP processes: " + dataBindApp.Name + " / " + dataBindApp.ProcessId + " / " + dataBindApp.WindowHandle);
+                Debug.WriteLine("Closing UWP processes: " + dataBindApp.Name + " / " + dataBindApp.ProcessMulti.Identifier + " / " + dataBindApp.ProcessMulti.WindowHandle);
 
                 //Get the process id by window handle
-                if (dataBindApp.ProcessId <= 0)
+                if (dataBindApp.ProcessMulti.Identifier <= 0)
                 {
-                    dataBindApp.ProcessId = await GetUwpProcessIdByWindowHandle(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.WindowHandle);
+                    int processId = await GetUwpProcessIdByWindowHandle(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.ProcessMulti.WindowHandle);
+                    dataBindApp.ProcessMulti.Identifier = processId;
                 }
 
                 //Close the process or app
-                bool ClosedProcess = CloseProcessById(dataBindApp.ProcessId);
-                if (ClosedProcess)
+                bool closedProcess = CloseProcessById(dataBindApp.ProcessMulti.Identifier);
+                if (closedProcess)
                 {
                     //Reset the process running status
                     if (resetProcess)
                     {
                         dataBindApp.StatusRunning = Visibility.Collapsed;
                         dataBindApp.StatusSuspended = Visibility.Collapsed;
-                        dataBindApp.ProcessRunningCount = string.Empty;
+                        dataBindApp.RunningProcessCount = string.Empty;
                         dataBindApp.RunningTimeLastUpdate = 0;
                     }
 

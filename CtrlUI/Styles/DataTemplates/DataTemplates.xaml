@@ -14,7 +14,7 @@
                 <Path VerticalAlignment="Center" Margin="3,0,0,0" Data="M0,0 L1,1 M0,1 L1,0" Stretch="Fill" Stroke="#CD192A" StrokeThickness="3" Width="10" Height="10" Opacity="0.80" Visibility="{Binding StatusAvailable}"/>
                 <Image VerticalAlignment="Center" Margin="3,0,0,0" Source="/Assets/Icons/StatusStore.png" Height="8" Width="8" Opacity="0.80" Visibility="{Binding StatusStore}"/>
                 <Polygon VerticalAlignment="Center" Margin="3,0,0,0" Fill="#1DBB55" Points="0,0 8,4, 0,8" Opacity="0.80" Visibility="{Binding StatusLauncher}"/>
-                <TextBlock VerticalAlignment="Center" Margin="3,0,0,0" Text="{Binding ProcessRunningCount}" FontSize="{DynamicResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
+                <TextBlock VerticalAlignment="Center" Margin="3,0,0,0" Text="{Binding RunningProcessCount}" FontSize="{DynamicResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
             </StackPanel>
             <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
                 <TextBlock Text="{Binding Name}" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>

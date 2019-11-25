@@ -251,7 +251,7 @@ namespace CtrlUI
                 //Add the shortcut to the list
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    List_Shortcuts.Add(new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Name, NameExe = shortcutDetails.NameExe, ImageBitmap = IconBitmapImage, ImagePath = shortcutDetails.IconPath, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusLauncher = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify });
+                    List_Shortcuts.Add(new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Name, NameExe = shortcutDetails.NameExe, ImageBitmap = IconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusLauncher = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify });
                 });
             }
             catch

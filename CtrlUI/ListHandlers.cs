@@ -94,7 +94,8 @@ namespace CtrlUI
             try
             {
                 //Get the process running time
-                string ProcessRunningTime = ApplicationRuntimeString(ProcessRuntimeMinutes(GetProcessById(SelectedItem.ProcessId)), "shortcut process");
+                int processRunningTimeInt = ProcessRuntimeMinutes(GetProcessById(SelectedItem.ProcessMulti.Identifier));
+                string processRunningTimeString = ApplicationRuntimeString(processRunningTimeInt, "shortcut process");
 
                 List<DataBindString> Answers = new List<DataBindString>();
 
@@ -113,7 +114,7 @@ namespace CtrlUI
                 cancelString.Name = "Cancel";
                 Answers.Add(cancelString);
 
-                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + SelectedItem.Name + "?", ProcessRunningTime, SelectedItem.PathExe, Answers);
+                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + SelectedItem.Name + "?", processRunningTimeString, SelectedItem.PathExe, Answers);
                 if (Result != null)
                 {
                     if (Result == Answer1)
@@ -197,13 +198,10 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task RightClickProcess(ListBox ListboxSender, int ListboxSelectedIndex, DataBindApp dataBindApp)
+        async Task RightClickProcess(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
         {
             try
             {
-                //Get the process multi from databindapp
-                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(dataBindApp, false);
-
                 //Get the process running time
                 string ProcessRunningTime = ApplicationRuntimeString(dataBindApp.RunningTime, "process");
 
@@ -237,36 +235,36 @@ namespace CtrlUI
                     }
                     else if (Result == Answer1)
                     {
-                        if (processMulti.Type == ProcessType.UWP)
+                        if (dataBindApp.ProcessMulti.Type == ProcessType.UWP)
                         {
-                            await CloseSingleProcessUwpByDataBindApp(processMulti, dataBindApp, false, true);
+                            await CloseSingleProcessUwpByDataBindApp(dataBindApp, false, true);
                         }
                         else
                         {
-                            await CloseSingleProcessWin32AndWin32StoreByDataBindApp(processMulti, dataBindApp, false, true);
+                            await CloseSingleProcessWin32AndWin32StoreByDataBindApp(dataBindApp, false, true);
                         }
                     }
                     else if (Result == Answer2)
                     {
                         //Restart the process
-                        if (processMulti.Type == ProcessType.UWP)
+                        if (dataBindApp.ProcessMulti.Type == ProcessType.UWP)
                         {
-                            await RestartPrepareUwp(processMulti, dataBindApp);
+                            await RestartPrepareUwp(dataBindApp);
                         }
-                        else if (processMulti.Type == ProcessType.Win32Store)
+                        else if (dataBindApp.ProcessMulti.Type == ProcessType.Win32Store)
                         {
-                            await RestartPrepareWin32Store(processMulti, dataBindApp);
+                            await RestartPrepareWin32Store(dataBindApp);
                         }
                         else
                         {
-                            await RestartPrepareWin32(processMulti, dataBindApp);
+                            await RestartPrepareWin32(dataBindApp);
                         }
 
                         //Refresh the application lists
                         await RefreshApplicationLists(false, false, false, false, false);
 
                         //Select the previous index
-                        await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
+                        await FocusOnListbox(listboxSender, false, false, listboxSelectedIndex);
                     }
                 }
             }
@@ -297,11 +295,11 @@ namespace CtrlUI
             }
         }
 
-        int ProcessRuntimeMinutes(Process TargetProcess)
+        int ProcessRuntimeMinutes(Process targetProcess)
         {
             try
             {
-                return Convert.ToInt32(DateTime.Now.Subtract(TargetProcess.StartTime).TotalMinutes);
+                return Convert.ToInt32(DateTime.Now.Subtract(targetProcess.StartTime).TotalMinutes);
             }
             catch
             {

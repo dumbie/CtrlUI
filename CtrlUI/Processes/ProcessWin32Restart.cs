@@ -9,7 +9,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task RestartPrepareWin32Store(ProcessMulti processMulti, DataBindApp dataBindApp)
+        async Task RestartPrepareWin32Store(DataBindApp dataBindApp)
         {
             try
             {
@@ -21,14 +21,14 @@ namespace CtrlUI
                 }
 
                 Popup_Show_Status("Switch", "Restarting " + dataBindApp.Name);
-                Debug.WriteLine("Restarting Win32Store application: " + dataBindApp.Name + " / " + processMulti.ProcessId + " / " + processMulti.WindowHandle);
+                Debug.WriteLine("Restarting Win32Store application: " + dataBindApp.Name + " / " + dataBindApp.ProcessMulti.Identifier + " / " + dataBindApp.ProcessMulti.WindowHandle);
 
-                await RestartProcessWin32Store(processMulti.ProcessId, dataBindApp.NameExe, dataBindApp.PathExe, dataBindApp.Argument);
+                await RestartProcessWin32Store(dataBindApp.ProcessMulti.Identifier, dataBindApp.NameExe, dataBindApp.PathExe, dataBindApp.ProcessMulti.Argument);
             }
             catch { }
         }
 
-        async Task RestartPrepareWin32(ProcessMulti processMulti, DataBindApp dataBindApp)
+        async Task RestartPrepareWin32(DataBindApp dataBindApp)
         {
             try
             {
@@ -40,22 +40,10 @@ namespace CtrlUI
                 }
 
                 Popup_Show_Status("Switch", "Restarting " + dataBindApp.Name);
-                Debug.WriteLine("Restarting Win32 application: " + dataBindApp.Name + " / " + processMulti.ProcessId + " / " + processMulti.WindowHandle);
+                Debug.WriteLine("Restarting Win32 application: " + dataBindApp.Name + " / " + dataBindApp.ProcessMulti.Identifier + " / " + dataBindApp.ProcessMulti.WindowHandle);
 
-                string LaunchArgument = dataBindApp.Argument;
-                if (dataBindApp.Category == AppCategory.Emulator)
-                {
-                    if (string.IsNullOrWhiteSpace(dataBindApp.RomPath))
-                    {
-                        LaunchArgument = string.Empty;
-                    }
-                    else
-                    {
-                        LaunchArgument += dataBindApp.RomPath;
-                    }
-                }
 
-                await RestartProcessWin32(processMulti.ProcessId, dataBindApp.PathExe, dataBindApp.PathLaunch, LaunchArgument);
+                await RestartProcessWin32(dataBindApp.ProcessMulti.Identifier, dataBindApp.PathExe, dataBindApp.PathLaunch, dataBindApp.ProcessMulti.Argument);
             }
             catch { }
         }

@@ -64,20 +64,20 @@ namespace CtrlUI
                             {
                                 ProcessMulti processMultiNew = new ProcessMulti();
                                 processMultiNew.Type = processType;
-                                processMultiNew.Status = "CloseAll";
+                                processMultiNew.Action = "CloseAll";
                                 return processMultiNew;
                             }
                             else if (Result == cancelString)
                             {
                                 ProcessMulti processMultiNew = new ProcessMulti();
                                 processMultiNew.Type = processType;
-                                processMultiNew.Status = "Cancel";
+                                processMultiNew.Action = "Cancel";
                                 return processMultiNew;
                             }
                             else
                             {
                                 ProcessMulti returnProcess = ConvertProcessToProcessMulti(processType, multiVariables[multiAnswers.IndexOf(Result)]);
-                                returnProcess.ProcessCount = multiVariables.Count();
+                                returnProcess.Count = multiVariables.Count();
                                 return returnProcess;
                             }
                         }
@@ -85,14 +85,14 @@ namespace CtrlUI
                         {
                             ProcessMulti processMultiNew = new ProcessMulti();
                             processMultiNew.Type = processType;
-                            processMultiNew.Status = "Cancel";
+                            processMultiNew.Action = "Cancel";
                             return processMultiNew;
                         }
                     }
                     else
                     {
                         ProcessMulti returnProcess = ConvertProcessToProcessMulti(processType, multiVariables.FirstOrDefault());
-                        returnProcess.ProcessCount = multiVariables.Count();
+                        returnProcess.Count = multiVariables.Count();
                         return returnProcess;
                     }
                 }
@@ -102,16 +102,16 @@ namespace CtrlUI
         }
 
         //Check process status before launching (True = Continue)
-        async Task<bool> CheckLaunchProcessWin32andWin32Store(ProcessMulti processMulti, DataBindApp dataBindApp)
+        async Task<bool> CheckLaunchProcessWin32andWin32Store(DataBindApp dataBindApp)
         {
             try
             {
-                Debug.WriteLine("Checking launch process Win32 or Win32Store: " + dataBindApp.Name + " / " + dataBindApp.ProcessId + " / " + dataBindApp.WindowHandle);
+                Debug.WriteLine("Checking launch process Win32 or Win32Store: " + dataBindApp.Name + " / " + dataBindApp.ProcessMulti.Identifier + " / " + dataBindApp.ProcessMulti.WindowHandle);
 
                 //Check the multi process results
-                if (processMulti.Status == null) { return true; }
-                if (processMulti.Status == "Cancel") { return false; }
-                if (processMulti.Status == "CloseAll")
+                if (dataBindApp.ProcessMulti == null) { return true; }
+                if (dataBindApp.ProcessMulti.Action == "Cancel") { return false; }
+                if (dataBindApp.ProcessMulti.Action == "CloseAll")
                 {
                     //Close all processes Win32 or Win32Store
                     await CloseAllProcessesWin32AndWin32StoreByDataBindApp(dataBindApp, true, false);
@@ -149,7 +149,8 @@ namespace CtrlUI
                 string ApplicationRuntime = string.Empty;
                 if (dataBindApp.Category == AppCategory.Shortcut)
                 {
-                    ApplicationRuntime = ApplicationRuntimeString(ProcessRuntimeMinutes(GetProcessById(dataBindApp.ProcessId)), "shortcut process");
+                    int processRunningTimeInt = ProcessRuntimeMinutes(GetProcessById(dataBindApp.ProcessMulti.Identifier));
+                    ApplicationRuntime = ApplicationRuntimeString(processRunningTimeInt, "shortcut process");
                 }
                 else
                 {
@@ -163,14 +164,14 @@ namespace CtrlUI
                     if (Result == Answer1)
                     {
                         //Check if process has multiple windows
-                        IntPtr processWindowHandle = await CheckProcessWindowsWin32AndWin32Store(dataBindApp.Name, processMulti);
+                        IntPtr processWindowHandle = await CheckProcessWindowsWin32AndWin32Store(dataBindApp);
                         if (processWindowHandle != IntPtr.Zero)
                         {
                             //Minimize the CtrlUI window
                             if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                             //Force focus on the app
-                            FocusProcessWindowPrepare(dataBindApp.Name, processMulti.ProcessId, processWindowHandle, 0, false, false, false);
+                            FocusProcessWindowPrepare(dataBindApp.Name, dataBindApp.ProcessMulti.Identifier, processWindowHandle, 0, false, false, false);
 
                             //Launch the keyboard controller
                             if (dataBindApp.LaunchKeyboard)
@@ -187,19 +188,19 @@ namespace CtrlUI
                     }
                     else if (Result == Answer2)
                     {
-                        await CloseSingleProcessWin32AndWin32StoreByDataBindApp(processMulti, dataBindApp, true, false);
+                        await CloseSingleProcessWin32AndWin32StoreByDataBindApp(dataBindApp, true, false);
                         return false;
                     }
                     else if (Result == Answer3)
                     {
                         //Check the application restart type
-                        if (processMulti.Type == ProcessType.Win32Store)
+                        if (dataBindApp.ProcessMulti.Type == ProcessType.Win32Store)
                         {
-                            await RestartPrepareWin32Store(processMulti, dataBindApp);
+                            await RestartPrepareWin32Store(dataBindApp);
                         }
                         else
                         {
-                            await RestartPrepareWin32(processMulti, dataBindApp);
+                            await RestartPrepareWin32(dataBindApp);
                         }
                         return false;
                     }
@@ -228,28 +229,29 @@ namespace CtrlUI
         }
 
         //Check if process has multiple windows
-        async Task<IntPtr> CheckProcessWindowsWin32AndWin32Store(string appTitle, ProcessMulti processTarget)
+        async Task<IntPtr> CheckProcessWindowsWin32AndWin32Store(DataBindApp dataBindApp)
         {
             try
             {
-                if (processTarget.ProcessThreads.Count > 1)
+                int processThreadCount = dataBindApp.ProcessMulti.Threads.Count;
+                if (processThreadCount > 1)
                 {
-                    Debug.WriteLine("Found window threads: " + processTarget.ProcessThreads.Count);
+                    Debug.WriteLine("Found window threads: " + processThreadCount);
 
                     List<DataBindString> multiAnswers = new List<DataBindString>();
                     List<IntPtr> multiVariables = new List<IntPtr>();
-                    foreach (ProcessThread ThreadProcess in processTarget.ProcessThreads)
+                    foreach (ProcessThread threadProcess in dataBindApp.ProcessMulti.Threads)
                     {
-                        foreach (IntPtr ThreadWindowHandle in EnumThreadWindows(ThreadProcess.Id))
+                        foreach (IntPtr threadWindowHandle in EnumThreadWindows(threadProcess.Id))
                         {
                             try
                             {
                                 //Validate the window handle
-                                if (ThreadWindowHandle == processTarget.WindowHandle || ValidateWindowHandle(ThreadWindowHandle))
+                                if (threadWindowHandle == dataBindApp.ProcessMulti.WindowHandle || ValidateWindowHandle(threadWindowHandle))
                                 {
                                     //Get window title
-                                    string ClassNameString = GetWindowTitleFromWindowHandle(ThreadWindowHandle);
-                                    if (ThreadWindowHandle == processTarget.WindowHandle) { ClassNameString += " (Main Window)"; }
+                                    string ClassNameString = GetWindowTitleFromWindowHandle(threadWindowHandle);
+                                    if (threadWindowHandle == dataBindApp.ProcessMulti.WindowHandle) { ClassNameString += " (Main Window)"; }
                                     if (multiAnswers.Where(x => x.Name.ToLower() == ClassNameString.ToLower()).Any()) { ClassNameString += " (" + multiAnswers.Count + ")"; }
 
                                     DataBindString Answer1 = new DataBindString();
@@ -257,15 +259,15 @@ namespace CtrlUI
                                     Answer1.Name = ClassNameString;
 
                                     //Add window to selection
-                                    if (ThreadWindowHandle == processTarget.WindowHandle)
+                                    if (threadWindowHandle == dataBindApp.ProcessMulti.WindowHandle)
                                     {
                                         multiAnswers.Insert(0, Answer1);
-                                        multiVariables.Insert(0, ThreadWindowHandle);
+                                        multiVariables.Insert(0, threadWindowHandle);
                                     }
                                     else
                                     {
                                         multiAnswers.Add(Answer1);
-                                        multiVariables.Add(ThreadWindowHandle);
+                                        multiVariables.Add(threadWindowHandle);
                                     }
                                 }
                             }
@@ -290,7 +292,7 @@ namespace CtrlUI
                     multiAnswers.Add(cancelString);
 
                     //Ask which window needs to be shown
-                    DataBindString Result = await Popup_Show_MessageBox(appTitle + " has multiple windows open", "", "Please select the window that you wish to be shown:", multiAnswers);
+                    DataBindString Result = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", "", "Please select the window that you wish to be shown:", multiAnswers);
                     if (Result != null)
                     {
                         if (Result == cancelString)
@@ -310,7 +312,7 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Single window thread process.");
-                    return processTarget.WindowHandle;
+                    return dataBindApp.ProcessMulti.WindowHandle;
                 }
             }
             catch

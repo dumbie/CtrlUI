@@ -44,16 +44,16 @@ namespace CtrlUI
                     if (ShowStatus) { Popup_Show_Status("Refresh", "Refreshing desktop apps"); }
                     //Debug.WriteLine("Checking desktop processes.");
 
-                    List<int> ActiveProcesses = new List<int>();
-                    IEnumerable<DataBindApp> CurrentApps = CombineAppLists(true, false);
+                    List<int> activeProcesses = new List<int>();
+                    IEnumerable<DataBindApp> currentListApps = CombineAppLists(true, false);
 
                     //Add new running process if needed
                     foreach (Process allProcess in ProcessesList)
                     {
                         try
                         {
+                            //Process application type
                             ProcessType applicationType = ProcessType.Win32;
-                            Visibility storeStatus = Visibility.Collapsed;
 
                             //Get the process title
                             string processTitle = GetWindowTitleFromProcess(allProcess);
@@ -89,7 +89,7 @@ namespace CtrlUI
                             //Check if already in combined list and remove it
                             if (ConfigurationManager.AppSettings["HideAppProcesses"] == "True")
                             {
-                                if (CurrentApps.Any(x => Path.GetFileNameWithoutExtension(x.PathExe.ToLower()) == processExecutablePathLower))
+                                if (currentListApps.Any(x => Path.GetFileNameWithoutExtension(x.PathExe.ToLower()) == processExecutablePathLower))
                                 {
                                     //Debug.WriteLine("Process is already in other list: " + ProcessExecutablePathLowerName);
                                     await AVActions.ActionDispatcherInvokeAsync(async delegate
@@ -101,17 +101,25 @@ namespace CtrlUI
                             }
 
                             //Add active process
-                            ActiveProcesses.Add(allProcess.Id);
+                            activeProcesses.Add(allProcess.Id);
 
                             //Check the process running time
                             int processRunningTime = ProcessRuntimeMinutes(allProcess);
 
+                            //Check if the process is suspended
+                            Visibility suspendedStatus = Visibility.Collapsed;
+                            if (CheckProcessSuspended(allProcess.Threads))
+                            {
+                                suspendedStatus = Visibility.Visible;
+                            }
+
                             //Check if process is already in process list and update it
-                            DataBindApp processApp = List_Processes.Where(x => x.ProcessId == allProcess.Id && (x.Type == ProcessType.Win32 || x.Type == ProcessType.Win32Store)).FirstOrDefault();
+                            DataBindApp processApp = List_Processes.Where(x => x.ProcessMulti.Identifier == allProcess.Id && (x.Type == ProcessType.Win32 || x.Type == ProcessType.Win32Store)).FirstOrDefault();
                             if (processApp != null)
                             {
                                 if (processApp.Name != processTitle) { processApp.Name = processTitle; }
                                 processApp.RunningTime = processRunningTime;
+                                processApp.StatusSuspended = suspendedStatus;
                                 continue;
                             }
 
@@ -122,6 +130,7 @@ namespace CtrlUI
                             string processArgument = GetLaunchArgumentsFromProcess(allProcess, processExecutablePath);
 
                             //Check if the process is a Win32Store app
+                            Visibility storeStatus = Visibility.Collapsed;
                             string executableName = string.Empty;
                             string appUserModelId = GetAppUserModelIdFromProcess(allProcess);
                             if (!string.IsNullOrWhiteSpace(appUserModelId))
@@ -133,10 +142,13 @@ namespace CtrlUI
                                 //Debug.WriteLine("Process " + ProcessTitle + " is a Win32Store application.");
                             }
 
+                            //Convert Process To ProcessMulti
+                            ProcessMulti processMultiNew = ConvertProcessToProcessMulti(applicationType, allProcess);
+
                             //Add the process to the list
                             AVActions.ActionDispatcherInvoke(delegate
                             {
-                                List_Processes.Add(new DataBindApp() { Type = applicationType, Category = AppCategory.Process, ProcessId = allProcess.Id, ImageBitmap = iconBitmapImage, Name = processTitle, NameExe = executableName, ProcessName = allProcess.ProcessName, PathExe = processExecutablePath, Argument = processArgument, StatusStore = storeStatus, RunningTime = processRunningTime });
+                                List_Processes.Add(new DataBindApp() { Type = applicationType, Category = AppCategory.Process, ProcessMulti = processMultiNew, ImageBitmap = iconBitmapImage, Name = processTitle, NameExe = executableName, PathExe = processExecutablePath, Argument = processArgument, StatusStore = storeStatus, StatusSuspended = suspendedStatus, RunningTime = processRunningTime });
                             });
                         }
                         catch { }
@@ -145,7 +157,7 @@ namespace CtrlUI
                     //Remove no longer running and invalid processes
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => !ActiveProcesses.Contains(x.ProcessId) && (x.Type == ProcessType.Win32 || x.Type == ProcessType.Win32Store));
+                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => !activeProcesses.Contains(x.ProcessMulti.Identifier) && (x.Type == ProcessType.Win32 || x.Type == ProcessType.Win32Store));
                     });
                 }
             }

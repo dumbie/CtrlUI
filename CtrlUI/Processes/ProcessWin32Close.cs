@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static LibraryShared.Classes;
 
@@ -11,7 +10,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Close single process Win32 and Win32Store
-        async Task CloseSingleProcessWin32AndWin32StoreByDataBindApp(ProcessMulti processMulti, DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
+        async Task CloseSingleProcessWin32AndWin32StoreByDataBindApp(DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
         {
             try
             {
@@ -20,20 +19,17 @@ namespace CtrlUI
 
                 //Close the process
                 bool ClosedProcess = false;
-                if (processMulti != null)
+                if (dataBindApp.ProcessMulti.Identifier > 0)
                 {
-                    ClosedProcess = CloseProcessById(processMulti.ProcessId);
+                    ClosedProcess = CloseProcessById(dataBindApp.ProcessMulti.Identifier);
+                }
+                else if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
+                {
+                    ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.NameExe), false);
                 }
                 else
                 {
-                    if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
-                    {
-                        ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.NameExe), false);
-                    }
-                    else
-                    {
-                        ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.PathExe), false);
-                    }
+                    ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.PathExe), false);
                 }
 
                 //Check if process closed
@@ -44,7 +40,7 @@ namespace CtrlUI
                     {
                         dataBindApp.StatusRunning = Visibility.Collapsed;
                         dataBindApp.StatusSuspended = Visibility.Collapsed;
-                        dataBindApp.ProcessRunningCount = string.Empty;
+                        dataBindApp.RunningProcessCount = string.Empty;
                         dataBindApp.RunningTimeLastUpdate = 0;
                     }
 
@@ -69,7 +65,7 @@ namespace CtrlUI
             try
             {
                 Popup_Show_Status("Closing", "Closing " + dataBindApp.Name);
-                Debug.WriteLine("Closing Win32 processes: " + dataBindApp.Name + " / " + dataBindApp.ProcessId + " / " + dataBindApp.WindowHandle);
+                Debug.WriteLine("Closing Win32 processes: " + dataBindApp.Name + " / " + dataBindApp.ProcessMulti.Identifier + " / " + dataBindApp.ProcessMulti.WindowHandle);
 
                 //Close the process
                 bool ClosedProcess = false;
@@ -90,7 +86,7 @@ namespace CtrlUI
                     {
                         dataBindApp.StatusRunning = Visibility.Collapsed;
                         dataBindApp.StatusSuspended = Visibility.Collapsed;
-                        dataBindApp.ProcessRunningCount = string.Empty;
+                        dataBindApp.RunningProcessCount = string.Empty;
                         dataBindApp.RunningTimeLastUpdate = 0;
                     }
 

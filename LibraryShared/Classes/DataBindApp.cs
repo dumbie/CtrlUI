@@ -208,6 +208,34 @@ namespace LibraryShared
             }
 
             //Status variables (no saving needed)
+            private ProcessMulti PrivProcessMulti = null;
+            public ProcessMulti ProcessMulti
+            {
+                get { return this.PrivProcessMulti; }
+                set
+                {
+                    if (this.PrivProcessMulti != value)
+                    {
+                        this.PrivProcessMulti = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private string PrivRunningProcessCount = string.Empty;
+            public string RunningProcessCount
+            {
+                get { return this.PrivRunningProcessCount; }
+                set
+                {
+                    if (this.PrivRunningProcessCount != value)
+                    {
+                        this.PrivRunningProcessCount = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private int PrivRunningTimeLastUpdate = 0;
             public int RunningTimeLastUpdate
             {
@@ -217,76 +245,6 @@ namespace LibraryShared
                     if (this.PrivRunningTimeLastUpdate != value)
                     {
                         this.PrivRunningTimeLastUpdate = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private int PrivProcessId = -1;
-            public int ProcessId
-            {
-                get { return this.PrivProcessId; }
-                set
-                {
-                    if (this.PrivProcessId != value)
-                    {
-                        this.PrivProcessId = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private IntPtr PrivWindowHandle = IntPtr.Zero;
-            public IntPtr WindowHandle
-            {
-                get { return this.PrivWindowHandle; }
-                set
-                {
-                    if (this.PrivWindowHandle != value)
-                    {
-                        this.PrivWindowHandle = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private string PrivProcessRunningCount = string.Empty;
-            public string ProcessRunningCount
-            {
-                get { return this.PrivProcessRunningCount; }
-                set
-                {
-                    if (this.PrivProcessRunningCount != value)
-                    {
-                        this.PrivProcessRunningCount = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private string PrivProcessName;
-            public string ProcessName
-            {
-                get { return this.PrivProcessName; }
-                set
-                {
-                    if (this.PrivProcessName != value)
-                    {
-                        this.PrivProcessName = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private string PrivRomPath;
-            public string RomPath
-            {
-                get { return this.PrivRomPath; }
-                set
-                {
-                    if (this.PrivRomPath != value)
-                    {
-                        this.PrivRomPath = value;
                         NotifyPropertyChanged();
                     }
                 }
@@ -315,20 +273,6 @@ namespace LibraryShared
                     if (this.PrivImageBitmap != value)
                     {
                         this.PrivImageBitmap = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private string PrivImagePath;
-            public string ImagePath
-            {
-                get { return this.PrivImagePath; }
-                set
-                {
-                    if (this.PrivImagePath != value)
-                    {
-                        this.PrivImagePath = value;
                         NotifyPropertyChanged();
                     }
                 }

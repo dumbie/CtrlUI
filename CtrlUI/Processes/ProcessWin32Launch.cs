@@ -62,8 +62,8 @@ namespace CtrlUI
             try
             {
                 //Check if Win32 process is running
-                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(dataBindApp, true);
-                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(processMulti, dataBindApp);
+                await UpdateDataBindAppProcessMulti(dataBindApp, true);
+                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
                 if (!alreadyRunning)
                 {
                     Debug.WriteLine("Win32 process is already running, skipping the launch.");
@@ -112,8 +112,8 @@ namespace CtrlUI
             try
             {
                 //Check if Win32 process is running
-                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(dataBindApp, true);
-                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(processMulti, dataBindApp);
+                await UpdateDataBindAppProcessMulti(dataBindApp, true);
+                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
                 if (!alreadyRunning)
                 {
                     Debug.WriteLine("Win32 process is already running, skipping the launch.");
@@ -186,8 +186,8 @@ namespace CtrlUI
             try
             {
                 //Check if win32 process is running
-                ProcessMulti processMulti = await GetProcessMultiFromDataBindApp(dataBindApp, true);
-                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(processMulti, dataBindApp);
+                await UpdateDataBindAppProcessMulti(dataBindApp, true);
+                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
                 if (!alreadyRunning)
                 {
                     Debug.WriteLine("Win32 process is already running, skipping the launch.");
@@ -251,15 +251,11 @@ namespace CtrlUI
                 if (!string.IsNullOrWhiteSpace(vFilePickerResult.PathFile))
                 {
                     LaunchArguments = dataBindApp.Argument + " \"" + vFilePickerResult.PathFile + "\"";
-                    dataBindApp.RomPath = " \"" + vFilePickerResult.PathFile + "\"";
-
                     Popup_Show_Status("App", "Launching " + dataBindApp.Name + " with the rom");
                     Debug.WriteLine("Launching emulator: " + dataBindApp.Name + " rom: " + LaunchArguments);
                 }
                 else
                 {
-                    dataBindApp.RomPath = string.Empty;
-
                     Popup_Show_Status("App", "Launching " + dataBindApp.Name);
                     Debug.WriteLine("Launching emulator: " + dataBindApp.Name + " without a rom");
                 }
