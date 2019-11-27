@@ -25,11 +25,14 @@ namespace CtrlUI
                 if (IncludeProcesses) { CombinedApps = CombinedApps.Concat(List_Processes); }
                 return CombinedApps;
             }
-            catch { return null; }
+            catch
+            {
+                return null;
+            }
         }
 
         //Refresh the application lists
-        async Task RefreshApplicationLists(bool SkipListLoading, bool SkipRunningStatus, bool SkipListStats, bool ShowNotification, bool PlaySound)
+        async Task RefreshApplicationLists(bool skipListLoading, bool skipRunningStatus, bool skipListStats, bool showStatus, bool playSound)
         {
             try
             {
@@ -44,36 +47,39 @@ namespace CtrlUI
                     vBusyRefreshingApps = true;
                 }
 
-                if (ShowNotification)
+                //Show refresh status message
+                if (showStatus)
                 {
                     Popup_Show_Status("Refresh", "Refreshing applications");
                 }
-                if (PlaySound)
+
+                //Play application refresh sound
+                if (playSound)
                 {
                     PlayInterfaceSound(vInterfaceSoundVolume, "Refresh", false);
                 }
 
                 //Load all the active processes
-                IEnumerable<Process> ProcessesList = null;
-                if (!SkipListLoading || !SkipRunningStatus)
+                IEnumerable<Process> processesList = null;
+                if (!skipListLoading || !skipRunningStatus)
                 {
-                    ProcessesList = Process.GetProcesses();
+                    processesList = Process.GetProcesses();
 
-                    if (!SkipListLoading)
+                    if (!skipListLoading)
                     {
-                        await ListLoadProcessesUwp(false);
-                        await ListLoadProcessesWin32(ProcessesList, false);
+                        await ListLoadCheckProcessesUwp(false);
+                        await ListLoadCheckProcessesWin32(processesList, false);
                         await ListLoadShortcuts(false);
                     }
 
-                    if (!SkipRunningStatus)
+                    if (!skipRunningStatus)
                     {
-                        await CheckAppRunningStatus(ProcessesList);
+                        CheckAppRunningStatus(processesList);
                     }
                 }
 
                 //Refresh the application list stats
-                if (!SkipListStats)
+                if (!skipListStats)
                 {
                     ShowHideEmptyList(true, true);
                     ListsUpdateCount();

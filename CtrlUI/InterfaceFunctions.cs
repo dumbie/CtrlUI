@@ -302,12 +302,15 @@ namespace CtrlUI
         }
 
         //Check the applications running status
-        async Task CheckAppRunningStatus(IEnumerable<Process> ProcessesList)
+        void CheckAppRunningStatus(IEnumerable<Process> ProcessesList)
         {
             try
             {
                 //Check if processes list is provided
-                if (ProcessesList == null) { ProcessesList = Process.GetProcesses(); }
+                if (ProcessesList == null)
+                {
+                    ProcessesList = Process.GetProcesses();
+                }
 
                 //Update main menu launchers status
                 UpdateAppRunningIcon(img_Menu_SteamStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "steam"));
@@ -318,59 +321,6 @@ namespace CtrlUI
                 UpdateAppRunningIcon(img_Menu_BethesdaStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher"));
                 UpdateAppRunningIcon(img_Menu_EpicStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher"));
                 UpdateAppRunningIcon(img_Menu_BlizzardStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "battle.net"));
-
-                //Update all the apps running status
-                foreach (DataBindApp dataBindApp in CombineAppLists(true, false).Where(x => x.StatusLauncher == Visibility.Collapsed))
-                {
-                    try
-                    {
-                        //Debug.WriteLine("Checking application status: " + ListApp.Type + "/" + ListApp.Category + "/" + ListApp.Name + "/" + ListApp.PathExe);
-
-                        //Update the process multi from DataBindApp
-                        await UpdateDataBindAppProcessMulti(dataBindApp, false);
-
-                        //Check if the process multi is running
-                        if (dataBindApp.ProcessMulti == null)
-                        {
-                            //Debug.WriteLine("Application is not running: " + dataBindApp.Name);
-                            dataBindApp.StatusRunning = Visibility.Collapsed;
-                            dataBindApp.StatusSuspended = Visibility.Collapsed;
-                            dataBindApp.RunningProcessCount = string.Empty;
-                            dataBindApp.RunningTimeLastUpdate = 0;
-                            continue;
-                        }
-
-                        //Check process multi application status
-                        dataBindApp.RunningTimeLastUpdate = Environment.TickCount;
-
-                        //Update the application status icons
-                        bool processSuspended = CheckProcessSuspended(dataBindApp.ProcessMulti.Threads);
-                        if (processSuspended)
-                        {
-                            dataBindApp.StatusRunning = Visibility.Collapsed;
-                            dataBindApp.StatusSuspended = Visibility.Visible;
-                        }
-                        else
-                        {
-                            dataBindApp.StatusRunning = Visibility.Visible;
-                            dataBindApp.StatusSuspended = Visibility.Collapsed;
-                        }
-
-                        //Update the application running count
-                        if (dataBindApp.ProcessMulti.Count > 1)
-                        {
-                            dataBindApp.RunningProcessCount = Convert.ToString(dataBindApp.ProcessMulti.Count);
-                        }
-                        else
-                        {
-                            dataBindApp.RunningProcessCount = string.Empty;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine("Failed checking application status: " + dataBindApp.Name + "/" + ex.Message);
-                    }
-                }
             }
             catch { }
         }

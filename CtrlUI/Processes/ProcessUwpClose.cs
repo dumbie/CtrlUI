@@ -51,6 +51,7 @@ namespace CtrlUI
         {
             try
             {
+                //Improve fix windowhandle issue close all has no window handle
                 Popup_Show_Status("Closing", "Closing " + dataBindApp.Name);
                 Debug.WriteLine("Closing UWP processes: " + dataBindApp.Name + " / " + dataBindApp.ProcessMulti.Identifier + " / " + dataBindApp.ProcessMulti.WindowHandle);
 
