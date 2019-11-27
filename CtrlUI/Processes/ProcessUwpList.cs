@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -56,7 +57,7 @@ namespace CtrlUI
                         try
                         {
                             int processId = -1;
-                            IntPtr windowHandle = IntPtr.Zero;
+                            IntPtr processWindowHandle = IntPtr.Zero;
                             string processTitle = string.Empty;
                             bool processUserRun = false;
 
@@ -70,8 +71,8 @@ namespace CtrlUI
                                     //Get information from frame window
                                     if (classNameString == "ApplicationFrameWindow")
                                     {
-                                        //Get window handle
-                                        windowHandle = threadWindowHandle;
+                                        //Set window handle
+                                        processWindowHandle = threadWindowHandle;
 
                                         //Get window title
                                         processTitle = GetWindowTitleFromWindowHandle(threadWindowHandle);
@@ -108,29 +109,44 @@ namespace CtrlUI
                                     continue;
                                 }
 
-                                //Get the executable path
-                                string processExecutablePath = GetAppUserModelIdFromWindowHandle(windowHandle);
-                                string processExecutablePathLower = processExecutablePath.ToLower();
+                                //Get the application user model id
+                                string processAppUserModelId = GetAppUserModelIdFromWindowHandle(processWindowHandle);
+                                string processAppUserModelIdLower = processAppUserModelId.ToLower();
+
+                                //Get detailed application information
+                                Package appPackage = UwpGetAppPackageFromAppUserModelId(processAppUserModelId);
+                                AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
 
                                 //Check if already in combined list and remove it
                                 if (ConfigurationManager.AppSettings["HideAppProcesses"] == "True")
                                 {
-                                    if (currentListApps.Any(x => x.PathExe.ToLower() == processExecutablePathLower))
+                                    if (currentListApps.Any(x => x.PathExe.ToLower() == processAppUserModelIdLower))
                                     {
                                         //Debug.WriteLine("Process is already in other list: " + ProcessExecutablePathLower);
                                         await AVActions.ActionDispatcherInvokeAsync(async delegate
                                         {
-                                            await ListBoxRemoveAll(lb_Processes, List_Processes, x => x.PathExe.ToLower() == processExecutablePathLower);
+                                            await ListBoxRemoveAll(lb_Processes, List_Processes, x => x.PathExe.ToLower() == processAppUserModelIdLower);
                                         });
                                         continue;
                                     }
                                 }
 
                                 //Add active process
-                                activeProcesses.Add(windowHandle);
+                                activeProcesses.Add(processWindowHandle);
+
+                                //Check if process id has been found
+                                if (processId <= 0)
+                                {
+                                    string processNameExe = Path.GetFileNameWithoutExtension(appxDetails.ExecutableName);
+                                    Process uwpProcess = GetUwpProcessByProcessNameAndAppUserModelId(processNameExe, processAppUserModelId);
+                                    if (uwpProcess != null)
+                                    {
+                                        processId = uwpProcess.Id;
+                                    }
+                                }
 
                                 //Check if process is already in process list and update it
-                                DataBindApp existingProcessApp = List_Processes.Where(x => x.ProcessMulti.WindowHandle == windowHandle && x.Type == ProcessType.UWP).FirstOrDefault();
+                                DataBindApp existingProcessApp = List_Processes.Where(x => x.ProcessMulti.WindowHandle == processWindowHandle && x.Type == ProcessType.UWP).FirstOrDefault();
                                 if (existingProcessApp != null)
                                 {
                                     if (processId > 0) { existingProcessApp.ProcessMulti.Identifier = processId; }
@@ -175,10 +191,6 @@ namespace CtrlUI
                                     suspendedStatus = Visibility.Visible;
                                 }
 
-                                //Get detailed application information
-                                Package appPackage = UwpGetAppPackageFromAppUserModelId(processExecutablePath);
-                                AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
-
                                 //Load the application image
                                 BitmapImage AppBitmapImage = FileToBitmapImage(new string[] { processTitle, allProcess.ProcessName, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, IntPtr.Zero, 90);
 
@@ -189,12 +201,12 @@ namespace CtrlUI
                                 ProcessMulti processMultiNew = new ProcessMulti();
                                 processMultiNew.Type = ProcessType.UWP;
                                 processMultiNew.Identifier = processId;
-                                processMultiNew.WindowHandle = windowHandle;
+                                processMultiNew.WindowHandle = processWindowHandle;
 
                                 //Add the process to the list
                                 AVActions.ActionDispatcherInvoke(delegate
                                 {
-                                    List_Processes.Add(new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.Process, ProcessMulti = processMultiNew, ImageBitmap = AppBitmapImage, Name = processTitle, PathExe = processExecutablePath, StatusStore = StoreStatus, StatusSuspended = suspendedStatus, RunningTime = processRunningTime });
+                                    List_Processes.Add(new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.Process, ProcessMulti = processMultiNew, ImageBitmap = AppBitmapImage, Name = processTitle, PathExe = processAppUserModelId, StatusStore = StoreStatus, StatusSuspended = suspendedStatus, RunningTime = processRunningTime });
                                 });
                             }
                         }
