@@ -25,11 +25,11 @@ namespace CtrlUI
                 //Add all the apps to the list
                 string JsonFile = File.ReadAllText(@"Profiles\Apps.json");
                 DataBindApp[] JsonList = JsonConvert.DeserializeObject<DataBindApp[]>(JsonFile).OrderBy(x => x.Number).ToArray();
-                foreach (DataBindApp App in JsonList)
+                foreach (DataBindApp dataBindApp in JsonList)
                 {
                     try
                     {
-                        AddAppToList(App, false, true);
+                        AddAppToList(dataBindApp, false, true);
                     }
                     catch { }
                 }
@@ -43,12 +43,12 @@ namespace CtrlUI
         }
 
         //Read other launchers from Json file (Deserialize)
-        void JsonLoadAppsOtherLaunchers()
+        void JsonLoadAppsCloseLaunchers()
         {
             try
             {
-                string JsonFile = File.ReadAllText(@"Profiles\AppsOtherLaunchers.json");
-                vAppsOtherLaunchers = JsonConvert.DeserializeObject<string[]>(JsonFile);
+                string JsonFile = File.ReadAllText(@"Profiles\AppsCloseLaunchers.json");
+                vAppsCloseLaunchers = JsonConvert.DeserializeObject<string[]>(JsonFile);
 
                 Debug.WriteLine("Reading Json other launchers completed.");
             }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVInputOutputClass;
@@ -19,7 +20,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Focus on a process window
-        void FocusProcessWindowPrepare(string titleTarget, int processIdTarget, IntPtr windowHandleTarget, int windowStateCommand, bool setWindowState, bool setTempTopMost, bool Silent)
+        void FocusProcessWindowPrepare(string processName, int processIdTarget, IntPtr windowHandleTarget, int windowStateCommand, bool setWindowState, bool setTempTopMost, bool Silent)
         {
             try
             {
@@ -46,15 +47,15 @@ namespace CtrlUI
                     }
 
                     //Update the interface status
-                    if (!Silent) { Popup_Show_Status("MiniMaxi", "Showing " + titleTarget); }
-                    Debug.WriteLine("Showing application window: " + titleTarget);
+                    if (!Silent) { Popup_Show_Status("MiniMaxi", "Showing " + processName); }
+                    Debug.WriteLine("Showing application window: " + processName);
 
                     //Focus on an application window handle
                     async void TaskAction()
                     {
                         try
                         {
-                            bool windowFocused = await FocusProcessWindow(titleTarget, processIdTarget, windowHandleTarget, windowStateCommand, setWindowState, setTempTopMost);
+                            bool windowFocused = await FocusProcessWindow(processName, processIdTarget, windowHandleTarget, windowStateCommand, setWindowState, setTempTopMost);
                             if (!windowFocused)
                             {
                                 Popup_Show_Status("Close", "Failed showing the app");
@@ -75,42 +76,6 @@ namespace CtrlUI
             }
         }
 
-        //Get ProcessMulti from DataBindApp
-        async Task UpdateDataBindAppProcessMulti(DataBindApp dataBindApp, bool selectProcess)
-        {
-            try
-            {
-                ProcessMulti processMultipleCheck = await CheckProcessMultiUwp(dataBindApp, selectProcess);
-                if (processMultipleCheck != null)
-                {
-                    //Debug.WriteLine("Found an UWP multi process for: " + dataBindApp.Name);
-                    dataBindApp.ProcessMulti = processMultipleCheck;
-                    return;
-                }
-                processMultipleCheck = await CheckProcessMultiWin32AndWin32Store(dataBindApp.Name, dataBindApp.NameExe, ProcessType.Win32Store, selectProcess);
-                if (processMultipleCheck != null)
-                {
-                    //Debug.WriteLine("Found a Win32Store multi process for: " + dataBindApp.Name);
-                    dataBindApp.ProcessMulti = processMultipleCheck;
-                    return;
-                }
-                processMultipleCheck = await CheckProcessMultiWin32AndWin32Store(dataBindApp.Name, dataBindApp.PathExe, ProcessType.Win32, selectProcess);
-                if (processMultipleCheck != null)
-                {
-                    //Debug.WriteLine("Found a Win32 multi process for: " + dataBindApp.Name);
-                    dataBindApp.ProcessMulti = processMultipleCheck;
-                    return;
-                }
-                if (processMultipleCheck == null)
-                {
-                    //Debug.WriteLine("No multi process found for: " + dataBindApp.Name);
-                    dataBindApp.ProcessMulti = processMultipleCheck;
-                    return;
-                }
-            }
-            catch { }
-        }
-
         //Check which launch method needs to be used
         async Task LaunchProcessSelector(DataBindApp dataBindApp)
         {
@@ -118,17 +83,15 @@ namespace CtrlUI
             {
                 if (dataBindApp.Category == AppCategory.Process)
                 {
-                    await ShowApplicationByDataBindApp(dataBindApp);
+                    //Show the process window
+                    await ShowProcessWindow(dataBindApp, dataBindApp.ProcessMulti.FirstOrDefault());
                 }
                 else
                 {
                     bool appLaunched = false;
                     if (dataBindApp.StatusLauncher == Visibility.Visible)
                     {
-                        Popup_Show_Status("App", "Launching " + dataBindApp.Name);
-                        Debug.WriteLine("Launching url protocol: " + dataBindApp.PathExe);
-                        Process.Start(dataBindApp.PathExe);
-                        appLaunched = true;
+                        appLaunched = LaunchProcessUrlProtocol(dataBindApp);
                     }
                     else if (dataBindApp.Category == AppCategory.Emulator)
                     {
@@ -163,19 +126,33 @@ namespace CtrlUI
             }
         }
 
-        async Task ShowApplicationByDataBindApp(DataBindApp dataBindApp)
+        bool LaunchProcessUrlProtocol(DataBindApp dataBindApp)
+        {
+            try
+            {
+                Popup_Show_Status("App", "Launching " + dataBindApp.Name);
+                Debug.WriteLine("Launching url protocol: " + dataBindApp.PathExe);
+
+                Process.Start(dataBindApp.PathExe);
+                return true;
+            }
+            catch { }
+            return false;
+        }
+
+        async Task ShowProcessWindow(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
             {
                 //Check if application has multiple windows
                 IntPtr processWindowHandle = IntPtr.Zero;
-                if (dataBindApp.Type == ProcessType.UWP)
+                if (processMulti.Type == ProcessType.UWP)
                 {
-                    processWindowHandle = dataBindApp.ProcessMulti.WindowHandle;
+                    processWindowHandle = processMulti.WindowHandle;
                 }
-                else if (dataBindApp.Type == ProcessType.Win32 || dataBindApp.Type == ProcessType.Win32Store)
+                else if (processMulti.Type == ProcessType.Win32 || processMulti.Type == ProcessType.Win32Store)
                 {
-                    processWindowHandle = await CheckProcessWindowsWin32AndWin32Store(dataBindApp);
+                    processWindowHandle = await CheckProcessWindowsWin32AndWin32Store(dataBindApp, processMulti);
                 }
 
                 //Check if application window has been found
@@ -185,7 +162,7 @@ namespace CtrlUI
                     if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
 
                     //Force focus on the app
-                    FocusProcessWindowPrepare(dataBindApp.Name, dataBindApp.ProcessMulti.Identifier, processWindowHandle, 0, false, false, false);
+                    FocusProcessWindowPrepare(dataBindApp.Name, processMulti.Identifier, processWindowHandle, 0, false, false, false);
                 }
                 else
                 {
@@ -290,7 +267,7 @@ namespace CtrlUI
                     Popup_Show_Status("Closing", "Closing other launchers");
 
                     //Close all known other launchers
-                    foreach (string CloseLauncher in vAppsOtherLaunchers)
+                    foreach (string CloseLauncher in vAppsCloseLaunchers)
                     {
                         try
                         {

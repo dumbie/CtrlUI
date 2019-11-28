@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -193,7 +194,7 @@ namespace LibraryShared
                 }
             }
 
-            private int PrivRunningTime = -1;
+            private int PrivRunningTime = -2;
             public int RunningTime
             {
                 get { return this.PrivRunningTime; }
@@ -208,8 +209,8 @@ namespace LibraryShared
             }
 
             //Status variables (no saving needed)
-            private ProcessMulti PrivProcessMulti = null;
-            public ProcessMulti ProcessMulti
+            private List<ProcessMulti> PrivProcessMulti = new List<ProcessMulti>();
+            public List<ProcessMulti> ProcessMulti
             {
                 get { return this.PrivProcessMulti; }
                 set

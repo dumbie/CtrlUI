@@ -302,25 +302,25 @@ namespace CtrlUI
         }
 
         //Check the applications running status
-        void CheckAppRunningStatus(IEnumerable<Process> ProcessesList)
+        void CheckAppRunningStatus(IEnumerable<Process> processesList)
         {
             try
             {
                 //Check if processes list is provided
-                if (ProcessesList == null)
+                if (processesList == null)
                 {
-                    ProcessesList = Process.GetProcesses();
+                    processesList = Process.GetProcesses();
                 }
 
                 //Update main menu launchers status
-                UpdateAppRunningIcon(img_Menu_SteamStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "steam"));
-                UpdateAppRunningIcon(img_Menu_OriginStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "origin"));
-                UpdateAppRunningIcon(img_Menu_GoGStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "galaxyclient"));
-                UpdateAppRunningIcon(img_Menu_UplayStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "upc"));
-                UpdateAppRunningIcon(img_Menu_DirectXInput, ProcessesList.Any(x => x.ProcessName.ToLower() == "directxinput"));
-                UpdateAppRunningIcon(img_Menu_BethesdaStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher"));
-                UpdateAppRunningIcon(img_Menu_EpicStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher"));
-                UpdateAppRunningIcon(img_Menu_BlizzardStatus, ProcessesList.Any(x => x.ProcessName.ToLower() == "battle.net"));
+                UpdateAppRunningIcon(img_Menu_SteamStatus, processesList.Any(x => x.ProcessName.ToLower() == "steam"));
+                UpdateAppRunningIcon(img_Menu_OriginStatus, processesList.Any(x => x.ProcessName.ToLower() == "origin"));
+                UpdateAppRunningIcon(img_Menu_GoGStatus, processesList.Any(x => x.ProcessName.ToLower() == "galaxyclient"));
+                UpdateAppRunningIcon(img_Menu_UplayStatus, processesList.Any(x => x.ProcessName.ToLower() == "upc"));
+                UpdateAppRunningIcon(img_Menu_DirectXInput, processesList.Any(x => x.ProcessName.ToLower() == "directxinput"));
+                UpdateAppRunningIcon(img_Menu_BethesdaStatus, processesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher"));
+                UpdateAppRunningIcon(img_Menu_EpicStatus, processesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher"));
+                UpdateAppRunningIcon(img_Menu_BlizzardStatus, processesList.Any(x => x.ProcessName.ToLower() == "battle.net"));
             }
             catch { }
         }

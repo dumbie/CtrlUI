@@ -51,7 +51,7 @@ namespace DirectXInput
                 RegisterInterfaceHandlers();
 
                 //Load other controller tools
-                JsonLoadAppsOtherTools();
+                JsonLoadAppsCloseTools();
 
                 //Close running controller tools
                 CloseControllerTools();
@@ -232,7 +232,7 @@ namespace DirectXInput
             try
             {
                 Debug.WriteLine("Closing other running controller tools.");
-                foreach (string CloseTool in vAppsOtherTools)
+                foreach (string CloseTool in vAppsCloseTools)
                 {
                     try
                     {

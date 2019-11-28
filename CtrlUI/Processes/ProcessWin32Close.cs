@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static LibraryShared.Classes;
 
@@ -10,30 +11,30 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Close single process Win32 and Win32Store
-        async Task CloseSingleProcessWin32AndWin32StoreByDataBindApp(DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
+        async Task CloseSingleProcessWin32AndWin32Store(DataBindApp dataBindApp, ProcessMulti processMulti, bool resetProcess, bool removeProcess)
         {
             try
             {
                 Popup_Show_Status("Closing", "Closing " + dataBindApp.Name);
-                Debug.WriteLine("Closing Win32 application: " + dataBindApp.Name);
+                Debug.WriteLine("Closing Win32 and Win32Store process: " + dataBindApp.Name);
 
                 //Close the process
-                bool ClosedProcess = false;
-                if (dataBindApp.ProcessMulti.Identifier > 0)
+                bool closedProcess = false;
+                if (processMulti.Identifier > 0)
                 {
-                    ClosedProcess = CloseProcessById(dataBindApp.ProcessMulti.Identifier);
+                    closedProcess = CloseProcessById(processMulti.Identifier);
                 }
                 else if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
                 {
-                    ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.NameExe), false);
+                    closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.NameExe), false);
                 }
                 else
                 {
-                    ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.PathExe), false);
+                    closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.PathExe), false);
                 }
 
                 //Check if process closed
-                if (ClosedProcess)
+                if (closedProcess)
                 {
                     //Reset the process running status
                     if (resetProcess)
@@ -60,26 +61,26 @@ namespace CtrlUI
         }
 
         //Close all processes Win32 and Win32Store
-        async Task CloseAllProcessesWin32AndWin32StoreByDataBindApp(DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
+        async Task CloseAllProcessesWin32AndWin32Store(DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
         {
             try
             {
                 Popup_Show_Status("Closing", "Closing " + dataBindApp.Name);
-                Debug.WriteLine("Closing Win32 processes: " + dataBindApp.Name + " / " + dataBindApp.ProcessMulti.Identifier + " / " + dataBindApp.ProcessMulti.WindowHandle);
+                Debug.WriteLine("Closing all Win32 and Win32Store processes: " + dataBindApp.Name);
 
                 //Close the process
-                bool ClosedProcess = false;
+                bool closedProcess = false;
                 if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
                 {
-                    ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.NameExe), false);
+                    closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.NameExe), false);
                 }
                 else
                 {
-                    ClosedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.PathExe), false);
+                    closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.PathExe), false);
                 }
 
                 //Check if process closed
-                if (ClosedProcess)
+                if (closedProcess)
                 {
                     //Reset the process running status
                     if (resetProcess)

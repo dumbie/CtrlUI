@@ -66,11 +66,11 @@ namespace CtrlUI
 
                     //Search for applications
                     IEnumerable<DataBindApp> searchResult = CombineAppLists(true, true).Where(x => x.Name.ToLower().Contains(stringSearch.ToLower()));
-                    foreach (DataBindApp result in searchResult)
+                    foreach (DataBindApp dataBindApp in searchResult)
                     {
                         try
                         {
-                            List_Search.Add(result);
+                            List_Search.Add(dataBindApp);
                         }
                         catch { }
                     }

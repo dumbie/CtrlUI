@@ -599,10 +599,16 @@ namespace CtrlUI
                     btn_Settings_AppQuickLaunch.Content = "Change quick launch app: " + vFilePickerResult.Name;
 
                     //Set previous quick launch application to false
-                    foreach (DataBindApp QuickLaunchApps in CombineAppLists(false, false).Where(x => x.QuickLaunch)) { QuickLaunchApps.QuickLaunch = false; }
+                    foreach (DataBindApp dataBindApp in CombineAppLists(false, false).Where(x => x.QuickLaunch))
+                    {
+                        dataBindApp.QuickLaunch = false;
+                    }
 
                     //Set new quick launch application to true
-                    foreach (DataBindApp QuickLaunchApps in CombineAppLists(false, false).Where(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower())) { QuickLaunchApps.QuickLaunch = true; }
+                    foreach (DataBindApp dataBindApp in CombineAppLists(false, false).Where(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower()))
+                    {
+                        dataBindApp.QuickLaunch = true;
+                    }
 
                     //Save changes to Json file
                     JsonSaveApps();

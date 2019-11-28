@@ -22,6 +22,17 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        //Strip the shortcut file name
+        string StripShortcutFilename(string shortcutFilename)
+        {
+            try
+            {
+                return shortcutFilename.Replace(".lnk", string.Empty).Replace(".url", string.Empty).Replace(".exe - Shortcut", string.Empty).Replace(" - Shortcut", string.Empty);
+            }
+            catch { }
+            return shortcutFilename;
+        }
+
         //Get details from a shortcut file
         ShortcutDetails ReadShortcutFile(string shortcutPath)
         {
@@ -57,7 +68,7 @@ namespace CtrlUI
                         }
                         catch { }
 
-                        shortcutDetails.Name = Path.GetFileNameWithoutExtension(shortcutPath).Replace(".lnk", string.Empty).Replace(".url", string.Empty).Replace(".exe - Shortcut", string.Empty).Replace(" - Shortcut", string.Empty);
+                        shortcutDetails.Title = StripShortcutFilename(Path.GetFileNameWithoutExtension(shortcutPath));
                         shortcutDetails.TargetPath = shellLinkObject.Target.Path;
                         shortcutDetails.WorkingPath = shellLinkObject.WorkingDirectory;
                         shortcutDetails.IconPath = iconPath;
@@ -125,7 +136,7 @@ namespace CtrlUI
                 //Remove shortcuts that are no longer available from the list
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => !directoryShortcuts.Any(y => y.Name.Replace(".lnk", string.Empty).Replace(".url", string.Empty).Replace(".exe - Shortcut", string.Empty).Replace(" - Shortcut", string.Empty) == x.Name));
+                    await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => !directoryShortcuts.Any(y => StripShortcutFilename(y.Name) == x.Name));
                 });
 
                 //Get shortcut information and add it to the list
@@ -156,7 +167,7 @@ namespace CtrlUI
                         }
 
                         //Check if shortcut is in shortcut blacklist
-                        if (vAppsBlacklistShortcut.Any(x => x.ToLower() == shortcutDetails.Name.ToLower()))
+                        if (vAppsBlacklistShortcut.Any(x => x.ToLower() == shortcutDetails.Title.ToLower()))
                         {
                             //Debug.WriteLine("Shortcut is on the blacklist skipping: " + fileNameStripped.ToLower());
                             continue;
@@ -187,7 +198,7 @@ namespace CtrlUI
             try
             {
                 //Check if the shortcut name is set
-                if (string.IsNullOrWhiteSpace(shortcutDetails.Name))
+                if (string.IsNullOrWhiteSpace(shortcutDetails.Title))
                 {
                     Debug.WriteLine("Shortcut name is not set, skipping shortcut.");
                     return;
@@ -251,12 +262,12 @@ namespace CtrlUI
                 //Add the shortcut to the list
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    List_Shortcuts.Add(new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Name, NameExe = shortcutDetails.NameExe, ImageBitmap = IconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusLauncher = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify });
+                    List_Shortcuts.Add(new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = IconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusLauncher = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify });
                 });
             }
             catch
             {
-                Debug.WriteLine("Failed to add shortcut to list: " + shortcutDetails.ShortcutPath);
+                //Debug.WriteLine("Failed to add shortcut to list: " + shortcutDetails.ShortcutPath);
             }
         }
     }

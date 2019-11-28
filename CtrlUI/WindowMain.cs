@@ -108,7 +108,7 @@ namespace CtrlUI
                 JsonLoadApps();
 
                 //Load Json apps other launchers
-                JsonLoadAppsOtherLaunchers();
+                JsonLoadAppsCloseLaunchers();
 
                 //Load Json file locations
                 JsonLoadFileLocations();
@@ -128,9 +128,6 @@ namespace CtrlUI
                 //Refresh the application lists
                 ShowHideEmptyList(false, false);
                 ListsUpdateCount();
-
-                //Validate application numbers
-                ValidateAppNumbers();
 
                 //Update uwp application images
                 UpdateUwpApplicationImages();

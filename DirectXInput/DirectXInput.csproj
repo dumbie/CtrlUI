@@ -166,7 +166,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Profiles\AppsOtherTools.json">
+    <Content Include="Profiles\AppsCloseTools.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

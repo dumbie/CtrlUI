@@ -6,7 +6,7 @@ namespace LibraryShared
     {
         public class ShortcutDetails
         {
-            public string Name { get; set; }
+            public string Title { get; set; }
             public string NameExe { get; set; }
             public string TargetPath { get; set; }
             public string WorkingPath { get; set; }

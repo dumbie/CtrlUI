@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
@@ -15,7 +14,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Launch a win32 application manually
+        //Launch a Win32 application manually
         async Task<bool> LaunchProcessManuallyWin32(string pathExe, string pathLaunch, string argument, bool silent, bool allowMinimize, bool runAsAdmin, bool createNoWindow)
         {
             try
@@ -56,17 +55,15 @@ namespace CtrlUI
             }
         }
 
-        //Launch a win32 databind app
+        //Launch a Win32 databind app
         async Task<bool> LaunchProcessDatabindWin32(DataBindApp dataBindApp)
         {
             try
             {
-                //Check if Win32 process is running
-                await UpdateDataBindAppProcessMulti(dataBindApp, true);
-                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
-                if (!alreadyRunning)
+                //Check if new process needs to be launched
+                bool launchCheck = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
+                if (!launchCheck)
                 {
-                    Debug.WriteLine("Win32 process is already running, skipping the launch.");
                     return false;
                 }
 
@@ -111,12 +108,10 @@ namespace CtrlUI
         {
             try
             {
-                //Check if Win32 process is running
-                await UpdateDataBindAppProcessMulti(dataBindApp, true);
-                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
-                if (!alreadyRunning)
+                //Check if new process needs to be launched
+                bool launchCheck = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
+                if (!launchCheck)
                 {
-                    Debug.WriteLine("Win32 process is already running, skipping the launch.");
                     return false;
                 }
 
@@ -185,12 +180,10 @@ namespace CtrlUI
         {
             try
             {
-                //Check if win32 process is running
-                await UpdateDataBindAppProcessMulti(dataBindApp, true);
-                bool alreadyRunning = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
-                if (!alreadyRunning)
+                //Check if new process needs to be launched
+                bool launchCheck = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
+                if (!launchCheck)
                 {
-                    Debug.WriteLine("Win32 process is already running, skipping the launch.");
                     return false;
                 }
 

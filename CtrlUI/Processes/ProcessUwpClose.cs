@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.ProcessClasses;
@@ -11,15 +12,15 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Close single UWP process
-        async Task CloseSingleProcessUwpByDataBindApp(DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
+        async Task CloseSingleProcessUwp(DataBindApp dataBindApp, ProcessMulti processMulti, bool resetProcess, bool removeProcess)
         {
             try
             {
                 Popup_Show_Status("Closing", "Closing " + dataBindApp.Name);
-                Debug.WriteLine("Closing UWP application: " + dataBindApp.Name);
+                Debug.WriteLine("Closing UWP process: " + dataBindApp.Name);
 
-                //Close the process or app
-                bool closedProcess = await CloseProcessUwpByWindowHandleOrProcessId(dataBindApp.Name, dataBindApp.ProcessMulti.Identifier, dataBindApp.ProcessMulti.WindowHandle);
+                //Close the process
+                bool closedProcess = await CloseProcessUwpByWindowHandleOrProcessId(dataBindApp.Name, processMulti.Identifier, processMulti.WindowHandle);
                 if (closedProcess)
                 {
                     //Reset the process running status
@@ -47,23 +48,18 @@ namespace CtrlUI
         }
 
         //Close all processes UWP
-        async Task CloseAllProcessesUwpByDataBindApp(DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
+        async Task CloseAllProcessesUwp(DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
         {
             try
             {
-                //Improve fix windowhandle issue close all has no window handle
+                //Get the multi process
+                ProcessMulti processMulti = dataBindApp.ProcessMulti.FirstOrDefault();
+
                 Popup_Show_Status("Closing", "Closing " + dataBindApp.Name);
-                Debug.WriteLine("Closing UWP processes: " + dataBindApp.Name + " / " + dataBindApp.ProcessMulti.Identifier + " / " + dataBindApp.ProcessMulti.WindowHandle);
+                Debug.WriteLine("Closing all UWP processes: " + dataBindApp.Name + " / " + processMulti.Identifier);
 
-                //Get the process id by window handle
-                if (dataBindApp.ProcessMulti.Identifier <= 0)
-                {
-                    int processId = await GetUwpProcessIdByWindowHandle(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.ProcessMulti.WindowHandle);
-                    dataBindApp.ProcessMulti.Identifier = processId;
-                }
-
-                //Close the process or app
-                bool closedProcess = CloseProcessById(dataBindApp.ProcessMulti.Identifier);
+                //Close the process
+                bool closedProcess = CloseProcessById(processMulti.Identifier);
                 if (closedProcess)
                 {
                     //Reset the process running status

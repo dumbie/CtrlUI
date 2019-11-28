@@ -19,7 +19,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Get all the active Win32 processes and update the lists
-        async Task ListLoadCheckProcessesWin32(IEnumerable<Process> processesList, bool showStatus)
+        async Task ListLoadCheckProcessesWin32(IEnumerable<Process> processesList, List<IntPtr> activeProcessesWindow, IEnumerable<DataBindApp> currentListApps, bool showStatus)
         {
             try
             {
@@ -47,17 +47,14 @@ namespace CtrlUI
                     if (showStatus) { Popup_Show_Status("Refresh", "Refreshing desktop apps"); }
                     //Debug.WriteLine("Checking desktop processes.");
 
-                    List<int> activeProcessesId = new List<int>();
-                    List<string> activeProcessesPathExe = new List<string>();
-                    IEnumerable<DataBindApp> currentListApps = CombineAppLists(true, false);
-                    currentListApps = currentListApps.Where(x => x.StatusLauncher == Visibility.Collapsed);
-                    currentListApps = currentListApps.Where(x => x.Type == ProcessType.Win32 || x.Type == ProcessType.Win32Store);
-
                     //Add new running process if needed
                     foreach (Process processApp in processesList)
                     {
                         try
                         {
+                            //Process window handle
+                            IntPtr processWindowHandle = processApp.MainWindowHandle;
+
                             //Process application type
                             ProcessType processType = ProcessType.Win32;
 
@@ -65,10 +62,10 @@ namespace CtrlUI
                             Visibility processStatusStore = Visibility.Collapsed;
 
                             //Get the process title
-                            string processTitle = GetWindowTitleFromProcess(processApp);
+                            string processName = GetWindowTitleFromProcess(processApp);
 
                             //Check if application title is blacklisted
-                            if (vAppsBlacklistProcess.Any(x => x.ToLower() == processTitle.ToLower()))
+                            if (vAppsBlacklistProcess.Any(x => x.ToLower() == processName.ToLower()))
                             {
                                 continue;
                             }
@@ -80,15 +77,17 @@ namespace CtrlUI
                             }
 
                             //Validate the window handle
-                            if (!ValidateWindowHandle(processApp.MainWindowHandle))
+                            if (!ValidateWindowHandle(processWindowHandle))
                             {
                                 continue;
                             }
 
                             //Get the executable path
-                            string processExecutablePath = GetExecutablePathFromProcess(processApp);
-                            string processName = Path.GetFileNameWithoutExtension(processExecutablePath);
-                            string processNameLower = processName.ToLower();
+                            string processPathExe = GetExecutablePathFromProcess(processApp);
+                            string processPathExeLower = processPathExe.ToLower();
+                            string processPathImage = processPathExe;
+                            string processNameExe = Path.GetFileNameWithoutExtension(processPathExe);
+                            string processNameLower = processNameExe.ToLower();
 
                             //Check if application process is blacklisted
                             if (vAppsBlacklistProcess.Any(x => x.ToLower() == processNameLower))
@@ -97,8 +96,7 @@ namespace CtrlUI
                             }
 
                             //Add active process
-                            activeProcessesId.Add(processApp.Id);
-                            activeProcessesPathExe.Add(processNameLower);
+                            activeProcessesWindow.Add(processWindowHandle);
 
                             //Check the process running time
                             int processRunningTime = ProcessRuntimeMinutes(processApp);
@@ -113,11 +111,28 @@ namespace CtrlUI
                             }
 
                             //Check the process launch arguments
-                            string processArgument = GetLaunchArgumentsFromProcess(processApp, processExecutablePath);
+                            string processArgument = GetLaunchArgumentsFromProcess(processApp, processPathExe);
+
+                            //Check if process is a Win32Store app
+                            string processAppUserModelId = GetAppUserModelIdFromProcess(processApp);
+                            if (!string.IsNullOrWhiteSpace(processAppUserModelId))
+                            {
+                                processType = ProcessType.Win32Store;
+                                processNameExe = Path.GetFileName(processPathExe);
+                                processNameLower = processNameExe.ToLower();
+                                processPathExe = processAppUserModelId;
+                                processPathExeLower = processAppUserModelId.ToLower();
+                                processStatusStore = Visibility.Visible;
+                                //Debug.WriteLine("Process " + processName + " is a Win32Store application.");
+                                //Improve fix win32 status by changing name checks
+                            }
+
+                            //Convert Process To ProcessMulti
+                            ProcessMulti processMultiNew = ConvertProcessToProcessMulti(processType, processApp);
 
                             //Check all the lists for the application
                             DataBindApp existingCombinedApp = currentListApps.Where(x => Path.GetFileNameWithoutExtension(x.PathExe.ToLower()) == processNameLower).FirstOrDefault();
-                            DataBindApp existingProcessApp = List_Processes.Where(x => x.ProcessMulti.Identifier == processApp.Id).FirstOrDefault();
+                            DataBindApp existingProcessApp = List_Processes.Where(x => x.ProcessMulti.Any(z => z.Identifier == processApp.Id)).FirstOrDefault();
 
                             //Check if process is in combined list and update it
                             if (existingCombinedApp != null)
@@ -133,6 +148,12 @@ namespace CtrlUI
 
                                 //Update the application last runtime
                                 existingCombinedApp.RunningTimeLastUpdate = Environment.TickCount;
+
+                                //Add the new process multi
+                                if (!existingCombinedApp.ProcessMulti.Any(x => x.WindowHandle == processWindowHandle))
+                                {
+                                    existingCombinedApp.ProcessMulti.Add(processMultiNew);
+                                }
                             }
 
                             //Check if already in combined list and remove it
@@ -152,7 +173,7 @@ namespace CtrlUI
                             if (existingProcessApp != null)
                             {
                                 //Update the process title
-                                if (existingProcessApp.Name != processTitle) { existingProcessApp.Name = processTitle; }
+                                if (existingProcessApp.Name != processName) { existingProcessApp.Name = processName; }
 
                                 //Update the process running time
                                 existingProcessApp.RunningTime = processRunningTime;
@@ -164,57 +185,20 @@ namespace CtrlUI
                             }
 
                             //Load the application image
-                            BitmapImage processImage = FileToBitmapImage(new string[] { processTitle, processName, processExecutablePath }, processApp.MainWindowHandle, 90);
+                            BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExe, processPathImage, processPathExe }, processWindowHandle, 90);
 
-                            //Check if the process is a Win32Store app
-                            string processAppUserModelId = GetAppUserModelIdFromProcess(processApp);
-                            if (!string.IsNullOrWhiteSpace(processAppUserModelId))
-                            {
-                                processName = Path.GetFileName(processExecutablePath);
-                                processExecutablePath = processAppUserModelId;
-                                processStatusStore = Visibility.Visible;
-                                processType = ProcessType.Win32Store;
-                                //Debug.WriteLine("Process " + processTitle + " is a Win32Store application.");
-                            }
-
-                            //Convert Process To ProcessMulti
-                            ProcessMulti processMultiNew = ConvertProcessToProcessMulti(processType, processApp);
+                            //Create new ProcessMulti list
+                            List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();
+                            listProcessMulti.Add(processMultiNew);
 
                             //Add the process to the list
                             AVActions.ActionDispatcherInvoke(delegate
                             {
-                                List_Processes.Add(new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = processMultiNew, ImageBitmap = processImage, Name = processTitle, NameExe = processName, PathExe = processExecutablePath, Argument = processArgument, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime });
+                                List_Processes.Add(new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processName, NameExe = processNameExe, PathExe = processPathExe, Argument = processArgument, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime });
                             });
                         }
                         catch { }
                     }
-
-                    //Update the application running count and status
-                    foreach (DataBindApp listApp in currentListApps)
-                    {
-                        int processCount = activeProcessesPathExe.Count(x => x == Path.GetFileNameWithoutExtension(listApp.PathExe.ToLower()));
-                        if (processCount > 1)
-                        {
-                            listApp.RunningProcessCount = Convert.ToString(processCount);
-                        }
-                        else
-                        {
-                            listApp.RunningProcessCount = string.Empty;
-                        }
-
-                        if (processCount == 0)
-                        {
-                            listApp.StatusRunning = Visibility.Collapsed;
-                            listApp.StatusSuspended = Visibility.Collapsed;
-                            listApp.RunningTimeLastUpdate = 0;
-                        }
-                    }
-
-                    //Remove no longer running and invalid processes
-                    await AVActions.ActionDispatcherInvokeAsync(async delegate
-                    {
-                        await ListBoxRemoveAll(lb_Processes, List_Processes, x => !activeProcessesId.Contains(x.ProcessMulti.Identifier) && (x.Type == ProcessType.Win32 || x.Type == ProcessType.Win32Store));
-                    });
                 }
             }
             catch { }

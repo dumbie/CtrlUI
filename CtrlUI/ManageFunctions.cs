@@ -235,7 +235,7 @@ namespace CtrlUI
         }
 
         //Show the application drop popup
-        async Task Popup_Show_AppDrop(DataBindApp DropApp)
+        async Task Popup_Show_AppDrop(DataBindApp dataBindApp)
         {
             try
             {
@@ -256,12 +256,12 @@ namespace CtrlUI
                 btn_Manage_AddAppCategory.Tag = "Game";
 
                 //Load application image
-                img_AddAppLogo.Source = FileToBitmapImage(new string[] { DropApp.PathExe }, IntPtr.Zero, 120);
+                img_AddAppLogo.Source = FileToBitmapImage(new string[] { dataBindApp.PathExe }, IntPtr.Zero, 120);
 
                 //Fill the text boxes with application details
-                tb_AddAppName.Text = Path.GetFileNameWithoutExtension(DropApp.PathExe);
-                tb_AddAppExePath.Text = DropApp.PathExe;
-                tb_AddAppPathLaunch.Text = DropApp.PathLaunch;
+                tb_AddAppName.Text = Path.GetFileNameWithoutExtension(dataBindApp.PathExe);
+                tb_AddAppExePath.Text = dataBindApp.PathExe;
+                tb_AddAppPathLaunch.Text = dataBindApp.PathLaunch;
                 tb_AddAppPathRoms.Text = string.Empty;
                 tb_AddAppArgument.Text = string.Empty;
                 checkbox_AddLaunchFilePicker.IsChecked = false;

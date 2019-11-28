@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.ProcessClasses;
@@ -50,27 +51,11 @@ namespace CtrlUI
         {
             try
             {
-                //Update the process multi from DataBindApp
-                await UpdateDataBindAppProcessMulti(dataBindApp, true);
-
-                //Check if UWP or Win32Store process is running
-                if (dataBindApp.ProcessMulti != null)
+                //Check if new process needs to be launched
+                bool launchCheck = await CheckLaunchProcessUwp(dataBindApp);
+                if (!launchCheck)
                 {
-                    bool alreadyRunning = false;
-                    if (dataBindApp.ProcessMulti.Type == ProcessType.UWP)
-                    {
-                        alreadyRunning = await CheckLaunchProcessUwp(dataBindApp);
-                    }
-                    else if (dataBindApp.ProcessMulti.Type == ProcessType.Win32Store)
-                    {
-                        alreadyRunning = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
-                    }
-
-                    if (!alreadyRunning)
-                    {
-                        Debug.WriteLine(dataBindApp.ProcessMulti.Type + " process is already running, skipping the launch.");
-                        return false;
-                    }
+                    return false;
                 }
 
                 //Check if the application exists
@@ -91,7 +76,7 @@ namespace CtrlUI
                 Popup_Show_Status("App", "Launching " + dataBindApp.Name);
                 Debug.WriteLine("Launching UWP or Win32Store: " + dataBindApp.Name + " from: " + dataBindApp.Category + " path: " + dataBindApp.PathExe);
 
-                //Launch the UWP application
+                //Launch the UWP or Win32Store application
                 await LaunchProcessManuallyUwpAndWin32Store(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, true, true);
                 return true;
             }

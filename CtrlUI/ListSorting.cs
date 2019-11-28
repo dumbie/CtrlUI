@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
 using static CtrlUI.AppVariables;
@@ -29,33 +28,6 @@ namespace CtrlUI
             }
             catch { }
             return NewNumber;
-        }
-
-        //Validate application numbers
-        void ValidateAppNumbers()
-        {
-            try
-            {
-                Debug.WriteLine("Checking all the application numbers.");
-                bool AppNumberChanged = false;
-
-                IEnumerable<DataBindApp> invalidApps = CombineAppLists(false, false).Where(x => x.Number <= 0);
-                foreach (DataBindApp invalidApp in invalidApps)
-                {
-                    try
-                    {
-                        invalidApp.Number = GetHighestAppNumber();
-                        AppNumberChanged = true;
-                    }
-                    catch { }
-                }
-
-                if (AppNumberChanged)
-                {
-                    JsonSaveApps();
-                }
-            }
-            catch { }
         }
 
         void MoveApplicationList_Left()

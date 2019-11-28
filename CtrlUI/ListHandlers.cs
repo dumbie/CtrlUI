@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -89,13 +90,12 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task RightClickShortcut(ListBox ListboxSender, int ListboxSelectedIndex, DataBindApp SelectedItem)
+        async Task RightClickShortcut(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
         {
             try
             {
                 //Get the process running time
-                int processRunningTimeInt = ProcessRuntimeMinutes(GetProcessById(SelectedItem.ProcessMulti.Identifier));
-                string processRunningTimeString = ApplicationRuntimeString(processRunningTimeInt, "shortcut process");
+                string processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "shortcut process");
 
                 List<DataBindString> Answers = new List<DataBindString>();
 
@@ -114,41 +114,41 @@ namespace CtrlUI
                 cancelString.Name = "Cancel";
                 Answers.Add(cancelString);
 
-                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + SelectedItem.Name + "?", processRunningTimeString, SelectedItem.PathExe, Answers);
+                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, dataBindApp.PathExe, Answers);
                 if (Result != null)
                 {
                     if (Result == Answer1)
                     {
-                        Popup_Show_Status("Minus", "Removed shortcut " + SelectedItem.Name);
-                        Debug.WriteLine("Removing shortcut: " + SelectedItem.Name + " path: " + SelectedItem.ShortcutPath);
+                        Popup_Show_Status("Minus", "Removed shortcut " + dataBindApp.Name);
+                        Debug.WriteLine("Removing shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
 
                         //Remove shortcut file if exists
-                        if (File.Exists(SelectedItem.ShortcutPath))
+                        if (File.Exists(dataBindApp.ShortcutPath))
                         {
                             //Delete the shortcut file
-                            File.Delete(SelectedItem.ShortcutPath);
+                            File.Delete(dataBindApp.ShortcutPath);
 
                             //Remove application from the list
-                            await RemoveAppFromList(SelectedItem, false, false, true);
+                            await RemoveAppFromList(dataBindApp, false, false, true);
                         }
 
                         //Select the previous index
-                        await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
+                        await FocusOnListbox(listboxSender, false, false, listboxSelectedIndex);
                     }
                     else if (Result == Answer2)
                     {
-                        Popup_Show_Status("Hide", "Hiding shortcut " + SelectedItem.Name);
-                        Debug.WriteLine("Hiding shortcut: " + SelectedItem.Name + " path: " + SelectedItem.ShortcutPath);
+                        Popup_Show_Status("Hide", "Hiding shortcut " + dataBindApp.Name);
+                        Debug.WriteLine("Hiding shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
 
                         //Add shortcut file to the ignore list
-                        vAppsBlacklistShortcut.Add(SelectedItem.Name);
+                        vAppsBlacklistShortcut.Add(dataBindApp.Name);
                         JsonSaveAppsBlacklistShortcut();
 
                         //Remove application from the list
-                        await RemoveAppFromList(SelectedItem, false, false, true);
+                        await RemoveAppFromList(dataBindApp, false, false, true);
 
                         //Select the previous index
-                        await FocusOnListbox(ListboxSender, false, false, ListboxSelectedIndex);
+                        await FocusOnListbox(listboxSender, false, false, listboxSelectedIndex);
                     }
                 }
             }
@@ -183,6 +183,7 @@ namespace CtrlUI
                 {
                     if (Result == Answer1)
                     {
+                        //Show application edit popup
                         await Popup_Show_AppEdit(listboxSender);
                     }
                     else if (Result == Answer2)
@@ -202,8 +203,11 @@ namespace CtrlUI
         {
             try
             {
+                //Get the process multi
+                ProcessMulti processMulti = dataBindApp.ProcessMulti.FirstOrDefault();
+
                 //Get the process running time
-                string ProcessRunningTime = ApplicationRuntimeString(dataBindApp.RunningTime, "process");
+                string processRunningTime = ApplicationRuntimeString(dataBindApp.RunningTime, "process");
 
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer0 = new DataBindString();
@@ -226,38 +230,38 @@ namespace CtrlUI
                 cancelString.Name = "Cancel";
                 Answers.Add(cancelString);
 
-                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", ProcessRunningTime, "", Answers);
+                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTime, "", Answers);
                 if (Result != null)
                 {
                     if (Result == Answer0)
                     {
-                        await ShowApplicationByDataBindApp(dataBindApp);
+                        await ShowProcessWindow(dataBindApp, processMulti);
                     }
                     else if (Result == Answer1)
                     {
-                        if (dataBindApp.ProcessMulti.Type == ProcessType.UWP)
+                        if (processMulti.Type == ProcessType.UWP)
                         {
-                            await CloseSingleProcessUwpByDataBindApp(dataBindApp, false, true);
+                            await CloseSingleProcessUwp(dataBindApp, processMulti, false, true);
                         }
                         else
                         {
-                            await CloseSingleProcessWin32AndWin32StoreByDataBindApp(dataBindApp, false, true);
+                            await CloseSingleProcessWin32AndWin32Store(dataBindApp, processMulti, false, true);
                         }
                     }
                     else if (Result == Answer2)
                     {
                         //Restart the process
-                        if (dataBindApp.ProcessMulti.Type == ProcessType.UWP)
+                        if (processMulti.Type == ProcessType.UWP)
                         {
-                            await RestartPrepareUwp(dataBindApp);
+                            await RestartPrepareUwp(dataBindApp, processMulti);
                         }
-                        else if (dataBindApp.ProcessMulti.Type == ProcessType.Win32Store)
+                        else if (processMulti.Type == ProcessType.Win32Store)
                         {
-                            await RestartPrepareWin32Store(dataBindApp);
+                            await RestartPrepareWin32Store(dataBindApp, processMulti);
                         }
                         else
                         {
-                            await RestartPrepareWin32(dataBindApp);
+                            await RestartPrepareWin32(dataBindApp, processMulti);
                         }
 
                         //Refresh the application lists
@@ -271,27 +275,28 @@ namespace CtrlUI
             catch { }
         }
 
-        string ApplicationRuntimeString(int RunningTime, string Category)
+        string ApplicationRuntimeString(int runningTime, string appCategory)
         {
             try
             {
-                if (RunningTime == -1) { return "This " + Category + " has been running for an unknown duration."; }
-                else if (RunningTime == 0) { return "This " + Category + " has not yet run for longer than a minute."; }
-                else if (RunningTime < 60) { return "This " + Category + " has been running for a total of " + RunningTime + " minutes."; }
-                else if (RunningTime < 120)
+                if (runningTime == -2) { return string.Empty; }
+                else if (runningTime == -1) { return "This " + appCategory + " has been running for an unknown duration."; }
+                else if (runningTime == 0) { return "This " + appCategory + " has not yet run for longer than a minute."; }
+                else if (runningTime < 60) { return "This " + appCategory + " has been running for a total of " + runningTime + " minutes."; }
+                else if (runningTime < 120)
                 {
-                    TimeSpan RunningTimeSpan = TimeSpan.FromMinutes(RunningTime);
-                    return "This " + Category + " has been running for a total of 1 hour and " + Convert.ToInt32(RunningTimeSpan.Minutes) + " minutes.";
+                    TimeSpan RunningTimeSpan = TimeSpan.FromMinutes(runningTime);
+                    return "This " + appCategory + " has been running for a total of 1 hour and " + Convert.ToInt32(RunningTimeSpan.Minutes) + " minutes.";
                 }
                 else
                 {
-                    TimeSpan RunningTimeSpan = TimeSpan.FromMinutes(RunningTime);
-                    return "This " + Category + " has been running for a total of " + Convert.ToInt32(RunningTimeSpan.TotalHours) + " hours and " + Convert.ToInt32(RunningTimeSpan.Minutes) + " minutes.";
+                    TimeSpan RunningTimeSpan = TimeSpan.FromMinutes(runningTime);
+                    return "This " + appCategory + " has been running for a total of " + Convert.ToInt32(RunningTimeSpan.TotalHours) + " hours and " + Convert.ToInt32(RunningTimeSpan.Minutes) + " minutes.";
                 }
             }
             catch
             {
-                return "This " + Category + " has been running for an unknown duration.";
+                return "This " + appCategory + " has been running for an unknown duration.";
             }
         }
 

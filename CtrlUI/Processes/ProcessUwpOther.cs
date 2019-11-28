@@ -21,21 +21,21 @@ namespace CtrlUI
                 bool UpdatedImages = false;
 
                 //Update all the uwp apps image paths
-                foreach (DataBindApp ListApp in CombineAppLists(false, false).Where(x => x.Type == ProcessType.UWP || x.Type == ProcessType.Win32Store))
+                foreach (DataBindApp dataBindApp in CombineAppLists(false, false).Where(x => x.Type == ProcessType.UWP || x.Type == ProcessType.Win32Store))
                 {
                     try
                     {
-                        if (!string.IsNullOrWhiteSpace(ListApp.PathImage) && !File.Exists(ListApp.PathImage))
+                        if (!string.IsNullOrWhiteSpace(dataBindApp.PathImage) && !File.Exists(dataBindApp.PathImage))
                         {
-                            Debug.WriteLine("Uwp application image not found: " + ListApp.PathImage);
+                            Debug.WriteLine("Uwp application image not found: " + dataBindApp.PathImage);
 
                             //Get detailed application information
-                            Package appPackage = UwpGetAppPackageFromAppUserModelId(ListApp.PathExe);
+                            Package appPackage = UwpGetAppPackageFromAppUserModelId(dataBindApp.PathExe);
                             AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
 
                             //Update the application icons
-                            ListApp.PathImage = appxDetails.SquareLargestLogoPath;
-                            ListApp.ImageBitmap = FileToBitmapImage(new string[] { ListApp.Name, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, IntPtr.Zero, 90);
+                            dataBindApp.PathImage = appxDetails.SquareLargestLogoPath;
+                            dataBindApp.ImageBitmap = FileToBitmapImage(new string[] { dataBindApp.Name, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, IntPtr.Zero, 90);
                             UpdatedImages = true;
                         }
                     }

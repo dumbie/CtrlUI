@@ -1,14 +1,14 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessUwpFunctions;
+using static ArnoldVinkCode.ProcessWin32StoreFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task RestartPrepareUwp(DataBindApp dataBindApp, ProcessMulti processMulti)
+        async Task RestartPrepareWin32Store(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
             {
@@ -20,9 +20,9 @@ namespace CtrlUI
                 }
 
                 Popup_Show_Status("Switch", "Restarting " + dataBindApp.Name);
-                Debug.WriteLine("Restarting UWP application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandle);
+                Debug.WriteLine("Restarting Win32Store application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandle);
 
-                await RestartProcessUwp(dataBindApp.Name, dataBindApp.PathExe, processMulti.Identifier, processMulti.WindowHandle, processMulti.Argument);
+                await RestartProcessWin32Store(dataBindApp.NameExe, dataBindApp.PathExe, processMulti.Identifier, processMulti.Argument);
             }
             catch { }
         }

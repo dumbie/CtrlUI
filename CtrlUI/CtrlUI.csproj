@@ -115,10 +115,12 @@
     <Compile Include="AppUpdate.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="Processes\ProcessUwpCheck.cs" />
+    <Compile Include="Processes\ProcessMultiSelect.cs" />
     <Compile Include="Processes\ProcessUwpRestart.cs" />
     <Compile Include="Processes\ProcessUwpOther.cs" />
     <Compile Include="Processes\ProcessUwpList.cs" />
     <Compile Include="Processes\ProcessUwpClose.cs" />
+    <Compile Include="Processes\ProcessWin32StoreRestart.cs" />
     <Compile Include="Processes\ProcessWin32Restart.cs" />
     <Compile Include="Processes\ProcessWin32Close.cs" />
     <Compile Include="Processes\ProcessWin32Check.cs" />
@@ -1259,7 +1261,7 @@
     <Content Include="Profiles\AppsBlacklistShortcutUri.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\AppsOtherLaunchers.json">
+    <Content Include="Profiles\AppsCloseLaunchers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\FileLocations.json">

@@ -35,12 +35,12 @@ namespace DirectXInput
         }
 
         //Read other tools from Json file (Deserialize)
-        void JsonLoadAppsOtherTools()
+        void JsonLoadAppsCloseTools()
         {
             try
             {
-                string JsonFile = File.ReadAllText(@"Profiles\AppsOtherTools.json");
-                vAppsOtherTools = JsonConvert.DeserializeObject<string[]>(JsonFile);
+                string JsonFile = File.ReadAllText(@"Profiles\AppsCloseTools.json");
+                vAppsCloseTools = JsonConvert.DeserializeObject<string[]>(JsonFile);
 
                 Debug.WriteLine("Reading Json other tools completed.");
             }

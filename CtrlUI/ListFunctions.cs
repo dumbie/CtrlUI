@@ -67,9 +67,7 @@ namespace CtrlUI
 
                     if (!skipListLoading)
                     {
-                        await ListLoadCheckProcessesUwp(false);
-                        await ListLoadCheckProcessesWin32(processesList, false);
-                        await ListLoadShortcuts(false);
+                        await UpdateApplicationLists(processesList);
                     }
 
                     if (!skipRunningStatus)
@@ -88,6 +86,68 @@ namespace CtrlUI
             }
             catch { }
             vBusyRefreshingApps = false;
+        }
+
+        async Task UpdateApplicationLists(IEnumerable<Process> processesList)
+        {
+            try
+            {
+                //Check if processes list is provided
+                if (processesList == null)
+                {
+                    processesList = Process.GetProcesses();
+                }
+
+                //Update all the shortcuts
+                await ListLoadShortcuts(false);
+
+                //List all the currently running processes
+                List<IntPtr> activeProcessesWindow = new List<IntPtr>();
+
+                //Get the currently running processes
+                IEnumerable<DataBindApp> currentListApps = CombineAppLists(true, false).Where(x => x.StatusLauncher == Visibility.Collapsed);
+
+                //Update all the processes
+                await ListLoadCheckProcessesUwp(activeProcessesWindow, currentListApps, false);
+                await ListLoadCheckProcessesWin32(processesList, activeProcessesWindow, currentListApps, false);
+
+                //Update the application running count and status
+                foreach (DataBindApp dataBindApp in currentListApps)
+                {
+                    try
+                    {
+                        //Remove closed processes
+                        dataBindApp.ProcessMulti.RemoveAll(x => !activeProcessesWindow.Contains(x.WindowHandle));
+
+                        //Update the running count
+                        int processCount = dataBindApp.ProcessMulti.Count();
+                        if (processCount > 1)
+                        {
+                            dataBindApp.RunningProcessCount = Convert.ToString(processCount);
+                        }
+                        else
+                        {
+                            dataBindApp.RunningProcessCount = string.Empty;
+                        }
+
+                        //Update the running status
+                        if (processCount == 0)
+                        {
+                            dataBindApp.StatusRunning = Visibility.Collapsed;
+                            dataBindApp.StatusSuspended = Visibility.Collapsed;
+                            dataBindApp.RunningTimeLastUpdate = 0;
+                        }
+                    }
+                    catch { }
+                }
+
+                //Remove no longer running and invalid processes
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                {
+                    await ListBoxRemoveAll(lb_Processes, List_Processes, x => x.ProcessMulti.Any(z => !activeProcessesWindow.Contains(z.WindowHandle)));
+                });
+            }
+            catch { }
         }
 
         //Bind the lists to the listbox elements
@@ -178,15 +238,15 @@ namespace CtrlUI
             {
                 bool ApplicationUpdated = false;
                 //Debug.WriteLine("Updating the application running time.");
-                foreach (DataBindApp UpdateApp in CombineAppLists(false, false).Where(x => x.RunningTimeLastUpdate != 0))
+                foreach (DataBindApp dataBindApp in CombineAppLists(false, false).Where(x => x.RunningTimeLastUpdate != 0))
                 {
                     try
                     {
-                        if (UpdateApp.StatusRunning == Visibility.Visible && (Environment.TickCount - UpdateApp.RunningTimeLastUpdate) >= 60000)
+                        if (dataBindApp.StatusRunning == Visibility.Visible && (Environment.TickCount - dataBindApp.RunningTimeLastUpdate) >= 60000)
                         {
                             ApplicationUpdated = true;
-                            UpdateApp.RunningTime++;
-                            UpdateApp.RunningTimeLastUpdate = Environment.TickCount;
+                            dataBindApp.RunningTime++;
+                            dataBindApp.RunningTimeLastUpdate = Environment.TickCount;
                             //Debug.WriteLine(UpdateApp.Name + " has been running for one minute, total: " + UpdateApp.RunningTime);
                         }
                     }

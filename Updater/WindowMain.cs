@@ -141,8 +141,8 @@ namespace Updater
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsBlacklistProcess.json".ToLower())) { Debug.WriteLine("Skipping: AppsBlacklistProcess.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsBlacklistShortcut.json".ToLower())) { Debug.WriteLine("Skipping: AppsBlacklistShortcut.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsBlacklistShortcutUri.json".ToLower())) { Debug.WriteLine("Skipping: AppsBlacklistShortcutUri.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsOtherLaunchers.json".ToLower())) { Debug.WriteLine("Skipping: AppsOtherLaunchers.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsOtherTools.json".ToLower())) { Debug.WriteLine("Skipping: AppsOtherTools.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsCloseLaunchers.json".ToLower())) { Debug.WriteLine("Skipping: AppsCloseLaunchers.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsCloseTools.json".ToLower())) { Debug.WriteLine("Skipping: AppsCloseTools.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FileLocations.json".ToLower())) { Debug.WriteLine("Skipping: FileLocations.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("ShortcutLocations.json".ToLower())) { Debug.WriteLine("Skipping: ShortcutLocations.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsBlacklistProcess.json".ToLower())) { Debug.WriteLine("Skipping: FpsBlacklistProcess.json"); continue; }
