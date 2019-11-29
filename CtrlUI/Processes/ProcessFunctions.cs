@@ -83,8 +83,11 @@ namespace CtrlUI
             {
                 if (dataBindApp.Category == AppCategory.Process)
                 {
+                    //Get the process multi
+                    ProcessMulti processMulti = dataBindApp.ProcessMulti.FirstOrDefault();
+
                     //Show the process window
-                    await ShowProcessWindow(dataBindApp, dataBindApp.ProcessMulti.FirstOrDefault());
+                    await ShowProcessWindow(dataBindApp, processMulti);
                 }
                 else
                 {
@@ -105,6 +108,7 @@ namespace CtrlUI
                     {
                         if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                         {
+                            //Improve separate win32store launch?
                             appLaunched = await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
                         }
                         else

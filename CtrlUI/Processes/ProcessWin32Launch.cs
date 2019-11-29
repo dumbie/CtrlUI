@@ -61,8 +61,7 @@ namespace CtrlUI
             try
             {
                 //Check if new process needs to be launched
-                bool launchCheck = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
-                if (!launchCheck)
+                if (!await CheckLaunchProcessWin32andWin32Store(dataBindApp))
                 {
                     return false;
                 }
@@ -109,8 +108,7 @@ namespace CtrlUI
             try
             {
                 //Check if new process needs to be launched
-                bool launchCheck = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
-                if (!launchCheck)
+                if (!await CheckLaunchProcessWin32andWin32Store(dataBindApp))
                 {
                     return false;
                 }
@@ -181,8 +179,7 @@ namespace CtrlUI
             try
             {
                 //Check if new process needs to be launched
-                bool launchCheck = await CheckLaunchProcessWin32andWin32Store(dataBindApp);
-                if (!launchCheck)
+                if (!await CheckLaunchProcessWin32andWin32Store(dataBindApp))
                 {
                     return false;
                 }

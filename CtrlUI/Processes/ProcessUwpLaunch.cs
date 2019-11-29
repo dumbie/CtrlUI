@@ -52,8 +52,7 @@ namespace CtrlUI
             try
             {
                 //Check if new process needs to be launched
-                bool launchCheck = await CheckLaunchProcessUwp(dataBindApp);
-                if (!launchCheck)
+                if (!await CheckLaunchProcessUwp(dataBindApp))
                 {
                     return false;
                 }

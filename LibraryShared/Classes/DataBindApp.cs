@@ -26,7 +26,7 @@ namespace LibraryShared
                 }
             }
 
-            private AppCategory PrivCategory;
+            private AppCategory PrivCategory = AppCategory.Unknown;
             public AppCategory Category
             {
                 get { return this.PrivCategory; }
@@ -40,7 +40,7 @@ namespace LibraryShared
                 }
             }
 
-            private ProcessType PrivType;
+            private ProcessType PrivType = ProcessType.Unknown;
             public ProcessType Type
             {
                 get { return this.PrivType; }
@@ -54,7 +54,7 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivName;
+            private string PrivName = string.Empty;
             public string Name
             {
                 get { return this.PrivName; }
@@ -68,7 +68,7 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivNameExe;
+            private string PrivNameExe = string.Empty;
             public string NameExe
             {
                 get { return this.PrivNameExe; }
@@ -82,7 +82,7 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivPathImage;
+            private string PrivPathImage = string.Empty;
             public string PathImage
             {
                 get { return this.PrivPathImage; }
@@ -96,7 +96,7 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivPathExe;
+            private string PrivPathExe = string.Empty;
             public string PathExe
             {
                 get { return this.PrivPathExe; }
@@ -110,7 +110,7 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivPathLaunch;
+            private string PrivPathLaunch = string.Empty;
             public string PathLaunch
             {
                 get { return this.PrivPathLaunch; }
@@ -124,7 +124,7 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivPathRoms;
+            private string PrivPathRoms = string.Empty;
             public string PathRoms
             {
                 get { return this.PrivPathRoms; }
@@ -138,7 +138,7 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivArgument;
+            private string PrivArgument = string.Empty;
             public string Argument
             {
                 get { return this.PrivArgument; }
@@ -152,7 +152,7 @@ namespace LibraryShared
                 }
             }
 
-            private bool PrivLaunchFilePicker;
+            private bool PrivLaunchFilePicker = false;
             public bool LaunchFilePicker
             {
                 get { return this.PrivLaunchFilePicker; }
@@ -166,7 +166,7 @@ namespace LibraryShared
                 }
             }
 
-            private bool PrivLaunchKeyboard;
+            private bool PrivLaunchKeyboard = false;
             public bool LaunchKeyboard
             {
                 get { return this.PrivLaunchKeyboard; }
@@ -180,7 +180,7 @@ namespace LibraryShared
                 }
             }
 
-            private bool PrivQuickLaunch;
+            private bool PrivQuickLaunch = false;
             public bool QuickLaunch
             {
                 get { return this.PrivQuickLaunch; }
@@ -251,7 +251,7 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivShortcutPath;
+            private string PrivShortcutPath = string.Empty;
             public string ShortcutPath
             {
                 get { return this.PrivShortcutPath; }
@@ -265,7 +265,7 @@ namespace LibraryShared
                 }
             }
 
-            private BitmapImage PrivImageBitmap;
+            private BitmapImage PrivImageBitmap = new BitmapImage();
             public BitmapImage ImageBitmap
             {
                 get { return this.PrivImageBitmap; }
@@ -279,7 +279,7 @@ namespace LibraryShared
                 }
             }
 
-            private DateTime PrivTimeCreation;
+            private DateTime PrivTimeCreation = new DateTime();
             public DateTime TimeCreation
             {
                 get { return this.PrivTimeCreation; }
@@ -293,14 +293,10 @@ namespace LibraryShared
                 }
             }
 
-            private Visibility? PrivStatusAvailable;
-            public Visibility? StatusAvailable
+            private Visibility PrivStatusAvailable = Visibility.Collapsed;
+            public Visibility StatusAvailable
             {
-                get
-                {
-                    if (this.PrivStatusAvailable == null) { return Visibility.Collapsed; }
-                    else { return this.PrivStatusAvailable; }
-                }
+                get { return this.PrivStatusAvailable; }
                 set
                 {
                     if (this.PrivStatusAvailable != value)
@@ -311,14 +307,10 @@ namespace LibraryShared
                 }
             }
 
-            private Visibility? PrivStatusRunning;
-            public Visibility? StatusRunning
+            private Visibility PrivStatusRunning = Visibility.Collapsed;
+            public Visibility StatusRunning
             {
-                get
-                {
-                    if (this.PrivStatusRunning == null) { return Visibility.Collapsed; }
-                    else { return this.PrivStatusRunning; }
-                }
+                get { return this.PrivStatusRunning; }
                 set
                 {
                     if (this.PrivStatusRunning != value)
@@ -329,14 +321,10 @@ namespace LibraryShared
                 }
             }
 
-            private Visibility? PrivStatusSuspended;
-            public Visibility? StatusSuspended
+            private Visibility PrivStatusSuspended = Visibility.Collapsed;
+            public Visibility StatusSuspended
             {
-                get
-                {
-                    if (this.PrivStatusSuspended == null) { return Visibility.Collapsed; }
-                    else { return this.PrivStatusSuspended; }
-                }
+                get { return this.PrivStatusSuspended; }
                 set
                 {
                     if (this.PrivStatusSuspended != value)
@@ -347,14 +335,10 @@ namespace LibraryShared
                 }
             }
 
-            private Visibility? PrivStatusStore;
-            public Visibility? StatusStore
+            private Visibility PrivStatusStore = Visibility.Collapsed;
+            public Visibility StatusStore
             {
-                get
-                {
-                    if (this.PrivStatusStore == null) { return Visibility.Collapsed; }
-                    else { return this.PrivStatusStore; }
-                }
+                get { return this.PrivStatusStore; }
                 set
                 {
                     if (this.PrivStatusStore != value)
@@ -365,14 +349,10 @@ namespace LibraryShared
                 }
             }
 
-            private Visibility? PrivStatusLauncher;
-            public Visibility? StatusLauncher
+            private Visibility PrivStatusLauncher = Visibility.Collapsed;
+            public Visibility StatusLauncher
             {
-                get
-                {
-                    if (this.PrivStatusLauncher == null) { return Visibility.Collapsed; }
-                    else { return this.PrivStatusLauncher; }
-                }
+                get { return this.PrivStatusLauncher; }
                 set
                 {
                     if (this.PrivStatusLauncher != value)

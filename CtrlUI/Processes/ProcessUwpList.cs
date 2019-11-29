@@ -117,11 +117,13 @@ namespace CtrlUI
                                 //Get detailed application information
                                 Package appPackage = UwpGetAppPackageFromAppUserModelId(processPathExe);
                                 AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
-                                string processNameExe = Path.GetFileNameWithoutExtension(appxDetails.ExecutableName);
+                                string processNameExe = appxDetails.ExecutableName;
                                 string processNameExeLower = processNameExe.ToLower();
+                                string processNameExeNoExt = Path.GetFileNameWithoutExtension(processNameExe);
+                                string processNameExeNoExtLower = processNameExeNoExt.ToLower();
 
                                 //Check if application process is blacklisted
-                                if (vAppsBlacklistProcess.Any(x => x.ToLower() == processNameExeLower))
+                                if (vAppsBlacklistProcess.Any(x => x.ToLower() == processNameExeNoExtLower))
                                 {
                                     continue;
                                 }
@@ -132,7 +134,7 @@ namespace CtrlUI
                                 //Check if the process has been found
                                 if (processApp == null)
                                 {
-                                    processApp = GetUwpProcessByProcessNameAndAppUserModelId(processNameExe, processPathExe);
+                                    processApp = GetUwpProcessByProcessNameAndAppUserModelId(processNameExeNoExt, processPathExe);
                                 }
 
                                 //Check the process running time
@@ -154,8 +156,11 @@ namespace CtrlUI
                                 processMultiNew.WindowHandle = processWindowHandle;
                                 processMultiNew.Threads = processApp.Threads;
 
+                                //Set the combined application filter
+                                Func<DataBindApp, bool> filterCombinedApp = x => x.PathExe.ToLower() == processPathExeLower;
+
                                 //Check all the lists for the application
-                                DataBindApp existingCombinedApp = currentListApps.Where(x => x.PathExe.ToLower() == processPathExeLower).FirstOrDefault();
+                                DataBindApp existingCombinedApp = currentListApps.Where(filterCombinedApp).FirstOrDefault();
                                 DataBindApp existingProcessApp = List_Processes.Where(x => x.ProcessMulti.Any(z => z.WindowHandle == processWindowHandle)).FirstOrDefault();
 
                                 //Check if process is in combined list and update it
@@ -178,16 +183,13 @@ namespace CtrlUI
                                     {
                                         existingCombinedApp.ProcessMulti.Add(processMultiNew);
                                     }
-                                }
 
-                                //Check if already in combined list and remove it
-                                if (ConfigurationManager.AppSettings["HideAppProcesses"] == "True")
-                                {
-                                    if (existingCombinedApp != null)
+                                    //Remove app from processes list
+                                    if (ConfigurationManager.AppSettings["HideAppProcesses"] == "True")
                                     {
                                         await AVActions.ActionDispatcherInvokeAsync(async delegate
                                         {
-                                            await ListBoxRemoveAll(lb_Processes, List_Processes, x => x.PathExe.ToLower() == processPathExeLower);
+                                            await ListBoxRemoveAll(lb_Processes, List_Processes, filterCombinedApp);
                                         });
                                         continue;
                                     }
@@ -209,7 +211,7 @@ namespace CtrlUI
                                 }
 
                                 //Load the application image
-                                BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExe, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, processWindowHandle, 90);
+                                BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExeNoExt, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, processWindowHandle, 90);
 
                                 //Create new ProcessMulti list
                                 List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();
@@ -218,11 +220,14 @@ namespace CtrlUI
                                 //Add the process to the list
                                 AVActions.ActionDispatcherInvoke(delegate
                                 {
-                                    List_Processes.Add(new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processName, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime });
+                                    List_Processes.Add(new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processName, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime });
                                 });
                             }
                         }
-                        catch { }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine("Failed adding UWP application: " + ex.Message);
+                        }
                     }
                 }
             }
