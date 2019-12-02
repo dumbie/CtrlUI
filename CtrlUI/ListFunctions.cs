@@ -46,7 +46,6 @@ namespace CtrlUI
                         {
                             await Task.Delay(100);
                         }
-                        vBusyRefreshingApps = true;
                     }
                     else
                     {
@@ -54,10 +53,9 @@ namespace CtrlUI
                         return;
                     }
                 }
-                else
-                {
-                    vBusyRefreshingApps = true;
-                }
+
+                //Update the refreshing status
+                vBusyRefreshingApps = true;
 
                 //Show refresh status message
                 if (showStatus)

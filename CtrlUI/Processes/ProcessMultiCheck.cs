@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
@@ -13,11 +11,11 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Check process status before launching (True = Continue)
-        async Task<bool> CheckLaunchProcessStatusUwp(DataBindApp dataBindApp, ProcessMulti processMulti)
+        async Task<bool> CheckLaunchProcessStatus(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
             {
-                Debug.WriteLine("Checking launch process UWP: " + dataBindApp.Name);
+                Debug.WriteLine("Checking launch process: " + dataBindApp.Name);
 
                 //Focus or Close when process is already running
                 List<DataBindString> Answers = new List<DataBindString>();
@@ -63,36 +61,50 @@ namespace CtrlUI
                 {
                     if (Result == Answer1)
                     {
-                        //Minimize the CtrlUI window
-                        if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True")
-                        {
-                            await AppMinimize(true);
-                        }
-
-                        //Force focus on the app
-                        FocusProcessWindowPrepare(dataBindApp.Name, processMulti.Identifier, processMulti.WindowHandle, 0, false, false, false);
-
-                        ////Launch the keyboard controller
-                        //if (dataBindApp.LaunchKeyboard)
-                        //{
-                        //    LaunchKeyboardController(true);
-                        //}
-
+                        Debug.WriteLine("Showing the application.");
+                        await ShowProcessWindow(dataBindApp, processMulti);
                         return false;
                     }
                     else if (Result == Answer2)
                     {
-                        await CloseSingleProcessUwp(dataBindApp, processMulti, true, false);
+                        Debug.WriteLine("Closing the application.");
+                        if (processMulti.Type == ProcessType.UWP)
+                        {
+                            await CloseSingleProcessUwp(dataBindApp, processMulti, true, false);
+                        }
+                        else
+                        {
+                            await CloseSingleProcessWin32AndWin32Store(dataBindApp, processMulti, true, false);
+                        }
                         return false;
                     }
                     else if (Result == Answer3)
                     {
-                        return await RestartPrepareUwp(dataBindApp, processMulti);
+                        Debug.WriteLine("Restarting the application.");
+                        if (processMulti.Type == ProcessType.UWP)
+                        {
+                            return await RestartPrepareUwp(dataBindApp, processMulti);
+                        }
+                        else if (processMulti.Type == ProcessType.Win32Store)
+                        {
+                            return await RestartPrepareWin32Store(dataBindApp, processMulti);
+                        }
+                        else
+                        {
+                            return await RestartPrepareWin32(dataBindApp, processMulti);
+                        }
                     }
                     else if (Result == Answer4)
                     {
                         Debug.WriteLine("Running new application instance.");
-                        return await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
+                        if (processMulti.Type == ProcessType.UWP || processMulti.Type == ProcessType.Win32Store)
+                        {
+                            return await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
+                        }
+                        else
+                        {
+                            return await LaunchProcessDatabindWin32(dataBindApp);
+                        }
                     }
                     else if (Result == cancelString)
                     {

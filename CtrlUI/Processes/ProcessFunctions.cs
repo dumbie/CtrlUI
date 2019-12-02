@@ -102,7 +102,7 @@ namespace CtrlUI
                     bool appLaunched = false;
 
                     //Refresh the application lists
-                    await RefreshApplicationLists(true, false, false, false, false, false, false);
+                    await RefreshApplicationLists(true, false, false, false, true, false, false);
 
                     //Check if process is running
                     ProcessMulti processMulti = await SelectProcessMulti(dataBindApp, true);
@@ -146,15 +146,8 @@ namespace CtrlUI
                     }
                     else
                     {
-                        Debug.WriteLine("Process is already running, checking windows.");
-                        if (processMulti.Type == ProcessType.UWP)
-                        {
-                            appLaunched = await CheckLaunchProcessStatusUwp(dataBindApp, processMulti);
-                        }
-                        else
-                        {
-                            appLaunched = await CheckLaunchProcessStatusWin32andWin32Store(dataBindApp, processMulti);
-                        }
+                        Debug.WriteLine("Process is already running, checking the app.");
+                        appLaunched = await CheckLaunchProcessStatus(dataBindApp, processMulti);
                     }
 
                     //Launch the keyboard controller

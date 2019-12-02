@@ -116,7 +116,7 @@ namespace CtrlUI
                             string processArgument = GetLaunchArgumentsFromProcess(processApp, processPathExe);
 
                             //Set the combined application filter
-                            Func<DataBindApp, bool> filterCombinedApp = x => Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == processNameExeNoExtLower;
+                            Func<DataBindApp, bool> filterCombinedApp = x => x.PathExe != null && Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == processNameExeNoExtLower;
 
                             //Check if process is a Win32Store app
                             string processAppUserModelId = GetAppUserModelIdFromProcess(processApp);
@@ -126,8 +126,8 @@ namespace CtrlUI
                                 processPathExe = processAppUserModelId;
                                 processPathExeLower = processAppUserModelId.ToLower();
                                 processStatusStore = Visibility.Visible;
-                                filterCombinedApp = x => Path.GetFileNameWithoutExtension(x.NameExe).ToLower() == processNameExeNoExtLower;
-                                //Debug.WriteLine(processName + " is a Win32Store application.");
+                                filterCombinedApp = x => x.NameExe != null && Path.GetFileNameWithoutExtension(x.NameExe).ToLower() == processNameExeNoExtLower;
+                                Debug.WriteLine(processName + " is a Win32Store application.");
                             }
 
                             //Convert Process To ProcessMulti
@@ -199,7 +199,7 @@ namespace CtrlUI
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine("Failed adding Win32 application: " + ex.Message);
+                            Debug.WriteLine("Failed adding Win32 or Win32Store application: " + ex.Message);
                         }
                     }
                 }
