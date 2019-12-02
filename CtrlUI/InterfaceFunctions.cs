@@ -647,6 +647,8 @@ namespace CtrlUI
                                 bool ClosedProcess = await CloseProcessUwpByWindowHandleOrProcessId(vPrevFocusedProcess.Title, vPrevFocusedProcess.Process.Id, vPrevFocusedProcess.WindowHandle);
                                 if (ClosedProcess)
                                 {
+                                    Popup_Show_Status("Closing", "Closed " + vPrevFocusedProcess.Title);
+                                    Debug.WriteLine("Closed process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Process.Id + " / " + vPrevFocusedProcess.WindowHandle);
                                     vPrevFocusedProcess = null;
                                 }
                             }
@@ -655,6 +657,8 @@ namespace CtrlUI
                                 bool ClosedProcess = CloseProcessById(vPrevFocusedProcess.Process.Id);
                                 if (ClosedProcess)
                                 {
+                                    Popup_Show_Status("Closing", "Closed " + vPrevFocusedProcess.Title);
+                                    Debug.WriteLine("Closed process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Process.Id + " / " + vPrevFocusedProcess.WindowHandle);
                                     vPrevFocusedProcess = null;
                                 }
                             }

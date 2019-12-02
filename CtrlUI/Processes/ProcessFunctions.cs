@@ -91,6 +91,9 @@ namespace CtrlUI
                 }
                 else
                 {
+                    Popup_Show_Status("App", "Preparing launch");
+                    Debug.WriteLine("Preparing application launch: " + dataBindApp.PathExe);
+
                     //Run process url protocol
                     if (dataBindApp.StatusLauncher == Visibility.Visible)
                     {

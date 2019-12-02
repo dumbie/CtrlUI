@@ -23,6 +23,9 @@ namespace CtrlUI
                 bool closedProcess = await CloseProcessUwpByWindowHandleOrProcessId(dataBindApp.Name, processMulti.Identifier, processMulti.WindowHandle);
                 if (closedProcess)
                 {
+                    Popup_Show_Status("Closing", "Closed " + dataBindApp.Name);
+                    Debug.WriteLine("Closed UWP process: " + dataBindApp.Name);
+
                     //Reset the process running status
                     if (resetProcess)
                     {
@@ -62,6 +65,9 @@ namespace CtrlUI
                 bool closedProcess = CloseProcessById(processMulti.Identifier);
                 if (closedProcess)
                 {
+                    Popup_Show_Status("Closing", "Closed " + dataBindApp.Name);
+                    Debug.WriteLine("Closed all UWP processes: " + dataBindApp.Name);
+
                     //Reset the process running status
                     if (resetProcess)
                     {

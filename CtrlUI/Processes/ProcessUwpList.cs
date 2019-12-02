@@ -157,7 +157,7 @@ namespace CtrlUI
                                 processMultiNew.Threads = processApp.Threads;
 
                                 //Set the combined application filter
-                                Func<DataBindApp, bool> filterCombinedApp = x => x.PathExe.ToLower() == processPathExeLower;
+                                Func<DataBindApp, bool> filterCombinedApp = x => x.PathExe != null && x.PathExe.ToLower() == processPathExeLower;
 
                                 //Check all the lists for the application
                                 DataBindApp existingCombinedApp = currentListApps.Where(filterCombinedApp).FirstOrDefault();

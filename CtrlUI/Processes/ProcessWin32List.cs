@@ -126,7 +126,7 @@ namespace CtrlUI
                                 processPathExe = processAppUserModelId;
                                 processPathExeLower = processAppUserModelId.ToLower();
                                 processStatusStore = Visibility.Visible;
-                                filterCombinedApp = x => x.NameExe != null && Path.GetFileNameWithoutExtension(x.NameExe).ToLower() == processNameExeNoExtLower;
+                                filterCombinedApp = x => x.PathExe != null && x.PathExe.ToLower() == processPathExeLower;
                                 Debug.WriteLine(processName + " is a Win32Store application.");
                             }
 

@@ -18,7 +18,7 @@ namespace CtrlUI
                 Popup_Show_Status("Closing", "Closing " + dataBindApp.Name);
                 Debug.WriteLine("Closing Win32 and Win32Store process: " + dataBindApp.Name);
 
-                //Close the process
+                //Close the process by id or name
                 bool closedProcess = false;
                 if (processMulti.Identifier > 0)
                 {
@@ -36,6 +36,9 @@ namespace CtrlUI
                 //Check if process closed
                 if (closedProcess)
                 {
+                    Popup_Show_Status("Closing", "Closed " + dataBindApp.Name);
+                    Debug.WriteLine("Closed Win32 and Win32Store process: " + dataBindApp.Name);
+
                     //Reset the process running status
                     if (resetProcess)
                     {
@@ -68,20 +71,30 @@ namespace CtrlUI
                 Popup_Show_Status("Closing", "Closing " + dataBindApp.Name);
                 Debug.WriteLine("Closing all Win32 and Win32Store processes: " + dataBindApp.Name);
 
-                //Close the process
+                //Close the processes by id or name
                 bool closedProcess = false;
-                if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
+                foreach (ProcessMulti processMulti in dataBindApp.ProcessMulti)
                 {
-                    closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.NameExe), false);
-                }
-                else
-                {
-                    closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.PathExe), false);
+                    if (processMulti.Identifier > 0)
+                    {
+                        closedProcess = CloseProcessById(processMulti.Identifier);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
+                    {
+                        closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.NameExe), false);
+                    }
+                    else
+                    {
+                        closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.PathExe), false);
+                    }
                 }
 
                 //Check if process closed
                 if (closedProcess)
                 {
+                    Popup_Show_Status("Closing", "Closed " + dataBindApp.Name);
+                    Debug.WriteLine("Closed all Win32 and Win32Store processes: " + dataBindApp.Name);
+
                     //Reset the process running status
                     if (resetProcess)
                     {
@@ -100,7 +113,7 @@ namespace CtrlUI
                 else
                 {
                     Popup_Show_Status("Closing", "Failed to close the app");
-                    Debug.WriteLine("Failed to close the application.");
+                    Debug.WriteLine("Failed to close the application");
                 }
             }
             catch { }
