@@ -50,9 +50,8 @@ namespace CtrlUI
                 ListBox ListboxSender = (ListBox)sender;
                 if (ListboxSender.SelectedItems.Count > 0 && ListboxSender.SelectedIndex != -1)
                 {
-                    DataBindApp SelectedItem = (DataBindApp)ListboxSender.SelectedItem;
-
                     //Check which launch method needs to be used
+                    DataBindApp SelectedItem = (DataBindApp)ListboxSender.SelectedItem;
                     await LaunchProcessSelector(SelectedItem);
                 }
             }
@@ -265,7 +264,7 @@ namespace CtrlUI
                         }
 
                         //Refresh the application lists
-                        await RefreshApplicationLists(false, false, false, false, false);
+                        await RefreshApplicationLists(true, false, false, false, false, false, false);
 
                         //Select the previous index
                         await FocusOnListbox(listboxSender, false, false, listboxSelectedIndex);

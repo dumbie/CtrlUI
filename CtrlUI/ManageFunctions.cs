@@ -29,18 +29,22 @@ namespace CtrlUI
                     dataBindApp.Number = GetHighestAppNumber();
                 }
 
-                //Check if Win32 application still exists
+                //Check if application is an Win32 app
                 if (dataBindApp.Type == ProcessType.Win32)
                 {
+                    //Check if application still exists
                     if (!File.Exists(dataBindApp.PathExe))
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
                     }
                 }
 
-                //Check if UWP or Win32Store application still exists
+                //Check if application is an UWP or Win32Store app
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
+                    dataBindApp.StatusStore = Visibility.Visible;
+
+                    //Check if application still exists
                     if (UwpGetAppPackageFromAppUserModelId(dataBindApp.PathExe) == null)
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
@@ -51,12 +55,6 @@ namespace CtrlUI
                 if (dataBindApp.Category == AppCategory.Emulator && !Directory.Exists(dataBindApp.PathRoms))
                 {
                     dataBindApp.StatusAvailable = Visibility.Visible;
-                }
-
-                //Check if application is an uwp app
-                if (dataBindApp.Type == ProcessType.UWP)
-                {
-                    dataBindApp.StatusStore = Visibility.Visible;
                 }
 
                 //Load and set application image
@@ -128,7 +126,7 @@ namespace CtrlUI
                 }
 
                 //Refresh the application lists
-                await RefreshApplicationLists(true, true, false, false, false);
+                await RefreshApplicationLists(true, true, true, false, false, false, false);
 
                 //Select the previous index
                 await FocusOnListbox(ListBoxSender, false, false, ListboxSelectedIndex);
@@ -468,7 +466,7 @@ namespace CtrlUI
                     await Popup_Close_Top();
 
                     //Refresh the application lists
-                    await RefreshApplicationLists(true, true, false, false, false);
+                    await RefreshApplicationLists(true, true, true, false, false, false, false);
 
                     //Focus on the application list
                     if (selectedAddCategory == AppCategory.Game) { await FocusOnListbox(lb_Games, false, true, -1); }
@@ -594,7 +592,7 @@ namespace CtrlUI
                     }
 
                     //Refresh the application lists
-                    await RefreshApplicationLists(true, true, false, false, false);
+                    await RefreshApplicationLists(true, true, true, false, false, false, false);
                 }
             }
             catch { }

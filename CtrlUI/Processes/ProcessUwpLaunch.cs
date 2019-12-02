@@ -1,9 +1,7 @@
 ﻿using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static LibraryShared.Classes;
 
@@ -51,12 +49,6 @@ namespace CtrlUI
         {
             try
             {
-                //Check if new process needs to be launched
-                if (!await CheckLaunchProcessUwp(dataBindApp))
-                {
-                    return false;
-                }
-
                 //Check if the application exists
                 if (UwpGetAppPackageFromAppUserModelId(dataBindApp.PathExe) == null)
                 {

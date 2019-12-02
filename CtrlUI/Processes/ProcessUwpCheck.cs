@@ -13,30 +13,11 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Check process status before launching (True = Continue)
-        async Task<bool> CheckLaunchProcessUwp(DataBindApp dataBindApp)
+        async Task<bool> CheckLaunchProcessStatusUwp(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
             {
                 Debug.WriteLine("Checking launch process UWP: " + dataBindApp.Name);
-
-                //Check if process is running
-                ProcessMulti processMulti = await SelectProcessMulti(dataBindApp, true);
-                if (processMulti == null)
-                {
-                    Debug.WriteLine("Process is not running, launch the application.");
-                    return true;
-                }
-                else if (processMulti.Action == "Cancel")
-                {
-                    Debug.WriteLine("Process is already running, skipping the launch.");
-                    return false;
-                }
-                else if (processMulti.Action == "CloseAll")
-                {
-                    Debug.WriteLine("Closing all processes, skipping the launch.");
-                    await CloseAllProcessesUwp(dataBindApp, true, false);
-                    return false;
-                }
 
                 //Focus or Close when process is already running
                 List<DataBindString> Answers = new List<DataBindString>();
@@ -83,16 +64,19 @@ namespace CtrlUI
                     if (Result == Answer1)
                     {
                         //Minimize the CtrlUI window
-                        if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
+                        if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True")
+                        {
+                            await AppMinimize(true);
+                        }
 
                         //Force focus on the app
                         FocusProcessWindowPrepare(dataBindApp.Name, processMulti.Identifier, processMulti.WindowHandle, 0, false, false, false);
 
-                        //Launch the keyboard controller
-                        if (dataBindApp.LaunchKeyboard)
-                        {
-                            LaunchKeyboardController(true);
-                        }
+                        ////Launch the keyboard controller
+                        //if (dataBindApp.LaunchKeyboard)
+                        //{
+                        //    LaunchKeyboardController(true);
+                        //}
 
                         return false;
                     }
@@ -103,16 +87,12 @@ namespace CtrlUI
                     }
                     else if (Result == Answer3)
                     {
-                        Popup_Show_Status("Switch", "Restarting " + dataBindApp.Name);
-                        Debug.WriteLine("Restarting UWP application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandle);
-
-                        await RestartProcessUwp(dataBindApp.Name, dataBindApp.PathExe, processMulti.Identifier, processMulti.WindowHandle, processMulti.Argument);
-                        return false;
+                        return await RestartPrepareUwp(dataBindApp, processMulti);
                     }
                     else if (Result == Answer4)
                     {
                         Debug.WriteLine("Running new application instance.");
-                        return true;
+                        return await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
                     }
                     else if (Result == cancelString)
                     {

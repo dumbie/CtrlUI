@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
@@ -51,11 +52,14 @@ namespace CtrlUI
                 Answer3.Name = "Show the Windows start menu";
                 Answers.Add(Answer3);
 
-                //Improve: check if the xbox app is installed
+                //Check if the Xbox Companion app is installed
                 DataBindString Answer4 = new DataBindString();
-                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "Xbox" }, IntPtr.Zero, -1);
-                Answer4.Name = "Open Xbox Companion app";
-                Answers.Add(Answer4);
+                if (UwpGetAppPackageFromAppUserModelId("Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp") != null)
+                {
+                    Answer4.ImageBitmap = FileToBitmapImage(new string[] { "Xbox" }, IntPtr.Zero, -1);
+                    Answer4.Name = "Open Xbox Companion app";
+                    Answers.Add(Answer4);
+                }
 
                 DataBindString cancelString = new DataBindString();
                 cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
@@ -118,11 +122,11 @@ namespace CtrlUI
         {
             try
             {
-                DataBindApp QuickLaunchApp = CombineAppLists(false, false).Where(x => x.QuickLaunch).FirstOrDefault();
-                if (QuickLaunchApp != null)
+                DataBindApp quickLaunchApp = CombineAppLists(false, false).Where(x => x.QuickLaunch).FirstOrDefault();
+                if (quickLaunchApp != null)
                 {
                     //Check which launch method needs to be used
-                    await LaunchProcessSelector(QuickLaunchApp);
+                    await LaunchProcessSelector(quickLaunchApp);
                 }
                 else
                 {

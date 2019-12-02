@@ -628,7 +628,10 @@ namespace CtrlUI
                         if (Result == Answer1)
                         {
                             //Minimize the CtrlUI window
-                            if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
+                            if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True")
+                            {
+                                await AppMinimize(true);
+                            }
 
                             //Force focus on the app
                             FocusProcessWindowPrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.Process.Id, vPrevFocusedProcess.WindowHandle, 0, false, false, false);

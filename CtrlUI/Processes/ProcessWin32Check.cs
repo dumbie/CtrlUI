@@ -14,30 +14,11 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Check process status before launching (True = Continue)
-        async Task<bool> CheckLaunchProcessWin32andWin32Store(DataBindApp dataBindApp)
+        async Task<bool> CheckLaunchProcessStatusWin32andWin32Store(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
             {
                 Debug.WriteLine("Checking launch process Win32 or Win32Store: " + dataBindApp.Name);
-
-                //Check if process is running
-                ProcessMulti processMulti = await SelectProcessMulti(dataBindApp, true);
-                if (processMulti == null)
-                {
-                    Debug.WriteLine("Process is not running, launch the application.");
-                    return true;
-                }
-                else if (processMulti.Action == "Cancel")
-                {
-                    Debug.WriteLine("Process is already running, skipping the launch.");
-                    return false;
-                }
-                else if (processMulti.Action == "CloseAll")
-                {
-                    Debug.WriteLine("Closing all processes, skipping the launch.");
-                    await CloseAllProcessesWin32AndWin32Store(dataBindApp, true, false);
-                    return false;
-                }
 
                 //Focus or Close when process is already running
                 List<DataBindString> Answers = new List<DataBindString>();
@@ -83,27 +64,7 @@ namespace CtrlUI
                 {
                     if (Result == Answer1)
                     {
-                        //Check if process has multiple windows
-                        IntPtr processWindowHandle = await CheckProcessWindowsWin32AndWin32Store(dataBindApp, processMulti);
-                        if (processWindowHandle != IntPtr.Zero)
-                        {
-                            //Minimize the CtrlUI window
-                            if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
-
-                            //Force focus on the app
-                            FocusProcessWindowPrepare(dataBindApp.Name, processMulti.Identifier, processWindowHandle, 0, false, false, false);
-
-                            //Launch the keyboard controller
-                            if (dataBindApp.LaunchKeyboard)
-                            {
-                                LaunchKeyboardController(true);
-                            }
-                        }
-                        else
-                        {
-                            Popup_Show_Status("Close", "Application has no window");
-                            Debug.WriteLine("Show application has no window.");
-                        }
+                        await ShowProcessWindow(dataBindApp, processMulti);
                         return false;
                     }
                     else if (Result == Answer2)
@@ -116,18 +77,17 @@ namespace CtrlUI
                         //Check the application restart type
                         if (processMulti.Type == ProcessType.Win32Store)
                         {
-                            await RestartPrepareWin32Store(dataBindApp, processMulti);
+                            return await RestartPrepareWin32Store(dataBindApp, processMulti);
                         }
                         else
                         {
-                            await RestartPrepareWin32(dataBindApp, processMulti);
+                            return await RestartPrepareWin32(dataBindApp, processMulti);
                         }
-                        return false;
                     }
                     else if (Result == Answer4)
                     {
                         Debug.WriteLine("Running new application instance.");
-                        return true;
+                        return await LaunchProcessDatabindWin32(dataBindApp);
                     }
                     else if (Result == cancelString)
                     {
@@ -206,6 +166,11 @@ namespace CtrlUI
                         return IntPtr.Zero;
                     }
 
+                    DataBindString Answer2 = new DataBindString();
+                    Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1);
+                    Answer2.Name = "Close all the windows";
+                    multiAnswers.Add(Answer2);
+
                     DataBindString cancelString = new DataBindString();
                     cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
                     cancelString.Name = "Cancel";
@@ -215,9 +180,13 @@ namespace CtrlUI
                     DataBindString Result = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", "", "Please select the window that you wish to be shown:", multiAnswers);
                     if (Result != null)
                     {
-                        if (Result == cancelString)
+                        if (Result == Answer2)
                         {
-                            return IntPtr.Zero;
+                            return new IntPtr(-100); //CloseAll
+                        }
+                        else if (Result == cancelString)
+                        {
+                            return new IntPtr(-200); //Cancel
                         }
                         else
                         {

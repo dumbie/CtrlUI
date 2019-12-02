@@ -91,29 +91,69 @@ namespace CtrlUI
                 }
                 else
                 {
-                    bool appLaunched = false;
+                    //Run process url protocol
                     if (dataBindApp.StatusLauncher == Visibility.Visible)
                     {
-                        appLaunched = LaunchProcessUrlProtocol(dataBindApp);
+                        LaunchProcessUrlProtocol(dataBindApp);
+                        return;
                     }
-                    else if (dataBindApp.Category == AppCategory.Emulator)
+
+                    //Status to see if app launched
+                    bool appLaunched = false;
+
+                    //Refresh the application lists
+                    await RefreshApplicationLists(true, false, false, false, false, false, false);
+
+                    //Check if process is running
+                    ProcessMulti processMulti = await SelectProcessMulti(dataBindApp, true);
+                    if (processMulti == null)
                     {
-                        appLaunched = await LaunchProcessDatabindWin32Emulator(dataBindApp);
-                    }
-                    else if (dataBindApp.LaunchFilePicker)
-                    {
-                        appLaunched = await LaunchProcessDatabindWin32FilePicker(dataBindApp);
-                    }
-                    else
-                    {
-                        if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                        Debug.WriteLine("Process is not running, launching the application.");
+                        if (dataBindApp.Category == AppCategory.Emulator)
                         {
-                            //Improve separate win32store launch?
+                            appLaunched = await LaunchProcessDatabindWin32Emulator(dataBindApp);
+                        }
+                        else if (dataBindApp.LaunchFilePicker)
+                        {
+                            appLaunched = await LaunchProcessDatabindWin32FilePicker(dataBindApp);
+                        }
+                        else if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                        {
                             appLaunched = await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
                         }
                         else
                         {
                             appLaunched = await LaunchProcessDatabindWin32(dataBindApp);
+                        }
+                    }
+                    else if (processMulti.Action == "Cancel")
+                    {
+                        Debug.WriteLine("Process is already running, skipping the launch.");
+                        return;
+                    }
+                    else if (processMulti.Action == "CloseAll")
+                    {
+                        Debug.WriteLine("Closing all processes, skipping the launch.");
+                        if (processMulti.Type == ProcessType.UWP)
+                        {
+                            await CloseAllProcessesUwp(dataBindApp, true, false);
+                        }
+                        else
+                        {
+                            await CloseAllProcessesWin32AndWin32Store(dataBindApp, true, false);
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Process is already running, checking windows.");
+                        if (processMulti.Type == ProcessType.UWP)
+                        {
+                            appLaunched = await CheckLaunchProcessStatusUwp(dataBindApp, processMulti);
+                        }
+                        else
+                        {
+                            appLaunched = await CheckLaunchProcessStatusWin32andWin32Store(dataBindApp, processMulti);
                         }
                     }
 
@@ -160,13 +200,38 @@ namespace CtrlUI
                 }
 
                 //Check if application window has been found
-                if (processWindowHandle != IntPtr.Zero)
+                if (processWindowHandle == new IntPtr(-100))
+                {
+                    Debug.WriteLine("Closing all " + processMulti.Type + " app windows, by closing the process.");
+                    if (processMulti.Type == ProcessType.UWP)
+                    {
+                        await CloseSingleProcessUwp(dataBindApp, processMulti, true, false);
+                    }
+                    else if (processMulti.Type == ProcessType.Win32 || processMulti.Type == ProcessType.Win32Store)
+                    {
+                        await CloseSingleProcessWin32AndWin32Store(dataBindApp, processMulti, true, false);
+                    }
+                }
+                else if (processWindowHandle == new IntPtr(-200))
+                {
+                    Debug.WriteLine("Cancelled window selection.");
+                }
+                else if (processWindowHandle != IntPtr.Zero)
                 {
                     //Minimize the CtrlUI window
-                    if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
+                    if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True")
+                    {
+                        await AppMinimize(true);
+                    }
 
                     //Force focus on the app
                     FocusProcessWindowPrepare(dataBindApp.Name, processMulti.Identifier, processWindowHandle, 0, false, false, false);
+
+                    ////Launch the keyboard controller
+                    //if (dataBindApp.LaunchKeyboard)
+                    //{
+                    //    LaunchKeyboardController(true);
+                    //}
                 }
                 else
                 {
@@ -281,7 +346,7 @@ namespace CtrlUI
                     }
 
                     //Refresh the application lists
-                    await RefreshApplicationLists(false, false, false, false, false);
+                    await RefreshApplicationLists(true, false, false, false, false, false, false);
                 }
             }
             catch { }

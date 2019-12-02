@@ -58,8 +58,13 @@ namespace CtrlUI
                         {
                             if (Result == Answer2)
                             {
+                                //Get the first multi process type
+                                ProcessType processType = dataBindApp.ProcessMulti.FirstOrDefault().Type;
+
+                                //Return close all with process type
                                 ProcessMulti processMultiNew = new ProcessMulti();
                                 processMultiNew.Action = "CloseAll";
+                                processMultiNew.Type = processType;
                                 return processMultiNew;
                             }
                             else if (Result == cancelString)
@@ -70,15 +75,13 @@ namespace CtrlUI
                             }
                             else
                             {
-                                ProcessMulti returnProcess = dataBindApp.ProcessMulti[multiAnswers.IndexOf(Result)];
-                                return returnProcess;
+                                return dataBindApp.ProcessMulti[multiAnswers.IndexOf(Result)];
                             }
                         }
                     }
                     else
                     {
-                        ProcessMulti returnProcess = dataBindApp.ProcessMulti.FirstOrDefault();
-                        return returnProcess;
+                        return dataBindApp.ProcessMulti.FirstOrDefault();
                     }
                 }
             }

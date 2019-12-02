@@ -32,15 +32,27 @@ namespace CtrlUI
         }
 
         //Refresh the application lists
-        async Task RefreshApplicationLists(bool skipListLoading, bool skipRunningStatus, bool skipListStats, bool showStatus, bool playSound)
+        async Task RefreshApplicationLists(bool skipShortcutLoading, bool skipProcessLoading, bool skipRunningStatus, bool skipListStats, bool refreshWait, bool showStatus, bool playSound)
         {
             try
             {
                 //Check if applications are refreshing
                 if (vBusyRefreshingApps)
                 {
-                    Debug.WriteLine("Applications are already refreshing.");
-                    return;
+                    if (refreshWait)
+                    {
+                        Debug.WriteLine("Applications are already refreshing, waiting.");
+                        while (vBusyRefreshingApps)
+                        {
+                            await Task.Delay(100);
+                        }
+                        vBusyRefreshingApps = true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Applications are already refreshing, cancelling.");
+                        return;
+                    }
                 }
                 else
                 {
@@ -59,13 +71,19 @@ namespace CtrlUI
                     PlayInterfaceSound(vInterfaceSoundVolume, "Refresh", false);
                 }
 
+                //Load all the shortcuts
+                if (!skipShortcutLoading)
+                {
+                    await ListLoadShortcuts(false);
+                }
+
                 //Load all the active processes
                 IEnumerable<Process> processesList = null;
-                if (!skipListLoading || !skipRunningStatus)
+                if (!skipProcessLoading || !skipRunningStatus)
                 {
                     processesList = Process.GetProcesses();
 
-                    if (!skipListLoading)
+                    if (!skipProcessLoading)
                     {
                         await UpdateApplicationLists(processesList);
                     }
@@ -97,9 +115,6 @@ namespace CtrlUI
                 {
                     processesList = Process.GetProcesses();
                 }
-
-                //Update all the shortcuts
-                await ListLoadShortcuts(false);
 
                 //List all the currently running processes
                 List<IntPtr> activeProcessesWindow = new List<IntPtr>();

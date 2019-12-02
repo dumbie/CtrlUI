@@ -60,12 +60,6 @@ namespace CtrlUI
         {
             try
             {
-                //Check if new process needs to be launched
-                if (!await CheckLaunchProcessWin32andWin32Store(dataBindApp))
-                {
-                    return false;
-                }
-
                 //Check if the application exists
                 if (!File.Exists(dataBindApp.PathExe))
                 {
@@ -107,12 +101,6 @@ namespace CtrlUI
         {
             try
             {
-                //Check if new process needs to be launched
-                if (!await CheckLaunchProcessWin32andWin32Store(dataBindApp))
-                {
-                    return false;
-                }
-
                 //Check if the application exe file exists
                 if (!File.Exists(dataBindApp.PathExe))
                 {
@@ -178,12 +166,6 @@ namespace CtrlUI
         {
             try
             {
-                //Check if new process needs to be launched
-                if (!await CheckLaunchProcessWin32andWin32Store(dataBindApp))
-                {
-                    return false;
-                }
-
                 //Check if the application exe file exists
                 if (!File.Exists(dataBindApp.PathExe))
                 {
