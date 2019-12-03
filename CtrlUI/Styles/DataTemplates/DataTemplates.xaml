@@ -6,9 +6,9 @@
 
     <!-- ListboxItemApp -->
     <DataTemplate x:Key="ListBoxItemApp">
-        <StackPanel Width="110" MinHeight="115" Margin="3,0,3,0">
+        <StackPanel Width="110" MinHeight="115" Margin="2">
             <Image Source="{Binding ImageBitmap}" Height="90" MaxWidth="70"/>
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,-8,0,-5">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Height="10" Margin="0,-2,0,-2">
                 <Ellipse VerticalAlignment="Center" Margin="2,0,2,0" Fill="{DynamicResource ApplicationAccentLightBrush}" Height="8" Width="8" Opacity="0.80" Visibility="{Binding StatusRunning}"/>
                 <Ellipse VerticalAlignment="Center" Margin="2,0,2,0" Fill="#FFB900" Height="8" Width="8" Opacity="0.80" Visibility="{Binding StatusSuspended}"/>
                 <Path VerticalAlignment="Center" Margin="2,0,2,0" Data="M0,0 L1,1 M0,1 L1,0" Stretch="Fill" Stroke="#CD192A" StrokeThickness="3" Width="10" Height="10" Opacity="0.80" Visibility="{Binding StatusAvailable}"/>

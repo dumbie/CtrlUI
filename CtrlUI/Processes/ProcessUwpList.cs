@@ -55,6 +55,7 @@ namespace CtrlUI
                         {
                             //Process variables
                             Process processApp = null;
+                            int processIdentifier = -1;
                             bool processInterfaceCheck = false;
                             IntPtr processWindowHandle = IntPtr.Zero;
 
@@ -75,10 +76,10 @@ namespace CtrlUI
                                         IntPtr threadWindowHandleEx = FindWindowEx(threadWindowHandle, IntPtr.Zero, "Windows.UI.Core.CoreWindow", null);
                                         if (threadWindowHandleEx != IntPtr.Zero)
                                         {
-                                            GetWindowThreadProcessId(threadWindowHandleEx, out int processId);
-                                            if (processId > 0)
+                                            GetWindowThreadProcessId(threadWindowHandleEx, out processIdentifier);
+                                            if (processIdentifier > 0)
                                             {
-                                                processApp = GetProcessById(processId);
+                                                processApp = GetProcessById(processIdentifier);
                                             }
                                         }
                                     }
@@ -128,14 +129,15 @@ namespace CtrlUI
                                     continue;
                                 }
 
-                                //Add active process
-                                activeProcessesWindow.Add(processWindowHandle);
-
                                 //Check if the process has been found
                                 if (processApp == null)
                                 {
                                     processApp = GetUwpProcessByProcessNameAndAppUserModelId(processNameExeNoExt, processPathExe);
+                                    processIdentifier = processApp.Id;
                                 }
+
+                                //Add active process to the list
+                                activeProcessesWindow.Add(processWindowHandle);
 
                                 //Check the process running time
                                 int processRunningTime = ProcessRuntimeMinutes(processApp);
@@ -152,16 +154,17 @@ namespace CtrlUI
                                 //Convert Process To ProcessMulti
                                 ProcessMulti processMultiNew = new ProcessMulti();
                                 processMultiNew.Type = processType;
-                                processMultiNew.Identifier = processApp.Id;
+                                processMultiNew.Identifier = processIdentifier;
                                 processMultiNew.WindowHandle = processWindowHandle;
                                 processMultiNew.Threads = processApp.Threads;
 
-                                //Set the combined application filter
+                                //Set the application search filters
                                 Func<DataBindApp, bool> filterCombinedApp = x => x.PathExe != null && x.PathExe.ToLower() == processPathExeLower;
+                                Func<DataBindApp, bool> filterProcessApp = x => x.ProcessMulti.Any(z => z.WindowHandle == processWindowHandle);
 
                                 //Check all the lists for the application
                                 DataBindApp existingCombinedApp = currentListApps.Where(filterCombinedApp).FirstOrDefault();
-                                DataBindApp existingProcessApp = List_Processes.Where(x => x.ProcessMulti.Any(z => z.WindowHandle == processWindowHandle)).FirstOrDefault();
+                                DataBindApp existingProcessApp = List_Processes.Where(filterProcessApp).FirstOrDefault();
 
                                 //Check if process is in combined list and update it
                                 if (existingCombinedApp != null)
@@ -178,10 +181,16 @@ namespace CtrlUI
                                     //Update the application last runtime
                                     existingCombinedApp.RunningTimeLastUpdate = Environment.TickCount;
 
-                                    //Add the new process multi
+                                    //Add the new process multi application
                                     if (!existingCombinedApp.ProcessMulti.Any(x => x.WindowHandle == processWindowHandle))
                                     {
                                         existingCombinedApp.ProcessMulti.Add(processMultiNew);
+                                    }
+
+                                    //Update the process multi identifier
+                                    foreach (ProcessMulti processMulti in existingCombinedApp.ProcessMulti.Where(x => x.Identifier <= 0 || x.WindowHandle == IntPtr.Zero))
+                                    {
+                                        processMulti.Identifier = processIdentifier;
                                     }
 
                                     //Remove app from processes list

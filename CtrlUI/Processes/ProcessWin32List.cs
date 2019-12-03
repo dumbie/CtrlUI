@@ -52,6 +52,9 @@ namespace CtrlUI
                     {
                         try
                         {
+                            //Process identifier
+                            int processIdentifier = processApp.Id;
+
                             //Process window handle
                             IntPtr processWindowHandle = processApp.MainWindowHandle;
 
@@ -77,10 +80,7 @@ namespace CtrlUI
                             }
 
                             //Validate the window handle
-                            if (!ValidateWindowHandle(processWindowHandle))
-                            {
-                                continue;
-                            }
+                            bool windowValidation = ValidateWindowHandle(processWindowHandle);
 
                             //Get the executable path
                             string processPathExe = GetExecutablePathFromProcess(processApp);
@@ -97,7 +97,7 @@ namespace CtrlUI
                                 continue;
                             }
 
-                            //Add active process
+                            //Add active process to the list
                             activeProcessesWindow.Add(processWindowHandle);
 
                             //Check the process running time
@@ -115,8 +115,9 @@ namespace CtrlUI
                             //Check the process launch arguments
                             string processArgument = GetLaunchArgumentsFromProcess(processApp, processPathExe);
 
-                            //Set the combined application filter
+                            //Set the application search filters
                             Func<DataBindApp, bool> filterCombinedApp = x => x.PathExe != null && Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == processNameExeNoExtLower;
+                            Func<DataBindApp, bool> filterProcessApp = x => x.ProcessMulti.Any(z => z.WindowHandle == processWindowHandle);
 
                             //Check if process is a Win32Store app
                             string processAppUserModelId = GetAppUserModelIdFromProcess(processApp);
@@ -127,7 +128,7 @@ namespace CtrlUI
                                 processPathExeLower = processAppUserModelId.ToLower();
                                 processStatusStore = Visibility.Visible;
                                 filterCombinedApp = x => x.PathExe != null && x.PathExe.ToLower() == processPathExeLower;
-                                Debug.WriteLine(processName + " is a Win32Store application.");
+                                //Debug.WriteLine(processName + " is a Win32Store application.");
                             }
 
                             //Convert Process To ProcessMulti
@@ -135,7 +136,7 @@ namespace CtrlUI
 
                             //Check all the lists for the application
                             DataBindApp existingCombinedApp = currentListApps.Where(filterCombinedApp).FirstOrDefault();
-                            DataBindApp existingProcessApp = List_Processes.Where(x => x.ProcessMulti.Any(z => z.WindowHandle == processWindowHandle)).FirstOrDefault();
+                            DataBindApp existingProcessApp = List_Processes.Where(filterProcessApp).FirstOrDefault();
 
                             //Check if process is in combined list and update it
                             if (existingCombinedApp != null)
@@ -152,10 +153,16 @@ namespace CtrlUI
                                 //Update the application last runtime
                                 existingCombinedApp.RunningTimeLastUpdate = Environment.TickCount;
 
-                                //Add the new process multi
+                                //Add the new process multi application
                                 if (!existingCombinedApp.ProcessMulti.Any(x => x.WindowHandle == processWindowHandle))
                                 {
                                     existingCombinedApp.ProcessMulti.Add(processMultiNew);
+                                }
+
+                                //Update the process multi identifier
+                                foreach (ProcessMulti processMulti in existingCombinedApp.ProcessMulti.Where(x => x.Identifier <= 0 || x.WindowHandle == IntPtr.Zero))
+                                {
+                                    processMulti.Identifier = processIdentifier;
                                 }
 
                                 //Remove app from processes list
@@ -181,6 +188,12 @@ namespace CtrlUI
                                 //Update the process suspended status
                                 existingProcessApp.StatusSuspended = processStatusSuspended;
 
+                                continue;
+                            }
+
+                            //Validate the window handle
+                            if (!windowValidation)
+                            {
                                 continue;
                             }
 

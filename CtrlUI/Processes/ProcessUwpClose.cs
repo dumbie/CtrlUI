@@ -33,6 +33,7 @@ namespace CtrlUI
                         dataBindApp.StatusSuspended = Visibility.Collapsed;
                         dataBindApp.RunningProcessCount = string.Empty;
                         dataBindApp.RunningTimeLastUpdate = 0;
+                        dataBindApp.ProcessMulti.Clear();
                     }
 
                     //Remove the process from the list
@@ -75,6 +76,7 @@ namespace CtrlUI
                         dataBindApp.StatusSuspended = Visibility.Collapsed;
                         dataBindApp.RunningProcessCount = string.Empty;
                         dataBindApp.RunningTimeLastUpdate = 0;
+                        dataBindApp.ProcessMulti.Clear();
                     }
 
                     //Remove the process from the list

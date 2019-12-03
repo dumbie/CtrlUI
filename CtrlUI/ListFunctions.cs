@@ -132,8 +132,16 @@ namespace CtrlUI
                         //Remove closed processes
                         dataBindApp.ProcessMulti.RemoveAll(x => !activeProcessesWindow.Contains(x.WindowHandle));
 
-                        //Update the running count
+                        //Check the running count
                         int processCount = dataBindApp.ProcessMulti.Count();
+                        if (processCount > 1)
+                        {
+                            //Remove invalid processes
+                            dataBindApp.ProcessMulti.RemoveAll(x => x.WindowHandle == IntPtr.Zero);
+                            processCount = dataBindApp.ProcessMulti.Count();
+                        }
+
+                        //Update the running count
                         if (processCount > 1)
                         {
                             dataBindApp.RunningProcessCount = Convert.ToString(processCount);
@@ -148,7 +156,9 @@ namespace CtrlUI
                         {
                             dataBindApp.StatusRunning = Visibility.Collapsed;
                             dataBindApp.StatusSuspended = Visibility.Collapsed;
+                            dataBindApp.RunningProcessCount = string.Empty;
                             dataBindApp.RunningTimeLastUpdate = 0;
+                            dataBindApp.ProcessMulti.Clear();
                         }
                     }
                     catch { }
