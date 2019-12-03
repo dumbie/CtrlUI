@@ -31,6 +31,23 @@ namespace CtrlUI
             }
         }
 
+        //Wait for application lists refresh
+        async Task RefreshApplicationListsWait()
+        {
+            try
+            {
+                if (vBusyRefreshingApps)
+                {
+                    Debug.WriteLine("Applications are already refreshing, waiting.");
+                    while (vBusyRefreshingApps)
+                    {
+                        await Task.Delay(100);
+                    }
+                }
+            }
+            catch { }
+        }
+
         //Refresh the application lists
         async Task RefreshApplicationLists(bool skipShortcutLoading, bool skipProcessLoading, bool skipRunningStatus, bool skipListStats, bool refreshWait, bool showStatus, bool playSound)
         {
@@ -41,11 +58,7 @@ namespace CtrlUI
                 {
                     if (refreshWait)
                     {
-                        Debug.WriteLine("Applications are already refreshing, waiting.");
-                        while (vBusyRefreshingApps)
-                        {
-                            await Task.Delay(100);
-                        }
+                        await RefreshApplicationListsWait();
                     }
                     else
                     {
