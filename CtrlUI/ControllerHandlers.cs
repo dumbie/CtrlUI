@@ -2,7 +2,6 @@
 using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -159,7 +158,7 @@ namespace CtrlUI
                             {
                                 //Improve some textboxes will be better off with just the on screen keyboard
                                 Debug.WriteLine("Opening the text input popup.");
-                                await Popup_ShowHide_TextInput(false, "testerlol", ((TextBox)frameworkElement).Text,(TextBox)frameworkElement);
+                                await Popup_ShowHide_TextInput(false, string.Empty, ((TextBox)frameworkElement).Text, (TextBox)frameworkElement);
                             }
                             else
                             {

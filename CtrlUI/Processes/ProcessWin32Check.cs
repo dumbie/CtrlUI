@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.ImageFunctions;
@@ -33,14 +34,28 @@ namespace CtrlUI
                                 //Validate the window handle
                                 if (threadWindowHandle == processMulti.WindowHandle || ValidateWindowHandle(threadWindowHandle))
                                 {
-                                    //Get window title
-                                    string ClassNameString = GetWindowTitleFromWindowHandle(threadWindowHandle);
-                                    if (threadWindowHandle == processMulti.WindowHandle) { ClassNameString += " (Main Window)"; }
-                                    if (multiAnswers.Where(x => x.Name.ToLower() == ClassNameString.ToLower()).Any()) { ClassNameString += " (" + multiAnswers.Count + ")"; }
+                                    //Get the window state
+                                    WindowPlacement processWindowState = new WindowPlacement();
+                                    GetWindowPlacement(threadWindowHandle, ref processWindowState);
+
+                                    //Get the window title
+                                    string windowTitleString = GetWindowTitleFromWindowHandle(threadWindowHandle);
+                                    string windowSubString = threadWindowHandle.ToString();
+                                    if (threadWindowHandle == processMulti.WindowHandle)
+                                    {
+                                        windowSubString = "Main Window";
+                                    }
+
+                                    //Check the window state
+                                    if (processWindowState.windowShowCommand == WindowShowCommand.Minimized)
+                                    {
+                                        windowSubString += " (Minimized)";
+                                    }
 
                                     DataBindString Answer1 = new DataBindString();
                                     Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
-                                    Answer1.Name = ClassNameString;
+                                    Answer1.Name = windowTitleString;
+                                    Answer1.NameSub = windowSubString;
 
                                     //Add window to selection
                                     if (threadWindowHandle == processMulti.WindowHandle)
