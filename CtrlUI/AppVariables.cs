@@ -40,7 +40,8 @@ namespace CtrlUI
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
         public static DispatcherTimer vDispatcherTimer = new DispatcherTimer();
-        public static string[] vListTabTarget = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Shortcuts", "lb_Processes" };
+        public static string[] vTabTargetLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Shortcuts", "lb_Processes" };
+        public static string[] vTabTargetButtons = { "grid_Popup_TextInput_button_ConfirmText", "grid_Popup_TextInput_button_KeyboardControllerButton" };
 
         //Update Variables
         public static bool vCheckingForUpdate = false;
@@ -73,6 +74,11 @@ namespace CtrlUI
         //Search Variables
         public static bool vSearchOpen = false;
         public static FrameworkElementFocus vSearchElementFocus = new FrameworkElementFocus();
+
+        //Text Input Variables
+        public static bool vTextInputOpen = false;
+        public static FrameworkElementFocus vTextInputElementFocus = new FrameworkElementFocus();
+        public static TextBox vTextInputTargetTextBox = null;
 
         //MainMenu Variables
         public static bool vMainMenuOpen = false;

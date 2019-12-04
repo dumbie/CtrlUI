@@ -61,7 +61,7 @@ namespace CtrlUI
             catch { }
         }
 
-        //Navigate list down
+        //Navigate arrow down
         void NavigateDown(ref bool Handled)
         {
             try
@@ -70,7 +70,16 @@ namespace CtrlUI
                 if (frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vListTabTarget.Any(x => x == parentListbox.Name))
+                    if (vTabTargetLists.Any(x => x == parentListbox.Name))
+                    {
+                        KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        Handled = true;
+                        return;
+                    }
+                }
+                else if (frameworkElement.GetType() == typeof(Button))
+                {
+                    if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
                     {
                         KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         Handled = true;
@@ -87,7 +96,7 @@ namespace CtrlUI
             catch { }
         }
 
-        //Navigate list down
+        //Navigate arrow up
         void NavigateUp(ref bool Handled)
         {
             try
@@ -96,7 +105,17 @@ namespace CtrlUI
                 if (frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vListTabTarget.Any(x => x == parentListbox.Name))
+                    if (vTabTargetLists.Any(x => x == parentListbox.Name))
+                    {
+                        //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                        Handled = true;
+                        return;
+                    }
+                }
+                else if (frameworkElement.GetType() == typeof(Button))
+                {
+                    if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
                     {
                         //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);

@@ -2,8 +2,11 @@
 using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
@@ -149,7 +152,20 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: APressed");
 
-                        KeySendSingle((byte)KeysVirtual.Space, vProcessCurrent.MainWindowHandle);
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
+                        {
+                            FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
+                            if (frameworkElement != null && frameworkElement.GetType() == typeof(TextBox) && frameworkElement != grid_Popup_TextInput_textbox)
+                            {
+                                //Improve some textboxes will be better off with just the on screen keyboard
+                                Debug.WriteLine("Opening the text input popup.");
+                                await Popup_ShowHide_TextInput(false, "testerlol", ((TextBox)frameworkElement).Text,(TextBox)frameworkElement);
+                            }
+                            else
+                            {
+                                KeySendSingle((byte)KeysVirtual.Space, vProcessCurrent.MainWindowHandle);
+                            }
+                        });
 
                         ControllerUsed = true;
                         ControllerDelayMedium = true;
@@ -187,8 +203,14 @@ namespace CtrlUI
                         {
                             KeySendSingle((byte)KeysVirtual.Delete, vProcessCurrent.MainWindowHandle);
                         }
+                        else if (vTextInputOpen)
+                        {
+                            Debug.WriteLine("Resetting the text input popup.");
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Reset_TextInput(true, string.Empty); });
+                        }
                         else if (vSearchOpen)
                         {
+                            Debug.WriteLine("Resetting the search popup.");
                             await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Reset_Search(true); });
                         }
                         else

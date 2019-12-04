@@ -18,7 +18,7 @@ using static LibraryShared.Classes;
 
 namespace CtrlUI
 {
-    partial class WindowMain
+    public partial class WindowMain : Window
     {
         //Window Initialize
         public WindowMain() { InitializeComponent(); }

@@ -32,11 +32,11 @@ namespace CtrlUI
             catch { }
         }
 
-        async void Grid_Popup_Search_button_ResetSearch_Click(object sender, RoutedEventArgs e)
+        //Reset the popup to defaults
+        async void Grid_Popup_Search_button_Reset_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                //Reset the popup to defaults
                 await Popup_Reset_Search(true);
             }
             catch { }
@@ -48,16 +48,16 @@ namespace CtrlUI
             try
             {
                 CloseShowKeyboardController();
-                await FocusOnElement(grid_Popup_Search_textbox_Search, false, vProcessCurrent.MainWindowHandle);
+                await FocusOnElement(grid_Popup_Search_textbox, false, vProcessCurrent.MainWindowHandle);
             }
             catch { }
         }
 
-        void Grid_Popup_Search_textbox_Search_TextChanged(object sender, TextChangedEventArgs e)
+        void Grid_Popup_Search_textbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
-                string stringSearch = grid_Popup_Search_textbox_Search.Text;
+                string stringSearch = grid_Popup_Search_textbox.Text;
                 if (!string.IsNullOrWhiteSpace(stringSearch) && stringSearch != "Search application...")
                 {
                     //Clear the current popup list
@@ -90,7 +90,6 @@ namespace CtrlUI
                     grid_Popup_Search_Count_TextBlock.Text = string.Empty;
                     grid_Popup_Search_textblock_Result.Text = "Please enter a search term above.";
                     grid_Popup_Search_textblock_Result.Visibility = Visibility.Visible;
-                    grid_Popup_Search_button_KeyboardControllerButton.Visibility = Visibility.Visible;
                 }
             }
             catch { }

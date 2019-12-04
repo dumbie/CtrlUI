@@ -303,8 +303,8 @@
                     </TextBlock>
 
                     <Grid>
-                        <TextBox Name="grid_Popup_Search_textbox_Search" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparent}" Text="Search application..." styles:TextboxPlaceholder.Placeholder="Search application..."/>
-                        <Button Name="grid_Popup_Search_button_ResetSearch" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the search panel">
+                        <TextBox Name="grid_Popup_Search_textbox" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparent}" Text="Search application..." styles:TextboxPlaceholder.Placeholder="Search application..."/>
+                        <Button Name="grid_Popup_Search_button_Reset" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the search panel">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Icons/Buttons/ButtonLeft.png" Height="22" Width="22" Margin="0,0,5,0"/>
                                 <Image Source="Assets/Icons/TextClear.png" Height="25" Width="25"/>
@@ -314,7 +314,6 @@
 
                     <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
                     <TextBlock Name="grid_Popup_Search_textblock_Result" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" HorizontalAlignment="Center"/>
-                    <Button Name="grid_Popup_Search_button_KeyboardControllerButton" Style="{StaticResource ButtonAccentWhite}" HorizontalAlignment="Center" Margin="0,10,0,10" Content="Open or close the keyboard"/>
                 </StackPanel>
 
                 <ListBox Grid.Row="1" Name="lb_Search" Focusable="False" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanel}"/>
@@ -862,6 +861,50 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                         <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Popup - Text Input -->
+        <Grid Name="grid_Popup_TextInput" Visibility="Collapsed">
+            <Grid Margin="200,40,200,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock Name="grid_Popup_TextInput_textblock_Title" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="Text Input" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}"/>
+
+                    <Grid>
+                        <TextBox Name="grid_Popup_TextInput_textbox" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparent}" Text="Enter text..." styles:TextboxPlaceholder.Placeholder="Enter text..."/>
+                        <Button Name="grid_Popup_TextInput_button_Reset" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the text input">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/Buttons/ButtonLeft.png" Height="22" Width="22" Margin="0,0,5,0"/>
+                                <Image Source="Assets/Icons/TextClear.png" Height="25" Width="25"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Button Name="grid_Popup_TextInput_button_ConfirmText" Style="{StaticResource ButtonAccentWhite}" HorizontalAlignment="Center" Margin="0,10,0,10" Content="Return and use the entered text"/>
+                    <Button Name="grid_Popup_TextInput_button_KeyboardControllerButton" Style="{StaticResource ButtonAccentWhite}" HorizontalAlignment="Center" Margin="0,10,0,10" Content="Open or close the keyboard"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_TextInput_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+                <Button Name="grid_Popup_TextInput_button_KeyboardControllerIcon" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Open or close the keyboard">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/GuideHoldOff.png" Height="30" Opacity="0.80" Margin="0,0,10,0"/>
+                        <Image Source="Assets/Icons/Keyboard.png" Height="35" Width="35" Margin="0,0,-2,0" />
                     </StackPanel>
                 </Button>
             </StackPanel>

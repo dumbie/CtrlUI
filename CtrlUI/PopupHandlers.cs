@@ -4,7 +4,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Close all popup windows
+        //Close the top popup window
         async void Button_Popup_Close_Click(object sender, RoutedEventArgs e)
         {
             try

@@ -84,7 +84,14 @@ namespace CtrlUI
                 if (dataBindApp.Category == AppCategory.Process)
                 {
                     //Get the process multi
-                    ProcessMulti processMulti = dataBindApp.ProcessMulti.FirstOrDefault();
+                    ProcessMulti processMulti = null;
+                    foreach (ProcessMulti processMultiFor in dataBindApp.ProcessMulti)
+                    {
+                        if (processMultiFor.WindowHandle != IntPtr.Zero)
+                        {
+                            processMulti = processMultiFor;
+                        }
+                    }
 
                     //Show the process window
                     await ShowProcessWindow(dataBindApp, processMulti);

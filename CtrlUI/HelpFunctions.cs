@@ -18,10 +18,13 @@ namespace CtrlUI
             {
                 bool DirectXRunning = CheckRunningProcessByNameOrTitle("DirectXInput", false);
                 bool KeyboardSettings = File.ReadAllText("DirectXInput.exe.Config").Contains("\"ShortcutLaunchKeyboardController\" value=\"True\"");
-                if (DirectXRunning && KeyboardSettings) { return true; }
-                else { return false; }
+                if (DirectXRunning && KeyboardSettings)
+                {
+                    return true;
+                }
             }
-            catch { return false; }
+            catch { }
+            return false;
         }
 
         void UpdateControllerHelp()
@@ -192,6 +195,9 @@ namespace CtrlUI
 
                     sp_Help.Children.Add(new TextBlock() { Text = "\r\nHelp my emulator does not load the rom?", Style = (Style)App.Current.Resources["TextBlockWhite"], FontSize = (double)App.Current.Resources["TextSizeLarge"] });
                     sp_Help.Children.Add(new TextBlock() { Text = "Some emulators might need an extra launch argument to load the rom, to do this add the required launch argument to the application, for example some emulators need to start with the argument '-rom' so the emulator knows a rom will be loaded.", Style = (Style)App.Current.Resources["TextBlockGray"], FontSize = (double)App.Current.Resources["TextSizeMedium"], TextWrapping = TextWrapping.Wrap });
+
+                    sp_Help.Children.Add(new TextBlock() { Text = "\r\nHow can I enter text into a textbox with my controller?", Style = (Style)App.Current.Resources["TextBlockWhite"], FontSize = (double)App.Current.Resources["TextSizeLarge"] });
+                    sp_Help.Children.Add(new TextBlock() { Text = "When a controller is connected and a textbox is selected you can press on the Cross or X button to open the text input popup which will also launch the on screen keyboard automatically for easy text input.", Style = (Style)App.Current.Resources["TextBlockGray"], FontSize = (double)App.Current.Resources["TextSizeMedium"], TextWrapping = TextWrapping.Wrap });
 
                     sp_Help.Children.Add(new TextBlock() { Text = "\r\nWhich buttons can I use on my controller?", Style = (Style)App.Current.Resources["TextBlockWhite"], FontSize = (double)App.Current.Resources["TextSizeLarge"] });
                     sp_Help.Children.Add(new TextBlock() { Text = "LB or RB: Moves between interface buttons.\r\nTriggers: Changes your system sound volume step by step.\r\nStick click: Go to the first or last application in the list.\r\nBack: Opens and closes the main menu for you.\r\nStart: Opens and closes the search menu or sets the controller as the active controller.\r\nGuide + Start: Disconnects the controller when DirectXInput is running.\r\nGuide hold: Opens the on screen keyboard for windowed applications.\r\nGuide press: Switches between CtrlUI and running application.\r\nSquare or X: Shows the quick action prompt.\r\nTriangle or Y: Interact with selected application from the list.\r\nRound or B: Refreshes the processes and shortcuts list.", Style = (Style)App.Current.Resources["TextBlockGray"], FontSize = (double)App.Current.Resources["TextSizeMedium"], TextWrapping = TextWrapping.Wrap });

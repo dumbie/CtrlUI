@@ -113,6 +113,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppUpdate.cs" />
+    <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="Processes\ProcessMultiCheck.cs" />
     <Compile Include="Processes\ProcessMultiSelect.cs" />
@@ -133,6 +134,8 @@
     <Compile Include="AppTasksFunctions.cs" />
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppVariables.cs" />
+    <Compile Include="TextInputHandlers.cs" />
+    <Compile Include="TextInputFunctions.cs" />
     <Compile Include="SearchHandlers.cs" />
     <Compile Include="SocketHandlers.cs" />
     <Compile Include="Styles\ScrollViewerLoopCode.cs" />
@@ -154,7 +157,6 @@
     <Compile Include="JsonFunctions.cs" />
     <Compile Include="ListHandlers.cs" />
     <Compile Include="ListFunctions.cs" />
-    <Compile Include="WindowMain.cs" />
     <Compile Include="ManageFunctions.cs" />
     <Compile Include="MediaFunctions.cs" />
     <Compile Include="PickerFunctions.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="Resources\Settings\SettingsSave.cs" />
     <Compile Include="Resources\Settings\SettingsCheck.cs" />
     <Compile Include="SettingsFunctions.cs" />
+    <Compile Include="WindowMain.cs" />
     <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates.xaml">
       <Link>Styles\ControlTemplates.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

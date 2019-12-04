@@ -137,11 +137,18 @@ namespace CtrlUI
 
                 //Search functions
                 lb_Search.PreviewKeyDown += ListBox_Search_KeyPressDown;
-                grid_Popup_Search_textbox_Search.TextChanged += Grid_Popup_Search_textbox_Search_TextChanged;
+                grid_Popup_Search_textbox.TextChanged += Grid_Popup_Search_textbox_TextChanged;
                 grid_Popup_Search_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Search_button_KeyboardControllerIcon.Click += Button_SearchKeyboardController_Click;
-                grid_Popup_Search_button_KeyboardControllerButton.Click += Button_SearchKeyboardController_Click;
-                grid_Popup_Search_button_ResetSearch.Click += Grid_Popup_Search_button_ResetSearch_Click;
+                grid_Popup_Search_button_Reset.Click += Grid_Popup_Search_button_Reset_Click;
+
+                //Text Input functions
+                grid_Popup_TextInput_button_Close.Click += Button_Popup_Close_Click;
+                grid_Popup_TextInput_textbox.PreviewKeyUp += Grid_Popup_TextInput_textbox_PreviewKeyUp;
+                grid_Popup_TextInput_button_KeyboardControllerIcon.Click += Button_TextInputKeyboardController_Click;
+                grid_Popup_TextInput_button_KeyboardControllerButton.Click += Button_TextInputKeyboardController_Click;
+                grid_Popup_TextInput_button_Reset.Click += Grid_Popup_TextInput_button_Reset_Click;
+                grid_Popup_TextInput_button_ConfirmText.Click += Button_TextInputConfirmText_Click;
 
                 //File Picker functions
                 lb_FilePicker.PreviewKeyUp += ListBox_FilePicker_KeyPressUp;
