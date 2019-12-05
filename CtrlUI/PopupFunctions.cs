@@ -254,10 +254,13 @@ namespace CtrlUI
         {
             try
             {
-                if (vPopupOpen || vColorPickerOpen || vSearchOpen || vMainMenuOpen || vFilePickerOpen || vMessageBoxOpen) { return true; }
-                else { return false; }
+                if (vPopupOpen || vColorPickerOpen || vSearchOpen || vMainMenuOpen || vFilePickerOpen || vMessageBoxOpen || vTextInputOpen)
+                {
+                    return true;
+                }
             }
-            catch { return false; }
+            catch { }
+            return false;
         }
 
         //Show the status popup
