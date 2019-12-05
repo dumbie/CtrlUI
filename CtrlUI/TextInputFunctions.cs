@@ -80,7 +80,7 @@ namespace CtrlUI
                 //Force focus on an element
                 await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
 
-                //Open the keyboard controller
+                //Launch the keyboard controller
                 if (vAppActivated && vControllerAnyConnected())
                 {
                     LaunchKeyboardController(false);

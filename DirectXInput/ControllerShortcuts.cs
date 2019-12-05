@@ -103,6 +103,8 @@ namespace DirectXInput
                     else if (Controller.InputCurrent.ButtonGuideLong && vProcessKeyboardController == null)
                     {
                         Debug.WriteLine("Guide long press showing keyboard controller.");
+
+                        //Launch the keyboard controller
                         LaunchKeyboardController();
 
                         ControllerUsed = true;
@@ -144,7 +146,7 @@ namespace DirectXInput
             return ControllerUsed;
         }
 
-        //Launch keyboard controller when not running
+        //Launch the keyboard controller
         void LaunchKeyboardController()
         {
             try

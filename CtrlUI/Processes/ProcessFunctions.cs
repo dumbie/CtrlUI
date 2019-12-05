@@ -160,7 +160,7 @@ namespace CtrlUI
                     }
 
                     //Launch the keyboard controller
-                    if (appLaunched && dataBindApp.LaunchKeyboard)
+                    if (appLaunched && dataBindApp.LaunchKeyboard && vControllerAnyConnected())
                     {
                         LaunchKeyboardController(true);
                     }
@@ -230,7 +230,7 @@ namespace CtrlUI
                     FocusProcessWindowPrepare(dataBindApp.Name, processMulti.Identifier, processWindowHandle, 0, false, false, false);
 
                     ////Launch the keyboard controller
-                    //if (dataBindApp.LaunchKeyboard)
+                    //if (dataBindApp.LaunchKeyboard && vControllerAnyConnected())
                     //{
                     //    LaunchKeyboardController(true);
                     //}

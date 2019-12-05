@@ -156,7 +156,7 @@ namespace CtrlUI
                             FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
                             if (frameworkElement != null && frameworkElement.GetType() == typeof(TextBox))
                             {
-                                //Open the keyboard controller
+                                //Launch the keyboard controller
                                 if (vAppActivated && vControllerAnyConnected())
                                 {
                                     LaunchKeyboardController(false);
