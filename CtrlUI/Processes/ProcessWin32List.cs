@@ -170,9 +170,15 @@ namespace CtrlUI
                                 }
 
                                 //Update the process multi identifier
-                                foreach (ProcessMulti processMulti in existingCombinedApp.ProcessMulti.Where(x => x.Identifier <= 0 || x.WindowHandle == IntPtr.Zero))
+                                foreach (ProcessMulti processMulti in existingCombinedApp.ProcessMulti.Where(x => x.Identifier <= 0))
                                 {
                                     processMulti.Identifier = processIdentifier;
+                                }
+
+                                //Update the process multi window handle
+                                foreach (ProcessMulti processMulti in existingCombinedApp.ProcessMulti.Where(x => x.WindowHandle == IntPtr.Zero))
+                                {
+                                    processMulti.WindowHandle = processWindowHandle;
                                 }
 
                                 //Remove app from processes list
@@ -197,6 +203,18 @@ namespace CtrlUI
 
                                 //Update the process suspended status
                                 existingProcessApp.StatusSuspended = processStatusSuspended;
+
+                                //Update the process multi identifier
+                                foreach (ProcessMulti processMulti in existingProcessApp.ProcessMulti.Where(x => x.Identifier <= 0))
+                                {
+                                    processMulti.Identifier = processIdentifier;
+                                }
+
+                                //Update the process multi window handle
+                                foreach (ProcessMulti processMulti in existingProcessApp.ProcessMulti.Where(x => x.WindowHandle == IntPtr.Zero))
+                                {
+                                    processMulti.WindowHandle = processWindowHandle;
+                                }
 
                                 continue;
                             }
