@@ -77,8 +77,9 @@ namespace CtrlUI
 
         //Text Input Variables
         public static bool vTextInputOpen = false;
+        public static bool vTextInputCancelled = false;
+        public static string vTextInputResult = string.Empty;
         public static FrameworkElementFocus vTextInputElementFocus = new FrameworkElementFocus();
-        public static TextBox vTextInputTargetTextBox = null;
 
         //MainMenu Variables
         public static bool vMainMenuOpen = false;

@@ -102,7 +102,7 @@ namespace CtrlUI
                 while (vMessageBoxResult == null && !vMessageBoxCancelled) { await Task.Delay(500); }
                 if (vMessageBoxCancelled) { return null; }
 
-                //Close and reset messageboxpopup
+                //Close and reset the popup
                 await Popup_Close_MessageBox();
             }
             catch { }
@@ -114,9 +114,10 @@ namespace CtrlUI
         {
             try
             {
+                //Play the closing sound
                 PlayInterfaceSound(vInterfaceSoundVolume, "PromptClose", false);
 
-                //Reset messagebox variables
+                //Reset the popup variables
                 vMessageBoxCancelled = true;
                 //vMessageBoxResult = null;
                 vMessageBoxOpen = false;
@@ -133,7 +134,10 @@ namespace CtrlUI
                 else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
                 else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
 
-                while (grid_Popup_MessageBox.Visibility == Visibility.Visible) { await Task.Delay(10); }
+                while (grid_Popup_MessageBox.Visibility == Visibility.Visible)
+                {
+                    await Task.Delay(10);
+                }
 
                 //Force focus on an element
                 if (vMessageBoxElementFocus.FocusTarget != null)

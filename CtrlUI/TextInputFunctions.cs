@@ -12,23 +12,21 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Hide or show the TextInput
-        async Task Popup_ShowHide_TextInput(bool forceShow, string textTitle, string textDefault, TextBox targetTextBox)
+        async Task<string> Popup_ShowHide_TextInput(string textTitle, string textDefault, string buttonTitle)
         {
             try
             {
+                //Check if the popup is open
                 if (vTextInputOpen)
                 {
                     await Popup_Close_Top();
-                    return;
+                    return string.Empty;
                 }
 
-                if (forceShow)
-                {
-                    await Popup_Close_All();
-                }
-
-                //Update the target textbox
-                vTextInputTargetTextBox = targetTextBox;
+                //Reset text input variables
+                vTextInputCancelled = false;
+                vTextInputResult = string.Empty;
+                vTextInputOpen = true;
 
                 //Update the text input title
                 if (!string.IsNullOrWhiteSpace(textTitle))
@@ -40,10 +38,20 @@ namespace CtrlUI
                     grid_Popup_TextInput_textblock_Title.Text = "Text Input";
                 }
 
+                //Update the button title
+                if (!string.IsNullOrWhiteSpace(buttonTitle))
+                {
+                    grid_Popup_TextInput_button_ConfirmText.Content = buttonTitle;
+                }
+                else
+                {
+                    grid_Popup_TextInput_button_ConfirmText.Content = "Return and use the entered text";
+                }
+
                 //Reset the popup to defaults
                 await Popup_Reset_TextInput(false, textDefault);
 
-                //Show the search popup
+                //Play the opening sound
                 PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
                 //Save previous focused element
@@ -69,8 +77,6 @@ namespace CtrlUI
                 if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 0.02, true, false, 0.10); }
                 if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
 
-                vTextInputOpen = true;
-
                 //Force focus on an element
                 await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
 
@@ -79,8 +85,16 @@ namespace CtrlUI
                 {
                     LaunchKeyboardController(false);
                 }
+
+                //Wait for user input
+                while (vTextInputResult == string.Empty && !vTextInputCancelled) { await Task.Delay(500); }
+                if (vTextInputCancelled) { return string.Empty; }
+
+                //Close and reset the popup
+                await Popup_Close_TextInput();
             }
             catch { }
+            return vTextInputResult;
         }
 
         //Reset the popup to defaults
@@ -130,9 +144,12 @@ namespace CtrlUI
             {
                 if (vTextInputOpen)
                 {
+                    //Play the closing sound
                     PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
 
-                    //Reset popup variables
+                    //Reset the popup variables
+                    vTextInputCancelled = true;
+                    //vTextInputResult = string.Empty;
                     vTextInputOpen = false;
 
                     //Hide the popup with animation

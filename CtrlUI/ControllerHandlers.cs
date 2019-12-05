@@ -151,17 +151,20 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: APressed");
 
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate
+                        AVActions.ActionDispatcherInvoke(delegate
                         {
                             FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                            if (frameworkElement != null && frameworkElement.GetType() == typeof(TextBox) && frameworkElement != grid_Popup_TextInput_textbox)
+                            if (frameworkElement != null && frameworkElement.GetType() == typeof(TextBox))
                             {
-                                //Improve some textboxes will be better off with just the on screen keyboard
-                                Debug.WriteLine("Opening the text input popup.");
-                                await Popup_ShowHide_TextInput(false, string.Empty, ((TextBox)frameworkElement).Text, (TextBox)frameworkElement);
+                                //Open the keyboard controller
+                                if (vAppActivated && vControllerAnyConnected())
+                                {
+                                    LaunchKeyboardController(false);
+                                }
                             }
                             else
                             {
+                                //Press on the space bar
                                 KeySendSingle((byte)KeysVirtual.Space, vProcessCurrent.MainWindowHandle);
                             }
                         });

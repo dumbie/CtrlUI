@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -98,15 +97,20 @@ namespace CtrlUI
 
                 List<DataBindString> Answers = new List<DataBindString>();
 
-                DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
-                Answer1.Name = "Remove shortcut file";
-                Answers.Add(Answer1);
+                DataBindString AnswerRemove = new DataBindString();
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
+                AnswerRemove.Name = "Remove shortcut file";
+                Answers.Add(AnswerRemove);
 
-                DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Hide.png" }, IntPtr.Zero, -1);
-                Answer2.Name = "Hide shortcut file";
-                Answers.Add(Answer2);
+                DataBindString AnswerRename = new DataBindString();
+                AnswerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1);
+                AnswerRename.Name = "Rename shortcut file";
+                Answers.Add(AnswerRename);
+
+                DataBindString AnswerHide = new DataBindString();
+                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Hide.png" }, IntPtr.Zero, -1);
+                AnswerHide.Name = "Hide shortcut file";
+                Answers.Add(AnswerHide);
 
                 DataBindString cancelString = new DataBindString();
                 cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
@@ -116,7 +120,7 @@ namespace CtrlUI
                 DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, dataBindApp.PathExe, Answers);
                 if (Result != null)
                 {
-                    if (Result == Answer1)
+                    if (Result == AnswerRemove)
                     {
                         Popup_Show_Status("Minus", "Removed shortcut " + dataBindApp.Name);
                         Debug.WriteLine("Removing shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
@@ -134,7 +138,11 @@ namespace CtrlUI
                         //Select the previous index
                         await FocusOnListbox(listboxSender, false, false, listboxSelectedIndex);
                     }
-                    else if (Result == Answer2)
+                    else if (Result == AnswerRename)
+                    {
+                        await RenameShortcutFile(dataBindApp);
+                    }
+                    else if (Result == AnswerHide)
                     {
                         Popup_Show_Status("Hide", "Hiding shortcut " + dataBindApp.Name);
                         Debug.WriteLine("Hiding shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
@@ -152,6 +160,37 @@ namespace CtrlUI
                 }
             }
             catch { }
+        }
+
+        //Rename the shortcut file
+        async Task RenameShortcutFile(DataBindApp dataBindApp)
+        {
+            try
+            {
+                Popup_Show_Status("Rename", "Renaming shortcut");
+                Debug.WriteLine("Renaming shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
+
+                //Show the text input popup
+                string textInputString = await Popup_ShowHide_TextInput("Rename shortcut", dataBindApp.Name, "Rename the shortcut file");
+                if (!string.IsNullOrWhiteSpace(textInputString))
+                {
+                    string shortcutDirectory = Path.GetDirectoryName(dataBindApp.ShortcutPath);
+                    string fileExtension = Path.GetExtension(dataBindApp.ShortcutPath);
+                    string newFileName = shortcutDirectory + "\\" + textInputString + fileExtension;
+
+                    File.Move(dataBindApp.ShortcutPath, newFileName);
+                    dataBindApp.Name = textInputString;
+                    dataBindApp.ShortcutPath = newFileName;
+
+                    Popup_Show_Status("Rename", "Renamed shortcut");
+                    Debug.WriteLine("Renamed shortcut file to: " + textInputString);
+                }
+            }
+            catch (Exception ex)
+            {
+                Popup_Show_Status("Rename", "Failed renaming");
+                Debug.WriteLine("Failed renaming shortcut: " + ex.Message);
+            }
         }
 
         async Task RightClickList(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
