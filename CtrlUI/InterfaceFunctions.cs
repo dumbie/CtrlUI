@@ -146,7 +146,6 @@ namespace CtrlUI
                 grid_Popup_TextInput_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_TextInput_textbox.PreviewKeyUp += Grid_Popup_TextInput_textbox_PreviewKeyUp;
                 grid_Popup_TextInput_button_KeyboardControllerIcon.Click += Button_TextInputKeyboardController_Click;
-                grid_Popup_TextInput_button_KeyboardControllerButton.Click += Button_TextInputKeyboardController_Click;
                 grid_Popup_TextInput_button_Reset.Click += Grid_Popup_TextInput_button_Reset_Click;
                 grid_Popup_TextInput_button_ConfirmText.Click += Button_TextInputConfirmText_Click;
 
