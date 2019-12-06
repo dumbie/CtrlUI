@@ -117,7 +117,7 @@ namespace CtrlUI
                     }
                     else
                     {
-                        return IntPtr.Zero;
+                        return new IntPtr(-200); //Cancel
                     }
                 }
                 else

@@ -114,6 +114,7 @@ namespace CtrlUI
                 }
                 else
                 {
+                    Debug.WriteLine("Cancelling the process action.");
                     return false;
                 }
             }

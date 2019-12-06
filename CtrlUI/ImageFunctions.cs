@@ -76,7 +76,7 @@ namespace CtrlUI
                         imageFileLower = AVFunctions.StringRemoveStart(imageFileLower, " ");
                         imageFileLower = AVFunctions.StringRemoveEnd(imageFileLower, " ");
                         string imageFileSafe = string.Join("", imageFileLower.Split(Path.GetInvalidFileNameChars()));
-                        Debug.WriteLine("Loading image: " + imageFileLower);
+                        //Debug.WriteLine("Loading image: " + imageFileLower);
 
                         if (imageFileLower.StartsWith("pack://application:,,,"))
                         {

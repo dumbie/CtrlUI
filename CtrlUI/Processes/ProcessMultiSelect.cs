@@ -28,11 +28,11 @@ namespace CtrlUI
                                 //Get the process title
                                 string ProcessTitle = GetWindowTitleFromWindowHandle(multiProcess.WindowHandle);
                                 if (ProcessTitle == "Unknown") { ProcessTitle += " (Hidden)"; }
-                                if (multiAnswers.Where(x => x.Name.ToLower() == ProcessTitle.ToLower()).Any()) { ProcessTitle += " (" + multiAnswers.Count + ")"; }
 
                                 DataBindString AnswerApp = new DataBindString();
                                 AnswerApp.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
                                 AnswerApp.Name = ProcessTitle;
+                                AnswerApp.NameSub = multiProcess.Identifier.ToString();
                                 multiAnswers.Add(AnswerApp);
                             }
                             catch { }
@@ -77,6 +77,12 @@ namespace CtrlUI
                             {
                                 return dataBindApp.ProcessMulti[multiAnswers.IndexOf(Result)];
                             }
+                        }
+                        else
+                        {
+                            ProcessMulti processMultiNew = new ProcessMulti();
+                            processMultiNew.Action = "Cancel";
+                            return processMultiNew;
                         }
                     }
                     else
