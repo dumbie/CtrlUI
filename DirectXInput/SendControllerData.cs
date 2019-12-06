@@ -41,10 +41,16 @@ namespace DirectXInput
                     }
                 }
 
+                //Update interface controller preview
+                ControllerPreview(Controller);
+
+                //Check if controller shortcut is pressed
+                await ControllerShortcut(Controller);
+
                 //Check if output or guide button needs to be blocked
                 if (BlockOutput)
                 {
-                    //Handle empty XOutput device data
+                    //Prepare empty XOutput device data
                     PrepareXInputData(Controller, true);
                 }
                 else
@@ -55,21 +61,15 @@ namespace DirectXInput
                         Controller.InputCurrent.ButtonGuide = false;
                     }
 
-                    //Handle current XOutput device data
+                    //Prepare current XOutput device data
                     PrepareXInputData(Controller, false);
                 }
 
-                //Handle XOutput device data
-                Controller.X360Device.Report(Controller.XInputData, Controller.XOutputData);
+                //Send XOutput device data
+                Controller.X360Device.Send(Controller.XInputData, Controller.XOutputData);
 
-                //Handle XInput device data
+                //Send XInput device data
                 SendXRumbleData(Controller, false, false, false);
-
-                //Update interface controller preview
-                ControllerPreview(Controller);
-
-                //Check if controller shortcut is pressed
-                await ControllerShortcut(Controller);
             }
             catch { }
         }

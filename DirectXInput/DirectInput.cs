@@ -142,9 +142,11 @@ namespace DirectXInput
                 //Disconnect Emulated Controllers
                 if (Controller.X360Device != null)
                 {
-                    //Send empty controller information
+                    //Prepare empty XOutput device data
                     PrepareXInputData(Controller, true);
-                    Controller.X360Device.Report(Controller.XInputData, Controller.XOutputData);
+
+                    //Send XOutput device data
+                    Controller.X360Device.Send(Controller.XInputData, Controller.XOutputData);
                     await Task.Delay(500);
 
                     //Stop and disconnect the x360 device

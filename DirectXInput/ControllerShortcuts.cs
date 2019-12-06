@@ -92,19 +92,19 @@ namespace DirectXInput
             {
                 if (Environment.TickCount >= Controller.Delay_ControllerShortcut)
                 {
-                    if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController == null)
+                    //Launch CtrlUI application
+                    if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController == null && vProcessCtrlUI == null)
                     {
-                        Debug.WriteLine("Guide short press showing ctrlui.");
+                        Debug.WriteLine("Guide short press showing CtrlUI.");
                         LaunchCtrlUI();
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
                     }
+                    //Launch the keyboard controller
                     else if (Controller.InputCurrent.ButtonGuideLong && vProcessKeyboardController == null)
                     {
                         Debug.WriteLine("Guide long press showing keyboard controller.");
-
-                        //Launch the keyboard controller
                         LaunchKeyboardController();
 
                         ControllerUsed = true;

@@ -72,7 +72,7 @@ namespace LibraryUsb
             return WinUsb_ControlTransfer(WinUsbHandle, Setup, Buffer, Buffer.Length, ref Transferred, IntPtr.Zero);
         }
 
-        public bool Report(byte[] Input, byte[] Output)
+        public bool Send(byte[] Input, byte[] Output)
         {
             if (!IsActive)
             {

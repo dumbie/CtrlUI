@@ -258,7 +258,7 @@
                                 <TextBlock Text="Enabling this will unplug the Xbox controller and disconnect your controller from Bluetooth when the Guide and Start buttons are pressed together." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <CheckBox Name="cb_SettingsExclusiveGuide" Margin="0,10,0,0" Content="Make the Guide button exclusive for CtrlUI apps usage" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will block the Guide button for other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <TextBlock Text="Enabling this will block the Guide button for all other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <CheckBox Name="cb_SettingsShortcutLaunchCtrlUI" Margin="0,10,0,0" Content="Open CtrlUI by pressing the Guide button shortly" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will launch CtrlUI when the Guide button is shortly pressed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
