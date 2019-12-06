@@ -170,7 +170,7 @@ namespace CtrlUI
         }
 
         //Update the battery icons and level
-        void UpdateBatteryStatus(int BatteryPercentageCurrent)
+        void UpdateBatteryStatus(int batteryPercentageCurrent)
         {
             try
             {
@@ -179,7 +179,7 @@ namespace CtrlUI
                 //Debug.WriteLine("Updating battery level of controller: " + ControllerId);
 
                 //Check if battery level is available
-                if (BatteryPercentageCurrent == -1)
+                if (batteryPercentageCurrent == -1)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -191,7 +191,7 @@ namespace CtrlUI
                 }
 
                 //Check if battery is charging
-                if (BatteryPercentageCurrent == -2)
+                if (batteryPercentageCurrent == -2)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -203,26 +203,34 @@ namespace CtrlUI
                     return;
                 }
 
-                //Set the battery percentage text
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    txt_Main_Battery.Text = Convert.ToString(BatteryPercentageCurrent) + "%";
-                    txt_Main_Battery.Visibility = Visibility.Visible;
-                });
+                //Check the battery percentage
+                string percentageNumber = "100";
+                if (batteryPercentageCurrent <= 10) { percentageNumber = "10"; }
+                else if (batteryPercentageCurrent <= 20) { percentageNumber = "20"; }
+                else if (batteryPercentageCurrent <= 30) { percentageNumber = "30"; }
+                else if (batteryPercentageCurrent <= 40) { percentageNumber = "40"; }
+                else if (batteryPercentageCurrent <= 50) { percentageNumber = "50"; }
+                else if (batteryPercentageCurrent <= 60) { percentageNumber = "60"; }
+                else if (batteryPercentageCurrent <= 70) { percentageNumber = "70"; }
+                else if (batteryPercentageCurrent <= 80) { percentageNumber = "80"; }
+                else if (batteryPercentageCurrent <= 90) { percentageNumber = "90"; }
 
-                //Set the used battery status icon
+                //Set the battery percentage
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    if (BatteryPercentageCurrent <= 10) { img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis10.png" }, IntPtr.Zero, -1); }
-                    else if (BatteryPercentageCurrent <= 20) { img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis20.png" }, IntPtr.Zero, -1); }
-                    else if (BatteryPercentageCurrent <= 30) { img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis30.png" }, IntPtr.Zero, -1); }
-                    else if (BatteryPercentageCurrent <= 40) { img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis40.png" }, IntPtr.Zero, -1); }
-                    else if (BatteryPercentageCurrent <= 50) { img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis50.png" }, IntPtr.Zero, -1); }
-                    else if (BatteryPercentageCurrent <= 60) { img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis60.png" }, IntPtr.Zero, -1); }
-                    else if (BatteryPercentageCurrent <= 70) { img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis70.png" }, IntPtr.Zero, -1); }
-                    else if (BatteryPercentageCurrent <= 80) { img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis80.png" }, IntPtr.Zero, -1); }
-                    else if (BatteryPercentageCurrent <= 90) { img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis90.png" }, IntPtr.Zero, -1); }
-                    else { img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis100.png" }, IntPtr.Zero, -1); }
+                    //Set the used battery percentage text
+                    txt_Main_Battery.Text = Convert.ToString(batteryPercentageCurrent) + "%";
+
+                    //Set the used battery status icon
+                    string currentImage = img_Main_Battery.Source.ToString();
+                    string updatedImage = "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis" + percentageNumber + ".png";
+                    if (currentImage.ToLower() != updatedImage.ToLower())
+                    {
+                        img_Main_Battery.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1);
+                    }
+
+                    //Show the battery image and clock
+                    txt_Main_Battery.Visibility = Visibility.Visible;
                     img_Main_Battery.Visibility = Visibility.Visible;
                     img_Main_Time.Visibility = Visibility.Visible;
                 });

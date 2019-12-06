@@ -248,7 +248,7 @@
                     </StackPanel>
                     <StackPanel Name="menuButtonAppRun" Orientation="Horizontal">
                         <Image Source="Assets/Icons/RunApp.png" Width="50" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="15,0,0,0" Text="Run a Windows store application" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Launch a Windows store application" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonAppAdd" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Manage.png" Width="50" HorizontalAlignment="Center"/>

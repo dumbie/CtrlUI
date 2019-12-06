@@ -209,15 +209,21 @@ namespace CtrlUI
         {
             try
             {
-                //Check the clock image
-                string ClockNumber = DateTime.Now.ToString("hmm");
-
                 //Update the time and image
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     try
                     {
-                        img_Main_Time.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Clock/" + ClockNumber + ".png" }, IntPtr.Zero, -1);
+                        //Update the clock image
+                        string clockImageNumber = DateTime.Now.ToString("hmm");
+                        string currentImage = img_Main_Time.Source.ToString();
+                        string updatedImage = "pack://application:,,,/Assets/Clock/" + clockImageNumber + ".png";
+                        if (currentImage.ToLower() != updatedImage.ToLower())
+                        {
+                            img_Main_Time.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1);
+                        }
+
+                        //Change the time format
                         if (vMainMenuOpen)
                         {
                             txt_Main_Date.Text = DateTime.Now.ToString("d MMMM");
@@ -525,37 +531,49 @@ namespace CtrlUI
             try
             {
                 Debug.WriteLine("Show or hide the CtrlUI window.");
+
+                //Get the current focused application
+                ProcessFocus foregroundProcess = GetFocusedProcess();
+
                 if (vAppMinimized || !vAppActivated)
                 {
                     PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
-                    //Get previous focused application
-                    ProcessFocus foregroundProcess = GetFocusedProcess();
-                    if (foregroundProcess != null)
+                    //Check previous focused application
+                    try
                     {
-                        try
+                        //Check if application title or process is blacklisted
+                        bool titleBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Title.ToLower());
+                        bool processBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Process.ProcessName.ToLower());
+                        if (!titleBlacklisted && !processBlacklisted)
                         {
-                            //Check if application title or process is blacklisted
-                            bool titleBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Title.ToLower());
-                            bool processBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Process.ProcessName.ToLower());
-                            if (!titleBlacklisted && !processBlacklisted)
-                            {
-                                //Save the previous focused application
-                                vPrevFocusedProcess = foregroundProcess;
-
-                                //Disable top most window from the process
-                                Debug.WriteLine("Disabling top most from process: " + foregroundProcess.Process.ProcessName);
-                                SetWindowPos(foregroundProcess.WindowHandle, (IntPtr)WindowPosition.NoTopMost, 0, 0, 0, 0, (int)WindowSWP.NOMOVE | (int)WindowSWP.NOSIZE);
-                            }
+                            //Save the previous focused application
+                            vPrevFocusedProcess = foregroundProcess;
                         }
-                        catch { }
                     }
+                    catch { }
+
+                    //Disable top most window from foreground process
+                    try
+                    {
+                        Debug.WriteLine("Disabling top most from process: " + foregroundProcess.Process.ProcessName);
+                        SetWindowPos(foregroundProcess.WindowHandle, (IntPtr)WindowPosition.NoTopMost, 0, 0, 0, 0, (int)WindowSWP.NOMOVE | (int)WindowSWP.NOSIZE);
+                    }
+                    catch { }
 
                     //Force focus on CtrlUI
                     FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false);
                 }
                 else
                 {
+                    //Disable top most window from foreground process
+                    try
+                    {
+                        Debug.WriteLine("Disabling top most from process: " + foregroundProcess.Process.ProcessName);
+                        SetWindowPos(foregroundProcess.WindowHandle, (IntPtr)WindowPosition.NoTopMost, 0, 0, 0, 0, (int)WindowSWP.NOMOVE | (int)WindowSWP.NOSIZE);
+                    }
+                    catch { }
+
                     //Force focus on CtrlUI
                     FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false);
 

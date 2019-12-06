@@ -40,100 +40,119 @@ namespace CtrlUI
             return string.Empty;
         }
 
+        //Prepare application bitmap image
+        private static BitmapImage PrepareNewBitmapImage(int pixelWidth)
+        {
+            try
+            {
+                BitmapImage imageToBitmapImage = new BitmapImage();
+                imageToBitmapImage.BeginInit();
+                imageToBitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                if (pixelWidth > 0)
+                {
+                    imageToBitmapImage.DecodePixelWidth = pixelWidth;
+                }
+                return imageToBitmapImage;
+            }
+            catch { }
+            return null;
+        }
+
         //Convert file to a BitmapImage
-        public static BitmapImage FileToBitmapImage(string[] ImageSource, IntPtr MainWindowHandle, int PixelWidth)
+        public static BitmapImage FileToBitmapImage(string[] imageSource, IntPtr mainWindowHandle, int pixelWidth)
         {
             try
             {
                 //Prepare application bitmap image
-                BitmapImage ImageToBitmapImage = new BitmapImage();
-                ImageToBitmapImage.BeginInit();
-                ImageToBitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                if (PixelWidth > 0) { ImageToBitmapImage.DecodePixelWidth = PixelWidth; }
+                BitmapImage imageToBitmapImage = PrepareNewBitmapImage(pixelWidth);
 
                 //Load application bitmap image
-                foreach (string ImageFile in ImageSource)
+                foreach (string imageFile in imageSource)
                 {
                     try
                     {
-                        if (string.IsNullOrWhiteSpace(ImageFile)) { continue; }
-                        string ImageFileLower = ImageFile.ToLower();
-                        ImageFileLower = AVFunctions.StringRemoveStart(ImageFileLower, " ");
-                        ImageFileLower = AVFunctions.StringRemoveEnd(ImageFileLower, " ");
-                        string ImageFileSafe = string.Join("", ImageFileLower.Split(Path.GetInvalidFileNameChars()));
-                        //Debug.WriteLine("Loading image: " + ImageFileLower);
+                        if (string.IsNullOrWhiteSpace(imageFile)) { continue; }
+                        string imageFileLower = imageFile.ToLower();
+                        imageFileLower = AVFunctions.StringRemoveStart(imageFileLower, " ");
+                        imageFileLower = AVFunctions.StringRemoveEnd(imageFileLower, " ");
+                        string imageFileSafe = string.Join("", imageFileLower.Split(Path.GetInvalidFileNameChars()));
+                        Debug.WriteLine("Loading image: " + imageFileLower);
 
-                        if (ImageFileLower.StartsWith("pack://application:,,,"))
+                        if (imageFileLower.StartsWith("pack://application:,,,"))
                         {
-                            ImageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                            ImageToBitmapImage.UriSource = new Uri(ImageFileLower, UriKind.RelativeOrAbsolute);
+                            imageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                            imageToBitmapImage.UriSource = new Uri(imageFileLower, UriKind.RelativeOrAbsolute);
                         }
-                        else if (File.Exists("Assets\\Apps\\" + ImageFileSafe + ".png"))
+                        else if (File.Exists("Assets\\Apps\\" + imageFileSafe + ".png"))
                         {
-                            ImageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                            ImageToBitmapImage.UriSource = new Uri("Assets\\Apps\\" + ImageFileSafe + ".png", UriKind.RelativeOrAbsolute);
+                            imageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                            imageToBitmapImage.UriSource = new Uri("Assets\\Apps\\" + imageFileSafe + ".png", UriKind.RelativeOrAbsolute);
                         }
-                        else if (File.Exists("Assets\\Roms\\" + ImageFileSafe + ".png"))
+                        else if (File.Exists("Assets\\Roms\\" + imageFileSafe + ".png"))
                         {
-                            ImageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                            ImageToBitmapImage.UriSource = new Uri("Assets\\Roms\\" + ImageFileSafe + ".png", UriKind.RelativeOrAbsolute);
+                            imageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                            imageToBitmapImage.UriSource = new Uri("Assets\\Roms\\" + imageFileSafe + ".png", UriKind.RelativeOrAbsolute);
                         }
-                        else if (File.Exists(ImageFileLower) && !ImageFileLower.EndsWith(".exe") && !ImageFileLower.EndsWith(".dll") && !ImageFileLower.EndsWith(".bin") && !ImageFileLower.EndsWith(".tmp"))
+                        else if (File.Exists(imageFileLower) && !imageFileLower.EndsWith(".exe") && !imageFileLower.EndsWith(".dll") && !imageFileLower.EndsWith(".bin") && !imageFileLower.EndsWith(".tmp"))
                         {
-                            ImageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                            ImageToBitmapImage.UriSource = new Uri(ImageFileLower, UriKind.RelativeOrAbsolute);
+                            imageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                            imageToBitmapImage.UriSource = new Uri(imageFileLower, UriKind.RelativeOrAbsolute);
                         }
-                        else if (File.Exists(ImageFileLower) && (ImageFileLower.EndsWith(".exe") || ImageFileLower.EndsWith(".dll") || ImageFileLower.EndsWith(".bin") || ImageFileLower.EndsWith(".tmp")))
+                        else if (File.Exists(imageFileLower) && (imageFileLower.EndsWith(".exe") || imageFileLower.EndsWith(".dll") || imageFileLower.EndsWith(".bin") || imageFileLower.EndsWith(".tmp")))
                         {
-                            ImageToBitmapImage.CreateOptions = BitmapCreateOptions.None;
-                            System.Drawing.Bitmap IconImage = ExtractIco.ExtractIco.GetBitmapFromExePath(ImageFileLower);
-                            if (IconImage != null)
+                            imageToBitmapImage.CreateOptions = BitmapCreateOptions.None;
+                            System.Drawing.Bitmap iconImage = ExtractIco.ExtractIco.GetBitmapFromExePath(imageFileLower);
+                            if (iconImage != null)
                             {
-                                MemoryStream IconMemoryStream = new MemoryStream();
-                                IconImage.Save(IconMemoryStream, ImageFormat.Png);
-                                IconMemoryStream.Seek(0, SeekOrigin.Begin);
-                                ImageToBitmapImage.StreamSource = IconMemoryStream;
-                                IconImage.Dispose();
+                                MemoryStream iconMemoryStream = new MemoryStream();
+                                iconImage.Save(iconMemoryStream, ImageFormat.Png);
+                                iconMemoryStream.Seek(0, SeekOrigin.Begin);
+                                imageToBitmapImage.StreamSource = iconMemoryStream;
+                                iconImage.Dispose();
                             }
                         }
 
-                        //Check if the image has been loaded
-                        if (ImageToBitmapImage.UriSource != null || ImageToBitmapImage.StreamSource != null) { break; }
+                        //Return application bitmap image
+                        if (imageToBitmapImage.UriSource != null || imageToBitmapImage.StreamSource != null)
+                        {
+                            imageToBitmapImage.EndInit();
+                            imageToBitmapImage.Freeze();
+                            return imageToBitmapImage;
+                        }
                     }
                     catch (Exception ex)
                     {
+                        //Prepare application bitmap image
+                        imageToBitmapImage = PrepareNewBitmapImage(pixelWidth);
                         Debug.WriteLine("Failed loading image: " + ex.Message);
                     }
                 }
 
-                //Check if an image has been loaded
-                if (ImageToBitmapImage.UriSource == null && ImageToBitmapImage.StreamSource == null)
+                //Image source not found, loading default or window icon
+                if (mainWindowHandle == IntPtr.Zero)
                 {
-                    if (MainWindowHandle == IntPtr.Zero)
+                    imageToBitmapImage.UriSource = new Uri("Assets\\Apps\\Unknown.png", UriKind.RelativeOrAbsolute);
+                }
+                else
+                {
+                    BitmapImage windowIcon = WindowIconToBitmapImage(mainWindowHandle);
+                    if (windowIcon != null)
                     {
-                        ImageToBitmapImage.UriSource = new Uri("Assets\\Apps\\Unknown.png", UriKind.RelativeOrAbsolute);
+                        return windowIcon;
                     }
                     else
                     {
-                        BitmapImage WindowIcon = WindowIconToBitmapImage(MainWindowHandle);
-                        if (WindowIcon != null)
-                        {
-                            ImageToBitmapImage = null;
-                            return WindowIcon;
-                        }
-                        else
-                        {
-                            ImageToBitmapImage.UriSource = new Uri("Assets\\Apps\\Unknown.png", UriKind.RelativeOrAbsolute);
-                        }
+                        imageToBitmapImage.UriSource = new Uri("Assets\\Apps\\Unknown.png", UriKind.RelativeOrAbsolute);
                     }
                 }
 
                 //Return application bitmap image
-                ImageToBitmapImage.EndInit();
-                ImageToBitmapImage.Freeze();
-                return ImageToBitmapImage;
+                imageToBitmapImage.EndInit();
+                imageToBitmapImage.Freeze();
+                return imageToBitmapImage;
             }
-            catch { return null; }
+            catch { }
+            return null;
         }
 
         //Get the process window icon
