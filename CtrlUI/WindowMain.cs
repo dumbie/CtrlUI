@@ -126,8 +126,7 @@ namespace CtrlUI
                 JsonLoadAppsBlacklistProcess();
 
                 //Refresh the application lists
-                ShowHideEmptyList(false, false);
-                ListsUpdateCount();
+                await RefreshApplicationLists(true, true, true, false, false, false, false);
 
                 //Update uwp application images
                 UpdateUwpApplicationImages();

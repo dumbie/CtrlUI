@@ -10,7 +10,6 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
-using static ArnoldVinkCode.AVInputOutputMouse;
 using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -25,34 +24,13 @@ namespace KeyboardController
         public WindowMain() { InitializeComponent(); }
 
         //Window Initialized
-        protected override void OnSourceInitialized(EventArgs e)
+        protected override async void OnSourceInitialized(EventArgs e)
         {
             try
             {
                 //Get application interop window handle
-                IntPtr InteropHandle = new WindowInteropHelper(this).EnsureHandle();
+                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
-                //Set the window style
-                IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                SetWindowLongAuto(InteropHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
-
-                //Set the window style ex
-                IntPtr UpdatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
-                SetWindowLongAuto(InteropHandle, (int)WindowLongFlags.GWL_EXSTYLE, UpdatedExStyle);
-
-                //Set the window as top most
-                SetWindowPos(InteropHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
-
-                Debug.WriteLine("The window is now set as top most.");
-            }
-            catch { }
-        }
-
-        //Window Startup
-        public async Task Startup()
-        {
-            try
-            {
                 //Check application settings
                 WindowSettings.Settings_Check();
                 WindowSettings.Settings_Load_CtrlUI();
@@ -72,7 +50,7 @@ namespace KeyboardController
                 PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
                 //Activate keyboard window and focus on key
-                await ActivateKeyboardWindow(key_g);
+                await KeyboardWindowActivate(true, key_g);
 
                 //Make window able to drag from border
                 this.MouseDown += WindowMain_MouseDown;
@@ -114,70 +92,65 @@ namespace KeyboardController
             catch { }
         }
 
-        //Activate keyboard window and focus on key
-        async Task ActivateKeyboardWindow(FrameworkElement focusKey)
+        //Update the window style
+        void UpdateWindowStyle()
         {
             try
             {
+                //Set the window style
+                IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+
+                //Set the window style ex
+                IntPtr UpdatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
+                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, UpdatedExStyle);
+
+                //Set the window as top most
+                SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
+
+                Debug.WriteLine("The window style has been updated.");
+            }
+            catch { }
+        }
+
+        //Activate keyboard window
+        async Task KeyboardWindowActivate(bool moveWindow, FrameworkElement focusKey)
+        {
+            try
+            {
+                //Update the window style
+                UpdateWindowStyle();
+
                 //Get the current active screen
                 Screen targetScreen = GetActiveScreen();
 
-                //Change the window opacity
-                this.Opacity = 0.01;
+                //Move the keyboard window to bottom center
+                if (moveWindow)
+                {
+                    this.Left = targetScreen.Bounds.Location.X + (targetScreen.WorkingArea.Width - this.ActualWidth) / 2;
+                    this.Top = targetScreen.Bounds.Location.Y + targetScreen.WorkingArea.Height - this.ActualHeight;
+                    await Task.Delay(10);
+                }
 
-                //Move the window to top left
-                this.Top = targetScreen.WorkingArea.Top;
-                this.Left = targetScreen.WorkingArea.Left;
-                await Task.Delay(10);
-
-                //Fullscreen the application
-                grid_Application.Height = targetScreen.WorkingArea.Height;
-                grid_Application.Width = targetScreen.WorkingArea.Width;
-                await Task.Delay(10);
-
-                //Focus on the requested key
-                await FocusOnElement(focusKey, true, vProcessCurrent.MainWindowHandle);
-                await Task.Delay(10);
-
-                //Store the previous cursor position
-                GetCursorPos(out PointWin PreviousCursorPosition);
-                await Task.Delay(10);
-
-                //Move cursor to the click position
-                int TargetX = Convert.ToInt32(targetScreen.Bounds.Location.X + (targetScreen.WorkingArea.Width / 2));
-                int TargetY = Convert.ToInt32(targetScreen.Bounds.Location.Y + (targetScreen.WorkingArea.Height / 2));
-                SetCursorPos(TargetX, TargetY);
-                await Task.Delay(10);
-
-                //Click on the application window twice
-                MousePressSingle(false);
-                await Task.Delay(10);
-                MousePressSingle(false);
-                await Task.Delay(10);
-
-                //Resize the application
-                grid_Application.Height = double.NaN;
-                grid_Application.Width = double.NaN;
-                await Task.Delay(10);
+                //Get the current mouse position
+                GetCursorPos(out PointWin previousCursorPosition);
 
                 //Check if mouse cursor is in keyboard
-                if ((targetScreen.WorkingArea.Height - PreviousCursorPosition.Y) <= this.Height) { PreviousCursorPosition.Y = Convert.ToInt32(targetScreen.WorkingArea.Height - this.Height - 20); }
-                SetCursorPos(PreviousCursorPosition.X, PreviousCursorPosition.Y);
-                await Task.Delay(10);
+                if ((targetScreen.WorkingArea.Height - previousCursorPosition.Y) <= this.Height)
+                {
+                    previousCursorPosition.Y = Convert.ToInt32(targetScreen.WorkingArea.Height - this.Height - 20);
+                    SetCursorPos(previousCursorPosition.X, previousCursorPosition.Y);
+                    await Task.Delay(10);
+                }
 
-                //Move window to bottom center
-                this.Left = targetScreen.Bounds.Location.X + (targetScreen.WorkingArea.Width - this.ActualWidth) / 2;
-                this.Top = targetScreen.Bounds.Location.Y + targetScreen.WorkingArea.Height - this.ActualHeight;
-                await Task.Delay(10);
+                //Focus on keyboard button
+                if (focusKey != null)
+                {
+                    await FocusOnElement(focusKey, false, vProcessCurrent.MainWindowHandle);
+                    await Task.Delay(10);
+                }
 
-                //Focus on the beginning key
-                key_g.UpdateLayout();
-                key_g.Focus();
-                Keyboard.Focus(key_g);
-                Mouse.Capture(key_g);
-                await Task.Delay(10);
-
-                //Show the keyboard
+                //Update the keyboard opacity
                 UpdateKeyboardOpacity();
                 await Task.Delay(10);
             }
@@ -204,12 +177,9 @@ namespace KeyboardController
                         return Screen.PrimaryScreen;
                     }
                 }
-                else
-                {
-                    return Screen.PrimaryScreen;
-                }
             }
-            catch { return Screen.PrimaryScreen; }
+            catch { }
+            return Screen.PrimaryScreen;
         }
 
         //Update keyboard opacity
@@ -536,6 +506,10 @@ namespace KeyboardController
                             //Enable the close button
                             key_Close.IsEnabled = true;
                             await Task.Delay(10);
+
+                            //Focus on close button
+                            await FocusOnElement(key_Close, false, vProcessCurrent.MainWindowHandle);
+                            await Task.Delay(10);
                         });
                     }
                 }
@@ -558,7 +532,7 @@ namespace KeyboardController
                             await Task.Delay(10);
 
                             //Activate keyboard window and focus on key
-                            await ActivateKeyboardWindow(key_g);
+                            await KeyboardWindowActivate(false, key_g);
                         });
                     }
                 }

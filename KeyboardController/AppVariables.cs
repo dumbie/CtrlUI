@@ -11,6 +11,7 @@ namespace KeyboardController
         //Application Variables
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static Configuration vConfigurationCtrlUI = null;
+        public static IntPtr vInteropWindowHandle = IntPtr.Zero;
         public static double vInterfaceSoundVolume = 0.90;
 
         //Process Variables
@@ -24,7 +25,6 @@ namespace KeyboardController
         public static bool vKeysEnabled = true;
 
         //Mouse Variables
-        public static int vMouseClicks = 0;
         public static bool vMouseHoldingLeft = false;
 
         //Sockets Variables

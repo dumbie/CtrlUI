@@ -31,13 +31,6 @@ namespace KeyboardController
         {
             try
             {
-                //Check if the first click happend
-                if (vMouseClicks < 2)
-                {
-                    vMouseClicks += 1;
-                    return;
-                }
-
                 //Send the clicked button
                 KeyButtonClick(sender);
             }
@@ -135,13 +128,6 @@ namespace KeyboardController
         {
             try
             {
-                //Check if the first click happend
-                if (vMouseClicks < 2)
-                {
-                    vMouseClicks += 1;
-                    return;
-                }
-
                 SwitchCapsLock();
             }
             catch { }
@@ -163,13 +149,6 @@ namespace KeyboardController
         {
             try
             {
-                //Check if the first click happend
-                if (vMouseClicks < 2)
-                {
-                    vMouseClicks += 1;
-                    return;
-                }
-
                 SwitchKeyboardMode();
             }
             catch { }
@@ -239,13 +218,6 @@ namespace KeyboardController
         {
             try
             {
-                //Check if the first click happend
-                if (vMouseClicks < 2)
-                {
-                    vMouseClicks += 1;
-                    return;
-                }
-
                 await Application_Exit();
             }
             catch { }

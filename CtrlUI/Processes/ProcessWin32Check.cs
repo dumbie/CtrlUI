@@ -70,7 +70,10 @@ namespace CtrlUI
                                     }
                                 }
                             }
-                            catch { }
+                            catch
+                            {
+                                Debug.WriteLine("Failed checking window handle: " + threadWindowHandle);
+                            }
                         }
                     }
 

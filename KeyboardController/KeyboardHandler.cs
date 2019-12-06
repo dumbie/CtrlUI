@@ -12,7 +12,7 @@ namespace KeyboardController
             try
             {
                 //Check the thumb movement
-                int SmallOffset = 2000;
+                int SmallOffset = 2500;
 
                 ThumbVertical = -ThumbVertical;
                 int AbsHorizontal = Math.Abs(ThumbHorizontal);

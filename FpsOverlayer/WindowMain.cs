@@ -30,29 +30,11 @@ namespace FpsOverlayer
             try
             {
                 //Get application interop window handle
-                IntPtr InteropHandle = new WindowInteropHelper(this).EnsureHandle();
+                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
-                //Set the window style
-                IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                SetWindowLongAuto(InteropHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+                //Update the window style
+                UpdateWindowStyle();
 
-                //Set the window style ex
-                IntPtr UpdatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
-                SetWindowLongAuto(InteropHandle, (int)WindowLongFlags.GWL_EXSTYLE, UpdatedExStyle);
-
-                //Set the window as top most
-                SetWindowPos(InteropHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
-
-                Debug.WriteLine("The window is now set as top most.");
-            }
-            catch { }
-        }
-
-        //Window Startup
-        public void Startup()
-        {
-            try
-            {
                 //Check application settings
                 App.vWindowSettings.Settings_Check();
                 WindowSettings.Settings_Load_CtrlUI();
@@ -86,6 +68,27 @@ namespace FpsOverlayer
             catch { }
         }
 
+        //Update the window style
+        void UpdateWindowStyle()
+        {
+            try
+            {
+                //Set the window style
+                IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+
+                //Set the window style ex
+                IntPtr UpdatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
+                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, UpdatedExStyle);
+
+                //Set the window as top most
+                SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
+
+                Debug.WriteLine("The window style has been updated.");
+            }
+            catch { }
+        }
+
         //Get the current active screen
         public System.Windows.Forms.Screen GetActiveScreen()
         {
@@ -106,15 +109,9 @@ namespace FpsOverlayer
                         return System.Windows.Forms.Screen.PrimaryScreen;
                     }
                 }
-                else
-                {
-                    return System.Windows.Forms.Screen.PrimaryScreen;
-                }
             }
-            catch
-            {
-                return System.Windows.Forms.Screen.PrimaryScreen;
-            }
+            catch { }
+            return System.Windows.Forms.Screen.PrimaryScreen;
         }
 
         //Update the fps overlayer on resolution change

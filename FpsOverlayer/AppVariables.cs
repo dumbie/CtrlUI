@@ -14,6 +14,7 @@ namespace FpsOverlayer
         //Application Variables
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static Configuration vConfigurationCtrlUI = null;
+        public static IntPtr vInteropWindowHandle = IntPtr.Zero;
         public static int vTargetProcessId = -1;
         public static string vTargetProcessTitle = string.Empty;
         public static bool vManualHidden = false;

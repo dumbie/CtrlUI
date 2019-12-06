@@ -28,7 +28,7 @@ namespace DirectXInput
                     }
                     BlockOutput = true;
                 }
-                //Check if ctrlui is running
+                //Check if CtrlUI is running
                 else if (vProcessCtrlUI != null)
                 {
                     if (Controller.Manage)
@@ -42,13 +42,19 @@ namespace DirectXInput
                 }
 
                 //Check if output or guide button needs to be blocked
-                if (BlockOutput || (Controller.InputCurrent.ButtonGuide && Convert.ToBoolean(ConfigurationManager.AppSettings["ExclusiveGuide"])))
+                if (BlockOutput)
                 {
                     //Handle empty XOutput device data
                     PrepareXInputData(Controller, true);
                 }
                 else
                 {
+                    //Check if guide button is CtrlUI exclusive
+                    if (Controller.InputCurrent.ButtonGuide && Convert.ToBoolean(ConfigurationManager.AppSettings["ExclusiveGuide"]))
+                    {
+                        Controller.InputCurrent.ButtonGuide = false;
+                    }
+
                     //Handle current XOutput device data
                     PrepareXInputData(Controller, false);
                 }

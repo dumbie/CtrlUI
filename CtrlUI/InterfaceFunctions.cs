@@ -524,47 +524,31 @@ namespace CtrlUI
         {
             try
             {
+                Debug.WriteLine("Show or hide the CtrlUI window.");
                 if (vAppMinimized || !vAppActivated)
                 {
-                    Debug.WriteLine("Showing the CtrlUI window.");
                     PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
                     //Get previous focused application
-                    ProcessFocus ForegroundProcess = GetFocusedProcess();
-                    if (ForegroundProcess != null)
+                    ProcessFocus foregroundProcess = GetFocusedProcess();
+                    if (foregroundProcess != null)
                     {
                         try
                         {
-                            //Check if application title is blacklisted
-                            bool titleBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == ForegroundProcess.Title.ToLower());
-
-                            //Check if application process is blacklisted
-                            bool processBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == ForegroundProcess.Process.ProcessName.ToLower());
-
-                            //Save previous focused application
+                            //Check if application title or process is blacklisted
+                            bool titleBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Title.ToLower());
+                            bool processBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Process.ProcessName.ToLower());
                             if (!titleBlacklisted && !processBlacklisted)
                             {
-                                vPrevFocusedProcess = ForegroundProcess;
-                            }
+                                //Save the previous focused application
+                                vPrevFocusedProcess = foregroundProcess;
 
-                            //Disable top most window from the process
-                            Debug.WriteLine("Disabling top most from process: " + ForegroundProcess.Process.ProcessName);
-                            SetWindowPos(ForegroundProcess.WindowHandle, (IntPtr)WindowPosition.NoTopMost, 0, 0, 0, 0, (int)WindowSWP.NOMOVE | (int)WindowSWP.NOSIZE);
+                                //Disable top most window from the process
+                                Debug.WriteLine("Disabling top most from process: " + foregroundProcess.Process.ProcessName);
+                                SetWindowPos(foregroundProcess.WindowHandle, (IntPtr)WindowPosition.NoTopMost, 0, 0, 0, 0, (int)WindowSWP.NOMOVE | (int)WindowSWP.NOSIZE);
+                            }
                         }
                         catch { }
-                    }
-
-                    //Recover the CtrlUI window state (Border workaround)
-                    if (vAppMinimized)
-                    {
-                        if (vAppPrevWindowState == WindowState.Maximized)
-                        {
-                            await AppSwitchScreenMode(true, false);
-                        }
-                        else
-                        {
-                            await AppSwitchScreenMode(false, true);
-                        }
                     }
 
                     //Force focus on CtrlUI
@@ -572,8 +556,8 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Debug.WriteLine("Hiding the CtrlUI window.");
-                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
+                    //Force focus on CtrlUI
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false);
 
                     //Check if a previous process is available
                     if (vPrevFocusedProcess == null)
@@ -583,19 +567,19 @@ namespace CtrlUI
                         return;
                     }
 
-                    //Check if application title is blacklisted
-                    if (vAppsBlacklistProcess.Any(x => x.ToLower() == vPrevFocusedProcess.Title.ToLower()))
-                    {
-                        Popup_Show_Status("Close", "App is blacklisted");
-                        Debug.WriteLine("Previous process title is blacklisted.");
-                        return;
-                    }
-
                     //Check if application process is blacklisted
                     if (vAppsBlacklistProcess.Any(x => x.ToLower() == vPrevFocusedProcess.Process.ProcessName.ToLower()))
                     {
                         Popup_Show_Status("Close", "App is blacklisted");
-                        Debug.WriteLine("Previous process name is blacklisted.");
+                        Debug.WriteLine("Previous process name is blacklisted: " + vPrevFocusedProcess.Process.ProcessName);
+                        return;
+                    }
+
+                    //Check if application title is blacklisted
+                    if (vAppsBlacklistProcess.Any(x => x.ToLower() == vPrevFocusedProcess.Title.ToLower()))
+                    {
+                        Popup_Show_Status("Close", "App is blacklisted");
+                        Debug.WriteLine("Previous process title is blacklisted: " + vPrevFocusedProcess.Title);
                         return;
                     }
 
@@ -692,7 +676,6 @@ namespace CtrlUI
                 Debug.WriteLine("Minimizing the CtrlUI window.");
 
                 //Save the CtrlUI window state
-                vAppPrevWindowState = WindowState;
                 vAppActivated = false;
                 vAppMinimized = true;
 

@@ -56,7 +56,6 @@ namespace CtrlUI
 
         //App Status Variables
         public static ProcessFocus vPrevFocusedProcess = null;
-        public static WindowState vAppPrevWindowState = WindowState.Normal;
         public static bool vChangingWindow = false;
         public static bool vAppMaximized = false;
         public static bool vAppMinimized = false;

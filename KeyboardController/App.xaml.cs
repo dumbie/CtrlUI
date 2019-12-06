@@ -11,7 +11,7 @@ namespace KeyboardController
         public static WindowSettings vWindowSettings = new WindowSettings();
 
         //Application Startup
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             try
             {
@@ -20,7 +20,6 @@ namespace KeyboardController
 
                 //Open the window main from application
                 vWindowMain.Show();
-                await vWindowMain.Startup();
             }
             catch { }
         }

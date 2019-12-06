@@ -21,7 +21,6 @@ namespace FpsOverlayer
 
                 //Open the window main from application
                 vWindowMain.Show();
-                vWindowMain.Startup();
             }
             catch { }
         }
