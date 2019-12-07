@@ -113,6 +113,10 @@ namespace CtrlUI
 
                                 //Get the application user model id
                                 string processPathExe = GetAppUserModelIdFromWindowHandle(processWindowHandle);
+                                if (string.IsNullOrWhiteSpace(processPathExe))
+                                {
+                                    processPathExe = GetAppUserModelIdFromProcess(processApp);
+                                }
                                 string processPathExeLower = processPathExe.ToLower();
 
                                 //Get detailed application information
