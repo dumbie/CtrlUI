@@ -8,8 +8,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using Windows.ApplicationModel;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -213,8 +215,19 @@ namespace CtrlUI
                                 continue;
                             }
 
+                            //Load Windows store application images
+                            string storeImageSquare = string.Empty;
+                            string storeImageWide = string.Empty;
+                            if (processType == ProcessType.Win32Store)
+                            {
+                                Package appPackage = UwpGetAppPackageFromAppUserModelId(processPathExe);
+                                AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
+                                storeImageSquare = appxDetails.SquareLargestLogoPath;
+                                storeImageWide = appxDetails.WideLargestLogoPath;
+                            }
+
                             //Load the application image
-                            BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExeNoExt, processPathImage, processPathExe }, processWindowHandle, 90);
+                            BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExeNoExt, storeImageSquare, storeImageWide, processPathImage, processPathExe }, processWindowHandle, 90);
 
                             //Create new ProcessMulti list
                             List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();
