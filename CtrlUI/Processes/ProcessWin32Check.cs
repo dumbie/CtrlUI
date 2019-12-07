@@ -41,12 +41,25 @@ namespace CtrlUI
                                     //Get the window title
                                     string windowTitleString = GetWindowTitleFromWindowHandle(threadWindowHandle);
                                     string windowSubString = threadWindowHandle.ToString();
+
+                                    //Check window main
                                     if (threadWindowHandle == processMulti.WindowHandle)
                                     {
-                                        windowSubString = "Main Window";
+                                        windowSubString += " (Main)";
                                     }
 
-                                    //Check the window state
+                                    //Check window style
+                                    WindowStylesEx windowStyle = (WindowStylesEx)GetWindowLongAuto(threadWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE).ToInt64();
+                                    if (windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW) || windowStyle.HasFlag(WindowStylesEx.WS_EX_LAYERED))
+                                    {
+                                        windowSubString += " (Tool)";
+                                    }
+                                    else
+                                    {
+                                        windowSubString += " (Window)";
+                                    }
+
+                                    //Check window state
                                     if (processWindowState.windowShowCommand == WindowShowCommand.Minimized)
                                     {
                                         windowSubString += " (Minimized)";
