@@ -27,7 +27,10 @@ namespace CtrlUI
                             {
                                 //Get the process title
                                 string ProcessTitle = GetWindowTitleFromWindowHandle(multiProcess.WindowHandle);
-                                if (ProcessTitle == "Unknown") { ProcessTitle += " (Hidden)"; }
+                                if (ProcessTitle == "Unknown")
+                                {
+                                    ProcessTitle += " (Hidden)";
+                                }
 
                                 DataBindString AnswerApp = new DataBindString();
                                 AnswerApp.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);

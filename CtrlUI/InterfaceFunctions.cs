@@ -248,7 +248,7 @@ namespace CtrlUI
             {
                 vProcessDirectXInput = GetProcessByNameOrTitle("DirectXInput", false);
                 vProcessKeyboardController = GetProcessByNameOrTitle("KeyboardController", false);
-                int focusedAppId = GetFocusedProcess().Process.Id;
+                int focusedAppId = GetFocusedProcess().Identifier;
                 bool appActivated = false;
 
                 AVActions.ActionDispatcherInvoke(delegate
@@ -533,7 +533,7 @@ namespace CtrlUI
                 Debug.WriteLine("Show or hide the CtrlUI window.");
 
                 //Get the current focused application
-                ProcessFocus foregroundProcess = GetFocusedProcess();
+                ProcessMulti foregroundProcess = GetFocusedProcess();
 
                 if (vAppMinimized || !vAppActivated)
                 {
@@ -544,7 +544,7 @@ namespace CtrlUI
                     {
                         //Check if application title or process is blacklisted
                         bool titleBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Title.ToLower());
-                        bool processBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Process.ProcessName.ToLower());
+                        bool processBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Name.ToLower());
                         if (!titleBlacklisted && !processBlacklisted)
                         {
                             //Save the previous focused application
@@ -556,7 +556,7 @@ namespace CtrlUI
                     //Disable top most window from foreground process
                     try
                     {
-                        Debug.WriteLine("Disabling top most from process: " + foregroundProcess.Process.ProcessName);
+                        Debug.WriteLine("Disabling top most from process: " + foregroundProcess.Name);
                         SetWindowPos(foregroundProcess.WindowHandle, (IntPtr)WindowPosition.NoTopMost, 0, 0, 0, 0, (int)WindowSWP.NOMOVE | (int)WindowSWP.NOSIZE);
                     }
                     catch { }
@@ -569,7 +569,7 @@ namespace CtrlUI
                     //Disable top most window from foreground process
                     try
                     {
-                        Debug.WriteLine("Disabling top most from process: " + foregroundProcess.Process.ProcessName);
+                        Debug.WriteLine("Disabling top most from process: " + foregroundProcess.Name);
                         SetWindowPos(foregroundProcess.WindowHandle, (IntPtr)WindowPosition.NoTopMost, 0, 0, 0, 0, (int)WindowSWP.NOMOVE | (int)WindowSWP.NOSIZE);
                     }
                     catch { }
@@ -586,10 +586,10 @@ namespace CtrlUI
                     }
 
                     //Check if application process is blacklisted
-                    if (vAppsBlacklistProcess.Any(x => x.ToLower() == vPrevFocusedProcess.Process.ProcessName.ToLower()))
+                    if (vAppsBlacklistProcess.Any(x => x.ToLower() == vPrevFocusedProcess.Name.ToLower()))
                     {
                         Popup_Show_Status("Close", "App is blacklisted");
-                        Debug.WriteLine("Previous process name is blacklisted: " + vPrevFocusedProcess.Process.ProcessName);
+                        Debug.WriteLine("Previous process name is blacklisted: " + vPrevFocusedProcess.Name);
                         return;
                     }
 
@@ -602,7 +602,7 @@ namespace CtrlUI
                     }
 
                     //Check if application process is still running
-                    if (!CheckRunningProcessByNameOrTitle(vPrevFocusedProcess.Process.ProcessName, false))
+                    if (!CheckRunningProcessByNameOrTitle(vPrevFocusedProcess.Name, false))
                     {
                         Popup_Show_Status("Close", "App no longer running");
                         Debug.WriteLine("Previous process is no longer running.");
@@ -642,31 +642,31 @@ namespace CtrlUI
                             }
 
                             //Force focus on the app
-                            FocusProcessWindowPrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.Process.Id, vPrevFocusedProcess.WindowHandle, 0, false, false, false);
+                            FocusProcessWindowPrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.Identifier, vPrevFocusedProcess.WindowHandle, 0, false, false, false);
                         }
                         else if (Result == Answer2)
                         {
                             Popup_Show_Status("Closing", "Closing " + vPrevFocusedProcess.Title);
-                            Debug.WriteLine("Closing process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Process.Id + " / " + vPrevFocusedProcess.WindowHandle);
+                            Debug.WriteLine("Closing process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Identifier + " / " + vPrevFocusedProcess.WindowHandle);
 
                             //Check if the application is UWP or Win32
                             if (CheckProcessIsUwp(vPrevFocusedProcess.WindowHandle))
                             {
-                                bool ClosedProcess = await CloseProcessUwpByWindowHandleOrProcessId(vPrevFocusedProcess.Title, vPrevFocusedProcess.Process.Id, vPrevFocusedProcess.WindowHandle);
+                                bool ClosedProcess = await CloseProcessUwpByWindowHandleOrProcessId(vPrevFocusedProcess.Title, vPrevFocusedProcess.Identifier, vPrevFocusedProcess.WindowHandle);
                                 if (ClosedProcess)
                                 {
                                     Popup_Show_Status("Closing", "Closed " + vPrevFocusedProcess.Title);
-                                    Debug.WriteLine("Closed process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Process.Id + " / " + vPrevFocusedProcess.WindowHandle);
+                                    Debug.WriteLine("Closed process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Identifier + " / " + vPrevFocusedProcess.WindowHandle);
                                     vPrevFocusedProcess = null;
                                 }
                             }
                             else
                             {
-                                bool ClosedProcess = CloseProcessById(vPrevFocusedProcess.Process.Id);
+                                bool ClosedProcess = CloseProcessById(vPrevFocusedProcess.Identifier);
                                 if (ClosedProcess)
                                 {
                                     Popup_Show_Status("Closing", "Closed " + vPrevFocusedProcess.Title);
-                                    Debug.WriteLine("Closed process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Process.Id + " / " + vPrevFocusedProcess.WindowHandle);
+                                    Debug.WriteLine("Closed process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Identifier + " / " + vPrevFocusedProcess.WindowHandle);
                                     vPrevFocusedProcess = null;
                                 }
                             }

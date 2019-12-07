@@ -53,33 +53,6 @@ namespace FpsOverlayer
                 {
                     try
                     {
-                        //Update the application name
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["AppShowName"]))
-                        {
-                            if (!string.IsNullOrWhiteSpace(vTargetProcessTitle))
-                            {
-                                AVActions.ActionDispatcherInvoke(delegate
-                                {
-                                    textblock_CurrentApp.Text = vTargetProcessTitle;
-                                    stackpanel_CurrentApp.Visibility = Visibility.Visible;
-                                });
-                            }
-                            else
-                            {
-                                AVActions.ActionDispatcherInvoke(delegate
-                                {
-                                    stackpanel_CurrentApp.Visibility = Visibility.Collapsed;
-                                });
-                            }
-                        }
-                        else
-                        {
-                            AVActions.ActionDispatcherInvoke(delegate
-                            {
-                                stackpanel_CurrentApp.Visibility = Visibility.Collapsed;
-                            });
-                        }
-
                         //Check the total available frames and last added frame time
                         int TotalFrameTimes = vListFrameTime.Count;
                         bool SkipCurrentFrames = (Environment.TickCount - vLastFrameTimeAdded) >= 1000;
@@ -114,7 +87,7 @@ namespace FpsOverlayer
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowAverageFps"])) { StringAverageFramesPerSecond = " " + AverageFramesPerSecond.ToString() + "AVG"; }
 
                         //Update the fps counter
-                        Debug.WriteLine("(" + vTargetProcessId + ") MS" + CurrentFrameTimes.ToString("0.00") + " / FPS " + CurrentFramesPerSecond + " / AVG " + AverageFramesPerSecond);
+                        Debug.WriteLine("(" + vTargetProcess.Identifier + ") MS" + CurrentFrameTimes.ToString("0.00") + " / FPS " + CurrentFramesPerSecond + " / AVG " + AverageFramesPerSecond);
                         string StringDisplay = AVFunctions.StringRemoveStart(StringCurrentFramesPerSecond + StringCurrentFrameTimes + StringAverageFramesPerSecond, " ");
 
                         if (!string.IsNullOrWhiteSpace(StringDisplay))
@@ -152,7 +125,7 @@ namespace FpsOverlayer
                 }
 
                 //Check the process id
-                if (traceEvent.ProcessID != vTargetProcessId)
+                if (traceEvent.ProcessID != vTargetProcess.Identifier)
                 {
                     //Debug.WriteLine("Event process is not foreground window.");
                     return;

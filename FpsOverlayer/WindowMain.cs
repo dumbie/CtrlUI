@@ -175,8 +175,8 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update the stats text position
-        public void UpdateWindowPosition(string processName)
+        //Update the stats window and text position
+        public void UpdateWindowTextPosition(string processName)
         {
             try
             {
@@ -539,7 +539,7 @@ namespace FpsOverlayer
                 }
 
                 //Update the stats text position
-                UpdateWindowPosition(string.Empty);
+                UpdateWindowTextPosition(string.Empty);
             }
             catch { }
         }

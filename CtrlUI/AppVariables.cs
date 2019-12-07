@@ -55,7 +55,7 @@ namespace CtrlUI
         public static Process vProcessKeyboardController = null;
 
         //App Status Variables
-        public static ProcessFocus vPrevFocusedProcess = null;
+        public static ProcessMulti vPrevFocusedProcess = null;
         public static bool vChangingWindow = false;
         public static bool vAppMaximized = false;
         public static bool vAppMinimized = false;

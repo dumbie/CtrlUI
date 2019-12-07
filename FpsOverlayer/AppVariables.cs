@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
+using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
 
 namespace FpsOverlayer
@@ -15,8 +16,7 @@ namespace FpsOverlayer
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static Configuration vConfigurationCtrlUI = null;
         public static IntPtr vInteropWindowHandle = IntPtr.Zero;
-        public static int vTargetProcessId = -1;
-        public static string vTargetProcessTitle = string.Empty;
+        public static ProcessMulti vTargetProcess = new ProcessMulti();
         public static bool vManualHidden = false;
 
         //Process Variables

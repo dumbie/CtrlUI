@@ -483,7 +483,7 @@ namespace KeyboardController
         {
             try
             {
-                int FocusedAppId = GetFocusedProcess().Process.Id;
+                int FocusedAppId = GetFocusedProcess().Identifier;
 
                 if (vProcessCurrent.Id == FocusedAppId)
                 {
