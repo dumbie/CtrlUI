@@ -17,7 +17,7 @@ namespace CtrlUI
             try
             {
                 List<DataBindString> Answers = new List<DataBindString>();
-                DataBindString Answer1 = new DataBindString();
+                DataBindString AnswerQuickLaunch = new DataBindString();
 
                 //Get the current quick launch application
                 try
@@ -25,40 +25,50 @@ namespace CtrlUI
                     DataBindApp QuickLaunchApp = CombineAppLists(false, false).Where(x => x.QuickLaunch).FirstOrDefault();
                     if (QuickLaunchApp != null)
                     {
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
-                        Answer1.Name = "Quick launch " + QuickLaunchApp.Name;
-                        Answers.Add(Answer1);
+                        AnswerQuickLaunch.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
+                        AnswerQuickLaunch.Name = "Quick launch " + QuickLaunchApp.Name;
+                        Answers.Add(AnswerQuickLaunch);
                     }
                 }
                 catch { }
 
-                DataBindString Answer6 = new DataBindString();
-                Answer6.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Sorting.png" }, IntPtr.Zero, -1);
-                Answer6.Name = "Sort applications by name or number and date";
-                Answers.Add(Answer6);
+                DataBindString AnswerSortApps = new DataBindString();
+                AnswerSortApps.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Sorting.png" }, IntPtr.Zero, -1);
+                AnswerSortApps.Name = "Sort applications by name or number and date";
+                Answers.Add(AnswerSortApps);
 
-                DataBindString Answer5 = new DataBindString();
-                Answer5.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Run.png" }, IntPtr.Zero, -1);
-                Answer5.Name = "Launch an executable file from disk";
-                Answers.Add(Answer5);
+                DataBindString AnswerLaunchExe = new DataBindString();
+                AnswerLaunchExe.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Run.png" }, IntPtr.Zero, -1);
+                AnswerLaunchExe.Name = "Launch an executable file from disk";
+                Answers.Add(AnswerLaunchExe);
 
-                DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Media.png" }, IntPtr.Zero, -1);
-                Answer2.Name = "Control playing media and volume";
-                Answers.Add(Answer2);
+                DataBindString AnswerLaunchUwp = new DataBindString();
+                AnswerLaunchUwp.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/RunApp.png" }, IntPtr.Zero, -1);
+                AnswerLaunchUwp.Name = "Launch a Windows store application";
+                Answers.Add(AnswerLaunchUwp);
 
-                DataBindString Answer3 = new DataBindString();
-                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Windows.png" }, IntPtr.Zero, -1);
-                Answer3.Name = "Show the Windows start menu";
-                Answers.Add(Answer3);
+                DataBindString AnswerControlMedia = new DataBindString();
+                AnswerControlMedia.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Media.png" }, IntPtr.Zero, -1);
+                AnswerControlMedia.Name = "Control playing media and volume";
+                Answers.Add(AnswerControlMedia);
+
+                DataBindString AnswerStartMenu = new DataBindString();
+                AnswerStartMenu.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Windows.png" }, IntPtr.Zero, -1);
+                AnswerStartMenu.Name = "Show the Windows start menu";
+                Answers.Add(AnswerStartMenu);
+
+                DataBindString AnswerFpsOverlayer = new DataBindString();
+                AnswerFpsOverlayer.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Fps.png" }, IntPtr.Zero, -1);
+                AnswerFpsOverlayer.Name = "Show or hide the fps overlayer";
+                Answers.Add(AnswerFpsOverlayer);
 
                 //Check if the Xbox Companion app is installed
-                DataBindString Answer4 = new DataBindString();
+                DataBindString AnswerXboxApp = new DataBindString();
                 if (UwpGetAppPackageFromAppUserModelId("Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp") != null)
                 {
-                    Answer4.ImageBitmap = FileToBitmapImage(new string[] { "Xbox" }, IntPtr.Zero, -1);
-                    Answer4.Name = "Open Xbox Companion app";
-                    Answers.Add(Answer4);
+                    AnswerXboxApp.ImageBitmap = FileToBitmapImage(new string[] { "Xbox" }, IntPtr.Zero, -1);
+                    AnswerXboxApp.Name = "Open Xbox Companion app";
+                    Answers.Add(AnswerXboxApp);
                 }
 
                 DataBindString cancelString = new DataBindString();
@@ -68,27 +78,35 @@ namespace CtrlUI
 
                 DataBindString Result = await Popup_Show_MessageBox("Quick action", "* You can change the quick launch application in the CtrlUI settings.", "", Answers);
 
-                if (Result == Answer1)
+                if (Result == AnswerQuickLaunch)
                 {
                     await LaunchQuickLaunchApp();
                 }
-                else if (Result == Answer6)
+                else if (Result == AnswerSortApps)
                 {
                     SortAppLists(false, false);
                 }
-                else if (Result == Answer5)
+                else if (Result == AnswerLaunchExe)
                 {
                     await RunExecutableFile();
                 }
-                else if (Result == Answer3)
+                else if (Result == AnswerLaunchUwp)
+                {
+                    await RunUwpApplication();
+                }
+                else if (Result == AnswerStartMenu)
                 {
                     ShowWindowStartMenu();
                 }
-                else if (Result == Answer2)
+                else if (Result == AnswerControlMedia)
                 {
                     await Popup_Show(grid_Popup_Media, grid_Popup_Media_PlayPause, true);
                 }
-                else if (Result == Answer4)
+                else if (Result == AnswerFpsOverlayer)
+                {
+                    CloseShowFpsOverlayer();
+                }
+                else if (Result == AnswerXboxApp)
                 {
                     await LaunchXboxCompanion();
                 }
