@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
+using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 
@@ -65,7 +66,7 @@ namespace CtrlUI
         {
             try
             {
-                Popup_Show_Status("VolumeMute", "Muting volume");
+                Popup_Show_Status("VolumeMute", "Switching mute");
                 KeyPressSingle((byte)KeysVirtual.VolumeMute, false);
             }
             catch { }
@@ -153,9 +154,22 @@ namespace CtrlUI
                 //Load the media thumbnail image
                 BitmapFrame thumbnailBitmap = await GetMediaThumbnail(mediaProperties.Thumbnail);
 
-                //Update the media information
+                //Get the current audio volume and mute status
+                string currentVolumeString = string.Empty;
+                int currentVolumeInt = AudioVolumeGet();
+                if (currentVolumeInt >= 0)
+                {
+                    currentVolumeString = "Volume " + currentVolumeInt + "%";
+                    if (AudioMuteGetStatus())
+                    {
+                        currentVolumeString += " (Muted)";
+                    }
+                }
+
+                //Update the media and volume information
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    grid_Popup_Media_Volume_Level.Text = currentVolumeString;
                     grid_Popup_Media_Information_Artist.Text = mediaArtist;
                     grid_Popup_Media_Information_Title.Text = mediaTitle;
                     grid_Popup_Media_Information_Progress.Value = mediaProgress;

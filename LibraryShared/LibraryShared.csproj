@@ -61,6 +61,30 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\AVAudioDeviceVolume.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\AVAudioDeviceVolume.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\Classes\AudioDeviceSummary.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\Classes\AudioDeviceSummary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\IMMDevice\IMMDevice.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\IMMDevice\IMMDevice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\IMMDevice\PolicyConfig.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\IMMDevice\PolicyConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\AVDisplayMonitorSwitch.cs">
+      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\AVDisplayMonitorSwitch.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Classes\DisplayMonitorSummary.cs">
+      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Classes\DisplayMonitorSummary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\InteropDll.cs">
+      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\InteropDll.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
     </Compile>
@@ -126,21 +150,6 @@
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVInterface.cs">
       <Link>ArnoldVinkCode\Functions\AVInterface.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSwitchAudioDevice\AVSwitchAudioDevice.cs">
-      <Link>ArnoldVinkCode\Functions\AVSwitchAudioDevice\AVSwitchAudioDevice.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSwitchAudioDevice\IMMDevice\IMMDevice.cs">
-      <Link>ArnoldVinkCode\Functions\AVSwitchAudioDevice\IMMDevice\IMMDevice.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSwitchAudioDevice\IMMDevice\PolicyConfig.cs">
-      <Link>ArnoldVinkCode\Functions\AVSwitchAudioDevice\IMMDevice\PolicyConfig.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSwitchDisplayMonitor\AVSwitchDisplayMonitor.cs">
-      <Link>ArnoldVinkCode\Functions\AVSwitchDisplayMonitor\AVSwitchDisplayMonitor.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSwitchDisplayMonitor\InteropDll.cs">
-      <Link>ArnoldVinkCode\Functions\AVSwitchDisplayMonitor\InteropDll.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Shared\Extensions\AVExtensions.cs">
       <Link>ArnoldVinkCode\Extensions\AVExtensions.cs</Link>

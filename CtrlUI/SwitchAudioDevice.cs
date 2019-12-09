@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using static ArnoldVinkCode.AVSwitchAudioDevice;
+using static ArnoldVinkCode.AVAudioDevice;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
@@ -47,7 +47,7 @@ namespace CtrlUI
                     AudioDeviceSummary ChangeDevice = devicesList.Where(x => x.Name.ToLower() == ResultMultiple.Name.ToLower()).FirstOrDefault();
                     if (ChangeDevice != null)
                     {
-                        if (SetDefaultDevice(ChangeDevice.Id))
+                        if (SetDefaultDevice(ChangeDevice.Identifier))
                         {
                             Popup_Show_Status("VolumeUp", "Switched audio device");
                         }

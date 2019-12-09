@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using static ArnoldVinkCode.AVSwitchDisplayMonitor;
+using static ArnoldVinkCode.AVDisplayMonitor;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
@@ -80,7 +80,7 @@ namespace CtrlUI
                         if (changeDevice != null)
                         {
                             Popup_Show_Status("MonitorSwitch", "Switching display monitor");
-                            if (!SwitchPrimaryMonitor(changeDevice.Id))
+                            if (!SwitchPrimaryMonitor(changeDevice.Identifier))
                             {
                                 Popup_Show_Status("MonitorSwitch", "Failed switching monitor");
                             }

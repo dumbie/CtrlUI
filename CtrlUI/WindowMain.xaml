@@ -408,6 +408,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
@@ -459,6 +460,8 @@
                         <Image Source="Assets/Icons/VolumeUp.png"/>
                     </Button>
                 </StackPanel>
+
+                <TextBlock Name="grid_Popup_Media_Volume_Level" Grid.Row="4" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeSmall}"/>
             </Grid>
 
             <!-- Shortcuts -->
