@@ -830,10 +830,10 @@
                         <Image Source="Assets/Icons/Up.png" Height="35" Width="35" Margin="0,0,-5,0" />
                     </StackPanel>
                 </Button>
-                <Button Name="grid_Popup_FilePicker_button_ControllerLeft" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Sort the files and folders" Visibility="Collapsed">
+                <Button Name="grid_Popup_FilePicker_button_ControllerLeft" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="File and folder actions" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Icons/Buttons/ButtonLeft.png" Height="30" Width="30" Margin="0,0,5,0"/>
-                        <Image Source="Assets/Icons/Sorting.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                        <Image Source="Assets/Icons/Hamburger.png" Height="35" Width="35" Margin="0,0,-5,0" />
                     </StackPanel>
                 </Button>
             </StackPanel>

@@ -26,7 +26,7 @@ namespace CtrlUI
                 if (!silent)
                 {
                     Popup_Show_Status("App", "Launching " + appName);
-                    Debug.WriteLine("Launching UWP or Win32Store: " + appName + "/" + pathExe);
+                    //Debug.WriteLine("Launching UWP or Win32Store: " + appName + "/" + pathExe);
                 }
 
                 //Minimize the CtrlUI window

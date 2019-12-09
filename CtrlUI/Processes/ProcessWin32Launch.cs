@@ -37,7 +37,7 @@ namespace CtrlUI
                 if (!silent)
                 {
                     Popup_Show_Status("App", "Launching " + Path.GetFileNameWithoutExtension(pathExe));
-                    Debug.WriteLine("Launching Win32: " + Path.GetFileNameWithoutExtension(pathExe));
+                    //Debug.WriteLine("Launching Win32: " + Path.GetFileNameWithoutExtension(pathExe));
                 }
 
                 //Launch the Win32 application

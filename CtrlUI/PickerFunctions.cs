@@ -944,5 +944,54 @@ namespace CtrlUI
             }
             catch { }
         }
+
+        //Rename file from the file picker
+        async Task FilePicker_Rename(DataBindFile dataBindFile)
+        {
+            try
+            {
+                //Check the file or folder
+                if (dataBindFile.Type == "PreDirectory" || dataBindFile.Type == "GoUp")
+                {
+                    Popup_Show_Status("Close", "Invalid file or folder");
+                    Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                    return;
+                }
+
+                Popup_Show_Status("Rename", "Renaming file or folder");
+                Debug.WriteLine("Renaming file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+
+                //Show the text input popup
+                string textInputString = await Popup_ShowHide_TextInput("Rename file or folder", dataBindFile.Name, "Rename the file or folder");
+                if (!string.IsNullOrWhiteSpace(textInputString))
+                {
+                    string shortcutDirectory = Path.GetDirectoryName(dataBindFile.PathFile);
+                    string fileExtension = Path.GetExtension(dataBindFile.PathFile);
+                    string newFileName = shortcutDirectory + "\\" + textInputString + fileExtension;
+
+                    //Move file or folder
+                    FileAttributes fileAttribute = File.GetAttributes(dataBindFile.PathFile);
+                    if (fileAttribute.HasFlag(FileAttributes.Directory))
+                    {
+                        Directory.Move(dataBindFile.PathFile, newFileName);
+                    }
+                    else
+                    {
+                        File.Move(dataBindFile.PathFile, newFileName);
+                    }
+
+                    dataBindFile.Name = textInputString;
+                    dataBindFile.PathFile = newFileName;
+
+                    Popup_Show_Status("Rename", "Renamed file or folder");
+                    Debug.WriteLine("Renamed file or folder to: " + textInputString);
+                }
+            }
+            catch (Exception ex)
+            {
+                Popup_Show_Status("Rename", "Failed renaming");
+                Debug.WriteLine("Failed renaming file or folder: " + ex.Message);
+            }
+        }
     }
 }

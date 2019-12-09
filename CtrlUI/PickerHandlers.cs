@@ -1,4 +1,6 @@
 ﻿using ArnoldVinkCode;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +10,7 @@ using System.Windows.Input;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
+using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -46,40 +49,120 @@ namespace CtrlUI
         {
             try
             {
-                await FilePicker_SortFilesFolders(false);
+                await FilePicker_Actions();
+            }
+            catch { }
+        }
+
+        //File and folder actions
+        private async Task FilePicker_Actions()
+        {
+            try
+            {
+                //Check if actions are enabled
+                if (grid_Popup_FilePicker_button_ControllerLeft.Visibility != Visibility.Visible)
+                {
+                    Debug.WriteLine("File and folders action cancelled, invalid directory.");
+                    return;
+                }
+
+                //Get the selected list item
+                DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
+
+                //Add answers for messagebox
+                List<DataBindString> Answers = new List<DataBindString>();
+
+                //Check the sorting type
+                string sortType = string.Empty;
+                if (vFilePickerSortByName)
+                {
+                    sortType = "Sort files and folders by date";
+                }
+                else
+                {
+                    sortType = "Sort files and folders by name";
+                }
+
+                DataBindString answerSort = new DataBindString();
+                answerSort.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Sorting.png" }, IntPtr.Zero, -1);
+                answerSort.Name = sortType;
+                Answers.Add(answerSort);
+
+                //DataBindString answerCopy = new DataBindString();
+                //answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Copy.png" }, IntPtr.Zero, -1);
+                //answerCopy.Name = "Copy file or folder";
+                //Answers.Add(answerCopy);
+
+                //DataBindString answerCut = new DataBindString();
+                //answerCut.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Cut.png" }, IntPtr.Zero, -1);
+                //answerCut.Name = "Cut file or folder";
+                //Answers.Add(answerCut);
+
+                //DataBindString answerPaste = new DataBindString();
+                //answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Paste.png" }, IntPtr.Zero, -1);
+                //answerPaste.Name = "Paste file or folder";
+                //Answers.Add(answerPaste);
+
+                DataBindString answerRename = new DataBindString();
+                answerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1);
+                answerRename.Name = "Rename file or folder";
+                Answers.Add(answerRename);
+
+                DataBindString answerRemove = new DataBindString();
+                answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
+                answerRemove.Name = "Remove file or folder";
+                Answers.Add(answerRemove);
+
+                DataBindString answerCancel = new DataBindString();
+                answerCancel.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
+                answerCancel.Name = "Cancel";
+                Answers.Add(answerCancel);
+
+                //Show the messagebox prompt
+                DataBindString result = await Popup_Show_MessageBox("File and folder actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
+                if (result != null)
+                {
+                    //Sort files and folders
+                    if (result == answerSort)
+                    {
+                        await FilePicker_SortFilesFolders(false);
+                    }
+                    //Rename file or folder
+                    else if (result == answerRename)
+                    {
+                        await FilePicker_Rename(selectedItem);
+                    }
+                }
             }
             catch { }
         }
 
         //Sort files and folders in picker
-        async Task FilePicker_SortFilesFolders(bool Silent)
+        async Task FilePicker_SortFilesFolders(bool silent)
         {
             try
             {
-                if (grid_Popup_FilePicker_button_ControllerLeft.Visibility == Visibility.Visible)
+                if (vFilePickerSortByName)
                 {
-                    if (vFilePickerSortByName)
+                    if (!silent)
                     {
-                        if (!Silent)
-                        {
-                            Debug.WriteLine("Sorting files and folders by date");
-                            Popup_Show_Status("Sorting", "Sorting by date");
-                        }
-
-                        vFilePickerSortByName = false;
-                        await Popup_Show_FilePicker(vFilePickerCurrentPath, lb_FilePicker.SelectedIndex, false, null);
+                        Debug.WriteLine("Sorting files and folders by date");
+                        Popup_Show_Status("Sorting", "Sorting by date");
                     }
-                    else
+
+                    vFilePickerSortByName = false;
+                    await Popup_Show_FilePicker(vFilePickerCurrentPath, lb_FilePicker.SelectedIndex, false, null);
+                }
+                else
+                {
+                    if (!silent)
                     {
-                        if (!Silent)
-                        {
-                            Debug.WriteLine("Sorting files and folders by name");
-                            Popup_Show_Status("Sorting", "Sorting by name");
-                        }
-
-                        vFilePickerSortByName = true;
-                        await Popup_Show_FilePicker(vFilePickerCurrentPath, lb_FilePicker.SelectedIndex, false, null);
+                        Debug.WriteLine("Sorting files and folders by name");
+                        Popup_Show_Status("Sorting", "Sorting by name");
                     }
+
+                    vFilePickerSortByName = true;
+                    await Popup_Show_FilePicker(vFilePickerCurrentPath, lb_FilePicker.SelectedIndex, false, null);
                 }
             }
             catch { }
@@ -170,6 +253,10 @@ namespace CtrlUI
                     {
                         await lb_FilePicker_LeftClick();
                     }
+                    else if (vMousePressDownRightClick)
+                    {
+                        await lb_FilePicker_RightClick();
+                    }
                 }
             }
             catch { }
@@ -190,7 +277,7 @@ namespace CtrlUI
                 }
                 else if (e.Key == Key.Delete)
                 {
-                    await FilePicker_SortFilesFolders(false);
+                    await FilePicker_Actions();
                 }
             }
             catch { }
@@ -236,6 +323,19 @@ namespace CtrlUI
                     {
                         await Popup_Close_FilePicker(true, false);
                     }
+                }
+            }
+            catch { }
+        }
+
+        //Handle file picker right click
+        async Task lb_FilePicker_RightClick()
+        {
+            try
+            {
+                if (lb_FilePicker.SelectedItems.Count > 0 && lb_FilePicker.SelectedIndex != -1)
+                {
+                    await FilePicker_Actions();
                 }
             }
             catch { }
