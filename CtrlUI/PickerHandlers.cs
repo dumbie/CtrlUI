@@ -105,12 +105,12 @@ namespace CtrlUI
 
                 DataBindString answerRename = new DataBindString();
                 answerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1);
-                answerRename.Name = "Rename file or folder";
+                answerRename.Name = "Rename the file or folder";
                 Answers.Add(answerRename);
 
                 DataBindString answerRemove = new DataBindString();
                 answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
-                answerRemove.Name = "Remove file or folder";
+                answerRemove.Name = "Move file or folder to recycle bin";
                 Answers.Add(answerRemove);
 
                 DataBindString answerCancel = new DataBindString();
@@ -130,7 +130,12 @@ namespace CtrlUI
                     //Rename file or folder
                     else if (result == answerRename)
                     {
-                        await FilePicker_Rename(selectedItem);
+                        await FilePicker_FileRename(selectedItem);
+                    }
+                    //Remove file or folder
+                    else if (result == answerRemove)
+                    {
+                        await FilePicker_FileRemove(selectedItem, true);
                     }
                 }
             }

@@ -82,54 +82,36 @@ namespace CtrlUI
         {
             try
             {
-                int ListboxSelectedIndex = -1;
-                ListBox ListBoxSender = null;
-
-                //Delete application from the lists
+                //Remove application from the listboxes
                 if (dataBindApp.Category == AppCategory.Game)
                 {
-                    ListBoxSender = lb_Games;
-                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Games.Remove(dataBindApp);
+                    await ListBoxRemoveItem(lb_Games, List_Games, dataBindApp);
                 }
                 else if (dataBindApp.Category == AppCategory.App)
                 {
-                    ListBoxSender = lb_Apps;
-                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Apps.Remove(dataBindApp);
+                    await ListBoxRemoveItem(lb_Apps, List_Apps, dataBindApp);
                 }
                 else if (dataBindApp.Category == AppCategory.Emulator)
                 {
-                    ListBoxSender = lb_Emulators;
-                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Emulators.Remove(dataBindApp);
+                    await ListBoxRemoveItem(lb_Emulators, List_Emulators, dataBindApp);
                 }
                 else if (dataBindApp.Category == AppCategory.Process)
                 {
-                    ListBoxSender = lb_Processes;
-                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Processes.Remove(dataBindApp);
+                    await ListBoxRemoveItem(lb_Processes, List_Processes, dataBindApp);
                 }
                 else if (dataBindApp.Category == AppCategory.Shortcut)
                 {
-                    ListBoxSender = lb_Shortcuts;
-                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Shortcuts.Remove(dataBindApp);
+                    await ListBoxRemoveItem(lb_Shortcuts, List_Shortcuts, dataBindApp);
                 }
 
-                //Delete application from search results
+                //Remove application from search listbox
                 if (vSearchOpen)
                 {
-                    ListBoxSender = lb_Search;
-                    ListboxSelectedIndex = ListBoxSender.SelectedIndex;
-                    List_Search.Remove(dataBindApp);
+                    await ListBoxRemoveItem(lb_Search, List_Search, dataBindApp);
                 }
 
                 //Refresh the application lists
                 await RefreshApplicationLists(true, true, true, false, false, false, false);
-
-                //Select the previous index
-                await FocusOnListbox(ListBoxSender, false, false, ListboxSelectedIndex);
 
                 //Save changes to Json file
                 if (saveJson)

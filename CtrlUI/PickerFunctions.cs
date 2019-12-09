@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVInterface;
+using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
@@ -946,7 +947,7 @@ namespace CtrlUI
         }
 
         //Rename file from the file picker
-        async Task FilePicker_Rename(DataBindFile dataBindFile)
+        async Task FilePicker_FileRename(DataBindFile dataBindFile)
         {
             try
             {
@@ -980,6 +981,7 @@ namespace CtrlUI
                         File.Move(dataBindFile.PathFile, newFileName);
                     }
 
+                    //Update file name in listbox
                     dataBindFile.Name = textInputString;
                     dataBindFile.PathFile = newFileName;
 
@@ -991,6 +993,57 @@ namespace CtrlUI
             {
                 Popup_Show_Status("Rename", "Failed renaming");
                 Debug.WriteLine("Failed renaming file or folder: " + ex.Message);
+            }
+        }
+
+        //Remove file from the file picker
+        async Task FilePicker_FileRemove(DataBindFile dataBindFile, bool useRecycleBin)
+        {
+            try
+            {
+                //Check the file or folder
+                if (dataBindFile.Type == "PreDirectory" || dataBindFile.Type == "GoUp")
+                {
+                    Popup_Show_Status("Close", "Invalid file or folder");
+                    Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                    return;
+                }
+
+                Popup_Show_Status("Remove", "Remove file or folder");
+                Debug.WriteLine("Removing file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+
+                //Remove file or folder
+                if (useRecycleBin)
+                {
+                    SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
+                    shFileOpstruct.wFunc = FILEOP_FUNC.FO_DELETE;
+                    shFileOpstruct.pFrom = dataBindFile.PathFile + "\0\0";
+                    shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_ALLOWUNDO | FILEOP_FLAGS.FOF_NOCONFIRMATION;
+                    SHFileOperation(ref shFileOpstruct);
+                }
+                else
+                {
+                    FileAttributes fileAttribute = File.GetAttributes(dataBindFile.PathFile);
+                    if (fileAttribute.HasFlag(FileAttributes.Directory))
+                    {
+                        Directory.Delete(dataBindFile.PathFile, true);
+                    }
+                    else
+                    {
+                        File.Delete(dataBindFile.PathFile);
+                    }
+                }
+
+                //Remove file from the listbox
+                await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile);
+
+                Popup_Show_Status("Rename", "Removed file or folder");
+                Debug.WriteLine("Removed file or folder to: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+            }
+            catch (Exception ex)
+            {
+                Popup_Show_Status("Rename", "Failed removing");
+                Debug.WriteLine("Failed removing file or folder: " + ex.Message);
             }
         }
     }

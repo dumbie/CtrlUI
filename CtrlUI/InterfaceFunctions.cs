@@ -414,31 +414,73 @@ namespace CtrlUI
             }
         }
 
-        //Remove all matching items from a listbox
-        async Task ListBoxRemoveAll<T>(ListBox ListBox, Collection<T> Collection, Func<T, bool> RemoveCondition)
+        //Remove listbox item from a listbox
+        async Task ListBoxRemoveItem<T>(ListBox listBox, Collection<T> listCollection, T removeItem)
         {
             try
             {
-                int ListCount = ListBox.Items.Count;
-                int ListSelectedIndex = ListBox.SelectedIndex;
-                Collection.RemoveAll(RemoveCondition);
-                if (ListCount != ListBox.Items.Count)
+                //Store the current listbox items count
+                int listBoxItemCount = listBox.Items.Count;
+
+                //Store the currently selected index
+                int listBoxSelectedIndex = listBox.SelectedIndex;
+
+                //Remove the listbox item from list
+                listCollection.Remove(removeItem);
+
+                //Check if there is a listbox item removed
+                if (listBoxItemCount != listBox.Items.Count)
                 {
-                    if (Keyboard.FocusedElement == ListBox)
+                    if (Keyboard.FocusedElement == listBox)
                     {
-                        Debug.WriteLine(ListBox.Name + " " + (ListCount - ListBox.Items.Count) + " items have been removed, selecting the listbox.");
-                        await FocusOnListbox(ListBox, false, false, ListSelectedIndex);
+                        Debug.WriteLine(listBox.Name + " listbox item has been removed, selecting the listbox.");
+                        await FocusOnListbox(listBox, false, false, listBoxSelectedIndex);
                     }
                     else
                     {
-                        Debug.WriteLine(ListBox.Name + " " + (ListCount - ListBox.Items.Count) + " items have been removed, selecting the index.");
-                        ListBoxSelectIndex(ListBox, false, false, ListSelectedIndex);
+                        Debug.WriteLine(listBox.Name + " listbox item has been removed, selecting the index.");
+                        ListBoxSelectIndex(listBox, false, false, listBoxSelectedIndex);
                     }
                 }
             }
             catch
             {
-                Debug.WriteLine("Failed removing all from listbox.");
+                Debug.WriteLine("Failed removing item from the listbox.");
+            }
+        }
+
+        //Remove all matching items from a listbox
+        async Task ListBoxRemoveAll<T>(ListBox listBox, Collection<T> listCollection, Func<T, bool> removeCondition)
+        {
+            try
+            {
+                //Store the current listbox items count
+                int listBoxItemCount = listBox.Items.Count;
+
+                //Store the currently selected index
+                int listBoxSelectedIndex = listBox.SelectedIndex;
+
+                //Remove the listbox items from list
+                listCollection.RemoveAll(removeCondition);
+
+                //Check if there is a listbox item removed
+                if (listBoxItemCount != listBox.Items.Count)
+                {
+                    if (Keyboard.FocusedElement == listBox)
+                    {
+                        Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed, selecting the listbox.");
+                        await FocusOnListbox(listBox, false, false, listBoxSelectedIndex);
+                    }
+                    else
+                    {
+                        Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed, selecting the index.");
+                        ListBoxSelectIndex(listBox, false, false, listBoxSelectedIndex);
+                    }
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed removing all from the listbox.");
             }
         }
 
