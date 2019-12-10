@@ -107,6 +107,25 @@ namespace CtrlUI
                     return;
                 }
 
+                //Get the current audio volume and mute status
+                string currentVolumeString = string.Empty;
+                int currentVolumeInt = AudioVolumeGet();
+                if (currentVolumeInt >= 0)
+                {
+                    currentVolumeString = "Volume " + currentVolumeInt + "%";
+                    if (AudioMuteGetStatus())
+                    {
+                        currentVolumeString += " (Muted)";
+                    }
+                }
+
+                //Update the media and volume information
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    grid_Popup_Media_Volume_Level.Text = currentVolumeString;
+                });
+
+                //Get the media session control
                 GlobalSystemMediaTransportControlsSessionManager smtcSessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
                 GlobalSystemMediaTransportControlsSession smtcSession = smtcSessionManager.GetCurrentSession();
                 GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline = smtcSession.GetTimelineProperties();
@@ -154,22 +173,9 @@ namespace CtrlUI
                 //Load the media thumbnail image
                 BitmapFrame thumbnailBitmap = await GetMediaThumbnail(mediaProperties.Thumbnail);
 
-                //Get the current audio volume and mute status
-                string currentVolumeString = string.Empty;
-                int currentVolumeInt = AudioVolumeGet();
-                if (currentVolumeInt >= 0)
-                {
-                    currentVolumeString = "Volume " + currentVolumeInt + "%";
-                    if (AudioMuteGetStatus())
-                    {
-                        currentVolumeString += " (Muted)";
-                    }
-                }
-
                 //Update the media and volume information
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    grid_Popup_Media_Volume_Level.Text = currentVolumeString;
                     grid_Popup_Media_Information_Artist.Text = mediaArtist;
                     grid_Popup_Media_Information_Title.Text = mediaTitle;
                     grid_Popup_Media_Information_Progress.Value = mediaProgress;
