@@ -431,7 +431,7 @@ namespace CtrlUI
                 //Check if there is a listbox item removed
                 if (listBoxItemCount != listBox.Items.Count)
                 {
-                    if (Keyboard.FocusedElement == listBox)
+                    if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
                     {
                         Debug.WriteLine(listBox.Name + " listbox item has been removed, selecting the listbox.");
                         await FocusOnListbox(listBox, false, false, listBoxSelectedIndex);
@@ -466,7 +466,7 @@ namespace CtrlUI
                 //Check if there is a listbox item removed
                 if (listBoxItemCount != listBox.Items.Count)
                 {
-                    if (Keyboard.FocusedElement == listBox)
+                    if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
                     {
                         Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed, selecting the listbox.");
                         await FocusOnListbox(listBox, false, false, listBoxSelectedIndex);

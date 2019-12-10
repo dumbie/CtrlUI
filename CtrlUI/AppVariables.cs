@@ -113,6 +113,10 @@ namespace CtrlUI
         public static bool vFilePickerShowDirectories = true;
         public static bool vFilePickerSortByName = true;
 
+        //Clipboard Variables
+        public static DataBindFile vClipboardFile = null;
+        public static string vClipboardType = string.Empty; //Copy or Cut
+
         //Manage Variables
         public static ListBox vEditAppListBox = null;
         public static DataBindApp vEditAppDataBind = null;

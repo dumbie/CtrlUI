@@ -7,6 +7,7 @@ using System.Windows.Input;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
+using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -36,16 +37,8 @@ namespace CtrlUI
 
                 PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
-                //Save previous focused element
-                if (Keyboard.FocusedElement != null)
-                {
-                    vMainMenuElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
-                    if (vMainMenuElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
-                    {
-                        vMainMenuElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vMainMenuElementFocus.FocusPrevious);
-                        vMainMenuElementFocus.FocusIndex = vMainMenuElementFocus.FocusListBox.SelectedIndex;
-                    }
-                }
+                //Save the previous focus element
+                Popup_PreviousFocusSave(vMainMenuElementFocus, null);
 
                 //Show the popup with animation
                 AVAnimations.Ani_Visibility(grid_Popup_MainMenu, true, true, 0.10);
@@ -102,22 +95,8 @@ namespace CtrlUI
                     //Update the clock without date
                     UpdateClock();
 
-                    //Force focus on an element
-                    if (vMainMenuElementFocus.FocusTarget != null)
-                    {
-                        await FocusOnElement(vMainMenuElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
-                    }
-                    else if (vMainMenuElementFocus.FocusListBox != null)
-                    {
-                        await FocusOnListbox(vMainMenuElementFocus.FocusListBox, false, false, vMainMenuElementFocus.FocusIndex);
-                    }
-                    else
-                    {
-                        await FocusOnElement(vMainMenuElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
-                    }
-
-                    //Reset previous focus
-                    vMainMenuElementFocus.Reset();
+                    //Focus on the previous focus element
+                    await Popup_PreviousFocusForce(vMainMenuElementFocus);
                 }
             }
             catch { }
@@ -135,16 +114,8 @@ namespace CtrlUI
                     //Update popup variables
                     vPopupElementTarget = ShowPopup;
 
-                    //Save previous focused element
-                    if (Keyboard.FocusedElement != null)
-                    {
-                        vPopupElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
-                        if (vPopupElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
-                        {
-                            vPopupElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vPopupElementFocus.FocusPrevious);
-                            vPopupElementFocus.FocusIndex = vPopupElementFocus.FocusListBox.SelectedIndex;
-                        }
-                    }
+                    //Save the previous focus element
+                    Popup_PreviousFocusSave(vPopupElementFocus, null);
 
                     //Show the popup with animation
                     AVAnimations.Ani_Visibility(ShowPopup, true, true, 0.10);
@@ -196,22 +167,8 @@ namespace CtrlUI
 
                     while (vPopupElementTarget.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
-                    //Force focus on an element
-                    if (vPopupElementFocus.FocusTarget != null)
-                    {
-                        await FocusOnElement(vPopupElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
-                    }
-                    else if (vPopupElementFocus.FocusListBox != null)
-                    {
-                        await FocusOnListbox(vPopupElementFocus.FocusListBox, false, false, vPopupElementFocus.FocusIndex);
-                    }
-                    else
-                    {
-                        await FocusOnElement(vPopupElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
-                    }
-
-                    //Reset previous focus
-                    vPopupElementFocus.Reset();
+                    //Focus on the previous focus element
+                    await Popup_PreviousFocusForce(vPopupElementFocus);
                 }
             }
             catch { }
@@ -284,6 +241,58 @@ namespace CtrlUI
                     vDispatcherTimer.Stop();
                 };
                 vDispatcherTimer.Start();
+            }
+            catch { }
+        }
+
+        //Save the previous focus element
+        static void Popup_PreviousFocusSave(FrameworkElementFocus frameworkElementFocus, FrameworkElement previousFocus)
+        {
+            try
+            {
+                if (previousFocus != null)
+                {
+                    frameworkElementFocus.FocusPrevious = previousFocus;
+                    if (frameworkElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
+                    {
+                        frameworkElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElementFocus.FocusPrevious);
+                        frameworkElementFocus.FocusIndex = frameworkElementFocus.FocusListBox.SelectedIndex;
+                    }
+                }
+                else if (Keyboard.FocusedElement != null)
+                {
+                    frameworkElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
+                    if (frameworkElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
+                    {
+                        frameworkElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElementFocus.FocusPrevious);
+                        frameworkElementFocus.FocusIndex = frameworkElementFocus.FocusListBox.SelectedIndex;
+                    }
+                }
+            }
+            catch { }
+        }
+
+        //Focus on the previous focus element
+        async Task Popup_PreviousFocusForce(FrameworkElementFocus frameworkElementFocus)
+        {
+            try
+            {
+                //Force focus on an element
+                if (frameworkElementFocus.FocusTarget != null)
+                {
+                    await FocusOnElement(frameworkElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
+                }
+                else if (frameworkElementFocus.FocusListBox != null)
+                {
+                    await FocusOnListbox(frameworkElementFocus.FocusListBox, false, false, frameworkElementFocus.FocusIndex);
+                }
+                else
+                {
+                    await FocusOnElement(frameworkElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
+                }
+
+                //Reset the previous focus
+                frameworkElementFocus.Reset();
             }
             catch { }
         }

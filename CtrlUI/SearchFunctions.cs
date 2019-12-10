@@ -2,8 +2,6 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
@@ -39,16 +37,8 @@ namespace CtrlUI
                 //Show the search popup
                 PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
-                //Save previous focused element
-                if (Keyboard.FocusedElement != null)
-                {
-                    vSearchElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
-                    if (vSearchElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
-                    {
-                        vSearchElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vSearchElementFocus.FocusPrevious);
-                        vSearchElementFocus.FocusIndex = vSearchElementFocus.FocusListBox.SelectedIndex;
-                    }
-                }
+                //Save the previous focus element
+                Popup_PreviousFocusSave(vSearchElementFocus, null);
 
                 //Show the popup with animation
                 AVAnimations.Ani_Visibility(grid_Popup_Search, true, true, 0.10);
@@ -143,22 +133,8 @@ namespace CtrlUI
                         await Task.Delay(10);
                     }
 
-                    //Force focus on an element
-                    if (vSearchElementFocus.FocusTarget != null)
-                    {
-                        await FocusOnElement(vSearchElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
-                    }
-                    else if (vSearchElementFocus.FocusListBox != null)
-                    {
-                        await FocusOnListbox(vSearchElementFocus.FocusListBox, false, false, vSearchElementFocus.FocusIndex);
-                    }
-                    else
-                    {
-                        await FocusOnElement(vSearchElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
-                    }
-
-                    //Reset previous focus
-                    vSearchElementFocus.Reset();
+                    //Focus on the previous focus element
+                    await Popup_PreviousFocusForce(vSearchElementFocus);
                 }
             }
             catch { }

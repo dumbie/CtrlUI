@@ -8,9 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
@@ -23,7 +21,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Show the File Picker Popup
-        async Task Popup_Show_FilePicker(string TargetPath, int TargetIndex, bool StoreIndex, FrameworkElement PreviousFocus)
+        async Task Popup_Show_FilePicker(string TargetPath, int TargetIndex, bool StoreIndex, FrameworkElement previousFocus)
         {
             try
             {
@@ -34,24 +32,7 @@ namespace CtrlUI
                 }
 
                 //Save previous focus element
-                if (PreviousFocus != null)
-                {
-                    vFilePickerElementFocus.FocusPrevious = PreviousFocus;
-                    if (vFilePickerElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
-                    {
-                        vFilePickerElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vFilePickerElementFocus.FocusPrevious);
-                        vFilePickerElementFocus.FocusIndex = vFilePickerElementFocus.FocusListBox.SelectedIndex;
-                    }
-                }
-                else if (!vFilePickerOpen && Keyboard.FocusedElement != null)
-                {
-                    vFilePickerElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
-                    if (vFilePickerElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
-                    {
-                        vFilePickerElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vFilePickerElementFocus.FocusPrevious);
-                        vFilePickerElementFocus.FocusIndex = vFilePickerElementFocus.FocusListBox.SelectedIndex;
-                    }
-                }
+                Popup_PreviousFocusSave(vFilePickerElementFocus, previousFocus);
 
                 //Reset file picker variables
                 vFilePickerCompleted = false;
@@ -499,22 +480,8 @@ namespace CtrlUI
 
                 while (grid_Popup_FilePicker.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
-                //Force focus on an element
-                if (vFilePickerElementFocus.FocusTarget != null)
-                {
-                    await FocusOnElement(vFilePickerElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
-                }
-                else if (vFilePickerElementFocus.FocusListBox != null)
-                {
-                    await FocusOnListbox(vFilePickerElementFocus.FocusListBox, false, false, vFilePickerElementFocus.FocusIndex);
-                }
-                else
-                {
-                    await FocusOnElement(vFilePickerElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
-                }
-
-                //Reset previous focus
-                vFilePickerElementFocus.Reset();
+                //Focus on the previous focus element
+                await Popup_PreviousFocusForce(vFilePickerElementFocus);
             }
             catch { }
         }

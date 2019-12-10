@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
@@ -27,16 +24,8 @@ namespace CtrlUI
                     //Play the opening sound
                     PlayInterfaceSound(vInterfaceSoundVolume, "PromptOpen", false);
 
-                    //Save previous focused element
-                    if (Keyboard.FocusedElement != null)
-                    {
-                        vMessageBoxElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
-                        if (vMessageBoxElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
-                        {
-                            vMessageBoxElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vMessageBoxElementFocus.FocusPrevious);
-                            vMessageBoxElementFocus.FocusIndex = vMessageBoxElementFocus.FocusListBox.SelectedIndex;
-                        }
-                    }
+                    //Save the previous focus element
+                    Popup_PreviousFocusSave(vMessageBoxElementFocus, null);
                 }
 
                 //Reset messagebox variables
@@ -140,21 +129,7 @@ namespace CtrlUI
                 }
 
                 //Force focus on an element
-                if (vMessageBoxElementFocus.FocusTarget != null)
-                {
-                    await FocusOnElement(vMessageBoxElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
-                }
-                else if (vMessageBoxElementFocus.FocusListBox != null)
-                {
-                    await FocusOnListbox(vMessageBoxElementFocus.FocusListBox, false, false, vMessageBoxElementFocus.FocusIndex);
-                }
-                else
-                {
-                    await FocusOnElement(vMessageBoxElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
-                }
-
-                //Reset previous focus
-                vMessageBoxElementFocus.Reset();
+                await Popup_PreviousFocusForce(vMessageBoxElementFocus);
             }
             catch { }
         }

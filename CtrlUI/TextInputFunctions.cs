@@ -1,8 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
@@ -54,16 +52,8 @@ namespace CtrlUI
                 //Play the opening sound
                 PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
-                //Save previous focused element
-                if (Keyboard.FocusedElement != null)
-                {
-                    vTextInputElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
-                    if (vTextInputElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
-                    {
-                        vTextInputElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vTextInputElementFocus.FocusPrevious);
-                        vTextInputElementFocus.FocusIndex = vTextInputElementFocus.FocusListBox.SelectedIndex;
-                    }
-                }
+                //Save the previous focus element
+                Popup_PreviousFocusSave(vTextInputElementFocus, null);
 
                 //Show the popup with animation
                 AVAnimations.Ani_Visibility(grid_Popup_TextInput, true, true, 0.10);
@@ -169,22 +159,8 @@ namespace CtrlUI
                         await Task.Delay(10);
                     }
 
-                    //Force focus on an element
-                    if (vTextInputElementFocus.FocusTarget != null)
-                    {
-                        await FocusOnElement(vTextInputElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
-                    }
-                    else if (vTextInputElementFocus.FocusListBox != null)
-                    {
-                        await FocusOnListbox(vTextInputElementFocus.FocusListBox, false, false, vTextInputElementFocus.FocusIndex);
-                    }
-                    else
-                    {
-                        await FocusOnElement(vTextInputElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
-                    }
-
-                    //Reset previous focus
-                    vTextInputElementFocus.Reset();
+                    //Focus on the previous focus element
+                    await Popup_PreviousFocusForce(vTextInputElementFocus);
                 }
             }
             catch { }

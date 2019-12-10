@@ -4,10 +4,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
-using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
 
@@ -79,16 +76,8 @@ namespace CtrlUI
                 //Show the search popup
                 PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
-                //Save previous focused element
-                if (Keyboard.FocusedElement != null)
-                {
-                    vColorPickerElementFocus.FocusPrevious = (FrameworkElement)Keyboard.FocusedElement;
-                    if (vColorPickerElementFocus.FocusPrevious.GetType() == typeof(ListBoxItem))
-                    {
-                        vColorPickerElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(vColorPickerElementFocus.FocusPrevious);
-                        vColorPickerElementFocus.FocusIndex = vColorPickerElementFocus.FocusListBox.SelectedIndex;
-                    }
-                }
+                //Save the previous focus element
+                Popup_PreviousFocusSave(vColorPickerElementFocus, null);
 
                 //Show the popup with animation
                 AVAnimations.Ani_Visibility(grid_Popup_ColorPicker, true, true, 0.10);
@@ -159,22 +148,8 @@ namespace CtrlUI
 
                     while (grid_Popup_ColorPicker.Visibility == Visibility.Visible) { await Task.Delay(10); }
 
-                    //Force focus on an element
-                    if (vColorPickerElementFocus.FocusTarget != null)
-                    {
-                        await FocusOnElement(vColorPickerElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);
-                    }
-                    else if (vColorPickerElementFocus.FocusListBox != null)
-                    {
-                        await FocusOnListbox(vColorPickerElementFocus.FocusListBox, false, false, vColorPickerElementFocus.FocusIndex);
-                    }
-                    else
-                    {
-                        await FocusOnElement(vColorPickerElementFocus.FocusPrevious, false, vProcessCurrent.MainWindowHandle);
-                    }
-
-                    //Reset previous focus
-                    vColorPickerElementFocus.Reset();
+                    //Focus on the previous focus element
+                    await Popup_PreviousFocusForce(vColorPickerElementFocus);
                 }
             }
             catch { }
