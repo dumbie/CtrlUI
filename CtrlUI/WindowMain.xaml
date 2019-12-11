@@ -266,6 +266,10 @@
                         <Image Source="Assets/Icons/Shutdown.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Close CtrlUI or shutdown the PC" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
+                    <StackPanel Name="menuButtonEmptyRecycleBin" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Remove.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Empty the Windows recycle bin" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
                     <StackPanel Name="menuButtonSettings" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Settings.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Open application settings" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -804,7 +808,11 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <ListBox Grid.Row="0" Name="lb_FilePicker" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemString}" Style="{StaticResource ListBoxVertical}"/>
-                        <Button Grid.Row="1" Margin="0,10,0,10" Name="grid_Popup_FilePicker_button_SelectFolder" Content="Select the currently opened folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <StackPanel Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center">
+                            <Button Margin="0,0,0,10" Name="grid_Popup_FilePicker_button_SelectFolder" Content="Select the currently opened folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_ClipboardStatus" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_PasteStatus" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        </StackPanel>
                     </Grid>
 
                     <styles:ScrollViewerLoopVertical ScrollLoopStep="2" Grid.Column="1" Style="{StaticResource ScrollViewerVertical}" Width="320" x:Name="grid_Popup_FilePicker_stackpanel_Description" Visibility="Collapsed">

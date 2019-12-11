@@ -88,20 +88,23 @@ namespace CtrlUI
                 answerSort.Name = sortType;
                 Answers.Add(answerSort);
 
-                //DataBindString answerCopy = new DataBindString();
-                //answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Copy.png" }, IntPtr.Zero, -1);
-                //answerCopy.Name = "Copy file or folder";
-                //Answers.Add(answerCopy);
+                DataBindString answerCopy = new DataBindString();
+                answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Copy.png" }, IntPtr.Zero, -1);
+                answerCopy.Name = "Copy the file or folder";
+                Answers.Add(answerCopy);
 
-                //DataBindString answerCut = new DataBindString();
-                //answerCut.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Cut.png" }, IntPtr.Zero, -1);
-                //answerCut.Name = "Cut file or folder";
-                //Answers.Add(answerCut);
+                DataBindString answerCut = new DataBindString();
+                answerCut.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Cut.png" }, IntPtr.Zero, -1);
+                answerCut.Name = "Cut the file or folder";
+                Answers.Add(answerCut);
 
-                //DataBindString answerPaste = new DataBindString();
-                //answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Paste.png" }, IntPtr.Zero, -1);
-                //answerPaste.Name = "Paste file or folder";
-                //Answers.Add(answerPaste);
+                DataBindString answerPaste = new DataBindString();
+                if (vClipboardFile != null)
+                {
+                    answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Paste.png" }, IntPtr.Zero, -1);
+                    answerPaste.Name = "Paste (" + vClipboardType + ") " + vClipboardFile.Name;
+                    Answers.Add(answerPaste);
+                }
 
                 DataBindString answerRename = new DataBindString();
                 answerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1);
@@ -126,6 +129,21 @@ namespace CtrlUI
                     if (result == answerSort)
                     {
                         await FilePicker_SortFilesFolders(false);
+                    }
+                    //Copy file or folder
+                    else if (result == answerCopy)
+                    {
+                        FilePicker_FileCopy(selectedItem);
+                    }
+                    //Cut file or folder
+                    else if (result == answerCut)
+                    {
+                        FilePicker_FileCut(selectedItem);
+                    }
+                    //Paste file or folder
+                    else if (result == answerPaste)
+                    {
+                        FilePicker_FilePaste();
                     }
                     //Rename file or folder
                     else if (result == answerRename)

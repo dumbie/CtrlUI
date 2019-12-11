@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
@@ -99,17 +100,17 @@ namespace CtrlUI
 
                 DataBindString AnswerRemove = new DataBindString();
                 AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
-                AnswerRemove.Name = "Remove shortcut file";
+                AnswerRemove.Name = "Move shortcut file to recycle bin";
                 Answers.Add(AnswerRemove);
 
                 DataBindString AnswerRename = new DataBindString();
                 AnswerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1);
-                AnswerRename.Name = "Rename shortcut file";
+                AnswerRename.Name = "Rename the shortcut file";
                 Answers.Add(AnswerRename);
 
                 DataBindString AnswerHide = new DataBindString();
                 AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Hide.png" }, IntPtr.Zero, -1);
-                AnswerHide.Name = "Hide shortcut file";
+                AnswerHide.Name = "Hide the shortcut file";
                 Answers.Add(AnswerHide);
 
                 DataBindString cancelString = new DataBindString();
@@ -128,8 +129,12 @@ namespace CtrlUI
                         //Remove shortcut file if exists
                         if (File.Exists(dataBindApp.ShortcutPath))
                         {
-                            //Delete the shortcut file
-                            File.Delete(dataBindApp.ShortcutPath);
+                            //Move the shortcut file to recycle bin
+                            SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
+                            shFileOpstruct.wFunc = FILEOP_FUNC.FO_DELETE;
+                            shFileOpstruct.pFrom = dataBindApp.ShortcutPath + "\0\0";
+                            shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_ALLOWUNDO | FILEOP_FLAGS.FOF_NOCONFIRMATION;
+                            SHFileOperation(ref shFileOpstruct);
 
                             //Remove application from the list
                             await RemoveAppFromList(dataBindApp, false, false, true);

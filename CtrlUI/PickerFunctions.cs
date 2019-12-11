@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
@@ -913,6 +914,171 @@ namespace CtrlUI
             catch { }
         }
 
+        //Set copy file from the file picker
+        void FilePicker_FileCopy(DataBindFile dataBindFile)
+        {
+            try
+            {
+                //Check the file or folder
+                if (dataBindFile.Type == "PreDirectory" || dataBindFile.Type == "GoUp")
+                {
+                    Popup_Show_Status("Close", "Invalid file or folder");
+                    Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                    return;
+                }
+
+                Popup_Show_Status("Copy", "Copying file or folder");
+                Debug.WriteLine("Copying file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+
+                //Set the clipboard variables
+                vClipboardFile = dataBindFile;
+                vClipboardType = "Copy";
+
+                //Update the interface text
+                grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (Copy) " + vClipboardFile.Name;
+            }
+            catch { }
+        }
+
+        //Set cut file from the file picker
+        void FilePicker_FileCut(DataBindFile dataBindFile)
+        {
+            try
+            {
+                //Check the file or folder
+                if (dataBindFile.Type == "PreDirectory" || dataBindFile.Type == "GoUp")
+                {
+                    Popup_Show_Status("Close", "Invalid file or folder");
+                    Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                    return;
+                }
+
+                Popup_Show_Status("Cut", "Cutting file or folder");
+                Debug.WriteLine("Cutting file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+
+                //Set the clipboard variables
+                vClipboardFile = dataBindFile;
+                vClipboardType = "Cut";
+
+                //Update the interface text
+                grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (Cut) " + vClipboardFile.Name;
+            }
+            catch { }
+        }
+
+        //Paste file from the file picker
+        void FilePicker_FilePaste()
+        {
+            try
+            {
+                //Get the current file picker path
+                string oldFilePath = vClipboardFile.PathFile;
+                string newFileName = Path.GetFileNameWithoutExtension(oldFilePath);
+                string newFileExtension = Path.GetExtension(oldFilePath);
+                string newFileDirectory = Path.GetFullPath(vFilePickerCurrentPath);
+                string newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
+
+                //Move or copy the file or folder
+                if (vClipboardType == "Cut")
+                {
+                    Popup_Show_Status("Cut", "Moving file or folder");
+                    grid_Popup_FilePicker_textblock_PasteStatus.Text = "Moving: " + oldFilePath;
+                    Debug.WriteLine("Moving file or folder: " + vClipboardFile.Name + " to " + newFilePath);
+
+                    //Update the paste status text
+                    grid_Popup_FilePicker_textblock_PasteStatus.Text = string.Empty;
+
+                    //Move file or folder
+                    FileAttributes fileAttribute = File.GetAttributes(oldFilePath);
+                    if (fileAttribute.HasFlag(FileAttributes.Directory))
+                    {
+                        Directory.Move(oldFilePath, newFilePath);
+                    }
+                    else
+                    {
+                        File.Move(oldFilePath, newFilePath);
+                    }
+
+                    //Add the file or folder to the list
+                    List_FilePicker.Add(vClipboardFile);
+
+                    //Update the clipboard status text
+                    grid_Popup_FilePicker_textblock_ClipboardStatus.Text = string.Empty;
+
+                    //Reset the clipboard
+                    vClipboardFile = null;
+                    vClipboardType = string.Empty;
+                }
+                else
+                {
+                    Popup_Show_Status("Copy", "Copying file or folder");
+                    grid_Popup_FilePicker_textblock_PasteStatus.Text = "Copying: " + oldFilePath;
+                    Debug.WriteLine("Copying file or folder: " + vClipboardFile.Name + " path: " + oldFilePath);
+
+                    //Copy file or folder
+                    FileAttributes fileAttribute = File.GetAttributes(oldFilePath);
+                    if (fileAttribute.HasFlag(FileAttributes.Directory))
+                    {
+                        //Check if the directory exists
+                        if (Directory.Exists(newFilePath))
+                        {
+                            //Count existing file names
+                            int fileCount = Directory.GetDirectories(newFileDirectory, "*" + newFileName + "*").Count();
+
+                            //Update the file name
+                            newFileName += " - Copy (" + fileCount + ")";
+                            newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
+                        }
+
+                        //Recreate all the directories
+                        foreach (string newDirectory in Directory.GetDirectories(oldFilePath, "*", SearchOption.AllDirectories))
+                        {
+                            Directory.CreateDirectory(newDirectory.Replace(oldFilePath, newFilePath));
+                        }
+
+                        //Copy the files to the directories
+                        foreach (string newFile in Directory.GetFiles(oldFilePath, "*.*", SearchOption.AllDirectories))
+                        {
+                            File.Copy(newFile, newFile.Replace(oldFilePath, newFilePath), true);
+                        }
+                    }
+                    else
+                    {
+                        //Check if the file exists
+                        if (File.Exists(newFilePath))
+                        {
+                            //Count existing file names
+                            int fileCount = Directory.GetFiles(newFileDirectory, "*" + newFileName+ "*").Count();
+
+                            //Update the file name
+                            newFileName += " - Copy (" + fileCount + ")";
+                            newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
+                        }
+
+                        //Copy file or folder
+                        grid_Popup_FilePicker_textblock_PasteStatus.Text = "Copying: " + oldFilePath;
+                        File.Copy(oldFilePath, newFilePath);
+
+                        //Update file name in new clipboard
+                        DataBindFile updatedClipboard = CloneClassObject(vClipboardFile);
+                        updatedClipboard.Name = newFileName + newFileExtension;
+                        updatedClipboard.PathFile = newFilePath;
+
+                        //Add the file or folder to the list
+                        List_FilePicker.Add(updatedClipboard);
+
+                        //Update the clipboard status text
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = string.Empty;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Popup_Show_Status("Paste", "Failed pasting");
+                Debug.WriteLine("Failed pasting file or folder: " + ex.Message);
+            }
+        }
+
         //Rename file from the file picker
         async Task FilePicker_FileRename(DataBindFile dataBindFile)
         {
@@ -933,24 +1099,38 @@ namespace CtrlUI
                 string textInputString = await Popup_ShowHide_TextInput("Rename file or folder", dataBindFile.Name, "Rename the file or folder");
                 if (!string.IsNullOrWhiteSpace(textInputString))
                 {
-                    string shortcutDirectory = Path.GetDirectoryName(dataBindFile.PathFile);
-                    string fileExtension = Path.GetExtension(dataBindFile.PathFile);
-                    string newFileName = shortcutDirectory + "\\" + textInputString + fileExtension;
+                    string oldFilePath = dataBindFile.PathFile;
+                    string newFileName = Path.GetFileNameWithoutExtension(textInputString);
+                    string newFileExtension = Path.GetExtension(textInputString);
+                    string newFileDirectory = Path.GetFullPath(oldFilePath);
+                    string newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
 
                     //Move file or folder
-                    FileAttributes fileAttribute = File.GetAttributes(dataBindFile.PathFile);
+                    FileAttributes fileAttribute = File.GetAttributes(oldFilePath);
                     if (fileAttribute.HasFlag(FileAttributes.Directory))
                     {
-                        Directory.Move(dataBindFile.PathFile, newFileName);
+                        //Check if the folder exists
+                        if (Directory.Exists(newFilePath))
+                        {
+                            newFileName += " - Rename";
+                            newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
+                        }
+                        Directory.Move(oldFilePath, newFilePath);
                     }
                     else
                     {
-                        File.Move(dataBindFile.PathFile, newFileName);
+                        //Check if the file exists
+                        if (File.Exists(newFilePath))
+                        {
+                            newFileName += " - Rename";
+                            newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
+                        }
+                        File.Move(oldFilePath, newFilePath);
                     }
 
                     //Update file name in listbox
-                    dataBindFile.Name = textInputString;
-                    dataBindFile.PathFile = newFileName;
+                    dataBindFile.Name = newFileName + newFileExtension;
+                    dataBindFile.PathFile = newFilePath;
 
                     Popup_Show_Status("Rename", "Renamed file or folder");
                     Debug.WriteLine("Renamed file or folder to: " + textInputString);
@@ -980,26 +1160,18 @@ namespace CtrlUI
                 Debug.WriteLine("Removing file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                 //Remove file or folder
+                SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
+                shFileOpstruct.wFunc = FILEOP_FUNC.FO_DELETE;
+                shFileOpstruct.pFrom = dataBindFile.PathFile + "\0\0";
                 if (useRecycleBin)
                 {
-                    SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
-                    shFileOpstruct.wFunc = FILEOP_FUNC.FO_DELETE;
-                    shFileOpstruct.pFrom = dataBindFile.PathFile + "\0\0";
                     shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_ALLOWUNDO | FILEOP_FLAGS.FOF_NOCONFIRMATION;
-                    SHFileOperation(ref shFileOpstruct);
                 }
                 else
                 {
-                    FileAttributes fileAttribute = File.GetAttributes(dataBindFile.PathFile);
-                    if (fileAttribute.HasFlag(FileAttributes.Directory))
-                    {
-                        Directory.Delete(dataBindFile.PathFile, true);
-                    }
-                    else
-                    {
-                        File.Delete(dataBindFile.PathFile);
-                    }
+                    shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_NOCONFIRMATION;
                 }
+                SHFileOperation(ref shFileOpstruct);
 
                 //Remove file from the listbox
                 await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile);
@@ -1012,6 +1184,20 @@ namespace CtrlUI
                 Popup_Show_Status("Rename", "Failed removing");
                 Debug.WriteLine("Failed removing file or folder: " + ex.Message);
             }
+        }
+
+        //Empty the Windows Recycle Bin
+        void RecycleBin_Empty()
+        {
+            try
+            {
+                Popup_Show_Status("Remove", "Emptying recycle bin");
+                Debug.WriteLine("Emptying the Windows recycle bin.");
+
+                //Empty the windows recycle bin
+                SHEmptyRecycleBin(IntPtr.Zero, null, RecycleBin_FLAGS.SHRB_NOCONFIRMATION);
+            }
+            catch { }
         }
     }
 }

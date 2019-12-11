@@ -85,7 +85,7 @@ namespace CtrlUI
         public static FrameworkElementFocus vMainMenuElementFocus = new FrameworkElementFocus();
 
         //Sort Variables
-        public static string vSortType = "Number"; //Number/Name
+        public static string vSortType = "Number"; //Number or Name
 
         //MessageBox Variables
         public static bool vMessageBoxOpen = false;
