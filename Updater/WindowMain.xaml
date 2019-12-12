@@ -14,7 +14,7 @@
 
     <StackPanel Margin="10,5,10,5">
         <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Updater"/>
-        <ProgressBar Name="progressbar_Status" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch" IsIndeterminate="True"/>
+        <ProgressBar Name="progressbar_Status" Margin="0,5,0,0" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch" IsIndeterminate="True"/>
         <TextBlock Name="textblock_Status" Style="{StaticResource TextBlockGray}" Text="Checking for new application update."/>
     </StackPanel>
 </Window>

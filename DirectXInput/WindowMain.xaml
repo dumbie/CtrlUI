@@ -117,7 +117,7 @@
                     <Grid Grid.Row="0">
                         <StackPanel>
                             <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Mapping"/>
-                            <ProgressBar Margin="0,25,0,0" Name="pb_UpdateProgress" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch" Value="100"/>
+                            <ProgressBar Height="2" Margin="0,25,0,0" Name="pb_UpdateProgress" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch" Value="100"/>
                         </StackPanel>
                     </Grid>
 

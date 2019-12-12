@@ -181,7 +181,7 @@ namespace CtrlUI
                 {
                     string shortcutDirectory = Path.GetDirectoryName(dataBindApp.ShortcutPath);
                     string fileExtension = Path.GetExtension(dataBindApp.ShortcutPath);
-                    string newFileName = shortcutDirectory + "\\" + textInputString + fileExtension;
+                    string newFileName = Path.GetFullPath(shortcutDirectory + "\\" + textInputString + fileExtension);
 
                     File.Move(dataBindApp.ShortcutPath, newFileName);
                     dataBindApp.Name = textInputString;

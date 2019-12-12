@@ -143,7 +143,15 @@ namespace CtrlUI
                     //Paste file or folder
                     else if (result == answerPaste)
                     {
-                        FilePicker_FilePaste();
+                        async void TaskAction()
+                        {
+                            try
+                            {
+                                await FilePicker_FilePaste();
+                            }
+                            catch { }
+                        }
+                        await AVActions.TaskStart(TaskAction, null);
                     }
                     //Rename file or folder
                     else if (result == answerRename)
