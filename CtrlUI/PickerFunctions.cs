@@ -97,8 +97,9 @@ namespace CtrlUI
                     {
                         try
                         {
-                            BitmapImage ImageFile = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + stringPicker[1] + ".png" }, IntPtr.Zero, -1);
-                            List_FilePicker.Add(new DataBindFile() { Type = "File", Name = stringPicker[0], PathFile = stringPicker[1], ImageBitmap = ImageFile });
+                            BitmapImage imageFile = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + stringPicker[1] + ".png" }, IntPtr.Zero, -1);
+                            DataBindFile dataBindFile = new DataBindFile() { Type = "File", Name = stringPicker[0], PathFile = stringPicker[1], ImageBitmap = imageFile };
+                            await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
                         }
                         catch { }
                     }
@@ -113,24 +114,28 @@ namespace CtrlUI
                     grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Collapsed;
                     grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
 
-                    BitmapImage ImageFolder = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1);
+                    BitmapImage imageFolder = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1);
 
                     //Add my documents and pictures folder
-                    List_FilePicker.Add(new DataBindFile() { Type = "PreDirectory", Name = "My Pictures", ImageBitmap = ImageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) });
-                    List_FilePicker.Add(new DataBindFile() { Type = "PreDirectory", Name = "My Documents", ImageBitmap = ImageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) });
+                    DataBindFile dataBindFilePictures = new DataBindFile() { Type = "PreDirectory", Name = "My Pictures", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
+                    DataBindFile dataBindFileDocuments = new DataBindFile() { Type = "PreDirectory", Name = "My Documents", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDocuments, false, false);
 
-                    //Check and set the previous path
+                    //Check and add the previous path
                     if (!string.IsNullOrWhiteSpace(vFilePickerPreviousPath))
                     {
-                        List_FilePicker.Add(new DataBindFile() { Type = "PreDirectory", Name = "Previous Path", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = ImageFolder, PathFile = vFilePickerPreviousPath });
+                        DataBindFile dataBindFilePreviousPath = new DataBindFile() { Type = "PreDirectory", Name = "Previous Path", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolder, PathFile = vFilePickerPreviousPath };
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePreviousPath, false, false);
                     }
 
-                    //Add no file load options
+                    //Add launch without a file option
                     if (vFilePickerShowNoFile)
                     {
-                        string FileDescription = "Launch application without a file";
-                        BitmapImage FileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
-                        List_FilePicker.Add(new DataBindFile() { Type = "File", Name = FileDescription, Description = FileDescription + ".", ImageBitmap = FileImage, PathFile = "" });
+                        string fileDescription = "Launch application without a file";
+                        BitmapImage fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
+                        DataBindFile dataBindFileWithoutFile = new DataBindFile() { Type = "File", Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutFile, false, false);
                     }
 
                     //Add all disk drives that are connected
@@ -148,7 +153,8 @@ namespace CtrlUI
                             //Check if the disk is currently connected
                             if (Disk.IsReady)
                             {
-                                List_FilePicker.Add(new DataBindFile() { Type = "Directory", Name = Disk.Name, NameSub = Disk.VolumeLabel, ImageBitmap = ImageFolder, PathFile = Disk.Name });
+                                DataBindFile dataBindFileDisk = new DataBindFile() { Type = "Directory", Name = Disk.Name, NameSub = Disk.VolumeLabel, ImageBitmap = imageFolder, PathFile = Disk.Name };
+                                await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDisk, false, false);
                             }
                         }
                         catch { }
@@ -161,7 +167,8 @@ namespace CtrlUI
                         {
                             if (Directory.Exists(Locations.Path))
                             {
-                                List_FilePicker.Add(new DataBindFile() { Type = "Directory", Name = Locations.Path, NameSub = Locations.Name, ImageBitmap = ImageFolder, PathFile = Locations.Path });
+                                DataBindFile dataBindFileLocation = new DataBindFile() { Type = "Directory", Name = Locations.Path, NameSub = Locations.Name, ImageBitmap = imageFolder, PathFile = Locations.Path };
+                                await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileLocation, false, false);
                             }
                         }
                         catch { }
@@ -178,7 +185,7 @@ namespace CtrlUI
                     grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
 
                     //Add uwp applications to the filepicker list
-                    ListLoadAllUwpApplications(List_FilePicker);
+                    await ListLoadAllUwpApplications(List_FilePicker);
 
                     //Sort the uwp application list by name
                     SortObservableCollection(List_FilePicker, x => x.Name, null, true);
@@ -191,25 +198,29 @@ namespace CtrlUI
                     //Add the Go up directory to the list
                     if (Path.GetPathRoot(targetPath) != targetPath)
                     {
-                        BitmapImage ImageBack = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Up.png" }, IntPtr.Zero, -1);
-                        List_FilePicker.Add(new DataBindFile() { Type = "GoUp", Name = "Go up", NameSub = "(" + targetPath + ")", Description = "Go up to the previous folder.", ImageBitmap = ImageBack, PathFile = Path.GetDirectoryName(targetPath) });
+                        BitmapImage imageBack = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Up.png" }, IntPtr.Zero, -1);
+                        DataBindFile dataBindFileGoUp = new DataBindFile() { Type = "GoUp", Name = "Go up", NameSub = "(" + targetPath + ")", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = Path.GetDirectoryName(targetPath) };
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
                     else
                     {
-                        BitmapImage ImageBack = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Up.png" }, IntPtr.Zero, -1);
-                        List_FilePicker.Add(new DataBindFile() { Type = "GoUp", Name = "Go up", NameSub = "(" + targetPath + ")", Description = "Go up to the previous folder.", ImageBitmap = ImageBack, PathFile = "PC" });
+                        BitmapImage imageBack = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Up.png" }, IntPtr.Zero, -1);
+                        DataBindFile dataBindFileGoUp = new DataBindFile() { Type = "GoUp", Name = "Go up", NameSub = "(" + targetPath + ")", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = "PC" };
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
 
                     //Add launch emulator options
                     if (vFilePickerShowRoms)
                     {
-                        string FileDescription = "Launch the emulator without a rom loaded";
-                        BitmapImage FileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1);
-                        List_FilePicker.Add(new DataBindFile() { Type = "File", Name = FileDescription, Description = FileDescription + ".", ImageBitmap = FileImage, PathFile = "" });
+                        string fileDescription = "Launch the emulator without a rom loaded";
+                        BitmapImage fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1);
+                        DataBindFile dataBindFileWithoutRom = new DataBindFile() { Type = "File", Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutRom, false, false);
 
-                        string RomDescription = "Launch the emulator with this folder as rom";
-                        BitmapImage RomImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1);
-                        List_FilePicker.Add(new DataBindFile() { Type = "File", Name = RomDescription, Description = RomDescription + ".", ImageBitmap = RomImage, PathFile = targetPath });
+                        string romDescription = "Launch the emulator with this folder as rom";
+                        BitmapImage romImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1);
+                        DataBindFile dataBindFileFolderRom = new DataBindFile() { Type = "File", Name = romDescription, Description = romDescription + ".", ImageBitmap = romImage, PathFile = targetPath };
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolderRom, false, false);
                     }
 
                     //Enable the side navigate buttons
@@ -234,9 +245,9 @@ namespace CtrlUI
                             }
 
                             //Fill the file picker listbox with directories
-                            BitmapImage FolderImage = null;
-                            string FolderDescription = string.Empty;
-                            foreach (DirectoryInfo ListDirectory in directoryPaths)
+                            BitmapImage folderImage = null;
+                            string folderDescription = string.Empty;
+                            foreach (DirectoryInfo listDirectory in directoryPaths)
                             {
                                 try
                                 {
@@ -244,31 +255,32 @@ namespace CtrlUI
                                     if (vFilePickerShowRoms)
                                     {
                                         //Get folder name
-                                        string FolderName = ListDirectory.Name.ToLower();
+                                        string folderName = listDirectory.Name.ToLower();
 
                                         //Get description names
-                                        string FolderRomsTxt = "Assets\\Roms\\" + FolderName + ".txt";
-                                        string FolderImageTxt = ListDirectory.FullName + "\\" + FolderName + ".txt";
-                                        FolderDescription = FileToString(new string[] { FolderRomsTxt, FolderImageTxt });
+                                        string folderRomsTxt = "Assets\\Roms\\" + folderName + ".txt";
+                                        string folderImageTxt = Path.Combine(listDirectory.FullName, folderName + ".txt");
+                                        folderDescription = FileToString(new string[] { folderRomsTxt, folderImageTxt });
 
                                         //Get image names
-                                        string FolderRomsJpg = "Assets\\Roms\\" + FolderName + ".jpg";
-                                        string FolderRomsPng = "Assets\\Roms\\" + FolderName + ".png";
-                                        string FolderImageJpg = ListDirectory.FullName + "\\" + FolderName + ".jpg";
-                                        string FolderImagePng = ListDirectory.FullName + "\\" + FolderName + ".png";
+                                        string folderRomsJpg = "Assets\\Roms\\" + folderName + ".jpg";
+                                        string folderRomsPng = "Assets\\Roms\\" + folderName + ".png";
+                                        string folderImageJpg = Path.Combine(listDirectory.FullName, folderName + ".jpg");
+                                        string folderImagePng = Path.Combine(listDirectory.FullName, folderName + ".png");
 
-                                        FolderImage = FileToBitmapImage(new string[] { FolderRomsPng, FolderImagePng, FolderRomsJpg, FolderImageJpg, "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, 180);
+                                        folderImage = FileToBitmapImage(new string[] { folderRomsPng, folderImagePng, folderRomsJpg, folderImageJpg, "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, 180);
                                     }
                                     else
                                     {
-                                        FolderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, 50);
+                                        folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, 50);
                                     }
 
                                     //Add folder to the list
-                                    bool HiddenFileFolder = (ListDirectory.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden;
-                                    if (!HiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"]))
+                                    bool hiddenFileFolder = listDirectory.Attributes.HasFlag(FileAttributes.Hidden);
+                                    if (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"]))
                                     {
-                                        List_FilePicker.Add(new DataBindFile() { Type = "Directory", Name = ListDirectory.Name, Description = FolderDescription, DateModified = ListDirectory.LastWriteTime, ImageBitmap = FolderImage, PathFile = ListDirectory.FullName });
+                                        DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listDirectory.Name, Description = folderDescription, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
+                                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
                                     }
                                 }
                                 catch { }
@@ -297,10 +309,10 @@ namespace CtrlUI
                                 directoryPathsFiles = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).OrderByDescending(x => x.LastWriteTime).ToArray();
                             }
 
-                            string[] ImageFilter = new string[] { "jpg", "png" };
-                            string[] DescriptionFilter = new string[] { "txt" };
-                            FileInfo[] RomImagesDirectory = new FileInfo[] { };
-                            FileInfo[] RomDescriptionsDirectory = new FileInfo[] { };
+                            string[] imageFilter = new string[] { "jpg", "png" };
+                            string[] descriptionFilter = new string[] { "txt" };
+                            FileInfo[] romImagesDirectory = new FileInfo[] { };
+                            FileInfo[] romDescriptionsDirectory = new FileInfo[] { };
 
                             //Filter rom images and descriptions
                             if (vFilePickerShowRoms)
@@ -308,13 +320,13 @@ namespace CtrlUI
                                 DirectoryInfo directoryInfoRoms = new DirectoryInfo("Assets\\Roms");
                                 FileInfo[] directoryPathsRoms = directoryInfoRoms.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(z => z.Name).ToArray();
 
-                                FileInfo[] RomsImages = directoryPathsRoms.Where(file => ImageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                                FileInfo[] FilesImages = directoryPathsFiles.Where(file => ImageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                                RomImagesDirectory = FilesImages.Concat(RomsImages).OrderByDescending(s => s.Name.Length).ToArray();
+                                FileInfo[] RomsImages = directoryPathsRoms.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                                FileInfo[] FilesImages = directoryPathsFiles.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                                romImagesDirectory = FilesImages.Concat(RomsImages).OrderByDescending(s => s.Name.Length).ToArray();
 
-                                FileInfo[] RomsDescriptions = directoryPathsRoms.Where(file => DescriptionFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                                FileInfo[] FilesDescriptions = directoryPathsFiles.Where(file => DescriptionFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                                RomDescriptionsDirectory = FilesDescriptions.Concat(RomsDescriptions).OrderByDescending(s => s.Name.Length).ToArray();
+                                FileInfo[] RomsDescriptions = directoryPathsRoms.Where(file => descriptionFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                                FileInfo[] FilesDescriptions = directoryPathsFiles.Where(file => descriptionFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                                romDescriptionsDirectory = FilesDescriptions.Concat(RomsDescriptions).OrderByDescending(s => s.Name.Length).ToArray();
                             }
 
                             //Filter files in and out
@@ -328,9 +340,9 @@ namespace CtrlUI
                             }
 
                             //Fill the file picker listbox with files based on filter
-                            BitmapImage FileImage = null;
-                            string FileDescription = string.Empty;
-                            foreach (FileInfo ListFile in directoryPathsFiles)
+                            BitmapImage fileImage = null;
+                            string fileDescription = string.Empty;
+                            foreach (FileInfo listFile in directoryPathsFiles)
                             {
                                 try
                                 {
@@ -338,18 +350,18 @@ namespace CtrlUI
                                     if (vFilePickerShowRoms)
                                     {
                                         //Get rom file names
-                                        string RomFoundPathImage = string.Empty;
-                                        string RomFoundPathDescription = string.Empty;
-                                        string RomNameWithoutExtension = Path.GetFileNameWithoutExtension(ListFile.Name).Replace(" ", string.Empty).ToLower();
+                                        string romFoundPathImage = string.Empty;
+                                        string romFoundPathDescription = string.Empty;
+                                        string romNameWithoutExtension = Path.GetFileNameWithoutExtension(listFile.Name).Replace(" ", string.Empty).ToLower();
 
                                         //Check if rom directory has image
-                                        foreach (FileInfo FoundRom in RomImagesDirectory)
+                                        foreach (FileInfo FoundRom in romImagesDirectory)
                                         {
                                             try
                                             {
-                                                if (RomNameWithoutExtension.Contains(Path.GetFileNameWithoutExtension(FoundRom.Name.Replace(" ", string.Empty).ToLower())))
+                                                if (romNameWithoutExtension.Contains(Path.GetFileNameWithoutExtension(FoundRom.Name.Replace(" ", string.Empty).ToLower())))
                                                 {
-                                                    RomFoundPathImage = FoundRom.FullName;
+                                                    romFoundPathImage = FoundRom.FullName;
                                                     break;
                                                 }
                                             }
@@ -357,48 +369,49 @@ namespace CtrlUI
                                         }
 
                                         //Check if rom directory has description
-                                        foreach (FileInfo FoundRom in RomDescriptionsDirectory)
+                                        foreach (FileInfo FoundRom in romDescriptionsDirectory)
                                         {
                                             try
                                             {
-                                                if (RomNameWithoutExtension.Contains(Path.GetFileNameWithoutExtension(FoundRom.Name.Replace(" ", string.Empty).ToLower())))
+                                                if (romNameWithoutExtension.Contains(Path.GetFileNameWithoutExtension(FoundRom.Name.Replace(" ", string.Empty).ToLower())))
                                                 {
-                                                    RomFoundPathDescription = FoundRom.FullName;
+                                                    romFoundPathDescription = FoundRom.FullName;
                                                     break;
                                                 }
                                             }
                                             catch { }
                                         }
 
-                                        FileDescription = FileToString(new string[] { RomFoundPathDescription });
-                                        FileImage = FileToBitmapImage(new string[] { RomFoundPathImage, "Rom" }, IntPtr.Zero, 180);
+                                        fileDescription = FileToString(new string[] { romFoundPathDescription });
+                                        fileImage = FileToBitmapImage(new string[] { romFoundPathImage, "Rom" }, IntPtr.Zero, 180);
                                     }
                                     else
                                     {
-                                        FileDescription = string.Empty;
-                                        if (ListFile.FullName.ToLower().EndsWith(".jpg") || ListFile.FullName.ToLower().EndsWith(".png"))
+                                        fileDescription = string.Empty;
+                                        if (listFile.FullName.ToLower().EndsWith(".jpg") || listFile.FullName.ToLower().EndsWith(".png"))
                                         {
-                                            FileImage = FileToBitmapImage(new string[] { ListFile.FullName }, IntPtr.Zero, 50);
+                                            fileImage = FileToBitmapImage(new string[] { listFile.FullName }, IntPtr.Zero, 50);
                                         }
-                                        else if (ListFile.FullName.ToLower().EndsWith(".exe"))
+                                        else if (listFile.FullName.ToLower().EndsWith(".exe"))
                                         {
-                                            FileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
+                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
                                         }
-                                        else if (ListFile.FullName.ToLower().EndsWith(".bat"))
+                                        else if (listFile.FullName.ToLower().EndsWith(".bat"))
                                         {
-                                            FileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, -1);
+                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, -1);
                                         }
                                         else
                                         {
-                                            FileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/File.png" }, IntPtr.Zero, -1);
+                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/File.png" }, IntPtr.Zero, -1);
                                         }
                                     }
 
                                     //Add file to the list
-                                    bool HiddenFileFolder = (ListFile.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden;
-                                    if (!HiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"]))
+                                    bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
+                                    if (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"]))
                                     {
-                                        List_FilePicker.Add(new DataBindFile() { Type = "File", Name = ListFile.Name, Description = FileDescription, DateModified = ListFile.LastWriteTime, ImageBitmap = FileImage, PathFile = ListFile.FullName });
+                                        DataBindFile dataBindFileFile = new DataBindFile() { Type = "File", Name = listFile.Name, Description = fileDescription, DateModified = listFile.LastWriteTime, ImageBitmap = fileImage, PathFile = listFile.FullName };
+                                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
                                     }
                                 }
                                 catch { }
@@ -414,7 +427,7 @@ namespace CtrlUI
                 }
 
                 //Focus on the file picker listbox
-                await FocusOnListbox(lb_FilePicker, false, false, targetIndex);
+                await ListboxFocus(lb_FilePicker, false, false, targetIndex);
             }
             catch { }
         }
@@ -746,7 +759,8 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Steam", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile), Argument = "-bigpicture", QuickLaunch = true }, true, true);
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Steam", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile), Argument = "-bigpicture", QuickLaunch = true };
+                    await AddAppToList(dataBindApp, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -769,7 +783,8 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Origin", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Origin", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                    await AddAppToList(dataBindApp, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -792,7 +807,8 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Uplay", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Uplay", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                    await AddAppToList(dataBindApp, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -815,7 +831,8 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "GoG", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "GoG", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                    await AddAppToList(dataBindApp, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -838,7 +855,8 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Battle.net", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Battle.net", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                    await AddAppToList(dataBindApp, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -861,7 +879,8 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Remote Play", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Remote Play", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                    await AddAppToList(dataBindApp, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -884,7 +903,8 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Kodi", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Kodi", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                    await AddAppToList(dataBindApp, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -907,7 +927,8 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Add application to the list
-                    AddAppToList(new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Spotify", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) }, true, true);
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Spotify", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                    await AddAppToList(dataBindApp, true, true);
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
@@ -987,7 +1008,7 @@ namespace CtrlUI
                 string newFileName = Path.GetFileNameWithoutExtension(oldFilePath);
                 string newFileExtension = Path.GetExtension(oldFilePath);
                 string newFileDirectory = Path.GetFullPath(vFilePickerCurrentPath);
-                string newFilePath = Path.GetFullPath(newFileDirectory + "\\" + newFileName + newFileExtension);
+                string newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
 
                 //Move or copy the file or folder
                 if (vClipboardType == "Cut")
@@ -1031,7 +1052,7 @@ namespace CtrlUI
 
                             //Update the file name
                             newFileName += " - Cut (" + fileCount + ")";
-                            newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
+                            newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
                         }
                         Directory.Move(oldFilePath, newFilePath);
                     }
@@ -1045,7 +1066,7 @@ namespace CtrlUI
 
                             //Update the file name
                             newFileName += " - Cut (" + fileCount + ")";
-                            newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
+                            newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
                         }
                         File.Move(oldFilePath, newFilePath);
                     }
@@ -1058,8 +1079,11 @@ namespace CtrlUI
                     //Update the file or folder in the list
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        List_FilePicker.Add(updatedClipboard);
+                        //Remove the listbox item
                         await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, vClipboardFile);
+
+                        //Add and select the listbox item
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
                     });
 
                     //Reset the clipboard
@@ -1088,7 +1112,7 @@ namespace CtrlUI
 
                             //Update the file name
                             newFileName += " - Copy (" + fileCount + ")";
-                            newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
+                            newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
                         }
 
                         //Update file name in new clipboard
@@ -1097,9 +1121,10 @@ namespace CtrlUI
                         updatedClipboard.PathFile = newFilePath;
 
                         //Update the file or folder in the list
-                        AVActions.ActionDispatcherInvoke(delegate
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
                         {
-                            List_FilePicker.Add(updatedClipboard);
+                            //Add and select the listbox item
+                            await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
                         });
 
                         //Copy the files to the directories
@@ -1141,7 +1166,7 @@ namespace CtrlUI
 
                             //Update the file name
                             newFileName += " - Copy (" + fileCount + ")";
-                            newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
+                            newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
                         }
 
                         //Update file name in new clipboard
@@ -1150,9 +1175,10 @@ namespace CtrlUI
                         updatedClipboard.PathFile = newFilePath;
 
                         //Update the file or folder in the list
-                        AVActions.ActionDispatcherInvoke(delegate
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
                         {
-                            List_FilePicker.Add(updatedClipboard);
+                            //Add and select the listbox item
+                            await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
                         });
 
                         //Update the paste status popup
@@ -1216,7 +1242,7 @@ namespace CtrlUI
                     string newFileName = Path.GetFileNameWithoutExtension(textInputString);
                     string newFileExtension = Path.GetExtension(textInputString);
                     string newFileDirectory = Path.GetDirectoryName(oldFilePath);
-                    string newFilePath = Path.GetFullPath(newFileDirectory + "\\" + newFileName + newFileExtension);
+                    string newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
 
                     //Move file or folder
                     FileAttributes fileAttribute = File.GetAttributes(oldFilePath);
@@ -1230,7 +1256,7 @@ namespace CtrlUI
 
                             //Update the file name
                             newFileName += " - Rename (" + fileCount + ")";
-                            newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
+                            newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
                         }
                         Directory.Move(oldFilePath, newFilePath);
                     }
@@ -1244,7 +1270,7 @@ namespace CtrlUI
 
                             //Update the file name
                             newFileName += " - Rename (" + fileCount + ")";
-                            newFilePath = newFileDirectory + "\\" + newFileName + newFileExtension;
+                            newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
                         }
                         File.Move(oldFilePath, newFilePath);
                     }

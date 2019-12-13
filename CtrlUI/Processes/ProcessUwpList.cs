@@ -237,9 +237,10 @@ namespace CtrlUI
                                 listProcessMulti.Add(processMultiNew);
 
                                 //Add the process to the list
-                                AVActions.ActionDispatcherInvoke(delegate
+                                DataBindApp dataBindApp = new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processName, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime };
+                                await AVActions.ActionDispatcherInvokeAsync(async delegate
                                 {
-                                    List_Processes.Add(new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processName, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime });
+                                    await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
                                 });
                             }
                         }
@@ -253,8 +254,8 @@ namespace CtrlUI
             catch { }
         }
 
-        //List all uwp applications
-        void ListLoadAllUwpApplications(ObservableCollection<DataBindFile> targetList)
+        //List all available uwp applications
+        async Task ListLoadAllUwpApplications(ObservableCollection<DataBindFile> targetList)
         {
             try
             {
@@ -300,10 +301,11 @@ namespace CtrlUI
                         }
 
                         //Load the application image
-                        BitmapImage UwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, IntPtr.Zero, 50);
+                        BitmapImage uwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, IntPtr.Zero, 50);
 
                         //Add the application to the list
-                        targetList.Add(new DataBindFile() { Type = "App", Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.FamilyNameId, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = UwpListImage });
+                        DataBindFile dataBindFile = new DataBindFile() { Type = "App", Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.FamilyNameId, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };
+                        await ListBoxAddItem(null, targetList, dataBindFile, false, false);
                     }
                     catch { }
                 }

@@ -234,9 +234,10 @@ namespace CtrlUI
                             listProcessMulti.Add(processMultiNew);
 
                             //Add the process to the list
-                            AVActions.ActionDispatcherInvoke(delegate
+                            DataBindApp dataBindApp = new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processName, NameExe = processNameExe, PathExe = processPathExe, Argument = processArgument, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime };
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate
                             {
-                                List_Processes.Add(new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processName, NameExe = processNameExe, PathExe = processPathExe, Argument = processArgument, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime });
+                                await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
                             });
                         }
                         catch (Exception ex)

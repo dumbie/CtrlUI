@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -12,7 +13,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Read apps from Json file (Deserialize)
-        void JsonLoadApps()
+        async Task JsonLoadApps()
         {
             try
             {
@@ -29,7 +30,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        AddAppToList(dataBindApp, false, true);
+                        await AddAppToList(dataBindApp, false, true);
                     }
                     catch { }
                 }

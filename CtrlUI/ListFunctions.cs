@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
@@ -82,12 +81,6 @@ namespace CtrlUI
                     PlayInterfaceSound(vInterfaceSoundVolume, "Refresh", false);
                 }
 
-                //Load all the shortcuts
-                if (!skipShortcutLoading)
-                {
-                    await ListLoadShortcuts(false);
-                }
-
                 //Load all the active processes
                 IEnumerable<Process> processesList = null;
                 if (!skipProcessLoading || !skipRunningStatus)
@@ -103,6 +96,12 @@ namespace CtrlUI
                     {
                         CheckAppRunningStatus(processesList);
                     }
+                }
+
+                //Load all the shortcuts
+                if (!skipShortcutLoading)
+                {
+                    await ListLoadShortcuts(false);
                 }
 
                 //Refresh the application list stats
@@ -182,67 +181,6 @@ namespace CtrlUI
                 {
                     await ListBoxRemoveAll(lb_Processes, List_Processes, x => !x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !activeProcessesWindow.Contains(z.WindowHandle)) || x.ProcessMulti.Any(z => z.WindowHandle == IntPtr.Zero));
                 });
-            }
-            catch { }
-        }
-
-        //Bind the lists to the listbox elements
-        void ListBoxBindLists()
-        {
-            try
-            {
-                lb_Games.IsTextSearchEnabled = true;
-                lb_Games.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Games, "Name");
-                lb_Games.ItemsSource = List_Games;
-
-                lb_Apps.IsTextSearchEnabled = true;
-                lb_Apps.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Apps, "Name");
-                lb_Apps.ItemsSource = List_Apps;
-
-                lb_Emulators.IsTextSearchEnabled = true;
-                lb_Emulators.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Emulators, "Name");
-                lb_Emulators.ItemsSource = List_Emulators;
-
-                lb_Shortcuts.IsTextSearchEnabled = true;
-                lb_Shortcuts.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Shortcuts, "Name");
-                lb_Shortcuts.ItemsSource = List_Shortcuts;
-
-                lb_Processes.IsTextSearchEnabled = true;
-                lb_Processes.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Processes, "Name");
-                lb_Processes.ItemsSource = List_Processes;
-
-                lb_ColorPicker.ItemsSource = List_ColorPicker;
-
-                lb_Search.IsTextSearchEnabled = true;
-                lb_Search.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_Search, "Name");
-                lb_Search.ItemsSource = List_Search;
-
-                lb_FilePicker.IsTextSearchEnabled = true;
-                lb_FilePicker.IsTextSearchCaseSensitive = false;
-                TextSearch.SetTextPath(lb_FilePicker, "Name");
-                lb_FilePicker.ItemsSource = List_FilePicker;
-            }
-            catch { }
-        }
-
-        //Select the first listbox item
-        void ListBoxSelectIndexes()
-        {
-            try
-            {
-                lb_Search.SelectedIndex = 0;
-                lb_Games.SelectedIndex = 0;
-                lb_Apps.SelectedIndex = 0;
-                lb_Emulators.SelectedIndex = 0;
-                lb_Shortcuts.SelectedIndex = 0;
-                lb_Processes.SelectedIndex = 0;
-                lb_FilePicker.SelectedIndex = 0;
             }
             catch { }
         }

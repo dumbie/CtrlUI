@@ -114,6 +114,7 @@
     <Compile Include="AppUpdate.cs" />
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
+    <Compile Include="ListBoxFunctions.cs" />
     <Compile Include="Processes\ProcessMultiCheck.cs" />
     <Compile Include="Processes\ProcessMultiSelect.cs" />
     <Compile Include="Processes\ProcessUwpRestart.cs" />

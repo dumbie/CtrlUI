@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -97,19 +96,19 @@ namespace CtrlUI
             try
             {
                 //Set application shortcut paths
-                string TargetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
-                string TargetName = Assembly.GetEntryAssembly().GetName().Name;
-                string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + TargetName + ".url";
+                string targetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
+                string targetName = Assembly.GetEntryAssembly().GetName().Name;
+                string targetFileShortcut = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), targetName + ".url");
 
                 //Check if the shortcut already exists
-                if (!File.Exists(TargetFileShortcut))
+                if (!File.Exists(targetFileShortcut))
                 {
                     Debug.WriteLine("Adding application to Windows startup.");
-                    using (StreamWriter StreamWriter = new StreamWriter(TargetFileShortcut))
+                    using (StreamWriter StreamWriter = new StreamWriter(targetFileShortcut))
                     {
                         StreamWriter.WriteLine("[InternetShortcut]");
-                        StreamWriter.WriteLine("URL=" + TargetFilePath);
-                        StreamWriter.WriteLine("IconFile=" + TargetFilePath.Replace("file:///", ""));
+                        StreamWriter.WriteLine("URL=" + targetFilePath);
+                        StreamWriter.WriteLine("IconFile=" + targetFilePath.Replace("file:///", ""));
                         StreamWriter.WriteLine("IconIndex=0");
                         StreamWriter.Flush();
                     }
@@ -117,9 +116,9 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Removing application from Windows startup.");
-                    if (File.Exists(TargetFileShortcut))
+                    if (File.Exists(targetFileShortcut))
                     {
-                        File.Delete(TargetFileShortcut);
+                        File.Delete(targetFileShortcut);
                     }
                 }
             }

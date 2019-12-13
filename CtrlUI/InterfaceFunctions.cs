@@ -2,7 +2,6 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -11,9 +10,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputKeyboard;
-using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -335,153 +331,6 @@ namespace CtrlUI
                 UpdateAppRunningIcon(img_Menu_BlizzardStatus, processesList.Any(x => x.ProcessName.ToLower() == "battle.net"));
             }
             catch { }
-        }
-
-        //Force focus on a listbox
-        async Task FocusOnListbox(ListBox FocusListBox, bool FirstIndex, bool LastIndex, int IndexNumber)
-        {
-            try
-            {
-                //Select first available listbox
-                if (FocusListBox != null && FocusListBox.IsEnabled && FocusListBox.Visibility == Visibility.Visible && FocusListBox.Items.Count > 0)
-                {
-                    //Update the listbox layout
-                    FocusListBox.UpdateLayout();
-
-                    //Select a listbox item index
-                    ListBoxSelectIndex(FocusListBox, FirstIndex, LastIndex, IndexNumber);
-
-                    //Focus on the listbox and item
-                    int SelectedIndex = FocusListBox.SelectedIndex;
-
-                    //Scroll to the listbox item
-                    object ScrollListBoxItem = FocusListBox.Items[SelectedIndex];
-                    FocusListBox.ScrollIntoView(ScrollListBoxItem);
-
-                    //Force focus on an element
-                    ListBoxItem FocusListBoxItem = (ListBoxItem)FocusListBox.ItemContainerGenerator.ContainerFromInd‌​ex(SelectedIndex);
-                    await FocusOnElement(FocusListBoxItem, false, vProcessCurrent.MainWindowHandle);
-
-                    Debug.WriteLine("Focusing on listbox index: " + SelectedIndex);
-                }
-                else
-                {
-                    Debug.WriteLine("Listbox cannot be focused on, pressing tab key.");
-                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                }
-            }
-            catch
-            {
-                Debug.WriteLine("Failed focusing on the listbox, pressing tab key.");
-                KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-            }
-        }
-
-        //Select a listbox item index
-        void ListBoxSelectIndex(ListBox FocusListBox, bool FirstIndex, bool LastIndex, int IndexNumber)
-        {
-            try
-            {
-                if (FirstIndex)
-                {
-                    FocusListBox.SelectedIndex = 0;
-                }
-                else if (LastIndex)
-                {
-                    FocusListBox.SelectedIndex = FocusListBox.Items.Count - 1;
-                }
-                else if (IndexNumber != -1)
-                {
-                    if (IndexNumber >= FocusListBox.Items.Count)
-                    {
-                        FocusListBox.SelectedIndex = FocusListBox.Items.Count - 1;
-                    }
-                    else
-                    {
-                        FocusListBox.SelectedIndex = IndexNumber;
-                    }
-                }
-
-                //Check the list index
-                if (FocusListBox.SelectedIndex == -1)
-                {
-                    FocusListBox.SelectedIndex = 0;
-                }
-            }
-            catch
-            {
-                Debug.WriteLine("Failed selecting the listbox index.");
-            }
-        }
-
-        //Remove listbox item from a listbox
-        async Task ListBoxRemoveItem<T>(ListBox listBox, Collection<T> listCollection, T removeItem)
-        {
-            try
-            {
-                //Store the current listbox items count
-                int listBoxItemCount = listBox.Items.Count;
-
-                //Store the currently selected index
-                int listBoxSelectedIndex = listBox.SelectedIndex;
-
-                //Remove the listbox item from list
-                listCollection.Remove(removeItem);
-
-                //Check if there is a listbox item removed
-                if (listBoxItemCount != listBox.Items.Count)
-                {
-                    if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
-                    {
-                        Debug.WriteLine(listBox.Name + " listbox item has been removed, selecting the listbox.");
-                        await FocusOnListbox(listBox, false, false, listBoxSelectedIndex);
-                    }
-                    else
-                    {
-                        Debug.WriteLine(listBox.Name + " listbox item has been removed, selecting the index.");
-                        ListBoxSelectIndex(listBox, false, false, listBoxSelectedIndex);
-                    }
-                }
-            }
-            catch
-            {
-                Debug.WriteLine("Failed removing item from the listbox.");
-            }
-        }
-
-        //Remove all matching items from a listbox
-        async Task ListBoxRemoveAll<T>(ListBox listBox, Collection<T> listCollection, Func<T, bool> removeCondition)
-        {
-            try
-            {
-                //Store the current listbox items count
-                int listBoxItemCount = listBox.Items.Count;
-
-                //Store the currently selected index
-                int listBoxSelectedIndex = listBox.SelectedIndex;
-
-                //Remove the listbox items from list
-                listCollection.RemoveAll(removeCondition);
-
-                //Check if there is a listbox item removed
-                if (listBoxItemCount != listBox.Items.Count)
-                {
-                    if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
-                    {
-                        Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed, selecting the listbox.");
-                        await FocusOnListbox(listBox, false, false, listBoxSelectedIndex);
-                    }
-                    else
-                    {
-                        Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed, selecting the index.");
-                        ListBoxSelectIndex(listBox, false, false, listBoxSelectedIndex);
-                    }
-                }
-            }
-            catch
-            {
-                Debug.WriteLine("Failed removing all from the listbox.");
-            }
         }
 
         //Show the mouse cursor

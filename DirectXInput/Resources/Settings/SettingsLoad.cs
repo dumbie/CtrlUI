@@ -36,11 +36,14 @@ namespace DirectXInput
                 cb_SettingsShortcutLaunchKeyboardController.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchKeyboardController"]);
 
                 //Set the application name to string to check shortcuts
-                string TargetName_Admin = Assembly.GetEntryAssembly().GetName().Name;
+                string targetName = Assembly.GetEntryAssembly().GetName().Name;
 
                 //Check if application is set to launch on Windows startup
-                string TargetFileStartup_Admin = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + TargetName_Admin + ".url";
-                if (File.Exists(TargetFileStartup_Admin)) { cb_SettingsWindowsStartup.IsChecked = true; }
+                string targetFileStartup = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), targetName + ".url");
+                if (File.Exists(targetFileStartup))
+                {
+                    cb_SettingsWindowsStartup.IsChecked = true;
+                }
             }
             catch (Exception Ex)
             {

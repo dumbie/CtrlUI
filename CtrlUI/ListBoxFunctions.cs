@@ -1,0 +1,277 @@
+﻿using ArnoldVinkCode;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVInterface;
+using static CtrlUI.AppVariables;
+
+namespace CtrlUI
+{
+    partial class WindowMain
+    {
+        //Bind the lists to the listbox elements
+        void ListBoxBindLists()
+        {
+            try
+            {
+                lb_Games.IsTextSearchEnabled = true;
+                lb_Games.IsTextSearchCaseSensitive = false;
+                TextSearch.SetTextPath(lb_Games, "Name");
+                lb_Games.ItemsSource = List_Games;
+
+                lb_Apps.IsTextSearchEnabled = true;
+                lb_Apps.IsTextSearchCaseSensitive = false;
+                TextSearch.SetTextPath(lb_Apps, "Name");
+                lb_Apps.ItemsSource = List_Apps;
+
+                lb_Emulators.IsTextSearchEnabled = true;
+                lb_Emulators.IsTextSearchCaseSensitive = false;
+                TextSearch.SetTextPath(lb_Emulators, "Name");
+                lb_Emulators.ItemsSource = List_Emulators;
+
+                lb_Shortcuts.IsTextSearchEnabled = true;
+                lb_Shortcuts.IsTextSearchCaseSensitive = false;
+                TextSearch.SetTextPath(lb_Shortcuts, "Name");
+                lb_Shortcuts.ItemsSource = List_Shortcuts;
+
+                lb_Processes.IsTextSearchEnabled = true;
+                lb_Processes.IsTextSearchCaseSensitive = false;
+                TextSearch.SetTextPath(lb_Processes, "Name");
+                lb_Processes.ItemsSource = List_Processes;
+
+                lb_ColorPicker.ItemsSource = List_ColorPicker;
+
+                lb_Search.IsTextSearchEnabled = true;
+                lb_Search.IsTextSearchCaseSensitive = false;
+                TextSearch.SetTextPath(lb_Search, "Name");
+                lb_Search.ItemsSource = List_Search;
+
+                lb_FilePicker.IsTextSearchEnabled = true;
+                lb_FilePicker.IsTextSearchCaseSensitive = false;
+                TextSearch.SetTextPath(lb_FilePicker, "Name");
+                lb_FilePicker.ItemsSource = List_FilePicker;
+            }
+            catch { }
+        }
+
+        //Select the first listbox item
+        void ListBoxResetIndexes()
+        {
+            try
+            {
+                lb_Games.SelectedIndex = 0;
+                lb_Apps.SelectedIndex = 0;
+                lb_Emulators.SelectedIndex = 0;
+                lb_Shortcuts.SelectedIndex = 0;
+                lb_Processes.SelectedIndex = 0;
+                lb_FilePicker.SelectedIndex = 0;
+                lb_ColorPicker.SelectedIndex = 0;
+                lb_MessageBox.SelectedIndex = 0;
+                lb_Search.SelectedIndex = 0;
+            }
+            catch { }
+        }
+
+        //Force focus on a listbox
+        async Task ListboxFocus(ListBox focusListBox, bool firstIndex, bool lastIndex, int indexNumber)
+        {
+            try
+            {
+                //Select first available listbox
+                if (focusListBox != null && focusListBox.IsEnabled && focusListBox.Visibility == Visibility.Visible && focusListBox.Items.Count > 0)
+                {
+                    //Update the listbox layout
+                    focusListBox.UpdateLayout();
+
+                    //Select a listbox item index
+                    ListBoxSelectIndex(focusListBox, firstIndex, lastIndex, indexNumber);
+
+                    //Focus on the listbox and item
+                    int SelectedIndex = focusListBox.SelectedIndex;
+
+                    //Scroll to the listbox item
+                    object ScrollListBoxItem = focusListBox.Items[SelectedIndex];
+                    focusListBox.ScrollIntoView(ScrollListBoxItem);
+
+                    //Force focus on an element
+                    ListBoxItem FocusListBoxItem = (ListBoxItem)focusListBox.ItemContainerGenerator.ContainerFromInd‌​ex(SelectedIndex);
+                    await FocusOnElement(FocusListBoxItem, false, vProcessCurrent.MainWindowHandle);
+
+                    Debug.WriteLine("Focusing on listbox index: " + SelectedIndex);
+                }
+                else
+                {
+                    Debug.WriteLine("Listbox cannot be focused on, pressing tab key.");
+                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed focusing on the listbox, pressing tab key.");
+                KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+            }
+        }
+
+        //Select a listbox item index
+        void ListBoxSelectIndex(ListBox focusListBox, bool firstIndex, bool lastIndex, int indexNumber)
+        {
+            try
+            {
+                if (firstIndex)
+                {
+                    focusListBox.SelectedIndex = 0;
+                }
+                else if (lastIndex)
+                {
+                    focusListBox.SelectedIndex = focusListBox.Items.Count - 1;
+                }
+                else if (indexNumber != -1)
+                {
+                    if (indexNumber >= focusListBox.Items.Count)
+                    {
+                        focusListBox.SelectedIndex = focusListBox.Items.Count - 1;
+                    }
+                    else
+                    {
+                        focusListBox.SelectedIndex = indexNumber;
+                    }
+                }
+
+                //Check the list index
+                if (focusListBox.SelectedIndex == -1)
+                {
+                    focusListBox.SelectedIndex = 0;
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed selecting the listbox index.");
+            }
+        }
+
+        //Add listbox item to a list
+        async Task ListBoxAddItem<T>(ListBox listBox, Collection<T> listCollection, T addItem, bool insertItem, bool selectItem)
+        {
+            try
+            {
+                //Debug.WriteLine("Adding item to list collection: " + listCollection);
+
+                //Add or insert the item to the list
+                if (insertItem)
+                {
+                    listCollection.Insert(0, addItem);
+                }
+                else
+                {
+                    listCollection.Add(addItem);
+                }
+
+                //Select the item in the list
+                if (selectItem && listBox != null)
+                {
+                    if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
+                    {
+                        Debug.WriteLine(listBox.Name + " listbox item has been added, selecting the listbox.");
+                        if (insertItem)
+                        {
+                            await ListboxFocus(listBox, true, false, -1);
+                        }
+                        else
+                        {
+                            await ListboxFocus(listBox, false, true, -1);
+                        }
+                    }
+                    else
+                    {
+                        Debug.WriteLine(listBox.Name + " listbox item has been added, selecting the index.");
+                        if (insertItem)
+                        {
+                            ListBoxSelectIndex(listBox, true, false, -1);
+                        }
+                        else
+                        {
+                            ListBoxSelectIndex(listBox, false, true, -1);
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        //Remove listbox item from a listbox
+        async Task ListBoxRemoveItem<T>(ListBox listBox, Collection<T> listCollection, T removeItem)
+        {
+            try
+            {
+                //Store the current listbox items count
+                int listBoxItemCount = listBox.Items.Count;
+
+                //Store the currently selected index
+                int listBoxSelectedIndex = listBox.SelectedIndex;
+
+                //Remove the listbox item from list
+                listCollection.Remove(removeItem);
+
+                //Check if there is a listbox item removed
+                if (listBoxItemCount != listBox.Items.Count)
+                {
+                    if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
+                    {
+                        Debug.WriteLine(listBox.Name + " listbox item has been removed, selecting the listbox.");
+                        await ListboxFocus(listBox, false, false, listBoxSelectedIndex);
+                    }
+                    else
+                    {
+                        Debug.WriteLine(listBox.Name + " listbox item has been removed, selecting the index.");
+                        ListBoxSelectIndex(listBox, false, false, listBoxSelectedIndex);
+                    }
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed removing item from the listbox.");
+            }
+        }
+
+        //Remove all matching items from a listbox
+        async Task ListBoxRemoveAll<T>(ListBox listBox, Collection<T> listCollection, Func<T, bool> removeCondition)
+        {
+            try
+            {
+                //Store the current listbox items count
+                int listBoxItemCount = listBox.Items.Count;
+
+                //Store the currently selected index
+                int listBoxSelectedIndex = listBox.SelectedIndex;
+
+                //Remove the listbox items from list
+                listCollection.RemoveAll(removeCondition);
+
+                //Check if there is a listbox item removed
+                if (listBoxItemCount != listBox.Items.Count)
+                {
+                    if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
+                    {
+                        Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed, selecting the listbox.");
+                        await ListboxFocus(listBox, false, false, listBoxSelectedIndex);
+                    }
+                    else
+                    {
+                        Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed, selecting the index.");
+                        ListBoxSelectIndex(listBox, false, false, listBoxSelectedIndex);
+                    }
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed removing all from the listbox.");
+            }
+        }
+    }
+}

@@ -181,7 +181,7 @@ namespace CtrlUI
                         }
 
                         //Add shortcut to the shortcuts list
-                        ShortcutAddToListWithDetails(shortcutDetails);
+                        await ShortcutAddToListWithDetails(shortcutDetails);
                     }
                     catch { }
                 }
@@ -193,7 +193,7 @@ namespace CtrlUI
         }
 
         //Add shortcut to the shortcuts list
-        void ShortcutAddToListWithDetails(ShortcutDetails shortcutDetails)
+        async Task ShortcutAddToListWithDetails(ShortcutDetails shortcutDetails)
         {
             try
             {
@@ -249,20 +249,22 @@ namespace CtrlUI
                 }
 
                 //Get icon image from the path
-                BitmapImage IconBitmapImage = null;
+                BitmapImage iconBitmapImage = null;
                 if (targetPathLower.EndsWith(".bat"))
                 {
-                    IconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.IconPath, "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, 90);
+                    shortcutLauncher = Visibility.Visible;
+                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, 90);
                 }
                 else
                 {
-                    IconBitmapImage = FileToBitmapImage(new string[] { targetPathLower, shortcutDetails.IconPath }, IntPtr.Zero, 90);
+                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, targetPathLower, shortcutDetails.IconPath }, IntPtr.Zero, 90);
                 }
 
                 //Add the shortcut to the list
-                AVActions.ActionDispatcherInvoke(delegate
+                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusLauncher = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify };
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    List_Shortcuts.Add(new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = IconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusLauncher = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify });
+                    await ListBoxAddItem(lb_Search, List_Shortcuts, dataBindApp, false, false);
                 });
             }
             catch

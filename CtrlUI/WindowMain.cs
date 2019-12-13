@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -102,10 +103,10 @@ namespace CtrlUI
                 ListBoxBindLists();
 
                 //Select the first ListBox item
-                ListBoxSelectIndexes();
+                ListBoxResetIndexes();
 
                 //Load Json stored apps
-                JsonLoadApps();
+                await JsonLoadApps();
 
                 //Load Json apps other launchers
                 JsonLoadAppsCloseLaunchers();
@@ -124,9 +125,6 @@ namespace CtrlUI
 
                 //Load Json apps blacklist process
                 JsonLoadAppsBlacklistProcess();
-
-                //Refresh the application lists
-                await RefreshApplicationLists(true, true, true, false, false, false, false);
 
                 //Update uwp application images
                 UpdateUwpApplicationImages();
@@ -153,9 +151,9 @@ namespace CtrlUI
                 }
 
                 //Focus on the first available listbox
-                if (vMainMenuElementFocus.FocusPrevious == null)
+                if (vMainMenuElementFocus.FocusPrevious == null || Keyboard.FocusedElement == null)
                 {
-                    await FocusOnListbox(TopVisibleListBoxWithItems(), true, false, -1);
+                    await ListboxFocus(TopVisibleListBoxWithItems(), true, false, -1);
                 }
 
                 //Check settings if this is the first application launch

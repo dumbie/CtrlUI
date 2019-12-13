@@ -141,7 +141,7 @@ namespace CtrlUI
                         }
 
                         //Select the previous index
-                        await FocusOnListbox(listboxSender, false, false, listboxSelectedIndex);
+                        await ListboxFocus(listboxSender, false, false, listboxSelectedIndex);
                     }
                     else if (Result == AnswerRename)
                     {
@@ -160,7 +160,7 @@ namespace CtrlUI
                         await RemoveAppFromList(dataBindApp, false, false, true);
 
                         //Select the previous index
-                        await FocusOnListbox(listboxSender, false, false, listboxSelectedIndex);
+                        await ListboxFocus(listboxSender, false, false, listboxSelectedIndex);
                     }
                 }
             }
@@ -177,15 +177,24 @@ namespace CtrlUI
 
                 //Show the text input popup
                 string textInputString = await Popup_ShowHide_TextInput("Rename shortcut", dataBindApp.Name, "Rename the shortcut file");
+
+                //Check if file name changed
+                if (textInputString == dataBindApp.Name)
+                {
+                    Debug.WriteLine("The file name did not change.");
+                    return;
+                }
+
+                //Check the changed file name
                 if (!string.IsNullOrWhiteSpace(textInputString))
                 {
                     string shortcutDirectory = Path.GetDirectoryName(dataBindApp.ShortcutPath);
                     string fileExtension = Path.GetExtension(dataBindApp.ShortcutPath);
-                    string newFileName = Path.GetFullPath(shortcutDirectory + "\\" + textInputString + fileExtension);
+                    string newFilePath = Path.Combine(shortcutDirectory, textInputString + fileExtension);
 
-                    File.Move(dataBindApp.ShortcutPath, newFileName);
+                    File.Move(dataBindApp.ShortcutPath, newFilePath);
                     dataBindApp.Name = textInputString;
-                    dataBindApp.ShortcutPath = newFileName;
+                    dataBindApp.ShortcutPath = newFilePath;
 
                     Popup_Show_Status("Rename", "Renamed shortcut");
                     Debug.WriteLine("Renamed shortcut file to: " + textInputString);
@@ -235,7 +244,7 @@ namespace CtrlUI
                         await RemoveAppFromList(dataBindApp, true, true, false);
 
                         //Select the previous index
-                        await FocusOnListbox(listboxSender, false, false, listboxSelectedIndex);
+                        await ListboxFocus(listboxSender, false, false, listboxSelectedIndex);
                     }
                 }
             }
@@ -311,7 +320,7 @@ namespace CtrlUI
                         await RefreshApplicationLists(true, false, false, false, false, false, false);
 
                         //Select the previous index
-                        await FocusOnListbox(listboxSender, false, false, listboxSelectedIndex);
+                        await ListboxFocus(listboxSender, false, false, listboxSelectedIndex);
                     }
                 }
             }

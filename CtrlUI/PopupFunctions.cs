@@ -55,7 +55,7 @@ namespace CtrlUI
                 vMainMenuOpen = true;
 
                 //Focus on the menu listbox
-                await FocusOnListbox(listbox_MainMenu, false, false, -1);
+                await ListboxFocus(listbox_MainMenu, false, false, -1);
 
                 //Update the clock with date
                 UpdateClock();
@@ -284,7 +284,7 @@ namespace CtrlUI
                 }
                 else if (frameworkElementFocus.FocusListBox != null)
                 {
-                    await FocusOnListbox(frameworkElementFocus.FocusListBox, false, false, frameworkElementFocus.FocusIndex);
+                    await ListboxFocus(frameworkElementFocus.FocusListBox, false, false, frameworkElementFocus.FocusIndex);
                 }
                 else
                 {

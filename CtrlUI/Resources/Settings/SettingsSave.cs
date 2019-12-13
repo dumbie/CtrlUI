@@ -206,12 +206,12 @@ namespace CtrlUI
         }
 
         //Save - Application Setting
-        void SettingSave(string Name, string Value)
+        void SettingSave(string name, string value)
         {
             try
             {
-                vConfiguration.AppSettings.Settings.Remove(Name);
-                vConfiguration.AppSettings.Settings.Add(Name, Value);
+                vConfiguration.AppSettings.Settings.Remove(name);
+                vConfiguration.AppSettings.Settings.Add(name, value);
                 vConfiguration.Save();
                 ConfigurationManager.RefreshSection("appSettings");
             }

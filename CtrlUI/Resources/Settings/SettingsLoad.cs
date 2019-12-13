@@ -61,15 +61,21 @@ namespace CtrlUI
                 vInterfaceSoundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) / 100;
 
                 //Set the application name to string to check shortcuts
-                string TargetName_Admin = Assembly.GetEntryAssembly().GetName().Name;
+                string targetName = Assembly.GetEntryAssembly().GetName().Name;
 
                 //Check if application is set to launch on Windows startup
-                string TargetFileStartup_Admin = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + TargetName_Admin + ".url";
-                if (File.Exists(TargetFileStartup_Admin)) { cb_SettingsWindowsStartup.IsChecked = true; }
+                string targetFileStartup = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), targetName + ".url");
+                if (File.Exists(targetFileStartup))
+                {
+                    cb_SettingsWindowsStartup.IsChecked = true;
+                }
 
                 //Check if application is added to GeForce Experience
-                string TargetFileGeforce_Admin = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\" + TargetName_Admin + ".url";
-                if (File.Exists(TargetFileGeforce_Admin)) { btn_Settings_AddGeforceExperience.Content = "Remove CtrlUI from GeForce Experience"; }
+                string targetFileGeforce = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\", targetName + ".url");
+                if (File.Exists(targetFileGeforce))
+                {
+                    btn_Settings_AddGeforceExperience.Content = "Remove CtrlUI from GeForce Experience";
+                }
             }
             catch (Exception Ex)
             {

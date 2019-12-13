@@ -53,7 +53,7 @@ namespace CtrlUI
             catch { }
         }
 
-        void Grid_Popup_Search_textbox_TextChanged(object sender, TextChangedEventArgs e)
+        async void Grid_Popup_Search_textbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace CtrlUI
                     {
                         try
                         {
-                            List_Search.Add(dataBindApp);
+                            await ListBoxAddItem(lb_Search, List_Search, dataBindApp, false, false);
                         }
                         catch { }
                     }
