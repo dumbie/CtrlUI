@@ -1352,18 +1352,33 @@ namespace CtrlUI
         }
 
         //Empty the Windows Recycle Bin
-        void RecycleBin_Empty()
+        async Task RecycleBin_Empty()
         {
             try
             {
-                Popup_Show_Status("Remove", "Emptying recycle bin");
-                Debug.WriteLine("Emptying the Windows recycle bin.");
+                List<DataBindString> messageAnswers = new List<DataBindString>();
+                DataBindString answerEmpty = new DataBindString();
+                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
+                answerEmpty.Name = "Empty recycle bin";
+                messageAnswers.Add(answerEmpty);
 
-                //Play recycle bin empty sound
-                PlayInterfaceSound(vInterfaceSoundVolume, "RecycleBinEmpty", false);
+                DataBindString answerCancel = new DataBindString();
+                answerCancel.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
+                answerCancel.Name = "Cancel";
+                messageAnswers.Add(answerCancel);
 
-                //Empty the windows recycle bin
-                SHEmptyRecycleBin(IntPtr.Zero, null, RecycleBin_FLAGS.SHRB_NOCONFIRMATION | RecycleBin_FLAGS.SHRB_NOPROGRESSUI | RecycleBin_FLAGS.SHRB_NOSOUND);
+                DataBindString messageResult = await Popup_Show_MessageBox("Empty the recycle bin?", "", "This will permanently remove all the files from your recycle bin.", messageAnswers);
+                if (messageResult == answerEmpty)
+                {
+                    Popup_Show_Status("Remove", "Emptying recycle bin");
+                    Debug.WriteLine("Emptying the Windows recycle bin.");
+
+                    //Play recycle bin empty sound
+                    PlayInterfaceSound(vInterfaceSoundVolume, "RecycleBinEmpty", false);
+
+                    //Empty the windows recycle bin
+                    SHEmptyRecycleBin(IntPtr.Zero, null, RecycleBin_FLAGS.SHRB_NOCONFIRMATION | RecycleBin_FLAGS.SHRB_NOSOUND);
+                }
             }
             catch { }
         }
