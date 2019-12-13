@@ -7,10 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
+using static LibraryShared.AppLaunchCheck;
 using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
 
@@ -131,8 +133,16 @@ namespace CtrlUI
                 //Remove application image files
                 if (removeImageFile)
                 {
-                    if (File.Exists("Assets\\Apps\\" + dataBindApp.Name + ".png")) { File.Delete("Assets\\Apps\\" + dataBindApp.Name + ".png"); }
-                    if (File.Exists("Assets\\Apps\\" + Path.GetFileNameWithoutExtension(dataBindApp.PathExe) + ".png")) { File.Delete("Assets\\Apps\\" + Path.GetFileNameWithoutExtension(dataBindApp.PathExe) + ".png"); }
+                    string imageFileTitle = "Assets\\Apps\\" + dataBindApp.Name + ".png";
+                    string imageFileExe = "Assets\\Apps\\" + Path.GetFileNameWithoutExtension(dataBindApp.PathExe) + ".png";
+                    if (File.Exists(imageFileTitle))
+                    {
+                        File.Delete(imageFileTitle);
+                    }
+                    if (File.Exists(imageFileExe))
+                    {
+                        File.Delete(imageFileExe);
+                    }
                 }
 
                 //Show removed notification
@@ -146,17 +156,16 @@ namespace CtrlUI
         }
 
         //Show the application edit popup
-        async Task Popup_Show_AppEdit(ListBox ListBox)
+        async Task Popup_Show_AppEdit(ListBox editListBox)
         {
             try
             {
-                int ListboxSelectedIndex = ListBox.SelectedIndex;
-                if (ListBox.SelectedItems.Count > 0 && ListboxSelectedIndex != -1)
+                int listboxSelectedIndex = editListBox.SelectedIndex;
+                if (editListBox.SelectedItems.Count > 0 && listboxSelectedIndex != -1)
                 {
-                    DataBindApp EditApp = (DataBindApp)ListBox.SelectedItem;
-
                     grid_Popup_Manage_txt_Title.Text = "Edit application";
                     btn_AddAppLogo.IsEnabled = true;
+                    btn_Manage_ResetAppLogo.IsEnabled = true;
                     tb_AddAppName.IsEnabled = true;
                     tb_AddAppExePath.IsEnabled = true;
                     tb_AddAppPathLaunch.IsEnabled = true;
@@ -167,8 +176,8 @@ namespace CtrlUI
                     grid_EditMoveApp.Visibility = Visibility.Visible;
 
                     //Set the variables as current edit app
-                    vEditAppListBox = ListBox;
-                    vEditAppDataBind = EditApp;
+                    vEditAppListBox = editListBox;
+                    vEditAppDataBind = (DataBindApp)editListBox.SelectedItem;
                     vEditAppCategoryPrevious = vEditAppDataBind.Category;
 
                     //Load the application category
@@ -228,8 +237,12 @@ namespace CtrlUI
         {
             try
             {
+                //Reset the current edit application
+                vEditAppDataBind = null;
+
                 grid_Popup_Manage_txt_Title.Text = "Dropped application";
                 btn_AddAppLogo.IsEnabled = true;
+                btn_Manage_ResetAppLogo.IsEnabled = true;
                 tb_AddAppName.IsEnabled = true;
                 tb_AddAppExePath.IsEnabled = true;
                 tb_AddAppPathLaunch.IsEnabled = true;
@@ -275,8 +288,12 @@ namespace CtrlUI
         {
             try
             {
+                //Reset the current edit application
+                vEditAppDataBind = null;
+
                 grid_Popup_Manage_txt_Title.Text = "Add application";
                 btn_AddAppLogo.IsEnabled = false;
+                btn_Manage_ResetAppLogo.IsEnabled = false;
                 tb_AddAppName.IsEnabled = false;
                 tb_AddAppExePath.IsEnabled = false;
                 tb_AddAppPathLaunch.IsEnabled = false;
@@ -324,6 +341,71 @@ namespace CtrlUI
             {
                 //Close the open popup
                 await Popup_Close_Top();
+            }
+            catch { }
+        }
+
+        //Reset the application image
+        void Button_Manage_ResetAppLogo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (vEditAppDataBind != null)
+                {
+                    string imageFileTitle = "Assets\\Apps\\" + vEditAppDataBind.Name + ".png";
+                    string imageFileExe = "Assets\\Apps\\" + Path.GetFileNameWithoutExtension(vEditAppDataBind.PathExe) + ".png";
+
+                    //Check the application image
+                    if (AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe))
+                    {
+                        Popup_Show_Status("Close", "Image cannot reset");
+                        Debug.WriteLine("Default application images cannot be reset.");
+                        return;
+                    }
+
+                    //Remove application image files
+                    if (File.Exists(imageFileTitle))
+                    {
+                        File.Delete(imageFileTitle);
+                    }
+                    if (File.Exists(imageFileExe))
+                    {
+                        File.Delete(imageFileExe);
+                    }
+
+                    //Reload the application image
+                    BitmapImage applicationImage = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, IntPtr.Zero, 120);
+                    img_AddAppLogo.Source = applicationImage;
+                    vEditAppDataBind.ImageBitmap = applicationImage;
+                }
+                else
+                {
+                    string imageFileTitle = "Assets\\Apps\\" + tb_AddAppName.Text + ".png";
+                    string imageFileExe = "Assets\\Apps\\" + Path.GetFileNameWithoutExtension(tb_AddAppExePath.Text) + ".png";
+
+                    //Check the application image
+                    if (AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe))
+                    {
+                        Popup_Show_Status("Close", "Image cannot reset");
+                        Debug.WriteLine("Default application images cannot be reset.");
+                        return;
+                    }
+
+                    //Remove application image files
+                    if (File.Exists(imageFileTitle))
+                    {
+                        File.Delete(imageFileTitle);
+                    }
+
+                    if (File.Exists(imageFileExe))
+                    {
+                        File.Delete(imageFileExe);
+                    }
+
+                    //Reload the application image
+                    BitmapImage applicationImage = FileToBitmapImage(new string[] { tb_AddAppName.Text, tb_AddAppExePath.Text }, IntPtr.Zero, 120);
+                    img_AddAppLogo.Source = applicationImage;
+                }
             }
             catch { }
         }
@@ -511,11 +593,12 @@ namespace CtrlUI
                     }
 
                     //Rename application logo based on name and reload it
-                    if (File.Exists("Assets\\Apps\\" + vEditAppDataBind.Name + ".png") && vEditAppDataBind.Name != tb_AddAppName.Text)
+                    string imageFileName = "Assets\\Apps\\" + vEditAppDataBind.Name + ".png";
+                    if (vEditAppDataBind.Name != tb_AddAppName.Text && File.Exists(imageFileName))
                     {
                         Debug.WriteLine("App name changed and application logo file exists so renaming it.");
                         File.Delete("Assets\\Apps\\" + tb_AddAppName.Text + ".png");
-                        File.Move("Assets\\Apps\\" + vEditAppDataBind.Name + ".png", "Assets\\Apps\\" + tb_AddAppName.Text + ".png");
+                        File.Move(imageFileName, "Assets\\Apps\\" + tb_AddAppName.Text + ".png");
                     }
 
                     //Edit application in the list

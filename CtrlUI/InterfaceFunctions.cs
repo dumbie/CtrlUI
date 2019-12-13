@@ -105,6 +105,7 @@ namespace CtrlUI
                 lb_MessageBox.PreviewMouseUp += ListBox_MessageBox_MousePressUp;
 
                 //Manage functions
+                btn_Manage_ResetAppLogo.Click += Button_Manage_ResetAppLogo_Click;
                 btn_Manage_SaveEditApp.Click += Button_Manage_SaveEditApp_Click;
                 btn_Manage_AddUwpAdd.Click += Button_Manage_AddUwpAdd_Click;
                 btn_Manage_AddAppCategory.Click += Button_ShowStringPicker;

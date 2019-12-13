@@ -642,7 +642,10 @@ namespace CtrlUI
                     while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                     if (vFilePickerCancelled) { return; }
 
-                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, IntPtr.Zero, 120);
+                    //Load and copy the new application image
+                    BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, IntPtr.Zero, 120);
+                    img_AddAppLogo.Source = applicationImage;
+                    if (vEditAppDataBind != null) { vEditAppDataBind.ImageBitmap = applicationImage; }
                     File.Copy(vFilePickerResult.PathFile, "Assets\\Apps\\" + tb_AddAppName.Text + ".png", true);
                 }
                 else if (ButtonName == "btn_AddAppExePath")
@@ -677,6 +680,7 @@ namespace CtrlUI
                     //Set application image to image preview
                     img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppName.Text, vFilePickerResult.PathFile }, IntPtr.Zero, 120);
                     btn_AddAppLogo.IsEnabled = true;
+                    btn_Manage_ResetAppLogo.IsEnabled = true;
                 }
                 else if (ButtonName == "btn_AddAppPathLaunch")
                 {
@@ -1355,8 +1359,11 @@ namespace CtrlUI
                 Popup_Show_Status("Remove", "Emptying recycle bin");
                 Debug.WriteLine("Emptying the Windows recycle bin.");
 
+                //Play recycle bin empty sound
+                PlayInterfaceSound(vInterfaceSoundVolume, "RecycleBinEmpty", false);
+
                 //Empty the windows recycle bin
-                SHEmptyRecycleBin(IntPtr.Zero, null, RecycleBin_FLAGS.SHRB_NOCONFIRMATION);
+                SHEmptyRecycleBin(IntPtr.Zero, null, RecycleBin_FLAGS.SHRB_NOCONFIRMATION | RecycleBin_FLAGS.SHRB_NOPROGRESSUI | RecycleBin_FLAGS.SHRB_NOSOUND);
             }
             catch { }
         }

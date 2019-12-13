@@ -498,8 +498,9 @@
                         <Button Name="btn_AddAppLogo" BorderBrush="#F1F1F1" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Change application image">
                             <Image Name="img_AddAppLogo" Margin="0,5,0,5" Width="120" Height="120" Source="Assets/Apps/Unknown.png"/>
                         </Button>
+                        <Button Name="btn_Manage_ResetAppLogo" Margin="0,5,0,0" Content="Reset the application image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                        <StackPanel Name="sp_AddAppName">
+                        <StackPanel Margin="0,10,0,0" Name="sp_AddAppName">
                             <TextBlock Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application name:"/>
                             <TextBox Name="tb_AddAppName" Text="Select application executable file first" VerticalContentAlignment="Center" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}"/>
                         </StackPanel>
