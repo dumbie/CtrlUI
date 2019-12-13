@@ -939,17 +939,6 @@
             </StackPanel>
         </Grid>
 
-        <!-- Status - Paste Status -->
-        <Grid Name="grid_Paste_Status" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,120,0,0" Visibility="Collapsed">
-            <Grid.Background>
-                <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
-            </Grid.Background>
-            <StackPanel VerticalAlignment="Bottom">
-                <TextBlock Name="grid_Paste_Status_Text" Margin="10,5,10,10" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}" Text="Changed"/>
-                <ProgressBar Name="grid_Paste_Status_ProgressBar" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch" Value="100"/>
-            </StackPanel>
-        </Grid>
-
         <!-- Status - Message Status -->
         <Grid Name="grid_Message_Status" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,55,0,0" Visibility="Collapsed">
             <Grid.Background>

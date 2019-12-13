@@ -999,14 +999,6 @@ namespace CtrlUI
         {
             try
             {
-                //Update the paste status popup
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    grid_Paste_Status.Visibility = Visibility.Visible;
-                    grid_Paste_Status_Text.Text = "Preparing paste";
-                    grid_Paste_Status_ProgressBar.Value = 10;
-                });
-
                 //Get the current file picker path
                 string oldFilePath = Path.GetFullPath(vClipboardFile.PathFile);
                 string newFileName = Path.GetFileNameWithoutExtension(oldFilePath);
@@ -1025,26 +1017,10 @@ namespace CtrlUI
                     {
                         Popup_Show_Status("Cut", "Invalid move folder");
                         Debug.WriteLine("Moving file or folder to the same directory.");
-
-                        //Hide the paste status popup
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            grid_Paste_Status.Visibility = Visibility.Collapsed;
-                            grid_Paste_Status_Text.Text = string.Empty;
-                            grid_Paste_Status_ProgressBar.Value = 0;
-                        });
                         return;
                     }
 
-                    //Update the paste status popup
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        grid_Paste_Status.Visibility = Visibility.Visible;
-                        grid_Paste_Status_Text.Text = "Moving (1/1) " + oldFilePath;
-                        grid_Paste_Status_ProgressBar.Value = 100;
-                    });
-
-                    //Move file or folder
+                    //Check file or folder
                     FileAttributes fileAttribute = File.GetAttributes(oldFilePath);
                     if (fileAttribute.HasFlag(FileAttributes.Directory))
                     {
@@ -1058,7 +1034,6 @@ namespace CtrlUI
                             newFileName += " - Cut (" + fileCount + ")";
                             newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
                         }
-                        Directory.Move(oldFilePath, newFilePath);
                     }
                     else
                     {
@@ -1072,7 +1047,6 @@ namespace CtrlUI
                             newFileName += " - Cut (" + fileCount + ")";
                             newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
                         }
-                        File.Move(oldFilePath, newFilePath);
                     }
 
                     //Update file name in new clipboard
@@ -1083,31 +1057,37 @@ namespace CtrlUI
                     //Update the file or folder in the list
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        //Remove the listbox item
+                        //Remove the moved listbox item
                         await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, vClipboardFile);
 
                         //Add and select the listbox item
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
                     });
 
-                    //Reset the clipboard
+                    //Reset the current clipboard
                     vClipboardFile = null;
                     vClipboardType = string.Empty;
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         grid_Popup_FilePicker_textblock_ClipboardStatus.Text = string.Empty;
                     });
+
+                    //Move file or folder
+                    SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
+                    shFileOpstruct.wFunc = FILEOP_FUNC.FO_MOVE;
+                    shFileOpstruct.pFrom = oldFilePath + "\0\0";
+                    shFileOpstruct.pTo = newFilePath + "\0\0";
+                    SHFileOperation(ref shFileOpstruct);
                 }
                 else
                 {
                     Popup_Show_Status("Copy", "Copying file or folder");
                     Debug.WriteLine("Copying file or folder: " + oldFilePath + " to " + newFilePath);
 
-                    //Copy file or folder
+                    //Check file or folder
                     FileAttributes fileAttribute = File.GetAttributes(oldFilePath);
                     if (fileAttribute.HasFlag(FileAttributes.Directory))
                     {
-                        //Improve add function to cancel file copying
                         //Check if the directory exists
                         if (Directory.Exists(newFilePath))
                         {
@@ -1117,47 +1097,6 @@ namespace CtrlUI
                             //Update the file name
                             newFileName += " - Copy (" + fileCount + ")";
                             newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
-                        }
-
-                        //Update file name in new clipboard
-                        DataBindFile updatedClipboard = CloneClassObject(vClipboardFile);
-                        updatedClipboard.Name = newFileName + newFileExtension;
-                        updatedClipboard.PathFile = newFilePath;
-
-                        //Update the file or folder in the list
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate
-                        {
-                            //Add and select the listbox item
-                            await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
-                        });
-
-                        //Copy the files to the directories
-                        string[] copyFiles = Directory.GetFiles(oldFilePath, "*", SearchOption.AllDirectories);
-                        int currentFileNumber = 1;
-                        int totalFileNumber = copyFiles.Count();
-                        foreach (string copyFile in copyFiles)
-                        {
-                            //Update the paste status popup
-                            AVActions.ActionDispatcherInvoke(delegate
-                            {
-                                grid_Paste_Status.Visibility = Visibility.Visible;
-                                grid_Paste_Status_Text.Text = "Copying (" + currentFileNumber + "/" + totalFileNumber + ") " + oldFilePath;
-                                grid_Paste_Status_ProgressBar.Value = (currentFileNumber * 100) / totalFileNumber;
-                            });
-                            currentFileNumber++;
-
-                            //Get the file copy path
-                            string copyPathFile = copyFile.Replace(oldFilePath, newFilePath);
-                            string copyPathDirectory = Path.GetDirectoryName(copyPathFile);
-
-                            //Check if the directory exists
-                            if (!Directory.Exists(copyPathDirectory))
-                            {
-                                Directory.CreateDirectory(copyPathDirectory);
-                            }
-
-                            //Copy file or folder
-                            File.Copy(copyFile, copyPathFile, true);
                         }
                     }
                     else
@@ -1172,30 +1111,26 @@ namespace CtrlUI
                             newFileName += " - Copy (" + fileCount + ")";
                             newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
                         }
-
-                        //Update file name in new clipboard
-                        DataBindFile updatedClipboard = CloneClassObject(vClipboardFile);
-                        updatedClipboard.Name = newFileName + newFileExtension;
-                        updatedClipboard.PathFile = newFilePath;
-
-                        //Update the file or folder in the list
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate
-                        {
-                            //Add and select the listbox item
-                            await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
-                        });
-
-                        //Update the paste status popup
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            grid_Paste_Status.Visibility = Visibility.Visible;
-                            grid_Paste_Status_Text.Text = "Copying (1/1) " + oldFilePath;
-                            grid_Paste_Status_ProgressBar.Value = 100;
-                        });
-
-                        //Copy file or folder
-                        File.Copy(oldFilePath, newFilePath);
                     }
+
+                    //Update file name in new clipboard
+                    DataBindFile updatedClipboard = CloneClassObject(vClipboardFile);
+                    updatedClipboard.Name = newFileName + newFileExtension;
+                    updatedClipboard.PathFile = newFilePath;
+
+                    //Update the file or folder in the list
+                    await AVActions.ActionDispatcherInvokeAsync(async delegate
+                    {
+                        //Add and select the listbox item
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
+                    });
+
+                    //Copy file or folder
+                    SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
+                    shFileOpstruct.wFunc = FILEOP_FUNC.FO_COPY;
+                    shFileOpstruct.pFrom = oldFilePath + "\0\0";
+                    shFileOpstruct.pTo = newFilePath + "\0\0";
+                    SHFileOperation(ref shFileOpstruct);
                 }
             }
             catch (Exception ex)
@@ -1203,14 +1138,6 @@ namespace CtrlUI
                 Popup_Show_Status("Paste", "Failed pasting");
                 Debug.WriteLine("Failed pasting file or folder: " + ex.Message);
             }
-
-            //Hide the paste status popup
-            AVActions.ActionDispatcherInvoke(delegate
-            {
-                grid_Paste_Status.Visibility = Visibility.Collapsed;
-                grid_Paste_Status_Text.Text = string.Empty;
-                grid_Paste_Status_ProgressBar.Value = 0;
-            });
         }
 
         //Rename file from the file picker
@@ -1288,9 +1215,6 @@ namespace CtrlUI
                     {
                         grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardType + ") " + vClipboardFile.PathFile;
                     }
-
-                    Popup_Show_Status("Rename", "Renamed file or folder");
-                    Debug.WriteLine("Renamed file or folder to: " + newFileName + newFileExtension);
                 }
             }
             catch (Exception ex)
@@ -1322,7 +1246,7 @@ namespace CtrlUI
                 shFileOpstruct.pFrom = dataBindFile.PathFile + "\0\0";
                 if (useRecycleBin)
                 {
-                    shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_ALLOWUNDO | FILEOP_FLAGS.FOF_NOCONFIRMATION;
+                    shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_NOCONFIRMATION | FILEOP_FLAGS.FOF_ALLOWUNDO;
                 }
                 else
                 {

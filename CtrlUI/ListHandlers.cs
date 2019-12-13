@@ -133,7 +133,7 @@ namespace CtrlUI
                             SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
                             shFileOpstruct.wFunc = FILEOP_FUNC.FO_DELETE;
                             shFileOpstruct.pFrom = dataBindApp.ShortcutPath + "\0\0";
-                            shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_ALLOWUNDO | FILEOP_FLAGS.FOF_NOCONFIRMATION;
+                            shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_NOCONFIRMATION | FILEOP_FLAGS.FOF_ALLOWUNDO;
                             SHFileOperation(ref shFileOpstruct);
 
                             //Remove application from the list
