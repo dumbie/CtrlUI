@@ -276,8 +276,9 @@ namespace CtrlUI
                                     }
 
                                     //Add folder to the list
+                                    bool systemFileFolder = listDirectory.Attributes.HasFlag(FileAttributes.System);
                                     bool hiddenFileFolder = listDirectory.Attributes.HasFlag(FileAttributes.Hidden);
-                                    if (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"]))
+                                    if (!systemFileFolder && (!systemFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
                                         DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listDirectory.Name, Description = folderDescription, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
@@ -407,8 +408,9 @@ namespace CtrlUI
                                     }
 
                                     //Add file to the list
+                                    bool systemFileFolder = listFile.Attributes.HasFlag(FileAttributes.System);
                                     bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
-                                    if (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"]))
+                                    if (!systemFileFolder && (!systemFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
                                         DataBindFile dataBindFileFile = new DataBindFile() { Type = "File", Name = listFile.Name, Description = fileDescription, DateModified = listFile.LastWriteTime, ImageBitmap = fileImage, PathFile = listFile.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
@@ -1215,6 +1217,9 @@ namespace CtrlUI
                     {
                         grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardType + ") " + vClipboardFile.PathFile;
                     }
+
+                    Popup_Show_Status("Rename", "Renamed file or folder");
+                    Debug.WriteLine("Renamed file or folder to: " + newFileName + newFileExtension);
                 }
             }
             catch (Exception ex)
@@ -1266,7 +1271,7 @@ namespace CtrlUI
                 await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile);
 
                 Popup_Show_Status("Remove", "Removed file or folder");
-                Debug.WriteLine("Removed file or folder to: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                Debug.WriteLine("Removed file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
             }
             catch (Exception ex)
             {
