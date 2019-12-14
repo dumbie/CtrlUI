@@ -1164,6 +1164,7 @@ namespace CtrlUI
                 //Check if file name changed
                 if (textInputString == dataBindFile.Name)
                 {
+                    Popup_Show_Status("Rename", "File name not changed");
                     Debug.WriteLine("The file name did not change.");
                     return;
                 }
