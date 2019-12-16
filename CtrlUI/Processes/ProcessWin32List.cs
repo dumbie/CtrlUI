@@ -21,7 +21,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Get all the active Win32 processes and update the lists
-        async Task ListLoadCheckProcessesWin32(IEnumerable<Process> processesList, List<IntPtr> activeProcessesWindow, IEnumerable<DataBindApp> currentListApps, bool showStatus)
+        async Task ListLoadCheckProcessesWin32(IEnumerable<Process> processesList, List<int> activeProcessesId, List<IntPtr> activeProcessesWindow, IEnumerable<DataBindApp> currentListApps, bool showStatus)
         {
             try
             {
@@ -100,6 +100,7 @@ namespace CtrlUI
                             }
 
                             //Add active process to the list
+                            activeProcessesId.Add(processIdentifier);
                             activeProcessesWindow.Add(processWindowHandle);
 
                             //Check the process running time

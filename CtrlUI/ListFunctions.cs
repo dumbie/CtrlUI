@@ -127,14 +127,15 @@ namespace CtrlUI
                 }
 
                 //List all the currently running processes
+                List<int> activeProcessesId = new List<int>();
                 List<IntPtr> activeProcessesWindow = new List<IntPtr>();
 
                 //Get the currently running processes
                 IEnumerable<DataBindApp> currentListApps = CombineAppLists(true, false).Where(x => x.StatusLauncher == Visibility.Collapsed);
 
                 //Update all the processes
-                await ListLoadCheckProcessesUwp(activeProcessesWindow, currentListApps, false);
-                await ListLoadCheckProcessesWin32(processesList, activeProcessesWindow, currentListApps, false);
+                await ListLoadCheckProcessesUwp(activeProcessesId, activeProcessesWindow, currentListApps, false);
+                await ListLoadCheckProcessesWin32(processesList, activeProcessesId, activeProcessesWindow, currentListApps, false);
 
                 //Update the application running count and status
                 foreach (DataBindApp dataBindApp in currentListApps)
@@ -142,6 +143,7 @@ namespace CtrlUI
                     try
                     {
                         //Remove closed processes
+                        dataBindApp.ProcessMulti.RemoveAll(x => !activeProcessesId.Contains(x.Identifier));
                         dataBindApp.ProcessMulti.RemoveAll(x => !activeProcessesWindow.Contains(x.WindowHandle));
 
                         //Check the running count
@@ -186,18 +188,18 @@ namespace CtrlUI
         }
 
         //Check for empty lists and hide them
-        void ShowHideEmptyList(bool IncludeShortcuts, bool IncludeProcesses)
+        void ShowHideEmptyList(bool includeShortcuts, bool includeProcesses)
         {
             try
             {
                 UpdateElementVisibility(sp_Games, List_Games.Any());
                 UpdateElementVisibility(sp_Apps, List_Apps.Any());
                 UpdateElementVisibility(sp_Emulators, List_Emulators.Any());
-                if (IncludeShortcuts)
+                if (includeShortcuts)
                 {
                     UpdateElementVisibility(sp_Shortcuts, List_Shortcuts.Any() && ConfigurationManager.AppSettings["ShowOtherShortcuts"] == "True");
                 }
-                if (IncludeProcesses)
+                if (includeProcesses)
                 {
                     UpdateElementVisibility(sp_Processes, List_Processes.Any() && ConfigurationManager.AppSettings["ShowOtherProcesses"] == "True");
                 }
