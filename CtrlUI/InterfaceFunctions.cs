@@ -107,7 +107,6 @@ namespace CtrlUI
                 //Manage functions
                 btn_Manage_ResetAppLogo.Click += Button_Manage_ResetAppLogo_Click;
                 btn_Manage_SaveEditApp.Click += Button_Manage_SaveEditApp_Click;
-                btn_Manage_AddUwpAdd.Click += Button_Manage_AddUwpAdd_Click;
                 btn_Manage_AddAppCategory.Click += Button_ShowStringPicker;
                 btn_Manage_MoveAppLeft.Click += Btn_Manage_MoveAppLeft_Click;
                 btn_Manage_MoveAppRight.Click += Btn_Manage_MoveAppRight_Click;

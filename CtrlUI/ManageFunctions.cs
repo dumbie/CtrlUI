@@ -172,7 +172,6 @@ namespace CtrlUI
                     btn_AddAppPathLaunch.IsEnabled = true;
                     tb_AddAppPathRoms.IsEnabled = true;
                     btn_Manage_SaveEditApp.Content = "Edit the application as filled in above";
-                    btn_Manage_AddUwpAdd.Visibility = Visibility.Collapsed;
                     grid_EditMoveApp.Visibility = Visibility.Visible;
 
                     //Set the variables as current edit app
@@ -249,7 +248,6 @@ namespace CtrlUI
                 btn_AddAppPathLaunch.IsEnabled = true;
                 tb_AddAppPathRoms.IsEnabled = false;
                 btn_Manage_SaveEditApp.Content = "Add the application as filled in above";
-                btn_Manage_AddUwpAdd.Visibility = Visibility.Collapsed;
                 grid_EditMoveApp.Visibility = Visibility.Collapsed;
 
                 //Load the application category
@@ -283,8 +281,8 @@ namespace CtrlUI
             catch { }
         }
 
-        //Show the application add popup
-        async Task Popup_Show_AppAdd()
+        //Show the exe application add popup
+        async Task Popup_Show_AddExe()
         {
             try
             {
@@ -300,7 +298,6 @@ namespace CtrlUI
                 btn_AddAppPathLaunch.IsEnabled = false;
                 tb_AddAppPathRoms.IsEnabled = false;
                 btn_Manage_SaveEditApp.Content = "Add the application as filled in above";
-                btn_Manage_AddUwpAdd.Visibility = Visibility.Visible;
                 grid_EditMoveApp.Visibility = Visibility.Collapsed;
 
                 //Load the application category
@@ -525,7 +522,7 @@ namespace CtrlUI
                         Answer1.Name = "Alright";
                         Answers.Add(Answer1);
 
-                        await Popup_Show_MessageBox("This application already exists, please select another one", "", "", Answers);
+                        await Popup_Show_MessageBox("This application already exists", "", "", Answers);
                         return;
                     }
 
@@ -720,31 +717,35 @@ namespace CtrlUI
             catch { }
         }
 
-        //Add UWP application
-        async void Button_Manage_AddUwpAdd_Click(object sender, EventArgs args)
+        //Add Windows store application
+        async Task Popup_Show_AddApp()
         {
             try
             {
+                //Select application category
+                vFilePickerStrings = new string[][] { new[] { "Game", "Game" }, new[] { "App & Media", "App" } };
+                vFilePickerFilterIn = new string[] { };
+                vFilePickerFilterOut = new string[] { };
+                vFilePickerTitle = "Application Category";
+                vFilePickerDescription = "Please select a new application category:";
+                vFilePickerShowNoFile = false;
+                vFilePickerShowRoms = false;
+                vFilePickerShowFiles = false;
+                vFilePickerShowDirectories = false;
+                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                await Popup_Show_FilePicker("String", -1, false, null);
+
+                while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
+                if (vFilePickerCancelled) { return; }
+
                 //Check the selected application category
-                Enum.TryParse(btn_Manage_AddAppCategory.Tag.ToString(), out AppCategory selectedAddCategory);
-                string SelectedAddCategoryContent = textblock_Manage_AddAppCategory.Text;
+                Enum.TryParse(vFilePickerResult.PathFile, out AppCategory selectedAddCategory);
 
-                if (selectedAddCategory == AppCategory.Emulator)
-                {
-                    List<DataBindString> Answers = new List<DataBindString>();
-                    DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1);
-                    Answer1.Name = "Alright";
-                    Answers.Add(Answer1);
-
-                    await Popup_Show_MessageBox("Invalid category for a Windows store app", "", "", Answers);
-                    return;
-                }
-
+                //Select Window Store application
                 vFilePickerFilterIn = new string[] { };
                 vFilePickerFilterOut = new string[] { };
                 vFilePickerTitle = "Window Store Applications";
-                vFilePickerDescription = "Please select a Windows store application to add as " + SelectedAddCategoryContent + ":";
+                vFilePickerDescription = "Please select a Windows store application to add as " + vFilePickerResult.Name + ":";
                 vFilePickerShowNoFile = false;
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = false;
@@ -755,7 +756,7 @@ namespace CtrlUI
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
 
-                //Check if uwp application already exists
+                //Check if new application already exists
                 if (CombineAppLists(false, false).Any(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower() || x.PathExe.ToLower() == vFilePickerResult.PathFile.ToLower()))
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
@@ -764,8 +765,7 @@ namespace CtrlUI
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
-                    await Popup_Show_MessageBox("This application already exists, please select another one", "", "", Answers);
-                    Button_Manage_AddUwpAdd_Click(null, null);
+                    await Popup_Show_MessageBox("This application already exists", "", "", Answers);
                     return;
                 }
 
