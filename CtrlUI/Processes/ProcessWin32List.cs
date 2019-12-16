@@ -175,10 +175,7 @@ namespace CtrlUI
                                 //Remove app from processes list
                                 if (ConfigurationManager.AppSettings["HideAppProcesses"] == "True")
                                 {
-                                    await AVActions.ActionDispatcherInvokeAsync(async delegate
-                                    {
-                                        await ListBoxRemoveAll(lb_Processes, List_Processes, filterCombinedApp);
-                                    });
+                                    await ListBoxRemoveAll(lb_Processes, List_Processes, filterCombinedApp);
                                     continue;
                                 }
                             }
@@ -236,10 +233,7 @@ namespace CtrlUI
 
                             //Add the process to the list
                             DataBindApp dataBindApp = new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processName, NameExe = processNameExe, PathExe = processPathExe, Argument = processArgument, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime };
-                            await AVActions.ActionDispatcherInvokeAsync(async delegate
-                            {
-                                await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
-                            });
+                            await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
                         }
                         catch (Exception ex)
                         {

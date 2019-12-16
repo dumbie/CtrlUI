@@ -185,10 +185,15 @@ namespace CtrlUI
                     grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
 
                     //Add uwp applications to the filepicker list
-                    await ListLoadAllUwpApplications(List_FilePicker);
-
-                    //Sort the uwp application list by name
-                    SortObservableCollection(List_FilePicker, x => x.Name, null, true);
+                    async Task TaskAction()
+                    {
+                        try
+                        {
+                            await ListLoadAllUwpApplications(List_FilePicker);
+                        }
+                        catch { }
+                    }
+                    await AVActions.TaskStartAsync(TaskAction, null);
                 }
                 else
                 {
@@ -278,7 +283,7 @@ namespace CtrlUI
                                     //Add folder to the list
                                     bool systemFileFolder = listDirectory.Attributes.HasFlag(FileAttributes.System);
                                     bool hiddenFileFolder = listDirectory.Attributes.HasFlag(FileAttributes.Hidden);
-                                    if (!systemFileFolder && (!systemFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
+                                    if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
                                         DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listDirectory.Name, Description = folderDescription, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
@@ -410,7 +415,7 @@ namespace CtrlUI
                                     //Add file to the list
                                     bool systemFileFolder = listFile.Attributes.HasFlag(FileAttributes.System);
                                     bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
-                                    if (!systemFileFolder && (!systemFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
+                                    if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
                                         DataBindFile dataBindFileFile = new DataBindFile() { Type = "File", Name = listFile.Name, Description = fileDescription, DateModified = listFile.LastWriteTime, ImageBitmap = fileImage, PathFile = listFile.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
@@ -1056,15 +1061,11 @@ namespace CtrlUI
                     updatedClipboard.Name = newFileName + newFileExtension;
                     updatedClipboard.PathFile = newFilePath;
 
-                    //Update the file or folder in the list
-                    await AVActions.ActionDispatcherInvokeAsync(async delegate
-                    {
-                        //Remove the moved listbox item
-                        await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, vClipboardFile);
+                    //Remove the moved listbox item
+                    await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, vClipboardFile);
 
-                        //Add and select the listbox item
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
-                    });
+                    //Add and select the listbox item
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
 
                     //Reset the current clipboard
                     vClipboardFile = null;
@@ -1120,12 +1121,8 @@ namespace CtrlUI
                     updatedClipboard.Name = newFileName + newFileExtension;
                     updatedClipboard.PathFile = newFilePath;
 
-                    //Update the file or folder in the list
-                    await AVActions.ActionDispatcherInvokeAsync(async delegate
-                    {
-                        //Add and select the listbox item
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
-                    });
+                    //Add and select the listbox item
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
 
                     //Copy file or folder
                     SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();

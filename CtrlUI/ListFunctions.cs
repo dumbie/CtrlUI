@@ -179,10 +179,7 @@ namespace CtrlUI
                 }
 
                 //Remove no longer running and invalid processes
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                {
-                    await ListBoxRemoveAll(lb_Processes, List_Processes, x => !x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !activeProcessesWindow.Contains(z.WindowHandle)) || x.ProcessMulti.Any(z => z.WindowHandle == IntPtr.Zero));
-                });
+                await ListBoxRemoveAll(lb_Processes, List_Processes, x => !x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !activeProcessesWindow.Contains(z.WindowHandle)) || x.ProcessMulti.Any(z => z.WindowHandle == IntPtr.Zero));
             }
             catch { }
         }

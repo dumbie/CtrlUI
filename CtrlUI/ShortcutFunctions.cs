@@ -134,10 +134,7 @@ namespace CtrlUI
                 directoryShortcuts = directoryShortcuts.OrderBy(x => x.Name);
 
                 //Remove shortcuts that are no longer available from the list
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                {
-                    await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => !directoryShortcuts.Any(y => StripShortcutFilename(y.Name) == x.Name));
-                });
+                await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => !directoryShortcuts.Any(y => StripShortcutFilename(y.Name) == x.Name));
 
                 //Get shortcut information and add it to the list
                 foreach (FileInfo file in directoryShortcuts)
@@ -151,11 +148,7 @@ namespace CtrlUI
                         //Check if already in combined list and remove it
                         if (CombineAppLists(false, false).Any(x => x.PathExe.ToLower() == targetPathLower))
                         {
-                            //Debug.WriteLine("Shortcut is already in other list: " + targetPathLower);
-                            await AVActions.ActionDispatcherInvokeAsync(async delegate
-                            {
-                                await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
-                            });
+                            await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
                             continue;
                         }
 
@@ -262,10 +255,7 @@ namespace CtrlUI
 
                 //Add the shortcut to the list
                 DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusLauncher = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify };
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                {
-                    await ListBoxAddItem(lb_Search, List_Shortcuts, dataBindApp, false, false);
-                });
+                await ListBoxAddItem(lb_Search, List_Shortcuts, dataBindApp, false, false);
             }
             catch
             {

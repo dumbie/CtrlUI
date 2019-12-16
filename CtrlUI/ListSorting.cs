@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -86,36 +87,39 @@ namespace CtrlUI
         {
             try
             {
-                int skipCount = 0;
-                List<TSource> sortedList = null;
-                if (where != null)
+                AVActions.ActionDispatcherInvoke(delegate
                 {
-                    skipCount = source.Count() - source.Where(where).Count();
-                    if (ascending)
+                    int skipCount = 0;
+                    List<TSource> sortedList = null;
+                    if (where != null)
                     {
-                        sortedList = source.Where(where).OrderBy(key).ToList();
+                        skipCount = source.Count() - source.Where(where).Count();
+                        if (ascending)
+                        {
+                            sortedList = source.Where(where).OrderBy(key).ToList();
+                        }
+                        else
+                        {
+                            sortedList = source.Where(where).OrderByDescending(key).ToList();
+                        }
                     }
                     else
                     {
-                        sortedList = source.Where(where).OrderByDescending(key).ToList();
+                        if (ascending)
+                        {
+                            sortedList = source.OrderBy(key).ToList();
+                        }
+                        else
+                        {
+                            sortedList = source.OrderByDescending(key).ToList();
+                        }
                     }
-                }
-                else
-                {
-                    if (ascending)
-                    {
-                        sortedList = source.OrderBy(key).ToList();
-                    }
-                    else
-                    {
-                        sortedList = source.OrderByDescending(key).ToList();
-                    }
-                }
 
-                for (int i = skipCount; i < sortedList.Count; i++)
-                {
-                    source.Move(source.IndexOf(sortedList[i]), i);
-                }
+                    for (int i = skipCount; i < sortedList.Count; i++)
+                    {
+                        source.Move(source.IndexOf(sortedList[i]), i);
+                    }
+                });
             }
             catch { }
         }

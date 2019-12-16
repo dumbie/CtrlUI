@@ -195,10 +195,7 @@ namespace CtrlUI
                                     //Remove app from processes list
                                     if (ConfigurationManager.AppSettings["HideAppProcesses"] == "True")
                                     {
-                                        await AVActions.ActionDispatcherInvokeAsync(async delegate
-                                        {
-                                            await ListBoxRemoveAll(lb_Processes, List_Processes, filterCombinedApp);
-                                        });
+                                        await ListBoxRemoveAll(lb_Processes, List_Processes, filterCombinedApp);
                                         continue;
                                     }
                                 }
@@ -239,10 +236,7 @@ namespace CtrlUI
 
                                 //Add the process to the list
                                 DataBindApp dataBindApp = new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processName, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime };
-                                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                                {
-                                    await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
-                                });
+                                await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
                             }
                         }
                         catch (Exception ex)
@@ -307,6 +301,9 @@ namespace CtrlUI
                         //Add the application to the list
                         DataBindFile dataBindFile = new DataBindFile() { Type = "App", Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.FamilyNameId, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };
                         await ListBoxAddItem(null, targetList, dataBindFile, false, false);
+
+                        //Sort the application list by name
+                        SortObservableCollection(List_FilePicker, x => x.Name, null, true);
                     }
                     catch { }
                 }

@@ -83,37 +83,40 @@ namespace CtrlUI
         {
             try
             {
-                //Select first available listbox
-                if (focusListBox != null && focusListBox.IsEnabled && focusListBox.Visibility == Visibility.Visible && focusListBox.Items.Count > 0)
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    //Update the listbox layout
-                    focusListBox.UpdateLayout();
+                    //Select first available listbox
+                    if (focusListBox != null && focusListBox.IsEnabled && focusListBox.Visibility == Visibility.Visible && focusListBox.Items.Count > 0)
+                    {
+                        //Update the listbox layout
+                        focusListBox.UpdateLayout();
 
-                    //Select a listbox item index
-                    ListBoxSelectIndex(focusListBox, firstIndex, lastIndex, indexNumber);
+                        //Select a listbox item index
+                        ListBoxSelectIndex(focusListBox, firstIndex, lastIndex, indexNumber);
 
-                    //Focus on the listbox and item
-                    int SelectedIndex = focusListBox.SelectedIndex;
+                        //Focus on the listbox and item
+                        int SelectedIndex = focusListBox.SelectedIndex;
 
-                    //Scroll to the listbox item
-                    object ScrollListBoxItem = focusListBox.Items[SelectedIndex];
-                    focusListBox.ScrollIntoView(ScrollListBoxItem);
+                        //Scroll to the listbox item
+                        object ScrollListBoxItem = focusListBox.Items[SelectedIndex];
+                        focusListBox.ScrollIntoView(ScrollListBoxItem);
 
-                    //Force focus on an element
-                    ListBoxItem FocusListBoxItem = (ListBoxItem)focusListBox.ItemContainerGenerator.ContainerFromInd‌​ex(SelectedIndex);
-                    await FocusOnElement(FocusListBoxItem, false, vProcessCurrent.MainWindowHandle);
+                        //Force focus on an element
+                        ListBoxItem FocusListBoxItem = (ListBoxItem)focusListBox.ItemContainerGenerator.ContainerFromInd‌​ex(SelectedIndex);
+                        await FocusOnElement(FocusListBoxItem, false, vProcessCurrent.MainWindowHandle);
 
-                    Debug.WriteLine("Focusing on listbox index: " + SelectedIndex);
-                }
-                else
-                {
-                    Debug.WriteLine("Listbox cannot be focused on, pressing tab key.");
-                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                }
+                        Debug.WriteLine("Focusing on listbox index: " + SelectedIndex);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Listbox cannot be focused on, pressing tab key.");
+                        KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                    }
+                });
             }
-            catch
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed focusing on the listbox, pressing tab key.");
+                Debug.WriteLine("Failed focusing on the listbox, pressing tab key: " + ex.Message);
                 KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
             }
         }
@@ -123,35 +126,38 @@ namespace CtrlUI
         {
             try
             {
-                if (firstIndex)
+                AVActions.ActionDispatcherInvoke(delegate
                 {
-                    focusListBox.SelectedIndex = 0;
-                }
-                else if (lastIndex)
-                {
-                    focusListBox.SelectedIndex = focusListBox.Items.Count - 1;
-                }
-                else if (indexNumber != -1)
-                {
-                    if (indexNumber >= focusListBox.Items.Count)
+                    if (firstIndex)
+                    {
+                        focusListBox.SelectedIndex = 0;
+                    }
+                    else if (lastIndex)
                     {
                         focusListBox.SelectedIndex = focusListBox.Items.Count - 1;
                     }
-                    else
+                    else if (indexNumber != -1)
                     {
-                        focusListBox.SelectedIndex = indexNumber;
+                        if (indexNumber >= focusListBox.Items.Count)
+                        {
+                            focusListBox.SelectedIndex = focusListBox.Items.Count - 1;
+                        }
+                        else
+                        {
+                            focusListBox.SelectedIndex = indexNumber;
+                        }
                     }
-                }
 
-                //Check the list index
-                if (focusListBox.SelectedIndex == -1)
-                {
-                    focusListBox.SelectedIndex = 0;
-                }
+                    //Check the list index
+                    if (focusListBox.SelectedIndex == -1)
+                    {
+                        focusListBox.SelectedIndex = 0;
+                    }
+                });
             }
-            catch
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed selecting the listbox index.");
+                Debug.WriteLine("Failed selecting the listbox index: " + ex.Message);
             }
         }
 
@@ -160,48 +166,54 @@ namespace CtrlUI
         {
             try
             {
-                //Debug.WriteLine("Adding item to list collection: " + listCollection);
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                {
+                    //Debug.WriteLine("Adding item to list collection: " + listCollection);
 
-                //Add or insert the item to the list
-                if (insertItem)
-                {
-                    listCollection.Insert(0, addItem);
-                }
-                else
-                {
-                    listCollection.Add(addItem);
-                }
-
-                //Select the item in the list
-                if (selectItem && listBox != null)
-                {
-                    if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
+                    //Add or insert the item to the list
+                    if (insertItem)
                     {
-                        Debug.WriteLine(listBox.Name + " listbox item has been added, selecting the listbox.");
-                        if (insertItem)
-                        {
-                            await ListboxFocus(listBox, true, false, -1);
-                        }
-                        else
-                        {
-                            await ListboxFocus(listBox, false, true, -1);
-                        }
+                        listCollection.Insert(0, addItem);
                     }
                     else
                     {
-                        Debug.WriteLine(listBox.Name + " listbox item has been added, selecting the index.");
-                        if (insertItem)
+                        listCollection.Add(addItem);
+                    }
+
+                    //Select the item in the list
+                    if (selectItem && listBox != null)
+                    {
+                        if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
                         {
-                            ListBoxSelectIndex(listBox, true, false, -1);
+                            Debug.WriteLine(listBox.Name + " listbox item has been added, selecting the listbox.");
+                            if (insertItem)
+                            {
+                                await ListboxFocus(listBox, true, false, -1);
+                            }
+                            else
+                            {
+                                await ListboxFocus(listBox, false, true, -1);
+                            }
                         }
                         else
                         {
-                            ListBoxSelectIndex(listBox, false, true, -1);
+                            Debug.WriteLine(listBox.Name + " listbox item has been added, selecting the index.");
+                            if (insertItem)
+                            {
+                                ListBoxSelectIndex(listBox, true, false, -1);
+                            }
+                            else
+                            {
+                                ListBoxSelectIndex(listBox, false, true, -1);
+                            }
                         }
                     }
-                }
+                });
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed adding listbox item: " + ex.Message);
+            }
         }
 
         //Remove listbox item from a listbox
@@ -209,33 +221,36 @@ namespace CtrlUI
         {
             try
             {
-                //Store the current listbox items count
-                int listBoxItemCount = listBox.Items.Count;
-
-                //Store the currently selected index
-                int listBoxSelectedIndex = listBox.SelectedIndex;
-
-                //Remove the listbox item from list
-                listCollection.Remove(removeItem);
-
-                //Check if there is a listbox item removed
-                if (listBoxItemCount != listBox.Items.Count)
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
+                    //Store the current listbox items count
+                    int listBoxItemCount = listBox.Items.Count;
+
+                    //Store the currently selected index
+                    int listBoxSelectedIndex = listBox.SelectedIndex;
+
+                    //Remove the listbox item from list
+                    listCollection.Remove(removeItem);
+
+                    //Check if there is a listbox item removed
+                    if (listBoxItemCount != listBox.Items.Count)
                     {
-                        Debug.WriteLine(listBox.Name + " listbox item has been removed, selecting the listbox.");
-                        await ListboxFocus(listBox, false, false, listBoxSelectedIndex);
+                        if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
+                        {
+                            Debug.WriteLine(listBox.Name + " listbox item has been removed, selecting the listbox.");
+                            await ListboxFocus(listBox, false, false, listBoxSelectedIndex);
+                        }
+                        else
+                        {
+                            Debug.WriteLine(listBox.Name + " listbox item has been removed, selecting the index.");
+                            ListBoxSelectIndex(listBox, false, false, listBoxSelectedIndex);
+                        }
                     }
-                    else
-                    {
-                        Debug.WriteLine(listBox.Name + " listbox item has been removed, selecting the index.");
-                        ListBoxSelectIndex(listBox, false, false, listBoxSelectedIndex);
-                    }
-                }
+                });
             }
-            catch
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed removing item from the listbox.");
+                Debug.WriteLine("Failed removing item from the listbox: " + ex.Message);
             }
         }
 
@@ -244,29 +259,32 @@ namespace CtrlUI
         {
             try
             {
-                //Store the current listbox items count
-                int listBoxItemCount = listBox.Items.Count;
-
-                //Store the currently selected index
-                int listBoxSelectedIndex = listBox.SelectedIndex;
-
-                //Remove the listbox items from list
-                listCollection.RemoveAll(removeCondition);
-
-                //Check if there is a listbox item removed
-                if (listBoxItemCount != listBox.Items.Count)
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
+                    //Store the current listbox items count
+                    int listBoxItemCount = listBox.Items.Count;
+
+                    //Store the currently selected index
+                    int listBoxSelectedIndex = listBox.SelectedIndex;
+
+                    //Remove the listbox items from list
+                    listCollection.RemoveAll(removeCondition);
+
+                    //Check if there is a listbox item removed
+                    if (listBoxItemCount != listBox.Items.Count)
                     {
-                        Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed, selecting the listbox.");
-                        await ListboxFocus(listBox, false, false, listBoxSelectedIndex);
+                        if (Keyboard.FocusedElement == null || Keyboard.FocusedElement == listBox)
+                        {
+                            Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed, selecting the listbox.");
+                            await ListboxFocus(listBox, false, false, listBoxSelectedIndex);
+                        }
+                        else
+                        {
+                            Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed, selecting the index.");
+                            ListBoxSelectIndex(listBox, false, false, listBoxSelectedIndex);
+                        }
                     }
-                    else
-                    {
-                        Debug.WriteLine(listBox.Name + " " + (listBoxItemCount - listBox.Items.Count) + " items have been removed, selecting the index.");
-                        ListBoxSelectIndex(listBox, false, false, listBoxSelectedIndex);
-                    }
-                }
+                });
             }
             catch
             {
