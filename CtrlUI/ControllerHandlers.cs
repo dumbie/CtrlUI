@@ -459,7 +459,7 @@ namespace CtrlUI
                     {
                         PlayInterfaceSound(vInterfaceSoundVolume, "ClickRight", false);
 
-                        KeySendSingle((byte)KeysVirtual.Home, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle((byte)KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -477,7 +477,7 @@ namespace CtrlUI
                     {
                         PlayInterfaceSound(vInterfaceSoundVolume, "ClickRight", false);
 
-                        KeySendSingle((byte)KeysVirtual.End, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle((byte)KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
