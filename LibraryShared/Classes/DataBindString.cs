@@ -50,6 +50,20 @@ namespace LibraryShared
                 }
             }
 
+            private string PrivNameDetail;
+            public string NameDetail
+            {
+                get { return this.PrivNameDetail; }
+                set
+                {
+                    if (this.PrivNameDetail != value)
+                    {
+                        this.PrivNameDetail = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             public event PropertyChangedEventHandler PropertyChanged;
             private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
             {

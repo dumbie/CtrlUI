@@ -14,22 +14,6 @@ namespace FpsOverlayer
 {
     public partial class WindowMain
     {
-        readonly string[] FormatBytesSuffix = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
-        public string FormatBytesString(float BytesRaw)
-        {
-            int BytesCounter = 0;
-            while (BytesRaw / 1024 >= 1)
-            {
-                try
-                {
-                    BytesRaw = BytesRaw / 1024;
-                    BytesCounter++;
-                }
-                catch { }
-            }
-            return BytesRaw.ToString("0.00") + FormatBytesSuffix[BytesCounter];
-        }
-
         void StartMonitorHardware()
         {
             try
@@ -315,8 +299,8 @@ namespace FpsOverlayer
 
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["NetShowCurrentUsage"]))
                         {
-                            string NetworkDownString = FormatBytesString(NetworkDownFloat) + " DL ";
-                            string NetworkUpString = FormatBytesString(NetworkUpFloat) + " UP";
+                            string NetworkDownString = AVFunctions.ConvertBytesSizeToString(NetworkDownFloat) + " DL ";
+                            string NetworkUpString = AVFunctions.ConvertBytesSizeToString(NetworkUpFloat) + " UP";
                             NetworkUsage += " " + NetworkDownString + NetworkUpString;
                         }
 

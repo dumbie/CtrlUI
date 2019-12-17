@@ -24,11 +24,18 @@
 
     <!-- ListboxItemString -->
     <DataTemplate x:Key="ListBoxItemString">
-        <StackPanel Margin="5" Orientation="Horizontal">
-            <Image Source="{Binding ImageBitmap}" MaxHeight="50" MaxWidth="50"/>
-            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-            <TextBlock Text="{Binding NameSub}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-        </StackPanel>
+        <Grid Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="{Binding ImageBitmap}" MaxHeight="50" MaxWidth="50"/>
+            <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+            <TextBlock Grid.Column="2" Text="{Binding NameSub}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+            <TextBlock Grid.Column="3" Text="{Binding NameDetail}" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Margin="5,0,5,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+        </Grid>
     </DataTemplate>
 
     <!-- ListboxItemColor -->

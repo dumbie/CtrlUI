@@ -121,6 +121,20 @@ namespace LibraryShared
                 }
             }
 
+            private string PrivNameDetail;
+            public string NameDetail
+            {
+                get { return this.PrivNameDetail; }
+                set
+                {
+                    if (this.PrivNameDetail != value)
+                    {
+                        this.PrivNameDetail = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private string PrivDescription;
             public string Description
             {

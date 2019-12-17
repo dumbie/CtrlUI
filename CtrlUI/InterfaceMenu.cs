@@ -55,6 +55,8 @@ namespace CtrlUI
                     else if (SelStackPanel.Name == "menuButtonCloseLaunchers") { await CloseLaunchers(false); }
                     else if (SelStackPanel.Name == "menuButtonDisconnect") { await CloseStreamers(); }
                     else if (SelStackPanel.Name == "menuButtonShutdown") { await Popup_Show_MessageBox_Shutdown(); }
+                    else if (SelStackPanel.Name == "menuButtonShowFileManager") { await ShowFileManager(); }
+                    else if (SelStackPanel.Name == "menuButtonProfileManager") { }
                     else if (SelStackPanel.Name == "menuButtonEmptyRecycleBin") { await RecycleBin_Empty(); }
                 }
             }

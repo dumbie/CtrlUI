@@ -115,6 +115,7 @@
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="ListBoxFunctions.cs" />
+    <Compile Include="FileFunctions.cs" />
     <Compile Include="Processes\ProcessMultiCheck.cs" />
     <Compile Include="Processes\ProcessMultiSelect.cs" />
     <Compile Include="Processes\ProcessUwpRestart.cs" />
@@ -1017,10 +1018,7 @@
     <Resource Include="Assets\Icons\AddApp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\Icons\FileManager.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Icons\ProfileManager.png">
+    <Resource Include="Assets\Icons\Profile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Content Include="Assets\Roms\Mario Kart 64.txt">

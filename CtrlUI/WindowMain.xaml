@@ -271,20 +271,20 @@
                         <TextBlock Margin="15,0,0,0" Text="Close CtrlUI or shutdown the PC" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonShowFileManager" Orientation="Horizontal">
-                        <Image Source="Assets/Icons/FileManager.png" Width="50" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="15,0,0,0" Text="Show the PC file manager panel" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Image Source="Assets/Icons/Folder.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Show file browser and manager" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonEmptyRecycleBin" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Remove.png" Width="50" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="15,0,0,0" Text="Empty the Windows recycle bin" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Empty Windows recycle bin" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonSettings" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Settings.png" Width="50" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="15,0,0,0" Text="Open the application settings" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Open application settings" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <!--<StackPanel Name="menuButtonProfileManager" Orientation="Horizontal">
-                        <Image Source="Assets/Icons/ProfileManager.png" Width="50" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="15,0,0,0" Text="Open the profile manager" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Image Source="Assets/Icons/Profile.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Open profile manager" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>-->
                     <StackPanel Name="menuButtonHelp" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Help.png" Width="50" HorizontalAlignment="Center"/>
