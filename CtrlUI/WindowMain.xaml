@@ -444,16 +444,20 @@
 
                     <StackPanel VerticalAlignment="Center" MaxWidth="600">
                         <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
-                            <TextBlock Name="grid_Popup_Media_Information_Artist" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}" Text="Artist"/>
+                            <TextBlock Name="grid_Popup_Media_Information_Artist" Style="{StaticResource TextBlockAccent}" FontSize="{DynamicResource TextSizeLarge}" Text="Artist"/>
                         </styles:ScrollViewerLoopHorizontal>
                         <ProgressBar MinWidth="200" Name="grid_Popup_Media_Information_Progress" Margin="0,5,0,0" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch"/>
                         <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
-                            <TextBlock Name="grid_Popup_Media_Information_Title" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeLarge}" Text="Title"/>
+                            <TextBlock Name="grid_Popup_Media_Information_Title" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}" Text="Title"/>
                         </styles:ScrollViewerLoopHorizontal>
+                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
+                            <TextBlock Name="grid_Popup_Media_Information_Album" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeLarge}" Text="Album"/>
+                        </styles:ScrollViewerLoopHorizontal>
+                        <TextBlock Name="grid_Popup_Media_Information_Track" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Text="Track"/>
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2" Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+                <StackPanel Grid.Row="2" Margin="0,25,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
                     <Button Name="grid_Popup_Media_Previous" Width="100" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                         <Image Source="Assets/Icons/Previous.png"/>
                     </Button>
@@ -477,7 +481,7 @@
                     </Button>
                 </StackPanel>
 
-                <TextBlock Name="grid_Popup_Media_Volume_Level" Grid.Row="4" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeSmall}"/>
+                <TextBlock Name="grid_Popup_Media_Volume_Level" Grid.Row="4" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}"/>
             </Grid>
 
             <!-- Shortcuts -->

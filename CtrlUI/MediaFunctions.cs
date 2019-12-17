@@ -131,7 +131,7 @@ namespace CtrlUI
                 GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline = smtcSession.GetTimelineProperties();
                 GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties = await smtcSession.TryGetMediaPropertiesAsync();
 
-                //Debug.WriteLine("Media: " + mediaProperties.Title + "/" + mediaProperties.Artist + "/" + mediaProperties.Subtitle + "/" + mediaProperties.PlaybackType + "/" + mediaProperties.TrackNumber);
+                //Debug.WriteLine("Media: " + mediaProperties.Title + "/" + mediaProperties.Artist + "/" + mediaProperties.AlbumTitle + "/" + mediaProperties.Subtitle + "/" + mediaProperties.PlaybackType + "/" + mediaProperties.TrackNumber + "/" + mediaProperties.AlbumTrackCount);
                 //Debug.WriteLine("Time: " + mediaTimeline.Position + "/" + mediaTimeline.StartTime + "/" + mediaTimeline.EndTime);
 
                 //Load the media artist
@@ -152,9 +152,53 @@ namespace CtrlUI
                     mediaTitle = "Unknown title";
                 }
 
+                //Load the media album title
+                string mediaAlbum = mediaProperties.AlbumTitle;
+                if (string.IsNullOrWhiteSpace(mediaAlbum))
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        grid_Popup_Media_Information_Album.Visibility = Visibility.Collapsed;
+                    });
+                }
+                else
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        grid_Popup_Media_Information_Album.Visibility = Visibility.Visible;
+                    });
+                }
+
+                //Load the track number
+                string mediaTrack = "Track ";
+                int currentTrackNumber = mediaProperties.TrackNumber;
+                if (currentTrackNumber > 0)
+                {
+                    int totalTrackNumber = mediaProperties.AlbumTrackCount;
+                    if (totalTrackNumber > 0)
+                    {
+                        mediaTrack += currentTrackNumber + "/" + totalTrackNumber;
+                    }
+                    else
+                    {
+                        mediaTrack += currentTrackNumber.ToString();
+                    }
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        grid_Popup_Media_Information_Track.Visibility = Visibility.Visible;
+                    });
+                }
+                else
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        grid_Popup_Media_Information_Track.Visibility = Visibility.Collapsed;
+                    });
+                }
+
                 //Calculate the media progression
                 double mediaProgress = 0;
-                if (mediaTimeline.EndTime != new TimeSpan())
+                if (mediaTimeline.Position != new TimeSpan() && mediaTimeline.EndTime != new TimeSpan())
                 {
                     mediaProgress = mediaTimeline.Position.TotalSeconds * 100 / mediaTimeline.EndTime.TotalSeconds;
                     AVActions.ActionDispatcherInvoke(delegate
@@ -178,6 +222,8 @@ namespace CtrlUI
                 {
                     grid_Popup_Media_Information_Artist.Text = mediaArtist;
                     grid_Popup_Media_Information_Title.Text = mediaTitle;
+                    grid_Popup_Media_Information_Album.Text = mediaAlbum;
+                    grid_Popup_Media_Information_Track.Text = mediaTrack;
                     grid_Popup_Media_Information_Progress.Value = mediaProgress;
                     grid_Popup_Media_Information_Thumbnail.Source = thumbnailBitmap;
                     grid_Popup_Media_Information.Visibility = Visibility.Visible;
