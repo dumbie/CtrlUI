@@ -192,7 +192,14 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: YPressed");
 
-                        KeySendSingle((byte)KeysVirtual.Back, vProcessCurrent.MainWindowHandle);
+                        if (vFilePickerOpen)
+                        {
+                            KeySendSingle((byte)KeysVirtual.Back, vProcessCurrent.MainWindowHandle);
+                        }
+                        else
+                        {
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await QuickActionPrompt(); });
+                        }
 
                         ControllerUsed = true;
                         ControllerDelayMedium = true;
@@ -201,11 +208,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: XPressed");
 
-                        if (vFilePickerOpen)
-                        {
-                            KeySendSingle((byte)KeysVirtual.Delete, vProcessCurrent.MainWindowHandle);
-                        }
-                        else if (vTextInputOpen)
+                        if (vTextInputOpen)
                         {
                             Debug.WriteLine("Resetting the text input popup.");
                             await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Reset_TextInput(true, string.Empty); });
@@ -217,7 +220,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await QuickActionPrompt(); });
+                            KeySendSingle((byte)KeysVirtual.Delete, vProcessCurrent.MainWindowHandle);
                         }
 
                         ControllerUsed = true;

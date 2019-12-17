@@ -57,7 +57,7 @@ namespace CtrlUI
                 }
 
                 Popup_Show_Status("Copy", "Copying file or folder");
-                Debug.WriteLine("Copying file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                Debug.WriteLine("Clipboard copy file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                 //Set the clipboard variables
                 vClipboardFile = dataBindFile;
@@ -83,7 +83,7 @@ namespace CtrlUI
                 }
 
                 Popup_Show_Status("Cut", "Cutting file or folder");
-                Debug.WriteLine("Cutting file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                Debug.WriteLine("Clipboard cut file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                 //Set the clipboard variables
                 vClipboardFile = dataBindFile;
@@ -174,7 +174,24 @@ namespace CtrlUI
                     shFileOpstruct.wFunc = FILEOP_FUNC.FO_MOVE;
                     shFileOpstruct.pFrom = oldFilePath + "\0\0";
                     shFileOpstruct.pTo = newFilePath + "\0\0";
-                    SHFileOperation(ref shFileOpstruct);
+                    int shFileResult = SHFileOperation(ref shFileOpstruct);
+
+                    //Check file operation status
+                    if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
+                    {
+                        Popup_Show_Status("Cut", "File or folder moved");
+                        Debug.WriteLine("File or folder moved: " + oldFilePath + " to " + newFilePath);
+                    }
+                    else if (shFileOpstruct.fAnyOperationsAborted)
+                    {
+                        Popup_Show_Status("Cut", "File or folder move aborted");
+                        Debug.WriteLine("File or folder move aborted: " + oldFilePath + " to " + newFilePath);
+                    }
+                    else
+                    {
+                        Popup_Show_Status("Cut", "File or folder move failed");
+                        Debug.WriteLine("File or folder move failed: " + oldFilePath + " to " + newFilePath);
+                    }
                 }
                 else
                 {
@@ -223,7 +240,24 @@ namespace CtrlUI
                     shFileOpstruct.wFunc = FILEOP_FUNC.FO_COPY;
                     shFileOpstruct.pFrom = oldFilePath + "\0\0";
                     shFileOpstruct.pTo = newFilePath + "\0\0";
-                    SHFileOperation(ref shFileOpstruct);
+                    int shFileResult = SHFileOperation(ref shFileOpstruct);
+
+                    //Check file operation status
+                    if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
+                    {
+                        Popup_Show_Status("Copy", "File or folder copied");
+                        Debug.WriteLine("File or folder copied: " + oldFilePath + " to " + newFilePath);
+                    }
+                    else if (shFileOpstruct.fAnyOperationsAborted)
+                    {
+                        Popup_Show_Status("Copy", "File or folder copy aborted");
+                        Debug.WriteLine("File or folder copy aborted: " + oldFilePath + " to " + newFilePath);
+                    }
+                    else
+                    {
+                        Popup_Show_Status("Copy", "File or folder copy failed");
+                        Debug.WriteLine("File or folder copy failed: " + oldFilePath + " to " + newFilePath);
+                    }
                 }
             }
             catch (Exception ex)
@@ -349,7 +383,7 @@ namespace CtrlUI
                 {
                     shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_NOCONFIRMATION;
                 }
-                SHFileOperation(ref shFileOpstruct);
+                int shFileResult = SHFileOperation(ref shFileOpstruct);
 
                 //Check if the removed item is clipboard and reset it
                 if (vClipboardFile != null && vClipboardFile.PathFile == dataBindFile.PathFile)
@@ -362,8 +396,22 @@ namespace CtrlUI
                 //Remove file from the listbox
                 await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile);
 
-                Popup_Show_Status("Remove", "Removed file or folder");
-                Debug.WriteLine("Removed file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                //Check file operation status
+                if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
+                {
+                    Popup_Show_Status("Remove", "Removed file or folder");
+                    Debug.WriteLine("Removed file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                }
+                else if (shFileOpstruct.fAnyOperationsAborted)
+                {
+                    Popup_Show_Status("Remove", "File or folder removal aborted");
+                    Debug.WriteLine("File or folder removal aborted: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                }
+                else
+                {
+                    Popup_Show_Status("Remove", "File or folder removal failed");
+                    Debug.WriteLine("File or folder removal failed: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                }
             }
             catch (Exception ex)
             {

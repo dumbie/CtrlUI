@@ -123,21 +123,35 @@ namespace CtrlUI
                 {
                     if (Result == AnswerRemove)
                     {
-                        Popup_Show_Status("Minus", "Removed shortcut " + dataBindApp.Name);
+                        Popup_Show_Status("Minus", "Removing shortcut " + dataBindApp.Name);
                         Debug.WriteLine("Removing shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
 
-                        //Remove shortcut file if exists
-                        if (File.Exists(dataBindApp.ShortcutPath))
+                        //Move the shortcut file to recycle bin
+                        SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
+                        shFileOpstruct.wFunc = FILEOP_FUNC.FO_DELETE;
+                        shFileOpstruct.pFrom = dataBindApp.ShortcutPath + "\0\0";
+                        shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_NOCONFIRMATION | FILEOP_FLAGS.FOF_ALLOWUNDO;
+                        int shFileResult = SHFileOperation(ref shFileOpstruct);
+
+                        //Check file operation status
+                        if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                         {
-                            //Move the shortcut file to recycle bin
-                            SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
-                            shFileOpstruct.wFunc = FILEOP_FUNC.FO_DELETE;
-                            shFileOpstruct.pFrom = dataBindApp.ShortcutPath + "\0\0";
-                            shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_NOCONFIRMATION | FILEOP_FLAGS.FOF_ALLOWUNDO;
-                            SHFileOperation(ref shFileOpstruct);
+                            //Show the removal status notification
+                            Popup_Show_Status("Minus", "Removed shortcut " + dataBindApp.Name);
+                            Debug.WriteLine("Removed shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
 
                             //Remove application from the list
                             await RemoveAppFromList(dataBindApp, false, false, true);
+                        }
+                        else if (shFileOpstruct.fAnyOperationsAborted)
+                        {
+                            Popup_Show_Status("Minus", "Remove shortcut aborted");
+                            Debug.WriteLine("Remove shortcut aborted: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
+                        }
+                        else
+                        {
+                            Popup_Show_Status("Minus", "Remove shortcut failed");
+                            Debug.WriteLine("Remove shortcut failed: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
                         }
 
                         //Select the previous index

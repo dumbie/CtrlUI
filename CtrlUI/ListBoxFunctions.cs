@@ -95,17 +95,17 @@ namespace CtrlUI
                         ListBoxSelectIndex(focusListBox, firstIndex, lastIndex, indexNumber);
 
                         //Focus on the listbox and item
-                        int SelectedIndex = focusListBox.SelectedIndex;
+                        int selectedIndex = focusListBox.SelectedIndex;
 
                         //Scroll to the listbox item
-                        object ScrollListBoxItem = focusListBox.Items[SelectedIndex];
+                        object ScrollListBoxItem = focusListBox.Items[selectedIndex];
                         focusListBox.ScrollIntoView(ScrollListBoxItem);
 
                         //Force focus on an element
-                        ListBoxItem FocusListBoxItem = (ListBoxItem)focusListBox.ItemContainerGenerator.ContainerFromInd‌​ex(SelectedIndex);
+                        ListBoxItem FocusListBoxItem = (ListBoxItem)focusListBox.ItemContainerGenerator.ContainerFromInd‌​ex(selectedIndex);
                         await FocusOnElement(FocusListBoxItem, false, vProcessCurrent.MainWindowHandle);
 
-                        Debug.WriteLine("Focusing on listbox index: " + SelectedIndex);
+                        Debug.WriteLine("Focusing on listbox index: " + selectedIndex);
                     }
                     else
                     {
@@ -131,20 +131,24 @@ namespace CtrlUI
                     if (firstIndex)
                     {
                         focusListBox.SelectedIndex = 0;
+                        Debug.WriteLine("Selecting first listbox index.");
                     }
                     else if (lastIndex)
                     {
                         focusListBox.SelectedIndex = focusListBox.Items.Count - 1;
+                        Debug.WriteLine("Selecting last listbox index.");
                     }
                     else if (indexNumber != -1)
                     {
                         if (indexNumber >= focusListBox.Items.Count)
                         {
                             focusListBox.SelectedIndex = focusListBox.Items.Count - 1;
+                            Debug.WriteLine("Selecting last listbox index.");
                         }
                         else
                         {
                             focusListBox.SelectedIndex = indexNumber;
+                            Debug.WriteLine("Selecting listbox index: " + indexNumber);
                         }
                     }
 
@@ -152,6 +156,7 @@ namespace CtrlUI
                     if (focusListBox.SelectedIndex == -1)
                     {
                         focusListBox.SelectedIndex = 0;
+                        Debug.WriteLine("Selecting first listbox index.");
                     }
                 });
             }
