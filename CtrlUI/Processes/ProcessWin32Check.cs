@@ -106,26 +106,17 @@ namespace CtrlUI
                     Answer2.Name = "Close all the windows";
                     multiAnswers.Add(Answer2);
 
-                    DataBindString cancelString = new DataBindString();
-                    cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                    cancelString.Name = "Cancel";
-                    multiAnswers.Add(cancelString);
-
                     //Ask which window needs to be shown
-                    DataBindString Result = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", "", "Please select the window that you wish to be shown:", multiAnswers);
-                    if (Result != null)
+                    DataBindString messageResult = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", "", "Please select the window that you wish to be shown:", multiAnswers);
+                    if (messageResult != null)
                     {
-                        if (Result == Answer2)
+                        if (messageResult == Answer2)
                         {
                             return new IntPtr(-100); //CloseAll
                         }
-                        else if (Result == cancelString)
-                        {
-                            return new IntPtr(-200); //Cancel
-                        }
                         else
                         {
-                            return multiVariables[multiAnswers.IndexOf(Result)];
+                            return multiVariables[multiAnswers.IndexOf(messageResult)];
                         }
                     }
                     else

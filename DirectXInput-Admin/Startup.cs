@@ -69,8 +69,8 @@ namespace AdminLauncher
             {
                 if (!vAdministratorPermission)
                 {
-                    int Result = await AVMessageBox.MessageBoxPopup(SchTask_Description, "It seems like this is the first time you are using the helper or the application path has changed so you will have to accept the upcoming administrator prompt, after that you will be able to run this helper without the administrator prompt.", "Continue", "Cancel", "", "");
-                    if (Result == 1)
+                    int messageResult = await AVMessageBox.MessageBoxPopup(SchTask_Description, "It seems like this is the first time you are using the helper or the application path has changed so you will have to accept the upcoming administrator prompt, after that you will be able to run this helper without the administrator prompt.", "Continue", "Cancel", "", "");
+                    if (messageResult == 1)
                     {
                         await ProcessLauncherWin32Async(Assembly.GetEntryAssembly().Location, Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "", true, false);
                         Environment.Exit(0);

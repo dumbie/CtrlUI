@@ -196,8 +196,8 @@ namespace DirectXInput
                 ControllerStatus ManageController = GetManageController();
                 if (ManageController != null)
                 {
-                    int Result = await MessageBoxPopup("Do you really want to remove this controller?", "This will reset the manage controller to it's defaults and disconnect it.", "Remove controller", "Cancel", "", "");
-                    if (Result == 1)
+                    int messageResult = await MessageBoxPopup("Do you really want to remove this controller?", "This will reset the manage controller to it's defaults and disconnect it.", "Remove controller", "Cancel", "", "");
+                    if (messageResult == 1)
                     {
                         Debug.WriteLine("Removed the controller: " + ManageController.Details.DisplayName);
                         AVActions.ActionDispatcherInvoke(delegate
@@ -256,21 +256,21 @@ namespace DirectXInput
         }
 
         //Close the application
-        async Task<bool> Application_Exit(bool SilentClose)
+        async Task<bool> Application_Exit(bool silentClose)
         {
             try
             {
-                int Result = 2; //Cancel
-                if (!SilentClose)
+                int messageResult = 2; //Cancel
+                if (!silentClose)
                 {
-                    Result = await MessageBoxPopup("Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", "Close", "Cancel", "", "");
+                    messageResult = await MessageBoxPopup("Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", "Close", "Cancel", "", "");
                 }
                 else
                 {
-                    Result = 1;
+                    messageResult = 1;
                 }
 
-                if (Result == 1)
+                if (messageResult == 1)
                 {
                     Debug.WriteLine("Exiting application.");
 

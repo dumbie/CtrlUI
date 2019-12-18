@@ -113,72 +113,95 @@ namespace CtrlUI
                 AnswerHide.Name = "Hide the shortcut file";
                 Answers.Add(AnswerHide);
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
-                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, dataBindApp.PathExe, Answers);
-                if (Result != null)
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, dataBindApp.PathExe, Answers);
+                if (messageResult != null)
                 {
-                    if (Result == AnswerRemove)
+                    if (messageResult == AnswerRemove)
                     {
-                        Popup_Show_Status("Minus", "Removing shortcut " + dataBindApp.Name);
-                        Debug.WriteLine("Removing shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
-
-                        //Move the shortcut file to recycle bin
-                        SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
-                        shFileOpstruct.wFunc = FILEOP_FUNC.FO_DELETE;
-                        shFileOpstruct.pFrom = dataBindApp.ShortcutPath + "\0\0";
-                        shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_NOCONFIRMATION | FILEOP_FLAGS.FOF_ALLOWUNDO;
-                        int shFileResult = SHFileOperation(ref shFileOpstruct);
-
-                        //Check file operation status
-                        if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
-                        {
-                            //Show the removal status notification
-                            Popup_Show_Status("Minus", "Removed shortcut " + dataBindApp.Name);
-                            Debug.WriteLine("Removed shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
-
-                            //Remove application from the list
-                            await RemoveAppFromList(dataBindApp, false, false, true);
-                        }
-                        else if (shFileOpstruct.fAnyOperationsAborted)
-                        {
-                            Popup_Show_Status("Minus", "Remove shortcut aborted");
-                            Debug.WriteLine("Remove shortcut aborted: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
-                        }
-                        else
-                        {
-                            Popup_Show_Status("Minus", "Remove shortcut failed");
-                            Debug.WriteLine("Remove shortcut failed: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
-                        }
-
-                        //Select the previous index
-                        await ListboxFocus(listboxSender, false, false, listboxSelectedIndex);
+                        await RemoveShortcutFile(listboxSender, listboxSelectedIndex, dataBindApp);
                     }
-                    else if (Result == AnswerRename)
+                    else if (messageResult == AnswerRename)
                     {
                         await RenameShortcutFile(dataBindApp);
                     }
-                    else if (Result == AnswerHide)
+                    else if (messageResult == AnswerHide)
                     {
-                        Popup_Show_Status("Hide", "Hiding shortcut " + dataBindApp.Name);
-                        Debug.WriteLine("Hiding shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
-
-                        //Add shortcut file to the ignore list
-                        vAppsBlacklistShortcut.Add(dataBindApp.Name);
-                        JsonSaveAppsBlacklistShortcut();
-
-                        //Remove application from the list
-                        await RemoveAppFromList(dataBindApp, false, false, true);
-
-                        //Select the previous index
-                        await ListboxFocus(listboxSender, false, false, listboxSelectedIndex);
+                        await HideShortcutFile(listboxSender, listboxSelectedIndex, dataBindApp);
                     }
                 }
             }
             catch { }
+        }
+
+        //Hide the shortcut file
+        async Task HideShortcutFile(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
+        {
+            try
+            {
+                Popup_Show_Status("Hide", "Hiding shortcut " + dataBindApp.Name);
+                Debug.WriteLine("Hiding shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
+
+                //Add shortcut file to the ignore list
+                vAppsBlacklistShortcut.Add(dataBindApp.Name);
+                JsonSaveAppsBlacklistShortcut();
+
+                //Remove application from the list
+                await RemoveAppFromList(dataBindApp, false, false, true);
+
+                //Select the previous index
+                await ListboxFocus(listboxSender, false, false, listboxSelectedIndex);
+            }
+            catch (Exception ex)
+            {
+                Popup_Show_Status("Hide", "Failed hiding");
+                Debug.WriteLine("Failed hiding shortcut: " + ex.Message);
+            }
+        }
+
+        //Remove the shortcut file
+        async Task RemoveShortcutFile(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
+        {
+            try
+            {
+                Popup_Show_Status("Minus", "Removing shortcut " + dataBindApp.Name);
+                Debug.WriteLine("Removing shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
+
+                //Move the shortcut file to recycle bin
+                SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
+                shFileOpstruct.wFunc = FILEOP_FUNC.FO_DELETE;
+                shFileOpstruct.pFrom = dataBindApp.ShortcutPath + "\0\0";
+                shFileOpstruct.fFlags = FILEOP_FLAGS.FOF_NOCONFIRMATION | FILEOP_FLAGS.FOF_ALLOWUNDO;
+                int shFileResult = SHFileOperation(ref shFileOpstruct);
+
+                //Check file operation status
+                if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
+                {
+                    //Show the removal status notification
+                    Popup_Show_Status("Minus", "Removed shortcut " + dataBindApp.Name);
+                    Debug.WriteLine("Removed shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
+
+                    //Remove application from the list
+                    await RemoveAppFromList(dataBindApp, false, false, true);
+                }
+                else if (shFileOpstruct.fAnyOperationsAborted)
+                {
+                    Popup_Show_Status("Minus", "Remove shortcut aborted");
+                    Debug.WriteLine("Remove shortcut aborted: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
+                }
+                else
+                {
+                    Popup_Show_Status("Minus", "Remove shortcut failed");
+                    Debug.WriteLine("Remove shortcut failed: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
+                }
+
+                //Select the previous index
+                await ListboxFocus(listboxSender, false, false, listboxSelectedIndex);
+            }
+            catch (Exception ex)
+            {
+                Popup_Show_Status("Minus", "Failed removing");
+                Debug.WriteLine("Failed removing shortcut: " + ex.Message);
+            }
         }
 
         //Rename the shortcut file
@@ -240,20 +263,15 @@ namespace CtrlUI
                 Answer2.Name = "Remove application";
                 Answers.Add(Answer2);
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
-                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", ApplicationRuntimeString(dataBindApp.RunningTime, "application"), "", Answers);
-                if (Result != null)
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", ApplicationRuntimeString(dataBindApp.RunningTime, "application"), "", Answers);
+                if (messageResult != null)
                 {
-                    if (Result == Answer1)
+                    if (messageResult == Answer1)
                     {
                         //Show application edit popup
                         await Popup_Show_AppEdit(listboxSender);
                     }
-                    else if (Result == Answer2)
+                    else if (messageResult == Answer2)
                     {
                         //Remove application from the list
                         await RemoveAppFromList(dataBindApp, true, true, false);
@@ -292,19 +310,14 @@ namespace CtrlUI
                 Answer2.Name = "Restart process";
                 Answers.Add(Answer2);
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
-                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTime, "", Answers);
-                if (Result != null)
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTime, "", Answers);
+                if (messageResult != null)
                 {
-                    if (Result == Answer0)
+                    if (messageResult == Answer0)
                     {
                         await ShowProcessWindow(dataBindApp, processMulti);
                     }
-                    else if (Result == Answer1)
+                    else if (messageResult == Answer1)
                     {
                         if (processMulti.Type == ProcessType.UWP)
                         {
@@ -315,7 +328,7 @@ namespace CtrlUI
                             await CloseSingleProcessWin32AndWin32Store(dataBindApp, processMulti, false, true);
                         }
                     }
-                    else if (Result == Answer2)
+                    else if (messageResult == Answer2)
                     {
                         //Restart the process
                         if (processMulti.Type == ProcessType.UWP)

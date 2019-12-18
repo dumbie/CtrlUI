@@ -46,13 +46,8 @@ namespace CtrlUI
                 Answer1.Name = "Manage controllers";
                 Answers.Add(Answer1);
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
-                DataBindString Result = await Popup_Show_MessageBox("This will open a window you can't controller", "", "You can always return back to CtrlUI using the 'Guide' button on your controller or you can use the Keyboard Controller's mouse function.", Answers);
-                if (Result != null && Result == Answer1)
+                DataBindString messageResult = await Popup_Show_MessageBox("This will open a window you can't controller", "", "You can always return back to CtrlUI using the 'Guide' button on your controller or you can use the Keyboard Controller's mouse function.", Answers);
+                if (messageResult != null && messageResult == Answer1)
                 {
                     ProcessLauncherWin32(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\control.exe", "", "joy.cpl", false, false);
                 }

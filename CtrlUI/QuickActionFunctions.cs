@@ -71,44 +71,41 @@ namespace CtrlUI
                     Answers.Add(AnswerXboxApp);
                 }
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
-                DataBindString Result = await Popup_Show_MessageBox("Quick action", "* You can change the quick launch application in the CtrlUI settings.", "", Answers);
-
-                if (Result == AnswerQuickLaunch)
+                DataBindString messageResult = await Popup_Show_MessageBox("Quick action", "* You can change the quick launch application in the CtrlUI settings.", "", Answers);
+                if (messageResult != null)
                 {
-                    await LaunchQuickLaunchApp();
-                }
-                else if (Result == AnswerSortApps)
-                {
-                    SortAppLists(false, false);
-                }
-                else if (Result == AnswerLaunchExe)
-                {
-                    await RunExecutableFile();
-                }
-                else if (Result == AnswerLaunchUwp)
-                {
-                    await RunUwpApplication();
-                }
-                else if (Result == AnswerStartMenu)
-                {
-                    ShowWindowStartMenu();
-                }
-                else if (Result == AnswerControlMedia)
-                {
-                    await Popup_Show(grid_Popup_Media, grid_Popup_Media_PlayPause, true);
-                }
-                else if (Result == AnswerFpsOverlayer)
-                {
-                    CloseShowFpsOverlayer();
-                }
-                else if (Result == AnswerXboxApp)
-                {
-                    await LaunchXboxCompanion();
+                    if (messageResult == AnswerQuickLaunch)
+                    {
+                        await LaunchQuickLaunchApp();
+                    }
+                    else if (messageResult == AnswerSortApps)
+                    {
+                        SortAppLists(false, false);
+                    }
+                    else if (messageResult == AnswerLaunchExe)
+                    {
+                        await RunExecutableFile();
+                    }
+                    else if (messageResult == AnswerLaunchUwp)
+                    {
+                        await RunUwpApplication();
+                    }
+                    else if (messageResult == AnswerStartMenu)
+                    {
+                        ShowWindowStartMenu();
+                    }
+                    else if (messageResult == AnswerControlMedia)
+                    {
+                        await Popup_Show(grid_Popup_Media, grid_Popup_Media_PlayPause, true);
+                    }
+                    else if (messageResult == AnswerFpsOverlayer)
+                    {
+                        CloseShowFpsOverlayer();
+                    }
+                    else if (messageResult == AnswerXboxApp)
+                    {
+                        await LaunchXboxCompanion();
+                    }
                 }
             }
             catch { }

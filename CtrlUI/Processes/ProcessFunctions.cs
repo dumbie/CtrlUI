@@ -321,19 +321,13 @@ namespace CtrlUI
                 Answer1.Name = "Close launchers";
                 Answers.Add(Answer1);
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
-                DataBindString Result = null;
-
+                DataBindString messageResult = null;
                 if (!SilentClose)
                 {
-                    Result = await Popup_Show_MessageBox("Do you want to close other running launchers?", "", "This includes launchers like Steam, Origin, Uplay, GoG, Battle.net, Bethesda and Epic Games.", Answers);
+                    messageResult = await Popup_Show_MessageBox("Do you want to close other running launchers?", "", "This includes launchers like Steam, Origin, Uplay, GoG, Battle.net, Bethesda and Epic Games.", Answers);
                 }
 
-                if (SilentClose || (Result != null && Result == Answer1))
+                if (SilentClose || (messageResult != null && messageResult == Answer1))
                 {
                     Popup_Show_Status("Closing", "Closing other launchers");
 
@@ -366,13 +360,8 @@ namespace CtrlUI
                 Answer1.Name = "Disconnect streams";
                 Answers.Add(Answer1);
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
-                DataBindString Result = await Popup_Show_MessageBox("Do you want to disconnect remote streams?", "", "This includes streams from GeForce Experience, Parsec and Steam In-Home Streaming.", Answers);
-                if (Result != null && Result == Answer1)
+                DataBindString messageResult = await Popup_Show_MessageBox("Do you want to disconnect remote streams?", "", "This includes streams from GeForce Experience, Parsec and Steam In-Home Streaming.", Answers);
+                if (messageResult != null && messageResult == Answer1)
                 {
                     Popup_Show_Status("Stream", "Disconnecting remote streams");
 

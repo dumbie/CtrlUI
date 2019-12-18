@@ -155,20 +155,15 @@ namespace CtrlUI
                 Answer3.Name = "Shutdown my PC";
                 Answers.Add(Answer3);
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
-                DataBindString Result = await Popup_Show_MessageBox("Would you like to close CtrlUI or shutdown your PC?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);
-                if (Result != null)
+                DataBindString messageResult = await Popup_Show_MessageBox("Would you like to close CtrlUI or shutdown your PC?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);
+                if (messageResult != null)
                 {
-                    if (Result == Answer1)
+                    if (messageResult == Answer1)
                     {
                         Popup_Show_Status("Closing", "Closing CtrlUI");
                         await Application_Exit(true);
                     }
-                    else if (Result == Answer2)
+                    else if (messageResult == Answer2)
                     {
                         Popup_Show_Status("Shutdown", "Restarting your PC");
 
@@ -181,7 +176,7 @@ namespace CtrlUI
                         //Close CtrlUI
                         await Application_Exit(true);
                     }
-                    else if (Result == Answer3)
+                    else if (messageResult == Answer3)
                     {
                         Popup_Show_Status("Shutdown", "Shutting down your PC");
 

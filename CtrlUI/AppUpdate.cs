@@ -13,7 +13,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Check for available application update
-        public async Task CheckForAppUpdate(bool Silent)
+        public async Task CheckForAppUpdate(bool silentCheck)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace CtrlUI
                     string ResCurrentVersion = await AVDownloader.DownloadStringAsync(5000, "CtrlUI", null, new Uri("http://download.arnoldvink.com/CtrlUI.zip-version.txt" + "?nc=" + Environment.TickCount));
                     if (!string.IsNullOrWhiteSpace(ResCurrentVersion) && ResCurrentVersion != Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0])
                     {
-                        if (Silent)
+                        if (silentCheck)
                         {
                             Popup_Show_Status("Refresh", "Update available");
                         }
@@ -36,13 +36,8 @@ namespace CtrlUI
                             Answer1.Name = "Update now";
                             Answers.Add(Answer1);
 
-                            DataBindString cancelString = new DataBindString();
-                            cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                            cancelString.Name = "Cancel";
-                            Answers.Add(cancelString);
-
-                            DataBindString Result = await Popup_Show_MessageBox("A newer version has been found: v" + ResCurrentVersion, "", "Do you want to update the application to the newest version now?", Answers);
-                            if (Result != null && Result == Answer1)
+                            DataBindString messageResult = await Popup_Show_MessageBox("A newer version has been found: v" + ResCurrentVersion, "", "Do you want to update the application to the newest version now?", Answers);
+                            if (messageResult != null && messageResult == Answer1)
                             {
                                 await ProcessLauncherWin32Async("Updater.exe", "", "", false, false);
                                 await Application_Exit(true);
@@ -51,7 +46,7 @@ namespace CtrlUI
                     }
                     else
                     {
-                        if (!Silent)
+                        if (!silentCheck)
                         {
                             List<DataBindString> Answers = new List<DataBindString>();
                             DataBindString Answer1 = new DataBindString();
@@ -71,7 +66,7 @@ namespace CtrlUI
             catch
             {
                 vCheckingForUpdate = false;
-                if (!Silent)
+                if (!silentCheck)
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();

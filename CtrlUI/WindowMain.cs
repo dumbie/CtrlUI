@@ -362,7 +362,7 @@ namespace CtrlUI
         }
 
         //Close the application
-        public async Task Application_Exit(bool SilentClose)
+        public async Task Application_Exit(bool silentClose)
         {
             try
             {
@@ -372,23 +372,17 @@ namespace CtrlUI
                 Answer1.Name = "Close CtrlUI";
                 Answers.Add(Answer1);
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
-                DataBindString Result = null;
-
-                if (!SilentClose)
+                DataBindString messageResult = null;
+                if (!silentClose)
                 {
                     //Force focus on CtrlUI
                     FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
 
                     //Show the question messagebox
-                    Result = await Popup_Show_MessageBox("Do you really want to close CtrlUI?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);
+                    messageResult = await Popup_Show_MessageBox("Do you really want to close CtrlUI?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);
                 }
 
-                if (SilentClose || (Result != null && Result == Answer1))
+                if (silentClose || (messageResult != null && messageResult == Answer1))
                 {
                     Debug.WriteLine("Exiting application.");
 

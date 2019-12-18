@@ -34,20 +34,15 @@ namespace CtrlUI
                     Answers.Add(Answer1);
                 }
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
                 //Show the messagebox prompt
-                DataBindString ResultMultiple = await Popup_Show_MessageBox("Switch audio playback device", "", "Please select the audio playback device you want to start listening from, your current audio device is: " + deviceCurrent.Name, Answers);
-                if (ResultMultiple != null)
+                DataBindString messageResult = await Popup_Show_MessageBox("Switch audio playback device", "", "Please select the audio playback device you want to start listening from, your current audio device is: " + deviceCurrent.Name, Answers);
+                if (messageResult != null)
                 {
                     //Change the default device
-                    AudioDeviceSummary ChangeDevice = devicesList.Where(x => x.Name.ToLower() == ResultMultiple.Name.ToLower()).FirstOrDefault();
-                    if (ChangeDevice != null)
+                    AudioDeviceSummary changeDevice = devicesList.Where(x => x.Name.ToLower() == messageResult.Name.ToLower()).FirstOrDefault();
+                    if (changeDevice != null)
                     {
-                        if (SetDefaultDevice(ChangeDevice.Identifier))
+                        if (SetDefaultDevice(changeDevice.Identifier))
                         {
                             Popup_Show_Status("VolumeUp", "Switched audio device");
                         }

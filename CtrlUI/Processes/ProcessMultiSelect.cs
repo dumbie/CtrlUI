@@ -51,15 +51,10 @@ namespace CtrlUI
                         Answer2.Name = "Close all the instances";
                         multiAnswers.Add(Answer2);
 
-                        DataBindString cancelString = new DataBindString();
-                        cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                        cancelString.Name = "Cancel";
-                        multiAnswers.Add(cancelString);
-
-                        DataBindString Result = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple running instances", "", "Please select the instance that you wish to interact with:", multiAnswers);
-                        if (Result != null)
+                        DataBindString messageResult = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple running instances", "", "Please select the instance that you wish to interact with:", multiAnswers);
+                        if (messageResult != null)
                         {
-                            if (Result == Answer2)
+                            if (messageResult == Answer2)
                             {
                                 //Get the first multi process type
                                 ProcessType processType = dataBindApp.ProcessMulti.FirstOrDefault().Type;
@@ -70,15 +65,9 @@ namespace CtrlUI
                                 processMultiNew.Type = processType;
                                 return processMultiNew;
                             }
-                            else if (Result == cancelString)
-                            {
-                                ProcessMulti processMultiNew = new ProcessMulti();
-                                processMultiNew.Action = "Cancel";
-                                return processMultiNew;
-                            }
                             else
                             {
-                                return dataBindApp.ProcessMulti[multiAnswers.IndexOf(Result)];
+                                return dataBindApp.ProcessMulti[multiAnswers.IndexOf(messageResult)];
                             }
                         }
                         else

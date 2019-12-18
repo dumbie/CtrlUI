@@ -116,32 +116,27 @@ namespace CtrlUI
                 answerRemove.Name = "Move file or folder to recycle bin";
                 Answers.Add(answerRemove);
 
-                DataBindString answerCancel = new DataBindString();
-                answerCancel.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                answerCancel.Name = "Cancel";
-                Answers.Add(answerCancel);
-
                 //Show the messagebox prompt
-                DataBindString result = await Popup_Show_MessageBox("File and folder actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
-                if (result != null)
+                DataBindString messageResult = await Popup_Show_MessageBox("File and folder actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
+                if (messageResult != null)
                 {
                     //Sort files and folders
-                    if (result == answerSort)
+                    if (messageResult == answerSort)
                     {
                         await FilePicker_SortFilesFolders(false);
                     }
                     //Copy file or folder
-                    else if (result == answerCopy)
+                    else if (messageResult == answerCopy)
                     {
                         FilePicker_FileCopy(selectedItem);
                     }
                     //Cut file or folder
-                    else if (result == answerCut)
+                    else if (messageResult == answerCut)
                     {
                         FilePicker_FileCut(selectedItem);
                     }
                     //Paste file or folder
-                    else if (result == answerPaste)
+                    else if (messageResult == answerPaste)
                     {
                         async void TaskAction()
                         {
@@ -154,12 +149,12 @@ namespace CtrlUI
                         await AVActions.TaskStart(TaskAction, null);
                     }
                     //Rename file or folder
-                    else if (result == answerRename)
+                    else if (messageResult == answerRename)
                     {
                         await FilePicker_FileRename(selectedItem);
                     }
                     //Remove file or folder
-                    else if (result == answerRemove)
+                    else if (messageResult == answerRemove)
                     {
                         await FilePicker_FileRemove(selectedItem, true);
                     }

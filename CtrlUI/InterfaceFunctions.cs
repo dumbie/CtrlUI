@@ -110,7 +110,6 @@ namespace CtrlUI
                 btn_Manage_AddAppCategory.Click += Button_ShowStringPicker;
                 btn_Manage_MoveAppLeft.Click += Btn_Manage_MoveAppLeft_Click;
                 btn_Manage_MoveAppRight.Click += Btn_Manage_MoveAppRight_Click;
-                btn_Manage_Cancel.Click += Btn_Manage_Cancel_Click;
 
                 //Media functions
                 grid_Popup_Media_Previous.Click += Button_Media_PreviousItem;
@@ -516,15 +515,10 @@ namespace CtrlUI
                     Answer3.Name = "Minimize CtrlUI";
                     Answers.Add(Answer3);
 
-                    DataBindString cancelString = new DataBindString();
-                    cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                    cancelString.Name = "Cancel";
-                    Answers.Add(cancelString);
-
-                    DataBindString Result = await Popup_Show_MessageBox("Return to previous application or minimize?", "", "You can always return to " + vPrevFocusedProcess.Title + " later on.", Answers);
-                    if (Result != null)
+                    DataBindString messageResult = await Popup_Show_MessageBox("Return to previous application or minimize?", "", "You can always return to " + vPrevFocusedProcess.Title + " later on.", Answers);
+                    if (messageResult != null)
                     {
-                        if (Result == Answer1)
+                        if (messageResult == Answer1)
                         {
                             //Minimize the CtrlUI window
                             if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True")
@@ -535,7 +529,7 @@ namespace CtrlUI
                             //Force focus on the app
                             FocusProcessWindowPrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.Identifier, vPrevFocusedProcess.WindowHandle, 0, false, false, false);
                         }
-                        else if (Result == Answer2)
+                        else if (messageResult == Answer2)
                         {
                             Popup_Show_Status("Closing", "Closing " + vPrevFocusedProcess.Title);
                             Debug.WriteLine("Closing process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Identifier + " / " + vPrevFocusedProcess.WindowHandle);
@@ -562,7 +556,7 @@ namespace CtrlUI
                                 }
                             }
                         }
-                        else if (Result == Answer3)
+                        else if (messageResult == Answer3)
                         {
                             //Minimize the CtrlUI window
                             await AppMinimize(false);

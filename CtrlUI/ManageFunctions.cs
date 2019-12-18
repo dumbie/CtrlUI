@@ -331,17 +331,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Cancel application editing and close popup
-        async void Btn_Manage_Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //Close the open popup
-                await Popup_Close_Top();
-            }
-            catch { }
-        }
-
         //Reset the application image
         void Button_Manage_ResetAppLogo_Click(object sender, RoutedEventArgs e)
         {

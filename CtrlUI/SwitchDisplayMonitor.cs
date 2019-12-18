@@ -46,37 +46,28 @@ namespace CtrlUI
                 Answer3.Name = "Extend mode";
                 Answers.Add(Answer3);
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
                 //Show the messagebox prompt
-                DataBindString ResultMultiple = await Popup_Show_MessageBox("Switch display monitor", "", "Please select the display monitor you want to use.", Answers);
-                if (ResultMultiple != null)
+                DataBindString messageResult = await Popup_Show_MessageBox("Switch display monitor", "", "Please select the display monitor you want to use.", Answers);
+                if (messageResult != null)
                 {
-                    if (ResultMultiple == Answer1)
+                    if (messageResult == Answer1)
                     {
                         Popup_Show_Status("MonitorSwitch", "Switching primary monitor");
                         EnableMonitorFirst();
                     }
-                    else if (ResultMultiple == Answer2)
+                    else if (messageResult == Answer2)
                     {
                         Popup_Show_Status("MonitorSwitch", "Cloning display monitor");
                         EnableMonitorCloneMode();
                     }
-                    else if (ResultMultiple == Answer3)
+                    else if (messageResult == Answer3)
                     {
                         Popup_Show_Status("MonitorSwitch", "Extending display monitor");
                         EnableMonitorExtendMode();
                     }
-                    else if (ResultMultiple == cancelString)
-                    {
-                        return;
-                    }
                     else
                     {
-                        DisplayMonitorSummary changeDevice = monitorsList.Where(x => x.Name.ToLower() == ResultMultiple.Name.ToLower()).FirstOrDefault();
+                        DisplayMonitorSummary changeDevice = monitorsList.Where(x => x.Name.ToLower() == messageResult.Name.ToLower()).FirstOrDefault();
                         if (changeDevice != null)
                         {
                             Popup_Show_Status("MonitorSwitch", "Switching display monitor");

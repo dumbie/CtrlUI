@@ -39,11 +39,6 @@ namespace CtrlUI
                 Answer4.Name = "Launch new instance";
                 Answers.Add(Answer4);
 
-                DataBindString cancelString = new DataBindString();
-                cancelString.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                cancelString.Name = "Cancel";
-                Answers.Add(cancelString);
-
                 //Get the process running time
                 string applicationRuntime = string.Empty;
                 if (dataBindApp.Category == AppCategory.Shortcut)
@@ -56,16 +51,16 @@ namespace CtrlUI
                 }
 
                 //Show the messagebox
-                DataBindString Result = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", applicationRuntime, "", Answers);
-                if (Result != null)
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", applicationRuntime, "", Answers);
+                if (messageResult != null)
                 {
-                    if (Result == Answer1)
+                    if (messageResult == Answer1)
                     {
                         Debug.WriteLine("Showing the application.");
                         await ShowProcessWindow(dataBindApp, processMulti);
                         return false;
                     }
-                    else if (Result == Answer2)
+                    else if (messageResult == Answer2)
                     {
                         Debug.WriteLine("Closing the application.");
                         if (processMulti.Type == ProcessType.UWP)
@@ -78,7 +73,7 @@ namespace CtrlUI
                         }
                         return false;
                     }
-                    else if (Result == Answer3)
+                    else if (messageResult == Answer3)
                     {
                         Debug.WriteLine("Restarting the application.");
                         if (processMulti.Type == ProcessType.UWP)
@@ -94,7 +89,7 @@ namespace CtrlUI
                             return await RestartPrepareWin32(dataBindApp, processMulti);
                         }
                     }
-                    else if (Result == Answer4)
+                    else if (messageResult == Answer4)
                     {
                         Debug.WriteLine("Running new application instance.");
                         if (processMulti.Type == ProcessType.UWP || processMulti.Type == ProcessType.Win32Store)
@@ -105,11 +100,6 @@ namespace CtrlUI
                         {
                             return await LaunchProcessDatabindWin32(dataBindApp);
                         }
-                    }
-                    else if (Result == cancelString)
-                    {
-                        Debug.WriteLine("Cancelling the process action.");
-                        return false;
                     }
                 }
                 else

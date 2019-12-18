@@ -431,13 +431,8 @@ namespace CtrlUI
                 answerEmpty.Name = "Empty recycle bin";
                 messageAnswers.Add(answerEmpty);
 
-                DataBindString answerCancel = new DataBindString();
-                answerCancel.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Close.png" }, IntPtr.Zero, -1);
-                answerCancel.Name = "Cancel";
-                messageAnswers.Add(answerCancel);
-
                 DataBindString messageResult = await Popup_Show_MessageBox("Empty the recycle bin?", "", "This will permanently remove all the files from your recycle bin.", messageAnswers);
-                if (messageResult == answerEmpty)
+                if (messageResult != null && messageResult == answerEmpty)
                 {
                     Popup_Show_Status("Remove", "Emptying recycle bin");
                     Debug.WriteLine("Emptying the Windows recycle bin.");
