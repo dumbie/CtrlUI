@@ -390,6 +390,9 @@ namespace CtrlUI
                     //Add and select the listbox item
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, true);
 
+                    //Check if there are files or folders
+                    FilePicker_CheckFilesAndFoldersCount();
+
                     Popup_Show_Status("FolderAdd", "Created new folder");
                     Debug.WriteLine("Created new folder in: " + newFolderPath);
                 }
@@ -441,6 +444,9 @@ namespace CtrlUI
 
                 //Remove file from the listbox
                 await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile);
+
+                //Check if there are files or folders
+                FilePicker_CheckFilesAndFoldersCount();
 
                 //Check file operation status
                 if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)

@@ -73,7 +73,7 @@ namespace CtrlUI
                 vFilePickerCurrentPath = targetPath;
                 if (storeIndex)
                 {
-                    File_Picker_AddIndexHistory(lb_FilePicker.SelectedIndex);
+                    FilePicker_AddIndexHistory(lb_FilePicker.SelectedIndex);
                 }
 
                 //Clear the current file picker list
@@ -85,6 +85,9 @@ namespace CtrlUI
                 {
                     //Disable selection button in the list
                     grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Collapsed;
+
+                    //Hide file and folder availability
+                    grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;
 
                     //Disable the side navigate buttons
                     grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Collapsed;
@@ -107,6 +110,9 @@ namespace CtrlUI
                 {
                     //Disable selection button in the list
                     grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Collapsed;
+
+                    //Hide file and folder availability
+                    grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;
 
                     //Disable the side navigate buttons
                     grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Collapsed;
@@ -182,6 +188,9 @@ namespace CtrlUI
                 {
                     //Disable selection button in the list
                     grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Collapsed;
+
+                    //Hide file and folder availability
+                    grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;
 
                     //Disable the side navigate buttons
                     grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Collapsed;
@@ -440,6 +449,9 @@ namespace CtrlUI
                         //Enable selection button in the list
                         grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Visible;
                     }
+
+                    //Check if there are files or folders
+                    FilePicker_CheckFilesAndFoldersCount();
                 }
 
                 //Focus on the file picker listbox
@@ -448,8 +460,28 @@ namespace CtrlUI
             catch { }
         }
 
+        //Check if there are files or folders
+        void FilePicker_CheckFilesAndFoldersCount()
+        {
+            try
+            {
+                int totalFileCount = List_FilePicker.Count - 1; //Filter out GoUp
+                if (totalFileCount > 0)
+                {
+                    grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;
+                    Debug.WriteLine("There are files and folders in the list.");
+                }
+                else
+                {
+                    grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Visible;
+                    Debug.WriteLine("None files and folders in the list.");
+                }
+            }
+            catch { }
+        }
+
         //Store the picker navigation index
-        void File_Picker_AddIndexHistory(int PreviousIndex)
+        void FilePicker_AddIndexHistory(int PreviousIndex)
         {
             try
             {
