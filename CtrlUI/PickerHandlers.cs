@@ -111,6 +111,11 @@ namespace CtrlUI
                 answerRename.Name = "Rename the file or folder";
                 Answers.Add(answerRename);
 
+                DataBindString answerFolderCreate = new DataBindString();
+                answerFolderCreate.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FolderAdd.png" }, IntPtr.Zero, -1);
+                answerFolderCreate.Name = "Create a new folder here";
+                Answers.Add(answerFolderCreate);
+
                 DataBindString answerRemove = new DataBindString();
                 answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
                 answerRemove.Name = "Move file or folder to recycle bin";
@@ -152,6 +157,11 @@ namespace CtrlUI
                     else if (messageResult == answerRename)
                     {
                         await FilePicker_FileRename(selectedItem);
+                    }
+                    //Create a new folder
+                    else if (messageResult == answerFolderCreate)
+                    {
+                        await FilePicker_FolderCreate();
                     }
                     //Remove file or folder
                     else if (messageResult == answerRemove)

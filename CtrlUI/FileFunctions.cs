@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
@@ -352,6 +353,51 @@ namespace CtrlUI
             {
                 Popup_Show_Status("Rename", "Failed renaming");
                 Debug.WriteLine("Failed renaming file or folder: " + ex.Message);
+            }
+        }
+
+        //Create a new folder
+        async Task FilePicker_FolderCreate()
+        {
+            try
+            {
+                Popup_Show_Status("FolderAdd", "Creating new folder");
+                Debug.WriteLine("Creating new folder in: " + vFilePickerCurrentPath);
+
+                //Show the text input popup
+                string textInputString = await Popup_ShowHide_TextInput("Create folder", string.Empty, "Create new folder");
+
+                //Check the folder create name
+                if (!string.IsNullOrWhiteSpace(textInputString))
+                {
+                    string newFolderPath = Path.Combine(vFilePickerCurrentPath, textInputString);
+
+                    //Check if the folder exists
+                    if (Directory.Exists(newFolderPath))
+                    {
+                        Popup_Show_Status("FolderAdd", "Folder already exists");
+                        Debug.WriteLine("Create folder already exists.");
+                        return;
+                    }
+
+                    //Create the new folder
+                    DirectoryInfo listDirectory = Directory.CreateDirectory(newFolderPath);
+
+                    //Create new folder databindfile
+                    BitmapImage folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1);
+                    DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listDirectory.Name, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
+
+                    //Add and select the listbox item
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, true);
+
+                    Popup_Show_Status("FolderAdd", "Created new folder");
+                    Debug.WriteLine("Created new folder in: " + newFolderPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Popup_Show_Status("FolderAdd", "Failed creating");
+                Debug.WriteLine("Failed creating new folder: " + ex.Message);
             }
         }
 

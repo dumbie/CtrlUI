@@ -280,7 +280,7 @@ namespace CtrlUI
                                     }
                                     else
                                     {
-                                        folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, 50);
+                                        folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1);
                                     }
 
                                     //Get the folder size
