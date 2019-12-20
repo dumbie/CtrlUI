@@ -409,15 +409,16 @@ namespace CtrlUI
                                     else
                                     {
                                         fileDescription = string.Empty;
-                                        if (listFile.FullName.ToLower().EndsWith(".jpg") || listFile.FullName.ToLower().EndsWith(".png"))
+                                        string listFileFullNameLower = listFile.FullName.ToLower();
+                                        if (listFileFullNameLower.EndsWith(".jpg") || listFileFullNameLower.EndsWith(".png") || listFileFullNameLower.EndsWith(".gif"))
                                         {
                                             fileImage = FileToBitmapImage(new string[] { listFile.FullName }, IntPtr.Zero, 50);
                                         }
-                                        else if (listFile.FullName.ToLower().EndsWith(".exe"))
+                                        else if (listFileFullNameLower.EndsWith(".exe"))
                                         {
                                             fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
                                         }
-                                        else if (listFile.FullName.ToLower().EndsWith(".bat"))
+                                        else if (listFileFullNameLower.EndsWith(".bat"))
                                         {
                                             fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, -1);
                                         }
