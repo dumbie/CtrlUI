@@ -203,17 +203,17 @@ namespace CtrlUI
                     //Add or insert the item to the list
                     if (insertItem)
                     {
-                        Debug.WriteLine(listBox.Name + " listbox item has been inserted.");
+                        Debug.WriteLine(listCollection + " listbox item has been inserted.");
                         listCollection.Insert(0, addItem);
                     }
                     else
                     {
-                        Debug.WriteLine(listBox.Name + " listbox item has been added.");
+                        Debug.WriteLine(listCollection + " listbox item has been added.");
                         listCollection.Add(addItem);
                     }
 
-                    //Select the item in the list
-                    if (selectItem)
+                    //Select the item in the listbox
+                    if (listBox != null && selectItem)
                     {
                         if (insertItem)
                         {

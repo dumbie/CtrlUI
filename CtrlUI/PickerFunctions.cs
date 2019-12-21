@@ -201,7 +201,7 @@ namespace CtrlUI
                     {
                         try
                         {
-                            await ListLoadAllUwpApplications(List_FilePicker);
+                            await ListLoadAllUwpApplications(lb_FilePicker, List_FilePicker);
                         }
                         catch { }
                     }

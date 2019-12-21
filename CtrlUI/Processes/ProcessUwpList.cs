@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using Windows.Management.Deployment;
@@ -250,7 +251,7 @@ namespace CtrlUI
         }
 
         //List all available uwp applications
-        async Task ListLoadAllUwpApplications(ObservableCollection<DataBindFile> targetList)
+        async Task ListLoadAllUwpApplications(ListBox targetListBox, ObservableCollection<DataBindFile> targetList)
         {
             try
             {
@@ -300,7 +301,7 @@ namespace CtrlUI
 
                         //Add the application to the list
                         DataBindFile dataBindFile = new DataBindFile() { Type = "App", Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.FamilyNameId, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };
-                        await ListBoxAddItem(null, targetList, dataBindFile, false, false);
+                        await ListBoxAddItem(targetListBox, targetList, dataBindFile, false, false);
 
                         //Sort the application list by name
                         SortObservableCollection(List_FilePicker, x => x.Name, null, true);
