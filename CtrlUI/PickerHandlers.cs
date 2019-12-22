@@ -118,11 +118,11 @@ namespace CtrlUI
 
                 DataBindString answerRemove = new DataBindString();
                 answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
-                answerRemove.Name = "Move file or folder to recycle bin";
+                answerRemove.Name = "Move file or folder to recycle bin*";
                 Answers.Add(answerRemove);
 
                 //Show the messagebox prompt
-                DataBindString messageResult = await Popup_Show_MessageBox("File and folder actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("File and folder actions", "* Files and folders on a network drive get permanently deleted.", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
                 if (messageResult != null)
                 {
                     //Sort files and folders
