@@ -219,6 +219,23 @@
   <ItemGroup>
     <Resource Include="..\CtrlUI\Assets\Icons\Close.png">
       <Link>Assets\Icons\Close.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\CtrlUI\Assets\Icons\VolumeDown.png">
+      <Link>Assets\Icons\VolumeDown.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\VolumeUp.png">
+      <Link>Assets\Icons\VolumeUp.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\CtrlUI\Assets\Icons\VolumeMute.png">
+      <Link>Assets\Icons\VolumeMute.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

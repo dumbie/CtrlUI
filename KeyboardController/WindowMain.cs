@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInterface;
@@ -369,6 +370,9 @@ namespace KeyboardController
 
                         key_Control.Content = "Ctrl";
                         key_Menu.Content = "Alt";
+
+                        key_VolumeDown.Tag = "VolumeDown";
+                        image_VolumeDown.Source = new BitmapImage(new Uri(@"Assets/Icons/VolumeDown.png", UriKind.Relative));
                     });
                 }
                 else
@@ -472,6 +476,9 @@ namespace KeyboardController
 
                         key_Control.Content = "Copy";
                         key_Menu.Content = "Paste";
+
+                        key_VolumeDown.Tag = "VolumeMute";
+                        image_VolumeDown.Source = new BitmapImage(new Uri(@"Assets/Icons/VolumeMute.png", UriKind.Relative));
                     });
                 }
             }

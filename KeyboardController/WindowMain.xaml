@@ -268,12 +268,18 @@
                     </StackPanel>
                     <!-- Key Row 5 -->
                     <StackPanel Name="sp_Row5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4,0,0">
-                        <Button Name="key_Control" Width="80" Content="Ctrl" Tag="Control" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
-                        <Button Name="key_Menu" Width="80" Content="Alt" Tag="Menu" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
+                        <Button Name="key_Control" Width="70" Content="Ctrl" Tag="Control" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
+                        <Button Name="key_Menu" Width="70" Content="Alt" Tag="Menu" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_LeftWindows" Width="100" Content="Windows" Tag="LeftWindows" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
-                        <Button Name="key_Space" Width="150" Content="Space" Tag="Space" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
-                        <Button Name="key_Return" Width="80" Content="Enter" Tag="Return" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
-                        <Button Name="key_Escape" Width="80" Content="Escape" Tag="Escape" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
+                        <Button Name="key_Space" Width="140" Content="Space" Tag="Space" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
+                        <Button Name="key_Return" Width="70" Content="Enter" Tag="Return" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
+                        <Button Name="key_Escape" Width="69" Content="Escape" Tag="Escape" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
+                        <Button Name="key_VolumeDown" Tag="VolumeDown" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                            <Image Name="image_VolumeDown" Source="Assets/Icons/VolumeDown.png" Height="30"/>
+                        </Button>
+                        <Button Name="key_VolumeUp" Tag="VolumeUp" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                            <Image Source="Assets/Icons/VolumeUp.png" Height="30"/>
+                        </Button>
                         <Button Name="key_ScrollMove" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonScrollMove_PreviewKeyUp" PreviewMouseUp="ButtonScrollMove_PreviewMouseUp">
                             <Image Name="image_ScrollMove" Source="Assets/Icons/Scroll.png" Height="30"/>
                         </Button>
