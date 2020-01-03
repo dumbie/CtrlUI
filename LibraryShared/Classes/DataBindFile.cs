@@ -65,6 +65,20 @@ namespace LibraryShared
                 }
             }
 
+            private string PrivPathFull;
+            public string PathFull
+            {
+                get { return this.PrivPathFull; }
+                set
+                {
+                    if (this.PrivPathFull != value)
+                    {
+                        this.PrivPathFull = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private string PrivPathImage;
             public string PathImage
             {

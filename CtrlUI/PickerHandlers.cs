@@ -62,111 +62,146 @@ namespace CtrlUI
                 //Check if actions are enabled
                 if (grid_Popup_FilePicker_button_ControllerLeft.Visibility != Visibility.Visible)
                 {
-                    Debug.WriteLine("File and folders action cancelled, invalid directory.");
+                    Debug.WriteLine("File and folders action cancelled, no actions available.");
                     return;
                 }
 
                 //Get the selected list item
                 DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
 
-                //Add answers for messagebox
-                List<DataBindString> Answers = new List<DataBindString>();
-
-                //Check the sorting type
-                string sortType = string.Empty;
-                if (vFilePickerSortByName)
+                //Check the selected file type
+                if (selectedItem.Type == "UwpApp")
                 {
-                    sortType = "Sort files and folders by date";
+                    //Add answers for messagebox
+                    List<DataBindString> Answers = new List<DataBindString>();
+
+                    DataBindString answerUpdate = new DataBindString();
+                    answerUpdate.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Refresh.png" }, IntPtr.Zero, -1);
+                    answerUpdate.Name = "Check application update";
+                    Answers.Add(answerUpdate);
+
+                    DataBindString answerRemove = new DataBindString();
+                    answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/RemoveCross.png" }, IntPtr.Zero, -1);
+                    answerRemove.Name = "Remove the application";
+                    Answers.Add(answerRemove);
+
+                    //Show the messagebox prompt
+                    DataBindString messageResult = await Popup_Show_MessageBox("Application actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
+                    if (messageResult != null)
+                    {
+                        //Update application
+                        if (messageResult == answerUpdate)
+                        {
+                            UwpListUpdateApplication(selectedItem);
+                        }
+                        //Remove application
+                        else if (messageResult == answerRemove)
+                        {
+                            await UwpListRemoveApplication(selectedItem);
+                        }
+                    }
                 }
                 else
                 {
-                    sortType = "Sort files and folders by name";
-                }
+                    //Add answers for messagebox
+                    List<DataBindString> Answers = new List<DataBindString>();
 
-                DataBindString answerSort = new DataBindString();
-                answerSort.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Sorting.png" }, IntPtr.Zero, -1);
-                answerSort.Name = sortType;
-                Answers.Add(answerSort);
-
-                DataBindString answerCopy = new DataBindString();
-                answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Copy.png" }, IntPtr.Zero, -1);
-                answerCopy.Name = "Copy the file or folder";
-                Answers.Add(answerCopy);
-
-                DataBindString answerCut = new DataBindString();
-                answerCut.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Cut.png" }, IntPtr.Zero, -1);
-                answerCut.Name = "Cut the file or folder";
-                Answers.Add(answerCut);
-
-                DataBindString answerPaste = new DataBindString();
-                if (vClipboardFile != null)
-                {
-                    answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Paste.png" }, IntPtr.Zero, -1);
-                    answerPaste.Name = "Paste (" + vClipboardType + ") " + vClipboardFile.Name;
-                    Answers.Add(answerPaste);
-                }
-
-                DataBindString answerRename = new DataBindString();
-                answerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1);
-                answerRename.Name = "Rename the file or folder";
-                Answers.Add(answerRename);
-
-                DataBindString answerFolderCreate = new DataBindString();
-                answerFolderCreate.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FolderAdd.png" }, IntPtr.Zero, -1);
-                answerFolderCreate.Name = "Create a new folder here";
-                Answers.Add(answerFolderCreate);
-
-                DataBindString answerRemove = new DataBindString();
-                answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
-                answerRemove.Name = "Move file or folder to recycle bin*";
-                Answers.Add(answerRemove);
-
-                //Show the messagebox prompt
-                DataBindString messageResult = await Popup_Show_MessageBox("File and folder actions", "* Files and folders on a network drive get permanently deleted.", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
-                if (messageResult != null)
-                {
-                    //Sort files and folders
-                    if (messageResult == answerSort)
+                    //Check the sorting type
+                    string sortType = string.Empty;
+                    if (vFilePickerSortByName)
                     {
-                        await FilePicker_SortFilesFolders(false);
+                        sortType = "Sort files and folders by date";
                     }
-                    //Copy file or folder
-                    else if (messageResult == answerCopy)
+                    else
                     {
-                        FilePicker_FileCopy(selectedItem);
+                        sortType = "Sort files and folders by name";
                     }
-                    //Cut file or folder
-                    else if (messageResult == answerCut)
+
+                    DataBindString answerSort = new DataBindString();
+                    answerSort.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Sorting.png" }, IntPtr.Zero, -1);
+                    answerSort.Name = sortType;
+                    Answers.Add(answerSort);
+
+                    DataBindString answerCopy = new DataBindString();
+                    answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Copy.png" }, IntPtr.Zero, -1);
+                    answerCopy.Name = "Copy the file or folder";
+                    Answers.Add(answerCopy);
+
+                    DataBindString answerCut = new DataBindString();
+                    answerCut.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Cut.png" }, IntPtr.Zero, -1);
+                    answerCut.Name = "Cut the file or folder";
+                    Answers.Add(answerCut);
+
+                    DataBindString answerPaste = new DataBindString();
+                    if (vClipboardFile != null)
                     {
-                        FilePicker_FileCut(selectedItem);
+                        answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Paste.png" }, IntPtr.Zero, -1);
+                        answerPaste.Name = "Paste (" + vClipboardType + ") " + vClipboardFile.Name;
+                        Answers.Add(answerPaste);
                     }
-                    //Paste file or folder
-                    else if (messageResult == answerPaste)
+
+                    DataBindString answerRename = new DataBindString();
+                    answerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1);
+                    answerRename.Name = "Rename the file or folder";
+                    Answers.Add(answerRename);
+
+                    DataBindString answerFolderCreate = new DataBindString();
+                    answerFolderCreate.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FolderAdd.png" }, IntPtr.Zero, -1);
+                    answerFolderCreate.Name = "Create a new folder here";
+                    Answers.Add(answerFolderCreate);
+
+                    DataBindString answerRemove = new DataBindString();
+                    answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
+                    answerRemove.Name = "Move file or folder to recycle bin*";
+                    Answers.Add(answerRemove);
+
+                    //Show the messagebox prompt
+                    DataBindString messageResult = await Popup_Show_MessageBox("File and folder actions", "* Files and folders on a network drive get permanently deleted.", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
+                    if (messageResult != null)
                     {
-                        async void TaskAction()
+                        //Sort files and folders
+                        if (messageResult == answerSort)
                         {
-                            try
-                            {
-                                await FilePicker_FilePaste();
-                            }
-                            catch { }
+                            await FilePicker_SortFilesFolders(false);
                         }
-                        await AVActions.TaskStart(TaskAction, null);
-                    }
-                    //Rename file or folder
-                    else if (messageResult == answerRename)
-                    {
-                        await FilePicker_FileRename(selectedItem);
-                    }
-                    //Create a new folder
-                    else if (messageResult == answerFolderCreate)
-                    {
-                        await FilePicker_FolderCreate();
-                    }
-                    //Remove file or folder
-                    else if (messageResult == answerRemove)
-                    {
-                        await FilePicker_FileRemove(selectedItem, true);
+                        //Copy file or folder
+                        else if (messageResult == answerCopy)
+                        {
+                            FilePicker_FileCopy(selectedItem);
+                        }
+                        //Cut file or folder
+                        else if (messageResult == answerCut)
+                        {
+                            FilePicker_FileCut(selectedItem);
+                        }
+                        //Paste file or folder
+                        else if (messageResult == answerPaste)
+                        {
+                            async void TaskAction()
+                            {
+                                try
+                                {
+                                    await FilePicker_FilePaste();
+                                }
+                                catch { }
+                            }
+                            await AVActions.TaskStart(TaskAction, null);
+                        }
+                        //Rename file or folder
+                        else if (messageResult == answerRename)
+                        {
+                            await FilePicker_FileRename(selectedItem);
+                        }
+                        //Create a new folder
+                        else if (messageResult == answerFolderCreate)
+                        {
+                            await FilePicker_FolderCreate();
+                        }
+                        //Remove file or folder
+                        else if (messageResult == answerRemove)
+                        {
+                            await FilePicker_FileRemove(selectedItem, true);
+                        }
                     }
                 }
             }

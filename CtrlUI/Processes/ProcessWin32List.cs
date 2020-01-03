@@ -218,7 +218,7 @@ namespace CtrlUI
                             string storeImageWide = string.Empty;
                             if (processType == ProcessType.Win32Store)
                             {
-                                Package appPackage = UwpGetAppPackageFromAppUserModelId(processPathExe);
+                                Package appPackage = UwpGetAppPackageByAppUserModelId(processPathExe);
                                 AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
                                 storeImageSquare = appxDetails.SquareLargestLogoPath;
                                 storeImageWide = appxDetails.WideLargestLogoPath;

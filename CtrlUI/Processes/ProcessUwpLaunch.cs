@@ -15,7 +15,7 @@ namespace CtrlUI
             try
             {
                 //Check if the application exists
-                if (UwpGetAppPackageFromAppUserModelId(pathExe) == null)
+                if (UwpGetAppPackageByAppUserModelId(pathExe) == null)
                 {
                     Popup_Show_Status("Close", "Application not found");
                     Debug.WriteLine("Launch application not found, possibly uninstalled.");
@@ -50,7 +50,7 @@ namespace CtrlUI
             try
             {
                 //Check if the application exists
-                if (UwpGetAppPackageFromAppUserModelId(dataBindApp.PathExe) == null)
+                if (UwpGetAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
                 {
                     dataBindApp.StatusAvailable = Visibility.Visible;
 

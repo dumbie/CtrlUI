@@ -47,7 +47,7 @@ namespace CtrlUI
                     dataBindApp.StatusStore = Visibility.Visible;
 
                     //Check if application still exists
-                    if (UwpGetAppPackageFromAppUserModelId(dataBindApp.PathExe) == null)
+                    if (UwpGetAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
                     }

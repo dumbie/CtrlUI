@@ -226,7 +226,7 @@ namespace CtrlUI
                     shortcutWindowStore = Visibility.Visible;
 
                     //Get detailed application information
-                    Package appPackage = UwpGetAppPackageFromAppUserModelId(shortcutDetails.TargetPath);
+                    Package appPackage = UwpGetAppPackageByAppUserModelId(shortcutDetails.TargetPath);
                     AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
 
                     //Set the application icon path

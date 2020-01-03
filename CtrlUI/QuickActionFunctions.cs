@@ -64,7 +64,7 @@ namespace CtrlUI
 
                 //Check if the Xbox Companion app is installed
                 DataBindString AnswerXboxApp = new DataBindString();
-                if (UwpGetAppPackageFromAppUserModelId("Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp") != null)
+                if (UwpGetAppPackageByAppUserModelId("Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp") != null)
                 {
                     AnswerXboxApp.ImageBitmap = FileToBitmapImage(new string[] { "Xbox" }, IntPtr.Zero, -1);
                     AnswerXboxApp.Name = "Open Xbox Companion app";

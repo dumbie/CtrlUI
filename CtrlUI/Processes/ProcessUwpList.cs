@@ -121,7 +121,7 @@ namespace CtrlUI
                                 string processPathExeLower = processPathExe.ToLower();
 
                                 //Get detailed application information
-                                Package appPackage = UwpGetAppPackageFromAppUserModelId(processPathExe);
+                                Package appPackage = UwpGetAppPackageByAppUserModelId(processPathExe);
                                 AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
                                 string processNameExe = appxDetails.ExecutableName;
                                 string processNameExeLower = processNameExe.ToLower();
@@ -300,7 +300,7 @@ namespace CtrlUI
                         BitmapImage uwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, IntPtr.Zero, 50);
 
                         //Add the application to the list
-                        DataBindFile dataBindFile = new DataBindFile() { Type = "App", Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.FamilyNameId, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };
+                        DataBindFile dataBindFile = new DataBindFile() { Type = "UwpApp", Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.FamilyNameId, PathFull = appxDetails.FullPackageName, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };
                         await ListBoxAddItem(targetListBox, targetList, dataBindFile, false, false);
 
                         //Sort the application list by name

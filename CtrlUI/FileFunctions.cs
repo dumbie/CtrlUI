@@ -492,8 +492,18 @@ namespace CtrlUI
                     //Play recycle bin empty sound
                     PlayInterfaceSound(vInterfaceSoundVolume, "RecycleBinEmpty", false);
 
+                    //Prepare the recycle bin task
+                    void TaskAction()
+                    {
+                        try
+                        {
+                            SHEmptyRecycleBin(IntPtr.Zero, null, RecycleBin_FLAGS.SHRB_NOCONFIRMATION | RecycleBin_FLAGS.SHRB_NOSOUND);
+                        }
+                        catch { }
+                    }
+
                     //Empty the windows recycle bin
-                    SHEmptyRecycleBin(IntPtr.Zero, null, RecycleBin_FLAGS.SHRB_NOCONFIRMATION | RecycleBin_FLAGS.SHRB_NOSOUND);
+                    await AVActions.TaskStart(TaskAction, null);
                 }
             }
             catch { }

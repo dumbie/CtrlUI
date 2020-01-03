@@ -192,8 +192,10 @@ namespace CtrlUI
                     //Hide file and folder availability
                     grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;
 
+                    //Enable the side navigate buttons
+                    grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Visible;
+
                     //Disable the side navigate buttons
-                    grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Collapsed;
                     grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
 
                     //Add uwp applications to the filepicker list

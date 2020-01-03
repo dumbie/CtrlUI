@@ -2,9 +2,11 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessUwpFunctions;
+using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
@@ -12,6 +14,38 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        //Update uwp application
+        void UwpListUpdateApplication(DataBindFile selectedItem)
+        {
+            try
+            {
+                Popup_Show_Status("Refresh", "Updating " + selectedItem.Name);
+
+                //Update application from list
+                UwpUpdateApplicationByAppUserModelId(selectedItem.PathFile);
+            }
+            catch { }
+        }
+
+        //Remove uwp application
+        async Task UwpListRemoveApplication(DataBindFile selectedItem)
+        {
+            try
+            {
+                Popup_Show_Status("RemoveCross", "Removing " + selectedItem.Name);
+
+                //Remove application from pc
+                bool uwpRemoved = UwpRemoveApplicationByPackageFullName(selectedItem.PathFull);
+
+                //Remove application from list
+                if (uwpRemoved)
+                {
+                    await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, selectedItem);
+                }
+            }
+            catch { }
+        }
+
         //Update all uwp application images
         void UpdateUwpApplicationImages()
         {
@@ -30,7 +64,7 @@ namespace CtrlUI
                             Debug.WriteLine("Uwp application image not found: " + dataBindApp.PathImage);
 
                             //Get detailed application information
-                            Package appPackage = UwpGetAppPackageFromAppUserModelId(dataBindApp.PathExe);
+                            Package appPackage = UwpGetAppPackageByAppUserModelId(dataBindApp.PathExe);
                             AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
 
                             //Update the application icons
