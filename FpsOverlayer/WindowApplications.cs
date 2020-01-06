@@ -94,7 +94,7 @@ namespace FpsOverlayer
                 fpsPositionProcess.Position = 0;
 
                 AppVariables.vFpsPositionProcess.Add(fpsPositionProcess);
-                JsonFunctions.JsonSaveFpsPositionProcess();
+                JsonFunctions.JsonSaveObject(AppVariables.vFpsPositionProcess, "FpsPositionProcess");
 
                 textbox_AddApp.BorderBrush = BrushValid;
             }

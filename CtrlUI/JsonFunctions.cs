@@ -129,7 +129,7 @@ namespace CtrlUI
             try
             {
                 string JsonFile = File.ReadAllText(@"Profiles\AppsBlacklistProcess.json");
-                vAppsBlacklistProcess = JsonConvert.DeserializeObject<string[]>(JsonFile);
+                vAppsBlacklistProcess = JsonConvert.DeserializeObject<List<string>>(JsonFile);
 
                 Debug.WriteLine("Reading Json blacklist process completed.");
             }
@@ -140,18 +140,17 @@ namespace CtrlUI
         }
 
         //Save to Json file (Serialize)
-        void JsonSaveAppsBlacklistShortcut()
+        void JsonSaveObject(object serializeObject, string profileName)
         {
             try
             {
-                string SerializedList = JsonConvert.SerializeObject(vAppsBlacklistShortcut);
-                File.WriteAllText(@"Profiles\AppsBlacklistShortcut.json", SerializedList);
-
-                Debug.WriteLine("Saving Json shortcut blacklist completed.");
+                string serializedObject = JsonConvert.SerializeObject(serializeObject);
+                File.WriteAllText(@"Profiles\" + profileName + ".json", serializedObject);
+                Debug.WriteLine("Saving Json " + profileName + " completed.");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed saving Json shortcut blacklist: " + ex.Message);
+                Debug.WriteLine("Failed saving Json " + profileName + ": " + ex.Message);
             }
         }
 

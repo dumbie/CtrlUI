@@ -18,7 +18,7 @@ namespace ArnoldVinkCode.Styles
 
                 Debug.WriteLine("Removing application: " + fpsPositionProcess.Process);
                 AppVariables.vFpsPositionProcess.Remove(fpsPositionProcess);
-                JsonFunctions.JsonSaveFpsPositionProcess();
+                JsonFunctions.JsonSaveObject(AppVariables.vFpsPositionProcess, "FpsPositionProcess");
             }
             catch { }
         }
@@ -32,7 +32,7 @@ namespace ArnoldVinkCode.Styles
 
                 Debug.WriteLine("Position changed to: " + senderComboBox.SelectedIndex + " for " + fpsPositionProcess.Process);
                 fpsPositionProcess.Position = senderComboBox.SelectedIndex;
-                JsonFunctions.JsonSaveFpsPositionProcess();
+                JsonFunctions.JsonSaveObject(AppVariables.vFpsPositionProcess, "FpsPositionProcess");
             }
             catch { }
         }

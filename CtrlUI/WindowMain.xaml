@@ -282,10 +282,10 @@
                         <Image Source="Assets/Icons/Settings.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Open application settings" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <!--<StackPanel Name="menuButtonProfileManager" Orientation="Horizontal">
+                    <StackPanel Name="menuButtonProfileManager" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Profile.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Open profile manager" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </StackPanel>-->
+                    </StackPanel>
                     <StackPanel Name="menuButtonHelp" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Help.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Show application help" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -856,6 +856,50 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Icons/Buttons/ButtonLeft.png" Height="30" Width="30" Margin="0,0,5,0"/>
                         <Image Source="Assets/Icons/Hamburger.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Popup - Profile Manager -->
+        <Grid Name="grid_Popup_ProfileManager" Visibility="Collapsed">
+            <Grid Margin="200,40,200,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock Name="grid_Popup_ProfileManager_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Profile Manager"/>
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                </StackPanel>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Name="grid_Popup_ProfileManager_button_ChangeProfile" Content="Change edit profile" Style="{StaticResource ButtonAccentWhite}"/>
+                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Name="grid_Popup_ProfileManager_textbox_ProfileValue" Text="Profile value" styles:TextboxPlaceholder.Placeholder="Profile value" Style="{StaticResource TextBoxWhite}"/>
+                        <Button Grid.Column="1" Name="grid_Popup_ProfileManager_button_ProfileAdd" Margin="5,0,0,0" Content="Add to profile" Style="{StaticResource ButtonAccentWhite}"/>
+                    </Grid>
+                </Grid>
+
+                <ListBox Grid.Row="2" Margin="0,5,0,0" Name="lb_ProfileManager" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListboxItemProfile}" Style="{StaticResource ListBoxVertical}"/>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_ProfileManager_button_ControllerRight" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="Assets/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
                     </StackPanel>
                 </Button>
             </StackPanel>

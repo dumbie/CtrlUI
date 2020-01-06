@@ -38,6 +38,20 @@
         </Grid>
     </DataTemplate>
 
+    <!-- ListboxItemProfile -->
+    <DataTemplate x:Key="ListboxItemProfile">
+        <Grid Margin="5" ToolTip="Remove the profile value">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{Binding}" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+            <TextBlock Grid.Column="1"/>
+            <Image Grid.Column="2" Source="/Assets/Icons/RemoveCross.png" Height="40" Width="40"/>
+        </Grid>
+    </DataTemplate>
+
     <!-- ListboxItemColor -->
     <DataTemplate x:Key="ListboxItemColor">
         <Rectangle Fill="{Binding}" Width="70" Height="70"/>

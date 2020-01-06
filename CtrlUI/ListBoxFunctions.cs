@@ -56,6 +56,10 @@ namespace CtrlUI
                 lb_FilePicker.IsTextSearchCaseSensitive = false;
                 TextSearch.SetTextPath(lb_FilePicker, "Name");
                 lb_FilePicker.ItemsSource = List_FilePicker;
+
+                lb_ProfileManager.IsTextSearchEnabled = true;
+                lb_ProfileManager.IsTextSearchCaseSensitive = false;
+                lb_ProfileManager.ItemsSource = List_ProfileManager;
             }
             catch { }
         }

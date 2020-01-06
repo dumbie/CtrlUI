@@ -42,19 +42,18 @@ namespace FpsOverlayer
             }
         }
 
-        //Save position process to Json file (Serialize)
-        public static void JsonSaveFpsPositionProcess()
+        //Save to Json file (Serialize)
+        public static void JsonSaveObject(object serializeObject, string profileName)
         {
             try
             {
-                string SerializedList = JsonConvert.SerializeObject(vFpsPositionProcess);
-                File.WriteAllText(@"Profiles\FpsPositionProcess.json", SerializedList);
-
-                Debug.WriteLine("Saving Json position process completed.");
+                string serializedObject = JsonConvert.SerializeObject(serializeObject);
+                File.WriteAllText(@"Profiles\" + profileName + ".json", serializedObject);
+                Debug.WriteLine("Saving Json " + profileName + " completed.");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed saving Json position process: " + ex.Message);
+                Debug.WriteLine("Failed saving Json " + profileName + ": " + ex.Message);
             }
         }
     }

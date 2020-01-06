@@ -156,6 +156,13 @@ namespace CtrlUI
                 btn_AddAppPathRoms.Click += Button_ShowFilePicker;
                 btn_Settings_ChangeBackground.Click += Button_ShowFilePicker;
 
+                //Profile Manager functions
+                grid_Popup_ProfileManager_button_ControllerRight.Click += Button_Popup_Close_Click;
+                grid_Popup_ProfileManager_button_ChangeProfile.Click += Grid_Popup_ProfileManager_button_ChangeProfile_Click;
+                grid_Popup_ProfileManager_button_ProfileAdd.Click += Grid_Popup_ProfileManager_button_ProfileAdd_Click;
+                lb_ProfileManager.PreviewKeyUp += ListBox_ProfileManager_KeyPressUp;
+                lb_ProfileManager.PreviewMouseUp += ListBox_ProfileManager_MousePressUp;
+
                 //Color Picker functions
                 grid_Popup_ColorPicker_button_ControllerRight.Click += Button_Popup_Close_Click;
                 lb_ColorPicker.PreviewKeyUp += ListBox_ColorPicker_KeyPressUp;

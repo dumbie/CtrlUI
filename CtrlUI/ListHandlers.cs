@@ -143,7 +143,7 @@ namespace CtrlUI
 
                 //Add shortcut file to the ignore list
                 vAppsBlacklistShortcut.Add(dataBindApp.Name);
-                JsonSaveAppsBlacklistShortcut();
+                JsonSaveObject(vAppsBlacklistShortcut, "AppsBlacklistShortcut");
 
                 //Remove application from the list
                 await RemoveAppFromList(dataBindApp, false, false, true);

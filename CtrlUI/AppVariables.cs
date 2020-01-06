@@ -28,7 +28,7 @@ namespace CtrlUI
         public static string[] vAppsCloseLaunchers = new string[] { };
         public static string[] vShortcutLocations = new string[] { };
         public static List<FileLocation> vFileLocations = new List<FileLocation>();
-        public static string[] vAppsBlacklistProcess = new string[] { };
+        public static List<string> vAppsBlacklistProcess = new List<string>();
         public static string[] vAppsShortcutProtocol = new string[] { };
         public static double vInterfaceSoundVolume = 0.70;
 
@@ -113,6 +113,10 @@ namespace CtrlUI
         public static bool vFilePickerShowDirectories = true;
         public static bool vFilePickerSortByName = true;
 
+        //Profile Manager Variables
+        public static string vProfileManagerName = "AppsBlacklistProcess";
+        public static List<string> vProfileManagerList = new List<string>();
+
         //Clipboard Variables
         public static DataBindFile vClipboardFile = null;
         public static string vClipboardType = string.Empty; //Copy or Cut
@@ -158,5 +162,6 @@ namespace CtrlUI
         public static ObservableCollection<DataBindApp> List_Search = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<SolidColorBrush> List_ColorPicker = new ObservableCollection<SolidColorBrush>();
         public static ObservableCollection<DataBindFile> List_FilePicker = new ObservableCollection<DataBindFile>();
+        public static ObservableCollection<string> List_ProfileManager = new ObservableCollection<string>();
     }
 }
