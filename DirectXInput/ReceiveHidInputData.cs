@@ -3,6 +3,7 @@ using LibraryUsb;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
 namespace DirectXInput
@@ -147,7 +148,7 @@ namespace DirectXInput
                             Controller.Details.Profile.UseButtonTriggers = true;
 
                             //Save changes to Json file
-                            JsonSaveControllerProfile();
+                            JsonSaveObject(List_ControllerProfile, "Controllers");
                         }
 
                         //Raw Buttons (Group 1)
@@ -234,7 +235,7 @@ namespace DirectXInput
                                 Controller.Mapping[1] = "None";
 
                                 //Save changes to Json file
-                                JsonSaveControllerProfile();
+                                JsonSaveObject(List_ControllerProfile, "Controllers");
                             }
                         }
                         else

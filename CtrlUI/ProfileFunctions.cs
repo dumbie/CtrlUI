@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using static CtrlUI.AppVariables;
+using static CtrlUI.ImageFunctions;
+using static LibraryShared.Classes;
 
 namespace CtrlUI
 {
@@ -66,11 +69,11 @@ namespace CtrlUI
             {
                 //Clear the current profile list
                 List_ProfileManager.Clear();
-                GC.Collect();
 
                 //Load the requested profile values
                 if (vProfileManagerName == "AppsBlacklistProcess")
                 {
+                    grid_Popup_ProfileManager_button_ChangeProfile.Content = "Change edit profile (Blocked processes)";
                     vProfileManagerList = vAppsBlacklistProcess;
                     foreach (string profileString in vAppsBlacklistProcess)
                     {
@@ -160,8 +163,27 @@ namespace CtrlUI
         {
             try
             {
-                //Select profile category
-                vFilePickerStrings = new string[][] { new[] { "Ignored shortcuts", "AppsBlacklistShortcut" }, new[] { "Shortcut locations", "ShortcutLocations" }, new[] { "File browser locations", "FileLocations" }, new[] { "Blocked processes", "AppsBlacklistProcess" }, new[] { "Blocked shortcuts", "AppsBlacklistShortcut" }, new[] { "Blocked shortcut uri's", "AppsBlacklistShortcutUri" } };
+                //Add profile categories
+                vFilePickerStrings.Clear();
+
+                BitmapImage imageProfile = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Profile.png" }, IntPtr.Zero, -1);
+
+                DataBindString stringShortcutLocations = new DataBindString() { Name = "Shortcut locations", PathFile = "ShortcutLocations", ImageBitmap = imageProfile };
+                vFilePickerStrings.Add(stringShortcutLocations);
+
+                DataBindString stringFileLocations = new DataBindString() { Name = "File browser locations", PathFile = "FileLocations", ImageBitmap = imageProfile };
+                vFilePickerStrings.Add(stringFileLocations);
+
+                DataBindString stringIgnoredProcesses = new DataBindString() { Name = "Blocked processes", PathFile = "AppsBlacklistProcess", ImageBitmap = imageProfile };
+                vFilePickerStrings.Add(stringIgnoredProcesses);
+
+                DataBindString stringIgnoredShortcutsName = new DataBindString() { Name = "Blocked shortcuts names", PathFile = "AppsBlacklistShortcut", ImageBitmap = imageProfile };
+                vFilePickerStrings.Add(stringIgnoredShortcutsName);
+
+                DataBindString stringIgnoredShortcutsUri = new DataBindString() { Name = "Blocked shortcut uri's", PathFile = "AppsBlacklistShortcutUri", ImageBitmap = imageProfile };
+                vFilePickerStrings.Add(stringIgnoredShortcutsUri);
+
+                //Show the category picker
                 vFilePickerFilterIn = new string[] { };
                 vFilePickerFilterOut = new string[] { };
                 vFilePickerTitle = "Profile Category";

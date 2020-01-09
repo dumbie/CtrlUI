@@ -16,7 +16,6 @@ namespace DirectXInput
             {
                 //Remove all the current controllers
                 List_ControllerProfile.Clear();
-                GC.Collect();
 
                 string JsonFile = File.ReadAllText(@"Profiles\Controllers.json");
                 ControllerProfile[] JsonList = JsonConvert.DeserializeObject<ControllerProfile[]>(JsonFile);
@@ -72,16 +71,18 @@ namespace DirectXInput
         }
 
         //Save to Json file (Serialize)
-        void JsonSaveControllerProfile()
+        void JsonSaveObject(object serializeObject, string profileName)
         {
             try
             {
-                string SerializedList = JsonConvert.SerializeObject(List_ControllerProfile);
-                File.WriteAllText(@"Profiles\Controllers.json", SerializedList);
-
-                Debug.WriteLine("Saving Controller Profile Json completed.");
+                string serializedObject = JsonConvert.SerializeObject(serializeObject);
+                File.WriteAllText(@"Profiles\" + profileName + ".json", serializedObject);
+                Debug.WriteLine("Saving Json " + profileName + " completed.");
             }
-            catch (Exception ex) { Debug.WriteLine("Failed Saving Json: " + ex.Message); }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed saving Json " + profileName + ": " + ex.Message);
+            }
         }
     }
 }

@@ -62,7 +62,6 @@ namespace CtrlUI
                 {
                     //Clear the current popup list
                     List_Search.Clear();
-                    GC.Collect();
 
                     //Search for applications
                     IEnumerable<DataBindApp> searchResult = CombineAppLists(true, true).Where(x => x.Name.ToLower().Contains(stringSearch.ToLower()));
@@ -84,7 +83,6 @@ namespace CtrlUI
                 {
                     //Clear the current popup list
                     List_Search.Clear();
-                    GC.Collect();
 
                     //Reset the search text
                     grid_Popup_Search_Count_TextBlock.Text = string.Empty;

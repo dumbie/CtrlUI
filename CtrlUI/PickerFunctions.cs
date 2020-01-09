@@ -78,7 +78,6 @@ namespace CtrlUI
 
                 //Clear the current file picker list
                 List_FilePicker.Clear();
-                GC.Collect();
 
                 //Get and set all strings to list
                 if (targetPath == "String")
@@ -93,13 +92,12 @@ namespace CtrlUI
                     grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Collapsed;
                     grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
 
-                    //Add all the strings from array
-                    foreach (string[] stringPicker in vFilePickerStrings)
+                    //Convert all the strings from array
+                    foreach (DataBindString stringPicker in vFilePickerStrings)
                     {
                         try
                         {
-                            BitmapImage imageFile = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + stringPicker[1] + ".png" }, IntPtr.Zero, -1);
-                            DataBindFile dataBindFile = new DataBindFile() { Type = "File", Name = stringPicker[0], PathFile = stringPicker[1], ImageBitmap = imageFile };
+                            DataBindFile dataBindFile = new DataBindFile() { Type = "File", Name = stringPicker.Name, PathFile = stringPicker.PathFile, ImageBitmap = stringPicker.ImageBitmap };
                             await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
                         }
                         catch { }
@@ -532,7 +530,6 @@ namespace CtrlUI
                 //Clear the current file picker list
                 vFilePickerNavigateIndexes.Clear();
                 List_FilePicker.Clear();
-                GC.Collect();
 
                 //Hide the popup with animation
                 AVAnimations.Ani_Visibility(grid_Popup_FilePicker, false, false, 0.10);
@@ -568,14 +565,22 @@ namespace CtrlUI
                     //Check if the application is UWP
                     bool UwpApplication = sp_AddAppExePath.Visibility == Visibility.Collapsed;
 
-                    //Set the application type categories
-                    if (UwpApplication)
+                    //Add application type categories
+                    vFilePickerStrings.Clear();
+
+                    BitmapImage imageGame = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1);
+                    DataBindString stringGame = new DataBindString() { Name = "Game", PathFile = "Game", ImageBitmap = imageGame };
+                    vFilePickerStrings.Add(stringGame);
+
+                    BitmapImage imageApp = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
+                    DataBindString stringApp = new DataBindString() { Name = "App & Media", PathFile = "App", ImageBitmap = imageApp };
+                    vFilePickerStrings.Add(stringApp);
+
+                    if (!UwpApplication)
                     {
-                        vFilePickerStrings = new string[][] { new[] { "Game", "Game" }, new[] { "App & Media", "App" } };
-                    }
-                    else
-                    {
-                        vFilePickerStrings = new string[][] { new[] { "Game", "Game" }, new[] { "App & Media", "App" }, new[] { "Emulator", "Emulator" } };
+                        BitmapImage imageEmulator = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1);
+                        DataBindString stringEmulator = new DataBindString() { Name = "Emulator", PathFile = "Emulator", ImageBitmap = imageEmulator };
+                        vFilePickerStrings.Add(stringEmulator);
                     }
 
                     vFilePickerFilterIn = new string[] { };
@@ -618,7 +623,13 @@ namespace CtrlUI
                 else if (ButtonName == "btn_Settings_AppQuickLaunch")
                 {
                     //Add all apps to the string list
-                    vFilePickerStrings = CombineAppLists(false, false).Select(x => new[] { x.Name, x.Category.ToString() }).ToArray();
+                    vFilePickerStrings.Clear();
+
+                    foreach (DataBindApp dataBindApp in CombineAppLists(false, false))
+                    {
+                        DataBindString stringApp = new DataBindString() { Name = dataBindApp.Name, ImageBitmap = dataBindApp.ImageBitmap };
+                        vFilePickerStrings.Add(stringApp);
+                    }
 
                     vFilePickerFilterIn = new string[] { };
                     vFilePickerFilterOut = new string[] { };

@@ -49,7 +49,7 @@ namespace DirectXInput
                     if (ManageController != null)
                     {
                         ManageController.Details.Profile.FakeGuideButton = cb_ControllerFakeGuideButton.IsChecked.Value;
-                        JsonSaveControllerProfile();
+                        JsonSaveObject(List_ControllerProfile, "Controllers");
                     }
                 };
 
@@ -59,7 +59,7 @@ namespace DirectXInput
                     if (ManageController != null)
                     {
                         ManageController.Details.Profile.UseButtonTriggers = cb_ControllerUseButtonTriggers.IsChecked.Value;
-                        JsonSaveControllerProfile();
+                        JsonSaveObject(List_ControllerProfile, "Controllers");
                     }
                 };
 
@@ -69,7 +69,7 @@ namespace DirectXInput
                     if (ManageController != null)
                     {
                         ManageController.Details.Profile.DPadFourWayMovement = cb_ControllerDPadFourWayMovement.IsChecked.Value;
-                        JsonSaveControllerProfile();
+                        JsonSaveObject(List_ControllerProfile, "Controllers");
                     }
                 };
 
@@ -79,7 +79,7 @@ namespace DirectXInput
                     if (ManageController != null)
                     {
                         ManageController.Details.Profile.ThumbFlipMovement = cb_ControllerThumbFlipMovement.IsChecked.Value;
-                        JsonSaveControllerProfile();
+                        JsonSaveObject(List_ControllerProfile, "Controllers");
                     }
                 };
 
@@ -89,7 +89,7 @@ namespace DirectXInput
                     if (ManageController != null)
                     {
                         ManageController.Details.Profile.ThumbFlipAxesLeft = cb_ControllerThumbFlipAxesLeft.IsChecked.Value;
-                        JsonSaveControllerProfile();
+                        JsonSaveObject(List_ControllerProfile, "Controllers");
                     }
                 };
 
@@ -99,7 +99,7 @@ namespace DirectXInput
                     if (ManageController != null)
                     {
                         ManageController.Details.Profile.ThumbFlipAxesRight = cb_ControllerThumbFlipAxesRight.IsChecked.Value;
-                        JsonSaveControllerProfile();
+                        JsonSaveObject(List_ControllerProfile, "Controllers");
                     }
                 };
 
@@ -109,7 +109,7 @@ namespace DirectXInput
                     if (ManageController != null)
                     {
                         ManageController.Details.Profile.ThumbReverseAxesLeft = cb_ControllerThumbReverseAxesLeft.IsChecked.Value;
-                        JsonSaveControllerProfile();
+                        JsonSaveObject(List_ControllerProfile, "Controllers");
                     }
                 };
 
@@ -119,7 +119,7 @@ namespace DirectXInput
                     if (ManageController != null)
                     {
                         ManageController.Details.Profile.ThumbReverseAxesRight = cb_ControllerThumbReverseAxesRight.IsChecked.Value;
-                        JsonSaveControllerProfile();
+                        JsonSaveObject(List_ControllerProfile, "Controllers");
                     }
                 };
 
@@ -130,7 +130,7 @@ namespace DirectXInput
                     {
                         textblock_ControllerRumbleStrength.Text = "Rumble strength: " + slider_ControllerRumbleStrength.Value.ToString("0") + "%";
                         ManageController.Details.Profile.RumbleStrength = Convert.ToInt32(slider_ControllerRumbleStrength.Value);
-                        JsonSaveControllerProfile();
+                        JsonSaveObject(List_ControllerProfile, "Controllers");
                     }
                 };
 
@@ -141,7 +141,7 @@ namespace DirectXInput
                     {
                         textblock_ControllerLedBrightness.Text = "Led brightness: " + slider_ControllerLedBrightness.Value.ToString("0") + "%";
                         ManageController.Details.Profile.LedBrightness = Convert.ToInt32(slider_ControllerLedBrightness.Value);
-                        JsonSaveControllerProfile();
+                        JsonSaveObject(List_ControllerProfile, "Controllers");
 
                         //Update the controller led
                         SendXRumbleData(ManageController, true, false, false);

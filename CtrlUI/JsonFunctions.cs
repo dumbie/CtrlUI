@@ -21,7 +21,6 @@ namespace CtrlUI
                 List_Games.Clear();
                 List_Apps.Clear();
                 List_Emulators.Clear();
-                GC.Collect();
 
                 //Add all the apps to the list
                 string JsonFile = File.ReadAllText(@"Profiles\Apps.json");

@@ -32,7 +32,6 @@ namespace CtrlUI
                         sp_Processes.Visibility = Visibility.Collapsed;
                     });
                     List_Processes.Clear();
-                    GC.Collect();
                     return;
                 }
 

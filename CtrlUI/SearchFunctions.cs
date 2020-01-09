@@ -67,7 +67,6 @@ namespace CtrlUI
             {
                 //Clear the current popup list
                 List_Search.Clear();
-                GC.Collect();
 
                 //Reset the search text
                 grid_Popup_Search_Count_TextBlock.Text = string.Empty;
@@ -114,7 +113,6 @@ namespace CtrlUI
 
                     //Clear the current popup list
                     List_Search.Clear();
-                    GC.Collect();
 
                     //Hide the popup with animation
                     AVAnimations.Ani_Visibility(grid_Popup_Search, false, false, 0.10);

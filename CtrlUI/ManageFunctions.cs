@@ -707,12 +707,22 @@ namespace CtrlUI
         }
 
         //Add Windows store application
-        async Task Popup_Show_AddApp()
+        async Task Popup_Show_AddStoreApp()
         {
             try
             {
-                //Select application category
-                vFilePickerStrings = new string[][] { new[] { "Game", "Game" }, new[] { "App & Media", "App" } };
+                //Add application type categories
+                vFilePickerStrings.Clear();
+
+                BitmapImage imageGame = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1);
+                DataBindString stringGame = new DataBindString() { Name = "Game", PathFile = "Game", ImageBitmap = imageGame };
+                vFilePickerStrings.Add(stringGame);
+
+                BitmapImage imageApp = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
+                DataBindString stringApp = new DataBindString() { Name = "App & Media", PathFile = "App", ImageBitmap = imageApp };
+                vFilePickerStrings.Add(stringApp);
+
+                //Show the application picker
                 vFilePickerFilterIn = new string[] { };
                 vFilePickerFilterOut = new string[] { };
                 vFilePickerTitle = "Application Category";

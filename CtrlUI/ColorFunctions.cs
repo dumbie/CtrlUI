@@ -106,7 +106,6 @@ namespace CtrlUI
             {
                 //Clear the current popup list
                 List_ColorPicker.Clear();
-                GC.Collect();
 
                 //Add colors to the list
                 List_ColorPicker.Add((SolidColorBrush)App.Current.Resources["ApplicationAccentLightBrush"]);
@@ -132,7 +131,6 @@ namespace CtrlUI
 
                     //Clear the current popup list
                     List_ColorPicker.Clear();
-                    GC.Collect();
 
                     //Hide the popup with animation
                     AVAnimations.Ani_Visibility(grid_Popup_ColorPicker, false, false, 0.10);

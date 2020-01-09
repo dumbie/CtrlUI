@@ -50,15 +50,15 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivNameDetail;
-            public string NameDetail
+            private string PrivPathFile;
+            public string PathFile
             {
-                get { return this.PrivNameDetail; }
+                get { return this.PrivPathFile; }
                 set
                 {
-                    if (this.PrivNameDetail != value)
+                    if (this.PrivPathFile != value)
                     {
-                        this.PrivNameDetail = value;
+                        this.PrivPathFile = value;
                         NotifyPropertyChanged();
                     }
                 }

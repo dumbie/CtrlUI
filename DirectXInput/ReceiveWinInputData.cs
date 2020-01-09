@@ -144,7 +144,7 @@ namespace DirectXInput
                             Controller.Details.Profile.UseButtonTriggers = true;
 
                             //Save changes to Json file
-                            JsonSaveControllerProfile();
+                            JsonSaveObject(List_ControllerProfile, "Controllers");
                         }
 
                         //Raw Buttons (Group 1)
@@ -231,7 +231,7 @@ namespace DirectXInput
                                 Controller.Mapping[1] = "None";
 
                                 //Save changes to Json file
-                                JsonSaveControllerProfile();
+                                JsonSaveObject(List_ControllerProfile, "Controllers");
                             }
                         }
                         else

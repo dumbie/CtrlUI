@@ -168,7 +168,6 @@ namespace FpsOverlayer
                 //Reset the frames variables
                 vLastFrameTimeStamp = 0;
                 vListFrameTime.Clear();
-                GC.Collect();
             }
             catch { }
         }

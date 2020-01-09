@@ -101,7 +101,6 @@ namespace CtrlUI
                         sp_Shortcuts.Visibility = Visibility.Collapsed;
                     });
                     List_Shortcuts.Clear();
-                    GC.Collect();
                     return;
                 }
 

@@ -209,7 +209,7 @@ namespace DirectXInput
                         await StopController(ManageController, false);
 
                         //Save changes to Json file
-                        JsonSaveControllerProfile();
+                        JsonSaveObject(List_ControllerProfile, "Controllers");
                     }
                 }
             }
