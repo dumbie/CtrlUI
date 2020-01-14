@@ -71,6 +71,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates.xaml">
+      <Link>Styles\ControlTemplates.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\MainColors.xaml">
       <Link>Styles\MainColors.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -96,6 +101,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DeviceManager.cs" />
+    <Compile Include="AppVariables.cs" />
+    <Compile Include="DriverUninstall.cs" />
     <Compile Include="DriverInstall.cs" />
     <Compile Include="WindowMain.cs" />
   </ItemGroup>

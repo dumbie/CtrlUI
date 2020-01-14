@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 
 namespace DriverInstaller
@@ -14,24 +15,22 @@ namespace DriverInstaller
         //Window Initialize
         public WindowMain() { InitializeComponent(); }
 
-        //Window Startup
-        public async Task Startup()
+        //Enable or disable element
+        public void ElementEnableDisable(FrameworkElement frameworkElement, bool enableElement)
         {
             try
             {
-                //Check if DirectXInput is still running
-                await CheckDirectXInputRunning();
-
-                //Install the required drivers
-                async void TaskAction()
+                AVActions.ActionDispatcherInvoke(delegate
                 {
-                    try
+                    if (enableElement)
                     {
-                        await InstallRequiredDrivers();
+                        frameworkElement.IsEnabled = true;
                     }
-                    catch { }
-                }
-                await AVActions.TaskStart(TaskAction, null);
+                    else
+                    {
+                        frameworkElement.IsEnabled = false;
+                    }
+                });
             }
             catch { }
         }
@@ -64,14 +63,24 @@ namespace DriverInstaller
             catch { }
         }
 
+        //Close DirectXInput if running
+        void CloseDirectXInput()
+        {
+            try
+            {
+                CloseProcessesByNameOrTitle("DirectXInput", false);
+            }
+            catch { }
+        }
+
         //Check if DirectXInput is still running
         async Task CheckDirectXInputRunning()
         {
             try
             {
-                TextBoxAppend("Waiting for DirectXInput to have closed.");
                 while (Process.GetProcessesByName("DirectXInput").Any())
                 {
+                    TextBoxAppend("Waiting for DirectXInput to have closed.");
                     Debug.WriteLine("Waiting for DirectXInput to have closed.");
                     await Task.Delay(500);
                 }
@@ -91,15 +100,18 @@ namespace DriverInstaller
         }
 
         //Close the application
-        async Task Application_Exit(string ExitMessage)
+        async Task Application_Exit(string ExitMessage, bool runDirectXInput)
         {
             try
             {
                 Debug.WriteLine("Exiting application.");
 
                 //Run DirectXInput after the drivers installed
-                TextBoxAppend("Running the DirectXInput application.");
-                ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", true, false);
+                if (runDirectXInput)
+                {
+                    TextBoxAppend("Running the DirectXInput application.");
+                    ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", true, false);
+                }
 
                 //Set the exit reason text message
                 TextBoxAppend(ExitMessage);

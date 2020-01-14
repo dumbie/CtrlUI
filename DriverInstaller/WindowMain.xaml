@@ -22,6 +22,11 @@
             <StackPanel>
                 <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Driver Installer"/>
                 <ProgressBar Name="progressbar_Status" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch" IsIndeterminate="True"/>
+
+                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                    <Button Name="button_Driver_Install" Content="Install required drivers" Style="{StaticResource ButtonAccentBlack}" Click="button_Driver_Install_Click"/>
+                    <Button Name="button_Driver_Uninstall" Content="Uninstall drivers" Style="{StaticResource ButtonAccentBlack}" Click="button_Driver_Uninstall_Click" Margin="10,0,0,0"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
 

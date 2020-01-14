@@ -10,8 +10,8 @@ namespace DriverInstaller
 {
     public partial class WindowMain
     {
-        //Install the required drivers
-        async void button_Driver_Install_Click(object sender, RoutedEventArgs e)
+        //Uninstall the required drivers
+        async void button_Driver_Uninstall_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -19,7 +19,7 @@ namespace DriverInstaller
                 {
                     try
                     {
-                        await InstallRequiredDrivers();
+                        await UninstallRequiredDrivers();
                     }
                     catch { }
                 }
@@ -28,7 +28,7 @@ namespace DriverInstaller
             catch { }
         }
 
-        async Task InstallRequiredDrivers()
+        async Task UninstallRequiredDrivers()
         {
             try
             {
@@ -42,93 +42,83 @@ namespace DriverInstaller
                 //Check if DirectXInput is still running
                 await CheckDirectXInputRunning();
 
-                //Start the driver installation
-                TextBoxAppend("Starting the driver installation.");
+                //Start the driver uninstallation
+                TextBoxAppend("Starting the driver uninstallation.");
                 ProgressBarUpdate(20, false);
 
-                //Install Virtual Bus Driver
+                //Uninstall Virtual Bus Driver
                 ProgressBarUpdate(40, false);
-                InstallVirtualBus();
+                UninstallVirtualBus();
 
-                //Install HidGuardian Driver
+                //Uninstall HidGuardian Driver
                 ProgressBarUpdate(60, false);
-                InstallHidGuardian();
+                UninstallHidGuardian();
 
-                //Install DS3 USB Driver
+                //Uninstall DS3 USB Driver
                 ProgressBarUpdate(80, false);
-                InstallDualShock3();
+                UninstallDualShock3();
 
-                TextBoxAppend("Driver installation completed.");
+                TextBoxAppend("Driver uninstallation completed.");
                 TextBoxAppend("--- System reboot may be required ---");
                 ProgressBarUpdate(90, false);
 
                 //Close the application
-                await Application_Exit("Closing the driver installer in a bit.", true);
+                await Application_Exit("Closing the driver installer in a bit.", false);
             }
             catch { }
         }
 
-        void InstallVirtualBus()
+        void UninstallVirtualBus()
         {
             try
             {
-                if (Create("System", ClassGuid_System, @"Root\ScpVBus"))
+                if (Uninstall(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref RebootRequired))
                 {
-                    TextBoxAppend("Virtual Bus Driver created.");
-                }
-
-                if (Install(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref RebootRequired))
-                {
-                    TextBoxAppend("Virtual Bus Driver installed.");
+                    TextBoxAppend("Virtual Bus Driver uninstalled.");
                 }
                 else
                 {
-                    TextBoxAppend("Virtual Bus Driver not installed.");
+                    TextBoxAppend("Virtual Bus Driver not uninstalled.");
                 }
             }
             catch { }
         }
 
-        void InstallDualShock3()
+        void UninstallDualShock3()
         {
             try
             {
-                if (Install(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref RebootRequired))
+                if (Uninstall(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref RebootRequired))
                 {
-                    TextBoxAppend("DS3 USB Driver installed.");
+                    TextBoxAppend("DS3 USB Driver uninstalled.");
                 }
                 else
                 {
-                    TextBoxAppend("DS3 USB Driver not installed.");
+                    TextBoxAppend("DS3 USB Driver not uninstalled.");
                 }
             }
             catch { }
         }
 
-        void InstallHidGuardian()
+        void UninstallHidGuardian()
         {
             try
             {
-                if (Create("System", ClassGuid_System, @"Root\HidGuardian"))
+                if (Uninstall(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref RebootRequired))
                 {
-                    TextBoxAppend("HidGuardian Driver created.");
-                }
-
-                if (Install(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref RebootRequired))
-                {
-                    TextBoxAppend("HidGuardian Driver installed.");
+                    TextBoxAppend("HidGuardian Driver uninstalled.");
                 }
                 else
                 {
-                    TextBoxAppend("HidGuardian Driver not installed.");
+                    TextBoxAppend("HidGuardian Driver not uninstalled.");
                 }
 
-                AddUpperFilter("HidGuardian");
+                RemoveUpperFilter("HidGuardian");
             }
             catch { }
         }
 
-        void AddUpperFilter(string filterName)
+        void RemoveUpperFilter(string filterName)
         {
             try
             {
@@ -138,11 +128,11 @@ namespace DriverInstaller
                     {
                         string[] stringArray = OpenSubKey.GetValue("UpperFilters") as string[];
                         List<string> stringList = (stringArray != null) ? new List<string>(stringArray) : new List<string>();
-                        if (!stringList.Contains(filterName))
+                        if (stringList.Contains(filterName))
                         {
-                            stringList.Add(filterName);
+                            stringList.Remove(filterName);
                             OpenSubKey.SetValue("UpperFilters", stringList.ToArray());
-                            TextBoxAppend("Added upper filter: " + filterName);
+                            TextBoxAppend("Removed upper filter: " + filterName);
                         }
                     }
                 }
