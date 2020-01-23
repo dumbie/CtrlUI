@@ -106,25 +106,15 @@ namespace CtrlUI
                 ListBoxResetIndexes();
 
                 //Load Json stored apps
-                await JsonLoadApps();
+                await JsonLoadList_Applications();
 
-                //Load Json apps other launchers
-                JsonLoadAppsCloseLaunchers();
-
-                //Load Json file locations
-                JsonLoadFileLocations();
-
-                //Load Json shortcut locations
-                JsonLoadShortcutLocations();
-
-                //Load Json apps blacklist shortcuts
-                JsonLoadAppsBlacklistShortcut();
-
-                //Load Json apps blacklist shortcuts uri
-                JsonLoadAppsBlacklistShortcutUri();
-
-                //Load Json apps blacklist process
-                JsonLoadAppsBlacklistProcess();
+                //Load Json profiles
+                JsonLoadProfile(ref vCtrlCloseLaunchers, "CtrlCloseLaunchers");
+                JsonLoadProfile(ref vCtrlLocationsFile, "CtrlLocationsFile");
+                JsonLoadProfile(ref vCtrlLocationsShortcut, "CtrlLocationsShortcut");
+                JsonLoadProfile(ref vCtrlIgnoreShortcutName, "CtrlIgnoreShortcutName");
+                JsonLoadProfile(ref vCtrlIgnoreShortcutUri, "CtrlIgnoreShortcutUri");
+                JsonLoadProfile(ref vCtrlIgnoreProcessName, "CtrlIgnoreProcessName");
 
                 //Update uwp application images
                 UpdateUwpApplicationImages();

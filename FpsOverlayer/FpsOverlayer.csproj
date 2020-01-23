@@ -199,7 +199,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
-    <Content Include="Profiles\FpsBlacklistProcess.json">
+    <Content Include="Profiles\FpsIgnoreProcessName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\FpsPositionProcess.json">

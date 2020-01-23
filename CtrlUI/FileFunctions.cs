@@ -23,8 +23,8 @@ namespace CtrlUI
         {
             try
             {
-                vFilePickerFilterIn = new string[] { };
-                vFilePickerFilterOut = new string[] { };
+                vFilePickerFilterIn = new List<string>();
+                vFilePickerFilterOut = new List<string>();
                 vFilePickerTitle = "File manager";
                 vFilePickerDescription = "Please select a file to run or interact with:";
                 vFilePickerShowNoFile = false;

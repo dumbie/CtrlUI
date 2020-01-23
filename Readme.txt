@@ -27,6 +27,12 @@ Keyboard Controller is an on screen keyboard which can be used by your controlle
 3) Launch CtrlUI.exe and setup a few basic apps in the welcome screen.
 4) Enjoy using your brand new controller based user interface.
 
+| Uninstallation Instructions
+1) Run the Driver Installer and click on "Uninstall drivers"
+2) Remove the created shortcuts from your startup folder.
+3) Remove the created tasks in Windows task scheduler.
+4) Remove the extracted CtrlUI directory.
+
 | Tips and tricks
 - Let CtrlUI automatically launch on Windows startup for easier alltime usage.
 - Some users may need to run the application as administrator to let it work properly.

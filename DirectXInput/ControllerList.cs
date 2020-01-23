@@ -32,10 +32,10 @@ namespace DirectXInput
                         string ProductHexId = "0x" + AVFunctions.StringShowAfter(EnumDevice.DevicePath, "pid_", 4);
 
                         //Create new Json controller profile if it doesnt exist
-                        IEnumerable<ControllerProfile> ProfileList = List_ControllerProfile.Where(x => x.ProductID == ProductHexId && x.VendorID == VendorHexId);
+                        IEnumerable<ControllerProfile> ProfileList = vDirectControllersProfile.Where(x => x.ProductID == ProductHexId && x.VendorID == VendorHexId);
                         if (!ProfileList.Any())
                         {
-                            List_ControllerProfile.Add(new ControllerProfile()
+                            vDirectControllersProfile.Add(new ControllerProfile()
                             {
                                 ProductID = ProductHexId,
                                 VendorID = VendorHexId,
@@ -44,7 +44,7 @@ namespace DirectXInput
                             });
 
                             //Save changes to Json file
-                            JsonSaveObject(List_ControllerProfile, "Controllers");
+                            JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
 
                             Debug.WriteLine("Added win profile: " + EnumDevice.Description);
                         }
@@ -95,7 +95,7 @@ namespace DirectXInput
                         string VendorNameString = FoundHidDevice.Attributes.VendorName;
 
                         //Create new Json controller profile if it doesnt exist
-                        IEnumerable<ControllerProfile> ProfileList = List_ControllerProfile.Where(x => x.ProductID == ProductHexId && x.VendorID == VendorHexId);
+                        IEnumerable<ControllerProfile> ProfileList = vDirectControllersProfile.Where(x => x.ProductID == ProductHexId && x.VendorID == VendorHexId);
                         if (!ProfileList.Any())
                         {
                             ControllerProfile NewController = new ControllerProfile()
@@ -106,10 +106,10 @@ namespace DirectXInput
                                 VendorName = VendorNameString
                             };
 
-                            List_ControllerProfile.Add(NewController);
+                            vDirectControllersProfile.Add(NewController);
 
                             //Save changes to Json file
-                            JsonSaveObject(List_ControllerProfile, "Controllers");
+                            JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
 
                             Debug.WriteLine("Added hid profile: " + ProductNameString + " (" + VendorNameString + ")");
                         }

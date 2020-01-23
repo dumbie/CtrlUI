@@ -50,14 +50,14 @@ namespace DirectXInput
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
 
-                //Load other controller tools
-                JsonLoadAppsCloseTools();
+                //Load Json profiles
+                JsonLoadProfile(ref vDirectCloseTools, "DirectCloseTools");
 
                 //Close running controller tools
                 CloseControllerTools();
 
                 //Load controllers profile
-                JsonLoadControllerProfile();
+                JsonLoadList_ControllerProfile();
 
                 //Load controllers supported
                 JsonLoadList_ControllerSupported();
@@ -205,11 +205,11 @@ namespace DirectXInput
                             txt_Controller_Information.Text = "Removed the controller: " + ManageController.Details.DisplayName;
                         });
 
-                        List_ControllerProfile.Remove(ManageController.Details.Profile);
+                        vDirectControllersProfile.Remove(ManageController.Details.Profile);
                         await StopController(ManageController, false);
 
                         //Save changes to Json file
-                        JsonSaveObject(List_ControllerProfile, "Controllers");
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 }
             }
@@ -232,7 +232,7 @@ namespace DirectXInput
             try
             {
                 Debug.WriteLine("Closing other running controller tools.");
-                foreach (string CloseTool in vAppsCloseTools)
+                foreach (string CloseTool in vDirectCloseTools)
                 {
                     try
                     {

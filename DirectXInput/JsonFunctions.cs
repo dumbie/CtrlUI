@@ -10,42 +10,29 @@ namespace DirectXInput
     partial class WindowMain
     {
         //Read from Json file (Deserialize)
-        void JsonLoadControllerProfile()
+        void JsonLoadList_ControllerProfile()
         {
             try
             {
                 //Remove all the current controllers
-                List_ControllerProfile.Clear();
+                vDirectControllersProfile.Clear();
 
-                string JsonFile = File.ReadAllText(@"Profiles\Controllers.json");
+                string JsonFile = File.ReadAllText(@"Profiles\DirectControllersProfile.json");
                 ControllerProfile[] JsonList = JsonConvert.DeserializeObject<ControllerProfile[]>(JsonFile);
                 foreach (ControllerProfile Controller in JsonList)
                 {
                     try
                     {
-                        List_ControllerProfile.Add(Controller);
+                        vDirectControllersProfile.Add(Controller);
                     }
                     catch { }
                 }
 
                 Debug.WriteLine("Reading Controller Profile Json completed.");
             }
-            catch (Exception ex) { Debug.WriteLine("Failed Reading Json: " + ex.Message); }
-        }
-
-        //Read other tools from Json file (Deserialize)
-        void JsonLoadAppsCloseTools()
-        {
-            try
-            {
-                string JsonFile = File.ReadAllText(@"Profiles\AppsCloseTools.json");
-                vAppsCloseTools = JsonConvert.DeserializeObject<string[]>(JsonFile);
-
-                Debug.WriteLine("Reading Json other tools completed.");
-            }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed Reading Json other tools: " + ex.Message);
+                Debug.WriteLine("Failed Reading Json: " + ex.Message);
             }
         }
 
@@ -54,20 +41,41 @@ namespace DirectXInput
         {
             try
             {
-                string JsonFile = File.ReadAllText(@"Profiles\ControllersSupported.json");
+                //Remove all the current controllers
+                vDirectControllersSupported.Clear();
+
+                string JsonFile = File.ReadAllText(@"Profiles\DirectControllersSupported.json");
                 ControllerSupported[] JsonList = JsonConvert.DeserializeObject<ControllerSupported[]>(JsonFile);
                 foreach (ControllerSupported Controller in JsonList)
                 {
                     try
                     {
-                        List_ControllerSupported.Add(Controller);
+                        vDirectControllersSupported.Add(Controller);
                     }
                     catch { }
                 }
 
                 Debug.WriteLine("Reading Controller Supported Json completed.");
             }
-            catch (Exception ex) { Debug.WriteLine("Failed Reading Json: " + ex.Message); }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed Reading Json: " + ex.Message);
+            }
+        }
+
+        //Read Json from profile (Deserialize)
+        void JsonLoadProfile<T>(ref T deserializeTarget, string profileName)
+        {
+            try
+            {
+                string JsonFile = File.ReadAllText(@"Profiles\" + profileName + ".json");
+                deserializeTarget = JsonConvert.DeserializeObject<T>(JsonFile);
+                Debug.WriteLine("Reading Json file completed: " + profileName);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Reading Json file failed: " + profileName + "/" + ex.Message);
+            }
         }
 
         //Save to Json file (Serialize)

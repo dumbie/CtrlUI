@@ -52,7 +52,7 @@ namespace CtrlUI
                 Popup_Show_Status("Sorting", "Moving app left");
 
                 //Save json applist
-                JsonSaveApps();
+                JsonSaveApplications();
             }
             catch { }
         }
@@ -78,7 +78,7 @@ namespace CtrlUI
                 Popup_Show_Status("Sorting", "Moving app right");
 
                 //Save json applist
-                JsonSaveApps();
+                JsonSaveApplications();
             }
             catch { }
         }

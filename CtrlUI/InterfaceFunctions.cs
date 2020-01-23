@@ -160,6 +160,7 @@ namespace CtrlUI
                 grid_Popup_ProfileManager_button_ControllerRight.Click += Button_Popup_Close_Click;
                 grid_Popup_ProfileManager_button_ChangeProfile.Click += Grid_Popup_ProfileManager_button_ChangeProfile_Click;
                 grid_Popup_ProfileManager_button_ProfileAdd.Click += Grid_Popup_ProfileManager_button_ProfileAdd_Click;
+                grid_Popup_ProfileManager_textbox_ProfileValue1.KeyDown += grid_Popup_ProfileManager_textbox_ProfileValue1_KeyDown;
                 lb_ProfileManager.PreviewKeyUp += ListBox_ProfileManager_KeyPressUp;
                 lb_ProfileManager.PreviewMouseUp += ListBox_ProfileManager_MousePressUp;
 
@@ -440,8 +441,8 @@ namespace CtrlUI
                     try
                     {
                         //Check if application title or process is blacklisted
-                        bool titleBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Title.ToLower());
-                        bool processBlacklisted = vAppsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Name.ToLower());
+                        bool titleBlacklisted = vCtrlIgnoreProcessName.Any(x => x.ToLower() == foregroundProcess.Title.ToLower());
+                        bool processBlacklisted = vCtrlIgnoreProcessName.Any(x => x.ToLower() == foregroundProcess.Name.ToLower());
                         if (!titleBlacklisted && !processBlacklisted)
                         {
                             //Save the previous focused application
@@ -482,8 +483,8 @@ namespace CtrlUI
                         return;
                     }
 
-                    //Check if application process is blacklisted
-                    if (vAppsBlacklistProcess.Any(x => x.ToLower() == vPrevFocusedProcess.Name.ToLower()))
+                    //Check if application name is blacklisted
+                    if (vCtrlIgnoreProcessName.Any(x => x.ToLower() == vPrevFocusedProcess.Name.ToLower()))
                     {
                         Popup_Show_Status("Close", "App is blacklisted");
                         Debug.WriteLine("Previous process name is blacklisted: " + vPrevFocusedProcess.Name);
@@ -491,7 +492,7 @@ namespace CtrlUI
                     }
 
                     //Check if application title is blacklisted
-                    if (vAppsBlacklistProcess.Any(x => x.ToLower() == vPrevFocusedProcess.Title.ToLower()))
+                    if (vCtrlIgnoreProcessName.Any(x => x.ToLower() == vPrevFocusedProcess.Title.ToLower()))
                     {
                         Popup_Show_Status("Close", "App is blacklisted");
                         Debug.WriteLine("Previous process title is blacklisted: " + vPrevFocusedProcess.Title);

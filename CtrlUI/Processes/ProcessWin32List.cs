@@ -69,7 +69,7 @@ namespace CtrlUI
                             string processName = GetWindowTitleFromProcess(processApp);
 
                             //Check if application title is blacklisted
-                            if (vAppsBlacklistProcess.Any(x => x.ToLower() == processName.ToLower()))
+                            if (vCtrlIgnoreProcessName.Any(x => x.ToLower() == processName.ToLower()))
                             {
                                 continue;
                             }
@@ -92,8 +92,8 @@ namespace CtrlUI
                             string processNameExeNoExt = Path.GetFileNameWithoutExtension(processPathExe);
                             string processNameExeNoExtLower = processNameExeNoExt.ToLower();
 
-                            //Check if application process is blacklisted
-                            if (vAppsBlacklistProcess.Any(x => x.ToLower() == processNameExeNoExtLower))
+                            //Check if application name is blacklisted
+                            if (vCtrlIgnoreProcessName.Any(x => x.ToLower() == processNameExeNoExtLower))
                             {
                                 continue;
                             }

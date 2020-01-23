@@ -114,6 +114,7 @@
     <Compile Include="AppUpdate.cs" />
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
+    <Compile Include="ProfileHandlers.cs" />
     <Compile Include="ProfileFunctions.cs" />
     <Compile Include="ListBoxFunctions.cs" />
     <Compile Include="FileFunctions.cs" />
@@ -1274,30 +1275,30 @@
     <Content Include="Assets\Sounds\Screenshot.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\Apps.json">
+    <Content Include="Profiles\CtrlApplications.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\AppsBlacklistProcess.json">
+    <Content Include="Profiles\CtrlIgnoreProcessName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\AppsBlacklistShortcut.json">
+    <Content Include="Profiles\CtrlIgnoreShortcutName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\..\ArnoldVinkCertificate\ArnoldVinkCertificate.cer">
       <Link>Resources\ArnoldVinkCertificate.cer</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Profiles\AppsBlacklistShortcutUri.json">
+    <Content Include="Profiles\CtrlIgnoreShortcutUri.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\AppsCloseLaunchers.json">
+    <Content Include="Profiles\CtrlCloseLaunchers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\FileLocations.json">
+    <Content Include="Profiles\CtrlLocationsFile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
-    <Content Include="Profiles\ShortcutLocations.json">
+    <Content Include="Profiles\CtrlLocationsShortcut.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\App.manifest" />

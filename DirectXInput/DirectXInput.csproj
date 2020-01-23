@@ -165,7 +165,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Profiles\AppsCloseTools.json">
+    <Content Include="Profiles\DirectCloseTools.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
@@ -196,10 +196,10 @@
       <Link>Assets\Icons\Settings.png</Link>
     </Resource>
     <Resource Include="Assets\Icons\Controller-Dark.png" />
-    <Content Include="Profiles\Controllers.json">
+    <Content Include="Profiles\DirectControllers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\ControllersSupported.json">
+    <Content Include="Profiles\DirectControllersSupported.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\App.config" />

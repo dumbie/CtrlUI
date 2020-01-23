@@ -1,44 +1,24 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using static FpsOverlayer.AppVariables;
-using static LibraryShared.Classes;
 
 namespace FpsOverlayer
 {
     partial class JsonFunctions
     {
-        //Read blacklist process from Json file (Deserialize)
-        public static void JsonLoadFpsBlacklistProcess()
+        //Read Json from profile (Deserialize)
+        public static void JsonLoadProfile<T>(ref T deserializeTarget, string profileName)
         {
             try
             {
-                string JsonFile = File.ReadAllText(@"Profiles\FpsBlacklistProcess.json");
-                vFpsBlacklistProcess = JsonConvert.DeserializeObject<string[]>(JsonFile);
-
-                Debug.WriteLine("Reading Json blacklist process completed.");
+                string JsonFile = File.ReadAllText(@"Profiles\" + profileName + ".json");
+                deserializeTarget = JsonConvert.DeserializeObject<T>(JsonFile);
+                Debug.WriteLine("Reading Json file completed: " + profileName);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed Reading Json blacklist process: " + ex.Message);
-            }
-        }
-
-        //Read position process from Json file (Deserialize)
-        public static void JsonLoadFpsPositionProcess()
-        {
-            try
-            {
-                string JsonFile = File.ReadAllText(@"Profiles\FpsPositionProcess.json");
-                vFpsPositionProcess = JsonConvert.DeserializeObject<ObservableCollection<FpsPositionProcess>>(JsonFile);
-
-                Debug.WriteLine("Reading Json position process completed.");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed Reading Json position process: " + ex.Message);
+                Debug.WriteLine("Reading Json file failed: " + profileName + "/" + ex.Message);
             }
         }
 

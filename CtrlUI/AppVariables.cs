@@ -23,13 +23,6 @@ namespace CtrlUI
         public static CultureInfo vAppCultureInfo = new CultureInfo("en-US");
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        public static List<string> vAppsBlacklistShortcut = new List<string>();
-        public static string[] vAppsBlacklistShortcutUri = new string[] { };
-        public static string[] vAppsCloseLaunchers = new string[] { };
-        public static string[] vShortcutLocations = new string[] { };
-        public static List<FileLocation> vFileLocations = new List<FileLocation>();
-        public static List<string> vAppsBlacklistProcess = new List<string>();
-        public static string[] vAppsShortcutProtocol = new string[] { };
         public static double vInterfaceSoundVolume = 0.70;
 
         //Interaction Variables
@@ -40,8 +33,8 @@ namespace CtrlUI
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
         public static DispatcherTimer vDispatcherTimer = new DispatcherTimer();
-        public static string[] vTabTargetLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Shortcuts", "lb_Processes" };
-        public static string[] vTabTargetButtons = { "grid_Popup_TextInput_button_ConfirmText" };
+        public static List<string> vTabTargetLists = new List<string> { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Shortcuts", "lb_Processes" };
+        public static List<string> vTabTargetButtons = new List<string> { "grid_Popup_TextInput_button_ConfirmText" };
 
         //Update Variables
         public static bool vCheckingForUpdate = false;
@@ -102,8 +95,8 @@ namespace CtrlUI
         public static List<int> vFilePickerNavigateIndexes = new List<int>();
         public static string vFilePickerCurrentPath = string.Empty;
         public static string vFilePickerPreviousPath = string.Empty;
-        public static string[] vFilePickerFilterIn = new string[] { };
-        public static string[] vFilePickerFilterOut = new string[] { };
+        public static List<string> vFilePickerFilterIn = new List<string>();
+        public static List<string> vFilePickerFilterOut = new List<string>();
         public static List<DataBindString> vFilePickerStrings = new List<DataBindString>();
         public static string vFilePickerTitle = "File Browser";
         public static string vFilePickerDescription = "Please select a file, folder or disk:";
@@ -114,7 +107,7 @@ namespace CtrlUI
         public static bool vFilePickerSortByName = true;
 
         //Profile Manager Variables
-        public static string vProfileManagerName = "AppsBlacklistProcess";
+        public static string vProfileManagerName = "CtrlIgnoreProcessName";
         public static List<string> vProfileManagerList = new List<string>();
 
         //Clipboard Variables
@@ -152,6 +145,14 @@ namespace CtrlUI
 
         //Sockets Variables
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
+
+        //Application Lists
+        public static List<string> vCtrlIgnoreProcessName = new List<string>();
+        public static List<string> vCtrlIgnoreShortcutName = new List<string>();
+        public static List<string> vCtrlIgnoreShortcutUri = new List<string>();
+        public static List<string> vCtrlCloseLaunchers = new List<string>();
+        public static List<FileLocation> vCtrlLocationsFile = new List<FileLocation>();
+        public static List<string> vCtrlLocationsShortcut = new List<string>();
 
         //Application Lists
         public static ObservableCollection<DataBindApp> List_Games = new ObservableCollection<DataBindApp>();

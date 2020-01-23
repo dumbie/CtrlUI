@@ -45,11 +45,9 @@ namespace FpsOverlayer
                 //Create tray icon
                 Application_CreateTrayMenu();
 
-                //Load fps process blacklist
-                JsonFunctions.JsonLoadFpsBlacklistProcess();
-
-                //Load fps process positions
-                JsonFunctions.JsonLoadFpsPositionProcess();
+                //Load Json profiles
+                JsonFunctions.JsonLoadProfile(ref vFpsIgnoreProcessName, "FpsIgnoreProcessName");
+                JsonFunctions.JsonLoadProfile(ref vFpsPositionProcess, "FpsPositionProcess");
 
                 //Start process monitoring
                 StartMonitorProcess();

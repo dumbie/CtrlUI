@@ -112,7 +112,7 @@ namespace CtrlUI
 
                 //Get all files from the shortcut directories
                 IEnumerable<FileInfo> directoryShortcuts = Enumerable.Empty<FileInfo>();
-                foreach (string shortcutFolder in vShortcutLocations)
+                foreach (string shortcutFolder in vCtrlLocationsShortcut)
                 {
                     try
                     {
@@ -158,15 +158,15 @@ namespace CtrlUI
                             continue;
                         }
 
-                        //Check if shortcut is in shortcut blacklist
-                        if (vAppsBlacklistShortcut.Any(x => x.ToLower() == shortcutDetails.Title.ToLower()))
+                        //Check if shortcut name is in shortcut blacklist
+                        if (vCtrlIgnoreShortcutName.Any(x => x.ToLower() == shortcutDetails.Title.ToLower()))
                         {
                             //Debug.WriteLine("Shortcut is on the blacklist skipping: " + fileNameStripped.ToLower());
                             continue;
                         }
 
                         //Check if shortcut uri is in shortcut uri blacklist
-                        if (vAppsBlacklistShortcutUri.Any(x => targetPathLower.Contains(x.ToLower())))
+                        if (vCtrlIgnoreShortcutUri.Any(x => targetPathLower.Contains(x.ToLower())))
                         {
                             //Debug.WriteLine("Shortcut uri is on the uri blacklist skipping: " + targetPathLower);
                             continue;

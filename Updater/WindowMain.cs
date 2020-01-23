@@ -43,6 +43,20 @@ namespace Updater
             catch { }
         }
 
+        //File rename
+        void File_Rename(string oldFilePath, string newFilePath)
+        {
+            try
+            {
+                //Check if the file exists
+                if (File.Exists(oldFilePath))
+                {
+                    File.Move(oldFilePath, newFilePath);
+                }
+            }
+            catch { }
+        }
+
         //Window Startup
         public async Task Startup()
         {
@@ -123,6 +137,19 @@ namespace Updater
                 }
                 catch { }
 
+                //Rename old file names to new ones
+                File_Rename("Profiles/Apps.json", "Profiles/CtrlApplications.json");
+                File_Rename("Profiles/AppsBlacklistProcess.json", "Profiles/CtrlIgnoreProcessName.json");
+                File_Rename("Profiles/AppsBlacklistShortcut.json", "Profiles/CtrlIgnoreShortcutName.json");
+                File_Rename("Profiles/AppsBlacklistShortcutUri.json", "Profiles/CtrlIgnoreShortcutUri.json");
+                File_Rename("Profiles/AppsCloseLaunchers.json", "Profiles/CtrlCloseLaunchers.json");
+                File_Rename("Profiles/FileLocations.json", "Profiles/CtrlLocationsFile.json");
+                File_Rename("Profiles/ShortcutLocations.json", "Profiles/CtrlLocationsShortcut.json");
+                File_Rename("Profiles/AppsCloseTools.json", "Profiles/DirectCloseTools.json");
+                File_Rename("Profiles/Controllers.json", "Profiles/DirectControllersProfile.json");
+                File_Rename("Profiles/ControllersSupported.json", "Profiles/DirectControllersSupported.json");
+                File_Rename("Profiles/FpsBlacklistProcess.json", "Profiles/FpsIgnoreProcessName.json");
+
                 //Extract the downloaded update archive
                 try
                 {
@@ -137,17 +164,17 @@ namespace Updater
                                 if (string.IsNullOrWhiteSpace(ZipFile.Name)) { Directory.CreateDirectory(ExtractPath); }
                                 else
                                 {
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Apps.json".ToLower())) { Debug.WriteLine("Skipping: Apps.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsBlacklistProcess.json".ToLower())) { Debug.WriteLine("Skipping: AppsBlacklistProcess.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsBlacklistShortcut.json".ToLower())) { Debug.WriteLine("Skipping: AppsBlacklistShortcut.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsBlacklistShortcutUri.json".ToLower())) { Debug.WriteLine("Skipping: AppsBlacklistShortcutUri.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsCloseLaunchers.json".ToLower())) { Debug.WriteLine("Skipping: AppsCloseLaunchers.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("AppsCloseTools.json".ToLower())) { Debug.WriteLine("Skipping: AppsCloseTools.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FileLocations.json".ToLower())) { Debug.WriteLine("Skipping: FileLocations.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("ShortcutLocations.json".ToLower())) { Debug.WriteLine("Skipping: ShortcutLocations.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsBlacklistProcess.json".ToLower())) { Debug.WriteLine("Skipping: FpsBlacklistProcess.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlApplications.json".ToLower())) { Debug.WriteLine("Skipping: CtrlApplications.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlIgnoreProcessName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreProcessName.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlIgnoreShortcutName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreShortcutName.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlIgnoreShortcutUri.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreShortcutUri.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlCloseLaunchers.json".ToLower())) { Debug.WriteLine("Skipping: CtrlCloseLaunchers.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectCloseTools.json".ToLower())) { Debug.WriteLine("Skipping: DirectCloseTools.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlLocationsFile.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsFile.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlLocationsShortcut.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsShortcut.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsIgnoreProcessName.json".ToLower())) { Debug.WriteLine("Skipping: FpsIgnoreProcessName.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsPositionProcess.json".ToLower())) { Debug.WriteLine("Skipping: FpsPositionProcess.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Controllers.json".ToLower())) { Debug.WriteLine("Skipping: Controllers.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectControllersProfile.json".ToLower())) { Debug.WriteLine("Skipping: DirectControllersProfile.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Background.png".ToLower())) { Debug.WriteLine("Skipping: Background.png"); continue; }
 
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlUI.exe.Config".ToLower())) { Debug.WriteLine("Skipping: CtrlUI.exe.Config"); continue; }

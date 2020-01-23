@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Read apps from Json file (Deserialize)
-        async Task JsonLoadApps()
+        async Task JsonLoadList_Applications()
         {
             try
             {
@@ -23,7 +22,7 @@ namespace CtrlUI
                 List_Emulators.Clear();
 
                 //Add all the apps to the list
-                string JsonFile = File.ReadAllText(@"Profiles\Apps.json");
+                string JsonFile = File.ReadAllText(@"Profiles\CtrlApplications.json");
                 DataBindApp[] JsonList = JsonConvert.DeserializeObject<DataBindApp[]>(JsonFile).OrderBy(x => x.Number).ToArray();
                 foreach (DataBindApp dataBindApp in JsonList)
                 {
@@ -42,99 +41,18 @@ namespace CtrlUI
             }
         }
 
-        //Read other launchers from Json file (Deserialize)
-        void JsonLoadAppsCloseLaunchers()
+        //Read Json from profile (Deserialize)
+        void JsonLoadProfile<T>(ref T deserializeTarget, string profileName)
         {
             try
             {
-                string JsonFile = File.ReadAllText(@"Profiles\AppsCloseLaunchers.json");
-                vAppsCloseLaunchers = JsonConvert.DeserializeObject<string[]>(JsonFile);
-
-                Debug.WriteLine("Reading Json other launchers completed.");
+                string JsonFile = File.ReadAllText(@"Profiles\" + profileName + ".json");
+                deserializeTarget = JsonConvert.DeserializeObject<T>(JsonFile);
+                Debug.WriteLine("Reading Json file completed: " + profileName);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed Reading Json other launchers: " + ex.Message);
-            }
-        }
-
-        //Read shortcut locations from Json file (Deserialize)
-        void JsonLoadShortcutLocations()
-        {
-            try
-            {
-                string JsonFile = File.ReadAllText(@"Profiles\ShortcutLocations.json");
-                vShortcutLocations = JsonConvert.DeserializeObject<string[]>(JsonFile);
-
-                Debug.WriteLine("Reading Json shortcut locations completed.");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed Reading Json shortcut locations: " + ex.Message);
-            }
-        }
-
-        //Read file locations from Json file (Deserialize)
-        void JsonLoadFileLocations()
-        {
-            try
-            {
-                string JsonFile = File.ReadAllText(@"Profiles\FileLocations.json");
-                vFileLocations = JsonConvert.DeserializeObject<List<FileLocation>>(JsonFile);
-
-                Debug.WriteLine("Reading Json file locations completed.");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed Reading Json file locations: " + ex.Message);
-            }
-        }
-
-        //Read blacklist shortcut from Json file (Deserialize)
-        void JsonLoadAppsBlacklistShortcut()
-        {
-            try
-            {
-                string JsonFile = File.ReadAllText(@"Profiles\AppsBlacklistShortcut.json");
-                vAppsBlacklistShortcut = JsonConvert.DeserializeObject<List<string>>(JsonFile);
-
-                Debug.WriteLine("Reading Json blacklist shortcuts completed.");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed Reading Json blacklist shortcut: " + ex.Message);
-            }
-        }
-
-        //Read blacklist shortcut uri from Json file (Deserialize)
-        void JsonLoadAppsBlacklistShortcutUri()
-        {
-            try
-            {
-                string JsonFile = File.ReadAllText(@"Profiles\AppsBlacklistShortcutUri.json");
-                vAppsBlacklistShortcutUri = JsonConvert.DeserializeObject<string[]>(JsonFile);
-
-                Debug.WriteLine("Reading Json blacklist shortcuts uri completed.");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed Reading Json blacklist shortcut uri: " + ex.Message);
-            }
-        }
-
-        //Read blacklist process from Json file (Deserialize)
-        void JsonLoadAppsBlacklistProcess()
-        {
-            try
-            {
-                string JsonFile = File.ReadAllText(@"Profiles\AppsBlacklistProcess.json");
-                vAppsBlacklistProcess = JsonConvert.DeserializeObject<List<string>>(JsonFile);
-
-                Debug.WriteLine("Reading Json blacklist process completed.");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed Reading Json blacklist process: " + ex.Message);
+                Debug.WriteLine("Reading Json file failed: " + profileName + "/" + ex.Message);
             }
         }
 
@@ -154,14 +72,13 @@ namespace CtrlUI
         }
 
         //Save to Json file (Serialize)
-        void JsonSaveApps()
+        void JsonSaveApplications()
         {
             try
             {
                 var JsonFilterList = CombineAppLists(false, false).Select(x => new { x.Number, x.Category, x.Type, x.Name, x.NameExe, x.PathImage, x.PathExe, x.PathLaunch, x.PathRoms, x.Argument, x.QuickLaunch, x.LaunchFilePicker, x.LaunchKeyboard, x.RunningTime });
                 string SerializedList = JsonConvert.SerializeObject(JsonFilterList);
-                File.WriteAllText(@"Profiles\Apps.json", SerializedList);
-
+                File.WriteAllText(@"Profiles\CtrlApplications.json", SerializedList);
                 Debug.WriteLine("Saving Json apps completed.");
             }
             catch (Exception ex)

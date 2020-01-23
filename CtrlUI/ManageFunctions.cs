@@ -82,7 +82,7 @@ namespace CtrlUI
                 //Save changes to Json file
                 if (generateAppNumber)
                 {
-                    JsonSaveApps();
+                    JsonSaveApplications();
                 }
             }
             catch { }
@@ -127,7 +127,7 @@ namespace CtrlUI
                 //Save changes to Json file
                 if (saveJson)
                 {
-                    JsonSaveApps();
+                    JsonSaveApplications();
                 }
 
                 //Remove application image files
@@ -603,7 +603,7 @@ namespace CtrlUI
                     Debug.WriteLine("Editing application: " + vEditAppDataBind.Name + " in the list.");
 
                     //Save changes to Json file
-                    JsonSaveApps();
+                    JsonSaveApplications();
 
                     //Close the open popup
                     await Popup_Close_Top();
@@ -723,8 +723,8 @@ namespace CtrlUI
                 vFilePickerStrings.Add(stringApp);
 
                 //Show the application picker
-                vFilePickerFilterIn = new string[] { };
-                vFilePickerFilterOut = new string[] { };
+                vFilePickerFilterIn = new List<string>();
+                vFilePickerFilterOut = new List<string>();
                 vFilePickerTitle = "Application Category";
                 vFilePickerDescription = "Please select a new application category:";
                 vFilePickerShowNoFile = false;
@@ -741,8 +741,8 @@ namespace CtrlUI
                 Enum.TryParse(vFilePickerResult.PathFile, out AppCategory selectedAddCategory);
 
                 //Select Window Store application
-                vFilePickerFilterIn = new string[] { };
-                vFilePickerFilterOut = new string[] { };
+                vFilePickerFilterIn = new List<string>();
+                vFilePickerFilterOut = new List<string>();
                 vFilePickerTitle = "Window Store Applications";
                 vFilePickerDescription = "Please select a Windows store application to add as " + vFilePickerResult.Name + ":";
                 vFilePickerShowNoFile = false;

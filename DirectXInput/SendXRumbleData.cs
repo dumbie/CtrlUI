@@ -48,7 +48,7 @@ namespace DirectXInput
                     }
 
                     //Check which controller is connected
-                    IEnumerable<ControllerSupported> TargetController = List_ControllerSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
+                    IEnumerable<ControllerSupported> TargetController = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
                     if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && Controller.Details.Wireless)
                     {
                         //Bluetooth Output - DualShock 4

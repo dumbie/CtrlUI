@@ -265,8 +265,8 @@ namespace CtrlUI
         {
             try
             {
-                vFilePickerFilterIn = new string[] { "exe", "bat" };
-                vFilePickerFilterOut = new string[] { };
+                vFilePickerFilterIn = new List<string> { "exe", "bat" };
+                vFilePickerFilterOut = new List<string>();
                 vFilePickerTitle = "Launch Executable";
                 vFilePickerDescription = "Please select an executable file to run:";
                 vFilePickerShowNoFile = false;
@@ -290,8 +290,8 @@ namespace CtrlUI
         {
             try
             {
-                vFilePickerFilterIn = new string[] { };
-                vFilePickerFilterOut = new string[] { };
+                vFilePickerFilterIn = new List<string>();
+                vFilePickerFilterOut = new List<string>();
                 vFilePickerTitle = "Windows Store Applications";
                 vFilePickerDescription = "Please select a Windows store application to run:";
                 vFilePickerShowNoFile = false;
@@ -332,7 +332,7 @@ namespace CtrlUI
                     Popup_Show_Status("Closing", "Closing other launchers");
 
                     //Close all known other launchers
-                    foreach (string CloseLauncher in vAppsCloseLaunchers)
+                    foreach (string CloseLauncher in vCtrlCloseLaunchers)
                     {
                         try
                         {

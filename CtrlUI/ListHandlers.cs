@@ -142,8 +142,8 @@ namespace CtrlUI
                 Debug.WriteLine("Hiding shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
 
                 //Add shortcut file to the ignore list
-                vAppsBlacklistShortcut.Add(dataBindApp.Name);
-                JsonSaveObject(vAppsBlacklistShortcut, "AppsBlacklistShortcut");
+                vCtrlIgnoreShortcutName.Add(dataBindApp.Name);
+                JsonSaveObject(vCtrlIgnoreShortcutName, "CtrlIgnoreShortcutName");
 
                 //Remove application from the list
                 await RemoveAppFromList(dataBindApp, false, false, true);

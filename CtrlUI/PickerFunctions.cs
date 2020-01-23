@@ -168,7 +168,7 @@ namespace CtrlUI
                     }
 
                     //Add Json file locations
-                    foreach (FileLocation Locations in vFileLocations)
+                    foreach (FileLocation Locations in vCtrlLocationsFile)
                     {
                         try
                         {
@@ -583,8 +583,8 @@ namespace CtrlUI
                         vFilePickerStrings.Add(stringEmulator);
                     }
 
-                    vFilePickerFilterIn = new string[] { };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string>();
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Application Category";
                     vFilePickerDescription = "Please select a new application category:";
                     vFilePickerShowNoFile = false;
@@ -631,8 +631,8 @@ namespace CtrlUI
                         vFilePickerStrings.Add(stringApp);
                     }
 
-                    vFilePickerFilterIn = new string[] { };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string>();
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Quick Launch Application";
                     vFilePickerDescription = "Please select a new quick launch application:";
                     vFilePickerShowNoFile = false;
@@ -660,7 +660,7 @@ namespace CtrlUI
                     }
 
                     //Save changes to Json file
-                    JsonSaveApps();
+                    JsonSaveApplications();
                 }
             }
             catch { }
@@ -690,8 +690,8 @@ namespace CtrlUI
                         return;
                     }
 
-                    vFilePickerFilterIn = new string[] { "jpg", "png" };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string> { "jpg", "png" };
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Application Image";
                     vFilePickerDescription = "Please select a new application image:";
                     vFilePickerShowNoFile = false;
@@ -712,8 +712,8 @@ namespace CtrlUI
                 }
                 else if (ButtonName == "btn_AddAppExePath")
                 {
-                    vFilePickerFilterIn = new string[] { "exe" };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string> { "exe" };
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Application Executable";
                     vFilePickerDescription = "Please select an application executable:";
                     vFilePickerShowNoFile = false;
@@ -746,8 +746,8 @@ namespace CtrlUI
                 }
                 else if (ButtonName == "btn_AddAppPathLaunch")
                 {
-                    vFilePickerFilterIn = new string[] { };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string>();
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Launch Folder";
                     vFilePickerDescription = "Please select the launch folder:";
                     vFilePickerShowNoFile = false;
@@ -766,8 +766,8 @@ namespace CtrlUI
                 }
                 else if (ButtonName == "btn_AddAppPathRoms")
                 {
-                    vFilePickerFilterIn = new string[] { };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string>();
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Rom Folder";
                     vFilePickerDescription = "Please select the rom folder:";
                     vFilePickerShowNoFile = false;
@@ -787,8 +787,8 @@ namespace CtrlUI
                 //Settings Background Changer
                 else if (ButtonName == "btn_Settings_ChangeBackground")
                 {
-                    vFilePickerFilterIn = new string[] { "jpg", "png" };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string> { "jpg", "png" };
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Background Image";
                     vFilePickerDescription = "Please select a new background image:";
                     vFilePickerShowNoFile = false;
@@ -810,8 +810,8 @@ namespace CtrlUI
                 //First launch quick setup
                 else if (ButtonName == "grid_Popup_Welcome_button_Steam")
                 {
-                    vFilePickerFilterIn = new string[] { "steam.exe" };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string> { "steam.exe" };
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Steam";
                     vFilePickerDescription = "Please select the Steam executable:";
                     vFilePickerShowNoFile = false;
@@ -834,8 +834,8 @@ namespace CtrlUI
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_Origin")
                 {
-                    vFilePickerFilterIn = new string[] { "origin.exe" };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string> { "origin.exe" };
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Origin";
                     vFilePickerDescription = "Please select the Origin executable:";
                     vFilePickerShowNoFile = false;
@@ -858,8 +858,8 @@ namespace CtrlUI
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_Uplay")
                 {
-                    vFilePickerFilterIn = new string[] { "upc.exe" };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string> { "upc.exe" };
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Uplay";
                     vFilePickerDescription = "Please select the Uplay executable:";
                     vFilePickerShowNoFile = false;
@@ -882,8 +882,8 @@ namespace CtrlUI
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_GoG")
                 {
-                    vFilePickerFilterIn = new string[] { "galaxyclient.exe" };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string> { "galaxyclient.exe" };
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "GoG";
                     vFilePickerDescription = "Please select the GoG executable:";
                     vFilePickerShowNoFile = false;
@@ -906,8 +906,8 @@ namespace CtrlUI
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_Battle")
                 {
-                    vFilePickerFilterIn = new string[] { "battle.net.exe" };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string> { "battle.net.exe" };
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Battle.net";
                     vFilePickerDescription = "Please select the Battle.net executable:";
                     vFilePickerShowNoFile = false;
@@ -930,8 +930,8 @@ namespace CtrlUI
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_PS4Remote")
                 {
-                    vFilePickerFilterIn = new string[] { "RemotePlay.exe" };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string> { "RemotePlay.exe" };
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "PS4 Remote Play";
                     vFilePickerDescription = "Please select the PS4 Remote Play executable:";
                     vFilePickerShowNoFile = false;
@@ -954,8 +954,8 @@ namespace CtrlUI
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_Kodi")
                 {
-                    vFilePickerFilterIn = new string[] { "kodi.exe" };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string> { "kodi.exe" };
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Kodi";
                     vFilePickerDescription = "Please select the Kodi executable:";
                     vFilePickerShowNoFile = false;
@@ -978,8 +978,8 @@ namespace CtrlUI
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_Spotify")
                 {
-                    vFilePickerFilterIn = new string[] { "spotify.exe" };
-                    vFilePickerFilterOut = new string[] { };
+                    vFilePickerFilterIn = new List<string> { "spotify.exe" };
+                    vFilePickerFilterOut = new List<string>();
                     vFilePickerTitle = "Spotify";
                     vFilePickerDescription = "Please select the Spotify executable:";
                     vFilePickerShowNoFile = false;

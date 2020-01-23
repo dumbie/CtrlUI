@@ -15,7 +15,6 @@ namespace DirectXInput
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static Configuration vConfigurationCtrlUI = null;
         public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        public static string[] vAppsCloseTools = new string[] { };
         public static double vInterfaceSoundVolume = 0.80;
 
         //Interaction Variables
@@ -57,7 +56,8 @@ namespace DirectXInput
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
-        public static ObservableCollection<ControllerProfile> List_ControllerProfile = new ObservableCollection<ControllerProfile>();
-        public static ObservableCollection<ControllerSupported> List_ControllerSupported = new ObservableCollection<ControllerSupported>();
+        public static List<string> vDirectCloseTools = new List<string>();
+        public static ObservableCollection<ControllerProfile> vDirectControllersProfile = new ObservableCollection<ControllerProfile>();
+        public static ObservableCollection<ControllerSupported> vDirectControllersSupported = new ObservableCollection<ControllerSupported>();
     }
 }

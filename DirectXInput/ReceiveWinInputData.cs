@@ -19,7 +19,7 @@ namespace DirectXInput
                 Debug.WriteLine("Receive and Translate Win DirectInput for: " + Controller.Details.DisplayName);
 
                 //Wake up the USB DS3 controller
-                IEnumerable<ControllerSupported> TargetController = List_ControllerSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
+                IEnumerable<ControllerSupported> TargetController = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
                 if (TargetController.Any(x => x.CodeName == "SonyDualShock3"))
                 {
                     Debug.WriteLine("Waking up the USB PS3 controller");
@@ -144,7 +144,7 @@ namespace DirectXInput
                             Controller.Details.Profile.UseButtonTriggers = true;
 
                             //Save changes to Json file
-                            JsonSaveObject(List_ControllerProfile, "Controllers");
+                            JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                         }
 
                         //Raw Buttons (Group 1)
@@ -231,7 +231,7 @@ namespace DirectXInput
                                 Controller.Mapping[1] = "None";
 
                                 //Save changes to Json file
-                                JsonSaveObject(List_ControllerProfile, "Controllers");
+                                JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                             }
                         }
                         else

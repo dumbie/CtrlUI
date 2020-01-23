@@ -121,8 +121,8 @@ namespace CtrlUI
                 }
 
                 //Select a file from list to launch
-                vFilePickerFilterIn = new string[] { };
-                vFilePickerFilterOut = new string[] { };
+                vFilePickerFilterIn = new List<string>();
+                vFilePickerFilterOut = new List<string>();
                 vFilePickerTitle = "File Selection";
                 vFilePickerDescription = "Please select a file to load in " + dataBindApp.Name + ":";
                 vFilePickerShowNoFile = true;
@@ -205,8 +205,8 @@ namespace CtrlUI
                 }
 
                 //Select a file from list to launch
-                vFilePickerFilterIn = new string[] { };
-                vFilePickerFilterOut = new string[] { "jpg", "png" };
+                vFilePickerFilterIn = new List<string>();
+                vFilePickerFilterOut = new List<string> { "jpg", "png" };
                 vFilePickerTitle = "Rom Selection";
                 vFilePickerDescription = "Please select a rom file to load in " + dataBindApp.Name + ":";
                 vFilePickerShowNoFile = false;

@@ -45,10 +45,8 @@ namespace FpsOverlayer
         //Trace Events - Provider Guids
         public static Guid vProvider_DxgKrnl = Guid.Parse("{802ec45a-1e99-4b83-9920-87c98277ba9d}");
 
-        //Json Blacklist
-        public static string[] vFpsBlacklistProcess = new string[] { };
-
-        //Json Positions
+        //Application Lists
+        public static List<string> vFpsIgnoreProcessName = new List<string>();
         public static ObservableCollection<FpsPositionProcess> vFpsPositionProcess = new ObservableCollection<FpsPositionProcess>();
     }
 }

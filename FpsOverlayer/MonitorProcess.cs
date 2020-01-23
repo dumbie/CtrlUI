@@ -90,7 +90,7 @@ namespace FpsOverlayer
                         }
 
                         //Check if process is not in blacklist
-                        if (vFpsBlacklistProcess.Any(x => x.ToLower() == foregroundProcess.Name.ToLower()))
+                        if (vFpsIgnoreProcessName.Any(x => x.ToLower() == foregroundProcess.Name.ToLower()))
                         {
                             Debug.WriteLine("Current app is blacklisted: " + foregroundProcess.Name);
 

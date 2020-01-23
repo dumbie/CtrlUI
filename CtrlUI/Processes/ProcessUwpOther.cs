@@ -77,7 +77,7 @@ namespace CtrlUI
                 }
 
                 //Save the updated uwp application images
-                if (UpdatedImages) { JsonSaveApps(); }
+                if (UpdatedImages) { JsonSaveApplications(); }
             }
             catch { }
         }
