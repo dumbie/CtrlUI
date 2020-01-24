@@ -1,1 +1,47 @@
-[ "ctrlui", "directxinput", "keyboardcontroller", "fpsoverlayer", "updater", "unknown", "explorer", "svchost", "taskmgr", "mmc", "dwm", "csrss", "idle", "rainmeter" ]
+[
+  {
+    "String1": "ctrlui"
+  },
+  {
+    "String1": "directxinput"
+  },
+  {
+    "String1": "keyboardcontroller"
+  },
+  {
+    "String1": "fpsoverlayer"
+  },
+  {
+    "String1": "updater"
+  },
+  {
+    "String1": "unknown"
+  },
+  {
+    "String1": "explorer"
+  },
+  {
+    "String1": "svchost"
+  },
+  {
+    "String1": "taskmgr"
+  },
+  {
+    "String1": "mmc"
+  },
+  {
+    "String1": "dwm"
+  },
+  {
+    "String1": "csrss"
+  },
+  {
+    "String1": "idle"
+  },
+  {
+    "String1": "rainmeter"
+  },
+  {
+    "String1": "LsaIso"
+  }
+]

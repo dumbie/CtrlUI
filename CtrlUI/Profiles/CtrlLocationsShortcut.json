@@ -1,1 +1,14 @@
-﻿[ "%DESKTOPUSER%", "%DESKTOPUSER%\\Shortcuts", "%DESKTOPPUBLIC%", "%DESKTOPPUBLIC%\\Shortcuts" ]
+﻿[
+  {
+    "String1": "%DESKTOPUSER%"
+  },
+  {
+    "String1": "%DESKTOPUSER%\\Shortcuts"
+  },
+  {
+    "String1": "%DESKTOPPUBLIC%"
+  },
+  {
+    "String1": "%DESKTOPPUBLIC%\\Shortcuts"
+  }
+]

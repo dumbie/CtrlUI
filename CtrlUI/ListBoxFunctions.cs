@@ -59,7 +59,6 @@ namespace CtrlUI
 
                 lb_ProfileManager.IsTextSearchEnabled = true;
                 lb_ProfileManager.IsTextSearchCaseSensitive = false;
-                lb_ProfileManager.ItemsSource = List_ProfileManager;
             }
             catch { }
         }

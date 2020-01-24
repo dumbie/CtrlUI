@@ -27,7 +27,14 @@ namespace FpsOverlayer
         {
             try
             {
-                string serializedObject = JsonConvert.SerializeObject(serializeObject);
+                //Json settings
+                JsonSerializerSettings jsonSettings = new JsonSerializerSettings();
+                jsonSettings.NullValueHandling = NullValueHandling.Ignore;
+
+                //Json serialize
+                string serializedObject = JsonConvert.SerializeObject(serializeObject, jsonSettings);
+
+                //Save to file
                 File.WriteAllText(@"Profiles\" + profileName + ".json", serializedObject);
                 Debug.WriteLine("Saving Json " + profileName + " completed.");
             }

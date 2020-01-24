@@ -112,11 +112,11 @@ namespace CtrlUI
 
                 //Get all files from the shortcut directories
                 IEnumerable<FileInfo> directoryShortcuts = Enumerable.Empty<FileInfo>();
-                foreach (string shortcutFolder in vCtrlLocationsShortcut)
+                foreach (ProfileShared shortcutFolder in vCtrlLocationsShortcut)
                 {
                     try
                     {
-                        string editedShortcutFolder = shortcutFolder;
+                        string editedShortcutFolder = shortcutFolder.String1;
                         editedShortcutFolder = editedShortcutFolder.Replace("%DESKTOPUSER%", Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
                         editedShortcutFolder = editedShortcutFolder.Replace("%DESKTOPPUBLIC%", Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory));
                         if (Directory.Exists(editedShortcutFolder))
@@ -147,6 +147,23 @@ namespace CtrlUI
                         //Check if already in combined list and remove it
                         if (CombineAppLists(false, false).Any(x => x.PathExe.ToLower() == targetPathLower))
                         {
+                            //Debug.WriteLine("Shortcut is in the combined list skipping: " + fileNameStripped.ToLower());
+                            await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
+                            continue;
+                        }
+
+                        //Check if shortcut name is in shortcut blacklist
+                        if (vCtrlIgnoreShortcutName.Any(x => x.String1.ToLower() == shortcutDetails.Title.ToLower()))
+                        {
+                            //Debug.WriteLine("Shortcut is on the blacklist skipping: " + fileNameStripped.ToLower());
+                            await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
+                            continue;
+                        }
+
+                        //Check if shortcut uri is in shortcut uri blacklist
+                        if (vCtrlIgnoreShortcutUri.Any(x => targetPathLower.Contains(x.String1.ToLower())))
+                        {
+                            //Debug.WriteLine("Shortcut uri is on the uri blacklist skipping: " + targetPathLower);
                             await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
                             continue;
                         }
@@ -155,20 +172,6 @@ namespace CtrlUI
                         if (List_Shortcuts.Any(x => x.PathExe.ToLower() == targetPathLower))
                         {
                             //Debug.WriteLine("Shortcut is already in list skipping: " + targetPathLower);
-                            continue;
-                        }
-
-                        //Check if shortcut name is in shortcut blacklist
-                        if (vCtrlIgnoreShortcutName.Any(x => x.ToLower() == shortcutDetails.Title.ToLower()))
-                        {
-                            //Debug.WriteLine("Shortcut is on the blacklist skipping: " + fileNameStripped.ToLower());
-                            continue;
-                        }
-
-                        //Check if shortcut uri is in shortcut uri blacklist
-                        if (vCtrlIgnoreShortcutUri.Any(x => targetPathLower.Contains(x.ToLower())))
-                        {
-                            //Debug.WriteLine("Shortcut uri is on the uri blacklist skipping: " + targetPathLower);
                             continue;
                         }
 

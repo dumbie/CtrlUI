@@ -1,1 +1,47 @@
-﻿[ "steam", "origin", "upc", "galaxyclient", "Battle.net", "EpicGamesLauncher", "BethesdaNetLauncher", "nexon_client", "GlyphClientApp", "PlayniteUI", "launcher", "itch", "arc", "GameCenter", "gfclient" ]
+﻿[
+  {
+    "String1": "steam"
+  },
+  {
+    "String1": "origin"
+  },
+  {
+    "String1": "upc"
+  },
+  {
+    "String1": "galaxyclient"
+  },
+  {
+    "String1": "Battle.net"
+  },
+  {
+    "String1": "EpicGamesLauncher"
+  },
+  {
+    "String1": "BethesdaNetLauncher"
+  },
+  {
+    "String1": "nexon_client"
+  },
+  {
+    "String1": "GlyphClientApp"
+  },
+  {
+    "String1": "PlayniteUI"
+  },
+  {
+    "String1": "launcher"
+  },
+  {
+    "String1": "itch"
+  },
+  {
+    "String1": "arc"
+  },
+  {
+    "String1": "gamecenter"
+  },
+  {
+    "String1": "gfclient"
+  }
+]

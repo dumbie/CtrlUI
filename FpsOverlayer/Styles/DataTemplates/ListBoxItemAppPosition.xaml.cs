@@ -14,11 +14,11 @@ namespace ArnoldVinkCode.Styles
             try
             {
                 Button senderButton = sender as Button;
-                FpsPositionProcess fpsPositionProcess = senderButton.DataContext as FpsPositionProcess;
+                ProfileShared FpsPositionProcessName = senderButton.DataContext as ProfileShared;
 
-                Debug.WriteLine("Removing application: " + fpsPositionProcess.Process);
-                AppVariables.vFpsPositionProcess.Remove(fpsPositionProcess);
-                JsonFunctions.JsonSaveObject(AppVariables.vFpsPositionProcess, "FpsPositionProcess");
+                Debug.WriteLine("Removing application: " + FpsPositionProcessName.String1);
+                AppVariables.vFpsPositionProcessName.Remove(FpsPositionProcessName);
+                JsonFunctions.JsonSaveObject(AppVariables.vFpsPositionProcessName, "FpsPositionProcessName");
             }
             catch { }
         }
@@ -28,11 +28,11 @@ namespace ArnoldVinkCode.Styles
             try
             {
                 ComboBox senderComboBox = sender as ComboBox;
-                FpsPositionProcess fpsPositionProcess = senderComboBox.DataContext as FpsPositionProcess;
+                ProfileShared FpsPositionProcessName = senderComboBox.DataContext as ProfileShared;
 
-                Debug.WriteLine("Position changed to: " + senderComboBox.SelectedIndex + " for " + fpsPositionProcess.Process);
-                fpsPositionProcess.Position = senderComboBox.SelectedIndex;
-                JsonFunctions.JsonSaveObject(AppVariables.vFpsPositionProcess, "FpsPositionProcess");
+                Debug.WriteLine("Position changed to: " + senderComboBox.SelectedIndex + " for " + FpsPositionProcessName.String1);
+                FpsPositionProcessName.Int1 = senderComboBox.SelectedIndex;
+                JsonFunctions.JsonSaveObject(AppVariables.vFpsPositionProcessName, "FpsPositionProcessName");
             }
             catch { }
         }

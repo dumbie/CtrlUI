@@ -168,13 +168,13 @@ namespace CtrlUI
                     }
 
                     //Add Json file locations
-                    foreach (FileLocation Locations in vCtrlLocationsFile)
+                    foreach (ProfileShared Locations in vCtrlLocationsFile)
                     {
                         try
                         {
-                            if (Directory.Exists(Locations.Path))
+                            if (Directory.Exists(Locations.String2))
                             {
-                                DataBindFile dataBindFileLocation = new DataBindFile() { Type = "Directory", Name = Locations.Path, NameSub = Locations.Name, ImageBitmap = imageFolder, PathFile = Locations.Path };
+                                DataBindFile dataBindFileLocation = new DataBindFile() { Type = "Directory", Name = Locations.String2, NameSub = Locations.String1, ImageBitmap = imageFolder, PathFile = Locations.String2 };
                                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileLocation, false, false);
                             }
                         }

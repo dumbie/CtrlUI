@@ -1,1 +1,47 @@
-﻿[ "Better DS3", "ScpUser", "ScpServer", "DS4Windows", "x360ce_x64", "x360ce", "Xpadder", "XOutput", "InputMapper", "DS3_Tool", "MotioninJoy", "BetterJoyForCemu", "vJoy", "vdx", "Shibari" ]
+﻿[
+  {
+    "String1": "Better DS3"
+  },
+  {
+    "String1": "ScpUser"
+  },
+  {
+    "String1": "ScpServer"
+  },
+  {
+    "String1": "DS4Windows"
+  },
+  {
+    "String1": "x360ce_x64"
+  },
+  {
+    "String1": "x360ce"
+  },
+  {
+    "String1": "Xpadder"
+  },
+  {
+    "String1": "XOutput"
+  },
+  {
+    "String1": "InputMapper"
+  },
+  {
+    "String1": "DS3_Tool"
+  },
+  {
+    "String1": "MotioninJoy"
+  },
+  {
+    "String1": "BetterJoyForCemu"
+  },
+  {
+    "String1": "vJoy"
+  },
+  {
+    "String1": "vdx"
+  },
+  {
+    "String1": "Shibari"
+  }
+]

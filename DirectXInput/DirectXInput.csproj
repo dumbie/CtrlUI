@@ -196,7 +196,7 @@
       <Link>Assets\Icons\Settings.png</Link>
     </Resource>
     <Resource Include="Assets\Icons\Controller-Dark.png" />
-    <Content Include="Profiles\DirectControllers.json">
+    <Content Include="Profiles\DirectControllersProfile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\DirectControllersSupported.json">

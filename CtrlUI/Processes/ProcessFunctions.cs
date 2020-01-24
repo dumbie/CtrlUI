@@ -332,11 +332,11 @@ namespace CtrlUI
                     Popup_Show_Status("Closing", "Closing other launchers");
 
                     //Close all known other launchers
-                    foreach (string CloseLauncher in vCtrlCloseLaunchers)
+                    foreach (ProfileShared closeLauncher in vCtrlCloseLaunchers)
                     {
                         try
                         {
-                            CloseProcessesByNameOrTitle(CloseLauncher, false);
+                            CloseProcessesByNameOrTitle(closeLauncher.String1, false);
                         }
                         catch { }
                     }

@@ -1,14 +1,14 @@
 [
   {
-    "Process": "kodi",
+    "Name": "kodi",
     "Position": 8
   },
   {
-    "Process": "mpv",
+    "Name": "mpv",
     "Position": 8
   },
   {
-    "Process": "vlc",
+    "Name": "vlc",
     "Position": 8
   }
 ]

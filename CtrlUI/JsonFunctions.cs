@@ -33,11 +33,11 @@ namespace CtrlUI
                     catch { }
                 }
 
-                Debug.WriteLine("Reading Json apps completed.");
+                Debug.WriteLine("Reading Json applications completed.");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed reading Json apps: " + ex.Message);
+                Debug.WriteLine("Failed reading Json applications: " + ex.Message);
             }
         }
 
@@ -61,7 +61,14 @@ namespace CtrlUI
         {
             try
             {
-                string serializedObject = JsonConvert.SerializeObject(serializeObject);
+                //Json settings
+                JsonSerializerSettings jsonSettings = new JsonSerializerSettings();
+                jsonSettings.NullValueHandling = NullValueHandling.Ignore;
+
+                //Json serialize
+                string serializedObject = JsonConvert.SerializeObject(serializeObject, jsonSettings);
+
+                //Save to file
                 File.WriteAllText(@"Profiles\" + profileName + ".json", serializedObject);
                 Debug.WriteLine("Saving Json " + profileName + " completed.");
             }
@@ -76,9 +83,18 @@ namespace CtrlUI
         {
             try
             {
+                //Combine apps
                 var JsonFilterList = CombineAppLists(false, false).Select(x => new { x.Number, x.Category, x.Type, x.Name, x.NameExe, x.PathImage, x.PathExe, x.PathLaunch, x.PathRoms, x.Argument, x.QuickLaunch, x.LaunchFilePicker, x.LaunchKeyboard, x.RunningTime });
-                string SerializedList = JsonConvert.SerializeObject(JsonFilterList);
-                File.WriteAllText(@"Profiles\CtrlApplications.json", SerializedList);
+
+                //Json settings
+                JsonSerializerSettings jsonSettings = new JsonSerializerSettings();
+                jsonSettings.NullValueHandling = NullValueHandling.Ignore;
+
+                //Json serialize
+                string serializedList = JsonConvert.SerializeObject(JsonFilterList, jsonSettings);
+
+                //Save to file
+                File.WriteAllText(@"Profiles\CtrlApplications.json", serializedList);
                 Debug.WriteLine("Saving Json apps completed.");
             }
             catch (Exception ex)

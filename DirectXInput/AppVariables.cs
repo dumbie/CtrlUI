@@ -56,7 +56,7 @@ namespace DirectXInput
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
-        public static List<string> vDirectCloseTools = new List<string>();
+        public static List<ProfileShared> vDirectCloseTools = new List<ProfileShared>();
         public static ObservableCollection<ControllerProfile> vDirectControllersProfile = new ObservableCollection<ControllerProfile>();
         public static ObservableCollection<ControllerSupported> vDirectControllersSupported = new ObservableCollection<ControllerSupported>();
     }

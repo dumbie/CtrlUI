@@ -872,22 +872,31 @@
 
                 <StackPanel Grid.Row="0">
                     <TextBlock Name="grid_Popup_ProfileManager_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Profile Manager"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <TextBlock Name="grid_Popup_ProfileManager_txt_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Profile"/>
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,0"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1">
-                    <Button Name="grid_Popup_ProfileManager_button_ChangeProfile" Content="Change edit profile" Style="{StaticResource ButtonAccentWhite}"/>
-
                     <Grid Name="grid_Popup_ProfileManager_Value1" Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Name="grid_Popup_ProfileManager_textblock_ProfileValue1" Text="Value name" VerticalAlignment="Center" Margin="0,0,10,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}"/>
-                        <TextBox Grid.Column="1" Name="grid_Popup_ProfileManager_textbox_ProfileValue1" Text="Profile value" styles:TextboxPlaceholder.Placeholder="Profile value" Style="{StaticResource TextBoxWhite}"/>
+                        <TextBlock Grid.Column="0" Name="grid_Popup_ProfileManager_textblock_ProfileString1" Text="Value name" VerticalAlignment="Center" Margin="0,0,10,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}"/>
+                        <TextBox Grid.Column="1" Name="grid_Popup_ProfileManager_textbox_ProfileString1" Style="{StaticResource TextBoxWhite}"/>
                     </Grid>
 
-                    <Button Name="grid_Popup_ProfileManager_button_ProfileAdd" Margin="0,5,0,0" Content="Add to profile" Style="{StaticResource ButtonAccentWhite}"/>
+                    <Grid Name="grid_Popup_ProfileManager_Value2" Margin="0,10,0,0" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Name="grid_Popup_ProfileManager_textblock_ProfileString2" Text="Value name" VerticalAlignment="Center" Margin="0,0,10,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}"/>
+                        <TextBox Grid.Column="1" Name="grid_Popup_ProfileManager_textbox_ProfileString2" Style="{StaticResource TextBoxWhite}"/>
+                    </Grid>
+
+                    <Button Name="grid_Popup_ProfileManager_button_ProfileAdd" Margin="0,10,0,0" Content="Add value to profile" Style="{StaticResource ButtonAccentWhite}"/>
+                    <Button Name="grid_Popup_ProfileManager_button_ChangeProfile" Margin="0,10,0,0" Content="Change edit profile" Style="{StaticResource ButtonAccentWhite}"/>
                 </StackPanel>
 
                 <ListBox Grid.Row="2" Margin="0,10,0,0" Name="lb_ProfileManager" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListboxItemProfile}" Style="{StaticResource ListBoxVertical}"/>

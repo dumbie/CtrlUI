@@ -202,7 +202,7 @@
     <Content Include="Profiles\FpsIgnoreProcessName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\FpsPositionProcess.json">
+    <Content Include="Profiles\FpsPositionProcessName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\App.config" />

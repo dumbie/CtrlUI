@@ -46,8 +46,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="{Binding}" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-            <TextBlock Grid.Column="1"/>
+            <TextBlock Grid.Column="0" Text="{Binding String1}" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+            <TextBlock Grid.Column="1" Text="{Binding String2}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}"/>
             <Image Grid.Column="2" Source="/Assets/Icons/RemoveCross.png" Height="40" Width="40"/>
         </Grid>
     </DataTemplate>

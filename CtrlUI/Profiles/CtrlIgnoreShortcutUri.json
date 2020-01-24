@@ -1,1 +1,8 @@
-﻿[ "http://", "https://" ]
+﻿[
+  {
+    "String1": "http://"
+  },
+  {
+    "String1": "https://"
+  }
+]

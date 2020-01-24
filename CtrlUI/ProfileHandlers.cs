@@ -18,7 +18,7 @@ namespace CtrlUI
         }
 
         //Add new profile value
-        async void grid_Popup_ProfileManager_textbox_ProfileValue1_KeyDown(object sender, KeyEventArgs e)
+        async void grid_Popup_ProfileManager_textbox_ProfileString_KeyDown(object sender, KeyEventArgs e)
         {
             try
             {

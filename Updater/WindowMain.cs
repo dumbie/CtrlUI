@@ -139,16 +139,7 @@ namespace Updater
 
                 //Rename old file names to new ones
                 File_Rename("Profiles/Apps.json", "Profiles/CtrlApplications.json");
-                File_Rename("Profiles/AppsBlacklistProcess.json", "Profiles/CtrlIgnoreProcessName.json");
-                File_Rename("Profiles/AppsBlacklistShortcut.json", "Profiles/CtrlIgnoreShortcutName.json");
-                File_Rename("Profiles/AppsBlacklistShortcutUri.json", "Profiles/CtrlIgnoreShortcutUri.json");
-                File_Rename("Profiles/AppsCloseLaunchers.json", "Profiles/CtrlCloseLaunchers.json");
-                File_Rename("Profiles/FileLocations.json", "Profiles/CtrlLocationsFile.json");
-                File_Rename("Profiles/ShortcutLocations.json", "Profiles/CtrlLocationsShortcut.json");
-                File_Rename("Profiles/AppsCloseTools.json", "Profiles/DirectCloseTools.json");
                 File_Rename("Profiles/Controllers.json", "Profiles/DirectControllersProfile.json");
-                File_Rename("Profiles/ControllersSupported.json", "Profiles/DirectControllersSupported.json");
-                File_Rename("Profiles/FpsBlacklistProcess.json", "Profiles/FpsIgnoreProcessName.json");
 
                 //Extract the downloaded update archive
                 try
@@ -173,7 +164,7 @@ namespace Updater
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlLocationsFile.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsFile.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlLocationsShortcut.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsShortcut.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsIgnoreProcessName.json".ToLower())) { Debug.WriteLine("Skipping: FpsIgnoreProcessName.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsPositionProcess.json".ToLower())) { Debug.WriteLine("Skipping: FpsPositionProcess.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsPositionProcessName.json".ToLower())) { Debug.WriteLine("Skipping: FpsPositionProcessName.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectControllersProfile.json".ToLower())) { Debug.WriteLine("Skipping: DirectControllersProfile.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Background.png".ToLower())) { Debug.WriteLine("Skipping: Background.png"); continue; }
 

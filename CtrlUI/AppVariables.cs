@@ -33,7 +33,7 @@ namespace CtrlUI
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
         public static DispatcherTimer vDispatcherTimer = new DispatcherTimer();
-        public static List<string> vTabTargetLists = new List<string> { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Shortcuts", "lb_Processes" };
+        public static List<string> vTabTargetLists = new List<string> { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Shortcuts", "lb_Processes", "lb_ProfileManager" };
         public static List<string> vTabTargetButtons = new List<string> { "grid_Popup_TextInput_button_ConfirmText" };
 
         //Update Variables
@@ -108,7 +108,7 @@ namespace CtrlUI
 
         //Profile Manager Variables
         public static string vProfileManagerName = "CtrlIgnoreProcessName";
-        public static List<string> vProfileManagerList = new List<string>();
+        public static ObservableCollection<ProfileShared> vProfileManagerListShared = null;
 
         //Clipboard Variables
         public static DataBindFile vClipboardFile = null;
@@ -147,14 +147,12 @@ namespace CtrlUI
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
-        public static List<string> vCtrlIgnoreProcessName = new List<string>();
-        public static List<string> vCtrlIgnoreShortcutName = new List<string>();
-        public static List<string> vCtrlIgnoreShortcutUri = new List<string>();
-        public static List<string> vCtrlCloseLaunchers = new List<string>();
-        public static List<FileLocation> vCtrlLocationsFile = new List<FileLocation>();
-        public static List<string> vCtrlLocationsShortcut = new List<string>();
-
-        //Application Lists
+        public static ObservableCollection<ProfileShared> vCtrlIgnoreProcessName = new ObservableCollection<ProfileShared>();
+        public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutName = new ObservableCollection<ProfileShared>();
+        public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutUri = new ObservableCollection<ProfileShared>();
+        public static ObservableCollection<ProfileShared> vCtrlCloseLaunchers = new ObservableCollection<ProfileShared>();
+        public static ObservableCollection<ProfileShared> vCtrlLocationsFile = new ObservableCollection<ProfileShared>();
+        public static ObservableCollection<ProfileShared> vCtrlLocationsShortcut = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<DataBindApp> List_Games = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Apps = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Emulators = new ObservableCollection<DataBindApp>();
@@ -163,6 +161,5 @@ namespace CtrlUI
         public static ObservableCollection<DataBindApp> List_Search = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<SolidColorBrush> List_ColorPicker = new ObservableCollection<SolidColorBrush>();
         public static ObservableCollection<DataBindFile> List_FilePicker = new ObservableCollection<DataBindFile>();
-        public static ObservableCollection<string> List_ProfileManager = new ObservableCollection<string>();
     }
 }

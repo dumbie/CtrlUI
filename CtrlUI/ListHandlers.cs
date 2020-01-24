@@ -139,10 +139,14 @@ namespace CtrlUI
             try
             {
                 Popup_Show_Status("Hide", "Hiding shortcut " + dataBindApp.Name);
-                Debug.WriteLine("Hiding shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
+                Debug.WriteLine("Hiding shortcut by name: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
+
+                //Create new profile shared
+                ProfileShared profileShared = new ProfileShared();
+                profileShared.String1 = dataBindApp.Name;
 
                 //Add shortcut file to the ignore list
-                vCtrlIgnoreShortcutName.Add(dataBindApp.Name);
+                vCtrlIgnoreShortcutName.Add(profileShared);
                 JsonSaveObject(vCtrlIgnoreShortcutName, "CtrlIgnoreShortcutName");
 
                 //Remove application from the list

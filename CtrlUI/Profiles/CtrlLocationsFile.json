@@ -1,10 +1,10 @@
 ﻿[
   {
-    "Name": "Nas 1 Videos",
-    "Path": "Y:\\Videos"
+    "String1": "Nas 1 Videos",
+    "String2": "Y:\\Videos"
   },
   {
-    "Name": "Nas 2 Videos",
-    "Path": "Z:\\Videos"
+    "String1": "Nas 2 Videos",
+    "String2": "Z:\\Videos"
   }
 ]

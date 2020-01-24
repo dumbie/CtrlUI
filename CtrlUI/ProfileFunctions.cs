@@ -35,54 +35,52 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Changing edit profile to: " + vProfileManagerName);
 
-                //Clear the current profile list
-                List_ProfileManager.Clear();
-
                 //Load the requested profile values
                 if (vProfileManagerName == "CtrlIgnoreProcessName")
                 {
-                    grid_Popup_ProfileManager_button_ChangeProfile.Content = "Change edit profile (Blocked process names)";
-                    vProfileManagerList = vCtrlIgnoreProcessName;
-                    foreach (string profileString in vCtrlIgnoreProcessName)
-                    {
-                        await ListBoxAddItem(lb_ProfileManager, List_ProfileManager, profileString, false, false);
-                    }
+                    grid_Popup_ProfileManager_txt_Description.Text = "Ignored process names";
+                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Process name";
+                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
+
+                    vProfileManagerListShared = vCtrlIgnoreProcessName;
+                    lb_ProfileManager.ItemsSource = vCtrlIgnoreProcessName;
                 }
                 else if (vProfileManagerName == "CtrlLocationsShortcut")
                 {
-                    grid_Popup_ProfileManager_button_ChangeProfile.Content = "Change edit profile (Shortcut locations)";
-                    vProfileManagerList = vCtrlLocationsShortcut;
-                    foreach (string profileString in vCtrlLocationsShortcut)
-                    {
-                        await ListBoxAddItem(lb_ProfileManager, List_ProfileManager, profileString, false, false);
-                    }
+                    grid_Popup_ProfileManager_txt_Description.Text = "Shortcut locations";
+                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Path";
+                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
+
+                    vProfileManagerListShared = vCtrlLocationsShortcut;
+                    lb_ProfileManager.ItemsSource = vCtrlLocationsShortcut;
                 }
                 else if (vProfileManagerName == "CtrlLocationsFile")
                 {
-                    //grid_Popup_ProfileManager_button_ChangeProfile.Content = "Change edit profile (File browser locations)";
-                    //vProfileManagerList = vCtrlLocationsFile;
-                    //foreach (string profileString in vCtrlLocationsFile)
-                    //{
-                    //    await ListBoxAddItem(lb_ProfileManager, List_ProfileManager, profileString, false, false);
-                    //}
+                    grid_Popup_ProfileManager_txt_Description.Text = "File browser locations";
+                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Name";
+                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Visible;
+                    grid_Popup_ProfileManager_textblock_ProfileString2.Text = "Path";
+
+                    vProfileManagerListShared = vCtrlLocationsFile;
+                    lb_ProfileManager.ItemsSource = vCtrlLocationsFile;
                 }
                 else if (vProfileManagerName == "CtrlIgnoreShortcutName")
                 {
-                    grid_Popup_ProfileManager_button_ChangeProfile.Content = "Change edit profile (Blocked shortcuts names)";
-                    vProfileManagerList = vCtrlIgnoreShortcutName;
-                    foreach (string profileString in vCtrlIgnoreShortcutName)
-                    {
-                        await ListBoxAddItem(lb_ProfileManager, List_ProfileManager, profileString, false, false);
-                    }
+                    grid_Popup_ProfileManager_txt_Description.Text = "Ignored shortcuts names";
+                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Shortcut name";
+                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
+
+                    vProfileManagerListShared = vCtrlIgnoreShortcutName;
+                    lb_ProfileManager.ItemsSource = vCtrlIgnoreShortcutName;
                 }
                 else if (vProfileManagerName == "CtrlIgnoreShortcutUri")
                 {
-                    grid_Popup_ProfileManager_button_ChangeProfile.Content = "Change edit profile (Blocked shortcut uri's)";
-                    vProfileManagerList = vCtrlIgnoreShortcutUri;
-                    foreach (string profileString in vCtrlIgnoreShortcutUri)
-                    {
-                        await ListBoxAddItem(lb_ProfileManager, List_ProfileManager, profileString, false, false);
-                    }
+                    grid_Popup_ProfileManager_txt_Description.Text = "Ignored shortcut uri's";
+                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Shortcut uri";
+                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
+
+                    vProfileManagerListShared = vCtrlIgnoreShortcutUri;
+                    lb_ProfileManager.ItemsSource = vCtrlIgnoreShortcutUri;
                 }
 
                 //Select the first listbox item
@@ -96,15 +94,16 @@ namespace CtrlUI
         {
             try
             {
-                string selectedProfile = (string)lb_ProfileManager.SelectedItem;
+                ProfileShared selectedProfile = (ProfileShared)lb_ProfileManager.SelectedItem;
                 Debug.WriteLine("Removing profile value: " + selectedProfile);
 
-                //Remove the selected profile value from json
-                vProfileManagerList.Remove(selectedProfile);
-                JsonSaveObject(vProfileManagerList, vProfileManagerName);
+                //Remove the selected profile value
+                await ListBoxRemoveItem(lb_ProfileManager, vProfileManagerListShared, selectedProfile);
 
-                //Remove the selected profile value from listbox
-                await ListBoxRemoveItem(lb_ProfileManager, List_ProfileManager, selectedProfile);
+                //Save the updated json values
+                JsonSaveObject(vProfileManagerListShared, vProfileManagerName);
+
+                Popup_Show_Status("Profile", "Removed profile value");
             }
             catch { }
         }
@@ -114,54 +113,75 @@ namespace CtrlUI
         {
             try
             {
-                string profileValue = grid_Popup_ProfileManager_textbox_ProfileValue1.Text;
-                Debug.WriteLine("Adding new profile value: " + profileValue);
+                string profileString1 = grid_Popup_ProfileManager_textbox_ProfileString1.Text;
+                string profileString2 = grid_Popup_ProfileManager_textbox_ProfileString2.Text;
+                Debug.WriteLine("Adding new profile value: " + profileString1 + " / " + profileString2);
 
                 //Color brushes
                 BrushConverter BrushConvert = new BrushConverter();
                 Brush BrushInvalid = BrushConvert.ConvertFromString("#CD1A2B") as Brush;
                 Brush BrushValid = BrushConvert.ConvertFromString("#1DB954") as Brush;
 
-                //Check if the name is empty
-                if (string.IsNullOrWhiteSpace(profileValue))
+                //Check if the string1 is empty
+                if (string.IsNullOrWhiteSpace(profileString1))
                 {
-                    grid_Popup_ProfileManager_textbox_ProfileValue1.BorderBrush = BrushInvalid;
+                    grid_Popup_ProfileManager_textbox_ProfileString1.BorderBrush = BrushInvalid;
                     Popup_Show_Status("Profile", "Empty profile value");
                     Debug.WriteLine("Please enter a profile value.");
                     return;
                 }
 
-                //Check if the name is place holder
-                if (profileValue == "Profile value")
+                //Check if the string2 is empty
+                if (grid_Popup_ProfileManager_Value2.Visibility == Visibility.Visible && string.IsNullOrWhiteSpace(profileString2))
                 {
-                    grid_Popup_ProfileManager_textbox_ProfileValue1.BorderBrush = BrushInvalid;
-                    Popup_Show_Status("Profile", "Invalid profile value");
-                    Debug.WriteLine("Please enter a valid value.");
+                    grid_Popup_ProfileManager_textbox_ProfileString2.BorderBrush = BrushInvalid;
+                    Popup_Show_Status("Profile", "Empty profile value");
+                    Debug.WriteLine("Please enter a profile value.");
                     return;
                 }
 
-                //Check if value already exists
-                if (vProfileManagerList.Any(x => x.ToLower() == profileValue.ToLower()))
+                //Create new profile shared
+                ProfileShared profileShared = new ProfileShared();
+                Func<ProfileShared, bool> profileFilter = null;
+
+                //Check first string value
+                if (!string.IsNullOrWhiteSpace(profileString1))
                 {
-                    grid_Popup_ProfileManager_textbox_ProfileValue1.BorderBrush = BrushInvalid;
+                    profileShared.String1 = profileString1;
+                    profileFilter = x => x.String1.ToLower() == profileString1.ToLower();
+                }
+
+                //Check second string value
+                if (!string.IsNullOrWhiteSpace(profileString2))
+                {
+                    profileShared.String2 = profileString2;
+                    profileFilter = x => x.String1.ToLower() == profileString1.ToLower() && x.String2.ToLower() == profileString2.ToLower();
+                }
+
+                //Check if values already exists
+                if (vProfileManagerListShared.Any(profileFilter))
+                {
+                    grid_Popup_ProfileManager_textbox_ProfileString1.BorderBrush = BrushInvalid;
+                    grid_Popup_ProfileManager_textbox_ProfileString2.BorderBrush = BrushInvalid;
                     Popup_Show_Status("Profile", "Profile already exists");
                     Debug.WriteLine("Profile value already exists.");
                     return;
                 }
 
-                //Clear name from the textbox
-                grid_Popup_ProfileManager_textbox_ProfileValue1.Text = "Profile value";
+                //Clear added value from the textbox
+                grid_Popup_ProfileManager_textbox_ProfileString1.Text = string.Empty;
+                grid_Popup_ProfileManager_textbox_ProfileString2.Text = string.Empty;
 
-                //Add new profile to json
-                vProfileManagerList.Add(profileValue);
-                JsonSaveObject(vProfileManagerList, vProfileManagerName);
+                //Add the new profile value
+                await ListBoxAddItem(lb_ProfileManager, vProfileManagerListShared, profileShared, false, false);
 
-                //Add new profile to the listbox
-                await ListBoxAddItem(lb_ProfileManager, List_ProfileManager, profileValue, false, false);
+                //Save the updated json values
+                JsonSaveObject(vProfileManagerListShared, vProfileManagerName);
 
                 //Show profile added notification
                 Popup_Show_Status("Profile", "New value added");
-                grid_Popup_ProfileManager_textbox_ProfileValue1.BorderBrush = BrushValid;
+                grid_Popup_ProfileManager_textbox_ProfileString1.BorderBrush = BrushValid;
+                grid_Popup_ProfileManager_textbox_ProfileString2.BorderBrush = BrushValid;
             }
             catch { }
         }
@@ -182,13 +202,13 @@ namespace CtrlUI
                 DataBindString stringCtrlLocationsFile = new DataBindString() { Name = "File browser locations", PathFile = "CtrlLocationsFile", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringCtrlLocationsFile);
 
-                DataBindString stringIgnoredProcesses = new DataBindString() { Name = "Blocked process names", PathFile = "CtrlIgnoreProcessName", ImageBitmap = imageProfile };
+                DataBindString stringIgnoredProcesses = new DataBindString() { Name = "Ignored process names", PathFile = "CtrlIgnoreProcessName", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringIgnoredProcesses);
 
-                DataBindString stringIgnoredShortcutsName = new DataBindString() { Name = "Blocked shortcuts names", PathFile = "CtrlIgnoreShortcutName", ImageBitmap = imageProfile };
+                DataBindString stringIgnoredShortcutsName = new DataBindString() { Name = "Ignored shortcuts names", PathFile = "CtrlIgnoreShortcutName", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringIgnoredShortcutsName);
 
-                DataBindString stringIgnoredShortcutsUri = new DataBindString() { Name = "Blocked shortcut uri's", PathFile = "CtrlIgnoreShortcutUri", ImageBitmap = imageProfile };
+                DataBindString stringIgnoredShortcutsUri = new DataBindString() { Name = "Ignored shortcut uri's", PathFile = "CtrlIgnoreShortcutUri", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringIgnoredShortcutsUri);
 
                 //Show the category picker

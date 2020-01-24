@@ -162,8 +162,7 @@
     <Compile Include="Classes\FrameworkElementFocus.cs" />
     <Compile Include="Classes\ControllerStatusSummary.cs" />
     <Compile Include="Classes\ShortcutDetails.cs" />
-    <Compile Include="Classes\FpsPositionProcess.cs" />
-    <Compile Include="Classes\FileLocation.cs" />
+    <Compile Include="Classes\ProfileShared.cs" />
     <Compile Include="Classes\DataBindString.cs" />
     <Compile Include="Classes\ControllerDetails.cs" />
     <Compile Include="Classes\ControllerInput.cs" />

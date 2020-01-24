@@ -79,7 +79,7 @@ namespace FpsOverlayer
                 }
 
                 //Check if process already exists
-                if (AppVariables.vFpsPositionProcess.Any(x => x.Process.ToLower() == processName.ToLower()))
+                if (AppVariables.vFpsPositionProcessName.Any(x => x.String1.ToLower() == processName.ToLower()))
                 {
                     textbox_AddApp.BorderBrush = BrushInvalid;
                     Debug.WriteLine("Application process already exists.");
@@ -89,12 +89,12 @@ namespace FpsOverlayer
                 //Clear name from the textbox
                 textbox_AddApp.Text = "Process name";
 
-                FpsPositionProcess fpsPositionProcess = new FpsPositionProcess();
-                fpsPositionProcess.Process = processName;
-                fpsPositionProcess.Position = 0;
+                ProfileShared FpsPositionProcessName = new ProfileShared();
+                FpsPositionProcessName.String1 = processName;
+                FpsPositionProcessName.Int1 = 0;
 
-                AppVariables.vFpsPositionProcess.Add(fpsPositionProcess);
-                JsonFunctions.JsonSaveObject(AppVariables.vFpsPositionProcess, "FpsPositionProcess");
+                AppVariables.vFpsPositionProcessName.Add(FpsPositionProcessName);
+                JsonFunctions.JsonSaveObject(AppVariables.vFpsPositionProcessName, "FpsPositionProcessName");
 
                 textbox_AddApp.BorderBrush = BrushValid;
             }
@@ -106,7 +106,7 @@ namespace FpsOverlayer
         {
             try
             {
-                listbox_Apps.ItemsSource = AppVariables.vFpsPositionProcess;
+                listbox_Apps.ItemsSource = AppVariables.vFpsPositionProcessName;
             }
             catch { }
         }

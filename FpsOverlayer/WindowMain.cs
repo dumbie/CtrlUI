@@ -47,7 +47,7 @@ namespace FpsOverlayer
 
                 //Load Json profiles
                 JsonFunctions.JsonLoadProfile(ref vFpsIgnoreProcessName, "FpsIgnoreProcessName");
-                JsonFunctions.JsonLoadProfile(ref vFpsPositionProcess, "FpsPositionProcess");
+                JsonFunctions.JsonLoadProfile(ref vFpsPositionProcessName, "FpsPositionProcessName");
 
                 //Start process monitoring
                 StartMonitorProcess();
@@ -196,11 +196,11 @@ namespace FpsOverlayer
                 int targetTextPosition = Convert.ToInt32(ConfigurationManager.AppSettings["TextPosition"]);
                 if (!string.IsNullOrWhiteSpace(processName))
                 {
-                    FpsPositionProcess fpsPositionProcess = vFpsPositionProcess.Where(x => x.Process.ToLower() == processName.ToLower()).FirstOrDefault();
-                    if (fpsPositionProcess != null)
+                    ProfileShared FpsPositionProcessName = vFpsPositionProcessName.Where(x => x.String1.ToLower() == processName.ToLower()).FirstOrDefault();
+                    if (FpsPositionProcessName != null)
                     {
-                        Debug.WriteLine("Found fps position for: " + fpsPositionProcess.Process + " / " + fpsPositionProcess.Position);
-                        targetTextPosition = fpsPositionProcess.Position;
+                        Debug.WriteLine("Found fps position for: " + FpsPositionProcessName.String1 + " / " + FpsPositionProcessName.Int1);
+                        targetTextPosition = (int)FpsPositionProcessName.Int1;
                     }
                 }
 

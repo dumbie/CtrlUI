@@ -232,11 +232,11 @@ namespace DirectXInput
             try
             {
                 Debug.WriteLine("Closing other running controller tools.");
-                foreach (string CloseTool in vDirectCloseTools)
+                foreach (ProfileShared closeTool in vDirectCloseTools)
                 {
                     try
                     {
-                        CloseProcessesByNameOrTitle(CloseTool, false);
+                        CloseProcessesByNameOrTitle(closeTool.String1, false);
                     }
                     catch { }
                 }
