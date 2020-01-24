@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -111,10 +112,7 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Removing application from Windows startup.");
-                    if (File.Exists(targetFileShortcut))
-                    {
-                        File.Delete(targetFileShortcut);
-                    }
+                    File_Remove(targetFileShortcut);
                 }
             }
             catch
@@ -173,8 +171,9 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Removing application from GeForce Experience");
-                    if (File.Exists(TargetFileShortcut)) { File.Delete(TargetFileShortcut); }
-                    if (Directory.Exists(TargetFileBoxArtDirectory)) { Directory.Delete(TargetFileBoxArtDirectory, true); }
+
+                    File_Remove(TargetFileShortcut);
+                    Directory_Remove(TargetFileBoxArtDirectory);
 
                     btn_Settings_AddGeforceExperience.Content = "Add CtrlUI to GeForce Experience";
 

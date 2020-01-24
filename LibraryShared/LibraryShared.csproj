@@ -85,6 +85,9 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\InteropDll.cs">
       <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\InteropDll.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFiles.cs">
+      <Link>ArnoldVinkCode\Functions\AVFiles.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
     </Compile>
@@ -157,6 +160,7 @@
     <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="AppUpdateCheck.cs" />
     <Compile Include="AppLaunchCheck.cs" />
     <Compile Include="Classes\AppCategory.cs" />
     <Compile Include="Classes\FrameworkElementFocus.cs" />

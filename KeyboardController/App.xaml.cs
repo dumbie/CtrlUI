@@ -15,6 +15,9 @@ namespace KeyboardController
         {
             try
             {
+                //Check the application update
+                Application_UpdateCheck();
+
                 //Check the application status
                 Application_LaunchCheck("Keyboard Controller", "KeyboardController", ProcessPriorityClass.High, false);
 

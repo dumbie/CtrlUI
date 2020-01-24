@@ -14,7 +14,10 @@ namespace DriverInstaller
         {
             try
             {
-                //Check application status
+                //Check the application update
+                Application_UpdateCheck();
+
+                //Check the application status
                 Application_LaunchCheck("Driver Installer", "DriverInstaller", ProcessPriorityClass.Normal, false);
 
                 //Open the window main from application

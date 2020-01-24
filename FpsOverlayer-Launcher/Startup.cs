@@ -16,7 +16,7 @@ namespace AdminLauncher
         {
             try
             {
-                //Check application status
+                //Check the application status
                 Application_LaunchCheck("Fps Overlayer Launcher", "FpsOverlayer-Launcher", ProcessPriorityClass.Normal, false);
 
                 //Enable launch requirements

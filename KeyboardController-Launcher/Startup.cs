@@ -16,7 +16,7 @@ namespace AdminLauncher
         {
             try
             {
-                //Check application status
+                //Check the application status
                 Application_LaunchCheck("Keyboard Controller Launcher", "KeyboardController-Launcher", ProcessPriorityClass.Normal, false);
 
                 //Enable launch requirements

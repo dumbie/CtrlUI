@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.ProcessWin32Functions;
 
 namespace Updater
@@ -43,28 +44,14 @@ namespace Updater
             catch { }
         }
 
-        //File rename
-        void File_Rename(string oldFilePath, string newFilePath)
-        {
-            try
-            {
-                //Check if the file exists
-                if (File.Exists(oldFilePath))
-                {
-                    File.Move(oldFilePath, newFilePath);
-                }
-            }
-            catch { }
-        }
-
         //Window Startup
         public async Task Startup()
         {
             try
             {
                 //Check if previous update files are in the way
-                if (File.Exists("UpdaterNew.exe")) { try { File.Delete("UpdaterNew.exe"); } catch { } }
-                if (File.Exists("AppUpdate.zip")) { try { File.Delete("AppUpdate.zip"); } catch { } }
+                File_Remove("UpdaterNew.exe");
+                File_Remove("AppUpdate.zip");
 
                 //Check if CtrlUI is running and close it
                 bool CtrlUIRunning = false;
@@ -127,19 +114,7 @@ namespace Updater
                 }
 
                 //Delete the old drivers directory
-                try
-                {
-                    if (Directory.Exists("Resources/Drivers"))
-                    {
-                        Debug.WriteLine("Removing: Drivers directory.");
-                        Directory.Delete("Resources/Drivers", true);
-                    }
-                }
-                catch { }
-
-                //Rename old file names to new ones
-                File_Rename("Profiles/Apps.json", "Profiles/CtrlApplications.json");
-                File_Rename("Profiles/Controllers.json", "Profiles/DirectControllersProfile.json");
+                Directory_Remove("Resources/Drivers");
 
                 //Extract the downloaded update archive
                 try
@@ -193,11 +168,7 @@ namespace Updater
 
                 //Delete the update installation zip file
                 TextBlockUpdate("Cleaning up the update installation files.");
-                if (File.Exists("AppUpdate.zip"))
-                {
-                    Debug.WriteLine("Removing: AppUpdate.zip");
-                    File.Delete("AppUpdate.zip");
-                }
+                File_Remove("AppUpdate.zip");
 
                 //Start CtrlUI after the update has completed.
                 if (CtrlUIRunning)
@@ -251,11 +222,7 @@ namespace Updater
                 Debug.WriteLine("Exiting application.");
 
                 //Delete the update installation zip file
-                if (File.Exists("AppUpdate.zip"))
-                {
-                    Debug.WriteLine("Removing: AppUpdate.zip");
-                    File.Delete("AppUpdate.zip");
-                }
+                File_Remove("AppUpdate.zip");
 
                 //Set the exit reason text message
                 TextBlockUpdate(ExitMessage);

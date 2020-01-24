@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
@@ -234,7 +235,7 @@ namespace CtrlUI
                     string fileExtension = Path.GetExtension(dataBindApp.ShortcutPath);
                     string newFilePath = Path.Combine(shortcutDirectory, textInputString + fileExtension);
 
-                    File.Move(dataBindApp.ShortcutPath, newFilePath);
+                    File_Rename(dataBindApp.ShortcutPath, newFilePath, true);
                     dataBindApp.Name = textInputString;
                     dataBindApp.ShortcutPath = newFilePath;
 

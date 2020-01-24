@@ -19,6 +19,9 @@ namespace CtrlUI
                 //Get previous focused application
                 vPrevFocusedProcess = GetFocusedProcess();
 
+                //Check the application update
+                Application_UpdateCheck();
+
                 //Check the application status
                 Application_LaunchCheck("CtrlUI", "CtrlUI", ProcessPriorityClass.High, false);
 

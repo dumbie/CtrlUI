@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
@@ -135,14 +136,8 @@ namespace CtrlUI
                 {
                     string imageFileTitle = "Assets\\Apps\\" + dataBindApp.Name + ".png";
                     string imageFileExe = "Assets\\Apps\\" + Path.GetFileNameWithoutExtension(dataBindApp.PathExe) + ".png";
-                    if (File.Exists(imageFileTitle))
-                    {
-                        File.Delete(imageFileTitle);
-                    }
-                    if (File.Exists(imageFileExe))
-                    {
-                        File.Delete(imageFileExe);
-                    }
+                    File_Remove(imageFileTitle);
+                    File_Remove(imageFileExe);
                 }
 
                 //Show removed notification
@@ -350,14 +345,8 @@ namespace CtrlUI
                     }
 
                     //Remove application image files
-                    if (File.Exists(imageFileTitle))
-                    {
-                        File.Delete(imageFileTitle);
-                    }
-                    if (File.Exists(imageFileExe))
-                    {
-                        File.Delete(imageFileExe);
-                    }
+                    File_Remove(imageFileTitle);
+                    File_Remove(imageFileExe);
 
                     //Reload the application image
                     BitmapImage applicationImage = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, IntPtr.Zero, 120);
@@ -378,15 +367,8 @@ namespace CtrlUI
                     }
 
                     //Remove application image files
-                    if (File.Exists(imageFileTitle))
-                    {
-                        File.Delete(imageFileTitle);
-                    }
-
-                    if (File.Exists(imageFileExe))
-                    {
-                        File.Delete(imageFileExe);
-                    }
+                    File_Remove(imageFileTitle);
+                    File_Remove(imageFileExe);
 
                     //Reload the application image
                     BitmapImage applicationImage = FileToBitmapImage(new string[] { tb_AddAppName.Text, tb_AddAppExePath.Text }, IntPtr.Zero, 120);
@@ -583,8 +565,7 @@ namespace CtrlUI
                     if (vEditAppDataBind.Name != tb_AddAppName.Text && File.Exists(imageFileName))
                     {
                         Debug.WriteLine("App name changed and application logo file exists so renaming it.");
-                        File.Delete("Assets\\Apps\\" + tb_AddAppName.Text + ".png");
-                        File.Move(imageFileName, "Assets\\Apps\\" + tb_AddAppName.Text + ".png");
+                        File_Rename(imageFileName, "Assets\\Apps\\" + tb_AddAppName.Text + ".png", true);
                     }
 
                     //Edit application in the list

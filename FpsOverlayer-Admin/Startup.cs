@@ -33,7 +33,7 @@ namespace AdminLauncher
                 SchTask_FilePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\FpsOverlayer-Launcher.exe";
                 SchTask_WorkingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-                //Check application status
+                //Check the application status
                 Application_LaunchCheck(SchTask_Description, "FpsOverlayer-Admin", ProcessPriorityClass.Normal, false);
 
                 //Check if the task already exists

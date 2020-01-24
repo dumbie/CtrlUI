@@ -16,6 +16,9 @@ namespace FpsOverlayer
         {
             try
             {
+                //Check the application update
+                Application_UpdateCheck();
+
                 //Check the application status
                 Application_LaunchCheck("Fps Overlayer", "FpsOverlayer", ProcessPriorityClass.High, false);
 

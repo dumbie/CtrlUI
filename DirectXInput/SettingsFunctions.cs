@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 
@@ -68,10 +69,7 @@ namespace DirectXInput
                 else
                 {
                     Debug.WriteLine("Removing application from Windows startup.");
-                    if (File.Exists(targetFileShortcut))
-                    {
-                        File.Delete(targetFileShortcut);
-                    }
+                    File_Remove(targetFileShortcut);
                 }
             }
             catch

@@ -163,6 +163,7 @@ namespace CtrlUI
                 grid_Popup_ProfileManager_textbox_ProfileString1.KeyDown += grid_Popup_ProfileManager_textbox_ProfileString_KeyDown;
                 grid_Popup_ProfileManager_textbox_ProfileString2.KeyDown += grid_Popup_ProfileManager_textbox_ProfileString_KeyDown;
                 lb_ProfileManager.PreviewKeyUp += ListBox_ProfileManager_KeyPressUp;
+                lb_ProfileManager.PreviewKeyDown += ListBox_ProfileManager_KeyPressDown;
                 lb_ProfileManager.PreviewMouseUp += ListBox_ProfileManager_MousePressUp;
 
                 //Color Picker functions

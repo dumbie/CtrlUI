@@ -140,6 +140,9 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVActions.cs">
       <Link>ArnoldVinkCode\Functions\AVActions.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFiles.cs">
+      <Link>ArnoldVinkCode\Functions\AVFiles.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFunctions.cs">
       <Link>ArnoldVinkCode\Functions\AVFunctions.cs</Link>
     </Compile>

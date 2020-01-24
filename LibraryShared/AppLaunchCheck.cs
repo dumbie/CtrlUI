@@ -58,28 +58,6 @@ namespace LibraryShared
                         }
                     }
                 }
-
-                //Check - If the updater has been updated
-                if (File.Exists("UpdaterNew.exe"))
-                {
-                    try
-                    {
-                        Debug.WriteLine("Renaming: UpdaterNew.exe to Updater.exe");
-                        if (File.Exists("Updater.exe")) { File.Delete("Updater.exe"); }
-                        File.Move("UpdaterNew.exe", "Updater.exe");
-                    }
-                    catch { }
-                }
-
-                //Check - If the updater failed to cleanup
-                if (File.Exists("AppUpdate.zip"))
-                {
-                    try
-                    {
-                        File.Delete("AppUpdate.zip");
-                    }
-                    catch { }
-                }
             }
             catch { }
         }
