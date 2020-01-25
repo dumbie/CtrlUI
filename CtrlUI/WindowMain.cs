@@ -50,8 +50,8 @@ namespace CtrlUI
                 await Settings_Load();
                 Settings_Save();
 
-                //Set the application background image
-                UpdateBackgroundImage();
+                //Set the application background media
+                UpdateBackgroundMedia();
 
                 //Set content and resource images with Cache OnLoad
                 SetContentResourceXamlImages();

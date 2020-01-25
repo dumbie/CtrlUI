@@ -16,11 +16,12 @@
 
     <!-- Grid Application -->
     <Grid Name="grid_App">
+        <!-- Background Media -->
+        <MediaElement Name="grid_Main_video_Background" Stretch="UniformToFill"/>
+        <Image Name="grid_Main_img_Background" Stretch="UniformToFill"/>
+
         <!-- Grid Main -->
         <Grid Name="grid_Main">
-            <Grid.Background>
-                <ImageBrush x:Name="grid_Main_img_Background" Stretch="UniformToFill"/>
-            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -896,7 +897,7 @@
                     </Grid>
 
                     <Button Name="grid_Popup_ProfileManager_button_ProfileAdd" Margin="0,10,0,0" Content="Add value to profile" Style="{StaticResource ButtonAccentWhite}"/>
-                    <Button Name="grid_Popup_ProfileManager_button_ChangeProfile" Margin="0,10,0,0" Content="Change edit profile" Style="{StaticResource ButtonAccentWhite}"/>
+                    <Button Name="grid_Popup_ProfileManager_button_ChangeProfile" Margin="0,10,0,0" Content="Change manage profile" Style="{StaticResource ButtonAccentWhite}"/>
                 </StackPanel>
 
                 <ListBox Grid.Row="2" Margin="0,10,0,0" Name="lb_ProfileManager" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListboxItemProfile}" Style="{StaticResource ListBoxVertical}"/>

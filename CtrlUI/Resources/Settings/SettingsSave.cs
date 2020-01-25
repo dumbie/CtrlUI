@@ -138,7 +138,7 @@ namespace CtrlUI
                 cb_SettingsDesktopBackground.Click += (sender, e) =>
                 {
                     SettingSave("DesktopBackground", cb_SettingsDesktopBackground.IsChecked.ToString());
-                    UpdateBackgroundImage();
+                    UpdateBackgroundMedia();
                 };
 
                 cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };

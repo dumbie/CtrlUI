@@ -804,7 +804,7 @@ namespace CtrlUI
                     File.Copy(vFilePickerResult.PathFile, "Assets\\Background.png", true);
                     cb_SettingsDesktopBackground.IsChecked = false;
                     SettingSave("DesktopBackground", "False");
-                    UpdateBackgroundImage();
+                    UpdateBackgroundMedia();
                 }
 
                 //First launch quick setup

@@ -195,6 +195,9 @@ namespace CtrlUI
                 btn_Help_ProjectWebsite.Click += Button_Help_ProjectWebsite_Click;
                 btn_Help_OpenDonation.Click += Button_Help_OpenDonation_Click;
 
+                //MediaElement functions
+                grid_Main_video_Background.MediaEnded += Grid_Main_video_Background_MediaEnded;
+
                 //Global functions
                 this.PreviewMouseMove += WindowMain_MouseMove;
                 this.PreviewMouseDown += WindowMain_PreviewMouseDown;
@@ -264,15 +267,25 @@ namespace CtrlUI
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
                         if (vProcessCurrent.Id == focusedAppId)
                         {
+                            //Play background media
+                            grid_Main_video_Background.Play();
+
+                            //Hide window status message
                             grid_WindowActive.Opacity = 0;
                             grid_App.IsHitTestVisible = true;
+
                             if (!vAppActivated) { appActivated = true; }
                             vAppActivated = true;
                         }
                         else
                         {
+                            //Pause background media
+                            grid_Main_video_Background.Pause();
+
+                            //Show window status message
                             grid_WindowActive.Opacity = 0.80;
                             grid_App.IsHitTestVisible = false;
+
                             vAppActivated = false;
                         }
                     }
@@ -646,29 +659,56 @@ namespace CtrlUI
             catch { }
         }
 
-        //Update the application background image
-        void UpdateBackgroundImage()
+        //Update the application background media
+        void UpdateBackgroundMedia()
         {
             try
             {
                 string cacheWorkaround = new string(' ', new Random().Next(1, 20));
-                string defaultWallpaper = "Assets\\Background.png" + cacheWorkaround;
+                string defaultWallpaperImage = "Assets\\Background.png" + cacheWorkaround;
+                string defaultWallpaperVideo = "Assets\\BackgroundLive.mp4" + cacheWorkaround;
+
+                grid_Main_img_Background.Visibility = Visibility.Collapsed;
+                grid_Main_video_Background.Source = new Uri(defaultWallpaperVideo, UriKind.RelativeOrAbsolute);
+                grid_Main_video_Background.LoadedBehavior = MediaState.Manual;
+                grid_Main_video_Background.Play();
+
+                //Improve: add setting to enable and disable background video
+                return;
+
+                grid_Main_video_Background.Visibility = Visibility.Collapsed;
+                grid_Main_video_Background.Stop();
+
                 if (ConfigurationManager.AppSettings["DesktopBackground"] == "False")
                 {
-                    grid_Main_img_Background.ImageSource = FileToBitmapImage(new string[] { defaultWallpaper }, IntPtr.Zero, -1);
+                    grid_Main_img_Background.Source = FileToBitmapImage(new string[] { defaultWallpaperImage }, IntPtr.Zero, -1);
                 }
                 else
                 {
-                    string desktopWallpaper = Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop", "WallPaper", defaultWallpaper).ToString();
+                    string desktopWallpaper = Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop", "WallPaper", defaultWallpaperImage).ToString();
                     if (File.Exists(desktopWallpaper))
                     {
-                        grid_Main_img_Background.ImageSource = FileToBitmapImage(new string[] { desktopWallpaper }, IntPtr.Zero, -1);
+                        grid_Main_img_Background.Source = FileToBitmapImage(new string[] { desktopWallpaper }, IntPtr.Zero, -1);
                     }
                     else
                     {
-                        grid_Main_img_Background.ImageSource = FileToBitmapImage(new string[] { defaultWallpaper }, IntPtr.Zero, -1);
+                        grid_Main_img_Background.Source = FileToBitmapImage(new string[] { defaultWallpaperImage }, IntPtr.Zero, -1);
                     }
                 }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed updating the background media.");
+            }
+        }
+
+        //Restart the live background video
+        private void Grid_Main_video_Background_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MediaElement senderMediaElement = (MediaElement)sender;
+                senderMediaElement.Position = new TimeSpan();
             }
             catch { }
         }
