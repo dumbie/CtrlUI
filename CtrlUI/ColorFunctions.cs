@@ -81,6 +81,7 @@ namespace CtrlUI
 
                 //Show the popup with animation
                 AVAnimations.Ani_Visibility(grid_Popup_ColorPicker, true, true, 0.10);
+                AVAnimations.Ani_Opacity(grid_Video_Background, 0.08, true, false, 0.10);
                 AVAnimations.Ani_Opacity(grid_Main, 0.08, true, false, 0.10);
 
                 if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 0.02, true, false, 0.10); }
@@ -135,7 +136,12 @@ namespace CtrlUI
                     //Hide the popup with animation
                     AVAnimations.Ani_Visibility(grid_Popup_ColorPicker, false, false, 0.10);
 
-                    if (!Popup_Any_Open()) { AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10); }
+                    if (!Popup_Any_Open())
+                    {
+                        double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
+                        AVAnimations.Ani_Opacity(grid_Video_Background, backgroundBrightness, true, true, 0.10);
+                        AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10);
+                    }
                     else if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 1, true, true, 0.10); }
                     else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
                     else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }

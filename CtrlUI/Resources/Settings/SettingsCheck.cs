@@ -35,7 +35,6 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["ShowHiddenFilesFolders"] == null) { SettingSave("ShowHiddenFilesFolders", "False"); }
                 if (ConfigurationManager.AppSettings["HideNetworkDrives"] == null) { SettingSave("HideNetworkDrives", "False"); }
                 if (ConfigurationManager.AppSettings["InterfaceSound"] == null) { SettingSave("InterfaceSound", "False"); }
-                if (ConfigurationManager.AppSettings["DesktopBackground"] == null) { SettingSave("DesktopBackground", "False"); }
                 if (ConfigurationManager.AppSettings["CloseMediaScreen"] == null) { SettingSave("CloseMediaScreen", "False"); }
                 if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == null) { SettingSave("MinimizeAppOnShow", "False"); }
                 if (ConfigurationManager.AppSettings["ShortcutVolume"] == null) { SettingSave("ShortcutVolume", "True"); }
@@ -46,6 +45,12 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["ShortcutScreenshot"] == null) { SettingSave("ShortcutScreenshot", "True"); }
 
                 if (ConfigurationManager.AppSettings["LaunchDirectXInput"] == null) { SettingSave("LaunchDirectXInput", "False"); }
+
+                //Background settings
+                if (ConfigurationManager.AppSettings["VideoBackground"] == null) { SettingSave("VideoBackground", "True"); }
+                if (ConfigurationManager.AppSettings["DesktopBackground"] == null) { SettingSave("DesktopBackground", "False"); }
+                if (ConfigurationManager.AppSettings["BackgroundBrightness"] == null) { SettingSave("BackgroundBrightness", "100"); }
+                if (ConfigurationManager.AppSettings["BackgroundPlaySpeed"] == null) { SettingSave("BackgroundPlaySpeed", "100"); }
             }
             catch { }
         }

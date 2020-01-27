@@ -134,13 +134,6 @@ namespace CtrlUI
                 cb_SettingsShowHiddenFilesFolders.Click += (sender, e) => { SettingSave("ShowHiddenFilesFolders", cb_SettingsShowHiddenFilesFolders.IsChecked.ToString()); };
                 cb_SettingsHideNetworkDrives.Click += (sender, e) => { SettingSave("HideNetworkDrives", cb_SettingsHideNetworkDrives.IsChecked.ToString()); };
                 cb_SettingsInterfaceSound.Click += (sender, e) => { SettingSave("InterfaceSound", cb_SettingsInterfaceSound.IsChecked.ToString()); };
-
-                cb_SettingsDesktopBackground.Click += (sender, e) =>
-                {
-                    SettingSave("DesktopBackground", cb_SettingsDesktopBackground.IsChecked.ToString());
-                    UpdateBackgroundMedia();
-                };
-
                 cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };
 
                 slider_SettingsFontSize.ValueChanged += (sender, e) =>
@@ -161,6 +154,33 @@ namespace CtrlUI
                     textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(slider_SettingsSoundVolume.Value) + "%";
                     SettingSave("SoundVolume", Convert.ToInt32(slider_SettingsSoundVolume.Value).ToString());
                     vInterfaceSoundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) / 100;
+                };
+
+                //Background Settings
+                cb_SettingsVideoBackground.Click += (sender, e) =>
+                {
+                    SettingSave("VideoBackground", cb_SettingsVideoBackground.IsChecked.ToString());
+                    UpdateBackgroundMedia();
+                };
+
+                cb_SettingsDesktopBackground.Click += (sender, e) =>
+                {
+                    SettingSave("DesktopBackground", cb_SettingsDesktopBackground.IsChecked.ToString());
+                    UpdateBackgroundMedia();
+                };
+
+                slider_SettingsBackgroundBrightness.ValueChanged += (sender, e) =>
+                {
+                    textblock_SettingsBackgroundBrightness.Text = "Background brightness: " + Convert.ToInt32(slider_SettingsBackgroundBrightness.Value) + "%";
+                    SettingSave("BackgroundBrightness", Convert.ToInt32(slider_SettingsBackgroundBrightness.Value).ToString());
+                    UpdateBackgroundMedia();
+                };
+
+                slider_SettingsBackgroundPlaySpeed.ValueChanged += (sender, e) =>
+                {
+                    textblock_SettingsBackgroundPlaySpeed.Text = "Video playback speed: " + Convert.ToInt32(slider_SettingsBackgroundPlaySpeed.Value) + "%";
+                    SettingSave("BackgroundPlaySpeed", Convert.ToInt32(slider_SettingsBackgroundPlaySpeed.Value).ToString());
+                    UpdateBackgroundMedia();
                 };
 
                 //Save - Socket Client Port

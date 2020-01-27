@@ -30,7 +30,6 @@ namespace CtrlUI
                 cb_SettingsShowHiddenFilesFolders.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"]);
                 cb_SettingsHideNetworkDrives.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["HideNetworkDrives"]);
                 cb_SettingsInterfaceSound.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["InterfaceSound"]);
-                cb_SettingsDesktopBackground.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["DesktopBackground"]);
                 cb_SettingsCloseMediaScreen.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CloseMediaScreen"]);
                 cb_SettingsMinimizeAppOnShow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"]);
                 cb_SettingsShortcutVolume.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"]);
@@ -76,6 +75,16 @@ namespace CtrlUI
                 {
                     btn_Settings_AddGeforceExperience.Content = "Remove CtrlUI from GeForce Experience";
                 }
+
+                //Background settings
+                cb_SettingsVideoBackground.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["VideoBackground"]);
+                cb_SettingsDesktopBackground.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["DesktopBackground"]);
+
+                textblock_SettingsBackgroundBrightness.Text = "Background brightness: " + Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) + "%";
+                slider_SettingsBackgroundBrightness.Value = Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]);
+
+                textblock_SettingsBackgroundPlaySpeed.Text = "Video playback speed: " + Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlaySpeed"]) + "%";
+                slider_SettingsBackgroundPlaySpeed.Value = Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlaySpeed"]);
             }
             catch (Exception Ex)
             {

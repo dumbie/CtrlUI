@@ -59,6 +59,7 @@ namespace CtrlUI
 
                 //Show the popup with animation
                 AVAnimations.Ani_Visibility(grid_Popup_FilePicker, true, true, 0.10);
+                AVAnimations.Ani_Opacity(grid_Video_Background, 0.08, true, false, 0.10);
                 AVAnimations.Ani_Opacity(grid_Main, 0.08, true, false, 0.10);
 
                 if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 0.02, true, false, 0.10); }
@@ -534,7 +535,12 @@ namespace CtrlUI
                 //Hide the popup with animation
                 AVAnimations.Ani_Visibility(grid_Popup_FilePicker, false, false, 0.10);
 
-                if (!Popup_Any_Open()) { AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10); }
+                if (!Popup_Any_Open())
+                {
+                    double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
+                    AVAnimations.Ani_Opacity(grid_Video_Background, backgroundBrightness, true, true, 0.10);
+                    AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10);
+                }
                 else if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 1, true, true, 0.10); }
                 else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
                 else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
@@ -784,8 +790,8 @@ namespace CtrlUI
                     tb_AddAppPathRoms.IsEnabled = true;
                 }
 
-                //Settings Background Changer
-                else if (ButtonName == "btn_Settings_ChangeBackground")
+                //Settings Background Image Changer
+                else if (ButtonName == "btn_Settings_ChangeBackgroundImage")
                 {
                     vFilePickerFilterIn = new List<string> { "jpg", "png" };
                     vFilePickerFilterOut = new List<string>();
@@ -796,14 +802,57 @@ namespace CtrlUI
                     vFilePickerShowFiles = true;
                     vFilePickerShowDirectories = true;
                     grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                    await Popup_Show_FilePicker("PC", -1, false, null);
+                    await Popup_Show_FilePicker("PC", -1, false, btn_Settings_ChangeBackgroundImage);
 
                     while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                     if (vFilePickerCancelled) { return; }
 
+                    //Unload the current background media
+                    UnloadBackgroundMedia();
+
+                    //Copy new background file
                     File.Copy(vFilePickerResult.PathFile, "Assets\\Background.png", true);
+
+                    //Disable video background
+                    cb_SettingsVideoBackground.IsChecked = false;
+                    SettingSave("VideoBackground", "False");
+
+                    //Disable desktop background
                     cb_SettingsDesktopBackground.IsChecked = false;
                     SettingSave("DesktopBackground", "False");
+
+                    //Update the background media
+                    UpdateBackgroundMedia();
+                }
+
+                //Settings Background Video Changer
+                else if (ButtonName == "btn_Settings_ChangeBackgroundVideo")
+                {
+                    vFilePickerFilterIn = new List<string> { "mp4" };
+                    vFilePickerFilterOut = new List<string>();
+                    vFilePickerTitle = "Background Video";
+                    vFilePickerDescription = "Please select a new background video:";
+                    vFilePickerShowNoFile = false;
+                    vFilePickerShowRoms = false;
+                    vFilePickerShowFiles = true;
+                    vFilePickerShowDirectories = true;
+                    grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                    await Popup_Show_FilePicker("PC", -1, false, btn_Settings_ChangeBackgroundVideo);
+
+                    while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
+                    if (vFilePickerCancelled) { return; }
+
+                    //Unload the current background media
+                    UnloadBackgroundMedia();
+
+                    //Copy new background file
+                    File.Copy(vFilePickerResult.PathFile, "Assets\\BackgroundLive.mp4", true);
+
+                    //Enable video background
+                    cb_SettingsVideoBackground.IsChecked = true;
+                    SettingSave("VideoBackground", "True");
+
+                    //Update the background media
                     UpdateBackgroundMedia();
                 }
 
