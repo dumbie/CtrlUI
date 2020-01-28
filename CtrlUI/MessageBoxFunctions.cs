@@ -17,14 +17,14 @@ namespace CtrlUI
         {
             try
             {
-                //Check if the message box is already open
+                //Check if the popup is already open
                 if (!vMessageBoxOpen)
                 {
                     //Play the opening sound
                     PlayInterfaceSound(vInterfaceSoundVolume, "PromptOpen", false);
 
                     //Save the previous focus element
-                    Popup_PreviousFocusSave(vMessageBoxElementFocus, null);
+                    Popup_PreviousElementFocus_Save(vMessageBoxElementFocus, null);
                 }
 
                 //Reset messagebox variables
@@ -104,8 +104,8 @@ namespace CtrlUI
                 //Hide the popup
                 Popup_Hide_Element(grid_Popup_MessageBox);
 
-                //Force focus on element
-                await Popup_PreviousFocusForce(vMessageBoxElementFocus);
+                //Focus on the previous focus element
+                await Popup_PreviousElementFocus_Focus(vMessageBoxElementFocus);
             }
             catch { }
         }

@@ -36,7 +36,7 @@ namespace CtrlUI
                 PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
                 //Save the previous focus element
-                Popup_PreviousFocusSave(vSearchElementFocus, null);
+                Popup_PreviousElementFocus_Save(vSearchElementFocus, null);
 
                 //Show the popup
                 Popup_Show_Element(grid_Popup_Search);
@@ -107,7 +107,7 @@ namespace CtrlUI
                     Popup_Hide_Element(grid_Popup_Search);
 
                     //Focus on the previous focus element
-                    await Popup_PreviousFocusForce(vSearchElementFocus);
+                    await Popup_PreviousElementFocus_Focus(vSearchElementFocus);
                 }
             }
             catch { }

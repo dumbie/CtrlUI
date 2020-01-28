@@ -9,15 +9,13 @@ namespace LibraryShared
         {
             public int FocusIndex { get; set; } = 0;
             public ListBox FocusListBox { get; set; } = null;
-            public FrameworkElement FocusTarget { get; set; } = null;
-            public FrameworkElement FocusPrevious { get; set; } = null;
+            public FrameworkElement FocusElement { get; set; } = null;
 
             public void Reset()
             {
                 FocusIndex = 0;
                 FocusListBox = null;
-                FocusTarget = null;
-                FocusPrevious = null;
+                FocusElement = null;
             }
         }
     }

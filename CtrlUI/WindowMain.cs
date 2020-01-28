@@ -140,16 +140,17 @@ namespace CtrlUI
                     FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
                 }
 
-                //Focus on the first available listbox
-                if (vMainMenuElementFocus.FocusPrevious == null || Keyboard.FocusedElement == null)
-                {
-                    await ListboxFocus(TopVisibleListBoxWithItems(), true, false, -1);
-                }
-
                 //Check settings if this is the first application launch
                 if (ConfigurationManager.AppSettings["AppFirstLaunch"] == "True")
                 {
                     await AddFirstLaunchApps();
+                }
+
+                //Focus on the first available listbox
+                if (vMainMenuElementFocus.FocusElement == null || Keyboard.FocusedElement == null)
+                {
+                    Debug.WriteLine("Focusing on the first available listbox.");
+                    await ListboxFocus(TopVisibleListBoxWithItems(), true, false, -1);
                 }
 
                 //Check for available application update

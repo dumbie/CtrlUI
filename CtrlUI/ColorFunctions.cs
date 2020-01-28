@@ -74,7 +74,7 @@ namespace CtrlUI
                 PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
 
                 //Save the previous focus element
-                Popup_PreviousFocusSave(vColorPickerElementFocus, null);
+                Popup_PreviousElementFocus_Save(vColorPickerElementFocus, null);
 
                 //Show the popup
                 Popup_Show_Element(grid_Popup_ColorPicker);
@@ -124,7 +124,7 @@ namespace CtrlUI
                     Popup_Hide_Element(grid_Popup_ColorPicker);
 
                     //Focus on the previous focus element
-                    await Popup_PreviousFocusForce(vColorPickerElementFocus);
+                    await Popup_PreviousElementFocus_Focus(vColorPickerElementFocus);
                 }
             }
             catch { }
