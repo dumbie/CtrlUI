@@ -138,7 +138,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 0.30; });
+                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 0.40; });
                             string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
                             Popup_Show_Status("Controller", "Disconnected (" + ControllerIdDisplay + ")");
                             if (vControllerActiveId == controllerStatusNew.NumberId) { HideBatteryStatus(true); }

@@ -17,7 +17,7 @@
     <!-- Grid Application -->
     <Grid Name="grid_App">
         <!-- Background Media -->
-        <MediaElement Name="grid_Video_Background" Stretch="UniformToFill"/>
+        <MediaElement Name="grid_Video_Background" IsEnabled="False" Stretch="UniformToFill"/>
 
         <!-- Grid Main -->
         <Grid Name="grid_Main">
@@ -179,22 +179,20 @@
 
                 <StackPanel Grid.Row="0">
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Name="img_Menu_Controller0" Opacity="0.30" Width="30" Source="Assets/Icons/Controller-Accent.png"/>
-                            <Image Name="img_Menu_Controller1" Opacity="0.30" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
-                            <Image Name="img_Menu_Controller2" Opacity="0.30" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
-                            <Image Name="img_Menu_Controller3" Opacity="0.30" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="25,0,0,0">
-                            <Image Name="img_Menu_SteamStatus" Opacity="0.30" Width="30"/>
-                            <Image Name="img_Menu_UplayStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
-                            <Image Name="img_Menu_OriginStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
-                            <Image Name="img_Menu_GoGStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
-                            <Image Name="img_Menu_BethesdaStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
-                            <Image Name="img_Menu_EpicStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
-                            <Image Name="img_Menu_BlizzardStatus" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
-                            <Image Name="img_Menu_DirectXInput" Opacity="0.30" Width="30" Margin="5,0,0,0"/>
-                        </StackPanel>
+                        <Image Name="img_Menu_Controller0" Opacity="0.40" Width="30" Source="Assets/Icons/Controller-Accent.png"/>
+                        <Image Name="img_Menu_Controller1" Opacity="0.40" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
+                        <Image Name="img_Menu_Controller2" Opacity="0.40" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
+                        <Image Name="img_Menu_Controller3" Opacity="0.40" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
+
+                        <Image Name="img_Menu_SteamStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
+                        <Image Name="img_Menu_UplayStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_OriginStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_GoGStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_BethesdaStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_EpicStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_BlizzardStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+
+                        <Image Name="img_Menu_DirectXInput" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
                     </StackPanel>
 
                     <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Main Menu"/>
@@ -664,7 +662,7 @@
 
                         <TextBlock Name="textblock_SettingsBackgroundBrightness" Text="Background brightness" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                         <TextBlock Text="Change the displayed background brightness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Slider Name="slider_SettingsBackgroundBrightness" Width="400" Minimum="20" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
+                        <Slider Name="slider_SettingsBackgroundBrightness" Width="400" Minimum="10" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
                         <TextBlock Name="textblock_SettingsBackgroundPlaySpeed" Text="Video playback speed" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                         <TextBlock Text="Change playback speed of the background video." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>

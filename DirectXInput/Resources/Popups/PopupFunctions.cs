@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using static DirectXInput.AppVariables;
 
@@ -70,9 +69,13 @@ namespace DirectXInput
                 vMessageBoxPopupCancelled = false;
                 vMessageBoxOpen = true;
 
-                //Show the popup with animation
-                AVAnimations.Ani_Visibility(grid_Message_MessageBox, true, true, 0.10);
-                AVAnimations.Ani_Opacity(grid_Main, 0.08, true, false, 0.10);
+                //Show the popup
+                UpdateElementVisibility(grid_Message_MessageBox, true);
+                UpdateElementEnabled(grid_Message_MessageBox, true);
+
+                //Hide the background
+                UpdateElementOpacity(grid_Main, 0.08);
+                UpdateElementEnabled(grid_Main, false);
 
                 //Wait for user messagebox input
                 while (vMessageBoxPopupResult == 0 && !vMessageBoxPopupCancelled) { await Task.Delay(500); }
@@ -94,9 +97,13 @@ namespace DirectXInput
                 vMessageBoxPopupCancelled = true;
                 vMessageBoxOpen = false;
 
-                //Hide the popup with animation
-                AVAnimations.Ani_Visibility(grid_Message_MessageBox, false, false, 0.10);
-                AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10);
+                //Hide the popup
+                UpdateElementVisibility(grid_Message_MessageBox, false);
+                UpdateElementEnabled(grid_Message_MessageBox, false);
+
+                //Show the background
+                UpdateElementOpacity(grid_Main, 1);
+                UpdateElementEnabled(grid_Main, true);
             }
             catch { }
         }

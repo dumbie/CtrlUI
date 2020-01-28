@@ -1,7 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
-using System.Configuration;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
@@ -57,20 +54,10 @@ namespace CtrlUI
                 //Save the previous focus element
                 Popup_PreviousFocusSave(vTextInputElementFocus, null);
 
-                //Show the popup with animation
-                AVAnimations.Ani_Visibility(grid_Popup_TextInput, true, true, 0.10);
-                AVAnimations.Ani_Opacity(grid_Video_Background, 0.08, true, false, 0.10);
-                AVAnimations.Ani_Opacity(grid_Main, 0.08, true, false, 0.10);
+                //Show the popup
+                Popup_Show_Element(grid_Popup_TextInput);
 
-                //if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 0.02, true, false, 0.10); }
-                if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 0.02, true, false, 0.10); }
-                if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 0.02, true, false, 0.10); }
-                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 0.02, true, false, 0.10); }
-                if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 0.02, true, false, 0.10); }
-                if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 0.02, true, false, 0.10); }
-                if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
-
-                //Force focus on an element
+                //Force focus on element
                 await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
 
                 //Launch the keyboard controller
@@ -102,7 +89,7 @@ namespace CtrlUI
                     grid_Popup_TextInput_textbox.Text = textDefault;
                     grid_Popup_TextInput_textbox.SelectionStart = grid_Popup_TextInput_textbox.Text.Length;
 
-                    //Force focus on an element
+                    //Force focus on element
                     await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
                 }
                 else if (focusTextbox)
@@ -110,7 +97,7 @@ namespace CtrlUI
                     //Empty the textbox text
                     grid_Popup_TextInput_textbox.Text = string.Empty;
 
-                    //Force focus on an element
+                    //Force focus on element
                     await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
                 }
                 else
@@ -145,27 +132,8 @@ namespace CtrlUI
                     //vTextInputResult = string.Empty;
                     vTextInputOpen = false;
 
-                    //Hide the popup with animation
-                    AVAnimations.Ani_Visibility(grid_Popup_TextInput, false, false, 0.10);
-
-                    if (!Popup_Any_Open())
-                    {
-                        double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
-                        AVAnimations.Ani_Opacity(grid_Video_Background, backgroundBrightness, true, true, 0.10);
-                        AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10);
-                    }
-                    else if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 1, true, true, 0.10); }
-                    else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
-                    else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
-                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 1, true, true, 0.10); }
-                    else if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 1, true, true, 0.10); }
-                    else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
-                    else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
-
-                    while (grid_Popup_TextInput.Visibility == Visibility.Visible)
-                    {
-                        await Task.Delay(10);
-                    }
+                    //Hide the popup
+                    Popup_Hide_Element(grid_Popup_TextInput);
 
                     //Focus on the previous focus element
                     await Popup_PreviousFocusForce(vTextInputElementFocus);

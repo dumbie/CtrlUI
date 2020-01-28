@@ -790,7 +790,7 @@ namespace CtrlUI
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Kodi.IsEnabled = false;
-                                grid_Popup_Welcome_button_Kodi.Opacity = 0.30;
+                                grid_Popup_Welcome_button_Kodi.Opacity = 0.40;
                             }
                         }
                     }
@@ -809,7 +809,7 @@ namespace CtrlUI
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Steam.IsEnabled = false;
-                                grid_Popup_Welcome_button_Steam.Opacity = 0.30;
+                                grid_Popup_Welcome_button_Steam.Opacity = 0.40;
                             }
                         }
                     }
@@ -832,7 +832,7 @@ namespace CtrlUI
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Origin.IsEnabled = false;
-                                grid_Popup_Welcome_button_Origin.Opacity = 0.30;
+                                grid_Popup_Welcome_button_Origin.Opacity = 0.40;
                             }
                         }
                     }
@@ -851,7 +851,7 @@ namespace CtrlUI
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_GoG.IsEnabled = false;
-                                grid_Popup_Welcome_button_GoG.Opacity = 0.30;
+                                grid_Popup_Welcome_button_GoG.Opacity = 0.40;
                             }
                         }
                     }
@@ -870,7 +870,7 @@ namespace CtrlUI
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Uplay.IsEnabled = false;
-                                grid_Popup_Welcome_button_Uplay.Opacity = 0.30;
+                                grid_Popup_Welcome_button_Uplay.Opacity = 0.40;
                             }
                         }
                     }
@@ -889,7 +889,7 @@ namespace CtrlUI
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_Battle.IsEnabled = false;
-                                grid_Popup_Welcome_button_Battle.Opacity = 0.30;
+                                grid_Popup_Welcome_button_Battle.Opacity = 0.40;
                             }
                         }
                     }
@@ -908,7 +908,7 @@ namespace CtrlUI
 
                                 //Disable the icon after selection
                                 grid_Popup_Welcome_button_PS4Remote.IsEnabled = false;
-                                grid_Popup_Welcome_button_PS4Remote.Opacity = 0.30;
+                                grid_Popup_Welcome_button_PS4Remote.Opacity = 0.40;
                             }
                         }
                     }
@@ -924,7 +924,7 @@ namespace CtrlUI
 
                     //Disable the icon after selection
                     grid_Popup_Welcome_button_Spotify.IsEnabled = false;
-                    grid_Popup_Welcome_button_Spotify.Opacity = 0.30;
+                    grid_Popup_Welcome_button_Spotify.Opacity = 0.40;
                 }
 
                 //Show the welcome screen popup

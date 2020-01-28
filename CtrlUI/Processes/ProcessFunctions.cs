@@ -324,7 +324,7 @@ namespace CtrlUI
                 DataBindString messageResult = null;
                 if (!SilentClose)
                 {
-                    messageResult = await Popup_Show_MessageBox("Do you want to close other running launchers?", "", "This includes launchers like Steam, Origin, Uplay, GoG, Battle.net, Bethesda and Epic Games.", Answers);
+                    messageResult = await Popup_Show_MessageBox("Do you want to close other running launchers?", "You can edit the launchers that are closing in the profile manager.", "This includes launchers like Steam, Origin, Uplay, GoG, Battle.net, Bethesda and Epic Games.", Answers);
                 }
 
                 if (SilentClose || (messageResult != null && messageResult == Answer1))

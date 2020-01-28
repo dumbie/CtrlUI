@@ -57,18 +57,8 @@ namespace CtrlUI
                     grid_Popup_Filepicker_Row1.HorizontalAlignment = HorizontalAlignment.Stretch;
                 }
 
-                //Show the popup with animation
-                AVAnimations.Ani_Visibility(grid_Popup_FilePicker, true, true, 0.10);
-                AVAnimations.Ani_Opacity(grid_Video_Background, 0.08, true, false, 0.10);
-                AVAnimations.Ani_Opacity(grid_Main, 0.08, true, false, 0.10);
-
-                if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 0.02, true, false, 0.10); }
-                if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 0.02, true, false, 0.10); }
-                //if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 0.02, true, false, 0.10); }
-                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 0.02, true, false, 0.10); }
-                if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 0.02, true, false, 0.10); }
-                if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 0.02, true, false, 0.10); }
-                if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
+                //Show the popup
+                Popup_Show_Element(grid_Popup_FilePicker);
 
                 //Get and update the current index and path
                 vFilePickerCurrentPath = targetPath;
@@ -532,24 +522,8 @@ namespace CtrlUI
                 vFilePickerNavigateIndexes.Clear();
                 List_FilePicker.Clear();
 
-                //Hide the popup with animation
-                AVAnimations.Ani_Visibility(grid_Popup_FilePicker, false, false, 0.10);
-
-                if (!Popup_Any_Open())
-                {
-                    double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
-                    AVAnimations.Ani_Opacity(grid_Video_Background, backgroundBrightness, true, true, 0.10);
-                    AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10);
-                }
-                else if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 1, true, true, 0.10); }
-                else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
-                else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
-                else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 1, true, true, 0.10); }
-                else if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 1, true, true, 0.10); }
-                else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
-                else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
-
-                while (grid_Popup_FilePicker.Visibility == Visibility.Visible) { await Task.Delay(10); }
+                //Hide the popup
+                Popup_Hide_Element(grid_Popup_FilePicker);
 
                 //Focus on the previous focus element
                 await Popup_PreviousFocusForce(vFilePickerElementFocus);
@@ -879,7 +853,7 @@ namespace CtrlUI
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
-                    ButtonSender.Opacity = 0.30;
+                    ButtonSender.Opacity = 0.40;
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_Origin")
                 {
@@ -903,7 +877,7 @@ namespace CtrlUI
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
-                    ButtonSender.Opacity = 0.30;
+                    ButtonSender.Opacity = 0.40;
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_Uplay")
                 {
@@ -927,7 +901,7 @@ namespace CtrlUI
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
-                    ButtonSender.Opacity = 0.30;
+                    ButtonSender.Opacity = 0.40;
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_GoG")
                 {
@@ -951,7 +925,7 @@ namespace CtrlUI
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
-                    ButtonSender.Opacity = 0.30;
+                    ButtonSender.Opacity = 0.40;
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_Battle")
                 {
@@ -975,7 +949,7 @@ namespace CtrlUI
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
-                    ButtonSender.Opacity = 0.30;
+                    ButtonSender.Opacity = 0.40;
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_PS4Remote")
                 {
@@ -999,7 +973,7 @@ namespace CtrlUI
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
-                    ButtonSender.Opacity = 0.30;
+                    ButtonSender.Opacity = 0.40;
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_Kodi")
                 {
@@ -1023,7 +997,7 @@ namespace CtrlUI
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
-                    ButtonSender.Opacity = 0.30;
+                    ButtonSender.Opacity = 0.40;
                 }
                 else if (ButtonName == "grid_Popup_Welcome_button_Spotify")
                 {
@@ -1047,7 +1021,7 @@ namespace CtrlUI
 
                     //Disable the icon after selection
                     ButtonSender.IsEnabled = false;
-                    ButtonSender.Opacity = 0.30;
+                    ButtonSender.Opacity = 0.40;
                 }
             }
             catch { }

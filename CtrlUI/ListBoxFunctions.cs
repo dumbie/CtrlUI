@@ -125,7 +125,7 @@ namespace CtrlUI
                         object scrollListBoxItem = focusListBox.Items[selectedIndex];
                         focusListBox.ScrollIntoView(scrollListBoxItem);
 
-                        //Force focus on an element
+                        //Force focus on element
                         ListBoxItem focusListBoxItem = (ListBoxItem)focusListBox.ItemContainerGenerator.ContainerFromInd‌​ex(selectedIndex);
                         await FocusOnElement(focusListBoxItem, false, vProcessCurrent.MainWindowHandle);
 

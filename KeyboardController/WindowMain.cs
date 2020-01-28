@@ -565,8 +565,7 @@ namespace KeyboardController
             {
                 Debug.WriteLine("Exiting application.");
 
-                //Play window close sound and animation
-                AVAnimations.Ani_Visibility(this, false, false, 0.10);
+                //Play window close sound
                 PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
 
                 //Stop the background tasks

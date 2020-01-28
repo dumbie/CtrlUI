@@ -139,9 +139,6 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVActions.cs">
       <Link>ArnoldVinkCode\Functions\AVActions.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAnimations.cs">
-      <Link>ArnoldVinkCode\Functions\AVAnimations.cs</Link>
-    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVClassConverters.cs">
       <Link>ArnoldVinkCode\Functions\AVClassConverters.cs</Link>
     </Compile>

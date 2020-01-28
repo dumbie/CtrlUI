@@ -15,6 +15,119 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        //Show the popup
+        void Popup_Show_Element(FrameworkElement elementTarget)
+        {
+            try
+            {
+                //Show the popup
+                UpdateElementVisibility(elementTarget, true);
+                UpdateElementEnabled(elementTarget, true);
+
+                //Hide the background
+                UpdateElementOpacity(grid_Video_Background, 0.08);
+                UpdateElementOpacity(grid_Main, 0.08);
+                UpdateElementEnabled(grid_Main, false);
+
+                //Hide other popups
+                if (elementTarget != grid_Popup_TextInput && vTextInputOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_TextInput, 0.02);
+                    UpdateElementEnabled(grid_Popup_TextInput, false);
+                }
+                if (elementTarget != grid_Popup_MessageBox && vMessageBoxOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_MessageBox, 0.02);
+                    UpdateElementEnabled(grid_Popup_MessageBox, false);
+                }
+                if (elementTarget != grid_Popup_FilePicker && vFilePickerOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_FilePicker, 0.02);
+                    UpdateElementEnabled(grid_Popup_FilePicker, false);
+                }
+                if (elementTarget != vPopupElementTarget && vPopupOpen)
+                {
+                    UpdateElementOpacity(vPopupElementTarget, 0.02);
+                    UpdateElementEnabled(vPopupElementTarget, false);
+                }
+                if (elementTarget != grid_Popup_ColorPicker && vColorPickerOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_ColorPicker, 0.02);
+                    UpdateElementEnabled(grid_Popup_ColorPicker, false);
+                }
+                if (elementTarget != grid_Popup_Search && vSearchOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_Search, 0.02);
+                    UpdateElementEnabled(grid_Popup_Search, false);
+                }
+                if (elementTarget != grid_Popup_MainMenu && vMainMenuOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_MainMenu, 0.02);
+                    UpdateElementEnabled(grid_Popup_MainMenu, false);
+                }
+            }
+            catch { }
+        }
+
+        //Hide the popup
+        void Popup_Hide_Element(FrameworkElement elementTarget)
+        {
+            try
+            {
+                //Hide the popup
+                UpdateElementVisibility(elementTarget, false);
+                UpdateElementEnabled(elementTarget, false);
+
+                //Show the background
+                if (!Popup_Any_Open())
+                {
+                    double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
+                    UpdateElementOpacity(grid_Video_Background, backgroundBrightness);
+                    UpdateElementOpacity(grid_Main, 1);
+                    UpdateElementEnabled(grid_Main, true);
+                    return;
+                }
+
+                //Show other popups
+                if (vTextInputOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_TextInput, 1);
+                    UpdateElementEnabled(grid_Popup_TextInput, true);
+                }
+                else if (vMessageBoxOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_MessageBox, 1);
+                    UpdateElementEnabled(grid_Popup_MessageBox, true);
+                }
+                else if (vFilePickerOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_FilePicker, 1);
+                    UpdateElementEnabled(grid_Popup_FilePicker, true);
+                }
+                else if (vPopupOpen)
+                {
+                    UpdateElementOpacity(vPopupElementTarget, 1);
+                    UpdateElementEnabled(vPopupElementTarget, true);
+                }
+                else if (vColorPickerOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_ColorPicker, 1);
+                    UpdateElementEnabled(grid_Popup_ColorPicker, true);
+                }
+                else if (vSearchOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_Search, 1);
+                    UpdateElementEnabled(grid_Popup_Search, true);
+                }
+                else if (vMainMenuOpen)
+                {
+                    UpdateElementOpacity(grid_Popup_MainMenu, 1);
+                    UpdateElementEnabled(grid_Popup_MainMenu, true);
+                }
+            }
+            catch { }
+        }
+
         //Hide or show the main menu
         async Task Popup_ShowHide_MainMenu(bool ForceShow)
         {
@@ -41,18 +154,8 @@ namespace CtrlUI
                 //Save the previous focus element
                 Popup_PreviousFocusSave(vMainMenuElementFocus, null);
 
-                //Show the popup with animation
-                AVAnimations.Ani_Visibility(grid_Popup_MainMenu, true, true, 0.10);
-                AVAnimations.Ani_Opacity(grid_Video_Background, 0.08, true, false, 0.10);
-                AVAnimations.Ani_Opacity(grid_Main, 0.08, true, false, 0.10);
-
-                if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 0.02, true, false, 0.10); }
-                if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 0.02, true, false, 0.10); }
-                if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 0.02, true, false, 0.10); }
-                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 0.02, true, false, 0.10); }
-                if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 0.02, true, false, 0.10); }
-                if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 0.02, true, false, 0.10); }
-                //if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
+                //Show the popup
+                Popup_Show_Element(grid_Popup_MainMenu);
 
                 vMainMenuOpen = true;
 
@@ -80,24 +183,8 @@ namespace CtrlUI
                     //Reset popup variables
                     vMainMenuOpen = false;
 
-                    //Hide the popup with animation
-                    AVAnimations.Ani_Visibility(grid_Popup_MainMenu, false, false, 0.10);
-
-                    if (!Popup_Any_Open())
-                    {
-                        double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
-                        AVAnimations.Ani_Opacity(grid_Video_Background, backgroundBrightness, true, true, 0.10);
-                        AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10);
-                    }
-                    else if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 1, true, true, 0.10); }
-                    else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
-                    else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
-                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 1, true, true, 0.10); }
-                    else if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 1, true, true, 0.10); }
-                    else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
-                    else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
-
-                    while (grid_Popup_MainMenu.Visibility == Visibility.Visible) { await Task.Delay(10); }
+                    //Hide the popup
+                    Popup_Hide_Element(grid_Popup_MainMenu);
 
                     //Update the clock without date
                     UpdateClock();
@@ -124,22 +211,12 @@ namespace CtrlUI
                     //Save the previous focus element
                     Popup_PreviousFocusSave(vPopupElementFocus, null);
 
-                    //Show the popup with animation
-                    AVAnimations.Ani_Visibility(ShowPopup, true, true, 0.10);
-                    AVAnimations.Ani_Opacity(grid_Video_Background, 0.08, true, false, 0.10);
-                    AVAnimations.Ani_Opacity(grid_Main, 0.08, true, false, 0.10);
-
-                    if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 0.02, true, false, 0.10); }
-                    if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 0.02, true, false, 0.10); }
-                    if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 0.02, true, false, 0.10); }
-                    //if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupTargetElement, 0.02, true, false, 0.10); }
-                    if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 0.02, true, false, 0.10); }
-                    if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 0.02, true, false, 0.10); }
-                    if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
+                    //Show the popup
+                    Popup_Show_Element(ShowPopup);
 
                     vPopupOpen = true;
 
-                    //Force focus on an element
+                    //Force focus on element
                     if (FocusElement != null)
                     {
                         await FocusOnElement(FocusElement, false, vProcessCurrent.MainWindowHandle);
@@ -161,24 +238,8 @@ namespace CtrlUI
                     //Reset popup variables
                     vPopupOpen = false;
 
-                    //Hide the popup with animation
-                    AVAnimations.Ani_Visibility(vPopupElementTarget, false, false, 0.10);
-
-                    if (!Popup_Any_Open())
-                    {
-                        double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
-                        AVAnimations.Ani_Opacity(grid_Video_Background, backgroundBrightness, true, true, 0.10);
-                        AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10);
-                    }
-                    else if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 1, true, true, 0.10); }
-                    else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
-                    else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
-                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 1, true, true, 0.10); }
-                    else if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 1, true, true, 0.10); }
-                    else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
-                    else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
-
-                    while (vPopupElementTarget.Visibility == Visibility.Visible) { await Task.Delay(10); }
+                    //Hide the popup
+                    Popup_Hide_Element(vPopupElementTarget);
 
                     //Focus on the previous focus element
                     await Popup_PreviousFocusForce(vPopupElementFocus);
@@ -290,7 +351,7 @@ namespace CtrlUI
         {
             try
             {
-                //Force focus on an element
+                //Force focus on element
                 if (frameworkElementFocus.FocusTarget != null)
                 {
                     await FocusOnElement(frameworkElementFocus.FocusTarget, false, vProcessCurrent.MainWindowHandle);

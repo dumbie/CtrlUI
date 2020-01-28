@@ -1,9 +1,6 @@
-﻿using ArnoldVinkCode;
-using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
@@ -79,18 +76,8 @@ namespace CtrlUI
                 //Save the previous focus element
                 Popup_PreviousFocusSave(vColorPickerElementFocus, null);
 
-                //Show the popup with animation
-                AVAnimations.Ani_Visibility(grid_Popup_ColorPicker, true, true, 0.10);
-                AVAnimations.Ani_Opacity(grid_Video_Background, 0.08, true, false, 0.10);
-                AVAnimations.Ani_Opacity(grid_Main, 0.08, true, false, 0.10);
-
-                if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 0.02, true, false, 0.10); }
-                if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 0.02, true, false, 0.10); }
-                if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 0.02, true, false, 0.10); }
-                if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 0.02, true, false, 0.10); }
-                //if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 0.02, true, false, 0.10); }
-                if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 0.02, true, false, 0.10); }
-                if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 0.02, true, false, 0.10); }
+                //Show the popup
+                Popup_Show_Element(grid_Popup_ColorPicker);
 
                 vColorPickerOpen = true;
 
@@ -133,24 +120,8 @@ namespace CtrlUI
                     //Clear the current popup list
                     List_ColorPicker.Clear();
 
-                    //Hide the popup with animation
-                    AVAnimations.Ani_Visibility(grid_Popup_ColorPicker, false, false, 0.10);
-
-                    if (!Popup_Any_Open())
-                    {
-                        double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
-                        AVAnimations.Ani_Opacity(grid_Video_Background, backgroundBrightness, true, true, 0.10);
-                        AVAnimations.Ani_Opacity(grid_Main, 1, true, true, 0.10);
-                    }
-                    else if (vTextInputOpen) { AVAnimations.Ani_Opacity(grid_Popup_TextInput, 1, true, true, 0.10); }
-                    else if (vMessageBoxOpen) { AVAnimations.Ani_Opacity(grid_Popup_MessageBox, 1, true, true, 0.10); }
-                    else if (vFilePickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_FilePicker, 1, true, true, 0.10); }
-                    else if (vPopupOpen) { AVAnimations.Ani_Opacity(vPopupElementTarget, 1, true, true, 0.10); }
-                    else if (vColorPickerOpen) { AVAnimations.Ani_Opacity(grid_Popup_ColorPicker, 1, true, true, 0.10); }
-                    else if (vSearchOpen) { AVAnimations.Ani_Opacity(grid_Popup_Search, 1, true, true, 0.10); }
-                    else if (vMainMenuOpen) { AVAnimations.Ani_Opacity(grid_Popup_MainMenu, 1, true, true, 0.10); }
-
-                    while (grid_Popup_ColorPicker.Visibility == Visibility.Visible) { await Task.Delay(10); }
+                    //Hide the popup
+                    Popup_Hide_Element(grid_Popup_ColorPicker);
 
                     //Focus on the previous focus element
                     await Popup_PreviousFocusForce(vColorPickerElementFocus);

@@ -21,19 +21,54 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Update an element visibility
-        void UpdateElementVisibility(FrameworkElement Target, bool Visible)
+        //Update element visibility
+        void UpdateElementVisibility(FrameworkElement elementTarget, bool Visible)
         {
             try
             {
                 if (Visible)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate { Target.Visibility = Visibility.Visible; });
+                    AVActions.ActionDispatcherInvoke(delegate { elementTarget.Visibility = Visibility.Visible; });
                 }
                 else
                 {
-                    AVActions.ActionDispatcherInvoke(delegate { Target.Visibility = Visibility.Collapsed; });
+                    AVActions.ActionDispatcherInvoke(delegate { elementTarget.Visibility = Visibility.Collapsed; });
                 }
+            }
+            catch { }
+        }
+
+        //Update element enabled
+        void UpdateElementEnabled(FrameworkElement elementTarget, bool Enabled)
+        {
+            try
+            {
+                if (Enabled)
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        elementTarget.IsEnabled = true;
+                        elementTarget.IsHitTestVisible = true;
+                    });
+                }
+                else
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        elementTarget.IsEnabled = false;
+                        elementTarget.IsHitTestVisible = false;
+                    });
+                }
+            }
+            catch { }
+        }
+
+        //Update element opacity
+        void UpdateElementOpacity(FrameworkElement elementTarget, double opacityTarget)
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate { elementTarget.Opacity = opacityTarget; });
             }
             catch { }
         }
@@ -313,23 +348,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Update the applications running icons
-        void UpdateAppRunningIcon(FrameworkElement Target, bool Enabled)
-        {
-            try
-            {
-                if (Enabled)
-                {
-                    AVActions.ActionDispatcherInvoke(delegate { Target.Opacity = 1.00; });
-                }
-                else
-                {
-                    AVActions.ActionDispatcherInvoke(delegate { Target.Opacity = 0.30; });
-                }
-            }
-            catch { }
-        }
-
         //Check the applications running status
         void CheckAppRunningStatus(IEnumerable<Process> processesList)
         {
@@ -342,14 +360,77 @@ namespace CtrlUI
                 }
 
                 //Update main menu launchers status
-                UpdateAppRunningIcon(img_Menu_SteamStatus, processesList.Any(x => x.ProcessName.ToLower() == "steam"));
-                UpdateAppRunningIcon(img_Menu_OriginStatus, processesList.Any(x => x.ProcessName.ToLower() == "origin"));
-                UpdateAppRunningIcon(img_Menu_GoGStatus, processesList.Any(x => x.ProcessName.ToLower() == "galaxyclient"));
-                UpdateAppRunningIcon(img_Menu_UplayStatus, processesList.Any(x => x.ProcessName.ToLower() == "upc"));
-                UpdateAppRunningIcon(img_Menu_DirectXInput, processesList.Any(x => x.ProcessName.ToLower() == "directxinput"));
-                UpdateAppRunningIcon(img_Menu_BethesdaStatus, processesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher"));
-                UpdateAppRunningIcon(img_Menu_EpicStatus, processesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher"));
-                UpdateAppRunningIcon(img_Menu_BlizzardStatus, processesList.Any(x => x.ProcessName.ToLower() == "battle.net"));
+                if (processesList.Any(x => x.ProcessName.ToLower() == "steam"))
+                {
+                    UpdateElementOpacity(img_Menu_SteamStatus, 1);
+                }
+                else
+                {
+                    UpdateElementOpacity(img_Menu_SteamStatus, 0.40);
+                }
+
+                if (processesList.Any(x => x.ProcessName.ToLower() == "origin"))
+                {
+                    UpdateElementOpacity(img_Menu_OriginStatus, 1);
+                }
+                else
+                {
+                    UpdateElementOpacity(img_Menu_OriginStatus, 0.40);
+                }
+
+                if (processesList.Any(x => x.ProcessName.ToLower() == "galaxyclient"))
+                {
+                    UpdateElementOpacity(img_Menu_GoGStatus, 1);
+                }
+                else
+                {
+                    UpdateElementOpacity(img_Menu_GoGStatus, 0.40);
+                }
+
+                if (processesList.Any(x => x.ProcessName.ToLower() == "upc"))
+                {
+                    UpdateElementOpacity(img_Menu_UplayStatus, 1);
+                }
+                else
+                {
+                    UpdateElementOpacity(img_Menu_UplayStatus, 0.40);
+                }
+
+                if (processesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher"))
+                {
+                    UpdateElementOpacity(img_Menu_BethesdaStatus, 1);
+                }
+                else
+                {
+                    UpdateElementOpacity(img_Menu_BethesdaStatus, 0.40);
+                }
+
+                if (processesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher"))
+                {
+                    UpdateElementOpacity(img_Menu_EpicStatus, 1);
+                }
+                else
+                {
+                    UpdateElementOpacity(img_Menu_EpicStatus, 0.40);
+                }
+
+                if (processesList.Any(x => x.ProcessName.ToLower() == "battle.net"))
+                {
+                    UpdateElementOpacity(img_Menu_BlizzardStatus, 1);
+                }
+                else
+                {
+                    UpdateElementOpacity(img_Menu_BlizzardStatus, 0.40);
+                }
+
+                if (processesList.Any(x => x.ProcessName.ToLower() == "directxinput"))
+                {
+                    UpdateElementOpacity(img_Menu_DirectXInput, 1);
+                }
+                else
+                {
+                    UpdateElementOpacity(img_Menu_DirectXInput, 0.40);
+                }
             }
             catch { }
         }
