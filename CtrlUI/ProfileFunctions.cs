@@ -82,6 +82,15 @@ namespace CtrlUI
                     vProfileManagerListShared = vCtrlIgnoreShortcutUri;
                     lb_ProfileManager.ItemsSource = vCtrlIgnoreShortcutUri;
                 }
+                else if (vProfileManagerName == "CtrlKeyboardProcessName")
+                {
+                    grid_Popup_ProfileManager_txt_Description.Text = "Keyboard open process names";
+                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Process name";
+                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
+
+                    vProfileManagerListShared = vCtrlKeyboardProcessName;
+                    lb_ProfileManager.ItemsSource = vCtrlKeyboardProcessName;
+                }
 
                 //Select the first listbox item
                 await ListBoxFocusOrSelectIndex(lb_ProfileManager, true, false, 0);
@@ -202,14 +211,17 @@ namespace CtrlUI
                 DataBindString stringCtrlLocationsFile = new DataBindString() { Name = "File browser locations", PathFile = "CtrlLocationsFile", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringCtrlLocationsFile);
 
-                DataBindString stringIgnoredProcesses = new DataBindString() { Name = "Ignored process names", PathFile = "CtrlIgnoreProcessName", ImageBitmap = imageProfile };
-                vFilePickerStrings.Add(stringIgnoredProcesses);
+                DataBindString stringCtrlIgnoreProcessName = new DataBindString() { Name = "Ignored process names", PathFile = "CtrlIgnoreProcessName", ImageBitmap = imageProfile };
+                vFilePickerStrings.Add(stringCtrlIgnoreProcessName);
 
-                DataBindString stringIgnoredShortcutsName = new DataBindString() { Name = "Ignored shortcuts names", PathFile = "CtrlIgnoreShortcutName", ImageBitmap = imageProfile };
-                vFilePickerStrings.Add(stringIgnoredShortcutsName);
+                DataBindString stringCtrlIgnoreShortcutName = new DataBindString() { Name = "Ignored shortcuts names", PathFile = "CtrlIgnoreShortcutName", ImageBitmap = imageProfile };
+                vFilePickerStrings.Add(stringCtrlIgnoreShortcutName);
 
-                DataBindString stringIgnoredShortcutsUri = new DataBindString() { Name = "Ignored shortcut uri's", PathFile = "CtrlIgnoreShortcutUri", ImageBitmap = imageProfile };
-                vFilePickerStrings.Add(stringIgnoredShortcutsUri);
+                DataBindString stringCtrlIgnoreShortcutUri = new DataBindString() { Name = "Ignored shortcut uri's", PathFile = "CtrlIgnoreShortcutUri", ImageBitmap = imageProfile };
+                vFilePickerStrings.Add(stringCtrlIgnoreShortcutUri);
+
+                DataBindString stringCtrlKeyboardProcessName = new DataBindString() { Name = "Keyboard open process names", PathFile = "CtrlKeyboardProcessName", ImageBitmap = imageProfile };
+                vFilePickerStrings.Add(stringCtrlKeyboardProcessName);
 
                 //Show the category picker
                 vFilePickerFilterIn = new List<string>();

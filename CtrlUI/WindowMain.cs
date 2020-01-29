@@ -115,6 +115,7 @@ namespace CtrlUI
                 JsonLoadProfile(ref vCtrlIgnoreShortcutName, "CtrlIgnoreShortcutName");
                 JsonLoadProfile(ref vCtrlIgnoreShortcutUri, "CtrlIgnoreShortcutUri");
                 JsonLoadProfile(ref vCtrlIgnoreProcessName, "CtrlIgnoreProcessName");
+                JsonLoadProfile(ref vCtrlKeyboardProcessName, "CtrlKeyboardProcessName");
 
                 //Update uwp application images
                 UpdateUwpApplicationImages();

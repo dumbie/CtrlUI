@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVInputOutputClass;
@@ -159,8 +161,10 @@ namespace CtrlUI
                         appLaunched = await CheckLaunchProcessStatus(dataBindApp, processMulti);
                     }
 
-                    //Launch the keyboard controller
-                    if (appLaunched && dataBindApp.LaunchKeyboard && vControllerAnyConnected())
+                    //Check and launch the keyboard controller
+                    string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
+                    bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                    if ((keyboardOpenProcess || dataBindApp.LaunchKeyboard) && appLaunched && vControllerAnyConnected())
                     {
                         LaunchKeyboardController(true);
                     }
@@ -229,11 +233,13 @@ namespace CtrlUI
                     //Force focus on the app
                     FocusProcessWindowPrepare(dataBindApp.Name, processMulti.Identifier, processWindowHandle, 0, false, false, false);
 
-                    ////Launch the keyboard controller
-                    //if (dataBindApp.LaunchKeyboard && vControllerAnyConnected())
-                    //{
-                    //    LaunchKeyboardController(true);
-                    //}
+                    //Check and launch the keyboard controller
+                    string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
+                    bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                    if ((keyboardOpenProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected())
+                    {
+                        LaunchKeyboardController(true);
+                    }
                 }
                 else
                 {

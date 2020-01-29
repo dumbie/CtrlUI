@@ -150,6 +150,7 @@ namespace CtrlUI
         public static ObservableCollection<ProfileShared> vCtrlIgnoreProcessName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutUri = new ObservableCollection<ProfileShared>();
+        public static ObservableCollection<ProfileShared> vCtrlKeyboardProcessName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlCloseLaunchers = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlLocationsFile = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlLocationsShortcut = new ObservableCollection<ProfileShared>();
