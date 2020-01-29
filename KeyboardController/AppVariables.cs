@@ -34,8 +34,8 @@ namespace KeyboardController
         public static bool vControllerBusy = false;
         public static int vControllerDelayPollingTicks = 25;
         public static int vControllerDelayMicroTicks = 75;
-        public static int vControllerDelayShortTicks = 150;
-        public static int vControllerDelayMediumTicks = 300;
+        public static int vControllerDelayShortTicks = 125;
+        public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 750;
         public static int vControllerDelay_Keyboard = Environment.TickCount;
         public static int vControllerDelay_Mouse = Environment.TickCount;
