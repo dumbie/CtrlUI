@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
 using static CtrlUI.AppVariables;
@@ -38,14 +39,16 @@ namespace CtrlUI
                 //Sort the lists by number
                 SortAppLists(true, true);
 
-                ObservableCollection<DataBindApp> AppList = vEditAppListBox.ItemsSource as ObservableCollection<DataBindApp>;
-                DataBindApp TargetAppDataBind = AppList[AppList.IndexOf(vEditAppDataBind) - 1];
-                int SelectedNumber = vEditAppDataBind.Number;
-                int TargetNumber = TargetAppDataBind.Number;
+                //Get the target application
+                IEnumerable<DataBindApp> combinedApps = CombineAppLists(false, false).Where(x => x.Category == vEditAppDataBind.Category);
+                DataBindApp TargetAppDataBind = combinedApps.OrderByDescending(x => x.Number).Where(x => x.Number < vEditAppDataBind.Number).FirstOrDefault();
+                int selectedNumber = vEditAppDataBind.Number;
+                int targetNumber = TargetAppDataBind.Number;
+                Debug.WriteLine("Current number: " + selectedNumber + " / New number: " + targetNumber);
 
                 //Update the application number
-                vEditAppDataBind.Number = TargetNumber;
-                TargetAppDataBind.Number = SelectedNumber;
+                vEditAppDataBind.Number = targetNumber;
+                TargetAppDataBind.Number = selectedNumber;
 
                 //Sort the lists by number
                 SortAppLists(true, true);
@@ -64,14 +67,16 @@ namespace CtrlUI
                 //Sort the lists by number
                 SortAppLists(true, true);
 
-                ObservableCollection<DataBindApp> AppList = vEditAppListBox.ItemsSource as ObservableCollection<DataBindApp>;
-                DataBindApp TargetAppDataBind = AppList[AppList.IndexOf(vEditAppDataBind) + 1];
-                int SelectedNumber = vEditAppDataBind.Number;
-                int TargetNumber = TargetAppDataBind.Number;
+                //Get the target application
+                IEnumerable<DataBindApp> combinedApps = CombineAppLists(false, false).Where(x => x.Category == vEditAppDataBind.Category);
+                DataBindApp TargetAppDataBind = combinedApps.OrderBy(x => x.Number).Where(x => x.Number > vEditAppDataBind.Number).FirstOrDefault();
+                int selectedNumber = vEditAppDataBind.Number;
+                int targetNumber = TargetAppDataBind.Number;
+                Debug.WriteLine("Current number: " + selectedNumber + " / New number: " + targetNumber);
 
                 //Update the application number
-                vEditAppDataBind.Number = TargetNumber;
-                TargetAppDataBind.Number = SelectedNumber;
+                vEditAppDataBind.Number = targetNumber;
+                TargetAppDataBind.Number = selectedNumber;
 
                 //Sort the lists by number
                 SortAppLists(true, true);

@@ -56,10 +56,14 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
 | Changelog
+v1.12.0.0 (29-January-2020)
+- Added application profile manager.
+- Added live background video support.
+* Miscellaneous application improvements and fixes.
+
 v1.9.5.0 (29-October-2019)
 - Added Windows Store shortcuts loading support.
 - You can now set the fps overlayer position for each app.
-* Miscellaneous application improvements and fixes.
 
 v1.9.1.0 (7-October-2019)
 - Replaced Quick Launch with Quick Actions.

@@ -279,7 +279,7 @@ namespace CtrlUI
                     int listBoxSelectedIndex = listBox.SelectedIndex;
 
                     //Remove the listbox items from list
-                    listCollection.RemoveAll(removeCondition);
+                    listCollection.ListRemoveAll(removeCondition);
 
                     //Check if there is a listbox item removed
                     if (listBoxItemCount != listBox.Items.Count)
