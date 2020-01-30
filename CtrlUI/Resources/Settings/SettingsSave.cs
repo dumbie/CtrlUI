@@ -173,14 +173,21 @@ namespace CtrlUI
                 {
                     textblock_SettingsBackgroundBrightness.Text = "Background brightness: " + Convert.ToInt32(slider_SettingsBackgroundBrightness.Value) + "%";
                     SettingSave("BackgroundBrightness", Convert.ToInt32(slider_SettingsBackgroundBrightness.Value).ToString());
-                    UpdateBackgroundMedia();
+                    UpdateBackgroundBrightness();
+                };
+
+                slider_SettingsBackgroundPlayVolume.ValueChanged += (sender, e) =>
+                {
+                    textblock_SettingsBackgroundPlayVolume.Text = "Video playback volume: " + Convert.ToInt32(slider_SettingsBackgroundPlayVolume.Value) + "%";
+                    SettingSave("BackgroundPlayVolume", Convert.ToInt32(slider_SettingsBackgroundPlayVolume.Value).ToString());
+                    UpdateBackgroundPlayVolume();
                 };
 
                 slider_SettingsBackgroundPlaySpeed.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsBackgroundPlaySpeed.Text = "Video playback speed: " + Convert.ToInt32(slider_SettingsBackgroundPlaySpeed.Value) + "%";
                     SettingSave("BackgroundPlaySpeed", Convert.ToInt32(slider_SettingsBackgroundPlaySpeed.Value).ToString());
-                    UpdateBackgroundMedia();
+                    UpdateBackgroundPlaySpeed();
                 };
 
                 //Save - Socket Client Port

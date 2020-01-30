@@ -83,6 +83,9 @@ namespace CtrlUI
                 textblock_SettingsBackgroundBrightness.Text = "Background brightness: " + Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) + "%";
                 slider_SettingsBackgroundBrightness.Value = Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]);
 
+                textblock_SettingsBackgroundPlayVolume.Text = "Video playback volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlayVolume"]) + "%";
+                slider_SettingsBackgroundPlayVolume.Value = Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlayVolume"]);
+
                 textblock_SettingsBackgroundPlaySpeed.Text = "Video playback speed: " + Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlaySpeed"]) + "%";
                 slider_SettingsBackgroundPlaySpeed.Value = Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlaySpeed"]);
             }

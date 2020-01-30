@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using static LibraryShared.Classes;
 
@@ -45,12 +46,36 @@ namespace FpsOverlayer
             try
             {
                 button_AddApp.Click += Button_AddApp_Click;
+                textbox_AddApp.PreviewKeyDown += Textbox_AddApp_PreviewKeyDown;
+            }
+            catch { }
+        }
+
+        //Add application to the list
+        void Textbox_AddApp_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Enter)
+                {
+                    AddPositionProcesses();
+                }
             }
             catch { }
         }
 
         //Add application to the list
         void Button_AddApp_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AddPositionProcesses();
+            }
+            catch { }
+        }
+
+        //Add position processes
+        void AddPositionProcesses()
         {
             try
             {

@@ -20,6 +20,36 @@ namespace CtrlUI
             catch { }
         }
 
+        //Update the application background brightness
+        void UpdateBackgroundBrightness()
+        {
+            try
+            {
+                grid_Video_Background.Opacity = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
+            }
+            catch { }
+        }
+
+        //Update the application background play speed
+        void UpdateBackgroundPlaySpeed()
+        {
+            try
+            {
+                grid_Video_Background.SpeedRatio = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlaySpeed"]) / 100;
+            }
+            catch { }
+        }
+
+        //Update the application background volume
+        void UpdateBackgroundPlayVolume()
+        {
+            try
+            {
+                grid_Video_Background.Volume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlayVolume"]) / 100;
+            }
+            catch { }
+        }
+
         //Update the application background media
         void UpdateBackgroundMedia()
         {
@@ -29,14 +59,14 @@ namespace CtrlUI
                 string defaultWallpaperImage = "Assets\\Background.png" + cacheWorkaround;
                 string defaultWallpaperVideo = "Assets\\BackgroundLive.mp4" + cacheWorkaround;
 
-                //Update video playback speed
-                grid_Video_Background.SpeedRatio = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlaySpeed"]) / 100;
+                //Update the application background play speed
+                UpdateBackgroundPlaySpeed();
 
-                //Update background brightness
-                grid_Video_Background.Opacity = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
+                //Update the application background brightness
+                UpdateBackgroundBrightness();
 
-                //Set background video volume
-                grid_Video_Background.Volume = 0;
+                //Update the application background volume
+                UpdateBackgroundPlayVolume();
 
                 //Set background source
                 if (ConfigurationManager.AppSettings["VideoBackground"] == "True")

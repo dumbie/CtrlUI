@@ -7,9 +7,9 @@
     <!-- ListBoxItemAppPosition -->
     <DataTemplate x:Key="ListBoxItemAppPosition">
         <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
-            <TextBlock Width="175" Text="{Binding Process}" Style="{StaticResource TextBlockBlack}" VerticalAlignment="Center"/>
+            <TextBlock Width="175" Text="{Binding String1}" Style="{StaticResource TextBlockBlack}" VerticalAlignment="Center"/>
 
-            <ComboBox Margin="10,0,0,0" Name="combobox_TextPosition" SelectedIndex="{Binding Position}" SelectionChanged="Combobox_TextPosition_SelectionChanged" HorizontalAlignment="Left" Width="200" Height="28" Style="{StaticResource ComboBoxBlack}">
+            <ComboBox Margin="10,0,0,0" Name="combobox_TextPosition" SelectedIndex="{Binding Int1}" SelectionChanged="Combobox_TextPosition_SelectionChanged" HorizontalAlignment="Left" Width="200" Height="28" Style="{StaticResource ComboBoxBlack}">
                 <ComboBoxItem>Top left</ComboBoxItem>
                 <ComboBoxItem>Top center</ComboBoxItem>
                 <ComboBoxItem>Top right</ComboBoxItem>
