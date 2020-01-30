@@ -89,7 +89,7 @@ namespace CtrlUI
                     {
                         try
                         {
-                            DataBindFile dataBindFile = new DataBindFile() { Type = "File", Name = stringPicker.Name, PathFile = stringPicker.PathFile, ImageBitmap = stringPicker.ImageBitmap };
+                            DataBindFile dataBindFile = new DataBindFile() { Type = "File", Name = stringPicker.Name, PathFile = stringPicker.NameDetail, ImageBitmap = stringPicker.ImageBitmap };
                             await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
                         }
                         catch { }
@@ -550,17 +550,17 @@ namespace CtrlUI
                     vFilePickerStrings.Clear();
 
                     BitmapImage imageGame = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1);
-                    DataBindString stringGame = new DataBindString() { Name = "Game", PathFile = "Game", ImageBitmap = imageGame };
+                    DataBindString stringGame = new DataBindString() { Name = "Game", NameDetail = "Game", ImageBitmap = imageGame };
                     vFilePickerStrings.Add(stringGame);
 
                     BitmapImage imageApp = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
-                    DataBindString stringApp = new DataBindString() { Name = "App & Media", PathFile = "App", ImageBitmap = imageApp };
+                    DataBindString stringApp = new DataBindString() { Name = "App & Media", NameDetail = "App", ImageBitmap = imageApp };
                     vFilePickerStrings.Add(stringApp);
 
                     if (!UwpApplication)
                     {
                         BitmapImage imageEmulator = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1);
-                        DataBindString stringEmulator = new DataBindString() { Name = "Emulator", PathFile = "Emulator", ImageBitmap = imageEmulator };
+                        DataBindString stringEmulator = new DataBindString() { Name = "Emulator", NameDetail = "Emulator", ImageBitmap = imageEmulator };
                         vFilePickerStrings.Add(stringEmulator);
                     }
 

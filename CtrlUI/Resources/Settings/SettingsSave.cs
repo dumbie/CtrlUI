@@ -18,13 +18,21 @@ namespace CtrlUI
                 cb_SettingsLaunchFullscreen.Click += (sender, e) =>
                 {
                     SettingSave("LaunchFullscreen", cb_SettingsLaunchFullscreen.IsChecked.ToString());
-                    if ((bool)cb_SettingsLaunchFullscreen.IsChecked) { cb_SettingsLaunchMinimized.IsChecked = false; SettingSave("LaunchMinimized", cb_SettingsLaunchMinimized.IsChecked.ToString()); }
+                    if ((bool)cb_SettingsLaunchFullscreen.IsChecked)
+                    {
+                        cb_SettingsLaunchMinimized.IsChecked = false;
+                        SettingSave("LaunchMinimized", cb_SettingsLaunchMinimized.IsChecked.ToString());
+                    }
                 };
 
                 cb_SettingsLaunchMinimized.Click += (sender, e) =>
                 {
                     SettingSave("LaunchMinimized", cb_SettingsLaunchMinimized.IsChecked.ToString());
-                    if ((bool)cb_SettingsLaunchMinimized.IsChecked) { cb_SettingsLaunchFullscreen.IsChecked = false; SettingSave("LaunchFullscreen", cb_SettingsLaunchFullscreen.IsChecked.ToString()); }
+                    if ((bool)cb_SettingsLaunchMinimized.IsChecked)
+                    {
+                        cb_SettingsLaunchFullscreen.IsChecked = false;
+                        SettingSave("LaunchFullscreen", cb_SettingsLaunchFullscreen.IsChecked.ToString());
+                    }
                 };
 
                 cb_SettingsCloseMediaScreen.Click += (sender, e) => { SettingSave("CloseMediaScreen", cb_SettingsCloseMediaScreen.IsChecked.ToString()); };

@@ -205,22 +205,22 @@ namespace CtrlUI
 
                 BitmapImage imageProfile = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Profile.png" }, IntPtr.Zero, -1);
 
-                DataBindString stringCtrlLocationsShortcut = new DataBindString() { Name = "Shortcut locations", PathFile = "CtrlLocationsShortcut", ImageBitmap = imageProfile };
+                DataBindString stringCtrlLocationsShortcut = new DataBindString() { Name = "Shortcut locations", NameDetail = "CtrlLocationsShortcut", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringCtrlLocationsShortcut);
 
-                DataBindString stringCtrlLocationsFile = new DataBindString() { Name = "File browser locations", PathFile = "CtrlLocationsFile", ImageBitmap = imageProfile };
+                DataBindString stringCtrlLocationsFile = new DataBindString() { Name = "File browser locations", NameDetail = "CtrlLocationsFile", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringCtrlLocationsFile);
 
-                DataBindString stringCtrlIgnoreProcessName = new DataBindString() { Name = "Ignored process names", PathFile = "CtrlIgnoreProcessName", ImageBitmap = imageProfile };
+                DataBindString stringCtrlIgnoreProcessName = new DataBindString() { Name = "Ignored process names", NameDetail = "CtrlIgnoreProcessName", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringCtrlIgnoreProcessName);
 
-                DataBindString stringCtrlIgnoreShortcutName = new DataBindString() { Name = "Ignored shortcuts names", PathFile = "CtrlIgnoreShortcutName", ImageBitmap = imageProfile };
+                DataBindString stringCtrlIgnoreShortcutName = new DataBindString() { Name = "Ignored shortcuts names", NameDetail = "CtrlIgnoreShortcutName", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringCtrlIgnoreShortcutName);
 
-                DataBindString stringCtrlIgnoreShortcutUri = new DataBindString() { Name = "Ignored shortcut uri's", PathFile = "CtrlIgnoreShortcutUri", ImageBitmap = imageProfile };
+                DataBindString stringCtrlIgnoreShortcutUri = new DataBindString() { Name = "Ignored shortcut uri's", NameDetail = "CtrlIgnoreShortcutUri", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringCtrlIgnoreShortcutUri);
 
-                DataBindString stringCtrlKeyboardProcessName = new DataBindString() { Name = "Keyboard open process names", PathFile = "CtrlKeyboardProcessName", ImageBitmap = imageProfile };
+                DataBindString stringCtrlKeyboardProcessName = new DataBindString() { Name = "Keyboard open process names", NameDetail = "CtrlKeyboardProcessName", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringCtrlKeyboardProcessName);
 
                 //Show the category picker

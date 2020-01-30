@@ -1030,7 +1030,9 @@
     <Resource Include="Assets\Icons\RemoveCross.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Assets\BackgroundLive.mp4" />
+    <Content Include="Assets\BackgroundLive.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Roms\Mario Kart 64.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

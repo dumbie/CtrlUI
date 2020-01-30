@@ -696,11 +696,11 @@ namespace CtrlUI
                 vFilePickerStrings.Clear();
 
                 BitmapImage imageGame = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1);
-                DataBindString stringGame = new DataBindString() { Name = "Game", PathFile = "Game", ImageBitmap = imageGame };
+                DataBindString stringGame = new DataBindString() { Name = "Game", NameDetail = "Game", ImageBitmap = imageGame };
                 vFilePickerStrings.Add(stringGame);
 
                 BitmapImage imageApp = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
-                DataBindString stringApp = new DataBindString() { Name = "App & Media", PathFile = "App", ImageBitmap = imageApp };
+                DataBindString stringApp = new DataBindString() { Name = "App & Media", NameDetail = "App", ImageBitmap = imageApp };
                 vFilePickerStrings.Add(stringApp);
 
                 //Show the application picker
