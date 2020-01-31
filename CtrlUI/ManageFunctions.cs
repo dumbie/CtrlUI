@@ -97,29 +97,29 @@ namespace CtrlUI
                 //Remove application from the listboxes
                 if (dataBindApp.Category == AppCategory.Game)
                 {
-                    await ListBoxRemoveItem(lb_Games, List_Games, dataBindApp);
+                    await ListBoxRemoveItem(lb_Games, List_Games, dataBindApp, true);
                 }
                 else if (dataBindApp.Category == AppCategory.App)
                 {
-                    await ListBoxRemoveItem(lb_Apps, List_Apps, dataBindApp);
+                    await ListBoxRemoveItem(lb_Apps, List_Apps, dataBindApp, true);
                 }
                 else if (dataBindApp.Category == AppCategory.Emulator)
                 {
-                    await ListBoxRemoveItem(lb_Emulators, List_Emulators, dataBindApp);
+                    await ListBoxRemoveItem(lb_Emulators, List_Emulators, dataBindApp, true);
                 }
                 else if (dataBindApp.Category == AppCategory.Process)
                 {
-                    await ListBoxRemoveItem(lb_Processes, List_Processes, dataBindApp);
+                    await ListBoxRemoveItem(lb_Processes, List_Processes, dataBindApp, true);
                 }
                 else if (dataBindApp.Category == AppCategory.Shortcut)
                 {
-                    await ListBoxRemoveItem(lb_Shortcuts, List_Shortcuts, dataBindApp);
+                    await ListBoxRemoveItem(lb_Shortcuts, List_Shortcuts, dataBindApp, true);
                 }
 
                 //Remove application from search listbox
                 if (vSearchOpen)
                 {
-                    await ListBoxRemoveItem(lb_Search, List_Search, dataBindApp);
+                    await ListBoxRemoveItem(lb_Search, List_Search, dataBindApp, true);
                 }
 
                 //Refresh the application lists
@@ -598,29 +598,29 @@ namespace CtrlUI
                         //Remove app from previous category
                         if (vEditAppCategoryPrevious == AppCategory.Game)
                         {
-                            await ListBoxRemoveItem(lb_Games, List_Games, vEditAppDataBind);
+                            await ListBoxRemoveItem(lb_Games, List_Games, vEditAppDataBind, false);
                         }
                         else if (vEditAppCategoryPrevious == AppCategory.App)
                         {
-                            await ListBoxRemoveItem(lb_Apps, List_Apps, vEditAppDataBind);
+                            await ListBoxRemoveItem(lb_Apps, List_Apps, vEditAppDataBind, false);
                         }
                         else if (vEditAppCategoryPrevious == AppCategory.Emulator)
                         {
-                            await ListBoxRemoveItem(lb_Emulators, List_Emulators, vEditAppDataBind);
+                            await ListBoxRemoveItem(lb_Emulators, List_Emulators, vEditAppDataBind, false);
                         }
 
                         //Add application to new category
                         if (vEditAppDataBind.Category == AppCategory.Game)
                         {
-                            await ListBoxAddItem(lb_Games, List_Games, vEditAppDataBind, false, true);
+                            await ListBoxAddItem(lb_Games, List_Games, vEditAppDataBind, false, false);
                         }
                         else if (vEditAppDataBind.Category == AppCategory.App)
                         {
-                            await ListBoxAddItem(lb_Apps, List_Apps, vEditAppDataBind, false, true);
+                            await ListBoxAddItem(lb_Apps, List_Apps, vEditAppDataBind, false, false);
                         }
                         else if (vEditAppDataBind.Category == AppCategory.Emulator)
                         {
-                            await ListBoxAddItem(lb_Emulators, List_Emulators, vEditAppDataBind, false, true);
+                            await ListBoxAddItem(lb_Emulators, List_Emulators, vEditAppDataBind, false, false);
                         }
 
                         //Focus on the edited item listbox
@@ -634,12 +634,6 @@ namespace CtrlUI
                             else if (vEditAppDataBind.Category == AppCategory.App) { await ListboxFocus(lb_Apps, false, true, -1); }
                             else if (vEditAppDataBind.Category == AppCategory.Emulator) { await ListboxFocus(lb_Emulators, false, true, -1); }
                         }
-
-                        ////Sort the lists by number
-                        //if (vSortType == "Number")
-                        //{
-                        //    SortAppLists(true, true);
-                        //}
                     }
                     else
                     {
@@ -654,12 +648,6 @@ namespace CtrlUI
                             else if (vEditAppDataBind.Category == AppCategory.App) { await ListboxFocus(lb_Apps, false, false, -1); }
                             else if (vEditAppDataBind.Category == AppCategory.Emulator) { await ListboxFocus(lb_Emulators, false, false, -1); }
                         }
-
-                        ////Sort the lists by number
-                        //if (vSortType == "Number")
-                        //{
-                        //    SortAppLists(true, true);
-                        //}
                     }
 
                     //Refresh the application lists

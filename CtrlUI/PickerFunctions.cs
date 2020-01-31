@@ -287,12 +287,18 @@ namespace CtrlUI
                                     //Get the folder size
                                     //string folderSize = AVFunctions.ConvertBytesSizeToString(GetDirectorySize(listDirectory));
 
+                                    //Get the folder date
+                                    string folderDate = listDirectory.LastWriteTime.ToShortDateString().Replace("-", "/");
+
+                                    //Set the detailed text
+                                    string folderDetailed = folderDate;
+
                                     //Add folder to the list
                                     bool systemFileFolder = listDirectory.Attributes.HasFlag(FileAttributes.System);
                                     bool hiddenFileFolder = listDirectory.Attributes.HasFlag(FileAttributes.Hidden);
                                     if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
-                                        DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listDirectory.Name, Description = folderDescription, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
+                                        DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listDirectory.Name, NameDetail = folderDetailed, Description = folderDescription, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
                                     }
                                 }
@@ -423,12 +429,18 @@ namespace CtrlUI
                                     //Get the file size
                                     string fileSize = AVFunctions.ConvertBytesSizeToString(listFile.Length);
 
+                                    //Get the file date
+                                    string fileDate = listFile.LastWriteTime.ToShortDateString().Replace("-", "/");
+
+                                    //Set the detailed text
+                                    string fileDetailed = fileSize + " (" + fileDate + ")";
+
                                     //Add file to the list
                                     bool systemFileFolder = listFile.Attributes.HasFlag(FileAttributes.System);
                                     bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
                                     if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
-                                        DataBindFile dataBindFileFile = new DataBindFile() { Type = "File", Name = listFile.Name, NameDetail = fileSize, Description = fileDescription, DateModified = listFile.LastWriteTime, ImageBitmap = fileImage, PathFile = listFile.FullName };
+                                        DataBindFile dataBindFileFile = new DataBindFile() { Type = "File", Name = listFile.Name, NameDetail = fileDetailed, Description = fileDescription, DateModified = listFile.LastWriteTime, ImageBitmap = fileImage, PathFile = listFile.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
                                     }
                                 }

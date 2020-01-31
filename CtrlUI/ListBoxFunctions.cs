@@ -236,7 +236,7 @@ namespace CtrlUI
         }
 
         //Remove listbox item from a listbox
-        async Task ListBoxRemoveItem<T>(ListBox listBox, Collection<T> listCollection, T removeItem)
+        async Task ListBoxRemoveItem<T>(ListBox listBox, Collection<T> listCollection, T removeItem, bool selectItem)
         {
             try
             {
@@ -255,7 +255,10 @@ namespace CtrlUI
                     if (listBoxItemCount != listBox.Items.Count)
                     {
                         Debug.WriteLine(listBox.Name + " listbox item has been removed.");
-                        await ListBoxFocusOrSelectIndex(listBox, false, false, listBoxSelectedIndex);
+                        if (selectItem)
+                        {
+                            await ListBoxFocusOrSelectIndex(listBox, false, false, listBoxSelectedIndex);
+                        }
                     }
                 });
             }

@@ -157,10 +157,13 @@ namespace CtrlUI
                     updatedClipboard.PathFile = newFilePath;
 
                     //Remove the moved listbox item
-                    await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, vClipboardFile);
+                    await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, vClipboardFile, false);
 
-                    //Add and select the listbox item
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
+                    //Add the new listbox item
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
+
+                    //Focus on the listbox item
+                    await ListboxFocus(lb_FilePicker, false, true, -1);
 
                     //Reset the current clipboard
                     vClipboardFile = null;
@@ -233,8 +236,11 @@ namespace CtrlUI
                     updatedClipboard.Name = newFileName + newFileExtension;
                     updatedClipboard.PathFile = newFilePath;
 
-                    //Add and select the listbox item
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, true);
+                    //Add the new listbox item
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
+
+                    //Focus on the listbox item
+                    await ListboxFocus(lb_FilePicker, false, true, -1);
 
                     //Copy file or folder
                     SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
@@ -387,8 +393,11 @@ namespace CtrlUI
                     BitmapImage folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1, 0);
                     DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listDirectory.Name, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
 
-                    //Add and select the listbox item
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, true);
+                    //Add the new listbox item
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
+
+                    //Focus on the listbox item
+                    await ListboxFocus(lb_FilePicker, false, true, -1);
 
                     //Check if there are files or folders
                     FilePicker_CheckFilesAndFoldersCount();
@@ -443,7 +452,7 @@ namespace CtrlUI
                 }
 
                 //Remove file from the listbox
-                await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile);
+                await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile, true);
 
                 //Check if there are files or folders
                 FilePicker_CheckFilesAndFoldersCount();

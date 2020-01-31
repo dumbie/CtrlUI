@@ -107,7 +107,7 @@ namespace CtrlUI
                 Debug.WriteLine("Removing profile value: " + selectedProfile);
 
                 //Remove the selected profile value
-                await ListBoxRemoveItem(lb_ProfileManager, vProfileManagerListShared, selectedProfile);
+                await ListBoxRemoveItem(lb_ProfileManager, vProfileManagerListShared, selectedProfile, true);
 
                 //Save the updated json values
                 JsonSaveObject(vProfileManagerListShared, vProfileManagerName);

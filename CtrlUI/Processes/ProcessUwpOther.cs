@@ -40,7 +40,7 @@ namespace CtrlUI
                 //Remove application from list
                 if (uwpRemoved)
                 {
-                    await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, selectedItem);
+                    await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, selectedItem, true);
                 }
             }
             catch { }
