@@ -181,9 +181,12 @@ namespace CtrlUI
             try
             {
                 Popup_Show_Status("App", "Launching " + dataBindApp.Name);
-                Debug.WriteLine("Launching url protocol: " + dataBindApp.PathExe);
+                Debug.WriteLine("Launching url protocol: " + dataBindApp.PathExe + " / " + dataBindApp.PathLaunch);
 
-                Process.Start(dataBindApp.PathExe);
+                Process LaunchProcess = new Process();
+                LaunchProcess.StartInfo.FileName = dataBindApp.PathExe;
+                LaunchProcess.StartInfo.WorkingDirectory = dataBindApp.PathLaunch;
+                LaunchProcess.Start();
                 return true;
             }
             catch { }
