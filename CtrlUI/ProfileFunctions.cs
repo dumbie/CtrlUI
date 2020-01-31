@@ -203,7 +203,7 @@ namespace CtrlUI
                 //Add profile categories
                 vFilePickerStrings.Clear();
 
-                BitmapImage imageProfile = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Profile.png" }, IntPtr.Zero, -1);
+                BitmapImage imageProfile = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Profile.png" }, IntPtr.Zero, -1, 0);
 
                 DataBindString stringCtrlLocationsShortcut = new DataBindString() { Name = "Shortcut locations", NameDetail = "CtrlLocationsShortcut", ImageBitmap = imageProfile };
                 vFilePickerStrings.Add(stringCtrlLocationsShortcut);

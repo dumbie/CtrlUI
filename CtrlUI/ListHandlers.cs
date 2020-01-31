@@ -100,17 +100,17 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
                 AnswerRemove.Name = "Move shortcut file to recycle bin";
                 Answers.Add(AnswerRemove);
 
                 DataBindString AnswerRename = new DataBindString();
-                AnswerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1);
+                AnswerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1, 0);
                 AnswerRename.Name = "Rename the shortcut file";
                 Answers.Add(AnswerRename);
 
                 DataBindString AnswerHide = new DataBindString();
-                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Hide.png" }, IntPtr.Zero, -1);
+                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Hide.png" }, IntPtr.Zero, -1, 0);
                 AnswerHide.Name = "Hide the shortcut file";
                 Answers.Add(AnswerHide);
 
@@ -259,12 +259,12 @@ namespace CtrlUI
                 //Show the messagebox popup with options
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Edit.png" }, IntPtr.Zero, -1);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Edit.png" }, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Edit this application";
                 Answers.Add(Answer1);
 
                 DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
+                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
                 Answer2.Name = "Remove application";
                 Answers.Add(Answer2);
 
@@ -301,17 +301,17 @@ namespace CtrlUI
 
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer0 = new DataBindString();
-                Answer0.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Fullscreen.png" }, IntPtr.Zero, -1);
+                Answer0.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Fullscreen.png" }, IntPtr.Zero, -1, 0);
                 Answer0.Name = "Show the process";
                 Answers.Add(Answer0);
 
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Close the process";
                 Answers.Add(Answer1);
 
                 DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1);
+                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
                 Answer2.Name = "Restart process";
                 Answers.Add(Answer2);
 

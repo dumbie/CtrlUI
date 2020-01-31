@@ -108,7 +108,7 @@ namespace CtrlUI
                     grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Collapsed;
                     grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
 
-                    BitmapImage imageFolder = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1);
+                    BitmapImage imageFolder = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1, 0);
 
                     //Add my documents and pictures folder
                     DataBindFile dataBindFilePictures = new DataBindFile() { Type = "PreDirectory", Name = "My Pictures", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
@@ -127,7 +127,7 @@ namespace CtrlUI
                     if (vFilePickerShowNoFile)
                     {
                         string fileDescription = "Launch application without a file";
-                        BitmapImage fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
+                        BitmapImage fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
                         DataBindFile dataBindFileWithoutFile = new DataBindFile() { Type = "File", Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutFile, false, false);
                     }
@@ -207,13 +207,13 @@ namespace CtrlUI
                     //Add the Go up directory to the list
                     if (Path.GetPathRoot(targetPath) != targetPath)
                     {
-                        BitmapImage imageBack = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Up.png" }, IntPtr.Zero, -1);
+                        BitmapImage imageBack = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Up.png" }, IntPtr.Zero, -1, 0);
                         DataBindFile dataBindFileGoUp = new DataBindFile() { Type = "GoUp", Name = "Go up", NameSub = "(" + targetPath + ")", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = Path.GetDirectoryName(targetPath) };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
                     else
                     {
-                        BitmapImage imageBack = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Up.png" }, IntPtr.Zero, -1);
+                        BitmapImage imageBack = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Up.png" }, IntPtr.Zero, -1, 0);
                         DataBindFile dataBindFileGoUp = new DataBindFile() { Type = "GoUp", Name = "Go up", NameSub = "(" + targetPath + ")", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = "PC" };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
@@ -222,12 +222,12 @@ namespace CtrlUI
                     if (vFilePickerShowRoms)
                     {
                         string fileDescription = "Launch the emulator without a rom loaded";
-                        BitmapImage fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1);
+                        BitmapImage fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
                         DataBindFile dataBindFileWithoutRom = new DataBindFile() { Type = "File", Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutRom, false, false);
 
                         string romDescription = "Launch the emulator with this folder as rom";
-                        BitmapImage romImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1);
+                        BitmapImage romImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
                         DataBindFile dataBindFileFolderRom = new DataBindFile() { Type = "File", Name = romDescription, Description = romDescription + ".", ImageBitmap = romImage, PathFile = targetPath };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolderRom, false, false);
                     }
@@ -277,11 +277,11 @@ namespace CtrlUI
                                         string folderImageJpg = Path.Combine(listDirectory.FullName, folderName + ".jpg");
                                         string folderImagePng = Path.Combine(listDirectory.FullName, folderName + ".png");
 
-                                        folderImage = FileToBitmapImage(new string[] { folderRomsPng, folderImagePng, folderRomsJpg, folderImageJpg, "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, 180);
+                                        folderImage = FileToBitmapImage(new string[] { folderRomsPng, folderImagePng, folderRomsJpg, folderImageJpg, "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, 180, 0);
                                     }
                                     else
                                     {
-                                        folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1);
+                                        folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1, 0);
                                     }
 
                                     //Get the folder size
@@ -396,7 +396,7 @@ namespace CtrlUI
                                         }
 
                                         fileDescription = FileToString(new string[] { romFoundPathDescription });
-                                        fileImage = FileToBitmapImage(new string[] { romFoundPathImage, "Rom" }, IntPtr.Zero, 180);
+                                        fileImage = FileToBitmapImage(new string[] { romFoundPathImage, "Rom" }, IntPtr.Zero, 180, 0);
                                     }
                                     else
                                     {
@@ -404,19 +404,19 @@ namespace CtrlUI
                                         string listFileFullNameLower = listFile.FullName.ToLower();
                                         if (listFileFullNameLower.EndsWith(".jpg") || listFileFullNameLower.EndsWith(".png") || listFileFullNameLower.EndsWith(".gif"))
                                         {
-                                            fileImage = FileToBitmapImage(new string[] { listFile.FullName }, IntPtr.Zero, 50);
+                                            fileImage = FileToBitmapImage(new string[] { listFile.FullName }, IntPtr.Zero, 50, 0);
                                         }
                                         else if (listFileFullNameLower.EndsWith(".exe"))
                                         {
-                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
+                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
                                         }
                                         else if (listFileFullNameLower.EndsWith(".bat"))
                                         {
-                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, -1);
+                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, -1, 0);
                                         }
                                         else
                                         {
-                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/File.png" }, IntPtr.Zero, -1);
+                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/File.png" }, IntPtr.Zero, -1, 0);
                                         }
                                     }
 
@@ -549,17 +549,17 @@ namespace CtrlUI
                     //Add application type categories
                     vFilePickerStrings.Clear();
 
-                    BitmapImage imageGame = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1);
+                    BitmapImage imageGame = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
                     DataBindString stringGame = new DataBindString() { Name = "Game", NameDetail = "Game", ImageBitmap = imageGame };
                     vFilePickerStrings.Add(stringGame);
 
-                    BitmapImage imageApp = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
+                    BitmapImage imageApp = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
                     DataBindString stringApp = new DataBindString() { Name = "App & Media", NameDetail = "App", ImageBitmap = imageApp };
                     vFilePickerStrings.Add(stringApp);
 
                     if (!UwpApplication)
                     {
-                        BitmapImage imageEmulator = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1);
+                        BitmapImage imageEmulator = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
                         DataBindString stringEmulator = new DataBindString() { Name = "Emulator", NameDetail = "Emulator", ImageBitmap = imageEmulator };
                         vFilePickerStrings.Add(stringEmulator);
                     }
@@ -578,7 +578,7 @@ namespace CtrlUI
                     while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                     if (vFilePickerCancelled) { return; }
 
-                    image_Manage_AddAppCategory.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + vFilePickerResult.PathFile + ".png" }, IntPtr.Zero, -1);
+                    image_Manage_AddAppCategory.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + vFilePickerResult.PathFile + ".png" }, IntPtr.Zero, -1, 0);
                     textblock_Manage_AddAppCategory.Text = vFilePickerResult.Name;
                     btn_Manage_AddAppCategory.Tag = vFilePickerResult.PathFile;
 
@@ -663,7 +663,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
                         Answer1.Name = "Alright";
                         Answers.Add(Answer1);
 
@@ -686,7 +686,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Load and copy the new application image
-                    BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, IntPtr.Zero, 120);
+                    BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, IntPtr.Zero, 120, 0);
                     img_AddAppLogo.Source = applicationImage;
                     if (vEditAppDataBind != null) { vEditAppDataBind.ImageBitmap = applicationImage; }
                     File.Copy(vFilePickerResult.PathFile, "Assets\\Apps\\" + tb_AddAppName.Text + ".png", true);
@@ -721,7 +721,7 @@ namespace CtrlUI
                     tb_AddAppName.IsEnabled = true;
 
                     //Set application image to image preview
-                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppName.Text, vFilePickerResult.PathFile }, IntPtr.Zero, 120);
+                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppName.Text, vFilePickerResult.PathFile }, IntPtr.Zero, 120, 0);
                     btn_AddAppLogo.IsEnabled = true;
                     btn_Manage_ResetAppLogo.IsEnabled = true;
                 }

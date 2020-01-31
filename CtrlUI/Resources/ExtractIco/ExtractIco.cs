@@ -17,7 +17,7 @@ namespace ExtractIco
             return (Smallest << 16) | (Largest & 0xFFFF);
         }
 
-        public static Bitmap GetBitmapFromExePath(string ExePath)
+        public static Bitmap GetBitmapFromExePath(string ExePath, int iconIndex)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace ExtractIco
                 uint LargestSmallest = Convert.ToUInt32(CalculateIconSize(256, 1));
 
                 IntPtr IntPtrExePath = Marshal.StringToHGlobalUni(ExePath);
-                int IconExtractResult = SHDefExtractIconW(IntPtrExePath, 0, 0, ref PtrIconLarge, ref PtrIconSmall, LargestSmallest);
+                int IconExtractResult = SHDefExtractIconW(IntPtrExePath, iconIndex, 0, ref PtrIconLarge, ref PtrIconSmall, LargestSmallest);
                 if (IconExtractResult == 0)
                 {
                     if (PtrIconLarge != IntPtr.Zero)

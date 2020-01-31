@@ -384,7 +384,7 @@ namespace CtrlUI
                     DirectoryInfo listDirectory = Directory.CreateDirectory(newFolderPath);
 
                     //Create new folder databindfile
-                    BitmapImage folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1);
+                    BitmapImage folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1, 0);
                     DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listDirectory.Name, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
 
                     //Add and select the listbox item
@@ -479,7 +479,7 @@ namespace CtrlUI
             {
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerEmpty = new DataBindString();
-                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
+                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
                 answerEmpty.Name = "Empty recycle bin";
                 messageAnswers.Add(answerEmpty);
 

@@ -224,7 +224,7 @@ namespace CtrlUI
                             }
 
                             //Load the application image
-                            BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExeNoExt, storeImageSquare, storeImageWide, processPathImage, processPathExe }, processWindowHandle, 90);
+                            BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExeNoExt, storeImageSquare, storeImageWide, processPathImage, processPathExe }, processWindowHandle, 90, 0);
 
                             //Create new ProcessMulti list
                             List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();

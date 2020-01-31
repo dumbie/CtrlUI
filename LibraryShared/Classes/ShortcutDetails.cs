@@ -10,6 +10,7 @@ namespace LibraryShared
             public string NameExe { get; set; }
             public string TargetPath { get; set; }
             public string WorkingPath { get; set; }
+            public int IconIndex { get; set; }
             public string IconPath { get; set; }
             public string ShortcutPath { get; set; }
             public string Type { get; set; }

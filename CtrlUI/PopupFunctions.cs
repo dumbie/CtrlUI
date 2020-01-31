@@ -306,7 +306,7 @@ namespace CtrlUI
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + IconName + ".png" }, IntPtr.Zero, -1);
+                    grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + IconName + ".png" }, IntPtr.Zero, -1, 0);
                     grid_Message_Status_Text.Text = Message;
                     grid_Message_Status.Visibility = Visibility.Visible;
                 });

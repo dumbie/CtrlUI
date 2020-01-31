@@ -196,7 +196,7 @@ namespace CtrlUI
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
-                        img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerCharge.png" }, IntPtr.Zero, -1);
+                        img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerCharge.png" }, IntPtr.Zero, -1, 0);
                         img_Main_Battery.Visibility = Visibility.Visible;
                         img_Main_Time.Visibility = Visibility.Visible;
                     });
@@ -226,7 +226,7 @@ namespace CtrlUI
                     string updatedImage = "pack://application:,,,/Assets/Icons/Battery/BatteryVerDis" + percentageNumber + ".png";
                     if (currentImage.ToLower() != updatedImage.ToLower())
                     {
-                        img_Main_Battery.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1);
+                        img_Main_Battery.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1, 0);
                     }
 
                     //Show the battery image and clock
@@ -257,10 +257,10 @@ namespace CtrlUI
                     Popup_Show_Status("Controller", "Activated (1)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
                     });
                 }
                 else if (controllerId == 1)
@@ -269,10 +269,10 @@ namespace CtrlUI
                     Popup_Show_Status("Controller", "Activated (2)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
                     });
                 }
                 else if (controllerId == 2)
@@ -281,10 +281,10 @@ namespace CtrlUI
                     Popup_Show_Status("Controller", "Activated (3)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
                     });
                 }
                 else if (controllerId == 3)
@@ -293,10 +293,10 @@ namespace CtrlUI
                     Popup_Show_Status("Controller", "Activated (4)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1, 0);
                     });
                 }
             }

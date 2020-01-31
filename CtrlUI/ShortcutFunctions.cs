@@ -52,10 +52,11 @@ namespace CtrlUI
                         FolderItem folderItem = folder.ParseName(filenameString);
                         ShellLinkObject shellLinkObject = folderItem.GetLink;
 
+                        int iconIndex = 0;
                         string iconPath = string.Empty;
                         try
                         {
-                            shellLinkObject.GetIconLocation(out iconPath);
+                            iconIndex = shellLinkObject.GetIconLocation(out iconPath);
                             iconPath = iconPath.Replace("file:///", string.Empty);
                             iconPath = WebUtility.UrlDecode(iconPath);
                         }
@@ -71,6 +72,7 @@ namespace CtrlUI
                         shortcutDetails.Title = StripShortcutFilename(Path.GetFileNameWithoutExtension(shortcutPath));
                         shortcutDetails.TargetPath = shellLinkObject.Target.Path;
                         shortcutDetails.WorkingPath = shellLinkObject.WorkingDirectory;
+                        shortcutDetails.IconIndex = iconIndex;
                         shortcutDetails.IconPath = iconPath;
                         shortcutDetails.ShortcutPath = shortcutPath;
                         shortcutDetails.Type = folderItem.Type;
@@ -248,11 +250,11 @@ namespace CtrlUI
                 if (targetPathLower.EndsWith(".bat"))
                 {
                     shortcutLauncher = Visibility.Visible;
-                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, 90);
+                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, 90, shortcutDetails.IconIndex);
                 }
                 else
                 {
-                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, targetPathLower, shortcutDetails.IconPath }, IntPtr.Zero, 90);
+                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, targetPathLower, shortcutDetails.IconPath }, IntPtr.Zero, 90, shortcutDetails.IconIndex);
                 }
 
                 //Add the shortcut to the list

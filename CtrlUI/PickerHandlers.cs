@@ -76,12 +76,12 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
 
                     DataBindString answerUpdate = new DataBindString();
-                    answerUpdate.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Refresh.png" }, IntPtr.Zero, -1);
+                    answerUpdate.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Refresh.png" }, IntPtr.Zero, -1, 0);
                     answerUpdate.Name = "Check application update";
                     Answers.Add(answerUpdate);
 
                     DataBindString answerRemove = new DataBindString();
-                    answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/RemoveCross.png" }, IntPtr.Zero, -1);
+                    answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/RemoveCross.png" }, IntPtr.Zero, -1, 0);
                     answerRemove.Name = "Remove the application";
                     Answers.Add(answerRemove);
 
@@ -118,40 +118,40 @@ namespace CtrlUI
                     }
 
                     DataBindString answerSort = new DataBindString();
-                    answerSort.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Sorting.png" }, IntPtr.Zero, -1);
+                    answerSort.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Sorting.png" }, IntPtr.Zero, -1, 0);
                     answerSort.Name = sortType;
                     Answers.Add(answerSort);
 
                     DataBindString answerCopy = new DataBindString();
-                    answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Copy.png" }, IntPtr.Zero, -1);
+                    answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Copy.png" }, IntPtr.Zero, -1, 0);
                     answerCopy.Name = "Copy the file or folder";
                     Answers.Add(answerCopy);
 
                     DataBindString answerCut = new DataBindString();
-                    answerCut.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Cut.png" }, IntPtr.Zero, -1);
+                    answerCut.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Cut.png" }, IntPtr.Zero, -1, 0);
                     answerCut.Name = "Cut the file or folder";
                     Answers.Add(answerCut);
 
                     DataBindString answerPaste = new DataBindString();
                     if (vClipboardFile != null)
                     {
-                        answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Paste.png" }, IntPtr.Zero, -1);
+                        answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Paste.png" }, IntPtr.Zero, -1, 0);
                         answerPaste.Name = "Paste (" + vClipboardType + ") " + vClipboardFile.Name;
                         Answers.Add(answerPaste);
                     }
 
                     DataBindString answerRename = new DataBindString();
-                    answerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1);
+                    answerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1, 0);
                     answerRename.Name = "Rename the file or folder";
                     Answers.Add(answerRename);
 
                     DataBindString answerFolderCreate = new DataBindString();
-                    answerFolderCreate.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FolderAdd.png" }, IntPtr.Zero, -1);
+                    answerFolderCreate.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FolderAdd.png" }, IntPtr.Zero, -1, 0);
                     answerFolderCreate.Name = "Create a new folder here";
                     Answers.Add(answerFolderCreate);
 
                     DataBindString answerRemove = new DataBindString();
-                    answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1);
+                    answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
                     answerRemove.Name = "Move file or folder to recycle bin*";
                     Answers.Add(answerRemove);
 

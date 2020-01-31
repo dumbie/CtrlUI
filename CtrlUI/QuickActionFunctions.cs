@@ -25,7 +25,7 @@ namespace CtrlUI
                     DataBindApp QuickLaunchApp = CombineAppLists(false, false).Where(x => x.QuickLaunch).FirstOrDefault();
                     if (QuickLaunchApp != null)
                     {
-                        AnswerQuickLaunch.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1);
+                        AnswerQuickLaunch.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
                         AnswerQuickLaunch.Name = "Quick launch " + QuickLaunchApp.Name;
                         Answers.Add(AnswerQuickLaunch);
                     }
@@ -33,32 +33,32 @@ namespace CtrlUI
                 catch { }
 
                 DataBindString AnswerSortApps = new DataBindString();
-                AnswerSortApps.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Sorting.png" }, IntPtr.Zero, -1);
+                AnswerSortApps.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Sorting.png" }, IntPtr.Zero, -1, 0);
                 AnswerSortApps.Name = "Sort applications by name or number and date";
                 Answers.Add(AnswerSortApps);
 
                 DataBindString AnswerLaunchExe = new DataBindString();
-                AnswerLaunchExe.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Run.png" }, IntPtr.Zero, -1);
+                AnswerLaunchExe.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Run.png" }, IntPtr.Zero, -1, 0);
                 AnswerLaunchExe.Name = "Launch an executable file from disk";
                 Answers.Add(AnswerLaunchExe);
 
                 DataBindString AnswerLaunchUwp = new DataBindString();
-                AnswerLaunchUwp.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/RunApp.png" }, IntPtr.Zero, -1);
+                AnswerLaunchUwp.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/RunApp.png" }, IntPtr.Zero, -1, 0);
                 AnswerLaunchUwp.Name = "Launch a Windows store application";
                 Answers.Add(AnswerLaunchUwp);
 
                 DataBindString AnswerControlMedia = new DataBindString();
-                AnswerControlMedia.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Media.png" }, IntPtr.Zero, -1);
+                AnswerControlMedia.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Media.png" }, IntPtr.Zero, -1, 0);
                 AnswerControlMedia.Name = "Control playing media and volume";
                 Answers.Add(AnswerControlMedia);
 
                 DataBindString AnswerStartMenu = new DataBindString();
-                AnswerStartMenu.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Windows.png" }, IntPtr.Zero, -1);
+                AnswerStartMenu.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Windows.png" }, IntPtr.Zero, -1, 0);
                 AnswerStartMenu.Name = "Show the Windows start menu";
                 Answers.Add(AnswerStartMenu);
 
                 DataBindString AnswerFpsOverlayer = new DataBindString();
-                AnswerFpsOverlayer.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Fps.png" }, IntPtr.Zero, -1);
+                AnswerFpsOverlayer.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Fps.png" }, IntPtr.Zero, -1, 0);
                 AnswerFpsOverlayer.Name = "Show or hide the fps overlayer";
                 Answers.Add(AnswerFpsOverlayer);
 
@@ -66,7 +66,7 @@ namespace CtrlUI
                 DataBindString AnswerXboxApp = new DataBindString();
                 if (UwpGetAppPackageByAppUserModelId("Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp") != null)
                 {
-                    AnswerXboxApp.ImageBitmap = FileToBitmapImage(new string[] { "Xbox" }, IntPtr.Zero, -1);
+                    AnswerXboxApp.ImageBitmap = FileToBitmapImage(new string[] { "Xbox" }, IntPtr.Zero, -1, 0);
                     AnswerXboxApp.Name = "Open Xbox Companion app";
                     Answers.Add(AnswerXboxApp);
                 }

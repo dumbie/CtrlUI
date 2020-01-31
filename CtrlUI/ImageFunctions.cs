@@ -59,7 +59,7 @@ namespace CtrlUI
         }
 
         //Convert file to a BitmapImage
-        public static BitmapImage FileToBitmapImage(string[] imageSource, IntPtr mainWindowHandle, int pixelWidth)
+        public static BitmapImage FileToBitmapImage(string[] imageSource, IntPtr mainWindowHandle, int pixelWidth, int iconIndex)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace CtrlUI
                         else if (File.Exists(imageFileLower) && (imageFileLower.EndsWith(".exe") || imageFileLower.EndsWith(".dll") || imageFileLower.EndsWith(".bin") || imageFileLower.EndsWith(".tmp")))
                         {
                             imageToBitmapImage.CreateOptions = BitmapCreateOptions.None;
-                            System.Drawing.Bitmap iconImage = ExtractIco.ExtractIco.GetBitmapFromExePath(imageFileLower);
+                            System.Drawing.Bitmap iconImage = ExtractIco.ExtractIco.GetBitmapFromExePath(imageFileLower, iconIndex);
                             if (iconImage != null)
                             {
                                 MemoryStream iconMemoryStream = new MemoryStream();
