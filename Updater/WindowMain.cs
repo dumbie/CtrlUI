@@ -60,6 +60,10 @@ namespace Updater
                     CtrlUIRunning = true;
                     CloseProcess.Kill();
                 }
+                foreach (Process CloseProcess in Process.GetProcessesByName("CtrlUI-Admin"))
+                {
+                    CloseProcess.Kill();
+                }
 
                 //Check if DirectXInput is running and close it
                 bool DirectXInputRunning = false;
@@ -68,12 +72,14 @@ namespace Updater
                     DirectXInputRunning = true;
                     CloseProcess.Kill();
                 }
-
-                //Check if KeyboardController is running and close it
-                bool KeyboardControllerRunning = false;
-                foreach (Process CloseProcess in Process.GetProcessesByName("KeyboardController"))
+                foreach (Process CloseProcess in Process.GetProcessesByName("DirectXInput-Admin"))
                 {
-                    KeyboardControllerRunning = true;
+                    CloseProcess.Kill();
+                }
+
+                //Check if Driver Installer is running and close it
+                foreach (Process CloseProcess in Process.GetProcessesByName("DriverInstaller"))
+                {
                     CloseProcess.Kill();
                 }
 
@@ -84,9 +90,27 @@ namespace Updater
                     FpsOverlayerRunning = true;
                     CloseProcess.Kill();
                 }
+                foreach (Process CloseProcess in Process.GetProcessesByName("FpsOverlayer-Admin"))
+                {
+                    CloseProcess.Kill();
+                }
+                foreach (Process CloseProcess in Process.GetProcessesByName("FpsOverlayer-Launcher"))
+                {
+                    CloseProcess.Kill();
+                }
 
-                //Check if Driver Installer is running and close it
-                foreach (Process CloseProcess in Process.GetProcessesByName("DriverInstaller"))
+                //Check if KeyboardController is running and close it
+                bool KeyboardControllerRunning = false;
+                foreach (Process CloseProcess in Process.GetProcessesByName("KeyboardController"))
+                {
+                    KeyboardControllerRunning = true;
+                    CloseProcess.Kill();
+                }
+                foreach (Process CloseProcess in Process.GetProcessesByName("KeyboardController-Admin"))
+                {
+                    CloseProcess.Kill();
+                }
+                foreach (Process CloseProcess in Process.GetProcessesByName("KeyboardController-Launcher"))
                 {
                     CloseProcess.Kill();
                 }

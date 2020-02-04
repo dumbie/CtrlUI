@@ -9,11 +9,11 @@ namespace CtrlUI
         {
             try
             {
-                using (RegistryKey RegisteryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    using (RegistryKey OpenSubKey = RegisteryKeyLocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System", true))
+                    using (RegistryKey openSubKey = registryKeyLocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System", true))
                     {
-                        OpenSubKey.SetValue("EnableLinkedConnections", 1);
+                        openSubKey.SetValue("EnableLinkedConnections", 1);
                     }
                 }
             }

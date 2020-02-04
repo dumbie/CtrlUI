@@ -208,6 +208,7 @@ namespace CtrlUI
                 //Welcome functions
                 grid_Popup_Welcome_button_LaunchDirectXInput.Click += Button_LaunchDirectXInput_Click;
                 grid_Popup_Welcome_button_Start.Click += Button_Popup_Close_Click;
+                grid_Popup_Welcome_button_Edge.Click += Button_ShowFilePicker;
                 grid_Popup_Welcome_button_Kodi.Click += Button_ShowFilePicker;
                 grid_Popup_Welcome_button_Spotify.Click += Button_ShowFilePicker;
                 grid_Popup_Welcome_button_Steam.Click += Button_ShowFilePicker;
@@ -783,6 +784,7 @@ namespace CtrlUI
                 //Check if the first launch logo's need to be loaded
                 if (ConfigurationManager.AppSettings["AppFirstLaunch"] == "True")
                 {
+                    grid_Popup_Welcome_img_Edge.Source = FileToBitmapImage(new string[] { "Microsoft Edge" }, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_Kodi.Source = FileToBitmapImage(new string[] { "Kodi" }, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_Spotify.Source = FileToBitmapImage(new string[] { "Spotify" }, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_Steam.Source = FileToBitmapImage(new string[] { "Steam" }, IntPtr.Zero, 75, 0);

@@ -14,32 +14,32 @@ namespace DirectXInput
             try
             {
                 //Remove all previous processes
-                using (RegistryKey RegisteryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    RegisteryKeyLocalMachine.DeleteSubKeyTree(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters\Whitelist");
+                    registryKeyLocalMachine.DeleteSubKeyTree(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters\Whitelist");
                 }
             }
             catch { }
             try
             {
                 //Create empty Whitelist key
-                using (RegistryKey RegisteryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    RegisteryKeyLocalMachine.CreateSubKey(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters\Whitelist");
+                    registryKeyLocalMachine.CreateSubKey(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters\Whitelist");
                 }
             }
             catch { }
             try
             {
                 //Create empty AffectedDevices value
-                using (RegistryKey RegisteryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    using (RegistryKey OpenSubKey = RegisteryKeyLocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters", true))
+                    using (RegistryKey openSubKey = registryKeyLocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters", true))
                     {
-                        string stringAffectedDevices = OpenSubKey.GetValue("AffectedDevices") as string;
+                        string stringAffectedDevices = openSubKey.GetValue("AffectedDevices") as string;
                         if (stringAffectedDevices == null)
                         {
-                            OpenSubKey.SetValue("AffectedDevices", string.Empty);
+                            openSubKey.SetValue("AffectedDevices", string.Empty);
                         }
                     }
                 }
@@ -52,9 +52,9 @@ namespace DirectXInput
         {
             try
             {
-                using (RegistryKey RegisteryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    RegisteryKeyLocalMachine.CreateSubKey(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters\Whitelist\" + vProcessCurrent.Id);
+                    registryKeyLocalMachine.CreateSubKey(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters\Whitelist\" + vProcessCurrent.Id);
                 }
 
                 Debug.WriteLine("Allowed DirectXInput process in HidGuardian.");
@@ -67,16 +67,16 @@ namespace DirectXInput
         {
             try
             {
-                using (RegistryKey RegisteryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    using (RegistryKey OpenSubKey = RegisteryKeyLocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters", true))
+                    using (RegistryKey openSubKey = registryKeyLocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters", true))
                     {
-                        string[] stringArray = OpenSubKey.GetValue("AffectedDevices") as string[];
+                        string[] stringArray = openSubKey.GetValue("AffectedDevices") as string[];
                         List<string> stringList = (stringArray != null) ? new List<string>(stringArray) : new List<string>();
                         if (!stringList.Contains(ConnectedController.HardwareId))
                         {
                             stringList.Add(ConnectedController.HardwareId);
-                            OpenSubKey.SetValue("AffectedDevices", stringList.ToArray());
+                            openSubKey.SetValue("AffectedDevices", stringList.ToArray());
                             Debug.WriteLine("Added HidGuardian controller: " + ConnectedController.HardwareId);
                         }
                     }

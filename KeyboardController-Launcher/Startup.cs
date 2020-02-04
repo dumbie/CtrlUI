@@ -41,11 +41,11 @@ namespace AdminLauncher
         {
             try
             {
-                using (RegistryKey RegisteryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    using (RegistryKey RegKeyPolicies = RegisteryKeyLocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System\", true))
+                    using (RegistryKey regKeyPolicies = registryKeyLocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System\", true))
                     {
-                        RegKeyPolicies.SetValue("EnableSecureUIAPaths", 0);
+                        regKeyPolicies.SetValue("EnableSecureUIAPaths", 0);
                     }
                 }
 
@@ -58,11 +58,11 @@ namespace AdminLauncher
         {
             try
             {
-                using (RegistryKey RegisteryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    using (RegistryKey RegKeyPolicies = RegisteryKeyLocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System\", true))
+                    using (RegistryKey regKeyPolicies = registryKeyLocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System\", true))
                     {
-                        RegKeyPolicies.SetValue("EnableSecureUIAPaths", 1);
+                        regKeyPolicies.SetValue("EnableSecureUIAPaths", 1);
                     }
                 }
 

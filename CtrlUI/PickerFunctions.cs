@@ -988,6 +988,30 @@ namespace CtrlUI
                     ButtonSender.IsEnabled = false;
                     ButtonSender.Opacity = 0.40;
                 }
+                else if (ButtonName == "grid_Popup_Welcome_button_Edge")
+                {
+                    vFilePickerFilterIn = new List<string> { "msedge.exe" };
+                    vFilePickerFilterOut = new List<string>();
+                    vFilePickerTitle = "Microsoft Edge";
+                    vFilePickerDescription = "Please select the Microsoft Edge executable:";
+                    vFilePickerShowNoFile = false;
+                    vFilePickerShowRoms = false;
+                    vFilePickerShowFiles = true;
+                    vFilePickerShowDirectories = true;
+                    grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                    await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_LaunchDirectXInput);
+
+                    while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
+                    if (vFilePickerCancelled) { return; }
+
+                    //Add application to the list
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Microsoft Edge", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile), LaunchKeyboard = true };
+                    await AddAppToList(dataBindApp, true, true);
+
+                    //Disable the icon after selection
+                    ButtonSender.IsEnabled = false;
+                    ButtonSender.Opacity = 0.40;
+                }
                 else if (ButtonName == "grid_Popup_Welcome_button_Kodi")
                 {
                     vFilePickerFilterIn = new List<string> { "kodi.exe" };

@@ -132,16 +132,16 @@ namespace DriverInstaller
         {
             try
             {
-                using (RegistryKey RegisteryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    using (RegistryKey OpenSubKey = RegisteryKeyLocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{" + ClassGuid_Hid.ToString() + "}", true))
+                    using (RegistryKey openSubKey = registryKeyLocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{" + ClassGuid_Hid.ToString() + "}", true))
                     {
-                        string[] stringArray = OpenSubKey.GetValue("UpperFilters") as string[];
+                        string[] stringArray = openSubKey.GetValue("UpperFilters") as string[];
                         List<string> stringList = (stringArray != null) ? new List<string>(stringArray) : new List<string>();
                         if (!stringList.Contains(filterName))
                         {
                             stringList.Add(filterName);
-                            OpenSubKey.SetValue("UpperFilters", stringList.ToArray());
+                            openSubKey.SetValue("UpperFilters", stringList.ToArray());
                             TextBoxAppend("Added upper filter: " + filterName);
                         }
                     }

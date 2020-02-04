@@ -136,8 +136,18 @@ namespace CtrlUI
                 {
                     string imageFileTitle = "Assets\\Apps\\" + dataBindApp.Name + ".png";
                     string imageFileExe = "Assets\\Apps\\" + Path.GetFileNameWithoutExtension(dataBindApp.PathExe) + ".png";
-                    File_Remove(imageFileTitle);
-                    File_Remove(imageFileExe);
+
+                    //Check the application image
+                    bool defaultImage = AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe);
+                    if (defaultImage)
+                    {
+                        Debug.WriteLine("Default application images cannot be removed.");
+                    }
+                    else
+                    {
+                        File_Remove(imageFileTitle);
+                        File_Remove(imageFileExe);
+                    }
                 }
 
                 //Show removed notification
@@ -337,7 +347,8 @@ namespace CtrlUI
                     string imageFileExe = "Assets\\Apps\\" + Path.GetFileNameWithoutExtension(vEditAppDataBind.PathExe) + ".png";
 
                     //Check the application image
-                    if (AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe))
+                    bool defaultImage = AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe);
+                    if (defaultImage)
                     {
                         Popup_Show_Status("Close", "Image cannot reset");
                         Debug.WriteLine("Default application images cannot be reset.");
@@ -359,7 +370,8 @@ namespace CtrlUI
                     string imageFileExe = "Assets\\Apps\\" + Path.GetFileNameWithoutExtension(tb_AddAppExePath.Text) + ".png";
 
                     //Check the application image
-                    if (AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe))
+                    bool defaultImage = AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe);
+                    if (defaultImage)
                     {
                         Popup_Show_Status("Close", "Image cannot reset");
                         Debug.WriteLine("Default application images cannot be reset.");
@@ -755,149 +767,27 @@ namespace CtrlUI
                 //Set application first launch to false
                 SettingSave("AppFirstLaunch", "False");
 
-                //Add default uwp applications to the list
-                DataBindApp dataBindAppEdge = new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.App, Name = "Microsoft Edge", NameExe = "MicrosoftEdge.exe", PathExe = "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge", LaunchKeyboard = true };
-                await AddAppToList(dataBindAppEdge, true, true);
-                DataBindApp dataBindAppXbox = new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.App, Name = "Xbox", NameExe = "XboxApp.exe", PathExe = "Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp" };
-                await AddAppToList(dataBindAppXbox, true, true);
+                //Open the Windows registry
+                RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+                RegistryKey registryKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32);
 
-                //Check for applications in current user registry
-                using (RegistryKey RegisteryKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
+                //Search for Microsoft Edge install and add to the list
+                //DataBindApp dataBindAppEdge = new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.App, Name = "Microsoft Edge", NameExe = "MicrosoftEdge.exe", PathExe = "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge", LaunchKeyboard = true };
+                //await AddAppToList(dataBindAppEdge, true, true);
+                using (RegistryKey RegKeyEdge = registryKeyLocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\msedge.exe"))
                 {
-                    //Search for Kodi install and add to the list
-                    using (RegistryKey RegKeyKodi = RegisteryKeyCurrentUser.OpenSubKey("Software\\Kodi"))
+                    if (RegKeyEdge != null)
                     {
-                        if (RegKeyKodi != null)
+                        string RegKeyExePath = RegKeyEdge.GetValue(null).ToString();
+                        if (File.Exists(RegKeyExePath))
                         {
-                            string RegKeyExePath = RegKeyKodi.GetValue(null).ToString() + "\\Kodi.exe";
-                            if (File.Exists(RegKeyExePath))
-                            {
-                                //Add application to the list
-                                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Kodi", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
-                                await AddAppToList(dataBindApp, true, true);
+                            //Add application to the list
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Microsoft Edge", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), LaunchKeyboard = true };
+                            await AddAppToList(dataBindApp, true, true);
 
-                                //Disable the icon after selection
-                                grid_Popup_Welcome_button_Kodi.IsEnabled = false;
-                                grid_Popup_Welcome_button_Kodi.Opacity = 0.40;
-                            }
-                        }
-                    }
-
-                    //Search for Steam install and add to the list
-                    using (RegistryKey RegKeySteam = RegisteryKeyCurrentUser.OpenSubKey("Software\\Valve\\Steam"))
-                    {
-                        if (RegKeySteam != null)
-                        {
-                            string RegKeyExePath = RegKeySteam.GetValue("SteamExe").ToString();
-                            if (File.Exists(RegKeyExePath))
-                            {
-                                //Add application to the list
-                                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Steam", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), Argument = "-bigpicture", QuickLaunch = true };
-                                await AddAppToList(dataBindApp, true, true);
-
-                                //Disable the icon after selection
-                                grid_Popup_Welcome_button_Steam.IsEnabled = false;
-                                grid_Popup_Welcome_button_Steam.Opacity = 0.40;
-                            }
-                        }
-                    }
-                }
-
-                //Check for applications in local machine registry
-                using (RegistryKey RegisteryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
-                {
-                    //Search for Origin install and add to the list
-                    using (RegistryKey RegKeyOrigin = RegisteryKeyLocalMachine.OpenSubKey("Software\\Origin"))
-                    {
-                        if (RegKeyOrigin != null)
-                        {
-                            string RegKeyExePath = RegKeyOrigin.GetValue("ClientPath").ToString();
-                            if (File.Exists(RegKeyExePath))
-                            {
-                                //Add application to the list
-                                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Origin", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
-                                await AddAppToList(dataBindApp, true, true);
-
-                                //Disable the icon after selection
-                                grid_Popup_Welcome_button_Origin.IsEnabled = false;
-                                grid_Popup_Welcome_button_Origin.Opacity = 0.40;
-                            }
-                        }
-                    }
-
-                    //Search for GoG install and add to the list
-                    using (RegistryKey RegKeyGoG = RegisteryKeyLocalMachine.OpenSubKey("Software\\GOG.com\\GalaxyClient\\paths"))
-                    {
-                        if (RegKeyGoG != null)
-                        {
-                            string RegKeyExePath = RegKeyGoG.GetValue("client").ToString() + "\\GalaxyClient.exe";
-                            if (File.Exists(RegKeyExePath))
-                            {
-                                //Add application to the list
-                                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "GoG", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
-                                await AddAppToList(dataBindApp, true, true);
-
-                                //Disable the icon after selection
-                                grid_Popup_Welcome_button_GoG.IsEnabled = false;
-                                grid_Popup_Welcome_button_GoG.Opacity = 0.40;
-                            }
-                        }
-                    }
-
-                    //Search for Uplay install and add to the list
-                    using (RegistryKey RegKeyUplay = RegisteryKeyLocalMachine.OpenSubKey("Software\\Ubisoft\\Launcher"))
-                    {
-                        if (RegKeyUplay != null)
-                        {
-                            string RegKeyExePath = RegKeyUplay.GetValue("InstallDir").ToString() + "upc.exe";
-                            if (File.Exists(RegKeyExePath))
-                            {
-                                //Add application to the list
-                                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Uplay", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
-                                await AddAppToList(dataBindApp, true, true);
-
-                                //Disable the icon after selection
-                                grid_Popup_Welcome_button_Uplay.IsEnabled = false;
-                                grid_Popup_Welcome_button_Uplay.Opacity = 0.40;
-                            }
-                        }
-                    }
-
-                    //Search for Battle.net install and add to the list
-                    using (RegistryKey RegKeyBattle = RegisteryKeyLocalMachine.OpenSubKey("Software\\Blizzard Entertainment\\Battle.net\\Capabilities"))
-                    {
-                        if (RegKeyBattle != null)
-                        {
-                            string RegKeyExePath = RegKeyBattle.GetValue("ApplicationIcon").ToString().Replace("\"", "").Replace(",0", "");
-                            if (File.Exists(RegKeyExePath))
-                            {
-                                //Add application to the list
-                                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Battle.net", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
-                                await AddAppToList(dataBindApp, true, true);
-
-                                //Disable the icon after selection
-                                grid_Popup_Welcome_button_Battle.IsEnabled = false;
-                                grid_Popup_Welcome_button_Battle.Opacity = 0.40;
-                            }
-                        }
-                    }
-
-                    //Search for PS4 Remote Play install and add to the list
-                    using (RegistryKey RegKeyPS4Remote = RegisteryKeyLocalMachine.OpenSubKey("SOFTWARE\\Sony Corporation\\PS4 Remote Play"))
-                    {
-                        if (RegKeyPS4Remote != null)
-                        {
-                            string RegKeyExePath = RegKeyPS4Remote.GetValue("Path").ToString() + "\\RemotePlay.exe";
-                            if (File.Exists(RegKeyExePath))
-                            {
-                                //Add application to the list
-                                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Remote Play", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
-                                await AddAppToList(dataBindApp, true, true);
-
-                                //Disable the icon after selection
-                                grid_Popup_Welcome_button_PS4Remote.IsEnabled = false;
-                                grid_Popup_Welcome_button_PS4Remote.Opacity = 0.40;
-                            }
+                            //Disable the icon after selection
+                            grid_Popup_Welcome_button_Edge.IsEnabled = false;
+                            grid_Popup_Welcome_button_Edge.Opacity = 0.40;
                         }
                     }
                 }
@@ -914,6 +804,147 @@ namespace CtrlUI
                     grid_Popup_Welcome_button_Spotify.IsEnabled = false;
                     grid_Popup_Welcome_button_Spotify.Opacity = 0.40;
                 }
+
+                //Search for Kodi install and add to the list
+                using (RegistryKey RegKeyKodi = registryKeyCurrentUser.OpenSubKey("Software\\Kodi"))
+                {
+                    if (RegKeyKodi != null)
+                    {
+                        string RegKeyExePath = RegKeyKodi.GetValue(null).ToString() + "\\Kodi.exe";
+                        if (File.Exists(RegKeyExePath))
+                        {
+                            //Add application to the list
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Kodi", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
+                            await AddAppToList(dataBindApp, true, true);
+
+                            //Disable the icon after selection
+                            grid_Popup_Welcome_button_Kodi.IsEnabled = false;
+                            grid_Popup_Welcome_button_Kodi.Opacity = 0.40;
+                        }
+                    }
+                }
+
+                //Add Xbox uwp application to the list
+                DataBindApp dataBindAppXbox = new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.App, Name = "Xbox", NameExe = "XboxApp.exe", PathExe = "Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp" };
+                await AddAppToList(dataBindAppXbox, true, true);
+
+                //Search for PS4 Remote Play install and add to the list
+                using (RegistryKey RegKeyPS4Remote = registryKeyLocalMachine.OpenSubKey("SOFTWARE\\Sony Corporation\\PS4 Remote Play"))
+                {
+                    if (RegKeyPS4Remote != null)
+                    {
+                        string RegKeyExePath = RegKeyPS4Remote.GetValue("Path").ToString() + "\\RemotePlay.exe";
+                        if (File.Exists(RegKeyExePath))
+                        {
+                            //Add application to the list
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Remote Play", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
+                            await AddAppToList(dataBindApp, true, true);
+
+                            //Disable the icon after selection
+                            grid_Popup_Welcome_button_PS4Remote.IsEnabled = false;
+                            grid_Popup_Welcome_button_PS4Remote.Opacity = 0.40;
+                        }
+                    }
+                }
+
+                //Search for Steam install and add to the list
+                using (RegistryKey RegKeySteam = registryKeyCurrentUser.OpenSubKey("Software\\Valve\\Steam"))
+                {
+                    if (RegKeySteam != null)
+                    {
+                        string RegKeyExePath = RegKeySteam.GetValue("SteamExe").ToString();
+                        if (File.Exists(RegKeyExePath))
+                        {
+                            //Add application to the list
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Steam", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), Argument = "-bigpicture", QuickLaunch = true };
+                            await AddAppToList(dataBindApp, true, true);
+
+                            //Disable the icon after selection
+                            grid_Popup_Welcome_button_Steam.IsEnabled = false;
+                            grid_Popup_Welcome_button_Steam.Opacity = 0.40;
+                        }
+                    }
+                }
+
+                //Search for GoG install and add to the list
+                using (RegistryKey RegKeyGoG = registryKeyLocalMachine.OpenSubKey("Software\\GOG.com\\GalaxyClient\\paths"))
+                {
+                    if (RegKeyGoG != null)
+                    {
+                        string RegKeyExePath = RegKeyGoG.GetValue("client").ToString() + "\\GalaxyClient.exe";
+                        if (File.Exists(RegKeyExePath))
+                        {
+                            //Add application to the list
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "GoG", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
+                            await AddAppToList(dataBindApp, true, true);
+
+                            //Disable the icon after selection
+                            grid_Popup_Welcome_button_GoG.IsEnabled = false;
+                            grid_Popup_Welcome_button_GoG.Opacity = 0.40;
+                        }
+                    }
+                }
+
+                //Search for Origin install and add to the list
+                using (RegistryKey RegKeyOrigin = registryKeyLocalMachine.OpenSubKey("Software\\Origin"))
+                {
+                    if (RegKeyOrigin != null)
+                    {
+                        string RegKeyExePath = RegKeyOrigin.GetValue("ClientPath").ToString();
+                        if (File.Exists(RegKeyExePath))
+                        {
+                            //Add application to the list
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Origin", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
+                            await AddAppToList(dataBindApp, true, true);
+
+                            //Disable the icon after selection
+                            grid_Popup_Welcome_button_Origin.IsEnabled = false;
+                            grid_Popup_Welcome_button_Origin.Opacity = 0.40;
+                        }
+                    }
+                }
+
+                //Search for Uplay install and add to the list
+                using (RegistryKey RegKeyUplay = registryKeyLocalMachine.OpenSubKey("Software\\Ubisoft\\Launcher"))
+                {
+                    if (RegKeyUplay != null)
+                    {
+                        string RegKeyExePath = RegKeyUplay.GetValue("InstallDir").ToString() + "upc.exe";
+                        if (File.Exists(RegKeyExePath))
+                        {
+                            //Add application to the list
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Uplay", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
+                            await AddAppToList(dataBindApp, true, true);
+
+                            //Disable the icon after selection
+                            grid_Popup_Welcome_button_Uplay.IsEnabled = false;
+                            grid_Popup_Welcome_button_Uplay.Opacity = 0.40;
+                        }
+                    }
+                }
+
+                //Search for Battle.net install and add to the list
+                using (RegistryKey RegKeyBattle = registryKeyLocalMachine.OpenSubKey("Software\\Blizzard Entertainment\\Battle.net\\Capabilities"))
+                {
+                    if (RegKeyBattle != null)
+                    {
+                        string RegKeyExePath = RegKeyBattle.GetValue("ApplicationIcon").ToString().Replace("\"", "").Replace(",0", "");
+                        if (File.Exists(RegKeyExePath))
+                        {
+                            //Add application to the list
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Battle.net", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
+                            await AddAppToList(dataBindApp, true, true);
+
+                            //Disable the icon after selection
+                            grid_Popup_Welcome_button_Battle.IsEnabled = false;
+                            grid_Popup_Welcome_button_Battle.Opacity = 0.40;
+                        }
+                    }
+                }
+
+                //Close and dispose the registry
+                registryKeyLocalMachine.Dispose();
+                registryKeyCurrentUser.Dispose();
 
                 //Show the welcome screen popup
                 await Popup_Show(grid_Popup_Welcome, grid_Popup_Welcome_button_LaunchDirectXInput, false);
