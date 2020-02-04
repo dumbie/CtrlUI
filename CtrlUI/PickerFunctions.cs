@@ -697,10 +697,17 @@ namespace CtrlUI
                     while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                     if (vFilePickerCancelled) { return; }
 
-                    //Load and copy the new application image
+                    //Load the new application image
                     BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, IntPtr.Zero, 120, 0);
+
+                    //Update the new application image
                     img_AddAppLogo.Source = applicationImage;
-                    if (vEditAppDataBind != null) { vEditAppDataBind.ImageBitmap = applicationImage; }
+                    if (vEditAppDataBind != null)
+                    {
+                        vEditAppDataBind.ImageBitmap = applicationImage;
+                    }
+
+                    //Copy the new application image
                     File.Copy(vFilePickerResult.PathFile, "Assets\\Apps\\" + tb_AddAppName.Text + ".png", true);
                 }
                 else if (ButtonName == "btn_AddAppExePath")
