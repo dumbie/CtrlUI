@@ -133,7 +133,7 @@ namespace CtrlUI
         public static bool vControllerBusy = false;
         public static int vControllerDelayPollingTicks = 25;
         public static int vControllerDelayMicroTicks = 75;
-        public static int vControllerDelayShortTicks = 125;
+        public static int vControllerDelayShortTicks = 130;
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 750;
         public static int vControllerDelay_DPad = Environment.TickCount;

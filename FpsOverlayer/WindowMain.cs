@@ -209,7 +209,7 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Visibility = Visibility.Collapsed;
+                        grid_FpsOverlayer.Visibility = Visibility.Collapsed;
                     });
                     return;
                 }
@@ -219,7 +219,7 @@ namespace FpsOverlayer
                     {
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            this.Visibility = Visibility.Visible;
+                            grid_FpsOverlayer.Visibility = Visibility.Visible;
                         });
                     }
                 }
