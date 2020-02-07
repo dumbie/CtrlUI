@@ -32,9 +32,10 @@ namespace DriverInstaller
         {
             try
             {
-                //Disable the install buttons
+                //Disable the buttons
                 ElementEnableDisable(button_Driver_Install, false);
                 ElementEnableDisable(button_Driver_Uninstall, false);
+                ElementEnableDisable(button_Driver_Close, false);
 
                 //Close DirectXInput if running
                 CloseDirectXInput();

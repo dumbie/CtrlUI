@@ -15,6 +15,18 @@ namespace DriverInstaller
         //Window Initialize
         public WindowMain() { InitializeComponent(); }
 
+        //Window Initialized
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            try
+            {
+                TextBoxAppend("Welcome to the Driver Installer.");
+
+                Debug.WriteLine("Application source initialized.");
+            }
+            catch { }
+        }
+
         //Enable or disable element
         public void ElementEnableDisable(FrameworkElement frameworkElement, bool enableElement)
         {
@@ -99,12 +111,27 @@ namespace DriverInstaller
             catch { }
         }
 
+        //Application Close Button
+        async void button_Driver_Close_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await Application_Exit("Closing the driver installer in a bit.", true);
+            }
+            catch { }
+        }
+
         //Close the application
         async Task Application_Exit(string ExitMessage, bool runDirectXInput)
         {
             try
             {
                 Debug.WriteLine("Exiting application.");
+
+                //Disable the buttons
+                ElementEnableDisable(button_Driver_Install, false);
+                ElementEnableDisable(button_Driver_Uninstall, false);
+                ElementEnableDisable(button_Driver_Close, false);
 
                 //Run DirectXInput after the drivers installed
                 if (runDirectXInput)

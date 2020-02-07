@@ -49,7 +49,7 @@
                     <StackPanel Name="sp_Games">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Games"/>
-                            <TextBlock Name="tb_Games_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockGray}"/>
+                            <TextBlock Name="tb_Games_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
                         </StackPanel>
                         <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
                         <ListBox Name="lb_Games" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
@@ -57,7 +57,7 @@
                     <StackPanel Name="sp_Apps">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Apps &amp; Media"/>
-                            <TextBlock Name="tb_Apps_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockGray}"/>
+                            <TextBlock Name="tb_Apps_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
                         </StackPanel>
                         <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
                         <ListBox Name="lb_Apps" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
@@ -65,7 +65,7 @@
                     <StackPanel Name="sp_Emulators">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Emulators"/>
-                            <TextBlock Name="tb_Emulators_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockGray}"/>
+                            <TextBlock Name="tb_Emulators_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
                         </StackPanel>
                         <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
                         <ListBox Name="lb_Emulators" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
@@ -73,7 +73,7 @@
                     <StackPanel Name="sp_Shortcuts">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcuts"/>
-                            <TextBlock Name="tb_Shortcuts_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockGray}"/>
+                            <TextBlock Name="tb_Shortcuts_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
                         </StackPanel>
                         <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
                         <ListBox Name="lb_Shortcuts" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
@@ -81,7 +81,7 @@
                     <StackPanel Name="sp_Processes">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Processes"/>
-                            <TextBlock Name="tb_Processes_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockGray}"/>
+                            <TextBlock Name="tb_Processes_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
                         </StackPanel>
                         <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
                         <ListBox Name="lb_Processes" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
@@ -1016,7 +1016,7 @@
 
         <!-- Status - Clock and Battery -->
         <Grid MinHeight="40" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,10,20,0">
-            <TextBlock Name="txt_Main_Date" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockGrayLight}"/>
+            <TextBlock Name="txt_Main_Date" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
         </Grid>
         <Grid MinHeight="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="20,10,20,0">
             <StackPanel Orientation="Horizontal">

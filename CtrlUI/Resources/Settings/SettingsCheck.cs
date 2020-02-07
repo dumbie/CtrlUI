@@ -49,7 +49,7 @@ namespace CtrlUI
                 //Background settings
                 if (ConfigurationManager.AppSettings["VideoBackground"] == null) { SettingSave("VideoBackground", "True"); }
                 if (ConfigurationManager.AppSettings["DesktopBackground"] == null) { SettingSave("DesktopBackground", "False"); }
-                if (ConfigurationManager.AppSettings["BackgroundBrightness"] == null) { SettingSave("BackgroundBrightness", "90"); }
+                if (ConfigurationManager.AppSettings["BackgroundBrightness"] == null) { SettingSave("BackgroundBrightness", "80"); }
                 if (ConfigurationManager.AppSettings["BackgroundPlayVolume"] == null) { SettingSave("BackgroundPlayVolume", "30"); }
                 if (ConfigurationManager.AppSettings["BackgroundPlaySpeed"] == null) { SettingSave("BackgroundPlaySpeed", "100"); }
             }
