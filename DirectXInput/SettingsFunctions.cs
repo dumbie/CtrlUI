@@ -28,7 +28,7 @@ namespace DirectXInput
         {
             try
             {
-                ProcessLauncherWin32(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\control.exe", "", "joy.cpl", false, false);
+                Process.Start("joy.cpl");
             }
             catch { }
         }
@@ -38,7 +38,7 @@ namespace DirectXInput
         {
             try
             {
-                ProcessLauncherWin32(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\devmgmt.msc", "", "", false, false);
+                Process.Start("devmgmt.msc");
             }
             catch { }
         }

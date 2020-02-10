@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
+using static ArnoldVinkCode.AVFirewall;
 using static LibraryShared.AppLaunchCheck;
 
 namespace DirectXInput
@@ -19,6 +21,10 @@ namespace DirectXInput
 
                 //Check the application status
                 Application_LaunchCheck("DirectXInput", "DirectXInput", ProcessPriorityClass.High, false);
+
+                //Allow application in firewall
+                string appFilePath = Assembly.GetEntryAssembly().Location;
+                Firewall_ExecutableAllow("DirectXInput", appFilePath, true);
 
                 await vWindowMain.Startup();
             }

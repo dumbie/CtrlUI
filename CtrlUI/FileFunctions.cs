@@ -460,7 +460,7 @@ namespace CtrlUI
                 //Check file operation status
                 if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                 {
-                    Popup_Show_Status("Remove", "Removed file or folder");
+                    Popup_Show_Status("Remove", "Re/moved file or folder");
                     Debug.WriteLine("Removed file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
                 }
                 else if (shFileOpstruct.fAnyOperationsAborted)

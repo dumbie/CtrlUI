@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
+using static ArnoldVinkCode.AVFirewall;
 using static LibraryShared.AppLaunchCheck;
 
 namespace KeyboardController
@@ -20,6 +22,10 @@ namespace KeyboardController
 
                 //Check the application status
                 Application_LaunchCheck("Keyboard Controller", "KeyboardController", ProcessPriorityClass.High, false);
+
+                //Allow application in firewall
+                string appFilePath = Assembly.GetEntryAssembly().Location;
+                Firewall_ExecutableAllow("Keyboard Controller", appFilePath, true);
 
                 //Open the window main from application
                 vWindowMain.Show();

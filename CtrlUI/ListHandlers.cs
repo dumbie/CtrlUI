@@ -182,7 +182,7 @@ namespace CtrlUI
                 if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                 {
                     //Show the removal status notification
-                    Popup_Show_Status("Minus", "Removed shortcut " + dataBindApp.Name);
+                    Popup_Show_Status("Minus", "Re/moved shortcut " + dataBindApp.Name);
                     Debug.WriteLine("Removed shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
 
                     //Remove application from the list
