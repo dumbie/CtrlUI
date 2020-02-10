@@ -65,6 +65,15 @@ namespace CtrlUI
                                         windowSubString += " (Minimized)";
                                     }
 
+                                    //Check explorer window
+                                    if (dataBindApp.NameExe.ToLower() == "explorer.exe")
+                                    {
+                                        if (windowTitleString == "Unknown" || windowStyle.HasFlag(WindowStylesEx.WS_EX_TOOLWINDOW) || windowStyle.HasFlag(WindowStylesEx.WS_EX_LAYERED))
+                                        {
+                                            continue;
+                                        }
+                                    }
+
                                     DataBindString Answer1 = new DataBindString();
                                     Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
                                     Answer1.Name = windowTitleString;

@@ -92,10 +92,19 @@ namespace CtrlUI
                             string processNameExeNoExt = Path.GetFileNameWithoutExtension(processPathExe);
                             string processNameExeNoExtLower = processNameExeNoExt.ToLower();
 
+                            //Get the process launch arguments
+                            string processArgument = GetLaunchArgumentsFromProcess(processApp, processPathExe);
+
                             //Check if application name is blacklisted
                             if (vCtrlIgnoreProcessName.Any(x => x.String1.ToLower() == processNameExeNoExtLower))
                             {
                                 continue;
+                            }
+
+                            //Check explorer process
+                            if (processNameExeLower == "explorer.exe")
+                            {
+                                processName = "File Explorer";
                             }
 
                             //Add active process to the list
@@ -108,14 +117,12 @@ namespace CtrlUI
                             //Check if the process is suspended
                             Visibility processStatusRunning = Visibility.Visible;
                             Visibility processStatusSuspended = Visibility.Collapsed;
-                            if (CheckProcessSuspended(processApp.Threads))
+                            ProcessThreadCollection processThreads = processApp.Threads;
+                            if (CheckProcessSuspended(processThreads))
                             {
                                 processStatusRunning = Visibility.Collapsed;
                                 processStatusSuspended = Visibility.Visible;
                             }
-
-                            //Check the process launch arguments
-                            string processArgument = GetLaunchArgumentsFromProcess(processApp, processPathExe);
 
                             //Set the application search filters
                             Func<DataBindApp, bool> filterCombinedApp = x => x.PathExe != null && Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == processNameExeNoExtLower;
@@ -144,7 +151,12 @@ namespace CtrlUI
                             }
 
                             //Convert Process To ProcessMulti
-                            ProcessMulti processMultiNew = ConvertProcessToProcessMulti(processType, processApp);
+                            ProcessMulti processMultiNew = new ProcessMulti();
+                            processMultiNew.Type = processType;
+                            processMultiNew.Identifier = processIdentifier;
+                            processMultiNew.WindowHandle = processWindowHandle;
+                            processMultiNew.Threads = processThreads;
+                            processMultiNew.Argument = processArgument;
 
                             //Check all the lists for the application
                             DataBindApp existingCombinedApp = currentListApps.Where(filterCombinedApp).FirstOrDefault();
@@ -201,6 +213,12 @@ namespace CtrlUI
                                 foreach (ProcessMulti processMulti in existingProcessApp.ProcessMulti.Where(x => x.WindowHandle == IntPtr.Zero))
                                 {
                                     processMulti.WindowHandle = processWindowHandle;
+                                }
+
+                                //Update the process multi threads
+                                foreach (ProcessMulti processMulti in existingProcessApp.ProcessMulti.Where(x => x.Identifier == processIdentifier))
+                                {
+                                    processMulti.Threads = processThreads;
                                 }
 
                                 continue;
