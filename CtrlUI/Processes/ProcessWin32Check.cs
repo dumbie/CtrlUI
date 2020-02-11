@@ -75,7 +75,7 @@ namespace CtrlUI
                                     }
 
                                     DataBindString Answer1 = new DataBindString();
-                                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MiniMaxi.png" }, IntPtr.Zero, -1, 0);
                                     Answer1.Name = windowTitleString;
                                     Answer1.NameSub = windowSubString;
 
@@ -112,16 +112,37 @@ namespace CtrlUI
 
                     DataBindString Answer2 = new DataBindString();
                     Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
-                    Answer2.Name = "Close all the windows";
+                    Answer2.Name = "Close application";
                     multiAnswers.Add(Answer2);
+
+                    DataBindString Answer3 = new DataBindString();
+                    Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                    Answer3.Name = "Restart application";
+                    multiAnswers.Add(Answer3);
+
+                    DataBindString Answer4 = new DataBindString();
+                    Answer4.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                    Answer4.Name = "Launch new instance";
+                    multiAnswers.Add(Answer4);
 
                     //Ask which window needs to be shown
                     DataBindString messageResult = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", "", "Please select the window that you wish to be shown:", multiAnswers);
                     if (messageResult != null)
                     {
-                        if (messageResult == Answer2)
+                        if (messageResult == Answer4)
                         {
-                            return new IntPtr(-100); //CloseAll
+                            //Launch new instance
+                            return new IntPtr(-50);
+                        }
+                        else if (messageResult == Answer3)
+                        {
+                            //Restart the application
+                            return new IntPtr(-75);
+                        }
+                        else if (messageResult == Answer2)
+                        {
+                            //Close the application
+                            return new IntPtr(-100);
                         }
                         else
                         {
@@ -130,7 +151,8 @@ namespace CtrlUI
                     }
                     else
                     {
-                        return new IntPtr(-200); //Cancel
+                        //Cancel the selection
+                        return new IntPtr(-200);
                     }
                 }
                 else

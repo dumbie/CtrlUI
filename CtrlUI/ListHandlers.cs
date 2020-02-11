@@ -302,18 +302,23 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer0 = new DataBindString();
                 Answer0.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Fullscreen.png" }, IntPtr.Zero, -1, 0);
-                Answer0.Name = "Show the process";
+                Answer0.Name = "Show application";
                 Answers.Add(Answer0);
 
                 DataBindString Answer1 = new DataBindString();
                 Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Close the process";
+                Answer1.Name = "Close application";
                 Answers.Add(Answer1);
 
                 DataBindString Answer2 = new DataBindString();
                 Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
-                Answer2.Name = "Restart process";
+                Answer2.Name = "Restart application";
                 Answers.Add(Answer2);
+
+                DataBindString Answer3 = new DataBindString();
+                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                Answer3.Name = "Launch new instance";
+                Answers.Add(Answer3);
 
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTime, "", Answers);
                 if (messageResult != null)
@@ -324,36 +329,15 @@ namespace CtrlUI
                     }
                     else if (messageResult == Answer1)
                     {
-                        if (processMulti.Type == ProcessType.UWP)
-                        {
-                            await CloseSingleProcessUwp(dataBindApp, processMulti, false, true);
-                        }
-                        else
-                        {
-                            await CloseSingleProcessWin32AndWin32Store(dataBindApp, processMulti, false, true);
-                        }
+                        await CloseSingleProcessAuto(processMulti, dataBindApp, false, true);
                     }
                     else if (messageResult == Answer2)
                     {
-                        //Restart the process
-                        if (processMulti.Type == ProcessType.UWP)
-                        {
-                            await RestartPrepareUwp(dataBindApp, processMulti);
-                        }
-                        else if (processMulti.Type == ProcessType.Win32Store)
-                        {
-                            await RestartPrepareWin32Store(dataBindApp, processMulti);
-                        }
-                        else
-                        {
-                            await RestartPrepareWin32(dataBindApp, processMulti);
-                        }
-
-                        //Refresh the application lists
-                        await RefreshApplicationLists(true, false, false, false, false, false, false);
-
-                        //Select the previous index
-                        await ListboxFocus(listboxSender, false, false, listboxSelectedIndex);
+                        await RestartPrepareAuto(processMulti, dataBindApp);
+                    }
+                    else if (messageResult == Answer3)
+                    {
+                        await LaunchProcessDatabindAuto(dataBindApp);
                     }
                 }
             }

@@ -63,43 +63,18 @@ namespace CtrlUI
                     else if (messageResult == Answer2)
                     {
                         Debug.WriteLine("Closing the application.");
-                        if (processMulti.Type == ProcessType.UWP)
-                        {
-                            await CloseSingleProcessUwp(dataBindApp, processMulti, true, false);
-                        }
-                        else
-                        {
-                            await CloseSingleProcessWin32AndWin32Store(dataBindApp, processMulti, true, false);
-                        }
+                        await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
                         return false;
                     }
                     else if (messageResult == Answer3)
                     {
                         Debug.WriteLine("Restarting the application.");
-                        if (processMulti.Type == ProcessType.UWP)
-                        {
-                            return await RestartPrepareUwp(dataBindApp, processMulti);
-                        }
-                        else if (processMulti.Type == ProcessType.Win32Store)
-                        {
-                            return await RestartPrepareWin32Store(dataBindApp, processMulti);
-                        }
-                        else
-                        {
-                            return await RestartPrepareWin32(dataBindApp, processMulti);
-                        }
+                        return await RestartPrepareAuto(processMulti, dataBindApp);
                     }
                     else if (messageResult == Answer4)
                     {
                         Debug.WriteLine("Running new application instance.");
-                        if (processMulti.Type == ProcessType.UWP || processMulti.Type == ProcessType.Win32Store)
-                        {
-                            return await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
-                        }
-                        else
-                        {
-                            return await LaunchProcessDatabindWin32(dataBindApp);
-                        }
+                        return await LaunchProcessDatabindAuto(dataBindApp);
                     }
                 }
                 else

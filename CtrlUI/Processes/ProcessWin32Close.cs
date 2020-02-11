@@ -11,7 +11,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Close single process Win32 and Win32Store
-        async Task CloseSingleProcessWin32AndWin32Store(DataBindApp dataBindApp, ProcessMulti processMulti, bool resetProcess, bool removeProcess)
+        async Task<bool> CloseSingleProcessWin32AndWin32Store(DataBindApp dataBindApp, ProcessMulti processMulti, bool resetProcess, bool removeProcess)
         {
             try
             {
@@ -54,18 +54,22 @@ namespace CtrlUI
                     {
                         await RemoveAppFromList(dataBindApp, false, false, true);
                     }
+
+                    return true;
                 }
                 else
                 {
                     Popup_Show_Status("Closing", "Failed to close the app");
                     Debug.WriteLine("Failed to close the application.");
+                    return false;
                 }
             }
             catch { }
+            return false;
         }
 
         //Close all processes Win32 and Win32Store
-        async Task CloseAllProcessesWin32AndWin32Store(DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
+        async Task<bool> CloseAllProcessesWin32AndWin32Store(DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
         {
             try
             {
@@ -111,14 +115,18 @@ namespace CtrlUI
                     {
                         await RemoveAppFromList(dataBindApp, false, false, true);
                     }
+
+                    return true;
                 }
                 else
                 {
                     Popup_Show_Status("Closing", "Failed to close the app");
                     Debug.WriteLine("Failed to close the application");
+                    return false;
                 }
             }
             catch { }
+            return false;
         }
     }
 }

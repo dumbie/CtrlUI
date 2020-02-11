@@ -120,22 +120,7 @@ namespace CtrlUI
                     if (processMulti == null)
                     {
                         Debug.WriteLine("Process is not running, launching the application.");
-                        if (dataBindApp.Category == AppCategory.Emulator)
-                        {
-                            appLaunched = await LaunchProcessDatabindWin32Emulator(dataBindApp);
-                        }
-                        else if (dataBindApp.LaunchFilePicker)
-                        {
-                            appLaunched = await LaunchProcessDatabindWin32FilePicker(dataBindApp);
-                        }
-                        else if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
-                        {
-                            appLaunched = await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
-                        }
-                        else
-                        {
-                            appLaunched = await LaunchProcessDatabindWin32(dataBindApp);
-                        }
+                        appLaunched = await LaunchProcessDatabindAuto(dataBindApp);
                     }
                     else if (processMulti.Action == "Cancel")
                     {
@@ -145,14 +130,7 @@ namespace CtrlUI
                     else if (processMulti.Action == "CloseAll")
                     {
                         Debug.WriteLine("Closing all processes, skipping the launch.");
-                        if (processMulti.Type == ProcessType.UWP)
-                        {
-                            await CloseAllProcessesUwp(dataBindApp, true, false);
-                        }
-                        else
-                        {
-                            await CloseAllProcessesWin32AndWin32Store(dataBindApp, true, false);
-                        }
+                        await CloseAllProcessesAuto(processMulti, dataBindApp, true, false);
                         return;
                     }
                     else
@@ -198,28 +176,20 @@ namespace CtrlUI
             try
             {
                 //Check if application has multiple windows
-                IntPtr processWindowHandle = IntPtr.Zero;
-                if (processMulti.Type == ProcessType.UWP)
-                {
-                    processWindowHandle = processMulti.WindowHandle;
-                }
-                else if (processMulti.Type == ProcessType.Win32 || processMulti.Type == ProcessType.Win32Store)
-                {
-                    processWindowHandle = await CheckProcessWindowsWin32AndWin32Store(dataBindApp, processMulti);
-                }
+                IntPtr processWindowHandle = await CheckProcessWindowsAuto(dataBindApp, processMulti);
 
                 //Check if application window has been found
-                if (processWindowHandle == new IntPtr(-100))
+                if (processWindowHandle == new IntPtr(-50))
                 {
-                    Debug.WriteLine("Closing all " + processMulti.Type + " app windows, by closing the process.");
-                    if (processMulti.Type == ProcessType.UWP)
-                    {
-                        await CloseSingleProcessUwp(dataBindApp, processMulti, true, false);
-                    }
-                    else if (processMulti.Type == ProcessType.Win32 || processMulti.Type == ProcessType.Win32Store)
-                    {
-                        await CloseSingleProcessWin32AndWin32Store(dataBindApp, processMulti, true, false);
-                    }
+                    await LaunchProcessDatabindAuto(dataBindApp);
+                }
+                else if (processWindowHandle == new IntPtr(-75))
+                {
+                    await RestartPrepareAuto(processMulti, dataBindApp);
+                }
+                else if (processWindowHandle == new IntPtr(-100))
+                {
+                    await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
                 }
                 else if (processWindowHandle == new IntPtr(-200))
                 {
@@ -246,8 +216,42 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Popup_Show_Status("Close", "Application has no window");
                     Debug.WriteLine("Show application has no window.");
+
+                    //Focus or Close when process is already running
+                    List<DataBindString> Answers = new List<DataBindString>();
+                    DataBindString Answer1 = new DataBindString();
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
+                    Answer1.Name = "Close application";
+                    Answers.Add(Answer1);
+
+                    DataBindString Answer2 = new DataBindString();
+                    Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                    Answer2.Name = "Restart application";
+                    Answers.Add(Answer2);
+
+                    DataBindString Answer3 = new DataBindString();
+                    Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                    Answer3.Name = "Launch new instance";
+                    Answers.Add(Answer3);
+
+                    //Show the messagebox
+                    DataBindString messageResult = await Popup_Show_MessageBox("Application has no window", "", "", Answers);
+                    if (messageResult != null)
+                    {
+                        if (messageResult == Answer1)
+                        {
+                            await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
+                        }
+                        else if (messageResult == Answer2)
+                        {
+                            await RestartPrepareAuto(processMulti, dataBindApp);
+                        }
+                        else if (messageResult == Answer3)
+                        {
+                            await LaunchProcessDatabindAuto(dataBindApp);
+                        }
+                    }
                 }
             }
             catch { }
