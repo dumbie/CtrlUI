@@ -72,6 +72,7 @@ namespace CtrlUI
                         shortcutDetails.Title = StripShortcutFilename(Path.GetFileNameWithoutExtension(shortcutPath));
                         shortcutDetails.TargetPath = shellLinkObject.Target.Path;
                         shortcutDetails.WorkingPath = shellLinkObject.WorkingDirectory;
+                        shortcutDetails.NameExe = Path.GetFileName(shortcutDetails.TargetPath);
                         shortcutDetails.IconIndex = iconIndex;
                         shortcutDetails.IconPath = iconPath;
                         shortcutDetails.ShortcutPath = shortcutPath;

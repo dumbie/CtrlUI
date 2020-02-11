@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ProcessClasses;
+using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -28,49 +31,69 @@ namespace CtrlUI
         //Launch new process
         async Task<bool> LaunchProcessDatabindAuto(DataBindApp dataBindApp)
         {
+            bool appLaunched = false;
             try
             {
+                //Launch new process
                 if (dataBindApp.Category == AppCategory.Emulator)
                 {
-                    return await LaunchProcessDatabindWin32Emulator(dataBindApp);
+                    appLaunched = await LaunchProcessDatabindWin32Emulator(dataBindApp);
                 }
                 else if (dataBindApp.LaunchFilePicker)
                 {
-                    return await LaunchProcessDatabindWin32FilePicker(dataBindApp);
+                    appLaunched = await LaunchProcessDatabindWin32FilePicker(dataBindApp);
                 }
                 else if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
-                    return await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
+                    appLaunched = await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
                 }
                 else
                 {
-                    return await LaunchProcessDatabindWin32(dataBindApp);
+                    appLaunched = await LaunchProcessDatabindWin32(dataBindApp);
+                }
+
+                //Check keyboard controller launch
+                string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
+                bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                if ((keyboardOpenProcess || dataBindApp.LaunchKeyboard) && appLaunched && vControllerAnyConnected())
+                {
+                    LaunchKeyboardController(true);
                 }
             }
             catch { }
-            return false;
+            return appLaunched;
         }
 
         //Restart the process
         async Task<bool> RestartPrepareAuto(ProcessMulti processMulti, DataBindApp dataBindApp)
         {
+            bool appLaunched = false;
             try
             {
+                //Restart the process
                 if (processMulti.Type == ProcessType.UWP)
                 {
-                    return await RestartPrepareUwp(dataBindApp, processMulti);
+                    appLaunched = await RestartPrepareUwp(dataBindApp, processMulti);
                 }
                 else if (processMulti.Type == ProcessType.Win32Store)
                 {
-                    return await RestartPrepareWin32Store(dataBindApp, processMulti);
+                    appLaunched = await RestartPrepareWin32Store(dataBindApp, processMulti);
                 }
                 else
                 {
-                    return await RestartPrepareWin32(dataBindApp, processMulti);
+                    appLaunched = await RestartPrepareWin32(dataBindApp, processMulti);
+                }
+
+                //Check keyboard controller launch
+                string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
+                bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                if ((keyboardOpenProcess || dataBindApp.LaunchKeyboard) && appLaunched && vControllerAnyConnected())
+                {
+                    LaunchKeyboardController(true);
                 }
             }
             catch { }
-            return false;
+            return appLaunched;
         }
 
         //Close single process

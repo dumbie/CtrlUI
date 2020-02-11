@@ -18,14 +18,18 @@ namespace CtrlUI
         {
             try
             {
-                int processThreadCount = processMulti.Threads.Count;
+                //Get threads from process
+                ProcessThreadCollection processThreads = GetProcessThreads(processMulti);
+
+                //Check threads from process
+                int processThreadCount = processThreads.Count;
                 if (processThreadCount > 1)
                 {
                     Debug.WriteLine("Found window threads: " + processThreadCount);
 
                     List<DataBindString> multiAnswers = new List<DataBindString>();
                     List<IntPtr> multiVariables = new List<IntPtr>();
-                    foreach (ProcessThread threadProcess in processMulti.Threads)
+                    foreach (ProcessThread threadProcess in processThreads)
                     {
                         foreach (IntPtr threadWindowHandle in EnumThreadWindows(threadProcess.Id))
                         {
@@ -157,7 +161,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Debug.WriteLine("Single window thread process.");
+                    Debug.WriteLine("Single window thread process: " + processMulti.WindowHandle);
                     return processMulti.WindowHandle;
                 }
             }

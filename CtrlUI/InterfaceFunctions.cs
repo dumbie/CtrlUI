@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -556,7 +557,7 @@ namespace CtrlUI
                     catch { }
 
                     //Force focus on CtrlUI
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false);
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false, false);
                 }
                 else
                 {
@@ -569,7 +570,7 @@ namespace CtrlUI
                     catch { }
 
                     //Force focus on CtrlUI
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false);
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false, false);
 
                     //Check if a previous process is available
                     if (vPrevFocusedProcess == null)
@@ -630,8 +631,13 @@ namespace CtrlUI
                                 await AppMinimize(true);
                             }
 
+                            //Check keyboard controller launch
+                            string fileNameNoExtension = Path.GetFileNameWithoutExtension(vPrevFocusedProcess.Name);
+                            bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                            bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
+
                             //Force focus on the app
-                            FocusProcessWindowPrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.Identifier, vPrevFocusedProcess.WindowHandle, 0, false, false, false);
+                            FocusProcessWindowPrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.Identifier, vPrevFocusedProcess.WindowHandle, 0, false, false, false, keyboardLaunch);
                         }
                         else if (messageResult == Answer2)
                         {

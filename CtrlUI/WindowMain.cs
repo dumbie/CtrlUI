@@ -138,7 +138,7 @@ namespace CtrlUI
                 //Force window focus on CtrlUI
                 if (ConfigurationManager.AppSettings["LaunchMinimized"] == "False")
                 {
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
                 }
 
                 //Check settings if this is the first application launch
@@ -368,7 +368,7 @@ namespace CtrlUI
                 if (!silentClose)
                 {
                     //Force focus on CtrlUI
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true);
+                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
 
                     //Show the question messagebox
                     messageResult = await Popup_Show_MessageBox("Do you really want to close CtrlUI?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);

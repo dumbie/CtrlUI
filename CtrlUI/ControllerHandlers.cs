@@ -385,7 +385,7 @@ namespace CtrlUI
                             KeyPressSingle((byte)KeysVirtual.VolumeMute, false);
 
                             ControllerUsed = true;
-                            ControllerDelayShort = true;
+                            ControllerDelayLong = true;
                         }
                         else if (ControllerInput.TriggerLeft > 0)
                         {

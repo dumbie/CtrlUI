@@ -21,7 +21,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Focus on a process window
-        void FocusProcessWindowPrepare(string processName, int processIdTarget, IntPtr windowHandleTarget, int windowStateCommand, bool setWindowState, bool setTempTopMost, bool Silent)
+        void FocusProcessWindowPrepare(string processName, int processIdTarget, IntPtr windowHandleTarget, int windowStateCommand, bool setWindowState, bool setTempTopMost, bool silentFocus, bool launchKeyboard)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace CtrlUI
                     //Check if process is available
                     if (windowHandleTarget == null)
                     {
-                        if (!Silent) { Popup_Show_Status("Close", "App no longer running"); }
+                        if (!silentFocus) { Popup_Show_Status("Close", "App no longer running"); }
                         Debug.WriteLine("Show application no longer seems to be running.");
                         vChangingWindow = false;
                         return;
@@ -41,17 +41,17 @@ namespace CtrlUI
                     //Check if process is available
                     if (windowHandleTarget == IntPtr.Zero)
                     {
-                        if (!Silent) { Popup_Show_Status("Close", "App can't be shown"); }
+                        if (!silentFocus) { Popup_Show_Status("Close", "App can't be shown"); }
                         Debug.WriteLine("Application can't be shown, window handle is empty.");
                         vChangingWindow = false;
                         return;
                     }
 
                     //Update the interface status
-                    if (!Silent) { Popup_Show_Status("MiniMaxi", "Showing " + processName); }
+                    if (!silentFocus) { Popup_Show_Status("MiniMaxi", "Showing " + processName); }
                     Debug.WriteLine("Showing application window: " + processName);
 
-                    //Focus on an application window handle
+                    //Focus on application window handle
                     async void TaskAction()
                     {
                         try
@@ -65,6 +65,12 @@ namespace CtrlUI
                         catch { }
                     }
                     AVActions.TaskStart(TaskAction, null);
+
+                    //Launch the keyboard controller
+                    if (launchKeyboard)
+                    {
+                        LaunchKeyboardController(true);
+                    }
 
                     vChangingWindow = false;
                 }
@@ -109,9 +115,6 @@ namespace CtrlUI
                         return;
                     }
 
-                    //Status to see if app launched
-                    bool appLaunched = false;
-
                     //Refresh the application lists
                     await RefreshApplicationLists(true, false, false, false, true, false, false);
 
@@ -120,7 +123,7 @@ namespace CtrlUI
                     if (processMulti == null)
                     {
                         Debug.WriteLine("Process is not running, launching the application.");
-                        appLaunched = await LaunchProcessDatabindAuto(dataBindApp);
+                        await LaunchProcessDatabindAuto(dataBindApp);
                     }
                     else if (processMulti.Action == "Cancel")
                     {
@@ -136,15 +139,7 @@ namespace CtrlUI
                     else
                     {
                         Debug.WriteLine("Process is already running, checking the app.");
-                        appLaunched = await CheckLaunchProcessStatus(dataBindApp, processMulti);
-                    }
-
-                    //Check and launch the keyboard controller
-                    string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
-                    bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
-                    if ((keyboardOpenProcess || dataBindApp.LaunchKeyboard) && appLaunched && vControllerAnyConnected())
-                    {
-                        LaunchKeyboardController(true);
+                        await CheckLaunchProcessStatus(dataBindApp, processMulti);
                     }
                 }
             }
@@ -203,16 +198,13 @@ namespace CtrlUI
                         await AppMinimize(true);
                     }
 
-                    //Force focus on the app
-                    FocusProcessWindowPrepare(dataBindApp.Name, processMulti.Identifier, processWindowHandle, 0, false, false, false);
-
-                    //Check and launch the keyboard controller
+                    //Check keyboard controller launch
                     string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
-                    bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
-                    if ((keyboardOpenProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected())
-                    {
-                        LaunchKeyboardController(true);
-                    }
+                    bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                    bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
+
+                    //Force focus on the app
+                    FocusProcessWindowPrepare(dataBindApp.Name, processMulti.Identifier, processWindowHandle, 0, false, false, false, keyboardLaunch);
                 }
                 else
                 {
@@ -454,9 +446,9 @@ namespace CtrlUI
         {
             try
             {
-                //Close the keyboard controller
                 if (CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
+                    //Close the keyboard controller
                     Popup_Show_Status("Close", "Closing on screen keyboard");
                     Debug.WriteLine("Closing on screen keyboard");
                     CloseProcessesByNameOrTitle("KeyboardController", false);
@@ -473,14 +465,14 @@ namespace CtrlUI
         }
 
         //Launch the keyboard controller
-        void LaunchKeyboardController(bool silent)
+        void LaunchKeyboardController(bool silentLaunch)
         {
             try
             {
                 if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
                     //Launch the keyboard controller
-                    if (!silent) { Popup_Show_Status("Keyboard", "Showing on screen keyboard"); }
+                    if (!silentLaunch) { Popup_Show_Status("Keyboard", "Showing on screen keyboard"); }
                     Debug.WriteLine("Showing on screen keyboard");
                     ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
                 }

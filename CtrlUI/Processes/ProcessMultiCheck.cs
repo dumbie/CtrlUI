@@ -56,7 +56,7 @@ namespace CtrlUI
                 {
                     if (messageResult == Answer1)
                     {
-                        Debug.WriteLine("Showing the application.");
+                        Debug.WriteLine("Showing the application: " + dataBindApp.Name);
                         await ShowProcessWindow(dataBindApp, processMulti);
                         return false;
                     }

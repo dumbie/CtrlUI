@@ -162,7 +162,6 @@ namespace CtrlUI
                                 processMultiNew.Type = processType;
                                 processMultiNew.Identifier = processIdentifier;
                                 processMultiNew.WindowHandle = processWindowHandle;
-                                processMultiNew.Threads = processThreads;
 
                                 //Set the application search filters
                                 Func<DataBindApp, bool> filterCombinedApp = x => x.PathExe != null && x.PathExe.ToLower() == processPathExeLower;
@@ -223,12 +222,6 @@ namespace CtrlUI
                                     foreach (ProcessMulti processMulti in existingProcessApp.ProcessMulti.Where(x => x.WindowHandle == IntPtr.Zero))
                                     {
                                         processMulti.WindowHandle = processWindowHandle;
-                                    }
-
-                                    //Update the process multi threads
-                                    foreach (ProcessMulti processMulti in existingProcessApp.ProcessMulti.Where(x => x.Identifier == processIdentifier))
-                                    {
-                                        processMulti.Threads = processThreads;
                                     }
 
                                     continue;

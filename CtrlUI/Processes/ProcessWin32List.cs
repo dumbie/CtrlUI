@@ -155,7 +155,6 @@ namespace CtrlUI
                             processMultiNew.Type = processType;
                             processMultiNew.Identifier = processIdentifier;
                             processMultiNew.WindowHandle = processWindowHandle;
-                            processMultiNew.Threads = processThreads;
                             processMultiNew.Argument = processArgument;
 
                             //Check all the lists for the application
@@ -213,12 +212,6 @@ namespace CtrlUI
                                 foreach (ProcessMulti processMulti in existingProcessApp.ProcessMulti.Where(x => x.WindowHandle == IntPtr.Zero))
                                 {
                                     processMulti.WindowHandle = processWindowHandle;
-                                }
-
-                                //Update the process multi threads
-                                foreach (ProcessMulti processMulti in existingProcessApp.ProcessMulti.Where(x => x.Identifier == processIdentifier))
-                                {
-                                    processMulti.Threads = processThreads;
                                 }
 
                                 continue;
