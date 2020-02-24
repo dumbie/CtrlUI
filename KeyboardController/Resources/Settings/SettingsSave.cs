@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Windows.Controls;
 using static KeyboardController.AppVariables;
 
 namespace KeyboardController
@@ -35,6 +36,16 @@ namespace KeyboardController
                     textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(slider_SettingsSoundVolume.Value) + "%";
                     SettingSave("SoundVolume", Convert.ToInt32(slider_SettingsSoundVolume.Value).ToString());
                     vInterfaceSoundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) / 100;
+                };
+
+                textbox_SettingsDomainExtension.TextChanged += (sender, e) =>
+                {
+                    TextBox senderTextBox = (TextBox)sender;
+                    if (!string.IsNullOrWhiteSpace(senderTextBox.Text))
+                    {
+                        SettingSave("DomainExtension", senderTextBox.Text);
+                        App.vWindowMain.UpdateDomainExtension();
+                    }
                 };
             }
             catch (Exception Ex)

@@ -68,6 +68,9 @@ namespace KeyboardController
                 textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) + "%";
                 slider_SettingsSoundVolume.Value = Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]);
                 vInterfaceSoundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) / 100;
+
+                //Load the domain extension
+                textbox_SettingsDomainExtension.Text = ConfigurationManager.AppSettings["DomainExtension"].ToString();
             }
             catch (Exception Ex)
             {

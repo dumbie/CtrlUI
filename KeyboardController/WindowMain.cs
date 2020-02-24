@@ -41,6 +41,9 @@ namespace KeyboardController
                 //Create tray icon
                 Application_CreateTrayMenu();
 
+                //Disable hardware capslock
+                DisableHardwareCapsLock();
+
                 //Update the keyboard layout
                 UpdateKeyboardLayout();
 
@@ -251,8 +254,25 @@ namespace KeyboardController
             catch { }
         }
 
+        //Update the domain extension
+        public void UpdateDomainExtension()
+        {
+            try
+            {
+                if (vCapsEnabled)
+                {
+                    key_DotCom.Content = ConfigurationManager.AppSettings["DomainExtension"].ToString();
+                }
+                else
+                {
+                    key_DotCom.Content = ".com";
+                }
+            }
+            catch { }
+        }
+
         //Switch capslock on and off
-        void SwitchCapsLock()
+        public void SwitchCapsLock()
         {
             try
             {
@@ -260,13 +280,7 @@ namespace KeyboardController
                 Debug.WriteLine("Switching caps lock.");
 
                 //Disable hardware capslock
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    if (Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
-                    {
-                        KeyPressSingle((byte)KeysVirtual.CapsLock, false);
-                    }
-                });
+                DisableHardwareCapsLock();
 
                 //Enable or disable software capslock
                 if (vCapsEnabled)
@@ -368,8 +382,14 @@ namespace KeyboardController
                         key_OEM2_Normal.Text = "/";
                         key_OEM2_Caps.Text = "?";
 
+                        key_Shift.Content = "Shift";
                         key_Control.Content = "Ctrl";
                         key_Menu.Content = "Alt";
+                        key_LeftWindows.Content = "Windows";
+                        key_Escape.Content = "Escape";
+
+                        //Update the domain extension
+                        UpdateDomainExtension();
 
                         key_VolumeDown.Tag = "VolumeDown";
                         image_VolumeDown.Source = new BitmapImage(new Uri(@"Assets/Icons/VolumeDown.png", UriKind.Relative));
@@ -474,13 +494,35 @@ namespace KeyboardController
                         key_OEM2_Normal.Text = "?";
                         key_OEM2_Caps.Text = "/";
 
+                        key_Shift.Content = "Cut";
                         key_Control.Content = "Copy";
                         key_Menu.Content = "Paste";
+                        key_LeftWindows.Content = "Select all";
+                        key_Escape.Content = "Undo";
+
+                        //Update the domain extension
+                        UpdateDomainExtension();
 
                         key_VolumeDown.Tag = "VolumeMute";
                         image_VolumeDown.Source = new BitmapImage(new Uri(@"Assets/Icons/VolumeMute.png", UriKind.Relative));
                     });
                 }
+            }
+            catch { }
+        }
+
+        //Disable hardware capslock
+        public void DisableHardwareCapsLock()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    if (Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
+                    {
+                        KeyPressSingle((byte)KeysVirtual.CapsLock, false);
+                    }
+                });
             }
             catch { }
         }

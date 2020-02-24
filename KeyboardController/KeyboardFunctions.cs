@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVInteropDll;
 using static KeyboardController.AppVariables;
 using static LibraryShared.SoundPlayer;
 
@@ -37,6 +38,28 @@ namespace KeyboardController
             catch { }
         }
 
+        //Keyboard type string
+        void KeyboardTypeString(string typeString)
+        {
+            try
+            {
+                foreach (char charString in typeString)
+                {
+                    short virtualKeyScan = VkKeyScanEx(charString, IntPtr.Zero);
+                    bool shiftPressed = (virtualKeyScan & 0x100) == 0x100;
+                    if (shiftPressed)
+                    {
+                        KeyPressCombo((byte)KeysVirtual.Shift, (byte)virtualKeyScan, false);
+                    }
+                    else
+                    {
+                        KeyPressSingle((byte)virtualKeyScan, false);
+                    }
+                }
+            }
+            catch { }
+        }
+
         //Send the clicked button
         void KeyButtonClick(object sender)
         {
@@ -56,15 +79,7 @@ namespace KeyboardController
                 //Check for keys that are not caps capable
                 if (sendKeyName == "DotCom")
                 {
-                    KeyPressSingle((byte)KeysVirtual.OEMPeriod, false);
-                    KeyPressSingle((byte)KeysVirtual.C, false);
-                    KeyPressSingle((byte)KeysVirtual.O, false);
-                    KeyPressSingle((byte)KeysVirtual.M, false);
-                    return;
-                }
-                else if (sendKeyVirtual == (byte)KeysVirtual.LeftWindows)
-                {
-                    KeyPressSingle(sendKeyVirtual, false);
+                    KeyboardTypeString(key_DotCom.Content.ToString());
                     return;
                 }
                 else if (sendKeyVirtual == (byte)KeysVirtual.Up)
@@ -91,13 +106,25 @@ namespace KeyboardController
                 //Check if the caps lock is enabled
                 if (vCapsEnabled)
                 {
-                    if (sendKeyVirtual == (byte)KeysVirtual.Control)
+                    if (sendKeyVirtual == (byte)KeysVirtual.Shift)
+                    {
+                        KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.X, false);
+                    }
+                    else if (sendKeyVirtual == (byte)KeysVirtual.Control)
                     {
                         KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.C, false);
                     }
                     else if (sendKeyVirtual == (byte)KeysVirtual.Menu)
                     {
                         KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.V, false);
+                    }
+                    else if (sendKeyVirtual == (byte)KeysVirtual.Escape)
+                    {
+                        KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Z, false);
+                    }
+                    else if (sendKeyVirtual == (byte)KeysVirtual.LeftWindows)
+                    {
+                        KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.A, false);
                     }
                     else
                     {
