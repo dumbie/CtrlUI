@@ -288,11 +288,11 @@ namespace KeyboardController
                     vCapsEnabled = false;
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        key_Del.Content = "Insert";
-                        key_Del.Tag = "Insert";
+                        key_Del.Content = "Delete";
+                        key_Del.Tag = "Delete";
 
-                        key_End.Content = "Hme";
-                        key_End.Tag = "Home";
+                        key_End.Content = "End";
+                        key_End.Tag = "End";
 
                         key_OEM3_Normal.Text = "`";
                         key_OEM3_Caps.Text = "~";
@@ -410,11 +410,11 @@ namespace KeyboardController
                     vCapsEnabled = true;
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        key_Del.Content = "Delete";
-                        key_Del.Tag = "Delete";
+                        key_Del.Content = "Insert";
+                        key_Del.Tag = "Insert";
 
-                        key_End.Content = "End";
-                        key_End.Tag = "End";
+                        key_End.Content = "Hme";
+                        key_End.Tag = "Home";
 
                         key_OEM3_Normal.Text = "~";
                         key_OEM3_Caps.Text = "`";
