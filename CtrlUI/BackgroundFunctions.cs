@@ -101,6 +101,16 @@ namespace CtrlUI
         }
 
         //Restart the live background video
+        private void Grid_Video_Background_MediaFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            try
+            {
+                Debug.WriteLine("Background media failed, restarting.");
+            }
+            catch { }
+        }
+
+        //Restart the live background video
         private void Grid_Video_Background_MediaEnded(object sender, RoutedEventArgs e)
         {
             try

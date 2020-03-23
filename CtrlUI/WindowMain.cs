@@ -13,6 +13,7 @@ using System.Windows.Interop;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
@@ -349,6 +350,17 @@ namespace CtrlUI
             {
                 e.Cancel = true;
                 await Application_Exit(false);
+            }
+            catch { }
+        }
+
+        //Restart the application
+        public async Task Application_Restart()
+        {
+            try
+            {
+                await ProcessLauncherWin32Async("CtrlUI.exe", "", "", false, false);
+                await Application_Exit(true);
             }
             catch { }
         }

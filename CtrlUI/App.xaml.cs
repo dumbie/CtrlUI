@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVFirewall;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -18,6 +19,9 @@ namespace CtrlUI
         {
             try
             {
+                //Restart wait fix
+                await Task.Delay(2000);
+
                 //Get previous focused application
                 vPrevFocusedProcess = GetFocusedProcess();
 

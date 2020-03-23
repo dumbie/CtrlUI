@@ -121,15 +121,20 @@ namespace CtrlUI
                 Answer1.Name = "Close CtrlUI";
                 Answers.Add(Answer1);
 
-                DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Restart.png" }, IntPtr.Zero, -1, 0);
-                Answer2.Name = "Restart my PC";
-                Answers.Add(Answer2);
+                DataBindString Answer4 = new DataBindString();
+                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Restart.png" }, IntPtr.Zero, -1, 0);
+                Answer4.Name = "Restart CtrlUI";
+                Answers.Add(Answer4);
 
                 DataBindString Answer3 = new DataBindString();
                 Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Shutdown.png" }, IntPtr.Zero, -1, 0);
                 Answer3.Name = "Shutdown my PC";
                 Answers.Add(Answer3);
+
+                DataBindString Answer2 = new DataBindString();
+                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Restart.png" }, IntPtr.Zero, -1, 0);
+                Answer2.Name = "Restart my PC";
+                Answers.Add(Answer2);
 
                 DataBindString messageResult = await Popup_Show_MessageBox("Would you like to close CtrlUI or shutdown your PC?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);
                 if (messageResult != null)
@@ -138,6 +143,11 @@ namespace CtrlUI
                     {
                         Popup_Show_Status("Closing", "Closing CtrlUI");
                         await Application_Exit(true);
+                    }
+                    else if (messageResult == Answer4)
+                    {
+                        Popup_Show_Status("Closing", "Restarting CtrlUI");
+                        await Application_Restart();
                     }
                     else if (messageResult == Answer2)
                     {

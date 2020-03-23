@@ -233,6 +233,7 @@ namespace CtrlUI
 
                 //MediaElement functions
                 grid_Video_Background.MediaEnded += Grid_Video_Background_MediaEnded;
+                grid_Video_Background.MediaFailed += Grid_Video_Background_MediaFailed;
 
                 //Global functions
                 this.PreviewMouseMove += WindowMain_MouseMove;
