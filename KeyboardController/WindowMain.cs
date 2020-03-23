@@ -288,6 +288,12 @@ namespace KeyboardController
                     vCapsEnabled = false;
                     AVActions.ActionDispatcherInvoke(delegate
                     {
+                        key_Del.Content = "Insert";
+                        key_Del.Tag = "Insert";
+
+                        key_End.Content = "Hme";
+                        key_End.Tag = "Home";
+
                         key_OEM3_Normal.Text = "`";
                         key_OEM3_Caps.Text = "~";
 
@@ -386,7 +392,11 @@ namespace KeyboardController
                         key_Control.Content = "Ctrl";
                         key_Menu.Content = "Alt";
                         key_LeftWindows.Content = "Windows";
+                        key_Space.Content = "Space";
+                        key_Return.Content = "Enter";
+
                         key_Escape.Content = "Escape";
+                        key_Escape.Tag = "Escape";
 
                         //Update the domain extension
                         UpdateDomainExtension();
@@ -400,6 +410,12 @@ namespace KeyboardController
                     vCapsEnabled = true;
                     AVActions.ActionDispatcherInvoke(delegate
                     {
+                        key_Del.Content = "Delete";
+                        key_Del.Tag = "Delete";
+
+                        key_End.Content = "End";
+                        key_End.Tag = "End";
+
                         key_OEM3_Normal.Text = "~";
                         key_OEM3_Caps.Text = "`";
 
@@ -498,7 +514,11 @@ namespace KeyboardController
                         key_Control.Content = "Copy";
                         key_Menu.Content = "Paste";
                         key_LeftWindows.Content = "Select all";
-                        key_Escape.Content = "Undo";
+                        key_Space.Content = "Task manager";
+                        key_Return.Content = "Undo";
+
+                        key_Escape.Content = "PrtSc";
+                        key_Escape.Tag = "Snapshot";
 
                         //Update the domain extension
                         UpdateDomainExtension();

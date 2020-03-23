@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.ProcessWin32Functions;
 using static KeyboardController.AppVariables;
 using static LibraryShared.SoundPlayer;
 
@@ -61,7 +62,7 @@ namespace KeyboardController
         }
 
         //Send the clicked button
-        void KeyButtonClick(object sender)
+        async void KeyButtonClick(object sender)
         {
             try
             {
@@ -76,7 +77,7 @@ namespace KeyboardController
                 Debug.WriteLine("Sending key: " + sendKeyName + "/" + sendKeyVirtual);
                 PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardPress", false);
 
-                //Check for keys that are not caps capable
+                //Check for keys that are not caps capable or require extended
                 if (sendKeyName == "DotCom")
                 {
                     KeyboardTypeString(key_DotCom.Content.ToString());
@@ -102,6 +103,21 @@ namespace KeyboardController
                     KeyPressSingle(sendKeyVirtual, true);
                     return;
                 }
+                else if (sendKeyVirtual == (byte)KeysVirtual.Delete)
+                {
+                    KeyPressSingle(sendKeyVirtual, true);
+                    return;
+                }
+                else if (sendKeyVirtual == (byte)KeysVirtual.Home)
+                {
+                    KeyPressSingle(sendKeyVirtual, false);
+                    return;
+                }
+                else if (sendKeyVirtual == (byte)KeysVirtual.End)
+                {
+                    KeyPressSingle(sendKeyVirtual, false);
+                    return;
+                }
 
                 //Check if the caps lock is enabled
                 if (vCapsEnabled)
@@ -118,7 +134,11 @@ namespace KeyboardController
                     {
                         KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.V, false);
                     }
-                    else if (sendKeyVirtual == (byte)KeysVirtual.Escape)
+                    else if (sendKeyVirtual == (byte)KeysVirtual.Space)
+                    {
+                        await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\Taskmgr.exe", "", "", false, false);
+                    }
+                    else if (sendKeyVirtual == (byte)KeysVirtual.Return)
                     {
                         KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Z, false);
                     }
