@@ -29,7 +29,7 @@
 
             <!-- Top Buttons -->
             <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Button Name="button_MenuHamburger" Margin="16,10,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Open the main menu">
+                <Button Name="button_MenuHamburger" Margin="15,10,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Open the main menu">
                     <Image Source="Assets/Icons/Hamburger.png"/>
                 </Button>
                 <Button Name="button_MenuSearch" Margin="10,10,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Open the search panel">
@@ -44,11 +44,13 @@
             </StackPanel>
 
             <!-- Status - Media Information -->
-            <StackPanel x:Name="main_Media_Information" Visibility="Collapsed" Orientation="Horizontal" MinHeight="40" MaxWidth="600" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0">
-                <TextBlock Name="main_Media_Information_Artist" VerticalAlignment="Center" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeMedium}"/>
-                <TextBlock Name="main_Media_Information_Title" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeMedium}"/>
-                <TextBlock Name="main_Media_Information_Volume" VerticalAlignment="Center" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeMedium}"/>
-            </StackPanel>
+            <styles:ScrollViewerLoopHorizontal x:Name="main_Media_Information" MinHeight="40" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="215,10,225,0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Name="main_Media_Information_Artist" VerticalAlignment="Center" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeMedium}"/>
+                    <TextBlock Name="main_Media_Information_Title" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeMedium}"/>
+                    <TextBlock Name="main_Media_Information_Volume" VerticalAlignment="Center" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeMedium}"/>
+                </StackPanel>
+            </styles:ScrollViewerLoopHorizontal>
 
             <!-- Application Lists -->
             <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
