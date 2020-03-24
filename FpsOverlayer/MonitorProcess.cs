@@ -89,18 +89,6 @@ namespace FpsOverlayer
                             continue;
                         }
 
-                        //Check if process is not in blacklist
-                        if (vFpsIgnoreProcessName.Any(x => x.String1.ToLower() == foregroundProcess.Name.ToLower()))
-                        {
-                            Debug.WriteLine("Current app is blacklisted: " + foregroundProcess.Name);
-
-                            //Hide the application name and frames
-                            HideApplicationNameFrames();
-
-                            await Task.Delay(1000);
-                            continue;
-                        }
-
                         //Update the application name
                         UpdateApplicationName(foregroundProcess.Title);
 

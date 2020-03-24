@@ -1,5 +1,17 @@
 [
   {
+    "String1": "ctrlui",
+    "Int1": 8
+  },
+  {
+    "String1": "microsoftedge",
+    "Int1": 8
+  },
+  {
+    "String1": "msedge",
+    "Int1": 8
+  },
+  {
     "String1": "kodi",
     "Int1": 8
   },

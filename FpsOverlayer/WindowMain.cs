@@ -46,7 +46,6 @@ namespace FpsOverlayer
                 Application_CreateTrayMenu();
 
                 //Load Json profiles
-                JsonFunctions.JsonLoadProfile(ref vFpsIgnoreProcessName, "FpsIgnoreProcessName");
                 JsonFunctions.JsonLoadProfile(ref vFpsPositionProcessName, "FpsPositionProcessName");
 
                 //Start process monitoring

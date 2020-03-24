@@ -46,7 +46,6 @@ namespace FpsOverlayer
         public static Guid vProvider_DxgKrnl = Guid.Parse("{802ec45a-1e99-4b83-9920-87c98277ba9d}");
 
         //Application Lists
-        public static List<ProfileShared> vFpsIgnoreProcessName = new List<ProfileShared>();
         public static ObservableCollection<ProfileShared> vFpsPositionProcessName = new ObservableCollection<ProfileShared>();
     }
 }
