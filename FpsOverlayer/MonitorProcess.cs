@@ -36,6 +36,9 @@ namespace FpsOverlayer
                 {
                     try
                     {
+                        //Update the current time
+                        UpdateCurrentTime();
+
                         //Get and check the focused process
                         ProcessMulti foregroundProcess = GetFocusedProcess();
                         if (foregroundProcess == null)
@@ -111,6 +114,27 @@ namespace FpsOverlayer
                 {
                     stackpanel_CurrentApp.Visibility = Visibility.Collapsed;
                     stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
+                });
+            }
+            catch { }
+        }
+
+        //Update the current time
+        void UpdateCurrentTime()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["TimeShowCurrentTime"]))
+                    {
+                        textblock_CurrentTime.Text = DateTime.Now.ToShortTimeString();
+                        stackpanel_CurrentTime.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        stackpanel_CurrentTime.Visibility = Visibility.Collapsed;
+                    }
                 });
             }
             catch { }

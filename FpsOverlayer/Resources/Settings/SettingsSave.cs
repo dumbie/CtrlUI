@@ -95,6 +95,7 @@ namespace FpsOverlayer
 
                 checkbox_NetShowCurrentUsage.Click += (sender, e) => { SettingSave("NetShowCurrentUsage", checkbox_NetShowCurrentUsage.IsChecked.ToString()); };
                 checkbox_AppShowName.Click += (sender, e) => { SettingSave("AppShowName", checkbox_AppShowName.IsChecked.ToString()); };
+                checkbox_TimeShowCurrentTime.Click += (sender, e) => { SettingSave("TimeShowCurrentTime", checkbox_TimeShowCurrentTime.IsChecked.ToString()); };
 
                 checkbox_FpsShowCurrentFps.Click += (sender, e) => { SettingSave("FpsShowCurrentFps", checkbox_FpsShowCurrentFps.IsChecked.ToString()); };
                 checkbox_FpsShowCurrentLatency.Click += (sender, e) => { SettingSave("FpsShowCurrentLatency", checkbox_FpsShowCurrentLatency.IsChecked.ToString()); };
@@ -136,9 +137,15 @@ namespace FpsOverlayer
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
-                colorpicker_ColorName.SelectedColorChanged += (Color color) =>
+                colorpicker_ColorApp.SelectedColorChanged += (Color color) =>
                 {
-                    SettingSave("ColorName", color.ToString());
+                    SettingSave("ColorApp", color.ToString());
+                    App.vWindowMain.UpdateFpsOverlayStyle();
+                };
+
+                colorpicker_ColorTime.SelectedColorChanged += (Color color) =>
+                {
+                    SettingSave("ColorTime", color.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 

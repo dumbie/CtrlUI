@@ -108,7 +108,11 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <TextBlock Text="Display color for application name:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <ArnoldVinkColorPicker:ColorPicker x:Name="colorpicker_ColorName" Margin="5,0,0,0" BorderBrush="Black" BorderThickness="1" Background="Black" Height="20" Width="40" HorizontalAlignment="Left" ToolTipService.ToolTip="Change the application name color"/>
+                    <ArnoldVinkColorPicker:ColorPicker x:Name="colorpicker_ColorApp" Margin="5,0,0,0" BorderBrush="Black" BorderThickness="1" Background="Black" Height="20" Width="40" HorizontalAlignment="Left" ToolTipService.ToolTip="Change the application name color"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <TextBlock Text="Display color for current time:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                    <ArnoldVinkColorPicker:ColorPicker x:Name="colorpicker_ColorTime" Margin="5,0,0,0" BorderBrush="Black" BorderThickness="1" Background="Black" Height="20" Width="40" HorizontalAlignment="Left" ToolTipService.ToolTip="Change the current time color"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
@@ -224,6 +228,19 @@
 
                 <CheckBox Name="checkbox_AppShowName" Content="Show the application name" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the current application name." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Time Settings"/>
+                    <Button Name="button_TimeUp" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                        <Image Source="Assets/Icons/Up.png" Height="30"/>
+                    </Button>
+                    <Button Name="button_TimeDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                        <Image Source="Assets/Icons/Down.png" Height="30"/>
+                    </Button>
+                </StackPanel>
+
+                <CheckBox Name="checkbox_TimeShowCurrentTime" Content="Show the current time" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will show the current time." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

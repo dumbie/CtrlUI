@@ -67,6 +67,7 @@ namespace FpsOverlayer
 
                 checkbox_NetShowCurrentUsage.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["NetShowCurrentUsage"]);
                 checkbox_AppShowName.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["AppShowName"]);
+                checkbox_TimeShowCurrentTime.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["TimeShowCurrentTime"]);
 
                 checkbox_FpsShowCurrentFps.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCurrentFps"]);
                 checkbox_FpsShowCurrentLatency.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCurrentLatency"]);
@@ -90,8 +91,11 @@ namespace FpsOverlayer
                 string ColorNet = ConfigurationManager.AppSettings["ColorNet"].ToString();
                 colorpicker_ColorNet.Background = new BrushConverter().ConvertFrom(ColorNet) as SolidColorBrush;
 
-                string ColorName = ConfigurationManager.AppSettings["ColorName"].ToString();
-                colorpicker_ColorName.Background = new BrushConverter().ConvertFrom(ColorName) as SolidColorBrush;
+                string ColorApp = ConfigurationManager.AppSettings["ColorApp"].ToString();
+                colorpicker_ColorApp.Background = new BrushConverter().ConvertFrom(ColorApp) as SolidColorBrush;
+
+                string ColorTime = ConfigurationManager.AppSettings["ColorTime"].ToString();
+                colorpicker_ColorTime.Background = new BrushConverter().ConvertFrom(ColorTime) as SolidColorBrush;
 
                 string ColorFps = ConfigurationManager.AppSettings["ColorFps"].ToString();
                 colorpicker_ColorFps.Background = new BrushConverter().ConvertFrom(ColorFps) as SolidColorBrush;
