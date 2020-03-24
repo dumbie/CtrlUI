@@ -119,6 +119,13 @@ namespace CtrlUI
                     {
                         main_Media_Information.Visibility = Visibility.Collapsed;
                     }
+                    else
+                    {
+                        //Update the media information margin
+                        double widthTopButtons = stackpanel_TopButtons.ActualWidth + 10;
+                        double widthClockBattery = grid_ClockBattery.ActualWidth + grid_ClockBattery.Margin.Right + 10;
+                        main_Media_Information.Margin = new Thickness(widthTopButtons, 10, widthClockBattery, 0);
+                    }
                 });
 
                 if (!mediaUpdatePopup && !mediaUpdateSetting)
