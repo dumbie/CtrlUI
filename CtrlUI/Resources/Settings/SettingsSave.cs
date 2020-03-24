@@ -36,6 +36,7 @@ namespace CtrlUI
                 };
 
                 cb_SettingsCloseMediaScreen.Click += (sender, e) => { SettingSave("CloseMediaScreen", cb_SettingsCloseMediaScreen.IsChecked.ToString()); };
+                cb_SettingsShowMediaMain.Click += (sender, e) => { SettingSave("ShowMediaMain", cb_SettingsShowMediaMain.IsChecked.ToString()); };
                 cb_SettingsMinimizeAppOnShow.Click += (sender, e) => { SettingSave("MinimizeAppOnShow", cb_SettingsMinimizeAppOnShow.IsChecked.ToString()); };
 
                 cb_SettingsLaunchDirectXInput.Click += (sender, e) => { SettingSave("LaunchDirectXInput", cb_SettingsLaunchDirectXInput.IsChecked.ToString()); };

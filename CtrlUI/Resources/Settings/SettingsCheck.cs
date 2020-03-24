@@ -36,6 +36,7 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["HideNetworkDrives"] == null) { SettingSave("HideNetworkDrives", "False"); }
                 if (ConfigurationManager.AppSettings["InterfaceSound"] == null) { SettingSave("InterfaceSound", "False"); }
                 if (ConfigurationManager.AppSettings["CloseMediaScreen"] == null) { SettingSave("CloseMediaScreen", "False"); }
+                if (ConfigurationManager.AppSettings["ShowMediaMain"] == null) { SettingSave("ShowMediaMain", "True"); }
                 if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == null) { SettingSave("MinimizeAppOnShow", "False"); }
                 if (ConfigurationManager.AppSettings["ShortcutVolume"] == null) { SettingSave("ShortcutVolume", "True"); }
                 if (ConfigurationManager.AppSettings["ShortcutAltEnter"] == null) { SettingSave("ShortcutAltEnter", "True"); }

@@ -31,6 +31,7 @@ namespace CtrlUI
                 cb_SettingsHideNetworkDrives.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["HideNetworkDrives"]);
                 cb_SettingsInterfaceSound.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["InterfaceSound"]);
                 cb_SettingsCloseMediaScreen.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CloseMediaScreen"]);
+                cb_SettingsShowMediaMain.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShowMediaMain"]);
                 cb_SettingsMinimizeAppOnShow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"]);
                 cb_SettingsShortcutVolume.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"]);
                 cb_SettingsShortcutAltEnter.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltEnter"]);

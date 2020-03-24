@@ -11,6 +11,7 @@ using Windows.Storage.Streams;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static CtrlUI.AppVariables;
 
 namespace CtrlUI
 {
@@ -99,11 +100,29 @@ namespace CtrlUI
         {
             try
             {
-                //Check if the media popup is opened
-                bool MediaPopupOpen = false;
-                await AVActions.ActionDispatcherInvokeAsync(delegate { MediaPopupOpen = grid_Popup_Media.Visibility == Visibility.Visible; });
-                if (!MediaPopupOpen)
+                //Check if the application window is activated
+                if (!vAppActivated)
                 {
+                    //Debug.WriteLine("Not updating media information, not activated.");
+                    return;
+                }
+
+                //Check if the media popup is opened or setting is enabled
+                bool mediaUpdatePopup = false;
+                bool mediaUpdateSetting = Convert.ToBoolean(ConfigurationManager.AppSettings["ShowMediaMain"]);
+
+                await AVActions.ActionDispatcherInvokeAsync(delegate
+                {
+                    mediaUpdatePopup = grid_Popup_Media.Visibility == Visibility.Visible;
+                    if (!mediaUpdateSetting)
+                    {
+                        main_Media_Information.Visibility = Visibility.Collapsed;
+                    }
+                });
+
+                if (!mediaUpdatePopup && !mediaUpdateSetting)
+                {
+                    //Debug.WriteLine("Not updating media information, disabled.");
                     return;
                 }
 
@@ -220,6 +239,13 @@ namespace CtrlUI
                 //Update the media and volume information
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    if (mediaUpdateSetting)
+                    {
+                        main_Media_Information_Artist.Text = mediaArtist;
+                        main_Media_Information_Title.Text = mediaTitle;
+                        main_Media_Information.Visibility = Visibility.Visible;
+                    }
+
                     grid_Popup_Media_Information_Artist.Text = mediaArtist;
                     grid_Popup_Media_Information_Title.Text = mediaTitle;
                     grid_Popup_Media_Information_Album.Text = mediaAlbum;
@@ -234,6 +260,7 @@ namespace CtrlUI
                 //Debug.WriteLine("Failed updating playing media.");
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    main_Media_Information.Visibility = Visibility.Collapsed;
                     grid_Popup_Media_Information.Visibility = Visibility.Collapsed;
                 });
             }

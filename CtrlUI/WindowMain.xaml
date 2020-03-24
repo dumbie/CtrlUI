@@ -43,6 +43,13 @@
                 </Button>
             </StackPanel>
 
+            <!-- Status - Media Information -->
+            <StackPanel x:Name="main_Media_Information" Visibility="Collapsed" Orientation="Horizontal" MinHeight="40" MaxWidth="600" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <TextBlock Name="main_Media_Information_Artist" VerticalAlignment="Center" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeMedium}" Text="Artist"/>
+                <TextBlock VerticalAlignment="Center" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeSmall}" Text=" - "/>
+                <TextBlock Name="main_Media_Information_Title" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeMedium}" Text="Title"/>
+            </StackPanel>
+
             <!-- Application Lists -->
             <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
                 <StackPanel Margin="20,10,20,0">
@@ -670,6 +677,9 @@
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Interface Settings"/>
                         <CheckBox Name="cb_SettingsCloseMediaScreen" Content="Close media screen after media change" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                         <TextBlock Text="Enabling this will close the media control screen after changing the playing media on the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <CheckBox Name="cb_SettingsShowMediaMain" Content="Show media information on main screen"  Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                        <TextBlock Text="Enabling this will show your currently playing media information on top of the main screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                         <CheckBox Name="cb_SettingsMinimizeAppOnShow" Content="Minimize when showing application" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                         <TextBlock Text="Enabling this will minimize CtrlUI when you launch a new application or show a running process." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
