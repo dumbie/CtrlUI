@@ -12,6 +12,7 @@ using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
+using static CtrlUI.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -129,10 +130,11 @@ namespace CtrlUI
                 //Get the current audio volume and mute status
                 string currentVolumeString = string.Empty;
                 int currentVolumeInt = AudioVolumeGet();
+                bool currentVolumeMuted = AudioMuteGetStatus();
                 if (currentVolumeInt >= 0)
                 {
                     currentVolumeString = "Volume " + currentVolumeInt + "%";
-                    if (AudioMuteGetStatus())
+                    if (currentVolumeMuted)
                     {
                         currentVolumeString += " (Muted)";
                     }
@@ -149,9 +151,11 @@ namespace CtrlUI
                 GlobalSystemMediaTransportControlsSession smtcSession = smtcSessionManager.GetCurrentSession();
                 GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline = smtcSession.GetTimelineProperties();
                 GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties = await smtcSession.TryGetMediaPropertiesAsync();
+                GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo = smtcSession.GetPlaybackInfo();
 
                 //Debug.WriteLine("Media: " + mediaProperties.Title + "/" + mediaProperties.Artist + "/" + mediaProperties.AlbumTitle + "/" + mediaProperties.Subtitle + "/" + mediaProperties.PlaybackType + "/" + mediaProperties.TrackNumber + "/" + mediaProperties.AlbumTrackCount);
                 //Debug.WriteLine("Time: " + mediaTimeline.Position + "/" + mediaTimeline.StartTime + "/" + mediaTimeline.EndTime);
+                //Debug.WriteLine("Play: " + mediaPlayInfo.PlaybackStatus + "/" + mediaPlayInfo.PlaybackType);
 
                 //Load the media artist
                 string mediaArtist = mediaProperties.Artist;
@@ -242,7 +246,15 @@ namespace CtrlUI
                     if (mediaUpdateSetting)
                     {
                         main_Media_Information_Artist.Text = mediaArtist;
-                        main_Media_Information_Title.Text = mediaTitle;
+                        main_Media_Information_Title.Text = " " + mediaTitle;
+                        if (currentVolumeInt == 0 || currentVolumeMuted)
+                        {
+                            main_Media_Information_Volume.Text = " (Muted)";
+                        }
+                        else
+                        {
+                            main_Media_Information_Volume.Text = string.Empty;
+                        }
                         main_Media_Information.Visibility = Visibility.Visible;
                     }
 
@@ -253,6 +265,31 @@ namespace CtrlUI
                     grid_Popup_Media_Information_Progress.Value = mediaProgress;
                     grid_Popup_Media_Information_Thumbnail.Source = thumbnailBitmap;
                     grid_Popup_Media_Information.Visibility = Visibility.Visible;
+
+                    if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
+                    {
+                        string currentImage = grid_Popup_Media_PlayPause_Image.Source.ToString();
+                        string updatedImage = "pack://application:,,,/Assets/Icons/Pause.png";
+                        if (currentImage.ToLower() != updatedImage.ToLower())
+                        {
+                            grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1, 0);
+                        }
+
+                        main_Media_Information_Artist.Style = Application.Current.Resources["TextBlockAccentLight"] as Style;
+                        main_Media_Information_Title.Style = Application.Current.Resources["TextBlockWhiteLight"] as Style;
+                    }
+                    else
+                    {
+                        string currentImage = grid_Popup_Media_PlayPause_Image.Source.ToString();
+                        string updatedImage = "pack://application:,,,/Assets/Icons/Play.png";
+                        if (currentImage.ToLower() != updatedImage.ToLower())
+                        {
+                            grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1, 0);
+                        }
+
+                        main_Media_Information_Artist.Style = Application.Current.Resources["TextBlockGrayLight"] as Style;
+                        main_Media_Information_Title.Style = Application.Current.Resources["TextBlockGrayLight"] as Style;
+                    }
                 });
             }
             catch
