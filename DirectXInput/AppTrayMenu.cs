@@ -84,7 +84,7 @@ namespace DirectXInput
         {
             try
             {
-                await Application_Exit(true);
+                await Application_Exit();
             }
             catch { }
         }

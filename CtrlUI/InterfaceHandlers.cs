@@ -1,10 +1,6 @@
-﻿using System.IO;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Classes;
 
 namespace CtrlUI
 {
@@ -86,22 +82,6 @@ namespace CtrlUI
                     if (e.LeftButton == MouseButtonState.Pressed) { vMousePressDownLeftClick = true; }
                     else if (e.RightButton == MouseButtonState.Pressed) { vMousePressDownRightClick = true; }
                     else if (e.XButton1 == MouseButtonState.Pressed) { vMousePressDownXButton1 = true; }
-                }
-            }
-            catch { }
-        }
-
-        //Handle exe file getting dropped into the window
-        async void Application_DragDropFile(object sender, DragEventArgs e)
-        {
-            try
-            {
-                string[] DroppedFiles = (string[])e.Data.GetData(DataFormats.FileDrop);
-                string DroppedFile = DroppedFiles.FirstOrDefault();
-                if (DroppedFile.EndsWith(".exe"))
-                {
-                    DataBindApp DropApp = new DataBindApp() { Type = ProcessType.Win32, PathExe = DroppedFile, PathLaunch = Path.GetDirectoryName(DroppedFile) };
-                    await Popup_Show_AppDrop(DropApp);
                 }
             }
             catch { }

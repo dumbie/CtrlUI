@@ -553,68 +553,8 @@ namespace CtrlUI
                 Button ButtonSender = (sender as Button);
                 string ButtonName = ButtonSender.Name;
 
-                //Change the manage application category
-                if (ButtonName == "btn_Manage_AddAppCategory")
-                {
-                    //Check if the application is UWP
-                    bool UwpApplication = sp_AddAppExePath.Visibility == Visibility.Collapsed;
-
-                    //Add application type categories
-                    vFilePickerStrings.Clear();
-
-                    BitmapImage imageGame = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
-                    DataBindString stringGame = new DataBindString() { Name = "Game", NameDetail = "Game", ImageBitmap = imageGame };
-                    vFilePickerStrings.Add(stringGame);
-
-                    BitmapImage imageApp = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
-                    DataBindString stringApp = new DataBindString() { Name = "App & Media", NameDetail = "App", ImageBitmap = imageApp };
-                    vFilePickerStrings.Add(stringApp);
-
-                    if (!UwpApplication)
-                    {
-                        BitmapImage imageEmulator = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
-                        DataBindString stringEmulator = new DataBindString() { Name = "Emulator", NameDetail = "Emulator", ImageBitmap = imageEmulator };
-                        vFilePickerStrings.Add(stringEmulator);
-                    }
-
-                    vFilePickerFilterIn = new List<string>();
-                    vFilePickerFilterOut = new List<string>();
-                    vFilePickerTitle = "Application Category";
-                    vFilePickerDescription = "Please select a new application category:";
-                    vFilePickerShowNoFile = false;
-                    vFilePickerShowRoms = false;
-                    vFilePickerShowFiles = false;
-                    vFilePickerShowDirectories = false;
-                    grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                    await Popup_Show_FilePicker("String", -1, false, null);
-
-                    while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
-                    if (vFilePickerCancelled) { return; }
-
-                    image_Manage_AddAppCategory.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + vFilePickerResult.PathFile + ".png" }, IntPtr.Zero, -1, 0);
-                    textblock_Manage_AddAppCategory.Text = vFilePickerResult.Name;
-                    btn_Manage_AddAppCategory.Tag = vFilePickerResult.PathFile;
-
-                    if (UwpApplication || vFilePickerResult.PathFile != "Emulator")
-                    {
-                        sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        sp_AddAppPathRoms.Visibility = Visibility.Visible;
-                    }
-
-                    if (UwpApplication || vFilePickerResult.PathFile != "App")
-                    {
-                        checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible;
-                    }
-                }
                 //Change the quick launch app
-                else if (ButtonName == "btn_Settings_AppQuickLaunch")
+                if (ButtonName == "btn_Settings_AppQuickLaunch")
                 {
                     //Add all apps to the string list
                     vFilePickerStrings.Clear();

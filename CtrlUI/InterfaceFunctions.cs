@@ -141,9 +141,9 @@ namespace CtrlUI
                 //Manage functions
                 btn_Manage_ResetAppLogo.Click += Button_Manage_ResetAppLogo_Click;
                 btn_Manage_SaveEditApp.Click += Button_Manage_SaveEditApp_Click;
-                btn_Manage_AddAppCategory.Click += Button_ShowStringPicker;
                 btn_Manage_MoveAppLeft.Click += Btn_Manage_MoveAppLeft_Click;
                 btn_Manage_MoveAppRight.Click += Btn_Manage_MoveAppRight_Click;
+                lb_Manage_AddAppCategory.SelectionChanged += Lb_Manage_AddAppCategory_SelectionChanged;
 
                 //Media functions
                 grid_Popup_Media_Previous.Click += Button_Media_PreviousItem;
@@ -239,10 +239,6 @@ namespace CtrlUI
                 this.PreviewMouseMove += WindowMain_MouseMove;
                 this.PreviewMouseDown += WindowMain_PreviewMouseDown;
                 this.PreviewKeyUp += WindowMain_KeyPressUp;
-
-                //Allow files to be dropped into window
-                this.PreviewDrop += Application_DragDropFile;
-                this.AllowDrop = true;
 
                 Debug.WriteLine("Registered all the interface handlers.");
             }

@@ -73,4 +73,16 @@
             </styles:ScrollViewerLoopVertical>
         </Grid>
     </DataTemplate>
+
+    <!-- ListBoxItemAppCategory -->
+    <DataTemplate x:Key="ListBoxItemAppCategory">
+        <Grid Margin="5" Width="130">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="{Binding ImageBitmap}" Width="50" Height="50"/>
+            <TextBlock Grid.Row="1" Text="{Binding Name}" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" TextAlignment="Center"/>
+        </Grid>
+    </DataTemplate>
 </ResourceDictionary>

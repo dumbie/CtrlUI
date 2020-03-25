@@ -184,18 +184,31 @@ namespace CtrlUI
                     vEditAppDataBind = (DataBindApp)editListBox.SelectedItem;
                     vEditAppCategoryPrevious = vEditAppDataBind.Category;
 
-                    //Load the application category
-                    if (vEditAppDataBind.Category == AppCategory.App)
+                    //Load the application categories
+                    List<DataBindString> listAppCategories = new List<DataBindString>();
+
+                    DataBindString categoryApp = new DataBindString();
+                    categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                    categoryApp.Name = "App & Media";
+                    listAppCategories.Add(categoryApp);
+
+                    DataBindString categoryGame = new DataBindString();
+                    categoryGame.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
+                    categoryGame.Name = "Game";
+                    listAppCategories.Add(categoryGame);
+
+                    if (vEditAppDataBind.Type != ProcessType.UWP)
                     {
-                        textblock_Manage_AddAppCategory.Text = "App & Media";
-                    }
-                    else
-                    {
-                        textblock_Manage_AddAppCategory.Text = vEditAppDataBind.Category.ToString();
+                        DataBindString categoryEmulator = new DataBindString();
+                        categoryEmulator.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
+                        categoryEmulator.Name = "Emulator";
+                        listAppCategories.Add(categoryEmulator);
                     }
 
-                    image_Manage_AddAppCategory.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + vEditAppDataBind.Category + ".png" }, IntPtr.Zero, -1, 0);
-                    btn_Manage_AddAppCategory.Tag = vEditAppDataBind.Category;
+                    lb_Manage_AddAppCategory.ItemsSource = listAppCategories;
+
+                    //Select current application category
+                    lb_Manage_AddAppCategory.SelectedIndex = (int)vEditAppDataBind.Category;
 
                     //Load application image
                     img_AddAppLogo.Source = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, IntPtr.Zero, 120, 0);
@@ -212,7 +225,6 @@ namespace CtrlUI
                     //Hide and show situation based settings
                     if (vEditAppDataBind.Type == ProcessType.UWP)
                     {
-                        sp_AddAppName.Visibility = Visibility.Collapsed;
                         sp_AddAppExePath.Visibility = Visibility.Collapsed;
                         sp_AddAppPathLaunch.Visibility = Visibility.Collapsed;
                         sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
@@ -221,7 +233,6 @@ namespace CtrlUI
                     }
                     else
                     {
-                        sp_AddAppName.Visibility = Visibility.Visible;
                         sp_AddAppExePath.Visibility = Visibility.Visible;
                         sp_AddAppPathLaunch.Visibility = Visibility.Visible;
                         if (vEditAppDataBind.Category == AppCategory.Emulator) { sp_AddAppPathRoms.Visibility = Visibility.Visible; } else { sp_AddAppPathRoms.Visibility = Visibility.Collapsed; }
@@ -236,52 +247,34 @@ namespace CtrlUI
             catch { }
         }
 
-        //Show the application drop popup
-        async Task Popup_Show_AppDrop(DataBindApp dataBindApp)
+        //Update manage interface according to category
+        void Lb_Manage_AddAppCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
-                //Reset the current edit application
-                vEditAppDataBind = null;
+                //Get the currently selected category
+                AppCategory selectedAddCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
 
-                grid_Popup_Manage_txt_Title.Text = "Dropped application";
-                btn_AddAppLogo.IsEnabled = true;
-                btn_Manage_ResetAppLogo.IsEnabled = true;
-                tb_AddAppName.IsEnabled = true;
-                tb_AddAppExePath.IsEnabled = true;
-                tb_AddAppPathLaunch.IsEnabled = true;
-                btn_AddAppPathLaunch.IsEnabled = true;
-                tb_AddAppPathRoms.IsEnabled = false;
-                btn_Manage_SaveEditApp.Content = "Add the application as filled in above";
-                grid_EditMoveApp.Visibility = Visibility.Collapsed;
+                //Check if the application is UWP
+                bool UwpApplication = sp_AddAppExePath.Visibility == Visibility.Collapsed;
 
-                //Load the application category
-                image_Manage_AddAppCategory.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
-                textblock_Manage_AddAppCategory.Text = "Game";
-                btn_Manage_AddAppCategory.Tag = "Game";
+                if (UwpApplication || selectedAddCategory != AppCategory.Emulator)
+                {
+                    sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    sp_AddAppPathRoms.Visibility = Visibility.Visible;
+                }
 
-                //Load application image
-                img_AddAppLogo.Source = FileToBitmapImage(new string[] { dataBindApp.PathExe }, IntPtr.Zero, 120, 0);
-
-                //Fill the text boxes with application details
-                tb_AddAppName.Text = Path.GetFileNameWithoutExtension(dataBindApp.PathExe);
-                tb_AddAppExePath.Text = dataBindApp.PathExe;
-                tb_AddAppPathLaunch.Text = dataBindApp.PathLaunch;
-                tb_AddAppPathRoms.Text = string.Empty;
-                tb_AddAppArgument.Text = string.Empty;
-                checkbox_AddLaunchFilePicker.IsChecked = false;
-                checkbox_AddLaunchKeyboard.IsChecked = false;
-
-                //Hide and show situation based settings
-                sp_AddAppName.Visibility = Visibility.Visible;
-                sp_AddAppExePath.Visibility = Visibility.Visible;
-                sp_AddAppPathLaunch.Visibility = Visibility.Visible;
-                sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
-                checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
-                sp_AddAppArgument.Visibility = Visibility.Visible;
-
-                //Show the manage popup
-                await Popup_Show(grid_Popup_Manage, btn_Manage_SaveEditApp, true);
+                if (UwpApplication || selectedAddCategory != AppCategory.App)
+                {
+                    checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible;
+                }
             }
             catch { }
         }
@@ -305,10 +298,28 @@ namespace CtrlUI
                 btn_Manage_SaveEditApp.Content = "Add the application as filled in above";
                 grid_EditMoveApp.Visibility = Visibility.Collapsed;
 
-                //Load the application category
-                image_Manage_AddAppCategory.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
-                textblock_Manage_AddAppCategory.Text = "Game";
-                btn_Manage_AddAppCategory.Tag = "Game";
+                //Load the application categories
+                List<DataBindString> listAppCategories = new List<DataBindString>();
+
+                DataBindString categoryApp = new DataBindString();
+                categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                categoryApp.Name = "App & Media";
+                listAppCategories.Add(categoryApp);
+
+                DataBindString categoryGame = new DataBindString();
+                categoryGame.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
+                categoryGame.Name = "Game";
+                listAppCategories.Add(categoryGame);
+
+                DataBindString categoryEmulator = new DataBindString();
+                categoryEmulator.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
+                categoryEmulator.Name = "Emulator";
+                listAppCategories.Add(categoryEmulator);
+
+                lb_Manage_AddAppCategory.ItemsSource = listAppCategories;
+
+                //Select current application category
+                lb_Manage_AddAppCategory.SelectedIndex = 1;
 
                 //Load application image
                 img_AddAppLogo.Source = FileToBitmapImage(new string[] { "Assets\\Apps\\Unknown.png" }, IntPtr.Zero, 120, 0);
@@ -323,7 +334,6 @@ namespace CtrlUI
                 checkbox_AddLaunchKeyboard.IsChecked = false;
 
                 //Hide and show situation based settings
-                sp_AddAppName.Visibility = Visibility.Visible;
                 sp_AddAppExePath.Visibility = Visibility.Visible;
                 sp_AddAppPathLaunch.Visibility = Visibility.Visible;
                 sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
@@ -396,7 +406,7 @@ namespace CtrlUI
             try
             {
                 //Check the selected application category
-                Enum.TryParse(btn_Manage_AddAppCategory.Tag.ToString(), out AppCategory selectedAddCategory);
+                AppCategory selectedAddCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
 
                 //Check if there is an application name set
                 if (string.IsNullOrWhiteSpace(tb_AddAppName.Text) || tb_AddAppName.Text == "Select application executable file first")
@@ -678,7 +688,7 @@ namespace CtrlUI
                     await RefreshApplicationLists(true, true, true, false, false, false, false);
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Debug.WriteLine("App edit failed: " + ex.Message);
             }

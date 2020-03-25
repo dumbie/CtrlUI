@@ -349,7 +349,7 @@ namespace CtrlUI
             try
             {
                 e.Cancel = true;
-                await Application_Exit(false);
+                await Application_Exit_Prompt();
             }
             catch { }
         }
@@ -360,45 +360,100 @@ namespace CtrlUI
             try
             {
                 await ProcessLauncherWin32Async("CtrlUI.exe", "", "", false, false);
-                await Application_Exit(true);
+                await Application_Exit();
             }
             catch { }
         }
 
-        //Close the application
-        public async Task Application_Exit(bool silentClose)
+        //Application close prompt
+        async Task Application_Exit_Prompt()
         {
             try
             {
+                //Force focus on CtrlUI
+                FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+
+                //Show the closing messagebox
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
                 Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Close CtrlUI";
                 Answers.Add(Answer1);
 
-                DataBindString messageResult = null;
-                if (!silentClose)
+                DataBindString Answer4 = new DataBindString();
+                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Restart.png" }, IntPtr.Zero, -1, 0);
+                Answer4.Name = "Restart CtrlUI";
+                Answers.Add(Answer4);
+
+                DataBindString Answer3 = new DataBindString();
+                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Shutdown.png" }, IntPtr.Zero, -1, 0);
+                Answer3.Name = "Shutdown my PC";
+                Answers.Add(Answer3);
+
+                DataBindString Answer2 = new DataBindString();
+                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Restart.png" }, IntPtr.Zero, -1, 0);
+                Answer2.Name = "Restart my PC";
+                Answers.Add(Answer2);
+
+                DataBindString messageResult = await Popup_Show_MessageBox("Would you like to close CtrlUI or shutdown your PC?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);
+                if (messageResult != null)
                 {
-                    //Force focus on CtrlUI
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+                    if (messageResult == Answer1)
+                    {
+                        Popup_Show_Status("Closing", "Closing CtrlUI");
+                        await Application_Exit();
+                    }
+                    else if (messageResult == Answer4)
+                    {
+                        Popup_Show_Status("Closing", "Restarting CtrlUI");
+                        await Application_Restart();
+                    }
+                    else if (messageResult == Answer2)
+                    {
+                        Popup_Show_Status("Shutdown", "Restarting your PC");
 
-                    //Show the question messagebox
-                    messageResult = await Popup_Show_MessageBox("Do you really want to close CtrlUI?", "If you have DirectXInput running and a controller connected you can launch CtrlUI by pressing on the 'Guide' button.", "", Answers);
+                        //Close all other launchers
+                        await CloseLaunchers(true);
+
+                        //Restart the PC
+                        await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/r /t 0", false, true);
+
+                        //Close CtrlUI
+                        await Application_Exit();
+                    }
+                    else if (messageResult == Answer3)
+                    {
+                        Popup_Show_Status("Shutdown", "Shutting down your PC");
+
+                        //Close all other launchers
+                        await CloseLaunchers(true);
+
+                        //Shutdown the PC
+                        await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\shutdown.exe", "", "/s /t 0", false, true);
+
+                        //Close CtrlUI
+                        await Application_Exit();
+                    }
                 }
+            }
+            catch { }
+        }
 
-                if (silentClose || (messageResult != null && messageResult == Answer1))
-                {
-                    Debug.WriteLine("Exiting application.");
+        //Close the application
+        public async Task Application_Exit()
+        {
+            try
+            {
+                Debug.WriteLine("Exiting application.");
 
-                    //Stop the background tasks
-                    TasksBackgroundStop();
+                //Stop the background tasks
+                TasksBackgroundStop();
 
-                    //Disable the socket server
-                    await vArnoldVinkSockets.SocketServerDisable();
+                //Disable the socket server
+                await vArnoldVinkSockets.SocketServerDisable();
 
-                    //Close the application
-                    Environment.Exit(0);
-                }
+                //Close the application
+                Environment.Exit(0);
             }
             catch { }
         }

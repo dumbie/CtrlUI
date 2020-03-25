@@ -40,7 +40,7 @@ namespace CtrlUI
                             if (messageResult != null && messageResult == Answer1)
                             {
                                 await ProcessLauncherWin32Async("Updater.exe", "", "", false, false);
-                                await Application_Exit(true);
+                                await Application_Exit();
                             }
                         }
                     }

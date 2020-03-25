@@ -54,7 +54,7 @@ namespace CtrlUI
                     else if (SelStackPanel.Name == "menuButtonHelp") { await Popup_Show(grid_Popup_Help, btn_Help_Focus, true); }
                     else if (SelStackPanel.Name == "menuButtonCloseLaunchers") { await CloseLaunchers(false); }
                     else if (SelStackPanel.Name == "menuButtonDisconnect") { await CloseStreamers(); }
-                    else if (SelStackPanel.Name == "menuButtonShutdown") { await Popup_Show_MessageBox_Shutdown(); }
+                    else if (SelStackPanel.Name == "menuButtonShutdown") { await Application_Exit_Prompt(); }
                     else if (SelStackPanel.Name == "menuButtonShowFileManager") { await ShowFileManager(); }
                     else if (SelStackPanel.Name == "menuButtonProfileManager") { await Popup_Show_ProfileManager(); }
                     else if (SelStackPanel.Name == "menuButtonEmptyRecycleBin") { await RecycleBin_Empty(); }

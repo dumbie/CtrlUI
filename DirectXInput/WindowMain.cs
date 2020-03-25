@@ -250,52 +250,51 @@ namespace DirectXInput
             try
             {
                 e.Cancel = true;
-                await Application_Exit(false);
+                await Application_Exit_Prompt();
+            }
+            catch { }
+        }
+
+        //Application close prompt
+        public async Task Application_Exit_Prompt()
+        {
+            try
+            {
+                int messageResult = await MessageBoxPopup("Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", "Close", "Cancel", "", "");
+                if (messageResult == 1)
+                {
+                    await Application_Exit();
+                }
             }
             catch { }
         }
 
         //Close the application
-        async Task<bool> Application_Exit(bool silentClose)
+        public async Task Application_Exit()
         {
             try
             {
-                int messageResult = 2; //Cancel
-                if (!silentClose)
-                {
-                    messageResult = await MessageBoxPopup("Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", "Close", "Cancel", "", "");
-                }
-                else
-                {
-                    messageResult = 1;
-                }
+                Debug.WriteLine("Exiting application.");
 
-                if (messageResult == 1)
-                {
-                    Debug.WriteLine("Exiting application.");
+                //Close the keyboard controller
+                CloseProcessesByNameOrTitle("KeyboardController", false);
 
-                    //Close the keyboard controller
-                    CloseProcessesByNameOrTitle("KeyboardController", false);
+                //Stop the background tasks
+                TasksBackgroundStop();
 
-                    //Stop the background tasks
-                    TasksBackgroundStop();
+                //Disconnect all the controllers
+                await StopAllControllers();
 
-                    //Disconnect all the controllers
-                    await StopAllControllers();
+                //Disable the socket server
+                await vArnoldVinkSockets.SocketServerDisable();
 
-                    //Disable the socket server
-                    await vArnoldVinkSockets.SocketServerDisable();
+                //Hide the visible tray icon
+                TrayNotifyIcon.Visible = false;
 
-                    //Hide the visible tray icon
-                    TrayNotifyIcon.Visible = false;
-
-                    //Close the application
-                    Environment.Exit(0);
-                    return true;
-                }
-                else { return false; }
+                //Close the application
+                Environment.Exit(0);
             }
-            catch { return true; }
+            catch { }
         }
     }
 }

@@ -67,6 +67,7 @@ namespace CtrlUI
 
                 //Update the interface text
                 grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardType + ") " + vClipboardFile.PathFile;
+                grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
             }
             catch { }
         }
@@ -93,6 +94,7 @@ namespace CtrlUI
 
                 //Update the interface text
                 grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardType + ") " + vClipboardFile.PathFile;
+                grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
             }
             catch { }
         }
@@ -172,6 +174,7 @@ namespace CtrlUI
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         grid_Popup_FilePicker_textblock_ClipboardStatus.Text = string.Empty;
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Collapsed;
                     });
 
                     //Move file or folder
@@ -350,6 +353,7 @@ namespace CtrlUI
                     if (vClipboardFile != null && vClipboardFile.PathFile == dataBindFile.PathFile)
                     {
                         grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardType + ") " + vClipboardFile.PathFile;
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
                     }
 
                     Popup_Show_Status("Rename", "Renamed file or folder");
@@ -450,6 +454,7 @@ namespace CtrlUI
                     vClipboardFile = null;
                     vClipboardType = string.Empty;
                     grid_Popup_FilePicker_textblock_ClipboardStatus.Text = string.Empty;
+                    grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Collapsed;
                 }
 
                 //Remove file from the listbox
