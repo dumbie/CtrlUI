@@ -50,8 +50,8 @@ namespace Updater
             try
             {
                 //Check if previous update files are in the way
-                File_Remove("UpdaterNew.exe");
-                File_Remove("AppUpdate.zip");
+                File_Delete("UpdaterNew.exe");
+                File_Delete("AppUpdate.zip");
 
                 //Check if CtrlUI is running and close it
                 bool CtrlUIRunning = false;
@@ -138,7 +138,7 @@ namespace Updater
                 }
 
                 //Delete the old drivers directory
-                Directory_Remove("Resources/Drivers");
+                Directory_Delete("Resources/Drivers");
 
                 //Extract the downloaded update archive
                 try
@@ -151,7 +151,10 @@ namespace Updater
                             string ExtractPath = AVFunctions.StringReplaceFirst(ZipFile.FullName, "CtrlUI/", "", false);
                             if (!string.IsNullOrWhiteSpace(ExtractPath))
                             {
-                                if (string.IsNullOrWhiteSpace(ZipFile.Name)) { Directory.CreateDirectory(ExtractPath); }
+                                if (string.IsNullOrWhiteSpace(ZipFile.Name)) 
+                                {
+                                    Directory_Create(ExtractPath, false); 
+                                }
                                 else
                                 {
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlApplications.json".ToLower())) { Debug.WriteLine("Skipping: CtrlApplications.json"); continue; }
@@ -194,7 +197,7 @@ namespace Updater
 
                 //Delete the update installation zip file
                 TextBlockUpdate("Cleaning up the update installation files.");
-                File_Remove("AppUpdate.zip");
+                File_Delete("AppUpdate.zip");
 
                 //Start CtrlUI after the update has completed.
                 if (CtrlUIRunning)
@@ -248,7 +251,7 @@ namespace Updater
                 Debug.WriteLine("Exiting application.");
 
                 //Delete the update installation zip file
-                File_Remove("AppUpdate.zip");
+                File_Delete("AppUpdate.zip");
 
                 //Set the exit reason text message
                 TextBlockUpdate(ExitMessage);

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVClassConverters;
+using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
@@ -324,7 +325,7 @@ namespace CtrlUI
                             newFileName += " - Rename (" + fileCount + ")";
                             newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
                         }
-                        Directory.Move(oldFilePath, newFilePath);
+                        Directory_Move(oldFilePath, newFilePath, true);
                     }
                     else
                     {
@@ -338,7 +339,7 @@ namespace CtrlUI
                             newFileName += " - Rename (" + fileCount + ")";
                             newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
                         }
-                        File.Move(oldFilePath, newFilePath);
+                        File_Move(oldFilePath, newFilePath, true);
                     }
 
                     //Update file name in listbox

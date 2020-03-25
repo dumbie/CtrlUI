@@ -112,7 +112,7 @@ namespace CtrlUI
                 else
                 {
                     Debug.WriteLine("Removing application from Windows startup.");
-                    File_Remove(targetFileShortcut);
+                    File_Delete(targetFileShortcut);
                 }
             }
             catch
@@ -132,13 +132,11 @@ namespace CtrlUI
                 string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\" + TargetName + ".url";
                 string TargetFileBoxArtFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\" + TargetName + "\\box-art.png";
                 string TargetFileBoxArtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\" + TargetName;
+                string TargetDirectoryStreamingAssets = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\";
 
-                //Check if the shortcut folder exists
-                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\"))
-                {
-                    Debug.WriteLine("GeForce experience shortcut folder not found, creating it.");
-                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\");
-                }
+                //Check if the Streaming Assets folder exists
+                Directory_Create(TargetDirectoryStreamingAssets, false);
+                Directory_Create(TargetFileBoxArtDirectory, false);
 
                 //Check if the shortcut already exists
                 if (!File.Exists(TargetFileShortcut))
@@ -155,8 +153,7 @@ namespace CtrlUI
                     }
 
                     //Copy art box to the Streaming Assets directory
-                    Directory.CreateDirectory(TargetFileBoxArtFile.Replace("\\box-art.png", ""));
-                    File.Copy("Assets\\BoxArt.png", TargetFileBoxArtFile, true);
+                    File_Copy("Assets\\BoxArt.png", TargetFileBoxArtFile, true);
 
                     btn_Settings_AddGeforceExperience.Content = "Remove CtrlUI from GeForce Experience";
 
@@ -166,14 +163,14 @@ namespace CtrlUI
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
-                    await Popup_Show_MessageBox("CtrlUI has been added to GeForce Experience", "", "You can now remotely launch the Controller User Interface from your devices.", Answers);
+                    await Popup_Show_MessageBox("CtrlUI has been added to GeForce Experience", "", "You can now remotely launch CtrlUI from your devices.", Answers);
                 }
                 else
                 {
                     Debug.WriteLine("Removing application from GeForce Experience");
 
-                    File_Remove(TargetFileShortcut);
-                    Directory_Remove(TargetFileBoxArtDirectory);
+                    File_Delete(TargetFileShortcut);
+                    Directory_Delete(TargetFileBoxArtDirectory);
 
                     btn_Settings_AddGeforceExperience.Content = "Add CtrlUI to GeForce Experience";
 
@@ -186,7 +183,7 @@ namespace CtrlUI
                     await Popup_Show_MessageBox("CtrlUI has been removed from GeForce Experience", "", "", Answers);
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
@@ -194,6 +191,7 @@ namespace CtrlUI
                 Answer1.Name = "Alright";
                 Answers.Add(Answer1);
 
+                Debug.WriteLine("Failed add GeForce Experience: " + ex.Message);
                 await Popup_Show_MessageBox("Failed to add CtrlUI to GeForce Experience", "", "Please make sure that GeForce experience is installed.", Answers);
             }
         }

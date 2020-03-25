@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
@@ -708,7 +709,7 @@ namespace CtrlUI
                     }
 
                     //Copy the new application image
-                    File.Copy(vFilePickerResult.PathFile, "Assets\\Apps\\" + tb_AddAppName.Text + ".png", true);
+                    File_Copy(vFilePickerResult.PathFile, "Assets\\Apps\\" + tb_AddAppName.Text + ".png", true);
                 }
                 else if (ButtonName == "btn_AddAppExePath")
                 {
@@ -805,7 +806,7 @@ namespace CtrlUI
                     UnloadBackgroundMedia();
 
                     //Copy new background file
-                    File.Copy(vFilePickerResult.PathFile, "Assets\\Background.png", true);
+                    File_Copy(vFilePickerResult.PathFile, "Assets\\Background.png", true);
 
                     //Disable video background
                     cb_SettingsVideoBackground.IsChecked = false;
@@ -840,7 +841,7 @@ namespace CtrlUI
                     UnloadBackgroundMedia();
 
                     //Copy new background file
-                    File.Copy(vFilePickerResult.PathFile, "Assets\\BackgroundLive.mp4", true);
+                    File_Copy(vFilePickerResult.PathFile, "Assets\\BackgroundLive.mp4", true);
 
                     //Enable video background
                     cb_SettingsVideoBackground.IsChecked = true;

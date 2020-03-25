@@ -69,7 +69,7 @@ namespace DirectXInput
                 else
                 {
                     Debug.WriteLine("Removing application from Windows startup.");
-                    File_Remove(targetFileShortcut);
+                    File_Delete(targetFileShortcut);
                 }
             }
             catch

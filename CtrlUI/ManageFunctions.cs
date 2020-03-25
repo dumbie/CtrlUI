@@ -145,8 +145,8 @@ namespace CtrlUI
                     }
                     else
                     {
-                        File_Remove(imageFileTitle);
-                        File_Remove(imageFileExe);
+                        File_Delete(imageFileTitle);
+                        File_Delete(imageFileExe);
                     }
                 }
 
@@ -356,8 +356,8 @@ namespace CtrlUI
                     }
 
                     //Remove application image files
-                    File_Remove(imageFileTitle);
-                    File_Remove(imageFileExe);
+                    File_Delete(imageFileTitle);
+                    File_Delete(imageFileExe);
 
                     //Reload the application image
                     BitmapImage applicationImage = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, IntPtr.Zero, 120, 0);
@@ -379,8 +379,8 @@ namespace CtrlUI
                     }
 
                     //Remove application image files
-                    File_Remove(imageFileTitle);
-                    File_Remove(imageFileExe);
+                    File_Delete(imageFileTitle);
+                    File_Delete(imageFileExe);
 
                     //Reload the application image
                     BitmapImage applicationImage = FileToBitmapImage(new string[] { tb_AddAppName.Text, tb_AddAppExePath.Text }, IntPtr.Zero, 120, 0);
@@ -539,9 +539,9 @@ namespace CtrlUI
                 else
                 {
                     //Check if application name already exists
-                    if (vEditAppDataBind.Name == tb_AddAppName.Text)
+                    if (vEditAppDataBind.Name.ToLower() == tb_AddAppName.Text.ToLower())
                     {
-                        Debug.WriteLine("Application name has not changed.");
+                        Debug.WriteLine("Application name has not changed or just caps.");
                     }
                     else if (CombineAppLists(false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower()))
                     {
@@ -584,11 +584,11 @@ namespace CtrlUI
                         if (defaultImage)
                         {
                             Debug.WriteLine("Default application images cannot be renamed.");
-                            File.Copy(imageFileNameOld, imageFileNameNew, true);
+                            File_Copy(imageFileNameOld, imageFileNameNew, true);
                         }
                         else
                         {
-                            File_Rename(imageFileNameOld, imageFileNameNew, true);
+                            File_Move(imageFileNameOld, imageFileNameNew, true);
                         }
                     }
 
@@ -678,7 +678,10 @@ namespace CtrlUI
                     await RefreshApplicationLists(true, true, true, false, false, false, false);
                 }
             }
-            catch { }
+            catch (Exception ex) 
+            {
+                Debug.WriteLine("App edit failed: " + ex.Message);
+            }
         }
 
         void Btn_Manage_MoveAppRight_Click(object sender, RoutedEventArgs e)

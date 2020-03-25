@@ -235,7 +235,7 @@ namespace CtrlUI
                     string fileExtension = Path.GetExtension(dataBindApp.ShortcutPath);
                     string newFilePath = Path.Combine(shortcutDirectory, textInputString + fileExtension);
 
-                    File_Rename(dataBindApp.ShortcutPath, newFilePath, true);
+                    File_Move(dataBindApp.ShortcutPath, newFilePath, true);
                     dataBindApp.Name = textInputString;
                     dataBindApp.ShortcutPath = newFilePath;
 
