@@ -88,6 +88,15 @@ namespace CtrlUI
         {
             try
             {
+                //Check if the shortcut is available
+                if (dataBindApp.Category == AppCategory.Shortcut && dataBindApp.StatusAvailable == Visibility.Visible)
+                {
+                    Debug.WriteLine("Remove shortcut prompt: " + dataBindApp.ShortcutPath);
+                    await RemoveShortcutFilePrompt(dataBindApp);
+                    return;
+                }
+
+                //Check the application category
                 if (dataBindApp.Category == AppCategory.Process)
                 {
                     //Get the process multi

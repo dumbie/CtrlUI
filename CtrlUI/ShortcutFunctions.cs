@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using static ArnoldVinkCode.ProcessClasses;
@@ -31,6 +32,30 @@ namespace CtrlUI
             }
             catch { }
             return shortcutFilename;
+        }
+
+        //Remove shortcut file prompt
+        async Task RemoveShortcutFilePrompt(DataBindApp dataBindApp)
+        {
+            try
+            {
+                List<DataBindString> Answers = new List<DataBindString>();
+
+                DataBindString AnswerRemove = new DataBindString();
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
+                AnswerRemove.Name = "Move shortcut file to recycle bin";
+                Answers.Add(AnswerRemove);
+
+                DataBindString messageResult = await Popup_Show_MessageBox("Shortcut target path no longer exists", string.Empty, "Would you like to remove the shortcut file?", Answers);
+                if (messageResult != null)
+                {
+                    if (messageResult == AnswerRemove)
+                    {
+                        await RemoveShortcutFile(lb_Shortcuts, lb_Shortcuts.SelectedIndex, dataBindApp);
+                    }
+                }
+            }
+            catch { }
         }
 
         //Get details from a shortcut file
@@ -206,18 +231,25 @@ namespace CtrlUI
                 string targetPathLower = shortcutDetails.TargetPath.ToLower();
                 Visibility shortcutLauncher = Visibility.Collapsed;
                 Visibility shortcutWindowStore = Visibility.Collapsed;
+                Visibility shortcutAvailable = Visibility.Collapsed;
                 ProcessType shortcutProcessType = ProcessType.Win32;
 
                 //Check if executable or launcher app shortcut
                 if (targetPathLower.EndsWith(".exe"))
                 {
                     //Check if the executable still exists
-                    if (!File.Exists(targetPathLower)) { return; }
+                    if (!File.Exists(targetPathLower))
+                    {
+                        shortcutAvailable = Visibility.Visible;
+                    }
                 }
                 else if (targetPathLower.EndsWith(".bat"))
                 {
                     //Check if the bat file still exists
-                    if (!File.Exists(targetPathLower)) { return; }
+                    if (!File.Exists(targetPathLower))
+                    {
+                        shortcutAvailable = Visibility.Visible;
+                    }
                 }
                 else if (targetPathLower.Contains("://"))
                 {
@@ -230,15 +262,25 @@ namespace CtrlUI
                     shortcutProcessType = ProcessType.UWP;
                     shortcutWindowStore = Visibility.Visible;
 
-                    //Get detailed application information
+                    //Get basic application information
                     Package appPackage = UwpGetAppPackageByAppUserModelId(shortcutDetails.TargetPath);
-                    AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
 
-                    //Set the application icon path
-                    shortcutDetails.IconPath = appxDetails.SquareLargestLogoPath;
+                    //Check if the app still exists
+                    if (appPackage == null)
+                    {
+                        shortcutAvailable = Visibility.Visible;
+                    }
+                    else
+                    {
+                        //Get detailed application information
+                        AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
 
-                    //Set the applicaton exe name
-                    shortcutDetails.NameExe = appxDetails.ExecutableName;
+                        //Set the application icon path
+                        shortcutDetails.IconPath = appxDetails.SquareLargestLogoPath;
+
+                        //Set the applicaton exe name
+                        shortcutDetails.NameExe = appxDetails.ExecutableName;
+                    }
                 }
                 else
                 {
@@ -248,7 +290,11 @@ namespace CtrlUI
 
                 //Get icon image from the path
                 BitmapImage iconBitmapImage = null;
-                if (targetPathLower.EndsWith(".bat"))
+                if (shortcutAvailable == Visibility.Visible)
+                {
+                    iconBitmapImage = FileToBitmapImage(new string[] { "Unknown" }, IntPtr.Zero, 90, 0);
+                }
+                else if (targetPathLower.EndsWith(".bat"))
                 {
                     shortcutLauncher = Visibility.Visible;
                     iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, 90, shortcutDetails.IconIndex);
@@ -259,7 +305,7 @@ namespace CtrlUI
                 }
 
                 //Add the shortcut to the list
-                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusLauncher = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify };
+                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusLauncher = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
                 await ListBoxAddItem(lb_Shortcuts, List_Shortcuts, dataBindApp, false, false);
             }
             catch
