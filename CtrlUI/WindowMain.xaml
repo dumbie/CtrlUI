@@ -219,7 +219,7 @@
                     </StackPanel>
                     <StackPanel Name="menuButtonWindowsStart" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Windows.png" Width="50" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="15,0,0,0" Text="Show Windows start menu" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Show the Windows start menu" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonSorting" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Sorting.png" Width="50" HorizontalAlignment="Center"/>

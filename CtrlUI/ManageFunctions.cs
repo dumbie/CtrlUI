@@ -32,11 +32,17 @@ namespace CtrlUI
                     dataBindApp.Number = GetHighestAppNumber();
                 }
 
-                //Check if application is an Win32 app
+                //Check if application is a Win32 app
                 if (dataBindApp.Type == ProcessType.Win32)
                 {
                     //Check if application still exists
                     if (!File.Exists(dataBindApp.PathExe))
+                    {
+                        dataBindApp.StatusAvailable = Visibility.Visible;
+                    }
+
+                    //Check if the rom folder is available
+                    if (dataBindApp.Category == AppCategory.Emulator && !Directory.Exists(dataBindApp.PathRoms))
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
                     }
@@ -52,12 +58,6 @@ namespace CtrlUI
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
                     }
-                }
-
-                //Check if the rom folder is available
-                if (dataBindApp.Category == AppCategory.Emulator && !Directory.Exists(dataBindApp.PathRoms))
-                {
-                    dataBindApp.StatusAvailable = Visibility.Visible;
                 }
 
                 //Load and set application image
@@ -197,13 +197,10 @@ namespace CtrlUI
                     categoryGame.Name = "Game";
                     listAppCategories.Add(categoryGame);
 
-                    if (vEditAppDataBind.Type != ProcessType.UWP)
-                    {
-                        DataBindString categoryEmulator = new DataBindString();
-                        categoryEmulator.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
-                        categoryEmulator.Name = "Emulator";
-                        listAppCategories.Add(categoryEmulator);
-                    }
+                    DataBindString categoryEmulator = new DataBindString();
+                    categoryEmulator.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
+                    categoryEmulator.Name = "Emulator";
+                    listAppCategories.Add(categoryEmulator);
 
                     lb_Manage_AddAppCategory.ItemsSource = listAppCategories;
 
@@ -360,7 +357,7 @@ namespace CtrlUI
                     bool defaultImage = AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe);
                     if (defaultImage)
                     {
-                        Popup_Show_Status("Close", "Image cannot reset");
+                        Popup_Show_Status("Close", "Cannot reset image");
                         Debug.WriteLine("Default application images cannot be reset.");
                         return;
                     }
@@ -373,6 +370,9 @@ namespace CtrlUI
                     BitmapImage applicationImage = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, IntPtr.Zero, 120, 0);
                     img_AddAppLogo.Source = applicationImage;
                     vEditAppDataBind.ImageBitmap = applicationImage;
+
+                    Popup_Show_Status("Restart", "App image reset");
+                    Debug.WriteLine("App image reset: " + vEditAppDataBind.Name);
                 }
                 else
                 {
@@ -383,7 +383,7 @@ namespace CtrlUI
                     bool defaultImage = AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe);
                     if (defaultImage)
                     {
-                        Popup_Show_Status("Close", "Image cannot reset");
+                        Popup_Show_Status("Close", "Cannot reset image");
                         Debug.WriteLine("Default application images cannot be reset.");
                         return;
                     }
@@ -447,36 +447,10 @@ namespace CtrlUI
                     return;
                 }
 
-                //Check if application is emulator and validate the rom path
-                if (selectedAddCategory == AppCategory.Emulator)
+                //Check if the application paths exist for Win32 apps
+                if (vEditAppDataBind != null && vEditAppDataBind.Type == ProcessType.Win32)
                 {
-                    if (string.IsNullOrWhiteSpace(tb_AddAppPathRoms.Text))
-                    {
-                        List<DataBindString> Answers = new List<DataBindString>();
-                        DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Alright";
-                        Answers.Add(Answer1);
-
-                        await Popup_Show_MessageBox("Please select an emulator rom folder first", "", "", Answers);
-                        return;
-                    }
-                    if (!Directory.Exists(tb_AddAppPathRoms.Text))
-                    {
-                        List<DataBindString> Answers = new List<DataBindString>();
-                        DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Alright";
-                        Answers.Add(Answer1);
-
-                        await Popup_Show_MessageBox("Rom folder not found, please select another one", "", "", Answers);
-                        return;
-                    }
-                }
-
-                //Check if the application paths exist for non uwp apps
-                if (vEditAppDataBind != null && vEditAppDataBind.Type != ProcessType.UWP)
-                {
+                    //Validate the launch target
                     if (!File.Exists(tb_AddAppExePath.Text))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
@@ -489,6 +463,7 @@ namespace CtrlUI
                         return;
                     }
 
+                    //Validate the launch path
                     if (!string.IsNullOrWhiteSpace(tb_AddAppPathLaunch.Text) && !Directory.Exists(tb_AddAppPathLaunch.Text))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
@@ -499,6 +474,33 @@ namespace CtrlUI
 
                         await Popup_Show_MessageBox("Launch folder not found, please select another one", "", "", Answers);
                         return;
+                    }
+
+                    //Check if application is emulator and validate the rom path
+                    if (selectedAddCategory == AppCategory.Emulator)
+                    {
+                        if (string.IsNullOrWhiteSpace(tb_AddAppPathRoms.Text))
+                        {
+                            List<DataBindString> Answers = new List<DataBindString>();
+                            DataBindString Answer1 = new DataBindString();
+                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                            Answer1.Name = "Alright";
+                            Answers.Add(Answer1);
+
+                            await Popup_Show_MessageBox("Please select an emulator rom folder first", "", "", Answers);
+                            return;
+                        }
+                        if (!Directory.Exists(tb_AddAppPathRoms.Text))
+                        {
+                            List<DataBindString> Answers = new List<DataBindString>();
+                            DataBindString Answer1 = new DataBindString();
+                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                            Answer1.Name = "Alright";
+                            Answers.Add(Answer1);
+
+                            await Popup_Show_MessageBox("Rom folder not found, please select another one", "", "", Answers);
+                            return;
+                        }
                     }
                 }
 
@@ -727,6 +729,10 @@ namespace CtrlUI
                 BitmapImage imageApp = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
                 DataBindString stringApp = new DataBindString() { Name = "App & Media", NameDetail = "App", ImageBitmap = imageApp };
                 vFilePickerStrings.Add(stringApp);
+
+                BitmapImage imageEmulator = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
+                DataBindString stringEmulator = new DataBindString() { Name = "Emulator", NameDetail = "Emulator", ImageBitmap = imageEmulator };
+                vFilePickerStrings.Add(stringEmulator);
 
                 //Show the application picker
                 vFilePickerFilterIn = new List<string>();

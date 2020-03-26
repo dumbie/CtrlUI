@@ -35,17 +35,17 @@ namespace CtrlUI
             try
             {
                 //Launch new process
-                if (dataBindApp.Category == AppCategory.Emulator)
+                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
-                    appLaunched = await LaunchProcessDatabindWin32Emulator(dataBindApp);
+                    appLaunched = await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
                 }
                 else if (dataBindApp.LaunchFilePicker)
                 {
                     appLaunched = await LaunchProcessDatabindWin32FilePicker(dataBindApp);
                 }
-                else if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                else if (dataBindApp.Category == AppCategory.Emulator)
                 {
-                    appLaunched = await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
+                    appLaunched = await LaunchProcessDatabindWin32Emulator(dataBindApp);
                 }
                 else
                 {

@@ -325,7 +325,7 @@ namespace CtrlUI
             }
             catch
             {
-                Debug.WriteLine("Failed loading media thumbnail.");
+                //Debug.WriteLine("Failed loading media thumbnail.");
                 return null;
             }
         }
