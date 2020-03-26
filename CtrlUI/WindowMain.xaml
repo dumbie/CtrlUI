@@ -533,7 +533,7 @@
                         </StackPanel>
 
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application category:"/>
-                        <ListBox Name="lb_Manage_AddAppCategory" SelectionMode="Single" Height="90" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemAppCategory}" Style="{StaticResource ListBoxHorizontal}"/>
+                        <ListBox Name="lb_Manage_AddAppCategory" SelectionMode="Single" Height="90" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemAppCategory}" Style="{StaticResource ListBoxHorizontal}" Template="{StaticResource ListBoxHorizontalNoScrollTemplate}"/>
 
                         <StackPanel Name="sp_AddAppExePath">
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application executable:"/>
