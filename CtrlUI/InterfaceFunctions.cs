@@ -751,20 +751,24 @@ namespace CtrlUI
                 int FontSize = Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
                 Debug.WriteLine("Adjusting the font size to: " + FontSize);
 
-                double DefaultTextSizeTiny = 10;
+                double TextSizeTiny = 10;
                 double TextSizeInterface = 16;
                 double TextSizeSmall = 18;
                 double TextSizeMedium = 20;
                 double TextSizeLarge = 24;
                 double TextSizeHuge = 28;
-                double TextSizeTitle = 80;
+                double TextSizePreTitle = 50;
+                double TextSizeSubTitle = 60;
+                double TextSizeTitle = 75;
 
-                Application.Current.Resources["TextSizeTiny"] = DefaultTextSizeTiny + FontSize;
+                Application.Current.Resources["TextSizeTiny"] = TextSizeTiny + FontSize;
                 Application.Current.Resources["TextSizeInterface"] = TextSizeInterface + FontSize;
                 Application.Current.Resources["TextSizeSmall"] = TextSizeSmall + FontSize;
                 Application.Current.Resources["TextSizeMedium"] = TextSizeMedium + FontSize;
                 Application.Current.Resources["TextSizeLarge"] = TextSizeLarge + FontSize;
                 Application.Current.Resources["TextSizeHuge"] = TextSizeHuge + FontSize;
+                Application.Current.Resources["TextSizePreTitle"] = TextSizePreTitle + FontSize;
+                Application.Current.Resources["TextSizeSubTitle"] = TextSizeSubTitle + FontSize;
                 Application.Current.Resources["TextSizeTitle"] = TextSizeTitle + FontSize;
             }
             catch { }

@@ -40,18 +40,26 @@ namespace CtrlUI
                 Answers.Add(Answer4);
 
                 //Get the process running time
-                string applicationRuntime = string.Empty;
+                string processRunningTimeString = string.Empty;
                 if (dataBindApp.Category == AppCategory.Shortcut)
                 {
-                    applicationRuntime = ApplicationRuntimeString(dataBindApp.RunningTime, "shortcut process");
+                    processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "shortcut process");
                 }
                 else
                 {
-                    applicationRuntime = ApplicationRuntimeString(dataBindApp.RunningTime, "application");
+                    processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "application");
+                }
+                if (string.IsNullOrWhiteSpace(processRunningTimeString))
+                {
+                    processRunningTimeString = dataBindApp.PathExe;
+                }
+                else
+                {
+                    processRunningTimeString += "\n" + dataBindApp.PathExe;
                 }
 
                 //Show the messagebox
-                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", applicationRuntime, "", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);
                 if (messageResult != null)
                 {
                     if (messageResult == Answer1)

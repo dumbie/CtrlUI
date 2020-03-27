@@ -96,6 +96,14 @@ namespace CtrlUI
             {
                 //Get the process running time
                 string processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "shortcut process");
+                if (string.IsNullOrWhiteSpace(processRunningTimeString))
+                {
+                    processRunningTimeString = dataBindApp.PathExe;
+                }
+                else
+                {
+                    processRunningTimeString += "\n" + dataBindApp.PathExe;
+                }
 
                 List<DataBindString> Answers = new List<DataBindString>();
 
@@ -114,7 +122,7 @@ namespace CtrlUI
                 AnswerHide.Name = "Hide the shortcut file";
                 Answers.Add(AnswerHide);
 
-                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, dataBindApp.PathExe, Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);
                 if (messageResult != null)
                 {
                     if (messageResult == AnswerRemove)
@@ -297,7 +305,15 @@ namespace CtrlUI
                 ProcessMulti processMulti = dataBindApp.ProcessMulti.FirstOrDefault();
 
                 //Get the process running time
-                string processRunningTime = ApplicationRuntimeString(dataBindApp.RunningTime, "process");
+                string processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "process");
+                if (string.IsNullOrWhiteSpace(processRunningTimeString))
+                {
+                    processRunningTimeString = dataBindApp.PathExe;
+                }
+                else
+                {
+                    processRunningTimeString += "\n" + dataBindApp.PathExe;
+                }
 
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer0 = new DataBindString();
@@ -320,7 +336,7 @@ namespace CtrlUI
                 Answer3.Name = "Launch new instance";
                 Answers.Add(Answer3);
 
-                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTime, "", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);
                 if (messageResult != null)
                 {
                     if (messageResult == Answer0)
@@ -350,7 +366,7 @@ namespace CtrlUI
             {
                 if (runningTime == -2) { return string.Empty; }
                 else if (runningTime == -1) { return "This " + appCategory + " has been running for an unknown duration."; }
-                else if (runningTime == 0) { return "This " + appCategory + " has not yet run for longer than a minute."; }
+                else if (runningTime == 0) { return "This " + appCategory + " has been running for less than a minute."; }
                 else if (runningTime < 60) { return "This " + appCategory + " has been running for a total of " + runningTime + " minutes."; }
                 else if (runningTime < 120)
                 {
