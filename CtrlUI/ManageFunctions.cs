@@ -40,9 +40,8 @@ namespace CtrlUI
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
                     }
-
                     //Check if the rom folder is available
-                    if (dataBindApp.Category == AppCategory.Emulator && !Directory.Exists(dataBindApp.PathRoms))
+                    else if (dataBindApp.Category == AppCategory.Emulator && !Directory.Exists(dataBindApp.PathRoms))
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
                     }
@@ -537,15 +536,15 @@ namespace CtrlUI
                     //Focus on the application list
                     if (selectedAddCategory == AppCategory.Game)
                     {
-                        await ListboxFocus(lb_Games, false, true, -1);
+                        await ListboxFocusIndex(lb_Games, false, true, -1);
                     }
                     else if (selectedAddCategory == AppCategory.App)
                     {
-                        await ListboxFocus(lb_Apps, false, true, -1);
+                        await ListboxFocusIndex(lb_Apps, false, true, -1);
                     }
                     else if (selectedAddCategory == AppCategory.Emulator)
                     {
-                        await ListboxFocus(lb_Emulators, false, true, -1);
+                        await ListboxFocusIndex(lb_Emulators, false, true, -1);
                     }
                 }
                 else
@@ -662,13 +661,13 @@ namespace CtrlUI
                         //Focus on the edited item listbox
                         if (vSearchOpen)
                         {
-                            await ListboxFocus(lb_Search, false, false, -1);
+                            await ListboxFocusIndex(lb_Search, false, false, -1);
                         }
                         else
                         {
-                            if (vEditAppDataBind.Category == AppCategory.Game) { await ListboxFocus(lb_Games, false, true, -1); }
-                            else if (vEditAppDataBind.Category == AppCategory.App) { await ListboxFocus(lb_Apps, false, true, -1); }
-                            else if (vEditAppDataBind.Category == AppCategory.Emulator) { await ListboxFocus(lb_Emulators, false, true, -1); }
+                            if (vEditAppDataBind.Category == AppCategory.Game) { await ListboxFocusIndex(lb_Games, false, true, -1); }
+                            else if (vEditAppDataBind.Category == AppCategory.App) { await ListboxFocusIndex(lb_Apps, false, true, -1); }
+                            else if (vEditAppDataBind.Category == AppCategory.Emulator) { await ListboxFocusIndex(lb_Emulators, false, true, -1); }
                         }
                     }
                     else
@@ -676,13 +675,13 @@ namespace CtrlUI
                         //Focus on the item listbox
                         if (vSearchOpen)
                         {
-                            await ListboxFocus(lb_Search, false, false, -1);
+                            await ListboxFocusIndex(lb_Search, false, false, -1);
                         }
                         else
                         {
-                            if (vEditAppDataBind.Category == AppCategory.Game) { await ListboxFocus(lb_Games, false, false, -1); }
-                            else if (vEditAppDataBind.Category == AppCategory.App) { await ListboxFocus(lb_Apps, false, false, -1); }
-                            else if (vEditAppDataBind.Category == AppCategory.Emulator) { await ListboxFocus(lb_Emulators, false, false, -1); }
+                            if (vEditAppDataBind.Category == AppCategory.Game) { await ListboxFocusIndex(lb_Games, false, false, -1); }
+                            else if (vEditAppDataBind.Category == AppCategory.App) { await ListboxFocusIndex(lb_Apps, false, false, -1); }
+                            else if (vEditAppDataBind.Category == AppCategory.Emulator) { await ListboxFocusIndex(lb_Emulators, false, false, -1); }
                         }
                     }
 
@@ -762,7 +761,7 @@ namespace CtrlUI
                 vFilePickerShowFiles = false;
                 vFilePickerShowDirectories = false;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("UWP", -1, false, null);
+                await Popup_Show_FilePicker("UWP", 0, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }

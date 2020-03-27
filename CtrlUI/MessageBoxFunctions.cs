@@ -72,7 +72,7 @@ namespace CtrlUI
                 Popup_Show_Element(grid_Popup_MessageBox);
 
                 //Focus on first listbox answer
-                await ListboxFocus(lb_MessageBox, true, false, -1);
+                await ListboxFocusIndex(lb_MessageBox, true, false, -1);
 
                 //Wait for user messagebox input
                 while (vMessageBoxResult == null && !vMessageBoxCancelled) { await Task.Delay(500); }

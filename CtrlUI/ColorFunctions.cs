@@ -82,7 +82,7 @@ namespace CtrlUI
                 vColorPickerOpen = true;
 
                 //Focus on the file picker listbox
-                await ListboxFocus(lb_ColorPicker, false, false, -1);
+                await ListboxFocusIndex(lb_ColorPicker, false, false, -1);
             }
             catch { }
         }

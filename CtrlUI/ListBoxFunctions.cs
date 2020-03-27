@@ -91,7 +91,7 @@ namespace CtrlUI
                     FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
                     if (frameworkElement == null || frameworkElement == focusListBox)
                     {
-                        await ListboxFocus(focusListBox, firstIndex, lastIndex, indexNumber);
+                        await ListboxFocusIndex(focusListBox, firstIndex, lastIndex, indexNumber);
                     }
                     else
                     {
@@ -103,7 +103,7 @@ namespace CtrlUI
         }
 
         //Force focus on a listbox
-        async Task ListboxFocus(ListBox focusListBox, bool firstIndex, bool lastIndex, int indexNumber)
+        async Task ListboxFocusIndex(ListBox focusListBox, bool firstIndex, bool lastIndex, int indexNumber)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace CtrlUI
             }
         }
 
-        //Select a listbox item index
+        //Select a listbox index
         void ListBoxSelectIndex(ListBox focusListBox, bool firstIndex, bool lastIndex, int indexNumber)
         {
             try
@@ -184,13 +184,47 @@ namespace CtrlUI
                     if (focusListBox.SelectedIndex == -1)
                     {
                         focusListBox.SelectedIndex = 0;
-                        Debug.WriteLine("Selecting first listbox index.");
+                        Debug.WriteLine("No selection, selecting first listbox index.");
                     }
                 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed selecting the listbox index: " + ex.Message);
+            }
+        }
+
+        //Select a listbox item
+        void ListBoxSelectItem(ListBox focusListBox, object selectItem)
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Update the listbox layout
+                    focusListBox.UpdateLayout();
+
+                    //Select the listbox item
+                    if (selectItem != null)
+                    {
+                        try
+                        {
+                            focusListBox.SelectedItem = selectItem;
+                        }
+                        catch { }
+                    }
+
+                    //Check the selected index
+                    if (focusListBox.SelectedIndex == -1)
+                    {
+                        focusListBox.SelectedIndex = 0;
+                        Debug.WriteLine("No selection, selecting first listbox index.");
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed selecting the listbox item: " + ex.Message);
             }
         }
 

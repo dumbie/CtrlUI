@@ -166,7 +166,7 @@ namespace CtrlUI
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
 
                     //Focus on the listbox item
-                    await ListboxFocus(lb_FilePicker, false, true, -1);
+                    await ListboxFocusIndex(lb_FilePicker, false, true, -1);
 
                     //Reset the current clipboard
                     vClipboardFile = null;
@@ -244,7 +244,7 @@ namespace CtrlUI
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
 
                     //Focus on the listbox item
-                    await ListboxFocus(lb_FilePicker, false, true, -1);
+                    await ListboxFocusIndex(lb_FilePicker, false, true, -1);
 
                     //Copy file or folder
                     SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
@@ -402,7 +402,7 @@ namespace CtrlUI
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
 
                     //Focus on the listbox item
-                    await ListboxFocus(lb_FilePicker, false, true, -1);
+                    await ListboxFocusIndex(lb_FilePicker, false, true, -1);
 
                     //Check if there are files or folders
                     FilePicker_CheckFilesAndFoldersCount();

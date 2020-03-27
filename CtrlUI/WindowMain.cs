@@ -152,7 +152,7 @@ namespace CtrlUI
                 if (vMainMenuElementFocus.FocusElement == null || Keyboard.FocusedElement == null)
                 {
                     Debug.WriteLine("Focusing on the first available listbox.");
-                    await ListboxFocus(TopVisibleListBoxWithItems(), true, false, -1);
+                    await ListboxFocusIndex(TopVisibleListBoxWithItems(), true, false, -1);
                 }
 
                 //Check for available application update

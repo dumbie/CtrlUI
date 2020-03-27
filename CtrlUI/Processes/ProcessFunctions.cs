@@ -313,7 +313,7 @@ namespace CtrlUI
                 vFilePickerShowFiles = false;
                 vFilePickerShowDirectories = false;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("UWP", -1, false, null);
+                await Popup_Show_FilePicker("UWP", 0, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }

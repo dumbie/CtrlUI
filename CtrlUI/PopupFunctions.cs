@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -163,7 +164,7 @@ namespace CtrlUI
                 vMainMenuOpen = true;
 
                 //Focus on the menu listbox
-                await ListboxFocus(listbox_MainMenu, false, false, -1);
+                await ListboxFocusIndex(listbox_MainMenu, false, false, -1);
 
                 //Update the clock with date
                 UpdateClock();
@@ -329,7 +330,7 @@ namespace CtrlUI
             {
                 if (previousFocus != null)
                 {
-                    Debug.WriteLine("Set previous focus element: " + previousFocus);
+                    Debug.WriteLine("Saved previous focus element: " + previousFocus);
                     frameworkElementFocus.FocusElement = previousFocus;
                     if (frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
                     {
@@ -339,7 +340,7 @@ namespace CtrlUI
                 }
                 else if (Keyboard.FocusedElement != null && Keyboard.FocusedElement != App.vWindowMain)
                 {
-                    Debug.WriteLine("Set previous focus keyboard: " + Keyboard.FocusedElement);
+                    Debug.WriteLine("Saved previous focus keyboard: " + Keyboard.FocusedElement);
                     frameworkElementFocus.FocusElement = (FrameworkElement)Keyboard.FocusedElement;
                     if (frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
                     {
@@ -356,8 +357,15 @@ namespace CtrlUI
         {
             try
             {
-                //Force focus on element
+                //Check if focus element is disconnected
+                bool disconnectedSource = false;
                 if (frameworkElementFocus.FocusElement != null)
+                {
+                    disconnectedSource = frameworkElementFocus.FocusElement.DataContext == BindingOperations.DisconnectedSource;
+                }
+
+                //Force focus on element
+                if (frameworkElementFocus.FocusElement != null && !disconnectedSource)
                 {
                     Debug.WriteLine("Focusing on previous element: " + frameworkElementFocus.FocusElement);
                     await FocusOnElement(frameworkElementFocus.FocusElement, false, vProcessCurrent.MainWindowHandle);
@@ -365,7 +373,7 @@ namespace CtrlUI
                 else if (frameworkElementFocus.FocusListBox != null)
                 {
                     Debug.WriteLine("Focusing on previous listbox: " + frameworkElementFocus.FocusListBox);
-                    await ListboxFocus(frameworkElementFocus.FocusListBox, false, false, frameworkElementFocus.FocusIndex);
+                    await ListboxFocusIndex(frameworkElementFocus.FocusListBox, false, false, frameworkElementFocus.FocusIndex);
                 }
                 else
                 {

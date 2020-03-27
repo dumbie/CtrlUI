@@ -64,7 +64,7 @@ namespace CtrlUI
                 else { sp_ControllerHelpVolume.Visibility = Visibility.Collapsed; }
 
                 //Check if the menu is open or closed
-                HelpController("Quick action", "Refresh apps", string.Empty, "Interact", "Switch app", "Show menu", "Search", string.Empty, string.Empty);
+                HelpController("Quick action", "Refresh apps", string.Empty, "Interact", "Switch app", "Menu", "Search", string.Empty, string.Empty);
             }
             catch { }
         }

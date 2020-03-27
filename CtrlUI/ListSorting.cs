@@ -88,42 +88,48 @@ namespace CtrlUI
             catch { }
         }
 
-        public static void SortObservableCollection<TSource, TKey>(ObservableCollection<TSource> source, Func<TSource, TKey> key, Func<TSource, bool> where, bool ascending)
+        public void SortObservableCollection<TSource, TKey>(ListBox targetListBox, ObservableCollection<TSource> targetSource, Func<TSource, TKey> key, Func<TSource, bool> where, bool ascending)
         {
             try
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    //Get the current selected item
+                    object selectedItem = targetListBox.SelectedItem;
+
                     int skipCount = 0;
                     List<TSource> sortedList = null;
                     if (where != null)
                     {
-                        skipCount = source.Count() - source.Where(where).Count();
+                        skipCount = targetSource.Count() - targetSource.Where(where).Count();
                         if (ascending)
                         {
-                            sortedList = source.Where(where).OrderBy(key).ToList();
+                            sortedList = targetSource.Where(where).OrderBy(key).ToList();
                         }
                         else
                         {
-                            sortedList = source.Where(where).OrderByDescending(key).ToList();
+                            sortedList = targetSource.Where(where).OrderByDescending(key).ToList();
                         }
                     }
                     else
                     {
                         if (ascending)
                         {
-                            sortedList = source.OrderBy(key).ToList();
+                            sortedList = targetSource.OrderBy(key).ToList();
                         }
                         else
                         {
-                            sortedList = source.OrderByDescending(key).ToList();
+                            sortedList = targetSource.OrderByDescending(key).ToList();
                         }
                     }
 
                     for (int i = skipCount; i < sortedList.Count; i++)
                     {
-                        source.Move(source.IndexOf(sortedList[i]), i);
+                        targetSource.Move(targetSource.IndexOf(sortedList[i]), i);
                     }
+
+                    //Select the focused item
+                    ListBoxSelectItem(targetListBox, selectedItem);
                 });
             }
             catch { }
@@ -139,11 +145,11 @@ namespace CtrlUI
                     if (!Silent) { Popup_Show_Status("Sorting", "Sorting by number or date"); }
                     vSortType = "Number";
 
-                    SortObservableCollection(List_Games, x => x.Number, null, true);
-                    SortObservableCollection(List_Apps, x => x.Number, null, true);
-                    SortObservableCollection(List_Emulators, x => x.Number, null, true);
-                    SortObservableCollection(List_Shortcuts, x => x.TimeCreation, null, false);
-                    SortObservableCollection(List_Processes, x => x.RunningTime, null, true);
+                    SortObservableCollection(lb_Games, List_Games, x => x.Number, null, true);
+                    SortObservableCollection(lb_Apps, List_Apps, x => x.Number, null, true);
+                    SortObservableCollection(lb_Emulators, List_Emulators, x => x.Number, null, true);
+                    SortObservableCollection(lb_Shortcuts, List_Shortcuts, x => x.TimeCreation, null, false);
+                    SortObservableCollection(lb_Processes, List_Processes, x => x.RunningTime, null, true);
 
                     menuButtonSorting_TextBlock.Text = "Sort applications by name";
                     ToolTip newTooltip = new ToolTip() { Content = "Sort by name" };
@@ -155,11 +161,11 @@ namespace CtrlUI
                     if (!Silent) { Popup_Show_Status("Sorting", "Sorting by name"); }
                     vSortType = "Name";
 
-                    SortObservableCollection(List_Games, x => x.Name, null, true);
-                    SortObservableCollection(List_Apps, x => x.Name, null, true);
-                    SortObservableCollection(List_Emulators, x => x.Name, null, true);
-                    SortObservableCollection(List_Shortcuts, x => x.Name, null, true);
-                    SortObservableCollection(List_Processes, x => x.Name, null, true);
+                    SortObservableCollection(lb_Games, List_Games, x => x.Name, null, true);
+                    SortObservableCollection(lb_Apps, List_Apps, x => x.Name, null, true);
+                    SortObservableCollection(lb_Emulators, List_Emulators, x => x.Name, null, true);
+                    SortObservableCollection(lb_Shortcuts, List_Shortcuts, x => x.Name, null, true);
+                    SortObservableCollection(lb_Processes, List_Processes, x => x.Name, null, true);
 
                     menuButtonSorting_TextBlock.Text = "Sort applications by number or date";
                     ToolTip newTooltip = new ToolTip() { Content = "Sort by number or date" };

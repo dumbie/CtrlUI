@@ -461,7 +461,7 @@ namespace CtrlUI
                 }
 
                 //Focus on the file picker listbox
-                await ListboxFocus(lb_FilePicker, false, false, targetIndex);
+                await ListboxFocusIndex(lb_FilePicker, false, false, targetIndex);
             }
             catch { }
         }
