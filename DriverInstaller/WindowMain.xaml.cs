@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Input;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
+using static DriverInstaller.AppVariables;
+using static LibraryShared.Classes;
 
 namespace DriverInstaller
 {
@@ -21,15 +23,23 @@ namespace DriverInstaller
         {
             try
             {
+                //Make window able to drag from border
+                this.MouseDown += WindowMain_MouseDown;
+
                 //Show welcome message in textbox
                 TextBoxAppend("Welcome to the Driver Installer.");
 
-                //Make window able to drag from border
-                this.MouseDown += WindowMain_MouseDown;
+                //Check if DirectXInput is running
+                vDirectXInputRunning = Process.GetProcessesByName("DirectXInput").Any();
+
+                //Load Json profiles
+                JsonLoadProfile(ref vDirectCloseTools, "DirectCloseTools");
+
+                //Close running controller tools
+                CloseControllerTools();
             }
             catch { }
         }
-
 
         //Drag the window around
         private void WindowMain_MouseDown(object sender, MouseButtonEventArgs e)
@@ -92,28 +102,30 @@ namespace DriverInstaller
             catch { }
         }
 
-        //Close DirectXInput if running
-        void CloseDirectXInput()
+        //Close running controller tools
+        void CloseControllerTools()
         {
             try
             {
-                CloseProcessesByNameOrTitle("DirectXInput", false);
-            }
-            catch { }
-        }
+                TextBoxAppend("Closing running controller tools.");
+                Debug.WriteLine("Closing running controller tools.");
 
-        //Check if DirectXInput is still running
-        async Task CheckDirectXInputRunning()
-        {
-            try
-            {
-                while (Process.GetProcessesByName("DirectXInput").Any())
+                //Close DirectXInput
+                try
                 {
-                    TextBoxAppend("Waiting for DirectXInput to have closed.");
-                    Debug.WriteLine("Waiting for DirectXInput to have closed.");
-                    await Task.Delay(500);
+                    CloseProcessesByNameOrTitle("DirectXInput", false);
                 }
-                ProgressBarUpdate(10, false);
+                catch { }
+
+                //Close other tools
+                foreach (ProfileShared closeTool in vDirectCloseTools)
+                {
+                    try
+                    {
+                        CloseProcessesByNameOrTitle(closeTool.String1, false);
+                    }
+                    catch { }
+                }
             }
             catch { }
         }
@@ -133,7 +145,7 @@ namespace DriverInstaller
         {
             try
             {
-                await Application_Exit("Closing the driver installer in a bit.", false);
+                await Application_Exit("Closing the driver installer in a bit.", vDirectXInputRunning);
             }
             catch { }
         }

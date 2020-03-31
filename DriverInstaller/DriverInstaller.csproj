@@ -49,6 +49,9 @@
     <ApplicationManifest>Properties\App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -104,6 +107,7 @@
     <Compile Include="AppVariables.cs" />
     <Compile Include="DriverUninstall.cs" />
     <Compile Include="DriverInstall.cs" />
+    <Compile Include="JsonFunctions.cs" />
     <Compile Include="WindowMain.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +119,7 @@
     <Resource Include="Assets\AppIcon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Properties\App.config" />
     <None Include="Properties\App.manifest">
       <SubType>Designer</SubType>
