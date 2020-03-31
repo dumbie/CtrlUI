@@ -1,8 +1,8 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
-using static LibraryShared.Classes;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Classes;
 
 namespace DirectXInput
 {

@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Windows;
 using static ArnoldVinkCode.AVFirewall;
-using static LibraryShared.AppLaunchCheck;
+using static LibraryShared.AppStartupCheck;
 
 namespace DirectXInput
 {
@@ -26,6 +26,7 @@ namespace DirectXInput
                 string appFilePath = Assembly.GetEntryAssembly().Location;
                 Firewall_ExecutableAllow("DirectXInput", appFilePath, true);
 
+                //Run application startup code
                 await vWindowMain.Startup();
             }
             catch { }

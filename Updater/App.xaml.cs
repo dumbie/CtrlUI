@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows;
-using static LibraryShared.AppLaunchCheck;
+using static LibraryShared.AppStartupCheck;
 
 namespace Updater
 {
@@ -10,16 +10,15 @@ namespace Updater
         public static WindowMain vWindowMain = new WindowMain();
 
         //Application Startup
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             try
             {
                 //Check the application status
                 Application_LaunchCheck("Application Updater", "Updater", ProcessPriorityClass.Normal, true);
 
-                //Open the window main from application
+                //Open the application window
                 vWindowMain.Show();
-                await vWindowMain.Startup();
             }
             catch { }
         }

@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
 using static ArnoldVinkCode.ProcessWin32Functions;
-using static LibraryShared.AppLaunchCheck;
+using static LibraryShared.AppStartupCheck;
 
 namespace AdminLauncher
 {

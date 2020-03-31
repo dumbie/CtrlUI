@@ -139,6 +139,7 @@
     <Compile Include="AppTasksFunctions.cs" />
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppVariables.cs" />
+    <Compile Include="Resources\Settings\SettingSave.cs" />
     <Compile Include="TextInputHandlers.cs" />
     <Compile Include="TextInputFunctions.cs" />
     <Compile Include="SearchHandlers.cs" />
@@ -176,7 +177,7 @@
     <Compile Include="Resources\Settings\SettingsSave.cs" />
     <Compile Include="Resources\Settings\SettingsCheck.cs" />
     <Compile Include="SettingsFunctions.cs" />
-    <Compile Include="WindowMain.cs" />
+    <Compile Include="WindowMain.xaml.cs" />
     <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates.xaml">
       <Link>Styles\ControlTemplates.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

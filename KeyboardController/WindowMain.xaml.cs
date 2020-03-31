@@ -64,8 +64,6 @@ namespace KeyboardController
 
                 //Enable the socket server
                 EnableSocketServer();
-
-                Debug.WriteLine("Application has launched.");
             }
             catch { }
         }

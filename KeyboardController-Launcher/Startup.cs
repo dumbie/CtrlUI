@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.ProcessWin32Functions;
-using static LibraryShared.AppLaunchCheck;
+using static LibraryShared.AppStartupCheck;
 
 namespace AdminLauncher
 {

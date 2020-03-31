@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 
@@ -20,9 +21,25 @@ namespace DriverInstaller
         {
             try
             {
+                //Show welcome message in textbox
                 TextBoxAppend("Welcome to the Driver Installer.");
 
-                Debug.WriteLine("Application source initialized.");
+                //Make window able to drag from border
+                this.MouseDown += WindowMain_MouseDown;
+            }
+            catch { }
+        }
+
+
+        //Drag the window around
+        private void WindowMain_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (e.LeftButton == MouseButtonState.Pressed)
+                {
+                    this.DragMove();
+                }
             }
             catch { }
         }
@@ -48,13 +65,13 @@ namespace DriverInstaller
         }
 
         //Append text to textbox
-        public void TextBoxAppend(string Text)
+        public void TextBoxAppend(string appendText)
         {
             try
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    textbox_Status.AppendText(Text + "\r\n");
+                    textbox_Status.AppendText(appendText + "\r\n");
                     textbox_Status.ScrollToEnd();
                 });
             }
@@ -112,17 +129,17 @@ namespace DriverInstaller
         }
 
         //Application Close Button
-        async void button_Driver_Close_Click(object sender, RoutedEventArgs e)
+        async void Button_Driver_Close_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await Application_Exit("Closing the driver installer in a bit.", true);
+                await Application_Exit("Closing the driver installer in a bit.", false);
             }
             catch { }
         }
 
         //Close the application
-        async Task Application_Exit(string ExitMessage, bool runDirectXInput)
+        async Task Application_Exit(string exitMessage, bool runDirectXInput)
         {
             try
             {
@@ -141,7 +158,7 @@ namespace DriverInstaller
                 }
 
                 //Set the exit reason text message
-                TextBoxAppend(ExitMessage);
+                TextBoxAppend(exitMessage);
                 ProgressBarUpdate(100, false);
 
                 //Close the application after x seconds

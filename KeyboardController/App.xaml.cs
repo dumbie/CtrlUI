@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Windows;
 using static ArnoldVinkCode.AVFirewall;
-using static LibraryShared.AppLaunchCheck;
+using static LibraryShared.AppStartupCheck;
 
 namespace KeyboardController
 {
@@ -27,7 +27,7 @@ namespace KeyboardController
                 string appFilePath = Assembly.GetEntryAssembly().Location;
                 Firewall_ExecutableAllow("Keyboard Controller", appFilePath, true);
 
-                //Open the window main from application
+                //Open the application window
                 vWindowMain.Show();
             }
             catch { }

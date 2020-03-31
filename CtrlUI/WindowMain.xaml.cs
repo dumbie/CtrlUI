@@ -26,27 +26,16 @@ namespace CtrlUI
         public WindowMain() { InitializeComponent(); }
 
         //Window Initialized
-        protected override void OnSourceInitialized(EventArgs e)
+        protected override async void OnSourceInitialized(EventArgs e)
         {
             try
             {
+                //Register Hotkeys and Filtermessage
                 IntPtr InteropHandle = new WindowInteropHelper(this).EnsureHandle();
-
                 ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
-
                 RegisterHotKey(InteropHandle, HotKeyRegisterId, (byte)KeysModifiers.Win, (byte)KeysVirtual.CapsLock);
 
-                Debug.WriteLine("Application source initialized.");
-            }
-            catch { }
-        }
-
-        //Window Startup
-        public async Task Startup()
-        {
-            try
-            {
-                //Initialize Settings
+                //Check application settings
                 Settings_Check();
                 await Settings_Load();
                 Settings_Save();
@@ -169,8 +158,6 @@ namespace CtrlUI
 
                 //Enable the socket server
                 EnableSocketServer();
-
-                Debug.WriteLine("Application has launched.");
             }
             catch { }
         }

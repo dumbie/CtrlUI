@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace LibraryShared
 {
-    public partial class AppLaunchCheck
+    public partial class AppStartupCheck
     {
         public static string[] ApplicationFiles = { "CtrlUI.exe", "CtrlUI.exe.Config", "CtrlUI-Admin.exe", "CtrlUI-Admin.exe.Config", "DirectXInput.exe", "DirectXInput.exe.Config", "DirectXInput-Admin.exe", "DirectXInput-Admin.exe.Config", "DriverInstaller.exe", "DriverInstaller.exe.Config", "FpsOverlayer.exe", "FpsOverlayer.exe.Config", "FpsOverlayer-Admin.exe", "FpsOverlayer-Admin.exe.Config", "FpsOverlayer-Launcher.exe", "FpsOverlayer-Launcher.exe.Config", "KeyboardController.exe", "KeyboardController.exe.Config", "KeyboardController-Admin.exe", "KeyboardController-Admin.exe.Config", "KeyboardController-Launcher.exe", "KeyboardController-Launcher.exe.Config", "Updater.exe", "Updater.exe.Config" };
         public static string[] ProfileFiles = { "Profiles\\CtrlApplications.json", "Profiles\\CtrlIgnoreProcessName.json", "Profiles\\CtrlIgnoreShortcutName.json", "Profiles\\CtrlIgnoreShortcutUri.json", "Profiles\\CtrlCloseLaunchers.json", "Profiles\\DirectCloseTools.json", "Profiles\\CtrlLocationsFile.json", "Profiles\\CtrlLocationsShortcut.json", "Profiles\\DirectControllersProfile.json", "Profiles\\DirectControllersSupported.json", "Profiles\\FpsPositionProcessName.json" };

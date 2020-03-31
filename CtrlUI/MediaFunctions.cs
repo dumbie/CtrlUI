@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -282,8 +281,9 @@ namespace CtrlUI
                             grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1, 0);
                         }
 
-                        main_Media_Information_Artist.Style = Application.Current.Resources["TextBlockAccentLight"] as Style;
-                        main_Media_Information_Title.Style = Application.Current.Resources["TextBlockWhiteLight"] as Style;
+                        main_Media_Information_Artist.Opacity = 1;
+                        main_Media_Information_Title.Opacity = 1;
+                        main_Media_Information_Volume.Opacity = 1;
                     }
                     else
                     {
@@ -294,8 +294,9 @@ namespace CtrlUI
                             grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1, 0);
                         }
 
-                        main_Media_Information_Artist.Style = Application.Current.Resources["TextBlockGrayLight"] as Style;
-                        main_Media_Information_Title.Style = Application.Current.Resources["TextBlockGrayLight"] as Style;
+                        main_Media_Information_Artist.Opacity = 0.40;
+                        main_Media_Information_Title.Opacity = 0.40;
+                        main_Media_Information_Volume.Opacity = 0.40;
                     }
                 });
             }

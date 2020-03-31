@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Configuration;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,33 +8,20 @@ namespace FpsOverlayer
 {
     public partial class WindowSettings : Window
     {
-        //Application Launch
-        public WindowSettings()
+        //Window Initialize
+        public WindowSettings() { InitializeComponent(); }
+
+        //Window Initialized
+        protected override void OnSourceInitialized(EventArgs e)
         {
             try
             {
-                //Initialize Component
-                InitializeComponent();
-
-                //Start loading the application
-                Loaded += Application_Loaded;
-            }
-            catch { }
-        }
-
-        //Application Loading
-        void Application_Loaded(object sender, RoutedEventArgs args)
-        {
-            try
-            {
-                //Load settings
+                //Check application settings
                 Settings_Load();
                 Settings_Save();
 
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
-
-                Debug.WriteLine("Loaded application.");
             }
             catch { }
         }

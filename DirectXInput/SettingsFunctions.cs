@@ -5,7 +5,6 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using static ArnoldVinkCode.AVFiles;
-using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 
 namespace DirectXInput

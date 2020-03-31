@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using static LibraryShared.Classes;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Classes;
 
 namespace DirectXInput
 {

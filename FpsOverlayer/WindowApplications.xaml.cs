@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -10,22 +11,11 @@ namespace FpsOverlayer
 {
     public partial class WindowApplications : Window
     {
-        //Application Launch
-        public WindowApplications()
-        {
-            try
-            {
-                //Initialize Component
-                InitializeComponent();
+        //Window Initialize
+        public WindowApplications() { InitializeComponent(); }
 
-                //Start loading the application
-                Loaded += Application_Loaded;
-            }
-            catch { }
-        }
-
-        //Application Loading
-        void Application_Loaded(object sender, RoutedEventArgs args)
+        //Window Initialized
+        protected override void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -34,8 +24,6 @@ namespace FpsOverlayer
 
                 //Load position processes
                 LoadPositionProcesses();
-
-                Debug.WriteLine("Loaded application.");
             }
             catch { }
         }

@@ -1,12 +1,12 @@
 ﻿using ArnoldVinkCode;
+using LibraryUsb;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using LibraryUsb;
-using static LibraryShared.Classes;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Classes;
 
 namespace DirectXInput
 {

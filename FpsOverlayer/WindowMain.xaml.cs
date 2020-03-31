@@ -59,8 +59,6 @@ namespace FpsOverlayer
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged);
-
-                Debug.WriteLine("Loaded application.");
             }
             catch { }
         }

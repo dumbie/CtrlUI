@@ -101,9 +101,9 @@
     <Compile Include="Resources\Settings\SettingsLoad.cs" />
     <Compile Include="Resources\Settings\SettingsSave.cs" />
     <Compile Include="SocketHandlers.cs" />
-    <Compile Include="WindowMain.cs" />
+    <Compile Include="WindowMain.xaml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowSettings.cs" />
+    <Compile Include="WindowSettings.xaml.cs" />
     <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates.xaml">
       <Link>Styles\ControlTemplates.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

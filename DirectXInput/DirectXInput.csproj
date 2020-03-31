@@ -157,7 +157,7 @@
     </Page>
     <Compile Include="DirectInput.cs" />
     <Compile Include="JsonFunctions.cs" />
-    <Compile Include="WindowMain.cs" />
+    <Compile Include="WindowMain.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

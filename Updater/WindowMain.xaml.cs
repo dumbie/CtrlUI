@@ -17,35 +17,8 @@ namespace Updater
         //Window Initialize
         public WindowMain() { InitializeComponent(); }
 
-        //Update the textblock
-        public void TextBlockUpdate(string Text)
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    textblock_Status.Text = Text;
-                });
-            }
-            catch { }
-        }
-
-        //Update the progressbar
-        public void ProgressBarUpdate(double Progress, bool Indeterminate)
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    progressbar_Status.IsIndeterminate = Indeterminate;
-                    progressbar_Status.Value = Progress;
-                });
-            }
-            catch { }
-        }
-
-        //Window Startup
-        public async Task Startup()
+        //Window Initialized
+        protected override async void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -151,9 +124,9 @@ namespace Updater
                             string ExtractPath = AVFunctions.StringReplaceFirst(ZipFile.FullName, "CtrlUI/", "", false);
                             if (!string.IsNullOrWhiteSpace(ExtractPath))
                             {
-                                if (string.IsNullOrWhiteSpace(ZipFile.Name)) 
+                                if (string.IsNullOrWhiteSpace(ZipFile.Name))
                                 {
-                                    Directory_Create(ExtractPath, false); 
+                                    Directory_Create(ExtractPath, false);
                                 }
                                 else
                                 {
@@ -232,6 +205,34 @@ namespace Updater
             }
             catch { }
         }
+
+        //Update the textblock
+        public void TextBlockUpdate(string Text)
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    textblock_Status.Text = Text;
+                });
+            }
+            catch { }
+        }
+
+        //Update the progressbar
+        public void ProgressBarUpdate(double Progress, bool Indeterminate)
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    progressbar_Status.IsIndeterminate = Indeterminate;
+                    progressbar_Status.Value = Progress;
+                });
+            }
+            catch { }
+        }
+
 
         //Application Close Handler
         protected override void OnClosing(CancelEventArgs e)

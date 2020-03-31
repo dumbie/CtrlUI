@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows;
-using static LibraryShared.AppLaunchCheck;
+using static LibraryShared.AppStartupCheck;
 
 namespace DriverInstaller
 {
@@ -20,7 +20,7 @@ namespace DriverInstaller
                 //Check the application status
                 Application_LaunchCheck("Driver Installer", "DriverInstaller", ProcessPriorityClass.Normal, false);
 
-                //Open the window main from application
+                //Open the application window
                 vWindowMain.Show();
             }
             catch { }

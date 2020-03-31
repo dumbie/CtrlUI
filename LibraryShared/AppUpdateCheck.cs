@@ -3,7 +3,7 @@ using static ArnoldVinkCode.AVFiles;
 
 namespace LibraryShared
 {
-    public partial class AppLaunchCheck
+    public partial class AppStartupCheck
     {
         public static void Application_UpdateCheck()
         {

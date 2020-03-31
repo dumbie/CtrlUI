@@ -133,9 +133,9 @@
     <Compile Include="Styles\DataTemplates\ListBoxItemAppPosition.xaml.cs">
       <DependentUpon>ListBoxItemAppPosition.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowApplications.cs" />
-    <Compile Include="WindowSettings.cs" />
-    <Compile Include="WindowMain.cs" />
+    <Compile Include="WindowApplications.xaml.cs" />
+    <Compile Include="WindowSettings.xaml.cs" />
+    <Compile Include="WindowMain.xaml.cs" />
     <Compile Include="MonitorProcess.cs" />
     <Compile Include="MonitorFps.cs" />
     <Compile Include="MonitorHardware.cs" />

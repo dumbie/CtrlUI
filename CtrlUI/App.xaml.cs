@@ -5,7 +5,7 @@ using System.Windows;
 using static ArnoldVinkCode.AVFirewall;
 using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.AppLaunchCheck;
+using static LibraryShared.AppStartupCheck;
 
 namespace CtrlUI
 {
@@ -35,9 +35,8 @@ namespace CtrlUI
                 string appFilePath = Assembly.GetEntryAssembly().Location;
                 Firewall_ExecutableAllow("CtrlUI", appFilePath, true);
 
-                //Open the window main from application
+                //Open the application window
                 vWindowMain.Show();
-                await vWindowMain.Startup();
             }
             catch { }
         }

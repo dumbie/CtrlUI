@@ -17,7 +17,7 @@ namespace DirectXInput
         //Window Initialize
         public WindowMain() { InitializeComponent(); }
 
-        //Window Startup
+        //Run application startup code
         public async Task Startup()
         {
             try
@@ -79,8 +79,6 @@ namespace DirectXInput
 
                 //Enable the socket server
                 EnableSocketServer();
-
-                Debug.WriteLine("Application has launched.");
             }
             catch { }
         }

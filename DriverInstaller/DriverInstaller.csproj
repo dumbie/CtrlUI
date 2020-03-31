@@ -104,7 +104,7 @@
     <Compile Include="AppVariables.cs" />
     <Compile Include="DriverUninstall.cs" />
     <Compile Include="DriverInstall.cs" />
-    <Compile Include="WindowMain.cs" />
+    <Compile Include="WindowMain.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

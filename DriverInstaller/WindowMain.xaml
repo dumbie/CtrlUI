@@ -31,7 +31,7 @@
                     <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                         <Button Name="button_Driver_Install" Content="Install required drivers" Style="{StaticResource ButtonAccentBlack}" Click="button_Driver_Install_Click"/>
                         <Button Name="button_Driver_Uninstall" Content="Uninstall the drivers" Style="{StaticResource ButtonAccentBlack}" Click="button_Driver_Uninstall_Click" Margin="10,0,0,0"/>
-                        <Button Name="button_Driver_Close" Content="Close" Style="{StaticResource ButtonAccentBlack}" Click="button_Driver_Close_Click" Margin="10,0,0,0"/>
+                        <Button Name="button_Driver_Close" Content="Close" Style="{StaticResource ButtonAccentBlack}" Click="Button_Driver_Close_Click" Margin="10,0,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
