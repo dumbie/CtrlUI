@@ -32,6 +32,12 @@ namespace DirectXInput
                 //Create the tray menu
                 Application_CreateTrayMenu();
 
+                //Check if application has launched as admin
+                if (vAdministratorPermission)
+                {
+                    this.Title += " (Admin)";
+                }
+
                 //Check settings if window needs to be shown
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["AppFirstLaunch"]))
                 {
@@ -39,10 +45,12 @@ namespace DirectXInput
                     Application_ShowHideWindow();
                 }
 
-                //Check if application has launched as admin
-                if (vAdministratorPermission)
+                //Check xbox bus driver status
+                if (!await CheckXboxBusDriverStatus())
                 {
-                    this.Title += " (Admin)";
+                    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
+                    await Message_InstallDrivers();
+                    return;
                 }
 
                 //Load the help text
@@ -62,9 +70,6 @@ namespace DirectXInput
 
                 //Load controllers supported
                 JsonLoadList_ControllerSupported();
-
-                //Check xbox bus driver status
-                await CheckX360Bus();
 
                 //Reset HidGuardian to defaults
                 HidGuardianResetDefaults();
@@ -195,7 +200,7 @@ namespace DirectXInput
                 ControllerStatus ManageController = GetManageController();
                 if (ManageController != null)
                 {
-                    int messageResult = await AVMessageBox.MessageBoxPopup("Do you really want to remove this controller?", "This will reset the manage controller to it's defaults and disconnect it.", "Remove controller", "Cancel", "", "");
+                    int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to remove this controller?", "This will reset the manage controller to it's defaults and disconnect it.", "Remove controller", "Cancel", "", "");
                     if (messageResult == 1)
                     {
                         Debug.WriteLine("Removed the controller: " + ManageController.Details.DisplayName);
@@ -259,7 +264,7 @@ namespace DirectXInput
         {
             try
             {
-                int messageResult = await AVMessageBox.MessageBoxPopup("Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", "Close", "Cancel", "", "");
+                int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", "Close application", "Cancel", "", "");
                 if (messageResult == 1)
                 {
                     await Application_Exit();
@@ -274,6 +279,10 @@ namespace DirectXInput
             try
             {
                 Debug.WriteLine("Exiting application.");
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    this.IsEnabled = false;
+                });
 
                 //Close the keyboard controller
                 CloseProcessesByNameOrTitle("KeyboardController", false);
@@ -285,7 +294,10 @@ namespace DirectXInput
                 await StopAllControllers();
 
                 //Disable the socket server
-                await vArnoldVinkSockets.SocketServerDisable();
+                if (vArnoldVinkSockets != null)
+                {
+                    await vArnoldVinkSockets.SocketServerDisable();
+                }
 
                 //Hide the visible tray icon
                 TrayNotifyIcon.Visible = false;

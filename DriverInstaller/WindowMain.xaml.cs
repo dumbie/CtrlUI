@@ -156,6 +156,10 @@ namespace DriverInstaller
             try
             {
                 Debug.WriteLine("Exiting application.");
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    this.IsEnabled = false;
+                });
 
                 //Disable the buttons
                 ElementEnableDisable(button_Driver_Install, false);

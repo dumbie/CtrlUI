@@ -624,6 +624,10 @@ namespace KeyboardController
             try
             {
                 Debug.WriteLine("Exiting application.");
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    this.IsEnabled = false;
+                });
 
                 //Play window close sound
                 PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
@@ -632,7 +636,10 @@ namespace KeyboardController
                 TasksBackgroundStop();
 
                 //Disable the socket server
-                await vArnoldVinkSockets.SocketServerDisable();
+                if (vArnoldVinkSockets != null)
+                {
+                    await vArnoldVinkSockets.SocketServerDisable();
+                }
 
                 //Hide the visible tray icon
                 TrayNotifyIcon.Visible = false;

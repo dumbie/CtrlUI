@@ -580,6 +580,10 @@ namespace FpsOverlayer
             try
             {
                 Debug.WriteLine("Exiting application.");
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    this.IsEnabled = false;
+                });
 
                 //Stop monitoring the hardware
                 vHardwareComputer.Close();

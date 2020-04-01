@@ -432,12 +432,19 @@ namespace CtrlUI
             try
             {
                 Debug.WriteLine("Exiting application.");
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    this.IsEnabled = false;
+                });
 
                 //Stop the background tasks
                 TasksBackgroundStop();
 
                 //Disable the socket server
-                await vArnoldVinkSockets.SocketServerDisable();
+                if (vArnoldVinkSockets != null)
+                {
+                    await vArnoldVinkSockets.SocketServerDisable();
+                }
 
                 //Close the application
                 Environment.Exit(0);

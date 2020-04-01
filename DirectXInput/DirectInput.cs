@@ -337,28 +337,29 @@ namespace DirectXInput
         }
 
         //Check xbox bus driver status
-        async Task CheckX360Bus()
+        async Task<bool> CheckXboxBusDriverStatus()
         {
+            bool driversInstalled = false;
             try
             {
                 WinUsbDevice X360Device = new WinUsbDevice("{F679F562-3164-42CE-A4DB-E7DDBE723909}");
                 if (X360Device.OpenDeviceClass(false))
                 {
+                    Debug.WriteLine("Xbox drivers are installed.");
                     X360Device.UnplugAll();
                     await Task.Delay(500);
                     X360Device.Dispose();
                     X360Device = null;
+                    driversInstalled = true;
                 }
                 else
                 {
-                    await AVActions.ActionDispatcherInvokeAsync(async delegate
-                    {
-                        if (!ShowInTaskbar) { Application_ShowHideWindow(); }
-                        await Message_InstallDrivers();
-                    });
+                    Debug.WriteLine("Xbox drivers not installed.");
+                    driversInstalled = false;
                 }
             }
             catch { }
+            return driversInstalled;
         }
     }
 }

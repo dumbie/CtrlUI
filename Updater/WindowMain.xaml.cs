@@ -250,6 +250,10 @@ namespace Updater
             try
             {
                 Debug.WriteLine("Exiting application.");
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    this.IsEnabled = false;
+                });
 
                 //Delete the update installation zip file
                 File_Delete("AppUpdate.zip");
