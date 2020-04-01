@@ -303,8 +303,6 @@ namespace CtrlUI
         {
             try
             {
-                vDispatcherTimer.Stop();
-
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + IconName + ".png" }, IntPtr.Zero, -1, 0);
@@ -312,6 +310,7 @@ namespace CtrlUI
                     grid_Message_Status.Visibility = Visibility.Visible;
                 });
 
+                AVFunctions.TimerRenew(ref vDispatcherTimer);
                 vDispatcherTimer.Interval = TimeSpan.FromSeconds(3);
                 vDispatcherTimer.Tick += delegate
                 {

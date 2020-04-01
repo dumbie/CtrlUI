@@ -12,14 +12,13 @@ namespace KeyboardController
         {
             try
             {
-                vDispatcherTimer.Stop();
-
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     grid_Message_Status_Text.Text = Message;
                     grid_Message_Status.Visibility = Visibility.Visible;
                 });
 
+                AVFunctions.TimerRenew(ref vDispatcherTimer);
                 vDispatcherTimer.Interval = TimeSpan.FromSeconds(3);
                 vDispatcherTimer.Tick += delegate
                 {

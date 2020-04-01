@@ -210,19 +210,32 @@ namespace DirectXInput
                 };
 
                 //Buttons functions
-                btn_SetA.Click += Btn_MapController_Click;
-                btn_SetB.Click += Btn_MapController_Click;
-                btn_SetX.Click += Btn_MapController_Click;
-                btn_SetY.Click += Btn_MapController_Click;
-                btn_SetShoulderLeft.Click += Btn_MapController_Click;
-                btn_SetShoulderRight.Click += Btn_MapController_Click;
-                btn_SetThumbLeft.Click += Btn_MapController_Click;
-                btn_SetThumbRight.Click += Btn_MapController_Click;
-                btn_SetBack.Click += Btn_MapController_Click;
-                btn_SetGuide.Click += Btn_MapController_Click;
-                btn_SetStart.Click += Btn_MapController_Click;
-                btn_SetTriggerLeft.Click += Btn_MapController_Click;
-                btn_SetTriggerRight.Click += Btn_MapController_Click;
+                btn_SetA.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetA.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetB.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetB.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetX.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetX.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetY.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetY.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetShoulderLeft.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetShoulderLeft.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetShoulderRight.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetShoulderRight.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetThumbLeft.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetThumbLeft.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetThumbRight.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetThumbRight.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetBack.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetBack.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetGuide.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetGuide.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetStart.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetStart.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetTriggerLeft.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetTriggerLeft.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetTriggerRight.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
+                btn_SetTriggerRight.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
 
                 //Settings functions
                 btn_CheckControllers.Click += btn_CheckControllers_Click;

@@ -102,51 +102,96 @@ namespace DirectXInput
             catch { }
         }
 
-        //Map button to a certain control
-        async void Btn_MapController_Click(object sender, RoutedEventArgs args)
+        //Disable button
+        void Btn_MapController_MouseRight(object sender, RoutedEventArgs args)
         {
             try
             {
-                ControllerStatus ManageController = GetManageController();
-                if (ManageController != null)
+                ControllerStatus manageController = GetManageController();
+                if (manageController != null)
                 {
-                    Button SendButton = sender as Button;
+                    Button sendButton = sender as Button;
+                    string mapButton = sendButton.Tag.ToString();
+
+                    Debug.WriteLine("Disabled button: " + mapButton);
+                    txt_Application_Status.Text = "Disabled '" + mapButton + "' from the controller profile.";
+
+                    //Store new button mapping in Json controller
+                    if (mapButton == "Button A") { manageController.Details.Profile.ButtonA = -1; }
+                    if (mapButton == "Button B") { manageController.Details.Profile.ButtonB = -1; }
+                    if (mapButton == "Button X") { manageController.Details.Profile.ButtonX = -1; }
+                    if (mapButton == "Button Y") { manageController.Details.Profile.ButtonY = -1; }
+                    if (mapButton == "Button LB") { manageController.Details.Profile.ButtonShoulderLeft = -1; }
+                    if (mapButton == "Button RB") { manageController.Details.Profile.ButtonShoulderRight = -1; }
+                    if (mapButton == "Button Back") { manageController.Details.Profile.ButtonBack = -1; }
+                    if (mapButton == "Button Start") { manageController.Details.Profile.ButtonStart = -1; }
+                    if (mapButton == "Button Guide") { manageController.Details.Profile.ButtonGuide = -1; }
+                    if (mapButton == "Button Thumb Left") { manageController.Details.Profile.ButtonThumbLeft = -1; }
+                    if (mapButton == "Button Thumb Right") { manageController.Details.Profile.ButtonThumbRight = -1; }
+                    if (mapButton == "Button Trigger Left") { manageController.Details.Profile.ButtonTriggerLeft = -1; }
+                    if (mapButton == "Button Trigger Right") { manageController.Details.Profile.ButtonTriggerRight = -1; }
+
+                    //Save changes to Json file
+                    JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                }
+            }
+            catch { }
+        }
+
+        //Map button
+        async void Btn_MapController_MouseLeft(object sender, RoutedEventArgs args)
+        {
+            try
+            {
+                ControllerStatus manageController = GetManageController();
+                if (manageController != null)
+                {
+                    Button sendButton = sender as Button;
+                    string mapButton = sendButton.Tag.ToString();
 
                     //Set button to map
-                    ManageController.Mapping[0] = "Map";
-                    ManageController.Mapping[1] = SendButton.Tag.ToString();
+                    manageController.Mapping[0] = "Map";
+                    manageController.Mapping[1] = mapButton;
 
                     //Disable interface
-                    txt_Application_Status.Text = "Waiting for " + SendButton.Tag + " press on the controller... ";
+                    txt_Application_Status.Text = "Waiting for '" + mapButton + "' press on the controller... ";
                     pb_UpdateProgress.IsIndeterminate = true;
                     grid_ControllerPreview.IsEnabled = false;
                     grid_ControllerPreview.Opacity = 0.50;
 
                     //Create timeout timer
-                    int CountdownTimeout = 0;
-                    vDispatcherTimer.Stop();
+                    int countdownTimeout = 0;
+                    AVFunctions.TimerRenew(ref vDispatcherTimer);
                     vDispatcherTimer.Interval = TimeSpan.FromSeconds(1);
                     vDispatcherTimer.Tick += delegate
                     {
-                        if (CountdownTimeout++ >= 10)
+                        Debug.WriteLine(DateTime.Now);
+                        if (countdownTimeout++ >= 10)
                         {
                             //Reset controller button mapping
-                            ManageController.Mapping[0] = "Cancel";
-                            ManageController.Mapping[1] = "None";
+                            manageController.Mapping[0] = "Cancel";
+                            manageController.Mapping[1] = "None";
                         }
                         else
                         {
-                            txt_Application_Status.Text = "Waiting for " + SendButton.Tag + " press on the controller... " + (11 - CountdownTimeout).ToString() + "sec.";
+                            txt_Application_Status.Text = "Waiting for '" + mapButton + "' press on the controller... " + (11 - countdownTimeout).ToString() + "sec.";
                         }
                     };
                     vDispatcherTimer.Start();
 
                     //Check if button is mapped
-                    while (ManageController.Mapping[0] == "Map") { await Task.Delay(500); }
+                    while (manageController.Mapping[0] == "Map") { await Task.Delay(500); }
                     vDispatcherTimer.Stop();
 
-                    if (ManageController.Mapping[0] == "Done") { txt_Application_Status.Text = "Changed " + SendButton.Tag + " to the pressed controller button."; }
-                    else { txt_Application_Status.Text = "Cancelled button mapping, please select a button to change:"; }
+                    if (manageController.Mapping[0] == "Done")
+                    { 
+                        txt_Application_Status.Text = "Changed '" + mapButton + "' to the pressed controller button."; 
+                    }
+                    else 
+                    { 
+                        Debug.WriteLine("Cancelled button mapping.");
+                        txt_Application_Status.Text = "Cancelled button mapping, please select a button to change.";
+                    }
 
                     //Enable interface
                     pb_UpdateProgress.IsIndeterminate = false;
