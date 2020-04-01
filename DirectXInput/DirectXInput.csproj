@@ -118,8 +118,6 @@
     <Compile Include="InterfaceMenu.cs" />
     <Compile Include="ControllerList.cs" />
     <Compile Include="ControllerManage.cs" />
-    <Compile Include="Resources\Popups\PopupFunctions.cs" />
-    <Compile Include="Resources\Popups\PopupHandlers.cs" />
     <Compile Include="ReceiveWinInputData.cs" />
     <Compile Include="ReceiveHidInputData.cs" />
     <Compile Include="Resources\Settings\SettingsCheck.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AVForms;
+using System;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
@@ -20,7 +21,7 @@ namespace DirectXInput
             }
             catch (Exception Ex)
             {
-                await MessageBoxPopup("Failed to load the CtrlUI settings.", Ex.Message, "Ok", "", "", "");
+                await AVMessageBox.MessageBoxPopup("Failed to load the CtrlUI settings.", Ex.Message, "Ok", "", "", "");
             }
         }
 
@@ -47,7 +48,7 @@ namespace DirectXInput
             }
             catch (Exception Ex)
             {
-                await MessageBoxPopup("Failed to load the application settings.", Ex.Message, "Ok", "", "", "");
+                await AVMessageBox.MessageBoxPopup("Failed to load the application settings.", Ex.Message, "Ok", "", "", "");
             }
         }
     }

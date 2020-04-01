@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using AVForms;
 using System;
 using System.ComponentModel;
 using System.Configuration;
@@ -194,7 +195,7 @@ namespace DirectXInput
                 ControllerStatus ManageController = GetManageController();
                 if (ManageController != null)
                 {
-                    int messageResult = await MessageBoxPopup("Do you really want to remove this controller?", "This will reset the manage controller to it's defaults and disconnect it.", "Remove controller", "Cancel", "", "");
+                    int messageResult = await AVMessageBox.MessageBoxPopup("Do you really want to remove this controller?", "This will reset the manage controller to it's defaults and disconnect it.", "Remove controller", "Cancel", "", "");
                     if (messageResult == 1)
                     {
                         Debug.WriteLine("Removed the controller: " + ManageController.Details.DisplayName);
@@ -258,7 +259,7 @@ namespace DirectXInput
         {
             try
             {
-                int messageResult = await MessageBoxPopup("Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", "Close", "Cancel", "", "");
+                int messageResult = await AVMessageBox.MessageBoxPopup("Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", "Close", "Cancel", "", "");
                 if (messageResult == 1)
                 {
                     await Application_Exit();
