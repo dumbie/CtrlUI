@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -58,6 +59,7 @@ namespace DirectXInput
 
                     AVActions.ActionDispatcherInvoke(delegate
                     {
+                        image_Controller0.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
                         textblock_Controller0.Text = vController0.Details.DisplayName;
                     });
                 }
@@ -68,6 +70,7 @@ namespace DirectXInput
 
                     AVActions.ActionDispatcherInvoke(delegate
                     {
+                        image_Controller1.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
                         textblock_Controller1.Text = vController1.Details.DisplayName;
                     });
                 }
@@ -78,6 +81,7 @@ namespace DirectXInput
 
                     AVActions.ActionDispatcherInvoke(delegate
                     {
+                        image_Controller2.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
                         textblock_Controller2.Text = vController2.Details.DisplayName;
                     });
                 }
@@ -88,6 +92,7 @@ namespace DirectXInput
 
                     AVActions.ActionDispatcherInvoke(delegate
                     {
+                        image_Controller3.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
                         textblock_Controller3.Text = vController3.Details.DisplayName;
                     });
                 }

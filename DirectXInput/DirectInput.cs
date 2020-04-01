@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -129,10 +130,26 @@ namespace DirectXInput
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         txt_Controller_Information.Text = "Disconnected controller " + (Controller.NumberId + 1) + ": " + Controller.Details.DisplayName;
-                        if (Controller.NumberId == 0) { textblock_Controller0.Text = "No controller connected"; }
-                        else if (Controller.NumberId == 1) { textblock_Controller1.Text = "No controller connected"; }
-                        else if (Controller.NumberId == 2) { textblock_Controller2.Text = "No controller connected"; }
-                        else if (Controller.NumberId == 3) { textblock_Controller3.Text = "No controller connected"; }
+                        if (Controller.NumberId == 0)
+                        {
+                            image_Controller0.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Dark.png", UriKind.Relative));
+                            textblock_Controller0.Text = "No controller connected";
+                        }
+                        else if (Controller.NumberId == 1)
+                        {
+                            image_Controller1.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Dark.png", UriKind.Relative));
+                            textblock_Controller1.Text = "No controller connected";
+                        }
+                        else if (Controller.NumberId == 2)
+                        {
+                            image_Controller2.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Dark.png", UriKind.Relative));
+                            textblock_Controller2.Text = "No controller connected";
+                        }
+                        else if (Controller.NumberId == 3)
+                        {
+                            image_Controller3.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Dark.png", UriKind.Relative));
+                            textblock_Controller3.Text = "No controller connected";
+                        }
                     });
                 }
 

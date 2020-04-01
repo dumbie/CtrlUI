@@ -163,6 +163,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="..\CtrlUI\Assets\Icons\Controller-Accent.png">
+      <Link>Assets\Icons\Controller-Accent.png</Link>
+    </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\Controller-Dark.png">
+      <Link>Assets\Icons\Controller-Dark.png</Link>
+    </Resource>
     <Content Include="Profiles\DirectCloseTools.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -193,7 +199,6 @@
     <Resource Include="..\CtrlUI\Assets\Icons\Settings.png">
       <Link>Assets\Icons\Settings.png</Link>
     </Resource>
-    <Resource Include="Assets\Icons\Controller-Dark.png" />
     <Content Include="Profiles\DirectControllersProfile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

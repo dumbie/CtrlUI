@@ -67,25 +67,25 @@
                                 <StackPanel Orientation="Vertical" Margin="0,5,0,0">
                                     <Button Name="button_Controller0" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the first controller">
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="Assets/Icons/Controller-Dark.png" Width="30" Margin="0,0,10,0"/>
+                                            <Image Name="image_Controller0" Source="Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller0" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                                         </StackPanel>
                                     </Button>
                                     <Button Name="button_Controller1" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the second controller">
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="Assets/Icons/Controller-Dark.png" Width="30" Margin="0,0,10,0"/>
+                                            <Image Name="image_Controller1" Source="Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller1" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                                         </StackPanel>
                                     </Button>
                                     <Button Name="button_Controller2" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the third controller">
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="Assets/Icons/Controller-Dark.png" Width="30" Margin="0,0,10,0"/>
+                                            <Image Name="image_Controller2" Source="Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller2" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                                         </StackPanel>
                                     </Button>
                                     <Button Name="button_Controller3" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the fourth controller">
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="Assets/Icons/Controller-Dark.png" Width="30" Margin="0,0,10,0"/>
+                                            <Image Name="image_Controller3" Source="Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller3" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                                         </StackPanel>
                                     </Button>

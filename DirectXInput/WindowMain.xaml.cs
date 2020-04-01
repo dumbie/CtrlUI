@@ -184,11 +184,11 @@ namespace DirectXInput
                     vDispatcherTimer.Stop();
 
                     if (manageController.Mapping[0] == "Done")
-                    { 
-                        txt_Application_Status.Text = "Changed '" + mapButton + "' to the pressed controller button."; 
+                    {
+                        txt_Application_Status.Text = "Changed '" + mapButton + "' to the pressed controller button.";
                     }
-                    else 
-                    { 
+                    else
+                    {
                         Debug.WriteLine("Cancelled button mapping.");
                         txt_Application_Status.Text = "Cancelled button mapping, please select a button to change.";
                     }
