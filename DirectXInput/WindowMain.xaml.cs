@@ -102,7 +102,7 @@ namespace DirectXInput
             catch { }
         }
 
-        //Disable button
+        //Unmap button
         void Btn_MapController_MouseRight(object sender, RoutedEventArgs args)
         {
             try
@@ -113,8 +113,8 @@ namespace DirectXInput
                     Button sendButton = sender as Button;
                     string mapButton = sendButton.Tag.ToString();
 
-                    Debug.WriteLine("Disabled button: " + mapButton);
-                    txt_Application_Status.Text = "Disabled '" + mapButton + "' from the controller profile.";
+                    Debug.WriteLine("Unmapped button: " + mapButton);
+                    txt_Application_Status.Text = "Unmapped '" + mapButton + "' from the controller profile.";
 
                     //Store new button mapping in Json controller
                     if (mapButton == "Button A") { manageController.Details.Profile.ButtonA = -1; }
