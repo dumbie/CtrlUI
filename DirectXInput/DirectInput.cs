@@ -34,10 +34,15 @@ namespace DirectXInput
                         return false;
                     }
 
-                    //Open the Xbox 360 bus driver
-                    if (!await OpenX360Bus(Controller))
+                    //Open Xbox bus driver
+                    if (!await OpenXboxBusDriver(Controller))
                     {
-                        Debug.WriteLine("Failed to open x360 bus driver for: " + Controller.Details.DisplayName);
+                        Debug.WriteLine("Failed to open Xbox bus driver for: " + Controller.Details.DisplayName);
+                        AVActions.ActionDispatcherInvoke(delegate
+                        {
+                            txt_Controller_Information.Text = "Please make sure that you have installed the required drivers.";
+                        });
+
                         return false;
                     }
 
@@ -305,9 +310,10 @@ namespace DirectXInput
             return false;
         }
 
-        //Open the Xbox 360 bus driver
-        async Task<bool> OpenX360Bus(ControllerStatus Controller)
+        //Open Xbox bus driver
+        async Task<bool> OpenXboxBusDriver(ControllerStatus Controller)
         {
+            bool driverOpened = false;
             try
             {
                 Controller.X360Device = new WinUsbDevice("{F679F562-3164-42CE-A4DB-E7DDBE723909}");
@@ -316,30 +322,21 @@ namespace DirectXInput
                     Controller.X360Device.Unplug(Controller.NumberId);
                     await Task.Delay(500);
                     Controller.X360Device.Plugin(Controller.NumberId);
+                    driverOpened = true;
                 }
                 else
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        txt_Controller_Information.Text = "Please make sure that you have installed the required drivers.";
-                    });
-
-                    await AVActions.ActionDispatcherInvokeAsync(async delegate
-                    {
-                        await Message_InstallDrivers();
-                    });
-
-                    return false;
+                    driverOpened = false;
                 }
             }
             catch { }
-            return true;
+            return driverOpened;
         }
 
-        //Check xbox bus driver status
+        //Check Xbox bus driver status
         async Task<bool> CheckXboxBusDriverStatus()
         {
-            bool driversInstalled = false;
+            bool driverInstalled = false;
             try
             {
                 WinUsbDevice X360Device = new WinUsbDevice("{F679F562-3164-42CE-A4DB-E7DDBE723909}");
@@ -350,16 +347,16 @@ namespace DirectXInput
                     await Task.Delay(500);
                     X360Device.Dispose();
                     X360Device = null;
-                    driversInstalled = true;
+                    driverInstalled = true;
                 }
                 else
                 {
                     Debug.WriteLine("Xbox drivers not installed.");
-                    driversInstalled = false;
+                    driverInstalled = false;
                 }
             }
             catch { }
-            return driversInstalled;
+            return driverInstalled;
         }
     }
 }
