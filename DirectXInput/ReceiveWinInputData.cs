@@ -18,11 +18,18 @@ namespace DirectXInput
             {
                 Debug.WriteLine("Receive and Translate Win DirectInput for: " + Controller.Details.DisplayName);
 
-                //Wake up the USB DS3 controller
+                //Wake up USB controllers
                 IEnumerable<ControllerSupported> TargetController = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
                 if (TargetController.Any(x => x.CodeName == "SonyDualShock3"))
                 {
-                    Debug.WriteLine("Waking up the USB PS3 controller");
+                    Debug.WriteLine("Waking up USB controller: SonyDualShock3");
+                    byte[] EnableBytes = { 0x42, 0x0C, 0x00, 0x00 };
+                    int Transferred = 0;
+                    Controller.WinUsbDevice.SendTransfer(0x21, 0x09, 0x3F4, EnableBytes, ref Transferred);
+                }
+                else if (TargetController.Any(x => x.CodeName == "SonyMoveNavigation3"))
+                {
+                    Debug.WriteLine("Waking up USB controller: SonyMoveNavigation3");
                     byte[] EnableBytes = { 0x42, 0x0C, 0x00, 0x00 };
                     int Transferred = 0;
                     Controller.WinUsbDevice.SendTransfer(0x21, 0x09, 0x3F4, EnableBytes, ref Transferred);

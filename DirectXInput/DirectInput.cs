@@ -236,7 +236,7 @@ namespace DirectXInput
                     Controller.WinUsbDevice = new WinUsbDevice();
                     if (!Controller.WinUsbDevice.OpenDevicePath(Controller.Details.Path, true))
                     {
-                        Debug.WriteLine("Invalid winusb device: " + Controller.Details.DisplayName);
+                        Debug.WriteLine("Invalid winusb device, blocking: " + Controller.Details.DisplayName);
                         vControllerBlockedPaths.Add(Controller.Details.Path);
                         return false;
                     }
@@ -267,7 +267,7 @@ namespace DirectXInput
                     }
                     else if (!Controller.HidDevice.OpenDeviceExclusively())
                     {
-                        Debug.WriteLine("Invalid hid device: " + Controller.Details.DisplayName);
+                        Debug.WriteLine("Invalid hid device, blocking: " + Controller.Details.DisplayName);
                         vControllerBlockedPaths.Add(Controller.Details.Path);
                         return false;
                     }
@@ -283,7 +283,7 @@ namespace DirectXInput
                         //Check if the controller connected
                         if (!ReadFile)
                         {
-                            Debug.WriteLine("Invalid hid device: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadFile);
+                            Debug.WriteLine("Invalid hid device, blocking: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadFile);
                             vControllerBlockedPaths.Add(Controller.Details.Path);
                             return false;
                         }

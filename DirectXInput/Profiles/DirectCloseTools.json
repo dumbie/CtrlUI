@@ -43,5 +43,11 @@
   },
   {
     "String1": "Shibari"
+  },
+  {
+    "String1": "PSMoveService"
+  },
+  {
+    "String1": "PSMoveServiceAdmin"
   }
 ]
