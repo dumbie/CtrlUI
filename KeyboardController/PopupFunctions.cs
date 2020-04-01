@@ -18,7 +18,7 @@ namespace KeyboardController
                     grid_Message_Status.Visibility = Visibility.Visible;
                 });
 
-                AVFunctions.TimerRenew(ref vDispatcherTimer);
+                vDispatcherTimer.Stop();
                 vDispatcherTimer.Interval = TimeSpan.FromSeconds(3);
                 vDispatcherTimer.Tick += delegate
                 {
