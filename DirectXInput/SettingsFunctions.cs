@@ -11,13 +11,13 @@ namespace DirectXInput
 {
     partial class WindowMain
     {
-        //Reset the blocked controller path list
+        //Reset the temp blocked controller path list
         void Btn_SearchNewControllers_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                vControllerBlockedPaths = new List<string>();
-                Debug.WriteLine("Reset the blocked controller path list.");
+                vControllerTempBlockPaths = new List<string>();
+                Debug.WriteLine("Reset the temp blocked controller path list.");
             }
             catch { }
         }

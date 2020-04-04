@@ -65,11 +65,14 @@ namespace DirectXInput
                 //Close running controller tools
                 CloseControllerTools();
 
+                //Load controllers supported
+                JsonLoadProfile(ref vDirectControllersSupported, "DirectControllersSupported");
+
+                //Load controllers ignored
+                JsonLoadProfile(ref vDirectControllersIgnored, "DirectControllersIgnored");
+
                 //Load controllers profile
                 JsonLoadList_ControllerProfile();
-
-                //Load controllers supported
-                JsonLoadList_ControllerSupported();
 
                 //Reset HidGuardian to defaults
                 HidGuardianResetDefaults();

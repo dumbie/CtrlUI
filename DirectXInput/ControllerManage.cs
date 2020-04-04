@@ -26,8 +26,8 @@ namespace DirectXInput
             catch { }
         }
 
-        //Auto connect connected controllers
-        async Task AutoConnectController(ControllerDetails ConnectedController)
+        //Connect with the controller
+        async Task ConnectController(ControllerDetails ConnectedController)
         {
             try
             {
@@ -39,11 +39,19 @@ namespace DirectXInput
                 if (vController3.Connected() && vController3.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
                 if (ControllerInuse) { return; }
 
-                //Check if the controller is in block list
-                if (vControllerBlockedPaths.Contains(ConnectedController.Path)) { return; }
+                //Check if the controller is in temp block list
+                if (vControllerTempBlockPaths.Contains(ConnectedController.Path))
+                {
+                    Debug.WriteLine("Controller is on temp block list: " + ConnectedController.Path);
+                    return;
+                }
 
                 //Check if the controller has a type
-                if (string.IsNullOrWhiteSpace(ConnectedController.Type)) { return; }
+                if (string.IsNullOrWhiteSpace(ConnectedController.Type))
+                {
+                    Debug.WriteLine("Controller has no type: " + ConnectedController.Path);
+                    return;
+                }
 
                 //Allow the controller in HidGuardian
                 HidGuardianAllowController(ConnectedController);
@@ -55,46 +63,54 @@ namespace DirectXInput
                 if (!vController0.Connected())
                 {
                     vController0.Details = ConnectedController;
-                    await StartControllerDirectInput(vController0);
-
-                    AVActions.ActionDispatcherInvoke(delegate
+                    bool controllerStarted = await StartControllerDirectInput(vController0);
+                    if (controllerStarted)
                     {
-                        image_Controller0.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
-                        textblock_Controller0.Text = vController0.Details.DisplayName;
-                    });
+                        AVActions.ActionDispatcherInvoke(delegate
+                        {
+                            image_Controller0.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
+                            textblock_Controller0.Text = vController0.Details.DisplayName;
+                        });
+                    }
                 }
                 else if (!vController1.Connected())
                 {
                     vController1.Details = ConnectedController;
-                    await StartControllerDirectInput(vController1);
-
-                    AVActions.ActionDispatcherInvoke(delegate
+                    bool controllerStarted = await StartControllerDirectInput(vController1);
+                    if (controllerStarted)
                     {
-                        image_Controller1.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
-                        textblock_Controller1.Text = vController1.Details.DisplayName;
-                    });
+                        AVActions.ActionDispatcherInvoke(delegate
+                        {
+                            image_Controller1.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
+                            textblock_Controller1.Text = vController1.Details.DisplayName;
+                        });
+                    }
                 }
                 else if (!vController2.Connected())
                 {
                     vController2.Details = ConnectedController;
-                    await StartControllerDirectInput(vController2);
-
-                    AVActions.ActionDispatcherInvoke(delegate
+                    bool controllerStarted = await StartControllerDirectInput(vController2);
+                    if (controllerStarted)
                     {
-                        image_Controller2.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
-                        textblock_Controller2.Text = vController2.Details.DisplayName;
-                    });
+                        AVActions.ActionDispatcherInvoke(delegate
+                        {
+                            image_Controller2.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
+                            textblock_Controller2.Text = vController2.Details.DisplayName;
+                        });
+                    }
                 }
                 else if (!vController3.Connected())
                 {
                     vController3.Details = ConnectedController;
-                    await StartControllerDirectInput(vController3);
-
-                    AVActions.ActionDispatcherInvoke(delegate
+                    bool controllerStarted = await StartControllerDirectInput(vController3);
+                    if (controllerStarted)
                     {
-                        image_Controller3.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
-                        textblock_Controller3.Text = vController3.Details.DisplayName;
-                    });
+                        AVActions.ActionDispatcherInvoke(delegate
+                        {
+                            image_Controller3.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Accent.png", UriKind.Relative));
+                            textblock_Controller3.Text = vController3.Details.DisplayName;
+                        });
+                    }
                 }
             }
             catch { }

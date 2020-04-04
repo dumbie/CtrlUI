@@ -36,33 +36,6 @@ namespace DirectXInput
             }
         }
 
-        //Read from Json file (Deserialize)
-        void JsonLoadList_ControllerSupported()
-        {
-            try
-            {
-                //Remove all the current controllers
-                vDirectControllersSupported.Clear();
-
-                string JsonFile = File.ReadAllText(@"Profiles\DirectControllersSupported.json");
-                ControllerSupported[] JsonList = JsonConvert.DeserializeObject<ControllerSupported[]>(JsonFile);
-                foreach (ControllerSupported Controller in JsonList)
-                {
-                    try
-                    {
-                        vDirectControllersSupported.Add(Controller);
-                    }
-                    catch { }
-                }
-
-                Debug.WriteLine("Reading Controller Supported Json completed.");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed Reading Json: " + ex.Message);
-            }
-        }
-
         //Read Json from profile (Deserialize)
         void JsonLoadProfile<T>(ref T deserializeTarget, string profileName)
         {

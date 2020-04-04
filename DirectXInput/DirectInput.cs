@@ -259,7 +259,7 @@ namespace DirectXInput
                     if (!Controller.WinUsbDevice.OpenDevicePath(Controller.Details.Path, true))
                     {
                         Debug.WriteLine("Invalid winusb device, blocking: " + Controller.Details.DisplayName);
-                        vControllerBlockedPaths.Add(Controller.Details.Path);
+                        vControllerTempBlockPaths.Add(Controller.Details.Path);
                         return false;
                     }
                     else
@@ -269,7 +269,7 @@ namespace DirectXInput
                         Controller.OutputReport = new byte[Controller.WinUsbDevice.IntOut];
 
                         Debug.WriteLine("Opened the winusb controller: " + Controller.Details.DisplayName);
-                        vControllerBlockedPaths.Remove(Controller.Details.Path);
+                        vControllerTempBlockPaths.Remove(Controller.Details.Path);
                         return true;
                     }
                 }
@@ -289,8 +289,8 @@ namespace DirectXInput
                     }
                     else if (!Controller.HidDevice.OpenDeviceExclusively())
                     {
-                        Debug.WriteLine("Invalid hid device, blocking: " + Controller.Details.DisplayName);
-                        vControllerBlockedPaths.Add(Controller.Details.Path);
+                        Debug.WriteLine("Invalid exclusive hid device, blocking: " + Controller.Details.DisplayName);
+                        vControllerTempBlockPaths.Add(Controller.Details.Path);
                         return false;
                     }
                     else
@@ -306,7 +306,7 @@ namespace DirectXInput
                         if (!ReadFile)
                         {
                             Debug.WriteLine("Invalid hid device, blocking: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadFile);
-                            vControllerBlockedPaths.Add(Controller.Details.Path);
+                            vControllerTempBlockPaths.Add(Controller.Details.Path);
                             return false;
                         }
                         else if (!Controller.InputReport.Take(5).Any(x => x != 0))
@@ -317,7 +317,7 @@ namespace DirectXInput
                         else
                         {
                             Debug.WriteLine("Opened the hid controller: " + Controller.Details.DisplayName);
-                            vControllerBlockedPaths.Remove(Controller.Details.Path);
+                            vControllerTempBlockPaths.Remove(Controller.Details.Path);
                             return true;
                         }
                     }

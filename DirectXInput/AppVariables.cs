@@ -46,7 +46,7 @@ namespace DirectXInput
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 750;
         public static bool vControllerRumbleTest = false;
-        public static List<string> vControllerBlockedPaths = new List<string>();
+        public static List<string> vControllerTempBlockPaths = new List<string>();
         public static ControllerStatus vController0 = new ControllerStatus(0);
         public static ControllerStatus vController1 = new ControllerStatus(1);
         public static ControllerStatus vController2 = new ControllerStatus(2);
@@ -57,7 +57,8 @@ namespace DirectXInput
 
         //Application Lists
         public static List<ProfileShared> vDirectCloseTools = new List<ProfileShared>();
+        public static List<ControllerSupported> vDirectControllersSupported = new List<ControllerSupported>();
+        public static List<ControllerSupported> vDirectControllersIgnored = new List<ControllerSupported>();
         public static ObservableCollection<ControllerProfile> vDirectControllersProfile = new ObservableCollection<ControllerProfile>();
-        public static ObservableCollection<ControllerSupported> vDirectControllersSupported = new ObservableCollection<ControllerSupported>();
     }
 }

@@ -173,6 +173,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <Content Include="Profiles\DirectControllersIgnored.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\App.manifest" />
     <Resource Include="Assets\Controller.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
