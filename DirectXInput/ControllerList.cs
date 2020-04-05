@@ -28,25 +28,14 @@ namespace DirectXInput
                     try
                     {
                         //Get vendor and product hex id
-                        string VendorHexId = "0x" + AVFunctions.StringShowAfter(EnumDevice.DevicePath, "vid_", 4);
-                        string ProductHexId = "0x" + AVFunctions.StringShowAfter(EnumDevice.DevicePath, "pid_", 4);
+                        string VendorHexId = "0x" + AVFunctions.StringShowAfter(EnumDevice.DevicePath, "vid_", 4).ToLower();
+                        string ProductHexId = "0x" + AVFunctions.StringShowAfter(EnumDevice.DevicePath, "pid_", 4).ToLower();
 
-                        //Check if the controller is in ignore list
-                        bool controllerIgnored = false;
-                        foreach (ControllerSupported ignoreCheck in vDirectControllersIgnored)
-                        {
-                            string filterVendor = ignoreCheck.VendorID.ToLower();
-                            string[] filterProducts = ignoreCheck.ProductIDs.Select(x => x.ToLower()).ToArray();
-                            if (filterVendor == VendorHexId.ToLower() && filterProducts.Any(ProductHexId.ToLower().Contains))
-                            {
-                                Debug.WriteLine("Controller is on ignore list: " + EnumDevice.Description + "/" + VendorHexId + "/" + ProductHexId);
-                                controllerIgnored = true;
-                            }
-                        }
-                        if (controllerIgnored) { continue; }
+                        //Validate the connected controller
+                        if (!ValidateController(VendorHexId, ProductHexId, EnumDevice.DevicePath)) { continue; }
 
                         //Create new Json controller profile if it doesnt exist
-                        IEnumerable<ControllerProfile> ProfileList = vDirectControllersProfile.Where(x => x.ProductID == ProductHexId && x.VendorID == VendorHexId);
+                        IEnumerable<ControllerProfile> ProfileList = vDirectControllersProfile.Where(x => x.ProductID.ToLower() == ProductHexId && x.VendorID.ToLower() == VendorHexId);
                         if (!ProfileList.Any())
                         {
                             vDirectControllersProfile.Add(new ControllerProfile()
@@ -62,23 +51,21 @@ namespace DirectXInput
 
                             Debug.WriteLine("Added win profile: " + EnumDevice.Description);
                         }
-                        else
+
+                        //Check if controller is wireless
+                        bool ConnectedWireless = EnumDevice.DevicePath.ToLower().Contains("00805f9b34fb");
+
+                        ControllerDetails newController = new ControllerDetails()
                         {
-                            //Check if controller is wireless
-                            bool ConnectedWireless = EnumDevice.DevicePath.ToLower().Contains("00805f9b34fb");
+                            Type = "Win",
+                            Profile = ProfileList.FirstOrDefault(),
+                            DisplayName = EnumDevice.Description,
+                            Path = EnumDevice.DevicePath,
+                            Wireless = ConnectedWireless
+                        };
 
-                            ControllerDetails newController = new ControllerDetails()
-                            {
-                                Type = "Win",
-                                Profile = ProfileList.FirstOrDefault(),
-                                DisplayName = EnumDevice.Description,
-                                Path = EnumDevice.DevicePath,
-                                Wireless = ConnectedWireless
-                            };
-
-                            //Connect with the controller
-                            await ConnectController(newController);
-                        }
+                        //Connect with the controller
+                        await ConnectController(newController);
                     }
                     catch { }
                 }
@@ -101,30 +88,15 @@ namespace DirectXInput
                         string VendorHexId = FoundHidDevice.Attributes.VendorHexId.ToLower();
                         string ProductHexId = FoundHidDevice.Attributes.ProductHexId.ToLower();
 
-                        //Check if the controller is in ignore list
-                        bool controllerIgnored = false;
-                        foreach (ControllerSupported ignoreCheck in vDirectControllersIgnored)
-                        {
-                            string filterVendor = ignoreCheck.VendorID.ToLower();
-                            string[] filterProducts = ignoreCheck.ProductIDs.Select(x => x.ToLower()).ToArray();
-                            if (filterVendor == VendorHexId.ToLower() && filterProducts.Any(ProductHexId.ToLower().Contains))
-                            {
-                                Debug.WriteLine("Controller is on ignore list: " + EnumDevice.Description + "/" + VendorHexId + "/" + ProductHexId);
-                                controllerIgnored = true;
-                            }
-                        }
-                        if (controllerIgnored) { continue; }
-
-                        //Filter the controller by id and description
-                        if (ProductHexId == "0x0000" && VendorHexId == "0x0000") { continue; } //Unknown
-                        if (ProductHexId == "0x028e" && VendorHexId == "0x045e") { continue; } //Xbox 360
+                        //Validate the connected controller
+                        if (!ValidateController(VendorHexId, ProductHexId, EnumDevice.DevicePath)) { continue; }
 
                         //Get controller product information
                         string ProductNameString = FoundHidDevice.Attributes.ProductName;
                         string VendorNameString = FoundHidDevice.Attributes.VendorName;
 
                         //Create new Json controller profile if it doesnt exist
-                        IEnumerable<ControllerProfile> ProfileList = vDirectControllersProfile.Where(x => x.ProductID == ProductHexId && x.VendorID == VendorHexId);
+                        IEnumerable<ControllerProfile> ProfileList = vDirectControllersProfile.Where(x => x.ProductID.ToLower() == ProductHexId && x.VendorID.ToLower() == VendorHexId);
                         if (!ProfileList.Any())
                         {
                             ControllerProfile NewController = new ControllerProfile()
@@ -142,29 +114,30 @@ namespace DirectXInput
 
                             Debug.WriteLine("Added hid profile: " + ProductNameString + " (" + VendorNameString + ")");
                         }
-                        else
+
+                        //Check if controller is wireless
+                        bool ConnectedWireless = FoundHidDevice.DevicePath.ToLower().Contains("00805f9b34fb");
+
+                        ControllerDetails newController = new ControllerDetails()
                         {
-                            //Check if controller is wireless
-                            bool ConnectedWireless = FoundHidDevice.DevicePath.ToLower().Contains("00805f9b34fb");
+                            Type = "Hid",
+                            Profile = ProfileList.FirstOrDefault(),
+                            DisplayName = ProductNameString,
+                            HardwareId = FoundHidDevice.HardwareId,
+                            Path = FoundHidDevice.DevicePath,
+                            Wireless = ConnectedWireless
+                        };
 
-                            ControllerDetails newController = new ControllerDetails()
-                            {
-                                Type = "Hid",
-                                Profile = ProfileList.FirstOrDefault(),
-                                DisplayName = ProductNameString,
-                                HardwareId = FoundHidDevice.HardwareId,
-                                Path = FoundHidDevice.DevicePath,
-                                Wireless = ConnectedWireless
-                            };
-
-                            //Connect with the controller
-                            await ConnectController(newController);
-                        }
+                        //Connect with the controller
+                        await ConnectController(newController);
                     }
                     catch { }
                 }
             }
-            catch (Exception ex) { Debug.WriteLine("Failed adding new controller: " + ex.Message); }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed adding new controller: " + ex.Message);
+            }
         }
     }
 }

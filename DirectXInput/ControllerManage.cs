@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +27,38 @@ namespace DirectXInput
             catch { }
         }
 
+        //Validate the controller
+        bool ValidateController(string vendorHexId, string productHexId, string controllerPath)
+        {
+            try
+            {
+                //Check for invalid or unknown controllers by id
+                if (productHexId == "0x0000" && vendorHexId == "0x0000") { return false; } //Unknown
+                if (productHexId == "0x028e" && vendorHexId == "0x045e") { return false; } //Xbox 360
+
+                //Check if the controller is in temp block list
+                if (vControllerTempBlockPaths.Contains(controllerPath))
+                {
+                    Debug.WriteLine("Controller is on temp block list: " + controllerPath);
+                    return false;
+                }
+
+                //Check if the controller is in ignore list
+                foreach (ControllerSupported ignoreCheck in vDirectControllersIgnored)
+                {
+                    string filterVendor = ignoreCheck.VendorID.ToLower();
+                    string[] filterProducts = ignoreCheck.ProductIDs.Select(x => x.ToLower()).ToArray();
+                    if (filterVendor == vendorHexId.ToLower() && filterProducts.Any(productHexId.ToLower().Contains))
+                    {
+                        Debug.WriteLine("Controller is on ignore list: " + controllerPath);
+                        return false;
+                    }
+                }
+            }
+            catch { }
+            return true;
+        }
+
         //Connect with the controller
         async Task ConnectController(ControllerDetails ConnectedController)
         {
@@ -39,25 +72,7 @@ namespace DirectXInput
                 if (vController3.Connected() && vController3.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
                 if (ControllerInuse) { return; }
 
-                //Check if the controller is in temp block list
-                if (vControllerTempBlockPaths.Contains(ConnectedController.Path))
-                {
-                    Debug.WriteLine("Controller is on temp block list: " + ConnectedController.Path);
-                    return;
-                }
-
-                //Check if the controller has a type
-                if (string.IsNullOrWhiteSpace(ConnectedController.Type))
-                {
-                    Debug.WriteLine("Controller has no type: " + ConnectedController.Path);
-                    return;
-                }
-
-                //Allow the controller in HidGuardian
-                HidGuardianAllowController(ConnectedController);
-                await Task.Delay(500);
-
-                Debug.WriteLine("Found a connected controller to use: " + ConnectedController.DisplayName);
+                Debug.WriteLine("Found a connected " + ConnectedController.Type + " controller to use: " + ConnectedController.DisplayName);
 
                 //Connect the controller to available slot
                 if (!vController0.Connected())

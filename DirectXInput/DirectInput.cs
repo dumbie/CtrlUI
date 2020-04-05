@@ -22,6 +22,10 @@ namespace DirectXInput
                 {
                     Debug.WriteLine("Initializing direct input for: " + Controller.Details.DisplayName);
 
+                    //Allow the controller in HidGuardian
+                    HidGuardianAllowController(Controller.Details);
+                    await Task.Delay(500);
+
                     //Open the selected controller
                     if (!await OpenController(Controller))
                     {
@@ -203,14 +207,20 @@ namespace DirectXInput
                     {
                         if (Controller.Details.Wireless) { Controller.HidDevice.DisconnectBluetooth(); }
                     }
-                    catch { Debug.WriteLine("Failed disconnecting device from bluetooth."); }
+                    catch
+                    {
+                        Debug.WriteLine("Failed disconnecting device from bluetooth.");
+                    }
 
                     //Dispose and stop connection with the controller
                     try
                     {
                         Controller.HidDevice.CloseDevice();
                     }
-                    catch { Debug.WriteLine("Failed disposing and stopping the controller."); }
+                    catch
+                    {
+                        Debug.WriteLine("Failed disposing and stopping the controller.");
+                    }
 
                     Controller.HidDevice = null;
                 }
@@ -244,7 +254,10 @@ namespace DirectXInput
                     txt_Controller_Information.Text = "Disconnected all the connected controllers.";
                 });
             }
-            catch { Debug.WriteLine("Failed stopping all controller direct input."); }
+            catch
+            {
+                Debug.WriteLine("Failed stopping all controller direct input.");
+            }
         }
 
         //Open the desired controller
@@ -323,7 +336,10 @@ namespace DirectXInput
                     }
                 }
             }
-            catch (Exception ex) { Debug.WriteLine("Failed open controller: " + ex.Message); }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed opening controller: " + ex.Message);
+            }
             return false;
         }
 
