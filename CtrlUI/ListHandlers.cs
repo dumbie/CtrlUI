@@ -243,12 +243,20 @@ namespace CtrlUI
                     string fileExtension = Path.GetExtension(dataBindApp.ShortcutPath);
                     string newFilePath = Path.Combine(shortcutDirectory, textInputString + fileExtension);
 
-                    File_Move(dataBindApp.ShortcutPath, newFilePath, true);
-                    dataBindApp.Name = textInputString;
-                    dataBindApp.ShortcutPath = newFilePath;
+                    bool fileRenamed = File_Move(dataBindApp.ShortcutPath, newFilePath, true);
+                    if (fileRenamed)
+                    {
+                        dataBindApp.Name = textInputString;
+                        dataBindApp.ShortcutPath = newFilePath;
 
-                    Popup_Show_Status("Rename", "Renamed shortcut");
-                    Debug.WriteLine("Renamed shortcut file to: " + textInputString);
+                        Popup_Show_Status("Rename", "Renamed shortcut");
+                        Debug.WriteLine("Renamed shortcut file to: " + textInputString);
+                    }
+                    else
+                    {
+                        Popup_Show_Status("Rename", "Failed renaming");
+                        Debug.WriteLine("Failed renaming shortcut.");
+                    }
                 }
             }
             catch (Exception ex)
