@@ -114,38 +114,47 @@ namespace CtrlUI
                         return IntPtr.Zero;
                     }
 
-                    DataBindString Answer2 = new DataBindString();
-                    Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
-                    Answer2.Name = "Close application";
-                    multiAnswers.Add(Answer2);
+                    DataBindString AnswerClose = new DataBindString();
+                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
+                    AnswerClose.Name = "Close application";
+                    multiAnswers.Add(AnswerClose);
 
-                    DataBindString Answer3 = new DataBindString();
-                    Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
-                    Answer3.Name = "Restart application";
-                    multiAnswers.Add(Answer3);
+                    DataBindString AnswerLaunch = new DataBindString();
+                    AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                    AnswerLaunch.Name = "Launch new instance";
+                    multiAnswers.Add(AnswerLaunch);
 
-                    DataBindString Answer4 = new DataBindString();
-                    Answer4.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
-                    Answer4.Name = "Launch new instance";
-                    multiAnswers.Add(Answer4);
+                    DataBindString AnswerRestartCurrent = new DataBindString();
+                    if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
+                    {
+                        AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                        AnswerRestartCurrent.Name = "Restart application (Current argument)";
+                        multiAnswers.Add(AnswerRestartCurrent);
+                    }
+
+                    DataBindString AnswerRestartWithout = new DataBindString();
+                    AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                    AnswerRestartWithout.Name = "Restart application (Without argument)";
+                    multiAnswers.Add(AnswerRestartWithout);
 
                     //Ask which window needs to be shown
                     DataBindString messageResult = await Popup_Show_MessageBox(dataBindApp.Name + " has multiple windows open", "", "Please select the window that you wish to be shown:", multiAnswers);
                     if (messageResult != null)
                     {
-                        if (messageResult == Answer4)
+                        if (messageResult == AnswerLaunch)
                         {
-                            //Launch new instance
                             return new IntPtr(-50);
                         }
-                        else if (messageResult == Answer3)
+                        else if (messageResult == AnswerRestartCurrent)
                         {
-                            //Restart the application
                             return new IntPtr(-75);
                         }
-                        else if (messageResult == Answer2)
+                        else if (messageResult == AnswerRestartWithout)
                         {
-                            //Close the application
+                            return new IntPtr(-80);
+                        }
+                        else if (messageResult == AnswerClose)
+                        {
                             return new IntPtr(-100);
                         }
                         else

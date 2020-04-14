@@ -8,7 +8,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task<bool> RestartPrepareWin32Store(DataBindApp dataBindApp, ProcessMulti processMulti)
+        async Task<bool> RestartPrepareWin32Store(DataBindApp dataBindApp, ProcessMulti processMulti, bool useLaunchArgument)
         {
             try
             {
@@ -22,7 +22,15 @@ namespace CtrlUI
                 Popup_Show_Status("Switch", "Restarting " + dataBindApp.Name);
                 Debug.WriteLine("Restarting Win32Store application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandle);
 
-                await RestartProcessWin32Store(dataBindApp.NameExe, dataBindApp.PathExe, processMulti.Identifier, processMulti.Argument);
+                //Set the launch argument
+                string launchArgument = string.Empty;
+                if (useLaunchArgument)
+                {
+                    Debug.WriteLine("Setting restart argument: " + processMulti.Argument);
+                    launchArgument = processMulti.Argument;
+                }
+
+                await RestartProcessWin32Store(dataBindApp.NameExe, dataBindApp.PathExe, processMulti.Identifier, launchArgument);
                 return true;
             }
             catch { }

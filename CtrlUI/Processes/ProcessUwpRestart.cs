@@ -8,7 +8,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task<bool> RestartPrepareUwp(DataBindApp dataBindApp, ProcessMulti processMulti)
+        async Task<bool> RestartPrepareUwp(DataBindApp dataBindApp, ProcessMulti processMulti, bool useLaunchArgument)
         {
             try
             {
@@ -22,7 +22,15 @@ namespace CtrlUI
                 Popup_Show_Status("Switch", "Restarting " + dataBindApp.Name);
                 Debug.WriteLine("Restarting UWP application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandle);
 
-                await RestartProcessUwp(dataBindApp.Name, dataBindApp.PathExe, processMulti.Identifier, processMulti.WindowHandle, processMulti.Argument);
+                //Set the launch argument
+                string launchArgument = string.Empty;
+                if (useLaunchArgument)
+                {
+                    Debug.WriteLine("Setting restart argument: " + processMulti.Argument);
+                    launchArgument = processMulti.Argument;
+                }
+
+                await RestartProcessUwp(dataBindApp.Name, dataBindApp.PathExe, processMulti.Identifier, processMulti.WindowHandle, launchArgument);
                 return true;
             }
             catch { }

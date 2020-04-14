@@ -11,7 +11,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Check process status before launching (True = Continue)
-        async Task<bool> CheckLaunchProcessStatus(DataBindApp dataBindApp, ProcessMulti processMulti)
+        async Task CheckLaunchProcessStatus(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
             {
@@ -19,25 +19,33 @@ namespace CtrlUI
 
                 //Focus or Close when process is already running
                 List<DataBindString> Answers = new List<DataBindString>();
-                DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MiniMaxi.png" }, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Show application";
-                Answers.Add(Answer1);
+                DataBindString AnswerShow = new DataBindString();
+                AnswerShow.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MiniMaxi.png" }, IntPtr.Zero, -1, 0);
+                AnswerShow.Name = "Show application";
+                Answers.Add(AnswerShow);
 
-                DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
-                Answer2.Name = "Close application";
-                Answers.Add(Answer2);
+                DataBindString AnswerClose = new DataBindString();
+                AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
+                AnswerClose.Name = "Close application";
+                Answers.Add(AnswerClose);
 
-                DataBindString Answer3 = new DataBindString();
-                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
-                Answer3.Name = "Restart application";
-                Answers.Add(Answer3);
+                DataBindString AnswerLaunch = new DataBindString();
+                AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                AnswerLaunch.Name = "Launch new instance";
+                Answers.Add(AnswerLaunch);
 
-                DataBindString Answer4 = new DataBindString();
-                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
-                Answer4.Name = "Launch new instance";
-                Answers.Add(Answer4);
+                DataBindString AnswerRestartCurrent = new DataBindString();
+                if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
+                {
+                    AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                    AnswerRestartCurrent.Name = "Restart application (Current argument)";
+                    Answers.Add(AnswerRestartCurrent);
+                }
+
+                DataBindString AnswerRestartWithout = new DataBindString();
+                AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                AnswerRestartWithout.Name = "Restart application (Without argument)";
+                Answers.Add(AnswerRestartWithout);
 
                 //Get the process running time
                 string processRunningTimeString = string.Empty;
@@ -62,33 +70,31 @@ namespace CtrlUI
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);
                 if (messageResult != null)
                 {
-                    if (messageResult == Answer1)
+                    if (messageResult == AnswerShow)
                     {
-                        Debug.WriteLine("Showing the application: " + dataBindApp.Name);
                         await ShowProcessWindow(dataBindApp, processMulti);
-                        return false;
                     }
-                    else if (messageResult == Answer2)
+                    else if (messageResult == AnswerClose)
                     {
-                        Debug.WriteLine("Closing the application.");
                         await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
-                        return false;
                     }
-                    else if (messageResult == Answer3)
+                    else if (messageResult == AnswerRestartCurrent)
                     {
-                        Debug.WriteLine("Restarting the application.");
-                        return await RestartPrepareAuto(processMulti, dataBindApp);
+                        await RestartPrepareAuto(processMulti, dataBindApp, true);
                     }
-                    else if (messageResult == Answer4)
+                    else if (messageResult == AnswerRestartWithout)
                     {
-                        Debug.WriteLine("Running new application instance.");
-                        return await LaunchProcessDatabindAuto(dataBindApp);
+                        await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
+                        await LaunchProcessDatabindAuto(dataBindApp);
+                    }
+                    else if (messageResult == AnswerLaunch)
+                    {
+                        await LaunchProcessDatabindAuto(dataBindApp);
                     }
                 }
                 else
                 {
                     Debug.WriteLine("Cancelling the process action.");
-                    return false;
                 }
             }
             catch (Exception ex)
@@ -96,7 +102,6 @@ namespace CtrlUI
                 Popup_Show_Status("Close", "Failed showing or closing application");
                 Debug.WriteLine("Failed closing or showing the application: " + ex.Message);
             }
-            return true;
         }
     }
 }

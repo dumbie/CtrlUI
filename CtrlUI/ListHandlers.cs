@@ -324,42 +324,54 @@ namespace CtrlUI
                 }
 
                 List<DataBindString> Answers = new List<DataBindString>();
-                DataBindString Answer0 = new DataBindString();
-                Answer0.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Fullscreen.png" }, IntPtr.Zero, -1, 0);
-                Answer0.Name = "Show application";
-                Answers.Add(Answer0);
+                DataBindString AnswerShow = new DataBindString();
+                AnswerShow.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Fullscreen.png" }, IntPtr.Zero, -1, 0);
+                AnswerShow.Name = "Show application";
+                Answers.Add(AnswerShow);
 
-                DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Close application";
-                Answers.Add(Answer1);
+                DataBindString AnswerClose = new DataBindString();
+                AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
+                AnswerClose.Name = "Close application";
+                Answers.Add(AnswerClose);
 
-                DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
-                Answer2.Name = "Restart application";
-                Answers.Add(Answer2);
+                DataBindString AnswerLaunch = new DataBindString();
+                AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                AnswerLaunch.Name = "Launch new instance";
+                Answers.Add(AnswerLaunch);
 
-                DataBindString Answer3 = new DataBindString();
-                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
-                Answer3.Name = "Launch new instance";
-                Answers.Add(Answer3);
+                DataBindString AnswerRestartCurrent = new DataBindString();
+                if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
+                {
+                    AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                    AnswerRestartCurrent.Name = "Restart application (Current argument)";
+                    Answers.Add(AnswerRestartCurrent);
+                }
+
+                DataBindString AnswerRestartWithout = new DataBindString();
+                AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                AnswerRestartWithout.Name = "Restart application (Without argument)";
+                Answers.Add(AnswerRestartWithout);
 
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);
                 if (messageResult != null)
                 {
-                    if (messageResult == Answer0)
+                    if (messageResult == AnswerShow)
                     {
                         await ShowProcessWindow(dataBindApp, processMulti);
                     }
-                    else if (messageResult == Answer1)
+                    else if (messageResult == AnswerClose)
                     {
                         await CloseSingleProcessAuto(processMulti, dataBindApp, false, true);
                     }
-                    else if (messageResult == Answer2)
+                    else if (messageResult == AnswerRestartCurrent)
                     {
-                        await RestartPrepareAuto(processMulti, dataBindApp);
+                        await RestartPrepareAuto(processMulti, dataBindApp, true);
                     }
-                    else if (messageResult == Answer3)
+                    else if (messageResult == AnswerRestartWithout)
+                    {
+                        await RestartPrepareAuto(processMulti, dataBindApp, false);
+                    }
+                    else if (messageResult == AnswerLaunch)
                     {
                         await LaunchProcessDatabindAuto(dataBindApp);
                     }

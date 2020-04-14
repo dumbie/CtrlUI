@@ -65,7 +65,7 @@ namespace CtrlUI
 
                 //Show application launch message
                 Popup_Show_Status("App", "Launching " + dataBindApp.Name);
-                Debug.WriteLine("Launching UWP or Win32Store: " + dataBindApp.Name + " from: " + dataBindApp.Category + " path: " + dataBindApp.PathExe);
+                Debug.WriteLine("Launching UWP or Win32Store: " + dataBindApp.Name + " cat: " + dataBindApp.Category + " path: " + dataBindApp.PathExe + " arg: " + dataBindApp.Argument);
 
                 //Launch the UWP or Win32Store application
                 await LaunchProcessManuallyUwpAndWin32Store(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, true, true);

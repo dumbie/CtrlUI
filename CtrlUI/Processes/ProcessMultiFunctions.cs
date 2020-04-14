@@ -65,7 +65,7 @@ namespace CtrlUI
         }
 
         //Restart the process
-        async Task<bool> RestartPrepareAuto(ProcessMulti processMulti, DataBindApp dataBindApp)
+        async Task<bool> RestartPrepareAuto(ProcessMulti processMulti, DataBindApp dataBindApp, bool useLaunchArgument)
         {
             bool appLaunched = false;
             try
@@ -73,15 +73,15 @@ namespace CtrlUI
                 //Restart the process
                 if (processMulti.Type == ProcessType.UWP)
                 {
-                    appLaunched = await RestartPrepareUwp(dataBindApp, processMulti);
+                    appLaunched = await RestartPrepareUwp(dataBindApp, processMulti, useLaunchArgument);
                 }
                 else if (processMulti.Type == ProcessType.Win32Store)
                 {
-                    appLaunched = await RestartPrepareWin32Store(dataBindApp, processMulti);
+                    appLaunched = await RestartPrepareWin32Store(dataBindApp, processMulti, useLaunchArgument);
                 }
                 else
                 {
-                    appLaunched = await RestartPrepareWin32(dataBindApp, processMulti);
+                    appLaunched = await RestartPrepareWin32(dataBindApp, processMulti, useLaunchArgument);
                 }
 
                 //Check keyboard controller launch

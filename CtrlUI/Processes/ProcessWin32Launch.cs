@@ -82,7 +82,7 @@ namespace CtrlUI
 
                 //Show application launch message
                 Popup_Show_Status("App", "Launching " + dataBindApp.Name);
-                Debug.WriteLine("Launching Win32: " + dataBindApp.Name + " from: " + dataBindApp.Category + " path: " + dataBindApp.PathExe);
+                Debug.WriteLine("Launching Win32: " + dataBindApp.Name + " cat: " + dataBindApp.Category + " path: " + dataBindApp.PathExe + " arg: " + dataBindApp.Argument);
 
                 //Launch the Win32 application
                 await LaunchProcessManuallyWin32(dataBindApp.PathExe, dataBindApp.PathLaunch, dataBindApp.Argument, true, true, false, false);
