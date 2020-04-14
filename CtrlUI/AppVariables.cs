@@ -40,7 +40,8 @@ namespace CtrlUI
         public static bool vCheckingForUpdate = false;
 
         //Busy Variables
-        public static bool vBusyRefreshingApps = false;
+        public static bool vBusyRefreshingProcesses = false;
+        public static bool vBusyRefreshingShortcuts = false;
 
         //Process Variables
         public static Process vProcessCurrent = Process.GetCurrentProcess();

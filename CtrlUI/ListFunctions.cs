@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
 {
@@ -30,15 +29,15 @@ namespace CtrlUI
             }
         }
 
-        //Wait for application lists refresh
-        async Task RefreshApplicationListsWait()
+        //Wait for processes list refresh
+        async Task RefreshListProcessesWait()
         {
             try
             {
-                if (vBusyRefreshingApps)
+                if (vBusyRefreshingProcesses)
                 {
-                    Debug.WriteLine("Applications are already refreshing, waiting.");
-                    while (vBusyRefreshingApps)
+                    Debug.WriteLine("Processes are currently refreshing, waiting.");
+                    while (vBusyRefreshingProcesses)
                     {
                         await Task.Delay(100);
                     }
@@ -47,76 +46,56 @@ namespace CtrlUI
             catch { }
         }
 
-        //Refresh the application lists
-        async Task RefreshApplicationLists(bool skipShortcutLoading, bool skipProcessLoading, bool skipRunningStatus, bool skipListStats, bool refreshWait, bool showStatus, bool playSound)
+        //Refresh the processes and status
+        async Task RefreshListProcesses(bool refreshWait)
         {
             try
             {
-                //Check if applications are refreshing
-                if (vBusyRefreshingApps)
+                //Check if already refreshing
+                if (vBusyRefreshingProcesses)
                 {
                     if (refreshWait)
                     {
-                        await RefreshApplicationListsWait();
+                        await RefreshListProcessesWait();
                     }
                     else
                     {
-                        Debug.WriteLine("Applications are already refreshing, cancelling.");
+                        Debug.WriteLine("Processes are already refreshing, cancelling.");
                         return;
                     }
                 }
 
                 //Update the refreshing status
-                vBusyRefreshingApps = true;
-
-                //Show refresh status message
-                if (showStatus)
-                {
-                    Popup_Show_Status("Refresh", "Refreshing applications");
-                }
-
-                //Play application refresh sound
-                if (playSound)
-                {
-                    PlayInterfaceSound(vInterfaceSoundVolume, "Refresh", false);
-                }
+                vBusyRefreshingProcesses = true;
 
                 //Load all the active processes
-                IEnumerable<Process> processesList = null;
-                if (!skipProcessLoading || !skipRunningStatus)
-                {
-                    processesList = Process.GetProcesses();
+                IEnumerable<Process> processesList = Process.GetProcesses();
 
-                    if (!skipProcessLoading)
-                    {
-                        await UpdateApplicationLists(processesList);
-                    }
+                //Refresh the processes list
+                await RefreshListProcesses(processesList);
 
-                    if (!skipRunningStatus)
-                    {
-                        CheckAppRunningStatus(processesList);
-                    }
-                }
-
-                //Load all the shortcuts
-                if (!skipShortcutLoading)
-                {
-                    await ListLoadShortcuts(false);
-                }
-
-                //Refresh the application list stats
-                if (!skipListStats)
-                {
-                    ShowHideEmptyList(true, true);
-                    ListsUpdateCount();
-                    UpdateSearchResults();
-                }
+                //Check app running status
+                CheckAppRunningStatus(processesList);
             }
             catch { }
-            vBusyRefreshingApps = false;
+            //Update the refreshing status
+            vBusyRefreshingProcesses = false;
         }
 
-        async Task UpdateApplicationLists(IEnumerable<Process> processesList)
+        //Refresh the list status
+        void RefreshListStatus()
+        {
+            try
+            {
+                ShowHideEmptyList();
+                ListsUpdateCount();
+                UpdateSearchResults();
+            }
+            catch { }
+        }
+
+        //Refresh the processes list
+        async Task RefreshListProcesses(IEnumerable<Process> processesList)
         {
             try
             {
@@ -185,21 +164,15 @@ namespace CtrlUI
         }
 
         //Check for empty lists and hide them
-        void ShowHideEmptyList(bool includeShortcuts, bool includeProcesses)
+        void ShowHideEmptyList()
         {
             try
             {
                 UpdateElementVisibility(sp_Games, List_Games.Any());
                 UpdateElementVisibility(sp_Apps, List_Apps.Any());
                 UpdateElementVisibility(sp_Emulators, List_Emulators.Any());
-                if (includeShortcuts)
-                {
-                    UpdateElementVisibility(sp_Shortcuts, List_Shortcuts.Any() && ConfigurationManager.AppSettings["ShowOtherShortcuts"] == "True");
-                }
-                if (includeProcesses)
-                {
-                    UpdateElementVisibility(sp_Processes, List_Processes.Any() && ConfigurationManager.AppSettings["ShowOtherProcesses"] == "True");
-                }
+                UpdateElementVisibility(sp_Shortcuts, List_Shortcuts.Any() && ConfigurationManager.AppSettings["ShowOtherShortcuts"] == "True");
+                UpdateElementVisibility(sp_Processes, List_Processes.Any() && ConfigurationManager.AppSettings["ShowOtherProcesses"] == "True");
             }
             catch { }
         }

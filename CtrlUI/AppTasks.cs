@@ -16,8 +16,14 @@ namespace CtrlUI
         public static Task vTask_UpdateWindowStatus = null;
         public static CancellationTokenSource vTaskToken_UpdateWindowStatus = null;
 
-        public static Task vTask_UpdateApplications = null;
-        public static CancellationTokenSource vTaskToken_UpdateApplications = null;
+        public static Task vTask_UpdateProcesses = null;
+        public static CancellationTokenSource vTaskToken_UpdateProcesses = null;
+
+        public static Task vTask_UpdateShortcuts = null;
+        public static CancellationTokenSource vTaskToken_UpdateShortcuts = null;
+
+        public static Task vTask_UpdateListStatus = null;
+        public static CancellationTokenSource vTaskToken_UpdateListStatus = null;
 
         public static Task vTask_UpdateAppRunningTime = null;
         public static CancellationTokenSource vTaskToken_UpdateAppRunningTime = null;
@@ -42,8 +48,14 @@ namespace CtrlUI
                 vTaskToken_ControllerConnected = new CancellationTokenSource();
                 vTask_ControllerConnected = AVActions.TaskStart(vTaskAction_ControllerConnected, vTaskToken_ControllerConnected);
 
-                vTaskToken_UpdateApplications = new CancellationTokenSource();
-                vTask_UpdateApplications = AVActions.TaskStart(vTaskAction_UpdateApplications, vTaskToken_UpdateApplications);
+                vTaskToken_UpdateProcesses = new CancellationTokenSource();
+                vTask_UpdateProcesses = AVActions.TaskStart(vTaskAction_UpdateProcesses, vTaskToken_UpdateProcesses);
+
+                vTaskToken_UpdateShortcuts = new CancellationTokenSource();
+                vTask_UpdateShortcuts = AVActions.TaskStart(vTaskAction_UpdateShortcuts, vTaskToken_UpdateShortcuts);
+
+                vTaskToken_UpdateListStatus = new CancellationTokenSource();
+                vTask_UpdateListStatus = AVActions.TaskStart(vTaskAction_UpdateListStatus, vTaskToken_UpdateListStatus);
 
                 vTaskToken_UpdateAppRunningTime = new CancellationTokenSource();
                 vTask_UpdateAppRunningTime = AVActions.TaskStart(vTaskAction_UpdateAppRunningTime, vTaskToken_UpdateAppRunningTime);
@@ -67,7 +79,9 @@ namespace CtrlUI
                 vTaskToken_ControllerConnected.Cancel();
                 vTaskToken_UpdateClock.Cancel();
                 vTaskToken_UpdateWindowStatus.Cancel();
-                vTaskToken_UpdateApplications.Cancel();
+                vTaskToken_UpdateProcesses.Cancel();
+                vTaskToken_UpdateShortcuts.Cancel();
+                vTaskToken_UpdateListStatus.Cancel();
                 vTaskToken_UpdateAppRunningTime.Cancel();
                 vTaskToken_UpdateMediaInformation.Cancel();
                 vTaskToken_ShowHideMouse.Cancel();

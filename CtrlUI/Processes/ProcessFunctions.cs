@@ -114,9 +114,6 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Popup_Show_Status("App", "Preparing launch");
-                    Debug.WriteLine("Preparing application launch: " + dataBindApp.PathExe);
-
                     //Run process url protocol
                     if (dataBindApp.StatusLauncher == Visibility.Visible)
                     {
@@ -124,8 +121,8 @@ namespace CtrlUI
                         return;
                     }
 
-                    //Refresh the application lists
-                    await RefreshApplicationLists(true, false, false, false, true, false, false);
+                    //Refresh the processes list
+                    await RefreshListProcesses(true);
 
                     //Check if process is running
                     ProcessMulti processMulti = await SelectProcessMulti(dataBindApp, true);
@@ -354,9 +351,6 @@ namespace CtrlUI
                         }
                         catch { }
                     }
-
-                    //Refresh the application lists
-                    await RefreshApplicationLists(true, false, false, false, false, false, false);
                 }
             }
             catch { }

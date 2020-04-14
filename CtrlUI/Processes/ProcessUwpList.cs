@@ -30,16 +30,6 @@ namespace CtrlUI
         {
             try
             {
-                if (ConfigurationManager.AppSettings["ShowOtherProcesses"] == "False")
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        sp_Processes.Visibility = Visibility.Collapsed;
-                    });
-                    List_Processes.Clear();
-                    return;
-                }
-
                 //Check if there are active processes
                 Process frameHostProcess = GetProcessByNameOrTitle("ApplicationFrameHost", false);
                 if (frameHostProcess != null)

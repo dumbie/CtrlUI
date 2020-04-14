@@ -121,9 +121,6 @@ namespace CtrlUI
                     await ListBoxRemoveItem(lb_Search, List_Search, dataBindApp, true);
                 }
 
-                //Refresh the application lists
-                await RefreshApplicationLists(true, true, true, false, false, false, false);
-
                 //Save changes to Json file
                 if (saveJson)
                 {
@@ -530,9 +527,6 @@ namespace CtrlUI
                     //Close the open popup
                     await Popup_Close_Top();
 
-                    //Refresh the application lists
-                    await RefreshApplicationLists(true, true, true, false, false, false, false);
-
                     //Focus on the application list
                     if (selectedAddCategory == AppCategory.Game)
                     {
@@ -684,9 +678,6 @@ namespace CtrlUI
                             else if (vEditAppDataBind.Category == AppCategory.Emulator) { await ListboxFocusIndex(lb_Emulators, false, false, -1); }
                         }
                     }
-
-                    //Refresh the application lists
-                    await RefreshApplicationLists(true, true, true, false, false, false, false);
                 }
             }
             catch (Exception ex)

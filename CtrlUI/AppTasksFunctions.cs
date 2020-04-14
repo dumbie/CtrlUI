@@ -71,16 +71,56 @@ namespace CtrlUI
             catch { }
         }
 
-        async void vTaskAction_UpdateApplications()
+        async void vTaskAction_UpdateProcesses()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_UpdateApplications))
+                while (TaskRunningCheck(vTaskToken_UpdateProcesses))
                 {
                     if (vAppActivated)
                     {
-                        await RefreshApplicationLists(false, false, false, false, false, false, false);
+                        await RefreshListProcesses(false);
                         await Task.Delay(3000);
+                    }
+                    else
+                    {
+                        await Task.Delay(500);
+                    }
+                }
+            }
+            catch { }
+        }
+
+        async void vTaskAction_UpdateShortcuts()
+        {
+            try
+            {
+                while (TaskRunningCheck(vTaskToken_UpdateShortcuts))
+                {
+                    if (vAppActivated)
+                    {
+                        await RefreshListShortcuts(false);
+                        await Task.Delay(6000);
+                    }
+                    else
+                    {
+                        await Task.Delay(500);
+                    }
+                }
+            }
+            catch { }
+        }
+
+        async void vTaskAction_UpdateListStatus()
+        {
+            try
+            {
+                while (TaskRunningCheck(vTaskToken_UpdateListStatus))
+                {
+                    if (vAppActivated)
+                    {
+                        RefreshListStatus();
+                        await Task.Delay(2000);
                     }
                     else
                     {

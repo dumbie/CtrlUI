@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using Shell32;
+﻿using Shell32;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -117,19 +116,26 @@ namespace CtrlUI
         }
 
         //Get all the shortcuts and update the list
-        async Task ListLoadShortcuts(bool showStatus)
+        async Task RefreshListShortcuts(bool showStatus)
         {
             try
             {
+                //Check if shortcuts need to be updated
                 if (ConfigurationManager.AppSettings["ShowOtherShortcuts"] == "False")
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        sp_Shortcuts.Visibility = Visibility.Collapsed;
-                    });
-                    List_Shortcuts.Clear();
+                    //Debug.WriteLine("Shortcuts don't need to be updated, cancelling.");
                     return;
                 }
+
+                //Check if already refreshing
+                if (vBusyRefreshingShortcuts)
+                {
+                    Debug.WriteLine("Shortcuts are already refreshing, cancelling.");
+                    return;
+                }
+
+                //Update the refreshing status
+                vBusyRefreshingShortcuts = true;
 
                 //Show refresh status message
                 if (showStatus)
@@ -215,6 +221,8 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Failed loading shortcuts: " + ex.Message);
             }
+            //Update the refreshing status
+            vBusyRefreshingShortcuts = false;
         }
 
         //Add shortcut to the shortcuts list

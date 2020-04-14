@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
@@ -25,16 +24,6 @@ namespace CtrlUI
         {
             try
             {
-                if (ConfigurationManager.AppSettings["ShowOtherProcesses"] == "False")
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        sp_Processes.Visibility = Visibility.Collapsed;
-                    });
-                    List_Processes.Clear();
-                    return;
-                }
-
                 //Check if processes list is provided
                 if (processesList == null)
                 {

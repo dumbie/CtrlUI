@@ -92,22 +92,19 @@ namespace CtrlUI
                     UpdateControllerHelp();
                 };
 
-                cb_SettingsShowOtherShortcuts.Click += async (sender, e) =>
+                cb_SettingsShowOtherShortcuts.Click += (sender, e) =>
                 {
                     SettingSave("ShowOtherShortcuts", cb_SettingsShowOtherShortcuts.IsChecked.ToString());
-                    await RefreshApplicationLists(false, false, false, false, false, false, false);
                 };
 
-                cb_SettingsShowOtherProcesses.Click += async (sender, e) =>
+                cb_SettingsShowOtherProcesses.Click += (sender, e) =>
                 {
                     SettingSave("ShowOtherProcesses", cb_SettingsShowOtherProcesses.IsChecked.ToString());
-                    await RefreshApplicationLists(false, false, false, false, false, false, false);
                 };
 
-                cb_SettingsHideAppProcesses.Click += async (sender, e) =>
+                cb_SettingsHideAppProcesses.Click += (sender, e) =>
                 {
                     SettingSave("HideAppProcesses", cb_SettingsHideAppProcesses.IsChecked.ToString());
-                    await RefreshApplicationLists(false, false, false, false, false, false, false);
                 };
 
                 cb_SettingsHideBatteryLevel.Click += (sender, e) =>
