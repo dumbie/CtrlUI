@@ -118,7 +118,6 @@ namespace CtrlUI
                 button_MenuHamburger.Click += Button_MenuHamburger_Click;
                 button_MenuSearch.Click += Button_MenuSearch_Click;
                 button_MenuSorting.Click += Button_MenuSorting_Click;
-                button_MenuRefresh.Click += Button_MenuRefresh_Click;
 
                 //App list functions
                 lb_Search.PreviewKeyUp += ListBox_Apps_KeyPressUp;

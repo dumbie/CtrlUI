@@ -180,10 +180,6 @@ namespace CtrlUI
                         {
                             KeySendSingle((byte)KeysVirtual.Escape, vProcessCurrent.MainWindowHandle);
                         }
-                        else
-                        {
-                            await RefreshApplicationLists(false, false, false, false, false, true, true);
-                        }
 
                         ControllerUsed = true;
                         ControllerDelayMedium = true;

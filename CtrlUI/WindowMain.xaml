@@ -38,9 +38,6 @@
                 <Button Name="button_MenuSorting" Margin="10,10,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Sort by name">
                     <Image Source="Assets/Icons/Sorting.png"/>
                 </Button>
-                <Button Name="button_MenuRefresh" Margin="10,10,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Refresh applications">
-                    <Image Source="Assets/Icons/Refresh.png"/>
-                </Button>
             </StackPanel>
 
             <!-- Status - Media Information -->
@@ -265,13 +262,13 @@
                         <Image Source="Assets/Icons/AddApp.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Add a store application to the list" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Name="menuButtonCloseLaunchers" Orientation="Horizontal">
-                        <Image Source="Assets/Icons/Closing.png" Width="50" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="15,0,0,0" Text="Close other running app launchers" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </StackPanel>
                     <StackPanel Name="menuButtonDisconnect" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Stream.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Disconnect active remote streams" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonCloseLaunchers" Orientation="Horizontal">
+                        <Image Source="Assets/Icons/Closing.png" Width="50" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Close other running app launchers" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonShutdown" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Shutdown.png" Width="50" HorizontalAlignment="Center"/>
