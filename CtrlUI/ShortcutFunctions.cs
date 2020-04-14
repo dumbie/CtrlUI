@@ -176,6 +176,7 @@ namespace CtrlUI
                         //Read shortcut file information
                         ShortcutDetails shortcutDetails = ReadShortcutFile(file.FullName);
                         string targetPathLower = shortcutDetails.TargetPath.ToLower();
+                        string targetArgumentLower = shortcutDetails.Argument.ToLower();
 
                         //Check if already in combined list and remove it
                         if (CombineAppLists(false, false).Any(x => x.PathExe.ToLower() == targetPathLower))
@@ -202,7 +203,7 @@ namespace CtrlUI
                         }
 
                         //Check if shortcut is already in the shortcut list
-                        DataBindApp shortcutExistCheck = List_Shortcuts.Where(x => x.PathExe.ToLower() == targetPathLower).FirstOrDefault();
+                        DataBindApp shortcutExistCheck = List_Shortcuts.Where(x => x.PathExe.ToLower() == targetPathLower && x.Argument.ToLower() == targetArgumentLower).FirstOrDefault();
                         if (shortcutExistCheck != null)
                         {
                             //Debug.WriteLine("Shortcut is already in list, updating: " + targetPathLower);
