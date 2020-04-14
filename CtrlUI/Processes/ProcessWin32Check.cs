@@ -135,6 +135,7 @@ namespace CtrlUI
 
                     DataBindString AnswerRestartWithout = new DataBindString();
                     AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                    AnswerRestartWithout.Name = "Restart application";
                     if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
                     {
                         AnswerRestartWithout.NameSub = "(Default argument)";
