@@ -13,7 +13,7 @@ namespace KeyboardController
         public static WindowSettings vWindowSettings = new WindowSettings();
 
         //Application Startup
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             try
             {
@@ -21,7 +21,7 @@ namespace KeyboardController
                 Application_UpdateCheck();
 
                 //Check the application status
-                Application_LaunchCheck("Keyboard Controller", "KeyboardController", ProcessPriorityClass.High, false);
+                await Application_LaunchCheck("Keyboard Controller", ProcessPriorityClass.High, false, false);
 
                 //Allow application in firewall
                 string appFilePath = Assembly.GetEntryAssembly().Location;

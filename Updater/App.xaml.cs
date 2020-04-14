@@ -10,12 +10,12 @@ namespace Updater
         public static WindowMain vWindowMain = new WindowMain();
 
         //Application Startup
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             try
             {
                 //Check the application status
-                Application_LaunchCheck("Application Updater", "Updater", ProcessPriorityClass.Normal, true);
+                await Application_LaunchCheck("Application Updater", ProcessPriorityClass.Normal, true, true);
 
                 //Open the application window
                 vWindowMain.Show();

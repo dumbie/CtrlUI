@@ -17,7 +17,7 @@ namespace AdminLauncher
             try
             {
                 //Check the application status
-                Application_LaunchCheck("Fps Overlayer Launcher", "FpsOverlayer-Launcher", ProcessPriorityClass.Normal, false);
+                await Application_LaunchCheck("Fps Overlayer Launcher", ProcessPriorityClass.Normal, false, false);
 
                 //Enable launch requirements
                 InstallCertificate(@"Resources\ArnoldVinkCertificate.cer");

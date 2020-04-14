@@ -29,7 +29,7 @@ namespace CtrlUI
                 Application_UpdateCheck();
 
                 //Check the application status
-                Application_LaunchCheck("CtrlUI", "CtrlUI", ProcessPriorityClass.High, false);
+                await Application_LaunchCheck("CtrlUI", ProcessPriorityClass.High, false, true);
 
                 //Allow application in firewall
                 string appFilePath = Assembly.GetEntryAssembly().Location;

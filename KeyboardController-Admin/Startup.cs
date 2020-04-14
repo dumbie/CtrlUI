@@ -34,7 +34,7 @@ namespace AdminLauncher
                 SchTask_WorkingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
                 //Check the application status
-                Application_LaunchCheck(SchTask_Description, "KeyboardController-Admin", ProcessPriorityClass.Normal, false);
+                await Application_LaunchCheck(SchTask_Description, ProcessPriorityClass.Normal, false, false);
 
                 //Check if the task already exists
                 int ResultCheckTask = CheckTask();

@@ -10,7 +10,7 @@ namespace DriverInstaller
         public static WindowMain vWindowMain = new WindowMain();
 
         //Application Startup
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             try
             {
@@ -18,7 +18,7 @@ namespace DriverInstaller
                 Application_UpdateCheck();
 
                 //Check the application status
-                Application_LaunchCheck("Driver Installer", "DriverInstaller", ProcessPriorityClass.Normal, false);
+                await Application_LaunchCheck("Driver Installer", ProcessPriorityClass.Normal, false, true);
 
                 //Open the application window
                 vWindowMain.Show();

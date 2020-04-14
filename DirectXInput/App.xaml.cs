@@ -20,7 +20,7 @@ namespace DirectXInput
                 Application_UpdateCheck();
 
                 //Check the application status
-                Application_LaunchCheck("DirectXInput", "DirectXInput", ProcessPriorityClass.High, false);
+                await Application_LaunchCheck("DirectXInput", ProcessPriorityClass.High, false, false);
 
                 //Allow application in firewall
                 string appFilePath = Assembly.GetEntryAssembly().Location;

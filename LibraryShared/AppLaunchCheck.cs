@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.ProcessFunctions;
 
 namespace LibraryShared
 {
@@ -16,30 +18,61 @@ namespace LibraryShared
         public static string[] AssetsRootFiles = { "Assets\\Background.png", "Assets\\BackgroundLive.mp4", "Assets\\BoxArt.png" };
         public static string[] AssetsAppsFiles = { "Assets\\Apps\\Battle.net.png", "Assets\\Apps\\Bethesda.png", "Assets\\Apps\\DirectXInput.png", "Assets\\Apps\\Epic.png", "Assets\\Apps\\GoG.png", "Assets\\Apps\\Kodi.png", "Assets\\Apps\\Microsoft Edge.png", "Assets\\Apps\\Origin.png", "Assets\\Apps\\Remote Play.png", "Assets\\Apps\\Spotify.png", "Assets\\Apps\\Steam.png", "Assets\\Apps\\Unknown.png", "Assets\\Apps\\Uplay.png", "Assets\\Apps\\Xbox.png" };
 
-        public static void Application_LaunchCheck(string ApplicationName, string ProcessName, ProcessPriorityClass priorityLevel, bool skipFileCheck)
+        public static async Task Application_LaunchCheck(string applicationName, ProcessPriorityClass priorityLevel, bool skipFileCheck, bool focusActiveProcess)
         {
             try
             {
                 Debug.WriteLine("Checking application status.");
+                Process currentProcess = Process.GetCurrentProcess();
+                string processName = currentProcess.ProcessName;
+                Process[] activeProcesses = Process.GetProcessesByName(processName);
 
                 //Check - If application is already running
-                if (Process.GetProcessesByName(ProcessName).Length > 1)
+                if (activeProcesses.Length > 1)
                 {
                     Debug.WriteLine("Application is already running.");
+
+                    //Show the active process
+                    if (focusActiveProcess)
+                    {
+                        foreach (Process activeProcess in activeProcesses)
+                        {
+                            try
+                            {
+                                if (currentProcess.Id != activeProcess.Id)
+                                {
+                                    Debug.WriteLine("Showing active process: " + activeProcess.Id);
+                                    await FocusProcessWindow(applicationName, activeProcess.Id, activeProcess.MainWindowHandle, 0, false, false);
+                                }
+                            }
+                            catch { }
+                        }
+                    }
+
+                    //Close the current process
+                    Debug.WriteLine("Closing the process.");
                     Environment.Exit(0);
                     return;
                 }
 
                 //Set the working directory to executable directory
-                Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+                try
+                {
+                    Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+                }
+                catch { }
 
                 //Set the application priority level
-                Process.GetCurrentProcess().PriorityClass = priorityLevel;
+                try
+                {
+                    currentProcess.PriorityClass = priorityLevel;
+                }
+                catch { }
 
                 //Check - Windows version check
                 if (AVFunctions.DevOsVersion() < 10)
                 {
-                    MessageBox.Show(ApplicationName + " only supports Windows 10 or newer.", ApplicationName);
+                    MessageBox.Show(applicationName + " only supports Windows 10 or newer.", applicationName);
                     Environment.Exit(0);
                     return;
                 }
@@ -50,12 +83,16 @@ namespace LibraryShared
                     ApplicationFiles = ApplicationFiles.Concat(ProfileFiles).Concat(ResourcesFiles).Concat(AssetsRootFiles).Concat(AssetsAppsFiles).ToArray();
                     foreach (string checkFile in ApplicationFiles)
                     {
-                        if (!File.Exists(checkFile))
+                        try
                         {
-                            MessageBox.Show("File: " + checkFile + " could not be found, please check your installation.", ApplicationName);
-                            Environment.Exit(0);
-                            return;
+                            if (!File.Exists(checkFile))
+                            {
+                                MessageBox.Show("File: " + checkFile + " could not be found, please check your installation.", applicationName);
+                                Environment.Exit(0);
+                                return;
+                            }
                         }
+                        catch { }
                     }
                 }
             }

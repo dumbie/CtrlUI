@@ -34,9 +34,6 @@ namespace DriverInstaller
 
                 //Load Json profiles
                 JsonLoadProfile(ref vDirectCloseTools, "DirectCloseTools");
-
-                //Close running controller tools
-                CloseControllerTools();
             }
             catch { }
         }
@@ -103,7 +100,7 @@ namespace DriverInstaller
         }
 
         //Close running controller tools
-        void CloseControllerTools()
+        async Task CloseControllerTools()
         {
             try
             {
@@ -126,6 +123,9 @@ namespace DriverInstaller
                     }
                     catch { }
                 }
+
+                //Wait for tools to close
+                await Task.Delay(1000);
             }
             catch { }
         }

@@ -39,7 +39,7 @@ namespace DriverInstaller
                 ElementEnableDisable(button_Driver_Close, false);
 
                 //Close running controller tools
-                CloseControllerTools();
+                await CloseControllerTools();
                 ProgressBarUpdate(10, false);
 
                 //Start the driver uninstallation

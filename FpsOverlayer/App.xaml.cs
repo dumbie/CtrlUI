@@ -12,7 +12,7 @@ namespace FpsOverlayer
         public static WindowApplications vWindowApplications = new WindowApplications();
 
         //Application Startup
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace FpsOverlayer
                 Application_UpdateCheck();
 
                 //Check the application status
-                Application_LaunchCheck("Fps Overlayer", "FpsOverlayer", ProcessPriorityClass.High, false);
+                await Application_LaunchCheck("Fps Overlayer", ProcessPriorityClass.High, false, false);
 
                 //Open the application window
                 vWindowMain.Show();
