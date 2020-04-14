@@ -158,11 +158,12 @@ namespace CtrlUI
                                 Func<DataBindApp, bool> filterProcessApp = x => x.ProcessMulti.Any(z => z.WindowHandle == processWindowHandle);
 
                                 //Check all the lists for the application
-                                DataBindApp existingCombinedApp = currentListApps.Where(filterCombinedApp).FirstOrDefault();
-                                DataBindApp existingProcessApp = List_Processes.Where(filterProcessApp).FirstOrDefault();
+                                IEnumerable<DataBindApp> existingCombinedApps = currentListApps.Where(filterCombinedApp);
+                                IEnumerable<DataBindApp> existingProcessApps = List_Processes.Where(filterProcessApp);
+                                bool appUpdatedContinueLoop = false;
 
                                 //Check if process is in combined list and update it
-                                if (existingCombinedApp != null)
+                                foreach (DataBindApp existingCombinedApp in existingCombinedApps)
                                 {
                                     //Update the process running time
                                     existingCombinedApp.RunningTime = processRunningTime;
@@ -186,12 +187,13 @@ namespace CtrlUI
                                     if (ConfigurationManager.AppSettings["HideAppProcesses"] == "True")
                                     {
                                         await ListBoxRemoveAll(lb_Processes, List_Processes, filterCombinedApp);
-                                        continue;
+                                        appUpdatedContinueLoop = true;
                                     }
                                 }
+                                if (appUpdatedContinueLoop) { continue; }
 
                                 //Check if process is in process list and update it
-                                if (existingProcessApp != null)
+                                foreach (DataBindApp existingProcessApp in existingProcessApps)
                                 {
                                     //Update the process title
                                     if (existingProcessApp.Name != processName) { existingProcessApp.Name = processName; }
@@ -214,8 +216,9 @@ namespace CtrlUI
                                         processMulti.WindowHandle = processWindowHandle;
                                     }
 
-                                    continue;
+                                    appUpdatedContinueLoop = true;
                                 }
+                                if (appUpdatedContinueLoop) { continue; }
 
                                 //Load the application image
                                 BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExeNoExt, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, processWindowHandle, 90, 0);

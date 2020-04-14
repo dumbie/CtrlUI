@@ -70,6 +70,13 @@ namespace CtrlUI
             bool appLaunched = false;
             try
             {
+                //Check the application category
+                if (!useLaunchArgument && dataBindApp.Category != AppCategory.Process)
+                {
+                    await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
+                    return await LaunchProcessDatabindAuto(dataBindApp);
+                }
+
                 //Restart the process
                 if (processMulti.Type == ProcessType.UWP)
                 {

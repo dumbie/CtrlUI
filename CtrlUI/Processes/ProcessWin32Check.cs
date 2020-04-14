@@ -125,16 +125,24 @@ namespace CtrlUI
                     multiAnswers.Add(AnswerLaunch);
 
                     DataBindString AnswerRestartCurrent = new DataBindString();
-                    if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
+                    if (!string.IsNullOrWhiteSpace(processMulti.Argument))
                     {
                         AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
-                        AnswerRestartCurrent.Name = "Restart application (Current argument)";
+                        AnswerRestartCurrent.Name = "Restart application";
+                        AnswerRestartCurrent.NameSub = "(Current argument)";
                         multiAnswers.Add(AnswerRestartCurrent);
                     }
 
                     DataBindString AnswerRestartWithout = new DataBindString();
                     AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
-                    AnswerRestartWithout.Name = "Restart application (Without argument)";
+                    if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
+                    {
+                        AnswerRestartWithout.NameSub = "(Default argument)";
+                    }
+                    else
+                    {
+                        AnswerRestartWithout.NameSub = "(Without argument)";
+                    }
                     multiAnswers.Add(AnswerRestartWithout);
 
                     //Ask which window needs to be shown

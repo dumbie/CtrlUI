@@ -35,16 +35,25 @@ namespace CtrlUI
                 Answers.Add(AnswerLaunch);
 
                 DataBindString AnswerRestartCurrent = new DataBindString();
-                if (!string.IsNullOrWhiteSpace(dataBindApp.Argument))
+                if (!string.IsNullOrWhiteSpace(processMulti.Argument))
                 {
                     AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
-                    AnswerRestartCurrent.Name = "Restart application (Current argument)";
+                    AnswerRestartCurrent.Name = "Restart application";
+                    AnswerRestartCurrent.NameSub = "(Current argument)";
                     Answers.Add(AnswerRestartCurrent);
                 }
 
                 DataBindString AnswerRestartWithout = new DataBindString();
                 AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
-                AnswerRestartWithout.Name = "Restart application (Without argument)";
+                AnswerRestartWithout.Name = "Restart application";
+                if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
+                {
+                    AnswerRestartWithout.NameSub = "(Default argument)";
+                }
+                else
+                {
+                    AnswerRestartWithout.NameSub = "(Without argument)";
+                }
                 Answers.Add(AnswerRestartWithout);
 
                 //Get the process running time
@@ -84,8 +93,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerRestartWithout)
                     {
-                        await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
-                        await LaunchProcessDatabindAuto(dataBindApp);
+                        await RestartPrepareAuto(processMulti, dataBindApp, false);
                     }
                     else if (messageResult == AnswerLaunch)
                     {
