@@ -253,69 +253,79 @@ namespace CtrlUI
                     AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerLeft, VisibilityProperty, Visibility.Visible);
                     AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerUp, VisibilityProperty, Visibility.Visible);
 
+                    //Get all the top files and folders
+                    DirectoryInfo directoryInfo = new DirectoryInfo(targetPath);
+                    DirectoryInfo[] directoryFolders = null;
+                    FileInfo[] directoryFiles = null;
+                    if (vFilePickerSortByName)
+                    {
+                        directoryFolders = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
+                        directoryFiles = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
+                    }
+                    else
+                    {
+                        directoryFolders = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly).OrderByDescending(x => x.LastWriteTime).ToArray();
+                        directoryFiles = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).OrderByDescending(x => x.LastWriteTime).ToArray();
+                    }
+
+                    //Get all rom images and descriptions
+                    FileInfo[] directoryRomImages = new FileInfo[] { };
+                    FileInfo[] directoryRomDescriptions = new FileInfo[] { };
+                    if (vFilePickerShowRoms)
+                    {
+                        string[] imageFilter = new string[] { "jpg", "png" };
+                        string[] descriptionFilter = new string[] { "txt" };
+
+                        DirectoryInfo directoryInfoRoms = new DirectoryInfo("Assets\\Roms");
+                        FileInfo[] directoryPathsRoms = directoryInfoRoms.GetFiles("*", SearchOption.TopDirectoryOnly);
+
+                        FileInfo[] romsImages = directoryPathsRoms.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                        FileInfo[] filesImages = directoryFiles.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                        directoryRomImages = filesImages.Concat(romsImages).OrderByDescending(x => x.Name.Length).ToArray();
+
+                        FileInfo[] romsDescriptions = directoryPathsRoms.Where(file => descriptionFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                        FileInfo[] filesDescriptions = directoryFiles.Where(file => descriptionFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                        directoryRomDescriptions = filesDescriptions.Concat(romsDescriptions).OrderByDescending(x => x.Name.Length).ToArray();
+                    }
+
                     //Get all the directories from target directory
                     if (vFilePickerShowDirectories)
                     {
                         try
                         {
-                            //Get all the files or folders
-                            DirectoryInfo directoryInfo = new DirectoryInfo(targetPath);
-                            DirectoryInfo[] directoryPaths = null;
-                            if (vFilePickerSortByName)
-                            {
-                                directoryPaths = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
-                            }
-                            else
-                            {
-                                directoryPaths = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly).OrderByDescending(x => x.LastWriteTime).ToArray();
-                            }
-
-                            //Fill the file picker listbox with directories
-                            BitmapImage folderImage = null;
-                            string folderDescription = string.Empty;
-                            foreach (DirectoryInfo listDirectory in directoryPaths)
+                            //Fill the file picker listbox with folders
+                            foreach (DirectoryInfo listFolder in directoryFolders)
                             {
                                 try
                                 {
+                                    BitmapImage listImage = null;
+                                    string listDescription = string.Empty;
+
                                     //Load image files for the list
                                     if (vFilePickerShowRoms)
                                     {
-                                        //Get folder name
-                                        string folderName = listDirectory.Name.ToLower();
-
-                                        //Get description names
-                                        string folderRomsTxt = "Assets\\Roms\\" + folderName + ".txt";
-                                        string folderImageTxt = Path.Combine(listDirectory.FullName, folderName + ".txt");
-                                        folderDescription = FileToString(new string[] { folderRomsTxt, folderImageTxt });
-
-                                        //Get image names
-                                        string folderRomsJpg = "Assets\\Roms\\" + folderName + ".jpg";
-                                        string folderRomsPng = "Assets\\Roms\\" + folderName + ".png";
-                                        string folderImageJpg = Path.Combine(listDirectory.FullName, folderName + ".jpg");
-                                        string folderImagePng = Path.Combine(listDirectory.FullName, folderName + ".png");
-
-                                        folderImage = FileToBitmapImage(new string[] { folderRomsPng, folderImagePng, folderRomsJpg, folderImageJpg, "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, 180, 0);
+                                        GetRomDetails(listFolder.Name, listFolder.FullName, directoryRomImages, directoryRomDescriptions, ref listImage, ref listDescription);
                                     }
                                     else
                                     {
-                                        folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1, 0);
+                                        listImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1, 0);
                                     }
 
                                     //Get the folder size
                                     //string folderSize = AVFunctions.ConvertBytesSizeToString(GetDirectorySize(listDirectory));
 
                                     //Get the folder date
-                                    string folderDate = listDirectory.LastWriteTime.ToShortDateString().Replace("-", "/");
+                                    string folderDate = listFolder.LastWriteTime.ToShortDateString().Replace("-", "/");
 
                                     //Set the detailed text
                                     string folderDetailed = folderDate;
 
                                     //Add folder to the list
-                                    bool systemFileFolder = listDirectory.Attributes.HasFlag(FileAttributes.System);
-                                    bool hiddenFileFolder = listDirectory.Attributes.HasFlag(FileAttributes.Hidden);
+                                    bool systemFileFolder = listFolder.Attributes.HasFlag(FileAttributes.System);
+                                    bool hiddenFileFolder = listFolder.Attributes.HasFlag(FileAttributes.Hidden);
                                     if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
-                                        DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listDirectory.Name, NameDetail = folderDetailed, Description = folderDescription, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
+                                        DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listFolder.Name, NameDetail = folderDetailed, Description = listDescription, DateModified = listFolder.LastWriteTime, ImageBitmap = listImage, PathFile = listFolder.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
                                     }
                                 }
@@ -333,113 +343,47 @@ namespace CtrlUI
                             //Enable or disable selection button in the list
                             AVActions.ElementSetValue(grid_Popup_FilePicker_button_SelectFolder, VisibilityProperty, Visibility.Collapsed);
 
-                            //Get all the files or folders
-                            DirectoryInfo directoryInfo = new DirectoryInfo(targetPath);
-                            FileInfo[] directoryPathsFiles = null;
-                            if (vFilePickerSortByName)
-                            {
-                                directoryPathsFiles = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
-                            }
-                            else
-                            {
-                                directoryPathsFiles = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).OrderByDescending(x => x.LastWriteTime).ToArray();
-                            }
-
-                            //Filter rom images and descriptions
-                            FileInfo[] romImagesDirectory = new FileInfo[] { };
-                            FileInfo[] romDescriptionsDirectory = new FileInfo[] { };
-                            if (vFilePickerShowRoms)
-                            {
-                                string[] imageFilter = new string[] { "jpg", "png" };
-                                string[] descriptionFilter = new string[] { "txt" };
-
-                                DirectoryInfo directoryInfoRoms = new DirectoryInfo("Assets\\Roms");
-                                FileInfo[] directoryPathsRoms = directoryInfoRoms.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(z => z.Name).ToArray();
-
-                                FileInfo[] RomsImages = directoryPathsRoms.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                                FileInfo[] FilesImages = directoryPathsFiles.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                                romImagesDirectory = FilesImages.Concat(RomsImages).OrderByDescending(s => s.Name.Length).ToArray();
-
-                                FileInfo[] RomsDescriptions = directoryPathsRoms.Where(file => descriptionFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                                FileInfo[] FilesDescriptions = directoryPathsFiles.Where(file => descriptionFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                                romDescriptionsDirectory = FilesDescriptions.Concat(RomsDescriptions).OrderByDescending(s => s.Name.Length).ToArray();
-                            }
-
                             //Filter files in and out
                             if (vFilePickerFilterIn.Any())
                             {
-                                directoryPathsFiles = directoryPathsFiles.Where(file => vFilePickerFilterIn.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                                directoryFiles = directoryFiles.Where(file => vFilePickerFilterIn.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
                             }
                             if (vFilePickerFilterOut.Any())
                             {
-                                directoryPathsFiles = directoryPathsFiles.Where(file => !vFilePickerFilterOut.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                                directoryFiles = directoryFiles.Where(file => !vFilePickerFilterOut.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
                             }
 
-                            //Fill the file picker listbox with files based on filter
-                            BitmapImage fileImage = null;
-                            string fileDescription = string.Empty;
-                            foreach (FileInfo listFile in directoryPathsFiles)
+                            //Fill the file picker listbox with files
+                            foreach (FileInfo listFile in directoryFiles)
                             {
                                 try
                                 {
+                                    BitmapImage listImage = null;
+                                    string listDescription = string.Empty;
+
                                     //Load image files for the list
                                     if (vFilePickerShowRoms)
                                     {
-                                        //Get rom file names
-                                        string romFoundPathImage = string.Empty;
-                                        string romFoundPathDescription = string.Empty;
-                                        string romNameWithoutExtension = Path.GetFileNameWithoutExtension(listFile.Name).Replace(" ", string.Empty).ToLower();
-
-                                        //Check if rom directory has image
-                                        foreach (FileInfo FoundRom in romImagesDirectory)
-                                        {
-                                            try
-                                            {
-                                                if (romNameWithoutExtension.Contains(Path.GetFileNameWithoutExtension(FoundRom.Name.Replace(" ", string.Empty).ToLower())))
-                                                {
-                                                    romFoundPathImage = FoundRom.FullName;
-                                                    break;
-                                                }
-                                            }
-                                            catch { }
-                                        }
-
-                                        //Check if rom directory has description
-                                        foreach (FileInfo FoundRom in romDescriptionsDirectory)
-                                        {
-                                            try
-                                            {
-                                                if (romNameWithoutExtension.Contains(Path.GetFileNameWithoutExtension(FoundRom.Name.Replace(" ", string.Empty).ToLower())))
-                                                {
-                                                    romFoundPathDescription = FoundRom.FullName;
-                                                    break;
-                                                }
-                                            }
-                                            catch { }
-                                        }
-
-                                        fileDescription = FileToString(new string[] { romFoundPathDescription });
-                                        fileImage = FileToBitmapImage(new string[] { romFoundPathImage, "Rom" }, IntPtr.Zero, 180, 0);
+                                        GetRomDetails(listFile.Name, string.Empty, directoryRomImages, directoryRomDescriptions, ref listImage, ref listDescription);
                                     }
                                     else
                                     {
-                                        fileDescription = string.Empty;
                                         string listFileFullNameLower = listFile.FullName.ToLower();
                                         if (listFileFullNameLower.EndsWith(".jpg") || listFileFullNameLower.EndsWith(".png") || listFileFullNameLower.EndsWith(".gif"))
                                         {
-                                            fileImage = FileToBitmapImage(new string[] { listFile.FullName }, IntPtr.Zero, 50, 0);
+                                            listImage = FileToBitmapImage(new string[] { listFile.FullName }, IntPtr.Zero, 50, 0);
                                         }
                                         else if (listFileFullNameLower.EndsWith(".exe"))
                                         {
-                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                                            listImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
                                         }
                                         else if (listFileFullNameLower.EndsWith(".bat"))
                                         {
-                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, -1, 0);
+                                            listImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, -1, 0);
                                         }
                                         else
                                         {
-                                            fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/File.png" }, IntPtr.Zero, -1, 0);
+                                            listImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/File.png" }, IntPtr.Zero, -1, 0);
                                         }
                                     }
 
@@ -457,7 +401,7 @@ namespace CtrlUI
                                     bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
                                     if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
-                                        DataBindFile dataBindFileFile = new DataBindFile() { Type = "File", Name = listFile.Name, NameDetail = fileDetailed, Description = fileDescription, DateModified = listFile.LastWriteTime, ImageBitmap = fileImage, PathFile = listFile.FullName };
+                                        DataBindFile dataBindFileFile = new DataBindFile() { Type = "File", Name = listFile.Name, NameDetail = fileDetailed, Description = listDescription, DateModified = listFile.LastWriteTime, ImageBitmap = listImage, PathFile = listFile.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
                                     }
                                 }
@@ -487,6 +431,69 @@ namespace CtrlUI
                 Popup_Show_Status("Close", "Picker failed");
                 Debug.WriteLine("Failed loading filepicker: " + ex.Message);
             }
+        }
+
+        //Get rom details image and description
+        void GetRomDetails(string listName, string listPath, FileInfo[] directoryRomImages, FileInfo[] directoryRomDescription, ref BitmapImage listImage, ref string listDescription)
+        {
+            try
+            {
+                //Set rom file names
+                string romPathImage = string.Empty;
+                string romPathDescription = string.Empty;
+                string romNameFiltered = string.Empty;
+
+                //Create sub directory image paths
+                string subPathImagePng = string.Empty;
+                string subPathImageJpg = string.Empty;
+                string subPathDescription = string.Empty;
+                if (!string.IsNullOrWhiteSpace(listPath))
+                {
+                    romNameFiltered = listName.Replace("'", string.Empty).Replace(".", string.Empty).Replace("-", string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty).ToLower();
+                    subPathImagePng = Path.Combine(listPath, listName + ".png");
+                    subPathImageJpg = Path.Combine(listPath, listName + ".jpg");
+                    subPathDescription = Path.Combine(listPath, listName + ".txt");
+                }
+                else
+                {
+                    romNameFiltered = Path.GetFileNameWithoutExtension(listName).Replace("'", string.Empty).Replace(".", string.Empty).Replace("-", string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty).ToLower();
+                }
+
+                //Check if rom directory has image
+                foreach (FileInfo foundImage in directoryRomImages)
+                {
+                    try
+                    {
+                        string imageNameFiltered = Path.GetFileNameWithoutExtension(foundImage.Name).Replace("'", string.Empty).Replace(".", string.Empty).Replace("-", string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty).ToLower();
+                        if (romNameFiltered.Contains(imageNameFiltered))
+                        {
+                            romPathImage = foundImage.FullName;
+                            break;
+                        }
+                    }
+                    catch { }
+                }
+
+                //Check if rom directory has description
+                foreach (FileInfo foundDesc in directoryRomDescription)
+                {
+                    try
+                    {
+                        string descNameFiltered = Path.GetFileNameWithoutExtension(foundDesc.Name).Replace("'", string.Empty).Replace(".", string.Empty).Replace("-", string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty).ToLower();
+                        if (romNameFiltered.Contains(descNameFiltered))
+                        {
+                            romPathDescription = foundDesc.FullName;
+                            break;
+                        }
+                    }
+                    catch { }
+                }
+
+                //Update description and image
+                listDescription = FileToString(new string[] { romPathDescription, subPathDescription });
+                listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "Rom" }, IntPtr.Zero, 180, 0);
+            }
+            catch { }
         }
 
         //Check if there are files or folders
