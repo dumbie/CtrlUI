@@ -36,7 +36,6 @@ namespace KeyboardController
                 WindowSettings.Settings_Check();
                 WindowSettings.Settings_Load_CtrlUI();
                 WindowSettings.Settings_Load_AccentColor();
-                WindowSettings.Settings_Load_SoundVolume();
 
                 //Create tray icon
                 Application_CreateTrayMenu();
@@ -51,7 +50,7 @@ namespace KeyboardController
                 UpdateKeyboardMode();
 
                 //Play window open sound
-                PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
+                PlayInterfaceSound("PopupOpen", false);
 
                 //Activate keyboard window and focus on key
                 await KeyboardWindowActivate(true, key_g);
@@ -274,7 +273,7 @@ namespace KeyboardController
         {
             try
             {
-                PlayInterfaceSound(vInterfaceSoundVolume, "KeyboardPress", false);
+                PlayInterfaceSound("KeyboardPress", false);
                 Debug.WriteLine("Switching caps lock.");
 
                 //Disable hardware capslock
@@ -630,7 +629,7 @@ namespace KeyboardController
                 });
 
                 //Play window close sound
-                PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
+                PlayInterfaceSound("PopupClose", false);
 
                 //Stop the background tasks
                 TasksBackgroundStop();

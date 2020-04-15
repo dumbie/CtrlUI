@@ -158,8 +158,7 @@ namespace CtrlUI
                 slider_SettingsSoundVolume.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(slider_SettingsSoundVolume.Value) + "%";
-                    SettingSave("SoundVolume", Convert.ToInt32(slider_SettingsSoundVolume.Value).ToString());
-                    vInterfaceSoundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) / 100;
+                    SettingSave("InterfaceSoundVolume", Convert.ToInt32(slider_SettingsSoundVolume.Value).ToString());
                 };
 
                 //Background Settings

@@ -40,7 +40,13 @@ namespace FpsOverlayer
                 textblock_MarginVertical.Text = textblock_MarginVertical.Tag + ": " + ConfigurationManager.AppSettings["MarginVertical"].ToString() + "px";
                 slider_MarginVertical.Value = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
 
-                combobox_TextFont.SelectedIndex = Convert.ToInt32(ConfigurationManager.AppSettings["TextFont"]);
+                //Select the current font name
+                try
+                {
+                    combobox_TextFontName.SelectedItem = Convert.ToInt32(ConfigurationManager.AppSettings["TextFontName"]);
+                }
+                catch { }
+
                 combobox_TextPosition.SelectedIndex = Convert.ToInt32(ConfigurationManager.AppSettings["TextPosition"]);
                 combobox_TextDirection.SelectedIndex = Convert.ToInt32(ConfigurationManager.AppSettings["TextDirection"]);
 

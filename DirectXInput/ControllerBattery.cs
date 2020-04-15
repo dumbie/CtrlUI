@@ -65,7 +65,7 @@ namespace DirectXInput
                     if (Controller.BatteryPercentageCurrent <= LowBatteryLevelRange && (Controller.BatteryPercentagePrevious > LowBatteryLevelRange || Controller.BatteryPercentagePrevious == -1))
                     {
                         Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level.");
-                        PlayInterfaceSound(vInterfaceSoundVolume, "BatteryLow", true);
+                        PlayInterfaceSound("BatteryLow", true);
                     }
 
                     Controller.BatteryPercentagePrevious = Controller.BatteryPercentageCurrent;

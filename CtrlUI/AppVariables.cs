@@ -23,7 +23,6 @@ namespace CtrlUI
         public static CultureInfo vAppCultureInfo = new CultureInfo("en-US");
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        public static double vInterfaceSoundVolume = 0.70;
 
         //Interaction Variables
         public static int vMouseLastInteraction = Environment.TickCount;

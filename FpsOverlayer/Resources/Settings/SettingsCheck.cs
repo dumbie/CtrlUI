@@ -16,7 +16,7 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["DisplayOpacity"] == null) { SettingSave("DisplayOpacity", "0,90"); }
                 if (ConfigurationManager.AppSettings["MarginHorizontal"] == null) { SettingSave("MarginHorizontal", "0"); }
                 if (ConfigurationManager.AppSettings["MarginVertical"] == null) { SettingSave("MarginVertical", "40"); }
-                if (ConfigurationManager.AppSettings["TextFont"] == null) { SettingSave("TextFont", "0"); }
+                if (ConfigurationManager.AppSettings["TextFontName"] == null) { SettingSave("TextFontName", "Segoe UI"); }
                 if (ConfigurationManager.AppSettings["TextPosition"] == null) { SettingSave("TextPosition", "0"); }
                 if (ConfigurationManager.AppSettings["TextDirection"] == null) { SettingSave("TextDirection", "1"); }
                 if (ConfigurationManager.AppSettings["TextSize"] == null) { SettingSave("TextSize", "18"); }

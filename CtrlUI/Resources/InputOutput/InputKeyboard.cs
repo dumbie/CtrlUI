@@ -23,25 +23,25 @@ namespace CtrlUI
 
                 if (UsedVirtualKey == (int)KeysVirtual.Left)
                 {
-                    PlayInterfaceSound(vInterfaceSoundVolume, "Click", false);
+                    PlayInterfaceSound("Click", false);
                 }
                 else if (UsedVirtualKey == (int)KeysVirtual.Up)
                 {
-                    PlayInterfaceSound(vInterfaceSoundVolume, "Click", false);
+                    PlayInterfaceSound("Click", false);
                     NavigateUp(ref Handled);
                 }
                 else if (UsedVirtualKey == (int)KeysVirtual.Right)
                 {
-                    PlayInterfaceSound(vInterfaceSoundVolume, "Click", false);
+                    PlayInterfaceSound("Click", false);
                 }
                 else if (UsedVirtualKey == (int)KeysVirtual.Down)
                 {
-                    PlayInterfaceSound(vInterfaceSoundVolume, "Click", false);
+                    PlayInterfaceSound("Click", false);
                     NavigateDown(ref Handled);
                 }
                 else if (UsedVirtualKey == (int)KeysVirtual.Space)
                 {
-                    PlayInterfaceSound(vInterfaceSoundVolume, "Confirm", false);
+                    PlayInterfaceSound("Confirm", false);
                 }
             }
             catch { }

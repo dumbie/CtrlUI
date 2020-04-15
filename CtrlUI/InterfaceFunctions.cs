@@ -137,6 +137,7 @@ namespace CtrlUI
                 btn_AddAppPathRoms.Click += Button_ShowFilePicker;
                 btn_Settings_ChangeBackgroundImage.Click += Button_ShowFilePicker;
                 btn_Settings_ChangeBackgroundVideo.Click += Button_ShowFilePicker;
+                btn_Settings_InterfaceSoundPackName.Click += Button_ShowFilePicker;
 
                 //Profile Manager functions
                 grid_Popup_ProfileManager_button_ControllerRight.Click += Button_Popup_Close_Click;
@@ -476,7 +477,7 @@ namespace CtrlUI
 
                 if (vAppMinimized || !vAppActivated)
                 {
-                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
+                    PlayInterfaceSound("PopupOpen", false);
 
                     //Check previous focused application
                     try

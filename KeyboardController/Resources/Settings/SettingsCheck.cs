@@ -12,7 +12,8 @@ namespace KeyboardController
             try
             {
                 if (ConfigurationManager.AppSettings["InterfaceSound"] == null) { SettingSave("InterfaceSound", "True"); }
-                if (ConfigurationManager.AppSettings["SoundVolume"] == null) { SettingSave("SoundVolume", "90"); }
+                if (ConfigurationManager.AppSettings["InterfaceSoundVolume"] == null) { SettingSave("InterfaceSoundVolume", "90"); }
+                if (ConfigurationManager.AppSettings["InterfaceSoundPackName"] == null) { SettingSave("InterfaceSoundPackName", "Default"); }
 
                 if (ConfigurationManager.AppSettings["KeyboardLayout"] == null) { SettingSave("KeyboardLayout", "0"); }
                 if (ConfigurationManager.AppSettings["KeyboardMode"] == null) { SettingSave("KeyboardMode", "0"); }

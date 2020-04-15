@@ -28,16 +28,6 @@ namespace KeyboardController
             catch { }
         }
 
-        //Load the sound volume
-        public static void Settings_Load_SoundVolume()
-        {
-            try
-            {
-                vInterfaceSoundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) / 100;
-            }
-            catch { }
-        }
-
         //Load - CtrlUI Settings
         public static void Settings_Load_CtrlUI()
         {
@@ -65,9 +55,8 @@ namespace KeyboardController
                 cb_SettingsInterfaceSound.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["InterfaceSound"]);
 
                 //Load the sound volume
-                textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) + "%";
-                slider_SettingsSoundVolume.Value = Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]);
-                vInterfaceSoundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) / 100;
+                textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]) + "%";
+                slider_SettingsSoundVolume.Value = Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]);
 
                 //Load the domain extension
                 textbox_SettingsDomainExtension.Text = ConfigurationManager.AppSettings["DomainExtension"].ToString();

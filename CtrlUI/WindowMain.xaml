@@ -724,6 +724,8 @@
                         <TextBlock Text="Change the used user interface sound volume level." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                         <Slider Name="slider_SettingsSoundVolume" Width="400" Minimum="5" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
+                        <Button Name="btn_Settings_InterfaceSoundPackName" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the interface sound pack" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="File Browser Settings"/>
                         <CheckBox Name="cb_SettingsShowHiddenFilesFolders" Content="Show hidden files and folders" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                         <TextBlock Text="Enabling this will show hidden files and folders in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>

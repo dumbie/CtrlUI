@@ -56,9 +56,8 @@ namespace CtrlUI
                 slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count() - 1;
 
                 //Load the sound volume
-                textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) + "%";
-                slider_SettingsSoundVolume.Value = Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]);
-                vInterfaceSoundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["SoundVolume"]) / 100;
+                textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]) + "%";
+                slider_SettingsSoundVolume.Value = Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]);
 
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;

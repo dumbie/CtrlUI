@@ -47,7 +47,7 @@ namespace CtrlUI
                 if (!vFilePickerOpen)
                 {
                     //Play the popup opening sound
-                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
+                    PlayInterfaceSound("PopupOpen", false);
 
                     //Save the previous focus element
                     Popup_PreviousElementFocus_Save(vFilePickerElementFocus, previousFocus);
@@ -516,7 +516,7 @@ namespace CtrlUI
         {
             try
             {
-                PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
+                PlayInterfaceSound("PopupClose", false);
 
                 //Reset and update popup variables
                 vFilePickerOpen = false;
@@ -803,6 +803,42 @@ namespace CtrlUI
 
                     //Update the background media
                     UpdateBackgroundMedia();
+                }
+
+                //Settings Interface Sound Pack
+                else if (ButtonName == "btn_Settings_InterfaceSoundPackName")
+                {
+                    //Add sound packs to string list
+                    vFilePickerStrings.Clear();
+
+                    DirectoryInfo directoryInfo = new DirectoryInfo("Assets\\Sounds\\");
+                    DirectoryInfo[] soundPacks = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly);
+                    BitmapImage imagePacks = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/VolumeUp.png" }, IntPtr.Zero, -1, 0);
+
+                    foreach (DirectoryInfo soundPack in soundPacks)
+                    {
+                        DataBindString AnswerCustom = new DataBindString();
+                        AnswerCustom.ImageBitmap = imagePacks;
+                        AnswerCustom.Name = soundPack.Name;
+                        vFilePickerStrings.Add(AnswerCustom);
+                    }
+
+                    vFilePickerFilterIn = new List<string>();
+                    vFilePickerFilterOut = new List<string>();
+                    vFilePickerTitle = "Interface Sounds";
+                    vFilePickerDescription = "Please select a sound pack to use:";
+                    vFilePickerShowNoFile = false;
+                    vFilePickerShowRoms = false;
+                    vFilePickerShowFiles = false;
+                    vFilePickerShowDirectories = false;
+                    grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                    await Popup_Show_FilePicker("String", -1, false, null);
+
+                    while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
+                    if (vFilePickerCancelled) { return; }
+
+                    //Update the setting
+                    SettingSave("InterfaceSoundPackName", vFilePickerResult.Name);
                 }
 
                 //First launch quick setup

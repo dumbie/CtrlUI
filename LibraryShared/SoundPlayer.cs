@@ -18,7 +18,7 @@ namespace LibraryShared
             double soundVolume = 0.70;
             try
             {
-                int soundVolumeInt = Convert.ToInt32(appConfiguration.AppSettings.Settings["SoundVolume"].Value);
+                int soundVolumeInt = Convert.ToInt32(appConfiguration.AppSettings.Settings["InterfaceSoundVolume"].Value);
                 soundVolume = (double)soundVolumeInt / 100;
             }
             catch { }
@@ -26,15 +26,18 @@ namespace LibraryShared
         }
 
         //Play interface sound
-        public static void PlayInterfaceSound(double soundVolume, string soundName, bool forceSound)
+        public static void PlayInterfaceSound(string soundName, bool forceSound)
         {
             try
             {
                 if (forceSound || ConfigurationManager.AppSettings["InterfaceSound"] == "True")
                 {
-                    if (File.Exists(@"Assets\\Sounds\\" + soundName + ".mp3"))
+                    double soundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]) / 100;
+                    string soundPackName = ConfigurationManager.AppSettings["InterfaceSoundPackName"].ToString();
+                    string soundFileName = @"Assets\\Sounds\\" + soundPackName + "\\" + soundName + ".mp3";
+                    if (File.Exists(soundFileName))
                     {
-                        Uri soundFileUri = new Uri(@"Assets\\Sounds\\" + soundName + ".mp3", UriKind.Relative);
+                        Uri soundFileUri = new Uri(soundFileName, UriKind.Relative);
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             windowsMediaPlayer.Volume = soundVolume;

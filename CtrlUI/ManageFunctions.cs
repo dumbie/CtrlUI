@@ -517,7 +517,7 @@ namespace CtrlUI
                         return;
                     }
 
-                    PlayInterfaceSound(vInterfaceSoundVolume, "Confirm", false);
+                    PlayInterfaceSound("Confirm", false);
 
                     Popup_Show_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding Win32 app: " + tb_AddAppName.Text + " to the list.");
@@ -770,7 +770,7 @@ namespace CtrlUI
                     return;
                 }
 
-                PlayInterfaceSound(vInterfaceSoundVolume, "Confirm", false);
+                PlayInterfaceSound("Confirm", false);
 
                 Popup_Show_Status("Plus", "Added " + vFilePickerResult.Name);
                 Debug.WriteLine("Adding UWP app: " + tb_AddAppName.Text + " to the list.");

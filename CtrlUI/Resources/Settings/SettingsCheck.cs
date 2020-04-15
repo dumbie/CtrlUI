@@ -14,7 +14,6 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["AppFirstLaunch"] == null) { SettingSave("AppFirstLaunch", "True"); }
                 if (ConfigurationManager.AppSettings["AppUpdateCheck"] == null) { SettingSave("AppUpdateCheck", DateTime.Now.ToString(vAppCultureInfo)); }
                 if (ConfigurationManager.AppSettings["AppFontSize"] == null) { SettingSave("AppFontSize", "0"); }
-                if (ConfigurationManager.AppSettings["SoundVolume"] == null) { SettingSave("SoundVolume", "70"); }
 
                 if (ConfigurationManager.AppSettings["DisplayMonitor"] == null) { SettingSave("DisplayMonitor", "0"); } //Shared
                 if (ConfigurationManager.AppSettings["ColorAccentLight"] == null) { SettingSave("ColorAccentLight", "#00C7FF"); } //Shared
@@ -34,7 +33,11 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["HideControllerHelp"] == null) { SettingSave("HideControllerHelp", "False"); }
                 if (ConfigurationManager.AppSettings["ShowHiddenFilesFolders"] == null) { SettingSave("ShowHiddenFilesFolders", "False"); }
                 if (ConfigurationManager.AppSettings["HideNetworkDrives"] == null) { SettingSave("HideNetworkDrives", "False"); }
-                if (ConfigurationManager.AppSettings["InterfaceSound"] == null) { SettingSave("InterfaceSound", "False"); }
+
+                if (ConfigurationManager.AppSettings["InterfaceSound"] == null) { SettingSave("InterfaceSound", "True"); }
+                if (ConfigurationManager.AppSettings["InterfaceSoundVolume"] == null) { SettingSave("InterfaceSoundVolume", "70"); }
+                if (ConfigurationManager.AppSettings["InterfaceSoundPackName"] == null) { SettingSave("InterfaceSoundPackName", "Default"); }
+
                 if (ConfigurationManager.AppSettings["CloseMediaScreen"] == null) { SettingSave("CloseMediaScreen", "False"); }
                 if (ConfigurationManager.AppSettings["ShowMediaMain"] == null) { SettingSave("ShowMediaMain", "True"); }
                 if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == null) { SettingSave("MinimizeAppOnShow", "False"); }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Configuration;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,12 +17,39 @@ namespace FpsOverlayer
         {
             try
             {
+                //Load available fonts
+                LoadAvailableFonts();
+
                 //Check application settings
                 Settings_Load();
                 Settings_Save();
 
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
+            }
+            catch { }
+        }
+
+        //Load available fonts
+        void LoadAvailableFonts()
+        {
+            try
+            {
+                //Clear all the fonts
+                combobox_TextFontName.Items.Clear();
+
+                //Add default fonts
+                combobox_TextFontName.Items.Add("Segoe UI");
+                combobox_TextFontName.Items.Add("Verdana");
+                combobox_TextFontName.Items.Add("Consolas");
+
+                //Add custom fonts
+                DirectoryInfo directoryInfo = new DirectoryInfo("Assets\\Fonts\\");
+                FileInfo[] fontFiles = directoryInfo.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
+                foreach (FileInfo fontFile in fontFiles)
+                {
+                    combobox_TextFontName.Items.Add(Path.GetFileNameWithoutExtension(fontFile.Name));
+                }
             }
             catch { }
         }

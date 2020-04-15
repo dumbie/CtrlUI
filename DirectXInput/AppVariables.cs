@@ -15,7 +15,6 @@ namespace DirectXInput
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static Configuration vConfigurationCtrlUI = null;
         public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        public static double vInterfaceSoundVolume = 0.80;
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;

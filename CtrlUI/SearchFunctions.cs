@@ -33,7 +33,7 @@ namespace CtrlUI
                 await Popup_Reset_Search(false);
 
                 //Show the search popup
-                PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
+                PlayInterfaceSound("PopupOpen", false);
 
                 //Save the previous focus element
                 Popup_PreviousElementFocus_Save(vSearchElementFocus, null);
@@ -95,7 +95,7 @@ namespace CtrlUI
             {
                 if (vSearchOpen)
                 {
-                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
+                    PlayInterfaceSound("PopupClose", false);
 
                     //Reset popup variables
                     vSearchOpen = false;

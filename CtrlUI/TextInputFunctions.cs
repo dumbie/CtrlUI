@@ -49,7 +49,7 @@ namespace CtrlUI
                 await Popup_Reset_TextInput(false, textDefault);
 
                 //Play the opening sound
-                PlayInterfaceSound(vInterfaceSoundVolume, "PopupOpen", false);
+                PlayInterfaceSound("PopupOpen", false);
 
                 //Save the previous focus element
                 Popup_PreviousElementFocus_Save(vTextInputElementFocus, null);
@@ -125,7 +125,7 @@ namespace CtrlUI
                 if (vTextInputOpen)
                 {
                     //Play the closing sound
-                    PlayInterfaceSound(vInterfaceSoundVolume, "PopupClose", false);
+                    PlayInterfaceSound("PopupClose", false);
 
                     //Reset the popup variables
                     vTextInputCancelled = true;
