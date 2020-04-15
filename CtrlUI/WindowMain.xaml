@@ -443,13 +443,7 @@
                 </StackPanel>
 
                 <StackPanel Name="grid_Popup_Media_Information" Visibility="Collapsed" Grid.Row="1" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
-                    <Grid Margin="0,0,15,0">
-                        <Grid.Background>
-                            <SolidColorBrush Color="#222"/>
-                        </Grid.Background>
-                        <Image Name="grid_Popup_Media_Information_Thumbnail" Height="140" HorizontalAlignment="Center"/>
-                    </Grid>
-
+                    <Image Name="grid_Popup_Media_Information_Thumbnail" Margin="0,0,15,0" Height="140" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <StackPanel VerticalAlignment="Center" MaxWidth="600">
                         <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
                             <TextBlock Name="grid_Popup_Media_Information_Artist" Style="{StaticResource TextBlockAccent}" FontSize="{DynamicResource TextSizeLarge}" Text="Artist"/>
@@ -860,13 +854,7 @@
 
                     <styles:ScrollViewerLoopVertical ScrollLoopStep="2" Grid.Column="1" Style="{StaticResource ScrollViewerVertical}" Width="320" x:Name="grid_Popup_FilePicker_stackpanel_Description" Visibility="Collapsed">
                         <StackPanel Margin="5,0,5,0">
-                            <Grid>
-                                <Grid.Background>
-                                    <SolidColorBrush Color="#222"/>
-                                </Grid.Background>
-                                <Image Name="grid_Popup_FilePicker_image_Description" Height="210" HorizontalAlignment="Center"/>
-                            </Grid>
-
+                            <Image Name="grid_Popup_FilePicker_image_Description" Height="210" HorizontalAlignment="Center"/>
                             <TextBlock Margin="0,5,0,0" Name="grid_Popup_FilePicker_textblock_Description" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}"/>
                         </StackPanel>
                     </styles:ScrollViewerLoopVertical>

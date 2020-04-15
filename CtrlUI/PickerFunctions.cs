@@ -277,7 +277,7 @@ namespace CtrlUI
                         string[] descriptionFilter = new string[] { "txt" };
 
                         DirectoryInfo directoryInfoRoms = new DirectoryInfo("Assets\\Roms");
-                        FileInfo[] directoryPathsRoms = directoryInfoRoms.GetFiles("*", SearchOption.TopDirectoryOnly);
+                        FileInfo[] directoryPathsRoms = directoryInfoRoms.GetFiles("*", SearchOption.AllDirectories);
 
                         FileInfo[] romsImages = directoryPathsRoms.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
                         FileInfo[] filesImages = directoryFiles.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
@@ -491,7 +491,7 @@ namespace CtrlUI
 
                 //Update description and image
                 listDescription = FileToString(new string[] { romPathDescription, subPathDescription });
-                listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "Rom" }, IntPtr.Zero, 180, 0);
+                listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "Rom" }, IntPtr.Zero, 210, 0);
             }
             catch { }
         }
