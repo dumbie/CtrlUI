@@ -247,12 +247,6 @@ namespace CtrlUI
         {
             try
             {
-                //Disable the file picker list
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    lb_FilePicker.IsEnabled = false;
-                });
-
                 //Set uwp application filters
                 string[] whiteListFamilyName = new string[] { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe" };
                 string[] blackListFamilyNameId = new string[] { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!PdfReader" };
@@ -306,12 +300,6 @@ namespace CtrlUI
 
                 //Sort the application list by name
                 SortObservableCollection(lb_FilePicker, List_FilePicker, x => x.Name, null, true);
-
-                //Enable the file picker list
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    lb_FilePicker.IsEnabled = true;
-                });
             }
             catch { }
         }

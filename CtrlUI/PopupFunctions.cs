@@ -25,49 +25,49 @@ namespace CtrlUI
             try
             {
                 //Show the popup
-                UpdateElementVisibility(elementTarget, true);
-                UpdateElementEnabled(elementTarget, true);
+                AVActions.ElementSetValue(elementTarget, VisibilityProperty, Visibility.Visible);
+                AVActions.ElementSetValue(elementTarget, IsEnabledProperty, true);
 
                 //Hide the background
-                UpdateElementOpacity(grid_Video_Background, 0.08);
-                UpdateElementOpacity(grid_Main, 0.08);
-                UpdateElementEnabled(grid_Main, false);
+                AVActions.ElementSetValue(grid_Video_Background, OpacityProperty, 0.08);
+                AVActions.ElementSetValue(grid_Main, OpacityProperty, 0.08);
+                AVActions.ElementSetValue(grid_Main, IsEnabledProperty, false);
 
                 //Hide other popups
                 if (elementTarget != grid_Popup_TextInput && vTextInputOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_TextInput, 0.02);
-                    UpdateElementEnabled(grid_Popup_TextInput, false);
+                    AVActions.ElementSetValue(grid_Popup_TextInput, OpacityProperty, 0.02);
+                    AVActions.ElementSetValue(grid_Popup_TextInput, IsEnabledProperty, false);
                 }
                 if (elementTarget != grid_Popup_MessageBox && vMessageBoxOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_MessageBox, 0.02);
-                    UpdateElementEnabled(grid_Popup_MessageBox, false);
+                    AVActions.ElementSetValue(grid_Popup_MessageBox, OpacityProperty, 0.02);
+                    AVActions.ElementSetValue(grid_Popup_MessageBox, IsEnabledProperty, false);
                 }
                 if (elementTarget != grid_Popup_FilePicker && vFilePickerOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_FilePicker, 0.02);
-                    UpdateElementEnabled(grid_Popup_FilePicker, false);
+                    AVActions.ElementSetValue(grid_Popup_FilePicker, OpacityProperty, 0.02);
+                    AVActions.ElementSetValue(grid_Popup_FilePicker, IsEnabledProperty, false);
                 }
                 if (elementTarget != vPopupElementTarget && vPopupOpen)
                 {
-                    UpdateElementOpacity(vPopupElementTarget, 0.02);
-                    UpdateElementEnabled(vPopupElementTarget, false);
+                    AVActions.ElementSetValue(vPopupElementTarget, OpacityProperty, 0.02);
+                    AVActions.ElementSetValue(vPopupElementTarget, IsEnabledProperty, false);
                 }
                 if (elementTarget != grid_Popup_ColorPicker && vColorPickerOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_ColorPicker, 0.02);
-                    UpdateElementEnabled(grid_Popup_ColorPicker, false);
+                    AVActions.ElementSetValue(grid_Popup_ColorPicker, OpacityProperty, 0.02);
+                    AVActions.ElementSetValue(grid_Popup_ColorPicker, IsEnabledProperty, false);
                 }
                 if (elementTarget != grid_Popup_Search && vSearchOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_Search, 0.02);
-                    UpdateElementEnabled(grid_Popup_Search, false);
+                    AVActions.ElementSetValue(grid_Popup_Search, OpacityProperty, 0.02);
+                    AVActions.ElementSetValue(grid_Popup_Search, IsEnabledProperty, false);
                 }
                 if (elementTarget != grid_Popup_MainMenu && vMainMenuOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_MainMenu, 0.02);
-                    UpdateElementEnabled(grid_Popup_MainMenu, false);
+                    AVActions.ElementSetValue(grid_Popup_MainMenu, OpacityProperty, 0.02);
+                    AVActions.ElementSetValue(grid_Popup_MainMenu, IsEnabledProperty, false);
                 }
             }
             catch { }
@@ -79,54 +79,54 @@ namespace CtrlUI
             try
             {
                 //Hide the popup
-                UpdateElementVisibility(elementTarget, false);
-                UpdateElementEnabled(elementTarget, false);
+                AVActions.ElementSetValue(elementTarget, VisibilityProperty, Visibility.Collapsed);
+                AVActions.ElementSetValue(elementTarget, IsEnabledProperty, false);
 
                 //Show the background
                 if (!Popup_Any_Open())
                 {
                     double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
-                    UpdateElementOpacity(grid_Video_Background, backgroundBrightness);
-                    UpdateElementOpacity(grid_Main, 1);
-                    UpdateElementEnabled(grid_Main, true);
+                    AVActions.ElementSetValue(grid_Video_Background, OpacityProperty, backgroundBrightness);
+                    AVActions.ElementSetValue(grid_Main, OpacityProperty, 1.00);
+                    AVActions.ElementSetValue(grid_Main, IsEnabledProperty, true);
                     return;
                 }
 
                 //Show other popups
                 if (vTextInputOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_TextInput, 1);
-                    UpdateElementEnabled(grid_Popup_TextInput, true);
+                    AVActions.ElementSetValue(grid_Popup_TextInput, OpacityProperty, 1.00);
+                    AVActions.ElementSetValue(grid_Popup_TextInput, IsEnabledProperty, true);
                 }
                 else if (vMessageBoxOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_MessageBox, 1);
-                    UpdateElementEnabled(grid_Popup_MessageBox, true);
+                    AVActions.ElementSetValue(grid_Popup_MessageBox, OpacityProperty, 1.00);
+                    AVActions.ElementSetValue(grid_Popup_MessageBox, IsEnabledProperty, true);
                 }
                 else if (vFilePickerOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_FilePicker, 1);
-                    UpdateElementEnabled(grid_Popup_FilePicker, true);
+                    AVActions.ElementSetValue(grid_Popup_FilePicker, OpacityProperty, 1.00);
+                    AVActions.ElementSetValue(grid_Popup_FilePicker, IsEnabledProperty, true);
                 }
                 else if (vPopupOpen)
                 {
-                    UpdateElementOpacity(vPopupElementTarget, 1);
-                    UpdateElementEnabled(vPopupElementTarget, true);
+                    AVActions.ElementSetValue(vPopupElementTarget, OpacityProperty, 1.00);
+                    AVActions.ElementSetValue(vPopupElementTarget, IsEnabledProperty, true);
                 }
                 else if (vColorPickerOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_ColorPicker, 1);
-                    UpdateElementEnabled(grid_Popup_ColorPicker, true);
+                    AVActions.ElementSetValue(grid_Popup_ColorPicker, OpacityProperty, 1.00);
+                    AVActions.ElementSetValue(grid_Popup_ColorPicker, IsEnabledProperty, true);
                 }
                 else if (vSearchOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_Search, 1);
-                    UpdateElementEnabled(grid_Popup_Search, true);
+                    AVActions.ElementSetValue(grid_Popup_Search, OpacityProperty, 1.00);
+                    AVActions.ElementSetValue(grid_Popup_Search, IsEnabledProperty, true);
                 }
                 else if (vMainMenuOpen)
                 {
-                    UpdateElementOpacity(grid_Popup_MainMenu, 1);
-                    UpdateElementEnabled(grid_Popup_MainMenu, true);
+                    AVActions.ElementSetValue(grid_Popup_MainMenu, OpacityProperty, 1.00);
+                    AVActions.ElementSetValue(grid_Popup_MainMenu, IsEnabledProperty, true);
                 }
             }
             catch { }
@@ -327,26 +327,29 @@ namespace CtrlUI
         {
             try
             {
-                if (previousFocus != null)
+                AVActions.ActionDispatcherInvoke(delegate
                 {
-                    Debug.WriteLine("Saved previous focus element: " + previousFocus);
-                    frameworkElementFocus.FocusElement = previousFocus;
-                    if (frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
+                    if (previousFocus != null)
                     {
-                        frameworkElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElementFocus.FocusElement);
-                        frameworkElementFocus.FocusIndex = frameworkElementFocus.FocusListBox.SelectedIndex;
+                        Debug.WriteLine("Saved previous focus element: " + previousFocus);
+                        frameworkElementFocus.FocusElement = previousFocus;
+                        if (frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
+                        {
+                            frameworkElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElementFocus.FocusElement);
+                            frameworkElementFocus.FocusIndex = frameworkElementFocus.FocusListBox.SelectedIndex;
+                        }
                     }
-                }
-                else if (Keyboard.FocusedElement != null && Keyboard.FocusedElement != App.vWindowMain)
-                {
-                    Debug.WriteLine("Saved previous focus keyboard: " + Keyboard.FocusedElement);
-                    frameworkElementFocus.FocusElement = (FrameworkElement)Keyboard.FocusedElement;
-                    if (frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
+                    else if (Keyboard.FocusedElement != null && Keyboard.FocusedElement != App.vWindowMain)
                     {
-                        frameworkElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElementFocus.FocusElement);
-                        frameworkElementFocus.FocusIndex = frameworkElementFocus.FocusListBox.SelectedIndex;
+                        Debug.WriteLine("Saved previous focus keyboard: " + Keyboard.FocusedElement);
+                        frameworkElementFocus.FocusElement = (FrameworkElement)Keyboard.FocusedElement;
+                        if (frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
+                        {
+                            frameworkElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElementFocus.FocusElement);
+                            frameworkElementFocus.FocusIndex = frameworkElementFocus.FocusListBox.SelectedIndex;
+                        }
                     }
-                }
+                });
             }
             catch { }
         }
@@ -356,32 +359,35 @@ namespace CtrlUI
         {
             try
             {
-                //Check if focus element is disconnected
-                bool disconnectedSource = false;
-                if (frameworkElementFocus.FocusElement != null)
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    disconnectedSource = frameworkElementFocus.FocusElement.DataContext == BindingOperations.DisconnectedSource;
-                }
+                    //Check if focus element is disconnected
+                    bool disconnectedSource = false;
+                    if (frameworkElementFocus.FocusElement != null)
+                    {
+                        disconnectedSource = frameworkElementFocus.FocusElement.DataContext == BindingOperations.DisconnectedSource;
+                    }
 
-                //Force focus on element
-                if (frameworkElementFocus.FocusElement != null && !disconnectedSource)
-                {
-                    Debug.WriteLine("Focusing on previous element: " + frameworkElementFocus.FocusElement);
-                    await FocusOnElement(frameworkElementFocus.FocusElement, false, vProcessCurrent.MainWindowHandle);
-                }
-                else if (frameworkElementFocus.FocusListBox != null)
-                {
-                    Debug.WriteLine("Focusing on previous listbox: " + frameworkElementFocus.FocusListBox);
-                    await ListboxFocusIndex(frameworkElementFocus.FocusListBox, false, false, frameworkElementFocus.FocusIndex);
-                }
-                else
-                {
-                    Debug.WriteLine("No previous focus element, pressing tab key.");
-                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                }
+                    //Force focus on element
+                    if (frameworkElementFocus.FocusElement != null && !disconnectedSource)
+                    {
+                        Debug.WriteLine("Focusing on previous element: " + frameworkElementFocus.FocusElement);
+                        await FocusOnElement(frameworkElementFocus.FocusElement, false, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (frameworkElementFocus.FocusListBox != null)
+                    {
+                        Debug.WriteLine("Focusing on previous listbox: " + frameworkElementFocus.FocusListBox);
+                        await ListboxFocusIndex(frameworkElementFocus.FocusListBox, false, false, frameworkElementFocus.FocusIndex);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("No previous focus element, pressing tab key.");
+                        KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                    }
 
-                //Reset the previous focus
-                frameworkElementFocus.Reset();
+                    //Reset the previous focus
+                    frameworkElementFocus.Reset();
+                });
             }
             catch { }
         }

@@ -168,11 +168,20 @@ namespace CtrlUI
         {
             try
             {
-                UpdateElementVisibility(sp_Games, List_Games.Any());
-                UpdateElementVisibility(sp_Apps, List_Apps.Any());
-                UpdateElementVisibility(sp_Emulators, List_Emulators.Any());
-                UpdateElementVisibility(sp_Shortcuts, List_Shortcuts.Any() && ConfigurationManager.AppSettings["ShowOtherShortcuts"] == "True");
-                UpdateElementVisibility(sp_Processes, List_Processes.Any() && ConfigurationManager.AppSettings["ShowOtherProcesses"] == "True");
+                Visibility visbilityGames = List_Games.Any() ? Visibility.Visible : Visibility.Collapsed;
+                AVActions.ElementSetValue(sp_Games, VisibilityProperty, visbilityGames);
+
+                Visibility visbilityApps = List_Apps.Any() ? Visibility.Visible : Visibility.Collapsed;
+                AVActions.ElementSetValue(sp_Apps, VisibilityProperty, visbilityApps);
+
+                Visibility visbilityEmulators = List_Emulators.Any() ? Visibility.Visible : Visibility.Collapsed;
+                AVActions.ElementSetValue(sp_Emulators, VisibilityProperty, visbilityEmulators);
+
+                Visibility visbilityShortcuts = List_Shortcuts.Any() && ConfigurationManager.AppSettings["ShowOtherShortcuts"] == "True" ? Visibility.Visible : Visibility.Collapsed;
+                AVActions.ElementSetValue(sp_Shortcuts, VisibilityProperty, visbilityShortcuts);
+
+                Visibility visbilityProcesses = List_Processes.Any() && ConfigurationManager.AppSettings["ShowOtherProcesses"] == "True" ? Visibility.Visible : Visibility.Collapsed;
+                AVActions.ElementSetValue(sp_Processes, VisibilityProperty, visbilityProcesses);
             }
             catch { }
         }

@@ -22,58 +22,6 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Update element visibility
-        void UpdateElementVisibility(FrameworkElement elementTarget, bool Visible)
-        {
-            try
-            {
-                if (Visible)
-                {
-                    AVActions.ActionDispatcherInvoke(delegate { elementTarget.Visibility = Visibility.Visible; });
-                }
-                else
-                {
-                    AVActions.ActionDispatcherInvoke(delegate { elementTarget.Visibility = Visibility.Collapsed; });
-                }
-            }
-            catch { }
-        }
-
-        //Update element enabled
-        void UpdateElementEnabled(FrameworkElement elementTarget, bool Enabled)
-        {
-            try
-            {
-                if (Enabled)
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        elementTarget.IsEnabled = true;
-                        elementTarget.IsHitTestVisible = true;
-                    });
-                }
-                else
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        elementTarget.IsEnabled = false;
-                        elementTarget.IsHitTestVisible = false;
-                    });
-                }
-            }
-            catch { }
-        }
-
-        //Update element opacity
-        void UpdateElementOpacity(FrameworkElement elementTarget, double opacityTarget)
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate { elementTarget.Opacity = opacityTarget; });
-            }
-            catch { }
-        }
-
         //Check the top or bottom listbox
         ListBox TopVisibleListBoxWithItems()
         {
@@ -360,74 +308,74 @@ namespace CtrlUI
                 //Update main menu launchers status
                 if (processesList.Any(x => x.ProcessName.ToLower() == "steam"))
                 {
-                    UpdateElementOpacity(img_Menu_SteamStatus, 1);
+                    AVActions.ElementSetValue(img_Menu_SteamStatus, OpacityProperty, 1.00);
                 }
                 else
                 {
-                    UpdateElementOpacity(img_Menu_SteamStatus, 0.40);
+                    AVActions.ElementSetValue(img_Menu_SteamStatus, OpacityProperty, 0.40);
                 }
 
                 if (processesList.Any(x => x.ProcessName.ToLower() == "origin"))
                 {
-                    UpdateElementOpacity(img_Menu_OriginStatus, 1);
+                    AVActions.ElementSetValue(img_Menu_OriginStatus, OpacityProperty, 1.00);
                 }
                 else
                 {
-                    UpdateElementOpacity(img_Menu_OriginStatus, 0.40);
+                    AVActions.ElementSetValue(img_Menu_OriginStatus, OpacityProperty, 0.40);
                 }
 
                 if (processesList.Any(x => x.ProcessName.ToLower() == "galaxyclient"))
                 {
-                    UpdateElementOpacity(img_Menu_GoGStatus, 1);
+                    AVActions.ElementSetValue(img_Menu_GoGStatus, OpacityProperty, 1.00);
                 }
                 else
                 {
-                    UpdateElementOpacity(img_Menu_GoGStatus, 0.40);
+                    AVActions.ElementSetValue(img_Menu_GoGStatus, OpacityProperty, 0.40);
                 }
 
                 if (processesList.Any(x => x.ProcessName.ToLower() == "upc"))
                 {
-                    UpdateElementOpacity(img_Menu_UplayStatus, 1);
+                    AVActions.ElementSetValue(img_Menu_UplayStatus, OpacityProperty, 1.00);
                 }
                 else
                 {
-                    UpdateElementOpacity(img_Menu_UplayStatus, 0.40);
+                    AVActions.ElementSetValue(img_Menu_UplayStatus, OpacityProperty, 0.40);
                 }
 
                 if (processesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher"))
                 {
-                    UpdateElementOpacity(img_Menu_BethesdaStatus, 1);
+                    AVActions.ElementSetValue(img_Menu_BethesdaStatus, OpacityProperty, 1.00);
                 }
                 else
                 {
-                    UpdateElementOpacity(img_Menu_BethesdaStatus, 0.40);
+                    AVActions.ElementSetValue(img_Menu_BethesdaStatus, OpacityProperty, 0.40);
                 }
 
                 if (processesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher"))
                 {
-                    UpdateElementOpacity(img_Menu_EpicStatus, 1);
+                    AVActions.ElementSetValue(img_Menu_EpicStatus, OpacityProperty, 1.00);
                 }
                 else
                 {
-                    UpdateElementOpacity(img_Menu_EpicStatus, 0.40);
+                    AVActions.ElementSetValue(img_Menu_EpicStatus, OpacityProperty, 0.40);
                 }
 
                 if (processesList.Any(x => x.ProcessName.ToLower() == "battle.net"))
                 {
-                    UpdateElementOpacity(img_Menu_BlizzardStatus, 1);
+                    AVActions.ElementSetValue(img_Menu_BlizzardStatus, OpacityProperty, 1.00);
                 }
                 else
                 {
-                    UpdateElementOpacity(img_Menu_BlizzardStatus, 0.40);
+                    AVActions.ElementSetValue(img_Menu_BlizzardStatus, OpacityProperty, 0.40);
                 }
 
                 if (processesList.Any(x => x.ProcessName.ToLower() == "directxinput"))
                 {
-                    UpdateElementOpacity(img_Menu_DirectXInput, 1);
+                    AVActions.ElementSetValue(img_Menu_DirectXInput, OpacityProperty, 1.00);
                 }
                 else
                 {
-                    UpdateElementOpacity(img_Menu_DirectXInput, 0.40);
+                    AVActions.ElementSetValue(img_Menu_DirectXInput, OpacityProperty, 0.40);
                 }
             }
             catch { }
