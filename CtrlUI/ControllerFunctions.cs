@@ -29,7 +29,7 @@ namespace CtrlUI
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
-                        img_Main_Time.Visibility = Visibility.Collapsed;
+                        grid_Main_Time.Visibility = Visibility.Collapsed;
                     });
                     return;
                 }
@@ -160,7 +160,7 @@ namespace CtrlUI
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
-                        img_Main_Time.Visibility = Visibility.Collapsed;
+                        grid_Main_Time.Visibility = Visibility.Collapsed;
                     });
                     return true;
                 }
@@ -185,7 +185,7 @@ namespace CtrlUI
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
-                        img_Main_Time.Visibility = Visibility.Collapsed;
+                        grid_Main_Time.Visibility = Visibility.Collapsed;
                     });
                     return;
                 }
@@ -198,7 +198,7 @@ namespace CtrlUI
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Battery/BatteryVerCharge.png" }, IntPtr.Zero, -1, 0);
                         img_Main_Battery.Visibility = Visibility.Visible;
-                        img_Main_Time.Visibility = Visibility.Visible;
+                        grid_Main_Time.Visibility = Visibility.Visible;
                     });
                     return;
                 }
@@ -232,7 +232,7 @@ namespace CtrlUI
                     //Show the battery image and clock
                     txt_Main_Battery.Visibility = Visibility.Visible;
                     img_Main_Battery.Visibility = Visibility.Visible;
-                    img_Main_Time.Visibility = Visibility.Visible;
+                    grid_Main_Time.Visibility = Visibility.Visible;
                 });
             }
             catch
@@ -241,7 +241,7 @@ namespace CtrlUI
                 {
                     txt_Main_Battery.Visibility = Visibility.Collapsed;
                     img_Main_Battery.Visibility = Visibility.Collapsed;
-                    img_Main_Time.Visibility = Visibility.Collapsed;
+                    grid_Main_Time.Visibility = Visibility.Collapsed;
                 });
             }
         }

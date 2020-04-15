@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -203,14 +204,12 @@ namespace CtrlUI
                 {
                     try
                     {
-                        //Update the clock image
-                        string clockImageNumber = DateTime.Now.ToString("hmm");
-                        string currentImage = img_Main_Time.Source.ToString();
-                        string updatedImage = "pack://application:,,,/Assets/Clock/" + clockImageNumber + ".png";
-                        if (currentImage.ToLower() != updatedImage.ToLower())
-                        {
-                            img_Main_Time.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1, 0);
-                        }
+                        //Rotate the clock images
+                        int clockSecond = DateTime.Now.Second;
+                        int clockMinute = DateTime.Now.Minute;
+                        int clockHour = DateTime.Now.Hour;
+                        img_Main_Time_Minute.LayoutTransform = new RotateTransform((clockMinute * 360 / 60) + (clockSecond / 60 * 6));
+                        img_Main_Time_Hour.LayoutTransform = new RotateTransform((clockHour * 360 / 12) + (clockMinute / 2));
 
                         //Change the time format
                         if (vMainMenuOpen)
