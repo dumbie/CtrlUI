@@ -491,6 +491,7 @@ namespace CtrlUI
 
                 //Update description and image
                 listDescription = FileToString(new string[] { romPathDescription, subPathDescription });
+                if (string.IsNullOrWhiteSpace(listDescription)) { listDescription = "There is no description available."; }
                 listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "Rom" }, IntPtr.Zero, 210, 0);
             }
             catch { }

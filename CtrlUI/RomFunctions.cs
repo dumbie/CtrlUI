@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -18,7 +19,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Api variables
-        public static string vApiIGDBUserkey = "b25eb31b7612c7158867a3cd7849dbee";
+        public static string vApiIGDBUserKey = "b25eb31b7612c7158867a3cd7849dbee"; //Yes, I know I didn't remove the api key.
 
         //Download rom information
         public async Task<bool> RomDownloadInformation(string nameRom)
@@ -29,13 +30,13 @@ namespace CtrlUI
                 Debug.WriteLine("Downloading rom information for: " + nameRom);
 
                 //Filter the rom name
-                string nameRomFiltered = Path.GetFileNameWithoutExtension(nameRom);
-                nameRomFiltered = nameRomFiltered.Replace(".", " ").Replace("-", " ").Replace("_", " ");
-                nameRomFiltered = Regex.Replace(nameRomFiltered, @"\s+", " ");
-                nameRomFiltered = string.Join(" ", nameRomFiltered.Split(' ').Take(2));
+                string nameRomSave = Path.GetFileNameWithoutExtension(nameRom);
+                string nameRomDownload = nameRomSave.Replace(".", " ").Replace("-", " ").Replace("_", " ");
+                nameRomDownload = Regex.Replace(nameRomDownload, @"\s+", " ");
+                nameRomDownload = string.Join(" ", nameRomDownload.Split(' ').Take(2));
 
                 //Download available games
-                ApiIGDBGames[] iGDBGames = await ApiIGDBDownloadGames(nameRomFiltered);
+                ApiIGDBGames[] iGDBGames = await ApiIGDBDownloadGames(nameRomDownload);
                 if (iGDBGames == null || !iGDBGames.Any())
                 {
                     Debug.WriteLine("No games found");
@@ -44,6 +45,7 @@ namespace CtrlUI
                 }
 
                 //Ask user which game to download
+                CultureInfo cultureInfo = new CultureInfo("en-US");
                 List<DataBindString> Answers = new List<DataBindString>();
                 BitmapImage gameImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
                 foreach (ApiIGDBGames infoGames in iGDBGames)
@@ -52,19 +54,43 @@ namespace CtrlUI
                     if (infoGames.summary == null) { continue; }
 
                     //Get the release date
-                    string releaseDate = string.Empty;
+                    string gameReleaseDate = string.Empty;
+                    string releaseDateYear = string.Empty;
                     if (infoGames.first_release_date != 0)
                     {
                         DateTime epochDateTime = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(infoGames.first_release_date);
-                        releaseDate = Convert.ToString(epochDateTime.Year);
+                        gameReleaseDate = "Released: " + epochDateTime.ToString("dd MMMM yyyy", cultureInfo) + "\n\n";
+                        releaseDateYear = epochDateTime.ToString("yyyy", cultureInfo);
                     }
+
+                    //Get the game genres
+                    string gameGenres = string.Empty;
+                    if (infoGames.genres != null)
+                    {
+                        foreach (int genreId in infoGames.genres)
+                        {
+                            string genreName = ApiIGDBGenres(genreId);
+                            gameGenres = AVFunctions.StringAdd(gameGenres, genreName, ",");
+                        }
+                    }
+                    if (!string.IsNullOrWhiteSpace(gameGenres))
+                    {
+                        gameGenres = "Genres: " + gameGenres + "\n";
+                    }
+
+                    //Get the game platforms
+                    //ApiIGDBPlatforms(int platformId)
+                    //Fix Platform as NameSub
+
+                    //Add information to summary
+                    string gameDescription = gameGenres + gameReleaseDate + infoGames.summary;
 
                     DataBindString answerGame = new DataBindString();
                     answerGame.ImageBitmap = gameImage;
                     answerGame.Name = infoGames.name;
-                    answerGame.NameSub = releaseDate;
+                    answerGame.NameSub = releaseDateYear;
                     answerGame.NameDetail = Convert.ToString(infoGames.cover);
-                    answerGame.Data = infoGames.summary;
+                    answerGame.Data = gameDescription;
                     Answers.Add(answerGame);
                 }
 
@@ -77,7 +103,7 @@ namespace CtrlUI
                 }
 
                 Popup_Show_Status("Download", "Downloading cover");
-                Debug.WriteLine("Downloading rom cover for: " + nameRomFiltered);
+                Debug.WriteLine("Downloading rom cover for: " + nameRom);
 
                 //Get the image url
                 ApiIGDBCovers[] iGDBCovers = await ApiIGDBDownloadCovers(messageResult.NameDetail);
@@ -99,7 +125,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        File.WriteAllBytes("Assets\\Roms\\Downloaded\\" + nameRomFiltered + ".jpg", imageBytes);
+                        File.WriteAllBytes("Assets\\Roms\\Downloaded\\" + nameRomSave + ".jpg", imageBytes);
                         Debug.WriteLine("Saved rom cover: " + imageBytes.Length + "bytes/" + imageUri);
                     }
                     catch { }
@@ -108,13 +134,13 @@ namespace CtrlUI
                 //Save rom description
                 try
                 {
-                    File.WriteAllText("Assets\\Roms\\Downloaded\\" + nameRomFiltered + ".txt", messageResult.Data);
+                    File.WriteAllText("Assets\\Roms\\Downloaded\\" + nameRomSave + ".txt", messageResult.Data);
                     Debug.WriteLine("Saved rom description.");
                 }
                 catch { }
 
                 Popup_Show_Status("Download", "Downloaded information");
-                Debug.WriteLine("Downloaded rom information for: " + nameRomFiltered);
+                Debug.WriteLine("Downloaded rom information for: " + nameRom);
                 return true;
             }
             catch (Exception ex)
@@ -133,14 +159,14 @@ namespace CtrlUI
 
                 //Set request headers
                 string[] requestAccept = new[] { "Accept", "application/json" };
-                string[] requestUserKey = new[] { "User-Key", vApiIGDBUserkey };
+                string[] requestUserKey = new[] { "User-Key", vApiIGDBUserKey };
                 string[][] requestHeaders = new string[][] { requestAccept, requestUserKey };
 
                 //Create request uri
                 Uri requestUri = new Uri("https://api-v3.igdb.com/games/");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 20; search \"" + gameName + "\";";
+                string requestBodyString = "fields *; limit 30; search \"" + gameName + "\";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
                 //Download games
@@ -169,14 +195,14 @@ namespace CtrlUI
 
                 //Set request headers
                 string[] requestAccept = new[] { "Accept", "application/json" };
-                string[] requestUserKey = new[] { "User-Key", vApiIGDBUserkey };
+                string[] requestUserKey = new[] { "User-Key", vApiIGDBUserKey };
                 string[][] requestHeaders = new string[][] { requestAccept, requestUserKey };
 
                 //Create request uri
                 Uri requestUri = new Uri("https://api-v3.igdb.com/covers/");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 20; where id = " + coverId + ";";
+                string requestBodyString = "fields *; limit 30; where id = " + coverId + ";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
                 //Download covers

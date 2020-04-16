@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -225,7 +226,11 @@ namespace CtrlUI
                         //Download rom information
                         else if (messageResult == answerDownloadRomInfo)
                         {
-                            await RomDownloadInformation(selectedItem.Name);
+                            bool infoDownloaded = await RomDownloadInformation(selectedItem.Name);
+                            if (infoDownloaded)
+                            {
+                                //Fix update image and description
+                            }
                         }
                     }
                 }
@@ -315,16 +320,20 @@ namespace CtrlUI
                     DataBindFile SelectedItem = (DataBindFile)ListboxSender.SelectedItem;
                     //Debug.WriteLine("File picker selection has changed to: " + SelectedItem.Name);
 
+                    //Show the rom information
                     grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Visible;
-                    grid_Popup_FilePicker_image_Description.Source = SelectedItem.ImageBitmap;
-                    if (string.IsNullOrWhiteSpace(SelectedItem.Description))
-                    {
-                        grid_Popup_FilePicker_textblock_Description.Text = "There is no description available.";
-                    }
-                    else
-                    {
-                        grid_Popup_FilePicker_textblock_Description.Text = SelectedItem.Description;
-                    }
+
+                    //Set image binding
+                    Binding imageBinding = new Binding();
+                    imageBinding.Path = new PropertyPath("ImageBitmap");
+                    imageBinding.Source = SelectedItem;
+                    grid_Popup_FilePicker_image_Description.SetBinding(Image.SourceProperty, imageBinding);
+
+                    //Set text binding
+                    Binding textBinding = new Binding();
+                    textBinding.Path = new PropertyPath("Description");
+                    textBinding.Source = SelectedItem;
+                    grid_Popup_FilePicker_textblock_Description.SetBinding(TextBlock.TextProperty, textBinding);
                 }
             }
             catch { }

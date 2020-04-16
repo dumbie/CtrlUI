@@ -2,6 +2,52 @@
 {
     public partial class Classes
     {
+        public static string ApiIGDBGenres(int genreId)
+        {
+            try
+            {
+                if (genreId == 2) { return "Point Click"; }
+                else if (genreId == 4) { return "Fighting"; }
+                else if (genreId == 5) { return "Shooter"; }
+                else if (genreId == 7) { return "Music"; }
+                else if (genreId == 8) { return "Platform"; }
+                else if (genreId == 9) { return "Puzzle"; }
+                else if (genreId == 10) { return "Racing"; }
+                else if (genreId == 11) { return "Realtime strategy"; }
+                else if (genreId == 12) { return "Roleplaying"; }
+                else if (genreId == 13) { return "Simulator"; }
+                else if (genreId == 14) { return "Sport"; }
+                else if (genreId == 15) { return "Strategy"; }
+                else if (genreId == 16) { return "Turnbased strategy"; }
+                else if (genreId == 24) { return "Tactical"; }
+                else if (genreId == 25) { return "Hack Slash"; }
+                else if (genreId == 26) { return "Quiz"; }
+                else if (genreId == 30) { return "Pinball"; }
+                else if (genreId == 31) { return "Adventure"; }
+                else if (genreId == 32) { return "Indie"; }
+                else if (genreId == 33) { return "Arcade"; }
+                else if (genreId == 34) { return "Visual Novel"; }
+            }
+            catch { }
+            return "Unknown";
+        }
+
+        public static string ApiIGDBPlatforms(int platformId)
+        {
+            try
+            {
+                if (platformId == 3) { return "Linux"; }
+                else if (platformId == 4) { return "Nintendo 64"; }
+                else if (platformId == 5) { return "Nintendo Wii"; }
+                else if (platformId == 6) { return "Windows"; }
+                else if (platformId == 7) { return "PlayStation 1"; }
+                else if (platformId == 167) { return "PlayStation 5"; }
+                else if (platformId == 169) { return "Xbox Series X"; }
+            }
+            catch { }
+            return "Unknown";
+        }
+
         public class ApiIGDBGames
         {
             public int id { get; set; }
