@@ -377,6 +377,15 @@ namespace CtrlUI
                 {
                     AVActions.ElementSetValue(img_Menu_DirectXInput, OpacityProperty, 0.40);
                 }
+
+                if (processesList.Any(x => x.ProcessName.ToLower() == "fpsoverlayer"))
+                {
+                    AVActions.ElementSetValue(img_Menu_FpsOverlayer, OpacityProperty, 1.00);
+                }
+                else
+                {
+                    AVActions.ElementSetValue(img_Menu_FpsOverlayer, OpacityProperty, 0.40);
+                }
             }
             catch { }
         }
@@ -730,10 +739,12 @@ namespace CtrlUI
                 img_Menu_UplayStatus.Source = FileToBitmapImage(new string[] { "Uplay" }, IntPtr.Zero, 30, 0);
                 img_Menu_OriginStatus.Source = FileToBitmapImage(new string[] { "Origin" }, IntPtr.Zero, 30, 0);
                 img_Menu_GoGStatus.Source = FileToBitmapImage(new string[] { "GoG" }, IntPtr.Zero, 30, 0);
-                img_Menu_DirectXInput.Source = FileToBitmapImage(new string[] { "DirectXInput" }, IntPtr.Zero, 30, 0);
                 img_Menu_BethesdaStatus.Source = FileToBitmapImage(new string[] { "Bethesda" }, IntPtr.Zero, 30, 0);
                 img_Menu_EpicStatus.Source = FileToBitmapImage(new string[] { "Epic" }, IntPtr.Zero, 30, 0);
                 img_Menu_BlizzardStatus.Source = FileToBitmapImage(new string[] { "Battle.net" }, IntPtr.Zero, 30, 0);
+
+                img_Menu_DirectXInput.Source = FileToBitmapImage(new string[] { "DirectXInput" }, IntPtr.Zero, 30, 0);
+                img_Menu_FpsOverlayer.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, IntPtr.Zero, 30, 0);
 
                 //Check if the first launch logo's need to be loaded
                 if (ConfigurationManager.AppSettings["AppFirstLaunch"] == "True")

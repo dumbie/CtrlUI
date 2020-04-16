@@ -22,6 +22,7 @@ namespace LibraryShared
                 File_Delete("Profiles/FpsBlacklistProcess.json");
                 File_Delete("Profiles/FpsPositionProcess.json");
                 File_Delete("Profiles/ShortcutLocations.json");
+                File_Delete("Assets/Custom.ttf");
 
                 //Rename old file names
                 File_Move("Profiles/Apps.json", "Profiles/CtrlApplications.json", true);
