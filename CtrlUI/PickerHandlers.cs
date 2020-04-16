@@ -123,14 +123,20 @@ namespace CtrlUI
                     Answers.Add(answerSort);
 
                     DataBindString answerCopy = new DataBindString();
-                    answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Copy.png" }, IntPtr.Zero, -1, 0);
-                    answerCopy.Name = "Copy the file or folder";
-                    Answers.Add(answerCopy);
+                    if (selectedItem.Type != "GoUp")
+                    {
+                        answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Copy.png" }, IntPtr.Zero, -1, 0);
+                        answerCopy.Name = "Copy the file or folder";
+                        Answers.Add(answerCopy);
+                    }
 
                     DataBindString answerCut = new DataBindString();
-                    answerCut.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Cut.png" }, IntPtr.Zero, -1, 0);
-                    answerCut.Name = "Cut the file or folder";
-                    Answers.Add(answerCut);
+                    if (selectedItem.Type != "GoUp")
+                    {
+                        answerCut.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Cut.png" }, IntPtr.Zero, -1, 0);
+                        answerCut.Name = "Cut the file or folder";
+                        Answers.Add(answerCut);
+                    }
 
                     DataBindString answerPaste = new DataBindString();
                     if (vClipboardFile != null)
@@ -141,9 +147,12 @@ namespace CtrlUI
                     }
 
                     DataBindString answerRename = new DataBindString();
-                    answerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1, 0);
-                    answerRename.Name = "Rename the file or folder";
-                    Answers.Add(answerRename);
+                    if (selectedItem.Type != "GoUp")
+                    {
+                        answerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1, 0);
+                        answerRename.Name = "Rename the file or folder";
+                        Answers.Add(answerRename);
+                    }
 
                     DataBindString answerFolderCreate = new DataBindString();
                     answerFolderCreate.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FolderAdd.png" }, IntPtr.Zero, -1, 0);
@@ -151,9 +160,20 @@ namespace CtrlUI
                     Answers.Add(answerFolderCreate);
 
                     DataBindString answerRemove = new DataBindString();
-                    answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
-                    answerRemove.Name = "Move file or folder to recycle bin*";
-                    Answers.Add(answerRemove);
+                    if (selectedItem.Type != "GoUp")
+                    {
+                        answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
+                        answerRemove.Name = "Move file or folder to recycle bin*";
+                        Answers.Add(answerRemove);
+                    }
+
+                    DataBindString answerDownloadRomInfo = new DataBindString();
+                    if (selectedItem.Type != "GoUp" && vFilePickerShowRoms)
+                    {
+                        answerDownloadRomInfo.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Download.png" }, IntPtr.Zero, -1, 0);
+                        answerDownloadRomInfo.Name = "Download rom information";
+                        Answers.Add(answerDownloadRomInfo);
+                    }
 
                     //Show the messagebox prompt
                     DataBindString messageResult = await Popup_Show_MessageBox("File and folder actions", "* Files and folders on a network drive get permanently deleted.", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
@@ -201,6 +221,11 @@ namespace CtrlUI
                         else if (messageResult == answerRemove)
                         {
                             await FilePicker_FileRemove(selectedItem, true);
+                        }
+                        //Download rom information
+                        else if (messageResult == answerDownloadRomInfo)
+                        {
+                            await RomDownloadInformation(selectedItem.Name);
                         }
                     }
                 }

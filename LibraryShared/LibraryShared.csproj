@@ -166,6 +166,7 @@
     <Compile Include="AppUpdateCheck.cs" />
     <Compile Include="AppLaunchCheck.cs" />
     <Compile Include="Classes\AppCategory.cs" />
+    <Compile Include="Classes\ApiIGDB.cs" />
     <Compile Include="Classes\FrameworkElementFocus.cs" />
     <Compile Include="Classes\ControllerStatusSummary.cs" />
     <Compile Include="Classes\ShortcutDetails.cs" />

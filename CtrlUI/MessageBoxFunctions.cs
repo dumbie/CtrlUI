@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using static CtrlUI.AppVariables;
@@ -81,7 +83,10 @@ namespace CtrlUI
                 //Close and reset the popup
                 await Popup_Close_MessageBox();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("MessageBox show error: " + ex.Message);
+            }
             return vMessageBoxResult;
         }
 
@@ -104,7 +109,10 @@ namespace CtrlUI
                 //Focus on the previous focus element
                 await Popup_PreviousElementFocus_Focus(vMessageBoxElementFocus);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("MessageBox close error: " + ex.Message);
+            }
         }
     }
 }

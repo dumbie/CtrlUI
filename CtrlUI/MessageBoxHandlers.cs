@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
@@ -17,7 +18,10 @@ namespace CtrlUI
                 vMessageBoxResult = lb_MessageBox.SelectedItem as DataBindString;
                 Debug.WriteLine("Set messagebox result to: " + vMessageBoxResult.Name);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("MessageBox result error: " + ex.Message);
+            }
         }
 
         //Handle messagebox keyboard/controller tapped

@@ -115,6 +115,7 @@
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
+    <Compile Include="RomFunctions.cs" />
     <Compile Include="Processes\ProcessMultiFunctions.cs" />
     <Compile Include="ProfileHandlers.cs" />
     <Compile Include="ProfileFunctions.cs" />

@@ -47,7 +47,7 @@ Keyboard Controller is an on screen keyboard which can be used by your controlle
 - A DirectInput game controller connected through DirectXInput.
 
 | Special thanks
-HidLibrary, ScpDriver and LibreHardwareMonitor.
+IGDB, HidLibrary, ScpDriver and LibreHardwareMonitor.
 
 | Support and bug reporting
 When you are walking into any problems or a bug you can go to my help page at https://help.arnoldvink.com so I can try to help you out and get everything working.
@@ -56,10 +56,13 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
 | Changelog
+v1.17.0.0 (17-April-2020)
+- You can now download rom information from the file picker.
+* Miscellaneous application improvements and fixes.
+
 v1.15.0.0 (1-April-2020)
 - You can now disable a button on the controller mapping screen.
 - Added support for PlayStation 3 Move Navigation Controller.
-* Miscellaneous application improvements and fixes.
 
 v1.12.1.0 (24-March-2020)
 - Fps Overlayer can now show the current time.

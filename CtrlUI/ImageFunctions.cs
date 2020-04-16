@@ -24,7 +24,6 @@ namespace CtrlUI
                     {
                         //Validate the load path
                         if (string.IsNullOrWhiteSpace(loadFile)) { continue; }
-                        else if (loadFile.Contains("://")) { continue; }
 
                         //Adjust the load path
                         string loadFileLower = loadFile.ToLower();
@@ -78,7 +77,6 @@ namespace CtrlUI
                     {
                         //Validate the load path
                         if (string.IsNullOrWhiteSpace(loadFile)) { continue; }
-                        else if (loadFile.Contains("://")) { continue; }
 
                         //Adjust the load path
                         string loadFileLower = loadFile.ToLower();
