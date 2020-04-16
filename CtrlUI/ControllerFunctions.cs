@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows;
@@ -46,6 +47,13 @@ namespace CtrlUI
             try
             {
                 //Debug.WriteLine("Requesting controller status information.");
+
+                //Check if socket server is running
+                if (vArnoldVinkSockets == null)
+                {
+                    Debug.WriteLine("The socket server is not running.");
+                    return;
+                }
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();

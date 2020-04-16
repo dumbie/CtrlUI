@@ -13,24 +13,29 @@ namespace CtrlUI
     partial class ImageFunctions
     {
         //Convert file to a string
-        public static string FileToString(string[] StringSource)
+        public static string FileToString(string[] stringSource)
         {
             try
             {
                 //Load application bitmap image
-                foreach (string ImageFile in StringSource)
+                foreach (string loadFile in stringSource)
                 {
                     try
                     {
-                        if (string.IsNullOrWhiteSpace(ImageFile)) { continue; }
-                        string ImageFileLower = ImageFile.ToLower();
-                        ImageFileLower = AVFunctions.StringRemoveStart(ImageFileLower, " ");
-                        ImageFileLower = AVFunctions.StringRemoveEnd(ImageFileLower, " ");
-                        //Debug.WriteLine("Loading string: " + ImageFileLower);
+                        //Validate the load path
+                        if (string.IsNullOrWhiteSpace(loadFile)) { continue; }
+                        else if (loadFile.Contains("://")) { continue; }
 
-                        if (File.Exists(ImageFileLower))
+                        //Adjust the load path
+                        string loadFileLower = loadFile.ToLower();
+                        loadFileLower = AVFunctions.StringRemoveStart(loadFileLower, " ");
+                        loadFileLower = AVFunctions.StringRemoveEnd(loadFileLower, " ");
+                        //Debug.WriteLine("Loading text: " + loadFileLower);
+
+                        //Read the text file
+                        if (File.Exists(loadFileLower))
                         {
-                            return File.ReadAllText(ImageFileLower);
+                            return File.ReadAllText(loadFileLower);
                         }
                     }
                     catch { }
@@ -67,41 +72,45 @@ namespace CtrlUI
                 BitmapImage imageToBitmapImage = PrepareNewBitmapImage(pixelWidth);
 
                 //Load application bitmap image
-                foreach (string imageFile in imageSource)
+                foreach (string loadFile in imageSource)
                 {
                     try
                     {
-                        if (string.IsNullOrWhiteSpace(imageFile)) { continue; }
-                        string imageFileLower = imageFile.ToLower();
-                        imageFileLower = AVFunctions.StringRemoveStart(imageFileLower, " ");
-                        imageFileLower = AVFunctions.StringRemoveEnd(imageFileLower, " ");
-                        string imageFileSafe = string.Join("", imageFileLower.Split(Path.GetInvalidFileNameChars()));
-                        //Debug.WriteLine("Loading image: " + imageFileLower);
+                        //Validate the load path
+                        if (string.IsNullOrWhiteSpace(loadFile)) { continue; }
+                        else if (loadFile.Contains("://")) { continue; }
 
-                        if (imageFileLower.StartsWith("pack://application:,,,"))
+                        //Adjust the load path
+                        string loadFileLower = loadFile.ToLower();
+                        loadFileLower = AVFunctions.StringRemoveStart(loadFileLower, " ");
+                        loadFileLower = AVFunctions.StringRemoveEnd(loadFileLower, " ");
+                        string loadFileSafe = string.Join(string.Empty, loadFileLower.Split(Path.GetInvalidFileNameChars()));
+                        //Debug.WriteLine("Loading image: " + loadFileLower + "/" + loadFileSafe);
+
+                        if (loadFileLower.StartsWith("pack://application:,,,"))
                         {
                             imageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                            imageToBitmapImage.UriSource = new Uri(imageFileLower, UriKind.RelativeOrAbsolute);
+                            imageToBitmapImage.UriSource = new Uri(loadFileLower, UriKind.RelativeOrAbsolute);
                         }
-                        else if (File.Exists("Assets\\Apps\\" + imageFileSafe + ".png"))
+                        else if (File.Exists("Assets\\Apps\\" + loadFileSafe + ".png"))
                         {
                             imageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                            imageToBitmapImage.UriSource = new Uri("Assets\\Apps\\" + imageFileSafe + ".png", UriKind.RelativeOrAbsolute);
+                            imageToBitmapImage.UriSource = new Uri("Assets\\Apps\\" + loadFileSafe + ".png", UriKind.RelativeOrAbsolute);
                         }
-                        else if (File.Exists("Assets\\Roms\\" + imageFileSafe + ".png"))
+                        else if (File.Exists("Assets\\Roms\\" + loadFileSafe + ".png"))
                         {
                             imageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                            imageToBitmapImage.UriSource = new Uri("Assets\\Roms\\" + imageFileSafe + ".png", UriKind.RelativeOrAbsolute);
+                            imageToBitmapImage.UriSource = new Uri("Assets\\Roms\\" + loadFileSafe + ".png", UriKind.RelativeOrAbsolute);
                         }
-                        else if (File.Exists(imageFileLower) && !imageFileLower.EndsWith(".exe") && !imageFileLower.EndsWith(".dll") && !imageFileLower.EndsWith(".bin") && !imageFileLower.EndsWith(".tmp"))
+                        else if (File.Exists(loadFileLower) && !loadFileLower.EndsWith(".exe") && !loadFileLower.EndsWith(".dll") && !loadFileLower.EndsWith(".bin") && !loadFileLower.EndsWith(".tmp"))
                         {
                             imageToBitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                            imageToBitmapImage.UriSource = new Uri(imageFileLower, UriKind.RelativeOrAbsolute);
+                            imageToBitmapImage.UriSource = new Uri(loadFileLower, UriKind.RelativeOrAbsolute);
                         }
-                        else if (File.Exists(imageFileLower) && (imageFileLower.EndsWith(".exe") || imageFileLower.EndsWith(".dll") || imageFileLower.EndsWith(".bin") || imageFileLower.EndsWith(".tmp")))
+                        else if (File.Exists(loadFileLower) && (loadFileLower.EndsWith(".exe") || loadFileLower.EndsWith(".dll") || loadFileLower.EndsWith(".bin") || loadFileLower.EndsWith(".tmp")))
                         {
                             imageToBitmapImage.CreateOptions = BitmapCreateOptions.None;
-                            System.Drawing.Bitmap iconImage = ExtractIco.ExtractIco.GetBitmapFromExePath(imageFileLower, iconIndex);
+                            System.Drawing.Bitmap iconImage = ExtractIco.ExtractIco.GetBitmapFromExePath(loadFileLower, iconIndex);
                             if (iconImage != null)
                             {
                                 MemoryStream iconMemoryStream = new MemoryStream();

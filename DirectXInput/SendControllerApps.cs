@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
@@ -17,6 +18,13 @@ namespace DirectXInput
             {
                 if (Environment.TickCount >= Controller.Delay_CtrlUIOutput || Controller.InputCurrent.ButtonGuideShort || Controller.InputCurrent.ButtonGuideLong)
                 {
+                    //Check if socket server is running
+                    if (vArnoldVinkSockets == null)
+                    {
+                        Debug.WriteLine("The socket server is not running.");
+                        return;
+                    }
+
                     //Prepare socket data
                     SocketSendContainer socketSend = new SocketSendContainer();
                     socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
@@ -42,6 +50,13 @@ namespace DirectXInput
             {
                 if (Environment.TickCount >= Controller.Delay_KeyboardControllerShortcut || Controller.InputCurrent.ButtonGuideShort || Controller.InputCurrent.ButtonGuideLong)
                 {
+                    //Check if socket server is running
+                    if (vArnoldVinkSockets == null)
+                    {
+                        Debug.WriteLine("The socket server is not running.");
+                        return;
+                    }
+
                     //Prepare socket data
                     SocketSendContainer socketSend = new SocketSendContainer();
                     socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;

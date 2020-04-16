@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
@@ -74,6 +75,13 @@ namespace DirectXInput
                         controllerStatus3.Connected = vController3.Connected();
                         controllerStatus3.BatteryPercentageCurrent = vController3.BatteryPercentageCurrent;
                         controllerStatusSummaryList.Add(controllerStatus3);
+
+                        //Check if socket server is running
+                        if (vArnoldVinkSockets == null)
+                        {
+                            Debug.WriteLine("The socket server is not running.");
+                            return;
+                        }
 
                         //Prepare socket data
                         SocketSendContainer socketSend = new SocketSendContainer();

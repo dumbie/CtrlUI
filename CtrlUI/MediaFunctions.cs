@@ -152,9 +152,22 @@ namespace CtrlUI
                     grid_Popup_Media_Volume_Level.Text = currentVolumeString;
                 });
 
-                //Get the media session control
+                //Get the media session manager
                 GlobalSystemMediaTransportControlsSessionManager smtcSessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
+                if (smtcSessionManager == null)
+                {
+                    HideMediaInformation();
+                    return;
+                }
+
+                //Get the current media session
                 GlobalSystemMediaTransportControlsSession smtcSession = smtcSessionManager.GetCurrentSession();
+                if (smtcSession == null)
+                {
+                    HideMediaInformation();
+                    return;
+                }
+
                 GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline = smtcSession.GetTimelineProperties();
                 GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties = await smtcSession.TryGetMediaPropertiesAsync();
                 GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo = smtcSession.GetPlaybackInfo();
@@ -303,12 +316,22 @@ namespace CtrlUI
             catch
             {
                 //Debug.WriteLine("Failed updating playing media.");
+                HideMediaInformation();
+            }
+        }
+
+        //Hide media information
+        void HideMediaInformation()
+        {
+            try
+            {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     main_Media_Information.Visibility = Visibility.Collapsed;
                     grid_Popup_Media_Information.Visibility = Visibility.Collapsed;
                 });
             }
+            catch { }
         }
 
         //Update media thumbnail
