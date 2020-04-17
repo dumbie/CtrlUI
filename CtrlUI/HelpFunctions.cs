@@ -27,6 +27,7 @@ namespace CtrlUI
             return false;
         }
 
+        //Update controller help
         void UpdateControllerHelp()
         {
             try
@@ -60,17 +61,23 @@ namespace CtrlUI
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltF4"])) { sp_ControllerHelpAltF4.Visibility = Visibility.Visible; }
                 else { sp_ControllerHelpAltF4.Visibility = Visibility.Collapsed; }
 
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"])) { sp_ControllerHelpVolume.Visibility = Visibility.Visible; }
-                else { sp_ControllerHelpVolume.Visibility = Visibility.Collapsed; }
+                //Check volume setting
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"]))
+                {
+                    sp_ControllerHelpVolume.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    sp_ControllerHelpVolume.Visibility = Visibility.Collapsed;
+                }
 
-                //Check if the menu is open or closed
-                HelpController("Quick action", string.Empty, string.Empty, "Interact", "Switch app", "Menu", "Search", string.Empty, string.Empty);
+                UpdateControllerHelpText("Quick action", string.Empty, string.Empty, "Interact", "Switch app", "Menu", "Search", string.Empty, string.Empty);
             }
             catch { }
         }
 
-        //Update controller help
-        void HelpController(string Up, string Right, string Down, string Left, string Guide, string Back, string Start, string Lb, string Rb)
+        //Update controller help text
+        void UpdateControllerHelpText(string Up, string Right, string Down, string Left, string Guide, string Back, string Start, string Lb, string Rb)
         {
             try
             {
@@ -162,16 +169,6 @@ namespace CtrlUI
                 else
                 {
                     sp_ControllerHelpRb.Visibility = Visibility.Collapsed;
-                }
-
-                //Check volume setting
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"]))
-                {
-                    sp_ControllerHelpVolume.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    sp_ControllerHelpVolume.Visibility = Visibility.Collapsed;
                 }
             }
             catch { }

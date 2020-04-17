@@ -92,10 +92,10 @@ namespace CtrlUI
                 btn_Manage_MoveAppLeft.Click += Btn_Manage_MoveAppLeft_Click;
                 btn_Manage_MoveAppRight.Click += Btn_Manage_MoveAppRight_Click;
                 lb_Manage_AddAppCategory.SelectionChanged += Lb_Manage_AddAppCategory_SelectionChanged;
-                btn_AddAppLogo.Click += Button_ShowFilePicker;
-                btn_AddAppExePath.Click += Button_ShowFilePicker;
-                btn_AddAppPathLaunch.Click += Button_ShowFilePicker;
-                btn_AddAppPathRoms.Click += Button_ShowFilePicker;
+                btn_AddAppLogo.Click += Button_AddAppLogo_Click;
+                btn_AddAppExePath.Click += Button_AddAppExePath_Click;
+                btn_AddAppPathLaunch.Click += Button_AddAppPathLaunch_Click;
+                btn_AddAppPathRoms.Click += Button_AddAppPathRoms_Click;
 
                 //Media functions
                 grid_Popup_Media_Previous.Click += Button_Media_PreviousItem;
@@ -155,15 +155,15 @@ namespace CtrlUI
                 //Welcome functions
                 grid_Popup_Welcome_button_LaunchDirectXInput.Click += Button_LaunchDirectXInput_Click;
                 grid_Popup_Welcome_button_Start.Click += Button_Popup_Close_Click;
-                grid_Popup_Welcome_button_Edge.Click += Button_ShowFilePicker;
-                grid_Popup_Welcome_button_Kodi.Click += Button_ShowFilePicker;
-                grid_Popup_Welcome_button_Spotify.Click += Button_ShowFilePicker;
-                grid_Popup_Welcome_button_Steam.Click += Button_ShowFilePicker;
-                grid_Popup_Welcome_button_Origin.Click += Button_ShowFilePicker;
-                grid_Popup_Welcome_button_Uplay.Click += Button_ShowFilePicker;
-                grid_Popup_Welcome_button_GoG.Click += Button_ShowFilePicker;
-                grid_Popup_Welcome_button_Battle.Click += Button_ShowFilePicker;
-                grid_Popup_Welcome_button_PS4Remote.Click += Button_ShowFilePicker;
+                grid_Popup_Welcome_button_Edge.Click += Grid_Popup_Welcome_button_Edge_Click;
+                grid_Popup_Welcome_button_Kodi.Click += Grid_Popup_Welcome_button_Kodi_Click;
+                grid_Popup_Welcome_button_Spotify.Click += Grid_Popup_Welcome_button_Spotify_Click;
+                grid_Popup_Welcome_button_Steam.Click += Grid_Popup_Welcome_button_Steam_Click;
+                grid_Popup_Welcome_button_Origin.Click += Grid_Popup_Welcome_button_Origin_Click;
+                grid_Popup_Welcome_button_Uplay.Click += Grid_Popup_Welcome_button_Uplay_Click;
+                grid_Popup_Welcome_button_GoG.Click += Grid_Popup_Welcome_button_GoG_Click;
+                grid_Popup_Welcome_button_Battle.Click += Grid_Popup_Welcome_button_Battle_Click;
+                grid_Popup_Welcome_button_PS4Remote.Click += Grid_Popup_Welcome_button_PS4Remote_Click;
 
                 //Settings functions
                 btn_Settings_AppQuickLaunch.Click += Button_Settings_AppQuickLaunch;
@@ -172,8 +172,8 @@ namespace CtrlUI
                 btn_Settings_CheckForUpdate.Click += Button_Settings_CheckForUpdate_Click;
                 btn_Settings_AddGeforceExperience.Click += Button_Settings_AddGeforceExperience_Click;
                 btn_Settings_ColorPickerAccent.Click += Button_Settings_ColorPickerAccent;
-                btn_Settings_ChangeBackgroundImage.Click += Button_ShowFilePicker;
-                btn_Settings_ChangeBackgroundVideo.Click += Button_ShowFilePicker;
+                btn_Settings_ChangeBackgroundImage.Click += Button_Settings_ChangeBackgroundImage_Click;
+                btn_Settings_ChangeBackgroundVideo.Click += Button_Settings_ChangeBackgroundVideo_Click;
                 btn_Settings_InterfaceSoundPackName.Click += Button_Settings_InterfaceSoundPackName;
 
                 //Help functions

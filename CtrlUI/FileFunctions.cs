@@ -44,7 +44,6 @@ namespace CtrlUI
             catch { }
         }
 
-
         //Set copy file from the file picker
         void FilePicker_FileCopy(DataBindFile dataBindFile)
         {

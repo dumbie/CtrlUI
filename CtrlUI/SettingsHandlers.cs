@@ -4,10 +4,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.ProcessWin32Functions;
+using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
@@ -72,6 +74,80 @@ namespace CtrlUI
                     //Save changes to Json file
                     JsonSaveApplications();
                 }
+            }
+            catch { }
+        }
+
+        //Change the interface background image
+        async void Button_Settings_ChangeBackgroundImage_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                vFilePickerFilterIn = new List<string> { "jpg", "png" };
+                vFilePickerFilterOut = new List<string>();
+                vFilePickerTitle = "Background Image";
+                vFilePickerDescription = "Please select a new background image:";
+                vFilePickerShowNoFile = false;
+                vFilePickerShowRoms = false;
+                vFilePickerShowFiles = true;
+                vFilePickerShowDirectories = true;
+                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                await Popup_Show_FilePicker("PC", -1, false, btn_Settings_ChangeBackgroundImage);
+
+                while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
+                if (vFilePickerCancelled) { return; }
+
+                //Unload the current background media
+                UnloadBackgroundMedia();
+
+                //Copy new background file
+                File_Copy(vFilePickerResult.PathFile, "Assets\\Background.png", true);
+
+                //Disable video background
+                cb_SettingsVideoBackground.IsChecked = false;
+                SettingSave("VideoBackground", "False");
+
+                //Disable desktop background
+                cb_SettingsDesktopBackground.IsChecked = false;
+                SettingSave("DesktopBackground", "False");
+
+                //Update the background media
+                UpdateBackgroundMedia();
+            }
+            catch { }
+        }
+
+        //Change the interface background video
+        async void Button_Settings_ChangeBackgroundVideo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                vFilePickerFilterIn = new List<string> { "mp4" };
+                vFilePickerFilterOut = new List<string>();
+                vFilePickerTitle = "Background Video";
+                vFilePickerDescription = "Please select a new background video:";
+                vFilePickerShowNoFile = false;
+                vFilePickerShowRoms = false;
+                vFilePickerShowFiles = true;
+                vFilePickerShowDirectories = true;
+                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                await Popup_Show_FilePicker("PC", -1, false, btn_Settings_ChangeBackgroundVideo);
+
+                while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
+                if (vFilePickerCancelled) { return; }
+
+                //Unload the current background media
+                UnloadBackgroundMedia();
+
+                //Copy new background file
+                File_Copy(vFilePickerResult.PathFile, "Assets\\BackgroundLive.mp4", true);
+
+                //Enable video background
+                cb_SettingsVideoBackground.IsChecked = true;
+                SettingSave("VideoBackground", "True");
+
+                //Update the background media
+                UpdateBackgroundMedia();
             }
             catch { }
         }

@@ -23,7 +23,7 @@ namespace CtrlUI
         public static string vApiIGDBUserKey = "b25eb31b7612c7158867a3cd7849dbee"; //Yes, I know I didn't remove the api key.
 
         //Download rom information
-        public async Task<RomInformation> RomDownloadInformation(string nameRom, int imageWidth)
+        public async Task<RomInformation> RomDownloadInformation(string nameRom, int wordsSearched, int imageWidth)
         {
             try
             {
@@ -39,20 +39,21 @@ namespace CtrlUI
                 nameRomDownload = Regex.Replace(nameRomDownload, @"\s+", " ");
                 string[] nameRomDownloadSplit = nameRomDownload.Split(' ').Where(x => !nameFilterRemove.Any(x.StartsWith)).ToArray();
 
-                //Download available games with 2 words
-                nameRomDownload = string.Join(" ", nameRomDownloadSplit.Take(2));
-                ApiIGDBGames[] iGDBGames = await ApiIGDBDownloadGames(nameRomDownload);
+                //Download available games
+                nameRomDownload = string.Join(" ", nameRomDownloadSplit.Take(wordsSearched));
+                IEnumerable<ApiIGDBGames> iGDBGames = await ApiIGDBDownloadGames(nameRomDownload);
                 if (iGDBGames == null || !iGDBGames.Any())
                 {
-                    //Download available games with 1 word
-                    nameRomDownload = string.Join(" ", nameRomDownloadSplit.Take(1));
-                    iGDBGames = await ApiIGDBDownloadGames(nameRomDownload);
-                    if (iGDBGames == null || !iGDBGames.Any())
+                    //Reduce search words by one
+                    if (wordsSearched > 1)
                     {
-                        Debug.WriteLine("No games found");
-                        Popup_Show_Status("Close", "No games found");
-                        return null;
+                        return await RomDownloadInformation(nameRom, wordsSearched - 1, imageWidth);
                     }
+
+                    //No game found notification
+                    Debug.WriteLine("No games found");
+                    Popup_Show_Status("Close", "No games found");
+                    return null;
                 }
 
                 //Ask user which game to download
@@ -195,7 +196,7 @@ namespace CtrlUI
             }
         }
 
-        public async Task<ApiIGDBGames[]> ApiIGDBDownloadGames(string gameName)
+        public async Task<IEnumerable<ApiIGDBGames>> ApiIGDBDownloadGames(string gameName)
         {
             try
             {
@@ -221,8 +222,8 @@ namespace CtrlUI
                     return null;
                 }
 
-                //Return games
-                return JsonConvert.DeserializeObject<ApiIGDBGames[]>(resultSearch);
+                //Return games sorted
+                return JsonConvert.DeserializeObject<IEnumerable<ApiIGDBGames>>(resultSearch).OrderBy(x => x.name);
             }
             catch (Exception ex)
             {

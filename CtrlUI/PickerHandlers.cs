@@ -226,7 +226,7 @@ namespace CtrlUI
                         //Download rom information
                         else if (messageResult == answerDownloadRomInfo)
                         {
-                            RomInformation romInformationDownloaded = await RomDownloadInformation(selectedItem.Name, 210);
+                            RomInformation romInformationDownloaded = await RomDownloadInformation(selectedItem.Name, 3, 210);
                             if (romInformationDownloaded != null)
                             {
                                 selectedItem.ImageBitmap = romInformationDownloaded.RomImageBitmap;
