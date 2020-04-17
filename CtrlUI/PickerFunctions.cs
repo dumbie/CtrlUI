@@ -98,32 +98,8 @@ namespace CtrlUI
                     List_FilePicker.Clear();
                 });
 
-                //Get and set all strings to list
-                if (targetPath == "String")
-                {
-                    //Enable or disable selection button in the list
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_SelectFolder, VisibilityProperty, Visibility.Collapsed);
-
-                    //Enable or disable file and folder availability
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_NoFilesAvailable, VisibilityProperty, Visibility.Collapsed);
-
-                    //Enable or disable the side navigate buttons
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerLeft, VisibilityProperty, Visibility.Collapsed);
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerUp, VisibilityProperty, Visibility.Collapsed);
-
-                    //Convert all the strings from array
-                    foreach (DataBindString stringPicker in vFilePickerStrings)
-                    {
-                        try
-                        {
-                            DataBindFile dataBindFile = new DataBindFile() { Type = "File", Name = stringPicker.Name, PathFile = stringPicker.NameDetail, ImageBitmap = stringPicker.ImageBitmap };
-                            await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
-                        }
-                        catch { }
-                    }
-                }
                 //Get and list all the disk drives
-                else if (targetPath == "PC")
+                if (targetPath == "PC")
                 {
                     //Enable or disable selection button in the list
                     AVActions.ElementSetValue(grid_Popup_FilePicker_button_SelectFolder, VisibilityProperty, Visibility.Collapsed);
@@ -567,61 +543,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Show string based picker
-        async void Button_ShowStringPicker(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Button ButtonSender = (sender as Button);
-                string ButtonName = ButtonSender.Name;
-
-                //Change the quick launch app
-                if (ButtonName == "btn_Settings_AppQuickLaunch")
-                {
-                    //Add all apps to the string list
-                    vFilePickerStrings.Clear();
-
-                    foreach (DataBindApp dataBindApp in CombineAppLists(false, false))
-                    {
-                        DataBindString stringApp = new DataBindString() { Name = dataBindApp.Name, ImageBitmap = dataBindApp.ImageBitmap };
-                        vFilePickerStrings.Add(stringApp);
-                    }
-
-                    vFilePickerFilterIn = new List<string>();
-                    vFilePickerFilterOut = new List<string>();
-                    vFilePickerTitle = "Quick Launch Application";
-                    vFilePickerDescription = "Please select a new quick launch application:";
-                    vFilePickerShowNoFile = false;
-                    vFilePickerShowRoms = false;
-                    vFilePickerShowFiles = false;
-                    vFilePickerShowDirectories = false;
-                    grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                    await Popup_Show_FilePicker("String", -1, false, null);
-
-                    while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
-                    if (vFilePickerCancelled) { return; }
-
-                    btn_Settings_AppQuickLaunch.Content = "Change quick launch app: " + vFilePickerResult.Name;
-
-                    //Set previous quick launch application to false
-                    foreach (DataBindApp dataBindApp in CombineAppLists(false, false).Where(x => x.QuickLaunch))
-                    {
-                        dataBindApp.QuickLaunch = false;
-                    }
-
-                    //Set new quick launch application to true
-                    foreach (DataBindApp dataBindApp in CombineAppLists(false, false).Where(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower()))
-                    {
-                        dataBindApp.QuickLaunch = true;
-                    }
-
-                    //Save changes to Json file
-                    JsonSaveApplications();
-                }
-            }
-            catch { }
-        }
-
         //Show file based picker
         async void Button_ShowFilePicker(object sender, RoutedEventArgs e)
         {
@@ -811,42 +732,6 @@ namespace CtrlUI
 
                     //Update the background media
                     UpdateBackgroundMedia();
-                }
-
-                //Settings Interface Sound Pack
-                else if (ButtonName == "btn_Settings_InterfaceSoundPackName")
-                {
-                    //Add sound packs to string list
-                    vFilePickerStrings.Clear();
-
-                    DirectoryInfo directoryInfo = new DirectoryInfo("Assets\\Sounds\\");
-                    DirectoryInfo[] soundPacks = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly);
-                    BitmapImage imagePacks = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/VolumeUp.png" }, IntPtr.Zero, -1, 0);
-
-                    foreach (DirectoryInfo soundPack in soundPacks)
-                    {
-                        DataBindString AnswerCustom = new DataBindString();
-                        AnswerCustom.ImageBitmap = imagePacks;
-                        AnswerCustom.Name = soundPack.Name;
-                        vFilePickerStrings.Add(AnswerCustom);
-                    }
-
-                    vFilePickerFilterIn = new List<string>();
-                    vFilePickerFilterOut = new List<string>();
-                    vFilePickerTitle = "Interface Sounds";
-                    vFilePickerDescription = "Please select a sound pack to use:";
-                    vFilePickerShowNoFile = false;
-                    vFilePickerShowRoms = false;
-                    vFilePickerShowFiles = false;
-                    vFilePickerShowDirectories = false;
-                    grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                    await Popup_Show_FilePicker("String", -1, false, null);
-
-                    while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
-                    if (vFilePickerCancelled) { return; }
-
-                    //Update the setting
-                    SettingSave("InterfaceSoundPackName", vFilePickerResult.Name);
                 }
 
                 //First launch quick setup

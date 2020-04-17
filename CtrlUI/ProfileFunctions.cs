@@ -201,48 +201,38 @@ namespace CtrlUI
             try
             {
                 //Add profile categories
-                vFilePickerStrings.Clear();
+                List<DataBindString> Answers = new List<DataBindString>();
 
                 BitmapImage imageProfile = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Profile.png" }, IntPtr.Zero, -1, 0);
 
-                DataBindString stringCtrlLocationsShortcut = new DataBindString() { Name = "Shortcut locations", NameDetail = "CtrlLocationsShortcut", ImageBitmap = imageProfile };
-                vFilePickerStrings.Add(stringCtrlLocationsShortcut);
+                DataBindString stringCtrlLocationsShortcut = new DataBindString() { Name = "Shortcut locations", Data1 = "CtrlLocationsShortcut", ImageBitmap = imageProfile };
+                Answers.Add(stringCtrlLocationsShortcut);
 
-                DataBindString stringCtrlLocationsFile = new DataBindString() { Name = "File browser locations", NameDetail = "CtrlLocationsFile", ImageBitmap = imageProfile };
-                vFilePickerStrings.Add(stringCtrlLocationsFile);
+                DataBindString stringCtrlLocationsFile = new DataBindString() { Name = "File browser locations", Data1 = "CtrlLocationsFile", ImageBitmap = imageProfile };
+                Answers.Add(stringCtrlLocationsFile);
 
-                DataBindString stringCtrlIgnoreProcessName = new DataBindString() { Name = "Ignored process names", NameDetail = "CtrlIgnoreProcessName", ImageBitmap = imageProfile };
-                vFilePickerStrings.Add(stringCtrlIgnoreProcessName);
+                DataBindString stringCtrlIgnoreProcessName = new DataBindString() { Name = "Ignored process names", Data1 = "CtrlIgnoreProcessName", ImageBitmap = imageProfile };
+                Answers.Add(stringCtrlIgnoreProcessName);
 
-                DataBindString stringCtrlIgnoreShortcutName = new DataBindString() { Name = "Ignored shortcuts names", NameDetail = "CtrlIgnoreShortcutName", ImageBitmap = imageProfile };
-                vFilePickerStrings.Add(stringCtrlIgnoreShortcutName);
+                DataBindString stringCtrlIgnoreShortcutName = new DataBindString() { Name = "Ignored shortcuts names", Data1 = "CtrlIgnoreShortcutName", ImageBitmap = imageProfile };
+                Answers.Add(stringCtrlIgnoreShortcutName);
 
-                DataBindString stringCtrlIgnoreShortcutUri = new DataBindString() { Name = "Ignored shortcut uri's", NameDetail = "CtrlIgnoreShortcutUri", ImageBitmap = imageProfile };
-                vFilePickerStrings.Add(stringCtrlIgnoreShortcutUri);
+                DataBindString stringCtrlIgnoreShortcutUri = new DataBindString() { Name = "Ignored shortcut uri's", Data1 = "CtrlIgnoreShortcutUri", ImageBitmap = imageProfile };
+                Answers.Add(stringCtrlIgnoreShortcutUri);
 
-                DataBindString stringCtrlKeyboardProcessName = new DataBindString() { Name = "Keyboard open process names", NameDetail = "CtrlKeyboardProcessName", ImageBitmap = imageProfile };
-                vFilePickerStrings.Add(stringCtrlKeyboardProcessName);
+                DataBindString stringCtrlKeyboardProcessName = new DataBindString() { Name = "Keyboard open process names", Data1 = "CtrlKeyboardProcessName", ImageBitmap = imageProfile };
+                Answers.Add(stringCtrlKeyboardProcessName);
 
-                //Show the category picker
-                vFilePickerFilterIn = new List<string>();
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Profile Category";
-                vFilePickerDescription = "Please select the profile to manage:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = false;
-                vFilePickerShowDirectories = false;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("String", -1, false, null);
+                //Show the messagebox
+                DataBindString messageResult = await Popup_Show_MessageBox("Profile Category", "", "Please select the profile to manage:", Answers);
+                if (messageResult != null)
+                {
+                    //Set the selected profile category
+                    vProfileManagerName = messageResult.Data1.ToString();
 
-                while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
-                if (vFilePickerCancelled) { return; }
-
-                //Set the selected profile category
-                vProfileManagerName = vFilePickerResult.PathFile;
-
-                //Load profile in manager
-                await ProfileManager_LoadProfile();
+                    //Load profile in manager
+                    await ProfileManager_LoadProfile();
+                }
             }
             catch { }
         }

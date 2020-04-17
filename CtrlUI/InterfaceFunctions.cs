@@ -92,6 +92,10 @@ namespace CtrlUI
                 btn_Manage_MoveAppLeft.Click += Btn_Manage_MoveAppLeft_Click;
                 btn_Manage_MoveAppRight.Click += Btn_Manage_MoveAppRight_Click;
                 lb_Manage_AddAppCategory.SelectionChanged += Lb_Manage_AddAppCategory_SelectionChanged;
+                btn_AddAppLogo.Click += Button_ShowFilePicker;
+                btn_AddAppExePath.Click += Button_ShowFilePicker;
+                btn_AddAppPathLaunch.Click += Button_ShowFilePicker;
+                btn_AddAppPathRoms.Click += Button_ShowFilePicker;
 
                 //Media functions
                 grid_Popup_Media_Previous.Click += Button_Media_PreviousItem;
@@ -132,13 +136,6 @@ namespace CtrlUI
                 lb_FilePicker.PreviewMouseUp += ListBox_FilePicker_MousePressUp;
                 lb_FilePicker.SelectionChanged += Lb_FilePicker_SelectionChanged;
                 grid_Popup_FilePicker_button_SelectFolder.Click += Grid_Popup_FilePicker_button_SelectFolder_Click;
-                btn_AddAppLogo.Click += Button_ShowFilePicker;
-                btn_AddAppExePath.Click += Button_ShowFilePicker;
-                btn_AddAppPathLaunch.Click += Button_ShowFilePicker;
-                btn_AddAppPathRoms.Click += Button_ShowFilePicker;
-                btn_Settings_ChangeBackgroundImage.Click += Button_ShowFilePicker;
-                btn_Settings_ChangeBackgroundVideo.Click += Button_ShowFilePicker;
-                btn_Settings_InterfaceSoundPackName.Click += Button_ShowFilePicker;
 
                 //Profile Manager functions
                 grid_Popup_ProfileManager_button_ControllerRight.Click += Button_Popup_Close_Click;
@@ -169,12 +166,15 @@ namespace CtrlUI
                 grid_Popup_Welcome_button_PS4Remote.Click += Button_ShowFilePicker;
 
                 //Settings functions
-                btn_Settings_AppQuickLaunch.Click += Button_ShowStringPicker;
+                btn_Settings_AppQuickLaunch.Click += Button_Settings_AppQuickLaunch;
                 btn_Settings_LaunchDirectXInput.Click += Button_LaunchDirectXInput_Click;
                 btn_Settings_CheckControllers.Click += Button_Settings_CheckControllers_Click;
                 btn_Settings_CheckForUpdate.Click += Button_Settings_CheckForUpdate_Click;
                 btn_Settings_AddGeforceExperience.Click += Button_Settings_AddGeforceExperience_Click;
                 btn_Settings_ColorPickerAccent.Click += Button_Settings_ColorPickerAccent;
+                btn_Settings_ChangeBackgroundImage.Click += Button_ShowFilePicker;
+                btn_Settings_ChangeBackgroundVideo.Click += Button_ShowFilePicker;
+                btn_Settings_InterfaceSoundPackName.Click += Button_Settings_InterfaceSoundPackName;
 
                 //Help functions
                 btn_Help_ProjectWebsite.Click += Button_Help_ProjectWebsite_Click;

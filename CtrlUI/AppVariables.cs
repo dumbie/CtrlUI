@@ -97,7 +97,6 @@ namespace CtrlUI
         public static string vFilePickerPreviousPath = string.Empty;
         public static List<string> vFilePickerFilterIn = new List<string>();
         public static List<string> vFilePickerFilterOut = new List<string>();
-        public static List<DataBindString> vFilePickerStrings = new List<DataBindString>();
         public static string vFilePickerTitle = "File Browser";
         public static string vFilePickerDescription = "Please select a file, folder or disk:";
         public static bool vFilePickerShowNoFile = false;

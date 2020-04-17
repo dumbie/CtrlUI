@@ -710,72 +710,62 @@ namespace CtrlUI
             try
             {
                 //Add application type categories
-                vFilePickerStrings.Clear();
+                List<DataBindString> answersCategory = new List<DataBindString>();
 
                 BitmapImage imageGame = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
-                DataBindString stringGame = new DataBindString() { Name = "Game", NameDetail = "Game", ImageBitmap = imageGame };
-                vFilePickerStrings.Add(stringGame);
+                DataBindString stringGame = new DataBindString() { Name = "Game", Data1 = "Game", ImageBitmap = imageGame };
+                answersCategory.Add(stringGame);
 
                 BitmapImage imageApp = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
-                DataBindString stringApp = new DataBindString() { Name = "App & Media", NameDetail = "App", ImageBitmap = imageApp };
-                vFilePickerStrings.Add(stringApp);
+                DataBindString stringApp = new DataBindString() { Name = "App & Media", Data1 = "App", ImageBitmap = imageApp };
+                answersCategory.Add(stringApp);
 
                 BitmapImage imageEmulator = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
-                DataBindString stringEmulator = new DataBindString() { Name = "Emulator", NameDetail = "Emulator", ImageBitmap = imageEmulator };
-                vFilePickerStrings.Add(stringEmulator);
+                DataBindString stringEmulator = new DataBindString() { Name = "Emulator", Data1 = "Emulator", ImageBitmap = imageEmulator };
+                answersCategory.Add(stringEmulator);
 
-                //Show the application picker
-                vFilePickerFilterIn = new List<string>();
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Application Category";
-                vFilePickerDescription = "Please select a new application category:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = false;
-                vFilePickerShowDirectories = false;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("String", -1, false, null);
-
-                while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
-                if (vFilePickerCancelled) { return; }
-
-                //Check the selected application category
-                Enum.TryParse(vFilePickerResult.PathFile, out AppCategory selectedAddCategory);
-
-                //Select Window Store application
-                vFilePickerFilterIn = new List<string>();
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Window Store Applications";
-                vFilePickerDescription = "Please select a Windows store application to add as " + vFilePickerResult.Name + ":";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = false;
-                vFilePickerShowDirectories = false;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("UWP", 0, false, null);
-
-                while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
-                if (vFilePickerCancelled) { return; }
-
-                //Check if new application already exists
-                if (CombineAppLists(false, false).Any(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower() || x.PathExe.ToLower() == vFilePickerResult.PathFile.ToLower()))
+                //Show the messagebox
+                DataBindString messageResult = await Popup_Show_MessageBox("Application Category", "", "Please select a new application category:", answersCategory);
+                if (messageResult != null)
                 {
-                    List<DataBindString> Answers = new List<DataBindString>();
-                    DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
-                    Answer1.Name = "Alright";
-                    Answers.Add(Answer1);
+                    //Check the selected application category
+                    Enum.TryParse(messageResult.Data1.ToString(), out AppCategory selectedAddCategory);
 
-                    await Popup_Show_MessageBox("This application already exists", "", "", Answers);
-                    return;
+                    //Select Window Store application
+                    vFilePickerFilterIn = new List<string>();
+                    vFilePickerFilterOut = new List<string>();
+                    vFilePickerTitle = "Window Store Applications";
+                    vFilePickerDescription = "Please select a Windows store application to add as " + messageResult.Name + ":";
+                    vFilePickerShowNoFile = false;
+                    vFilePickerShowRoms = false;
+                    vFilePickerShowFiles = false;
+                    vFilePickerShowDirectories = false;
+                    grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                    await Popup_Show_FilePicker("UWP", 0, false, null);
+
+                    while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
+                    if (vFilePickerCancelled) { return; }
+
+                    //Check if new application already exists
+                    if (CombineAppLists(false, false).Any(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower() || x.PathExe.ToLower() == vFilePickerResult.PathFile.ToLower()))
+                    {
+                        List<DataBindString> answersConfirm = new List<DataBindString>();
+                        DataBindString answerAlright = new DataBindString();
+                        answerAlright.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                        answerAlright.Name = "Alright";
+                        answersConfirm.Add(answerAlright);
+
+                        await Popup_Show_MessageBox("This application already exists", "", "", answersConfirm);
+                        return;
+                    }
+
+                    PlayInterfaceSound("Confirm", false);
+
+                    Popup_Show_Status("Plus", "Added " + vFilePickerResult.Name);
+                    Debug.WriteLine("Adding UWP app: " + tb_AddAppName.Text + " to the list.");
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, PathExe = vFilePickerResult.PathFile, PathImage = vFilePickerResult.PathImage, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked };
+                    await AddAppToList(dataBindApp, true, true);
                 }
-
-                PlayInterfaceSound("Confirm", false);
-
-                Popup_Show_Status("Plus", "Added " + vFilePickerResult.Name);
-                Debug.WriteLine("Adding UWP app: " + tb_AddAppName.Text + " to the list.");
-                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, PathExe = vFilePickerResult.PathFile, PathImage = vFilePickerResult.PathImage, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked };
-                await AddAppToList(dataBindApp, true, true);
             }
             catch { }
         }
