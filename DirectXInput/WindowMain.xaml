@@ -267,7 +267,8 @@
                                 <CheckBox Name="cb_SettingsShortcutLaunchKeyboardController" Content="Open Keyboard Controller by holding the Guide button" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will launch Keyboard Controller when the Guide button is hold." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                                <CheckBox Name="cb_SettingsPlaySoundBatteryLow" Content="Play warning sound when the battery level gets low" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Sound Settings"/>
+                                <CheckBox Name="cb_SettingsPlaySoundBatteryLow" Content="Play warning sound when the battery level gets low" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will play a warning sound when the controllers battery gets low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <Button Name="btn_Settings_InstallDrivers" Margin="0,15,0,0" Content="Click here to install the required drivers" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
