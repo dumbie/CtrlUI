@@ -62,6 +62,30 @@ namespace CtrlUI
             return null;
         }
 
+        //Convert bytes to a BitmapImage
+        public static BitmapImage BytesToBitmapImage(byte[] byteArray, int pixelWidth)
+        {
+            try
+            {
+                using (MemoryStream memoryStream = new MemoryStream(byteArray))
+                {
+                    BitmapImage imageToBitmapImage = new BitmapImage();
+                    imageToBitmapImage.BeginInit();
+                    imageToBitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    if (pixelWidth > 0)
+                    {
+                        imageToBitmapImage.DecodePixelWidth = pixelWidth;
+                    }
+                    imageToBitmapImage.StreamSource = memoryStream;
+                    imageToBitmapImage.EndInit();
+                    imageToBitmapImage.Freeze();
+                    return imageToBitmapImage;
+                }
+            }
+            catch { }
+            return null;
+        }
+
         //Convert file to a BitmapImage
         public static BitmapImage FileToBitmapImage(string[] imageSource, IntPtr mainWindowHandle, int pixelWidth, int iconIndex)
         {

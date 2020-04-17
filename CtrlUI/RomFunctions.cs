@@ -23,26 +23,36 @@ namespace CtrlUI
         public static string vApiIGDBUserKey = "b25eb31b7612c7158867a3cd7849dbee"; //Yes, I know I didn't remove the api key.
 
         //Download rom information
-        public async Task<bool> RomDownloadInformation(string nameRom)
+        public async Task<RomInformation> RomDownloadInformation(string nameRom, int imageWidth)
         {
             try
             {
                 Popup_Show_Status("Download", "Downloading information");
                 Debug.WriteLine("Downloading rom information for: " + nameRom);
 
+                //Rom name remove filter
+                string[] nameFilterRemove = new string[] { "(", "{", "[", "PAL", "NTSC" };
+
                 //Filter the rom name
                 string nameRomSave = Path.GetFileNameWithoutExtension(nameRom);
                 string nameRomDownload = nameRomSave.Replace(".", " ").Replace("-", " ").Replace("_", " ");
                 nameRomDownload = Regex.Replace(nameRomDownload, @"\s+", " ");
-                nameRomDownload = string.Join(" ", nameRomDownload.Split(' ').Take(2));
+                string[] nameRomDownloadSplit = nameRomDownload.Split(' ').Where(x => !nameFilterRemove.Any(x.StartsWith)).ToArray();
 
-                //Download available games
+                //Download available games with 2 words
+                nameRomDownload = string.Join(" ", nameRomDownloadSplit.Take(2));
                 ApiIGDBGames[] iGDBGames = await ApiIGDBDownloadGames(nameRomDownload);
                 if (iGDBGames == null || !iGDBGames.Any())
                 {
-                    Debug.WriteLine("No games found");
-                    Popup_Show_Status("Close", "No games found");
-                    return false;
+                    //Download available games with 1 word
+                    nameRomDownload = string.Join(" ", nameRomDownloadSplit.Take(1));
+                    iGDBGames = await ApiIGDBDownloadGames(nameRomDownload);
+                    if (iGDBGames == null || !iGDBGames.Any())
+                    {
+                        Debug.WriteLine("No games found");
+                        Popup_Show_Status("Close", "No games found");
+                        return null;
+                    }
                 }
 
                 //Ask user which game to download
@@ -76,7 +86,14 @@ namespace CtrlUI
                     }
                     if (!string.IsNullOrWhiteSpace(gameGenres))
                     {
-                        gameGenres = "Genres: " + gameGenres + "\n";
+                        if (string.IsNullOrWhiteSpace(gameReleaseDate))
+                        {
+                            gameGenres = "Genres: " + gameGenres + "\n\n";
+                        }
+                        else
+                        {
+                            gameGenres = "Genres: " + gameGenres + "\n";
+                        }
                     }
 
                     //Get the game platforms
@@ -110,11 +127,11 @@ namespace CtrlUI
                 }
 
                 //Get selected result
-                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game", @"* Information will be saved in the 'Assets\Roms\Downloaded' folder.", "Download image and description for the game:", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game", "* Information will be saved in the \"Assets\\Roms\\Downloaded\" folder as:\n" + nameRomSave, "Download image and description for the game:", Answers);
                 if (messageResult == null)
                 {
                     Debug.WriteLine("No game selected");
-                    return false;
+                    return null;
                 }
 
                 Popup_Show_Status("Download", "Downloading cover");
@@ -126,7 +143,7 @@ namespace CtrlUI
                 {
                     Debug.WriteLine("No covers found");
                     Popup_Show_Status("Close", "No covers found");
-                    return false;
+                    return null;
                 }
 
                 //Create downloaded directory
@@ -136,33 +153,45 @@ namespace CtrlUI
                 ApiIGDBCovers infoCovers = iGDBCovers.FirstOrDefault();
                 Uri imageUri = new Uri("https://images.igdb.com/igdb/image/upload/t_720p/" + infoCovers.image_id + ".jpg");
                 byte[] imageBytes = await AVDownloader.DownloadByteAsync(5000, "CtrlUI", null, imageUri);
+                BitmapImage romBitmapImage = null;
                 if (imageBytes != null && imageBytes.Length > 75)
                 {
                     try
                     {
+                        //Save bytes to image file
                         File.WriteAllBytes("Assets\\Roms\\Downloaded\\" + nameRomSave + ".jpg", imageBytes);
+
+                        //Convert bytes to a BitmapImage
+                        romBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
+
                         Debug.WriteLine("Saved rom cover: " + imageBytes.Length + "bytes/" + imageUri);
                     }
                     catch { }
                 }
 
                 //Save rom description
+                string romDescription = messageResult.Data1.ToString();
                 try
                 {
-                    File.WriteAllText("Assets\\Roms\\Downloaded\\" + nameRomSave + ".txt", messageResult.Data1.ToString());
+                    File.WriteAllText("Assets\\Roms\\Downloaded\\" + nameRomSave + ".txt", romDescription);
                     Debug.WriteLine("Saved rom description.");
                 }
                 catch { }
 
                 Popup_Show_Status("Download", "Downloaded information");
                 Debug.WriteLine("Downloaded rom information for: " + nameRom);
-                return true;
+
+                //Return the rom information
+                RomInformation romInformationDownloaded = new RomInformation();
+                romInformationDownloaded.RomImageBitmap = romBitmapImage;
+                romInformationDownloaded.RomDescription = romDescription;
+                return romInformationDownloaded;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed downloading rom information: " + ex.Message);
                 Popup_Show_Status("Close", "Failed downloading");
-                return false;
+                return null;
             }
         }
 
@@ -181,7 +210,7 @@ namespace CtrlUI
                 Uri requestUri = new Uri("https://api-v3.igdb.com/games/");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 30; search \"" + gameName + "\";";
+                string requestBodyString = "fields *; limit 50; search \"" + gameName + "\";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
                 //Download games
@@ -217,7 +246,7 @@ namespace CtrlUI
                 Uri requestUri = new Uri("https://api-v3.igdb.com/covers/");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 30; where id = " + coverId + ";";
+                string requestBodyString = "fields *; limit 50; where id = " + coverId + ";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
                 //Download covers

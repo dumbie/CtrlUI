@@ -226,10 +226,11 @@ namespace CtrlUI
                         //Download rom information
                         else if (messageResult == answerDownloadRomInfo)
                         {
-                            bool infoDownloaded = await RomDownloadInformation(selectedItem.Name);
-                            if (infoDownloaded)
+                            RomInformation romInformationDownloaded = await RomDownloadInformation(selectedItem.Name, 210);
+                            if (romInformationDownloaded != null)
                             {
-                                //Fix update image and description
+                                selectedItem.ImageBitmap = romInformationDownloaded.RomImageBitmap;
+                                selectedItem.Description = romInformationDownloaded.RomDescription;
                             }
                         }
                     }
