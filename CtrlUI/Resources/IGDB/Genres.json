@@ -1,0 +1,170 @@
+[
+  {
+    "id": 2,
+    "created_at": 1297555200,
+    "name": "Point-and-click",
+    "slug": "point-and-click",
+    "updated_at": 1323302400,
+    "url": "https://www.igdb.com/genres/point-and-click"
+  },
+  {
+    "id": 4,
+    "created_at": 1297555200,
+    "name": "Fighting",
+    "slug": "fighting",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/fighting"
+  },
+  {
+    "id": 5,
+    "created_at": 1297555200,
+    "name": "Shooter",
+    "slug": "shooter",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/shooter"
+  },
+  {
+    "id": 7,
+    "created_at": 1297555200,
+    "name": "Music",
+    "slug": "music",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/music"
+  },
+  {
+    "id": 8,
+    "created_at": 1297555200,
+    "name": "Platform",
+    "slug": "platform",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/platform"
+  },
+  {
+    "id": 9,
+    "created_at": 1297555200,
+    "name": "Puzzle",
+    "slug": "puzzle",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/puzzle"
+  },
+  {
+    "id": 10,
+    "created_at": 1297555200,
+    "name": "Racing",
+    "slug": "racing",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/racing"
+  },
+  {
+    "id": 11,
+    "created_at": 1297555200,
+    "name": "Real Time Strategy (RTS)",
+    "slug": "real-time-strategy-rts",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/real-time-strategy-rts"
+  },
+  {
+    "id": 12,
+    "created_at": 1297555200,
+    "name": "Role-playing (RPG)",
+    "slug": "role-playing-rpg",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/role-playing-rpg"
+  },
+  {
+    "id": 13,
+    "created_at": 1297555200,
+    "name": "Simulator",
+    "slug": "simulator",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/simulator"
+  },
+  {
+    "id": 14,
+    "created_at": 1297555200,
+    "name": "Sport",
+    "slug": "sport",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/sport"
+  },
+  {
+    "id": 15,
+    "created_at": 1297555200,
+    "name": "Strategy",
+    "slug": "strategy",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/strategy"
+  },
+  {
+    "id": 16,
+    "created_at": 1297641600,
+    "name": "Turn-based strategy (TBS)",
+    "slug": "turn-based-strategy-tbs",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/turn-based-strategy-tbs"
+  },
+  {
+    "id": 24,
+    "created_at": 1300924800,
+    "name": "Tactical",
+    "slug": "tactical",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/tactical"
+  },
+  {
+    "id": 25,
+    "created_at": 1301616000,
+    "name": "Hack and slash/Beat 'em up",
+    "slug": "hack-and-slash-beat-em-up",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/hack-and-slash-beat-em-up"
+  },
+  {
+    "id": 26,
+    "created_at": 1301961600,
+    "name": "Quiz/Trivia",
+    "slug": "quiz-trivia",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/quiz-trivia"
+  },
+  {
+    "id": 30,
+    "created_at": 1320192000,
+    "name": "Pinball",
+    "slug": "pinball",
+    "updated_at": 1323216000,
+    "url": "https://www.igdb.com/genres/pinball"
+  },
+  {
+    "id": 31,
+    "created_at": 1323561600,
+    "name": "Adventure",
+    "slug": "adventure",
+    "updated_at": 1323561600,
+    "url": "https://www.igdb.com/genres/adventure"
+  },
+  {
+    "id": 32,
+    "created_at": 1341360000,
+    "name": "Indie",
+    "slug": "indie",
+    "updated_at": 1341360000,
+    "url": "https://www.igdb.com/genres/indie"
+  },
+  {
+    "id": 33,
+    "created_at": 1380931200,
+    "name": "Arcade",
+    "slug": "arcade",
+    "updated_at": 1380931200,
+    "url": "https://www.igdb.com/genres/arcade"
+  },
+  {
+    "id": 34,
+    "created_at": 1571788800,
+    "name": "Visual Novel",
+    "slug": "visual-novel",
+    "updated_at": 1571788800,
+    "url": "https://www.igdb.com/genres/visual-novel"
+  }
+]

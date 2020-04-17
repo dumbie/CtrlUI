@@ -107,6 +107,10 @@ namespace CtrlUI
                 JsonLoadProfile(ref vCtrlIgnoreProcessName, "CtrlIgnoreProcessName");
                 JsonLoadProfile(ref vCtrlKeyboardProcessName, "CtrlKeyboardProcessName");
 
+                //Load Json lists
+                JsonLoadEmbedded(ref vApiIGDBGenres, "CtrlUI.Resources.IGDB.Genres.json");
+                JsonLoadEmbedded(ref vApiIGDBPlatforms, "CtrlUI.Resources.IGDB.Platforms.json");
+
                 //Update uwp application images
                 UpdateUwpApplicationImages();
 

@@ -146,6 +146,10 @@ namespace CtrlUI
         //Sockets Variables
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
+        //Json Lists
+        public static List<ApiIGDBGenres> vApiIGDBGenres = new List<ApiIGDBGenres>();
+        public static List<ApiIGDBPlatforms> vApiIGDBPlatforms = new List<ApiIGDBPlatforms>();
+
         //Application Lists
         public static ObservableCollection<ProfileShared> vCtrlIgnoreProcessName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutName = new ObservableCollection<ProfileShared>();
@@ -160,7 +164,7 @@ namespace CtrlUI
         public static ObservableCollection<DataBindApp> List_Shortcuts = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Processes = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Search = new ObservableCollection<DataBindApp>();
-        public static ObservableCollection<SolidColorBrush> List_ColorPicker = new ObservableCollection<SolidColorBrush>();
         public static ObservableCollection<DataBindFile> List_FilePicker = new ObservableCollection<DataBindFile>();
+        public static ObservableCollection<SolidColorBrush> List_ColorPicker = new ObservableCollection<SolidColorBrush>();
     }
 }

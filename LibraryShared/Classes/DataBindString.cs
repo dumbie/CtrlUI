@@ -64,15 +64,29 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivData;
-            public string Data
+            private object PrivData1;
+            public object Data1
             {
-                get { return this.PrivData; }
+                get { return this.PrivData1; }
                 set
                 {
-                    if (this.PrivData != value)
+                    if (this.PrivData1 != value)
                     {
-                        this.PrivData = value;
+                        this.PrivData1 = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private object PrivData2;
+            public object Data2
+            {
+                get { return this.PrivData2; }
+                set
+                {
+                    if (this.PrivData2 != value)
+                    {
+                        this.PrivData2 = value;
                         NotifyPropertyChanged();
                     }
                 }

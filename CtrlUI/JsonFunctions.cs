@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -46,13 +47,37 @@ namespace CtrlUI
         {
             try
             {
-                string JsonFile = File.ReadAllText(@"Profiles\" + profileName + ".json");
-                deserializeTarget = JsonConvert.DeserializeObject<T>(JsonFile);
+                string jsonFile = File.ReadAllText(@"Profiles\" + profileName + ".json");
+                deserializeTarget = JsonConvert.DeserializeObject<T>(jsonFile);
                 Debug.WriteLine("Reading Json file completed: " + profileName);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Reading Json file failed: " + profileName + "/" + ex.Message);
+            }
+        }
+
+        //Read Json from embedded file (Deserialize)
+        void JsonLoadEmbedded<T>(ref T deserializeTarget, string resourcePath)
+        {
+            try
+            {
+                string jsonFile = string.Empty;
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                using (Stream stream = assembly.GetManifestResourceStream(resourcePath))
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        jsonFile = reader.ReadToEnd();
+                    }
+                }
+
+                deserializeTarget = JsonConvert.DeserializeObject<T>(jsonFile);
+                Debug.WriteLine("Reading Json resource completed: " + resourcePath);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Reading Json resource failed: " + resourcePath + "/" + ex.Message);
             }
         }
 

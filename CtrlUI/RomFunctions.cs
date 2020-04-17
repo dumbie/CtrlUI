@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
 
@@ -51,16 +52,16 @@ namespace CtrlUI
                 foreach (ApiIGDBGames infoGames in iGDBGames)
                 {
                     if (infoGames.cover == 0) { continue; }
-                    if (infoGames.summary == null) { continue; }
+                    if (infoGames.summary == string.Empty) { continue; }
 
                     //Get the release date
                     string gameReleaseDate = string.Empty;
-                    string releaseDateYear = string.Empty;
+                    string gameReleaseYear = string.Empty;
                     if (infoGames.first_release_date != 0)
                     {
                         DateTime epochDateTime = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(infoGames.first_release_date);
                         gameReleaseDate = "Released: " + epochDateTime.ToString("dd MMMM yyyy", cultureInfo) + "\n\n";
-                        releaseDateYear = epochDateTime.ToString("yyyy", cultureInfo);
+                        gameReleaseYear = epochDateTime.ToString("yyyy", cultureInfo);
                     }
 
                     //Get the game genres
@@ -69,8 +70,8 @@ namespace CtrlUI
                     {
                         foreach (int genreId in infoGames.genres)
                         {
-                            string genreName = ApiIGDBGenres(genreId);
-                            gameGenres = AVFunctions.StringAdd(gameGenres, genreName, ",");
+                            ApiIGDBGenres apiIGDBGenres = vApiIGDBGenres.Where(x => x.id == genreId).FirstOrDefault();
+                            gameGenres = AVFunctions.StringAdd(gameGenres, apiIGDBGenres.name, ",");
                         }
                     }
                     if (!string.IsNullOrWhiteSpace(gameGenres))
@@ -79,8 +80,21 @@ namespace CtrlUI
                     }
 
                     //Get the game platforms
-                    //ApiIGDBPlatforms(int platformId)
-                    //Fix Platform as NameSub
+                    string gamePlatforms = string.Empty;
+                    if (infoGames.platforms != null)
+                    {
+                        foreach (int platformId in infoGames.platforms)
+                        {
+                            ApiIGDBPlatforms apiIGDBPlatforms = vApiIGDBPlatforms.Where(x => x.id == platformId).FirstOrDefault();
+                            gamePlatforms = AVFunctions.StringAdd(gamePlatforms, apiIGDBPlatforms.name, ",");
+                        }
+                    }
+
+                    //Check if the summary is empty
+                    if (string.IsNullOrWhiteSpace(infoGames.summary))
+                    {
+                        infoGames.summary = "There is no description available.";
+                    }
 
                     //Add information to summary
                     string gameDescription = gameGenres + gameReleaseDate + infoGames.summary;
@@ -88,14 +102,15 @@ namespace CtrlUI
                     DataBindString answerGame = new DataBindString();
                     answerGame.ImageBitmap = gameImage;
                     answerGame.Name = infoGames.name;
-                    answerGame.NameSub = releaseDateYear;
-                    answerGame.NameDetail = Convert.ToString(infoGames.cover);
-                    answerGame.Data = gameDescription;
+                    answerGame.NameSub = gamePlatforms;
+                    answerGame.NameDetail = gameReleaseYear;
+                    answerGame.Data1 = gameDescription;
+                    answerGame.Data2 = infoGames.cover;
                     Answers.Add(answerGame);
                 }
 
                 //Get selected result
-                DataBindString messageResult = await Popup_Show_MessageBox("Please select a found game", "", "Download image and description for the game:", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game", @"* Information will be saved in the 'Assets\Roms\Downloaded' folder.", "Download image and description for the game:", Answers);
                 if (messageResult == null)
                 {
                     Debug.WriteLine("No game selected");
@@ -106,7 +121,7 @@ namespace CtrlUI
                 Debug.WriteLine("Downloading rom cover for: " + nameRom);
 
                 //Get the image url
-                ApiIGDBCovers[] iGDBCovers = await ApiIGDBDownloadCovers(messageResult.NameDetail);
+                ApiIGDBCovers[] iGDBCovers = await ApiIGDBDownloadCovers(messageResult.Data2.ToString());
                 if (iGDBCovers == null || !iGDBCovers.Any())
                 {
                     Debug.WriteLine("No covers found");
@@ -134,7 +149,7 @@ namespace CtrlUI
                 //Save rom description
                 try
                 {
-                    File.WriteAllText("Assets\\Roms\\Downloaded\\" + nameRomSave + ".txt", messageResult.Data);
+                    File.WriteAllText("Assets\\Roms\\Downloaded\\" + nameRomSave + ".txt", messageResult.Data1.ToString());
                     Debug.WriteLine("Saved rom description.");
                 }
                 catch { }
