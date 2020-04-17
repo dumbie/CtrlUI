@@ -422,14 +422,14 @@ namespace CtrlUI
                 string subPathDescription = string.Empty;
                 if (!string.IsNullOrWhiteSpace(listPath))
                 {
-                    romNameFiltered = listName.Replace("'", string.Empty).Replace(".", string.Empty).Replace("-", string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty).ToLower();
+                    romNameFiltered = RomFilterName(listName, false, true, 0);
                     subPathImagePng = Path.Combine(listPath, listName + ".png");
                     subPathImageJpg = Path.Combine(listPath, listName + ".jpg");
                     subPathDescription = Path.Combine(listPath, listName + ".txt");
                 }
                 else
                 {
-                    romNameFiltered = Path.GetFileNameWithoutExtension(listName).Replace("'", string.Empty).Replace(".", string.Empty).Replace("-", string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty).ToLower();
+                    romNameFiltered = RomFilterName(listName, true, true, 0);
                 }
 
                 //Check if rom directory has image
@@ -437,7 +437,8 @@ namespace CtrlUI
                 {
                     try
                     {
-                        string imageNameFiltered = Path.GetFileNameWithoutExtension(foundImage.Name).Replace("'", string.Empty).Replace(".", string.Empty).Replace("-", string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty).ToLower();
+                        string imageNameFiltered = RomFilterName(foundImage.Name, true, true, 0);
+                        //Debug.WriteLine(imageNameFiltered + " / " + romNameFiltered);
                         if (romNameFiltered.Contains(imageNameFiltered))
                         {
                             romPathImage = foundImage.FullName;
@@ -452,7 +453,8 @@ namespace CtrlUI
                 {
                     try
                     {
-                        string descNameFiltered = Path.GetFileNameWithoutExtension(foundDesc.Name).Replace("'", string.Empty).Replace(".", string.Empty).Replace("-", string.Empty).Replace("_", string.Empty).Replace(" ", string.Empty).ToLower();
+                        string descNameFiltered = RomFilterName(foundDesc.Name, true, true, 0);
+                        //Debug.WriteLine(descNameFiltered + " / " + romNameFiltered);
                         if (romNameFiltered.Contains(descNameFiltered))
                         {
                             romPathDescription = foundDesc.FullName;

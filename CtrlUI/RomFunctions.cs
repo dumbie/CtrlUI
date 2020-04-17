@@ -22,32 +22,82 @@ namespace CtrlUI
         //Api variables
         public static string vApiIGDBUserKey = "b25eb31b7612c7158867a3cd7849dbee"; //Yes, I know I didn't remove the api key.
 
+        //Filter the rom name
+        public string RomFilterName(string nameRom, bool removeExtension, bool removeSpaces, int takeWords)
+        {
+            try
+            {
+                //Remove file extension
+                if (removeExtension)
+                {
+                    nameRom = Path.GetFileNameWithoutExtension(nameRom);
+                }
+
+                //Lowercase the name
+                nameRom = nameRom.ToLower();
+
+                //Remove symbols with text
+                nameRom = Regex.Replace(nameRom, @"\((.*?)\)", string.Empty);
+                nameRom = Regex.Replace(nameRom, @"\{(.*?)\}", string.Empty);
+                nameRom = Regex.Replace(nameRom, @"\[(.*?)\]", string.Empty);
+
+                //Remove characters
+                nameRom = nameRom.Replace("'", " ").Replace(".", " ").Replace(",", " ").Replace("-", " ").Replace("_", " ");
+
+                //Replace double spaces
+                nameRom = Regex.Replace(nameRom, @"\s+", " ");
+
+                //Remove words
+                string[] nameFilterRemoveContains = new string[] { "usa", "eur", "pal", "ntsc", "repack" };
+                string[] nameRomSplit = nameRom.Split(' ').Where(x => !nameFilterRemoveContains.Any(x.Contains)).ToArray();
+
+                //Take words
+                if (takeWords <= 0)
+                {
+                    nameRom = string.Join(" ", nameRomSplit);
+                }
+                else
+                {
+                    nameRom = string.Join(" ", nameRomSplit.Take(takeWords));
+                }
+
+                //Remove spaces
+                if (removeSpaces)
+                {
+                    nameRom = nameRom.Replace(" ", string.Empty);
+                }
+                else
+                {
+                    nameRom = AVFunctions.StringRemoveStart(nameRom, " ");
+                    nameRom = AVFunctions.StringRemoveEnd(nameRom, " ");
+                }
+
+                //Fix roms starting with number / manual search
+            }
+            catch { }
+            return nameRom;
+        }
+
         //Download rom information
-        public async Task<RomInformation> RomDownloadInformation(string nameRom, int wordsSearched, int imageWidth)
+        public async Task<RomInformation> RomDownloadInformation(string nameRom, int wordsSearch, int imageWidth)
         {
             try
             {
                 Popup_Show_Status("Download", "Downloading information");
                 Debug.WriteLine("Downloading rom information for: " + nameRom);
 
-                //Rom name remove filter
-                string[] nameFilterRemove = new string[] { "(", "{", "[", "PAL", "NTSC", "3DS" };
-
                 //Filter the rom name
-                string nameRomSave = Path.GetFileNameWithoutExtension(nameRom);
-                string nameRomDownload = nameRomSave.Replace(".", " ").Replace("-", " ").Replace("_", " ");
-                nameRomDownload = Regex.Replace(nameRomDownload, @"\s+", " ");
-                string[] nameRomDownloadSplit = nameRomDownload.Split(' ').Where(x => !nameFilterRemove.Any(x.StartsWith)).ToArray();
+                string nameRomSave = RomFilterName(nameRom, true, false, 0);
+                string nameRomDownload = RomFilterName(nameRom, true, false, wordsSearch);
 
                 //Download available games
-                nameRomDownload = string.Join(" ", nameRomDownloadSplit.Take(wordsSearched));
                 IEnumerable<ApiIGDBGames> iGDBGames = await ApiIGDBDownloadGames(nameRomDownload);
                 if (iGDBGames == null || !iGDBGames.Any())
                 {
                     //Reduce search words by one
-                    if (wordsSearched > 1)
+                    if (wordsSearch > 1)
                     {
-                        return await RomDownloadInformation(nameRom, wordsSearched - 1, imageWidth);
+                        return await RomDownloadInformation(nameRom, wordsSearch - 1, imageWidth);
                     }
 
                     //No game found notification
@@ -128,7 +178,7 @@ namespace CtrlUI
                 }
 
                 //Get selected result
-                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game", "* Information will be saved in the \"Assets\\Roms\\Downloaded\" folder as:\n" + nameRomSave, "Download image and description for the game:", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game (" + iGDBGames.Count() + ")", "* Information will be saved in the \"Assets\\Roms\\Downloaded\" folder as:\n" + nameRomSave, "Download image and description for the game:", Answers);
                 if (messageResult == null)
                 {
                     Debug.WriteLine("No game selected");
@@ -211,7 +261,7 @@ namespace CtrlUI
                 Uri requestUri = new Uri("https://api-v3.igdb.com/games/");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 50; search \"" + gameName + "\";";
+                string requestBodyString = "fields *; limit 80; search \"" + gameName + "\";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
                 //Download games
@@ -247,7 +297,7 @@ namespace CtrlUI
                 Uri requestUri = new Uri("https://api-v3.igdb.com/covers/");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 50; where id = " + coverId + ";";
+                string requestBodyString = "fields *; limit 80; where id = " + coverId + ";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
                 //Download covers
