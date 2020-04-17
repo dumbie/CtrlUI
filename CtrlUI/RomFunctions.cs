@@ -31,7 +31,7 @@ namespace CtrlUI
                 Debug.WriteLine("Downloading rom information for: " + nameRom);
 
                 //Rom name remove filter
-                string[] nameFilterRemove = new string[] { "(", "{", "[", "PAL", "NTSC" };
+                string[] nameFilterRemove = new string[] { "(", "{", "[", "PAL", "NTSC", "3DS" };
 
                 //Filter the rom name
                 string nameRomSave = Path.GetFileNameWithoutExtension(nameRom);
@@ -155,7 +155,7 @@ namespace CtrlUI
                 Uri imageUri = new Uri("https://images.igdb.com/igdb/image/upload/t_720p/" + infoCovers.image_id + ".jpg");
                 byte[] imageBytes = await AVDownloader.DownloadByteAsync(5000, "CtrlUI", null, imageUri);
                 BitmapImage romBitmapImage = null;
-                if (imageBytes != null && imageBytes.Length > 75)
+                if (imageBytes != null && imageBytes.Length > 256)
                 {
                     try
                     {

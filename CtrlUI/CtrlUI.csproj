@@ -115,6 +115,8 @@
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
+    <Compile Include="Resources\ExtractImage\GetBitmapSourceFromWindow.cs" />
+    <Compile Include="Resources\ExtractImage\GetBitmapFromExecutable.cs" />
     <Compile Include="WelcomeHandlers.cs" />
     <Compile Include="WelcomeFunctions.cs" />
     <Compile Include="ManageHandlers.cs" />
@@ -173,7 +175,6 @@
     <Compile Include="PickerFunctions.cs" />
     <Compile Include="PickerHandlers.cs" />
     <Compile Include="PopupFunctions.cs" />
-    <Compile Include="Resources\ExtractIco\ExtractIco.cs" />
     <Compile Include="ShortcutFunctions.cs" />
     <Compile Include="Processes\ProcessFunctions.cs" />
     <Compile Include="PopupHandlers.cs" />
