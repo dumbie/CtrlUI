@@ -58,7 +58,7 @@
             public int[] websites { get; set; }
         }
 
-        public class ApiIGDBCovers
+        public class ApiIGDBImage
         {
             public int id { get; set; }
             public bool alpha_channel { get; set; }

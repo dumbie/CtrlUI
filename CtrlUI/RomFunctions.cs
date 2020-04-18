@@ -71,8 +71,6 @@ namespace CtrlUI
                     nameRom = AVFunctions.StringRemoveStart(nameRom, " ");
                     nameRom = AVFunctions.StringRemoveEnd(nameRom, " ");
                 }
-
-                //Fix roms starting with number / manual search
             }
             catch { }
             return nameRom;
@@ -87,19 +85,15 @@ namespace CtrlUI
                 Debug.WriteLine("Downloading rom information for: " + nameRom);
 
                 //Filter the rom name
-                string nameRomSave = RomFilterName(nameRom, true, false, 0);
-                string nameRomDownload = RomFilterName(nameRom, true, false, wordsSearch);
+                string nameRomSave = RomFilterName(nameRom, true, false, wordsSearch);
+
+                //Show the text input popup
+                string nameRomDownload = await Popup_ShowHide_TextInput("Rom search", nameRomSave, "Search information for the rom");
 
                 //Download available games
                 IEnumerable<ApiIGDBGames> iGDBGames = await ApiIGDBDownloadGames(nameRomDownload);
                 if (iGDBGames == null || !iGDBGames.Any())
                 {
-                    //Reduce search words by one
-                    if (wordsSearch > 1)
-                    {
-                        return await RomDownloadInformation(nameRom, wordsSearch - 1, imageWidth);
-                    }
-
                     //No game found notification
                     Debug.WriteLine("No games found");
                     Popup_Show_Status("Close", "No games found");
@@ -112,8 +106,8 @@ namespace CtrlUI
                 BitmapImage gameImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
                 foreach (ApiIGDBGames infoGames in iGDBGames)
                 {
-                    if (infoGames.cover == 0) { continue; }
-                    if (infoGames.summary == string.Empty) { continue; }
+                    //Check if information is available
+                    if (infoGames.cover == 0 && infoGames.summary == string.Empty) { continue; }
 
                     //Get the release date
                     string gameReleaseDate = string.Empty;
@@ -189,35 +183,39 @@ namespace CtrlUI
                 Debug.WriteLine("Downloading rom cover for: " + nameRom);
 
                 //Get the image url
-                ApiIGDBCovers[] iGDBCovers = await ApiIGDBDownloadCovers(messageResult.Data2.ToString());
-                if (iGDBCovers == null || !iGDBCovers.Any())
-                {
-                    Debug.WriteLine("No covers found");
-                    Popup_Show_Status("Close", "No covers found");
-                    return null;
-                }
-
-                //Create downloaded directory
-                AVFiles.Directory_Create("Assets\\Roms\\Downloaded\\", false);
-
-                //Download and save rom cover
-                ApiIGDBCovers infoCovers = iGDBCovers.FirstOrDefault();
-                Uri imageUri = new Uri("https://images.igdb.com/igdb/image/upload/t_720p/" + infoCovers.image_id + ".jpg");
-                byte[] imageBytes = await AVDownloader.DownloadByteAsync(5000, "CtrlUI", null, imageUri);
                 BitmapImage romBitmapImage = null;
-                if (imageBytes != null && imageBytes.Length > 256)
+                string downloadCoverId = messageResult.Data2.ToString();
+                if (downloadCoverId != "0")
                 {
-                    try
+                    ApiIGDBImage[] iGDBCovers = await ApiIGDBDownloadImage(downloadCoverId, "covers");
+                    if (iGDBCovers == null || !iGDBCovers.Any())
                     {
-                        //Save bytes to image file
-                        File.WriteAllBytes("Assets\\Roms\\Downloaded\\" + nameRomSave + ".jpg", imageBytes);
-
-                        //Convert bytes to a BitmapImage
-                        romBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
-
-                        Debug.WriteLine("Saved rom cover: " + imageBytes.Length + "bytes/" + imageUri);
+                        Debug.WriteLine("No covers found");
+                        Popup_Show_Status("Close", "No covers found");
+                        return null;
                     }
-                    catch { }
+
+                    //Create downloaded directory
+                    AVFiles.Directory_Create("Assets\\Roms\\Downloaded\\", false);
+
+                    //Download and save rom cover
+                    ApiIGDBImage infoCovers = iGDBCovers.FirstOrDefault();
+                    Uri imageUri = new Uri("https://images.igdb.com/igdb/image/upload/t_720p/" + infoCovers.image_id + ".jpg");
+                    byte[] imageBytes = await AVDownloader.DownloadByteAsync(5000, "CtrlUI", null, imageUri);
+                    if (imageBytes != null && imageBytes.Length > 256)
+                    {
+                        try
+                        {
+                            //Save bytes to image file
+                            File.WriteAllBytes("Assets\\Roms\\Downloaded\\" + nameRomSave + ".jpg", imageBytes);
+
+                            //Convert bytes to a BitmapImage
+                            romBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
+
+                            Debug.WriteLine("Saved rom cover: " + imageBytes.Length + "bytes/" + imageUri);
+                        }
+                        catch { }
+                    }
                 }
 
                 //Save rom description
@@ -258,17 +256,24 @@ namespace CtrlUI
                 string[][] requestHeaders = new string[][] { requestAccept, requestUserKey };
 
                 //Create request uri
-                Uri requestUri = new Uri("https://api-v3.igdb.com/games/");
+                Uri requestUri = new Uri("https://api-v3.igdb.com/games");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 80; search \"" + gameName + "\";";
+                string requestBodyString = "fields *; limit 100; search \"" + gameName + "\";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
-                //Download games
+                //Download available games
                 string resultSearch = await AVDownloader.SendPostRequestAsync(5000, "CtrlUI", requestHeaders, requestUri, requestBodyStringContent);
                 if (string.IsNullOrWhiteSpace(resultSearch))
                 {
                     Debug.WriteLine("Failed downloading games.");
+                    return null;
+                }
+
+                //Check if status is set
+                if (resultSearch.Contains("\"status\"") && resultSearch.Contains("\"type\""))
+                {
+                    Debug.WriteLine("Received invalid games data.");
                     return null;
                 }
 
@@ -282,11 +287,11 @@ namespace CtrlUI
             }
         }
 
-        public async Task<ApiIGDBCovers[]> ApiIGDBDownloadCovers(string coverId)
+        public async Task<ApiIGDBImage[]> ApiIGDBDownloadImage(string imageId, string imageCategory)
         {
             try
             {
-                Debug.WriteLine("Downloading covers for: " + coverId);
+                Debug.WriteLine("Downloading image for: " + imageId);
 
                 //Set request headers
                 string[] requestAccept = new[] { "Accept", "application/json" };
@@ -294,26 +299,33 @@ namespace CtrlUI
                 string[][] requestHeaders = new string[][] { requestAccept, requestUserKey };
 
                 //Create request uri
-                Uri requestUri = new Uri("https://api-v3.igdb.com/covers/");
+                Uri requestUri = new Uri("https://api-v3.igdb.com/" + imageCategory);
 
                 //Create request body
-                string requestBodyString = "fields *; limit 80; where id = " + coverId + ";";
+                string requestBodyString = "fields *; limit 100; where id = " + imageId + ";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
-                //Download covers
+                //Download available image
                 string resultSearch = await AVDownloader.SendPostRequestAsync(5000, "CtrlUI", requestHeaders, requestUri, requestBodyStringContent);
                 if (string.IsNullOrWhiteSpace(resultSearch))
                 {
-                    Debug.WriteLine("Failed downloading covers.");
+                    Debug.WriteLine("Failed downloading image.");
+                    return null;
+                }
+
+                //Check if status is set
+                if (resultSearch.Contains("\"status\"") && resultSearch.Contains("\"type\""))
+                {
+                    Debug.WriteLine("Received invalid image data.");
                     return null;
                 }
 
                 //Return covers
-                return JsonConvert.DeserializeObject<ApiIGDBCovers[]>(resultSearch);
+                return JsonConvert.DeserializeObject<ApiIGDBImage[]>(resultSearch);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed downloading covers: " + ex.Message);
+                Debug.WriteLine("Failed downloading image: " + ex.Message);
                 return null;
             }
         }

@@ -177,7 +177,7 @@
 
         <!-- Popup - Main Menu -->
         <Grid Name="grid_Popup_MainMenu" Visibility="Collapsed">
-            <Grid Margin="200,15,200,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -311,7 +311,7 @@
 
         <!-- Popup - Search -->
         <Grid Name="grid_Popup_Search" Visibility="Collapsed">
-            <Grid Margin="200,40,200,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -359,7 +359,7 @@
 
         <!-- Popup - Welcome -->
         <Grid Name="grid_Popup_Welcome" Visibility="Collapsed">
-            <Grid Margin="200,40,200,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -428,7 +428,7 @@
 
         <!-- Popup - Media -->
         <Grid Name="grid_Popup_Media" Visibility="Collapsed">
-            <Grid Margin="200,40,200,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -500,7 +500,7 @@
 
         <!-- Popup - Manage -->
         <Grid Name="grid_Popup_Manage" Visibility="Collapsed">
-            <Grid Width="800" Margin="0,40,0,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -601,7 +601,7 @@
 
         <!-- Popup - Settings -->
         <Grid Name="grid_Popup_Settings" Visibility="Collapsed">
-            <Grid Margin="200,40,200,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -760,7 +760,7 @@
 
         <!-- Popup - Help -->
         <Grid Name="grid_Popup_Help" Visibility="Collapsed">
-            <Grid Margin="200,40,200,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -794,7 +794,7 @@
 
         <!-- Popup - Color Picker -->
         <Grid Name="grid_Popup_ColorPicker" Visibility="Collapsed">
-            <Grid Margin="200,40,200,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -822,7 +822,7 @@
 
         <!-- Popup - File Picker -->
         <Grid Name="grid_Popup_FilePicker" Visibility="Collapsed">
-            <Grid Margin="200,40,200,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -887,7 +887,7 @@
 
         <!-- Popup - Profile Manager -->
         <Grid Name="grid_Popup_ProfileManager" Visibility="Collapsed">
-            <Grid Margin="200,40,200,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -939,7 +939,7 @@
 
         <!-- Popup - MessageBox -->
         <Grid Name="grid_Popup_MessageBox" Visibility="Collapsed">
-            <Grid Margin="200,40,200,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="0.80*"/>
@@ -969,7 +969,7 @@
 
         <!-- Popup - Text Input -->
         <Grid Name="grid_Popup_TextInput" Visibility="Collapsed">
-            <Grid Margin="200,40,200,0">
+            <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
