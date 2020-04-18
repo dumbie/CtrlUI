@@ -33,7 +33,7 @@ namespace CtrlUI
                     nameRom = Path.GetFileNameWithoutExtension(nameRom);
                 }
 
-                //Lowercase the name
+                //Lowercase the rom name
                 nameRom = nameRom.ToLower();
 
                 //Remove symbols with text
@@ -41,14 +41,14 @@ namespace CtrlUI
                 nameRom = Regex.Replace(nameRom, @"\{(.*?)\}", string.Empty);
                 nameRom = Regex.Replace(nameRom, @"\[(.*?)\]", string.Empty);
 
-                //Remove characters
+                //Replace characters
                 nameRom = nameRom.Replace("'", " ").Replace(".", " ").Replace(",", " ").Replace("-", " ").Replace("_", " ");
 
                 //Replace double spaces
                 nameRom = Regex.Replace(nameRom, @"\s+", " ");
 
                 //Remove words
-                string[] nameFilterRemoveContains = new string[] { "usa", "eur", "pal", "ntsc", "repack" };
+                string[] nameFilterRemoveContains = new string[] { "usa", "eur", "pal", "ntsc", "repack", "proper" };
                 string[] nameRomSplit = nameRom.Split(' ').Where(x => !nameFilterRemoveContains.Any(x.Contains)).ToArray();
 
                 //Take words
