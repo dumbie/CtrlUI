@@ -119,24 +119,27 @@ namespace CtrlUI
         {
             try
             {
-                if (List_Search.Count == 0)
+                AVActions.ActionDispatcherInvoke(delegate
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    string stringSearch = grid_Popup_Search_textbox.Text;
+                    if (string.IsNullOrWhiteSpace(stringSearch) || stringSearch == "Search application...")
+                    {
+                        grid_Popup_Search_Count_TextBlock.Text = string.Empty;
+                        grid_Popup_Search_textblock_Result.Text = "Please enter a search term above.";
+                        grid_Popup_Search_textblock_Result.Visibility = Visibility.Visible;
+                    }
+                    else if (List_Search.Count == 0)
                     {
                         grid_Popup_Search_Count_TextBlock.Text = string.Empty;
                         grid_Popup_Search_textblock_Result.Text = "No search results found.";
                         grid_Popup_Search_textblock_Result.Visibility = Visibility.Visible;
-                    });
-                }
-                else
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    }
+                    else
                     {
                         grid_Popup_Search_Count_TextBlock.Text = " " + List_Search.Count.ToString();
                         grid_Popup_Search_textblock_Result.Visibility = Visibility.Collapsed;
-                        lb_Search.SelectedIndex = 0;
-                    });
-                }
+                    }
+                });
             }
             catch { }
         }

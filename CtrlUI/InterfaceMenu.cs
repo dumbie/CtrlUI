@@ -36,8 +36,7 @@ namespace CtrlUI
                 if (listbox_MainMenu.SelectedIndex >= 0)
                 {
                     StackPanel SelStackPanel = (StackPanel)listbox_MainMenu.SelectedItem;
-                    if (SelStackPanel.Name == "menuButtonMenu") { await Popup_ShowHide_MainMenu(false); }
-                    else if (SelStackPanel.Name == "menuButtonFullScreen") { await AppSwitchScreenMode(false, false); }
+                    if (SelStackPanel.Name == "menuButtonFullScreen") { await AppSwitchScreenMode(false, false); }
                     else if (SelStackPanel.Name == "menuButtonMoveMonitor") { await AppMoveMonitor(); }
                     else if (SelStackPanel.Name == "menuButtonSwitchMonitor") { await SwitchDisplayMonitor(); }
                     else if (SelStackPanel.Name == "menuButtonWindowsStart") { ShowWindowStartMenu(); }

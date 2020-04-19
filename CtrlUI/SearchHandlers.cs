@@ -76,6 +76,9 @@ namespace CtrlUI
                     //Update the search results count
                     UpdateSearchResults();
 
+                    //Select the first search index
+                    lb_Search.SelectedIndex = 0;
+
                     Debug.WriteLine("Search application: " + stringSearch);
                 }
                 else
