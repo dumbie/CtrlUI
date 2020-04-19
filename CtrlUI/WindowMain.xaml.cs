@@ -43,6 +43,9 @@ namespace CtrlUI
                 //Set the application background media
                 UpdateBackgroundMedia();
 
+                //Set the application clock style
+                UpdateClockStyle();
+
                 //Set content and resource images with Cache OnLoad
                 SetContentResourceXamlImages();
 
@@ -80,8 +83,8 @@ namespace CtrlUI
                 //Change application accent color
                 ChangeApplicationAccentColor();
 
-                //Update the clock
-                UpdateClock();
+                //Update the clock time
+                UpdateClockTime();
 
                 //Load the help text
                 LoadHelp();

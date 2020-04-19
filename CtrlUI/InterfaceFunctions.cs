@@ -194,8 +194,22 @@ namespace CtrlUI
             catch { }
         }
 
-        //Update the user interface clock
-        void UpdateClock()
+        //Update the user interface clock style
+        void UpdateClockStyle()
+        {
+            try
+            {
+                string clockStyle = ConfigurationManager.AppSettings["InterfaceClockPackName"].ToString();
+                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle + "\\Face.png" }, IntPtr.Zero, 40, 0);
+                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle + "\\Hour.png" }, IntPtr.Zero, 40, 0);
+                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle + "\\Minute.png" }, IntPtr.Zero, 40, 0);
+                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle + "\\Center.png" }, IntPtr.Zero, 40, 0);
+            }
+            catch { }
+        }
+
+        //Update the user interface clock time
+        void UpdateClockTime()
         {
             try
             {

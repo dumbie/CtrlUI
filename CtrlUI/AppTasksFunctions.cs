@@ -12,7 +12,7 @@ namespace CtrlUI
             {
                 while (TaskRunningCheck(vTaskToken_UpdateClock))
                 {
-                    UpdateClock();
+                    UpdateClockTime();
                     await Task.Delay(5000);
                 }
             }

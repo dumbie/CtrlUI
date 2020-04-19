@@ -167,7 +167,7 @@ namespace CtrlUI
                 await ListboxFocusIndex(listbox_MainMenu, false, false, -1);
 
                 //Update the clock with date
-                UpdateClock();
+                UpdateClockTime();
 
                 //Update the controller help
                 UpdateControllerHelp();
@@ -191,7 +191,7 @@ namespace CtrlUI
                     Popup_Hide_Element(grid_Popup_MainMenu);
 
                     //Update the clock without date
-                    UpdateClock();
+                    UpdateClockTime();
 
                     //Focus on the previous focus element
                     await Popup_PreviousElementFocus_Focus(vMainMenuElementFocus);

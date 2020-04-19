@@ -1022,10 +1022,10 @@
             <TextBlock Name="txt_Main_Battery" Visibility="Collapsed" Margin="0,0,5,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="0%"/>
 
             <Grid Name="grid_Main_Time" Margin="0,0,5,0" Visibility="Collapsed" Height="40" Width="40">
-                <Image Name="img_Main_Time_Face" HorizontalAlignment="Center" VerticalAlignment="Center" Source="Assets/Clocks/Cortana/Face.png" Height="40" Width="40"/>
-                <Image Name="img_Main_Time_Hour" HorizontalAlignment="Center" VerticalAlignment="Center" Source="Assets/Clocks/Cortana/Hour.png" Height="40" Width="40"/>
-                <Image Name="img_Main_Time_Minute" HorizontalAlignment="Center" VerticalAlignment="Center" Source="Assets/Clocks/Cortana/Minute.png" Height="40" Width="40"/>
-                <Image Name="img_Main_Time_Center" HorizontalAlignment="Center" VerticalAlignment="Center" Source="Assets/Clocks/Cortana/Center.png" Height="40" Width="40"/>
+                <Image Name="img_Main_Time_Face" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                <Image Name="img_Main_Time_Hour" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                <Image Name="img_Main_Time_Minute" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                <Image Name="img_Main_Time_Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
             </Grid>
 
             <TextBlock Name="txt_Main_Time" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
