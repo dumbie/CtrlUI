@@ -264,13 +264,10 @@ namespace CtrlUI
                     Debug.WriteLine("No search term entered.");
                     return null;
                 }
-                nameConsoleDownload = nameConsoleDownload.ToLower();
-
-                Popup_Show_Status("Download", "Downloading information");
-                Debug.WriteLine("Downloading information for: " + nameConsole);
+                nameConsoleDownload = RomFilterName(nameConsoleDownload, false, true, 0);
 
                 //Search for consoles
-                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => x.name.ToLower().Contains(nameConsoleDownload) || (x.alternative_name != null && x.alternative_name.ToLower().Contains(nameConsoleDownload)));
+                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => RomFilterName(x.name, false, true, 0).Contains(nameConsoleDownload) || (x.alternative_name != null && RomFilterName(x.alternative_name, false, true, 0).Contains(nameConsoleDownload)));
                 if (iGDBPlatforms == null || !iGDBPlatforms.Any())
                 {
                     Debug.WriteLine("No consoles found");
