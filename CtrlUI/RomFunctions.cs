@@ -77,15 +77,12 @@ namespace CtrlUI
         }
 
         //Download rom information
-        public async Task<RomInformation> RomDownloadInformation(string nameRom, int wordsSearch, int imageWidth)
+        public async Task<RomInformation> RomDownloadInformation(string nameRom, int imageWidth)
         {
             try
             {
-                Popup_Show_Status("Download", "Downloading information");
-                Debug.WriteLine("Downloading rom information for: " + nameRom);
-
                 //Filter the rom name
-                string nameRomSave = RomFilterName(nameRom, true, false, wordsSearch);
+                string nameRomSave = RomFilterName(nameRom, true, false, 0);
 
                 //Show the text input popup
                 string nameRomDownload = await Popup_ShowHide_TextInput("Rom search", nameRomSave, "Search information for the rom", true);
@@ -94,12 +91,15 @@ namespace CtrlUI
                     Debug.WriteLine("No search term entered.");
                     return null;
                 }
+                nameRomDownload = nameRomDownload.ToLower();
+
+                Popup_Show_Status("Download", "Downloading information");
+                Debug.WriteLine("Downloading information for: " + nameRom);
 
                 //Download available games
                 IEnumerable<ApiIGDBGames> iGDBGames = await ApiIGDBDownloadGames(nameRomDownload);
                 if (iGDBGames == null || !iGDBGames.Any())
                 {
-                    //No game found notification
                     Debug.WriteLine("No games found");
                     Popup_Show_Status("Close", "No games found");
                     return null;
@@ -108,7 +108,7 @@ namespace CtrlUI
                 //Ask user which game to download
                 CultureInfo cultureInfo = new CultureInfo("en-US");
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage gameImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
                 foreach (ApiIGDBGames infoGames in iGDBGames)
                 {
                     //Check if information is available
@@ -166,46 +166,46 @@ namespace CtrlUI
                     //Add information to summary
                     string gameDescription = gameGenres + gameReleaseDate + infoGames.summary;
 
-                    DataBindString answerGame = new DataBindString();
-                    answerGame.ImageBitmap = gameImage;
-                    answerGame.Name = infoGames.name;
-                    answerGame.NameSub = gamePlatforms;
-                    answerGame.NameDetail = gameReleaseYear;
-                    answerGame.Data1 = gameDescription;
-                    answerGame.Data2 = infoGames.cover;
-                    Answers.Add(answerGame);
+                    DataBindString answerDownload = new DataBindString();
+                    answerDownload.ImageBitmap = imageAnswer;
+                    answerDownload.Name = infoGames.name;
+                    answerDownload.NameSub = gamePlatforms;
+                    answerDownload.NameDetail = gameReleaseYear;
+                    answerDownload.Data1 = gameDescription;
+                    answerDownload.Data2 = infoGames.cover;
+                    Answers.Add(answerDownload);
                 }
 
                 //Get selected result
-                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game (" + iGDBGames.Count() + ")", "* Information will be saved in the \"Assets\\Roms\\Downloaded\" folder as:\n" + nameRomSave, "Download image and description for the game:", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game (" + Answers.Count() + ")", "* Information will be saved in the \"Assets\\Roms\\Downloaded\" folder as:\n" + nameRomSave, "Download image and description for the game:", Answers);
                 if (messageResult == null)
                 {
                     Debug.WriteLine("No game selected");
                     return null;
                 }
 
-                Popup_Show_Status("Download", "Downloading cover");
-                Debug.WriteLine("Downloading rom cover for: " + nameRom);
+                //Create downloaded directory
+                AVFiles.Directory_Create("Assets\\Roms\\Downloaded\\", false);
+
+                Popup_Show_Status("Download", "Downloading image");
+                Debug.WriteLine("Downloading image for: " + nameRom);
 
                 //Get the image url
-                BitmapImage romBitmapImage = null;
-                string downloadCoverId = messageResult.Data2.ToString();
-                if (downloadCoverId != "0")
+                BitmapImage downloadedBitmapImage = null;
+                string downloadImageId = messageResult.Data2.ToString();
+                if (downloadImageId != "0")
                 {
-                    ApiIGDBImage[] iGDBCovers = await ApiIGDBDownloadImage(downloadCoverId, "covers");
-                    if (iGDBCovers == null || !iGDBCovers.Any())
+                    ApiIGDBImage[] iGDBImages = await ApiIGDBDownloadImage(downloadImageId, "covers");
+                    if (iGDBImages == null || !iGDBImages.Any())
                     {
-                        Debug.WriteLine("No covers found");
-                        Popup_Show_Status("Close", "No covers found");
+                        Debug.WriteLine("No images found");
+                        Popup_Show_Status("Close", "No images found");
                         return null;
                     }
 
-                    //Create downloaded directory
-                    AVFiles.Directory_Create("Assets\\Roms\\Downloaded\\", false);
-
-                    //Download and save rom cover
-                    ApiIGDBImage infoCovers = iGDBCovers.FirstOrDefault();
-                    Uri imageUri = new Uri("https://images.igdb.com/igdb/image/upload/t_720p/" + infoCovers.image_id + ".jpg");
+                    //Download and save rom image
+                    ApiIGDBImage infoImages = iGDBImages.FirstOrDefault();
+                    Uri imageUri = new Uri("https://images.igdb.com/igdb/image/upload/t_720p/" + infoImages.image_id + ".jpg");
                     byte[] imageBytes = await AVDownloader.DownloadByteAsync(5000, "CtrlUI", null, imageUri);
                     if (imageBytes != null && imageBytes.Length > 256)
                     {
@@ -215,30 +215,30 @@ namespace CtrlUI
                             File.WriteAllBytes("Assets\\Roms\\Downloaded\\" + nameRomSave + ".jpg", imageBytes);
 
                             //Convert bytes to a BitmapImage
-                            romBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
+                            downloadedBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
 
-                            Debug.WriteLine("Saved rom cover: " + imageBytes.Length + "bytes/" + imageUri);
+                            Debug.WriteLine("Saved image: " + imageBytes.Length + "bytes/" + imageUri);
                         }
                         catch { }
                     }
                 }
 
-                //Save rom description
-                string romDescription = messageResult.Data1.ToString();
+                //Save description
+                string downloadedDescription = messageResult.Data1.ToString();
                 try
                 {
-                    File.WriteAllText("Assets\\Roms\\Downloaded\\" + nameRomSave + ".txt", romDescription);
-                    Debug.WriteLine("Saved rom description.");
+                    File.WriteAllText("Assets\\Roms\\Downloaded\\" + nameRomSave + ".txt", downloadedDescription);
+                    Debug.WriteLine("Saved description.");
                 }
                 catch { }
 
                 Popup_Show_Status("Download", "Downloaded information");
-                Debug.WriteLine("Downloaded rom information for: " + nameRom);
+                Debug.WriteLine("Downloaded information for: " + nameRom);
 
                 //Return the rom information
                 RomInformation romInformationDownloaded = new RomInformation();
-                romInformationDownloaded.RomImageBitmap = romBitmapImage;
-                romInformationDownloaded.RomDescription = romDescription;
+                romInformationDownloaded.RomImageBitmap = downloadedBitmapImage;
+                romInformationDownloaded.RomDescription = downloadedDescription;
                 return romInformationDownloaded;
             }
             catch (Exception ex)
@@ -249,6 +249,142 @@ namespace CtrlUI
             }
         }
 
+        //Download console information
+        public async Task<RomInformation> ConsoleDownloadInformation(string nameConsole, int imageWidth)
+        {
+            try
+            {
+                //Filter the console name
+                string nameConsoleSave = RomFilterName(nameConsole, true, false, 0);
+
+                //Show the text input popup
+                string nameConsoleDownload = await Popup_ShowHide_TextInput("Console search", nameConsoleSave, "Search information for the console", true);
+                if (string.IsNullOrWhiteSpace(nameConsoleDownload))
+                {
+                    Debug.WriteLine("No search term entered.");
+                    return null;
+                }
+                nameConsoleDownload = nameConsoleDownload.ToLower();
+
+                Popup_Show_Status("Download", "Downloading information");
+                Debug.WriteLine("Downloading information for: " + nameConsole);
+
+                //Search for consoles
+                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => x.name.ToLower().Contains(nameConsoleDownload) || (x.alternative_name != null && x.alternative_name.ToLower().Contains(nameConsoleDownload)));
+                if (iGDBPlatforms == null || !iGDBPlatforms.Any())
+                {
+                    Debug.WriteLine("No consoles found");
+                    Popup_Show_Status("Close", "No consoles found");
+                    return null;
+                }
+
+                //Ask user which console to download
+                List<DataBindString> Answers = new List<DataBindString>();
+                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
+                foreach (ApiIGDBPlatforms infoPlatforms in iGDBPlatforms)
+                {
+                    DataBindString answerDownload = new DataBindString();
+                    answerDownload.ImageBitmap = imageAnswer;
+                    answerDownload.Name = infoPlatforms.name;
+                    answerDownload.NameSub = infoPlatforms.alternative_name;
+                    answerDownload.Data1 = infoPlatforms.versions.FirstOrDefault();
+                    Answers.Add(answerDownload);
+                }
+
+                //Get selected result
+                DataBindString messageResult = await Popup_Show_MessageBox("Select a found console (" + Answers.Count() + ")", "* Information will be saved in the \"Assets\\Roms\\Downloaded\" folder as:\n" + nameConsoleSave, "Download image and description for the console:", Answers);
+                if (messageResult == null)
+                {
+                    Debug.WriteLine("No console selected");
+                    return null;
+                }
+
+                //Create downloaded directory
+                AVFiles.Directory_Create("Assets\\Roms\\Downloaded\\", false);
+
+                Popup_Show_Status("Download", "Downloading information");
+                Debug.WriteLine("Downloading information for: " + nameConsole);
+
+                //Get the platform versions id
+                ApiIGDBPlatformVersions[] iGDBPlatformVersions = await ApiIGDBDownloadPlatformVersions(messageResult.Data1.ToString());
+                if (iGDBPlatformVersions == null || !iGDBPlatformVersions.Any())
+                {
+                    Debug.WriteLine("No information found");
+                    Popup_Show_Status("Close", "No information found");
+                    return null;
+                }
+
+                ApiIGDBPlatformVersions targetPlatformVersions = iGDBPlatformVersions.FirstOrDefault();
+
+                Popup_Show_Status("Download", "Downloading image");
+                Debug.WriteLine("Downloading image for: " + nameConsole);
+
+                //Get the image url
+                BitmapImage downloadedBitmapImage = null;
+                string downloadImageId = targetPlatformVersions.platform_logo.ToString();
+                if (downloadImageId != "0")
+                {
+                    ApiIGDBImage[] iGDBImages = await ApiIGDBDownloadImage(downloadImageId, "platform_logos");
+                    if (iGDBImages == null || !iGDBImages.Any())
+                    {
+                        Debug.WriteLine("No images found");
+                        Popup_Show_Status("Close", "No images found");
+                        return null;
+                    }
+
+                    //Download and save image
+                    ApiIGDBImage infoImages = iGDBImages.FirstOrDefault();
+                    Uri imageUri = new Uri("https://images.igdb.com/igdb/image/upload/t_720p/" + infoImages.image_id + ".png");
+                    byte[] imageBytes = await AVDownloader.DownloadByteAsync(5000, "CtrlUI", null, imageUri);
+                    if (imageBytes != null && imageBytes.Length > 256)
+                    {
+                        try
+                        {
+                            //Save bytes to image file
+                            File.WriteAllBytes("Assets\\Roms\\Downloaded\\" + nameConsoleSave + ".png", imageBytes);
+
+                            //Convert bytes to a BitmapImage
+                            downloadedBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
+
+                            Debug.WriteLine("Saved image: " + imageBytes.Length + "bytes/" + imageUri);
+                        }
+                        catch { }
+                    }
+                }
+
+                //Check if the summary is empty
+                if (string.IsNullOrWhiteSpace(targetPlatformVersions.summary))
+                {
+                    targetPlatformVersions.summary = "There is no description available.";
+                }
+
+                //Save description
+                string downloadedDescription = targetPlatformVersions.summary;
+                try
+                {
+                    File.WriteAllText("Assets\\Roms\\Downloaded\\" + nameConsoleSave + ".txt", downloadedDescription);
+                    Debug.WriteLine("Saved description.");
+                }
+                catch { }
+
+                Popup_Show_Status("Download", "Downloaded information");
+                Debug.WriteLine("Downloaded information for: " + nameConsole);
+
+                //Return the rom information
+                RomInformation romInformationDownloaded = new RomInformation();
+                romInformationDownloaded.RomImageBitmap = downloadedBitmapImage;
+                romInformationDownloaded.RomDescription = downloadedDescription;
+                return romInformationDownloaded;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed downloading console information: " + ex.Message);
+                Popup_Show_Status("Close", "Failed downloading");
+                return null;
+            }
+        }
+
+        //Download all avaliable games
         public async Task<IEnumerable<ApiIGDBGames>> ApiIGDBDownloadGames(string gameName)
         {
             try
@@ -292,6 +428,51 @@ namespace CtrlUI
             }
         }
 
+        //Download platform version id information
+        public async Task<ApiIGDBPlatformVersions[]> ApiIGDBDownloadPlatformVersions(string platformId)
+        {
+            try
+            {
+                Debug.WriteLine("Downloading platform versions for: " + platformId);
+
+                //Set request headers
+                string[] requestAccept = new[] { "Accept", "application/json" };
+                string[] requestUserKey = new[] { "User-Key", vApiIGDBUserKey };
+                string[][] requestHeaders = new string[][] { requestAccept, requestUserKey };
+
+                //Create request uri
+                Uri requestUri = new Uri("https://api-v3.igdb.com/platform_versions");
+
+                //Create request body
+                string requestBodyString = "fields *; limit 100; where id = " + platformId + ";";
+                StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
+
+                //Download available platforms
+                string resultSearch = await AVDownloader.SendPostRequestAsync(5000, "CtrlUI", requestHeaders, requestUri, requestBodyStringContent);
+                if (string.IsNullOrWhiteSpace(resultSearch))
+                {
+                    Debug.WriteLine("Failed downloading platform versions.");
+                    return null;
+                }
+
+                //Check if status is set
+                if (resultSearch.Contains("\"status\"") && resultSearch.Contains("\"type\""))
+                {
+                    Debug.WriteLine("Received invalid platform versions data.");
+                    return null;
+                }
+
+                //Return platform versions
+                return JsonConvert.DeserializeObject<ApiIGDBPlatformVersions[]>(resultSearch);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed downloading platform versions: " + ex.Message);
+                return null;
+            }
+        }
+
+        //Download image id information
         public async Task<ApiIGDBImage[]> ApiIGDBDownloadImage(string imageId, string imageCategory)
         {
             try

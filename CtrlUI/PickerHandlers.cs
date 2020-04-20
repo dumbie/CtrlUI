@@ -176,8 +176,16 @@ namespace CtrlUI
                     if (!preFile && vFilePickerShowRoms)
                     {
                         answerDownloadRomInfo.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Download.png" }, IntPtr.Zero, -1, 0);
-                        answerDownloadRomInfo.Name = "Download rom information";
+                        answerDownloadRomInfo.Name = "Download rom game information";
                         Answers.Add(answerDownloadRomInfo);
+                    }
+
+                    DataBindString answerDownloadConsoleInfo = new DataBindString();
+                    if (!preFile && vFilePickerShowRoms)
+                    {
+                        answerDownloadConsoleInfo.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Download.png" }, IntPtr.Zero, -1, 0);
+                        answerDownloadConsoleInfo.Name = "Download console information";
+                        Answers.Add(answerDownloadConsoleInfo);
                     }
 
                     //Show the messagebox prompt
@@ -227,16 +235,29 @@ namespace CtrlUI
                         {
                             await FilePicker_FileRemove(selectedItem, true);
                         }
-                        //Download rom information
+                        //Download rom game information
                         else if (messageResult == answerDownloadRomInfo)
                         {
-                            RomInformation romInformationDownloaded = await RomDownloadInformation(selectedItem.Name, 0, 210);
-                            if (romInformationDownloaded != null)
+                            RomInformation informationDownloaded = await RomDownloadInformation(selectedItem.Name, 210);
+                            if (informationDownloaded != null)
                             {
-                                selectedItem.Description = romInformationDownloaded.RomDescription;
-                                if (romInformationDownloaded.RomImageBitmap != null)
+                                selectedItem.Description = informationDownloaded.RomDescription;
+                                if (informationDownloaded.RomImageBitmap != null)
                                 {
-                                    selectedItem.ImageBitmap = romInformationDownloaded.RomImageBitmap;
+                                    selectedItem.ImageBitmap = informationDownloaded.RomImageBitmap;
+                                }
+                            }
+                        }
+                        //Download console information
+                        else if (messageResult == answerDownloadConsoleInfo)
+                        {
+                            RomInformation informationDownloaded = await ConsoleDownloadInformation(selectedItem.Name, 210);
+                            if (informationDownloaded != null)
+                            {
+                                selectedItem.Description = informationDownloaded.RomDescription;
+                                if (informationDownloaded.RomImageBitmap != null)
+                                {
+                                    selectedItem.ImageBitmap = informationDownloaded.RomImageBitmap;
                                 }
                             }
                         }
