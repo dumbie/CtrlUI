@@ -110,16 +110,18 @@ namespace CtrlUI
 
                     BitmapImage imageFolder = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1, 0);
 
-                    //Add my documents and pictures folder
-                    DataBindFile dataBindFilePictures = new DataBindFile() { Type = "PreDirectory", Name = "My Pictures", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
+                    //Add special folders
+                    DataBindFile dataBindFileDesktop = new DataBindFile() { Type = FileType.PreDirectory, Name = "My Desktop", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDesktop, false, false);
+                    DataBindFile dataBindFilePictures = new DataBindFile() { Type = FileType.PreDirectory, Name = "My Pictures", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
-                    DataBindFile dataBindFileDocuments = new DataBindFile() { Type = "PreDirectory", Name = "My Documents", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) };
+                    DataBindFile dataBindFileDocuments = new DataBindFile() { Type = FileType.PreDirectory, Name = "My Documents", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDocuments, false, false);
 
                     //Check and add the previous path
                     if (!string.IsNullOrWhiteSpace(vFilePickerPreviousPath))
                     {
-                        DataBindFile dataBindFilePreviousPath = new DataBindFile() { Type = "PreDirectory", Name = "Previous Path", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolder, PathFile = vFilePickerPreviousPath };
+                        DataBindFile dataBindFilePreviousPath = new DataBindFile() { Type = FileType.PreDirectory, Name = "Previous Path", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolder, PathFile = vFilePickerPreviousPath };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePreviousPath, false, false);
                     }
 
@@ -128,7 +130,7 @@ namespace CtrlUI
                     {
                         string fileDescription = "Launch application without a file";
                         BitmapImage fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
-                        DataBindFile dataBindFileWithoutFile = new DataBindFile() { Type = "File", Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
+                        DataBindFile dataBindFileWithoutFile = new DataBindFile() { Type = FileType.PreFile, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutFile, false, false);
                     }
 
@@ -152,7 +154,7 @@ namespace CtrlUI
                                 string usedSpace = AVFunctions.ConvertBytesSizeToString(disk.TotalSize);
                                 string diskSpace = freeSpace + "/" + usedSpace;
 
-                                DataBindFile dataBindFileDisk = new DataBindFile() { Type = "Directory", Name = disk.Name, NameSub = disk.VolumeLabel, NameDetail = diskSpace, ImageBitmap = imageFolder, PathFile = disk.Name };
+                                DataBindFile dataBindFileDisk = new DataBindFile() { Type = FileType.Directory, Name = disk.Name, NameSub = disk.VolumeLabel, NameDetail = diskSpace, ImageBitmap = imageFolder, PathFile = disk.Name };
                                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDisk, false, false);
                             }
                         }
@@ -166,7 +168,15 @@ namespace CtrlUI
                         {
                             if (Directory.Exists(Locations.String2))
                             {
-                                DataBindFile dataBindFileLocation = new DataBindFile() { Type = "Directory", Name = Locations.String2, NameSub = Locations.String1, ImageBitmap = imageFolder, PathFile = Locations.String2 };
+                                //Check if the location is a root folder
+                                FileType locationType = FileType.PreDirectory;
+                                DirectoryInfo locationInfo = new DirectoryInfo(Locations.String2);
+                                if (locationInfo.Parent == null)
+                                {
+                                    locationType = FileType.Directory;
+                                }
+
+                                DataBindFile dataBindFileLocation = new DataBindFile() { Type = locationType, Name = Locations.String2, NameSub = Locations.String1, ImageBitmap = imageFolder, PathFile = Locations.String2 };
                                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileLocation, false, false);
                             }
                         }
@@ -198,13 +208,13 @@ namespace CtrlUI
                     if (Path.GetPathRoot(targetPath) != targetPath)
                     {
                         BitmapImage imageBack = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Up.png" }, IntPtr.Zero, -1, 0);
-                        DataBindFile dataBindFileGoUp = new DataBindFile() { Type = "GoUp", Name = "Go up", NameSub = "(" + targetPath + ")", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = Path.GetDirectoryName(targetPath) };
+                        DataBindFile dataBindFileGoUp = new DataBindFile() { Type = FileType.GoUp, Name = "Go up", NameSub = "(" + targetPath + ")", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = Path.GetDirectoryName(targetPath) };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
                     else
                     {
                         BitmapImage imageBack = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Up.png" }, IntPtr.Zero, -1, 0);
-                        DataBindFile dataBindFileGoUp = new DataBindFile() { Type = "GoUp", Name = "Go up", NameSub = "(" + targetPath + ")", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = "PC" };
+                        DataBindFile dataBindFileGoUp = new DataBindFile() { Type = FileType.GoUp, Name = "Go up", NameSub = "(" + targetPath + ")", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = "PC" };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
 
@@ -213,12 +223,12 @@ namespace CtrlUI
                     {
                         string fileDescription = "Launch the emulator without a rom loaded";
                         BitmapImage fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
-                        DataBindFile dataBindFileWithoutRom = new DataBindFile() { Type = "File", Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
+                        DataBindFile dataBindFileWithoutRom = new DataBindFile() { Type = FileType.PreFile, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutRom, false, false);
 
                         string romDescription = "Launch the emulator with this folder as rom";
                         BitmapImage romImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
-                        DataBindFile dataBindFileFolderRom = new DataBindFile() { Type = "File", Name = romDescription, Description = romDescription + ".", ImageBitmap = romImage, PathFile = targetPath };
+                        DataBindFile dataBindFileFolderRom = new DataBindFile() { Type = FileType.PreFile, Name = romDescription, Description = romDescription + ".", ImageBitmap = romImage, PathFile = targetPath };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolderRom, false, false);
                     }
 
@@ -298,7 +308,7 @@ namespace CtrlUI
                                     bool hiddenFileFolder = listFolder.Attributes.HasFlag(FileAttributes.Hidden);
                                     if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
-                                        DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listFolder.Name, NameDetail = folderDetailed, Description = listDescription, DateModified = listFolder.LastWriteTime, ImageBitmap = listImage, PathFile = listFolder.FullName };
+                                        DataBindFile dataBindFileFolder = new DataBindFile() { Type = FileType.Directory, Name = listFolder.Name, NameDetail = folderDetailed, Description = listDescription, DateModified = listFolder.LastWriteTime, ImageBitmap = listImage, PathFile = listFolder.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
                                     }
                                 }
@@ -374,7 +384,7 @@ namespace CtrlUI
                                     bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
                                     if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
-                                        DataBindFile dataBindFileFile = new DataBindFile() { Type = "File", Name = listFile.Name, NameDetail = fileDetailed, Description = listDescription, DateModified = listFile.LastWriteTime, ImageBitmap = listImage, PathFile = listFile.FullName };
+                                        DataBindFile dataBindFileFile = new DataBindFile() { Type = FileType.File, Name = listFile.Name, NameDetail = fileDetailed, Description = listDescription, DateModified = listFile.LastWriteTime, ImageBitmap = listImage, PathFile = listFile.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
                                     }
                                 }

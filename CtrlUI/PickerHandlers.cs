@@ -71,7 +71,7 @@ namespace CtrlUI
                 DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
 
                 //Check the selected file type
-                if (selectedItem.Type == "UwpApp")
+                if (selectedItem.Type == FileType.UwpApp)
                 {
                     //Add answers for messagebox
                     List<DataBindString> Answers = new List<DataBindString>();
@@ -107,6 +107,9 @@ namespace CtrlUI
                     //Add answers for messagebox
                     List<DataBindString> Answers = new List<DataBindString>();
 
+                    //Check the file type
+                    bool preFile = selectedItem.Type == FileType.PreDirectory || selectedItem.Type == FileType.PreFile || selectedItem.Type == FileType.GoUp;
+
                     //Check the sorting type
                     string sortType = string.Empty;
                     if (vFilePickerSortByName)
@@ -124,7 +127,7 @@ namespace CtrlUI
                     Answers.Add(answerSort);
 
                     DataBindString answerCopy = new DataBindString();
-                    if (selectedItem.Type != "GoUp")
+                    if (!preFile)
                     {
                         answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Copy.png" }, IntPtr.Zero, -1, 0);
                         answerCopy.Name = "Copy the file or folder";
@@ -132,7 +135,7 @@ namespace CtrlUI
                     }
 
                     DataBindString answerCut = new DataBindString();
-                    if (selectedItem.Type != "GoUp")
+                    if (!preFile)
                     {
                         answerCut.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Cut.png" }, IntPtr.Zero, -1, 0);
                         answerCut.Name = "Cut the file or folder";
@@ -148,7 +151,7 @@ namespace CtrlUI
                     }
 
                     DataBindString answerRename = new DataBindString();
-                    if (selectedItem.Type != "GoUp")
+                    if (!preFile)
                     {
                         answerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1, 0);
                         answerRename.Name = "Rename the file or folder";
@@ -161,7 +164,7 @@ namespace CtrlUI
                     Answers.Add(answerFolderCreate);
 
                     DataBindString answerRemove = new DataBindString();
-                    if (selectedItem.Type != "GoUp")
+                    if (!preFile)
                     {
                         answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
                         answerRemove.Name = "Move file or folder to recycle bin*";
@@ -169,7 +172,7 @@ namespace CtrlUI
                     }
 
                     DataBindString answerDownloadRomInfo = new DataBindString();
-                    if (selectedItem.Type != "GoUp" && vFilePickerShowRoms)
+                    if (!preFile && vFilePickerShowRoms)
                     {
                         answerDownloadRomInfo.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Download.png" }, IntPtr.Zero, -1, 0);
                         answerDownloadRomInfo.Name = "Download rom information";
@@ -294,7 +297,7 @@ namespace CtrlUI
 
                     //Read the root path
                     DataBindFile dataBindFile = List_FilePicker.FirstOrDefault();
-                    if (dataBindFile.Type == "GoUp")
+                    if (dataBindFile.Type == FileType.GoUp)
                     {
                         Debug.WriteLine("Folder up: " + dataBindFile.PathFile + " / " + navigateIndex);
                         await Popup_Show_FilePicker(dataBindFile.PathFile, navigateIndex, false, null);
@@ -416,15 +419,15 @@ namespace CtrlUI
                 if (lb_FilePicker.SelectedItems.Count > 0 && lb_FilePicker.SelectedIndex != -1)
                 {
                     DataBindFile SelectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
-                    if (SelectedItem.Type == "Directory")
+                    if (SelectedItem.Type == FileType.Directory)
                     {
                         await Popup_Show_FilePicker(SelectedItem.PathFile, -1, true, null);
                     }
-                    else if (SelectedItem.Type == "PreDirectory")
+                    else if (SelectedItem.Type == FileType.PreDirectory)
                     {
                         await Popup_Show_FilePicker(SelectedItem.PathFile, -1, false, null);
                     }
-                    else if (SelectedItem.Type == "GoUp")
+                    else if (SelectedItem.Type == FileType.GoUp)
                     {
                         await FilePicker_GoFolderUp();
                     }

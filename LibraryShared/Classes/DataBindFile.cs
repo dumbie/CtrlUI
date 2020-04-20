@@ -9,8 +9,8 @@ namespace LibraryShared
     {
         public class DataBindFile : INotifyPropertyChanged
         {
-            private string PrivType;
-            public string Type
+            private FileType PrivType;
+            public FileType Type
             {
                 get { return this.PrivType; }
                 set

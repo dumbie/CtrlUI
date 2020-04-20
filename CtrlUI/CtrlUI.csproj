@@ -347,6 +347,18 @@
     </Resource>
     <EmbeddedResource Include="Resources\IGDB\Genres.json" />
     <EmbeddedResource Include="Resources\IGDB\Platforms.json" />
+    <Content Include="Assets\Clocks\Squircle\Center.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Clocks\Squircle\Face.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Clocks\Squircle\Hour.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Clocks\Squircle\Minute.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Roms\Bios.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

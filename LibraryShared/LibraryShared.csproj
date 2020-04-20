@@ -165,6 +165,7 @@
     </Compile>
     <Compile Include="AppUpdateCheck.cs" />
     <Compile Include="AppLaunchCheck.cs" />
+    <Compile Include="Classes\FileType.cs" />
     <Compile Include="Classes\AppCategory.cs" />
     <Compile Include="Classes\ApiIGDB.cs" />
     <Compile Include="Classes\FrameworkElementFocus.cs" />

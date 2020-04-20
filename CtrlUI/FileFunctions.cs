@@ -50,7 +50,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.Type == "PreDirectory" || dataBindFile.Type == "GoUp")
+                if (dataBindFile.Type == FileType.PreDirectory || dataBindFile.Type == FileType.PreFile || dataBindFile.Type == FileType.GoUp)
                 {
                     Popup_Show_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
@@ -77,7 +77,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.Type == "PreDirectory" || dataBindFile.Type == "GoUp")
+                if (dataBindFile.Type == FileType.PreDirectory || dataBindFile.Type == FileType.PreFile || dataBindFile.Type == FileType.GoUp)
                 {
                     Popup_Show_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
@@ -283,7 +283,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.Type == "PreDirectory" || dataBindFile.Type == "GoUp")
+                if (dataBindFile.Type == FileType.PreDirectory || dataBindFile.Type == FileType.PreFile || dataBindFile.Type == FileType.GoUp)
                 {
                     Popup_Show_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
@@ -395,7 +395,7 @@ namespace CtrlUI
 
                     //Create new folder databindfile
                     BitmapImage folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1, 0);
-                    DataBindFile dataBindFileFolder = new DataBindFile() { Type = "Directory", Name = listDirectory.Name, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
+                    DataBindFile dataBindFileFolder = new DataBindFile() { Type = FileType.Directory, Name = listDirectory.Name, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
 
                     //Add the new listbox item
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
@@ -423,7 +423,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.Type == "PreDirectory" || dataBindFile.Type == "GoUp")
+                if (dataBindFile.Type == FileType.PreDirectory || dataBindFile.Type == FileType.PreFile || dataBindFile.Type == FileType.GoUp)
                 {
                     Popup_Show_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
