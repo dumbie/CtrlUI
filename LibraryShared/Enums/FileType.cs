@@ -1,13 +1,13 @@
 ﻿namespace LibraryShared
 {
-    public partial class Classes
+    public partial class Enums
     {
         public enum FileType
         {
             GoUp,
             UwpApp,
-            PreDirectory,
-            Directory,
+            PreFolder,
+            Folder,
             PreFile,
             File
         }

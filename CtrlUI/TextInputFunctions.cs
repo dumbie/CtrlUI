@@ -9,7 +9,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Hide or show the TextInput
-        async Task<string> Popup_ShowHide_TextInput(string textTitle, string textDefault, string buttonTitle)
+        async Task<string> Popup_ShowHide_TextInput(string textTitle, string textDefault, string buttonTitle, bool focusButton)
         {
             try
             {
@@ -58,7 +58,14 @@ namespace CtrlUI
                 Popup_Show_Element(grid_Popup_TextInput);
 
                 //Force focus on element
-                await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
+                if (focusButton)
+                {
+                    await FocusOnElement(grid_Popup_TextInput_button_ConfirmText, false, vProcessCurrent.MainWindowHandle);
+                }
+                else
+                {
+                    await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
+                }
 
                 //Launch the keyboard controller
                 if (vAppActivated && vControllerAnyConnected())

@@ -13,6 +13,7 @@ using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.AppStartupCheck;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI

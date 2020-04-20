@@ -13,6 +13,7 @@ using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -71,7 +72,7 @@ namespace CtrlUI
                 DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
 
                 //Check the selected file type
-                if (selectedItem.Type == FileType.UwpApp)
+                if (selectedItem.FileType == FileType.UwpApp)
                 {
                     //Add answers for messagebox
                     List<DataBindString> Answers = new List<DataBindString>();
@@ -108,7 +109,7 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
 
                     //Check the file type
-                    bool preFile = selectedItem.Type == FileType.PreDirectory || selectedItem.Type == FileType.PreFile || selectedItem.Type == FileType.GoUp;
+                    bool preFile = selectedItem.FileType == FileType.PreFolder || selectedItem.FileType == FileType.PreFile || selectedItem.FileType == FileType.GoUp;
 
                     //Check the sorting type
                     string sortType = string.Empty;
@@ -146,7 +147,7 @@ namespace CtrlUI
                     if (vClipboardFile != null)
                     {
                         answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Paste.png" }, IntPtr.Zero, -1, 0);
-                        answerPaste.Name = "Paste (" + vClipboardType + ") " + vClipboardFile.Name;
+                        answerPaste.Name = "Paste (" + vClipboardFile.FileType.ToString() + " " + vClipboardFile.ClipboardType.ToString() + ") " + vClipboardFile.Name;
                         Answers.Add(answerPaste);
                     }
 
@@ -297,7 +298,7 @@ namespace CtrlUI
 
                     //Read the root path
                     DataBindFile dataBindFile = List_FilePicker.FirstOrDefault();
-                    if (dataBindFile.Type == FileType.GoUp)
+                    if (dataBindFile.FileType == FileType.GoUp)
                     {
                         Debug.WriteLine("Folder up: " + dataBindFile.PathFile + " / " + navigateIndex);
                         await Popup_Show_FilePicker(dataBindFile.PathFile, navigateIndex, false, null);
@@ -419,15 +420,15 @@ namespace CtrlUI
                 if (lb_FilePicker.SelectedItems.Count > 0 && lb_FilePicker.SelectedIndex != -1)
                 {
                     DataBindFile SelectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
-                    if (SelectedItem.Type == FileType.Directory)
+                    if (SelectedItem.FileType == FileType.Folder)
                     {
                         await Popup_Show_FilePicker(SelectedItem.PathFile, -1, true, null);
                     }
-                    else if (SelectedItem.Type == FileType.PreDirectory)
+                    else if (SelectedItem.FileType == FileType.PreFolder)
                     {
                         await Popup_Show_FilePicker(SelectedItem.PathFile, -1, false, null);
                     }
-                    else if (SelectedItem.Type == FileType.GoUp)
+                    else if (SelectedItem.FileType == FileType.GoUp)
                     {
                         await FilePicker_GoFolderUp();
                     }

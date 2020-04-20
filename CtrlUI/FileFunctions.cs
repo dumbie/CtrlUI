@@ -13,6 +13,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -50,7 +51,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.Type == FileType.PreDirectory || dataBindFile.Type == FileType.PreFile || dataBindFile.Type == FileType.GoUp)
+                if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
                 {
                     Popup_Show_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
@@ -60,12 +61,18 @@ namespace CtrlUI
                 Popup_Show_Status("Copy", "Copying file or folder");
                 Debug.WriteLine("Clipboard copy file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
+                //Reset the clipboard variables
+                if (vClipboardFile != null)
+                {
+                    vClipboardFile.ClipboardType = ClipboardType.None;
+                }
+
                 //Set the clipboard variables
                 vClipboardFile = dataBindFile;
-                vClipboardType = "Copy";
+                vClipboardFile.ClipboardType = ClipboardType.Copy;
 
                 //Update the interface text
-                grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardType + ") " + vClipboardFile.PathFile;
+                grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardFile.FileType.ToString() + " " + vClipboardFile.ClipboardType.ToString() + ") " + vClipboardFile.PathFile;
                 grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
             }
             catch { }
@@ -77,7 +84,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.Type == FileType.PreDirectory || dataBindFile.Type == FileType.PreFile || dataBindFile.Type == FileType.GoUp)
+                if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
                 {
                     Popup_Show_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
@@ -87,12 +94,18 @@ namespace CtrlUI
                 Popup_Show_Status("Cut", "Cutting file or folder");
                 Debug.WriteLine("Clipboard cut file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
+                //Reset the clipboard variables
+                if (vClipboardFile != null)
+                {
+                    vClipboardFile.ClipboardType = ClipboardType.None;
+                }
+
                 //Set the clipboard variables
                 vClipboardFile = dataBindFile;
-                vClipboardType = "Cut";
+                vClipboardFile.ClipboardType = ClipboardType.Cut;
 
                 //Update the interface text
-                grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardType + ") " + vClipboardFile.PathFile;
+                grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardFile.FileType.ToString() + " " + vClipboardFile.ClipboardType.ToString() + ") " + vClipboardFile.PathFile;
                 grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
             }
             catch { }
@@ -111,7 +124,7 @@ namespace CtrlUI
                 string newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
 
                 //Move or copy the file or folder
-                if (vClipboardType == "Cut")
+                if (vClipboardFile.ClipboardType == ClipboardType.Cut)
                 {
                     Popup_Show_Status("Cut", "Moving file or folder");
                     Debug.WriteLine("Moving file or folder: " + oldFilePath + " to " + newFilePath);
@@ -157,6 +170,7 @@ namespace CtrlUI
                     DataBindFile updatedClipboard = CloneClassObject(vClipboardFile);
                     updatedClipboard.Name = newFileName + newFileExtension;
                     updatedClipboard.PathFile = newFilePath;
+                    updatedClipboard.ClipboardType = ClipboardType.None;
 
                     //Remove the moved listbox item
                     await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, vClipboardFile, false);
@@ -167,9 +181,14 @@ namespace CtrlUI
                     //Focus on the listbox item
                     await ListboxFocusIndex(lb_FilePicker, false, true, -1);
 
-                    //Reset the current clipboard
-                    vClipboardFile = null;
-                    vClipboardType = string.Empty;
+                    //Reset the clipboard variables
+                    if (vClipboardFile != null)
+                    {
+                        vClipboardFile.ClipboardType = ClipboardType.None;
+                        vClipboardFile = null;
+                    }
+
+                    //Update the interface text
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         grid_Popup_FilePicker_textblock_ClipboardStatus.Text = string.Empty;
@@ -238,6 +257,7 @@ namespace CtrlUI
                     DataBindFile updatedClipboard = CloneClassObject(vClipboardFile);
                     updatedClipboard.Name = newFileName + newFileExtension;
                     updatedClipboard.PathFile = newFilePath;
+                    updatedClipboard.ClipboardType = ClipboardType.None;
 
                     //Add the new listbox item
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
@@ -283,7 +303,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.Type == FileType.PreDirectory || dataBindFile.Type == FileType.PreFile || dataBindFile.Type == FileType.GoUp)
+                if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
                 {
                     Popup_Show_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
@@ -294,7 +314,7 @@ namespace CtrlUI
                 Debug.WriteLine("Renaming file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                 //Show the text input popup
-                string textInputString = await Popup_ShowHide_TextInput("Rename file or folder", dataBindFile.Name, "Rename the file or folder");
+                string textInputString = await Popup_ShowHide_TextInput("Rename file or folder", dataBindFile.Name, "Rename the file or folder", false);
 
                 //Check if file name changed
                 if (textInputString == dataBindFile.Name)
@@ -351,7 +371,7 @@ namespace CtrlUI
                     //Check if the renamed item is clipboard and update it
                     if (vClipboardFile != null && vClipboardFile.PathFile == dataBindFile.PathFile)
                     {
-                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardType + ") " + vClipboardFile.PathFile;
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardFile.FileType.ToString() + " " + vClipboardFile.ClipboardType.ToString() + ") " + vClipboardFile.PathFile;
                         grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
                     }
 
@@ -375,7 +395,7 @@ namespace CtrlUI
                 Debug.WriteLine("Creating new folder in: " + vFilePickerCurrentPath);
 
                 //Show the text input popup
-                string textInputString = await Popup_ShowHide_TextInput("Create folder", string.Empty, "Create new folder");
+                string textInputString = await Popup_ShowHide_TextInput("Create folder", string.Empty, "Create new folder", false);
 
                 //Check the folder create name
                 if (!string.IsNullOrWhiteSpace(textInputString))
@@ -395,7 +415,7 @@ namespace CtrlUI
 
                     //Create new folder databindfile
                     BitmapImage folderImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1, 0);
-                    DataBindFile dataBindFileFolder = new DataBindFile() { Type = FileType.Directory, Name = listDirectory.Name, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
+                    DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, Name = listDirectory.Name, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
 
                     //Add the new listbox item
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
@@ -423,7 +443,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.Type == FileType.PreDirectory || dataBindFile.Type == FileType.PreFile || dataBindFile.Type == FileType.GoUp)
+                if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
                 {
                     Popup_Show_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
@@ -450,8 +470,11 @@ namespace CtrlUI
                 //Check if the removed item is clipboard and reset it
                 if (vClipboardFile != null && vClipboardFile.PathFile == dataBindFile.PathFile)
                 {
+                    //Reset the clipboard variables
+                    vClipboardFile.ClipboardType = ClipboardType.None;
                     vClipboardFile = null;
-                    vClipboardType = string.Empty;
+
+                    //Update the interface text
                     grid_Popup_FilePicker_textblock_ClipboardStatus.Text = string.Empty;
                     grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Collapsed;
                 }

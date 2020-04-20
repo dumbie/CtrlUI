@@ -1,6 +1,6 @@
 ﻿namespace LibraryShared
 {
-    public partial class Classes
+    public partial class Enums
     {
         public enum AppCategory
         {

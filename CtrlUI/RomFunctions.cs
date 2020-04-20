@@ -88,7 +88,12 @@ namespace CtrlUI
                 string nameRomSave = RomFilterName(nameRom, true, false, wordsSearch);
 
                 //Show the text input popup
-                string nameRomDownload = await Popup_ShowHide_TextInput("Rom search", nameRomSave, "Search information for the rom");
+                string nameRomDownload = await Popup_ShowHide_TextInput("Rom search", nameRomSave, "Search information for the rom", true);
+                if (string.IsNullOrWhiteSpace(nameRomDownload))
+                {
+                    Debug.WriteLine("No search term entered.");
+                    return null;
+                }
 
                 //Download available games
                 IEnumerable<ApiIGDBGames> iGDBGames = await ApiIGDBDownloadGames(nameRomDownload);

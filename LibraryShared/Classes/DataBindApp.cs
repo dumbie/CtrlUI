@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.ProcessClasses;
+using static LibraryShared.Enums;
 
 namespace LibraryShared
 {

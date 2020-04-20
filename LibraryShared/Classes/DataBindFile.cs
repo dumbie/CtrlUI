@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media.Imaging;
+using static LibraryShared.Enums;
 
 namespace LibraryShared
 {
@@ -9,15 +10,29 @@ namespace LibraryShared
     {
         public class DataBindFile : INotifyPropertyChanged
         {
-            private FileType PrivType;
-            public FileType Type
+            private FileType PrivFileType;
+            public FileType FileType
             {
-                get { return this.PrivType; }
+                get { return this.PrivFileType; }
                 set
                 {
-                    if (this.PrivType != value)
+                    if (this.PrivFileType != value)
                     {
-                        this.PrivType = value;
+                        this.PrivFileType = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private ClipboardType PrivClipboardType;
+            public ClipboardType ClipboardType
+            {
+                get { return this.PrivClipboardType; }
+                set
+                {
+                    if (this.PrivClipboardType != value)
+                    {
+                        this.PrivClipboardType = value;
                         NotifyPropertyChanged();
                     }
                 }

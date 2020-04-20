@@ -13,6 +13,7 @@ using System.Windows.Threading;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -111,7 +112,6 @@ namespace CtrlUI
 
         //Clipboard Variables
         public static DataBindFile vClipboardFile = null;
-        public static string vClipboardType = string.Empty; //Copy or Cut
 
         //Manage Variables
         public static ListBox vEditAppListBox = null;
