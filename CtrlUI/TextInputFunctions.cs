@@ -60,17 +60,19 @@ namespace CtrlUI
                 //Force focus on element
                 if (focusButton)
                 {
+                    //Focus on the confirm button
                     await FocusOnElement(grid_Popup_TextInput_button_ConfirmText, false, vProcessCurrent.MainWindowHandle);
                 }
                 else
                 {
+                    //Focus on the text input box
                     await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
-                }
 
-                //Launch the keyboard controller
-                if (vAppActivated && vControllerAnyConnected())
-                {
-                    LaunchKeyboardController(false);
+                    //Launch the keyboard controller
+                    if (vAppActivated && vControllerAnyConnected())
+                    {
+                        LaunchKeyboardController(false);
+                    }
                 }
 
                 //Wait for user input
