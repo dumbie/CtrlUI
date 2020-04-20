@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -175,6 +176,7 @@ namespace CtrlUI
                 btn_Settings_ChangeBackgroundImage.Click += Button_Settings_ChangeBackgroundImage_Click;
                 btn_Settings_ChangeBackgroundVideo.Click += Button_Settings_ChangeBackgroundVideo_Click;
                 btn_Settings_InterfaceSoundPackName.Click += Button_Settings_InterfaceSoundPackName;
+                btn_Settings_InterfaceFontStyleName.Click += Button_Settings_InterfaceFontStyleName;
 
                 //Help functions
                 btn_Help_ProjectWebsite.Click += Button_Help_ProjectWebsite_Click;
@@ -194,12 +196,39 @@ namespace CtrlUI
             catch { }
         }
 
+        //Adjust the application font family
+        void UpdateAppFontStyle()
+        {
+            try
+            { 
+                string interfaceFontStyleName = ConfigurationManager.AppSettings["InterfaceFontStyleName"].ToString();
+                if (interfaceFontStyleName == "Segoe UI" || interfaceFontStyleName == "Verdana" || interfaceFontStyleName == "Consolas")
+                {
+                    this.FontFamily = new FontFamily(interfaceFontStyleName);
+                }
+                else
+                {
+                    try
+                    {
+                        string fontPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\Assets\\Fonts\\" + interfaceFontStyleName + ".ttf";
+                        ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPath);
+                        this.FontFamily = fontFamilies.First();
+                    }
+                    catch
+                    {
+                        Debug.WriteLine("Failed loading the custom font.");
+                    }
+                }
+            }
+            catch { }
+        }
+
         //Update the user interface clock style
         void UpdateClockStyle()
         {
             try
             {
-                string clockStyle = ConfigurationManager.AppSettings["InterfaceClockPackName"].ToString();
+                string clockStyle = ConfigurationManager.AppSettings["InterfaceClockStyleName"].ToString();
                 img_Main_Time_Face.Source = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle + "\\Face.png" }, IntPtr.Zero, 40, 0);
                 img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle + "\\Hour.png" }, IntPtr.Zero, 40, 0);
                 img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle + "\\Minute.png" }, IntPtr.Zero, 40, 0);

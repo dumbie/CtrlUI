@@ -36,19 +36,19 @@ namespace FpsOverlayer
             try
             {
                 //Clear all the fonts
-                combobox_TextFontName.Items.Clear();
+                combobox_InterfaceFontStyleName.Items.Clear();
 
                 //Add default fonts
-                combobox_TextFontName.Items.Add("Segoe UI");
-                combobox_TextFontName.Items.Add("Verdana");
-                combobox_TextFontName.Items.Add("Consolas");
+                combobox_InterfaceFontStyleName.Items.Add("Segoe UI");
+                combobox_InterfaceFontStyleName.Items.Add("Verdana");
+                combobox_InterfaceFontStyleName.Items.Add("Consolas");
 
                 //Add custom fonts
                 DirectoryInfo directoryInfo = new DirectoryInfo("Assets\\Fonts\\");
                 FileInfo[] fontFiles = directoryInfo.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
                 foreach (FileInfo fontFile in fontFiles)
                 {
-                    combobox_TextFontName.Items.Add(Path.GetFileNameWithoutExtension(fontFile.Name));
+                    combobox_InterfaceFontStyleName.Items.Add(Path.GetFileNameWithoutExtension(fontFile.Name));
                 }
             }
             catch { }

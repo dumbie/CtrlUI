@@ -46,9 +46,9 @@ namespace FpsOverlayer
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
-                combobox_TextFontName.SelectionChanged += (sender, e) =>
+                combobox_InterfaceFontStyleName.SelectionChanged += (sender, e) =>
                 {
-                    SettingSave("TextFontName", combobox_TextFontName.SelectedItem.ToString());
+                    SettingSave("InterfaceFontStyleName", combobox_InterfaceFontStyleName.SelectedItem.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 

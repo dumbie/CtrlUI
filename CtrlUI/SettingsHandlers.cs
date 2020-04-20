@@ -152,6 +152,59 @@ namespace CtrlUI
             catch { }
         }
 
+        //Change the interface font style
+        async void Button_Settings_InterfaceFontStyleName(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Add font styles to string list
+                List<DataBindString> Answers = new List<DataBindString>();
+                BitmapImage imageFonts = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Font.png" }, IntPtr.Zero, -1, 0);
+
+                //Add default fonts
+                DataBindString AnswerSegoe = new DataBindString();
+                AnswerSegoe.ImageBitmap = imageFonts;
+                AnswerSegoe.Name = "Segoe UI";
+                Answers.Add(AnswerSegoe);
+
+                DataBindString AnswerVerdana = new DataBindString();
+                AnswerVerdana.ImageBitmap = imageFonts;
+                AnswerVerdana.Name = "Verdana";
+                Answers.Add(AnswerVerdana);
+
+                DataBindString AnswerConsolas = new DataBindString();
+                AnswerConsolas.ImageBitmap = imageFonts;
+                AnswerConsolas.Name = "Consolas";
+                Answers.Add(AnswerConsolas);
+
+                //Add custom fonts
+                DirectoryInfo directoryInfo = new DirectoryInfo("Assets\\Fonts\\");
+                FileInfo[] fontFiles = directoryInfo.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
+                foreach (FileInfo fontFile in fontFiles)
+                {
+                    DataBindString AnswerCustom = new DataBindString();
+                    AnswerCustom.ImageBitmap = imageFonts;
+                    AnswerCustom.Name = Path.GetFileNameWithoutExtension(fontFile.Name);
+                    Answers.Add(AnswerCustom);
+                }
+
+                //Show the messagebox
+                DataBindString messageResult = await Popup_Show_MessageBox("Interface Fonts", "", "Please select a font style to use:", Answers);
+                if (messageResult != null)
+                {
+                    //Show changed message
+                    Popup_Show_Status("Font", "Font style changed");
+
+                    //Update the setting
+                    SettingSave("InterfaceFontStyleName", messageResult.Name);
+
+                    //Update the font style
+                    UpdateAppFontStyle();
+                }
+            }
+            catch { }
+        }
+
         //Change the interface sound pack
         async void Button_Settings_InterfaceSoundPackName(object sender, RoutedEventArgs e)
         {

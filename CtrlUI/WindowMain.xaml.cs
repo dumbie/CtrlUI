@@ -49,6 +49,9 @@ namespace CtrlUI
                 //Set content and resource images with Cache OnLoad
                 SetContentResourceXamlImages();
 
+                //Adjust the application font family
+                UpdateAppFontStyle();
+
                 //Adjust the application font size
                 AdjustApplicationFontSize();
 

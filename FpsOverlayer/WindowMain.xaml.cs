@@ -476,16 +476,16 @@ namespace FpsOverlayer
                 grid_FpsOverlayer.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["DisplayOpacity"]);
 
                 //Update the stats font family
-                string textFontName = ConfigurationManager.AppSettings["TextFontName"].ToString();
-                if (textFontName == "Segoe UI" || textFontName == "Verdana" || textFontName == "Consolas")
+                string InterfaceFontStyleName = ConfigurationManager.AppSettings["InterfaceFontStyleName"].ToString();
+                if (InterfaceFontStyleName == "Segoe UI" || InterfaceFontStyleName == "Verdana" || InterfaceFontStyleName == "Consolas")
                 {
-                    this.FontFamily = new FontFamily(textFontName);
+                    this.FontFamily = new FontFamily(InterfaceFontStyleName);
                 }
                 else
                 {
                     try
                     {
-                        string fontPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\Assets\\Fonts\\" + textFontName + ".ttf";
+                        string fontPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\Assets\\Fonts\\" + InterfaceFontStyleName + ".ttf";
                         ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPath);
                         this.FontFamily = fontFamilies.First();
                     }

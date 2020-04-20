@@ -43,7 +43,7 @@ namespace FpsOverlayer
                 //Select the current font name
                 try
                 {
-                    combobox_TextFontName.SelectedItem = ConfigurationManager.AppSettings["TextFontName"].ToString();
+                    combobox_InterfaceFontStyleName.SelectedItem = ConfigurationManager.AppSettings["InterfaceFontStyleName"].ToString();
                 }
                 catch { }
 
