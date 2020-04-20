@@ -205,6 +205,42 @@ namespace CtrlUI
             catch { }
         }
 
+        //Change the interface clock stlye
+        async void Button_Settings_InterfaceClockStyleName(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Add clock styles to string list
+                List<DataBindString> Answers = new List<DataBindString>();
+                DirectoryInfo directoryInfo = new DirectoryInfo("Assets\\Clocks\\");
+                DirectoryInfo[] clockStyles = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly);
+
+                foreach (DirectoryInfo clockStyle in clockStyles)
+                {
+                    BitmapImage imageClocks = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle.Name + "\\Preview.png" }, IntPtr.Zero, -1, 0);
+                    DataBindString AnswerCustom = new DataBindString();
+                    AnswerCustom.ImageBitmap = imageClocks;
+                    AnswerCustom.Name = clockStyle.Name;
+                    Answers.Add(AnswerCustom);
+                }
+
+                //Show the messagebox
+                DataBindString messageResult = await Popup_Show_MessageBox("Interface Clocks", "", "Please select a clock style to use:", Answers);
+                if (messageResult != null)
+                {
+                    //Show changed message
+                    Popup_Show_Status("Clock", "Clock style changed");
+
+                    //Update the setting
+                    SettingSave("InterfaceClockStyleName", messageResult.Name);
+
+                    //Update the clock style
+                    UpdateClockStyle();
+                }
+            }
+            catch { }
+        }
+
         //Change the interface sound pack
         async void Button_Settings_InterfaceSoundPackName(object sender, RoutedEventArgs e)
         {

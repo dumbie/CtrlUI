@@ -347,6 +347,9 @@
     </Resource>
     <EmbeddedResource Include="Resources\IGDB\Genres.json" />
     <EmbeddedResource Include="Resources\IGDB\Platforms.json" />
+    <Content Include="Assets\Clocks\Cortana\Preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Clocks\Squircle\Center.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -362,6 +365,9 @@
     <Resource Include="Assets\Icons\Font.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Assets\Clocks\Squircle\Preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Roms\Bios.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

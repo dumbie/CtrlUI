@@ -176,6 +176,7 @@ namespace CtrlUI
                 btn_Settings_ChangeBackgroundImage.Click += Button_Settings_ChangeBackgroundImage_Click;
                 btn_Settings_ChangeBackgroundVideo.Click += Button_Settings_ChangeBackgroundVideo_Click;
                 btn_Settings_InterfaceSoundPackName.Click += Button_Settings_InterfaceSoundPackName;
+                btn_Settings_InterfaceClockStyleName.Click += Button_Settings_InterfaceClockStyleName;
                 btn_Settings_InterfaceFontStyleName.Click += Button_Settings_InterfaceFontStyleName;
 
                 //Help functions
@@ -200,7 +201,7 @@ namespace CtrlUI
         void UpdateAppFontStyle()
         {
             try
-            { 
+            {
                 string interfaceFontStyleName = ConfigurationManager.AppSettings["InterfaceFontStyleName"].ToString();
                 if (interfaceFontStyleName == "Segoe UI" || interfaceFontStyleName == "Verdana" || interfaceFontStyleName == "Consolas")
                 {
