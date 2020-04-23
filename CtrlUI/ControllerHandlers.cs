@@ -227,8 +227,23 @@ namespace CtrlUI
                         Debug.WriteLine("Button: ShoulderLeftPressed");
                         PlayInterfaceSound("ClickRight", false);
 
-                        //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                        KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
+                         {
+                             if (grid_Popup_Settings.Visibility == Visibility.Visible)
+                             {
+                                 int selectedIndex = Listbox_SettingsMenu.SelectedIndex;
+                                 if (selectedIndex > 0)
+                                 {
+                                     Listbox_SettingsMenu.SelectedIndex = Listbox_SettingsMenu.SelectedIndex - 1;
+                                     await Listbox_Settings_SingleTap();
+                                 }
+                             }
+                             else
+                             {
+                                //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                                KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                             }
+                         });
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -238,7 +253,18 @@ namespace CtrlUI
                         Debug.WriteLine("Button: ShoulderRightPressed");
                         PlayInterfaceSound("ClickRight", false);
 
-                        KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
+                        {
+                            if (grid_Popup_Settings.Visibility == Visibility.Visible)
+                            {
+                                Listbox_SettingsMenu.SelectedIndex = Listbox_SettingsMenu.SelectedIndex + 1;
+                                await Listbox_Settings_SingleTap();
+                            }
+                            else
+                            {
+                                KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                            }
+                        });
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;

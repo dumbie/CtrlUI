@@ -201,7 +201,7 @@ namespace CtrlUI
         }
 
         //Show specific popup
-        async Task Popup_Show(FrameworkElement ShowPopup, FrameworkElement FocusElement, bool QuickClose)
+        async Task Popup_Show(FrameworkElement ShowPopup, FrameworkElement FocusElement)
         {
             try
             {

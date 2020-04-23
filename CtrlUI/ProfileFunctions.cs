@@ -20,7 +20,7 @@ namespace CtrlUI
             try
             {
                 //Show the manage popup
-                await Popup_Show(grid_Popup_ProfileManager, grid_Popup_ProfileManager_button_ChangeProfile, true);
+                await Popup_Show(grid_Popup_ProfileManager, grid_Popup_ProfileManager_button_ChangeProfile);
 
                 //Load profile in manager
                 await ProfileManager_LoadProfile();

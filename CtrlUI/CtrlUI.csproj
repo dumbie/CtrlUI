@@ -368,6 +368,11 @@
     <Content Include="Assets\Clocks\Squircle\Preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Assets\Icons\Shortcut.png" />
+    <Resource Include="Assets\Icons\List.png" />
+    <Resource Include="Assets\Icons\Interface.png" />
+    <Resource Include="Assets\Icons\Background.png" />
+    <Resource Include="Assets\Icons\Network.png" />
     <Content Include="Assets\Roms\Bios.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

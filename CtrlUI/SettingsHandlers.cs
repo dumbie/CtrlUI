@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -6,8 +7,11 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
+using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static CtrlUI.ImageFunctions;
@@ -17,6 +21,112 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        //Handle settings menu keyboard/controller tapped
+        async void ListBox_Settings_KeyPressUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                Debug.WriteLine(e.Key);
+                if (e.Key == Key.Space || e.Key == Key.Down)
+                {
+                    await Listbox_Settings_SingleTap();
+                }
+            }
+            catch { }
+        }
+
+        //Handle settings menu mouse/touch tapped
+        async void ListBox_Settings_MousePressUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                //Check if an actual ListBoxItem is clicked
+                if (!AVFunctions.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+
+                //Check which mouse button is pressed
+                if (e.ClickCount == 1)
+                {
+                    vSingleTappedEvent = true;
+                    await Task.Delay(500);
+                    if (vSingleTappedEvent)
+                    {
+                        await Listbox_Settings_SingleTap();
+                    }
+                }
+            }
+            catch { }
+        }
+
+        //Handle main menu single tap
+        async Task Listbox_Settings_SingleTap()
+        {
+            try
+            {
+                if (Listbox_SettingsMenu.SelectedIndex >= 0)
+                {
+                    //Hide all the setting tabs
+                    settingsStackpanelLaunch.Visibility = Visibility.Collapsed;
+                    settingsStackpanelShortcut.Visibility = Visibility.Collapsed;
+                    settingsStackpanelApps.Visibility = Visibility.Collapsed;
+                    settingsStackpanelInterface.Visibility = Visibility.Collapsed;
+                    settingsStackpanelBackground.Visibility = Visibility.Collapsed;
+                    settingsStackpanelSound.Visibility = Visibility.Collapsed;
+                    settingsStackpanelBrowser.Visibility = Visibility.Collapsed;
+                    settingsStackpanelNetwork.Visibility = Visibility.Collapsed;
+                    settingsStackpanelOther.Visibility = Visibility.Collapsed;
+
+                    //Show the requested setting tab
+                    StackPanel SelStackPanel = (StackPanel)Listbox_SettingsMenu.SelectedItem;
+                    if (SelStackPanel.Name == "settingsButtonLaunch")
+                    {
+                        settingsStackpanelLaunch.Visibility = Visibility.Visible;
+                        await FocusOnElement(cb_SettingsLaunchFullscreen, false, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (SelStackPanel.Name == "settingsButtonShortcut")
+                    {
+                        settingsStackpanelShortcut.Visibility = Visibility.Visible;
+                        await FocusOnElement(cb_SettingsShortcutVolume, false, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (SelStackPanel.Name == "settingsButtonApps")
+                    {
+                        settingsStackpanelApps.Visibility = Visibility.Visible;
+                        await FocusOnElement(cb_SettingsShowOtherShortcuts, false, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (SelStackPanel.Name == "settingsButtonInterface")
+                    {
+                        settingsStackpanelInterface.Visibility = Visibility.Visible;
+                        await FocusOnElement(cb_SettingsCloseMediaScreen, false, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (SelStackPanel.Name == "settingsButtonBackground")
+                    {
+                        settingsStackpanelBackground.Visibility = Visibility.Visible;
+                        await FocusOnElement(cb_SettingsVideoBackground, false, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (SelStackPanel.Name == "settingsButtonSound")
+                    {
+                        settingsStackpanelSound.Visibility = Visibility.Visible;
+                        await FocusOnElement(cb_SettingsInterfaceSound, false, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (SelStackPanel.Name == "settingsButtonBrowser")
+                    {
+                        settingsStackpanelBrowser.Visibility = Visibility.Visible;
+                        await FocusOnElement(cb_SettingsShowHiddenFilesFolders, false, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (SelStackPanel.Name == "settingsButtonNetwork")
+                    {
+                        settingsStackpanelNetwork.Visibility = Visibility.Visible;
+                        await FocusOnElement(txt_SettingsSocketClientPortStart, false, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (SelStackPanel.Name == "settingsButtonOther")
+                    {
+                        settingsStackpanelOther.Visibility = Visibility.Visible;
+                        await FocusOnElement(btn_Settings_AppQuickLaunch, false, vProcessCurrent.MainWindowHandle);
+                    }
+                }
+            }
+            catch { }
+        }
+
         //Open Windows Game controller settings
         async void Button_Settings_CheckControllers_Click(object sender, RoutedEventArgs e)
         {

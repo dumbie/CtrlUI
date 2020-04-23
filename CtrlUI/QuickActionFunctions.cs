@@ -96,7 +96,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerControlMedia)
                     {
-                        await Popup_Show(grid_Popup_Media, grid_Popup_Media_PlayPause, true);
+                        await Popup_Show(grid_Popup_Media, grid_Popup_Media_PlayPause);
                     }
                     else if (messageResult == AnswerFpsOverlayer)
                     {

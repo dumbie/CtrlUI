@@ -27,7 +27,11 @@ namespace CtrlUI
                     btn_Settings_AppQuickLaunch.Content = "Change the quick launch app";
                 }
 
-                await Popup_Show(grid_Popup_Settings, cb_SettingsLaunchFullscreen, true);
+                //Show the settings popup
+                await Popup_Show(grid_Popup_Settings, null);
+
+                //Focus on settings tab
+                await Listbox_Settings_SingleTap();
             }
             catch { }
         }

@@ -234,7 +234,7 @@ namespace CtrlUI
                     }
 
                     //Show the manage popup
-                    await Popup_Show(grid_Popup_Manage, btn_Manage_SaveEditApp, true);
+                    await Popup_Show(grid_Popup_Manage, btn_Manage_SaveEditApp);
                 }
             }
             catch { }
@@ -302,7 +302,7 @@ namespace CtrlUI
                 sp_AddAppArgument.Visibility = Visibility.Visible;
 
                 //Show the manage popup
-                await Popup_Show(grid_Popup_Manage, btn_Manage_SaveEditApp, true);
+                await Popup_Show(grid_Popup_Manage, btn_Manage_SaveEditApp);
             }
             catch { }
         }

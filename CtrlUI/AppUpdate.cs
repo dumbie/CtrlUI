@@ -21,7 +21,7 @@ namespace CtrlUI
                 {
                     vCheckingForUpdate = true;
 
-                    string ResCurrentVersion = await AVDownloader.DownloadStringAsync(5000, "CtrlUI", null, new Uri("http://download.arnoldvink.com/CtrlUI.zip-version.txt" + "?nc=" + Environment.TickCount));
+                    string ResCurrentVersion = await AVDownloader.DownloadStringAsync(5000, "CtrlUI", null, new Uri("https://download.arnoldvink.com/CtrlUI.zip-version.txt" + "?nc=" + Environment.TickCount));
                     if (!string.IsNullOrWhiteSpace(ResCurrentVersion) && ResCurrentVersion != Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0])
                     {
                         if (silentCheck)

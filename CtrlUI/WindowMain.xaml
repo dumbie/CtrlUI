@@ -206,7 +206,7 @@
                     <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
                 </StackPanel>
 
-                <ListBox Grid.Row="1" Name="listbox_MainMenu" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemPaddingWhiteVertical}" Style="{StaticResource ListBoxVertical}">
+                <ListBox Grid.Row="1" Name="listbox_MainMenu" SelectedIndex="0" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemPaddingWhiteVertical}" Style="{StaticResource ListBoxVertical}">
                     <StackPanel Name="menuButtonSearch" Orientation="Horizontal">
                         <Image Source="Assets/Icons/Search.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Open application search panel" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -600,6 +600,7 @@
             <Grid Margin="150,20,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
@@ -608,141 +609,201 @@
                     <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
                 </StackPanel>
 
-                <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
-                    <StackPanel>
-                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Margin="0,0,0,0" Text="Startup Settings"/>
-                        <CheckBox Name="cb_SettingsLaunchFullscreen" Content="Launch application in fullscreen" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will show the application in fullscreen mode when launched." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                        <CheckBox Name="cb_SettingsLaunchMinimized" Content="Launch the application minimized" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will minimize the application automatically when launched." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                    <Image Grid.Column="0" Source="Assets/Icons/Buttons/LbOff.png" Height="30" Margin="0,0,10,0"/>
 
-                        <TextBlock Name="textblock_SettingsDisplayMonitor" Text="Default monitor to launch CtrlUI on" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Monitor that CtrlUI, keyboard controller and fps overlayer appears on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Slider Name="slider_SettingsDisplayMonitor" Width="400" Maximum="12" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
+                    <ListBox Grid.Column="1" Name="Listbox_SettingsMenu" SelectedIndex="0" HorizontalAlignment="Center" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" Style="{StaticResource ListBoxHorizontal}">
+                        <StackPanel Name="settingsButtonLaunch" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage your controller">
+                            <Image Source="Assets/Icons/Run.png" Width="55" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Launch" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Name="settingsButtonShortcut" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage the button mapping">
+                            <Image Source="Assets/Icons/Shortcut.png" Width="55" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Shortcut" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Name="settingsButtonApps" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application settings">
+                            <Image Source="Assets/Icons/List.png" Width="55" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Apps" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Name="settingsButtonInterface" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                            <Image Source="Assets/Icons/Interface.png" Width="55" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Interface" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Name="settingsButtonBackground" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                            <Image Source="Assets/Icons/Background.png" Width="55" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Background" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Name="settingsButtonSound" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                            <Image Source="Assets/Icons/VolumeUp.png" Width="55" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Sound" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Name="settingsButtonBrowser" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                            <Image Source="Assets/Icons/Folder.png" Width="55" HorizontalAlignment="Center"/>
+                            <TextBlock Text="File Browser" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Name="settingsButtonNetwork" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                            <Image Source="Assets/Icons/Network.png" Width="55" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Network" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Name="settingsButtonOther" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                            <Image Source="Assets/Icons/Hamburger.png" Width="55" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Other" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBox>
 
-                        <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will launch CtrlUI when you start Windows automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                    <Image Grid.Column="2" Source="Assets/Icons/Buttons/RbOff.png" Height="30" Margin="10,0,0,0"/>
+                </Grid>
 
-                        <CheckBox Name="cb_SettingsLaunchDirectXInput" Content="Launch DirectXInput on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will launch DirectXInput when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                <ScrollViewer Grid.Row="2" Style="{StaticResource ScrollViewerVertical}">
+                    <Grid>
+                        <StackPanel Name="settingsStackpanelLaunch">
+                            <CheckBox Name="cb_SettingsLaunchFullscreen" Content="Launch application in fullscreen" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show the application in fullscreen mode when launched." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                        <CheckBox Name="cb_SettingsLaunchFpsOverlayer" Content="Launch Fps Overlayer on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will launch Fps Overlayer when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <CheckBox Name="cb_SettingsLaunchMinimized" Content="Launch the application minimized" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will minimize the application automatically when launched." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcut Settings"/>
-                        <CheckBox Name="cb_SettingsShortcutVolume" Content="Control the volume with your controller (In app)" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will allow you to change the volume with the controller triggers." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <TextBlock Name="textblock_SettingsDisplayMonitor" Text="Default monitor to launch CtrlUI on" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Monitor that CtrlUI, keyboard controller and fps overlayer appears on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Slider Name="slider_SettingsDisplayMonitor" Width="400" Maximum="12" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
-                        <CheckBox Name="cb_SettingsShortcutAltEnter" Content="Press Alt and Enter with RB and Start combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will allow you to use Alt and Enter when you press RB and Start on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will launch CtrlUI when you start Windows automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                        <CheckBox Name="cb_SettingsShortcutAltTab" Content="Press Alt and Tab with RB and Back combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will allow you to use Alt and Tab when you press RB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <CheckBox Name="cb_SettingsLaunchDirectXInput" Content="Launch DirectXInput on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will launch DirectXInput when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                        <CheckBox Name="cb_SettingsShortcutWinTab" Content="Press Win and Tab with RB and Back combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will allow you to use Win and Tab when you press RB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <CheckBox Name="cb_SettingsShortcutAltF4" Content="Press Alt and F4 with LB and Start combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will allow you to use Alt and F4 when you press LB and Start on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <CheckBox Name="cb_SettingsShortcutScreenshot" Content="Create screenshot with LB and Back combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will allow you to take a screenshot when you press LB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Settings"/>
-                        <CheckBox Name="cb_SettingsShowOtherShortcuts" Content="Show found executable shortcuts" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will show all your executable shortcuts in a list so they can easily be opened." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <CheckBox Name="cb_SettingsShowOtherProcesses" Content="Show all other application processes" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will show currently running applications in the processes list so they can be shown." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <CheckBox Name="cb_SettingsHideAppProcesses" Content="Hide added apps from the processes" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will hide all the added applications from the processes list to prevent double apps." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Interface Settings"/>
-                        <CheckBox Name="cb_SettingsCloseMediaScreen" Content="Close media screen after media change" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will close the media control screen after changing the playing media on the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <CheckBox Name="cb_SettingsShowMediaMain" Content="Show media information on main screen"  Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will show your currently playing media information on top of the main screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <CheckBox Name="cb_SettingsMinimizeAppOnShow" Content="Minimize when showing application" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will minimize CtrlUI when you launch a new application or show a running process." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <CheckBox Name="cb_SettingsHideBatteryLevel" Content="Hide the controller battery level status" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will hide the controller battery level status and clock icon from the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <CheckBox Name="cb_SettingsHideMouseCursor" Content="Hide the mouse cursor when inactive" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will hide the mouse cursor when not moved for a couple seconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <CheckBox Name="cb_SettingsHideControllerHelp" Content="Hide the controller help buttons" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will hide the controller help buttons on the screen bottom." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <TextBlock Name="textblock_SettingsFontSize" Text="Adjust the application font size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Select the font size that you want to use in this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Slider Name="slider_SettingsFontSize" Width="400" Maximum="8" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
-
-                        <TextBlock Name="textblock_SettingsColorAccent" Text="Adjust the application accent color:" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <Button Name="btn_Settings_ColorPickerAccent" HorizontalAlignment="Left" Margin="0,5,0,0" Height="25" Width="400" Style="{StaticResource ButtonAccentWhite}" ToolTipService.ToolTip="Change the application accent color"/>
-
-                        <Button Name="btn_Settings_InterfaceFontStyleName" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the application font family" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Button Name="btn_Settings_InterfaceClockStyleName" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the application clock style" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Background Settings"/>
-                        <CheckBox Name="cb_SettingsVideoBackground" Content="Use video background" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will show your set video background." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <CheckBox Name="cb_SettingsDesktopBackground" Content="Use PC's desktop background" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will set your PC's desktop background." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <TextBlock Name="textblock_SettingsBackgroundBrightness" Text="Background brightness" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Change the displayed background brightness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Slider Name="slider_SettingsBackgroundBrightness" Width="400" Minimum="10" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
-
-                        <TextBlock Name="textblock_SettingsBackgroundPlayVolume" Text="Video playback volume" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Change sound volume of the background video." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Slider Name="slider_SettingsBackgroundPlayVolume" Width="400" Minimum="0" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
-
-                        <TextBlock Name="textblock_SettingsBackgroundPlaySpeed" Text="Video playback speed" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Change playback speed of the background video." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Slider Name="slider_SettingsBackgroundPlaySpeed" Width="400" Minimum="50" Maximum="150" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
-
-                        <Button Name="btn_Settings_ChangeBackgroundImage" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the background image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Button Name="btn_Settings_ChangeBackgroundVideo" Margin="0,10,0,0" HorizontalAlignment="Left" Content="Change the background video" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Sound Settings"/>
-                        <CheckBox Name="cb_SettingsInterfaceSound" Content="Enable the user interface sounds" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will play user interface sounds on certain actions." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <TextBlock Name="textblock_SettingsSoundVolume" Text="User interface sound volume" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Change the used user interface sound volume level." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Slider Name="slider_SettingsSoundVolume" Width="400" Minimum="5" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
-
-                        <Button Name="btn_Settings_InterfaceSoundPackName" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the interface sound pack" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="File Browser Settings"/>
-                        <CheckBox Name="cb_SettingsShowHiddenFilesFolders" Content="Show hidden files and folders" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will show hidden files and folders in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <CheckBox Name="cb_SettingsHideNetworkDrives" Content="Hide network drives in file browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="Enabling this will hide mounted network drives in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Network Settings"/>
-                        <TextBlock Text="CtrlUI sockets client and server ports:" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                        <TextBlock Text="The sockets are used to receive information from DirectXInput." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox Name="txt_SettingsSocketClientPortStart" Style="{StaticResource TextBoxBlack}" Width="120" HorizontalAlignment="Left"/>
-                            <TextBox Name="txt_SettingsSocketClientPortRange" IsEnabled="False" Style="{StaticResource TextBoxBlack}" Width="120" Margin="5,0,0,0" HorizontalAlignment="Left"/>
+                            <CheckBox Name="cb_SettingsLaunchFpsOverlayer" Content="Launch Fps Overlayer on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will launch Fps Overlayer when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
-                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Other Settings"/>
-                        <Button Name="btn_Settings_AppQuickLaunch" Margin="0,5,0,0" Content="Change quick launch app: Quick Launch" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Button Visibility="Collapsed" Name="btn_Settings_AddSteamLibrary" Margin="0,10,0,0" Content="Add CtrlUI to Steam Library" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Button Name="btn_Settings_AddGeforceExperience" Margin="0,10,0,0" Content="Add CtrlUI to GeForce Experience" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Button Name="btn_Settings_LaunchDirectXInput" Margin="0,10,0,0" Content="Launch DirectXInput application" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Button Name="btn_Settings_CheckControllers" Margin="0,10,0,0" Content="Manage Windows controllers" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        <Button Name="btn_Settings_CheckForUpdate" Margin="0,10,0,10" Content="Check for application update" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                    </StackPanel>
+                        <StackPanel Name="settingsStackpanelShortcut" Visibility="Collapsed">
+                            <CheckBox Name="cb_SettingsShortcutVolume" Content="Control the volume with your controller (In app)" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will allow you to change the volume with the controller triggers." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShortcutAltEnter" Content="Press Alt and Enter with RB and Start combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will allow you to use Alt and Enter when you press RB and Start on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShortcutAltTab" Content="Press Alt and Tab with RB and Back combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will allow you to use Alt and Tab when you press RB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShortcutWinTab" Content="Press Win and Tab with RB and Back combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will allow you to use Win and Tab when you press RB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShortcutAltF4" Content="Press Alt and F4 with LB and Start combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will allow you to use Alt and F4 when you press LB and Start on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShortcutScreenshot" Content="Create screenshot with LB and Back combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will allow you to take a screenshot when you press LB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        </StackPanel>
+
+                        <StackPanel Name="settingsStackpanelApps" Visibility="Collapsed">
+                            <CheckBox Name="cb_SettingsShowOtherShortcuts" Content="Show found executable shortcuts" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all your executable shortcuts in a list so they can easily be opened." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShowOtherProcesses" Content="Show all other application processes" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show currently running applications in the processes list so they can be shown." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsHideAppProcesses" Content="Hide added apps from the processes" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will hide all the added applications from the processes list to prevent double apps." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        </StackPanel>
+
+                        <StackPanel Name="settingsStackpanelInterface" Visibility="Collapsed">
+                            <CheckBox Name="cb_SettingsCloseMediaScreen" Content="Close media screen after media change" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will close the media control screen after changing the playing media on the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShowMediaMain" Content="Show media information on main screen"  Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show your currently playing media information on top of the main screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsMinimizeAppOnShow" Content="Minimize when showing application" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will minimize CtrlUI when you launch a new application or show a running process." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsHideBatteryLevel" Content="Hide the controller battery level status" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will hide the controller battery level status and clock icon from the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsHideMouseCursor" Content="Hide the mouse cursor when inactive" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will hide the mouse cursor when not moved for a couple seconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsHideControllerHelp" Content="Hide the controller help buttons" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will hide the controller help buttons on the screen bottom." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <TextBlock Name="textblock_SettingsFontSize" Text="Adjust the application font size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Select the font size that you want to use in this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Slider Name="slider_SettingsFontSize" Width="400" Maximum="8" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
+
+                            <TextBlock Name="textblock_SettingsColorAccent" Text="Adjust the application accent color:" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <Button Name="btn_Settings_ColorPickerAccent" HorizontalAlignment="Left" Margin="0,5,0,0" Height="25" Width="400" Style="{StaticResource ButtonAccentWhite}" ToolTipService.ToolTip="Change the application accent color"/>
+
+                            <Button Name="btn_Settings_InterfaceFontStyleName" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the application font family" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Name="btn_Settings_InterfaceClockStyleName" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the application clock style" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        </StackPanel>
+
+                        <StackPanel Name="settingsStackpanelBackground" Visibility="Collapsed">
+                            <CheckBox Name="cb_SettingsVideoBackground" Content="Use video background" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show your set video background." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsDesktopBackground" Content="Use PC's desktop background" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will set your PC's desktop background." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <TextBlock Name="textblock_SettingsBackgroundBrightness" Text="Background brightness" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Change the displayed background brightness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Slider Name="slider_SettingsBackgroundBrightness" Width="400" Minimum="10" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
+
+                            <TextBlock Name="textblock_SettingsBackgroundPlayVolume" Text="Video playback volume" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Change sound volume of the background video." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Slider Name="slider_SettingsBackgroundPlayVolume" Width="400" Minimum="0" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
+
+                            <TextBlock Name="textblock_SettingsBackgroundPlaySpeed" Text="Video playback speed" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Change playback speed of the background video." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Slider Name="slider_SettingsBackgroundPlaySpeed" Width="400" Minimum="50" Maximum="150" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
+
+                            <Button Name="btn_Settings_ChangeBackgroundImage" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the background image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Name="btn_Settings_ChangeBackgroundVideo" Margin="0,10,0,0" HorizontalAlignment="Left" Content="Change the background video" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        </StackPanel>
+
+                        <StackPanel Name="settingsStackpanelSound" Visibility="Collapsed">
+                            <CheckBox Name="cb_SettingsInterfaceSound" Content="Enable the user interface sounds" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will play user interface sounds on certain actions." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <TextBlock Name="textblock_SettingsSoundVolume" Text="User interface sound volume" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Change the used user interface sound volume level." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Slider Name="slider_SettingsSoundVolume" Width="400" Minimum="5" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
+
+                            <Button Name="btn_Settings_InterfaceSoundPackName" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the interface sound pack" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        </StackPanel>
+
+                        <StackPanel Name="settingsStackpanelBrowser" Visibility="Collapsed">
+                            <CheckBox Name="cb_SettingsShowHiddenFilesFolders" Content="Show hidden files and folders" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show hidden files and folders in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsHideNetworkDrives" Content="Hide network drives in file browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will hide mounted network drives in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        </StackPanel>
+
+                        <StackPanel Name="settingsStackpanelNetwork" Visibility="Collapsed">
+                            <TextBlock Text="CtrlUI sockets client and server ports:" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="The sockets are used to receive information from DirectXInput." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Name="txt_SettingsSocketClientPortStart" Style="{StaticResource TextBoxBlack}" Width="120" HorizontalAlignment="Left"/>
+                                <TextBox Name="txt_SettingsSocketClientPortRange" IsEnabled="False" Style="{StaticResource TextBoxBlack}" Width="120" Margin="5,0,0,0" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Name="settingsStackpanelOther" Visibility="Collapsed">
+                            <Button Name="btn_Settings_AppQuickLaunch" Margin="0,5,0,0" Content="Change quick launch app: Quick Launch" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Visibility="Collapsed" Name="btn_Settings_AddSteamLibrary" Margin="0,10,0,0" Content="Add CtrlUI to Steam Library" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Name="btn_Settings_AddGeforceExperience" Margin="0,10,0,0" Content="Add CtrlUI to GeForce Experience" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Name="btn_Settings_LaunchDirectXInput" Margin="0,10,0,0" Content="Launch DirectXInput application" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Name="btn_Settings_CheckControllers" Margin="0,10,0,0" Content="Manage Windows controllers" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Name="btn_Settings_CheckForUpdate" Margin="0,10,0,10" Content="Check for application update" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        </StackPanel>
+                    </Grid>
                 </ScrollViewer>
             </Grid>
 

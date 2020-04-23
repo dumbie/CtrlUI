@@ -134,16 +134,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Handle main menu keyboard/controller tapped
-        async void ListBox_Menu_KeyPressUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Space) { await listbox_Menu_SingleTap(); }
-            }
-            catch { }
-        }
-
         //Handle app list keyboard/controller tapped
         async void ListBox_Apps_KeyPressUp(object sender, KeyEventArgs e)
         {
@@ -177,7 +167,7 @@ namespace CtrlUI
                 {
                     //Debug.WriteLine("Key pressed: " + e.Key);
                     if (e.Key == Key.Escape) { await Popup_Close_Top(); }
-                    else if (e.Key == Key.F1) { await Popup_Show(grid_Popup_Help, grid_Popup_Help_button_Close, true); }
+                    else if (e.Key == Key.F1) { await Popup_Show(grid_Popup_Help, grid_Popup_Help_button_Close); }
                     else if (e.Key == Key.F2) { await QuickActionPrompt(); }
                     else if (e.Key == Key.F3) { await Popup_ShowHide_Search(false); }
                     else if (e.Key == Key.F4) { SortAppLists(false, false); }

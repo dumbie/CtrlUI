@@ -112,7 +112,6 @@ namespace CtrlUI
                 grid_Popup_FilePicker_button_ControllerUp.Click += Button_FilePicker_button_ControllerUp_Click;
                 grid_Popup_Media_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Manage_button_Close.Click += Button_Popup_Close_Click;
-                grid_Popup_Settings_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Help_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_MessageBox_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Welcome_button_Close.Click += Button_Popup_Close_Click;
@@ -167,6 +166,9 @@ namespace CtrlUI
                 grid_Popup_Welcome_button_PS4Remote.Click += Grid_Popup_Welcome_button_PS4Remote_Click;
 
                 //Settings functions
+                grid_Popup_Settings_button_Close.Click += Button_Popup_Close_Click;
+                Listbox_SettingsMenu.PreviewKeyDown += ListBox_Settings_KeyPressUp;
+                Listbox_SettingsMenu.PreviewMouseUp += ListBox_Settings_MousePressUp;
                 btn_Settings_AppQuickLaunch.Click += Button_Settings_AppQuickLaunch;
                 btn_Settings_LaunchDirectXInput.Click += Button_LaunchDirectXInput_Click;
                 btn_Settings_CheckControllers.Click += Button_Settings_CheckControllers_Click;

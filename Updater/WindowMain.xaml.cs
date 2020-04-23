@@ -101,7 +101,7 @@ namespace Updater
                         ProgressBarUpdate(Args.ProgressPercentage, false);
                         TextBlockUpdate("Downloading update file: " + Args.ProgressPercentage + "%");
                     };
-                    await WebClient.DownloadFileTaskAsync(new Uri("http://download.arnoldvink.com/?dl=CtrlUI.zip"), "AppUpdate.zip");
+                    await WebClient.DownloadFileTaskAsync(new Uri("https://download.arnoldvink.com/?dl=CtrlUI.zip"), "AppUpdate.zip");
                     Debug.WriteLine("Update file has been downloaded");
                 }
                 catch

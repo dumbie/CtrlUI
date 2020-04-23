@@ -196,7 +196,7 @@ namespace CtrlUI
                 registryKeyCurrentUser.Dispose();
 
                 //Show the welcome screen popup
-                await Popup_Show(grid_Popup_Welcome, grid_Popup_Welcome_button_LaunchDirectXInput, false);
+                await Popup_Show(grid_Popup_Welcome, grid_Popup_Welcome_button_LaunchDirectXInput);
             }
             catch { }
         }
