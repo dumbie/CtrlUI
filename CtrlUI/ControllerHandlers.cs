@@ -47,63 +47,7 @@ namespace CtrlUI
             {
                 if (Environment.TickCount >= vControllerDelay_Global)
                 {
-                    if (ControllerInput.ButtonBack && ControllerInput.ButtonShoulderLeft)
-                    {
-                        Debug.WriteLine("Button Global - Screenshot");
-                        if (ConfigurationManager.AppSettings["ShortcutScreenshot"] == "True")
-                        {
-                            PlayInterfaceSound("Screenshot", true);
-                            KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.Snapshot, false);
-
-                            ControllerUsed = true;
-                            ControllerDelayLong = true;
-                        }
-                    }
-                    else if (ControllerInput.ButtonBack && ControllerInput.ButtonShoulderRight)
-                    {
-                        Debug.WriteLine("Button Global - Alt/Win+Tab");
-                        if (ConfigurationManager.AppSettings["ShortcutWinTab"] == "True")
-                        {
-                            Popup_Show_Status("MiniMaxi", "Pressing shortcut Win+Tab");
-                            KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.Tab, false);
-
-                            ControllerUsed = true;
-                            ControllerDelayLong = true;
-                        }
-                        else if (ConfigurationManager.AppSettings["ShortcutAltTab"] == "True")
-                        {
-                            Popup_Show_Status("MiniMaxi", "Pressing shortcut Alt+Tab");
-                            KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.Tab, false);
-
-                            ControllerUsed = true;
-                            ControllerDelayLong = true;
-                        }
-                    }
-                    else if (ControllerInput.ButtonStart && ControllerInput.ButtonShoulderLeft)
-                    {
-                        Debug.WriteLine("Button Global - Alt+F4");
-                        if (ConfigurationManager.AppSettings["ShortcutAltF4"] == "True")
-                        {
-                            Popup_Show_Status("Closing", "Pressing shortcut Alt+F4");
-                            KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.F4, false);
-
-                            ControllerUsed = true;
-                            ControllerDelayLong = true;
-                        }
-                    }
-                    else if (ControllerInput.ButtonStart && ControllerInput.ButtonShoulderRight)
-                    {
-                        Debug.WriteLine("Button Global - Alt+Enter");
-                        if (ConfigurationManager.AppSettings["ShortcutAltEnter"] == "True")
-                        {
-                            Popup_Show_Status("MiniMaxi", "Pressing shortcut Alt+Enter");
-                            KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.Return, false);
-
-                            ControllerUsed = true;
-                            ControllerDelayLong = true;
-                        }
-                    }
-                    else if (ControllerInput.ButtonGuideShort)
+                    if (ControllerInput.ButtonGuideShort)
                     {
                         Debug.WriteLine("Button Global - Guide Short - Switch apps");
                         await AVActions.ActionDispatcherInvokeAsync(async delegate { await AppWindow_HideShow(); });
@@ -240,8 +184,8 @@ namespace CtrlUI
                              }
                              else
                              {
-                                //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                                KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                                 //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                                 KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
                              }
                          });
 

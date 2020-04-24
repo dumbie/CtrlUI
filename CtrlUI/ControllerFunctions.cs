@@ -141,15 +141,27 @@ namespace CtrlUI
                             AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 1.00; });
                             string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
                             Popup_Show_Status("Controller", "Connected (" + ControllerIdDisplay + ")");
+
                             //Hide the mouse cursor
                             await MouseCursorHide();
+
+                            //Update the controller help
+                            UpdateControllerHelp();
                         }
                         else
                         {
                             AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 0.40; });
                             string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
                             Popup_Show_Status("Controller", "Disconnected (" + ControllerIdDisplay + ")");
-                            if (vControllerActiveId == controllerStatusNew.NumberId) { HideBatteryStatus(true); }
+
+                            //Hide the battery status
+                            if (vControllerActiveId == controllerStatusNew.NumberId)
+                            {
+                                HideBatteryStatus(true);
+                            }
+
+                            //Update the controller help
+                            UpdateControllerHelp();
                         }
                     }
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,6 +15,21 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        //Load - DirectXInput Settings
+        void Settings_Load_DirectXInput()
+        {
+            try
+            {
+                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
+                configMap.ExeConfigFilename = "DirectXInput.exe.Config";
+                vConfigurationDirectXInput = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to load the application settings: " + ex.Message);
+            }
+        }
+
         //Load - Application Settings
         async Task Settings_Load()
         {
@@ -34,11 +50,6 @@ namespace CtrlUI
                 cb_SettingsShowMediaMain.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShowMediaMain"]);
                 cb_SettingsMinimizeAppOnShow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"]);
                 cb_SettingsShortcutVolume.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"]);
-                cb_SettingsShortcutAltEnter.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltEnter"]);
-                cb_SettingsShortcutAltF4.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltF4"]);
-                cb_SettingsShortcutAltTab.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltTab"]);
-                cb_SettingsShortcutWinTab.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutWinTab"]);
-                cb_SettingsShortcutScreenshot.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutScreenshot"]);
                 cb_SettingsLaunchDirectXInput.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchDirectXInput"]);
                 cb_SettingsLaunchFpsOverlayer.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFpsOverlayer"]);
 

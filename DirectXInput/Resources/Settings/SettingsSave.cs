@@ -20,14 +20,17 @@ namespace DirectXInput
                     SettingSave("ExclusiveGuide", cb_SettingsExclusiveGuide.IsChecked.ToString());
                 };
 
-                cb_SettingsShortcutLaunchCtrlUI.Click += (sender, e) =>
-                {
-                    SettingSave("ShortcutLaunchCtrlUI", cb_SettingsShortcutLaunchCtrlUI.IsChecked.ToString());
-                };
+                cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };
 
                 cb_SettingsPlaySoundBatteryLow.Click += (sender, e) =>
                 {
                     SettingSave("PlaySoundBatteryLow", cb_SettingsPlaySoundBatteryLow.IsChecked.ToString());
+                };
+
+                //Shortcut settings
+                cb_SettingsShortcutLaunchCtrlUI.Click += (sender, e) =>
+                {
+                    SettingSave("ShortcutLaunchCtrlUI", cb_SettingsShortcutLaunchCtrlUI.IsChecked.ToString());
                 };
 
                 cb_SettingsShortcutLaunchKeyboardController.Click += (sender, e) =>
@@ -35,7 +38,40 @@ namespace DirectXInput
                     SettingSave("ShortcutLaunchKeyboardController", cb_SettingsShortcutLaunchKeyboardController.IsChecked.ToString());
                 };
 
-                cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };
+                cb_SettingsShortcutAltEnter.Click += (sender, e) =>
+                {
+                    SettingSave("ShortcutAltEnter", cb_SettingsShortcutAltEnter.IsChecked.ToString());
+                };
+
+                cb_SettingsShortcutAltF4.Click += (sender, e) =>
+                {
+                    SettingSave("ShortcutAltF4", cb_SettingsShortcutAltF4.IsChecked.ToString());
+                };
+
+                cb_SettingsShortcutAltTab.Click += (sender, e) =>
+                {
+                    SettingSave("ShortcutAltTab", cb_SettingsShortcutAltTab.IsChecked.ToString());
+                    if (cb_SettingsShortcutAltTab.IsChecked == true)
+                    {
+                        SettingSave("ShortcutWinTab", "False");
+                        cb_SettingsShortcutWinTab.IsChecked = false;
+                    }
+                };
+
+                cb_SettingsShortcutWinTab.Click += (sender, e) =>
+                {
+                    SettingSave("ShortcutWinTab", cb_SettingsShortcutWinTab.IsChecked.ToString());
+                    if (cb_SettingsShortcutWinTab.IsChecked == true)
+                    {
+                        SettingSave("ShortcutAltTab", "False");
+                        cb_SettingsShortcutAltTab.IsChecked = false;
+                    }
+                };
+
+                cb_SettingsShortcutScreenshot.Click += (sender, e) =>
+                {
+                    SettingSave("ShortcutScreenshot", cb_SettingsShortcutScreenshot.IsChecked.ToString());
+                };
             }
             catch { }
         }

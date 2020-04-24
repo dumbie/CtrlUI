@@ -48,50 +48,6 @@ namespace CtrlUI
                     UpdateControllerHelp();
                 };
 
-                cb_SettingsShortcutAltEnter.Click += (sender, e) =>
-                {
-                    SettingSave("ShortcutAltEnter", cb_SettingsShortcutAltEnter.IsChecked.ToString());
-                    UpdateControllerHelp();
-                };
-
-                cb_SettingsShortcutAltF4.Click += (sender, e) =>
-                {
-                    SettingSave("ShortcutAltF4", cb_SettingsShortcutAltF4.IsChecked.ToString());
-                    UpdateControllerHelp();
-                };
-
-                cb_SettingsShortcutAltTab.Click += (sender, e) =>
-                {
-                    SettingSave("ShortcutAltTab", cb_SettingsShortcutAltTab.IsChecked.ToString());
-
-                    if (cb_SettingsShortcutAltTab.IsChecked == true)
-                    {
-                        SettingSave("ShortcutWinTab", "False");
-                        cb_SettingsShortcutWinTab.IsChecked = false;
-                    }
-
-                    UpdateControllerHelp();
-                };
-
-                cb_SettingsShortcutWinTab.Click += (sender, e) =>
-                {
-                    SettingSave("ShortcutWinTab", cb_SettingsShortcutWinTab.IsChecked.ToString());
-
-                    if (cb_SettingsShortcutWinTab.IsChecked == true)
-                    {
-                        SettingSave("ShortcutAltTab", "False");
-                        cb_SettingsShortcutAltTab.IsChecked = false;
-                    }
-
-                    UpdateControllerHelp();
-                };
-
-                cb_SettingsShortcutScreenshot.Click += (sender, e) =>
-                {
-                    SettingSave("ShortcutScreenshot", cb_SettingsShortcutScreenshot.IsChecked.ToString());
-                    UpdateControllerHelp();
-                };
-
                 cb_SettingsShowOtherShortcuts.Click += (sender, e) =>
                 {
                     SettingSave("ShowOtherShortcuts", cb_SettingsShowOtherShortcuts.IsChecked.ToString());

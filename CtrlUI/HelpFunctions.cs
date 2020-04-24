@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using static ArnoldVinkCode.ProcessFunctions;
+using static CtrlUI.AppVariables;
 
 namespace CtrlUI
 {
@@ -16,9 +18,12 @@ namespace CtrlUI
         {
             try
             {
-                bool DirectXRunning = CheckRunningProcessByNameOrTitle("DirectXInput", false);
-                bool KeyboardSettings = File.ReadAllText("DirectXInput.exe.Config").Contains("\"ShortcutLaunchKeyboardController\" value=\"True\"");
-                if (DirectXRunning && KeyboardSettings)
+                //Load the current DirectXInput settings
+                Settings_Load_DirectXInput();
+
+                bool processDirectXInputRunning = CheckRunningProcessByNameOrTitle("DirectXInput", false);
+                bool ShortcutLaunchKeyboardController = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutLaunchKeyboardController"].Value);
+                if (ShortcutLaunchKeyboardController && processDirectXInputRunning)
                 {
                     return true;
                 }
@@ -32,46 +37,104 @@ namespace CtrlUI
         {
             try
             {
-                if (CheckKeyboardEnabled()) { sp_ControllerHelpGuideHold.Visibility = Visibility.Visible; }
-                else { sp_ControllerHelpGuideHold.Visibility = Visibility.Collapsed; }
+                //Check if DirectXInput is running
+                bool processDirectXInputRunning = CheckRunningProcessByNameOrTitle("DirectXInput", false);
 
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["HideControllerHelp"])) { sp_ControllerHelp.Visibility = Visibility.Collapsed; }
-                else { sp_ControllerHelp.Visibility = Visibility.Visible; }
+                //Load the current DirectXInput settings
+                Settings_Load_DirectXInput();
 
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutScreenshot"])) { sp_ControllerHelpScreenshot.Visibility = Visibility.Visible; }
-                else { sp_ControllerHelpScreenshot.Visibility = Visibility.Collapsed; }
-
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltEnter"])) { sp_ControllerHelpAltEnter.Visibility = Visibility.Visible; }
-                else { sp_ControllerHelpAltEnter.Visibility = Visibility.Collapsed; }
-
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltTab"]))
+                AVActions.ActionDispatcherInvoke(delegate
                 {
-                    tb_ControllerHelpAltTab.Text = "Alt+Tab";
-                    sp_ControllerHelpAltTab.Visibility = Visibility.Visible;
-                }
+                    //Check if there is any controller connected
+                    if (!vControllerAnyConnected())
+                    {
+                        sp_ControllerHelp.Visibility = Visibility.Collapsed;
+                        return;
+                    }
 
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutWinTab"]))
-                {
-                    tb_ControllerHelpAltTab.Text = "Win+Tab";
-                    sp_ControllerHelpAltTab.Visibility = Visibility.Visible;
-                }
+                    //Check if the help setting is enabled or disabled
+                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["HideControllerHelp"]))
+                    {
+                        sp_ControllerHelp.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        sp_ControllerHelp.Visibility = Visibility.Visible;
+                    }
 
-                if (!Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltTab"]) && !Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutWinTab"])) { sp_ControllerHelpAltTab.Visibility = Visibility.Collapsed; }
+                    //Check CtrlUI settings
+                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"]))
+                    {
+                        sp_ControllerHelpVolume.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        sp_ControllerHelpVolume.Visibility = Visibility.Collapsed;
+                    }
 
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltF4"])) { sp_ControllerHelpAltF4.Visibility = Visibility.Visible; }
-                else { sp_ControllerHelpAltF4.Visibility = Visibility.Collapsed; }
+                    //Check DirectXInput settings
+                    bool ShortcutLaunchKeyboardController = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutLaunchKeyboardController"].Value);
+                    if (processDirectXInputRunning && ShortcutLaunchKeyboardController)
+                    {
+                        sp_ControllerHelpGuideHold.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        sp_ControllerHelpGuideHold.Visibility = Visibility.Collapsed;
+                    }
 
-                //Check volume setting
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"]))
-                {
-                    sp_ControllerHelpVolume.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    sp_ControllerHelpVolume.Visibility = Visibility.Collapsed;
-                }
+                    bool ShortcutScreenshot = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutScreenshot"].Value);
+                    if (processDirectXInputRunning && ShortcutScreenshot)
+                    {
+                        sp_ControllerHelpScreenshot.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        sp_ControllerHelpScreenshot.Visibility = Visibility.Collapsed;
+                    }
 
-                UpdateControllerHelpText("Quick action", string.Empty, string.Empty, "Interact", "Switch app", "Menu", "Search", string.Empty, string.Empty);
+                    bool ShortcutAltEnter = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutAltEnter"].Value);
+                    if (processDirectXInputRunning && ShortcutAltEnter)
+                    {
+                        sp_ControllerHelpAltEnter.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        sp_ControllerHelpAltEnter.Visibility = Visibility.Collapsed;
+                    }
+
+                    bool ShortcutAltTab = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutAltTab"].Value);
+                        if (processDirectXInputRunning && ShortcutAltTab)
+                    {
+                        tb_ControllerHelpAltTab.Text = "Alt+Tab";
+                        sp_ControllerHelpAltTab.Visibility = Visibility.Visible;
+                    }
+
+                    bool ShortcutWinTab = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutWinTab"].Value);
+                    if (processDirectXInputRunning && ShortcutWinTab)
+                    {
+                        tb_ControllerHelpAltTab.Text = "Win+Tab";
+                        sp_ControllerHelpAltTab.Visibility = Visibility.Visible;
+                    }
+
+                    if (!ShortcutAltTab && !ShortcutWinTab)
+                    {
+                        sp_ControllerHelpAltTab.Visibility = Visibility.Collapsed;
+                    }
+
+                    bool ShortcutAltF4 = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutAltF4"].Value);
+                    if (processDirectXInputRunning && ShortcutAltF4)
+                    {
+                        sp_ControllerHelpAltF4.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        sp_ControllerHelpAltF4.Visibility = Visibility.Collapsed;
+                    }
+
+                    //Update controller help text
+                    UpdateControllerHelpText("Quick action", string.Empty, string.Empty, "Interact", "Switch app", "Menu", "Search", string.Empty, string.Empty);
+                });
             }
             catch { }
         }

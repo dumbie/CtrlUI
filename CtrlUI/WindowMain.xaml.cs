@@ -37,6 +37,7 @@ namespace CtrlUI
 
                 //Check application settings
                 Settings_Check();
+                Settings_Load_DirectXInput();
                 await Settings_Load();
                 Settings_Save();
 

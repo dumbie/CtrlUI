@@ -13,22 +13,20 @@ namespace DirectXInput
         {
             try
             {
-                bool BlockOutput = false;
-
                 //Update the button press times
                 UpdateButtonPressTimes(Controller);
                 CheckButtonPressTimeGuide(Controller);
 
-                //Check if keyboard controller is running
+                //Check if CtrlUI or Keyboard controller is running
+                bool BlockOutputApplication = false;
                 if (vProcessKeyboardController != null)
                 {
                     if (Controller.Manage)
                     {
                         await OutputAppKeyboardController(Controller);
                     }
-                    BlockOutput = true;
+                    BlockOutputApplication = true;
                 }
-                //Check if CtrlUI is running
                 else if (vProcessCtrlUI != null)
                 {
                     if (Controller.Manage)
@@ -37,7 +35,7 @@ namespace DirectXInput
                     }
                     if (vProcessCtrlUIActivated)
                     {
-                        BlockOutput = true;
+                        BlockOutputApplication = true;
                     }
                 }
 
@@ -45,10 +43,10 @@ namespace DirectXInput
                 ControllerPreview(Controller);
 
                 //Check if controller shortcut is pressed
-                await ControllerShortcut(Controller);
+                bool BlockOutputShortcut = await ControllerShortcut(Controller);
 
                 //Check if output or guide button needs to be blocked
-                if (BlockOutput)
+                if (BlockOutputApplication || BlockOutputShortcut)
                 {
                     //Prepare empty XOutput device data
                     PrepareXInputData(Controller, true);

@@ -108,6 +108,7 @@
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppTrayMenu.cs" />
     <Compile Include="AppVariables.cs" />
+    <Compile Include="OverlayFunctions.cs" />
     <Compile Include="HidGuardian.cs" />
     <Compile Include="ControllerPreview.cs" />
     <Compile Include="ControllerShortcuts.cs" />
@@ -168,6 +169,9 @@
     </Resource>
     <Resource Include="..\CtrlUI\Assets\Icons\Controller-Dark.png">
       <Link>Assets\Icons\Controller-Dark.png</Link>
+    </Resource>
+    <Resource Include="Assets\Icons\Shortcuts.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Content Include="Profiles\DirectCloseTools.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -48,6 +48,7 @@ namespace DirectXInput
                     StackPanel SelStackPanel = (StackPanel)lb_Menu.SelectedItem;
                     if (SelStackPanel.Name == "menuButtonController") { ShowGridPage(grid_Controller); }
                     else if (SelStackPanel.Name == "menuButtonButtons") { ShowGridPage(grid_Buttons); }
+                    else if (SelStackPanel.Name == "menuButtonShortcuts") { ShowGridPage(grid_Shortcuts); }
                     else if (SelStackPanel.Name == "menuButtonSettings") { ShowGridPage(grid_Settings); }
                     else if (SelStackPanel.Name == "menuButtonHelp") { ShowGridPage(grid_Help); }
                 }

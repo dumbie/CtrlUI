@@ -3,10 +3,13 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput
 {
@@ -110,6 +113,67 @@ namespace DirectXInput
                         ControllerUsed = true;
                         ControllerDelayLong = true;
                     }
+                    //Press Alt+Enter
+                    else if (Controller.InputCurrent.ButtonStart && Controller.InputCurrent.ButtonShoulderRight)
+                    {
+                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltEnter"]))
+                        {
+                            Debug.WriteLine("Button Global - Alt+Enter");
+                            Overlay_Show_Status("MiniMaxi", "Pressing Alt+Enter");
+                            KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.Return, false);
+
+                            ControllerUsed = true;
+                            ControllerDelayLong = true;
+                        }
+                    }
+                    //Press Alt+F4
+                    else if (Controller.InputCurrent.ButtonStart && Controller.InputCurrent.ButtonShoulderLeft)
+                    {
+                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltF4"]))
+                        {
+                            Debug.WriteLine("Button Global - Alt+F4");
+                            Overlay_Show_Status("Closing", "Pressing Alt+F4");
+                            KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.F4, false);
+
+                            ControllerUsed = true;
+                            ControllerDelayLong = true;
+                        }
+                    }
+                    //Press Alt+Tab or Win+Tab
+                    else if (Controller.InputCurrent.ButtonBack && Controller.InputCurrent.ButtonShoulderRight)
+                    {
+                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutWinTab"]))
+                        {
+                            Debug.WriteLine("Button Global - Win+Tab");
+                            Overlay_Show_Status("MiniMaxi", "Pressing Win+Tab");
+                            KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.Tab, false);
+
+                            ControllerUsed = true;
+                            ControllerDelayLong = true;
+                        }
+                        else if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltTab"]))
+                        {
+                            Debug.WriteLine("Button Global - Alt+Tab");
+                            Overlay_Show_Status("MiniMaxi", "Pressing Alt+Tab");
+                            KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.Tab, false);
+
+                            ControllerUsed = true;
+                            ControllerDelayLong = true;
+                        }
+                    }
+                    //Make screenshot
+                    else if (Controller.InputCurrent.ButtonBack && Controller.InputCurrent.ButtonShoulderLeft)
+                    {
+                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutScreenshot"]))
+                        {
+                            Debug.WriteLine("Button Global - Screenshot");
+                            PlayInterfaceSound("Screenshot", true);
+                            KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.Snapshot, false);
+
+                            ControllerUsed = true;
+                            ControllerDelayLong = true;
+                        }
+                    }
                     //Disconnect controller from Bluetooth
                     else if ((Controller.InputCurrent.ButtonGuide || Controller.InputCurrent.ButtonGuideShort || Controller.InputCurrent.ButtonGuideLong) && Controller.InputCurrent.ButtonStart)
                     {
@@ -175,7 +239,12 @@ namespace DirectXInput
 
                     if (!CheckRunningProcessByNameOrTitle("CtrlUI", false))
                     {
+                        Overlay_Show_Status("MiniMaxi", "Launching CtrlUI");
                         ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", true, false);
+                    }
+                    else
+                    {
+                        Overlay_Show_Status("MiniMaxi", "Showing CtrlUI");
                     }
                 }
             }

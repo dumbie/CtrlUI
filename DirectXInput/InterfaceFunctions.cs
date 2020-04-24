@@ -20,6 +20,7 @@ namespace DirectXInput
                 grid_Controller.Visibility = Visibility.Collapsed;
                 grid_Buttons.Visibility = Visibility.Collapsed;
                 grid_Settings.Visibility = Visibility.Collapsed;
+                grid_Shortcuts.Visibility = Visibility.Collapsed;
                 grid_Help.Visibility = Visibility.Collapsed;
                 elementTarget.Visibility = Visibility.Visible;
             }
