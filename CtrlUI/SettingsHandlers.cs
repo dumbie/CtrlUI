@@ -164,7 +164,7 @@ namespace CtrlUI
                 DataBindString messageResult = await Popup_Show_MessageBox("Quick Launch Application", "", "Please select a new quick launch application:", Answers);
                 if (messageResult != null)
                 {
-                    btn_Settings_AppQuickLaunch.Content = "Change quick launch app: " + messageResult.Name;
+                    btn_Settings_AppQuickLaunch_TextBlock.Text = "Change quick launch app: " + messageResult.Name;
 
                     //Set previous quick launch application to false
                     foreach (DataBindApp dataBindApp in CombineAppLists(false, false).Where(x => x.QuickLaunch))
@@ -448,7 +448,7 @@ namespace CtrlUI
                     //Copy art box to the Streaming Assets directory
                     File_Copy("Assets\\BoxArt.png", TargetFileBoxArtFile, true);
 
-                    btn_Settings_AddGeforceExperience.Content = "Remove CtrlUI from GeForce Experience";
+                    btn_Settings_AddGeforceExperience_TextBlock.Text = "Remove CtrlUI from GeForce Experience";
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
@@ -465,7 +465,7 @@ namespace CtrlUI
                     File_Delete(TargetFileShortcut);
                     Directory_Delete(TargetFileBoxArtDirectory);
 
-                    btn_Settings_AddGeforceExperience.Content = "Add CtrlUI to GeForce Experience";
+                    btn_Settings_AddGeforceExperience_TextBlock.Text = "Add CtrlUI to GeForce Experience";
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();

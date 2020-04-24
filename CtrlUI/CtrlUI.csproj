@@ -368,11 +368,24 @@
     <Content Include="Assets\Clocks\Squircle\Preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Assets\Icons\Shortcut.png" />
-    <Resource Include="Assets\Icons\List.png" />
-    <Resource Include="Assets\Icons\Interface.png" />
-    <Resource Include="Assets\Icons\Background.png" />
-    <Resource Include="Assets\Icons\Network.png" />
+    <Resource Include="Assets\Icons\Shortcut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\List.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Interface.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Network.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Clock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Assets\Roms\Bios.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

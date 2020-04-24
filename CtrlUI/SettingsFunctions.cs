@@ -20,11 +20,11 @@ namespace CtrlUI
                 try
                 {
                     DataBindApp QuickLaunchApp = CombineAppLists(false, false).Where(x => x.QuickLaunch).FirstOrDefault();
-                    btn_Settings_AppQuickLaunch.Content = "Change quick launch app: " + QuickLaunchApp.Name;
+                    btn_Settings_AppQuickLaunch_TextBlock.Text = "Change quick launch app: " + QuickLaunchApp.Name;
                 }
                 catch
                 {
-                    btn_Settings_AppQuickLaunch.Content = "Change the quick launch app";
+                    btn_Settings_AppQuickLaunch_TextBlock.Text = "Change the quick launch app";
                 }
 
                 //Show the settings popup

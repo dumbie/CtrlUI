@@ -619,39 +619,39 @@
                     <Image Grid.Column="0" Source="Assets/Icons/Buttons/LbOff.png" Height="30" Margin="0,0,10,0"/>
 
                     <ListBox Grid.Column="1" Name="Listbox_SettingsMenu" SelectedIndex="0" HorizontalAlignment="Center" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" Style="{StaticResource ListBoxHorizontal}">
-                        <StackPanel Name="settingsButtonLaunch" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage your controller">
+                        <StackPanel Name="settingsButtonLaunch" Style="{StaticResource ListBoxMenuStackPanel}">
                             <Image Source="Assets/Icons/Run.png" Width="55" HorizontalAlignment="Center"/>
                             <TextBlock Text="Launch" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Name="settingsButtonShortcut" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage the button mapping">
+                        <StackPanel Name="settingsButtonShortcut" Style="{StaticResource ListBoxMenuStackPanel}">
                             <Image Source="Assets/Icons/Shortcut.png" Width="55" HorizontalAlignment="Center"/>
                             <TextBlock Text="Shortcut" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Name="settingsButtonApps" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application settings">
+                        <StackPanel Name="settingsButtonApps" Style="{StaticResource ListBoxMenuStackPanel}">
                             <Image Source="Assets/Icons/List.png" Width="55" HorizontalAlignment="Center"/>
                             <TextBlock Text="Apps" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Name="settingsButtonInterface" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                        <StackPanel Name="settingsButtonInterface" Style="{StaticResource ListBoxMenuStackPanel}">
                             <Image Source="Assets/Icons/Interface.png" Width="55" HorizontalAlignment="Center"/>
                             <TextBlock Text="Interface" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Name="settingsButtonBackground" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                        <StackPanel Name="settingsButtonBackground" Style="{StaticResource ListBoxMenuStackPanel}">
                             <Image Source="Assets/Icons/Background.png" Width="55" HorizontalAlignment="Center"/>
                             <TextBlock Text="Background" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Name="settingsButtonSound" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                        <StackPanel Name="settingsButtonSound" Style="{StaticResource ListBoxMenuStackPanel}">
                             <Image Source="Assets/Icons/VolumeUp.png" Width="55" HorizontalAlignment="Center"/>
                             <TextBlock Text="Sound" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Name="settingsButtonBrowser" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                        <StackPanel Name="settingsButtonBrowser" Style="{StaticResource ListBoxMenuStackPanel}">
                             <Image Source="Assets/Icons/Folder.png" Width="55" HorizontalAlignment="Center"/>
                             <TextBlock Text="File Browser" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Name="settingsButtonNetwork" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                        <StackPanel Name="settingsButtonNetwork" Style="{StaticResource ListBoxMenuStackPanel}">
                             <Image Source="Assets/Icons/Network.png" Width="55" HorizontalAlignment="Center"/>
                             <TextBlock Text="Network" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Name="settingsButtonOther" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
+                        <StackPanel Name="settingsButtonOther" Style="{StaticResource ListBoxMenuStackPanel}">
                             <Image Source="Assets/Icons/Hamburger.png" Width="55" HorizontalAlignment="Center"/>
                             <TextBlock Text="Other" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                         </StackPanel>
@@ -660,7 +660,7 @@
                     <Image Grid.Column="2" Source="Assets/Icons/Buttons/RbOff.png" Height="30" Margin="10,0,0,0"/>
                 </Grid>
 
-                <ScrollViewer Grid.Row="2" Style="{StaticResource ScrollViewerVertical}">
+                <ScrollViewer Grid.Row="2" Margin="0,10,0,0" Style="{StaticResource ScrollViewerVertical}">
                     <Grid>
                         <StackPanel Name="settingsStackpanelLaunch">
                             <CheckBox Name="cb_SettingsLaunchFullscreen" Content="Launch application in fullscreen" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
@@ -684,10 +684,7 @@
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelShortcut" Visibility="Collapsed">
-                            <CheckBox Name="cb_SettingsShortcutVolume" Content="Control the volume with your controller (In app)" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                            <TextBlock Text="Enabling this will allow you to change the volume with the controller triggers." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                            <CheckBox Name="cb_SettingsShortcutAltEnter" Content="Press Alt and Enter with RB and Start combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <CheckBox Name="cb_SettingsShortcutAltEnter" Content="Press Alt and Enter with RB and Start combined (Global)" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will allow you to use Alt and Enter when you press RB and Start on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                             <CheckBox Name="cb_SettingsShortcutAltTab" Content="Press Alt and Tab with RB and Back combined (Global)" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
@@ -737,15 +734,38 @@
                             <TextBlock Text="Select the font size that you want to use in this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Slider Name="slider_SettingsFontSize" Width="400" Maximum="8" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
-                            <TextBlock Name="textblock_SettingsColorAccent" Text="Adjust the application accent color:" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                            <Button Name="btn_Settings_ColorPickerAccent" HorizontalAlignment="Left" Margin="0,5,0,0" Height="25" Width="400" Style="{StaticResource ButtonAccentWhite}" ToolTipService.ToolTip="Change the application accent color"/>
+                            <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,20,0,20"/>
 
-                            <Button Name="btn_Settings_InterfaceFontStyleName" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the application font family" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                            <Button Name="btn_Settings_InterfaceClockStyleName" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the application clock style" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Name="btn_Settings_ColorPickerAccent" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Rectangle Name="rectangle_Settings_ColorPickerAccent" Width="50" Height="50" Fill="{DynamicResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
+                                        <TextBlock Margin="15,0,0,0" Text="Change the application accent color" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+
+                            <Button Name="btn_Settings_InterfaceFontStyleName" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Assets/Icons/Font.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Margin="15,0,0,0" Text="Change the application font family" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+
+                            <Button Name="btn_Settings_InterfaceClockStyleName" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Assets/Icons/Clock.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Margin="15,0,0,0" Text="Change the application clock style" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelBackground" Visibility="Collapsed">
-                            <CheckBox Name="cb_SettingsVideoBackground" Content="Use video background" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <CheckBox Name="cb_SettingsVideoBackground" Content="Use video as the background" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will show your set video background." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                             <CheckBox Name="cb_SettingsDesktopBackground" Content="Use PC's desktop background" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
@@ -763,19 +783,48 @@
                             <TextBlock Text="Change playback speed of the background video." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Slider Name="slider_SettingsBackgroundPlaySpeed" Width="400" Minimum="50" Maximum="150" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
-                            <Button Name="btn_Settings_ChangeBackgroundImage" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the background image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                            <Button Name="btn_Settings_ChangeBackgroundVideo" Margin="0,10,0,0" HorizontalAlignment="Left" Content="Change the background video" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,20,0,20"/>
+
+                            <Button Name="btn_Settings_ChangeBackgroundImage" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Assets/Icons/Background.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Margin="15,0,0,0" Text="Change the background image" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+
+                            <Button Name="btn_Settings_ChangeBackgroundVideo" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Assets/Icons/Background.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Margin="15,0,0,0" Text="Change the background video" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelSound" Visibility="Collapsed">
-                            <CheckBox Name="cb_SettingsInterfaceSound" Content="Enable the user interface sounds" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <CheckBox Name="cb_SettingsShortcutVolume" Content="Control the volume with your controller (In app)" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will allow you to change the volume with the controller triggers." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsInterfaceSound" Content="Enable the user interface sounds" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will play user interface sounds on certain actions." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                             <TextBlock Name="textblock_SettingsSoundVolume" Text="User interface sound volume" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Change the used user interface sound volume level." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Slider Name="slider_SettingsSoundVolume" Width="400" Minimum="5" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
-                            <Button Name="btn_Settings_InterfaceSoundPackName" Margin="0,20,0,0" HorizontalAlignment="Left" Content="Change the interface sound pack" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,20,0,20"/>
+
+                            <Button Name="btn_Settings_InterfaceSoundPackName" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Assets/Icons/VolumeUp.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Margin="15,0,0,0" Text="Change the interface sound pack" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelBrowser" Visibility="Collapsed">
@@ -784,6 +833,8 @@
 
                             <CheckBox Name="cb_SettingsHideNetworkDrives" Content="Hide network drives in file browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will hide mounted network drives in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <TextBlock Text="* You can add new file locations to open in the profile manager." Margin="0,20,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelNetwork" Visibility="Collapsed">
@@ -796,12 +847,50 @@
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelOther" Visibility="Collapsed">
-                            <Button Name="btn_Settings_AppQuickLaunch" Margin="0,5,0,0" Content="Change quick launch app: Quick Launch" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                            <Button Visibility="Collapsed" Name="btn_Settings_AddSteamLibrary" Margin="0,10,0,0" Content="Add CtrlUI to Steam Library" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                            <Button Name="btn_Settings_AddGeforceExperience" Margin="0,10,0,0" Content="Add CtrlUI to GeForce Experience" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                            <Button Name="btn_Settings_LaunchDirectXInput" Margin="0,10,0,0" Content="Launch DirectXInput application" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                            <Button Name="btn_Settings_CheckControllers" Margin="0,10,0,0" Content="Manage Windows controllers" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                            <Button Name="btn_Settings_CheckForUpdate" Margin="0,10,0,10" Content="Check for application update" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Name="btn_Settings_AppQuickLaunch" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Assets/Icons/App.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Name="btn_Settings_AppQuickLaunch_TextBlock" Margin="15,0,0,0" Text="Change quick launch app: Quick Launch" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+
+                            <Button Name="btn_Settings_AddGeforceExperience" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Assets/Icons/Shortcut.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Name="btn_Settings_AddGeforceExperience_TextBlock" Margin="15,0,0,0" Text="Add CtrlUI to GeForce Experience" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+
+                            <Button Name="btn_Settings_LaunchDirectXInput" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Assets/Apps/DirectXInput.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Margin="15,0,0,0" Text="Launch DirectXInput application" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+
+                            <Button Name="btn_Settings_CheckControllers" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Assets/Icons/Controller.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Margin="15,0,0,0" Text="Manage Windows controllers" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+
+                            <Button Name="btn_Settings_CheckForUpdate" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Assets/Icons/Refresh.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Margin="15,0,0,0" Text="Check for application update" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </ScrollViewer>

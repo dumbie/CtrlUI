@@ -73,7 +73,7 @@ namespace CtrlUI
                 string targetFileGeforce = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\", targetName + ".url");
                 if (File.Exists(targetFileGeforce))
                 {
-                    btn_Settings_AddGeforceExperience.Content = "Remove CtrlUI from GeForce Experience";
+                    btn_Settings_AddGeforceExperience_TextBlock.Text = "Remove CtrlUI from GeForce Experience";
                 }
 
                 //Background settings
