@@ -1,0 +1,29 @@
+﻿<Window x:Class="DirectXInput.WindowOverlay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DirectXInput"
+        mc:Ignorable="d"
+        Title="DirectXInput"
+        Background="Transparent"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ShowInTaskbar="False"
+        Topmost="True"
+        SnapsToDevicePixels="True">
+
+    <!-- Status - Message Status -->
+    <Grid Name="grid_Message_Status" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,55,0,0">
+        <Grid.Background>
+            <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
+        </Grid.Background>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Margin="15,10,10,10" Orientation="Horizontal">
+                <Image Name="grid_Message_Status_Image" Height="40" Margin="0,0,15,0"/>
+                <TextBlock Name="grid_Message_Status_Text" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Changed" Margin="0,0,15,0"/>
+            </StackPanel>
+            <Rectangle Fill="{DynamicResource ApplicationAccentLightBrush}" Width="4"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -24,8 +24,9 @@ Keyboard Controller is an on screen keyboard which can be used by your controlle
 | Installation Instructions
 1) Extract the CtrlUI folder to any directory you want on your computer.
 2) Make sure that you have installed all the requirements listed below.
-3) Launch CtrlUI.exe and setup a few basic apps in the welcome screen.
-4) Enjoy using your brand new controller based user interface.
+3) Launch CtrlUI.exe and setup a few basic apps in the welcome screen*
+4) Enjoy using your new controller friendly based user interface.
+* For the best experience please use CtrlUI-Admin.exe
 
 | Uninstallation Instructions
 1) Run the Driver Installer and click on "Uninstall drivers"
@@ -56,9 +57,12 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
 | Changelog
+v1.18.0.0 (-April-2020)
+- DirectXInput now shows overlay notifications.
+* Miscellaneous application improvements and fixes.
+
 v1.17.0.0 (17-April-2020)
 - You can now download rom information from the file picker.
-* Miscellaneous application improvements and fixes.
 
 v1.15.0.0 (1-April-2020)
 - You can now disable a button on the controller mapping screen.

@@ -32,6 +32,7 @@ namespace DirectXInput
                         Debug.WriteLine("Failed to initialize direct input for: " + Controller.Details.DisplayName);
                         AVActions.ActionDispatcherInvoke(delegate
                         {
+                            App.vWindowOverlay.Overlay_Show_Status("Controller", "Controller disconnected");
                             txt_Controller_Information.Text = "The controller is no longer connected or supported.";
                         });
 
@@ -45,6 +46,7 @@ namespace DirectXInput
                         Debug.WriteLine("Failed to open Xbox bus driver for: " + Controller.Details.DisplayName);
                         AVActions.ActionDispatcherInvoke(delegate
                         {
+                            App.vWindowOverlay.Overlay_Show_Status("Controller", "Install drivers");
                             txt_Controller_Information.Text = "Please make sure that you have installed the required drivers.";
                         });
 
@@ -54,7 +56,9 @@ namespace DirectXInput
                     //Set controller interface information
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        txt_Controller_Information.Text = "Connected controller " + (Controller.NumberId + 1) + ": " + Controller.Details.DisplayName;
+                        string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
+                        App.vWindowOverlay.Overlay_Show_Status("Controller", "Connected (" + controllerNumberDisplay + ")");
+                        txt_Controller_Information.Text = "Connected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
                     });
 
                     //Update the controller interface settings
@@ -133,7 +137,9 @@ namespace DirectXInput
                     Debug.WriteLine("Disconnecting the controller " + Controller.NumberId + ": " + Controller.Details.DisplayName);
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        txt_Controller_Information.Text = "Disconnected controller " + (Controller.NumberId + 1) + ": " + Controller.Details.DisplayName;
+                        string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
+                        App.vWindowOverlay.Overlay_Show_Status("Controller", "Disconnected (" + controllerNumberDisplay + ")");
+                        txt_Controller_Information.Text = "Disconnected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
                         if (Controller.NumberId == 0)
                         {
                             image_Controller0.Source = new BitmapImage(new Uri("Assets/Icons/Controller-Dark.png", UriKind.Relative));
@@ -251,6 +257,7 @@ namespace DirectXInput
                 Debug.WriteLine("Stopped all the controllers direct input.");
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    App.vWindowOverlay.Overlay_Show_Status("Controller", "Disconnected all");
                     txt_Controller_Information.Text = "Disconnected all the connected controllers.";
                 });
             }

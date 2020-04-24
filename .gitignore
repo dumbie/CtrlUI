@@ -7,6 +7,8 @@
 /DirectXInput/obj
 /DirectXInput-Admin/obj
 /DirectXInput-Admin/bin
+/DirectXInput-Launcher/obj
+/DirectXInput-Launcher/bin
 /DriverInstaller/obj
 /DriverInstaller/bin
 /FpsOverlayer/obj

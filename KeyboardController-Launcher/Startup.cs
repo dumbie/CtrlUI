@@ -23,7 +23,7 @@ namespace AdminLauncher
                 InstallCertificate(@"Resources\ArnoldVinkCertificate.cer");
                 SecureUIAPathsAllow();
 
-                //Run the keyboard controller
+                //Run the certified application
                 ProcessLauncherWin32("KeyboardController.exe", "", "", false, false);
 
                 //Disable launch requirements

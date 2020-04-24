@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static CtrlUI.AppVariables;
-using static CtrlUI.ImageFunctions;
+using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI

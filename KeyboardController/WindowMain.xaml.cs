@@ -24,6 +24,9 @@ namespace KeyboardController
         //Window Initialize
         public WindowMain() { InitializeComponent(); }
 
+        //Window Variables
+        public static IntPtr vInteropWindowHandle = IntPtr.Zero;
+
         //Window Initialized
         protected override async void OnSourceInitialized(EventArgs e)
         {

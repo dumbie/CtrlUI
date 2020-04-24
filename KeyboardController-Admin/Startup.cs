@@ -14,7 +14,7 @@ namespace AdminLauncher
     public partial class App : Application
     {
         //Application Variables
-        bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+        readonly bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         string SchTask_Author = string.Empty;
         string SchTask_Name = string.Empty;
         string SchTask_Description = string.Empty;

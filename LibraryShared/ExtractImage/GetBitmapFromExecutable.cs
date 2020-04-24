@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace CtrlUI
+namespace LibraryShared
 {
     public partial class ExtractImage
     {

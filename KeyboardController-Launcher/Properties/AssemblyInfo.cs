@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 
 //General Information about assembly
-[assembly: AssemblyTitle("Fps Overlayer Launcher")]
-[assembly: AssemblyProduct("Fps Overlayer Launcher")]
-[assembly: AssemblyDescription("Fps Overlayer Launcher")]
+[assembly: AssemblyTitle("Keyboard Controller Launcher")]
+[assembly: AssemblyProduct("Keyboard Controller Launcher")]
+[assembly: AssemblyDescription("Keyboard Controller Launcher")]
 [assembly: AssemblyCompany("Arnold Vink")]
 [assembly: AssemblyCopyright("Copyright © Arnold Vink")]

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ProcessUwpFunctions;
-using static CtrlUI.ImageFunctions;
+using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI

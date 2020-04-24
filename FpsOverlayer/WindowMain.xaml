@@ -11,7 +11,6 @@
         AllowsTransparency="True"
         ShowInTaskbar="False"
         Topmost="True"
-        FontFamily="Segoe UI"
         SnapsToDevicePixels="True">
 
     <Grid Name="grid_FpsOverlayer" HorizontalAlignment="Left" VerticalAlignment="Top">

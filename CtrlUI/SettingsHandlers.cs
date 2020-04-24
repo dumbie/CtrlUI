@@ -14,7 +14,7 @@ using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
-using static CtrlUI.ImageFunctions;
+using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI

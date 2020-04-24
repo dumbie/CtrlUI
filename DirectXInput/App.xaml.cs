@@ -10,6 +10,7 @@ namespace DirectXInput
     {
         //Application Windows
         public static WindowMain vWindowMain = new WindowMain();
+        public static WindowOverlay vWindowOverlay = new WindowOverlay();
 
         //Application Startup
         protected override async void OnStartup(StartupEventArgs e)

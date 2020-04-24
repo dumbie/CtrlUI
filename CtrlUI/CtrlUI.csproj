@@ -115,8 +115,6 @@
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
-    <Compile Include="Resources\ExtractImage\GetBitmapSourceFromWindow.cs" />
-    <Compile Include="Resources\ExtractImage\GetBitmapFromExecutable.cs" />
     <Compile Include="WelcomeHandlers.cs" />
     <Compile Include="WelcomeFunctions.cs" />
     <Compile Include="ManageHandlers.cs" />
@@ -157,7 +155,6 @@
     <Compile Include="ControllerFunctions.cs" />
     <Compile Include="ControllerHandlers.cs" />
     <Compile Include="HelpFunctions.cs" />
-    <Compile Include="ImageFunctions.cs" />
     <Compile Include="ListSorting.cs" />
     <Compile Include="MessageBoxHandlers.cs" />
     <Compile Include="MessageBoxFunctions.cs" />

@@ -15,8 +15,8 @@ using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
-using static CtrlUI.ImageFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -25,15 +25,18 @@ namespace CtrlUI
         //Window Initialize
         public WindowMain() { InitializeComponent(); }
 
+        //Window Variables
+        public static IntPtr vInteropWindowHandle = IntPtr.Zero;
+
         //Window Initialized
         protected override async void OnSourceInitialized(EventArgs e)
         {
             try
             {
                 //Register Hotkeys and Filtermessage
-                IntPtr InteropHandle = new WindowInteropHelper(this).EnsureHandle();
+                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
                 ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
-                RegisterHotKey(InteropHandle, HotKeyRegisterId, (byte)KeysModifiers.Win, (byte)KeysVirtual.CapsLock);
+                RegisterHotKey(vInteropWindowHandle, HotKeyRegisterId, (byte)KeysModifiers.Win, (byte)KeysVirtual.CapsLock);
 
                 //Check application settings
                 Settings_Check();

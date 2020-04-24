@@ -6,9 +6,9 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
 
-namespace CtrlUI
+namespace LibraryShared
 {
-    partial class ImageFunctions
+    public partial class ImageFunctions
     {
         //Convert file to a string
         public static string FileToString(string[] stringSource)

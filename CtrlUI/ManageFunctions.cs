@@ -11,7 +11,7 @@ using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
-using static CtrlUI.ImageFunctions;
+using static LibraryShared.ImageFunctions;
 using static LibraryShared.AppStartupCheck;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;

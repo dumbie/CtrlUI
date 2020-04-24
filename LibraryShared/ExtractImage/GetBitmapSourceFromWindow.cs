@@ -4,7 +4,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVInteropDll;
 
-namespace CtrlUI
+namespace LibraryShared
 {
     public partial class ExtractImage
     {

@@ -3,7 +3,6 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -48,6 +47,7 @@ namespace CtrlUI
                     //Check if there is any controller connected
                     if (!vControllerAnyConnected())
                     {
+                        grid_Popup_Media_Volume_Help.Visibility = Visibility.Collapsed;
                         sp_ControllerHelp.Visibility = Visibility.Collapsed;
                         return;
                     }
@@ -55,10 +55,12 @@ namespace CtrlUI
                     //Check if the help setting is enabled or disabled
                     if (Convert.ToBoolean(ConfigurationManager.AppSettings["HideControllerHelp"]))
                     {
+                        grid_Popup_Media_Volume_Help.Visibility = Visibility.Collapsed;
                         sp_ControllerHelp.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
+                        grid_Popup_Media_Volume_Help.Visibility = Visibility.Visible;
                         sp_ControllerHelp.Visibility = Visibility.Visible;
                     }
 
@@ -104,7 +106,7 @@ namespace CtrlUI
                     }
 
                     bool ShortcutAltTab = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutAltTab"].Value);
-                        if (processDirectXInputRunning && ShortcutAltTab)
+                    if (processDirectXInputRunning && ShortcutAltTab)
                     {
                         tb_ControllerHelpAltTab.Text = "Alt+Tab";
                         sp_ControllerHelpAltTab.Visibility = Visibility.Visible;

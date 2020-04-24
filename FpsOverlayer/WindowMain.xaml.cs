@@ -24,6 +24,9 @@ namespace FpsOverlayer
         //Window Initialize
         public WindowMain() { InitializeComponent(); }
 
+        //Window Variables
+        public static IntPtr vInteropWindowHandle = IntPtr.Zero;
+
         //Window Initialized
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -170,7 +173,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update the stats window and text position
+        //Update the window and text position
         public void UpdateWindowTextPosition(string processName)
         {
             try

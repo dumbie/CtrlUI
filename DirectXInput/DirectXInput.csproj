@@ -108,7 +108,7 @@
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppTrayMenu.cs" />
     <Compile Include="AppVariables.cs" />
-    <Compile Include="OverlayFunctions.cs" />
+    <Compile Include="WindowOverlay.xaml.cs" />
     <Compile Include="HidGuardian.cs" />
     <Compile Include="ControllerPreview.cs" />
     <Compile Include="ControllerShortcuts.cs" />
@@ -157,6 +157,10 @@
     <Compile Include="DirectInput.cs" />
     <Compile Include="JsonFunctions.cs" />
     <Compile Include="WindowMain.xaml.cs" />
+    <Page Include="WindowOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -166,11 +170,21 @@
   <ItemGroup>
     <Resource Include="..\CtrlUI\Assets\Icons\Controller-Accent.png">
       <Link>Assets\Icons\Controller-Accent.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="..\CtrlUI\Assets\Icons\Controller-Dark.png">
       <Link>Assets\Icons\Controller-Dark.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Icons\Shortcuts.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\MiniMaxi.png">
+      <Link>Assets\Icons\MiniMaxi.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\Closing.png">
+      <Link>Assets\Icons\Closing.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Content Include="Profiles\DirectCloseTools.json">
@@ -199,12 +213,15 @@
     <EmbeddedResource Include="Assets\AppIcon.ico" />
     <Resource Include="..\CtrlUI\Assets\Icons\Controller.png">
       <Link>Assets\Icons\Controller.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="..\CtrlUI\Assets\Icons\Help.png">
       <Link>Assets\Icons\Help.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="..\CtrlUI\Assets\Icons\Settings.png">
       <Link>Assets\Icons\Settings.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Content Include="Profiles\DirectControllersProfile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

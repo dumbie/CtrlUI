@@ -71,8 +71,7 @@ namespace DirectXInput
                     if (Controller.InputCurrent.ButtonGuidePressTimeCurrent > 0)
                     {
                         int GuideCurrent = Environment.TickCount - Controller.InputCurrent.ButtonGuidePressTimeCurrent;
-                        Debug.WriteLine("Guide status:" + GuideCurrent);
-
+                        //Debug.WriteLine("Guide status: " + GuideCurrent);
                         if (GuideCurrent > 850)
                         {
                             Controller.InputCurrent.ButtonGuideLong = true;
@@ -119,7 +118,7 @@ namespace DirectXInput
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltEnter"]))
                         {
                             Debug.WriteLine("Button Global - Alt+Enter");
-                            Overlay_Show_Status("MiniMaxi", "Pressing Alt+Enter");
+                            App.vWindowOverlay.Overlay_Show_Status("MiniMaxi", "Pressing Alt+Enter");
                             KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.Return, false);
 
                             ControllerUsed = true;
@@ -132,7 +131,7 @@ namespace DirectXInput
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltF4"]))
                         {
                             Debug.WriteLine("Button Global - Alt+F4");
-                            Overlay_Show_Status("Closing", "Pressing Alt+F4");
+                            App.vWindowOverlay.Overlay_Show_Status("Closing", "Pressing Alt+F4");
                             KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.F4, false);
 
                             ControllerUsed = true;
@@ -145,7 +144,7 @@ namespace DirectXInput
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutWinTab"]))
                         {
                             Debug.WriteLine("Button Global - Win+Tab");
-                            Overlay_Show_Status("MiniMaxi", "Pressing Win+Tab");
+                            App.vWindowOverlay.Overlay_Show_Status("MiniMaxi", "Pressing Win+Tab");
                             KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.Tab, false);
 
                             ControllerUsed = true;
@@ -154,7 +153,7 @@ namespace DirectXInput
                         else if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltTab"]))
                         {
                             Debug.WriteLine("Button Global - Alt+Tab");
-                            Overlay_Show_Status("MiniMaxi", "Pressing Alt+Tab");
+                            App.vWindowOverlay.Overlay_Show_Status("MiniMaxi", "Pressing Alt+Tab");
                             KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.Tab, false);
 
                             ControllerUsed = true;
@@ -239,7 +238,7 @@ namespace DirectXInput
 
                     if (!CheckRunningProcessByNameOrTitle("CtrlUI", false))
                     {
-                        Overlay_Show_Status("MiniMaxi", "Launching CtrlUI");
+                        App.vWindowOverlay.Overlay_Show_Status("MiniMaxi", "Launching CtrlUI");
                         ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", true, false);
                     }
                     else

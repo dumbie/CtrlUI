@@ -17,14 +17,14 @@ namespace AdminLauncher
             try
             {
                 //Check the application status
-                await Application_LaunchCheck("Fps Overlayer Launcher", ProcessPriorityClass.Normal, false, false);
+                await Application_LaunchCheck("DirectXInput Launcher", ProcessPriorityClass.Normal, false, false);
 
                 //Enable launch requirements
                 InstallCertificate(@"Resources\ArnoldVinkCertificate.cer");
                 SecureUIAPathsAllow();
 
                 //Run the certified application
-                ProcessLauncherWin32("FpsOverlayer.exe", "", "", false, false);
+                ProcessLauncherWin32("DirectXInput.exe", "", "", false, false);
 
                 //Disable launch requirements
                 await Task.Delay(5000);

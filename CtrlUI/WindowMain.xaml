@@ -177,7 +177,7 @@
 
         <!-- Popup - Main Menu -->
         <Grid Name="grid_Popup_MainMenu" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -307,7 +307,7 @@
 
         <!-- Popup - Search -->
         <Grid Name="grid_Popup_Search" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -355,7 +355,7 @@
 
         <!-- Popup - Welcome -->
         <Grid Name="grid_Popup_Welcome" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -424,8 +424,9 @@
 
         <!-- Popup - Media -->
         <Grid Name="grid_Popup_Media" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -436,10 +437,9 @@
                 <StackPanel Grid.Row="0">
                     <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Media Control"/>
                     <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
-                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="You also can control the volume with the left and right triggers."/>
                 </StackPanel>
 
-                <StackPanel Name="grid_Popup_Media_Information" Visibility="Collapsed" Grid.Row="1" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+                <StackPanel Name="grid_Popup_Media_Information" Visibility="Collapsed" Grid.Row="1" Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
                     <Image Name="grid_Popup_Media_Information_Thumbnail" Margin="0,0,15,0" Height="140" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <StackPanel VerticalAlignment="Center" MaxWidth="600">
                         <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
@@ -481,6 +481,7 @@
                 </StackPanel>
 
                 <TextBlock Name="grid_Popup_Media_Volume_Level" Grid.Row="4" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}"/>
+                <TextBlock Name="grid_Popup_Media_Volume_Help" Grid.Row="5" Margin="0,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="You can control the volume with the left and right triggers."/>
             </Grid>
 
             <!-- Shortcuts -->
@@ -496,7 +497,7 @@
 
         <!-- Popup - Manage -->
         <Grid Name="grid_Popup_Manage" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -597,7 +598,7 @@
 
         <!-- Popup - Settings -->
         <Grid Name="grid_Popup_Settings" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -888,7 +889,7 @@
 
         <!-- Popup - Help -->
         <Grid Name="grid_Popup_Help" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -922,7 +923,7 @@
 
         <!-- Popup - Color Picker -->
         <Grid Name="grid_Popup_ColorPicker" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -950,7 +951,7 @@
 
         <!-- Popup - File Picker -->
         <Grid Name="grid_Popup_FilePicker" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -1016,7 +1017,7 @@
 
         <!-- Popup - Profile Manager -->
         <Grid Name="grid_Popup_ProfileManager" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -1068,7 +1069,7 @@
 
         <!-- Popup - MessageBox -->
         <Grid Name="grid_Popup_MessageBox" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="0.80*"/>
@@ -1098,7 +1099,7 @@
 
         <!-- Popup - Text Input -->
         <Grid Name="grid_Popup_TextInput" Visibility="Collapsed">
-            <Grid Margin="150,20,150,0">
+            <Grid Margin="150,35,150,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -1171,7 +1172,7 @@
             </Grid.Background>
             <StackPanel Orientation="Horizontal">
                 <StackPanel Margin="15,10,10,10" Orientation="Horizontal">
-                    <Image Name="grid_Message_Status_Image" Source="Assets/Icons/Controller.png" Height="40" Margin="0,0,15,0"/>
+                    <Image Name="grid_Message_Status_Image" Height="40" Margin="0,0,15,0"/>
                     <TextBlock Name="grid_Message_Status_Text" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Changed" Margin="0,0,15,0"/>
                 </StackPanel>
                 <Rectangle Fill="{DynamicResource ApplicationAccentLightBrush}" Width="4"/>

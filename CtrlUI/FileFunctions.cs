@@ -11,7 +11,7 @@ using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
-using static CtrlUI.ImageFunctions;
+using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
