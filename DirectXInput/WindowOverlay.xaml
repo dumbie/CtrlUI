@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DirectXInput"
+        RenderOptions.BitmapScalingMode="HighQuality"
         mc:Ignorable="d"
-        Title="DirectXInput"
+        Title="DirectXInput Overlay"
         Background="Transparent"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -14,11 +15,19 @@
         SnapsToDevicePixels="True">
 
     <!-- Status - Message Status -->
-    <Grid Name="grid_Message_Status" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,55,0,0">
-        <Grid.Background>
-            <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
-        </Grid.Background>
-        <StackPanel Orientation="Horizontal">
+    <Grid>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,1" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <Image Name="image_Battery_Warning_Controller1" Source="Assets/Icons/Battery/BatteryVerController1.png" HorizontalAlignment="Left" Margin="0,0,5,0" Visibility="Collapsed"/>
+            <Image Name="image_Battery_Warning_Controller2" Source="Assets/Icons/Battery/BatteryVerController2.png" HorizontalAlignment="Left" Margin="0,0,5,0" Visibility="Collapsed"/>
+            <Image Name="image_Battery_Warning_Controller3" Source="Assets/Icons/Battery/BatteryVerController3.png" HorizontalAlignment="Left" Margin="0,0,5,0" Visibility="Collapsed"/>
+            <Image Name="image_Battery_Warning_Controller4" Source="Assets/Icons/Battery/BatteryVerController4.png" HorizontalAlignment="Left" Visibility="Collapsed"/>
+        </StackPanel>
+
+        <StackPanel Margin="0,55,0,0" Name="stackpanel_Message_Status" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Visibility="Collapsed">
+            <StackPanel.Background>
+                <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
+            </StackPanel.Background>
+
             <StackPanel Margin="15,10,10,10" Orientation="Horizontal">
                 <Image Name="grid_Message_Status_Image" Height="40" Margin="0,0,15,0"/>
                 <TextBlock Name="grid_Message_Status_Text" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Changed" Margin="0,0,15,0"/>

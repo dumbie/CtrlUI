@@ -10,8 +10,8 @@ using System.Windows.Controls;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -81,24 +81,29 @@ namespace CtrlUI
                 {
                     //Get current controller status
                     Image controllerStatusImage = null;
+                    StackPanel controllerStatusStackpanel = null;
                     ControllerStatusSummary controllerStatusOld = null;
                     if (controllerStatusNew.NumberId == 0)
                     {
+                        controllerStatusStackpanel = stackpanel_Menu_Controller0;
                         controllerStatusImage = img_Menu_Controller0;
                         controllerStatusOld = vController0;
                     }
                     else if (controllerStatusNew.NumberId == 1)
                     {
+                        controllerStatusStackpanel = stackpanel_Menu_Controller1;
                         controllerStatusImage = img_Menu_Controller1;
                         controllerStatusOld = vController1;
                     }
                     else if (controllerStatusNew.NumberId == 2)
                     {
+                        controllerStatusStackpanel = stackpanel_Menu_Controller2;
                         controllerStatusImage = img_Menu_Controller2;
                         controllerStatusOld = vController2;
                     }
                     else if (controllerStatusNew.NumberId == 3)
                     {
+                        controllerStatusStackpanel = stackpanel_Menu_Controller3;
                         controllerStatusImage = img_Menu_Controller3;
                         controllerStatusOld = vController3;
                     }
@@ -138,7 +143,7 @@ namespace CtrlUI
                     {
                         if (controllerStatusNew.Connected)
                         {
-                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 1.00; });
+                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 1.00; });
                             string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
                             Popup_Show_Status("Controller", "Connected (" + ControllerIdDisplay + ")");
 
@@ -150,7 +155,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusImage.Opacity = 0.40; });
+                            AVActions.ActionDispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 0.40; });
                             string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
                             Popup_Show_Status("Controller", "Disconnected (" + ControllerIdDisplay + ")");
 

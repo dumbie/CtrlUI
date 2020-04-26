@@ -50,6 +50,10 @@ namespace DirectXInput
         public static ControllerStatus vController1 = new ControllerStatus(1);
         public static ControllerStatus vController2 = new ControllerStatus(2);
         public static ControllerStatus vController3 = new ControllerStatus(3);
+        public static bool vControllerAnyConnected()
+        {
+            return vController0.Connected() || vController1.Connected() || vController2.Connected() || vController3.Connected();
+        }
 
         //Sockets Variables
         public static ArnoldVinkSockets vArnoldVinkSockets = null;

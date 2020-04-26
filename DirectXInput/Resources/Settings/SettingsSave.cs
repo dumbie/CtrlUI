@@ -22,9 +22,18 @@ namespace DirectXInput
 
                 cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };
 
-                cb_SettingsPlaySoundBatteryLow.Click += (sender, e) =>
+                //Battery settings
+                cb_SettingsBatteryShowIconLow.Click += (sender, e) =>
                 {
-                    SettingSave("PlaySoundBatteryLow", cb_SettingsPlaySoundBatteryLow.IsChecked.ToString());
+                    SettingSave("BatteryShowIconLow", cb_SettingsBatteryShowIconLow.IsChecked.ToString());
+
+                    //Check all controllers for low battery level
+                    CheckAllControllersLowBattery();
+                };
+
+                cb_SettingsBatteryPlaySoundLow.Click += (sender, e) =>
+                {
+                    SettingSave("BatteryPlaySoundLow", cb_SettingsBatteryPlaySoundLow.IsChecked.ToString());
                 };
 
                 //Shortcut settings

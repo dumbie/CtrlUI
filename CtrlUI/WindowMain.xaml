@@ -185,10 +185,22 @@
 
                 <StackPanel Grid.Row="0">
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Image Name="img_Menu_Controller0" Opacity="0.40" Width="30" Source="Assets/Icons/Controller.png"/>
-                        <Image Name="img_Menu_Controller1" Opacity="0.40" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
-                        <Image Name="img_Menu_Controller2" Opacity="0.40" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
-                        <Image Name="img_Menu_Controller3" Opacity="0.40" Width="30" Margin="5,0,0,0" Source="Assets/Icons/Controller.png"/>
+                        <StackPanel Name="stackpanel_Menu_Controller0" Opacity="0.40">
+                            <Image Name="img_Menu_Controller0" Width="30" Source="Assets/Icons/Controller-Accent.png"/>
+                            <Rectangle HorizontalAlignment="Center" Fill="#0ABEF0" Width="15" Height="2" SnapsToDevicePixels="True"/>
+                        </StackPanel>
+                        <StackPanel Name="stackpanel_Menu_Controller1" Opacity="0.40">
+                            <Image Name="img_Menu_Controller1" Width="30" Source="Assets/Icons/Controller.png"/>
+                            <Rectangle HorizontalAlignment="Center" Fill="#F0140A" Width="15" Height="2" SnapsToDevicePixels="True"/>
+                        </StackPanel>
+                        <StackPanel Name="stackpanel_Menu_Controller2" Opacity="0.40">
+                            <Image Name="img_Menu_Controller2" Width="30" Source="Assets/Icons/Controller.png"/>
+                            <Rectangle HorizontalAlignment="Center" Fill="#14F00A" Width="15" Height="2" SnapsToDevicePixels="True"/>
+                        </StackPanel>
+                        <StackPanel Name="stackpanel_Menu_Controller3" Opacity="0.40">
+                            <Image Name="img_Menu_Controller3" Width="30" Source="Assets/Icons/Controller.png"/>
+                            <Rectangle HorizontalAlignment="Center" Fill="#F0D205" Width="15" Height="2" SnapsToDevicePixels="True"/>
+                        </StackPanel>
 
                         <Image Name="img_Menu_SteamStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
                         <Image Name="img_Menu_UplayStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>

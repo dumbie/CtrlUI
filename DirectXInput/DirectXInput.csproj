@@ -187,6 +187,34 @@
       <Link>Assets\Icons\Closing.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerDis20.png">
+      <Link>Assets\Icons\Battery\BatteryVerDis20.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\App.png">
+      <Link>Assets\Icons\App.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerDis10.png">
+      <Link>Assets\Icons\Battery\BatteryVerDis10.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController1.png">
+      <Link>Assets\Icons\Battery\BatteryVerController1.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController2.png">
+      <Link>Assets\Icons\Battery\BatteryVerController2.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController3.png">
+      <Link>Assets\Icons\Battery\BatteryVerController3.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController4.png">
+      <Link>Assets\Icons\Battery\BatteryVerController4.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Profiles\DirectCloseTools.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

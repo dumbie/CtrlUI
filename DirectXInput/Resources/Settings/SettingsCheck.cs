@@ -24,7 +24,9 @@ namespace DirectXInput
                 if (ConfigurationManager.AppSettings["InterfaceSound"] == null) { SettingSave("InterfaceSound", "True"); }
                 if (ConfigurationManager.AppSettings["InterfaceSoundVolume"] == null) { SettingSave("InterfaceSoundVolume", "80"); }
                 if (ConfigurationManager.AppSettings["InterfaceSoundPackName"] == null) { SettingSave("InterfaceSoundPackName", "Default"); }
-                if (ConfigurationManager.AppSettings["PlaySoundBatteryLow"] == null) { SettingSave("PlaySoundBatteryLow", "True"); }
+
+                if (ConfigurationManager.AppSettings["BatteryShowIconLow"] == null) { SettingSave("BatteryShowIconLow", "True"); }
+                if (ConfigurationManager.AppSettings["BatteryPlaySoundLow"] == null) { SettingSave("BatteryPlaySoundLow", "True"); }
             }
             catch { }
         }

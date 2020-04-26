@@ -32,7 +32,9 @@ namespace DirectXInput
             {
                 cb_SettingsShortcutDisconnectBluetooth.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutDisconnectBluetooth"]);
                 cb_SettingsExclusiveGuide.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ExclusiveGuide"]);
-                cb_SettingsPlaySoundBatteryLow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["PlaySoundBatteryLow"]);
+
+                cb_SettingsBatteryPlaySoundLow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]);
+                cb_SettingsBatteryShowIconLow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryShowIconLow"]);
 
                 cb_SettingsShortcutLaunchCtrlUI.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchCtrlUI"]);
                 cb_SettingsShortcutLaunchKeyboardController.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchKeyboardController"]);

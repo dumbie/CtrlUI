@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -27,6 +28,23 @@ namespace DirectXInput
 
                 //Update the window style
                 UpdateWindowStyle();
+
+                //Update the window and text position
+                UpdateWindowPosition();
+
+                //Check if resolution has changed
+                SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged);
+            }
+            catch { }
+        }
+
+        //Update the window position on resolution change
+        public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //Update the window and text position
+                UpdateWindowPosition();
             }
             catch { }
         }
@@ -108,19 +126,14 @@ namespace DirectXInput
                 {
                     grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + IconName + ".png" }, IntPtr.Zero, -1, 0);
                     grid_Message_Status_Text.Text = Message;
-
-                    //Update overlay window position
-                    UpdateWindowPosition();
-
-                    //Show the overlay window
-                    this.Show();
+                    stackpanel_Message_Status.Visibility = Visibility.Visible;
                 });
 
                 vDispatcherTimer.Stop();
                 vDispatcherTimer.Interval = TimeSpan.FromSeconds(3);
                 vDispatcherTimer.Tick += delegate
                 {
-                    this.Hide();
+                    stackpanel_Message_Status.Visibility = Visibility.Collapsed;
                     vDispatcherTimer.Stop();
                 };
                 vDispatcherTimer.Start();

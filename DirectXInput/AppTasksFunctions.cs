@@ -50,8 +50,8 @@ namespace DirectXInput
             {
                 while (TaskRunningCheck(vTaskToken_ControllerBattery))
                 {
-                    CheckControllersLowBattery();
-                    await Task.Delay(10000);
+                    CheckAllControllersLowBattery();
+                    await Task.Delay(5000);
                 }
             }
             catch { }

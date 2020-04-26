@@ -112,7 +112,7 @@ namespace FpsOverlayer
             return System.Windows.Forms.Screen.PrimaryScreen;
         }
 
-        //Update the fps overlayer on resolution change
+        //Update the window position on resolution change
         public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
             try

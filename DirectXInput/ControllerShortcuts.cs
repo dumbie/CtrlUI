@@ -238,12 +238,13 @@ namespace DirectXInput
 
                     if (!CheckRunningProcessByNameOrTitle("CtrlUI", false))
                     {
-                        App.vWindowOverlay.Overlay_Show_Status("MiniMaxi", "Launching CtrlUI");
+                        App.vWindowOverlay.Overlay_Show_Status("App", "Launching CtrlUI");
                         ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", true, false);
                     }
                     else
                     {
-                        Overlay_Show_Status("MiniMaxi", "Showing CtrlUI");
+                        App.vWindowOverlay.Overlay_Show_Status("MiniMaxi", "Showing CtrlUI");
+                        //Fix move this check
                     }
                 }
             }

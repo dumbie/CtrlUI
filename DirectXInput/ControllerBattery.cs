@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
@@ -58,34 +60,91 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected() && Controller.InputReport != null && Controller.BatteryPercentageCurrent > 0)
+                Debug.WriteLine("Checking if controller " + Controller.NumberId + " has a low battery level " + Controller.BatteryPercentageCurrent + "/" + Controller.BatteryPercentagePrevious);
+                string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
+
+                //Fix check fps overlayer position to avoid overlapping (top/bottom)
+
+                //Check the controller id
+                FrameworkElement targetControllerIcon = null;
+                if (Controller.NumberId == 0) { targetControllerIcon = App.vWindowOverlay.image_Battery_Warning_Controller1; }
+                else if (Controller.NumberId == 1) { targetControllerIcon = App.vWindowOverlay.image_Battery_Warning_Controller2; }
+                else if (Controller.NumberId == 2) { targetControllerIcon = App.vWindowOverlay.image_Battery_Warning_Controller3; }
+                else if (Controller.NumberId == 3) { targetControllerIcon = App.vWindowOverlay.image_Battery_Warning_Controller4; }
+
+                //Check if controller is connected
+                if (!Controller.Connected() && Controller.InputReport == null)
                 {
-                    int LowBatteryLevelRange = 20;
-                    //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has a low battery level " + Controller.BatteryPercentageCurrent + "/" + Controller.BatteryPercentagePrevious);
-                    if (Controller.BatteryPercentageCurrent <= LowBatteryLevelRange && (Controller.BatteryPercentagePrevious > LowBatteryLevelRange || Controller.BatteryPercentagePrevious == -1))
+                    AVActions.ActionDispatcherInvoke(delegate
                     {
-                        Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level.");
-                        PlayInterfaceSound("BatteryLow", true);
+                        targetControllerIcon.Visibility = Visibility.Collapsed;
+                    });
+                    return;
+                }
+
+                //Check controller battery level overlay
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryShowIconLow"]) && Controller.BatteryPercentageCurrent <= 20 && Controller.BatteryPercentageCurrent >= 0)
+                {
+                    Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level, showing overlay.");
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        targetControllerIcon.Visibility = Visibility.Visible;
+                    });
+                }
+                else
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        targetControllerIcon.Visibility = Visibility.Collapsed;
+                    });
+                }
+
+                //Check controller battery level sound and notification
+                if (Controller.BatteryPercentageCurrent > 0)
+                {
+                    if (Controller.BatteryPercentageCurrent <= 10 && (Controller.BatteryPercentagePrevious > 10 || Controller.BatteryPercentagePrevious == -1))
+                    {
+                        Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level 10%");
+                        AVActions.ActionDispatcherInvoke(delegate
+                        {
+                            App.vWindowOverlay.Overlay_Show_Status("Battery/BatteryVerDis10", "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%");
+                        });
+                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]))
+                        {
+                            PlayInterfaceSound("BatteryLow", true);
+                        }
+                    }
+                    else if (Controller.BatteryPercentageCurrent <= 20 && (Controller.BatteryPercentagePrevious > 20 || Controller.BatteryPercentagePrevious == -1))
+                    {
+                        Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level 20%");
+                        AVActions.ActionDispatcherInvoke(delegate
+                        {
+                            App.vWindowOverlay.Overlay_Show_Status("Battery/BatteryVerDis20", "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%");
+                        });
+                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]))
+                        {
+                            PlayInterfaceSound("BatteryLow", true);
+                        }
                     }
 
                     Controller.BatteryPercentagePrevious = Controller.BatteryPercentageCurrent;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed checking for low battery level: " + ex.Message);
+            }
         }
 
-        //Check for timed out controllers
-        void CheckControllersLowBattery()
+        //Check all controllers for low battery level
+        void CheckAllControllersLowBattery()
         {
             try
             {
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["PlaySoundBatteryLow"]))
-                {
-                    ControllerLowBattery(vController0);
-                    ControllerLowBattery(vController1);
-                    ControllerLowBattery(vController2);
-                    ControllerLowBattery(vController3);
-                }
+                ControllerLowBattery(vController0);
+                ControllerLowBattery(vController1);
+                ControllerLowBattery(vController2);
+                ControllerLowBattery(vController3);
             }
             catch { }
         }
