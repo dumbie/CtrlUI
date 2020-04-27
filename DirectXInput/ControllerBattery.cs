@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
@@ -66,18 +67,35 @@ namespace DirectXInput
                 //Fix check fps overlayer position to avoid overlapping (top/bottom)
 
                 //Check the controller id
-                FrameworkElement targetControllerIcon = null;
-                if (Controller.NumberId == 0) { targetControllerIcon = App.vWindowOverlay.image_Battery_Warning_Controller1; }
-                else if (Controller.NumberId == 1) { targetControllerIcon = App.vWindowOverlay.image_Battery_Warning_Controller2; }
-                else if (Controller.NumberId == 2) { targetControllerIcon = App.vWindowOverlay.image_Battery_Warning_Controller3; }
-                else if (Controller.NumberId == 3) { targetControllerIcon = App.vWindowOverlay.image_Battery_Warning_Controller4; }
+                TextBlock targetControllerTextblock = null;
+                StackPanel targetControllerStackpanel = null;
+                if (Controller.NumberId == 0)
+                {
+                    targetControllerTextblock = App.vWindowOverlay.textblock_Battery_Warning_Controller1;
+                    targetControllerStackpanel = App.vWindowOverlay.stackpanel_Battery_Warning_Controller1;
+                }
+                else if (Controller.NumberId == 1)
+                {
+                    targetControllerTextblock = App.vWindowOverlay.textblock_Battery_Warning_Controller2;
+                    targetControllerStackpanel = App.vWindowOverlay.stackpanel_Battery_Warning_Controller2;
+                }
+                else if (Controller.NumberId == 2)
+                {
+                    targetControllerTextblock = App.vWindowOverlay.textblock_Battery_Warning_Controller3;
+                    targetControllerStackpanel = App.vWindowOverlay.stackpanel_Battery_Warning_Controller3;
+                }
+                else if (Controller.NumberId == 3)
+                {
+                    targetControllerTextblock = App.vWindowOverlay.textblock_Battery_Warning_Controller4;
+                    targetControllerStackpanel = App.vWindowOverlay.stackpanel_Battery_Warning_Controller4;
+                }
 
                 //Check if controller is connected
                 if (!Controller.Connected() && Controller.InputReport == null)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        targetControllerIcon.Visibility = Visibility.Collapsed;
+                        targetControllerStackpanel.Visibility = Visibility.Collapsed;
                     });
                     return;
                 }
@@ -88,14 +106,15 @@ namespace DirectXInput
                     Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level, showing overlay.");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        targetControllerIcon.Visibility = Visibility.Visible;
+                        targetControllerTextblock.Text = Controller.BatteryPercentageCurrent + "%";
+                        targetControllerStackpanel.Visibility = Visibility.Visible;
                     });
                 }
                 else
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        targetControllerIcon.Visibility = Visibility.Collapsed;
+                        targetControllerStackpanel.Visibility = Visibility.Collapsed;
                     });
                 }
 

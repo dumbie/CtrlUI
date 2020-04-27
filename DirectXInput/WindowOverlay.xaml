@@ -14,15 +14,28 @@
         Topmost="True"
         SnapsToDevicePixels="True">
 
-    <!-- Status - Message Status -->
     <Grid>
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,1" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <Image Name="image_Battery_Warning_Controller1" Source="Assets/Icons/Battery/BatteryVerController1.png" HorizontalAlignment="Left" Margin="0,0,5,0" Visibility="Collapsed"/>
-            <Image Name="image_Battery_Warning_Controller2" Source="Assets/Icons/Battery/BatteryVerController2.png" HorizontalAlignment="Left" Margin="0,0,5,0" Visibility="Collapsed"/>
-            <Image Name="image_Battery_Warning_Controller3" Source="Assets/Icons/Battery/BatteryVerController3.png" HorizontalAlignment="Left" Margin="0,0,5,0" Visibility="Collapsed"/>
-            <Image Name="image_Battery_Warning_Controller4" Source="Assets/Icons/Battery/BatteryVerController4.png" HorizontalAlignment="Left" Visibility="Collapsed"/>
+        <!-- Status - Battery Status -->
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <StackPanel Name="stackpanel_Battery_Warning_Controller1" Margin="0,0,8,0" Visibility="Collapsed">
+                <Image Height="40" Source="Assets/Icons/Battery/BatteryVerController1.png" HorizontalAlignment="Center"/>
+                <TextBlock Name="textblock_Battery_Warning_Controller1" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Name="stackpanel_Battery_Warning_Controller2" Margin="0,0,8,0" Visibility="Collapsed">
+                <Image Height="40" Source="Assets/Icons/Battery/BatteryVerController2.png" HorizontalAlignment="Center"/>
+                <TextBlock Name="textblock_Battery_Warning_Controller2" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Name="stackpanel_Battery_Warning_Controller3" Margin="0,0,8,0" Visibility="Collapsed">
+                <Image Height="40" Source="Assets/Icons/Battery/BatteryVerController3.png" HorizontalAlignment="Center"/>
+                <TextBlock Name="textblock_Battery_Warning_Controller3" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Name="stackpanel_Battery_Warning_Controller4" Margin="0,0,8,0" Visibility="Collapsed">
+                <Image Height="40" Source="Assets/Icons/Battery/BatteryVerController4.png" HorizontalAlignment="Center"/>
+                <TextBlock Name="textblock_Battery_Warning_Controller4" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+            </StackPanel>
         </StackPanel>
 
+        <!-- Status - Message Status -->
         <StackPanel Margin="0,55,0,0" Name="stackpanel_Message_Status" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Visibility="Collapsed">
             <StackPanel.Background>
                 <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
