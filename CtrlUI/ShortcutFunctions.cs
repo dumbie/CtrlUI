@@ -14,9 +14,9 @@ using Windows.ApplicationModel;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -122,7 +122,7 @@ namespace CtrlUI
             try
             {
                 //Check if shortcuts need to be updated
-                if (ConfigurationManager.AppSettings["ShowOtherShortcuts"] == "False")
+                if (!Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherShortcuts"]))
                 {
                     //Debug.WriteLine("Shortcuts don't need to be updated, cancelling.");
                     return;

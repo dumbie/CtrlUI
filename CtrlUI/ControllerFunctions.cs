@@ -179,7 +179,7 @@ namespace CtrlUI
         {
             try
             {
-                if (ForceHide || ConfigurationManager.AppSettings["HideBatteryLevel"] == "True")
+                if (ForceHide || Convert.ToBoolean(ConfigurationManager.AppSettings["HideBatteryLevel"]))
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {

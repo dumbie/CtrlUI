@@ -69,11 +69,11 @@ namespace CtrlUI
                 UpdateBackgroundPlayVolume();
 
                 //Set background source
-                if (ConfigurationManager.AppSettings["VideoBackground"] == "True")
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["VideoBackground"]))
                 {
                     grid_Video_Background.Source = new Uri(defaultWallpaperVideo, UriKind.RelativeOrAbsolute);
                 }
-                else if (ConfigurationManager.AppSettings["DesktopBackground"] == "False")
+                else if (!Convert.ToBoolean(ConfigurationManager.AppSettings["DesktopBackground"]))
                 {
                     grid_Video_Background.Source = new Uri(defaultWallpaperImage, UriKind.RelativeOrAbsolute);
                 }

@@ -9,7 +9,7 @@ namespace KeyboardController
     public partial class WindowSettings
     {
         //Load - Accent Color settings
-        public static void Settings_Load_AccentColor()
+        public static void Settings_Load_CtrlUI_AccentColor()
         {
             try
             {

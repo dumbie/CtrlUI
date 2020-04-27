@@ -38,7 +38,7 @@ namespace KeyboardController
                 //Check application settings
                 WindowSettings.Settings_Check();
                 WindowSettings.Settings_Load_CtrlUI();
-                WindowSettings.Settings_Load_AccentColor();
+                WindowSettings.Settings_Load_CtrlUI_AccentColor();
 
                 //Create tray icon
                 Application_CreateTrayMenu();

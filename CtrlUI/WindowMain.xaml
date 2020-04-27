@@ -789,7 +789,7 @@
                             <Button Name="btn_Settings_ChangeBackgroundVideo" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="Assets/Icons/Background.png" Width="50" HorizontalAlignment="Center"/>
+                                        <Image Source="Assets/Icons/BackgroundVideo.png" Width="50" HorizontalAlignment="Center"/>
                                         <TextBlock Margin="15,0,0,0" Text="Change the background video" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button.Content>

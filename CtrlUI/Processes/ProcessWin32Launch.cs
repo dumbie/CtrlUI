@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -44,7 +44,7 @@ namespace CtrlUI
                 ProcessLauncherWin32(pathExe, pathLaunch, argument, runAsAdmin, createNoWindow);
 
                 //Minimize the CtrlUI window
-                if (allowMinimize && ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True") { await AppMinimize(true); }
+                if (allowMinimize && Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"])) { await AppMinimize(true); }
                 return true;
             }
             catch

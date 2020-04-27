@@ -66,17 +66,17 @@ namespace CtrlUI
                 }
 
                 //Check settings if need to start in fullscreen of minimized
-                if (ConfigurationManager.AppSettings["LaunchFullscreen"] == "True")
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]))
                 {
                     await AppSwitchScreenMode(true, false);
                 }
-                else if (ConfigurationManager.AppSettings["LaunchMinimized"] == "True")
+                else if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]))
                 {
                     await AppMinimize(false);
                 }
 
                 //Restore the last known window size and center the application
-                if (ConfigurationManager.AppSettings["LaunchFullscreen"] == "False" && ConfigurationManager.AppSettings["LaunchMinimized"] == "False")
+                if (!Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]) && !Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]))
                 {
                     AdjustScreenSizeMonitor(Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]), true, true, true, true);
                 }
@@ -128,25 +128,25 @@ namespace CtrlUI
                 TasksBackgroundStart();
 
                 //Check settings if DirectXInput launches on start
-                if (ConfigurationManager.AppSettings["LaunchDirectXInput"] == "True")
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchDirectXInput"]))
                 {
                     LaunchDirectXInput();
                 }
 
                 //Check settings if Fps Overlayer launches on start
-                if (ConfigurationManager.AppSettings["LaunchFpsOverlayer"] == "True")
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFpsOverlayer"]))
                 {
                     LaunchFpsOverlayer();
                 }
 
                 //Force window focus on CtrlUI
-                if (ConfigurationManager.AppSettings["LaunchMinimized"] == "False")
+                if (!Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]))
                 {
                     FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
                 }
 
                 //Check settings if this is the first application launch
-                if (ConfigurationManager.AppSettings["AppFirstLaunch"] == "True")
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["AppFirstLaunch"]))
                 {
                     await AddFirstLaunchApps();
                 }

@@ -30,7 +30,7 @@ namespace LibraryShared
         {
             try
             {
-                if (forceSound || ConfigurationManager.AppSettings["InterfaceSound"] == "True")
+                if (forceSound || Convert.ToBoolean(ConfigurationManager.AppSettings["InterfaceSound"]))
                 {
                     double soundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]) / 100;
                     string soundPackName = ConfigurationManager.AppSettings["InterfaceSoundPackName"].ToString();

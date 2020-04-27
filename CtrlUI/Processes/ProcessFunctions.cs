@@ -13,9 +13,9 @@ using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -204,7 +204,7 @@ namespace CtrlUI
                 else if (processWindowHandle != IntPtr.Zero)
                 {
                     //Minimize the CtrlUI window
-                    if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True")
+                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"]))
                     {
                         await AppMinimize(true);
                     }

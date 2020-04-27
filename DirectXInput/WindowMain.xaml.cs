@@ -26,6 +26,7 @@ namespace DirectXInput
                 //Initialize Settings
                 Settings_Check();
                 await Settings_Load_CtrlUI();
+                Settings_Load_CtrlUI_AccentColor();
                 await Settings_Load();
                 Settings_Save();
 

@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System;
 using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
@@ -63,7 +64,7 @@ namespace CtrlUI
                 vTaskToken_UpdateMediaInformation = new CancellationTokenSource();
                 vTask_UpdateMediaInformation = AVActions.TaskStart(vTaskAction_UpdateMediaInformation, vTaskToken_UpdateMediaInformation);
 
-                if (ConfigurationManager.AppSettings["HideMouseCursor"] == "True")
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["HideMouseCursor"]))
                 {
                     TaskStart_ShowHideMouseCursor();
                 }

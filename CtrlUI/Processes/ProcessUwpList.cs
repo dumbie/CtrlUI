@@ -17,9 +17,9 @@ using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -184,7 +184,7 @@ namespace CtrlUI
                                     }
 
                                     //Remove app from processes list
-                                    if (ConfigurationManager.AppSettings["HideAppProcesses"] == "True")
+                                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["HideAppProcesses"]))
                                     {
                                         await ListBoxRemoveAll(lb_Processes, List_Processes, filterCombinedApp);
                                         appUpdatedContinueLoop = true;

@@ -37,7 +37,7 @@ namespace CtrlUI
                 KeyPressSingle((byte)KeysVirtual.MediaNextTrack, false);
 
                 //Close all open popups
-                if (ConfigurationManager.AppSettings["CloseMediaScreen"] == "True")
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["CloseMediaScreen"]))
                 {
                     await Popup_Close_All();
                 }
@@ -54,7 +54,7 @@ namespace CtrlUI
                 KeyPressSingle((byte)KeysVirtual.MediaPrevTrack, false);
 
                 //Close all open popups
-                if (ConfigurationManager.AppSettings["CloseMediaScreen"] == "True")
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["CloseMediaScreen"]))
                 {
                     await Popup_Close_All();
                 }

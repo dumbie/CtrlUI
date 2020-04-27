@@ -177,10 +177,10 @@ namespace CtrlUI
                 Visibility visbilityEmulators = List_Emulators.Any() ? Visibility.Visible : Visibility.Collapsed;
                 AVActions.ElementSetValue(sp_Emulators, VisibilityProperty, visbilityEmulators);
 
-                Visibility visbilityShortcuts = List_Shortcuts.Any() && ConfigurationManager.AppSettings["ShowOtherShortcuts"] == "True" ? Visibility.Visible : Visibility.Collapsed;
+                Visibility visbilityShortcuts = List_Shortcuts.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherShortcuts"]) ? Visibility.Visible : Visibility.Collapsed;
                 AVActions.ElementSetValue(sp_Shortcuts, VisibilityProperty, visbilityShortcuts);
 
-                Visibility visbilityProcesses = List_Processes.Any() && ConfigurationManager.AppSettings["ShowOtherProcesses"] == "True" ? Visibility.Visible : Visibility.Collapsed;
+                Visibility visbilityProcesses = List_Processes.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherProcesses"]) ? Visibility.Visible : Visibility.Collapsed;
                 AVActions.ElementSetValue(sp_Processes, VisibilityProperty, visbilityProcesses);
             }
             catch { }

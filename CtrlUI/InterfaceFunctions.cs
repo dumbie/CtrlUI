@@ -16,8 +16,8 @@ using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.ImageFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -465,7 +465,7 @@ namespace CtrlUI
                 vMouseLastInteraction = Environment.TickCount;
 
                 //Check if the mouse hide setting is enabled
-                if (ConfigurationManager.AppSettings["HideMouseCursor"] == "False")
+                if (!Convert.ToBoolean(ConfigurationManager.AppSettings["HideMouseCursor"]))
                 {
                     return;
                 }
@@ -625,7 +625,7 @@ namespace CtrlUI
                         if (messageResult == Answer1)
                         {
                             //Minimize the CtrlUI window
-                            if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == "True")
+                            if (Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"]))
                             {
                                 await AppMinimize(true);
                             }
@@ -793,7 +793,7 @@ namespace CtrlUI
                 img_Menu_FpsOverlayer.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, IntPtr.Zero, 30, 0);
 
                 //Check if the first launch logo's need to be loaded
-                if (ConfigurationManager.AppSettings["AppFirstLaunch"] == "True")
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["AppFirstLaunch"]))
                 {
                     grid_Popup_Welcome_img_Edge.Source = FileToBitmapImage(new string[] { "Microsoft Edge" }, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_Kodi.Source = FileToBitmapImage(new string[] { "Kodi" }, IntPtr.Zero, 75, 0);
