@@ -33,9 +33,11 @@ namespace CtrlUI
         public static bool vMousePressDownLeftClick = false;
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
-        public static DispatcherTimer vDispatcherTimer = new DispatcherTimer();
         public static List<string> vTabTargetLists = new List<string> { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Shortcuts", "lb_Processes", "lb_Manage_AddAppCategory" };
         public static List<string> vTabTargetButtons = new List<string> { "grid_Popup_TextInput_button_ConfirmText" };
+
+        //Dispatcher Timers
+        public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
 
         //Update Variables
         public static bool vCheckingForUpdate = false;

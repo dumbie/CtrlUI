@@ -310,14 +310,14 @@ namespace CtrlUI
                     grid_Message_Status.Visibility = Visibility.Visible;
                 });
 
-                vDispatcherTimer.Stop();
-                vDispatcherTimer.Interval = TimeSpan.FromSeconds(3);
-                vDispatcherTimer.Tick += delegate
+                vDispatcherTimerOverlay.Stop();
+                vDispatcherTimerOverlay.Interval = TimeSpan.FromSeconds(3);
+                vDispatcherTimerOverlay.Tick += delegate
                 {
                     grid_Message_Status.Visibility = Visibility.Collapsed;
-                    vDispatcherTimer.Stop();
+                    vDispatcherTimerOverlay.Stop();
                 };
-                vDispatcherTimer.Start();
+                vDispatcherTimerOverlay.Start();
             }
             catch { }
         }

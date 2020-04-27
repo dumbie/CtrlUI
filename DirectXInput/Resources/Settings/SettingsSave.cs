@@ -31,6 +31,14 @@ namespace DirectXInput
                     CheckAllControllersLowBattery();
                 };
 
+                cb_SettingsBatteryShowPercentageLow.Click += (sender, e) =>
+                {
+                    SettingSave("BatteryShowPercentageLow", cb_SettingsBatteryShowPercentageLow.IsChecked.ToString());
+
+                    //Check all controllers for low battery level
+                    CheckAllControllersLowBattery();
+                };
+
                 cb_SettingsBatteryPlaySoundLow.Click += (sender, e) =>
                 {
                     SettingSave("BatteryPlaySoundLow", cb_SettingsBatteryPlaySoundLow.IsChecked.ToString());

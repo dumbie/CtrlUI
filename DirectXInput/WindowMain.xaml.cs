@@ -165,9 +165,9 @@ namespace DirectXInput
 
                     //Create timeout timer
                     int countdownTimeout = 0;
-                    AVFunctions.TimerRenew(ref vDispatcherTimer);
-                    vDispatcherTimer.Interval = TimeSpan.FromSeconds(1);
-                    vDispatcherTimer.Tick += delegate
+                    AVFunctions.TimerRenew(ref vDispatcherTimerMapping);
+                    vDispatcherTimerMapping.Interval = TimeSpan.FromSeconds(1);
+                    vDispatcherTimerMapping.Tick += delegate
                     {
                         Debug.WriteLine(DateTime.Now);
                         if (countdownTimeout++ >= 10)
@@ -181,11 +181,11 @@ namespace DirectXInput
                             txt_Application_Status.Text = "Waiting for '" + mapButton + "' press on the controller... " + (11 - countdownTimeout).ToString() + "sec.";
                         }
                     };
-                    vDispatcherTimer.Start();
+                    vDispatcherTimerMapping.Start();
 
                     //Check if button is mapped
                     while (manageController.Mapping[0] == "Map") { await Task.Delay(500); }
-                    vDispatcherTimer.Stop();
+                    vDispatcherTimerMapping.Stop();
 
                     if (manageController.Mapping[0] == "Done")
                     {

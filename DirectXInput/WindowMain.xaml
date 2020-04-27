@@ -279,7 +279,7 @@
                                 <TextBlock Text="Enabling this will allow you to use Alt and F4 when you press LB and Start on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Screenshot Settings"/>
-                                <CheckBox Name="cb_SettingsShortcutScreenshot" Content="Create screenshot by pressing LB and Back combined" Style="{StaticResource CheckBoxBlack}"/>
+                                <CheckBox Name="cb_SettingsShortcutScreenshot" Content="Create screenshot by pressing LB and Back combined*" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to take a screenshot when you press LB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Text="* Screenshots will be saved in your 'Pictures\Screenshots' directory." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
@@ -318,6 +318,9 @@
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Battery Settings"/>
                                 <CheckBox Name="cb_SettingsBatteryShowIconLow" Content="Show warning icon when the battery level gets low" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will show a warning icon on the screen when the controllers battery gets low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Name="cb_SettingsBatteryShowPercentageLow" Content="Show battery level in percentage under warning icon" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will show the battery level in percentage underneath the icon." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <CheckBox Name="cb_SettingsBatteryPlaySoundLow" Content="Play warning sound when the battery level gets low" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will play a warning sound when the controllers battery gets low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>

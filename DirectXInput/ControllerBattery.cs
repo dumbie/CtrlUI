@@ -106,7 +106,15 @@ namespace DirectXInput
                     Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level, showing overlay.");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        targetControllerTextblock.Text = Controller.BatteryPercentageCurrent + "%";
+                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryShowPercentageLow"]))
+                        {
+                            targetControllerTextblock.Text = Controller.BatteryPercentageCurrent + "%";
+                            targetControllerTextblock.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            targetControllerTextblock.Visibility = Visibility.Collapsed;
+                        }
                         targetControllerStackpanel.Visibility = Visibility.Visible;
                     });
                 }

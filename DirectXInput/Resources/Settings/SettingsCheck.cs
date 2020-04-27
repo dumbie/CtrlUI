@@ -26,6 +26,7 @@ namespace DirectXInput
                 if (ConfigurationManager.AppSettings["InterfaceSoundPackName"] == null) { SettingSave("InterfaceSoundPackName", "Default"); }
 
                 if (ConfigurationManager.AppSettings["BatteryShowIconLow"] == null) { SettingSave("BatteryShowIconLow", "True"); }
+                if (ConfigurationManager.AppSettings["BatteryShowPercentageLow"] == null) { SettingSave("BatteryShowPercentageLow", "False"); }
                 if (ConfigurationManager.AppSettings["BatteryPlaySoundLow"] == null) { SettingSave("BatteryPlaySoundLow", "True"); }
             }
             catch { }

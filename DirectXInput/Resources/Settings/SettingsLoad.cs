@@ -57,6 +57,7 @@ namespace DirectXInput
 
                 cb_SettingsBatteryPlaySoundLow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]);
                 cb_SettingsBatteryShowIconLow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryShowIconLow"]);
+                cb_SettingsBatteryShowPercentageLow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryShowPercentageLow"]);
 
                 cb_SettingsShortcutLaunchCtrlUI.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchCtrlUI"]);
                 cb_SettingsShortcutLaunchKeyboardController.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchKeyboardController"]);

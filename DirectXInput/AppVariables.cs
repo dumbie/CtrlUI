@@ -18,7 +18,10 @@ namespace DirectXInput
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;
-        public static DispatcherTimer vDispatcherTimer = new DispatcherTimer();
+
+        //Dispatcher Timers
+        public static DispatcherTimer vDispatcherTimerMapping = new DispatcherTimer();
+        public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
 
         //Message Box Variables
         public static bool vMessageBoxOpen = false;

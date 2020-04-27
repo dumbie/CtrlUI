@@ -15,8 +15,8 @@ namespace KeyboardController
         //Process Variables
         public static Process vProcessCurrent = Process.GetCurrentProcess();
 
-        //Interaction Variables
-        public static DispatcherTimer vDispatcherTimer = new DispatcherTimer();
+        //Dispatcher Timers
+        public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
 
         //Keyboard Variables
         public static bool vCapsEnabled = false;

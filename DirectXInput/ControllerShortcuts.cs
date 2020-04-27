@@ -94,10 +94,21 @@ namespace DirectXInput
             {
                 if (Environment.TickCount >= Controller.Delay_ControllerShortcut)
                 {
-                    //Launch CtrlUI application
-                    if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController == null && vProcessCtrlUI == null)
+                    //Show CtrlUI application
+                    if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController == null && vProcessCtrlUI != null)
                     {
                         Debug.WriteLine("Guide short press showing CtrlUI.");
+                        App.vWindowOverlay.Overlay_Show_Status("MiniMaxi", "Showing CtrlUI");
+
+                        ControllerUsed = true;
+                        ControllerDelayLong = true;
+                    }
+                    //Launch CtrlUI application
+                    else if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController == null && vProcessCtrlUI == null)
+                    {
+                        Debug.WriteLine("Guide short press launching CtrlUI.");
+                        App.vWindowOverlay.Overlay_Show_Status("App", "Launching CtrlUI");
+
                         LaunchCtrlUI();
 
                         ControllerUsed = true;
@@ -107,6 +118,8 @@ namespace DirectXInput
                     else if (Controller.InputCurrent.ButtonGuideLong && vProcessKeyboardController == null)
                     {
                         Debug.WriteLine("Guide long press showing keyboard controller.");
+                        App.vWindowOverlay.Overlay_Show_Status("App", "Launching Keyboard");
+
                         LaunchKeyboardController();
 
                         ControllerUsed = true;
@@ -238,13 +251,7 @@ namespace DirectXInput
 
                     if (!CheckRunningProcessByNameOrTitle("CtrlUI", false))
                     {
-                        App.vWindowOverlay.Overlay_Show_Status("App", "Launching CtrlUI");
                         ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", true, false);
-                    }
-                    else
-                    {
-                        App.vWindowOverlay.Overlay_Show_Status("MiniMaxi", "Showing CtrlUI");
-                        //Fix move this check
                     }
                 }
             }
