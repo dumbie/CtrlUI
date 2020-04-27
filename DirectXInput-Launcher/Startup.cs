@@ -21,20 +21,43 @@ namespace AdminLauncher
 
                 //Enable launch requirements
                 InstallCertificate(@"Resources\ArnoldVinkCertificate.cer");
-                SecureUIAPathsAllow();
+                bool secureUIAEnabled = SecureUIAPathsCheck();
+                if (!secureUIAEnabled)
+                {
+                    SecureUIAPathsAllow();
+                }
 
                 //Run the certified application
                 ProcessLauncherWin32("DirectXInput.exe", "", "", false, false);
 
                 //Disable launch requirements
-                await Task.Delay(5000);
-                SecureUIAPathsBlock();
+                if (!secureUIAEnabled)
+                {
+                    await Task.Delay(5000);
+                    SecureUIAPathsBlock();
+                }
 
                 Debug.WriteLine("Launcher finished.");
                 Environment.Exit(0);
                 return;
             }
             catch { }
+        }
+
+        bool SecureUIAPathsCheck()
+        {
+            try
+            {
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                {
+                    using (RegistryKey regKeyPolicies = registryKeyLocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System\", true))
+                    {
+                        return regKeyPolicies.GetValue("EnableSecureUIAPaths").ToString() == "0" ? true : false;
+                    }
+                }
+            }
+            catch { }
+            return false;
         }
 
         void SecureUIAPathsAllow()
