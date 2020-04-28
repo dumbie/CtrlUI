@@ -64,8 +64,6 @@ namespace DirectXInput
                 Debug.WriteLine("Checking if controller " + Controller.NumberId + " has a low battery level " + Controller.BatteryPercentageCurrent + "/" + Controller.BatteryPercentagePrevious);
                 string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
 
-                //Fix check fps overlayer position to avoid overlapping (top/bottom)
-
                 //Check the controller id
                 TextBlock targetControllerTextblock = null;
                 StackPanel targetControllerStackpanel = null;
@@ -132,10 +130,7 @@ namespace DirectXInput
                     if (Controller.BatteryPercentageCurrent <= 10 && (Controller.BatteryPercentagePrevious > 10 || Controller.BatteryPercentagePrevious == -1))
                     {
                         Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level 10%");
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            App.vWindowOverlay.Overlay_Show_Status("Battery/BatteryVerDis10", "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%");
-                        });
+                        App.vWindowOverlay.Overlay_Show_Status("Battery/BatteryVerDis10", "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%");
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]))
                         {
                             PlayInterfaceSound("BatteryLow", true);
@@ -144,10 +139,7 @@ namespace DirectXInput
                     else if (Controller.BatteryPercentageCurrent <= 20 && (Controller.BatteryPercentagePrevious > 20 || Controller.BatteryPercentagePrevious == -1))
                     {
                         Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level 20%");
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            App.vWindowOverlay.Overlay_Show_Status("Battery/BatteryVerDis20", "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%");
-                        });
+                        App.vWindowOverlay.Overlay_Show_Status("Battery/BatteryVerDis20", "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%");
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]))
                         {
                             PlayInterfaceSound("BatteryLow", true);
@@ -168,6 +160,10 @@ namespace DirectXInput
         {
             try
             {
+                //Update the battery icon and text position
+                App.vWindowOverlay.UpdateBatteryPosition();
+
+                //Check controllers for low battery level
                 ControllerLowBattery(vController0);
                 ControllerLowBattery(vController1);
                 ControllerLowBattery(vController2);

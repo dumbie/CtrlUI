@@ -17,6 +17,7 @@ using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.ImageFunctions;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -40,9 +41,12 @@ namespace CtrlUI
 
                 //Check application settings
                 Settings_Check();
-                Settings_Load_DirectXInput();
-                await Settings_Load();
+                Settings_Load_DirectXInput(ref vConfigurationDirectXInput);
+                Settings_Load();
                 Settings_Save();
+
+                //Change application accent color
+                Settings_Load_AccentColor(null);
 
                 //Set the application background media
                 UpdateBackgroundMedia();
@@ -86,9 +90,6 @@ namespace CtrlUI
 
                 //Registry enable linked connections
                 RegistryEnableLinkedConnections();
-
-                //Change application accent color
-                ChangeApplicationAccentColor();
 
                 //Update the clock time
                 UpdateClockTime();

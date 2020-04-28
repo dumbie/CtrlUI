@@ -16,6 +16,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
 using static KeyboardController.AppVariables;
 using static LibraryShared.SoundPlayer;
+using static LibraryShared.Settings;
 
 namespace KeyboardController
 {
@@ -37,8 +38,8 @@ namespace KeyboardController
 
                 //Check application settings
                 WindowSettings.Settings_Check();
-                WindowSettings.Settings_Load_CtrlUI();
-                WindowSettings.Settings_Load_CtrlUI_AccentColor();
+                Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+                Settings_Load_AccentColor(vConfigurationCtrlUI);
 
                 //Create tray icon
                 Application_CreateTrayMenu();

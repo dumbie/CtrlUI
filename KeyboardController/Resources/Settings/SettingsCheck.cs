@@ -23,9 +23,9 @@ namespace KeyboardController
 
                 Debug.WriteLine("Checked the application settings.");
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed to check the application settings: " + Ex.Message);
+                Debug.WriteLine("Failed to check the application settings: " + ex.Message);
             }
         }
     }

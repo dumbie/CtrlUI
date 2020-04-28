@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using static ArnoldVinkCode.ProcessFunctions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -25,9 +26,10 @@ namespace DirectXInput
             {
                 //Initialize Settings
                 Settings_Check();
-                await Settings_Load_CtrlUI();
-                Settings_Load_CtrlUI_AccentColor();
-                await Settings_Load();
+                Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+                Settings_Load_AccentColor(vConfigurationCtrlUI);
+                Settings_Load_FpsOverlayer(ref vConfigurationFpsOverlayer);
+                Settings_Load();
                 Settings_Save();
 
                 //Create the tray menu
@@ -253,9 +255,9 @@ namespace DirectXInput
                     if (messageResult == 1)
                     {
                         Debug.WriteLine("Removed the controller: " + ManageController.Details.DisplayName);
+                        App.vWindowOverlay.Overlay_Show_Status("Controller", "Removed controller");
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            App.vWindowOverlay.Overlay_Show_Status("Controller", "Removed controller");
                             txt_Controller_Information.Text = "Removed the controller: " + ManageController.Details.DisplayName;
                         });
 

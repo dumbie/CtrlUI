@@ -2,29 +2,13 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Media;
-using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
 {
     public partial class WindowSettings
     {
-        //Load - CtrlUI Settings
-        public static void Settings_Load_CtrlUI()
-        {
-            try
-            {
-                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-                vConfigurationCtrlUI = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-            }
-            catch (Exception Ex)
-            {
-                Debug.WriteLine("Failed to load the CtrlUI settings: " + Ex.Message);
-            }
-        }
-
         //Load - Application Settings
-        void Settings_Load()
+        bool Settings_Load()
         {
             try
             {
@@ -105,10 +89,13 @@ namespace FpsOverlayer
 
                 string ColorFps = ConfigurationManager.AppSettings["ColorFps"].ToString();
                 colorpicker_ColorFps.Background = new BrushConverter().ConvertFrom(ColorFps) as SolidColorBrush;
+
+                return true;
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed to load the application settings: " + Ex.Message);
+                Debug.WriteLine("Failed to load the application settings: " + ex.Message);
+                return false;
             }
         }
     }

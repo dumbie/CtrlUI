@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using static CtrlUI.AppVariables;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -51,7 +52,7 @@ namespace CtrlUI
                 {
                     SolidColorBrush selectedSolidColorBrush = (SolidColorBrush)lb_ColorPicker.SelectedItem;
                     SettingSave("ColorAccentLight", selectedSolidColorBrush.ToString());
-                    ChangeApplicationAccentColor();
+                    Settings_Load_AccentColor(null);
                     await Popup_Close_ColorPicker();
                 }
             }

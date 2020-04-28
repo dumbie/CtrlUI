@@ -17,7 +17,7 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["MarginHorizontal"] == null) { SettingSave("MarginHorizontal", "0"); }
                 if (ConfigurationManager.AppSettings["MarginVertical"] == null) { SettingSave("MarginVertical", "40"); }
                 if (ConfigurationManager.AppSettings["InterfaceFontStyleName"] == null) { SettingSave("InterfaceFontStyleName", "Segoe UI"); }
-                if (ConfigurationManager.AppSettings["TextPosition"] == null) { SettingSave("TextPosition", "0"); }
+                if (ConfigurationManager.AppSettings["TextPosition"] == null) { SettingSave("TextPosition", "0"); } //Shared
                 if (ConfigurationManager.AppSettings["TextDirection"] == null) { SettingSave("TextDirection", "1"); }
                 if (ConfigurationManager.AppSettings["TextSize"] == null) { SettingSave("TextSize", "18"); }
 
@@ -67,7 +67,10 @@ namespace FpsOverlayer
 
                 Debug.WriteLine("Checked the application settings.");
             }
-            catch (Exception Ex) { Debug.WriteLine("Failed to check the application settings: " + Ex.Message); }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to check the application settings: " + ex.Message);
+            }
         }
     }
 }

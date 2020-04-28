@@ -7,6 +7,7 @@ using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static LibraryShared.ImageFunctions;
+using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -31,6 +32,9 @@ namespace DirectXInput
 
                 //Update the window and text position
                 UpdateWindowPosition();
+
+                //Update the battery icon and text position
+                UpdateBatteryPosition();
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged);
@@ -87,6 +91,34 @@ namespace DirectXInput
                     //Move the window top left
                     this.Left = targetScreen.Bounds.Left;
                     this.Top = targetScreen.Bounds.Top;
+                });
+            }
+            catch { }
+        }
+
+        //Update the battery icon and text position
+        public void UpdateBatteryPosition()
+        {
+            try
+            {
+                //Load current fps overlay settings
+                Settings_Load_FpsOverlayer(ref vConfigurationFpsOverlayer);
+
+                //Check current fps overlay position
+                int fpsTextPosition = Convert.ToInt32(vConfigurationFpsOverlayer.AppSettings.Settings["TextPosition"].Value);
+                //Debug.WriteLine("Fps overlayer text position: " + fpsTextPosition);
+
+                //Move the battery icon and text
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    if (fpsTextPosition == 0 || fpsTextPosition == 1 || fpsTextPosition == 2 || fpsTextPosition == 3 || fpsTextPosition == 7)
+                    {
+                        stackpanel_Battery_Warning.VerticalAlignment = VerticalAlignment.Bottom;
+                    }
+                    else
+                    {
+                        stackpanel_Battery_Warning.VerticalAlignment = VerticalAlignment.Top;
+                    }
                 });
             }
             catch { }

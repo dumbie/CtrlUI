@@ -1,37 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
-using static LibraryShared.Classes;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Load - DirectXInput Settings
-        void Settings_Load_DirectXInput()
-        {
-            try
-            {
-                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "DirectXInput.exe.Config";
-                vConfigurationDirectXInput = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to load the application settings: " + ex.Message);
-            }
-        }
-
         //Load - Application Settings
-        async Task Settings_Load()
+        bool Settings_Load()
         {
             try
             {
@@ -99,16 +79,13 @@ namespace CtrlUI
 
                 textblock_SettingsBackgroundPlaySpeed.Text = "Video playback speed: " + Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlaySpeed"]) + "%";
                 slider_SettingsBackgroundPlaySpeed.Value = Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlaySpeed"]);
-            }
-            catch (Exception Ex)
-            {
-                List<DataBindString> Answers = new List<DataBindString>();
-                DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Alright";
-                Answers.Add(Answer1);
 
-                await Popup_Show_MessageBox("Failed to load the application settings", "", Ex.Message, Answers);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to load the application settings: " + ex.Message);
+                return false;
             }
         }
     }

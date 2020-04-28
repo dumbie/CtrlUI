@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -53,7 +54,10 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["BackgroundPlayVolume"] == null) { SettingSave("BackgroundPlayVolume", "30"); }
                 if (ConfigurationManager.AppSettings["BackgroundPlaySpeed"] == null) { SettingSave("BackgroundPlaySpeed", "100"); }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to check the application settings: " + ex.Message);
+            }
         }
     }
 }

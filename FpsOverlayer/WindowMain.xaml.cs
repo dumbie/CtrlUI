@@ -16,6 +16,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -40,7 +41,7 @@ namespace FpsOverlayer
 
                 //Check application settings
                 App.vWindowSettings.Settings_Check();
-                WindowSettings.Settings_Load_CtrlUI();
+                Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
 
                 //Update the fps overlay style
                 UpdateFpsOverlayStyle();

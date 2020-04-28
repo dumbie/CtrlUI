@@ -155,9 +155,9 @@ namespace FpsOverlayer
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed to save the application settings: " + Ex.Message);
+                Debug.WriteLine("Failed to save the application settings: " + ex.Message);
             }
         }
 

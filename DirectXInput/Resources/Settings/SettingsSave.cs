@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.Diagnostics;
 using static DirectXInput.AppVariables;
 
 namespace DirectXInput
@@ -90,7 +92,10 @@ namespace DirectXInput
                     SettingSave("ShortcutScreenshot", cb_SettingsShortcutScreenshot.IsChecked.ToString());
                 };
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to save the application settings: " + ex.Message);
+            }
         }
 
         //Save - Application Setting

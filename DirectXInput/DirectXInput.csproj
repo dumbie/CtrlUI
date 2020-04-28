@@ -215,6 +215,10 @@
       <Link>Assets\Icons\Battery\BatteryVerController4.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\Keyboard.png">
+      <Link>Assets\Icons\Keyboard.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Profiles\DirectCloseTools.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

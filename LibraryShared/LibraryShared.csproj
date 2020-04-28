@@ -186,6 +186,7 @@
     <Compile Include="ExtractImage\GetBitmapSourceFromWindow.cs" />
     <Compile Include="ImageFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\SettingsLoad.cs" />
     <Compile Include="SoundPlayer.cs" />
   </ItemGroup>
   <ItemGroup>

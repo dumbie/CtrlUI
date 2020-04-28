@@ -49,7 +49,7 @@ namespace CtrlUI
                     }
 
                     //Update the interface status
-                    if (!silentFocus) { Popup_Show_Status("MiniMaxi", "Showing " + processName); }
+                    if (!silentFocus && processName != "CtrlUI") { Popup_Show_Status("MiniMaxi", "Showing " + processName); }
                     Debug.WriteLine("Showing application window: " + processName);
 
                     //Focus on application window handle
@@ -478,14 +478,14 @@ namespace CtrlUI
                 if (CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
                     //Close the keyboard controller
-                    Popup_Show_Status("Close", "Closing on screen keyboard");
+                    Popup_Show_Status("Close", "Closing Keyboard");
                     Debug.WriteLine("Closing on screen keyboard");
                     CloseProcessesByNameOrTitle("KeyboardController", false);
                 }
                 else
                 {
                     //Launch the keyboard controller
-                    Popup_Show_Status("Keyboard", "Showing on screen keyboard");
+                    Popup_Show_Status("Keyboard", "Showing Keyboard");
                     Debug.WriteLine("Showing on screen keyboard");
                     ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
                 }
@@ -501,7 +501,7 @@ namespace CtrlUI
                 if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
                     //Launch the keyboard controller
-                    if (!silentLaunch) { Popup_Show_Status("Keyboard", "Showing on screen keyboard"); }
+                    if (!silentLaunch) { Popup_Show_Status("Keyboard", "Showing Keyboard"); }
                     Debug.WriteLine("Showing on screen keyboard");
                     ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
                 }

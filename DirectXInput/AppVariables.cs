@@ -12,9 +12,10 @@ namespace DirectXInput
     public class AppVariables
     {
         //Application Variables
+        readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static Configuration vConfigurationCtrlUI = null;
-        readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+        public static Configuration vConfigurationFpsOverlayer = null;
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;

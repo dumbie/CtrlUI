@@ -114,11 +114,20 @@ namespace DirectXInput
                         ControllerUsed = true;
                         ControllerDelayLong = true;
                     }
+                    //Close the keyboard controller
+                    else if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController != null)
+                    {
+                        Debug.WriteLine("Guide short press closing keyboard controller.");
+                        App.vWindowOverlay.Overlay_Show_Status("Keyboard", "Closing Keyboard");
+
+                        ControllerUsed = true;
+                        ControllerDelayLong = true;
+                    }
                     //Launch the keyboard controller
                     else if (Controller.InputCurrent.ButtonGuideLong && vProcessKeyboardController == null)
                     {
                         Debug.WriteLine("Guide long press showing keyboard controller.");
-                        App.vWindowOverlay.Overlay_Show_Status("App", "Launching Keyboard");
+                        App.vWindowOverlay.Overlay_Show_Status("Keyboard", "Showing Keyboard");
 
                         LaunchKeyboardController();
 
@@ -205,7 +214,7 @@ namespace DirectXInput
                         SetManageController(Controller);
 
                         ControllerUsed = true;
-                        ControllerDelayLong = true;
+                        ControllerDelayShort = true;
                     }
 
                     if (ControllerDelayShort)

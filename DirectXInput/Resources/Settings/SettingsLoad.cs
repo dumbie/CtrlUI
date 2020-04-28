@@ -1,54 +1,15 @@
-﻿using AVForms;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using static DirectXInput.AppVariables;
 
 namespace DirectXInput
 {
     partial class WindowMain
     {
-        //Load - Accent Color settings
-        void Settings_Load_CtrlUI_AccentColor()
-        {
-            try
-            {
-                Debug.WriteLine("Adjusting the application accent color.");
-
-                string colorHexLight = Convert.ToString(vConfigurationCtrlUI.AppSettings.Settings["ColorAccentLight"].Value);
-                SolidColorBrush targetSolidColorBrushLight = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;
-                SolidColorBrush targetSolidColorBrushDark = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;
-                targetSolidColorBrushDark.Opacity = 0.50;
-
-                App.Current.Resources["ApplicationAccentLightColor"] = targetSolidColorBrushLight.Color;
-                App.Current.Resources["ApplicationAccentDarkColor"] = targetSolidColorBrushDark.Color;
-                App.Current.Resources["ApplicationAccentLightBrush"] = targetSolidColorBrushLight;
-                App.Current.Resources["ApplicationAccentDarkBrush"] = targetSolidColorBrushDark;
-            }
-            catch { }
-        }
-
-        //Load - CtrlUI Settings
-        async Task Settings_Load_CtrlUI()
-        {
-            try
-            {
-                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-                vConfigurationCtrlUI = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-            }
-            catch (Exception Ex)
-            {
-                await AVMessageBox.MessageBoxPopup(this, "Failed to load the CtrlUI settings.", Ex.Message, "Ok", "", "", "");
-            }
-        }
-
         //Load - Application Settings
-        async Task Settings_Load()
+        bool Settings_Load()
         {
             try
             {
@@ -76,10 +37,13 @@ namespace DirectXInput
                 {
                     cb_SettingsWindowsStartup.IsChecked = true;
                 }
+
+                return true;
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                await AVMessageBox.MessageBoxPopup(this, "Failed to load the application settings.", Ex.Message, "Ok", "", "", "");
+                Debug.WriteLine("Failed to load the application settings: " + ex.Message);
+                return false;
             }
         }
     }
