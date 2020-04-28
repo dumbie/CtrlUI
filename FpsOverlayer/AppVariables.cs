@@ -1,4 +1,5 @@
-﻿using LibreHardwareMonitor.Hardware;
+﻿using ArnoldVinkCode;
+using LibreHardwareMonitor.Hardware;
 using Microsoft.Diagnostics.Tracing.Session;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,9 @@ namespace FpsOverlayer
 
         //Trace Events - Provider Guids
         public static Guid vProvider_DxgKrnl = Guid.Parse("{802ec45a-1e99-4b83-9920-87c98277ba9d}");
+
+        //Sockets Variables
+        public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
         public static ObservableCollection<ProfileShared> vFpsPositionProcessName = new ObservableCollection<ProfileShared>();

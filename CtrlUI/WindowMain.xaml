@@ -678,7 +678,7 @@
                             <CheckBox Name="cb_SettingsLaunchMinimized" Content="Launch the application minimized" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will minimize the application automatically when launched." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                            <TextBlock Name="textblock_SettingsDisplayMonitor" Text="Default monitor to launch CtrlUI on" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Name="textblock_SettingsDisplayMonitor" Text="Monitor to display the applications on" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Monitor that CtrlUI, keyboard controller and fps overlayer appears on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Slider Name="slider_SettingsDisplayMonitor" Width="400" Maximum="12" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
@@ -830,12 +830,14 @@
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelNetwork" Visibility="Collapsed">
-                            <TextBlock Text="CtrlUI sockets client and server ports:" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                            <TextBlock Text="The sockets are used to receive information from DirectXInput." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <TextBlock Text="Sockets client and server ports:*" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Sockets are used to receive and send information to the other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <StackPanel Orientation="Horizontal">
                                 <TextBox Name="txt_SettingsSocketClientPortStart" Style="{StaticResource TextBoxBlack}" Width="120" HorizontalAlignment="Left"/>
                                 <TextBox Name="txt_SettingsSocketClientPortRange" IsEnabled="False" Style="{StaticResource TextBoxBlack}" Width="120" Margin="5,0,0,0" HorizontalAlignment="Left"/>
                             </StackPanel>
+
+                            <TextBlock Text="* Changing the port requires you to restart the other applications." Margin="0,20,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelOther" Visibility="Collapsed">

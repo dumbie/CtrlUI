@@ -40,9 +40,6 @@ namespace CtrlUI
                 //Check if DirectXInput is running
                 bool processDirectXInputRunning = CheckRunningProcessByNameOrTitle("DirectXInput", false);
 
-                //Load the current DirectXInput settings
-                Settings_Load_DirectXInput(ref vConfigurationDirectXInput);
-
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     //Check if there is any controller connected

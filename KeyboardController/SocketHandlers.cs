@@ -1,10 +1,13 @@
 ﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using System.Windows;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static KeyboardController.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace KeyboardController
 {
@@ -50,6 +53,21 @@ namespace KeyboardController
                         await ControllerInteractionKeyboard(receivedControllerInput);
 
                         vControllerBusy = false;
+                    }
+                }
+                else if (DeserializedBytes.Object is string)
+                {
+                    string receivedString = (string)DeserializedBytes.Object;
+                    Debug.WriteLine("Received string: " + receivedString);
+                    if (receivedString == "SettingChangedAccentColor")
+                    {
+                        Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+                        Settings_Load_AccentColor(vConfigurationCtrlUI);
+                    }
+                    else if (receivedString == "SettingChangedDisplayMonitor")
+                    {
+                        Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+                        UpdateWindowPosition();
                     }
                 }
             }

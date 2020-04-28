@@ -20,11 +20,10 @@ namespace CtrlUI
     public class AppVariables
     {
         //Application Variables
-        public static int vAppCurrentMonitor = 0;
+        readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static CultureInfo vAppCultureInfo = new CultureInfo("en-US");
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static Configuration vConfigurationDirectXInput = null;
-        readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 
         //Interaction Variables
         public static int vMouseLastInteraction = Environment.TickCount;
@@ -49,6 +48,7 @@ namespace CtrlUI
         //Process Variables
         public static Process vProcessCurrent = Process.GetCurrentProcess();
         public static Process vProcessDirectXInput = null;
+        public static Process vProcessFpsOverlayer = null;
         public static Process vProcessKeyboardController = null;
 
         //App Status Variables

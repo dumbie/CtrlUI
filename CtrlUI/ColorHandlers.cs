@@ -50,9 +50,17 @@ namespace CtrlUI
             {
                 if (lb_ColorPicker.SelectedItems.Count > 0 && lb_ColorPicker.SelectedIndex != -1)
                 {
+                    //Save the new accent color
                     SolidColorBrush selectedSolidColorBrush = (SolidColorBrush)lb_ColorPicker.SelectedItem;
                     SettingSave("ColorAccentLight", selectedSolidColorBrush.ToString());
+
+                    //Apply the new accent color
                     Settings_Load_AccentColor(null);
+
+                    //Notify applications setting changed
+                    await NotifyDirectXInputSettingChanged("AccentColor");
+                    await NotifyKeyboardControllerSettingChanged("AccentColor");
+
                     await Popup_Close_ColorPicker();
                 }
             }

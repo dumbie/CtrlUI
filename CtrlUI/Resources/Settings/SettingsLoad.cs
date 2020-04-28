@@ -35,15 +35,16 @@ namespace CtrlUI
 
                 //Load the socket used ports
                 txt_SettingsSocketClientPortStart.Text = Convert.ToString(ConfigurationManager.AppSettings["ServerPort"]);
-                txt_SettingsSocketClientPortRange.Text = Convert.ToString(Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]) + 2);
+                txt_SettingsSocketClientPortRange.Text = Convert.ToString(Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]) + 3);
 
                 //Load the application font size
                 textblock_SettingsFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
                 slider_SettingsFontSize.Value = Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
 
                 //Load the display monitor
-                textblock_SettingsDisplayMonitor.Text = "Default monitor to launch CtrlUI on: " + Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
-                slider_SettingsDisplayMonitor.Value = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
+                int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
+                textblock_SettingsDisplayMonitor.Text = "Default monitor to launch CtrlUI on: " + monitorNumber;
+                slider_SettingsDisplayMonitor.Value = monitorNumber;
                 slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count() - 1;
 
                 //Load the sound volume

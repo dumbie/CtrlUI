@@ -7,6 +7,7 @@ using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -43,10 +44,19 @@ namespace DirectXInput
                 //Check what kind of object was received
                 if (DeserializedBytes.Object is string)
                 {
-                    string ReceivedString = (string)DeserializedBytes.Object;
-                    //Debug.WriteLine("Received string: " + ReceivedString);
-
-                    if (ReceivedString == "ControllerStatusSummaryList")
+                    string receivedString = (string)DeserializedBytes.Object;
+                    //Debug.WriteLine("Received string: " + receivedString);
+                    if (receivedString == "SettingChangedAccentColor")
+                    {
+                        Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+                        Settings_Load_AccentColor(vConfigurationCtrlUI);
+                    }
+                    else if (receivedString == "SettingChangedDisplayMonitor")
+                    {
+                        Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+                        App.vWindowOverlay.UpdateWindowPosition();
+                    }
+                    else if (receivedString == "ControllerStatusSummaryList")
                     {
                         //List controller status
                         List<ControllerStatusSummary> controllerStatusSummaryList = new List<ControllerStatusSummary>();

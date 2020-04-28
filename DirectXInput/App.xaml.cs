@@ -27,11 +27,11 @@ namespace DirectXInput
                 string appFilePath = Assembly.GetEntryAssembly().Location;
                 Firewall_ExecutableAllow("DirectXInput", appFilePath, true);
 
-                //Show application overlay window
-                vWindowOverlay.Show();
-
                 //Run application startup code
                 await vWindowMain.Startup();
+
+                //Show application overlay window
+                vWindowOverlay.Show();
             }
             catch { }
         }

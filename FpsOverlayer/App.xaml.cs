@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
+using static ArnoldVinkCode.AVFirewall;
 using static LibraryShared.AppStartupCheck;
 
 namespace FpsOverlayer
@@ -21,6 +23,10 @@ namespace FpsOverlayer
 
                 //Check the application status
                 await Application_LaunchCheck("Fps Overlayer", ProcessPriorityClass.High, false, false);
+
+                //Allow application in firewall
+                string appFilePath = Assembly.GetEntryAssembly().Location;
+                Firewall_ExecutableAllow("Fps Overlayer", appFilePath, true);
 
                 //Open the application window
                 vWindowMain.Show();

@@ -52,22 +52,25 @@ namespace DirectXInput
                     SettingSave("ShortcutLaunchCtrlUI", cb_SettingsShortcutLaunchCtrlUI.IsChecked.ToString());
                 };
 
-                cb_SettingsShortcutLaunchKeyboardController.Click += (sender, e) =>
+                cb_SettingsShortcutLaunchKeyboardController.Click += async (sender, e) =>
                 {
                     SettingSave("ShortcutLaunchKeyboardController", cb_SettingsShortcutLaunchKeyboardController.IsChecked.ToString());
+                    await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
-                cb_SettingsShortcutAltEnter.Click += (sender, e) =>
+                cb_SettingsShortcutAltEnter.Click += async (sender, e) =>
                 {
                     SettingSave("ShortcutAltEnter", cb_SettingsShortcutAltEnter.IsChecked.ToString());
+                    await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
-                cb_SettingsShortcutAltF4.Click += (sender, e) =>
+                cb_SettingsShortcutAltF4.Click += async (sender, e) =>
                 {
                     SettingSave("ShortcutAltF4", cb_SettingsShortcutAltF4.IsChecked.ToString());
+                    await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
-                cb_SettingsShortcutAltTab.Click += (sender, e) =>
+                cb_SettingsShortcutAltTab.Click += async (sender, e) =>
                 {
                     SettingSave("ShortcutAltTab", cb_SettingsShortcutAltTab.IsChecked.ToString());
                     if (cb_SettingsShortcutAltTab.IsChecked == true)
@@ -75,9 +78,10 @@ namespace DirectXInput
                         SettingSave("ShortcutWinTab", "False");
                         cb_SettingsShortcutWinTab.IsChecked = false;
                     }
+                    await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
-                cb_SettingsShortcutWinTab.Click += (sender, e) =>
+                cb_SettingsShortcutWinTab.Click += async (sender, e) =>
                 {
                     SettingSave("ShortcutWinTab", cb_SettingsShortcutWinTab.IsChecked.ToString());
                     if (cb_SettingsShortcutWinTab.IsChecked == true)
@@ -85,11 +89,13 @@ namespace DirectXInput
                         SettingSave("ShortcutAltTab", "False");
                         cb_SettingsShortcutAltTab.IsChecked = false;
                     }
+                    await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
-                cb_SettingsShortcutScreenshot.Click += (sender, e) =>
+                cb_SettingsShortcutScreenshot.Click += async (sender, e) =>
                 {
                     SettingSave("ShortcutScreenshot", cb_SettingsShortcutScreenshot.IsChecked.ToString());
+                    await NotifyCtrlUISettingChanged("Shortcut");
                 };
             }
             catch (Exception ex)

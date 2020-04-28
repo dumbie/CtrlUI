@@ -115,6 +115,7 @@
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
+    <Compile Include="Resources\Settings\SettingsNotify.cs" />
     <Compile Include="WelcomeHandlers.cs" />
     <Compile Include="WelcomeFunctions.cs" />
     <Compile Include="ManageHandlers.cs" />
@@ -143,7 +144,6 @@
     <Compile Include="AppTasksFunctions.cs" />
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppVariables.cs" />
-    <Compile Include="Resources\Settings\SettingSave.cs" />
     <Compile Include="SettingsHandlers.cs" />
     <Compile Include="TextInputHandlers.cs" />
     <Compile Include="TextInputFunctions.cs" />

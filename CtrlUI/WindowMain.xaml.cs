@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
@@ -82,7 +83,8 @@ namespace CtrlUI
                 //Restore the last known window size and center the application
                 if (!Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]) && !Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]))
                 {
-                    AdjustScreenSizeMonitor(Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]), true, true, true, true);
+                    int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
+                    await UpdateWindowPosition(monitorNumber, true, true, true, true);
                 }
 
                 //Workaround for 64bit Windows problems with System32
@@ -206,8 +208,9 @@ namespace CtrlUI
         {
             try
             {
-                int ScreenCount = Screen.AllScreens.Count();
-                if (ScreenCount == 1)
+                //Check if there are multiple monitors
+                int totalScreenCount = Screen.AllScreens.Count();
+                if (totalScreenCount == 1)
                 {
                     Debug.WriteLine("Only one monitor");
                     Popup_Show_Status("MonitorNext", "Only one monitor");
@@ -215,72 +218,73 @@ namespace CtrlUI
                     return;
                 }
 
-                if (vAppCurrentMonitor + 1 >= ScreenCount)
+                //Check the next target monitor
+                int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
+                if (monitorNumber + 1 >= totalScreenCount)
                 {
-                    vAppCurrentMonitor = 0;
+                    monitorNumber = 0;
                 }
                 else
                 {
-                    vAppCurrentMonitor++;
+                    monitorNumber++;
                 }
 
-                bool IsMaximized = vAppMaximized;
-                if (IsMaximized)
-                {
-                    await AppSwitchScreenMode(false, true);
-                }
+                //Move to the next monitor
+                await UpdateWindowPosition(monitorNumber, false, true, true, false);
 
-                AdjustScreenSizeMonitor(vAppCurrentMonitor, false, true, true, false);
-                SettingSave("DisplayMonitor", vAppCurrentMonitor.ToString());
-
-                if (IsMaximized)
-                {
-                    await AppSwitchScreenMode(true, false);
-                }
+                //Save the new monitor number
+                SettingSave("DisplayMonitor", monitorNumber.ToString());
             }
             catch { }
         }
 
-        void AdjustScreenSizeMonitor(int MonitorNumber, bool SettingSize, bool ResizeWindow, bool CenterScreen, bool Silent)
+        //Update the window position
+        async Task UpdateWindowPosition(int monitorNumber, bool settingSize, bool resizeWindow, bool centerScreen, bool silent)
         {
             try
             {
-                //Get the current active screen
-                Screen targetScreen = GetActiveScreen(MonitorNumber);
-
-                int ScreenWidth = targetScreen.WorkingArea.Width;
-                int ScreenHeight = targetScreen.WorkingArea.Height;
-
-                int WindowWidth = 0;
-                int WindowHeight = 0;
-                if (SettingSize)
+                //Check if the application is maximized
+                bool isMaximized = vAppMaximized;
+                if (isMaximized)
                 {
-                    WindowWidth = Convert.ToInt32(ConfigurationManager.AppSettings["WindowSizeWidth"]);
-                    WindowHeight = Convert.ToInt32(ConfigurationManager.AppSettings["WindowSizeHeight"]);
+                    await AppSwitchScreenMode(false, true);
+                }
+
+                //Get the current active screen
+                Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
+                int screenWidth = targetScreen.WorkingArea.Width;
+                int screenHeight = targetScreen.WorkingArea.Height;
+
+                int windowWidth = 0;
+                int windowHeight = 0;
+                if (settingSize)
+                {
+                    windowWidth = Convert.ToInt32(ConfigurationManager.AppSettings["WindowSizeWidth"]);
+                    windowHeight = Convert.ToInt32(ConfigurationManager.AppSettings["WindowSizeHeight"]);
                 }
                 else
                 {
-                    WindowWidth = Convert.ToInt32(this.ActualWidth);
-                    WindowHeight = Convert.ToInt32(this.ActualHeight);
+                    windowWidth = Convert.ToInt32(this.ActualWidth);
+                    windowHeight = Convert.ToInt32(this.ActualHeight);
                 }
 
-                if (WindowWidth > ScreenWidth) { WindowWidth = ScreenWidth; }
-                if (WindowHeight > ScreenHeight) { WindowHeight = ScreenHeight; }
+                if (windowWidth > screenWidth) { windowWidth = screenWidth; }
+                if (windowHeight > screenHeight) { windowHeight = screenHeight; }
 
                 //Resize the application window
-                if (ResizeWindow)
+                if (resizeWindow)
                 {
-                    this.Width = WindowWidth;
-                    this.Height = WindowHeight;
+                    this.Width = windowWidth;
+                    this.Height = windowHeight;
                 }
 
                 //Center the window on screen
-                if (CenterScreen)
+                if (centerScreen)
                 {
-                    int HorizontalCenter = Convert.ToInt32((ScreenWidth - WindowWidth) / 2);
-                    int VerticalCenter = Convert.ToInt32((ScreenHeight - WindowHeight) / 2);
-                    this.Top = targetScreen.WorkingArea.Top + VerticalCenter;
-                    this.Left = targetScreen.WorkingArea.Left + HorizontalCenter;
+                    int horizontalCenter = Convert.ToInt32((screenWidth - windowWidth) / 2);
+                    int verticalCenter = Convert.ToInt32((screenHeight - windowHeight) / 2);
+                    this.Top = targetScreen.WorkingArea.Top + verticalCenter;
+                    this.Left = targetScreen.WorkingArea.Left + horizontalCenter;
                 }
                 else
                 {
@@ -288,42 +292,19 @@ namespace CtrlUI
                     this.Left = targetScreen.WorkingArea.Left;
                 }
 
-                Debug.WriteLine("Moved the application to monitor: " + vAppCurrentMonitor);
-                if (!Silent)
+                //Restore the previous screen mode
+                if (isMaximized)
                 {
-                    Popup_Show_Status("MonitorNext", "Moved to monitor " + vAppCurrentMonitor);
+                    await AppSwitchScreenMode(true, false);
                 }
-            }
-            catch { }
-        }
 
-        //Get the current active screen
-        public Screen GetActiveScreen(int MonitorNumber)
-        {
-            Screen targetScreen = null;
-            try
-            {
-                if (MonitorNumber > 0)
+                Debug.WriteLine("Moved the application to monitor: " + monitorNumber);
+                if (!silent)
                 {
-                    try
-                    {
-                        targetScreen = Screen.AllScreens[MonitorNumber];
-                        vAppCurrentMonitor = MonitorNumber;
-                    }
-                    catch
-                    {
-                        targetScreen = Screen.PrimaryScreen;
-                        vAppCurrentMonitor = 0;
-                    }
-                }
-                else
-                {
-                    targetScreen = Screen.PrimaryScreen;
-                    vAppCurrentMonitor = 0;
+                    Popup_Show_Status("MonitorNext", "Moved to monitor " + monitorNumber);
                 }
             }
             catch { }
-            return targetScreen;
         }
 
         //Monitor window state changes

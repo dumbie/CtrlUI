@@ -105,10 +105,16 @@ namespace CtrlUI
                     AdjustApplicationFontSize();
                 };
 
-                slider_SettingsDisplayMonitor.ValueChanged += (sender, e) =>
+                slider_SettingsDisplayMonitor.ValueChanged += async (sender, e) =>
                 {
                     textblock_SettingsDisplayMonitor.Text = "Default monitor to launch CtrlUI on: " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
                     SettingSave("DisplayMonitor", Convert.ToInt32(slider_SettingsDisplayMonitor.Value).ToString());
+
+                    int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
+                    UpdateWindowPosition(monitorNumber, false, false, true, true);
+                    await NotifyDirectXInputSettingChanged("DisplayMonitor");
+                    await NotifyKeyboardControllerSettingChanged("DisplayMonitor");
+                    await NotifyFpsOverlayerSettingChanged("DisplayMonitor");
                 };
 
                 slider_SettingsSoundVolume.ValueChanged += (sender, e) =>

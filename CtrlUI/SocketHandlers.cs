@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -56,6 +58,16 @@ namespace CtrlUI
                 {
                     List<ControllerStatusSummary> controllerStatusSummaryList = (List<ControllerStatusSummary>)DeserializedBytes.Object;
                     await UpdateControllerStatus(controllerStatusSummaryList);
+                }
+                else if (DeserializedBytes.Object is string)
+                {
+                    string receivedString = (string)DeserializedBytes.Object;
+                    //Debug.WriteLine("Received string: " + receivedString);
+                    if (receivedString == "SettingChangedShortcut")
+                    {
+                        Settings_Load_DirectXInput(ref vConfigurationDirectXInput);
+                        UpdateControllerHelp();
+                    }
                 }
             }
             catch { }

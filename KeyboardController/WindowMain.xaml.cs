@@ -9,14 +9,15 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
 using static KeyboardController.AppVariables;
-using static LibraryShared.SoundPlayer;
 using static LibraryShared.Settings;
+using static LibraryShared.SoundPlayer;
 
 namespace KeyboardController
 {
@@ -118,6 +119,25 @@ namespace KeyboardController
             catch { }
         }
 
+        //Update the window position
+        void UpdateWindowPosition()
+        {
+            try
+            {
+                //Get the current active screen
+                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
+
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Move the window to bottom center
+                    this.Left = targetScreen.Bounds.Location.X + (targetScreen.WorkingArea.Width - this.ActualWidth) / 2;
+                    this.Top = targetScreen.Bounds.Location.Y + targetScreen.WorkingArea.Height - this.ActualHeight;
+                });
+            }
+            catch { }
+        }
+
         //Activate keyboard window
         async Task KeyboardWindowActivate(bool moveWindow, FrameworkElement focusKey)
         {
@@ -127,14 +147,13 @@ namespace KeyboardController
                 UpdateWindowStyle();
 
                 //Get the current active screen
-                Screen targetScreen = GetActiveScreen();
+                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
 
-                //Move the keyboard window to bottom center
+                //Update the window position
                 if (moveWindow)
                 {
-                    this.Left = targetScreen.Bounds.Location.X + (targetScreen.WorkingArea.Width - this.ActualWidth) / 2;
-                    this.Top = targetScreen.Bounds.Location.Y + targetScreen.WorkingArea.Height - this.ActualHeight;
-                    await Task.Delay(10);
+                    UpdateWindowPosition();
                 }
 
                 //Get the current mouse position
@@ -160,31 +179,6 @@ namespace KeyboardController
                 await Task.Delay(10);
             }
             catch { }
-        }
-
-        //Get the current active screen
-        public Screen GetActiveScreen()
-        {
-            try
-            {
-                //Get default monitor
-                int MonitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-
-                //Get the target screen
-                if (MonitorNumber > 0)
-                {
-                    try
-                    {
-                        return Screen.AllScreens[MonitorNumber];
-                    }
-                    catch
-                    {
-                        return Screen.PrimaryScreen;
-                    }
-                }
-            }
-            catch { }
-            return Screen.PrimaryScreen;
         }
 
         //Update keyboard opacity

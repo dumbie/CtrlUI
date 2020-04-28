@@ -3,7 +3,9 @@ using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static LibraryShared.ImageFunctions;
@@ -74,13 +76,17 @@ namespace DirectXInput
             catch { }
         }
 
-        //Update the window and text position
+        //Update the window position
         public void UpdateWindowPosition()
         {
             try
             {
+                //Load current CtrlUI settings
+                Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+
                 //Get the current active screen
-                System.Windows.Forms.Screen targetScreen = GetActiveScreen();
+                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
@@ -122,31 +128,6 @@ namespace DirectXInput
                 });
             }
             catch { }
-        }
-
-        //Get the current active screen
-        public System.Windows.Forms.Screen GetActiveScreen()
-        {
-            try
-            {
-                //Get default monitor
-                int MonitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-
-                //Get the target screen
-                if (MonitorNumber > 0)
-                {
-                    try
-                    {
-                        return System.Windows.Forms.Screen.AllScreens[MonitorNumber];
-                    }
-                    catch
-                    {
-                        return System.Windows.Forms.Screen.PrimaryScreen;
-                    }
-                }
-            }
-            catch { }
-            return System.Windows.Forms.Screen.PrimaryScreen;
         }
 
         //Show the status overlay

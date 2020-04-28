@@ -281,6 +281,7 @@ namespace CtrlUI
             try
             {
                 vProcessDirectXInput = GetProcessByNameOrTitle("DirectXInput", false);
+                vProcessFpsOverlayer = GetProcessByNameOrTitle("FpsOverlayer", false);
                 vProcessKeyboardController = GetProcessByNameOrTitle("KeyboardController", false);
                 int focusedAppId = GetFocusedProcess().Identifier;
                 bool appActivated = false;
@@ -681,7 +682,7 @@ namespace CtrlUI
         }
 
         //Minimize the application and save previous state
-        async Task AppMinimize(bool Delay)
+        async Task AppMinimize(bool minimizeDelay)
         {
             try
             {
@@ -699,7 +700,7 @@ namespace CtrlUI
                 WindowState = WindowState.Minimized;
 
                 //Wait for application to minimize
-                if (Delay)
+                if (minimizeDelay)
                 {
                     await Task.Delay(1000);
                 }
@@ -708,11 +709,11 @@ namespace CtrlUI
         }
 
         //Switch application between fullscreen and windowed
-        async Task AppSwitchScreenMode(bool ForceMaximized, bool ForceNormal)
+        async Task AppSwitchScreenMode(bool forceMaximized, bool forceNormal)
         {
             try
             {
-                if (!ForceNormal && (ForceMaximized || WindowState != WindowState.Maximized))
+                if (!forceNormal && (forceMaximized || WindowState != WindowState.Maximized))
                 {
                     Debug.WriteLine("Maximizing CtrlUI window.");
 

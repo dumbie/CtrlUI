@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Windows.Forms;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
+using static KeyboardController.AppVariables;
 
 namespace KeyboardController
 {
@@ -33,12 +36,16 @@ namespace KeyboardController
                     int HorizontalCenter = PositionRect.Left + MouseHorizontal;
                     int VerticalCenter = PositionRect.Top + MouseVertical;
 
+                    //Get the current active screen
+                    int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                    Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
+
                     //Check if window leaves screen
-                    Rectangle targetScreen = GetActiveScreen().WorkingArea;
+                    Rectangle targetRectangle = targetScreen.WorkingArea;
                     double ScreenEdgeLeft = HorizontalCenter + this.ActualWidth;
                     double ScreenEdgeTop = VerticalCenter + this.ActualHeight;
-                    double ScreenEdgeRight = targetScreen.Right - HorizontalCenter;
-                    double ScreenEdgeBottom = targetScreen.Bottom - VerticalCenter;
+                    double ScreenEdgeRight = targetRectangle.Right - HorizontalCenter;
+                    double ScreenEdgeBottom = targetRectangle.Bottom - VerticalCenter;
                     if (ScreenEdgeLeft > 20 && ScreenEdgeTop > 20 && ScreenEdgeRight > 20 && ScreenEdgeBottom > 40)
                     {
                         SetWindowPos(WindowHandle, IntPtr.Zero, HorizontalCenter, VerticalCenter, 0, 0, (int)WindowSWP.NOSIZE);

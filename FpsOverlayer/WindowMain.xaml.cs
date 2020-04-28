@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
@@ -63,6 +64,22 @@ namespace FpsOverlayer
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged);
+
+                //Enable the socket server
+                EnableSocketServer();
+            }
+            catch { }
+        }
+
+        //Enable the socket server
+        private void EnableSocketServer()
+        {
+            try
+            {
+                int SocketServerPort = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["ServerPort"].Value) + 3;
+
+                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
+                vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }
         }
@@ -86,31 +103,6 @@ namespace FpsOverlayer
                 Debug.WriteLine("The window style has been updated.");
             }
             catch { }
-        }
-
-        //Get the current active screen
-        public System.Windows.Forms.Screen GetActiveScreen()
-        {
-            try
-            {
-                //Get default monitor
-                int MonitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-
-                //Get the target screen
-                if (MonitorNumber > 0)
-                {
-                    try
-                    {
-                        return System.Windows.Forms.Screen.AllScreens[MonitorNumber];
-                    }
-                    catch
-                    {
-                        return System.Windows.Forms.Screen.PrimaryScreen;
-                    }
-                }
-            }
-            catch { }
-            return System.Windows.Forms.Screen.PrimaryScreen;
         }
 
         //Update the window position on resolution change
@@ -174,13 +166,14 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update the window and text position
-        public void UpdateWindowTextPosition(string processName)
+        //Update the window position
+        public void UpdateWindowPosition(string processName)
         {
             try
             {
                 //Get the current active screen
-                System.Windows.Forms.Screen targetScreen = GetActiveScreen();
+                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                System.Windows.Forms.Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
 
                 //Get the screen resolution
                 int ScreenWidth = targetScreen.Bounds.Width;
@@ -554,8 +547,8 @@ namespace FpsOverlayer
                     textblock_CurrentTime.Foreground = new BrushConverter().ConvertFrom(ColorTime) as SolidColorBrush;
                 }
 
-                //Update the stats text position
-                UpdateWindowTextPosition(string.Empty);
+                //Update the window position
+                UpdateWindowPosition(string.Empty);
             }
             catch { }
         }
