@@ -107,11 +107,11 @@ namespace CtrlUI
 
                 slider_SettingsDisplayMonitor.ValueChanged += async (sender, e) =>
                 {
-                    textblock_SettingsDisplayMonitor.Text = "Default monitor to launch CtrlUI on: " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
+                    textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
                     SettingSave("DisplayMonitor", Convert.ToInt32(slider_SettingsDisplayMonitor.Value).ToString());
 
                     int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
-                    UpdateWindowPosition(monitorNumber, false, false, true, true);
+                    await UpdateWindowPosition(monitorNumber, false, false, true);
                     await NotifyDirectXInputSettingChanged("DisplayMonitor");
                     await NotifyKeyboardControllerSettingChanged("DisplayMonitor");
                     await NotifyFpsOverlayerSettingChanged("DisplayMonitor");

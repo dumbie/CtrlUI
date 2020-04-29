@@ -342,14 +342,14 @@ namespace CtrlUI
         }
 
         //Check the applications running status
-        void CheckAppRunningStatus(IEnumerable<Process> processesList)
+        void CheckAppRunningStatus(List<Process> processesList)
         {
             try
             {
                 //Check if processes list is provided
                 if (processesList == null)
                 {
-                    processesList = Process.GetProcesses();
+                    processesList = Process.GetProcesses().ToList();
                 }
 
                 //Update main menu launchers status

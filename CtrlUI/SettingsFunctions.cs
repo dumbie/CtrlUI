@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static ArnoldVinkCode.AVFiles;
 using static LibraryShared.Classes;
 
@@ -26,6 +27,13 @@ namespace CtrlUI
                 {
                     btn_Settings_AppQuickLaunch_TextBlock.Text = "Change the quick launch app";
                 }
+
+                //Set the available monitor amount
+                try
+                {
+                    slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count() - 1;
+                }
+                catch { }
 
                 //Show the settings popup
                 await Popup_Show(grid_Popup_Settings, null);

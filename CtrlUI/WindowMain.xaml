@@ -679,7 +679,7 @@
                             <TextBlock Text="Enabling this will minimize the application automatically when launched." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                             <TextBlock Name="textblock_SettingsDisplayMonitor" Text="Monitor to display the applications on" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                            <TextBlock Text="Monitor that CtrlUI, keyboard controller and fps overlayer appears on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <TextBlock Text="Monitor that CtrlUI, DirectXInput, Keyboard and Fps Overlayer appears on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Slider Name="slider_SettingsDisplayMonitor" Width="400" Maximum="12" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
                             <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>

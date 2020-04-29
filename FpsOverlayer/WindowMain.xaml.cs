@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -554,18 +555,18 @@ namespace FpsOverlayer
         }
 
         //Application Close Handler
-        protected override void OnClosing(CancelEventArgs e)
+        protected override async void OnClosing(CancelEventArgs e)
         {
             try
             {
                 e.Cancel = true;
-                Application_Exit();
+                await Application_Exit();
             }
             catch { }
         }
 
         //Close the application
-        void Application_Exit()
+        async Task Application_Exit()
         {
             try
             {
@@ -580,6 +581,12 @@ namespace FpsOverlayer
 
                 //Stop the background tasks
                 TasksBackgroundStop();
+
+                //Disable the socket server
+                if (vArnoldVinkSockets != null)
+                {
+                    await vArnoldVinkSockets.SocketServerDisable();
+                }
 
                 //Hide the visible tray icon
                 TrayNotifyIcon.Visible = false;

@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using System.Windows;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static KeyboardController.AppVariables;

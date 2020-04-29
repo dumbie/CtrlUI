@@ -43,7 +43,7 @@ namespace CtrlUI
 
                 //Load the display monitor
                 int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
-                textblock_SettingsDisplayMonitor.Text = "Default monitor to launch CtrlUI on: " + monitorNumber;
+                textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + monitorNumber;
                 slider_SettingsDisplayMonitor.Value = monitorNumber;
                 slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count() - 1;
 

@@ -105,6 +105,6 @@ namespace FpsOverlayer
         void NotifyIcon_Settings(object sender, EventArgs args) { Application_ShowHideSettings(); }
         void NotifyIcon_Applications(object sender, EventArgs args) { Application_ShowHideApplications(); }
         void NotifyIcon_Website(object sender, EventArgs args) { Process.Start("https://projects.arnoldvink.com"); }
-        void NotifyIcon_Exit(object sender, EventArgs args) { Application_Exit(); }
+        async void NotifyIcon_Exit(object sender, EventArgs args) { await Application_Exit(); }
     }
 }

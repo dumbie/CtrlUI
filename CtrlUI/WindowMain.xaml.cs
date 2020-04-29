@@ -81,10 +81,17 @@ namespace CtrlUI
                 }
 
                 //Restore the last known window size and center the application
-                if (!Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]) && !Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]))
+                if (!Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]))
                 {
                     int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
-                    await UpdateWindowPosition(monitorNumber, true, true, true, true);
+                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]))
+                    {
+                        await UpdateWindowPosition(monitorNumber, false, false, true);
+                    }
+                    else
+                    {
+                        await UpdateWindowPosition(monitorNumber, true, true, true);
+                    }
                 }
 
                 //Workaround for 64bit Windows problems with System32
@@ -230,7 +237,7 @@ namespace CtrlUI
                 }
 
                 //Move to the next monitor
-                await UpdateWindowPosition(monitorNumber, false, true, true, false);
+                await UpdateWindowPosition(monitorNumber, false, true, false);
 
                 //Save the new monitor number
                 SettingSave("DisplayMonitor", monitorNumber.ToString());
@@ -239,7 +246,7 @@ namespace CtrlUI
         }
 
         //Update the window position
-        async Task UpdateWindowPosition(int monitorNumber, bool settingSize, bool resizeWindow, bool centerScreen, bool silent)
+        async Task UpdateWindowPosition(int monitorNumber, bool settingSize, bool resizeWindow, bool silent)
         {
             try
             {
@@ -278,19 +285,11 @@ namespace CtrlUI
                     this.Height = windowHeight;
                 }
 
-                //Center the window on screen
-                if (centerScreen)
-                {
-                    int horizontalCenter = Convert.ToInt32((screenWidth - windowWidth) / 2);
-                    int verticalCenter = Convert.ToInt32((screenHeight - windowHeight) / 2);
-                    this.Top = targetScreen.WorkingArea.Top + verticalCenter;
-                    this.Left = targetScreen.WorkingArea.Left + horizontalCenter;
-                }
-                else
-                {
-                    this.Top = targetScreen.WorkingArea.Top;
-                    this.Left = targetScreen.WorkingArea.Left;
-                }
+                //Center the window on target screen
+                int horizontalCenter = Convert.ToInt32((screenWidth - windowWidth) / 2);
+                int verticalCenter = Convert.ToInt32((screenHeight - windowHeight) / 2);
+                this.Top = targetScreen.WorkingArea.Top + verticalCenter;
+                this.Left = targetScreen.WorkingArea.Left + horizontalCenter;
 
                 //Restore the previous screen mode
                 if (isMaximized)
