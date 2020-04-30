@@ -208,15 +208,12 @@ namespace FpsOverlayer
                     });
                     return;
                 }
-                else
+                else if (!vManualHidden)
                 {
-                    if (!vManualHidden)
+                    AVActions.ActionDispatcherInvoke(delegate
                     {
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            grid_FpsOverlayer.Visibility = Visibility.Visible;
-                        });
-                    }
+                        grid_FpsOverlayer.Visibility = Visibility.Visible;
+                    });
                 }
 
                 //Move fps to set position
@@ -549,7 +546,7 @@ namespace FpsOverlayer
                 }
 
                 //Update the window position
-                UpdateWindowPosition(string.Empty);
+                UpdateWindowPosition(vTargetProcess.Name);
             }
             catch { }
         }

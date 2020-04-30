@@ -99,7 +99,7 @@ namespace CtrlUI
                     else if (SelStackPanel.Name == "settingsButtonSound")
                     {
                         settingsStackpanelSound.Visibility = Visibility.Visible;
-                        await FocusOnElement(cb_SettingsInterfaceSound, false, vProcessCurrent.MainWindowHandle);
+                        await FocusOnElement(cb_SettingsShortcutVolume, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonBrowser")
                     {

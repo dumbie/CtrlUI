@@ -862,7 +862,7 @@
                             <Button Name="btn_Settings_LaunchDirectXInput" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="Assets/Apps/DirectXInput.png" Width="50" HorizontalAlignment="Center"/>
+                                        <Image Source="Assets/Icons/DirectXInput.png" Width="50" HorizontalAlignment="Center"/>
                                         <TextBlock Margin="15,0,0,0" Text="Launch DirectXInput application" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button.Content>
