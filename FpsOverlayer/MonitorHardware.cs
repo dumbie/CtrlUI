@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
@@ -349,9 +350,18 @@ namespace FpsOverlayer
                     //Get the screen resolution
                     int screenWidth = targetScreen.Bounds.Width;
                     int screenHeight = targetScreen.Bounds.Height;
+                    string screenResolutionString = " " + screenWidth + "x" + screenHeight;
+
+                    //Get the screen refresh rate
+                    string screenRefreshRateString = string.Empty;
+                    int screenRefreshRateInt = GetScreenRefreshRate(targetScreen);
+                    if (screenRefreshRateInt > 0)
+                    {
+                        screenRefreshRateString = " @ " + screenRefreshRateInt + "Hz";
+                    }
 
                     //Update the screen resolution
-                    string StringDisplay = AVFunctions.StringRemoveStart(vTitleMON + " " + screenWidth + " x " + screenHeight, " ");
+                    string StringDisplay = AVFunctions.StringRemoveStart(vTitleMON + screenResolutionString + screenRefreshRateString, " ");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         textblock_CurrentMon.Text = StringDisplay;
