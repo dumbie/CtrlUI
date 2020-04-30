@@ -123,7 +123,7 @@ namespace CtrlUI
                     }
 
                     //Refresh the processes list
-                    await RefreshListProcesses(true);
+                    await RefreshListProcessesWithWait(true);
 
                     //Check if process is running
                     ProcessMulti processMulti = await SelectProcessMulti(dataBindApp, true);

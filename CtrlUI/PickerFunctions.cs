@@ -9,9 +9,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.ImageFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -58,7 +58,11 @@ namespace CtrlUI
                 vFilePickerOpen = true;
 
                 //Disable the file picker list
-                AVActions.ElementSetValue(lb_FilePicker, IsEnabledProperty, false);
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    lb_FilePicker.IsEnabled = false;
+                    image_FilePicker_Loading.Show();
+                });
 
                 //Set file picker header texts
                 AVActions.ElementSetValue(grid_Popup_FilePicker_txt_Title, TextBlock.TextProperty, vFilePickerTitle);
@@ -447,7 +451,11 @@ namespace CtrlUI
                 }
 
                 //Enable the file picker list
-                AVActions.ElementSetValue(lb_FilePicker, IsEnabledProperty, true);
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    lb_FilePicker.IsEnabled = true;
+                    image_FilePicker_Loading.Hide();
+                });
 
                 //Focus on the file picker listbox
                 await ListboxFocusIndex(lb_FilePicker, false, false, targetIndex);

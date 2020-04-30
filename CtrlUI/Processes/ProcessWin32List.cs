@@ -21,14 +21,14 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Get all the active Win32 processes and update the lists
-        async Task ListLoadCheckProcessesWin32(List<Process> processesList, List<int> activeProcessesId, List<IntPtr> activeProcessesWindow, IEnumerable<DataBindApp> currentListApps, bool showStatus)
+        async Task ListLoadCheckProcessesWin32(Process[] processesList, List<int> activeProcessesId, List<IntPtr> activeProcessesWindow, IEnumerable<DataBindApp> currentListApps, bool showStatus)
         {
             try
             {
                 //Check if processes list is provided
                 if (processesList == null)
                 {
-                    processesList = Process.GetProcesses().ToList();
+                    processesList = Process.GetProcesses();
                 }
 
                 //Check if there are active processes

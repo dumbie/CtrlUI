@@ -47,7 +47,7 @@ namespace CtrlUI
         }
 
         //Refresh the processes and status
-        async Task RefreshListProcesses(bool refreshWait)
+        async Task RefreshListProcessesWithWait(bool refreshWait)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace CtrlUI
                 vBusyRefreshingProcesses = true;
 
                 //Load all the active processes
-                List<Process> processesList = Process.GetProcesses().ToList();
+                Process[] processesList = Process.GetProcesses();
 
                 //Refresh the processes list
                 await RefreshListProcesses(processesList);
@@ -95,14 +95,14 @@ namespace CtrlUI
         }
 
         //Refresh the processes list
-        async Task RefreshListProcesses(List<Process> processesList)
+        async Task RefreshListProcesses(Process[] processesList)
         {
             try
             {
                 //Check if processes list is provided
                 if (processesList == null)
                 {
-                    processesList = Process.GetProcesses().ToList();
+                    processesList = Process.GetProcesses();
                 }
 
                 //List all the currently running processes

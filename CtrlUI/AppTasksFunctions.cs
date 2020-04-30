@@ -79,7 +79,7 @@ namespace CtrlUI
                 {
                     if (vAppActivated)
                     {
-                        await RefreshListProcesses(false);
+                        await RefreshListProcessesWithWait(false);
                         await Task.Delay(3000);
                     }
                     else

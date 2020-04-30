@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CtrlUI"
         xmlns:styles="clr-namespace:ArnoldVinkCode.Styles"
+        xmlns:ArnoldVinkGifPlayer="clr-namespace:ArnoldVinkGifPlayer;assembly=LibraryShared"
         RenderOptions.BitmapScalingMode="HighQuality"
         mc:Ignorable="d"
         Title="CtrlUI (Beta)"
@@ -995,6 +996,7 @@
                             <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_CurrentPath" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
                             <Button Margin="0,0,0,10" Name="grid_Popup_FilePicker_button_SelectFolder" Content="Select the currently opened folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
                         </StackPanel>
+                        <ArnoldVinkGifPlayer:GifPlayer Name="image_FilePicker_Loading" GifSource="Assets/Icons/Loading.gif" Opacity="0.80" Height="140" SpeedRatio="4"/>
                     </Grid>
 
                     <styles:ScrollViewerLoopVertical ScrollLoopStep="2" Grid.Column="1" Style="{StaticResource ScrollViewerVertical}" Width="320" x:Name="grid_Popup_FilePicker_stackpanel_Description" Visibility="Collapsed">
@@ -1180,7 +1182,7 @@
         </StackPanel>
 
         <!-- Status - Message Status -->
-        <Grid Name="grid_Message_Status" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,55,0,0" Visibility="Collapsed">
+        <Grid Name="grid_Message_Status" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,120,0,0" Visibility="Collapsed">
             <Grid.Background>
                 <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
             </Grid.Background>

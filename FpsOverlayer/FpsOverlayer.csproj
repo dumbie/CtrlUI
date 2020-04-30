@@ -191,18 +191,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Icons\Down.png" />
-    <Resource Include="Assets\Icons\Up.png" />
+    <Resource Include="Assets\Icons\FpsDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\FpsUp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.png">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.png</Link>
     </Resource>
     <Content Include="Resources\LibreHardwareMonitorLib.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Fonts\Unispace.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Fonts\HelveticaNeue.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

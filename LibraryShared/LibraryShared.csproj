@@ -94,6 +94,9 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFirewall.cs">
       <Link>ArnoldVinkCode\Functions\AVFirewall.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVGifPlayer.cs">
+      <Link>ArnoldVinkCode\Functions\AVGifPlayer.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
     </Compile>
