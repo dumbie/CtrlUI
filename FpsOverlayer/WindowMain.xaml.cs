@@ -177,14 +177,14 @@ namespace FpsOverlayer
                 System.Windows.Forms.Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
 
                 //Get the screen resolution
-                int ScreenWidth = targetScreen.Bounds.Width;
-                int ScreenHeight = targetScreen.Bounds.Height;
+                int screenWidth = targetScreen.Bounds.Width;
+                int screenHeight = targetScreen.Bounds.Height;
 
                 //Set the window size
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    this.Width = ScreenWidth;
-                    this.Height = ScreenHeight;
+                    this.Width = screenWidth;
+                    this.Height = screenHeight;
                 });
 
                 //Load the text position
@@ -232,6 +232,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Left;
+                        stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Left;
                     });
                 }
                 else if (targetTextPosition == 1) //Top center
@@ -249,6 +250,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Center;
+                        stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Center;
                     });
                 }
                 else if (targetTextPosition == 2) //Top right
@@ -266,6 +268,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Right;
+                        stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
                 else if (targetTextPosition == 3) //Middle right
@@ -283,6 +286,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Right;
+                        stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
                 else if (targetTextPosition == 4) //Bottom right
@@ -300,6 +304,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Right;
+                        stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
                 else if (targetTextPosition == 5) //Bottom center
@@ -317,6 +322,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Center;
+                        stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Center;
                     });
                 }
                 else if (targetTextPosition == 6) //Bottom left
@@ -334,6 +340,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Left;
+                        stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Left;
                     });
                 }
                 else if (targetTextPosition == 7) //Middle left
@@ -351,6 +358,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentFps.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentApp.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentTime.HorizontalAlignment = HorizontalAlignment.Left;
+                        stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Left;
                     });
                 }
             }
@@ -369,6 +377,7 @@ namespace FpsOverlayer
                     vTitleCPU = "CPU";
                     vTitleMEM = "MEM";
                     vTitleNET = "NET";
+                    vTitleMON = "MON";
                 }
                 else
                 {
@@ -376,6 +385,7 @@ namespace FpsOverlayer
                     vTitleCPU = string.Empty;
                     vTitleMEM = string.Empty;
                     vTitleNET = string.Empty;
+                    vTitleMON = string.Empty;
                 }
 
                 //Update the stats text orientation and order
@@ -383,6 +393,9 @@ namespace FpsOverlayer
                 {
                     int TimeId = Convert.ToInt32(ConfigurationManager.AppSettings["TimeId"]);
                     stackpanel_CurrentTime.SetValue(Grid.RowProperty, TimeId);
+
+                    int MonId = Convert.ToInt32(ConfigurationManager.AppSettings["MonId"]);
+                    stackpanel_CurrentMon.SetValue(Grid.RowProperty, MonId);
 
                     int AppId = Convert.ToInt32(ConfigurationManager.AppSettings["AppId"]);
                     stackpanel_CurrentApp.SetValue(Grid.RowProperty, AppId);
@@ -409,11 +422,15 @@ namespace FpsOverlayer
                     stackpanel_CurrentFps.SetValue(Grid.ColumnProperty, 0);
                     stackpanel_CurrentApp.SetValue(Grid.ColumnProperty, 0);
                     stackpanel_CurrentTime.SetValue(Grid.ColumnProperty, 0);
+                    stackpanel_CurrentMon.SetValue(Grid.ColumnProperty, 0);
                 }
                 else
                 {
                     int TimeId = Convert.ToInt32(ConfigurationManager.AppSettings["TimeId"]);
                     stackpanel_CurrentTime.SetValue(Grid.ColumnProperty, TimeId);
+
+                    int MonId = Convert.ToInt32(ConfigurationManager.AppSettings["MonId"]);
+                    stackpanel_CurrentMon.SetValue(Grid.ColumnProperty, MonId);
 
                     int AppId = Convert.ToInt32(ConfigurationManager.AppSettings["AppId"]);
                     stackpanel_CurrentApp.SetValue(Grid.ColumnProperty, AppId);
@@ -440,32 +457,28 @@ namespace FpsOverlayer
                     stackpanel_CurrentFps.SetValue(Grid.RowProperty, 0);
                     stackpanel_CurrentApp.SetValue(Grid.RowProperty, 0);
                     stackpanel_CurrentTime.SetValue(Grid.RowProperty, 0);
+                    stackpanel_CurrentMon.SetValue(Grid.RowProperty, 0);
                 }
 
                 //Update the stats background
+                SolidColorBrush brushBackground = null;
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["DisplayBackground"]))
                 {
                     string colorBackground = ConfigurationManager.AppSettings["ColorBackground"].ToString();
-                    SolidColorBrush brushBackground = new BrushConverter().ConvertFrom(colorBackground) as SolidColorBrush;
-                    stackpanel_CurrentMem.Background = brushBackground;
-                    stackpanel_CurrentGpu.Background = brushBackground;
-                    stackpanel_CurrentCpu.Background = brushBackground;
-                    stackpanel_CurrentNet.Background = brushBackground;
-                    stackpanel_CurrentFps.Background = brushBackground;
-                    stackpanel_CurrentApp.Background = brushBackground;
-                    stackpanel_CurrentTime.Background = brushBackground;
+                    brushBackground = new BrushConverter().ConvertFrom(colorBackground) as SolidColorBrush;
                 }
                 else
                 {
-                    SolidColorBrush brushBackground = new SolidColorBrush(Colors.Transparent);
-                    stackpanel_CurrentMem.Background = brushBackground;
-                    stackpanel_CurrentGpu.Background = brushBackground;
-                    stackpanel_CurrentCpu.Background = brushBackground;
-                    stackpanel_CurrentNet.Background = brushBackground;
-                    stackpanel_CurrentFps.Background = brushBackground;
-                    stackpanel_CurrentApp.Background = brushBackground;
-                    stackpanel_CurrentTime.Background = brushBackground;
+                    brushBackground = new SolidColorBrush(Colors.Transparent);
                 }
+                stackpanel_CurrentMem.Background = brushBackground;
+                stackpanel_CurrentGpu.Background = brushBackground;
+                stackpanel_CurrentCpu.Background = brushBackground;
+                stackpanel_CurrentNet.Background = brushBackground;
+                stackpanel_CurrentFps.Background = brushBackground;
+                stackpanel_CurrentApp.Background = brushBackground;
+                stackpanel_CurrentTime.Background = brushBackground;
+                stackpanel_CurrentMon.Background = brushBackground;
 
                 //Update the stats opacity
                 grid_FpsOverlayer.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["DisplayOpacity"]);
@@ -513,19 +526,23 @@ namespace FpsOverlayer
                 textblock_CurrentTime.FontSize = targetTextSize;
                 textblock_CurrentTime.LineHeight = targetTextSize;
                 textblock_CurrentTime.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
+                textblock_CurrentMon.FontSize = targetTextSize;
+                textblock_CurrentMon.LineHeight = targetTextSize;
+                textblock_CurrentMon.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
 
                 //Update the stats colors
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["TextColorSingle"]))
                 {
                     string ColorSingle = ConfigurationManager.AppSettings["ColorSingle"].ToString();
-                    SolidColorBrush brushBackground = new BrushConverter().ConvertFrom(ColorSingle) as SolidColorBrush;
-                    textblock_CurrentMem.Foreground = brushBackground;
-                    textblock_CurrentGpu.Foreground = brushBackground;
-                    textblock_CurrentCpu.Foreground = brushBackground;
-                    textblock_CurrentNet.Foreground = brushBackground;
-                    textblock_CurrentFps.Foreground = brushBackground;
-                    textblock_CurrentApp.Foreground = brushBackground;
-                    textblock_CurrentTime.Foreground = brushBackground;
+                    SolidColorBrush brushForeground = new BrushConverter().ConvertFrom(ColorSingle) as SolidColorBrush;
+                    textblock_CurrentMem.Foreground = brushForeground;
+                    textblock_CurrentGpu.Foreground = brushForeground;
+                    textblock_CurrentCpu.Foreground = brushForeground;
+                    textblock_CurrentNet.Foreground = brushForeground;
+                    textblock_CurrentFps.Foreground = brushForeground;
+                    textblock_CurrentApp.Foreground = brushForeground;
+                    textblock_CurrentTime.Foreground = brushForeground;
+                    textblock_CurrentMon.Foreground = brushForeground;
                 }
                 else
                 {
@@ -536,6 +553,7 @@ namespace FpsOverlayer
                     string ColorFps = ConfigurationManager.AppSettings["ColorFps"].ToString();
                     string ColorApp = ConfigurationManager.AppSettings["ColorApp"].ToString();
                     string ColorTime = ConfigurationManager.AppSettings["ColorTime"].ToString();
+                    string ColorMon = ConfigurationManager.AppSettings["ColorMon"].ToString();
                     textblock_CurrentMem.Foreground = new BrushConverter().ConvertFrom(ColorMem) as SolidColorBrush;
                     textblock_CurrentGpu.Foreground = new BrushConverter().ConvertFrom(ColorGpu) as SolidColorBrush;
                     textblock_CurrentCpu.Foreground = new BrushConverter().ConvertFrom(ColorCpu) as SolidColorBrush;
@@ -543,6 +561,7 @@ namespace FpsOverlayer
                     textblock_CurrentFps.Foreground = new BrushConverter().ConvertFrom(ColorFps) as SolidColorBrush;
                     textblock_CurrentApp.Foreground = new BrushConverter().ConvertFrom(ColorApp) as SolidColorBrush;
                     textblock_CurrentTime.Foreground = new BrushConverter().ConvertFrom(ColorTime) as SolidColorBrush;
+                    textblock_CurrentMon.Foreground = new BrushConverter().ConvertFrom(ColorMon) as SolidColorBrush;
                 }
 
                 //Update the window position

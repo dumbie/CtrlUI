@@ -25,42 +25,52 @@ namespace CtrlUI
                 //Add all display monitors to answers list
                 foreach (DisplayMonitorSummary displayMonitor in monitorsList)
                 {
-                    DataBindString Answer0 = new DataBindString();
-                    Answer0.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
-                    Answer0.Name = displayMonitor.Name;
-                    Answers.Add(Answer0);
+                    DataBindString AnswerMonitor = new DataBindString();
+                    AnswerMonitor.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
+                    AnswerMonitor.Name = displayMonitor.Name;
+                    Answers.Add(AnswerMonitor);
                 }
 
-                DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Primary monitor";
-                Answers.Add(Answer1);
+                DataBindString AnswerPrimary = new DataBindString();
+                AnswerPrimary.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
+                AnswerPrimary.Name = "Primary monitor";
+                Answers.Add(AnswerPrimary);
 
-                DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
-                Answer2.Name = "Duplicate mode";
-                Answers.Add(Answer2);
+                DataBindString AnswerSecondary = new DataBindString();
+                AnswerSecondary.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
+                AnswerSecondary.Name = "Secondary monitor";
+                Answers.Add(AnswerSecondary);
 
-                DataBindString Answer3 = new DataBindString();
-                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
-                Answer3.Name = "Extend mode";
-                Answers.Add(Answer3);
+                DataBindString AnswerDuplicate = new DataBindString();
+                AnswerDuplicate.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
+                AnswerDuplicate.Name = "Duplicate mode";
+                Answers.Add(AnswerDuplicate);
+
+                DataBindString AnswerExtend = new DataBindString();
+                AnswerExtend.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
+                AnswerExtend.Name = "Extend mode";
+                Answers.Add(AnswerExtend);
 
                 //Show the messagebox prompt
                 DataBindString messageResult = await Popup_Show_MessageBox("Switch display monitor", "", "Please select the display monitor you want to use.", Answers);
                 if (messageResult != null)
                 {
-                    if (messageResult == Answer1)
+                    if (messageResult == AnswerPrimary)
                     {
                         Popup_Show_Status("MonitorSwitch", "Switching primary monitor");
                         EnableMonitorFirst();
                     }
-                    else if (messageResult == Answer2)
+                    else if (messageResult == AnswerSecondary)
+                    {
+                        Popup_Show_Status("MonitorSwitch", "Switching secondary monitor");
+                        EnableMonitorSecond();
+                    }
+                    else if (messageResult == AnswerDuplicate)
                     {
                         Popup_Show_Status("MonitorSwitch", "Cloning display monitor");
                         EnableMonitorCloneMode();
                     }
-                    else if (messageResult == Answer3)
+                    else if (messageResult == AnswerExtend)
                     {
                         Popup_Show_Status("MonitorSwitch", "Extending display monitor");
                         EnableMonitorExtendMode();

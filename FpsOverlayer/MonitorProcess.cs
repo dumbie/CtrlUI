@@ -123,18 +123,21 @@ namespace FpsOverlayer
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["TimeShowCurrentTime"]))
                 {
-                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["TimeShowCurrentTime"]))
+                    AVActions.ActionDispatcherInvoke(delegate
                     {
                         textblock_CurrentTime.Text = DateTime.Now.ToShortTimeString();
                         stackpanel_CurrentTime.Visibility = Visibility.Visible;
-                    }
-                    else
+                    });
+                }
+                else
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
                     {
                         stackpanel_CurrentTime.Visibility = Visibility.Collapsed;
-                    }
-                });
+                    });
+                }
             }
             catch { }
         }

@@ -7,8 +7,8 @@
         xmlns:ArnoldVinkColorPicker="clr-namespace:ArnoldVinkColorPicker"
         mc:Ignorable="d"
         Title="Settings"
-        MinHeight="550"
-        Height="550"
+        MinHeight="620"
+        Height="620"
         MinWidth="500"
         MaxWidth="500"
         Background="#F1F1F1"
@@ -108,6 +108,10 @@
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <TextBlock Text="Display color for current time:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                     <ArnoldVinkColorPicker:ColorPicker x:Name="colorpicker_ColorTime" Margin="5,0,0,0" BorderBrush="Black" BorderThickness="1" Background="Black" Height="20" Width="40" HorizontalAlignment="Left" ToolTipService.ToolTip="Change the current time color"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <TextBlock Text="Display color for current monitor:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                    <ArnoldVinkColorPicker:ColorPicker x:Name="colorpicker_ColorMon" Margin="5,0,0,0" BorderBrush="Black" BorderThickness="1" Background="Black" Height="20" Width="40" HorizontalAlignment="Left" ToolTipService.ToolTip="Change the current monitor color"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
@@ -236,6 +240,19 @@
 
                 <CheckBox Name="checkbox_TimeShowCurrentTime" Content="Show the current time" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the current time." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Monitor Settings"/>
+                    <Button Name="button_MonUp" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                        <Image Source="Assets/Icons/FpsUp.png" Height="30"/>
+                    </Button>
+                    <Button Name="button_MonDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                        <Image Source="Assets/Icons/FpsDown.png" Height="30"/>
+                    </Button>
+                </StackPanel>
+
+                <CheckBox Name="checkbox_MonShowResolution" Content="Show the current resolution" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will show the current monitor resolution." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>
