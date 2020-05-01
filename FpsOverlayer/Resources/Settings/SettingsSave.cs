@@ -13,12 +13,6 @@ namespace FpsOverlayer
         {
             try
             {
-                checkbox_CategoryTitles.Click += (sender, e) =>
-                {
-                    SettingSave("CategoryTitles", checkbox_CategoryTitles.IsChecked.ToString());
-                    App.vWindowMain.UpdateFpsOverlayStyle();
-                };
-
                 checkbox_DisplayBackground.Click += (sender, e) =>
                 {
                     SettingSave("DisplayBackground", checkbox_DisplayBackground.IsChecked.ToString());
@@ -77,28 +71,60 @@ namespace FpsOverlayer
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
+                checkbox_GpuShowCategoryTitle.Click += (sender, e) =>
+                {
+                    SettingSave("GpuShowCategoryTitle", checkbox_GpuShowCategoryTitle.IsChecked.ToString());
+                    App.vWindowMain.UpdateFpsOverlayStyle();
+                };
                 checkbox_GpuShowPercentage.Click += (sender, e) => { SettingSave("GpuShowPercentage", checkbox_GpuShowPercentage.IsChecked.ToString()); };
                 checkbox_GpuShowMemoryUsed.Click += (sender, e) => { SettingSave("GpuShowMemoryUsed", checkbox_GpuShowMemoryUsed.IsChecked.ToString()); };
                 checkbox_GpuShowTemperature.Click += (sender, e) => { SettingSave("GpuShowTemperature", checkbox_GpuShowTemperature.IsChecked.ToString()); };
                 checkbox_GpuShowCoreFrequency.Click += (sender, e) => { SettingSave("GpuShowCoreFrequency", checkbox_GpuShowCoreFrequency.IsChecked.ToString()); };
                 checkbox_GpuShowFanSpeed.Click += (sender, e) => { SettingSave("GpuShowFanSpeed", checkbox_GpuShowFanSpeed.IsChecked.ToString()); };
 
+                checkbox_CpuShowCategoryTitle.Click += (sender, e) =>
+                {
+                    SettingSave("CpuShowCategoryTitle", checkbox_CpuShowCategoryTitle.IsChecked.ToString());
+                    App.vWindowMain.UpdateFpsOverlayStyle();
+                };
                 checkbox_CpuShowPercentage.Click += (sender, e) => { SettingSave("CpuShowPercentage", checkbox_CpuShowPercentage.IsChecked.ToString()); };
                 checkbox_CpuShowTemperature.Click += (sender, e) => { SettingSave("CpuShowTemperature", checkbox_CpuShowTemperature.IsChecked.ToString()); };
                 checkbox_CpuShowCoreFrequency.Click += (sender, e) => { SettingSave("CpuShowCoreFrequency", checkbox_CpuShowCoreFrequency.IsChecked.ToString()); };
                 checkbox_CpuShowPowerUsage.Click += (sender, e) => { SettingSave("CpuShowPowerUsage", checkbox_CpuShowPowerUsage.IsChecked.ToString()); };
 
+                checkbox_MemShowCategoryTitle.Click += (sender, e) =>
+                {
+                    SettingSave("MemShowCategoryTitle", checkbox_MemShowCategoryTitle.IsChecked.ToString());
+                    App.vWindowMain.UpdateFpsOverlayStyle();
+                };
                 checkbox_MemShowPercentage.Click += (sender, e) => { SettingSave("MemShowPercentage", checkbox_MemShowPercentage.IsChecked.ToString()); };
                 checkbox_MemShowUsed.Click += (sender, e) => { SettingSave("MemShowUsed", checkbox_MemShowUsed.IsChecked.ToString()); };
                 checkbox_MemShowFree.Click += (sender, e) => { SettingSave("MemShowFree", checkbox_MemShowFree.IsChecked.ToString()); };
                 checkbox_MemShowTotal.Click += (sender, e) => { SettingSave("MemShowTotal", checkbox_MemShowTotal.IsChecked.ToString()); };
 
+                checkbox_NetShowCategoryTitle.Click += (sender, e) =>
+                {
+                    SettingSave("NetShowCategoryTitle", checkbox_NetShowCategoryTitle.IsChecked.ToString());
+                    App.vWindowMain.UpdateFpsOverlayStyle();
+                };
                 checkbox_NetShowCurrentUsage.Click += (sender, e) => { SettingSave("NetShowCurrentUsage", checkbox_NetShowCurrentUsage.IsChecked.ToString()); };
+
                 checkbox_AppShowName.Click += (sender, e) => { SettingSave("AppShowName", checkbox_AppShowName.IsChecked.ToString()); };
                 checkbox_TimeShowCurrentTime.Click += (sender, e) => { SettingSave("TimeShowCurrentTime", checkbox_TimeShowCurrentTime.IsChecked.ToString()); };
+
+                checkbox_MonShowCategoryTitle.Click += (sender, e) =>
+                {
+                    SettingSave("MonShowCategoryTitle", checkbox_MonShowCategoryTitle.IsChecked.ToString());
+                    App.vWindowMain.UpdateFpsOverlayStyle();
+                };
                 checkbox_MonShowResolution.Click += (sender, e) => { SettingSave("MonShowResolution", checkbox_MonShowResolution.IsChecked.ToString()); };
                 checkbox_MonShowRefreshRate.Click += (sender, e) => { SettingSave("MonShowRefreshRate", checkbox_MonShowRefreshRate.IsChecked.ToString()); };
 
+                checkbox_FpsShowCategoryTitle.Click += (sender, e) =>
+                {
+                    SettingSave("FpsShowCategoryTitle", checkbox_FpsShowCategoryTitle.IsChecked.ToString());
+                    App.vWindowMain.UpdateFpsOverlayStyle();
+                };
                 checkbox_FpsShowCurrentFps.Click += (sender, e) => { SettingSave("FpsShowCurrentFps", checkbox_FpsShowCurrentFps.IsChecked.ToString()); };
                 checkbox_FpsShowCurrentLatency.Click += (sender, e) => { SettingSave("FpsShowCurrentLatency", checkbox_FpsShowCurrentLatency.IsChecked.ToString()); };
                 checkbox_FpsShowAverageFps.Click += (sender, e) => { SettingSave("FpsShowAverageFps", checkbox_FpsShowAverageFps.IsChecked.ToString()); };

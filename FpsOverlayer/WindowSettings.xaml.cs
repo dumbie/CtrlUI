@@ -91,14 +91,14 @@ namespace FpsOverlayer
             try
             {
                 Button buttonsend = (Button)sender;
-                if (buttonsend.Name == "button_GpuUp") { MoveStatsUpDown(true, "GpuId"); }
-                else if (buttonsend.Name == "button_CpuUp") { MoveStatsUpDown(true, "CpuId"); }
-                else if (buttonsend.Name == "button_MemUp") { MoveStatsUpDown(true, "MemId"); }
-                else if (buttonsend.Name == "button_NetUp") { MoveStatsUpDown(true, "NetId"); }
-                else if (buttonsend.Name == "button_FpsUp") { MoveStatsUpDown(true, "FpsId"); }
-                else if (buttonsend.Name == "button_AppUp") { MoveStatsUpDown(true, "AppId"); }
-                else if (buttonsend.Name == "button_TimeUp") { MoveStatsUpDown(true, "TimeId"); }
-                else if (buttonsend.Name == "button_MonUp") { MoveStatsUpDown(true, "MonId"); }
+                if (buttonsend.Name == "button_GpuUp") { MoveStatsPosition(true, "GpuId"); }
+                else if (buttonsend.Name == "button_CpuUp") { MoveStatsPosition(true, "CpuId"); }
+                else if (buttonsend.Name == "button_MemUp") { MoveStatsPosition(true, "MemId"); }
+                else if (buttonsend.Name == "button_NetUp") { MoveStatsPosition(true, "NetId"); }
+                else if (buttonsend.Name == "button_FpsUp") { MoveStatsPosition(true, "FpsId"); }
+                else if (buttonsend.Name == "button_AppUp") { MoveStatsPosition(true, "AppId"); }
+                else if (buttonsend.Name == "button_TimeUp") { MoveStatsPosition(true, "TimeId"); }
+                else if (buttonsend.Name == "button_MonUp") { MoveStatsPosition(true, "MonId"); }
             }
             catch { }
         }
@@ -108,19 +108,45 @@ namespace FpsOverlayer
             try
             {
                 Button buttonsend = (Button)sender;
-                if (buttonsend.Name == "button_GpuDown") { MoveStatsUpDown(false, "GpuId"); }
-                else if (buttonsend.Name == "button_CpuDown") { MoveStatsUpDown(false, "CpuId"); }
-                else if (buttonsend.Name == "button_MemDown") { MoveStatsUpDown(false, "MemId"); }
-                else if (buttonsend.Name == "button_NetDown") { MoveStatsUpDown(false, "NetId"); }
-                else if (buttonsend.Name == "button_FpsDown") { MoveStatsUpDown(false, "FpsId"); }
-                else if (buttonsend.Name == "button_AppDown") { MoveStatsUpDown(false, "AppId"); }
-                else if (buttonsend.Name == "button_TimeDown") { MoveStatsUpDown(false, "TimeId"); }
-                else if (buttonsend.Name == "button_MonDown") { MoveStatsUpDown(false, "MonId"); }
+                if (buttonsend.Name == "button_GpuDown") { MoveStatsPosition(false, "GpuId"); }
+                else if (buttonsend.Name == "button_CpuDown") { MoveStatsPosition(false, "CpuId"); }
+                else if (buttonsend.Name == "button_MemDown") { MoveStatsPosition(false, "MemId"); }
+                else if (buttonsend.Name == "button_NetDown") { MoveStatsPosition(false, "NetId"); }
+                else if (buttonsend.Name == "button_FpsDown") { MoveStatsPosition(false, "FpsId"); }
+                else if (buttonsend.Name == "button_AppDown") { MoveStatsPosition(false, "AppId"); }
+                else if (buttonsend.Name == "button_TimeDown") { MoveStatsPosition(false, "TimeId"); }
+                else if (buttonsend.Name == "button_MonDown") { MoveStatsPosition(false, "MonId"); }
             }
             catch { }
         }
 
-        void MoveStatsUpDown(bool moveUp, string targetName)
+        void UpdateStatsPositionText()
+        {
+            try
+            {
+                int totalId = 8;
+                int AppId = Convert.ToInt32(ConfigurationManager.AppSettings["AppId"]) + 1;
+                int FpsId = Convert.ToInt32(ConfigurationManager.AppSettings["FpsId"]) + 1;
+                int NetId = Convert.ToInt32(ConfigurationManager.AppSettings["NetId"]) + 1;
+                int CpuId = Convert.ToInt32(ConfigurationManager.AppSettings["CpuId"]) + 1;
+                int GpuId = Convert.ToInt32(ConfigurationManager.AppSettings["GpuId"]) + 1;
+                int MemId = Convert.ToInt32(ConfigurationManager.AppSettings["MemId"]) + 1;
+                int TimeId = Convert.ToInt32(ConfigurationManager.AppSettings["TimeId"]) + 1;
+                int MonId = Convert.ToInt32(ConfigurationManager.AppSettings["MonId"]) + 1;
+
+                textblock_GpuPosition.Text = GpuId + "/" + totalId;
+                textblock_CpuPosition.Text = CpuId + "/" + totalId;
+                textblock_MemPosition.Text = MemId + "/" + totalId;
+                textblock_NetPosition.Text = NetId + "/" + totalId;
+                textblock_FpsPosition.Text = FpsId + "/" + totalId;
+                textblock_AppPosition.Text = AppId + "/" + totalId;
+                textblock_TimePosition.Text = TimeId + "/" + totalId;
+                textblock_MonPosition.Text = MonId + "/" + totalId;
+            }
+            catch { }
+        }
+
+        void MoveStatsPosition(bool moveUp, string targetName)
         {
             try
             {
@@ -135,6 +161,7 @@ namespace FpsOverlayer
 
                 int newId = 0;
                 int currentId = 0;
+                int totalId = 7;
                 if (!moveUp)
                 {
                     if (targetName == "AppId") { currentId = AppId; newId = currentId + 1; }
@@ -159,7 +186,7 @@ namespace FpsOverlayer
                 }
 
                 //Move current id
-                if (newId <= 7 && newId >= 0)
+                if (newId <= totalId && newId >= 0)
                 {
                     if (AppId == newId)
                     {
@@ -197,6 +224,9 @@ namespace FpsOverlayer
                     //Save new id
                     SettingSave(targetName, newId.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
+
+                    //Update stats position text
+                    UpdateStatsPositionText();
                 }
             }
             catch { }

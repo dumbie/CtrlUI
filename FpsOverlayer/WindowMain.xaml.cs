@@ -371,21 +371,53 @@ namespace FpsOverlayer
             try
             {
                 //Update the stats titles
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["CategoryTitles"]))
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowCategoryTitle"]))
                 {
                     vTitleGPU = "GPU";
-                    vTitleCPU = "CPU";
-                    vTitleMEM = "MEM";
-                    vTitleNET = "NET";
-                    vTitleMON = "MON";
                 }
                 else
                 {
                     vTitleGPU = string.Empty;
+                }
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowCategoryTitle"]))
+                {
+                    vTitleCPU = "CPU";
+                }
+                else
+                {
                     vTitleCPU = string.Empty;
+                }
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["MemShowCategoryTitle"]))
+                {
+                    vTitleMEM = "MEM";
+                }
+                else
+                {
                     vTitleMEM = string.Empty;
+                }
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["NetShowCategoryTitle"]))
+                {
+                    vTitleNET = "NET";
+                }
+                else
+                {
                     vTitleNET = string.Empty;
+                }
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowCategoryTitle"]))
+                {
+                    vTitleMON = "MON";
+                }
+                else
+                {
                     vTitleMON = string.Empty;
+                }
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCategoryTitle"]))
+                {
+                    vTitleFPS = "FPS";
+                }
+                else
+                {
+                    vTitleFPS = string.Empty;
                 }
 
                 //Update the stats text orientation and order

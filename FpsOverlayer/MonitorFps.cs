@@ -88,7 +88,7 @@ namespace FpsOverlayer
 
                         //Update the fps counter
                         Debug.WriteLine("(" + vTargetProcess.Identifier + ") MS" + CurrentFrameTimes.ToString("0.00") + " / FPS " + CurrentFramesPerSecond + " / AVG " + AverageFramesPerSecond);
-                        string StringDisplay = AVFunctions.StringRemoveStart(StringCurrentFramesPerSecond + StringCurrentFrameTimes + StringAverageFramesPerSecond, " ");
+                        string StringDisplay = AVFunctions.StringRemoveStart(vTitleFPS + StringCurrentFramesPerSecond + StringCurrentFrameTimes + StringAverageFramesPerSecond, " ");
 
                         if (!string.IsNullOrWhiteSpace(StringDisplay))
                         {

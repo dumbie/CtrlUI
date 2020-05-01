@@ -33,6 +33,7 @@ namespace FpsOverlayer
         public static string vTitleMEM = "MEM";
         public static string vTitleNET = "NET";
         public static string vTitleMON = "MON";
+        public static string vTitleFPS = "FPS";
 
         //Hardware
         public static Computer vHardwareComputer = null;

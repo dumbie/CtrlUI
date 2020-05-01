@@ -12,7 +12,6 @@ namespace FpsOverlayer
         {
             try
             {
-                checkbox_CategoryTitles.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CategoryTitles"]);
                 checkbox_DisplayBackground.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["DisplayBackground"]);
 
                 textblock_DisplayOpacity.Text = textblock_DisplayOpacity.Tag + ": " + ConfigurationManager.AppSettings["DisplayOpacity"].ToString() + "%";
@@ -39,28 +38,36 @@ namespace FpsOverlayer
 
                 checkbox_TextColorSingle.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["TextColorSingle"]);
 
+                checkbox_GpuShowCategoryTitle.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowCategoryTitle"]);
                 checkbox_GpuShowPercentage.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowPercentage"]);
                 checkbox_GpuShowMemoryUsed.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowMemoryUsed"]);
                 checkbox_GpuShowTemperature.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowTemperature"]);
                 checkbox_GpuShowCoreFrequency.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowCoreFrequency"]);
                 checkbox_GpuShowFanSpeed.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowFanSpeed"]);
 
+                checkbox_CpuShowCategoryTitle.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowCategoryTitle"]);
                 checkbox_CpuShowPercentage.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowPercentage"]);
                 checkbox_CpuShowTemperature.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowTemperature"]);
                 checkbox_CpuShowCoreFrequency.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowCoreFrequency"]);
                 checkbox_CpuShowPowerUsage.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowPowerUsage"]);
 
+                checkbox_MemShowCategoryTitle.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MemShowCategoryTitle"]);
                 checkbox_MemShowPercentage.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MemShowPercentage"]);
                 checkbox_MemShowUsed.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MemShowUsed"]);
                 checkbox_MemShowFree.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MemShowFree"]);
                 checkbox_MemShowTotal.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MemShowTotal"]);
 
+                checkbox_NetShowCategoryTitle.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["NetShowCategoryTitle"]);
                 checkbox_NetShowCurrentUsage.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["NetShowCurrentUsage"]);
+
                 checkbox_AppShowName.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["AppShowName"]);
                 checkbox_TimeShowCurrentTime.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["TimeShowCurrentTime"]);
+
+                checkbox_MonShowCategoryTitle.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowCategoryTitle"]);
                 checkbox_MonShowResolution.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowResolution"]);
                 checkbox_MonShowRefreshRate.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowRefreshRate"]);
 
+                checkbox_FpsShowCategoryTitle.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCategoryTitle"]);
                 checkbox_FpsShowCurrentFps.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCurrentFps"]);
                 checkbox_FpsShowCurrentLatency.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCurrentLatency"]);
                 checkbox_FpsShowAverageFps.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowAverageFps"]);
@@ -94,6 +101,9 @@ namespace FpsOverlayer
 
                 string ColorFps = ConfigurationManager.AppSettings["ColorFps"].ToString();
                 colorpicker_ColorFps.Background = new BrushConverter().ConvertFrom(ColorFps) as SolidColorBrush;
+
+                //Update stats position text
+                UpdateStatsPositionText();
 
                 return true;
             }
