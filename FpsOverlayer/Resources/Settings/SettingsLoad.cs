@@ -59,6 +59,7 @@ namespace FpsOverlayer
                 checkbox_AppShowName.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["AppShowName"]);
                 checkbox_TimeShowCurrentTime.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["TimeShowCurrentTime"]);
                 checkbox_MonShowResolution.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowResolution"]);
+                checkbox_MonShowRefreshRate.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowRefreshRate"]);
 
                 checkbox_FpsShowCurrentFps.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCurrentFps"]);
                 checkbox_FpsShowCurrentLatency.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCurrentLatency"]);

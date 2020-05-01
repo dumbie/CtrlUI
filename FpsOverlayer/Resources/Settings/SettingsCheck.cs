@@ -60,6 +60,7 @@ namespace FpsOverlayer
 
                 if (ConfigurationManager.AppSettings["MonId"] == null) { SettingSave("MonId", "6"); }
                 if (ConfigurationManager.AppSettings["MonShowResolution"] == null) { SettingSave("MonShowResolution", "False"); }
+                if (ConfigurationManager.AppSettings["MonShowRefreshRate"] == null) { SettingSave("MonShowRefreshRate", "False"); }
 
                 if (ConfigurationManager.AppSettings["TimeId"] == null) { SettingSave("TimeId", "7"); }
                 if (ConfigurationManager.AppSettings["TimeShowCurrentTime"] == null) { SettingSave("TimeShowCurrentTime", "True"); }

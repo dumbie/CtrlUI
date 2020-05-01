@@ -340,9 +340,10 @@ namespace FpsOverlayer
         {
             try
             {
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowResolution"]))
+                bool showResolution = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowResolution"]);
+                bool showRefreshRate = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowRefreshRate"]);
+                if (showResolution || showRefreshRate)
                 {
-                    //Improve add refresh rate support
                     //Get the current active screen
                     int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
                     Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
@@ -350,14 +351,28 @@ namespace FpsOverlayer
                     //Get the screen resolution
                     int screenWidth = targetScreen.Bounds.Width;
                     int screenHeight = targetScreen.Bounds.Height;
-                    string screenResolutionString = " " + screenWidth + "x" + screenHeight;
+                    string screenResolutionString = string.Empty;
+                    if (showResolution)
+                    {
+                        screenResolutionString = " " + screenWidth + "x" + screenHeight;
+                    }
 
                     //Get the screen refresh rate
                     string screenRefreshRateString = string.Empty;
-                    int screenRefreshRateInt = GetScreenRefreshRate(targetScreen);
-                    if (screenRefreshRateInt > 0)
+                    if (showRefreshRate)
                     {
-                        screenRefreshRateString = " @ " + screenRefreshRateInt + "Hz";
+                        int screenRefreshRateInt = GetScreenRefreshRate(targetScreen);
+                        if (screenRefreshRateInt > 0)
+                        {
+                            if (showResolution)
+                            {
+                                screenRefreshRateString = " @ " + screenRefreshRateInt + "Hz";
+                            }
+                            else
+                            {
+                                screenRefreshRateString = " " + screenRefreshRateInt + "Hz";
+                            }
+                        }
                     }
 
                     //Update the screen resolution

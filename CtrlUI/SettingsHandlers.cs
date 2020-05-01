@@ -135,7 +135,7 @@ namespace CtrlUI
                 DataBindString messageResult = await Popup_Show_MessageBox("This will open a window you can't controller", "", "You can always return back to CtrlUI using the 'Guide' button on your controller or you can use the Keyboard Controller's mouse function.", Answers);
                 if (messageResult != null && messageResult == Answer1)
                 {
-                    ProcessLauncherWin32(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\control.exe", "", "joy.cpl", false, false);
+                    Process.Start("joy.cpl");
                 }
             }
             catch { }

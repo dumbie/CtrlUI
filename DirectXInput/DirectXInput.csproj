@@ -220,6 +220,10 @@
       <Link>Assets\Icons\Keyboard.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="..\CtrlUI\Assets\Icons\Paste.png">
+      <Link>Assets\Icons\Paste.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Profiles\DirectCloseTools.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

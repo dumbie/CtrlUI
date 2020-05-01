@@ -253,6 +253,9 @@
 
                 <CheckBox Name="checkbox_MonShowResolution" Content="Show the current resolution" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the current monitor resolution." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                <CheckBox Name="checkbox_MonShowRefreshRate" Content="Show the current refresh rate"  Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will show the current monitor refresh rate." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

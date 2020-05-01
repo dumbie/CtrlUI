@@ -18,6 +18,7 @@ namespace DirectXInput
             {
                 vControllerTempBlockPaths = new List<string>();
                 Debug.WriteLine("Reset the temp blocked controller path list.");
+                App.vWindowOverlay.Overlay_Show_Status("Controller", "Searching for controllers");
             }
             catch { }
         }
