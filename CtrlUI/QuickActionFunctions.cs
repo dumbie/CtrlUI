@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ProcessUwpFunctions;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -46,6 +46,11 @@ namespace CtrlUI
                 AnswerLaunchUwp.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/RunApp.png" }, IntPtr.Zero, -1, 0);
                 AnswerLaunchUwp.Name = "Launch a Windows store application";
                 Answers.Add(AnswerLaunchUwp);
+
+                DataBindString AnswerFileManager = new DataBindString();
+                AnswerFileManager.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Folder.png" }, IntPtr.Zero, -1, 0);
+                AnswerFileManager.Name = "Show file browser and manager";
+                Answers.Add(AnswerFileManager);
 
                 DataBindString AnswerControlMedia = new DataBindString();
                 AnswerControlMedia.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Media.png" }, IntPtr.Zero, -1, 0);
@@ -89,6 +94,10 @@ namespace CtrlUI
                     else if (messageResult == AnswerLaunchUwp)
                     {
                         await RunUwpApplication();
+                    }
+                    else if (messageResult == AnswerFileManager)
+                    {
+                        await ShowFileManager();
                     }
                     else if (messageResult == AnswerStartMenu)
                     {

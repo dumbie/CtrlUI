@@ -11,9 +11,9 @@ using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.ImageFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -387,7 +387,7 @@ namespace CtrlUI
         }
 
         //Create a new folder
-        async Task FilePicker_FolderCreate()
+        async Task FilePicker_CreateFolder()
         {
             try
             {
@@ -432,8 +432,70 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("FolderAdd", "Failed creating");
+                Popup_Show_Status("FolderAdd", "Failed creating folder");
                 Debug.WriteLine("Failed creating new folder: " + ex.Message);
+            }
+        }
+
+        //Create a new text file
+        async Task FilePicker_CreateTextFile()
+        {
+            try
+            {
+                Popup_Show_Status("FileTxt", "Creating text file");
+                Debug.WriteLine("Creating new text file in: " + vFilePickerCurrentPath);
+
+                //Show the text input popup
+                string textInputString = await Popup_ShowHide_TextInput("Create text file", string.Empty, "Create new text file", false);
+
+                //Check the text file create name
+                if (!string.IsNullOrWhiteSpace(textInputString))
+                {
+                    string fileName = textInputString + ".txt";
+                    string newFilePath = Path.Combine(vFilePickerCurrentPath, fileName);
+
+                    //Check if the text file exists
+                    if (File.Exists(newFilePath))
+                    {
+                        Popup_Show_Status("FileTxt", "Text file already exists");
+                        Debug.WriteLine("Create text file already exists.");
+                        return;
+                    }
+
+                    //Create the new text file
+                    File.Create(newFilePath).Dispose();
+                    DateTime dateCreated = DateTime.Now;
+
+                    //Get the file size
+                    string fileSize = AVFunctions.ConvertBytesSizeToString(0);
+
+                    //Get the file date
+                    string fileDate = dateCreated.ToShortDateString().Replace("-", "/");
+
+                    //Set the detailed text
+                    string fileDetailed = fileSize + " (" + fileDate + ")";
+
+                    //Create new file databindfile
+                    BitmapImage fileImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FileTxt.png" }, IntPtr.Zero, -1, 0);
+                    DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, Name = fileName, NameDetail = fileDetailed, DateModified = dateCreated, ImageBitmap = fileImage, PathFile = newFilePath };
+
+                    //Add the new listbox item
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
+
+                    //Focus on the listbox item
+                    await ListboxFocusIndex(lb_FilePicker, false, true, -1);
+
+                    //Check if there are files or folders
+                    FilePicker_CheckFilesAndFoldersCount();
+
+                    Popup_Show_Status("FileTxt", "Created new text file");
+                    Debug.WriteLine("Created new text file in: " + newFilePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Popup_Show_Status("FileTxt", "Failed creating file");
+                Debug.WriteLine("Failed creating new text file: " + ex.Message);
             }
         }
 

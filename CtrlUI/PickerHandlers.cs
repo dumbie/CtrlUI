@@ -11,9 +11,9 @@ using System.Windows.Input;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -159,10 +159,15 @@ namespace CtrlUI
                         Answers.Add(answerRename);
                     }
 
-                    DataBindString answerFolderCreate = new DataBindString();
-                    answerFolderCreate.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FolderAdd.png" }, IntPtr.Zero, -1, 0);
-                    answerFolderCreate.Name = "Create a new folder here";
-                    Answers.Add(answerFolderCreate);
+                    DataBindString answerCreateFolder = new DataBindString();
+                    answerCreateFolder.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FolderAdd.png" }, IntPtr.Zero, -1, 0);
+                    answerCreateFolder.Name = "Create a new folder here";
+                    Answers.Add(answerCreateFolder);
+
+                    DataBindString answerCreateTextFile = new DataBindString();
+                    answerCreateTextFile.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FileTxt.png" }, IntPtr.Zero, -1, 0);
+                    answerCreateTextFile.Name = "Create a new text file here";
+                    Answers.Add(answerCreateTextFile);
 
                     DataBindString answerRemove = new DataBindString();
                     if (!preFile)
@@ -226,9 +231,14 @@ namespace CtrlUI
                             await FilePicker_FileRename(selectedItem);
                         }
                         //Create a new folder
-                        else if (messageResult == answerFolderCreate)
+                        else if (messageResult == answerCreateFolder)
                         {
-                            await FilePicker_FolderCreate();
+                            await FilePicker_CreateFolder();
+                        }
+                        //Create a new text file
+                        else if (messageResult == answerCreateTextFile)
+                        {
+                            await FilePicker_CreateTextFile();
                         }
                         //Remove file or folder
                         else if (messageResult == answerRemove)

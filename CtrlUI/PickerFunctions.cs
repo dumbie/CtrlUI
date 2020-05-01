@@ -400,6 +400,10 @@ namespace CtrlUI
                                         {
                                             listImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
                                         }
+                                        else if (listFileFullNameLower.EndsWith(".txt") || listFileFullNameLower.EndsWith(".rtf") || listFileFullNameLower.EndsWith(".doc") || listFileFullNameLower.EndsWith(".docx"))
+                                        {
+                                            listImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FileTxt.png" }, IntPtr.Zero, -1, 0);
+                                        }
                                         else if (listFileFullNameLower.EndsWith(".bat"))
                                         {
                                             listImage = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/FileBat.png" }, IntPtr.Zero, -1, 0);
