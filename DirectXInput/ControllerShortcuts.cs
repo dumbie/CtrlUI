@@ -2,7 +2,10 @@
 using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Net.Sockets;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.ArnoldVinkSockets;
+using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -49,7 +52,7 @@ namespace DirectXInput
         }
 
         //Check the guide button press times
-        void CheckButtonPressTimeGuide(ControllerStatus Controller)
+        void CheckButtonPressTimes(ControllerStatus Controller)
         {
             try
             {
@@ -97,8 +100,13 @@ namespace DirectXInput
                     //Show CtrlUI application
                     if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController == null && vProcessCtrlUI != null)
                     {
-                        Debug.WriteLine("Guide short press showing CtrlUI.");
-                        App.vWindowOverlay.Overlay_Show_Status("MiniMaxi", "Showing CtrlUI");
+                        if (!vProcessCtrlUIActivated)
+                        {
+                            Debug.WriteLine("Guide short press showing CtrlUI.");
+                            App.vWindowOverlay.Overlay_Show_Status("MiniMaxi", "Showing CtrlUI");
+                        }
+
+                        await ShowCtrlUI();
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
@@ -106,18 +114,15 @@ namespace DirectXInput
                     //Launch CtrlUI application
                     else if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController == null && vProcessCtrlUI == null)
                     {
-                        Debug.WriteLine("Guide short press launching CtrlUI.");
-                        App.vWindowOverlay.Overlay_Show_Status("App", "Launching CtrlUI");
-
                         LaunchCtrlUI();
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
                     }
                     //Close the keyboard controller
-                    else if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController != null)
+                    else if ((Controller.InputCurrent.ButtonGuideShort || Controller.InputCurrent.ButtonGuideLong) && vProcessKeyboardController != null)
                     {
-                        Debug.WriteLine("Guide short press closing keyboard controller.");
+                        Debug.WriteLine("Guide press closing keyboard controller.");
                         App.vWindowOverlay.Overlay_Show_Status("Keyboard", "Closing Keyboard");
 
                         ControllerUsed = true;
@@ -126,9 +131,6 @@ namespace DirectXInput
                     //Launch the keyboard controller
                     else if (Controller.InputCurrent.ButtonGuideLong && vProcessKeyboardController == null)
                     {
-                        Debug.WriteLine("Guide long press showing keyboard controller.");
-                        App.vWindowOverlay.Overlay_Show_Status("Keyboard", "Showing Keyboard");
-
                         LaunchKeyboardController();
 
                         ControllerUsed = true;
@@ -239,6 +241,7 @@ namespace DirectXInput
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchKeyboardController"]))
                 {
                     Debug.WriteLine("Shortcut launch keyboard controller has been pressed.");
+                    App.vWindowOverlay.Overlay_Show_Status("Keyboard", "Showing Keyboard");
 
                     if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
                     {
@@ -257,12 +260,46 @@ namespace DirectXInput
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchCtrlUI"]))
                 {
                     Debug.WriteLine("Shortcut launch CtrlUI has been pressed.");
+                    App.vWindowOverlay.Overlay_Show_Status("App", "Launching CtrlUI");
 
                     if (!CheckRunningProcessByNameOrTitle("CtrlUI", false))
                     {
                         ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", true, false);
                     }
                 }
+            }
+            catch { }
+        }
+
+        //Show CtrlUI when not focused
+        async Task ShowCtrlUI()
+        {
+            try
+            {
+                //Check if application is running
+                if (vProcessCtrlUI == null)
+                {
+                    Debug.WriteLine("CtrlUI is not running.");
+                    return;
+                }
+
+                //Check if socket server is running
+                if (vArnoldVinkSockets == null)
+                {
+                    Debug.WriteLine("The socket server is not running.");
+                    return;
+                }
+
+                //Prepare socket data
+                SocketSendContainer socketSend = new SocketSendContainer();
+                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
+                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
+                socketSend.Object = "AppWindowHideShow";
+                byte[] SerializedData = SerializeObjectToBytes(socketSend);
+
+                //Send socket data
+                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort - 1, vArnoldVinkSockets.vTcpClientTimeout);
+                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
             }
             catch { }
         }

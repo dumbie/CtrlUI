@@ -68,6 +68,10 @@ namespace CtrlUI
                         Settings_Load_DirectXInput(ref vConfigurationDirectXInput);
                         UpdateControllerHelp();
                     }
+                    else if (receivedString == "AppWindowHideShow")
+                    {
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate { await AppWindow_HideShow(); });
+                    }
                 }
             }
             catch { }

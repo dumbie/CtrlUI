@@ -21,11 +21,6 @@ namespace CtrlUI
         {
             try
             {
-                if (await Controller_GlobalButtonPress(ControllerInput))
-                {
-                    return;
-                }
-
                 if (!vAppMinimized && vAppActivated)
                 {
                     Controller_DPadPress(ControllerInput);
@@ -35,49 +30,6 @@ namespace CtrlUI
                 }
             }
             catch { }
-        }
-
-        //Process global controller buttons
-        async Task<bool> Controller_GlobalButtonPress(ControllerInput ControllerInput)
-        {
-            bool ControllerUsed = false;
-            bool ControllerDelayShort = false;
-            bool ControllerDelayLong = false;
-            try
-            {
-                if (Environment.TickCount >= vControllerDelay_Global)
-                {
-                    if (ControllerInput.ButtonGuideShort)
-                    {
-                        Debug.WriteLine("Button Global - Guide Short - Switch apps");
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate { await AppWindow_HideShow(); });
-
-                        ControllerUsed = true;
-                        ControllerDelayLong = true;
-                    }
-
-                    if (ControllerDelayShort)
-                    {
-                        vControllerDelay_DPad = Environment.TickCount + vControllerDelayShortTicks;
-                        vControllerDelay_Stick = Environment.TickCount + vControllerDelayShortTicks;
-                        vControllerDelay_Trigger = Environment.TickCount + vControllerDelayShortTicks;
-                        vControllerDelay_Button = Environment.TickCount + vControllerDelayShortTicks;
-                        vControllerDelay_Activate = Environment.TickCount + vControllerDelayShortTicks;
-                        vControllerDelay_Global = Environment.TickCount + vControllerDelayShortTicks;
-                    }
-                    else if (ControllerDelayLong)
-                    {
-                        vControllerDelay_DPad = Environment.TickCount + vControllerDelayLongTicks;
-                        vControllerDelay_Stick = Environment.TickCount + vControllerDelayLongTicks;
-                        vControllerDelay_Trigger = Environment.TickCount + vControllerDelayLongTicks;
-                        vControllerDelay_Button = Environment.TickCount + vControllerDelayLongTicks;
-                        vControllerDelay_Activate = Environment.TickCount + vControllerDelayLongTicks;
-                        vControllerDelay_Global = Environment.TickCount + vControllerDelayLongTicks;
-                    }
-                }
-            }
-            catch { }
-            return ControllerUsed;
         }
 
         //Process active XInput controller buttons

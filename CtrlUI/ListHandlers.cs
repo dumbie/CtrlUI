@@ -275,25 +275,25 @@ namespace CtrlUI
 
                 //Show the messagebox popup with options
                 List<DataBindString> Answers = new List<DataBindString>();
-                DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Edit.png" }, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Edit this application";
-                Answers.Add(Answer1);
+                DataBindString AnswerEdit = new DataBindString();
+                AnswerEdit.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Edit.png" }, IntPtr.Zero, -1, 0);
+                AnswerEdit.Name = "Edit this application details";
+                Answers.Add(AnswerEdit);
 
-                DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
-                Answer2.Name = "Remove application";
-                Answers.Add(Answer2);
+                DataBindString AnswerRemove = new DataBindString();
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
+                AnswerRemove.Name = "Remove application from list";
+                Answers.Add(AnswerRemove);
 
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", ApplicationRuntimeString(dataBindApp.RunningTime, "application"), "", Answers);
                 if (messageResult != null)
                 {
-                    if (messageResult == Answer1)
+                    if (messageResult == AnswerEdit)
                     {
                         //Show application edit popup
                         await Popup_Show_AppEdit(listboxSender);
                     }
-                    else if (messageResult == Answer2)
+                    else if (messageResult == AnswerRemove)
                     {
                         //Remove application from the list
                         await RemoveAppFromList(dataBindApp, true, true, false);

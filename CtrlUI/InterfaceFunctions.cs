@@ -605,25 +605,25 @@ namespace CtrlUI
                     }
 
                     List<DataBindString> Answers = new List<DataBindString>();
-                    DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
-                    Answer1.Name = "Return to application";
-                    Answers.Add(Answer1);
+                    DataBindString AnswerSwitch = new DataBindString();
+                    AnswerSwitch.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                    AnswerSwitch.Name = "Return to application";
+                    Answers.Add(AnswerSwitch);
 
-                    DataBindString Answer2 = new DataBindString();
-                    Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
-                    Answer2.Name = "Close the application";
-                    Answers.Add(Answer2);
+                    DataBindString AnswerClose = new DataBindString();
+                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
+                    AnswerClose.Name = "Close the application";
+                    Answers.Add(AnswerClose);
 
-                    DataBindString Answer3 = new DataBindString();
-                    Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Minimize.png" }, IntPtr.Zero, -1, 0);
-                    Answer3.Name = "Minimize CtrlUI";
-                    Answers.Add(Answer3);
+                    DataBindString AnswerMinimize = new DataBindString();
+                    AnswerMinimize.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Minimize.png" }, IntPtr.Zero, -1, 0);
+                    AnswerMinimize.Name = "Minimize CtrlUI";
+                    Answers.Add(AnswerMinimize);
 
                     DataBindString messageResult = await Popup_Show_MessageBox("Return to previous application or minimize?", "", "You can always return to " + vPrevFocusedProcess.Title + " later on.", Answers);
                     if (messageResult != null)
                     {
-                        if (messageResult == Answer1)
+                        if (messageResult == AnswerSwitch)
                         {
                             //Minimize the CtrlUI window
                             if (Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"]))
@@ -639,7 +639,7 @@ namespace CtrlUI
                             //Force focus on the app
                             FocusProcessWindowPrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.Identifier, vPrevFocusedProcess.WindowHandle, 0, false, false, false, keyboardLaunch);
                         }
-                        else if (messageResult == Answer2)
+                        else if (messageResult == AnswerClose)
                         {
                             Popup_Show_Status("Closing", "Closing " + vPrevFocusedProcess.Title);
                             Debug.WriteLine("Closing process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Identifier + " / " + vPrevFocusedProcess.WindowHandle);
@@ -666,7 +666,7 @@ namespace CtrlUI
                                 }
                             }
                         }
-                        else if (messageResult == Answer3)
+                        else if (messageResult == AnswerMinimize)
                         {
                             //Minimize the CtrlUI window
                             await AppMinimize(false);
