@@ -76,13 +76,39 @@ namespace DirectXInput
                                 if (Controller.InputCurrent.ButtonTriggerRight) { img_ControllerPreview_TriggerRight.Opacity = 1.00; } else { img_ControllerPreview_TriggerRight.Opacity = 0.00; }
                             }
 
-                            //Thumb Left and Right Fix
+                            //Thumb Left and Right Image
                             int LeftX = Controller.InputCurrent.ThumbLeftX / 1000;
                             int LeftY = -Controller.InputCurrent.ThumbLeftY / 1000;
                             int RightX = Controller.InputCurrent.ThumbRightX / 1000;
                             int RightY = -Controller.InputCurrent.ThumbRightY / 1000;
                             img_ControllerPreview_LeftAxe.Margin = new Thickness(LeftX, LeftY, 0, 0);
                             img_ControllerPreview_RightAxe.Margin = new Thickness(RightX, RightY, 0, 0);
+
+                            //Thumb Left and Right Percentage
+                            int PercentageLeftYUp = (Controller.InputCurrent.ThumbLeftY * 257) / 65535;
+                            if (PercentageLeftYUp < 0) { PercentageLeftYUp = 0; }
+                            int PercentageLeftYDown = (-Controller.InputCurrent.ThumbLeftY * 257) / 65535;
+                            if (PercentageLeftYDown < 0) { PercentageLeftYDown = 0; }
+                            int PercentageLeftXLeft = (-Controller.InputCurrent.ThumbLeftX * 257) / 65535;
+                            if (PercentageLeftXLeft < 0) { PercentageLeftXLeft = 0; }
+                            int PercentageLeftXRight = (Controller.InputCurrent.ThumbLeftX * 257) / 65535;
+                            if (PercentageLeftXRight < 0) { PercentageLeftXRight = 0; }
+                            textblock_Thumb_Left_Y_Up.Text = PercentageLeftYUp.ToString();
+                            textblock_Thumb_Left_Y_Down.Text = PercentageLeftYDown.ToString();
+                            textblock_Thumb_Left_X_Left.Text = PercentageLeftXLeft.ToString();
+                            textblock_Thumb_Left_X_Right.Text = PercentageLeftXRight.ToString();
+                            int PercentageRightYUp = (Controller.InputCurrent.ThumbRightY * 257) / 65535;
+                            if (PercentageRightYUp < 0) { PercentageRightYUp = 0; }
+                            int PercentageRightYDown = (-Controller.InputCurrent.ThumbRightY * 257) / 65535;
+                            if (PercentageRightYDown < 0) { PercentageRightYDown = 0; }
+                            int PercentageRightXLeft = (-Controller.InputCurrent.ThumbRightX * 257) / 65535;
+                            if (PercentageRightXLeft < 0) { PercentageRightXLeft = 0; }
+                            int PercentageRightXRight = (Controller.InputCurrent.ThumbRightX * 257) / 65535;
+                            if (PercentageRightXRight < 0) { PercentageRightXRight = 0; }
+                            textblock_Thumb_Right_Y_Up.Text = PercentageRightYUp.ToString();
+                            textblock_Thumb_Right_Y_Down.Text = PercentageRightYDown.ToString();
+                            textblock_Thumb_Right_X_Left.Text = PercentageRightXLeft.ToString();
+                            textblock_Thumb_Right_X_Right.Text = PercentageRightXRight.ToString();
                         }
                         catch { }
                     });

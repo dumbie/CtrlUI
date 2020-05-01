@@ -99,6 +99,7 @@ namespace DirectXInput
                 button_Controller3.Click += Button_Controller3_Click;
                 btn_SearchNewControllers.Click += Btn_SearchNewControllers_Click;
                 btn_DisconnectController.Click += Btn_DisconnectController_Click;
+                btn_DisconnectControllerAll.Click += Btn_DisconnectControllerAll_Click;
                 btn_RemoveController.Click += Btn_RemoveController_Click;
                 btn_RumbleTestLight.Click += Btn_TestRumble_Click;
                 btn_RumbleTestHeavy.Click += Btn_TestRumble_Click;
@@ -292,7 +293,7 @@ namespace DirectXInput
         {
             try
             {
-                int messageResult = await AVMessageBox.MessageBoxPopup(this, "Drivers not installed", "It seems like you have not yet installed the required drivers to use this application, please make sure that you have installed the required drivers.\n\nDirectXInput will be closed during the installation of the required drivers.\n\nIf you just installed the drivers and this message shows up restart your PC.", "Install the drivers", "Close application", "", "");
+                int messageResult = await AVMessageBox.MessageBoxPopup(this, "Drivers not installed", "Welcome to DirectXInput, it seems like you have not yet installed the required drivers to use this application, please make sure that you have installed the required drivers.\n\nDirectXInput will be closed during the installation of the required drivers.\n\nIf you just installed the drivers and this message shows up restart your PC.", "Install the drivers", "Close application", "", "");
                 if (messageResult == 1)
                 {
                     if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false))

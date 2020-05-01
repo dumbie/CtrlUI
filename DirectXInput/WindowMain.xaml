@@ -67,7 +67,6 @@
                     <Grid Grid.Row="1">
                         <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
                             <StackPanel>
-                                <TextBlock Text="Welcome to DirectXInput, please connect your direct input controllers to get started." TextWrapping="Wrap" Margin="0,0,5,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center"/>
                                 <StackPanel Orientation="Vertical" Margin="0,5,0,0">
                                     <Button Name="button_Controller0" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the first controller">
                                         <StackPanel Orientation="Horizontal">
@@ -104,6 +103,7 @@
                                 <Button Margin="0,10,0,0" Name="btn_DebugInformation" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Copy controller debug information"/>
                                 <Button Margin="0,10,0,0" Name="btn_RemoveController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Remove manage controller profile"/>
                                 <Button Margin="0,10,0,0" Name="btn_DisconnectController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect manage controller"/>
+                                <Button Margin="0,10,0,0" Name="btn_DisconnectControllerAll" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Disconnect all the controllers"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
@@ -186,6 +186,17 @@
                                     <Button Name="btn_SetBack" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Back" Margin="195,60,275,175" Width="30" Height="20" ToolTipService.ToolTip="Map Button Back"/>
                                     <Button Name="btn_SetGuide" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Guide" Margin="235,55,235,170" Height="30" Width="30" ToolTipService.ToolTip="Map Button Guide"/>
                                     <Button Name="btn_SetStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Start" Margin="275,60,195,175" Width="30" Height="20" ToolTipService.ToolTip="Map Button Start"/>
+
+                                    <!-- Thumb Axes -->
+                                    <TextBlock Name="textblock_Thumb_Left_Y_Up" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-100,-40,0,0"/>
+                                    <TextBlock Name="textblock_Thumb_Left_Y_Down" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-100,75,0,0"/>
+                                    <TextBlock Name="textblock_Thumb_Left_X_Left" Text="0" Width="50" TextAlignment="Right" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-200,20,0,0"/>
+                                    <TextBlock Name="textblock_Thumb_Left_X_Right" Text="0" Width="50" TextAlignment="Left" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-10,20,0,0"/>
+
+                                    <TextBlock Name="textblock_Thumb_Right_Y_Up" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-40,-110,0"/>
+                                    <TextBlock Name="textblock_Thumb_Right_Y_Down" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,75,-110,0"/>
+                                    <TextBlock Name="textblock_Thumb_Right_X_Left" Text="0" Width="50" TextAlignment="Right" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,20,0,0"/>
+                                    <TextBlock Name="textblock_Thumb_Right_X_Right" Text="0" Width="50" TextAlignment="Left" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,20,0,0"/>
                                 </Grid>
 
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
@@ -365,7 +376,7 @@
 
             <!-- Overlap Information -->
             <Grid Grid.Column="1">
-                <StackPanel HorizontalAlignment="Right" Margin="10,5,10,5">
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,5,10,5">
                     <TextBlock Name="txt_ManageControllerLatency" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Latency"/>
                     <TextBlock Name="txt_ManageControllerBattery" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Battery level"/>
                     <TextBlock Name="txt_ManageControllerName" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Controller"/>

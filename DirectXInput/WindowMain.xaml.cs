@@ -243,6 +243,16 @@ namespace DirectXInput
             catch { }
         }
 
+        //Disconnect and stop all controllers
+        async void Btn_DisconnectControllerAll_Click(object sender, RoutedEventArgs args)
+        {
+            try
+            {
+                await StopAllControllers();
+            }
+            catch { }
+        }
+
         //Remove the controller from the list
         async void Btn_RemoveController_Click(object sender, RoutedEventArgs args)
         {
