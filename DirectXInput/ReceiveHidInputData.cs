@@ -38,12 +38,20 @@ namespace DirectXInput
                         //Update the last controller active time
                         Controller.LastActive = Environment.TickCount;
 
-                        //Detect controller header offset
-                        if (Controller.InputReport[0 + Controller.InputHeaderByteOffset] > 4)
+                        //Detect and adjust controller header offset
+                        if (!Controller.InputHeaderOffsetFinished)
                         {
-                            Controller.InputHeaderByteOffset++;
-                            Debug.WriteLine("Adjusted the controller header offset to: " + Controller.InputHeaderByteOffset);
-                            continue;
+                            if (Controller.InputReport[0 + Controller.InputHeaderByteOffset] > 4)
+                            {
+                                Controller.InputHeaderByteOffset++;
+                                Debug.WriteLine("Adjusted the controller header offset to: " + Controller.InputHeaderByteOffset);
+                                continue;
+                            }
+                            else
+                            {
+                                Controller.InputHeaderOffsetFinished = true;
+                                Debug.WriteLine("Finished adjusting controller header offset to: " + Controller.InputHeaderByteOffset);
+                            }
                         }
 
                         //Offsets for thumb sticks

@@ -47,6 +47,7 @@ namespace LibraryShared
             public HidDevice HidDevice = null;
 
             //Device In and Output
+            public bool InputHeaderOffsetFinished = false;
             public int InputHeaderByteOffset = 0;
             public int InputButtonByteOffset = 0;
             public byte[] InputReport = null;
@@ -82,6 +83,7 @@ namespace LibraryShared
                     Mapping = new string[] { "Done", "None" }; //Map, Done, Cancel
 
                     //Device In and Output
+                    InputHeaderOffsetFinished = false;
                     InputHeaderByteOffset = 0;
                     InputButtonByteOffset = 0;
                     InputReport = null;

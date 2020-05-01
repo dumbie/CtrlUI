@@ -241,7 +241,7 @@ namespace DirectXInput
                     RawPackets += "(Offset" + ManageController.InputHeaderByteOffset + ")";
                     RawPackets += "(ProductId" + ManageController.Details.Profile.ProductID + "/VendorId" + ManageController.Details.Profile.VendorID + ")";
 
-                    for (int Packet = 0; Packet < ManageController.InputReport.Length - ManageController.InputHeaderByteOffset; Packet++) { RawPackets = RawPackets + " " + ManageController.InputReport[Packet + ManageController.InputHeaderByteOffset]; }
+                    for (int Packet = 0; Packet < ManageController.InputReport.Length; Packet++) { RawPackets = RawPackets + " " + ManageController.InputReport[Packet]; }
                     Clipboard.SetText(RawPackets);
 
                     Debug.WriteLine("Controller debug information copied to clipboard.");

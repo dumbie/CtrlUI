@@ -61,7 +61,7 @@ namespace DirectXInput
         {
             try
             {
-                Debug.WriteLine("Checking if controller " + Controller.NumberId + " has a low battery level " + Controller.BatteryPercentageCurrent + "/" + Controller.BatteryPercentagePrevious);
+                //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has a low battery level " + Controller.BatteryPercentageCurrent + "/" + Controller.BatteryPercentagePrevious);
                 string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
 
                 //Check the controller id
