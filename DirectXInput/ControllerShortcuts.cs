@@ -114,7 +114,7 @@ namespace DirectXInput
                     //Launch CtrlUI application
                     else if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController == null && vProcessCtrlUI == null)
                     {
-                        LaunchCtrlUI();
+                        await LaunchCtrlUI();
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
@@ -131,7 +131,7 @@ namespace DirectXInput
                     //Launch the keyboard controller
                     else if (Controller.InputCurrent.ButtonGuideLong && vProcessKeyboardController == null)
                     {
-                        LaunchKeyboardController();
+                        await LaunchKeyboardController();
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
@@ -234,7 +234,7 @@ namespace DirectXInput
         }
 
         //Launch the keyboard controller
-        void LaunchKeyboardController()
+        async Task LaunchKeyboardController()
         {
             try
             {
@@ -245,7 +245,7 @@ namespace DirectXInput
 
                     if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
                     {
-                        ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
+                        await ProcessLauncherWin32Async("KeyboardController-Admin.exe", "", "", true, false);
                     }
                 }
             }
@@ -253,7 +253,7 @@ namespace DirectXInput
         }
 
         //Launch CtrlUI when not running
-        void LaunchCtrlUI()
+        async Task LaunchCtrlUI()
         {
             try
             {
@@ -264,7 +264,7 @@ namespace DirectXInput
 
                     if (!CheckRunningProcessByNameOrTitle("CtrlUI", false))
                     {
-                        ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", true, false);
+                        await ProcessLauncherWin32Async("CtrlUI-Admin.exe", "", "", true, false);
                     }
                 }
             }

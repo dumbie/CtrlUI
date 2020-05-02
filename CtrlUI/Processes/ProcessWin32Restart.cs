@@ -8,7 +8,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task<bool> RestartPrepareWin32(DataBindApp dataBindApp, ProcessMulti processMulti, bool useLaunchArgument)
+        async Task<bool> PrepareRestartProcessWin32(DataBindApp dataBindApp, ProcessMulti processMulti, bool useLaunchArgument, bool launchKeyboard)
         {
             try
             {
@@ -30,8 +30,20 @@ namespace CtrlUI
                     launchArgument = processMulti.Argument;
                 }
 
-                await RestartProcessWin32(processMulti.Identifier, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument);
-                return true;
+                //Restart the process
+                Process restartProcess = await RestartProcessWin32(processMulti.Identifier, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument);
+                if (restartProcess == null)
+                {
+                    Popup_Show_Status("Close", "Failed restarting " + dataBindApp.Name);
+                    Debug.WriteLine("Failed to restart process: " + dataBindApp.Name);
+                    return false;
+                }
+
+                //Launch the keyboard controller
+                if (launchKeyboard)
+                {
+                    await LaunchKeyboardController(true);
+                }
             }
             catch { }
             return false;

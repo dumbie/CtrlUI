@@ -28,7 +28,7 @@ namespace AdminLauncher
                 }
 
                 //Run the certified application
-                ProcessLauncherWin32("DirectXInput.exe", "", "", false, false);
+                await ProcessLauncherWin32Async("DirectXInput.exe", "", "", false, false);
 
                 //Disable launch requirements
                 if (!secureUIAEnabled)

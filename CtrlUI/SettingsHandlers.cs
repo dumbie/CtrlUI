@@ -12,10 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVInterface;
-using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -379,11 +378,11 @@ namespace CtrlUI
         }
 
         //Launch DirectXInput application
-        void Button_LaunchDirectXInput_Click(object sender, RoutedEventArgs e)
+        async void Button_LaunchDirectXInput_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                LaunchDirectXInput();
+                await LaunchDirectXInput();
             }
             catch { }
         }

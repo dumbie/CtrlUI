@@ -557,7 +557,7 @@ namespace CtrlUI
                     catch { }
 
                     //Force focus on CtrlUI
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false, false);
+                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false, false);
                 }
                 else
                 {
@@ -570,7 +570,7 @@ namespace CtrlUI
                     catch { }
 
                     //Force focus on CtrlUI
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false, false);
+                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, false, false);
 
                     //Check if a previous process is available
                     if (vPrevFocusedProcess == null)
@@ -637,7 +637,7 @@ namespace CtrlUI
                             bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
 
                             //Force focus on the app
-                            FocusProcessWindowPrepare(vPrevFocusedProcess.Title, vPrevFocusedProcess.Identifier, vPrevFocusedProcess.WindowHandle, 0, false, false, false, keyboardLaunch);
+                            await PrepareFocusProcessWindow(vPrevFocusedProcess.Title, vPrevFocusedProcess.Identifier, vPrevFocusedProcess.WindowHandle, 0, false, false, false, keyboardLaunch);
                         }
                         else if (messageResult == AnswerClose)
                         {

@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
@@ -22,7 +21,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Focus on a process window
-        void FocusProcessWindowPrepare(string processName, int processIdTarget, IntPtr windowHandleTarget, int windowStateCommand, bool setWindowState, bool setTempTopMost, bool silentFocus, bool launchKeyboard)
+        async Task PrepareFocusProcessWindow(string processName, int processIdTarget, IntPtr windowHandleTarget, int windowStateCommand, bool setWindowState, bool setTempTopMost, bool silentFocus, bool launchKeyboard)
         {
             try
             {
@@ -53,24 +52,19 @@ namespace CtrlUI
                     Debug.WriteLine("Showing application window: " + processName);
 
                     //Focus on application window handle
-                    async void TaskAction()
+                    bool windowFocused = await FocusProcessWindow(processName, processIdTarget, windowHandleTarget, windowStateCommand, setWindowState, setTempTopMost);
+                    if (!windowFocused)
                     {
-                        try
-                        {
-                            bool windowFocused = await FocusProcessWindow(processName, processIdTarget, windowHandleTarget, windowStateCommand, setWindowState, setTempTopMost);
-                            if (!windowFocused)
-                            {
-                                Popup_Show_Status("Close", "Failed showing the app");
-                            }
-                        }
-                        catch { }
+                        Popup_Show_Status("Close", "Failed showing the app");
+                        Debug.WriteLine("Failed showing the application, no longer running?");
+                        vChangingWindow = false;
+                        return;
                     }
-                    AVActions.TaskStart(TaskAction, null);
 
                     //Launch the keyboard controller
                     if (launchKeyboard)
                     {
-                        LaunchKeyboardController(true);
+                        await LaunchKeyboardController(true);
                     }
 
                     vChangingWindow = false;
@@ -187,11 +181,11 @@ namespace CtrlUI
                 }
                 else if (processWindowHandle == new IntPtr(-75))
                 {
-                    await RestartPrepareAuto(processMulti, dataBindApp, true);
+                    await RestartProcessAuto(processMulti, dataBindApp, true);
                 }
                 else if (processWindowHandle == new IntPtr(-80))
                 {
-                    await RestartPrepareAuto(processMulti, dataBindApp, false);
+                    await RestartProcessAuto(processMulti, dataBindApp, false);
                 }
                 else if (processWindowHandle == new IntPtr(-100))
                 {
@@ -215,7 +209,7 @@ namespace CtrlUI
                     bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
                     //Force focus on the app
-                    FocusProcessWindowPrepare(dataBindApp.Name, processMulti.Identifier, processWindowHandle, 0, false, false, false, keyboardLaunch);
+                    await PrepareFocusProcessWindow(dataBindApp.Name, processMulti.Identifier, processWindowHandle, 0, false, false, false, keyboardLaunch);
                 }
                 else
                 {
@@ -265,11 +259,11 @@ namespace CtrlUI
                         }
                         else if (messageResult == AnswerRestartCurrent)
                         {
-                            await RestartPrepareAuto(processMulti, dataBindApp, true);
+                            await RestartProcessAuto(processMulti, dataBindApp, true);
                         }
                         else if (messageResult == AnswerRestartWithout)
                         {
-                            await RestartPrepareAuto(processMulti, dataBindApp, false);
+                            await RestartProcessAuto(processMulti, dataBindApp, false);
                         }
                         else if (messageResult == AnswerLaunch)
                         {
@@ -322,13 +316,7 @@ namespace CtrlUI
                 bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
 
                 //Launch the Win32 application
-                bool appLaunched = await LaunchProcessManuallyWin32(vFilePickerResult.PathFile, "", "", false, true, false, false);
-
-                //Launch the keyboard controller
-                if (keyboardLaunch && appLaunched)
-                {
-                    LaunchKeyboardController(true);
-                }
+                await PrepareProcessLauncherWin32Async(vFilePickerResult.PathFile, "", "", false, true, false, false, keyboardLaunch);
             }
             catch { }
         }
@@ -357,13 +345,7 @@ namespace CtrlUI
                 bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
 
                 //Launch the UWP or Win32Store application
-                bool appLaunched = await LaunchProcessManuallyUwpAndWin32Store(vFilePickerResult.Name, vFilePickerResult.PathFile, string.Empty, false, true);
-
-                //Launch the keyboard controller
-                if (keyboardLaunch && appLaunched)
-                {
-                    LaunchKeyboardController(true);
-                }
+                await PrepareProcessLauncherUwpAndWin32StoreAsync(vFilePickerResult.Name, vFilePickerResult.PathFile, string.Empty, false, true, keyboardLaunch);
             }
             catch { }
         }
@@ -437,7 +419,7 @@ namespace CtrlUI
         }
 
         //Launch DirectXInput application
-        void LaunchDirectXInput()
+        async Task LaunchDirectXInput()
         {
             try
             {
@@ -446,20 +428,20 @@ namespace CtrlUI
                     Popup_Show_Status("Controller", "Launching DirectXInput");
                     Debug.WriteLine("Launching DirectXInput");
 
-                    ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("DirectXInput-Admin.exe", "", "", true, false);
                 }
             }
             catch { }
         }
 
         //Close or show the Fps Overlayer
-        void CloseShowFpsOverlayer()
+        async Task CloseShowFpsOverlayer()
         {
             try
             {
-                //Close the fps overlayer
                 if (CheckRunningProcessByNameOrTitle("FpsOverlayer", false))
                 {
+                    //Close the fps overlayer
                     Popup_Show_Status("Close", "Closing Fps Overlayer");
                     Debug.WriteLine("Closing Fps Overlayer");
                     CloseProcessesByNameOrTitle("FpsOverlayer", false);
@@ -469,14 +451,14 @@ namespace CtrlUI
                     //Launch the fps overlayer
                     Popup_Show_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");
-                    ProcessLauncherWin32("FpsOverlayer-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("FpsOverlayer-Admin.exe", "", "", true, false);
                 }
             }
             catch { }
         }
 
         //Launch the Fps Overlayer
-        void LaunchFpsOverlayer()
+        async Task LaunchFpsOverlayer()
         {
             try
             {
@@ -485,14 +467,14 @@ namespace CtrlUI
                     //Launch the fps overlayer
                     Popup_Show_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");
-                    ProcessLauncherWin32("FpsOverlayer-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("FpsOverlayer-Admin.exe", "", "", true, false);
                 }
             }
             catch { }
         }
 
         //Close or show the keyboard controller
-        void CloseShowKeyboardController()
+        async Task CloseShowKeyboardController()
         {
             try
             {
@@ -508,14 +490,14 @@ namespace CtrlUI
                     //Launch the keyboard controller
                     Popup_Show_Status("Keyboard", "Showing Keyboard");
                     Debug.WriteLine("Showing on screen keyboard");
-                    ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("KeyboardController-Admin.exe", "", "", true, false);
                 }
             }
             catch { }
         }
 
         //Launch the keyboard controller
-        void LaunchKeyboardController(bool silentLaunch)
+        async Task LaunchKeyboardController(bool silentLaunch)
         {
             try
             {
@@ -524,7 +506,7 @@ namespace CtrlUI
                     //Launch the keyboard controller
                     if (!silentLaunch) { Popup_Show_Status("Keyboard", "Showing Keyboard"); }
                     Debug.WriteLine("Showing on screen keyboard");
-                    ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("KeyboardController-Admin.exe", "", "", true, false);
                 }
             }
             catch { }

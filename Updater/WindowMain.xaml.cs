@@ -176,28 +176,28 @@ namespace Updater
                 if (CtrlUIRunning)
                 {
                     TextBlockUpdate("Running the updated version of the application.");
-                    ProcessLauncherWin32("CtrlUI-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("CtrlUI-Admin.exe", "", "", true, false);
                 }
 
                 //Start DirectXInput after the update has completed.
                 if (DirectXInputRunning)
                 {
                     TextBlockUpdate("Running the updated version of the application.");
-                    ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("DirectXInput-Admin.exe", "", "", true, false);
                 }
 
                 //Start KeyboardController after the update has completed.
                 if (KeyboardControllerRunning)
                 {
                     TextBlockUpdate("Running the updated version of the application.");
-                    ProcessLauncherWin32("KeyboardController-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("KeyboardController-Admin.exe", "", "", true, false);
                 }
 
                 //Start FpsOverlayer after the update has completed.
                 if (FpsOverlayerRunning)
                 {
                     TextBlockUpdate("Running the updated version of the application.");
-                    ProcessLauncherWin32("FpsOverlayer-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("FpsOverlayer-Admin.exe", "", "", true, false);
                 }
 
                 //Close the application

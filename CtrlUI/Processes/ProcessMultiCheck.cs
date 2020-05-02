@@ -90,11 +90,11 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerRestartCurrent)
                     {
-                        await RestartPrepareAuto(processMulti, dataBindApp, true);
+                        await RestartProcessAuto(processMulti, dataBindApp, true);
                     }
                     else if (messageResult == AnswerRestartWithout)
                     {
-                        await RestartPrepareAuto(processMulti, dataBindApp, false);
+                        await RestartProcessAuto(processMulti, dataBindApp, false);
                     }
                     else if (messageResult == AnswerLaunch)
                     {

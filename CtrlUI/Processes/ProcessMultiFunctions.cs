@@ -11,7 +11,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Check process window
+        //Check process windows
         async Task<IntPtr> CheckProcessWindowsAuto(DataBindApp dataBindApp, ProcessMulti processMulti)
         {
             try
@@ -29,115 +29,108 @@ namespace CtrlUI
             return IntPtr.Zero;
         }
 
-        //Launch new process
-        async Task<bool> LaunchProcessDatabindAuto(DataBindApp dataBindApp)
+        //Launch databind process
+        async Task LaunchProcessDatabindAuto(DataBindApp dataBindApp)
         {
-            bool appLaunched = false;
             try
             {
+                //Check keyboard controller launch
+                string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
+                bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
+                bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
+
                 //Launch new process
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
-                    appLaunched = await LaunchProcessDatabindUwpAndWin32Store(dataBindApp);
+                    await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp, false, true, keyboardLaunch);
                 }
                 else if (dataBindApp.LaunchFilePicker)
                 {
-                    appLaunched = await LaunchProcessDatabindWin32FilePicker(dataBindApp);
+                    string launchArgument = await GetLaunchArgumentFilePicker(dataBindApp);
+                    if (launchArgument == "Cancel") { return; }
+                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, true, false, false, keyboardLaunch);
                 }
                 else if (dataBindApp.Category == AppCategory.Emulator)
                 {
-                    appLaunched = await LaunchProcessDatabindWin32Emulator(dataBindApp);
+                    string launchArgument = await GetLaunchArgumentEmulator(dataBindApp);
+                    if (launchArgument == "Cancel") { return; }
+                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, true, false, false, keyboardLaunch);
                 }
                 else
                 {
-                    appLaunched = await LaunchProcessDatabindWin32(dataBindApp);
-                }
-
-                //Launch the keyboard controller
-                string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
-                bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
-                if ((keyboardOpenProcess || dataBindApp.LaunchKeyboard) && appLaunched && vControllerAnyConnected())
-                {
-                    LaunchKeyboardController(true);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, string.Empty, false, true, false, false, keyboardLaunch);
                 }
             }
             catch { }
-            return appLaunched;
         }
 
         //Restart the process
-        async Task<bool> RestartPrepareAuto(ProcessMulti processMulti, DataBindApp dataBindApp, bool useLaunchArgument)
+        async Task RestartProcessAuto(ProcessMulti processMulti, DataBindApp dataBindApp, bool useLaunchArgument)
         {
-            bool appLaunched = false;
             try
             {
                 //Check the application category
                 if (!useLaunchArgument && dataBindApp.Category != AppCategory.Process)
                 {
                     await CloseSingleProcessAuto(processMulti, dataBindApp, true, false);
-                    return await LaunchProcessDatabindAuto(dataBindApp);
+                    await LaunchProcessDatabindAuto(dataBindApp);
+                    return;
                 }
+
+                //Check keyboard controller launch
+                string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
+                bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
+                bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
                 //Restart the process
                 if (processMulti.Type == ProcessType.UWP)
                 {
-                    appLaunched = await RestartPrepareUwp(dataBindApp, processMulti, useLaunchArgument);
+                    await PrepareRestartProcessUwp(dataBindApp, processMulti, useLaunchArgument, keyboardLaunch);
                 }
                 else if (processMulti.Type == ProcessType.Win32Store)
                 {
-                    appLaunched = await RestartPrepareWin32Store(dataBindApp, processMulti, useLaunchArgument);
+                    await PrepareRestartProcessWin32Store(dataBindApp, processMulti, useLaunchArgument, keyboardLaunch);
                 }
                 else
                 {
-                    appLaunched = await RestartPrepareWin32(dataBindApp, processMulti, useLaunchArgument);
-                }
-
-                //Launch the keyboard controller
-                string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
-                bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
-                if ((keyboardOpenProcess || dataBindApp.LaunchKeyboard) && appLaunched && vControllerAnyConnected())
-                {
-                    LaunchKeyboardController(true);
+                    await PrepareRestartProcessWin32(dataBindApp, processMulti, useLaunchArgument, keyboardLaunch);
                 }
             }
             catch { }
-            return appLaunched;
         }
 
         //Close single process
-        async Task<bool> CloseSingleProcessAuto(ProcessMulti processMulti, DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
+        async Task CloseSingleProcessAuto(ProcessMulti processMulti, DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
         {
             try
             {
                 if (processMulti.Type == ProcessType.UWP)
                 {
-                    return await CloseSingleProcessUwp(dataBindApp, processMulti, resetProcess, removeProcess);
+                    await CloseSingleProcessUwp(dataBindApp, processMulti, resetProcess, removeProcess);
                 }
                 else if (processMulti.Type == ProcessType.Win32 || processMulti.Type == ProcessType.Win32Store)
                 {
-                    return await CloseSingleProcessWin32AndWin32Store(dataBindApp, processMulti, resetProcess, removeProcess);
+                    await CloseSingleProcessWin32AndWin32Store(dataBindApp, processMulti, resetProcess, removeProcess);
                 }
             }
             catch { }
-            return false;
         }
 
         //Close all processes
-        async Task<bool> CloseAllProcessesAuto(ProcessMulti processMulti, DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
+        async Task CloseAllProcessesAuto(ProcessMulti processMulti, DataBindApp dataBindApp, bool resetProcess, bool removeProcess)
         {
             try
             {
                 if (processMulti.Type == ProcessType.UWP)
                 {
-                    return await CloseAllProcessesUwp(dataBindApp, resetProcess, removeProcess);
+                    await CloseAllProcessesUwp(dataBindApp, resetProcess, removeProcess);
                 }
                 else
                 {
-                    return await CloseAllProcessesWin32AndWin32Store(dataBindApp, resetProcess, removeProcess);
+                    await CloseAllProcessesWin32AndWin32Store(dataBindApp, resetProcess, removeProcess);
                 }
             }
             catch { }
-            return false;
         }
     }
 }

@@ -28,7 +28,7 @@ namespace AdminLauncher
                 }
 
                 //Run the certified application
-                ProcessLauncherWin32("FpsOverlayer.exe", "", "", false, false);
+                await ProcessLauncherWin32Async("FpsOverlayer.exe", "", "", false, false);
 
                 //Disable launch requirements
                 if (!secureUIAEnabled)

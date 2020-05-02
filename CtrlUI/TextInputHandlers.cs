@@ -63,7 +63,7 @@ namespace CtrlUI
         {
             try
             {
-                CloseShowKeyboardController();
+                await CloseShowKeyboardController();
                 await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
             }
             catch { }

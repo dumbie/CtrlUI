@@ -28,7 +28,7 @@ namespace AdminLauncher
                 }
 
                 //Run the certified application
-                ProcessLauncherWin32("KeyboardController.exe", "", "", false, false);
+                await ProcessLauncherWin32Async("KeyboardController.exe", "", "", false, false);
 
                 //Disable launch requirements
                 if (!secureUIAEnabled)

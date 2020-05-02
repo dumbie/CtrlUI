@@ -12,9 +12,9 @@ using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -375,11 +375,11 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerRestartCurrent)
                     {
-                        await RestartPrepareAuto(processMulti, dataBindApp, true);
+                        await RestartProcessAuto(processMulti, dataBindApp, true);
                     }
                     else if (messageResult == AnswerRestartWithout)
                     {
-                        await RestartPrepareAuto(processMulti, dataBindApp, false);
+                        await RestartProcessAuto(processMulti, dataBindApp, false);
                     }
                     else if (messageResult == AnswerLaunch)
                     {

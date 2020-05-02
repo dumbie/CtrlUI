@@ -14,7 +14,7 @@ namespace CtrlUI
         {
             try
             {
-                if (e.Key == Key.Space) { await listbox_Menu_SingleTap(); }
+                if (e.Key == Key.Space) { await Listbox_Menu_SingleTap(); }
             }
             catch { }
         }
@@ -32,14 +32,14 @@ namespace CtrlUI
                 {
                     vSingleTappedEvent = true;
                     await Task.Delay(500);
-                    if (vSingleTappedEvent) { await listbox_Menu_SingleTap(); }
+                    if (vSingleTappedEvent) { await Listbox_Menu_SingleTap(); }
                 }
             }
             catch { }
         }
 
         //Handle main menu single tap
-        async Task listbox_Menu_SingleTap()
+        async Task Listbox_Menu_SingleTap()
         {
             try
             {
@@ -58,7 +58,7 @@ namespace CtrlUI
                     else if (SelStackPanel.Name == "menuButtonRunApp") { await RunUwpApplication(); }
                     else if (SelStackPanel.Name == "menuButtonAddExe") { await Popup_Show_AddExe(); }
                     else if (SelStackPanel.Name == "menuButtonAddApp") { await Popup_Show_AddStoreApp(); }
-                    else if (SelStackPanel.Name == "menuButtonFps") { CloseShowFpsOverlayer(); }
+                    else if (SelStackPanel.Name == "menuButtonFps") { await CloseShowFpsOverlayer(); }
                     else if (SelStackPanel.Name == "menuButtonSettings") { await ShowLoadSettingsPopup(); }
                     else if (SelStackPanel.Name == "menuButtonHelp") { await Popup_Show(grid_Popup_Help, btn_Help_Focus); }
                     else if (SelStackPanel.Name == "menuButtonCloseLaunchers") { await CloseLaunchers(false); }

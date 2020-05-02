@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static LibraryShared.Classes;
 
@@ -10,8 +9,19 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        //Launch an UWP or Win32Store application from databindapp
+        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(DataBindApp dataBindApp, bool silent, bool allowMinimize, bool launchKeyboard)
+        {
+            try
+            {
+                return await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, silent, allowMinimize, launchKeyboard);
+            }
+            catch { }
+            return false;
+        }
+
         //Launch an UWP or Win32Store application manually
-        async Task<bool> LaunchProcessManuallyUwpAndWin32Store(string appName, string pathExe, string argument, bool silent, bool allowMinimize)
+        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(string appName, string pathExe, string argument, bool silent, bool allowMinimize, bool launchKeyboard)
         {
             try
             {
@@ -34,42 +44,20 @@ namespace CtrlUI
                 if (allowMinimize && Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"])) { await AppMinimize(true); }
 
                 //Launch the UWP or Win32Store application
-                ProcessLauncherUwpAndWin32Store(pathExe, argument);
-                return true;
-            }
-            catch
-            {
-                //Show failed launch messagebox
-                await LaunchProcessFailed();
-                return false;
-            }
-        }
-
-        //Launch an UWP or Win32Store databind app
-        async Task<bool> LaunchProcessDatabindUwpAndWin32Store(DataBindApp dataBindApp)
-        {
-            try
-            {
-                //Check if the application exists
-                if (UwpGetAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
+                Process launchProcess = await ProcessLauncherUwpAndWin32StoreAsync(pathExe, argument);
+                if (launchProcess == null)
                 {
-                    dataBindApp.StatusAvailable = Visibility.Visible;
-
-                    Popup_Show_Status("Close", "Application not found");
-                    Debug.WriteLine("Launch application not found, possibly uninstalled.");
+                    //Show failed launch messagebox
+                    await LaunchProcessFailed();
                     return false;
                 }
-                else
+
+                //Launch the keyboard controller
+                if (launchKeyboard)
                 {
-                    dataBindApp.StatusAvailable = Visibility.Collapsed;
+                    await LaunchKeyboardController(true);
                 }
 
-                //Show application launch message
-                Popup_Show_Status("App", "Launching " + dataBindApp.Name);
-                Debug.WriteLine("Launching UWP or Win32Store: " + dataBindApp.Name + " cat: " + dataBindApp.Category + " path: " + dataBindApp.PathExe + " arg: " + dataBindApp.Argument);
-
-                //Launch the UWP or Win32Store application
-                await LaunchProcessManuallyUwpAndWin32Store(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, true, true);
                 return true;
             }
             catch

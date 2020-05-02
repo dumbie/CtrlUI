@@ -47,7 +47,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: APressed");
 
-                        AVActions.ActionDispatcherInvoke(delegate
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
                         {
                             FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
                             if (frameworkElement != null && frameworkElement.GetType() == typeof(TextBox))
@@ -55,7 +55,7 @@ namespace CtrlUI
                                 //Launch the keyboard controller
                                 if (vAppActivated && vControllerAnyConnected())
                                 {
-                                    LaunchKeyboardController(false);
+                                    await LaunchKeyboardController(false);
                                 }
                             }
                             else

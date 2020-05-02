@@ -141,19 +141,19 @@ namespace CtrlUI
                 //Check settings if DirectXInput launches on start
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchDirectXInput"]))
                 {
-                    LaunchDirectXInput();
+                    await LaunchDirectXInput();
                 }
 
                 //Check settings if Fps Overlayer launches on start
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFpsOverlayer"]))
                 {
-                    LaunchFpsOverlayer();
+                    await LaunchFpsOverlayer();
                 }
 
                 //Force window focus on CtrlUI
                 if (!Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]))
                 {
-                    FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
                 }
 
                 //Check settings if this is the first application launch
@@ -195,7 +195,7 @@ namespace CtrlUI
                 int SocketServerPort = Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]);
 
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
-                vArnoldVinkSockets.vTcpClientTimeout = 500;
+                vArnoldVinkSockets.vTcpClientTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }
@@ -355,7 +355,7 @@ namespace CtrlUI
             try
             {
                 //Force focus on CtrlUI
-                FocusProcessWindowPrepare("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
 
                 //Show the closing messagebox
                 List<DataBindString> Answers = new List<DataBindString>();

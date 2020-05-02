@@ -170,7 +170,7 @@ namespace DriverInstaller
                 if (runDirectXInput)
                 {
                     TextBoxAppend("Running the DirectXInput application.");
-                    ProcessLauncherWin32("DirectXInput-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("DirectXInput-Admin.exe", "", "", true, false);
                 }
 
                 //Set the exit reason text message
