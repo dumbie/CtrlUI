@@ -39,8 +39,21 @@ namespace CtrlUI
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
 
+                //Check keyboard controller launch
+                string fileExtension = Path.GetExtension(vFilePickerResult.PathFile).Replace(".", string.Empty);
+                string fileNameNoExtension = Path.GetFileNameWithoutExtension(vFilePickerResult.PathFile);
+                bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                bool keyboardExtension = vCtrlKeyboardExtensionName.Any(x => x.String1.ToLower() == fileExtension.ToLower());
+                bool keyboardLaunch = (keyboardExtension || keyboardProcess) && vControllerAnyConnected();
+
                 //Launch the Win32 application
-                await LaunchProcessManuallyWin32(vFilePickerResult.PathFile, "", "", false, true, false, false);
+                bool appLaunched = await LaunchProcessManuallyWin32(vFilePickerResult.PathFile, "", "", false, true, false, false);
+
+                //Launch the keyboard controller
+                if (keyboardLaunch && appLaunched)
+                {
+                    LaunchKeyboardController(true);
+                }
             }
             catch { }
         }

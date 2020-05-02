@@ -633,7 +633,7 @@ namespace CtrlUI
 
                             //Check keyboard controller launch
                             string fileNameNoExtension = Path.GetFileNameWithoutExtension(vPrevFocusedProcess.Name);
-                            bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                            bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == vPrevFocusedProcess.Path.ToLower());
                             bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
 
                             //Force focus on the app

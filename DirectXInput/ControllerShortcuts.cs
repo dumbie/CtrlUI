@@ -120,7 +120,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Close the keyboard controller
-                    else if ((Controller.InputCurrent.ButtonGuideShort || Controller.InputCurrent.ButtonGuideLong) && vProcessKeyboardController != null)
+                    else if ((Controller.InputCurrent.ButtonGuide || Controller.InputCurrent.ButtonGuideShort || Controller.InputCurrent.ButtonGuideLong) && vProcessKeyboardController != null)
                     {
                         Debug.WriteLine("Guide press closing keyboard controller.");
                         App.vWindowOverlay.Overlay_Show_Status("Keyboard", "Closing Keyboard");

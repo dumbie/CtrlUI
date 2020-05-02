@@ -53,9 +53,9 @@ namespace CtrlUI
                     appLaunched = await LaunchProcessDatabindWin32(dataBindApp);
                 }
 
-                //Check keyboard controller launch
+                //Launch the keyboard controller
                 string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
-                bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
                 if ((keyboardOpenProcess || dataBindApp.LaunchKeyboard) && appLaunched && vControllerAnyConnected())
                 {
                     LaunchKeyboardController(true);
@@ -92,9 +92,9 @@ namespace CtrlUI
                     appLaunched = await RestartPrepareWin32(dataBindApp, processMulti, useLaunchArgument);
                 }
 
-                //Check keyboard controller launch
+                //Launch the keyboard controller
                 string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
-                bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                bool keyboardOpenProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
                 if ((keyboardOpenProcess || dataBindApp.LaunchKeyboard) && appLaunched && vControllerAnyConnected())
                 {
                     LaunchKeyboardController(true);

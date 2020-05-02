@@ -125,6 +125,7 @@ namespace CtrlUI
                 JsonLoadProfile(ref vCtrlIgnoreShortcutName, "CtrlIgnoreShortcutName");
                 JsonLoadProfile(ref vCtrlIgnoreShortcutUri, "CtrlIgnoreShortcutUri");
                 JsonLoadProfile(ref vCtrlIgnoreProcessName, "CtrlIgnoreProcessName");
+                JsonLoadProfile(ref vCtrlKeyboardExtensionName, "CtrlKeyboardExtensionName");
                 JsonLoadProfile(ref vCtrlKeyboardProcessName, "CtrlKeyboardProcessName");
 
                 //Load Json lists

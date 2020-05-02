@@ -127,10 +127,14 @@ namespace CtrlUI
                     //Add special folders
                     DataBindFile dataBindFileDesktop = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Desktop", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDesktop, false, false);
-                    DataBindFile dataBindFilePictures = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Pictures", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
                     DataBindFile dataBindFileDocuments = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Documents", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDocuments, false, false);
+                    DataBindFile dataBindFilePictures = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Pictures", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
+                    DataBindFile dataBindFileVideos = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Videos", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileVideos, false, false);
+                    DataBindFile dataBindFileMusic = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Music", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileMusic, false, false);
 
                     //Check and add the previous path
                     if (!string.IsNullOrWhiteSpace(vFilePickerPreviousPath))

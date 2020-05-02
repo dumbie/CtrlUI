@@ -105,8 +105,17 @@ namespace KeyboardController
             {
                 if (Environment.TickCount >= vControllerDelay_Keyboard)
                 {
+                    //Close keyboard controller
+                    if (ControllerInput.ButtonGuide || ControllerInput.ButtonGuideShort || ControllerInput.ButtonGuideLong)
+                    {
+                        Debug.WriteLine("Button: GuideShort / Close");
+                        await Application_Exit();
+
+                        ControllerUsed = true;
+                        ControllerDelayLong = true;
+                    }
                     //Send internal arrow left key
-                    if (ControllerInput.DPadLeft)
+                    else if (ControllerInput.DPadLeft)
                     {
                         PlayInterfaceSound("KeyboardMove", false);
                         KeySendSingle((byte)KeysVirtual.Left, Process.GetCurrentProcess().MainWindowHandle);
@@ -233,15 +242,6 @@ namespace KeyboardController
 
                         ControllerUsed = true;
                         ControllerDelayMedium = true;
-                    }
-                    //Close keyboard
-                    else if (ControllerInput.ButtonGuideShort || ControllerInput.ButtonGuideLong)
-                    {
-                        Debug.WriteLine("Button: GuideShort / Close");
-                        await Application_Exit();
-
-                        ControllerUsed = true;
-                        ControllerDelayLong = true;
                     }
 
                     if (ControllerDelayMicro)

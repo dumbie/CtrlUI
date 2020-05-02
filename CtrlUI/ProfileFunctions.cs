@@ -82,6 +82,15 @@ namespace CtrlUI
                     vProfileManagerListShared = vCtrlIgnoreShortcutUri;
                     lb_ProfileManager.ItemsSource = vCtrlIgnoreShortcutUri;
                 }
+                else if (vProfileManagerName == "CtrlKeyboardExtensionName")
+                {
+                    grid_Popup_ProfileManager_txt_Description.Text = "Keyboard open extension names";
+                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Extension name";
+                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
+
+                    vProfileManagerListShared = vCtrlKeyboardExtensionName;
+                    lb_ProfileManager.ItemsSource = vCtrlKeyboardExtensionName;
+                }
                 else if (vProfileManagerName == "CtrlKeyboardProcessName")
                 {
                     grid_Popup_ProfileManager_txt_Description.Text = "Keyboard open process names";
@@ -219,6 +228,9 @@ namespace CtrlUI
 
                 DataBindString stringCtrlIgnoreShortcutUri = new DataBindString() { Name = "Ignored shortcut uri's", Data1 = "CtrlIgnoreShortcutUri", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlIgnoreShortcutUri);
+
+                DataBindString stringCtrlKeyboardExtensionName = new DataBindString() { Name = "Keyboard open extension names", Data1 = "CtrlKeyboardExtensionName", ImageBitmap = imageProfile };
+                Answers.Add(stringCtrlKeyboardExtensionName);
 
                 DataBindString stringCtrlKeyboardProcessName = new DataBindString() { Name = "Keyboard open process names", Data1 = "CtrlKeyboardProcessName", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlKeyboardProcessName);

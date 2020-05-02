@@ -136,6 +136,7 @@ namespace CtrlUI
         {
             try
             {
+                //Launch the UWP or Win32Store application
                 await LaunchProcessManuallyUwpAndWin32Store("Xbox Companion", "Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp", string.Empty, false, false);
             }
             catch { }

@@ -211,7 +211,7 @@ namespace CtrlUI
 
                     //Check keyboard controller launch
                     string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
-                    bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                    bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
                     bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
                     //Force focus on the app
@@ -316,8 +316,19 @@ namespace CtrlUI
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
 
+                //Check keyboard controller launch
+                string fileNameNoExtension = Path.GetFileNameWithoutExtension(vFilePickerResult.PathFile);
+                bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower());
+                bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
+
                 //Launch the Win32 application
-                await LaunchProcessManuallyWin32(vFilePickerResult.PathFile, "", "", false, true, false, false);
+                bool appLaunched = await LaunchProcessManuallyWin32(vFilePickerResult.PathFile, "", "", false, true, false, false);
+
+                //Launch the keyboard controller
+                if (keyboardLaunch && appLaunched)
+                {
+                    LaunchKeyboardController(true);
+                }
             }
             catch { }
         }
@@ -341,8 +352,18 @@ namespace CtrlUI
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
 
-                //Launch the selected uwp app
-                await LaunchProcessManuallyUwpAndWin32Store(vFilePickerResult.Name, vFilePickerResult.PathFile, string.Empty, false, true);
+                //Check keyboard controller launch
+                bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == vFilePickerResult.PathFile.ToLower());
+                bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
+
+                //Launch the UWP or Win32Store application
+                bool appLaunched = await LaunchProcessManuallyUwpAndWin32Store(vFilePickerResult.Name, vFilePickerResult.PathFile, string.Empty, false, true);
+
+                //Launch the keyboard controller
+                if (keyboardLaunch && appLaunched)
+                {
+                    LaunchKeyboardController(true);
+                }
             }
             catch { }
         }
