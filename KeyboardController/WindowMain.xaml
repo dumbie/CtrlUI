@@ -75,7 +75,7 @@
 
             <!-- Keyboard -->
             <StackPanel Grid.Row="1" Background="#1D1D1D">
-                <StackPanel Margin="1,5,5,5">
+                <StackPanel Margin="3,5,7,5">
                     <!-- Key Row 0 -->
                     <StackPanel Name="sp_Row0" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Name="key_F1" Content="F1" Tag="F1" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>

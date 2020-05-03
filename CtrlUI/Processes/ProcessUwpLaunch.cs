@@ -21,7 +21,7 @@ namespace CtrlUI
         }
 
         //Launch an UWP or Win32Store application manually
-        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(string appName, string pathExe, string argument, bool silent, bool allowMinimize, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(string appTitle, string pathExe, string argument, bool silent, bool allowMinimize, bool launchKeyboard)
         {
             try
             {
@@ -36,8 +36,8 @@ namespace CtrlUI
                 //Show launching message
                 if (!silent)
                 {
-                    Popup_Show_Status("App", "Launching " + appName);
-                    //Debug.WriteLine("Launching UWP or Win32Store: " + appName + "/" + pathExe);
+                    Popup_Show_Status("App", "Launching " + appTitle);
+                    //Debug.WriteLine("Launching UWP or Win32Store: " + appTitle + "/" + pathExe);
                 }
 
                 //Minimize the CtrlUI window

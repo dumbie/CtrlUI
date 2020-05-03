@@ -316,7 +316,7 @@ namespace CtrlUI
                 bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
 
                 //Launch the Win32 application
-                await PrepareProcessLauncherWin32Async(vFilePickerResult.PathFile, "", "", false, true, false, false, keyboardLaunch);
+                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, true, false, false, keyboardLaunch);
             }
             catch { }
         }
@@ -425,7 +425,7 @@ namespace CtrlUI
             {
                 if (!CheckRunningProcessByNameOrTitle("DirectXInput", false))
                 {
-                    Popup_Show_Status("Controller", "Launching DirectXInput");
+                    Popup_Show_Status("DirectXInput", "Launching DirectXInput");
                     Debug.WriteLine("Launching DirectXInput");
 
                     await ProcessLauncherWin32Async("DirectXInput-Admin.exe", "", "", true, false);

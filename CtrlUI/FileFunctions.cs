@@ -47,7 +47,7 @@ namespace CtrlUI
                 bool keyboardLaunch = (keyboardExtension || keyboardProcess) && vControllerAnyConnected();
 
                 //Launch the Win32 application
-                await PrepareProcessLauncherWin32Async(vFilePickerResult.PathFile, "", "", false, true, false, false, keyboardLaunch);
+                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, true, false, false, keyboardLaunch);
             }
             catch { }
         }

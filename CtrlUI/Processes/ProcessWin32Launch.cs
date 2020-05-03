@@ -8,6 +8,7 @@ using System.Windows;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
@@ -19,15 +20,35 @@ namespace CtrlUI
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(launchArgument)) { launchArgument = dataBindApp.Argument; }
-                return await PrepareProcessLauncherWin32Async(dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, allowMinimize, runAsAdmin, createNoWindow, launchKeyboard);
+                //Set the app title
+                string appTitle = dataBindApp.Name;
+
+                //Check the launch argument
+                if (string.IsNullOrWhiteSpace(launchArgument))
+                {
+                    launchArgument = dataBindApp.Argument;
+                }
+                else
+                {
+                    //Update the app title
+                    if (dataBindApp.Category == AppCategory.Emulator)
+                    {
+                        appTitle += " with rom";
+                    }
+                    else if (dataBindApp.LaunchFilePicker)
+                    {
+                        appTitle += " with file";
+                    }
+                }
+
+                return await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, allowMinimize, runAsAdmin, createNoWindow, launchKeyboard);
             }
             catch { }
             return false;
         }
 
         //Launch a Win32 application manually
-        async Task<bool> PrepareProcessLauncherWin32Async(string pathExe, string pathLaunch, string launchArgument, bool silent, bool allowMinimize, bool runAsAdmin, bool createNoWindow, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherWin32Async(string appTitle, string pathExe, string pathLaunch, string launchArgument, bool silent, bool allowMinimize, bool runAsAdmin, bool createNoWindow, bool launchKeyboard)
         {
             try
             {
@@ -48,8 +69,8 @@ namespace CtrlUI
                 //Show launching message
                 if (!silent)
                 {
-                    Popup_Show_Status("App", "Launching " + Path.GetFileNameWithoutExtension(pathExe));
-                    //Debug.WriteLine("Launching Win32: " + Path.GetFileNameWithoutExtension(pathExe));
+                    Popup_Show_Status("App", "Launching " + appTitle);
+                    //Debug.WriteLine("Launching Win32: " + appTitle + "/" + pathExe);
                 }
 
                 //Launch the Win32 application

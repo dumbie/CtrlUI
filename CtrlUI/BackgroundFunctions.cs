@@ -106,6 +106,7 @@ namespace CtrlUI
             try
             {
                 Debug.WriteLine("Background media failed, restarting.");
+                UpdateBackgroundMedia();
             }
             catch { }
         }
