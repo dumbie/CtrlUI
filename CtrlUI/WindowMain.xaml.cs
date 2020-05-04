@@ -352,7 +352,10 @@ namespace CtrlUI
             try
             {
                 //Force focus on CtrlUI
-                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+                if (!vAppActivated)
+                {
+                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+                }
 
                 //Show the closing messagebox
                 List<DataBindString> Answers = new List<DataBindString>();
