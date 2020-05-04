@@ -22,6 +22,10 @@
                 <CheckBox Name="checkbox_DisplayBackground" Content="Display background behind text" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will display a background behind the stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
+                <TextBlock Name="textblock_HardwareUpdateRateMs" Text="Hardware update rate" Tag="Hardware update rate" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                <TextBlock Text="Change the hardware information update rate in milliseconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                <Slider Minimum="500" Maximum="3000" TickFrequency="100" SmallChange="100" LargeChange="100" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_HardwareUpdateRateMs" Style="{StaticResource SliderWhite}"/>
+
                 <TextBlock Name="textblock_DisplayOpacity" Text="Stats display transparency" Tag="Stats display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                 <TextBlock Text="Change the transparency of the shown fps overlay stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                 <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_DisplayOpacity" Style="{StaticResource SliderWhite}"/>

@@ -19,6 +19,7 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["TextPosition"] == null) { SettingSave("TextPosition", "0"); } //Shared
                 if (ConfigurationManager.AppSettings["TextDirection"] == null) { SettingSave("TextDirection", "1"); }
                 if (ConfigurationManager.AppSettings["TextSize"] == null) { SettingSave("TextSize", "18"); }
+                if (ConfigurationManager.AppSettings["HardwareUpdateRateMs"] == null) { SettingSave("HardwareUpdateRateMs", "1000"); }
 
                 if (ConfigurationManager.AppSettings["TextColorSingle"] == null) { SettingSave("TextColorSingle", "False"); }
                 if (ConfigurationManager.AppSettings["ColorBackground"] == null) { SettingSave("ColorBackground", "#101010"); }

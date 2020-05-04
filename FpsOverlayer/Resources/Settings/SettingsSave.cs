@@ -26,6 +26,12 @@ namespace FpsOverlayer
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
+                slider_HardwareUpdateRateMs.ValueChanged += (sender, e) =>
+                {
+                    textblock_HardwareUpdateRateMs.Text = textblock_HardwareUpdateRateMs.Tag + ": " + slider_HardwareUpdateRateMs.Value.ToString() + "ms";
+                    SettingSave("HardwareUpdateRateMs", slider_HardwareUpdateRateMs.Value.ToString());
+                };
+
                 slider_MarginHorizontal.ValueChanged += (sender, e) =>
                 {
                     textblock_MarginHorizontal.Text = textblock_MarginHorizontal.Tag + ": " + slider_MarginHorizontal.Value.ToString("0") + "px";

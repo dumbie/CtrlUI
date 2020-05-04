@@ -17,6 +17,9 @@ namespace FpsOverlayer
                 textblock_DisplayOpacity.Text = textblock_DisplayOpacity.Tag + ": " + ConfigurationManager.AppSettings["DisplayOpacity"].ToString() + "%";
                 slider_DisplayOpacity.Value = Convert.ToDouble(ConfigurationManager.AppSettings["DisplayOpacity"]);
 
+                textblock_HardwareUpdateRateMs.Text = textblock_HardwareUpdateRateMs.Tag + ": " + ConfigurationManager.AppSettings["HardwareUpdateRateMs"].ToString() + "ms";
+                slider_HardwareUpdateRateMs.Value = Convert.ToDouble(ConfigurationManager.AppSettings["HardwareUpdateRateMs"]);
+
                 textblock_MarginHorizontal.Text = textblock_MarginHorizontal.Tag + ": " + ConfigurationManager.AppSettings["MarginHorizontal"].ToString() + "px";
                 slider_MarginHorizontal.Value = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
 
