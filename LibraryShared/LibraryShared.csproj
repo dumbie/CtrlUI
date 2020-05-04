@@ -174,12 +174,14 @@
     </Compile>
     <Compile Include="AppUpdateCheck.cs" />
     <Compile Include="AppLaunchCheck.cs" />
+    <Compile Include="Classes\NotificationDetails.cs" />
+    <Compile Include="Classes\ControllerButtonDetails.cs" />
     <Compile Include="Enums\ClipboardType.cs" />
     <Compile Include="Enums\FileType.cs" />
     <Compile Include="Enums\AppCategory.cs" />
     <Compile Include="Classes\ApiIGDB.cs" />
     <Compile Include="Classes\FrameworkElementFocus.cs" />
-    <Compile Include="Classes\ControllerStatusSummary.cs" />
+    <Compile Include="Classes\ControllerStatusDetails.cs" />
     <Compile Include="Classes\RomInformation.cs" />
     <Compile Include="Classes\ShortcutDetails.cs" />
     <Compile Include="Classes\ProfileShared.cs" />

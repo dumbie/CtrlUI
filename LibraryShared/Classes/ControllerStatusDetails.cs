@@ -5,9 +5,9 @@ namespace LibraryShared
     public partial class Classes
     {
         [Serializable]
-        public class ControllerStatusSummary
+        public class ControllerStatusDetails
         {
-            public ControllerStatusSummary(int numberId)
+            public ControllerStatusDetails(int numberId)
             {
                 NumberId = numberId;
             }

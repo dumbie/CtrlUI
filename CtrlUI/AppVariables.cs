@@ -123,10 +123,10 @@ namespace CtrlUI
 
         //Controller Variables
         public static int vControllerActiveId = 0;
-        public static ControllerStatusSummary vController0 = new ControllerStatusSummary(0);
-        public static ControllerStatusSummary vController1 = new ControllerStatusSummary(1);
-        public static ControllerStatusSummary vController2 = new ControllerStatusSummary(2);
-        public static ControllerStatusSummary vController3 = new ControllerStatusSummary(3);
+        public static ControllerStatusDetails vController0 = new ControllerStatusDetails(0);
+        public static ControllerStatusDetails vController1 = new ControllerStatusDetails(1);
+        public static ControllerStatusDetails vController2 = new ControllerStatusDetails(2);
+        public static ControllerStatusDetails vController3 = new ControllerStatusDetails(3);
         public static bool vControllerAnyConnected()
         {
             return vController0.Connected || vController1.Connected || vController2.Connected || vController3.Connected;

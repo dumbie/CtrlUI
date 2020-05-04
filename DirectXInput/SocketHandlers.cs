@@ -59,28 +59,28 @@ namespace DirectXInput
                     else if (receivedString == "ControllerStatusSummaryList")
                     {
                         //List controller status
-                        List<ControllerStatusSummary> controllerStatusSummaryList = new List<ControllerStatusSummary>();
+                        List<ControllerStatusDetails> controllerStatusSummaryList = new List<ControllerStatusDetails>();
 
                         //Gather controller status
-                        ControllerStatusSummary controllerStatus0 = new ControllerStatusSummary(vController0.NumberId);
+                        ControllerStatusDetails controllerStatus0 = new ControllerStatusDetails(vController0.NumberId);
                         controllerStatus0.Manage = vController0.Manage;
                         controllerStatus0.Connected = vController0.Connected();
                         controllerStatus0.BatteryPercentageCurrent = vController0.BatteryPercentageCurrent;
                         controllerStatusSummaryList.Add(controllerStatus0);
 
-                        ControllerStatusSummary controllerStatus1 = new ControllerStatusSummary(vController1.NumberId);
+                        ControllerStatusDetails controllerStatus1 = new ControllerStatusDetails(vController1.NumberId);
                         controllerStatus1.Manage = vController1.Manage;
                         controllerStatus1.Connected = vController1.Connected();
                         controllerStatus1.BatteryPercentageCurrent = vController1.BatteryPercentageCurrent;
                         controllerStatusSummaryList.Add(controllerStatus1);
 
-                        ControllerStatusSummary controllerStatus2 = new ControllerStatusSummary(vController2.NumberId);
+                        ControllerStatusDetails controllerStatus2 = new ControllerStatusDetails(vController2.NumberId);
                         controllerStatus2.Manage = vController2.Manage;
                         controllerStatus2.Connected = vController2.Connected();
                         controllerStatus2.BatteryPercentageCurrent = vController2.BatteryPercentageCurrent;
                         controllerStatusSummaryList.Add(controllerStatus2);
 
-                        ControllerStatusSummary controllerStatus3 = new ControllerStatusSummary(vController3.NumberId);
+                        ControllerStatusDetails controllerStatus3 = new ControllerStatusDetails(vController3.NumberId);
                         controllerStatus3.Manage = vController3.Manage;
                         controllerStatus3.Connected = vController3.Connected();
                         controllerStatus3.BatteryPercentageCurrent = vController3.BatteryPercentageCurrent;

@@ -43,26 +43,26 @@ namespace DirectXInput
                             }
 
                             //D-Pad
-                            if (Controller.InputCurrent.DPadLeft) { img_ControllerPreview_DPadLeft.Visibility = Visibility.Visible; } else { img_ControllerPreview_DPadLeft.Visibility = Visibility.Collapsed; }
-                            if (Controller.InputCurrent.DPadUp) { img_ControllerPreview_DPadUp.Visibility = Visibility.Visible; } else { img_ControllerPreview_DPadUp.Visibility = Visibility.Collapsed; }
-                            if (Controller.InputCurrent.DPadRight) { img_ControllerPreview_DPadRight.Visibility = Visibility.Visible; } else { img_ControllerPreview_DPadRight.Visibility = Visibility.Collapsed; }
-                            if (Controller.InputCurrent.DPadDown) { img_ControllerPreview_DPadDown.Visibility = Visibility.Visible; } else { img_ControllerPreview_DPadDown.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.DPadLeft.PressedRaw) { img_ControllerPreview_DPadLeft.Visibility = Visibility.Visible; } else { img_ControllerPreview_DPadLeft.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.DPadUp.PressedRaw) { img_ControllerPreview_DPadUp.Visibility = Visibility.Visible; } else { img_ControllerPreview_DPadUp.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.DPadRight.PressedRaw) { img_ControllerPreview_DPadRight.Visibility = Visibility.Visible; } else { img_ControllerPreview_DPadRight.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.DPadDown.PressedRaw) { img_ControllerPreview_DPadDown.Visibility = Visibility.Visible; } else { img_ControllerPreview_DPadDown.Visibility = Visibility.Collapsed; }
 
                             //Buttons
-                            if (Controller.InputCurrent.ButtonA) { img_ControllerPreview_ButtonA.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonA.Visibility = Visibility.Collapsed; }
-                            if (Controller.InputCurrent.ButtonB) { img_ControllerPreview_ButtonB.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonB.Visibility = Visibility.Collapsed; }
-                            if (Controller.InputCurrent.ButtonX) { img_ControllerPreview_ButtonX.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonX.Visibility = Visibility.Collapsed; }
-                            if (Controller.InputCurrent.ButtonY) { img_ControllerPreview_ButtonY.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonY.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonA.PressedRaw) { img_ControllerPreview_ButtonA.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonA.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonB.PressedRaw) { img_ControllerPreview_ButtonB.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonB.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonX.PressedRaw) { img_ControllerPreview_ButtonX.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonX.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonY.PressedRaw) { img_ControllerPreview_ButtonY.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonY.Visibility = Visibility.Collapsed; }
 
-                            if (Controller.InputCurrent.ButtonBack) { img_ControllerPreview_ButtonBack.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonBack.Visibility = Visibility.Collapsed; }
-                            if (Controller.InputCurrent.ButtonStart) { img_ControllerPreview_ButtonStart.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonStart.Visibility = Visibility.Collapsed; }
-                            if (Controller.InputCurrent.ButtonGuide) { img_ControllerPreview_ButtonGuide.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonGuide.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonBack.PressedRaw) { img_ControllerPreview_ButtonBack.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonBack.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonStart.PressedRaw) { img_ControllerPreview_ButtonStart.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonStart.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonGuide.PressedRaw) { img_ControllerPreview_ButtonGuide.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonGuide.Visibility = Visibility.Collapsed; }
 
-                            if (Controller.InputCurrent.ButtonShoulderLeft) { img_ControllerPreview_ButtonShoulderLeft.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonShoulderLeft.Visibility = Visibility.Collapsed; }
-                            if (Controller.InputCurrent.ButtonShoulderRight) { img_ControllerPreview_ButtonShoulderRight.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonShoulderRight.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonShoulderLeft.PressedRaw) { img_ControllerPreview_ButtonShoulderLeft.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonShoulderLeft.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonShoulderRight.PressedRaw) { img_ControllerPreview_ButtonShoulderRight.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonShoulderRight.Visibility = Visibility.Collapsed; }
 
-                            if (Controller.InputCurrent.ButtonThumbLeft) { img_ControllerPreview_ButtonThumbLeft.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonThumbLeft.Visibility = Visibility.Collapsed; }
-                            if (Controller.InputCurrent.ButtonThumbRight) { img_ControllerPreview_ButtonThumbRight.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonThumbRight.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonThumbLeft.PressedRaw) { img_ControllerPreview_ButtonThumbLeft.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonThumbLeft.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonThumbRight.PressedRaw) { img_ControllerPreview_ButtonThumbRight.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonThumbRight.Visibility = Visibility.Collapsed; }
 
                             //Triggers
                             if (!Controller.Details.Profile.UseButtonTriggers)
@@ -72,8 +72,8 @@ namespace DirectXInput
                             }
                             else
                             {
-                                if (Controller.InputCurrent.ButtonTriggerLeft) { img_ControllerPreview_TriggerLeft.Opacity = 1.00; } else { img_ControllerPreview_TriggerLeft.Opacity = 0.00; }
-                                if (Controller.InputCurrent.ButtonTriggerRight) { img_ControllerPreview_TriggerRight.Opacity = 1.00; } else { img_ControllerPreview_TriggerRight.Opacity = 0.00; }
+                                if (Controller.InputCurrent.ButtonTriggerLeft.PressedRaw) { img_ControllerPreview_TriggerLeft.Opacity = 1.00; } else { img_ControllerPreview_TriggerLeft.Opacity = 0.00; }
+                                if (Controller.InputCurrent.ButtonTriggerRight.PressedRaw) { img_ControllerPreview_TriggerRight.Opacity = 1.00; } else { img_ControllerPreview_TriggerRight.Opacity = 0.00; }
                             }
 
                             //Thumb Left and Right Image

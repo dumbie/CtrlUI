@@ -19,66 +19,66 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Update the button press times
-        void UpdateButtonPressTimes(ControllerStatus Controller)
+        void UpdateButtonPressTimes(ControllerButtonDetails buttonDetails)
         {
             try
             {
-                if (Controller.InputCurrent.ButtonGuide)
+                if (buttonDetails.PressedRaw)
                 {
-                    if (Controller.InputCurrent.ButtonGuidePressTimeCurrent == 0)
+                    if (buttonDetails.PressTimeCurrent == 0)
                     {
-                        //Debug.WriteLine("Starting guide hold.");
-                        Controller.InputCurrent.ButtonGuidePressTimeCurrent = Environment.TickCount;
+                        //Debug.WriteLine("Starting button hold.");
+                        buttonDetails.PressTimeCurrent = Environment.TickCount;
                     }
                 }
                 else
                 {
-                    if (Controller.InputCurrent.ButtonGuidePressTimeDone)
+                    if (buttonDetails.PressTimeDone)
                     {
-                        Controller.InputCurrent.ButtonGuidePressTimePrevious = 0;
-                        //Debug.WriteLine("Releasing guide hold: 0");
+                        buttonDetails.PressTimePrevious = 0;
+                        //Debug.WriteLine("Releasing button hold: 0");
                     }
-                    else if (Controller.InputCurrent.ButtonGuidePressTimeCurrent > 0)
+                    else if (buttonDetails.PressTimeCurrent > 0)
                     {
-                        Controller.InputCurrent.ButtonGuidePressTimePrevious = Environment.TickCount - Controller.InputCurrent.ButtonGuidePressTimeCurrent;
-                        //Debug.WriteLine("Releasing guide hold: " + Controller.InputCurrent.ButtonGuidePressTimePrevious);
+                        buttonDetails.PressTimePrevious = Environment.TickCount - buttonDetails.PressTimeCurrent;
+                        //Debug.WriteLine("Releasing button hold: " + buttonDetails.PressTimePrevious);
                     }
 
-                    Controller.InputCurrent.ButtonGuidePressTimeDone = false;
-                    Controller.InputCurrent.ButtonGuidePressTimeCurrent = 0;
+                    buttonDetails.PressTimeDone = false;
+                    buttonDetails.PressTimeCurrent = 0;
                 }
             }
             catch { }
         }
 
-        //Check the guide button press times
-        void CheckButtonPressTimes(ControllerStatus Controller)
+        //Check the button press times
+        void CheckButtonPressTimes(ControllerButtonDetails buttonDetails)
         {
             try
             {
-                Controller.InputCurrent.ButtonGuideShort = false;
-                Controller.InputCurrent.ButtonGuideLong = false;
+                buttonDetails.PressedShort = false;
+                buttonDetails.PressedLong = false;
 
-                if (!Controller.InputCurrent.ButtonGuidePressTimeDone)
+                if (!buttonDetails.PressTimeDone)
                 {
-                    if (Controller.InputCurrent.ButtonGuidePressTimePrevious > 0)
+                    if (buttonDetails.PressTimePrevious > 0)
                     {
-                        if (AVFunctions.BetweenNumbers(Controller.InputCurrent.ButtonGuidePressTimePrevious, 1, 500, true))
+                        if (AVFunctions.BetweenNumbers(buttonDetails.PressTimePrevious, 1, 500, true))
                         {
-                            Controller.InputCurrent.ButtonGuideShort = true;
-                            Controller.InputCurrent.ButtonGuidePressTimeDone = true;
+                            buttonDetails.PressedShort = true;
+                            buttonDetails.PressTimeDone = true;
                             return;
                         }
                     }
 
-                    if (Controller.InputCurrent.ButtonGuidePressTimeCurrent > 0)
+                    if (buttonDetails.PressTimeCurrent > 0)
                     {
-                        int GuideCurrent = Environment.TickCount - Controller.InputCurrent.ButtonGuidePressTimeCurrent;
-                        //Debug.WriteLine("Guide status: " + GuideCurrent);
+                        int GuideCurrent = Environment.TickCount - buttonDetails.PressTimeCurrent;
+                        //Debug.WriteLine("Button status: " + GuideCurrent);
                         if (GuideCurrent > 850)
                         {
-                            Controller.InputCurrent.ButtonGuideLong = true;
-                            Controller.InputCurrent.ButtonGuidePressTimeDone = true;
+                            buttonDetails.PressedLong = true;
+                            buttonDetails.PressTimeDone = true;
                             return;
                         }
                     }
@@ -98,7 +98,7 @@ namespace DirectXInput
                 if (Environment.TickCount >= Controller.Delay_ControllerShortcut)
                 {
                     //Show CtrlUI application
-                    if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController == null && vProcessCtrlUI != null)
+                    if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessKeyboardController == null && vProcessCtrlUI != null)
                     {
                         if (!vProcessCtrlUIActivated)
                         {
@@ -112,7 +112,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Launch CtrlUI application
-                    else if (Controller.InputCurrent.ButtonGuideShort && vProcessKeyboardController == null && vProcessCtrlUI == null)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessKeyboardController == null && vProcessCtrlUI == null)
                     {
                         await LaunchCtrlUI();
 
@@ -120,7 +120,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Close the keyboard controller
-                    else if ((Controller.InputCurrent.ButtonGuide || Controller.InputCurrent.ButtonGuideShort || Controller.InputCurrent.ButtonGuideLong) && vProcessKeyboardController != null)
+                    else if ((Controller.InputCurrent.ButtonGuide.PressedShort || Controller.InputCurrent.ButtonGuide.PressedLong) && vProcessKeyboardController != null)
                     {
                         Debug.WriteLine("Guide press closing keyboard controller.");
                         App.vWindowOverlay.Overlay_Show_Status("Keyboard", "Closing Keyboard");
@@ -131,7 +131,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Launch the keyboard controller
-                    else if (Controller.InputCurrent.ButtonGuideLong && vProcessKeyboardController == null)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedLong && vProcessKeyboardController == null)
                     {
                         await LaunchKeyboardController();
 
@@ -139,7 +139,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Press Alt+Enter
-                    else if (Controller.InputCurrent.ButtonStart && Controller.InputCurrent.ButtonShoulderRight)
+                    else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderRight.PressedRaw)
                     {
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltEnter"]))
                         {
@@ -152,7 +152,7 @@ namespace DirectXInput
                         }
                     }
                     //Press Alt+F4
-                    else if (Controller.InputCurrent.ButtonStart && Controller.InputCurrent.ButtonShoulderLeft)
+                    else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderLeft.PressedRaw)
                     {
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltF4"]))
                         {
@@ -165,7 +165,7 @@ namespace DirectXInput
                         }
                     }
                     //Press Alt+Tab or Win+Tab
-                    else if (Controller.InputCurrent.ButtonBack && Controller.InputCurrent.ButtonShoulderRight)
+                    else if (Controller.InputCurrent.ButtonBack.PressedRaw && Controller.InputCurrent.ButtonShoulderRight.PressedRaw)
                     {
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutWinTab"]))
                         {
@@ -187,7 +187,7 @@ namespace DirectXInput
                         }
                     }
                     //Make screenshot
-                    else if (Controller.InputCurrent.ButtonBack && Controller.InputCurrent.ButtonShoulderLeft)
+                    else if (Controller.InputCurrent.ButtonBack.PressedRaw && Controller.InputCurrent.ButtonShoulderLeft.PressedRaw)
                     {
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutScreenshot"]))
                         {
@@ -200,7 +200,7 @@ namespace DirectXInput
                         }
                     }
                     //Disconnect controller from Bluetooth
-                    else if ((Controller.InputCurrent.ButtonGuide || Controller.InputCurrent.ButtonGuideShort || Controller.InputCurrent.ButtonGuideLong) && Controller.InputCurrent.ButtonStart)
+                    else if ((Controller.InputCurrent.ButtonGuide.PressedRaw || Controller.InputCurrent.ButtonGuide.PressedShort || Controller.InputCurrent.ButtonGuide.PressedLong) && Controller.InputCurrent.ButtonStart.PressedRaw)
                     {
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutDisconnectBluetooth"]))
                         {
@@ -212,7 +212,7 @@ namespace DirectXInput
                         }
                     }
                     //Set controller as manage controller
-                    else if (Controller.InputCurrent.ButtonStart)
+                    else if (Controller.InputCurrent.ButtonStart.PressedRaw)
                     {
                         Debug.WriteLine("Shortcut set manage controller has been pressed.");
                         SetManageController(Controller);

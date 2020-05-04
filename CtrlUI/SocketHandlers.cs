@@ -54,9 +54,9 @@ namespace CtrlUI
                         vControllerBusy = false;
                     }
                 }
-                else if (DeserializedBytes.Object is List<ControllerStatusSummary>)
+                else if (DeserializedBytes.Object is List<ControllerStatusDetails>)
                 {
-                    List<ControllerStatusSummary> controllerStatusSummaryList = (List<ControllerStatusSummary>)DeserializedBytes.Object;
+                    List<ControllerStatusDetails> controllerStatusSummaryList = (List<ControllerStatusDetails>)DeserializedBytes.Object;
                     await UpdateControllerStatus(controllerStatusSummaryList);
                 }
                 else if (DeserializedBytes.Object is string)

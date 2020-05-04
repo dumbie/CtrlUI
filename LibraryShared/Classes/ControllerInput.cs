@@ -18,33 +18,27 @@ namespace LibraryShared
             public byte TriggerRight = 0;
 
             //Raw D-Pad
-            public bool DPadUp = false;
-            public bool DPadDown = false;
-            public bool DPadLeft = false;
-            public bool DPadRight = false;
+            public ControllerButtonDetails DPadUp = new ControllerButtonDetails();
+            public ControllerButtonDetails DPadDown = new ControllerButtonDetails();
+            public ControllerButtonDetails DPadLeft = new ControllerButtonDetails();
+            public ControllerButtonDetails DPadRight = new ControllerButtonDetails();
 
             //Raw Buttons
-            public bool ButtonA = false;
-            public bool ButtonB = false;
-            public bool ButtonX = false;
-            public bool ButtonY = false;
+            public ControllerButtonDetails ButtonA = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonB = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonX = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonY = new ControllerButtonDetails();
 
-            public bool ButtonBack = false;
-            public bool ButtonStart = false;
+            public ControllerButtonDetails ButtonBack = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonStart = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonGuide = new ControllerButtonDetails();
 
-            public bool ButtonGuide = false;
-            public bool ButtonGuideShort = false;
-            public bool ButtonGuideLong = false;
-            public bool ButtonGuidePressTimeDone = false;
-            public int ButtonGuidePressTimeCurrent = 0;
-            public int ButtonGuidePressTimePrevious = 0;
-
-            public bool ButtonShoulderLeft = false;
-            public bool ButtonShoulderRight = false;
-            public bool ButtonThumbLeft = false;
-            public bool ButtonThumbRight = false;
-            public bool ButtonTriggerLeft = false;
-            public bool ButtonTriggerRight = false;
+            public ControllerButtonDetails ButtonShoulderLeft = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonShoulderRight = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonThumbLeft = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonThumbRight = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonTriggerLeft = new ControllerButtonDetails();
+            public ControllerButtonDetails ButtonTriggerRight = new ControllerButtonDetails();
 
             //Raw Bytes
             public bool[] RawBytes = new bool[128];

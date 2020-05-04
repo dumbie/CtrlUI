@@ -38,7 +38,7 @@ namespace KeyboardController
                     }
 
                     //Emulate mouse click left
-                    if (ControllerInput.ButtonThumbLeft)
+                    if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
                         if (!vMouseHoldingLeft)
                         {
@@ -62,7 +62,7 @@ namespace KeyboardController
                     }
 
                     //Emulate mouse click right
-                    if (ControllerInput.ButtonThumbRight)
+                    if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
                         MousePressSingle(true);
 
@@ -105,7 +105,7 @@ namespace KeyboardController
                 if (Environment.TickCount >= vControllerDelay_Keyboard)
                 {
                     //Send internal arrow left key
-                    if (ControllerInput.DPadLeft)
+                    if (ControllerInput.DPadLeft.PressedRaw)
                     {
                         PlayInterfaceSound("KeyboardMove", false);
                         KeySendSingle((byte)KeysVirtual.Left, Process.GetCurrentProcess().MainWindowHandle);
@@ -114,7 +114,7 @@ namespace KeyboardController
                         ControllerDelayShort = true;
                     }
                     //Send internal arrow right key
-                    else if (ControllerInput.DPadRight)
+                    else if (ControllerInput.DPadRight.PressedRaw)
                     {
                         PlayInterfaceSound("KeyboardMove", false);
                         KeySendSingle((byte)KeysVirtual.Right, Process.GetCurrentProcess().MainWindowHandle);
@@ -123,7 +123,7 @@ namespace KeyboardController
                         ControllerDelayShort = true;
                     }
                     //Send internal arrow up key
-                    else if (ControllerInput.DPadUp)
+                    else if (ControllerInput.DPadUp.PressedRaw)
                     {
                         PlayInterfaceSound("KeyboardMove", false);
                         KeySendSingle((byte)KeysVirtual.Up, Process.GetCurrentProcess().MainWindowHandle);
@@ -132,7 +132,7 @@ namespace KeyboardController
                         ControllerDelayShort = true;
                     }
                     //Send internal arrow down key
-                    else if (ControllerInput.DPadDown)
+                    else if (ControllerInput.DPadDown.PressedRaw)
                     {
                         PlayInterfaceSound("KeyboardMove", false);
                         KeySendSingle((byte)KeysVirtual.Down, Process.GetCurrentProcess().MainWindowHandle);
@@ -142,7 +142,7 @@ namespace KeyboardController
                     }
 
                     //Send internal space key
-                    else if (ControllerInput.ButtonA)
+                    else if (ControllerInput.ButtonA.PressedRaw)
                     {
                         KeySendSingle((byte)KeysVirtual.Space, Process.GetCurrentProcess().MainWindowHandle);
 
@@ -150,7 +150,7 @@ namespace KeyboardController
                         ControllerDelayShort = true;
                     }
                     //Send external enter key
-                    else if (ControllerInput.ButtonB)
+                    else if (ControllerInput.ButtonB.PressedRaw)
                     {
                         PlayInterfaceSound("KeyboardPress", false);
                         KeyPressSingle((byte)KeysVirtual.Return, false);
@@ -159,7 +159,7 @@ namespace KeyboardController
                         ControllerDelayShort = true;
                     }
                     //Send external space key
-                    else if (ControllerInput.ButtonY)
+                    else if (ControllerInput.ButtonY.PressedRaw)
                     {
                         PlayInterfaceSound("KeyboardPress", false);
                         KeyPressSingle((byte)KeysVirtual.Space, false);
@@ -168,7 +168,7 @@ namespace KeyboardController
                         ControllerDelayShort = true;
                     }
                     //Send external backspace key
-                    else if (ControllerInput.ButtonX)
+                    else if (ControllerInput.ButtonX.PressedRaw)
                     {
                         PlayInterfaceSound("KeyboardPress", false);
                         KeyPressSingle((byte)KeysVirtual.Back, false);
@@ -178,7 +178,7 @@ namespace KeyboardController
                     }
 
                     //Send external arrow left key
-                    else if (ControllerInput.ButtonShoulderLeft)
+                    else if (ControllerInput.ButtonShoulderLeft.PressedRaw)
                     {
                         PlayInterfaceSound("KeyboardPress", false);
                         KeyPressSingle((byte)KeysVirtual.Left, false);
@@ -187,7 +187,7 @@ namespace KeyboardController
                         ControllerDelayShort = true;
                     }
                     //Send external arrow right key
-                    else if (ControllerInput.ButtonShoulderRight)
+                    else if (ControllerInput.ButtonShoulderRight.PressedRaw)
                     {
                         PlayInterfaceSound("KeyboardPress", false);
                         KeyPressSingle((byte)KeysVirtual.Right, false);
@@ -216,7 +216,7 @@ namespace KeyboardController
                     }
 
                     //Switch scroll and move
-                    else if (ControllerInput.ButtonBack)
+                    else if (ControllerInput.ButtonBack.PressedRaw)
                     {
                         Debug.WriteLine("Button: BackPressed / Caps lock");
                         SwitchCapsLock();
@@ -225,7 +225,7 @@ namespace KeyboardController
                         ControllerDelayMedium = true;
                     }
                     //Switch caps lock
-                    else if (ControllerInput.ButtonStart)
+                    else if (ControllerInput.ButtonStart.PressedRaw)
                     {
                         Debug.WriteLine("Button: StartPressed / Scroll and Move");
                         SwitchKeyboardMode();

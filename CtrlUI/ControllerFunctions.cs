@@ -72,17 +72,17 @@ namespace CtrlUI
         }
 
         //Update the controller status from DirectXInput
-        async Task UpdateControllerStatus(List<ControllerStatusSummary> controllerStatusSummaryList)
+        async Task UpdateControllerStatus(List<ControllerStatusDetails> controllerStatusSummaryList)
         {
             try
             {
                 //Update the controller status
-                foreach (ControllerStatusSummary controllerStatusNew in controllerStatusSummaryList)
+                foreach (ControllerStatusDetails controllerStatusNew in controllerStatusSummaryList)
                 {
                     //Get current controller status
                     Image controllerStatusImage = null;
                     StackPanel controllerStatusStackpanel = null;
-                    ControllerStatusSummary controllerStatusOld = null;
+                    ControllerStatusDetails controllerStatusOld = null;
                     if (controllerStatusNew.NumberId == 0)
                     {
                         controllerStatusStackpanel = stackpanel_Menu_Controller0;

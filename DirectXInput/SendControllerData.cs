@@ -14,8 +14,8 @@ namespace DirectXInput
             try
             {
                 //Update the button press times
-                UpdateButtonPressTimes(Controller);
-                CheckButtonPressTimes(Controller);
+                UpdateButtonPressTimes(Controller.InputCurrent.ButtonGuide);
+                CheckButtonPressTimes(Controller.InputCurrent.ButtonGuide);
 
                 //Update interface controller preview
                 ControllerPreview(Controller);
@@ -51,9 +51,9 @@ namespace DirectXInput
                 else
                 {
                     //Check if guide button is CtrlUI exclusive
-                    if (Controller.InputCurrent.ButtonGuide && Convert.ToBoolean(ConfigurationManager.AppSettings["ExclusiveGuide"]))
+                    if (Controller.InputCurrent.ButtonGuide.PressedRaw && Convert.ToBoolean(ConfigurationManager.AppSettings["ExclusiveGuide"]))
                     {
-                        Controller.InputCurrent.ButtonGuide = false;
+                        Controller.InputCurrent.ButtonGuide.PressedRaw = false;
                     }
 
                     //Prepare current XOutput device data

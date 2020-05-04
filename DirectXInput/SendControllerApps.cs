@@ -16,7 +16,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Environment.TickCount >= Controller.Delay_CtrlUIOutput || Controller.InputCurrent.ButtonGuideShort || Controller.InputCurrent.ButtonGuideLong)
+                if (Environment.TickCount >= Controller.Delay_CtrlUIOutput)
                 {
                     //Check if socket server is running
                     if (vArnoldVinkSockets == null)
@@ -48,7 +48,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Environment.TickCount >= Controller.Delay_KeyboardControllerShortcut || Controller.InputCurrent.ButtonGuideShort || Controller.InputCurrent.ButtonGuideLong)
+                if (Environment.TickCount >= Controller.Delay_KeyboardControllerShortcut)
                 {
                     //Check if socket server is running
                     if (vArnoldVinkSockets == null)

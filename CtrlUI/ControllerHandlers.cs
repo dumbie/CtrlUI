@@ -43,7 +43,7 @@ namespace CtrlUI
             {
                 if (Environment.TickCount >= vControllerDelay_Button)
                 {
-                    if (ControllerInput.ButtonA)
+                    if (ControllerInput.ButtonA.PressedRaw)
                     {
                         Debug.WriteLine("Button: APressed");
 
@@ -68,7 +68,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayMedium = true;
                     }
-                    else if (ControllerInput.ButtonB)
+                    else if (ControllerInput.ButtonB.PressedRaw)
                     {
                         Debug.WriteLine("Button: BPressed");
 
@@ -80,7 +80,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayMedium = true;
                     }
-                    else if (ControllerInput.ButtonY)
+                    else if (ControllerInput.ButtonY.PressedRaw)
                     {
                         Debug.WriteLine("Button: YPressed");
 
@@ -96,7 +96,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayMedium = true;
                     }
-                    else if (ControllerInput.ButtonX)
+                    else if (ControllerInput.ButtonX.PressedRaw)
                     {
                         Debug.WriteLine("Button: XPressed");
 
@@ -118,7 +118,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayMedium = true;
                     }
-                    else if (ControllerInput.ButtonShoulderLeft)
+                    else if (ControllerInput.ButtonShoulderLeft.PressedRaw)
                     {
                         Debug.WriteLine("Button: ShoulderLeftPressed");
                         PlayInterfaceSound("ClickRight", false);
@@ -144,7 +144,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
-                    else if (ControllerInput.ButtonShoulderRight)
+                    else if (ControllerInput.ButtonShoulderRight.PressedRaw)
                     {
                         Debug.WriteLine("Button: ShoulderRightPressed");
                         PlayInterfaceSound("ClickRight", false);
@@ -165,7 +165,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
-                    else if (ControllerInput.ButtonBack)
+                    else if (ControllerInput.ButtonBack.PressedRaw)
                     {
                         Debug.WriteLine("Button: BackPressed / Show hide menu");
                         await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_ShowHide_MainMenu(false); });
@@ -173,7 +173,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayLong = true;
                     }
-                    else if (ControllerInput.ButtonStart)
+                    else if (ControllerInput.ButtonStart.PressedRaw)
                     {
                         Debug.WriteLine("Button: StartPressed / Show hide search");
                         await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_ShowHide_Search(false); });
@@ -181,7 +181,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayLong = true;
                     }
-                    else if (ControllerInput.ButtonThumbLeft)
+                    else if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
                         Debug.WriteLine("Button: ThumbLeftPressed");
                         PlayInterfaceSound("ClickRight", false);
@@ -191,7 +191,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
-                    else if (ControllerInput.ButtonThumbRight)
+                    else if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
                         Debug.WriteLine("Button: ThumbRightPressed");
                         PlayInterfaceSound("ClickRight", false);
@@ -230,7 +230,7 @@ namespace CtrlUI
             {
                 if (Environment.TickCount >= vControllerDelay_DPad)
                 {
-                    if (ControllerInput.DPadLeft)
+                    if (ControllerInput.DPadLeft.PressedRaw)
                     {
                         Debug.WriteLine("Button: DPadLeftPressed");
 
@@ -239,7 +239,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
-                    else if (ControllerInput.DPadUp)
+                    else if (ControllerInput.DPadUp.PressedRaw)
                     {
                         Debug.WriteLine("Button: DPadUpPressed");
 
@@ -248,7 +248,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
-                    else if (ControllerInput.DPadRight)
+                    else if (ControllerInput.DPadRight.PressedRaw)
                     {
                         Debug.WriteLine("Button: DPadRightPressed");
 
@@ -257,7 +257,7 @@ namespace CtrlUI
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
-                    else if (ControllerInput.DPadDown)
+                    else if (ControllerInput.DPadDown.PressedRaw)
                     {
                         Debug.WriteLine("Button: DPadDownPressed");
 

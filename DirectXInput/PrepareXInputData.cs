@@ -17,7 +17,7 @@ namespace DirectXInput
             {
                 //Set the package header
                 Controller.XInputData[0] = 0x1C;
-                Controller.XInputData[4] = (Byte)(Controller.NumberId + 1);
+                Controller.XInputData[4] = (byte)(Controller.NumberId + 1);
                 Controller.XInputData[9] = 0x14;
                 for (int i = 10; i < Controller.XInputData.Length; i++) { Controller.XInputData[i] = 0x00; }
                 if (Empty) { return; }
@@ -42,31 +42,31 @@ namespace DirectXInput
                 }
                 else
                 {
-                    if (Controller.InputCurrent.ButtonTriggerLeft) { Controller.XInputData[12] = 255; }
-                    if (Controller.InputCurrent.ButtonTriggerRight) { Controller.XInputData[13] = 255; }
+                    if (Controller.InputCurrent.ButtonTriggerLeft.PressedRaw) { Controller.XInputData[12] = 255; }
+                    if (Controller.InputCurrent.ButtonTriggerRight.PressedRaw) { Controller.XInputData[13] = 255; }
                 }
 
                 //D-Pad
-                if (Controller.InputCurrent.DPadLeft) { Controller.XInputData[10] |= (Byte)(1 << 2); }
-                if (Controller.InputCurrent.DPadUp) { Controller.XInputData[10] |= (Byte)(1 << 0); }
-                if (Controller.InputCurrent.DPadRight) { Controller.XInputData[10] |= (Byte)(1 << 3); }
-                if (Controller.InputCurrent.DPadDown) { Controller.XInputData[10] |= (Byte)(1 << 1); }
+                if (Controller.InputCurrent.DPadLeft.PressedRaw) { Controller.XInputData[10] |= (byte)(1 << 2); }
+                if (Controller.InputCurrent.DPadUp.PressedRaw) { Controller.XInputData[10] |= (byte)(1 << 0); }
+                if (Controller.InputCurrent.DPadRight.PressedRaw) { Controller.XInputData[10] |= (byte)(1 << 3); }
+                if (Controller.InputCurrent.DPadDown.PressedRaw) { Controller.XInputData[10] |= (byte)(1 << 1); }
 
                 //Buttons
-                if (Controller.InputCurrent.ButtonA) { Controller.XInputData[11] |= (Byte)(1 << 4); }
-                if (Controller.InputCurrent.ButtonB) { Controller.XInputData[11] |= (Byte)(1 << 5); }
-                if (Controller.InputCurrent.ButtonX) { Controller.XInputData[11] |= (Byte)(1 << 6); }
-                if (Controller.InputCurrent.ButtonY) { Controller.XInputData[11] |= (Byte)(1 << 7); }
+                if (Controller.InputCurrent.ButtonA.PressedRaw) { Controller.XInputData[11] |= (byte)(1 << 4); }
+                if (Controller.InputCurrent.ButtonB.PressedRaw) { Controller.XInputData[11] |= (byte)(1 << 5); }
+                if (Controller.InputCurrent.ButtonX.PressedRaw) { Controller.XInputData[11] |= (byte)(1 << 6); }
+                if (Controller.InputCurrent.ButtonY.PressedRaw) { Controller.XInputData[11] |= (byte)(1 << 7); }
 
-                if (Controller.InputCurrent.ButtonBack) { Controller.XInputData[10] |= (Byte)(1 << 5); }
-                if (Controller.InputCurrent.ButtonStart) { Controller.XInputData[10] |= (Byte)(1 << 4); }
-                if (Controller.InputCurrent.ButtonGuide) { Controller.XInputData[11] |= (Byte)(1 << 2); }
+                if (Controller.InputCurrent.ButtonBack.PressedRaw) { Controller.XInputData[10] |= (byte)(1 << 5); }
+                if (Controller.InputCurrent.ButtonStart.PressedRaw) { Controller.XInputData[10] |= (byte)(1 << 4); }
+                if (Controller.InputCurrent.ButtonGuide.PressedRaw) { Controller.XInputData[11] |= (byte)(1 << 2); }
 
-                if (Controller.InputCurrent.ButtonShoulderLeft) { Controller.XInputData[11] |= (Byte)(1 << 0); }
-                if (Controller.InputCurrent.ButtonShoulderRight) { Controller.XInputData[11] |= (Byte)(1 << 1); }
+                if (Controller.InputCurrent.ButtonShoulderLeft.PressedRaw) { Controller.XInputData[11] |= (byte)(1 << 0); }
+                if (Controller.InputCurrent.ButtonShoulderRight.PressedRaw) { Controller.XInputData[11] |= (byte)(1 << 1); }
 
-                if (Controller.InputCurrent.ButtonThumbLeft) { Controller.XInputData[10] |= (Byte)(1 << 6); }
-                if (Controller.InputCurrent.ButtonThumbRight) { Controller.XInputData[10] |= (Byte)(1 << 7); }
+                if (Controller.InputCurrent.ButtonThumbLeft.PressedRaw) { Controller.XInputData[10] |= (byte)(1 << 6); }
+                if (Controller.InputCurrent.ButtonThumbRight.PressedRaw) { Controller.XInputData[10] |= (byte)(1 << 7); }
             }
             catch { }
         }
