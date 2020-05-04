@@ -138,11 +138,8 @@ namespace CtrlUI
                 //Start application tasks
                 TasksBackgroundStart();
 
-                //Check settings if DirectXInput launches on start
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchDirectXInput"]))
-                {
-                    await LaunchDirectXInput();
-                }
+                //Launch DirectXInput application
+                await LaunchDirectXInput();
 
                 //Check settings if Fps Overlayer launches on start
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFpsOverlayer"]))

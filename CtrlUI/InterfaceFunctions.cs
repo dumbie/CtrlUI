@@ -153,7 +153,6 @@ namespace CtrlUI
                 lb_ColorPicker.PreviewMouseUp += ListBox_ColorPicker_MousePressUp;
 
                 //Welcome functions
-                grid_Popup_Welcome_button_LaunchDirectXInput.Click += Button_LaunchDirectXInput_Click;
                 grid_Popup_Welcome_button_Start.Click += Button_Popup_Close_Click;
                 grid_Popup_Welcome_button_Edge.Click += Grid_Popup_Welcome_button_Edge_Click;
                 grid_Popup_Welcome_button_Kodi.Click += Grid_Popup_Welcome_button_Kodi_Click;

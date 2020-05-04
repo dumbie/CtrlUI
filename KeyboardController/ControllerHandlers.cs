@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInputOutputMouse;
@@ -94,7 +93,7 @@ namespace KeyboardController
         }
 
         //Process controller input for keyboard
-        public async Task<bool> ControllerInteractionKeyboard(ControllerInput ControllerInput)
+        public bool ControllerInteractionKeyboard(ControllerInput ControllerInput)
         {
             bool ControllerUsed = false;
             bool ControllerDelayMicro = false;
@@ -105,17 +104,8 @@ namespace KeyboardController
             {
                 if (Environment.TickCount >= vControllerDelay_Keyboard)
                 {
-                    //Close keyboard controller
-                    if (ControllerInput.ButtonGuide || ControllerInput.ButtonGuideShort || ControllerInput.ButtonGuideLong)
-                    {
-                        Debug.WriteLine("Button: GuideShort / Close");
-                        await Application_Exit();
-
-                        ControllerUsed = true;
-                        ControllerDelayLong = true;
-                    }
                     //Send internal arrow left key
-                    else if (ControllerInput.DPadLeft)
+                    if (ControllerInput.DPadLeft)
                     {
                         PlayInterfaceSound("KeyboardMove", false);
                         KeySendSingle((byte)KeysVirtual.Left, Process.GetCurrentProcess().MainWindowHandle);

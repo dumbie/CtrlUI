@@ -27,7 +27,7 @@ namespace CtrlUI
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_LaunchDirectXInput);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -58,7 +58,7 @@ namespace CtrlUI
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_LaunchDirectXInput);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -89,7 +89,7 @@ namespace CtrlUI
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_LaunchDirectXInput);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -120,7 +120,7 @@ namespace CtrlUI
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_LaunchDirectXInput);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -151,7 +151,7 @@ namespace CtrlUI
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_LaunchDirectXInput);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -182,7 +182,7 @@ namespace CtrlUI
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_LaunchDirectXInput);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -213,7 +213,7 @@ namespace CtrlUI
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_LaunchDirectXInput);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -244,7 +244,7 @@ namespace CtrlUI
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_LaunchDirectXInput);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -275,7 +275,7 @@ namespace CtrlUI
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_LaunchDirectXInput);
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }

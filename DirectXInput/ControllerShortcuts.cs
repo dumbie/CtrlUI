@@ -125,6 +125,8 @@ namespace DirectXInput
                         Debug.WriteLine("Guide press closing keyboard controller.");
                         App.vWindowOverlay.Overlay_Show_Status("Keyboard", "Closing Keyboard");
 
+                        await CloseKeyboardController();
+
                         ControllerUsed = true;
                         ControllerDelayLong = true;
                     }
@@ -299,6 +301,39 @@ namespace DirectXInput
 
                 //Send socket data
                 TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort - 1, vArnoldVinkSockets.vTcpClientTimeout);
+                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
+            }
+            catch { }
+        }
+
+        //Close Keyboard Controller
+        async Task CloseKeyboardController()
+        {
+            try
+            {
+                //Check if application is running
+                if (vProcessKeyboardController == null)
+                {
+                    Debug.WriteLine("Keyboard Controller is not running.");
+                    return;
+                }
+
+                //Check if socket server is running
+                if (vArnoldVinkSockets == null)
+                {
+                    Debug.WriteLine("The socket server is not running.");
+                    return;
+                }
+
+                //Prepare socket data
+                SocketSendContainer socketSend = new SocketSendContainer();
+                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
+                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
+                socketSend.Object = "ApplicationExit";
+                byte[] SerializedData = SerializeObjectToBytes(socketSend);
+
+                //Send socket data
+                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 1, vArnoldVinkSockets.vTcpClientTimeout);
                 await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
             }
             catch { }

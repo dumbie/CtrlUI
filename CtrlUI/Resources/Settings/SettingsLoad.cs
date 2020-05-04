@@ -30,7 +30,6 @@ namespace CtrlUI
                 cb_SettingsShowMediaMain.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShowMediaMain"]);
                 cb_SettingsMinimizeAppOnShow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"]);
                 cb_SettingsShortcutVolume.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"]);
-                cb_SettingsLaunchDirectXInput.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchDirectXInput"]);
                 cb_SettingsLaunchFpsOverlayer.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFpsOverlayer"]);
 
                 //Load the socket used ports

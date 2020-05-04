@@ -49,7 +49,7 @@ namespace KeyboardController
 
                         ControllerInput receivedControllerInput = (ControllerInput)DeserializedBytes.Object;
                         ControllerInteractionMouse(receivedControllerInput);
-                        await ControllerInteractionKeyboard(receivedControllerInput);
+                        ControllerInteractionKeyboard(receivedControllerInput);
 
                         vControllerBusy = false;
                     }
@@ -58,7 +58,11 @@ namespace KeyboardController
                 {
                     string receivedString = (string)DeserializedBytes.Object;
                     Debug.WriteLine("Received string: " + receivedString);
-                    if (receivedString == "SettingChangedAccentColor")
+                    if (receivedString == "ApplicationExit")
+                    {
+                        await Application_Exit();
+                    }
+                    else if (receivedString == "SettingChangedAccentColor")
                     {
                         Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
                         Settings_Load_AccentColor(vConfigurationCtrlUI);
