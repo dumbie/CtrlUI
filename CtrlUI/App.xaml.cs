@@ -29,11 +29,11 @@ namespace CtrlUI
                 //Get previous focused application
                 vPrevFocusedProcess = GetFocusedProcess();
 
-                //Check the application update
-                Application_UpdateCheck();
-
                 //Check the application status
                 await Application_LaunchCheck("CtrlUI", ProcessPriorityClass.High, false, true);
+
+                //Check the application update
+                Application_UpdateCheck();
 
                 //Allow application in firewall
                 string appFilePath = Assembly.GetEntryAssembly().Location;

@@ -169,61 +169,41 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\CtrlUI\Assets\Icons\Controller-Accent.png">
-      <Link>Assets\Icons\Controller-Accent.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Controller-Dark.png">
-      <Link>Assets\Icons\Controller-Dark.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Icons\Shortcuts.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\MiniMaxi.png">
-      <Link>Assets\Icons\MiniMaxi.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Closing.png">
-      <Link>Assets\Icons\Closing.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerDis20.png">
-      <Link>Assets\Icons\Battery\BatteryVerDis20.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\App.png">
-      <Link>Assets\Icons\App.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerDis10.png">
-      <Link>Assets\Icons\Battery\BatteryVerDis10.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController1.png">
+    <Content Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController1.png">
       <Link>Assets\Icons\Battery\BatteryVerController1.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController2.png">
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController2.png">
       <Link>Assets\Icons\Battery\BatteryVerController2.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController3.png">
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController3.png">
       <Link>Assets\Icons\Battery\BatteryVerController3.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController4.png">
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController4.png">
       <Link>Assets\Icons\Battery\BatteryVerController4.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Keyboard.png">
-      <Link>Assets\Icons\Keyboard.png</Link>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Controller-Dark.png">
+      <Link>Assets\Icons\Controller-Dark.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Paste.png">
-      <Link>Assets\Icons\Paste.png</Link>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Controller.png">
+      <Link>Assets\Icons\Controller.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Help.png">
+      <Link>Assets\Icons\Help.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Settings.png">
+      <Link>Assets\Icons\Settings.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icons\ControllerShortcuts.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Profiles\DirectCloseTools.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -232,34 +212,22 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\App.manifest" />
-    <Resource Include="Assets\Controller.png">
+    <Content Include="Assets\Controller\ControllerPreview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\ButtonPress.png">
+    </Content>
+    <Content Include="Assets\Controller\ButtonPress.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\ControllerAxe.png">
+    </Content>
+    <Content Include="Assets\Controller\ControllerAxe.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\ControllerRumble.png">
+    </Content>
+    <Content Include="Assets\Controller\ControllerRumble.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Icons\Buttons.png">
+    </Content>
+    <Content Include="Assets\Icons\ControllerButtons.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <EmbeddedResource Include="Assets\AppIcon.ico" />
-    <Resource Include="..\CtrlUI\Assets\Icons\Controller.png">
-      <Link>Assets\Icons\Controller.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Help.png">
-      <Link>Assets\Icons\Help.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Settings.png">
-      <Link>Assets\Icons\Settings.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Content Include="Profiles\DirectControllersProfile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

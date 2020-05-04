@@ -117,9 +117,6 @@
       <Link>Styles\MainStyles.xaml.cs</Link>
       <DependentUpon>MainStyles.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\TextBoxPlaceholderCode.cs">
-      <Link>Styles\TextBoxPlaceholderCode.cs</Link>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -191,12 +188,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Icons\FpsDown.png">
+    <Content Include="Assets\Icons\FpsDown.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Icons\FpsUp.png">
+    </Content>
+    <Content Include="Assets\Icons\FpsUp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Resource Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.png">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.png</Link>
     </Resource>

@@ -8,10 +8,10 @@ using System.Windows.Media.Imaging;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
 using static ArnoldVinkCode.AVAudioDevice;
+using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -288,7 +288,7 @@ namespace CtrlUI
                     if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
                     {
                         string currentImage = grid_Popup_Media_PlayPause_Image.Source.ToString();
-                        string updatedImage = "pack://application:,,,/Assets/Icons/Pause.png";
+                        string updatedImage = "Assets/Icons/Pause.png";
                         if (currentImage.ToLower() != updatedImage.ToLower())
                         {
                             grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1, 0);
@@ -301,7 +301,7 @@ namespace CtrlUI
                     else
                     {
                         string currentImage = grid_Popup_Media_PlayPause_Image.Source.ToString();
-                        string updatedImage = "pack://application:,,,/Assets/Icons/Play.png";
+                        string updatedImage = "Assets/Icons/Play.png";
                         if (currentImage.ToLower() != updatedImage.ToLower())
                         {
                             grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1, 0);

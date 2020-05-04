@@ -18,11 +18,11 @@ namespace FpsOverlayer
         {
             try
             {
-                //Check the application update
-                Application_UpdateCheck();
-
                 //Check the application status
                 await Application_LaunchCheck("Fps Overlayer", ProcessPriorityClass.High, false, false);
+
+                //Check the application update
+                Application_UpdateCheck();
 
                 //Allow application in firewall
                 string appFilePath = Assembly.GetEntryAssembly().Location;

@@ -18,19 +18,19 @@
         <!-- Status - Battery Status -->
         <StackPanel Name="stackpanel_Battery_Warning" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left">
             <StackPanel Name="stackpanel_Battery_Warning_Controller1" Margin="0,0,8,0" Visibility="Collapsed">
-                <Image Height="40" Source="Assets/Icons/Battery/BatteryVerController1.png" HorizontalAlignment="Center"/>
+                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Icons/Battery/BatteryVerController1.png" HorizontalAlignment="Center"/>
                 <TextBlock Name="textblock_Battery_Warning_Controller1" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Name="stackpanel_Battery_Warning_Controller2" Margin="0,0,8,0" Visibility="Collapsed">
-                <Image Height="40" Source="Assets/Icons/Battery/BatteryVerController2.png" HorizontalAlignment="Center"/>
+                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Icons/Battery/BatteryVerController2.png" HorizontalAlignment="Center"/>
                 <TextBlock Name="textblock_Battery_Warning_Controller2" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Name="stackpanel_Battery_Warning_Controller3" Margin="0,0,8,0" Visibility="Collapsed">
-                <Image Height="40" Source="Assets/Icons/Battery/BatteryVerController3.png" HorizontalAlignment="Center"/>
+                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Icons/Battery/BatteryVerController3.png" HorizontalAlignment="Center"/>
                 <TextBlock Name="textblock_Battery_Warning_Controller3" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Name="stackpanel_Battery_Warning_Controller4" Margin="0,0,8,0" Visibility="Collapsed">
-                <Image Height="40" Source="Assets/Icons/Battery/BatteryVerController4.png" HorizontalAlignment="Center"/>
+                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Icons/Battery/BatteryVerController4.png" HorizontalAlignment="Center"/>
                 <TextBlock Name="textblock_Battery_Warning_Controller4" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>
         </StackPanel>

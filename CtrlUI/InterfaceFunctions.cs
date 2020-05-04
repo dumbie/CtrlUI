@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkCode.Styles;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,13 +12,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -231,10 +232,10 @@ namespace CtrlUI
             try
             {
                 string clockStyle = ConfigurationManager.AppSettings["InterfaceClockStyleName"].ToString();
-                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle + "\\Face.png" }, IntPtr.Zero, 40, 0);
-                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle + "\\Hour.png" }, IntPtr.Zero, 40, 0);
-                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle + "\\Minute.png" }, IntPtr.Zero, 40, 0);
-                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle + "\\Center.png" }, IntPtr.Zero, 40, 0);
+                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Face.png" }, IntPtr.Zero, 40, 0);
+                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Hour.png" }, IntPtr.Zero, 40, 0);
+                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Minute.png" }, IntPtr.Zero, 40, 0);
+                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Center.png" }, IntPtr.Zero, 40, 0);
             }
             catch { }
         }
@@ -283,9 +284,8 @@ namespace CtrlUI
                 vProcessFpsOverlayer = GetProcessByNameOrTitle("FpsOverlayer", false);
                 vProcessKeyboardController = GetProcessByNameOrTitle("KeyboardController", false);
                 int focusedAppId = GetFocusedProcess().Identifier;
-                bool appActivated = false;
 
-                AVActions.ActionDispatcherInvoke(delegate
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
                     try
                     {
@@ -293,36 +293,15 @@ namespace CtrlUI
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
                         if (vProcessCurrent.Id == focusedAppId)
                         {
-                            //Play background media
-                            grid_Video_Background.Play();
-
-                            //Hide window status message
-                            grid_WindowActive.Opacity = 0;
-                            grid_App.IsHitTestVisible = true;
-
-                            if (!vAppActivated) { appActivated = true; }
-                            vAppActivated = true;
+                            await AppWindowActivated();
                         }
                         else
                         {
-                            //Pause background media
-                            grid_Video_Background.Pause();
-
-                            //Show window status message
-                            grid_WindowActive.Opacity = 0.80;
-                            grid_App.IsHitTestVisible = false;
-
-                            vAppActivated = false;
+                            AppWindowDeactivated();
                         }
                     }
                     catch { }
                 });
-
-                //Check if application window activated
-                if (appActivated)
-                {
-                    await AppWindowActivated();
-                }
             }
             catch { }
         }
@@ -332,10 +311,65 @@ namespace CtrlUI
         {
             try
             {
-                Debug.WriteLine("Welcome back to the application.");
+                if (!vAppActivated)
+                {
+                    vAppActivated = true;
+                    Debug.WriteLine("Activated the application.");
 
-                //Hide the mouse cursor
-                await MouseCursorHide();
+                    //Play background media
+                    grid_Video_Background.Play();
+
+                    //Hide window status message
+                    grid_WindowActive.Opacity = 0;
+                    grid_App.IsHitTestVisible = true;
+
+                    //Hide the mouse cursor
+                    await MouseCursorHide();
+
+                    //Resume ScrollViewerLoops
+                    PauseResumeScrollviewerLoops(false);
+                }
+            }
+            catch { }
+        }
+
+        //Application window deactivated event
+        void AppWindowDeactivated()
+        {
+            try
+            {
+                if (vAppActivated)
+                {
+                    vAppActivated = false;
+                    Debug.WriteLine("Deactivated the application.");
+
+                    //Pause background media
+                    grid_Video_Background.Pause();
+
+                    //Show window status message
+                    grid_WindowActive.Opacity = 0.80;
+                    grid_App.IsHitTestVisible = false;
+
+                    //Pause ScrollViewerLoops
+                    PauseResumeScrollviewerLoops(true);
+                }
+            }
+            catch { }
+        }
+
+        //Pause or resume all ScrollViewerLoops
+        void PauseResumeScrollviewerLoops(bool pauseScroll)
+        {
+            try
+            {
+                foreach (ScrollViewerLoopHorizontal scrollViewer in AVFunctions.FindVisualChildren<ScrollViewerLoopHorizontal>(this))
+                {
+                    scrollViewer.ScrollPaused = pauseScroll;
+                }
+                foreach (ScrollViewerLoopVertical scrollViewer in AVFunctions.FindVisualChildren<ScrollViewerLoopVertical>(this))
+                {
+                    scrollViewer.ScrollPaused = pauseScroll;
+                }
             }
             catch { }
         }
@@ -605,17 +639,17 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString AnswerSwitch = new DataBindString();
-                    AnswerSwitch.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                    AnswerSwitch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
                     AnswerSwitch.Name = "Return to application";
                     Answers.Add(AnswerSwitch);
 
                     DataBindString AnswerClose = new DataBindString();
-                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
+                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
                     AnswerClose.Name = "Close the application";
                     Answers.Add(AnswerClose);
 
                     DataBindString AnswerMinimize = new DataBindString();
-                    AnswerMinimize.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Minimize.png" }, IntPtr.Zero, -1, 0);
+                    AnswerMinimize.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Minimize.png" }, IntPtr.Zero, -1, 0);
                     AnswerMinimize.Name = "Minimize CtrlUI";
                     Answers.Add(AnswerMinimize);
 

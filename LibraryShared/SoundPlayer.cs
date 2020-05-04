@@ -37,7 +37,7 @@ namespace LibraryShared
                     string soundFileName = @"Assets\\Sounds\\" + soundPackName + "\\" + soundName + ".mp3";
                     if (File.Exists(soundFileName))
                     {
-                        Uri soundFileUri = new Uri(soundFileName, UriKind.Relative);
+                        Uri soundFileUri = new Uri(soundFileName, UriKind.RelativeOrAbsolute);
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             windowsMediaPlayer.Volume = soundVolume;

@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using AVForms;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -271,19 +272,49 @@ namespace DirectXInput
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
                         if (vProcessCurrent.Id == FocusedAppId)
                         {
-                            vAppActivated = true;
-                            grid_WindowActive.Opacity = 0;
-                            grid_App.IsHitTestVisible = true;
+                            AppWindowActivated();
                         }
                         else
                         {
-                            vAppActivated = false;
-                            grid_WindowActive.Opacity = 0.80;
-                            grid_App.IsHitTestVisible = false;
+                            AppWindowDeactivated();
                         }
                     }
                     catch { }
                 });
+            }
+            catch { }
+        }
+
+        //Application window activated event
+        void AppWindowActivated()
+        {
+            try
+            {
+                if (!vAppActivated)
+                {
+                    vAppActivated = true;
+                    Debug.WriteLine("Activated the application.");
+
+                    grid_WindowActive.Opacity = 0;
+                    grid_App.IsHitTestVisible = true;
+                }
+            }
+            catch { }
+        }
+
+        //Application window deactivated event
+        void AppWindowDeactivated()
+        {
+            try
+            {
+                if (vAppActivated)
+                {
+                    vAppActivated = false;
+                    Debug.WriteLine("Deactivated the application.");
+
+                    grid_WindowActive.Opacity = 0.80;
+                    grid_App.IsHitTestVisible = false;
+                }
             }
             catch { }
         }

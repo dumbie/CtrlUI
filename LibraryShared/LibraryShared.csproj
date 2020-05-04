@@ -100,8 +100,14 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFirewall.cs">
       <Link>ArnoldVinkCode\Functions\AVFirewall.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVGifPlayer.cs">
-      <Link>ArnoldVinkCode\Functions\AVGifPlayer.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\AVImage.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\AVImage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetBitmapFromExecutable.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetBitmapFromExecutable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetBitmapSourceFromWindow.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetBitmapSourceFromWindow.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
@@ -166,6 +172,15 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVInterface.cs">
       <Link>ArnoldVinkCode\Functions\AVInterface.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\AVGifPlayer.cs">
+      <Link>ArnoldVinkCode\Styles\AVGifPlayer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\ScrollViewerLoopCode.cs">
+      <Link>ArnoldVinkCode\Styles\ScrollViewerLoopCode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\TextBoxPlaceholderCode.cs">
+      <Link>ArnoldVinkCode\Styles\TextBoxPlaceholderCode.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Shared\Extensions\AVExtensions.cs">
       <Link>ArnoldVinkCode\Extensions\AVExtensions.cs</Link>
     </Compile>
@@ -193,9 +208,6 @@
     <Compile Include="Classes\ControllerSupported.cs" />
     <Compile Include="Classes\DataBindApp.cs" />
     <Compile Include="Classes\DataBindFile.cs" />
-    <Compile Include="ExtractImage\GetBitmapFromExecutable.cs" />
-    <Compile Include="ExtractImage\GetBitmapSourceFromWindow.cs" />
-    <Compile Include="ImageFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\SettingsLoad.cs" />
     <Compile Include="SoundPlayer.cs" />

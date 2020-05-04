@@ -8,8 +8,8 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFunctions;
+using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInterface;
@@ -398,7 +398,7 @@ namespace KeyboardController
                         UpdateDomainExtension();
 
                         key_VolumeDown.Tag = "VolumeDown";
-                        image_VolumeDown.Source = new BitmapImage(new Uri(@"Assets/Icons/VolumeDown.png", UriKind.Relative));
+                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Icons/VolumeDown.png" }, IntPtr.Zero, -1, 0);
                     });
                 }
                 else
@@ -520,7 +520,7 @@ namespace KeyboardController
                         UpdateDomainExtension();
 
                         key_VolumeDown.Tag = "VolumeMute";
-                        image_VolumeDown.Source = new BitmapImage(new Uri(@"Assets/Icons/VolumeMute.png", UriKind.Relative));
+                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Icons/VolumeMute.png" }, IntPtr.Zero, -1, 0);
                     });
                 }
             }
@@ -552,54 +552,74 @@ namespace KeyboardController
 
                 if (vProcessCurrent.Id == FocusedAppId)
                 {
-                    if (vKeysEnabled)
-                    {
-                        vKeysEnabled = false;
-                        Popup_Show_Status("Keyboard blocked from usage.");
-
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate
-                        {
-                            //Disable all the key rows
-                            foreach (FrameworkElement child in sp_Row0.Children) { child.IsEnabled = false; }
-                            foreach (FrameworkElement child in sp_Row1.Children) { child.IsEnabled = false; }
-                            foreach (FrameworkElement child in sp_Row2.Children) { child.IsEnabled = false; }
-                            foreach (FrameworkElement child in sp_Row3.Children) { child.IsEnabled = false; }
-                            foreach (FrameworkElement child in sp_Row4.Children) { child.IsEnabled = false; }
-                            foreach (FrameworkElement child in sp_Row5.Children) { child.IsEnabled = false; }
-                            await Task.Delay(10);
-
-                            //Enable the close button
-                            key_Close.IsEnabled = true;
-                            await Task.Delay(10);
-
-                            //Focus on close button
-                            await FocusOnElement(key_Close, false, vProcessCurrent.MainWindowHandle);
-                            await Task.Delay(10);
-                        });
-                    }
+                    await AppWindowActivated();
                 }
                 else
                 {
-                    if (!vKeysEnabled)
+                    await AppWindowDeactivated();
+                }
+            }
+            catch { }
+        }
+
+        //Application window activated event
+        async Task AppWindowActivated()
+        {
+            try
+            {
+                if (vKeysEnabled)
+                {
+                    vKeysEnabled = false;
+                    Popup_Show_Status("Keyboard blocked from usage.");
+
+                    await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
-                        vKeysEnabled = true;
-                        Popup_Show_Status("Keyboard enabled for usage.");
+                        //Disable all the key rows
+                        foreach (FrameworkElement child in sp_Row0.Children) { child.IsEnabled = false; }
+                        foreach (FrameworkElement child in sp_Row1.Children) { child.IsEnabled = false; }
+                        foreach (FrameworkElement child in sp_Row2.Children) { child.IsEnabled = false; }
+                        foreach (FrameworkElement child in sp_Row3.Children) { child.IsEnabled = false; }
+                        foreach (FrameworkElement child in sp_Row4.Children) { child.IsEnabled = false; }
+                        foreach (FrameworkElement child in sp_Row5.Children) { child.IsEnabled = false; }
+                        await Task.Delay(10);
 
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate
-                        {
-                            //Enable all the key rows
-                            foreach (FrameworkElement child in sp_Row0.Children) { child.IsEnabled = true; }
-                            foreach (FrameworkElement child in sp_Row1.Children) { child.IsEnabled = true; }
-                            foreach (FrameworkElement child in sp_Row2.Children) { child.IsEnabled = true; }
-                            foreach (FrameworkElement child in sp_Row3.Children) { child.IsEnabled = true; }
-                            foreach (FrameworkElement child in sp_Row4.Children) { child.IsEnabled = true; }
-                            foreach (FrameworkElement child in sp_Row5.Children) { child.IsEnabled = true; }
-                            await Task.Delay(10);
+                        //Enable the close button
+                        key_Close.IsEnabled = true;
+                        await Task.Delay(10);
 
-                            //Activate keyboard window and focus on key
-                            await KeyboardWindowActivate(false, key_g);
-                        });
-                    }
+                        //Focus on close button
+                        await FocusOnElement(key_Close, false, vProcessCurrent.MainWindowHandle);
+                        await Task.Delay(10);
+                    });
+                }
+            }
+            catch { }
+        }
+
+        //Application window deactivated event
+        async Task AppWindowDeactivated()
+        {
+            try
+            {
+                if (!vKeysEnabled)
+                {
+                    vKeysEnabled = true;
+                    Popup_Show_Status("Keyboard enabled for usage.");
+
+                    await AVActions.ActionDispatcherInvokeAsync(async delegate
+                    {
+                        //Enable all the key rows
+                        foreach (FrameworkElement child in sp_Row0.Children) { child.IsEnabled = true; }
+                        foreach (FrameworkElement child in sp_Row1.Children) { child.IsEnabled = true; }
+                        foreach (FrameworkElement child in sp_Row2.Children) { child.IsEnabled = true; }
+                        foreach (FrameworkElement child in sp_Row3.Children) { child.IsEnabled = true; }
+                        foreach (FrameworkElement child in sp_Row4.Children) { child.IsEnabled = true; }
+                        foreach (FrameworkElement child in sp_Row5.Children) { child.IsEnabled = true; }
+                        await Task.Delay(10);
+
+                        //Activate keyboard window and focus on key
+                        await KeyboardWindowActivate(false, key_g);
+                    });
                 }
             }
             catch { }

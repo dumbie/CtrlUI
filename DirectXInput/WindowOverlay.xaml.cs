@@ -6,9 +6,9 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVFunctions;
+using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Settings;
 
 namespace DirectXInput
@@ -137,7 +137,7 @@ namespace DirectXInput
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + IconName + ".png" }, IntPtr.Zero, -1, 0);
+                    grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "Assets/Icons/" + IconName + ".png" }, IntPtr.Zero, -1, 0);
                     grid_Message_Status_Text.Text = Message;
                     grid_Message_Status.Visibility = Visibility.Visible;
                 });

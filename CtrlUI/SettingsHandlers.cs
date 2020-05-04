@@ -11,10 +11,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
+using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -127,7 +127,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Manage controllers";
                 Answers.Add(Answer1);
 
@@ -262,7 +262,7 @@ namespace CtrlUI
             {
                 //Add font styles to string list
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageFonts = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Font.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imageFonts = FileToBitmapImage(new string[] { "Assets/Icons/Font.png" }, IntPtr.Zero, -1, 0);
 
                 //Add default fonts
                 DataBindString AnswerSegoe = new DataBindString();
@@ -320,7 +320,7 @@ namespace CtrlUI
 
                 foreach (DirectoryInfo clockStyle in clockStyles)
                 {
-                    BitmapImage imageClocks = FileToBitmapImage(new string[] { "Assets\\Clocks\\" + clockStyle.Name + "\\Preview.png" }, IntPtr.Zero, -1, 0);
+                    BitmapImage imageClocks = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle.Name + "/Preview.png" }, IntPtr.Zero, -1, 0);
                     DataBindString AnswerCustom = new DataBindString();
                     AnswerCustom.ImageBitmap = imageClocks;
                     AnswerCustom.Name = clockStyle.Name;
@@ -353,7 +353,7 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
                 DirectoryInfo directoryInfo = new DirectoryInfo("Assets\\Sounds\\");
                 DirectoryInfo[] soundPacks = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly);
-                BitmapImage imagePacks = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/VolumeUp.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imagePacks = FileToBitmapImage(new string[] { "Assets/Icons/VolumeUp.png" }, IntPtr.Zero, -1, 0);
 
                 foreach (DirectoryInfo soundPack in soundPacks)
                 {
@@ -445,7 +445,7 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
@@ -462,7 +462,7 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
@@ -473,7 +473,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Alright";
                 Answers.Add(Answer1);
 

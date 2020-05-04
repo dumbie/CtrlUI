@@ -14,11 +14,11 @@ namespace DriverInstaller
         {
             try
             {
-                //Check the application update
-                Application_UpdateCheck();
-
                 //Check the application status
                 await Application_LaunchCheck("Driver Installer", ProcessPriorityClass.Normal, false, true);
+
+                //Check the application update
+                Application_UpdateCheck();
 
                 //Open the application window
                 vWindowMain.Show();

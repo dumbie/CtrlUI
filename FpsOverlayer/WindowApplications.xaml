@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FpsOverlayer"
-        xmlns:styles="clr-namespace:ArnoldVinkCode.Styles"
+        xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
         mc:Ignorable="d"
         Title="Application Positions"
         MinHeight="550"

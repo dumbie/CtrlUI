@@ -140,74 +140,74 @@
     <None Include="Properties\App.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\ButtonDown.png">
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonDown.png">
       <Link>Assets\Icons\Buttons\ButtonDown.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\ButtonLeft.png">
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonLeft.png">
       <Link>Assets\Icons\Buttons\ButtonLeft.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\ButtonRight.png">
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonRight.png">
       <Link>Assets\Icons\Buttons\ButtonRight.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\ButtonUp.png">
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonUp.png">
       <Link>Assets\Icons\Buttons\ButtonUp.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\LbOff.png">
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\LbOff.png">
       <Link>Assets\Icons\Buttons\LbOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\RbOff.png">
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\RbOff.png">
       <Link>Assets\Icons\Buttons\RbOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\StartOff.png">
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\StartOff.png">
       <Link>Assets\Icons\Buttons\StartOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\LtOff.png">
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\LtOff.png">
       <Link>Assets\Icons\Buttons\LtOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\RtOff.png">
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\RtOff.png">
       <Link>Assets\Icons\Buttons\RtOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\ThumbLeftOff.png">
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ThumbLeftOff.png">
       <Link>Assets\Icons\Buttons\ThumbLeftOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\BackOff.png">
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\BackOff.png">
       <Link>Assets\Icons\Buttons\BackOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Icons\Move.png">
+    <Content Include="Assets\Icons\KeyboardMove.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Icons\Scroll.png">
+    </Content>
+    <Content Include="Assets\Icons\KeyboardScroll.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\CtrlUI\Assets\Icons\Buttons\ThumbRightOff.png">
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ThumbRightOff.png">
       <Link>Assets\Icons\Buttons\ThumbRightOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibraryShared\LibraryShared.csproj">
@@ -217,26 +217,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\CtrlUI\Assets\Icons\Close.png">
+    <Content Include="..\CtrlUI\Assets\Icons\Close.png">
       <Link>Assets\Icons\Close.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\CtrlUI\Assets\Icons\VolumeDown.png">
+    <Content Include="..\CtrlUI\Assets\Icons\VolumeDown.png">
       <Link>Assets\Icons\VolumeDown.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\CtrlUI\Assets\Icons\VolumeUp.png">
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\VolumeUp.png">
       <Link>Assets\Icons\VolumeUp.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\CtrlUI\Assets\Icons\VolumeMute.png">
+    <Content Include="..\CtrlUI\Assets\Icons\VolumeMute.png">
       <Link>Assets\Icons\VolumeMute.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

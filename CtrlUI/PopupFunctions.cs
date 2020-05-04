@@ -7,11 +7,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
 
@@ -305,7 +305,7 @@ namespace CtrlUI
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/" + IconName + ".png" }, IntPtr.Zero, -1, 0);
+                    grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "Assets/Icons/" + IconName + ".png" }, IntPtr.Zero, -1, 0);
                     grid_Message_Status_Text.Text = Message;
                     grid_Message_Status.Visibility = Visibility.Visible;
                 });

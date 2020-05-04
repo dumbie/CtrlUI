@@ -11,13 +11,13 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVFunctions;
+using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Settings;
 
 namespace CtrlUI
@@ -357,22 +357,22 @@ namespace CtrlUI
                 //Show the closing messagebox
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Close CtrlUI";
                 Answers.Add(Answer1);
 
                 DataBindString Answer4 = new DataBindString();
-                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Restart.png" }, IntPtr.Zero, -1, 0);
+                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Restart.png" }, IntPtr.Zero, -1, 0);
                 Answer4.Name = "Restart CtrlUI";
                 Answers.Add(Answer4);
 
                 DataBindString Answer3 = new DataBindString();
-                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Shutdown.png" }, IntPtr.Zero, -1, 0);
+                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Shutdown.png" }, IntPtr.Zero, -1, 0);
                 Answer3.Name = "Shutdown my PC";
                 Answers.Add(Answer3);
 
                 DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Restart.png" }, IntPtr.Zero, -1, 0);
+                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Restart.png" }, IntPtr.Zero, -1, 0);
                 Answer2.Name = "Restart my PC";
                 Answers.Add(Answer2);
 

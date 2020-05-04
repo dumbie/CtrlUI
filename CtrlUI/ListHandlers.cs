@@ -9,12 +9,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVFiles;
+using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.ImageFunctions;
 
 namespace CtrlUI
 {
@@ -109,17 +109,17 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
                 AnswerRemove.Name = "Move shortcut file to recycle bin";
                 Answers.Add(AnswerRemove);
 
                 DataBindString AnswerRename = new DataBindString();
-                AnswerRename.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Rename.png" }, IntPtr.Zero, -1, 0);
+                AnswerRename.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Rename.png" }, IntPtr.Zero, -1, 0);
                 AnswerRename.Name = "Rename the shortcut file";
                 Answers.Add(AnswerRename);
 
                 DataBindString AnswerHide = new DataBindString();
-                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Hide.png" }, IntPtr.Zero, -1, 0);
+                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Hide.png" }, IntPtr.Zero, -1, 0);
                 AnswerHide.Name = "Hide the shortcut file";
                 Answers.Add(AnswerHide);
 
@@ -276,12 +276,12 @@ namespace CtrlUI
                 //Show the messagebox popup with options
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString AnswerEdit = new DataBindString();
-                AnswerEdit.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Edit.png" }, IntPtr.Zero, -1, 0);
+                AnswerEdit.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Edit.png" }, IntPtr.Zero, -1, 0);
                 AnswerEdit.Name = "Edit this application details";
                 Answers.Add(AnswerEdit);
 
                 DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
                 AnswerRemove.Name = "Remove application from list";
                 Answers.Add(AnswerRemove);
 
@@ -326,31 +326,31 @@ namespace CtrlUI
 
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString AnswerShow = new DataBindString();
-                AnswerShow.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Fullscreen.png" }, IntPtr.Zero, -1, 0);
+                AnswerShow.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Fullscreen.png" }, IntPtr.Zero, -1, 0);
                 AnswerShow.Name = "Show application";
                 Answers.Add(AnswerShow);
 
                 DataBindString AnswerClose = new DataBindString();
-                AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
+                AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
                 AnswerClose.Name = "Close application";
                 Answers.Add(AnswerClose);
 
                 DataBindString AnswerLaunch = new DataBindString();
-                AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
                 AnswerLaunch.Name = "Launch new instance";
                 Answers.Add(AnswerLaunch);
 
                 DataBindString AnswerRestartCurrent = new DataBindString();
                 if (!string.IsNullOrWhiteSpace(processMulti.Argument))
                 {
-                    AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                    AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
                     AnswerRestartCurrent.Name = "Restart application";
                     AnswerRestartCurrent.NameSub = "(Current argument)";
                     Answers.Add(AnswerRestartCurrent);
                 }
 
                 DataBindString AnswerRestartWithout = new DataBindString();
-                AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
                 AnswerRestartWithout.Name = "Restart application";
                 if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
                 {

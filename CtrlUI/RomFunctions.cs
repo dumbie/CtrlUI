@@ -11,8 +11,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
-using static LibraryShared.ImageFunctions;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -108,7 +108,7 @@ namespace CtrlUI
                 //Ask user which game to download
                 CultureInfo cultureInfo = new CultureInfo("en-US");
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
                 foreach (ApiIGDBGames infoGames in iGDBGames)
                 {
                     //Check if information is available
@@ -277,7 +277,7 @@ namespace CtrlUI
 
                 //Ask user which console to download
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "pack://application:,,,/Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
                 foreach (ApiIGDBPlatforms infoPlatforms in iGDBPlatforms)
                 {
                     DataBindString answerDownload = new DataBindString();
