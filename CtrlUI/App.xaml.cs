@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,7 +21,10 @@ namespace CtrlUI
             try
             {
                 //Restart wait fix
-                await Task.Delay(2000);
+                if (e.Args != null && e.Args.Contains("-restart"))
+                {
+                    await Task.Delay(2000);
+                }
 
                 //Get previous focused application
                 vPrevFocusedProcess = GetFocusedProcess();

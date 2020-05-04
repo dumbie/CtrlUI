@@ -343,7 +343,7 @@ namespace CtrlUI
         {
             try
             {
-                await ProcessLauncherWin32Async("CtrlUI.exe", "", "", false, false);
+                await ProcessLauncherWin32Async("CtrlUI.exe", "", "-restart", false, false);
                 await Application_Exit();
             }
             catch { }
