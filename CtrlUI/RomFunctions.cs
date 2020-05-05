@@ -108,7 +108,7 @@ namespace CtrlUI
                 //Ask user which game to download
                 CultureInfo cultureInfo = new CultureInfo("en-US");
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "Assets/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 foreach (ApiIGDBGames infoGames in iGDBGames)
                 {
                     //Check if information is available
@@ -185,7 +185,7 @@ namespace CtrlUI
                 }
 
                 //Create downloaded directory
-                AVFiles.Directory_Create("Assets\\Roms\\Downloaded\\", false);
+                AVFiles.Directory_Create("Assets/Roms/Downloaded", false);
 
                 Popup_Show_Status("Download", "Downloading image");
                 Debug.WriteLine("Downloading image for: " + nameRom);
@@ -212,7 +212,7 @@ namespace CtrlUI
                         try
                         {
                             //Save bytes to image file
-                            File.WriteAllBytes("Assets\\Roms\\Downloaded\\" + nameRomSave + ".jpg", imageBytes);
+                            File.WriteAllBytes("Assets/Roms/Downloaded/" + nameRomSave + ".jpg", imageBytes);
 
                             //Convert bytes to a BitmapImage
                             downloadedBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
@@ -227,7 +227,7 @@ namespace CtrlUI
                 string downloadedDescription = messageResult.Data1.ToString();
                 try
                 {
-                    File.WriteAllText("Assets\\Roms\\Downloaded\\" + nameRomSave + ".txt", downloadedDescription);
+                    File.WriteAllText("Assets/Roms/Downloaded/" + nameRomSave + ".txt", downloadedDescription);
                     Debug.WriteLine("Saved description.");
                 }
                 catch { }
@@ -277,7 +277,7 @@ namespace CtrlUI
 
                 //Ask user which console to download
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 foreach (ApiIGDBPlatforms infoPlatforms in iGDBPlatforms)
                 {
                     DataBindString answerDownload = new DataBindString();
@@ -297,7 +297,7 @@ namespace CtrlUI
                 }
 
                 //Create downloaded directory
-                AVFiles.Directory_Create("Assets\\Roms\\Downloaded\\", false);
+                AVFiles.Directory_Create("Assets/Roms/Downloaded", false);
 
                 Popup_Show_Status("Download", "Downloading information");
                 Debug.WriteLine("Downloading information for: " + nameConsole);
@@ -338,7 +338,7 @@ namespace CtrlUI
                         try
                         {
                             //Save bytes to image file
-                            File.WriteAllBytes("Assets\\Roms\\Downloaded\\" + nameConsoleSave + ".png", imageBytes);
+                            File.WriteAllBytes("Assets/Roms/Downloaded/" + nameConsoleSave + ".png", imageBytes);
 
                             //Convert bytes to a BitmapImage
                             downloadedBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
@@ -359,7 +359,7 @@ namespace CtrlUI
                 string downloadedDescription = targetPlatformVersions.summary;
                 try
                 {
-                    File.WriteAllText("Assets\\Roms\\Downloaded\\" + nameConsoleSave + ".txt", downloadedDescription);
+                    File.WriteAllText("Assets/Roms/Downloaded/" + nameConsoleSave + ".txt", downloadedDescription);
                     Debug.WriteLine("Saved description.");
                 }
                 catch { }

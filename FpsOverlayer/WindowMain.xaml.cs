@@ -526,7 +526,7 @@ namespace FpsOverlayer
                 {
                     try
                     {
-                        string fontPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\Assets\\Fonts\\" + InterfaceFontStyleName + ".ttf";
+                        string fontPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/Fonts/" + InterfaceFontStyleName + ".ttf";
                         ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPath);
                         this.FontFamily = fontFamilies.First();
                     }

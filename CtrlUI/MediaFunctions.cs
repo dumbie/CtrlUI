@@ -291,7 +291,7 @@ namespace CtrlUI
                         string updatedImage = "Assets/Icons/Pause.png";
                         if (currentImage.ToLower() != updatedImage.ToLower())
                         {
-                            grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1, 0);
+                            grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         }
 
                         main_Media_Information_Artist.Opacity = 1;
@@ -304,7 +304,7 @@ namespace CtrlUI
                         string updatedImage = "Assets/Icons/Play.png";
                         if (currentImage.ToLower() != updatedImage.ToLower())
                         {
-                            grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, IntPtr.Zero, -1, 0);
+                            grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         }
 
                         main_Media_Information_Artist.Opacity = 0.40;

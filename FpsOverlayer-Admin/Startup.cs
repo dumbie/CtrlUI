@@ -30,7 +30,7 @@ namespace AdminLauncher
                 SchTask_Author = "Arnold Vink";
                 SchTask_Name = "ArnoldVink_FpsOverlayerLauncher";
                 SchTask_Description = "Fps Overlayer Administrator Helper";
-                SchTask_FilePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\FpsOverlayer-Launcher.exe";
+                SchTask_FilePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/FpsOverlayer-Launcher.exe";
                 SchTask_WorkingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
                 //Check the application status

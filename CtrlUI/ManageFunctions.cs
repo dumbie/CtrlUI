@@ -62,7 +62,7 @@ namespace CtrlUI
                 //Load and set application image
                 if (loadAppImage)
                 {
-                    dataBindApp.ImageBitmap = FileToBitmapImage(new string[] { dataBindApp.Name, dataBindApp.PathExe, dataBindApp.PathImage }, IntPtr.Zero, 90, 0);
+                    dataBindApp.ImageBitmap = FileToBitmapImage(new string[] { dataBindApp.Name, dataBindApp.PathExe, dataBindApp.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
                 }
 
                 //Add application to the list
@@ -130,8 +130,8 @@ namespace CtrlUI
                 //Remove application image files
                 if (removeImageFile)
                 {
-                    string imageFileTitle = "Assets\\Apps\\" + dataBindApp.Name + ".png";
-                    string imageFileExe = "Assets\\Apps\\" + Path.GetFileNameWithoutExtension(dataBindApp.PathExe) + ".png";
+                    string imageFileTitle = "Assets/Apps/" + dataBindApp.Name + ".png";
+                    string imageFileExe = "Assets/Apps/" + Path.GetFileNameWithoutExtension(dataBindApp.PathExe) + ".png";
 
                     //Check the application image
                     bool defaultImage = AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe);
@@ -184,17 +184,17 @@ namespace CtrlUI
                     List<DataBindString> listAppCategories = new List<DataBindString>();
 
                     DataBindString categoryApp = new DataBindString();
-                    categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                    categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     categoryApp.Name = "App & Media";
                     listAppCategories.Add(categoryApp);
 
                     DataBindString categoryGame = new DataBindString();
-                    categoryGame.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
+                    categoryGame.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     categoryGame.Name = "Game";
                     listAppCategories.Add(categoryGame);
 
                     DataBindString categoryEmulator = new DataBindString();
-                    categoryEmulator.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
+                    categoryEmulator.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     categoryEmulator.Name = "Emulator";
                     listAppCategories.Add(categoryEmulator);
 
@@ -204,7 +204,7 @@ namespace CtrlUI
                     lb_Manage_AddAppCategory.SelectedIndex = (int)vEditAppDataBind.Category;
 
                     //Load application image
-                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, IntPtr.Zero, 120, 0);
+                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 120, 0);
 
                     //Fill the text boxes with application details
                     tb_AddAppName.Text = vEditAppDataBind.Name;
@@ -263,17 +263,17 @@ namespace CtrlUI
                 List<DataBindString> listAppCategories = new List<DataBindString>();
 
                 DataBindString categoryApp = new DataBindString();
-                categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 categoryApp.Name = "App & Media";
                 listAppCategories.Add(categoryApp);
 
                 DataBindString categoryGame = new DataBindString();
-                categoryGame.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
+                categoryGame.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 categoryGame.Name = "Game";
                 listAppCategories.Add(categoryGame);
 
                 DataBindString categoryEmulator = new DataBindString();
-                categoryEmulator.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
+                categoryEmulator.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 categoryEmulator.Name = "Emulator";
                 listAppCategories.Add(categoryEmulator);
 
@@ -283,7 +283,7 @@ namespace CtrlUI
                 lb_Manage_AddAppCategory.SelectedIndex = 1;
 
                 //Load application image
-                img_AddAppLogo.Source = FileToBitmapImage(new string[] { "Assets/Apps/Unknown.png" }, IntPtr.Zero, 120, 0);
+                img_AddAppLogo.Source = FileToBitmapImage(new string[] { "Assets/Apps/Unknown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 120, 0);
 
                 //Fill the text boxes with application details
                 tb_AddAppName.Text = "Select application executable file first";
@@ -315,15 +315,15 @@ namespace CtrlUI
                 //Add application type categories
                 List<DataBindString> answersCategory = new List<DataBindString>();
 
-                BitmapImage imageGame = FileToBitmapImage(new string[] { "Assets/Icons/Game.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imageGame = FileToBitmapImage(new string[] { "Assets/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 DataBindString stringGame = new DataBindString() { Name = "Game", Data1 = "Game", ImageBitmap = imageGame };
                 answersCategory.Add(stringGame);
 
-                BitmapImage imageApp = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imageApp = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 DataBindString stringApp = new DataBindString() { Name = "App & Media", Data1 = "App", ImageBitmap = imageApp };
                 answersCategory.Add(stringApp);
 
-                BitmapImage imageEmulator = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imageEmulator = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 DataBindString stringEmulator = new DataBindString() { Name = "Emulator", Data1 = "Emulator", ImageBitmap = imageEmulator };
                 answersCategory.Add(stringEmulator);
 
@@ -354,7 +354,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> answersConfirm = new List<DataBindString>();
                         DataBindString answerAlright = new DataBindString();
-                        answerAlright.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                        answerAlright.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerAlright.Name = "Alright";
                         answersConfirm.Add(answerAlright);
 

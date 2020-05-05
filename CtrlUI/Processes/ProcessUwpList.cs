@@ -221,7 +221,7 @@ namespace CtrlUI
                                 if (appUpdatedContinueLoop) { continue; }
 
                                 //Load the application image
-                                BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExeNoExt, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, processWindowHandle, 90, 0);
+                                BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExeNoExt, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, processWindowHandle, 90, 0);
 
                                 //Create new ProcessMulti list
                                 List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();
@@ -289,7 +289,7 @@ namespace CtrlUI
                         }
 
                         //Load the application image
-                        BitmapImage uwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, IntPtr.Zero, 50, 0);
+                        BitmapImage uwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 50, 0);
 
                         //Add the application to the list
                         DataBindFile dataBindFile = new DataBindFile() { FileType = FileType.UwpApp, Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.FamilyNameId, PathFull = appxDetails.FullPackageName, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };

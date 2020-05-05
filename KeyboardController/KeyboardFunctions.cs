@@ -211,7 +211,7 @@ namespace KeyboardController
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         textblock_ThumbRightOff.Text = "Move";
-                        image_ScrollMove.Source = FileToBitmapImage(new string[] { "Assets/Icons/KeyboardScroll.png" }, IntPtr.Zero, -1, 0);
+                        image_ScrollMove.Source = FileToBitmapImage(new string[] { "Assets/Icons/KeyboardScroll.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         //ToolTip newTooltip = new ToolTip() { Content = "Switch to mouse wheel mode" };
                         //key_ScrollMove.ToolTip = newTooltip;
                     });
@@ -221,7 +221,7 @@ namespace KeyboardController
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         textblock_ThumbRightOff.Text = "Scroll";
-                        image_ScrollMove.Source = FileToBitmapImage(new string[] { "Assets/Icons/KeyboardMove.png" }, IntPtr.Zero, -1, 0);
+                        image_ScrollMove.Source = FileToBitmapImage(new string[] { "Assets/Icons/KeyboardMove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         //ToolTip newTooltip = new ToolTip() { Content = "Switch to window move mode" };
                         //key_ScrollMove.ToolTip = newTooltip;
                     });

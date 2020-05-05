@@ -7,6 +7,7 @@ using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
+using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 
@@ -80,7 +81,7 @@ namespace CtrlUI
                                     }
 
                                     DataBindString Answer1 = new DataBindString();
-                                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MiniMaxi.png" }, IntPtr.Zero, -1, 0);
+                                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MiniMaxi.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                                     Answer1.Name = windowTitleString;
                                     Answer1.NameSub = windowSubString;
 
@@ -116,26 +117,26 @@ namespace CtrlUI
                     }
 
                     DataBindString AnswerClose = new DataBindString();
-                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
+                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Closing.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerClose.Name = "Close application";
                     multiAnswers.Add(AnswerClose);
 
                     DataBindString AnswerLaunch = new DataBindString();
-                    AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, IntPtr.Zero, -1, 0);
+                    AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerLaunch.Name = "Launch new instance";
                     multiAnswers.Add(AnswerLaunch);
 
                     DataBindString AnswerRestartCurrent = new DataBindString();
                     if (!string.IsNullOrWhiteSpace(processMulti.Argument))
                     {
-                        AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                        AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         AnswerRestartCurrent.Name = "Restart application";
                         AnswerRestartCurrent.NameSub = "(Current argument)";
                         multiAnswers.Add(AnswerRestartCurrent);
                     }
 
                     DataBindString AnswerRestartWithout = new DataBindString();
-                    AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                    AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerRestartWithout.Name = "Restart application";
                     if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
                     {

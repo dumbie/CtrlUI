@@ -398,7 +398,7 @@ namespace KeyboardController
                         UpdateDomainExtension();
 
                         key_VolumeDown.Tag = "VolumeDown";
-                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Icons/VolumeDown.png" }, IntPtr.Zero, -1, 0);
+                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Icons/VolumeDown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     });
                 }
                 else
@@ -520,7 +520,7 @@ namespace KeyboardController
                         UpdateDomainExtension();
 
                         key_VolumeDown.Tag = "VolumeMute";
-                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Icons/VolumeMute.png" }, IntPtr.Zero, -1, 0);
+                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Icons/VolumeMute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     });
                 }
             }

@@ -44,7 +44,7 @@ namespace FpsOverlayer
                 combobox_InterfaceFontStyleName.Items.Add("Consolas");
 
                 //Add custom fonts
-                DirectoryInfo directoryInfo = new DirectoryInfo("Assets\\Fonts\\");
+                DirectoryInfo directoryInfo = new DirectoryInfo("Assets/Fonts");
                 FileInfo[] fontFiles = directoryInfo.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
                 foreach (FileInfo fontFile in fontFiles)
                 {

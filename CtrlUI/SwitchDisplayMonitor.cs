@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVImage;
+using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -26,28 +27,28 @@ namespace CtrlUI
                 foreach (DisplayMonitorSummary displayMonitor in monitorsList)
                 {
                     DataBindString AnswerMonitor = new DataBindString();
-                    AnswerMonitor.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
+                    AnswerMonitor.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerMonitor.Name = displayMonitor.Name;
                     Answers.Add(AnswerMonitor);
                 }
 
                 DataBindString AnswerPrimary = new DataBindString();
-                AnswerPrimary.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
+                AnswerPrimary.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerPrimary.Name = "Primary monitor";
                 Answers.Add(AnswerPrimary);
 
                 DataBindString AnswerSecondary = new DataBindString();
-                AnswerSecondary.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
+                AnswerSecondary.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerSecondary.Name = "Secondary monitor";
                 Answers.Add(AnswerSecondary);
 
                 DataBindString AnswerDuplicate = new DataBindString();
-                AnswerDuplicate.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
+                AnswerDuplicate.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerDuplicate.Name = "Duplicate mode";
                 Answers.Add(AnswerDuplicate);
 
                 DataBindString AnswerExtend = new DataBindString();
-                AnswerExtend.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MonitorSwitch.png" }, IntPtr.Zero, -1, 0);
+                AnswerExtend.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerExtend.Name = "Extend mode";
                 Answers.Add(AnswerExtend);
 

@@ -56,8 +56,8 @@ namespace CtrlUI
             try
             {
                 string cacheWorkaround = new string(' ', new Random().Next(1, 20));
-                string defaultWallpaperImage = "Assets\\Background.png" + cacheWorkaround;
-                string defaultWallpaperVideo = "Assets\\BackgroundLive.mp4" + cacheWorkaround;
+                string defaultWallpaperImage = "Assets/Background.png" + cacheWorkaround;
+                string defaultWallpaperVideo = "Assets/BackgroundLive.mp4" + cacheWorkaround;
 
                 //Update the application background play speed
                 UpdateBackgroundPlaySpeed();

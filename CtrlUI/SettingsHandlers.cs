@@ -127,7 +127,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Manage controllers";
                 Answers.Add(Answer1);
 
@@ -204,7 +204,7 @@ namespace CtrlUI
                 UnloadBackgroundMedia();
 
                 //Copy new background file
-                File_Copy(vFilePickerResult.PathFile, "Assets\\Background.png", true);
+                File_Copy(vFilePickerResult.PathFile, "Assets/Background.png", true);
 
                 //Disable video background
                 cb_SettingsVideoBackground.IsChecked = false;
@@ -243,7 +243,7 @@ namespace CtrlUI
                 UnloadBackgroundMedia();
 
                 //Copy new background file
-                File_Copy(vFilePickerResult.PathFile, "Assets\\BackgroundLive.mp4", true);
+                File_Copy(vFilePickerResult.PathFile, "Assets/BackgroundLive.mp4", true);
 
                 //Enable video background
                 cb_SettingsVideoBackground.IsChecked = true;
@@ -262,7 +262,7 @@ namespace CtrlUI
             {
                 //Add font styles to string list
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageFonts = FileToBitmapImage(new string[] { "Assets/Icons/Font.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imageFonts = FileToBitmapImage(new string[] { "Assets/Icons/Font.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
 
                 //Add default fonts
                 DataBindString AnswerSegoe = new DataBindString();
@@ -281,7 +281,7 @@ namespace CtrlUI
                 Answers.Add(AnswerConsolas);
 
                 //Add custom fonts
-                DirectoryInfo directoryInfo = new DirectoryInfo("Assets\\Fonts\\");
+                DirectoryInfo directoryInfo = new DirectoryInfo("Assets/Fonts");
                 FileInfo[] fontFiles = directoryInfo.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
                 foreach (FileInfo fontFile in fontFiles)
                 {
@@ -315,12 +315,12 @@ namespace CtrlUI
             {
                 //Add clock styles to string list
                 List<DataBindString> Answers = new List<DataBindString>();
-                DirectoryInfo directoryInfo = new DirectoryInfo("Assets\\Clocks\\");
+                DirectoryInfo directoryInfo = new DirectoryInfo("Assets/Clocks");
                 DirectoryInfo[] clockStyles = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly);
 
                 foreach (DirectoryInfo clockStyle in clockStyles)
                 {
-                    BitmapImage imageClocks = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle.Name + "/Preview.png" }, IntPtr.Zero, -1, 0);
+                    BitmapImage imageClocks = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle.Name + "/Preview.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     DataBindString AnswerCustom = new DataBindString();
                     AnswerCustom.ImageBitmap = imageClocks;
                     AnswerCustom.Name = clockStyle.Name;
@@ -351,9 +351,9 @@ namespace CtrlUI
             {
                 //Add sound packs to string list
                 List<DataBindString> Answers = new List<DataBindString>();
-                DirectoryInfo directoryInfo = new DirectoryInfo("Assets\\Sounds\\");
+                DirectoryInfo directoryInfo = new DirectoryInfo("Assets/Sounds");
                 DirectoryInfo[] soundPacks = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly);
-                BitmapImage imagePacks = FileToBitmapImage(new string[] { "Assets/Icons/VolumeUp.png" }, IntPtr.Zero, -1, 0);
+                BitmapImage imagePacks = FileToBitmapImage(new string[] { "Assets/Icons/VolumeUp.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
 
                 foreach (DirectoryInfo soundPack in soundPacks)
                 {
@@ -415,10 +415,10 @@ namespace CtrlUI
                 //Set application shortcut paths
                 string TargetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
                 string TargetName = Assembly.GetEntryAssembly().GetName().Name;
-                string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\" + TargetName + ".url";
-                string TargetFileBoxArtFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\" + TargetName + "\\box-art.png";
-                string TargetFileBoxArtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\" + TargetName;
-                string TargetDirectoryStreamingAssets = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\NVIDIA Corporation\\Shield Apps\\StreamingAssets\\";
+                string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/" + TargetName + ".url";
+                string TargetFileBoxArtFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/" + TargetName + "/box-art.png";
+                string TargetFileBoxArtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/" + TargetName;
+                string TargetDirectoryStreamingAssets = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets";
 
                 //Check if the Streaming Assets folder exists
                 Directory_Create(TargetDirectoryStreamingAssets, false);
@@ -439,13 +439,13 @@ namespace CtrlUI
                     }
 
                     //Copy art box to the Streaming Assets directory
-                    File_Copy("Assets\\BoxArt.png", TargetFileBoxArtFile, true);
+                    File_Copy("Assets/BoxArt.png", TargetFileBoxArtFile, true);
 
                     btn_Settings_AddGeforceExperience_TextBlock.Text = "Remove CtrlUI from GeForce Experience";
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
@@ -462,7 +462,7 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
@@ -473,7 +473,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Alright";
                 Answers.Add(Answer1);
 

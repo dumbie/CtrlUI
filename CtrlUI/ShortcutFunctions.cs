@@ -41,7 +41,7 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerRemove.Name = "Move shortcut file to recycle bin";
                 Answers.Add(AnswerRemove);
 
@@ -304,16 +304,16 @@ namespace CtrlUI
                 BitmapImage iconBitmapImage = null;
                 if (shortcutAvailable == Visibility.Visible)
                 {
-                    iconBitmapImage = FileToBitmapImage(new string[] { "Unknown" }, IntPtr.Zero, 90, 0);
+                    iconBitmapImage = FileToBitmapImage(new string[] { "Unknown" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
                 }
                 else if (targetPathLower.EndsWith(".bat"))
                 {
                     shortcutLauncher = Visibility.Visible;
-                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, "Assets/Icons/FileBat.png" }, IntPtr.Zero, 90, shortcutDetails.IconIndex);
+                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, "Assets/Icons/FileBat.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, shortcutDetails.IconIndex);
                 }
                 else
                 {
-                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, targetPathLower, shortcutDetails.IconPath }, IntPtr.Zero, 90, shortcutDetails.IconIndex);
+                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, targetPathLower, shortcutDetails.IconPath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, shortcutDetails.IconIndex);
                 }
 
                 //Add the shortcut to the list

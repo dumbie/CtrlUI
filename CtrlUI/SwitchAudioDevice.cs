@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVImage;
+using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
 namespace CtrlUI
@@ -29,7 +30,7 @@ namespace CtrlUI
                 foreach (AudioDeviceSummary audioDevice in devicesList)
                 {
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/VolumeUp.png" }, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/VolumeUp.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     Answer1.Name = audioDevice.Name;
                     Answers.Add(Answer1);
                 }

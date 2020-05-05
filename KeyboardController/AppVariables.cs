@@ -12,6 +12,10 @@ namespace KeyboardController
         public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static Configuration vConfigurationCtrlUI = null;
 
+        //Image Variables
+        public static string[] vImageSourceFolders = new string[] { "Assets/Apps", "Assets/Roms" };
+        public static string vImageBackupSource = "Assets/Apps/Unknown.png";
+
         //Process Variables
         public static Process vProcessCurrent = Process.GetCurrentProcess();
 

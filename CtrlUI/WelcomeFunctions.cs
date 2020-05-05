@@ -42,7 +42,7 @@ namespace CtrlUI
                 }
 
                 //Search for Spotify install and add to the list
-                string SpotifyExePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Spotify\\Spotify.exe";
+                string SpotifyExePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Spotify/Spotify.exe";
                 if (File.Exists(SpotifyExePath))
                 {
                     //Add application to the list

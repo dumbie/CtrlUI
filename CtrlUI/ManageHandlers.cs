@@ -29,7 +29,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
@@ -52,7 +52,7 @@ namespace CtrlUI
                 if (vFilePickerCancelled) { return; }
 
                 //Load the new application image
-                BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, IntPtr.Zero, 120, 0);
+                BitmapImage applicationImage = FileToBitmapImage(new string[] { vFilePickerResult.PathFile }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 120, 0);
 
                 //Update the new application image
                 img_AddAppLogo.Source = applicationImage;
@@ -62,7 +62,7 @@ namespace CtrlUI
                 }
 
                 //Copy the new application image
-                File_Copy(vFilePickerResult.PathFile, "Assets\\Apps\\" + tb_AddAppName.Text + ".png", true);
+                File_Copy(vFilePickerResult.PathFile, "Assets/Apps/" + tb_AddAppName.Text + ".png", true);
             }
             catch { }
         }
@@ -99,7 +99,7 @@ namespace CtrlUI
                 tb_AddAppName.IsEnabled = true;
 
                 //Set application image to image preview
-                img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppName.Text, vFilePickerResult.PathFile }, IntPtr.Zero, 120, 0);
+                img_AddAppLogo.Source = FileToBitmapImage(new string[] { tb_AddAppName.Text, vFilePickerResult.PathFile }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 120, 0);
                 btn_AddAppLogo.IsEnabled = true;
                 btn_Manage_ResetAppLogo.IsEnabled = true;
             }
@@ -194,8 +194,8 @@ namespace CtrlUI
             {
                 if (vEditAppDataBind != null)
                 {
-                    string imageFileTitle = "Assets\\Apps\\" + vEditAppDataBind.Name + ".png";
-                    string imageFileExe = "Assets\\Apps\\" + Path.GetFileNameWithoutExtension(vEditAppDataBind.PathExe) + ".png";
+                    string imageFileTitle = "Assets/Apps/" + vEditAppDataBind.Name + ".png";
+                    string imageFileExe = "Assets/Apps/" + Path.GetFileNameWithoutExtension(vEditAppDataBind.PathExe) + ".png";
 
                     //Check the application image
                     bool defaultImage = AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe);
@@ -211,7 +211,7 @@ namespace CtrlUI
                     File_Delete(imageFileExe);
 
                     //Reload the application image
-                    BitmapImage applicationImage = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, IntPtr.Zero, 120, 0);
+                    BitmapImage applicationImage = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 120, 0);
                     img_AddAppLogo.Source = applicationImage;
                     vEditAppDataBind.ImageBitmap = applicationImage;
 
@@ -220,8 +220,8 @@ namespace CtrlUI
                 }
                 else
                 {
-                    string imageFileTitle = "Assets\\Apps\\" + tb_AddAppName.Text + ".png";
-                    string imageFileExe = "Assets\\Apps\\" + Path.GetFileNameWithoutExtension(tb_AddAppExePath.Text) + ".png";
+                    string imageFileTitle = "Assets/Apps/" + tb_AddAppName.Text + ".png";
+                    string imageFileExe = "Assets/Apps/" + Path.GetFileNameWithoutExtension(tb_AddAppExePath.Text) + ".png";
 
                     //Check the application image
                     bool defaultImage = AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe);
@@ -237,7 +237,7 @@ namespace CtrlUI
                     File_Delete(imageFileExe);
 
                     //Reload the application image
-                    BitmapImage applicationImage = FileToBitmapImage(new string[] { tb_AddAppName.Text, tb_AddAppExePath.Text }, IntPtr.Zero, 120, 0);
+                    BitmapImage applicationImage = FileToBitmapImage(new string[] { tb_AddAppName.Text, tb_AddAppExePath.Text }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 120, 0);
                     img_AddAppLogo.Source = applicationImage;
                 }
             }
@@ -257,7 +257,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
@@ -270,7 +270,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
@@ -283,7 +283,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
@@ -299,7 +299,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         Answer1.Name = "Alright";
                         Answers.Add(Answer1);
 
@@ -312,7 +312,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         Answer1.Name = "Alright";
                         Answers.Add(Answer1);
 
@@ -327,7 +327,7 @@ namespace CtrlUI
                         {
                             List<DataBindString> Answers = new List<DataBindString>();
                             DataBindString Answer1 = new DataBindString();
-                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                             Answer1.Name = "Alright";
                             Answers.Add(Answer1);
 
@@ -338,7 +338,7 @@ namespace CtrlUI
                         {
                             List<DataBindString> Answers = new List<DataBindString>();
                             DataBindString Answer1 = new DataBindString();
-                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                             Answer1.Name = "Alright";
                             Answers.Add(Answer1);
 
@@ -357,7 +357,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         Answer1.Name = "Alright";
                         Answers.Add(Answer1);
 
@@ -400,7 +400,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         Answer1.Name = "Alright";
                         Answers.Add(Answer1);
 
@@ -417,7 +417,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         Answer1.Name = "Alright";
                         Answers.Add(Answer1);
 
@@ -426,11 +426,11 @@ namespace CtrlUI
                     }
 
                     //Rename application logo based on name and reload it
-                    string imageFileNameOld = "Assets\\Apps\\" + vEditAppDataBind.Name + ".png";
+                    string imageFileNameOld = "Assets/Apps/" + vEditAppDataBind.Name + ".png";
                     if (vEditAppDataBind.Name != tb_AddAppName.Text && File.Exists(imageFileNameOld))
                     {
                         Debug.WriteLine("App name changed and application logo file exists.");
-                        string imageFileNameNew = "Assets\\Apps\\" + tb_AddAppName.Text + ".png";
+                        string imageFileNameNew = "Assets/Apps/" + tb_AddAppName.Text + ".png";
 
                         //Check the application image
                         bool defaultImage = AssetsAppsFiles.Contains(imageFileNameOld);
@@ -455,7 +455,7 @@ namespace CtrlUI
                     vEditAppDataBind.LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked;
                     vEditAppDataBind.LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked;
                     vEditAppDataBind.StatusAvailable = Visibility.Collapsed;
-                    vEditAppDataBind.ImageBitmap = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, IntPtr.Zero, 90, 0);
+                    vEditAppDataBind.ImageBitmap = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
 
                     Popup_Show_Status("Edit", "Edited " + vEditAppDataBind.Name);
                     Debug.WriteLine("Editing application: " + vEditAppDataBind.Name + " in the list.");

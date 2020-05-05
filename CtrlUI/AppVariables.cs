@@ -35,6 +35,10 @@ namespace CtrlUI
         public static List<string> vTabTargetLists = new List<string> { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Shortcuts", "lb_Processes", "lb_Manage_AddAppCategory" };
         public static List<string> vTabTargetButtons = new List<string> { "grid_Popup_TextInput_button_ConfirmText" };
 
+        //Image Variables
+        public static string[] vImageSourceFolders = new string[] { "Assets/Apps", "Assets/Roms" };
+        public static string vImageBackupSource = "Assets/Apps/Unknown.png";
+
         //Dispatcher Timers
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
 
@@ -143,7 +147,6 @@ namespace CtrlUI
         public static int vControllerDelay_Trigger = Environment.TickCount;
         public static int vControllerDelay_Button = Environment.TickCount;
         public static int vControllerDelay_Activate = Environment.TickCount;
-        public static int vControllerDelay_Global = Environment.TickCount;
 
         //Sockets Variables
         public static ArnoldVinkSockets vArnoldVinkSockets = null;

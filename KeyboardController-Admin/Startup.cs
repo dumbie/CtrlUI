@@ -30,7 +30,7 @@ namespace AdminLauncher
                 SchTask_Author = "Arnold Vink";
                 SchTask_Name = "ArnoldVink_KeyboardControllerLauncher";
                 SchTask_Description = "Keyboard Controller Administrator Helper";
-                SchTask_FilePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\KeyboardController-Launcher.exe";
+                SchTask_FilePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/KeyboardController-Launcher.exe";
                 SchTask_WorkingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
                 //Check the application status

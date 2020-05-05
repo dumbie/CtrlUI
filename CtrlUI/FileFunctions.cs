@@ -421,7 +421,7 @@ namespace CtrlUI
                     DirectoryInfo listDirectory = Directory.CreateDirectory(newFolderPath);
 
                     //Create new folder databindfile
-                    BitmapImage folderImage = FileToBitmapImage(new string[] { "Assets/Icons/Folder.png" }, IntPtr.Zero, -1, 0);
+                    BitmapImage folderImage = FileToBitmapImage(new string[] { "Assets/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, Name = listDirectory.Name, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
 
                     //Add the new listbox item
@@ -483,7 +483,7 @@ namespace CtrlUI
                     string fileDetailed = fileSize + " (" + fileDate + ")";
 
                     //Create new file databindfile
-                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Icons/FileTxt.png" }, IntPtr.Zero, -1, 0);
+                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Icons/FileTxt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, Name = fileName, NameDetail = fileDetailed, DateModified = dateCreated, ImageBitmap = fileImage, PathFile = newFilePath };
 
                     //Add the new listbox item
@@ -585,7 +585,7 @@ namespace CtrlUI
             {
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerEmpty = new DataBindString();
-                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, IntPtr.Zero, -1, 0);
+                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 answerEmpty.Name = "Empty recycle bin";
                 messageAnswers.Add(answerEmpty);
 

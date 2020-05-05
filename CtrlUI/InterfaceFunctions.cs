@@ -213,7 +213,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        string fontPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\Assets\\Fonts\\" + interfaceFontStyleName + ".ttf";
+                        string fontPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/Fonts/" + interfaceFontStyleName + ".ttf";
                         ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPath);
                         this.FontFamily = fontFamilies.First();
                     }
@@ -232,10 +232,10 @@ namespace CtrlUI
             try
             {
                 string clockStyle = ConfigurationManager.AppSettings["InterfaceClockStyleName"].ToString();
-                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Face.png" }, IntPtr.Zero, 40, 0);
-                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Hour.png" }, IntPtr.Zero, 40, 0);
-                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Minute.png" }, IntPtr.Zero, 40, 0);
-                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Center.png" }, IntPtr.Zero, 40, 0);
+                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Face.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
+                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Hour.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
+                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Minute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
+                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Center.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
             }
             catch { }
         }
@@ -639,17 +639,17 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString AnswerSwitch = new DataBindString();
-                    AnswerSwitch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, IntPtr.Zero, -1, 0);
+                    AnswerSwitch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerSwitch.Name = "Return to application";
                     Answers.Add(AnswerSwitch);
 
                     DataBindString AnswerClose = new DataBindString();
-                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Closing.png" }, IntPtr.Zero, -1, 0);
+                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Closing.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerClose.Name = "Close the application";
                     Answers.Add(AnswerClose);
 
                     DataBindString AnswerMinimize = new DataBindString();
-                    AnswerMinimize.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Minimize.png" }, IntPtr.Zero, -1, 0);
+                    AnswerMinimize.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Minimize.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerMinimize.Name = "Minimize CtrlUI";
                     Answers.Add(AnswerMinimize);
 
@@ -815,29 +815,29 @@ namespace CtrlUI
         {
             try
             {
-                img_Menu_SteamStatus.Source = FileToBitmapImage(new string[] { "Steam" }, IntPtr.Zero, 30, 0);
-                img_Menu_UplayStatus.Source = FileToBitmapImage(new string[] { "Uplay" }, IntPtr.Zero, 30, 0);
-                img_Menu_OriginStatus.Source = FileToBitmapImage(new string[] { "Origin" }, IntPtr.Zero, 30, 0);
-                img_Menu_GoGStatus.Source = FileToBitmapImage(new string[] { "GoG" }, IntPtr.Zero, 30, 0);
-                img_Menu_BethesdaStatus.Source = FileToBitmapImage(new string[] { "Bethesda" }, IntPtr.Zero, 30, 0);
-                img_Menu_EpicStatus.Source = FileToBitmapImage(new string[] { "Epic" }, IntPtr.Zero, 30, 0);
-                img_Menu_BlizzardStatus.Source = FileToBitmapImage(new string[] { "Battle.net" }, IntPtr.Zero, 30, 0);
+                img_Menu_SteamStatus.Source = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
+                img_Menu_UplayStatus.Source = FileToBitmapImage(new string[] { "Uplay" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
+                img_Menu_OriginStatus.Source = FileToBitmapImage(new string[] { "Origin" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
+                img_Menu_GoGStatus.Source = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
+                img_Menu_BethesdaStatus.Source = FileToBitmapImage(new string[] { "Bethesda" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
+                img_Menu_EpicStatus.Source = FileToBitmapImage(new string[] { "Epic" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
+                img_Menu_BlizzardStatus.Source = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
 
-                img_Menu_DirectXInput.Source = FileToBitmapImage(new string[] { "DirectXInput" }, IntPtr.Zero, 30, 0);
-                img_Menu_FpsOverlayer.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, IntPtr.Zero, 30, 0);
+                img_Menu_DirectXInput.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
+                img_Menu_FpsOverlayer.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
 
                 //Check if the first launch logo's need to be loaded
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["AppFirstLaunch"]))
                 {
-                    grid_Popup_Welcome_img_Edge.Source = FileToBitmapImage(new string[] { "Microsoft Edge" }, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_Kodi.Source = FileToBitmapImage(new string[] { "Kodi" }, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_Spotify.Source = FileToBitmapImage(new string[] { "Spotify" }, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_Steam.Source = FileToBitmapImage(new string[] { "Steam" }, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_Origin.Source = FileToBitmapImage(new string[] { "Origin" }, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_Uplay.Source = FileToBitmapImage(new string[] { "Uplay" }, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_GoG.Source = FileToBitmapImage(new string[] { "GoG" }, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_Battle.Source = FileToBitmapImage(new string[] { "Battle.net" }, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_PS4Remote.Source = FileToBitmapImage(new string[] { "Remote Play" }, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_Edge.Source = FileToBitmapImage(new string[] { "Microsoft Edge" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_Kodi.Source = FileToBitmapImage(new string[] { "Kodi" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_Spotify.Source = FileToBitmapImage(new string[] { "Spotify" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_Steam.Source = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_Origin.Source = FileToBitmapImage(new string[] { "Origin" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_Uplay.Source = FileToBitmapImage(new string[] { "Uplay" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_GoG.Source = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_Battle.Source = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_PS4Remote.Source = FileToBitmapImage(new string[] { "Remote Play" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
                 }
             }
             catch { }

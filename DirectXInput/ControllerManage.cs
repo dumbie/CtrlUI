@@ -83,7 +83,7 @@ namespace DirectXInput
                     {
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            image_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1, 0);
+                            image_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                             textblock_Controller0.Text = vController0.Details.DisplayName;
                         });
                     }
@@ -96,7 +96,7 @@ namespace DirectXInput
                     {
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            image_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1, 0);
+                            image_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                             textblock_Controller1.Text = vController1.Details.DisplayName;
                         });
                     }
@@ -109,7 +109,7 @@ namespace DirectXInput
                     {
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            image_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1, 0);
+                            image_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                             textblock_Controller2.Text = vController2.Details.DisplayName;
                         });
                     }
@@ -122,7 +122,7 @@ namespace DirectXInput
                     {
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            image_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, IntPtr.Zero, -1, 0);
+                            image_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                             textblock_Controller3.Text = vController3.Details.DisplayName;
                         });
                     }

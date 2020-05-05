@@ -34,7 +34,7 @@ namespace LibraryShared
                 {
                     double soundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]) / 100;
                     string soundPackName = ConfigurationManager.AppSettings["InterfaceSoundPackName"].ToString();
-                    string soundFileName = @"Assets\\Sounds\\" + soundPackName + "\\" + soundName + ".mp3";
+                    string soundFileName = "Assets/Sounds/" + soundPackName + "/" + soundName + ".mp3";
                     if (File.Exists(soundFileName))
                     {
                         Uri soundFileUri = new Uri(soundFileName, UriKind.RelativeOrAbsolute);
