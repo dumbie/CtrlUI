@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
@@ -24,14 +25,6 @@ namespace DirectXInput
                     return;
                 }
 
-                //Remove notification from the queue
-                try
-                {
-                    //Debug.WriteLine("Removed notification from the queue: " + notificationDetails.Text);
-                    vNotificationQueue.Remove(notificationDetails);
-                }
-                catch { }
-
                 //Show the notification
                 vNotificationVisible = true;
                 UpdateNotificationPosition();
@@ -42,26 +35,42 @@ namespace DirectXInput
                     grid_Message_Status.Visibility = Visibility.Visible;
                 });
 
-                //Start notification timer
-                AVFunctions.TimerRenew(ref vDispatcherTimerOverlay);
-                vDispatcherTimerOverlay.Interval = TimeSpan.FromMilliseconds(3000);
-                vDispatcherTimerOverlay.Tick += delegate
+                //Hide the notification in a few seconds
+                async void TaskAction()
                 {
                     try
                     {
-                        //Hide the notification
-                        vNotificationVisible = false;
-                        grid_Message_Status.Visibility = Visibility.Collapsed;
-
-                        //Check notification queue
-                        if (vNotificationQueue.Any())
-                        {
-                            Notification_Show_Status(vNotificationQueue.FirstOrDefault());
-                        }
+                        await Notification_Wait_Hide();
                     }
                     catch { }
-                };
-                vDispatcherTimerOverlay.Start();
+                }
+                AVActions.TaskStart(TaskAction, null);
+            }
+            catch { }
+        }
+
+        //Hide the notification in a few seconds
+        public async Task Notification_Wait_Hide()
+        {
+            try
+            {
+                //Wait for hiding time
+                await Task.Delay(3000);
+
+                //Hide the notification
+                vNotificationVisible = false;
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    grid_Message_Status.Visibility = Visibility.Collapsed;
+                });
+
+                //Check notification queue
+                if (vNotificationQueue.Any())
+                {
+                    NotificationDetails firstNotification = vNotificationQueue.FirstOrDefault();
+                    Notification_Show_Status(firstNotification);
+                    vNotificationQueue.Remove(firstNotification);
+                }
             }
             catch { }
         }
