@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows;
 using static ArnoldVinkCode.AVFiles;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Classes;
 
 namespace DirectXInput
 {
@@ -18,7 +19,11 @@ namespace DirectXInput
             {
                 vControllerTempBlockPaths = new List<string>();
                 Debug.WriteLine("Reset the temp blocked controller path list.");
-                App.vWindowOverlay.Notification_Show_Status("Controller", "Searching for controllers");
+
+                NotificationDetails notificationDetails = new NotificationDetails();
+                notificationDetails.Icon = "Controller";
+                notificationDetails.Text = "Searching for controllers";
+                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
             }
             catch { }
         }

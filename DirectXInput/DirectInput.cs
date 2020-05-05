@@ -30,7 +30,12 @@ namespace DirectXInput
                     if (!await OpenController(Controller))
                     {
                         Debug.WriteLine("Failed to initialize direct input for: " + Controller.Details.DisplayName);
-                        App.vWindowOverlay.Notification_Show_Status("Controller", "Controller disconnected");
+
+                        NotificationDetails notificationDetailsDisconnected = new NotificationDetails();
+                        notificationDetailsDisconnected.Icon = "Controller";
+                        notificationDetailsDisconnected.Text = "Controller disconnected";
+                        App.vWindowOverlay.Notification_Show_Status(notificationDetailsDisconnected);
+
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             txt_Controller_Information.Text = "The controller is no longer connected or supported.";
@@ -44,7 +49,12 @@ namespace DirectXInput
                     if (!await OpenXboxBusDriver(Controller))
                     {
                         Debug.WriteLine("Failed to open Xbox bus driver for: " + Controller.Details.DisplayName);
-                        App.vWindowOverlay.Notification_Show_Status("Controller", "Install drivers");
+
+                        NotificationDetails notificationDetailsDrivers = new NotificationDetails();
+                        notificationDetailsDrivers.Icon = "Controller";
+                        notificationDetailsDrivers.Text = "Install drivers";
+                        App.vWindowOverlay.Notification_Show_Status(notificationDetailsDrivers);
+
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             txt_Controller_Information.Text = "Please make sure that you have installed the required drivers.";
@@ -55,7 +65,12 @@ namespace DirectXInput
 
                     //Set controller interface information
                     string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
-                    App.vWindowOverlay.Notification_Show_Status("Controller", "Connected (" + controllerNumberDisplay + ")");
+
+                    NotificationDetails notificationDetailsConnected = new NotificationDetails();
+                    notificationDetailsConnected.Icon = "Controller";
+                    notificationDetailsConnected.Text = "Connected (" + controllerNumberDisplay + ")";
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetailsConnected);
+
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         txt_Controller_Information.Text = "Connected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
@@ -136,7 +151,12 @@ namespace DirectXInput
                 {
                     Debug.WriteLine("Disconnecting the controller " + Controller.NumberId + ": " + Controller.Details.DisplayName);
                     string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
-                    App.vWindowOverlay.Notification_Show_Status("Controller", "Disconnected (" + controllerNumberDisplay + ")");
+
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "Controller";
+                    notificationDetails.Text = "Disconnected (" + controllerNumberDisplay + ")";
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         txt_Controller_Information.Text = "Disconnected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
@@ -255,7 +275,12 @@ namespace DirectXInput
                 await StopController(vController3, true);
 
                 Debug.WriteLine("Stopped all the controllers direct input.");
-                App.vWindowOverlay.Notification_Show_Status("Controller", "Disconnected all");
+
+                NotificationDetails notificationDetails = new NotificationDetails();
+                notificationDetails.Icon = "Controller";
+                notificationDetails.Text = "Disconnected all";
+                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     txt_Controller_Information.Text = "Disconnected all the connected controllers.";

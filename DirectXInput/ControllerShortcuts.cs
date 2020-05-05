@@ -137,7 +137,12 @@ namespace DirectXInput
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltEnter"]))
                         {
                             Debug.WriteLine("Button Global - Alt+Enter");
-                            App.vWindowOverlay.Notification_Show_Status("MiniMaxi", "Pressing Alt+Enter");
+
+                            NotificationDetails notificationDetails = new NotificationDetails();
+                            notificationDetails.Icon = "MiniMaxi";
+                            notificationDetails.Text = "Pressing Alt+Enter";
+                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
                             KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.Return, false);
 
                             ControllerUsed = true;
@@ -150,7 +155,12 @@ namespace DirectXInput
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltF4"]))
                         {
                             Debug.WriteLine("Button Global - Alt+F4");
-                            App.vWindowOverlay.Notification_Show_Status("Closing", "Pressing Alt+F4");
+
+                            NotificationDetails notificationDetails = new NotificationDetails();
+                            notificationDetails.Icon = "Closing";
+                            notificationDetails.Text = "Pressing Alt+F4";
+                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
                             KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.F4, false);
 
                             ControllerUsed = true;
@@ -163,7 +173,12 @@ namespace DirectXInput
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutWinTab"]))
                         {
                             Debug.WriteLine("Button Global - Win+Tab");
-                            App.vWindowOverlay.Notification_Show_Status("MiniMaxi", "Pressing Win+Tab");
+
+                            NotificationDetails notificationDetails = new NotificationDetails();
+                            notificationDetails.Icon = "MiniMaxi";
+                            notificationDetails.Text = "Pressing Win+Tab";
+                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
                             KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.Tab, false);
 
                             ControllerUsed = true;
@@ -172,7 +187,12 @@ namespace DirectXInput
                         else if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltTab"]))
                         {
                             Debug.WriteLine("Button Global - Alt+Tab");
-                            App.vWindowOverlay.Notification_Show_Status("MiniMaxi", "Pressing Alt+Tab");
+
+                            NotificationDetails notificationDetails = new NotificationDetails();
+                            notificationDetails.Icon = "MiniMaxi";
+                            notificationDetails.Text = "Pressing Alt+Tab";
+                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
                             KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.Tab, false);
 
                             ControllerUsed = true;
@@ -236,7 +256,11 @@ namespace DirectXInput
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchKeyboardController"]))
                 {
                     Debug.WriteLine("Shortcut launch keyboard controller has been pressed.");
-                    App.vWindowOverlay.Notification_Show_Status("Keyboard", "Showing Keyboard");
+
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "Keyboard";
+                    notificationDetails.Text = "Showing Keyboard";
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
                     {
@@ -255,7 +279,11 @@ namespace DirectXInput
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchCtrlUI"]))
                 {
                     Debug.WriteLine("Shortcut launch CtrlUI has been pressed.");
-                    App.vWindowOverlay.Notification_Show_Status("App", "Launching CtrlUI");
+
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "App";
+                    notificationDetails.Text = "Launching CtrlUI";
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     if (!CheckRunningProcessByNameOrTitle("CtrlUI", false))
                     {

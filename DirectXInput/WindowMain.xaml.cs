@@ -166,23 +166,26 @@ namespace DirectXInput
                     grid_ControllerPreview.IsEnabled = false;
                     grid_ControllerPreview.Opacity = 0.50;
 
-                    //Create timeout timer
+                    //Start mapping timer
                     int countdownTimeout = 0;
                     AVFunctions.TimerRenew(ref vDispatcherTimerMapping);
                     vDispatcherTimerMapping.Interval = TimeSpan.FromSeconds(1);
                     vDispatcherTimerMapping.Tick += delegate
                     {
-                        Debug.WriteLine(DateTime.Now);
-                        if (countdownTimeout++ >= 10)
+                        try
                         {
-                            //Reset controller button mapping
-                            manageController.Mapping[0] = "Cancel";
-                            manageController.Mapping[1] = "None";
+                            if (countdownTimeout++ >= 10)
+                            {
+                                //Reset controller button mapping
+                                manageController.Mapping[0] = "Cancel";
+                                manageController.Mapping[1] = "None";
+                            }
+                            else
+                            {
+                                txt_Application_Status.Text = "Waiting for '" + mapButton + "' press on the controller... " + (11 - countdownTimeout).ToString() + "sec.";
+                            }
                         }
-                        else
-                        {
-                            txt_Application_Status.Text = "Waiting for '" + mapButton + "' press on the controller... " + (11 - countdownTimeout).ToString() + "sec.";
-                        }
+                        catch { }
                     };
                     vDispatcherTimerMapping.Start();
 
@@ -266,7 +269,12 @@ namespace DirectXInput
                     if (messageResult == 1)
                     {
                         Debug.WriteLine("Removed the controller: " + ManageController.Details.DisplayName);
-                        App.vWindowOverlay.Notification_Show_Status("Controller", "Removed controller");
+
+                        NotificationDetails notificationDetails = new NotificationDetails();
+                        notificationDetails.Icon = "Controller";
+                        notificationDetails.Text = "Removed controller";
+                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             txt_Controller_Information.Text = "Removed the controller: " + ManageController.Details.DisplayName;

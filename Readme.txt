@@ -57,7 +57,7 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
 | Changelog
-v1.18.0.0 (-April-2020)
+v1.18.0.0 (5-May-2020)
 - DirectXInput now shows overlay notifications.
 * Miscellaneous application improvements and fixes.
 

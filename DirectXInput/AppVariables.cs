@@ -28,7 +28,11 @@ namespace DirectXInput
         public static DispatcherTimer vDispatcherTimerMapping = new DispatcherTimer();
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
 
-        //Message Box Variables
+        //Notification Variables
+        public static List<NotificationDetails> vNotificationQueue = new List<NotificationDetails>();
+        public static bool vNotificationVisible = false;
+
+        //MessageBox Variables
         public static bool vMessageBoxOpen = false;
         public static bool vMessageBoxPopupCancelled = false;
         public static int vMessageBoxPopupResult = 0;

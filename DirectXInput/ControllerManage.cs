@@ -245,12 +245,20 @@ namespace DirectXInput
                     Clipboard.SetText(RawPackets);
 
                     Debug.WriteLine("Controller debug information copied to clipboard.");
-                    App.vWindowOverlay.Notification_Show_Status("Paste", "Debug information copied");
+
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "Paste";
+                    notificationDetails.Text = "Debug information copied";
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
                 else
                 {
                     Debug.WriteLine("Controller debug information is not available.");
-                    App.vWindowOverlay.Notification_Show_Status("Paste", "No information available");
+
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "Paste";
+                    notificationDetails.Text = "No information available";
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }
