@@ -53,19 +53,19 @@ namespace CtrlUI
         }
 
         //Set copy file from the file picker
-        void FilePicker_FileCopy(DataBindFile dataBindFile)
+        async Task FilePicker_FileCopy(DataBindFile dataBindFile)
         {
             try
             {
                 //Check the file or folder
                 if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
                 {
-                    Popup_Show_Status("Close", "Invalid file or folder");
+                    await Notification_Send_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
                     return;
                 }
 
-                Popup_Show_Status("Copy", "Copying file or folder");
+                await Notification_Send_Status("Copy", "Copying file or folder");
                 Debug.WriteLine("Clipboard copy file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                 //Reset the clipboard variables
@@ -86,19 +86,19 @@ namespace CtrlUI
         }
 
         //Set cut file from the file picker
-        void FilePicker_FileCut(DataBindFile dataBindFile)
+        async Task FilePicker_FileCut(DataBindFile dataBindFile)
         {
             try
             {
                 //Check the file or folder
                 if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
                 {
-                    Popup_Show_Status("Close", "Invalid file or folder");
+                    await Notification_Send_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
                     return;
                 }
 
-                Popup_Show_Status("Cut", "Cutting file or folder");
+                await Notification_Send_Status("Cut", "Cutting file or folder");
                 Debug.WriteLine("Clipboard cut file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                 //Reset the clipboard variables
@@ -133,13 +133,13 @@ namespace CtrlUI
                 //Move or copy the file or folder
                 if (vClipboardFile.ClipboardType == ClipboardType.Cut)
                 {
-                    Popup_Show_Status("Cut", "Moving file or folder");
+                    await Notification_Send_Status("Cut", "Moving file or folder");
                     Debug.WriteLine("Moving file or folder: " + oldFilePath + " to " + newFilePath);
 
                     //Check if moving to same directory
                     if (oldFilePath == newFilePath)
                     {
-                        Popup_Show_Status("Cut", "Invalid move folder");
+                        await Notification_Send_Status("Cut", "Invalid move folder");
                         Debug.WriteLine("Moving file or folder to the same directory.");
                         return;
                     }
@@ -212,23 +212,23 @@ namespace CtrlUI
                     //Check file operation status
                     if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                     {
-                        Popup_Show_Status("Cut", "File or folder moved");
+                        await Notification_Send_Status("Cut", "File or folder moved");
                         Debug.WriteLine("File or folder moved: " + oldFilePath + " to " + newFilePath);
                     }
                     else if (shFileOpstruct.fAnyOperationsAborted)
                     {
-                        Popup_Show_Status("Cut", "File or folder move aborted");
+                        await Notification_Send_Status("Cut", "File or folder move aborted");
                         Debug.WriteLine("File or folder move aborted: " + oldFilePath + " to " + newFilePath);
                     }
                     else
                     {
-                        Popup_Show_Status("Cut", "File or folder move failed");
+                        await Notification_Send_Status("Cut", "File or folder move failed");
                         Debug.WriteLine("File or folder move failed: " + oldFilePath + " to " + newFilePath);
                     }
                 }
                 else
                 {
-                    Popup_Show_Status("Copy", "Copying file or folder");
+                    await Notification_Send_Status("Copy", "Copying file or folder");
                     Debug.WriteLine("Copying file or folder: " + oldFilePath + " to " + newFilePath);
 
                     //Check file or folder
@@ -282,24 +282,24 @@ namespace CtrlUI
                     //Check file operation status
                     if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                     {
-                        Popup_Show_Status("Copy", "File or folder copied");
+                        await Notification_Send_Status("Copy", "File or folder copied");
                         Debug.WriteLine("File or folder copied: " + oldFilePath + " to " + newFilePath);
                     }
                     else if (shFileOpstruct.fAnyOperationsAborted)
                     {
-                        Popup_Show_Status("Copy", "File or folder copy aborted");
+                        await Notification_Send_Status("Copy", "File or folder copy aborted");
                         Debug.WriteLine("File or folder copy aborted: " + oldFilePath + " to " + newFilePath);
                     }
                     else
                     {
-                        Popup_Show_Status("Copy", "File or folder copy failed");
+                        await Notification_Send_Status("Copy", "File or folder copy failed");
                         Debug.WriteLine("File or folder copy failed: " + oldFilePath + " to " + newFilePath);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("Paste", "Failed pasting");
+                await Notification_Send_Status("Paste", "Failed pasting");
                 Debug.WriteLine("Failed pasting file or folder: " + ex.Message);
             }
         }
@@ -312,12 +312,12 @@ namespace CtrlUI
                 //Check the file or folder
                 if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
                 {
-                    Popup_Show_Status("Close", "Invalid file or folder");
+                    await Notification_Send_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
                     return;
                 }
 
-                Popup_Show_Status("Rename", "Renaming file or folder");
+                await Notification_Send_Status("Rename", "Renaming file or folder");
                 Debug.WriteLine("Renaming file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                 //Show the text input popup
@@ -326,7 +326,7 @@ namespace CtrlUI
                 //Check if file name changed
                 if (textInputString == dataBindFile.Name)
                 {
-                    Popup_Show_Status("Rename", "File name not changed");
+                    await Notification_Send_Status("Rename", "File name not changed");
                     Debug.WriteLine("The file name did not change.");
                     return;
                 }
@@ -382,13 +382,13 @@ namespace CtrlUI
                         grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
                     }
 
-                    Popup_Show_Status("Rename", "Renamed file or folder");
+                    await Notification_Send_Status("Rename", "Renamed file or folder");
                     Debug.WriteLine("Renamed file or folder to: " + newFileName + newFileExtension);
                 }
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("Rename", "Failed renaming");
+                await Notification_Send_Status("Rename", "Failed renaming");
                 Debug.WriteLine("Failed renaming file or folder: " + ex.Message);
             }
         }
@@ -398,7 +398,7 @@ namespace CtrlUI
         {
             try
             {
-                Popup_Show_Status("FolderAdd", "Creating new folder");
+                await Notification_Send_Status("FolderAdd", "Creating new folder");
                 Debug.WriteLine("Creating new folder in: " + vFilePickerCurrentPath);
 
                 //Show the text input popup
@@ -412,7 +412,7 @@ namespace CtrlUI
                     //Check if the folder exists
                     if (Directory.Exists(newFolderPath))
                     {
-                        Popup_Show_Status("FolderAdd", "Folder already exists");
+                        await Notification_Send_Status("FolderAdd", "Folder already exists");
                         Debug.WriteLine("Create folder already exists.");
                         return;
                     }
@@ -433,13 +433,13 @@ namespace CtrlUI
                     //Check if there are files or folders
                     FilePicker_CheckFilesAndFoldersCount();
 
-                    Popup_Show_Status("FolderAdd", "Created new folder");
+                    await Notification_Send_Status("FolderAdd", "Created new folder");
                     Debug.WriteLine("Created new folder in: " + newFolderPath);
                 }
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("FolderAdd", "Failed creating folder");
+                await Notification_Send_Status("FolderAdd", "Failed creating folder");
                 Debug.WriteLine("Failed creating new folder: " + ex.Message);
             }
         }
@@ -449,7 +449,7 @@ namespace CtrlUI
         {
             try
             {
-                Popup_Show_Status("FileTxt", "Creating text file");
+                await Notification_Send_Status("FileTxt", "Creating text file");
                 Debug.WriteLine("Creating new text file in: " + vFilePickerCurrentPath);
 
                 //Show the text input popup
@@ -464,7 +464,7 @@ namespace CtrlUI
                     //Check if the text file exists
                     if (File.Exists(newFilePath))
                     {
-                        Popup_Show_Status("FileTxt", "Text file already exists");
+                        await Notification_Send_Status("FileTxt", "Text file already exists");
                         Debug.WriteLine("Create text file already exists.");
                         return;
                     }
@@ -495,13 +495,13 @@ namespace CtrlUI
                     //Check if there are files or folders
                     FilePicker_CheckFilesAndFoldersCount();
 
-                    Popup_Show_Status("FileTxt", "Created new text file");
+                    await Notification_Send_Status("FileTxt", "Created new text file");
                     Debug.WriteLine("Created new text file in: " + newFilePath);
                 }
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("FileTxt", "Failed creating file");
+                await Notification_Send_Status("FileTxt", "Failed creating file");
                 Debug.WriteLine("Failed creating new text file: " + ex.Message);
             }
         }
@@ -514,12 +514,12 @@ namespace CtrlUI
                 //Check the file or folder
                 if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
                 {
-                    Popup_Show_Status("Close", "Invalid file or folder");
+                    await Notification_Send_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
                     return;
                 }
 
-                Popup_Show_Status("Remove", "Remove file or folder");
+                await Notification_Send_Status("Remove", "Remove file or folder");
                 Debug.WriteLine("Removing file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                 //Remove file or folder
@@ -557,23 +557,23 @@ namespace CtrlUI
                 //Check file operation status
                 if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                 {
-                    Popup_Show_Status("Remove", "Re/moved file or folder");
+                    await Notification_Send_Status("Remove", "Re/moved file or folder");
                     Debug.WriteLine("Removed file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
                 }
                 else if (shFileOpstruct.fAnyOperationsAborted)
                 {
-                    Popup_Show_Status("Remove", "File or folder removal aborted");
+                    await Notification_Send_Status("Remove", "File or folder removal aborted");
                     Debug.WriteLine("File or folder removal aborted: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
                 }
                 else
                 {
-                    Popup_Show_Status("Remove", "File or folder removal failed");
+                    await Notification_Send_Status("Remove", "File or folder removal failed");
                     Debug.WriteLine("File or folder removal failed: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
                 }
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("Remove", "Failed removing");
+                await Notification_Send_Status("Remove", "Failed removing");
                 Debug.WriteLine("Failed removing file or folder: " + ex.Message);
             }
         }
@@ -592,7 +592,7 @@ namespace CtrlUI
                 DataBindString messageResult = await Popup_Show_MessageBox("Empty the recycle bin?", "", "This will permanently remove all the files from your recycle bin.", messageAnswers);
                 if (messageResult != null && messageResult == answerEmpty)
                 {
-                    Popup_Show_Status("Remove", "Emptying recycle bin");
+                    await Notification_Send_Status("Remove", "Emptying recycle bin");
                     Debug.WriteLine("Emptying the Windows recycle bin.");
 
                     //Play recycle bin empty sound

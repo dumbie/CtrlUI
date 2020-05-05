@@ -3,14 +3,15 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
-using static DirectXInput.AppVariables;
+using static CtrlUI.AppVariables;
+using static LibraryShared.Classes;
 
-namespace DirectXInput
+namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Notify - CtrlUI setting changed
-        async Task NotifyCtrlUISettingChanged(string settingName)
+        //Send the notification status
+        public async Task Notification_Send_Status(string targetIcon, string targetText)
         {
             try
             {
@@ -21,15 +22,22 @@ namespace DirectXInput
                     return;
                 }
 
+                //Create notification class
+                NotificationDetails NotificationDetails = new NotificationDetails();
+                NotificationDetails.Icon = targetIcon;
+                NotificationDetails.Text = targetText;
+
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
                 socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
                 socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
-                socketSend.Object = "SettingChanged" + settingName;
+                socketSend.Object = NotificationDetails;
+
+                //Request controller status
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort - 1, vArnoldVinkSockets.vTcpClientTimeout);
+                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 1, vArnoldVinkSockets.vTcpClientTimeout);
                 await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
             }
             catch { }

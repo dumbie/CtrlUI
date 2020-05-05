@@ -149,7 +149,7 @@ namespace CtrlUI
                 //Show removed notification
                 if (!silent)
                 {
-                    Popup_Show_Status("Minus", "Removed " + dataBindApp.Name);
+                    await Notification_Send_Status("Minus", "Removed " + dataBindApp.Name);
                     Debug.WriteLine("Removed application: " + dataBindApp.Name);
                 }
             }
@@ -364,7 +364,7 @@ namespace CtrlUI
 
                     PlayInterfaceSound("Confirm", false);
 
-                    Popup_Show_Status("Plus", "Added " + vFilePickerResult.Name);
+                    await Notification_Send_Status("Plus", "Added " + vFilePickerResult.Name);
                     Debug.WriteLine("Adding UWP app: " + tb_AddAppName.Text + " to the list.");
                     DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.UWP, Category = selectedAddCategory, Name = vFilePickerResult.Name, NameExe = vFilePickerResult.NameExe, PathExe = vFilePickerResult.PathFile, PathImage = vFilePickerResult.PathImage, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked };
                     await AddAppToList(dataBindApp, true, true);

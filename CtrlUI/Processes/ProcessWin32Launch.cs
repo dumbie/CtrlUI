@@ -69,7 +69,7 @@ namespace CtrlUI
                 //Show launching message
                 if (!silent)
                 {
-                    Popup_Show_Status("App", "Launching " + appTitle);
+                    await Notification_Send_Status("App", "Launching " + appTitle);
                     //Debug.WriteLine("Launching Win32: " + appTitle + "/" + pathExe);
                 }
 

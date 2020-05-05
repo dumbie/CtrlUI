@@ -121,7 +121,7 @@ namespace CtrlUI
                 //Save the updated json values
                 JsonSaveObject(vProfileManagerListShared, vProfileManagerName);
 
-                Popup_Show_Status("Profile", "Removed profile value");
+                await Notification_Send_Status("Profile", "Removed profile value");
             }
             catch { }
         }
@@ -144,7 +144,7 @@ namespace CtrlUI
                 if (string.IsNullOrWhiteSpace(profileString1))
                 {
                     grid_Popup_ProfileManager_textbox_ProfileString1.BorderBrush = BrushInvalid;
-                    Popup_Show_Status("Profile", "Empty profile value");
+                    await Notification_Send_Status("Profile", "Empty profile value");
                     Debug.WriteLine("Please enter a profile value.");
                     return;
                 }
@@ -153,7 +153,7 @@ namespace CtrlUI
                 if (grid_Popup_ProfileManager_Value2.Visibility == Visibility.Visible && string.IsNullOrWhiteSpace(profileString2))
                 {
                     grid_Popup_ProfileManager_textbox_ProfileString2.BorderBrush = BrushInvalid;
-                    Popup_Show_Status("Profile", "Empty profile value");
+                    await Notification_Send_Status("Profile", "Empty profile value");
                     Debug.WriteLine("Please enter a profile value.");
                     return;
                 }
@@ -181,7 +181,7 @@ namespace CtrlUI
                 {
                     grid_Popup_ProfileManager_textbox_ProfileString1.BorderBrush = BrushInvalid;
                     grid_Popup_ProfileManager_textbox_ProfileString2.BorderBrush = BrushInvalid;
-                    Popup_Show_Status("Profile", "Profile already exists");
+                    await Notification_Send_Status("Profile", "Profile already exists");
                     Debug.WriteLine("Profile value already exists.");
                     return;
                 }
@@ -197,7 +197,7 @@ namespace CtrlUI
                 JsonSaveObject(vProfileManagerListShared, vProfileManagerName);
 
                 //Show profile added notification
-                Popup_Show_Status("Profile", "New value added");
+                await Notification_Send_Status("Profile", "New value added");
                 grid_Popup_ProfileManager_textbox_ProfileString1.BorderBrush = BrushValid;
                 grid_Popup_ProfileManager_textbox_ProfileString2.BorderBrush = BrushValid;
             }

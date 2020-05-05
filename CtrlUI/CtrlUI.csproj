@@ -112,6 +112,7 @@
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
+    <Compile Include="NotificationFunctions.cs" />
     <Compile Include="Resources\Settings\SettingsNotify.cs" />
     <Compile Include="WelcomeHandlers.cs" />
     <Compile Include="WelcomeFunctions.cs" />

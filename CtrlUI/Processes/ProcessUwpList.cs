@@ -35,7 +35,7 @@ namespace CtrlUI
                 if (frameHostProcess != null)
                 {
                     //Show refresh status message
-                    if (showStatus) { Popup_Show_Status("Refresh", "Refreshing store apps"); }
+                    if (showStatus) { await Notification_Send_Status("Refresh", "Refreshing store apps"); }
                     //Debug.WriteLine("Checking store processes.");
 
                     //Add new running process if needed

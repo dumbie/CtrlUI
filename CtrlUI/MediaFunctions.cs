@@ -18,11 +18,11 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Play or pause the media
-        void Button_Media_PlayPause(object sender, RoutedEventArgs e)
+        async void Button_Media_PlayPause(object sender, RoutedEventArgs e)
         {
             try
             {
-                Popup_Show_Status("Media", "Resuming or pausing media");
+                await Notification_Send_Status("Media", "Resuming or pausing media");
                 KeyPressSingle((byte)KeysVirtual.MediaPlayPause, false);
             }
             catch { }
@@ -33,7 +33,7 @@ namespace CtrlUI
         {
             try
             {
-                Popup_Show_Status("Next", "Going to next media item");
+                await Notification_Send_Status("Next", "Going to next media item");
                 KeyPressSingle((byte)KeysVirtual.MediaNextTrack, false);
 
                 //Close all open popups
@@ -50,7 +50,7 @@ namespace CtrlUI
         {
             try
             {
-                Popup_Show_Status("Previous", "Going to previous media item");
+                await Notification_Send_Status("Previous", "Going to previous media item");
                 KeyPressSingle((byte)KeysVirtual.MediaPrevTrack, false);
 
                 //Close all open popups
@@ -63,33 +63,33 @@ namespace CtrlUI
         }
 
         //Volume Mute
-        void Button_Media_VolumeMute(object sender, RoutedEventArgs e)
+        async void Button_Media_VolumeMute(object sender, RoutedEventArgs e)
         {
             try
             {
-                Popup_Show_Status("VolumeMute", "Switching mute");
+                await Notification_Send_Status("VolumeMute", "Switching mute");
                 KeyPressSingle((byte)KeysVirtual.VolumeMute, false);
             }
             catch { }
         }
 
         //Volume Down
-        void Button_Media_VolumeDown(object sender, RoutedEventArgs e)
+        async void Button_Media_VolumeDown(object sender, RoutedEventArgs e)
         {
             try
             {
-                Popup_Show_Status("VolumeDown", "Decreasing volume");
+                await Notification_Send_Status("VolumeDown", "Decreasing volume");
                 KeyPressSingle((byte)KeysVirtual.VolumeDown, false);
             }
             catch { }
         }
 
         //Volume Up
-        void Button_Media_VolumeUp(object sender, RoutedEventArgs e)
+        async void Button_Media_VolumeUp(object sender, RoutedEventArgs e)
         {
             try
             {
-                Popup_Show_Status("VolumeUp", "Increasing volume");
+                await Notification_Send_Status("VolumeUp", "Increasing volume");
                 KeyPressSingle((byte)KeysVirtual.VolumeUp, false);
             }
             catch { }

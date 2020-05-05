@@ -608,7 +608,7 @@ namespace CtrlUI
                     //Check if a previous process is available
                     if (vPrevFocusedProcess == null)
                     {
-                        Popup_Show_Status("Close", "No app to show found");
+                        await Notification_Send_Status("Close", "No app to show found");
                         Debug.WriteLine("Previous process not found.");
                         return;
                     }
@@ -616,7 +616,7 @@ namespace CtrlUI
                     //Check if application name is blacklisted
                     if (vCtrlIgnoreProcessName.Any(x => x.String1.ToLower() == vPrevFocusedProcess.Name.ToLower()))
                     {
-                        Popup_Show_Status("Close", "App is blacklisted");
+                        await Notification_Send_Status("Close", "App is blacklisted");
                         Debug.WriteLine("Previous process name is blacklisted: " + vPrevFocusedProcess.Name);
                         return;
                     }
@@ -624,7 +624,7 @@ namespace CtrlUI
                     //Check if application title is blacklisted
                     if (vCtrlIgnoreProcessName.Any(x => x.String1.ToLower() == vPrevFocusedProcess.Title.ToLower()))
                     {
-                        Popup_Show_Status("Close", "App is blacklisted");
+                        await Notification_Send_Status("Close", "App is blacklisted");
                         Debug.WriteLine("Previous process title is blacklisted: " + vPrevFocusedProcess.Title);
                         return;
                     }
@@ -632,7 +632,7 @@ namespace CtrlUI
                     //Check if application process is still running
                     if (!CheckRunningProcessByNameOrTitle(vPrevFocusedProcess.Name, false))
                     {
-                        Popup_Show_Status("Close", "App no longer running");
+                        await Notification_Send_Status("Close", "App no longer running");
                         Debug.WriteLine("Previous process is no longer running.");
                         return;
                     }
@@ -674,7 +674,7 @@ namespace CtrlUI
                         }
                         else if (messageResult == AnswerClose)
                         {
-                            Popup_Show_Status("Closing", "Closing " + vPrevFocusedProcess.Title);
+                            await Notification_Send_Status("Closing", "Closing " + vPrevFocusedProcess.Title);
                             Debug.WriteLine("Closing process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Identifier + " / " + vPrevFocusedProcess.WindowHandle);
 
                             //Check if the application is UWP or Win32
@@ -683,7 +683,7 @@ namespace CtrlUI
                                 bool ClosedProcess = await CloseProcessUwpByWindowHandleOrProcessId(vPrevFocusedProcess.Title, vPrevFocusedProcess.Identifier, vPrevFocusedProcess.WindowHandle);
                                 if (ClosedProcess)
                                 {
-                                    Popup_Show_Status("Closing", "Closed " + vPrevFocusedProcess.Title);
+                                    await Notification_Send_Status("Closing", "Closed " + vPrevFocusedProcess.Title);
                                     Debug.WriteLine("Closed process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Identifier + " / " + vPrevFocusedProcess.WindowHandle);
                                     vPrevFocusedProcess = null;
                                 }
@@ -693,7 +693,7 @@ namespace CtrlUI
                                 bool ClosedProcess = CloseProcessById(vPrevFocusedProcess.Identifier);
                                 if (ClosedProcess)
                                 {
-                                    Popup_Show_Status("Closing", "Closed " + vPrevFocusedProcess.Title);
+                                    await Notification_Send_Status("Closing", "Closed " + vPrevFocusedProcess.Title);
                                     Debug.WriteLine("Closed process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Identifier + " / " + vPrevFocusedProcess.WindowHandle);
                                     vPrevFocusedProcess = null;
                                 }
@@ -709,7 +709,7 @@ namespace CtrlUI
             }
             catch
             {
-                Popup_Show_Status("Close", "Failed to minimize or show app");
+                await Notification_Send_Status("Close", "Failed to minimize or show app");
                 Debug.WriteLine("Failed to minimize or show application.");
             }
         }

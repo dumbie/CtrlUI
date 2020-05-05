@@ -199,11 +199,11 @@ namespace CtrlUI
         }
 
         //Show the Windows start menu
-        void ShowWindowStartMenu()
+        async Task ShowWindowStartMenu()
         {
             try
             {
-                Popup_Show_Status("Windows", "Showing the start menu");
+                await Notification_Send_Status("Windows", "Showing start menu");
                 KeyPressSingle((byte)KeysVirtual.LeftWindows, false);
             }
             catch { }
@@ -219,7 +219,7 @@ namespace CtrlUI
                 if (totalScreenCount == 1)
                 {
                     Debug.WriteLine("Only one monitor");
-                    Popup_Show_Status("MonitorNext", "Only one monitor");
+                    await Notification_Send_Status("MonitorNext", "Only one monitor");
                     SettingSave("DisplayMonitor", "0");
                     return;
                 }
@@ -299,7 +299,7 @@ namespace CtrlUI
                 Debug.WriteLine("Moved the application to monitor: " + monitorNumber);
                 if (!silent)
                 {
-                    Popup_Show_Status("MonitorNext", "Moved to monitor " + monitorNumber);
+                    await Notification_Send_Status("MonitorNext", "Moved to monitor " + monitorNumber);
                 }
             }
             catch { }
@@ -384,17 +384,17 @@ namespace CtrlUI
                 {
                     if (messageResult == Answer1)
                     {
-                        Popup_Show_Status("Closing", "Closing CtrlUI");
+                        await Notification_Send_Status("Closing", "Closing CtrlUI");
                         await Application_Exit();
                     }
                     else if (messageResult == Answer4)
                     {
-                        Popup_Show_Status("Closing", "Restarting CtrlUI");
+                        await Notification_Send_Status("Closing", "Restarting CtrlUI");
                         await Application_Restart();
                     }
                     else if (messageResult == Answer2)
                     {
-                        Popup_Show_Status("Shutdown", "Restarting your PC");
+                        await Notification_Send_Status("Shutdown", "Restarting your PC");
 
                         //Close all other launchers
                         await CloseLaunchers(true);
@@ -407,7 +407,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == Answer3)
                     {
-                        Popup_Show_Status("Shutdown", "Shutting down your PC");
+                        await Notification_Send_Status("Shutdown", "Shutting down your PC");
 
                         //Close all other launchers
                         await CloseLaunchers(true);

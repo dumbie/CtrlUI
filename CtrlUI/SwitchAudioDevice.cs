@@ -45,11 +45,11 @@ namespace CtrlUI
                     {
                         if (SetDefaultDevice(changeDevice.Identifier))
                         {
-                            Popup_Show_Status("VolumeUp", "Switched audio device");
+                            await Notification_Send_Status("VolumeUp", "Switched audio device");
                         }
                         else
                         {
-                            Popup_Show_Status("VolumeUp", "Switching audio failed");
+                            await Notification_Send_Status("VolumeUp", "Switching audio failed");
                         }
                     }
                 }
@@ -57,7 +57,7 @@ namespace CtrlUI
             catch
             {
                 Debug.WriteLine("Failed to load the audio devices");
-                Popup_Show_Status("VolumeUp", "No audio available");
+                await Notification_Send_Status("VolumeUp", "No audio available");
             }
         }
     }

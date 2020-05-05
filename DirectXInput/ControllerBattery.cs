@@ -130,7 +130,7 @@ namespace DirectXInput
                     if (Controller.BatteryPercentageCurrent <= 10 && (Controller.BatteryPercentagePrevious > 10 || Controller.BatteryPercentagePrevious == -1))
                     {
                         Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level 10%");
-                        App.vWindowOverlay.Overlay_Show_Status("Battery/BatteryVerDis10", "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%");
+                        App.vWindowOverlay.Notification_Show_Status("Battery/BatteryVerDis10", "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%");
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]))
                         {
                             PlayInterfaceSound("BatteryLow", true);
@@ -139,7 +139,7 @@ namespace DirectXInput
                     else if (Controller.BatteryPercentageCurrent <= 20 && (Controller.BatteryPercentagePrevious > 20 || Controller.BatteryPercentagePrevious == -1))
                     {
                         Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level 20%");
-                        App.vWindowOverlay.Overlay_Show_Status("Battery/BatteryVerDis20", "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%");
+                        App.vWindowOverlay.Notification_Show_Status("Battery/BatteryVerDis20", "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%");
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]))
                         {
                             PlayInterfaceSound("BatteryLow", true);

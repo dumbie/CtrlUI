@@ -266,7 +266,7 @@ namespace DirectXInput
                     if (messageResult == 1)
                     {
                         Debug.WriteLine("Removed the controller: " + ManageController.Details.DisplayName);
-                        App.vWindowOverlay.Overlay_Show_Status("Controller", "Removed controller");
+                        App.vWindowOverlay.Notification_Show_Status("Controller", "Removed controller");
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             txt_Controller_Information.Text = "Removed the controller: " + ManageController.Details.DisplayName;

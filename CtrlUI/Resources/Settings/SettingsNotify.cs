@@ -14,13 +14,6 @@ namespace CtrlUI
         {
             try
             {
-                //Check if application is running
-                if (vProcessDirectXInput == null)
-                {
-                    Debug.WriteLine("DirectXInput is not running.");
-                    return;
-                }
-
                 //Check if socket server is running
                 if (vArnoldVinkSockets == null)
                 {
@@ -47,13 +40,6 @@ namespace CtrlUI
         {
             try
             {
-                //Check if application is running
-                if (vProcessKeyboardController == null)
-                {
-                    Debug.WriteLine("Keyboard Controller is not running.");
-                    return;
-                }
-
                 //Check if socket server is running
                 if (vArnoldVinkSockets == null)
                 {
@@ -80,13 +66,6 @@ namespace CtrlUI
         {
             try
             {
-                //Check if application is running
-                if (vProcessFpsOverlayer == null)
-                {
-                    Debug.WriteLine("Fps Overlayer is not running.");
-                    return;
-                }
-
                 //Check if socket server is running
                 if (vArnoldVinkSockets == null)
                 {

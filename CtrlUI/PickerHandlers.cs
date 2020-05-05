@@ -94,7 +94,7 @@ namespace CtrlUI
                         //Update application
                         if (messageResult == answerUpdate)
                         {
-                            UwpListUpdateApplication(selectedItem);
+                            await UwpListUpdateApplication(selectedItem);
                         }
                         //Remove application
                         else if (messageResult == answerRemove)
@@ -205,12 +205,12 @@ namespace CtrlUI
                         //Copy file or folder
                         else if (messageResult == answerCopy)
                         {
-                            FilePicker_FileCopy(selectedItem);
+                            await FilePicker_FileCopy(selectedItem);
                         }
                         //Cut file or folder
                         else if (messageResult == answerCut)
                         {
-                            FilePicker_FileCut(selectedItem);
+                            await FilePicker_FileCut(selectedItem);
                         }
                         //Paste file or folder
                         else if (messageResult == answerPaste)
@@ -287,7 +287,7 @@ namespace CtrlUI
                     if (!silent)
                     {
                         Debug.WriteLine("Sorting files and folders by date");
-                        Popup_Show_Status("Sorting", "Sorting by date");
+                        await Notification_Send_Status("Sorting", "Sorting by date");
                     }
 
                     vFilePickerSortByName = false;
@@ -298,7 +298,7 @@ namespace CtrlUI
                     if (!silent)
                     {
                         Debug.WriteLine("Sorting files and folders by name");
-                        Popup_Show_Status("Sorting", "Sorting by name");
+                        await Notification_Send_Status("Sorting", "Sorting by name");
                     }
 
                     vFilePickerSortByName = true;
@@ -337,14 +337,14 @@ namespace CtrlUI
                     else
                     {
                         Debug.WriteLine("No folder to navigate go up / not up.");
-                        Popup_Show_Status("Up", "No folder to go up");
+                        await Notification_Send_Status("Up", "No folder to go up");
                     }
                 }
             }
             catch
             {
                 Debug.WriteLine("No folder to navigate go up / catch.");
-                Popup_Show_Status("Up", "No folder to go up");
+                await Notification_Send_Status("Up", "No folder to go up");
             }
         }
 
@@ -395,11 +395,11 @@ namespace CtrlUI
                     }
                     else if (vMousePressDownLeftClick)
                     {
-                        await lb_FilePicker_LeftClick();
+                        await Listbox_FilePicker_LeftClick();
                     }
                     else if (vMousePressDownRightClick)
                     {
-                        await lb_FilePicker_RightClick();
+                        await Listbox_FilePicker_RightClick();
                     }
                 }
             }
@@ -413,7 +413,7 @@ namespace CtrlUI
             {
                 if (e.Key == Key.Space)
                 {
-                    await lb_FilePicker_LeftClick();
+                    await Listbox_FilePicker_LeftClick();
                 }
                 else if (e.Key == Key.Back)
                 {
@@ -444,7 +444,7 @@ namespace CtrlUI
         }
 
         //Handle file picker left click
-        async Task lb_FilePicker_LeftClick()
+        async Task Listbox_FilePicker_LeftClick()
         {
             try
             {
@@ -473,7 +473,7 @@ namespace CtrlUI
         }
 
         //Handle file picker right click
-        async Task lb_FilePicker_RightClick()
+        async Task Listbox_FilePicker_RightClick()
         {
             try
             {

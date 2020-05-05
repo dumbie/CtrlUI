@@ -40,13 +40,17 @@
             <Grid.Background>
                 <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
             </Grid.Background>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Margin="10,10,15,10" Orientation="Horizontal">
-                    <Image Name="grid_Message_Status_Image" Height="40" Margin="0,0,15,0"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Name="grid_Message_Status_Stackpanel" Margin="10,10,15,10" Orientation="Horizontal">
+                    <Image Name="grid_Message_Status_Image" Height="40" Margin="10,0,10,0"/>
                     <TextBlock Name="grid_Message_Status_Text" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Changed" Margin="0,0,15,0"/>
                 </StackPanel>
-                <Rectangle Fill="{DynamicResource ApplicationAccentLightBrush}" Width="4"/>
-            </StackPanel>
+                <Rectangle Grid.Column="1" Name="grid_Message_Status_Rectangle" Fill="{DynamicResource ApplicationAccentLightBrush}" Width="4"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

@@ -58,22 +58,22 @@ namespace CtrlUI
                 {
                     if (messageResult == AnswerPrimary)
                     {
-                        Popup_Show_Status("MonitorSwitch", "Switching primary monitor");
+                        await Notification_Send_Status("MonitorSwitch", "Switching primary monitor");
                         EnableMonitorFirst();
                     }
                     else if (messageResult == AnswerSecondary)
                     {
-                        Popup_Show_Status("MonitorSwitch", "Switching secondary monitor");
+                        await Notification_Send_Status("MonitorSwitch", "Switching secondary monitor");
                         EnableMonitorSecond();
                     }
                     else if (messageResult == AnswerDuplicate)
                     {
-                        Popup_Show_Status("MonitorSwitch", "Cloning display monitor");
+                        await Notification_Send_Status("MonitorSwitch", "Cloning display monitor");
                         EnableMonitorCloneMode();
                     }
                     else if (messageResult == AnswerExtend)
                     {
-                        Popup_Show_Status("MonitorSwitch", "Extending display monitor");
+                        await Notification_Send_Status("MonitorSwitch", "Extending display monitor");
                         EnableMonitorExtendMode();
                     }
                     else
@@ -81,10 +81,10 @@ namespace CtrlUI
                         DisplayMonitorSummary changeDevice = monitorsList.Where(x => x.Name.ToLower() == messageResult.Name.ToLower()).FirstOrDefault();
                         if (changeDevice != null)
                         {
-                            Popup_Show_Status("MonitorSwitch", "Switching display monitor");
+                            await Notification_Send_Status("MonitorSwitch", "Switching display monitor");
                             if (!SwitchPrimaryMonitor(changeDevice.Identifier))
                             {
-                                Popup_Show_Status("MonitorSwitch", "Failed switching monitor");
+                                await Notification_Send_Status("MonitorSwitch", "Failed switching monitor");
                             }
                         }
                     }
@@ -93,7 +93,7 @@ namespace CtrlUI
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to load the display monitors: " + ex.Message);
-                Popup_Show_Status("MonitorSwitch", "No display monitors");
+                await Notification_Send_Status("MonitorSwitch", "No display monitors");
             }
         }
     }

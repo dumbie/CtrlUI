@@ -86,7 +86,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerSortApps)
                     {
-                        SortAppLists(false, false);
+                        await SortAppLists(false, false);
                     }
                     else if (messageResult == AnswerLaunchExe)
                     {
@@ -102,7 +102,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerStartMenu)
                     {
-                        ShowWindowStartMenu();
+                        await ShowWindowStartMenu();
                     }
                     else if (messageResult == AnswerControlMedia)
                     {
@@ -156,13 +156,13 @@ namespace CtrlUI
                 }
                 else
                 {
-                    Popup_Show_Status("App", "Please set a quick launch app");
+                    await Notification_Send_Status("App", "Please set a quick launch app");
                     Debug.WriteLine("Please set a quick launch app");
                 }
             }
             catch
             {
-                Popup_Show_Status("App", "Please set a quick launch app");
+                await Notification_Send_Status("App", "Please set a quick launch app");
                 Debug.WriteLine("Please set a quick launch app");
             }
         }

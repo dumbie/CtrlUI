@@ -172,7 +172,7 @@ namespace CtrlUI
                     }
 
                     //Show changed message
-                    Popup_Show_Status("Play", "Quick launch changed");
+                    await Notification_Send_Status("Play", "Quick launch changed");
 
                     //Save changes to Json file
                     JsonSaveApplications();
@@ -296,7 +296,7 @@ namespace CtrlUI
                 if (messageResult != null)
                 {
                     //Show changed message
-                    Popup_Show_Status("Font", "Font style changed");
+                    await Notification_Send_Status("Font", "Font style changed");
 
                     //Update the setting
                     SettingSave("InterfaceFontStyleName", messageResult.Name);
@@ -332,7 +332,7 @@ namespace CtrlUI
                 if (messageResult != null)
                 {
                     //Show changed message
-                    Popup_Show_Status("Clock", "Clock style changed");
+                    await Notification_Send_Status("Clock", "Clock style changed");
 
                     //Update the setting
                     SettingSave("InterfaceClockStyleName", messageResult.Name);
@@ -368,7 +368,7 @@ namespace CtrlUI
                 if (messageResult != null)
                 {
                     //Show changed message
-                    Popup_Show_Status("VolumeUp", "Sound pack changed");
+                    await Notification_Send_Status("VolumeUp", "Sound pack changed");
 
                     //Update the setting
                     SettingSave("InterfaceSoundPackName", messageResult.Name);

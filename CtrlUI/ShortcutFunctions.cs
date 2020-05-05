@@ -141,7 +141,7 @@ namespace CtrlUI
                 //Show refresh status message
                 if (showStatus)
                 {
-                    Popup_Show_Status("Refresh", "Refreshing shortcuts");
+                    await Notification_Send_Status("Refresh", "Refreshing shortcuts");
                 }
 
                 //Get all files from the shortcut directories

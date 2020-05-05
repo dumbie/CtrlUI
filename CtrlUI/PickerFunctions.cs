@@ -471,7 +471,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("Close", "Picker failed");
+                await Notification_Send_Status("Close", "Picker failed");
                 Debug.WriteLine("Failed loading filepicker: " + ex.Message);
             }
         }

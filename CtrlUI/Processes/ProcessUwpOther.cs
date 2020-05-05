@@ -15,11 +15,11 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Update uwp application
-        void UwpListUpdateApplication(DataBindFile selectedItem)
+        async Task UwpListUpdateApplication(DataBindFile selectedItem)
         {
             try
             {
-                Popup_Show_Status("Refresh", "Updating " + selectedItem.Name);
+                await Notification_Send_Status("Refresh", "Updating " + selectedItem.Name);
 
                 //Update application from list
                 UwpUpdateApplicationByAppUserModelId(selectedItem.PathFile);
@@ -32,7 +32,7 @@ namespace CtrlUI
         {
             try
             {
-                Popup_Show_Status("RemoveCross", "Removing " + selectedItem.Name);
+                await Notification_Send_Status("RemoveCross", "Removing " + selectedItem.Name);
 
                 //Remove application from pc
                 bool uwpRemoved = UwpRemoveApplicationByPackageFullName(selectedItem.PathFull);

@@ -1,25 +1,27 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Windows;
-using static KeyboardController.AppVariables;
+using static ArnoldVinkCode.AVImage;
+using static DirectXInput.AppVariables;
 
-namespace KeyboardController
+namespace DirectXInput
 {
-    partial class WindowMain
+    public partial class WindowOverlay : Window
     {
-        //Show the status popup
-        void Popup_Show_Status(string Message)
+        //Show the notification overlay
+        public void Notification_Show_Status(string targetIcon, string targetText)
         {
             try
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    grid_Message_Status_Text.Text = Message;
+                    grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "Assets/Icons/" + targetIcon + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    grid_Message_Status_Text.Text = targetText;
                     grid_Message_Status.Visibility = Visibility.Visible;
                 });
 
                 vDispatcherTimerOverlay.Stop();
-                vDispatcherTimerOverlay.Interval = TimeSpan.FromSeconds(3);
+                vDispatcherTimerOverlay.Interval = TimeSpan.FromMilliseconds(4000);
                 vDispatcherTimerOverlay.Tick += delegate
                 {
                     grid_Message_Status.Visibility = Visibility.Collapsed;

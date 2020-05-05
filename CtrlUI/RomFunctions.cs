@@ -93,7 +93,7 @@ namespace CtrlUI
                 }
                 nameRomDownload = nameRomDownload.ToLower();
 
-                Popup_Show_Status("Download", "Downloading information");
+                await Notification_Send_Status("Download", "Downloading information");
                 Debug.WriteLine("Downloading information for: " + nameRom);
 
                 //Download available games
@@ -101,7 +101,7 @@ namespace CtrlUI
                 if (iGDBGames == null || !iGDBGames.Any())
                 {
                     Debug.WriteLine("No games found");
-                    Popup_Show_Status("Close", "No games found");
+                    await Notification_Send_Status("Close", "No games found");
                     return null;
                 }
 
@@ -187,7 +187,7 @@ namespace CtrlUI
                 //Create downloaded directory
                 AVFiles.Directory_Create("Assets/Roms/Downloaded", false);
 
-                Popup_Show_Status("Download", "Downloading image");
+                await Notification_Send_Status("Download", "Downloading image");
                 Debug.WriteLine("Downloading image for: " + nameRom);
 
                 //Get the image url
@@ -199,7 +199,7 @@ namespace CtrlUI
                     if (iGDBImages == null || !iGDBImages.Any())
                     {
                         Debug.WriteLine("No images found");
-                        Popup_Show_Status("Close", "No images found");
+                        await Notification_Send_Status("Close", "No images found");
                         return null;
                     }
 
@@ -232,7 +232,7 @@ namespace CtrlUI
                 }
                 catch { }
 
-                Popup_Show_Status("Download", "Downloaded information");
+                await Notification_Send_Status("Download", "Downloaded information");
                 Debug.WriteLine("Downloaded information for: " + nameRom);
 
                 //Return the rom information
@@ -244,7 +244,7 @@ namespace CtrlUI
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed downloading rom information: " + ex.Message);
-                Popup_Show_Status("Close", "Failed downloading");
+                await Notification_Send_Status("Close", "Failed downloading");
                 return null;
             }
         }
@@ -271,7 +271,7 @@ namespace CtrlUI
                 if (iGDBPlatforms == null || !iGDBPlatforms.Any())
                 {
                     Debug.WriteLine("No consoles found");
-                    Popup_Show_Status("Close", "No consoles found");
+                    await Notification_Send_Status("Close", "No consoles found");
                     return null;
                 }
 
@@ -299,7 +299,7 @@ namespace CtrlUI
                 //Create downloaded directory
                 AVFiles.Directory_Create("Assets/Roms/Downloaded", false);
 
-                Popup_Show_Status("Download", "Downloading information");
+                await Notification_Send_Status("Download", "Downloading information");
                 Debug.WriteLine("Downloading information for: " + nameConsole);
 
                 //Get the platform versions id
@@ -307,13 +307,13 @@ namespace CtrlUI
                 if (iGDBPlatformVersions == null || !iGDBPlatformVersions.Any())
                 {
                     Debug.WriteLine("No information found");
-                    Popup_Show_Status("Close", "No information found");
+                    await Notification_Send_Status("Close", "No information found");
                     return null;
                 }
 
                 ApiIGDBPlatformVersions targetPlatformVersions = iGDBPlatformVersions.FirstOrDefault();
 
-                Popup_Show_Status("Download", "Downloading image");
+                await Notification_Send_Status("Download", "Downloading image");
                 Debug.WriteLine("Downloading image for: " + nameConsole);
 
                 //Get the image url
@@ -325,7 +325,7 @@ namespace CtrlUI
                     if (iGDBImages == null || !iGDBImages.Any())
                     {
                         Debug.WriteLine("No images found");
-                        Popup_Show_Status("Close", "No images found");
+                        await Notification_Send_Status("Close", "No images found");
                         return null;
                     }
 
@@ -364,7 +364,7 @@ namespace CtrlUI
                 }
                 catch { }
 
-                Popup_Show_Status("Download", "Downloaded information");
+                await Notification_Send_Status("Download", "Downloaded information");
                 Debug.WriteLine("Downloaded information for: " + nameConsole);
 
                 //Return the rom information
@@ -376,7 +376,7 @@ namespace CtrlUI
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed downloading console information: " + ex.Message);
-                Popup_Show_Status("Close", "Failed downloading");
+                await Notification_Send_Status("Close", "Failed downloading");
                 return null;
             }
         }

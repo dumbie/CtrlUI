@@ -188,7 +188,7 @@ namespace CtrlUI
         }
 
         //Reset the application image
-        void Button_Manage_ResetAppLogo_Click(object sender, RoutedEventArgs e)
+        async void Button_Manage_ResetAppLogo_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -201,7 +201,7 @@ namespace CtrlUI
                     bool defaultImage = AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe);
                     if (defaultImage)
                     {
-                        Popup_Show_Status("Close", "Cannot reset image");
+                        await Notification_Send_Status("Close", "Cannot reset image");
                         Debug.WriteLine("Default application images cannot be reset.");
                         return;
                     }
@@ -215,7 +215,7 @@ namespace CtrlUI
                     img_AddAppLogo.Source = applicationImage;
                     vEditAppDataBind.ImageBitmap = applicationImage;
 
-                    Popup_Show_Status("Restart", "App image reset");
+                    await Notification_Send_Status("Restart", "App image reset");
                     Debug.WriteLine("App image reset: " + vEditAppDataBind.Name);
                 }
                 else
@@ -227,7 +227,7 @@ namespace CtrlUI
                     bool defaultImage = AssetsAppsFiles.Contains(imageFileTitle) || AssetsAppsFiles.Contains(imageFileExe);
                     if (defaultImage)
                     {
-                        Popup_Show_Status("Close", "Cannot reset image");
+                        await Notification_Send_Status("Close", "Cannot reset image");
                         Debug.WriteLine("Default application images cannot be reset.");
                         return;
                     }
@@ -367,7 +367,7 @@ namespace CtrlUI
 
                     PlayInterfaceSound("Confirm", false);
 
-                    Popup_Show_Status("Plus", "Added " + tb_AddAppName.Text);
+                    await Notification_Send_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding Win32 app: " + tb_AddAppName.Text + " to the list.");
                     DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = selectedAddCategory, Name = tb_AddAppName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked };
                     await AddAppToList(dataBindApp, true, true);
@@ -457,7 +457,7 @@ namespace CtrlUI
                     vEditAppDataBind.StatusAvailable = Visibility.Collapsed;
                     vEditAppDataBind.ImageBitmap = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
 
-                    Popup_Show_Status("Edit", "Edited " + vEditAppDataBind.Name);
+                    await Notification_Send_Status("Edit", "Edited " + vEditAppDataBind.Name);
                     Debug.WriteLine("Editing application: " + vEditAppDataBind.Name + " in the list.");
 
                     //Save changes to Json file
@@ -534,20 +534,20 @@ namespace CtrlUI
             }
         }
 
-        void Btn_Manage_MoveAppRight_Click(object sender, RoutedEventArgs e)
+        async void Btn_Manage_MoveAppRight_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                MoveApplicationList_Right();
+                await MoveApplicationList_Right();
             }
             catch { }
         }
 
-        void Btn_Manage_MoveAppLeft_Click(object sender, RoutedEventArgs e)
+        async void Btn_Manage_MoveAppLeft_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                MoveApplicationList_Left();
+                await MoveApplicationList_Left();
             }
             catch { }
         }

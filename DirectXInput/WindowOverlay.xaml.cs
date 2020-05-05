@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVFunctions;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
@@ -126,30 +125,6 @@ namespace DirectXInput
                         stackpanel_Battery_Warning.VerticalAlignment = VerticalAlignment.Top;
                     }
                 });
-            }
-            catch { }
-        }
-
-        //Show the status overlay
-        public void Overlay_Show_Status(string IconName, string Message)
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "Assets/Icons/" + IconName + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    grid_Message_Status_Text.Text = Message;
-                    grid_Message_Status.Visibility = Visibility.Visible;
-                });
-
-                vDispatcherTimerOverlay.Stop();
-                vDispatcherTimerOverlay.Interval = TimeSpan.FromSeconds(3);
-                vDispatcherTimerOverlay.Tick += delegate
-                {
-                    grid_Message_Status.Visibility = Visibility.Collapsed;
-                    vDispatcherTimerOverlay.Stop();
-                };
-                vDispatcherTimerOverlay.Start();
             }
             catch { }
         }

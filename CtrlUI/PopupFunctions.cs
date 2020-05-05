@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInterface;
@@ -296,30 +295,6 @@ namespace CtrlUI
             }
             catch { }
             return false;
-        }
-
-        //Show the status popup
-        public void Popup_Show_Status(string IconName, string Message)
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "Assets/Icons/" + IconName + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    grid_Message_Status_Text.Text = Message;
-                    grid_Message_Status.Visibility = Visibility.Visible;
-                });
-
-                vDispatcherTimerOverlay.Stop();
-                vDispatcherTimerOverlay.Interval = TimeSpan.FromSeconds(3);
-                vDispatcherTimerOverlay.Tick += delegate
-                {
-                    grid_Message_Status.Visibility = Visibility.Collapsed;
-                    vDispatcherTimerOverlay.Stop();
-                };
-                vDispatcherTimerOverlay.Start();
-            }
-            catch { }
         }
 
         //Save the previous focus element

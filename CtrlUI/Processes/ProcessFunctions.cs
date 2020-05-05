@@ -32,7 +32,7 @@ namespace CtrlUI
                     //Check if process is available
                     if (windowHandleTarget == null)
                     {
-                        if (!silentFocus) { Popup_Show_Status("Close", "App no longer running"); }
+                        if (!silentFocus) { await Notification_Send_Status("Close", "App no longer running"); }
                         Debug.WriteLine("Show application no longer seems to be running.");
                         vChangingWindow = false;
                         return;
@@ -41,21 +41,21 @@ namespace CtrlUI
                     //Check if process is available
                     if (windowHandleTarget == IntPtr.Zero)
                     {
-                        if (!silentFocus) { Popup_Show_Status("Close", "App can't be shown"); }
+                        if (!silentFocus) { await Notification_Send_Status("Close", "App can't be shown"); }
                         Debug.WriteLine("Application can't be shown, window handle is empty.");
                         vChangingWindow = false;
                         return;
                     }
 
                     //Update the interface status
-                    if (!silentFocus && processName != "CtrlUI") { Popup_Show_Status("MiniMaxi", "Showing " + processName); }
+                    if (!silentFocus) { await Notification_Send_Status("MiniMaxi", "Showing " + processName); }
                     Debug.WriteLine("Showing application window: " + processName);
 
                     //Focus on application window handle
                     bool windowFocused = await FocusProcessWindow(processName, processIdTarget, windowHandleTarget, windowStateCommand, setWindowState, setTempTopMost);
                     if (!windowFocused)
                     {
-                        Popup_Show_Status("Close", "Failed showing the app");
+                        await Notification_Send_Status("Close", "Failed showing the app");
                         Debug.WriteLine("Failed showing the application, no longer running?");
                         vChangingWindow = false;
                         return;
@@ -72,7 +72,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("Close", "Failed showing the app");
+                await Notification_Send_Status("Close", "Failed showing the app");
                 Debug.WriteLine("Failed showing the application, no longer running? " + ex.Message);
                 vChangingWindow = false;
             }
@@ -112,7 +112,7 @@ namespace CtrlUI
                     //Run process url protocol
                     if (dataBindApp.StatusLauncher == Visibility.Visible)
                     {
-                        LaunchProcessUrlProtocol(dataBindApp);
+                        await LaunchProcessUrlProtocol(dataBindApp);
                         return;
                     }
 
@@ -148,11 +148,11 @@ namespace CtrlUI
             }
         }
 
-        bool LaunchProcessUrlProtocol(DataBindApp dataBindApp)
+        async Task<bool> LaunchProcessUrlProtocol(DataBindApp dataBindApp)
         {
             try
             {
-                Popup_Show_Status("App", "Launching " + dataBindApp.Name);
+                await Notification_Send_Status("App", "Launching " + dataBindApp.Name);
                 Debug.WriteLine("Launching url protocol: " + dataBindApp.PathExe + " / " + dataBindApp.PathLaunch);
 
                 Process LaunchProcess = new Process();
@@ -369,7 +369,7 @@ namespace CtrlUI
 
                 if (SilentClose || (messageResult != null && messageResult == Answer1))
                 {
-                    Popup_Show_Status("Closing", "Closing other launchers");
+                    await Notification_Send_Status("Closing", "Closing other launchers");
 
                     //Close all known other launchers
                     foreach (ProfileShared closeLauncher in vCtrlCloseLaunchers)
@@ -400,7 +400,7 @@ namespace CtrlUI
                 DataBindString messageResult = await Popup_Show_MessageBox("Do you want to disconnect remote streams?", "", "This includes streams from GeForce Experience, Parsec and Steam In-Home Streaming.", Answers);
                 if (messageResult != null && messageResult == Answer1)
                 {
-                    Popup_Show_Status("Stream", "Disconnecting remote streams");
+                    await Notification_Send_Status("Stream", "Disconnecting remote streams");
 
                     //Disconnect Steam Streaming
                     CloseProcessesByNameOrTitle("steam", false);
@@ -425,7 +425,7 @@ namespace CtrlUI
             {
                 if (!CheckRunningProcessByNameOrTitle("DirectXInput", false))
                 {
-                    Popup_Show_Status("DirectXInput", "Launching DirectXInput");
+                    await Notification_Send_Status("DirectXInput", "Launching DirectXInput");
                     Debug.WriteLine("Launching DirectXInput");
 
                     await ProcessLauncherWin32Async("DirectXInput-Admin.exe", "", "", true, false);
@@ -442,14 +442,14 @@ namespace CtrlUI
                 if (CheckRunningProcessByNameOrTitle("FpsOverlayer", false))
                 {
                     //Close the fps overlayer
-                    Popup_Show_Status("Close", "Closing Fps Overlayer");
+                    await Notification_Send_Status("Close", "Closing Fps Overlayer");
                     Debug.WriteLine("Closing Fps Overlayer");
                     CloseProcessesByNameOrTitle("FpsOverlayer", false);
                 }
                 else
                 {
                     //Launch the fps overlayer
-                    Popup_Show_Status("Fps", "Showing Fps Overlayer");
+                    await Notification_Send_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");
                     await ProcessLauncherWin32Async("FpsOverlayer-Admin.exe", "", "", true, false);
                 }
@@ -465,7 +465,7 @@ namespace CtrlUI
                 if (!CheckRunningProcessByNameOrTitle("FpsOverlayer", false))
                 {
                     //Launch the fps overlayer
-                    Popup_Show_Status("Fps", "Showing Fps Overlayer");
+                    await Notification_Send_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");
                     await ProcessLauncherWin32Async("FpsOverlayer-Admin.exe", "", "", true, false);
                 }
@@ -481,14 +481,14 @@ namespace CtrlUI
                 if (CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
                     //Close the keyboard controller
-                    Popup_Show_Status("Close", "Closing Keyboard");
+                    await Notification_Send_Status("Close", "Closing Keyboard");
                     Debug.WriteLine("Closing on screen keyboard");
                     CloseProcessesByNameOrTitle("KeyboardController", false);
                 }
                 else
                 {
                     //Launch the keyboard controller
-                    Popup_Show_Status("Keyboard", "Showing Keyboard");
+                    await Notification_Send_Status("Keyboard", "Showing Keyboard");
                     Debug.WriteLine("Showing on screen keyboard");
                     await ProcessLauncherWin32Async("KeyboardController-Admin.exe", "", "", true, false);
                 }
@@ -504,7 +504,7 @@ namespace CtrlUI
                 if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
                     //Launch the keyboard controller
-                    if (!silentLaunch) { Popup_Show_Status("Keyboard", "Showing Keyboard"); }
+                    if (!silentLaunch) { await Notification_Send_Status("Keyboard", "Showing Keyboard"); }
                     Debug.WriteLine("Showing on screen keyboard");
                     await ProcessLauncherWin32Async("KeyboardController-Admin.exe", "", "", true, false);
                 }

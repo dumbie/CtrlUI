@@ -66,6 +66,9 @@ namespace KeyboardController
                 //Start application tasks
                 TasksBackgroundStart();
 
+                //Launch DirectXInput application
+                await LaunchDirectXInput();
+
                 //Enable the socket server
                 EnableSocketServer();
             }
@@ -570,7 +573,7 @@ namespace KeyboardController
                 if (vKeysEnabled)
                 {
                     vKeysEnabled = false;
-                    Popup_Show_Status("Keyboard blocked from usage.");
+                    await Notification_Send_Status("Keyboard", "Keyboard blocked");
 
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {
@@ -604,7 +607,7 @@ namespace KeyboardController
                 if (!vKeysEnabled)
                 {
                     vKeysEnabled = true;
-                    Popup_Show_Status("Keyboard enabled for usage.");
+                    await Notification_Send_Status("Keyboard", "Keyboard enabled");
 
                     await AVActions.ActionDispatcherInvokeAsync(async delegate
                     {

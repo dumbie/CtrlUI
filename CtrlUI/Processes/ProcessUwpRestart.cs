@@ -14,12 +14,12 @@ namespace CtrlUI
             {
                 if (string.IsNullOrWhiteSpace(dataBindApp.PathExe))
                 {
-                    Popup_Show_Status("Close", "Failed restarting " + dataBindApp.Name);
+                    await Notification_Send_Status("Close", "Failed restarting " + dataBindApp.Name);
                     Debug.WriteLine("Failed to restart process: " + dataBindApp.Name);
                     return false;
                 }
 
-                Popup_Show_Status("Switch", "Restarting " + dataBindApp.Name);
+                await Notification_Send_Status("Switch", "Restarting " + dataBindApp.Name);
                 Debug.WriteLine("Restarting UWP application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandle);
 
                 //Set the launch argument
@@ -34,7 +34,7 @@ namespace CtrlUI
                 Process restartProcess = await RestartProcessUwp(dataBindApp.Name, dataBindApp.PathExe, processMulti.Identifier, processMulti.WindowHandle, launchArgument);
                 if (restartProcess == null)
                 {
-                    Popup_Show_Status("Close", "Failed restarting " + dataBindApp.Name);
+                    await Notification_Send_Status("Close", "Failed restarting " + dataBindApp.Name);
                     Debug.WriteLine("Failed to restart process: " + dataBindApp.Name);
                     return false;
                 }

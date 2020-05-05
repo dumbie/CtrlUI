@@ -290,14 +290,6 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-
-            <!-- Status Bar -->
-            <Grid Name="grid_Message_Status" Height="38" VerticalAlignment="Top" Visibility="Collapsed">
-                <Grid.Background>
-                    <SolidColorBrush Color="#1D1D1D" Opacity="0.80"/>
-                </Grid.Background>
-                <TextBlock Name="grid_Message_Status_Text" Style="{StaticResource TextBlockWhite}" Text="Status" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            </Grid>
         </Grid>
     </Grid>
 </Window>

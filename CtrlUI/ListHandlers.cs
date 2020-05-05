@@ -59,7 +59,7 @@ namespace CtrlUI
             }
             catch
             {
-                Popup_Show_Status("Close", "Failed to launch or show app");
+                await Notification_Send_Status("Close", "Failed to launch or show app");
                 Debug.WriteLine("Failed launching or showing the application.");
             }
         }
@@ -148,7 +148,7 @@ namespace CtrlUI
         {
             try
             {
-                Popup_Show_Status("Hide", "Hiding shortcut " + dataBindApp.Name);
+                await Notification_Send_Status("Hide", "Hiding shortcut " + dataBindApp.Name);
                 Debug.WriteLine("Hiding shortcut by name: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
 
                 //Create new profile shared
@@ -167,7 +167,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("Hide", "Failed hiding");
+                await Notification_Send_Status("Hide", "Failed hiding");
                 Debug.WriteLine("Failed hiding shortcut: " + ex.Message);
             }
         }
@@ -177,7 +177,7 @@ namespace CtrlUI
         {
             try
             {
-                Popup_Show_Status("Minus", "Removing shortcut " + dataBindApp.Name);
+                await Notification_Send_Status("Minus", "Removing shortcut " + dataBindApp.Name);
                 Debug.WriteLine("Removing shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
 
                 //Move the shortcut file to recycle bin
@@ -191,7 +191,7 @@ namespace CtrlUI
                 if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                 {
                     //Show the removal status notification
-                    Popup_Show_Status("Minus", "Re/moved shortcut " + dataBindApp.Name);
+                    await Notification_Send_Status("Minus", "Re/moved shortcut " + dataBindApp.Name);
                     Debug.WriteLine("Removed shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
 
                     //Remove application from the list
@@ -199,12 +199,12 @@ namespace CtrlUI
                 }
                 else if (shFileOpstruct.fAnyOperationsAborted)
                 {
-                    Popup_Show_Status("Minus", "Remove shortcut aborted");
+                    await Notification_Send_Status("Minus", "Remove shortcut aborted");
                     Debug.WriteLine("Remove shortcut aborted: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
                 }
                 else
                 {
-                    Popup_Show_Status("Minus", "Remove shortcut failed");
+                    await Notification_Send_Status("Minus", "Remove shortcut failed");
                     Debug.WriteLine("Remove shortcut failed: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
                 }
 
@@ -213,7 +213,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("Minus", "Failed removing");
+                await Notification_Send_Status("Minus", "Failed removing");
                 Debug.WriteLine("Failed removing shortcut: " + ex.Message);
             }
         }
@@ -223,7 +223,7 @@ namespace CtrlUI
         {
             try
             {
-                Popup_Show_Status("Rename", "Renaming shortcut");
+                await Notification_Send_Status("Rename", "Renaming shortcut");
                 Debug.WriteLine("Renaming shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
 
                 //Show the text input popup
@@ -232,7 +232,7 @@ namespace CtrlUI
                 //Check if file name changed
                 if (textInputString == dataBindApp.Name)
                 {
-                    Popup_Show_Status("Rename", "File name not changed");
+                    await Notification_Send_Status("Rename", "File name not changed");
                     Debug.WriteLine("The file name did not change.");
                     return;
                 }
@@ -250,19 +250,19 @@ namespace CtrlUI
                         dataBindApp.Name = textInputString;
                         dataBindApp.ShortcutPath = newFilePath;
 
-                        Popup_Show_Status("Rename", "Renamed shortcut");
+                        await Notification_Send_Status("Rename", "Renamed shortcut");
                         Debug.WriteLine("Renamed shortcut file to: " + textInputString);
                     }
                     else
                     {
-                        Popup_Show_Status("Rename", "Failed renaming");
+                        await Notification_Send_Status("Rename", "Failed renaming");
                         Debug.WriteLine("Failed renaming shortcut.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("Rename", "Failed renaming");
+                await Notification_Send_Status("Rename", "Failed renaming");
                 Debug.WriteLine("Failed renaming shortcut: " + ex.Message);
             }
         }

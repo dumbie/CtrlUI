@@ -26,7 +26,7 @@ namespace CtrlUI
                     {
                         if (silentCheck)
                         {
-                            Popup_Show_Status("Refresh", "Update available");
+                            await Notification_Send_Status("Refresh", "Update available");
                         }
                         else
                         {

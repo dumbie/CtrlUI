@@ -95,8 +95,9 @@
     <Compile Include="AppVariables.cs" />
     <Compile Include="ControllerHandlers.cs" />
     <Compile Include="KeyboardFunctions.cs" />
-    <Compile Include="PopupFunctions.cs" />
+    <Compile Include="NotificationFunctions.cs" />
     <Compile Include="KeyboardHandler.cs" />
+    <Compile Include="ProcessFunctions.cs" />
     <Compile Include="Resources\Settings\SettingsCheck.cs" />
     <Compile Include="Resources\Settings\SettingsLoad.cs" />
     <Compile Include="Resources\Settings\SettingsSave.cs" />

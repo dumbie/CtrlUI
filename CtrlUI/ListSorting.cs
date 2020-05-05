@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -32,12 +33,12 @@ namespace CtrlUI
             return NewNumber;
         }
 
-        void MoveApplicationList_Left()
+        async Task MoveApplicationList_Left()
         {
             try
             {
                 //Sort the lists by number
-                SortAppLists(true, true);
+                await SortAppLists(true, true);
 
                 //Get the target application
                 IEnumerable<DataBindApp> combinedApps = CombineAppLists(false, false).Where(x => x.Category == vEditAppDataBind.Category);
@@ -51,8 +52,8 @@ namespace CtrlUI
                 TargetAppDataBind.Number = selectedNumber;
 
                 //Sort the lists by number
-                SortAppLists(true, true);
-                Popup_Show_Status("Sorting", "Moving app left");
+                await SortAppLists(true, true);
+                await Notification_Send_Status("Sorting", "Moving app left");
 
                 //Save json applist
                 JsonSaveApplications();
@@ -60,12 +61,12 @@ namespace CtrlUI
             catch { }
         }
 
-        void MoveApplicationList_Right()
+        async Task MoveApplicationList_Right()
         {
             try
             {
                 //Sort the lists by number
-                SortAppLists(true, true);
+                await SortAppLists(true, true);
 
                 //Get the target application
                 IEnumerable<DataBindApp> combinedApps = CombineAppLists(false, false).Where(x => x.Category == vEditAppDataBind.Category);
@@ -79,8 +80,8 @@ namespace CtrlUI
                 TargetAppDataBind.Number = selectedNumber;
 
                 //Sort the lists by number
-                SortAppLists(true, true);
-                Popup_Show_Status("Sorting", "Moving app right");
+                await SortAppLists(true, true);
+                await Notification_Send_Status("Sorting", "Moving app right");
 
                 //Save json applist
                 JsonSaveApplications();
@@ -136,13 +137,13 @@ namespace CtrlUI
         }
 
         //Sort the application lists
-        void SortAppLists(bool ForceNumber, bool Silent)
+        async Task SortAppLists(bool ForceNumber, bool Silent)
         {
             try
             {
                 if (ForceNumber || vSortType == "Name")
                 {
-                    if (!Silent) { Popup_Show_Status("Sorting", "Sorting by number or date"); }
+                    if (!Silent) { await Notification_Send_Status("Sorting", "Sorting by number or date"); }
                     vSortType = "Number";
 
                     SortObservableCollection(lb_Games, List_Games, x => x.Number, null, true);
@@ -158,7 +159,7 @@ namespace CtrlUI
                 }
                 else if (vSortType == "Number")
                 {
-                    if (!Silent) { Popup_Show_Status("Sorting", "Sorting by name"); }
+                    if (!Silent) { await Notification_Send_Status("Sorting", "Sorting by name"); }
                     vSortType = "Name";
 
                     SortObservableCollection(lb_Games, List_Games, x => x.Name, null, true);

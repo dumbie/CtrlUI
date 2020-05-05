@@ -109,7 +109,7 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                Popup_Show_Status("Close", "Failed showing or closing application");
+                await Notification_Send_Status("Close", "Failed showing or closing application");
                 Debug.WriteLine("Failed closing or showing the application: " + ex.Message);
             }
         }

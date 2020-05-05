@@ -28,7 +28,7 @@ namespace CtrlUI
                 //Check if the application exists
                 if (UwpGetAppPackageByAppUserModelId(pathExe) == null)
                 {
-                    Popup_Show_Status("Close", "Application not found");
+                    await Notification_Send_Status("Close", "Application not found");
                     Debug.WriteLine("Launch application not found, possibly uninstalled.");
                     return false;
                 }
@@ -36,7 +36,7 @@ namespace CtrlUI
                 //Show launching message
                 if (!silent)
                 {
-                    Popup_Show_Status("App", "Launching " + appTitle);
+                    await Notification_Send_Status("App", "Launching " + appTitle);
                     //Debug.WriteLine("Launching UWP or Win32Store: " + appTitle + "/" + pathExe);
                 }
 

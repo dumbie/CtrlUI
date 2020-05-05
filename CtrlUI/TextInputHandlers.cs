@@ -18,7 +18,7 @@ namespace CtrlUI
         }
 
         //Check text input key presses
-        void Grid_Popup_TextInput_textbox_PreviewKeyUp(object sender, KeyEventArgs e)
+        async void Grid_Popup_TextInput_textbox_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace CtrlUI
                     //Set the text input result
                     if (grid_Popup_TextInput_textbox.Text == "Enter text...")
                     {
-                        Popup_Show_Status("Rename", "Invalid text");
+                        await Notification_Send_Status("Rename", "Invalid text");
                         vTextInputResult = string.Empty;
                     }
                     else
@@ -40,14 +40,14 @@ namespace CtrlUI
         }
 
         //Close the popup and store text
-        void Button_TextInputConfirmText_Click(object sender, RoutedEventArgs e)
+        async void Button_TextInputConfirmText_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 //Set the text input result
                 if (grid_Popup_TextInput_textbox.Text == "Enter text...")
                 {
-                    Popup_Show_Status("Rename", "Invalid text");
+                    await Notification_Send_Status("Rename", "Invalid text");
                     vTextInputResult = string.Empty;
                 }
                 else

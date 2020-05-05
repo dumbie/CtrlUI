@@ -35,7 +35,7 @@ namespace CtrlUI
                 if (processesList.Any())
                 {
                     //Show refresh status message
-                    if (showStatus) { Popup_Show_Status("Refresh", "Refreshing desktop apps"); }
+                    if (showStatus) { await Notification_Send_Status("Refresh", "Refreshing desktop apps"); }
                     //Debug.WriteLine("Checking desktop processes.");
 
                     //Add new running process if needed
