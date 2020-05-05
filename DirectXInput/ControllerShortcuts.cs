@@ -100,12 +100,7 @@ namespace DirectXInput
                     //Show CtrlUI application
                     if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessKeyboardController == null && vProcessCtrlUI != null)
                     {
-                        if (!vProcessCtrlUIActivated)
-                        {
-                            Debug.WriteLine("Guide short press showing CtrlUI.");
-                            App.vWindowOverlay.Notification_Show_Status("MiniMaxi", "Showing CtrlUI");
-                        }
-
+                        Debug.WriteLine("Guide short press showing CtrlUI.");
                         await ShowCtrlUI();
 
                         ControllerUsed = true;
@@ -123,8 +118,6 @@ namespace DirectXInput
                     else if ((Controller.InputCurrent.ButtonGuide.PressedShort || Controller.InputCurrent.ButtonGuide.PressedLong) && vProcessKeyboardController != null)
                     {
                         Debug.WriteLine("Guide press closing keyboard controller.");
-                        App.vWindowOverlay.Notification_Show_Status("Keyboard", "Closing Keyboard");
-
                         await CloseKeyboardController();
 
                         ControllerUsed = true;

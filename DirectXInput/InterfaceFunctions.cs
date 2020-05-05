@@ -259,6 +259,7 @@ namespace DirectXInput
             {
                 vProcessCtrlUI = GetProcessByNameOrTitle("CtrlUI", false);
                 vProcessKeyboardController = GetProcessByNameOrTitle("KeyboardController", false);
+                vProcessFpsOverlayer = GetProcessByNameOrTitle("FpsOverlayer", false);
                 int FocusedAppId = GetFocusedProcess().Identifier;
 
                 //Check if CtrlUI is currently activated

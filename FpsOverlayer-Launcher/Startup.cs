@@ -28,7 +28,11 @@ namespace AdminLauncher
                 }
 
                 //Run the certified application
-                await ProcessLauncherWin32Async("FpsOverlayer.exe", "", "", false, false);
+                Process launchProcess = await ProcessLauncherWin32Async("FpsOverlayer.exe", "", "", false, false);
+                if (launchProcess == null)
+                {
+                    MessageBox.Show("Failed launching the application.", "Fps Overlayer Launcher");
+                }
 
                 //Disable launch requirements
                 if (!secureUIAEnabled)

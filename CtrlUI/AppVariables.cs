@@ -9,7 +9,6 @@ using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Threading;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
@@ -39,9 +38,6 @@ namespace CtrlUI
         public static string[] vImageSourceFolders = new string[] { "Assets/Apps", "Assets/Roms" };
         public static string vImageBackupSource = "Assets/Apps/Unknown.png";
 
-        //Dispatcher Timers
-        public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
-
         //Update Variables
         public static bool vCheckingForUpdate = false;
 
@@ -52,7 +48,6 @@ namespace CtrlUI
         //Process Variables
         public static Process vProcessCurrent = Process.GetCurrentProcess();
         public static Process vProcessDirectXInput = null;
-        public static Process vProcessFpsOverlayer = null;
         public static Process vProcessKeyboardController = null;
 
         //App Status Variables

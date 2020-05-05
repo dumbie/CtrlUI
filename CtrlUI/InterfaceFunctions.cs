@@ -281,7 +281,6 @@ namespace CtrlUI
             try
             {
                 vProcessDirectXInput = GetProcessByNameOrTitle("DirectXInput", false);
-                vProcessFpsOverlayer = GetProcessByNameOrTitle("FpsOverlayer", false);
                 vProcessKeyboardController = GetProcessByNameOrTitle("KeyboardController", false);
                 int focusedAppId = GetFocusedProcess().Identifier;
 

@@ -16,7 +16,7 @@
 
     <Grid>
         <!-- Status - Battery Status -->
-        <StackPanel Name="stackpanel_Battery_Warning" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+        <StackPanel Name="stackpanel_Battery_Warning" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,1,0,1">
             <StackPanel Name="stackpanel_Battery_Warning_Controller1" Margin="0,0,8,0" Visibility="Collapsed">
                 <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Icons/Battery/BatteryVerController1.png" HorizontalAlignment="Center"/>
                 <TextBlock Name="textblock_Battery_Warning_Controller1" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -36,7 +36,7 @@
         </StackPanel>
 
         <!-- Status - Message Status -->
-        <Grid Name="grid_Message_Status" IsHitTestVisible="False" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,55,0,0" Visibility="Collapsed">
+        <Grid Name="grid_Message_Status" IsHitTestVisible="False" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,50,0,0" Visibility="Collapsed">
             <Grid.Background>
                 <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
             </Grid.Background>
@@ -45,9 +45,9 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Name="grid_Message_Status_Stackpanel" Margin="10,10,15,10" Orientation="Horizontal">
-                    <Image Name="grid_Message_Status_Image" Height="40" Margin="10,0,10,0"/>
-                    <TextBlock Name="grid_Message_Status_Text" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Changed" Margin="0,0,15,0"/>
+                <StackPanel Grid.Column="0" Name="grid_Message_Status_Stackpanel" Margin="15,10,15,10" Orientation="Horizontal">
+                    <Image Name="grid_Message_Status_Image" Source="Assets/Icons/Help.png" Height="40"/>
+                    <TextBlock Name="grid_Message_Status_Text" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Notification" Margin="15,0,15,0"/>
                 </StackPanel>
                 <Rectangle Grid.Column="1" Name="grid_Message_Status_Rectangle" Fill="{DynamicResource ApplicationAccentLightBrush}" Width="4"/>
             </Grid>

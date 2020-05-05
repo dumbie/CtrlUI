@@ -151,19 +151,20 @@ namespace FpsOverlayer
         }
 
         //Move the fps overlayer to the next position
-        public void ChangeWindowPosition()
+        public async Task ChangeWindowPosition()
         {
             try
             {
-                int NextPosition = Convert.ToInt32(ConfigurationManager.AppSettings["TextPosition"]) + 1;
-                if (NextPosition > 7)
+                int nextPosition = Convert.ToInt32(ConfigurationManager.AppSettings["TextPosition"]) + 1;
+                if (nextPosition > 7)
                 {
-                    NextPosition = 0;
+                    nextPosition = 0;
                 }
 
-                Debug.WriteLine("Changing text postion to: " + NextPosition);
-                App.vWindowSettings.SettingSave("TextPosition", NextPosition.ToString());
+                Debug.WriteLine("Changing text postion to: " + nextPosition);
+                App.vWindowSettings.SettingSave("TextPosition", nextPosition.ToString());
                 UpdateFpsOverlayStyle();
+                await App.vWindowSettings.NotifyDirectXInputSettingChanged("TextPosition");
             }
             catch { }
         }

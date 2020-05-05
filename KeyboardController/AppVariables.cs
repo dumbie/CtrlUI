@@ -2,7 +2,6 @@
 using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Windows.Threading;
 
 namespace KeyboardController
 {
@@ -18,9 +17,6 @@ namespace KeyboardController
 
         //Process Variables
         public static Process vProcessCurrent = Process.GetCurrentProcess();
-
-        //Dispatcher Timers
-        public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
 
         //Keyboard Variables
         public static bool vCapsEnabled = false;

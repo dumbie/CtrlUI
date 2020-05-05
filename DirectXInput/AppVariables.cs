@@ -38,6 +38,7 @@ namespace DirectXInput
         public static Process vProcessCtrlUI = null;
         public static bool vProcessCtrlUIActivated = false;
         public static Process vProcessKeyboardController = null;
+        public static Process vProcessFpsOverlayer = null;
 
         //App Status Variables
         public static bool vAppMaximized = false;

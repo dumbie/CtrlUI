@@ -15,6 +15,7 @@ namespace DirectXInput
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    UpdateNotificationPosition();
                     grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "Assets/Icons/" + targetIcon + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     grid_Message_Status_Text.Text = targetText;
                     grid_Message_Status.Visibility = Visibility.Visible;

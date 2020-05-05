@@ -61,6 +61,12 @@ namespace DirectXInput
                         Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
                         App.vWindowOverlay.UpdateWindowPosition();
                     }
+                    else if (receivedString == "SettingChangedTextPosition")
+                    {
+                        Settings_Load_FpsOverlayer(ref vConfigurationFpsOverlayer);
+                        App.vWindowOverlay.UpdateNotificationPosition();
+                        App.vWindowOverlay.UpdateBatteryPosition();
+                    }
                     else if (receivedString == "ControllerStatusSummaryList")
                     {
                         await SendControllerStatusDetailsList(deserializedBytes);

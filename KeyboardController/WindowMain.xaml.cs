@@ -645,6 +645,8 @@ namespace KeyboardController
             try
             {
                 Debug.WriteLine("Exiting application.");
+                await Notification_Send_Status("Keyboard", "Closing Keyboard");
+
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     this.IsEnabled = false;

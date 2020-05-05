@@ -48,7 +48,13 @@ namespace CtrlUI
                     }
 
                     //Update the interface status
-                    if (!silentFocus) { await Notification_Send_Status("MiniMaxi", "Showing " + processName); }
+                    if (!silentFocus)
+                    {
+                        if (!(processName.ToLower() == "ctrlui" && vAppActivated))
+                        {
+                            await Notification_Send_Status("MiniMaxi", "Showing " + processName);
+                        }
+                    }
                     Debug.WriteLine("Showing application window: " + processName);
 
                     //Focus on application window handle

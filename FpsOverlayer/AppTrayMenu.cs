@@ -85,7 +85,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        void Mouse_Single_Click(MouseEventArgs args)
+        async void Mouse_Single_Click(MouseEventArgs args)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace FpsOverlayer
                 }
                 else if (args.Button == MouseButtons.Middle)
                 {
-                    ChangeWindowPosition();
+                    await ChangeWindowPosition();
                 }
             }
             catch { }

@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVFunctions;
@@ -34,8 +35,11 @@ namespace DirectXInput
                 //Update the window and text position
                 UpdateWindowPosition();
 
-                //Update the battery icon and text position
+                //Update the battery status position
                 UpdateBatteryPosition();
+
+                //Update the notification position
+                UpdateNotificationPosition();
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged);
@@ -101,22 +105,48 @@ namespace DirectXInput
             catch { }
         }
 
-        //Update the battery icon and text position
-        public void UpdateBatteryPosition()
+        //Update the notification position
+        public void UpdateNotificationPosition()
         {
             try
             {
-                //Load current fps overlay settings
-                Settings_Load_FpsOverlayer(ref vConfigurationFpsOverlayer);
-
                 //Check current fps overlay position
                 int fpsTextPosition = Convert.ToInt32(vConfigurationFpsOverlayer.AppSettings.Settings["TextPosition"].Value);
                 //Debug.WriteLine("Fps overlayer text position: " + fpsTextPosition);
 
-                //Move the battery icon and text
+                //Move the notification position
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    if (fpsTextPosition == 0 || fpsTextPosition == 1 || fpsTextPosition == 2 || fpsTextPosition == 3 || fpsTextPosition == 7)
+                    if (vProcessFpsOverlayer == null || (vProcessFpsOverlayer != null && fpsTextPosition != 0))
+                    {
+                        grid_Message_Status.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                        grid_Message_Status_Stackpanel.SetValue(Grid.ColumnProperty, 0);
+                        grid_Message_Status_Rectangle.SetValue(Grid.ColumnProperty, 1);
+                    }
+                    else
+                    {
+                        grid_Message_Status.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+                        grid_Message_Status_Stackpanel.SetValue(Grid.ColumnProperty, 1);
+                        grid_Message_Status_Rectangle.SetValue(Grid.ColumnProperty, 0);
+                    }
+                });
+            }
+            catch { }
+        }
+
+        //Update the battery status position
+        public void UpdateBatteryPosition()
+        {
+            try
+            {
+                //Check current fps overlay position
+                int fpsTextPosition = Convert.ToInt32(vConfigurationFpsOverlayer.AppSettings.Settings["TextPosition"].Value);
+                //Debug.WriteLine("Fps overlayer text position: " + fpsTextPosition);
+
+                //Move the battery status position
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    if (vProcessFpsOverlayer == null || (vProcessFpsOverlayer != null && fpsTextPosition != 6))
                     {
                         stackpanel_Battery_Warning.VerticalAlignment = VerticalAlignment.Bottom;
                     }

@@ -52,10 +52,11 @@ namespace FpsOverlayer
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
-                combobox_TextPosition.SelectionChanged += (sender, e) =>
+                combobox_TextPosition.SelectionChanged += async (sender, e) =>
                 {
                     SettingSave("TextPosition", combobox_TextPosition.SelectedIndex.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
+                    await NotifyDirectXInputSettingChanged("TextPosition");
                 };
 
                 combobox_TextDirection.SelectionChanged += (sender, e) =>
