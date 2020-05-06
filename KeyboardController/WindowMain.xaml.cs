@@ -649,6 +649,7 @@ namespace KeyboardController
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    this.Opacity = 0.80;
                     this.IsEnabled = false;
                 });
 

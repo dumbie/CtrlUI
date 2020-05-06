@@ -39,7 +39,7 @@ namespace CtrlUI
                     Debug.WriteLine("Processes are currently refreshing, waiting.");
                     while (vBusyRefreshingProcesses)
                     {
-                        await Task.Delay(100);
+                        await Task.Delay(10);
                     }
                 }
             }

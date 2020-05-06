@@ -32,7 +32,7 @@ namespace CtrlUI
                     }
                     catch { }
                 }
-                await AVActions.TaskStartAsync(TaskAction, null);
+                await AVActions.TaskStartReturn(TaskAction, null);
             }
             catch { }
         }
