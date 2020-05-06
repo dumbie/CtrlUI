@@ -38,6 +38,11 @@ namespace CtrlUI
                     if (showStatus) { await Notification_Send_Status("Refresh", "Refreshing desktop apps"); }
                     //Debug.WriteLine("Checking desktop processes.");
 
+                    //Get all assets apps images
+                    string[] imageFilter = new string[] { "jpg", "png" };
+                    DirectoryInfo directoryInfoApps = new DirectoryInfo("Assets/Apps");
+                    FileInfo[] directoryImagesApps = directoryInfoApps.GetFiles("*", SearchOption.AllDirectories).Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+
                     //Add new running process if needed
                     foreach (Process processApp in processesList)
                     {
@@ -56,10 +61,10 @@ namespace CtrlUI
                             Visibility processStatusStore = Visibility.Collapsed;
 
                             //Get the process title
-                            string processName = GetWindowTitleFromProcess(processApp);
+                            string processTitle = GetWindowTitleFromProcess(processApp);
 
                             //Check if application title is blacklisted
-                            if (vCtrlIgnoreProcessName.Any(x => x.String1.ToLower() == processName.ToLower()))
+                            if (vCtrlIgnoreProcessName.Any(x => x.String1.ToLower() == processTitle.ToLower()))
                             {
                                 continue;
                             }
@@ -76,7 +81,7 @@ namespace CtrlUI
                             //Get the executable path
                             string processPathExe = GetExecutablePathFromProcess(processApp);
                             string processPathExeLower = processPathExe.ToLower();
-                            string processPathImage = processPathExe;
+                            string processPathExeImage = processPathExe;
                             string processNameExe = Path.GetFileName(processPathExe);
                             string processNameExeLower = processNameExe.ToLower();
                             string processNameExeNoExt = Path.GetFileNameWithoutExtension(processPathExe);
@@ -94,7 +99,7 @@ namespace CtrlUI
                             //Check explorer process
                             if (processNameExeLower == "explorer.exe")
                             {
-                                processName = "File Explorer";
+                                processTitle = "File Explorer";
                             }
 
                             //Add active process to the list
@@ -186,7 +191,7 @@ namespace CtrlUI
                             foreach (DataBindApp existingProcessApp in existingProcessApps)
                             {
                                 //Update the process title
-                                if (existingProcessApp.Name != processName) { existingProcessApp.Name = processName; }
+                                if (existingProcessApp.Name != processTitle) { existingProcessApp.Name = processTitle; }
 
                                 //Update the process running time
                                 existingProcessApp.RunningTime = processRunningTime;
@@ -227,15 +232,33 @@ namespace CtrlUI
                                 storeImageWide = appxDetails.WideLargestLogoPath;
                             }
 
+                            //Check apps images for process name
+                            string foundAppImage = string.Empty;
+                            string processNameFiltered = FileFilterName(processTitle, false, true, 0);
+                            foreach (FileInfo foundImage in directoryImagesApps)
+                            {
+                                try
+                                {
+                                    string imageNameFiltered = FileFilterName(foundImage.Name, true, true, 0);
+                                    //Debug.WriteLine(imageNameFiltered + " / " + processNameFiltered);
+                                    if (processNameFiltered.Contains(imageNameFiltered))
+                                    {
+                                        foundAppImage = foundImage.FullName;
+                                        break;
+                                    }
+                                }
+                                catch { }
+                            }
+
                             //Load the application image
-                            BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExeNoExt, storeImageSquare, storeImageWide, processPathImage, processPathExe }, vImageSourceFolders, vImageBackupSource, processWindowHandle, 90, 0);
+                            BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processTitle, processNameExeNoExt, foundAppImage, storeImageSquare, storeImageWide, processPathExeImage, processPathExe }, vImageSourceFolders, vImageBackupSource, processWindowHandle, 90, 0);
 
                             //Create new ProcessMulti list
                             List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();
                             listProcessMulti.Add(processMultiNew);
 
                             //Add the process to the list
-                            DataBindApp dataBindApp = new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processName, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime };
+                            DataBindApp dataBindApp = new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processTitle, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime };
                             await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
                         }
                         catch (Exception ex)

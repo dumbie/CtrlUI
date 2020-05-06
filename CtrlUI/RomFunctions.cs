@@ -22,58 +22,61 @@ namespace CtrlUI
         //Api variables
         public static string vApiIGDBUserKey = "b25eb31b7612c7158867a3cd7849dbee"; //Yes, I know I didn't remove the api key.
 
-        //Filter the rom name
-        public string RomFilterName(string nameRom, bool removeExtension, bool removeSpaces, int takeWords)
+        //Filter the file name
+        public string FileFilterName(string nameFile, bool removeExtension, bool removeSpaces, int takeWords)
         {
             try
             {
                 //Remove file extension
                 if (removeExtension)
                 {
-                    nameRom = Path.GetFileNameWithoutExtension(nameRom);
+                    nameFile = Path.GetFileNameWithoutExtension(nameFile);
                 }
 
+                //Remove invalid characters
+                nameFile = string.Join(string.Empty, nameFile.Split(Path.GetInvalidFileNameChars()));
+
                 //Lowercase the rom name
-                nameRom = nameRom.ToLower();
+                nameFile = nameFile.ToLower();
 
                 //Remove symbols with text
-                nameRom = Regex.Replace(nameRom, @"\((.*?)\)", string.Empty);
-                nameRom = Regex.Replace(nameRom, @"\{(.*?)\}", string.Empty);
-                nameRom = Regex.Replace(nameRom, @"\[(.*?)\]", string.Empty);
+                nameFile = Regex.Replace(nameFile, @"\((.*?)\)+", string.Empty);
+                nameFile = Regex.Replace(nameFile, @"\{(.*?)\}+", string.Empty);
+                nameFile = Regex.Replace(nameFile, @"\[(.*?)\]+", string.Empty);
 
                 //Replace characters
-                nameRom = nameRom.Replace("'", " ").Replace(".", " ").Replace(",", " ").Replace("-", " ").Replace("_", " ");
+                nameFile = nameFile.Replace("'", " ").Replace(".", " ").Replace(",", " ").Replace("-", " ").Replace("_", " ");
 
                 //Replace double spaces
-                nameRom = Regex.Replace(nameRom, @"\s+", " ");
+                nameFile = Regex.Replace(nameFile, @"\s+", " ");
 
                 //Remove words
                 string[] nameFilterRemoveContains = new string[] { "usa", "eur", "pal", "ntsc", "repack", "proper" };
-                string[] nameRomSplit = nameRom.Split(' ').Where(x => !nameFilterRemoveContains.Any(x.Contains)).ToArray();
+                string[] nameRomSplit = nameFile.Split(' ').Where(x => !nameFilterRemoveContains.Any(x.Contains)).ToArray();
 
                 //Take words
                 if (takeWords <= 0)
                 {
-                    nameRom = string.Join(" ", nameRomSplit);
+                    nameFile = string.Join(" ", nameRomSplit);
                 }
                 else
                 {
-                    nameRom = string.Join(" ", nameRomSplit.Take(takeWords));
+                    nameFile = string.Join(" ", nameRomSplit.Take(takeWords));
                 }
 
                 //Remove spaces
                 if (removeSpaces)
                 {
-                    nameRom = nameRom.Replace(" ", string.Empty);
+                    nameFile = nameFile.Replace(" ", string.Empty);
                 }
                 else
                 {
-                    nameRom = AVFunctions.StringRemoveStart(nameRom, " ");
-                    nameRom = AVFunctions.StringRemoveEnd(nameRom, " ");
+                    nameFile = AVFunctions.StringRemoveStart(nameFile, " ");
+                    nameFile = AVFunctions.StringRemoveEnd(nameFile, " ");
                 }
             }
             catch { }
-            return nameRom;
+            return nameFile;
         }
 
         //Download rom information
@@ -82,7 +85,7 @@ namespace CtrlUI
             try
             {
                 //Filter the rom name
-                string nameRomSave = RomFilterName(nameRom, true, false, 0);
+                string nameRomSave = FileFilterName(nameRom, true, false, 0);
 
                 //Show the text input popup
                 string nameRomDownload = await Popup_ShowHide_TextInput("Rom search", nameRomSave, "Search information for the rom", true);
@@ -255,7 +258,7 @@ namespace CtrlUI
             try
             {
                 //Filter the console name
-                string nameConsoleSave = RomFilterName(nameConsole, true, false, 0);
+                string nameConsoleSave = FileFilterName(nameConsole, true, false, 0);
 
                 //Show the text input popup
                 string nameConsoleDownload = await Popup_ShowHide_TextInput("Console search", nameConsoleSave, "Search information for the console", true);
@@ -264,10 +267,10 @@ namespace CtrlUI
                     Debug.WriteLine("No search term entered.");
                     return null;
                 }
-                nameConsoleDownload = RomFilterName(nameConsoleDownload, false, true, 0);
+                nameConsoleDownload = FileFilterName(nameConsoleDownload, false, true, 0);
 
                 //Search for consoles
-                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => RomFilterName(x.name, false, true, 0).Contains(nameConsoleDownload) || (x.alternative_name != null && RomFilterName(x.alternative_name, false, true, 0).Contains(nameConsoleDownload)));
+                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => FileFilterName(x.name, false, true, 0).Contains(nameConsoleDownload) || (x.alternative_name != null && FileFilterName(x.alternative_name, false, true, 0).Contains(nameConsoleDownload)));
                 if (iGDBPlatforms == null || !iGDBPlatforms.Any())
                 {
                     Debug.WriteLine("No consoles found");

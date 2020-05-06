@@ -492,14 +492,14 @@ namespace CtrlUI
                 string subPathDescription = string.Empty;
                 if (!string.IsNullOrWhiteSpace(listPath))
                 {
-                    romNameFiltered = RomFilterName(listName, false, true, 0);
+                    romNameFiltered = FileFilterName(listName, false, true, 0);
                     subPathImagePng = Path.Combine(listPath, listName + ".png");
                     subPathImageJpg = Path.Combine(listPath, listName + ".jpg");
                     subPathDescription = Path.Combine(listPath, listName + ".txt");
                 }
                 else
                 {
-                    romNameFiltered = RomFilterName(listName, true, true, 0);
+                    romNameFiltered = FileFilterName(listName, true, true, 0);
                 }
 
                 //Check if rom directory has image
@@ -507,7 +507,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        string imageNameFiltered = RomFilterName(foundImage.Name, true, true, 0);
+                        string imageNameFiltered = FileFilterName(foundImage.Name, true, true, 0);
                         //Debug.WriteLine(imageNameFiltered + " / " + romNameFiltered);
                         if (romNameFiltered.Contains(imageNameFiltered))
                         {
@@ -523,7 +523,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        string descNameFiltered = RomFilterName(foundDesc.Name, true, true, 0);
+                        string descNameFiltered = FileFilterName(foundDesc.Name, true, true, 0);
                         //Debug.WriteLine(descNameFiltered + " / " + romNameFiltered);
                         if (romNameFiltered.Contains(descNameFiltered))
                         {

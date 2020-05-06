@@ -93,10 +93,10 @@ namespace CtrlUI
                                 Visibility processStatusStore = Visibility.Visible;
 
                                 //Get the process title
-                                string processName = GetWindowTitleFromWindowHandle(processWindowHandle);
+                                string processTitle = GetWindowTitleFromWindowHandle(processWindowHandle);
 
                                 //Check if application title is blacklisted
-                                if (vCtrlIgnoreProcessName.Any(x => x.String1.ToLower() == processName.ToLower()))
+                                if (vCtrlIgnoreProcessName.Any(x => x.String1.ToLower() == processTitle.ToLower()))
                                 {
                                     continue;
                                 }
@@ -196,7 +196,7 @@ namespace CtrlUI
                                 foreach (DataBindApp existingProcessApp in existingProcessApps)
                                 {
                                     //Update the process title
-                                    if (existingProcessApp.Name != processName) { existingProcessApp.Name = processName; }
+                                    if (existingProcessApp.Name != processTitle) { existingProcessApp.Name = processTitle; }
 
                                     //Update the process running time
                                     existingProcessApp.RunningTime = processRunningTime;
@@ -221,14 +221,14 @@ namespace CtrlUI
                                 if (appUpdatedContinueLoop) { continue; }
 
                                 //Load the application image
-                                BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processName, processNameExeNoExt, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, processWindowHandle, 90, 0);
+                                BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processTitle, processNameExeNoExt, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, processWindowHandle, 90, 0);
 
                                 //Create new ProcessMulti list
                                 List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();
                                 listProcessMulti.Add(processMultiNew);
 
                                 //Add the process to the list
-                                DataBindApp dataBindApp = new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processName, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime };
+                                DataBindApp dataBindApp = new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processTitle, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime };
                                 await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
                             }
                         }
