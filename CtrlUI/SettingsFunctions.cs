@@ -31,7 +31,7 @@ namespace CtrlUI
                 //Set the available monitor amount
                 try
                 {
-                    slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count() - 1;
+                    slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count();
                 }
                 catch { }
 

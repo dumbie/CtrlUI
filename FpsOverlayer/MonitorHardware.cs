@@ -6,10 +6,8 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
-using static ArnoldVinkCode.AVFunctions;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
 
@@ -444,11 +442,9 @@ namespace FpsOverlayer
 
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
 
                 //Get the screen resolution
-                int screenWidth = targetScreen.Bounds.Width;
-                int screenHeight = targetScreen.Bounds.Height;
+                GetScreenResolution(monitorNumber, out int screenWidth, out int screenHeight, out float dpiScale);
                 string screenResolutionString = string.Empty;
                 if (showResolution)
                 {
@@ -459,7 +455,7 @@ namespace FpsOverlayer
                 string screenRefreshRateString = string.Empty;
                 if (showRefreshRate)
                 {
-                    int screenRefreshRateInt = GetScreenRefreshRate(targetScreen);
+                    GetScreenRefreshRate(monitorNumber, out int screenRefreshRateInt);
                     if (screenRefreshRateInt > 0)
                     {
                         if (showResolution)

@@ -44,7 +44,7 @@ namespace CtrlUI
                 int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
                 textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + monitorNumber;
                 slider_SettingsDisplayMonitor.Value = monitorNumber;
-                slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count() - 1;
+                slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count();
 
                 //Load the sound volume
                 textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]) + "%";

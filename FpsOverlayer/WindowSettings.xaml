@@ -35,11 +35,11 @@
                 <TextBlock Text="Change the stats overlay margin from the screen border." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Width="130" Name="textblock_MarginHorizontal" Tag="Horizontal" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                    <Slider Maximum="600" Height="18" Width="310" Name="slider_MarginHorizontal" Style="{StaticResource SliderWhite}"/>
+                    <Slider Minimum="-10" Maximum="600" Height="18" Width="310" Name="slider_MarginHorizontal" Style="{StaticResource SliderWhite}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Width="130" Name="textblock_MarginVertical" Tag="Vertical" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                    <Slider Maximum="600" Height="18" Width="310" Name="slider_MarginVertical" Style="{StaticResource SliderWhite}"/>
+                    <Slider Minimum="-10" Maximum="600" Height="18" Width="310" Name="slider_MarginVertical" Style="{StaticResource SliderWhite}"/>
                 </StackPanel>
 
                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Text Settings"/>

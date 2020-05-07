@@ -5,10 +5,8 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
-using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -57,8 +55,11 @@ namespace KeyboardController
                 //Play window open sound
                 PlayInterfaceSound("PopupOpen", false);
 
-                //Activate keyboard window and focus on key
-                await KeyboardWindowActivate(true, key_g);
+                //Update the window position
+                UpdateWindowPosition();
+
+                //Activate window and focus on key
+                await KeyboardWindowActivate(key_g);
 
                 //Make window able to drag from border
                 this.MouseDown += WindowMain_MouseDown;
@@ -130,20 +131,21 @@ namespace KeyboardController
             {
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
+                AVDisplayMonitor.GetScreenResolution(monitorNumber, out int screenWidth, out int screenHeight, out float dpiScale);
+                AVDisplayMonitor.GetScreenBounds(monitorNumber, out int boundsLeft, out int boundsTop);
 
+                //Move the window to bottom center
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    //Move the window to bottom center
-                    this.Left = targetScreen.Bounds.Location.X + (targetScreen.WorkingArea.Width - this.ActualWidth) / 2;
-                    this.Top = targetScreen.Bounds.Location.Y + targetScreen.WorkingArea.Height - this.ActualHeight;
+                    this.Left = boundsLeft + (screenWidth - this.ActualWidth) / 2;
+                    this.Top = boundsTop + screenHeight - this.ActualHeight;
                 });
             }
             catch { }
         }
 
         //Activate keyboard window
-        async Task KeyboardWindowActivate(bool moveWindow, FrameworkElement focusKey)
+        async Task KeyboardWindowActivate(FrameworkElement focusKey)
         {
             try
             {
@@ -152,21 +154,15 @@ namespace KeyboardController
 
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
-
-                //Update the window position
-                if (moveWindow)
-                {
-                    UpdateWindowPosition();
-                }
+                AVDisplayMonitor.GetScreenResolution(monitorNumber, out int screenWidth, out int screenHeight, out float dpiScale);
 
                 //Get the current mouse position
                 GetCursorPos(out PointWin previousCursorPosition);
 
                 //Check if mouse cursor is in keyboard
-                if ((targetScreen.WorkingArea.Height - previousCursorPosition.Y) <= this.Height)
+                if ((screenHeight - previousCursorPosition.Y) <= this.Height)
                 {
-                    previousCursorPosition.Y = Convert.ToInt32(targetScreen.WorkingArea.Height - this.Height - 20);
+                    previousCursorPosition.Y = Convert.ToInt32(screenHeight - this.Height - 20);
                     SetCursorPos(previousCursorPosition.X, previousCursorPosition.Y);
                     await Task.Delay(10);
                 }
@@ -621,7 +617,7 @@ namespace KeyboardController
                         await Task.Delay(10);
 
                         //Activate keyboard window and focus on key
-                        await KeyboardWindowActivate(false, key_g);
+                        await KeyboardWindowActivate(key_g);
                     });
                 }
             }
@@ -645,8 +641,6 @@ namespace KeyboardController
             try
             {
                 Debug.WriteLine("Exiting application.");
-                await Notification_Send_Status("Keyboard", "Closing Keyboard");
-
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     this.Opacity = 0.80;

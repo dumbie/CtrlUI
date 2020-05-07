@@ -1,8 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Windows.Forms;
-using static ArnoldVinkCode.AVFunctions;
+﻿using ArnoldVinkCode;
+using System;
 using static ArnoldVinkCode.AVInteropDll;
 using static KeyboardController.AppVariables;
 
@@ -10,45 +7,43 @@ namespace KeyboardController
 {
     partial class WindowMain
     {
-        void MoveKeyboardWindow(int ThumbHorizontal, int ThumbVertical)
+        void MoveKeyboardWindow(int thumbHorizontal, int thumbVertical)
         {
             try
             {
                 //Check the thumb movement
-                int SmallOffset = 2500;
+                int smallOffset = 2500;
 
-                ThumbVertical = -ThumbVertical;
-                int AbsHorizontal = Math.Abs(ThumbHorizontal);
-                int AbsVertical = Math.Abs(ThumbVertical);
+                thumbVertical = -thumbVertical;
+                int absHorizontal = Math.Abs(thumbHorizontal);
+                int absVertical = Math.Abs(thumbVertical);
 
-                if (AbsHorizontal > SmallOffset || AbsVertical > SmallOffset)
+                if (absHorizontal > smallOffset || absVertical > smallOffset)
                 {
-                    double MouseSensitivity = 0.0007;
-                    int MouseHorizontal = Convert.ToInt32(ThumbHorizontal * MouseSensitivity);
-                    int MouseVertical = Convert.ToInt32(ThumbVertical * MouseSensitivity);
-
-                    //Get the current window handle
-                    IntPtr WindowHandle = Process.GetCurrentProcess().MainWindowHandle;
+                    double mouseSensitivity = 0.0007;
+                    int mouseHorizontal = Convert.ToInt32(thumbHorizontal * mouseSensitivity);
+                    int mouseVertical = Convert.ToInt32(thumbVertical * mouseSensitivity);
 
                     //Get the current window position
-                    WindowRectangle PositionRect = new WindowRectangle();
-                    GetWindowRect(WindowHandle, ref PositionRect);
-                    int HorizontalCenter = PositionRect.Left + MouseHorizontal;
-                    int VerticalCenter = PositionRect.Top + MouseVertical;
+                    WindowRectangle positionRect = new WindowRectangle();
+                    GetWindowRect(vInteropWindowHandle, ref positionRect);
+                    int horizontalCenter = positionRect.Left + mouseHorizontal;
+                    int verticalCenter = positionRect.Top + mouseVertical;
 
                     //Get the current active screen
                     int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                    Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
+                    AVDisplayMonitor.GetScreenResolution(monitorNumber, out int screenWidth, out int screenHeight, out float dpiScale);
+                    AVDisplayMonitor.GetScreenBounds(monitorNumber, out int boundsLeft, out int boundsTop);
 
                     //Check if window leaves screen
-                    Rectangle targetRectangle = targetScreen.WorkingArea;
-                    double ScreenEdgeLeft = HorizontalCenter + this.ActualWidth;
-                    double ScreenEdgeTop = VerticalCenter + this.ActualHeight;
-                    double ScreenEdgeRight = targetRectangle.Right - HorizontalCenter;
-                    double ScreenEdgeBottom = targetRectangle.Bottom - VerticalCenter;
-                    if (ScreenEdgeLeft > 20 && ScreenEdgeTop > 20 && ScreenEdgeRight > 20 && ScreenEdgeBottom > 40)
+                    double screenEdgeLeft = horizontalCenter + this.ActualWidth;
+                    double screenEdgeTop = verticalCenter + this.ActualHeight;
+                    double screenEdgeRight = screenWidth - horizontalCenter;
+                    double screenEdgeBottom = screenHeight - verticalCenter;
+
+                    if (screenEdgeLeft > (boundsLeft + 20) && screenEdgeTop > (boundsTop + 20) && screenEdgeRight > 20 && screenEdgeBottom > 20)
                     {
-                        SetWindowPos(WindowHandle, IntPtr.Zero, HorizontalCenter, VerticalCenter, 0, 0, (int)WindowSWP.NOSIZE);
+                        SetWindowPos(vInteropWindowHandle, IntPtr.Zero, horizontalCenter, verticalCenter, 0, 0, (int)WindowSWP.NOSIZE);
                     }
                 }
             }

@@ -13,7 +13,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
-using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
@@ -176,11 +175,8 @@ namespace FpsOverlayer
             {
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                System.Windows.Forms.Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
-
-                //Get the screen resolution
-                int screenWidth = targetScreen.Bounds.Width;
-                int screenHeight = targetScreen.Bounds.Height;
+                AVDisplayMonitor.GetScreenResolution(monitorNumber, out int screenWidth, out int screenHeight, out float dpiScale);
+                AVDisplayMonitor.GetScreenBounds(monitorNumber, out int boundsLeft, out int boundsTop);
 
                 //Set the window size
                 AVActions.ActionDispatcherInvoke(delegate
@@ -223,8 +219,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = targetScreen.Bounds.Left + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = targetScreen.Bounds.Top + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        this.Left = boundsLeft + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        this.Top = boundsTop + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Left;
@@ -241,8 +237,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = targetScreen.Bounds.Left + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = targetScreen.Bounds.Top + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        this.Left = boundsLeft + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        this.Top = boundsTop + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Center;
@@ -259,8 +255,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = targetScreen.Bounds.Left - Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = targetScreen.Bounds.Top + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        this.Left = boundsLeft - Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        this.Top = boundsTop + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Right;
@@ -277,8 +273,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = targetScreen.Bounds.Left - Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = targetScreen.Bounds.Top + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        this.Left = boundsLeft - Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        this.Top = boundsTop + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Center;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Right;
@@ -295,8 +291,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = targetScreen.Bounds.Left - Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = targetScreen.Bounds.Top - Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        this.Left = boundsLeft - Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        this.Top = boundsTop - Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Right;
@@ -313,8 +309,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = targetScreen.Bounds.Left + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = targetScreen.Bounds.Top - Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        this.Left = boundsLeft + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        this.Top = boundsTop - Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Center;
@@ -331,8 +327,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = targetScreen.Bounds.Left + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = targetScreen.Bounds.Top - Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        this.Left = boundsLeft + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        this.Top = boundsTop - Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Left;
@@ -349,8 +345,8 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = targetScreen.Bounds.Left + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = targetScreen.Bounds.Top + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        this.Left = boundsLeft + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        this.Top = boundsTop + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Center;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Left;
@@ -623,6 +619,7 @@ namespace FpsOverlayer
                 Debug.WriteLine("Exiting application.");
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    this.Opacity = 0.80;
                     this.IsEnabled = false;
                 });
 

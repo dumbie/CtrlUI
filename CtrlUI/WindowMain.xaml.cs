@@ -10,7 +10,6 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
-using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -220,15 +219,15 @@ namespace CtrlUI
                 {
                     Debug.WriteLine("Only one monitor");
                     await Notification_Send_Status("MonitorNext", "Only one monitor");
-                    SettingSave("DisplayMonitor", "0");
+                    SettingSave("DisplayMonitor", "1");
                     return;
                 }
 
                 //Check the next target monitor
                 int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
-                if (monitorNumber + 1 >= totalScreenCount)
+                if (monitorNumber >= totalScreenCount)
                 {
-                    monitorNumber = 0;
+                    monitorNumber = 1;
                 }
                 else
                 {
@@ -257,9 +256,8 @@ namespace CtrlUI
                 }
 
                 //Get the current active screen
-                Screen targetScreen = GetScreenByNumber(monitorNumber, out bool monitorSuccess);
-                int screenWidth = targetScreen.WorkingArea.Width;
-                int screenHeight = targetScreen.WorkingArea.Height;
+                AVDisplayMonitor.GetScreenResolution(monitorNumber, out int screenWidth, out int screenHeight, out float dpiScale);
+                AVDisplayMonitor.GetScreenBounds(monitorNumber, out int boundsLeft, out int boundsTop);
 
                 int windowWidth = 0;
                 int windowHeight = 0;
@@ -287,8 +285,8 @@ namespace CtrlUI
                 //Center the window on target screen
                 int horizontalCenter = Convert.ToInt32((screenWidth - windowWidth) / 2);
                 int verticalCenter = Convert.ToInt32((screenHeight - windowHeight) / 2);
-                this.Top = targetScreen.WorkingArea.Top + verticalCenter;
-                this.Left = targetScreen.WorkingArea.Left + horizontalCenter;
+                this.Top = boundsTop + verticalCenter;
+                this.Left = boundsLeft + horizontalCenter;
 
                 //Restore the previous screen mode
                 if (isMaximized)
@@ -431,6 +429,7 @@ namespace CtrlUI
                 Debug.WriteLine("Exiting application.");
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    this.Opacity = 0.80;
                     this.IsEnabled = false;
                 });
 

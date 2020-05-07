@@ -158,6 +158,7 @@ namespace DriverInstaller
                 Debug.WriteLine("Exiting application.");
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    this.Opacity = 0.80;
                     this.IsEnabled = false;
                 });
 

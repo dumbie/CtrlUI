@@ -16,7 +16,7 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["AppUpdateCheck"] == null) { SettingSave("AppUpdateCheck", DateTime.Now.ToString(vAppCultureInfo)); }
                 if (ConfigurationManager.AppSettings["AppFontSize"] == null) { SettingSave("AppFontSize", "0"); }
 
-                if (ConfigurationManager.AppSettings["DisplayMonitor"] == null) { SettingSave("DisplayMonitor", "0"); } //Shared
+                if (ConfigurationManager.AppSettings["DisplayMonitor"] == null) { SettingSave("DisplayMonitor", "1"); } //Shared
                 if (ConfigurationManager.AppSettings["ColorAccentLight"] == null) { SettingSave("ColorAccentLight", "#00C7FF"); } //Shared
                 if (ConfigurationManager.AppSettings["ServerPort"] == null) { SettingSave("ServerPort", "1010"); } //Shared
 
