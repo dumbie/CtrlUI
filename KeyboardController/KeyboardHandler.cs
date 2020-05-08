@@ -34,17 +34,17 @@ namespace KeyboardController
 
                     //Get the current active screen
                     int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                    DisplayMonitorResolution displayResolution = GetScreenResolutionBounds(monitorNumber);
+                    DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                     //Check if window leaves screen
                     double screenEdgeLeft = moveLeft + this.ActualWidth;
-                    double screenLimitLeft = displayResolution.BoundsLeft + 20;
+                    double screenLimitLeft = displayMonitorSettings.BoundsLeft + 20;
                     double screenEdgeTop = moveTop + this.ActualHeight;
-                    double screenLimitTop = displayResolution.BoundsTop + 20;
+                    double screenLimitTop = displayMonitorSettings.BoundsTop + 20;
                     double screenEdgeRight = moveRight - this.ActualWidth;
-                    double screenLimitRight = displayResolution.BoundsRight - 20;
+                    double screenLimitRight = displayMonitorSettings.BoundsRight - 20;
                     double screenEdgeBottom = moveBottom - this.ActualHeight;
-                    double screenLimitBottom = displayResolution.BoundsBottom - 20;
+                    double screenLimitBottom = displayMonitorSettings.BoundsBottom - 20;
                     if (screenEdgeLeft > screenLimitLeft && screenEdgeTop > screenLimitTop && screenEdgeRight < screenLimitRight && screenEdgeBottom < screenLimitBottom)
                     {
                         SetWindowPos(vInteropWindowHandle, IntPtr.Zero, moveLeft, moveTop, 0, 0, (int)WindowSWP.NOSIZE);

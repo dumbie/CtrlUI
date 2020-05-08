@@ -88,17 +88,17 @@ namespace DirectXInput
 
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                DisplayMonitorResolution displayResolution = GetScreenResolutionBounds(monitorNumber);
+                DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     //Set the window size
-                    this.Width = displayResolution.ScreenWidth;
-                    this.Height = displayResolution.ScreenHeight;
+                    this.Width = displayMonitorSettings.WidthDpi;
+                    this.Height = displayMonitorSettings.HeightDpi;
 
                     //Move the window top left
-                    this.Left = displayResolution.BoundsLeft;
-                    this.Top = displayResolution.BoundsTop;
+                    this.Left = displayMonitorSettings.BoundsLeft;
+                    this.Top = displayMonitorSettings.BoundsTop;
                 });
             }
             catch { }

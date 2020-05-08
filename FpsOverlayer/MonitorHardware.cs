@@ -444,18 +444,18 @@ namespace FpsOverlayer
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
 
                 //Get the screen resolution
-                DisplayMonitorResolution displayResolution = GetScreenResolutionBounds(monitorNumber);
+                DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
                 string screenResolutionString = string.Empty;
                 if (showResolution)
                 {
-                    screenResolutionString = " " + displayResolution.ScreenWidth + "x" + displayResolution.ScreenHeight;
+                    screenResolutionString = " " + displayMonitorSettings.WidthDpi + "x" + displayMonitorSettings.HeightDpi;
                 }
 
                 //Get the screen refresh rate
                 string screenRefreshRateString = string.Empty;
                 if (showRefreshRate)
                 {
-                    int screenRefreshRateInt = GetScreenRefreshRate(monitorNumber);
+                    int screenRefreshRateInt = displayMonitorSettings.RefreshRate;
                     if (screenRefreshRateInt > 0)
                     {
                         if (showResolution)

@@ -21,10 +21,10 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 //Get all the connected display monitors
-                List<DisplayMonitorSummary> monitorsList = ListDisplayMonitors();
+                List<DisplayMonitorSwitch> monitorsList = ListDisplayMonitors();
 
                 //Add all display monitors to answers list
-                foreach (DisplayMonitorSummary displayMonitor in monitorsList)
+                foreach (DisplayMonitorSwitch displayMonitor in monitorsList)
                 {
                     DataBindString AnswerMonitor = new DataBindString();
                     AnswerMonitor.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -78,7 +78,7 @@ namespace CtrlUI
                     }
                     else
                     {
-                        DisplayMonitorSummary changeDevice = monitorsList.Where(x => x.Name.ToLower() == messageResult.Name.ToLower()).FirstOrDefault();
+                        DisplayMonitorSwitch changeDevice = monitorsList.Where(x => x.Name.ToLower() == messageResult.Name.ToLower()).FirstOrDefault();
                         if (changeDevice != null)
                         {
                             await Notification_Send_Status("MonitorSwitch", "Switching display monitor");

@@ -132,13 +132,13 @@ namespace KeyboardController
             {
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                DisplayMonitorResolution displayResolution = GetScreenResolutionBounds(monitorNumber);
+                DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                 //Move the window to bottom center
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    this.Left = displayResolution.BoundsLeft + (displayResolution.ScreenWidth - this.ActualWidth) / 2;
-                    this.Top = displayResolution.BoundsTop + displayResolution.ScreenHeight - this.ActualHeight;
+                    this.Left = displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthDpi - this.ActualWidth) / 2;
+                    this.Top = displayMonitorSettings.BoundsTop + displayMonitorSettings.HeightDpi - this.ActualHeight;
                 });
             }
             catch { }
@@ -154,15 +154,15 @@ namespace KeyboardController
 
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                DisplayMonitorResolution displayResolution = GetScreenResolutionBounds(monitorNumber);
+                DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                 //Get the current mouse position
                 GetCursorPos(out PointWin previousCursorPosition);
 
                 //Check if mouse cursor is in keyboard
-                if ((displayResolution.ScreenHeight - previousCursorPosition.Y) <= this.Height)
+                if ((displayMonitorSettings.HeightDpi - previousCursorPosition.Y) <= this.Height)
                 {
-                    previousCursorPosition.Y = Convert.ToInt32(displayResolution.ScreenHeight - this.Height - 20);
+                    previousCursorPosition.Y = Convert.ToInt32(displayMonitorSettings.HeightDpi - this.Height - 20);
                     SetCursorPos(previousCursorPosition.X, previousCursorPosition.Y);
                     await Task.Delay(10);
                 }

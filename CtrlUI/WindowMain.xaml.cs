@@ -262,7 +262,7 @@ namespace CtrlUI
                 }
 
                 //Get the current active screen
-                DisplayMonitorResolution displayResolution = GetScreenResolutionBounds(monitorNumber);
+                DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                 //Get the target window size
                 int windowWidth = 0;
@@ -278,8 +278,8 @@ namespace CtrlUI
                     windowHeight = Convert.ToInt32(this.ActualHeight);
                 }
 
-                if (windowWidth > displayResolution.ScreenWidth) { windowWidth = displayResolution.ScreenWidth; }
-                if (windowHeight > displayResolution.ScreenHeight) { windowHeight = displayResolution.ScreenHeight; }
+                if (windowWidth > displayMonitorSettings.WidthDpi) { windowWidth = displayMonitorSettings.WidthDpi; }
+                if (windowHeight > displayMonitorSettings.HeightDpi) { windowHeight = displayMonitorSettings.HeightDpi; }
 
                 //Resize the application window
                 if (resizeWindow)
@@ -289,10 +289,10 @@ namespace CtrlUI
                 }
 
                 //Center the window on target screen
-                int horizontalCenter = Convert.ToInt32((displayResolution.ScreenWidth - windowWidth) / 2);
-                int verticalCenter = Convert.ToInt32((displayResolution.ScreenHeight - windowHeight) / 2);
-                this.Top = displayResolution.BoundsTop + verticalCenter;
-                this.Left = displayResolution.BoundsLeft + horizontalCenter;
+                int horizontalCenter = Convert.ToInt32((displayMonitorSettings.WidthDpi - windowWidth) / 2);
+                int verticalCenter = Convert.ToInt32((displayMonitorSettings.HeightDpi - windowHeight) / 2);
+                this.Top = displayMonitorSettings.BoundsTop + verticalCenter;
+                this.Left = displayMonitorSettings.BoundsLeft + horizontalCenter;
 
                 //Restore the previous screen mode
                 if (isMaximized)
