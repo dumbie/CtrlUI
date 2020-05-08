@@ -110,10 +110,7 @@ namespace CtrlUI
                     SettingSave("DisplayMonitor", Convert.ToInt32(slider_SettingsDisplayMonitor.Value).ToString());
 
                     int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
-                    await UpdateWindowPosition(monitorNumber, false, false, true);
-                    await NotifyDirectXInputSettingChanged("DisplayMonitor");
-                    await NotifyKeyboardControllerSettingChanged("DisplayMonitor");
-                    await NotifyFpsOverlayerSettingChanged("DisplayMonitor");
+                    await UpdateWindowPosition(monitorNumber, false, false, true, false);
                 };
 
                 slider_SettingsSoundVolume.ValueChanged += (sender, e) =>

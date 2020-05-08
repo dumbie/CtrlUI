@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
@@ -87,18 +88,17 @@ namespace DirectXInput
 
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                AVDisplayMonitor.GetScreenResolution(monitorNumber, out int screenWidth, out int screenHeight, out float dpiScale);
-                AVDisplayMonitor.GetScreenBounds(monitorNumber, out int boundsLeft, out int boundsTop);
+                DisplayMonitorResolution displayResolution = GetScreenResolutionBounds(monitorNumber);
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     //Set the window size
-                    this.Width = screenWidth;
-                    this.Height = screenHeight;
+                    this.Width = displayResolution.ScreenWidth;
+                    this.Height = displayResolution.ScreenHeight;
 
                     //Move the window top left
-                    this.Left = boundsLeft;
-                    this.Top = boundsTop;
+                    this.Left = displayResolution.BoundsLeft;
+                    this.Top = displayResolution.BoundsTop;
                 });
             }
             catch { }

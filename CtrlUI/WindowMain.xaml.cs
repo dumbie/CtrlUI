@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -85,11 +86,11 @@ namespace CtrlUI
                     int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
                     if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]))
                     {
-                        await UpdateWindowPosition(monitorNumber, false, false, true);
+                        await UpdateWindowPosition(monitorNumber, false, false, false, true);
                     }
                     else
                     {
-                        await UpdateWindowPosition(monitorNumber, true, true, true);
+                        await UpdateWindowPosition(monitorNumber, true, true, false, true);
                     }
                 }
 
@@ -219,7 +220,12 @@ namespace CtrlUI
                 {
                     Debug.WriteLine("Only one monitor");
                     await Notification_Send_Status("MonitorNext", "Only one monitor");
+
+                    //Save the new monitor number
                     SettingSave("DisplayMonitor", "1");
+
+                    //Update the app window position
+                    await UpdateWindowPosition(1, false, true, true, true);
                     return;
                 }
 
@@ -234,17 +240,17 @@ namespace CtrlUI
                     monitorNumber++;
                 }
 
-                //Move to the next monitor
-                await UpdateWindowPosition(monitorNumber, false, true, false);
-
                 //Save the new monitor number
                 SettingSave("DisplayMonitor", monitorNumber.ToString());
+
+                //Update the app window position
+                await UpdateWindowPosition(monitorNumber, false, true, true, false);
             }
             catch { }
         }
 
         //Update the window position
-        async Task UpdateWindowPosition(int monitorNumber, bool settingSize, bool resizeWindow, bool silent)
+        async Task UpdateWindowPosition(int monitorNumber, bool settingSize, bool resizeWindow, bool notifyApps, bool silent)
         {
             try
             {
@@ -256,9 +262,9 @@ namespace CtrlUI
                 }
 
                 //Get the current active screen
-                AVDisplayMonitor.GetScreenResolution(monitorNumber, out int screenWidth, out int screenHeight, out float dpiScale);
-                AVDisplayMonitor.GetScreenBounds(monitorNumber, out int boundsLeft, out int boundsTop);
+                DisplayMonitorResolution displayResolution = GetScreenResolutionBounds(monitorNumber);
 
+                //Get the target window size
                 int windowWidth = 0;
                 int windowHeight = 0;
                 if (settingSize)
@@ -272,8 +278,8 @@ namespace CtrlUI
                     windowHeight = Convert.ToInt32(this.ActualHeight);
                 }
 
-                if (windowWidth > screenWidth) { windowWidth = screenWidth; }
-                if (windowHeight > screenHeight) { windowHeight = screenHeight; }
+                if (windowWidth > displayResolution.ScreenWidth) { windowWidth = displayResolution.ScreenWidth; }
+                if (windowHeight > displayResolution.ScreenHeight) { windowHeight = displayResolution.ScreenHeight; }
 
                 //Resize the application window
                 if (resizeWindow)
@@ -283,10 +289,10 @@ namespace CtrlUI
                 }
 
                 //Center the window on target screen
-                int horizontalCenter = Convert.ToInt32((screenWidth - windowWidth) / 2);
-                int verticalCenter = Convert.ToInt32((screenHeight - windowHeight) / 2);
-                this.Top = boundsTop + verticalCenter;
-                this.Left = boundsLeft + horizontalCenter;
+                int horizontalCenter = Convert.ToInt32((displayResolution.ScreenWidth - windowWidth) / 2);
+                int verticalCenter = Convert.ToInt32((displayResolution.ScreenHeight - windowHeight) / 2);
+                this.Top = displayResolution.BoundsTop + verticalCenter;
+                this.Left = displayResolution.BoundsLeft + horizontalCenter;
 
                 //Restore the previous screen mode
                 if (isMaximized)
@@ -294,11 +300,21 @@ namespace CtrlUI
                     await AppSwitchScreenMode(true, false);
                 }
 
-                Debug.WriteLine("Moved the application to monitor: " + monitorNumber);
+                //Notify apps the monitor changed
+                if (notifyApps)
+                {
+                    await NotifyDirectXInputSettingChanged("DisplayMonitor");
+                    await NotifyKeyboardControllerSettingChanged("DisplayMonitor");
+                    await NotifyFpsOverlayerSettingChanged("DisplayMonitor");
+                }
+
+                //Show monitor change notification
                 if (!silent)
                 {
                     await Notification_Send_Status("MonitorNext", "Moved to monitor " + monitorNumber);
                 }
+
+                Debug.WriteLine("Moved the application to monitor: " + monitorNumber);
             }
             catch { }
         }

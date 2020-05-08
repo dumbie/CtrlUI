@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -131,14 +132,13 @@ namespace KeyboardController
             {
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                AVDisplayMonitor.GetScreenResolution(monitorNumber, out int screenWidth, out int screenHeight, out float dpiScale);
-                AVDisplayMonitor.GetScreenBounds(monitorNumber, out int boundsLeft, out int boundsTop);
+                DisplayMonitorResolution displayResolution = GetScreenResolutionBounds(monitorNumber);
 
                 //Move the window to bottom center
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    this.Left = boundsLeft + (screenWidth - this.ActualWidth) / 2;
-                    this.Top = boundsTop + screenHeight - this.ActualHeight;
+                    this.Left = displayResolution.BoundsLeft + (displayResolution.ScreenWidth - this.ActualWidth) / 2;
+                    this.Top = displayResolution.BoundsTop + displayResolution.ScreenHeight - this.ActualHeight;
                 });
             }
             catch { }
@@ -154,15 +154,15 @@ namespace KeyboardController
 
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                AVDisplayMonitor.GetScreenResolution(monitorNumber, out int screenWidth, out int screenHeight, out float dpiScale);
+                DisplayMonitorResolution displayResolution = GetScreenResolutionBounds(monitorNumber);
 
                 //Get the current mouse position
                 GetCursorPos(out PointWin previousCursorPosition);
 
                 //Check if mouse cursor is in keyboard
-                if ((screenHeight - previousCursorPosition.Y) <= this.Height)
+                if ((displayResolution.ScreenHeight - previousCursorPosition.Y) <= this.Height)
                 {
-                    previousCursorPosition.Y = Convert.ToInt32(screenHeight - this.Height - 20);
+                    previousCursorPosition.Y = Convert.ToInt32(displayResolution.ScreenHeight - this.Height - 20);
                     SetCursorPos(previousCursorPosition.X, previousCursorPosition.Y);
                     await Task.Delay(10);
                 }

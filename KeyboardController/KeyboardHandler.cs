@@ -1,5 +1,5 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
+using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVInteropDll;
 using static KeyboardController.AppVariables;
 
@@ -27,23 +27,27 @@ namespace KeyboardController
                     //Get the current window position
                     WindowRectangle positionRect = new WindowRectangle();
                     GetWindowRect(vInteropWindowHandle, ref positionRect);
-                    int horizontalCenter = positionRect.Left + mouseHorizontal;
-                    int verticalCenter = positionRect.Top + mouseVertical;
+                    int moveLeft = positionRect.Left + mouseHorizontal;
+                    int moveTop = positionRect.Top + mouseVertical;
+                    int moveRight = positionRect.Right + mouseHorizontal;
+                    int moveBottom = positionRect.Bottom + mouseVertical;
 
                     //Get the current active screen
                     int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                    AVDisplayMonitor.GetScreenResolution(monitorNumber, out int screenWidth, out int screenHeight, out float dpiScale);
-                    AVDisplayMonitor.GetScreenBounds(monitorNumber, out int boundsLeft, out int boundsTop);
+                    DisplayMonitorResolution displayResolution = GetScreenResolutionBounds(monitorNumber);
 
                     //Check if window leaves screen
-                    double screenEdgeLeft = horizontalCenter + this.ActualWidth;
-                    double screenEdgeTop = verticalCenter + this.ActualHeight;
-                    double screenEdgeRight = screenWidth - horizontalCenter;
-                    double screenEdgeBottom = screenHeight - verticalCenter;
-
-                    if (screenEdgeLeft > (boundsLeft + 20) && screenEdgeTop > (boundsTop + 20) && screenEdgeRight > 20 && screenEdgeBottom > 20)
+                    double screenEdgeLeft = moveLeft + this.ActualWidth;
+                    double screenLimitLeft = displayResolution.BoundsLeft + 20;
+                    double screenEdgeTop = moveTop + this.ActualHeight;
+                    double screenLimitTop = displayResolution.BoundsTop + 20;
+                    double screenEdgeRight = moveRight - this.ActualWidth;
+                    double screenLimitRight = displayResolution.BoundsRight - 20;
+                    double screenEdgeBottom = moveBottom - this.ActualHeight;
+                    double screenLimitBottom = displayResolution.BoundsBottom - 20;
+                    if (screenEdgeLeft > screenLimitLeft && screenEdgeTop > screenLimitTop && screenEdgeRight < screenLimitRight && screenEdgeBottom < screenLimitBottom)
                     {
-                        SetWindowPos(vInteropWindowHandle, IntPtr.Zero, horizontalCenter, verticalCenter, 0, 0, (int)WindowSWP.NOSIZE);
+                        SetWindowPos(vInteropWindowHandle, IntPtr.Zero, moveLeft, moveTop, 0, 0, (int)WindowSWP.NOSIZE);
                     }
                 }
             }
