@@ -448,7 +448,7 @@ namespace FpsOverlayer
                 string screenResolutionString = string.Empty;
                 if (showResolution)
                 {
-                    screenResolutionString = " " + displayMonitorSettings.WidthDpi + "x" + displayMonitorSettings.HeightDpi;
+                    screenResolutionString = " " + displayMonitorSettings.WidthNative + "x" + displayMonitorSettings.HeightNative;
                 }
 
                 //Get the screen refresh rate

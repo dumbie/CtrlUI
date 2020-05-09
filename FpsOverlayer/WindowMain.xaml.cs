@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
@@ -41,6 +42,9 @@ namespace FpsOverlayer
                 //Update the window style
                 UpdateWindowStyle();
 
+                //Update the window position
+                UpdateWindowPosition();
+
                 //Check application settings
                 App.vWindowSettings.Settings_Check();
                 Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
@@ -64,7 +68,7 @@ namespace FpsOverlayer
                 StartMonitorHardware();
 
                 //Check if resolution has changed
-                SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged);
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
                 //Enable the socket server
                 EnableSocketServer();
@@ -82,6 +86,17 @@ namespace FpsOverlayer
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
                 vArnoldVinkSockets.vTcpClientTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
+            }
+            catch { }
+        }
+
+        //Update the window position on resolution change
+        public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //Update the window position
+                UpdateWindowPosition();
             }
             catch { }
         }
@@ -107,12 +122,21 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update the window position on resolution change
-        public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        //Update the window position
+        public void UpdateWindowPosition()
         {
             try
             {
-                UpdateFpsOverlayStyle();
+                //Load current CtrlUI settings
+                Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+
+                //Get the current active screen
+                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
+
+                //Move and resize the window
+                WindowMove(vInteropWindowHandle, displayMonitorSettings.BoundsLeft, displayMonitorSettings.BoundsTop);
+                WindowResize(vInteropWindowHandle, displayMonitorSettings.WidthNative, displayMonitorSettings.HeightNative);
             }
             catch { }
         }
@@ -170,21 +194,10 @@ namespace FpsOverlayer
         }
 
         //Update the window position
-        public void UpdateWindowPosition(string processName)
+        public void UpdateFpsOverlayPosition(string processName)
         {
             try
             {
-                //Get the current active screen
-                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
-                DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
-
-                //Set the window size
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    this.Width = displayMonitorSettings.WidthDpi;
-                    this.Height = displayMonitorSettings.HeightDpi;
-                });
-
                 //Load the text position
                 int targetTextPosition = Convert.ToInt32(ConfigurationManager.AppSettings["TextPosition"]);
                 if (!string.IsNullOrWhiteSpace(processName))
@@ -219,8 +232,9 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = displayMonitorSettings.BoundsLeft + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = displayMonitorSettings.BoundsTop + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        double marginHorizontal = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        double marginVertical = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Left;
@@ -237,8 +251,9 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = displayMonitorSettings.BoundsLeft + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = displayMonitorSettings.BoundsTop + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        double marginHorizontal = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        double marginVertical = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Center;
@@ -255,8 +270,9 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = displayMonitorSettings.BoundsLeft - Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = displayMonitorSettings.BoundsTop + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        double marginHorizontal = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        double marginVertical = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        grid_FpsOverlayer.Margin = new Thickness(0, marginVertical, marginHorizontal, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Right;
@@ -273,8 +289,9 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = displayMonitorSettings.BoundsLeft - Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = displayMonitorSettings.BoundsTop + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        double marginHorizontal = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        double marginVertical = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        grid_FpsOverlayer.Margin = new Thickness(0, marginVertical, marginHorizontal, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Center;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Right;
@@ -291,8 +308,9 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = displayMonitorSettings.BoundsLeft - Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = displayMonitorSettings.BoundsTop - Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        double marginHorizontal = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        double marginVertical = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        grid_FpsOverlayer.Margin = new Thickness(0, 0, marginHorizontal, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Right;
@@ -309,8 +327,9 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = displayMonitorSettings.BoundsLeft + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = displayMonitorSettings.BoundsTop - Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        double marginHorizontal = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        double marginVertical = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Center;
@@ -327,8 +346,9 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = displayMonitorSettings.BoundsLeft + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = displayMonitorSettings.BoundsTop - Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        double marginHorizontal = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        double marginVertical = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Left;
@@ -345,8 +365,9 @@ namespace FpsOverlayer
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        this.Left = displayMonitorSettings.BoundsLeft + Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
-                        this.Top = displayMonitorSettings.BoundsTop + Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        double marginHorizontal = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
+                        double marginVertical = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Center;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
                         stackpanel_CurrentMem.HorizontalAlignment = HorizontalAlignment.Left;
@@ -594,8 +615,8 @@ namespace FpsOverlayer
                     textblock_CurrentMon.Foreground = new BrushConverter().ConvertFrom(ColorMon) as SolidColorBrush;
                 }
 
-                //Update the window position
-                UpdateWindowPosition(vTargetProcess.Name);
+                //Update the fps overlay position
+                UpdateFpsOverlayPosition(vTargetProcess.Name);
             }
             catch { }
         }

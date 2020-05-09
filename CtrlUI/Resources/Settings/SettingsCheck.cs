@@ -20,9 +20,6 @@ namespace CtrlUI
                 if (ConfigurationManager.AppSettings["ColorAccentLight"] == null) { SettingSave("ColorAccentLight", "#00C7FF"); } //Shared
                 if (ConfigurationManager.AppSettings["ServerPort"] == null) { SettingSave("ServerPort", "1010"); } //Shared
 
-                if (ConfigurationManager.AppSettings["WindowSizeWidth"] == null) { SettingSave("WindowSizeWidth", "1280"); }
-                if (ConfigurationManager.AppSettings["WindowSizeHeight"] == null) { SettingSave("WindowSizeHeight", "720"); }
-
                 if (ConfigurationManager.AppSettings["LaunchFullscreen"] == null) { SettingSave("LaunchFullscreen", "True"); }
                 if (ConfigurationManager.AppSettings["LaunchMinimized"] == null) { SettingSave("LaunchMinimized", "False"); }
                 if (ConfigurationManager.AppSettings["ShowOtherShortcuts"] == null) { SettingSave("ShowOtherShortcuts", "True"); }

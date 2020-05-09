@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Configuration;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -71,6 +73,9 @@ namespace KeyboardController
                 //Launch DirectXInput application
                 await LaunchDirectXInput();
 
+                //Check if resolution has changed
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
                 //Enable the socket server
                 EnableSocketServer();
             }
@@ -100,6 +105,17 @@ namespace KeyboardController
                 {
                     this.DragMove();
                 }
+            }
+            catch { }
+        }
+
+        //Update the window position on resolution change
+        public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //Update the window and text position
+                UpdateWindowPosition();
             }
             catch { }
         }
@@ -134,12 +150,14 @@ namespace KeyboardController
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
+                //Get the current window size
+                int windowWidth = (int)(this.ActualWidth * displayMonitorSettings.DpiScaleHorizontal);
+                int windowHeight = (int)(this.ActualHeight * displayMonitorSettings.DpiScaleVertical);
+
                 //Move the window to bottom center
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    this.Left = displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthDpi - this.ActualWidth) / 2;
-                    this.Top = displayMonitorSettings.BoundsTop + displayMonitorSettings.HeightDpi - this.ActualHeight;
-                });
+                int horizontalLeft = (int)(displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthNative - windowWidth) / 2);
+                int verticalTop = (int)(displayMonitorSettings.BoundsTop + displayMonitorSettings.HeightNative - windowHeight);
+                WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
             }
             catch { }
         }
@@ -160,9 +178,9 @@ namespace KeyboardController
                 GetCursorPos(out PointWin previousCursorPosition);
 
                 //Check if mouse cursor is in keyboard
-                if ((displayMonitorSettings.HeightDpi - previousCursorPosition.Y) <= this.Height)
+                if ((displayMonitorSettings.HeightNative - previousCursorPosition.Y) <= this.Height)
                 {
-                    previousCursorPosition.Y = Convert.ToInt32(displayMonitorSettings.HeightDpi - this.Height - 20);
+                    previousCursorPosition.Y = Convert.ToInt32(displayMonitorSettings.HeightNative - this.Height - 20);
                     SetCursorPos(previousCursorPosition.X, previousCursorPosition.Y);
                     await Task.Delay(10);
                 }

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
@@ -41,7 +42,7 @@ namespace DirectXInput
                 UpdateNotificationPosition();
 
                 //Check if resolution has changed
-                SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged);
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             }
             catch { }
         }
@@ -90,16 +91,9 @@ namespace DirectXInput
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    //Set the window size
-                    this.Width = displayMonitorSettings.WidthDpi;
-                    this.Height = displayMonitorSettings.HeightDpi;
-
-                    //Move the window top left
-                    this.Left = displayMonitorSettings.BoundsLeft;
-                    this.Top = displayMonitorSettings.BoundsTop;
-                });
+                //Move and resize the window
+                WindowMove(vInteropWindowHandle, displayMonitorSettings.BoundsLeft, displayMonitorSettings.BoundsTop);
+                WindowResize(vInteropWindowHandle, displayMonitorSettings.WidthNative, displayMonitorSettings.HeightNative);
             }
             catch { }
         }

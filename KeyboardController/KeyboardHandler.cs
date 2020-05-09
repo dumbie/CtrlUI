@@ -1,5 +1,6 @@
 ﻿using System;
 using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static KeyboardController.AppVariables;
 
@@ -36,18 +37,22 @@ namespace KeyboardController
                     int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
                     DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
+                    //Get the current window size
+                    int windowWidth = (int)(this.ActualWidth * displayMonitorSettings.DpiScaleHorizontal);
+                    int windowHeight = (int)(this.ActualHeight * displayMonitorSettings.DpiScaleVertical);
+
                     //Check if window leaves screen
-                    double screenEdgeLeft = moveLeft + this.ActualWidth;
+                    double screenEdgeLeft = moveLeft + windowWidth;
                     double screenLimitLeft = displayMonitorSettings.BoundsLeft + 20;
-                    double screenEdgeTop = moveTop + this.ActualHeight;
+                    double screenEdgeTop = moveTop + windowHeight;
                     double screenLimitTop = displayMonitorSettings.BoundsTop + 20;
-                    double screenEdgeRight = moveRight - this.ActualWidth;
+                    double screenEdgeRight = moveRight - windowWidth;
                     double screenLimitRight = displayMonitorSettings.BoundsRight - 20;
-                    double screenEdgeBottom = moveBottom - this.ActualHeight;
+                    double screenEdgeBottom = moveBottom - windowHeight;
                     double screenLimitBottom = displayMonitorSettings.BoundsBottom - 20;
                     if (screenEdgeLeft > screenLimitLeft && screenEdgeTop > screenLimitTop && screenEdgeRight < screenLimitRight && screenEdgeBottom < screenLimitBottom)
                     {
-                        SetWindowPos(vInteropWindowHandle, IntPtr.Zero, moveLeft, moveTop, 0, 0, (int)WindowSWP.NOSIZE);
+                        WindowMove(vInteropWindowHandle, moveLeft, moveTop);
                     }
                 }
             }

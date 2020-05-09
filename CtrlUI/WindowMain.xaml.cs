@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -86,11 +87,11 @@ namespace CtrlUI
                     int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
                     if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]))
                     {
-                        await UpdateWindowPosition(monitorNumber, false, false, false, true);
+                        await UpdateWindowPosition(monitorNumber, false, true);
                     }
                     else
                     {
-                        await UpdateWindowPosition(monitorNumber, true, true, false, true);
+                        await UpdateWindowPosition(monitorNumber, false, true);
                     }
                 }
 
@@ -225,7 +226,7 @@ namespace CtrlUI
                     SettingSave("DisplayMonitor", "1");
 
                     //Update the app window position
-                    await UpdateWindowPosition(1, false, true, true, true);
+                    await UpdateWindowPosition(1, true, true);
                     return;
                 }
 
@@ -244,13 +245,13 @@ namespace CtrlUI
                 SettingSave("DisplayMonitor", monitorNumber.ToString());
 
                 //Update the app window position
-                await UpdateWindowPosition(monitorNumber, false, true, true, false);
+                await UpdateWindowPosition(monitorNumber, true, false);
             }
             catch { }
         }
 
         //Update the window position
-        async Task UpdateWindowPosition(int monitorNumber, bool settingSize, bool resizeWindow, bool notifyApps, bool silent)
+        async Task UpdateWindowPosition(int monitorNumber, bool notifyApps, bool silent)
         {
             try
             {
@@ -264,35 +265,22 @@ namespace CtrlUI
                 //Get the current active screen
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
-                //Get the target window size
-                int windowWidth = 0;
-                int windowHeight = 0;
-                if (settingSize)
-                {
-                    windowWidth = Convert.ToInt32(ConfigurationManager.AppSettings["WindowSizeWidth"]);
-                    windowHeight = Convert.ToInt32(ConfigurationManager.AppSettings["WindowSizeHeight"]);
-                }
-                else
-                {
-                    windowWidth = Convert.ToInt32(this.ActualWidth);
-                    windowHeight = Convert.ToInt32(this.ActualHeight);
-                }
+                //Get the current window size
+                int windowWidth = (int)(this.ActualWidth * displayMonitorSettings.DpiScaleHorizontal);
+                int windowHeight = (int)(this.ActualHeight * displayMonitorSettings.DpiScaleVertical);
 
-                if (windowWidth > displayMonitorSettings.WidthDpi) { windowWidth = displayMonitorSettings.WidthDpi; }
-                if (windowHeight > displayMonitorSettings.HeightDpi) { windowHeight = displayMonitorSettings.HeightDpi; }
-
-                //Resize the application window
-                if (resizeWindow)
+                //Check and resize the target window size
+                if (windowWidth > displayMonitorSettings.WidthNative || windowHeight > displayMonitorSettings.HeightNative)
                 {
-                    this.Width = windowWidth;
-                    this.Height = windowHeight;
+                    windowWidth = displayMonitorSettings.WidthNative;
+                    windowHeight = displayMonitorSettings.HeightNative;
+                    WindowResize(vInteropWindowHandle, windowWidth, windowHeight);
                 }
 
                 //Center the window on target screen
-                int horizontalCenter = Convert.ToInt32((displayMonitorSettings.WidthDpi - windowWidth) / 2);
-                int verticalCenter = Convert.ToInt32((displayMonitorSettings.HeightDpi - windowHeight) / 2);
-                this.Top = displayMonitorSettings.BoundsTop + verticalCenter;
-                this.Left = displayMonitorSettings.BoundsLeft + horizontalCenter;
+                int horizontalLeft = (int)(displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthNative - windowWidth) / 2);
+                int verticalTop = (int)(displayMonitorSettings.BoundsTop + (displayMonitorSettings.HeightNative - windowHeight) / 2);
+                WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
 
                 //Restore the previous screen mode
                 if (isMaximized)
@@ -324,14 +312,7 @@ namespace CtrlUI
         {
             try
             {
-                //Save the current window size on change
-                if (WindowState == WindowState.Normal)
-                {
-                    SettingSave("WindowSizeWidth", this.ActualWidth.ToString());
-                    SettingSave("WindowSizeHeight", this.ActualHeight.ToString());
-                }
-
-                //Make sure the correct title style is set
+                //Make sure the correct window style is set
                 if (WindowState == WindowState.Maximized && WindowStyle != WindowStyle.None) { WindowStyle = WindowStyle.None; }
                 else if (WindowState == WindowState.Normal && WindowStyle != WindowStyle.SingleBorderWindow) { WindowStyle = WindowStyle.SingleBorderWindow; }
             }

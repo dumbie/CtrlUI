@@ -47,7 +47,7 @@ namespace FpsOverlayer
                     if (receivedString == "SettingChangedDisplayMonitor")
                     {
                         Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
-                        UpdateWindowPosition(vTargetProcess.Name);
+                        UpdateWindowPosition();
                     }
                 }
             }
