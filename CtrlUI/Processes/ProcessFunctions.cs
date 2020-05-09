@@ -425,16 +425,26 @@ namespace CtrlUI
         }
 
         //Launch DirectXInput application
-        async Task LaunchDirectXInput()
+        async Task LaunchDirectXInput(bool silentLaunch)
         {
             try
             {
                 if (!CheckRunningProcessByNameOrTitle("DirectXInput", false))
                 {
-                    await Notification_Send_Status("DirectXInput", "Launching DirectXInput");
                     Debug.WriteLine("Launching DirectXInput");
+                    if (!silentLaunch)
+                    {
+                        await Notification_Send_Status("DirectXInput", "Launching DirectXInput");
+                    }
 
                     await ProcessLauncherWin32Async("DirectXInput-Admin.exe", "", "", true, false);
+                }
+                else
+                {
+                    if (!silentLaunch)
+                    {
+                        await Notification_Send_Status("DirectXInput", "DirectXInput is already running");
+                    }
                 }
             }
             catch { }

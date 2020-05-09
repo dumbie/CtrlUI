@@ -382,7 +382,7 @@ namespace CtrlUI
         {
             try
             {
-                await LaunchDirectXInput();
+                await LaunchDirectXInput(false);
             }
             catch { }
         }

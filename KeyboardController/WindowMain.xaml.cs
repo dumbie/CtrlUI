@@ -58,11 +58,11 @@ namespace KeyboardController
                 //Play window open sound
                 PlayInterfaceSound("PopupOpen", false);
 
+                //Activate window and focus on key
+                await KeyboardWindowActivate(key_h);
+
                 //Update the window position
                 UpdateWindowPosition();
-
-                //Activate window and focus on key
-                await KeyboardWindowActivate(key_g);
 
                 //Make window able to drag from border
                 this.MouseDown += WindowMain_MouseDown;
@@ -635,7 +635,7 @@ namespace KeyboardController
                         await Task.Delay(10);
 
                         //Activate keyboard window and focus on key
-                        await KeyboardWindowActivate(key_g);
+                        await KeyboardWindowActivate(key_h);
                     });
                 }
             }

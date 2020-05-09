@@ -130,7 +130,7 @@ namespace CtrlUI
                 TasksBackgroundStart();
 
                 //Launch DirectXInput application
-                await LaunchDirectXInput();
+                await LaunchDirectXInput(true);
 
                 //Check settings if Fps Overlayer launches on start
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFpsOverlayer"]))
