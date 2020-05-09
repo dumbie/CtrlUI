@@ -36,7 +36,7 @@ namespace CtrlUI
                 //Show launching message
                 if (!silent)
                 {
-                    await Notification_Send_Status("App", "Launching " + appTitle);
+                    await Notification_Send_Status("AppLaunch", "Launching " + appTitle);
                     //Debug.WriteLine("Launching UWP or Win32Store: " + appTitle + "/" + pathExe);
                 }
 

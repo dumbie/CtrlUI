@@ -15,7 +15,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("Closing", "Closing " + dataBindApp.Name);
+                await Notification_Send_Status("AppClose", "Closing " + dataBindApp.Name);
                 Debug.WriteLine("Closing Win32 and Win32Store process: " + dataBindApp.Name);
 
                 //Close the process by id or name
@@ -36,7 +36,7 @@ namespace CtrlUI
                 //Check if process closed
                 if (closedProcess)
                 {
-                    await Notification_Send_Status("Closing", "Closed " + dataBindApp.Name);
+                    await Notification_Send_Status("AppClose", "Closed " + dataBindApp.Name);
                     Debug.WriteLine("Closed Win32 and Win32Store process: " + dataBindApp.Name);
 
                     //Reset the process running status
@@ -59,7 +59,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("Closing", "Failed to close the app");
+                    await Notification_Send_Status("AppClose", "Failed to close the app");
                     Debug.WriteLine("Failed to close the application.");
                     return false;
                 }
@@ -73,7 +73,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("Closing", "Closing " + dataBindApp.Name);
+                await Notification_Send_Status("AppClose", "Closing " + dataBindApp.Name);
                 Debug.WriteLine("Closing all Win32 and Win32Store processes: " + dataBindApp.Name);
 
                 //Close the processes by id or name
@@ -97,7 +97,7 @@ namespace CtrlUI
                 //Check if process closed
                 if (closedProcess)
                 {
-                    await Notification_Send_Status("Closing", "Closed " + dataBindApp.Name);
+                    await Notification_Send_Status("AppClose", "Closed " + dataBindApp.Name);
                     Debug.WriteLine("Closed all Win32 and Win32Store processes: " + dataBindApp.Name);
 
                     //Reset the process running status
@@ -120,7 +120,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("Closing", "Failed to close the app");
+                    await Notification_Send_Status("AppClose", "Failed to close the app");
                     Debug.WriteLine("Failed to close the application");
                     return false;
                 }

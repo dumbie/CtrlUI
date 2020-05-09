@@ -52,7 +52,7 @@ namespace CtrlUI
                     {
                         if (!(processName.ToLower() == "ctrlui" && vAppActivated))
                         {
-                            await Notification_Send_Status("MiniMaxi", "Showing " + processName);
+                            await Notification_Send_Status("AppMiniMaxi", "Showing " + processName);
                         }
                     }
                     Debug.WriteLine("Showing application window: " + processName);
@@ -158,7 +158,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("App", "Launching " + dataBindApp.Name);
+                await Notification_Send_Status("AppLaunch", "Launching " + dataBindApp.Name);
                 Debug.WriteLine("Launching url protocol: " + dataBindApp.PathExe + " / " + dataBindApp.PathLaunch);
 
                 Process LaunchProcess = new Process();
@@ -224,26 +224,26 @@ namespace CtrlUI
                     //Focus or Close when process is already running
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString AnswerClose = new DataBindString();
-                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Closing.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerClose.Name = "Close application";
                     Answers.Add(AnswerClose);
 
                     DataBindString AnswerLaunch = new DataBindString();
-                    AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerLaunch.Name = "Launch new instance";
                     Answers.Add(AnswerLaunch);
 
                     DataBindString AnswerRestartCurrent = new DataBindString();
                     if (!string.IsNullOrWhiteSpace(processMulti.Argument))
                     {
-                        AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        AnswerRestartCurrent.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppRestart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         AnswerRestartCurrent.Name = "Restart application";
                         AnswerRestartCurrent.NameSub = "(Current argument)";
                         Answers.Add(AnswerRestartCurrent);
                     }
 
                     DataBindString AnswerRestartWithout = new DataBindString();
-                    AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerRestartWithout.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppRestart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerRestartWithout.Name = "Restart application";
                     if (!string.IsNullOrWhiteSpace(dataBindApp.Argument) || dataBindApp.Category == AppCategory.Shortcut || dataBindApp.Category == AppCategory.Emulator || dataBindApp.LaunchFilePicker)
                     {
@@ -327,8 +327,8 @@ namespace CtrlUI
             catch { }
         }
 
-        //Run an selected uwp application
-        async Task RunUwpApplication()
+        //Run a selected store application
+        async Task RunStoreApplication()
         {
             try
             {
@@ -363,7 +363,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Closing.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Close launchers";
                 Answers.Add(Answer1);
 
@@ -375,7 +375,7 @@ namespace CtrlUI
 
                 if (SilentClose || (messageResult != null && messageResult == Answer1))
                 {
-                    await Notification_Send_Status("Closing", "Closing other launchers");
+                    await Notification_Send_Status("AppClose", "Closing other launchers");
 
                     //Close all known other launchers
                     foreach (ProfileShared closeLauncher in vCtrlCloseLaunchers)

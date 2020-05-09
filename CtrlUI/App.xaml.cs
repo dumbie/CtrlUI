@@ -20,11 +20,8 @@ namespace CtrlUI
         {
             try
             {
-                //Restart wait fix
-                if (e.Args != null && e.Args.Contains("-restart"))
-                {
-                    await Task.Delay(2000);
-                }
+                //Application restart delay
+                await Application_RestartDelay(e);
 
                 //Get previous focused application
                 vPrevFocusedProcess = GetFocusedProcess();
@@ -41,6 +38,24 @@ namespace CtrlUI
 
                 //Open the application window
                 vWindowMain.Show();
+            }
+            catch { }
+        }
+
+        //Application restart delay
+        private async Task Application_RestartDelay(StartupEventArgs e)
+        {
+            try
+            {
+                if (e.Args != null && e.Args.Contains("-restart"))
+                {
+                    Process currentProcess = Process.GetCurrentProcess();
+                    string processName = currentProcess.ProcessName;
+                    while (Process.GetProcessesByName(processName).Length > 1)
+                    {
+                        await Task.Delay(500);
+                    }
+                }
             }
             catch { }
         }

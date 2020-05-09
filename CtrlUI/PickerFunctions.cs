@@ -148,7 +148,7 @@ namespace CtrlUI
                     if (vFilePickerShowNoFile)
                     {
                         string fileDescription = "Launch application without a file";
-                        BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         DataBindFile dataBindFileWithoutFile = new DataBindFile() { FileType = FileType.PreFile, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutFile, false, false);
                     }
@@ -403,7 +403,7 @@ namespace CtrlUI
                                         }
                                         else if (listFileFullNameLower.EndsWith(".exe"))
                                         {
-                                            listImage = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                                            listImage = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                                         }
                                         else if (listFileFullNameLower.EndsWith(".txt") || listFileFullNameLower.EndsWith(".rtf") || listFileFullNameLower.EndsWith(".doc") || listFileFullNameLower.EndsWith(".docx"))
                                         {

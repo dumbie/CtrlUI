@@ -71,6 +71,10 @@ namespace CtrlUI
                     this.Title += " (Admin)";
                 }
 
+                //Center the application window
+                int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
+                await UpdateWindowPosition(monitorNumber, false, true);
+
                 //Check settings if need to start in fullscreen of minimized
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]))
                 {
@@ -79,20 +83,6 @@ namespace CtrlUI
                 else if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]))
                 {
                     await AppMinimize(false);
-                }
-
-                //Restore the last known window size and center the application
-                if (!Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]))
-                {
-                    int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
-                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]))
-                    {
-                        await UpdateWindowPosition(monitorNumber, false, true);
-                    }
-                    else
-                    {
-                        await UpdateWindowPosition(monitorNumber, false, true);
-                    }
                 }
 
                 //Workaround for 64bit Windows problems with System32
@@ -355,12 +345,12 @@ namespace CtrlUI
                 //Show the closing messagebox
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Closing.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Close CtrlUI";
                 Answers.Add(Answer1);
 
                 DataBindString Answer4 = new DataBindString();
-                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Restart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppRestart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 Answer4.Name = "Restart CtrlUI";
                 Answers.Add(Answer4);
 
@@ -379,17 +369,17 @@ namespace CtrlUI
                 {
                     if (messageResult == Answer1)
                     {
-                        await Notification_Send_Status("Closing", "Closing CtrlUI");
+                        await Notification_Send_Status("AppClose", "Closing CtrlUI");
                         await Application_Exit();
                     }
                     else if (messageResult == Answer4)
                     {
-                        await Notification_Send_Status("Closing", "Restarting CtrlUI");
+                        await Notification_Send_Status("AppRestart", "Restarting CtrlUI");
                         await Application_Restart();
                     }
                     else if (messageResult == Answer2)
                     {
-                        await Notification_Send_Status("Shutdown", "Restarting your PC");
+                        await Notification_Send_Status("Restart", "Restarting your PC");
 
                         //Close all other launchers
                         await CloseLaunchers(true);

@@ -19,7 +19,7 @@ namespace CtrlUI
                     return false;
                 }
 
-                await Notification_Send_Status("Switch", "Restarting " + dataBindApp.Name);
+                await Notification_Send_Status("AppRestart", "Restarting " + dataBindApp.Name);
                 Debug.WriteLine("Restarting Win32 application: " + dataBindApp.Name + " / " + processMulti.Identifier + " / " + processMulti.WindowHandle);
 
                 //Set the launch argument

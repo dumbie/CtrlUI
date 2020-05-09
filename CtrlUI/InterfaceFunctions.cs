@@ -638,17 +638,17 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString AnswerSwitch = new DataBindString();
-                    AnswerSwitch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Switch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerSwitch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppRestart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerSwitch.Name = "Return to application";
                     Answers.Add(AnswerSwitch);
 
                     DataBindString AnswerClose = new DataBindString();
-                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Closing.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerClose.Name = "Close the application";
                     Answers.Add(AnswerClose);
 
                     DataBindString AnswerMinimize = new DataBindString();
-                    AnswerMinimize.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Minimize.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerMinimize.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppMinimize.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerMinimize.Name = "Minimize CtrlUI";
                     Answers.Add(AnswerMinimize);
 
@@ -673,7 +673,7 @@ namespace CtrlUI
                         }
                         else if (messageResult == AnswerClose)
                         {
-                            await Notification_Send_Status("Closing", "Closing " + vPrevFocusedProcess.Title);
+                            await Notification_Send_Status("AppClose", "Closing " + vPrevFocusedProcess.Title);
                             Debug.WriteLine("Closing process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Identifier + " / " + vPrevFocusedProcess.WindowHandle);
 
                             //Check if the application is UWP or Win32
@@ -682,7 +682,7 @@ namespace CtrlUI
                                 bool ClosedProcess = await CloseProcessUwpByWindowHandleOrProcessId(vPrevFocusedProcess.Title, vPrevFocusedProcess.Identifier, vPrevFocusedProcess.WindowHandle);
                                 if (ClosedProcess)
                                 {
-                                    await Notification_Send_Status("Closing", "Closed " + vPrevFocusedProcess.Title);
+                                    await Notification_Send_Status("AppClose", "Closed " + vPrevFocusedProcess.Title);
                                     Debug.WriteLine("Closed process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Identifier + " / " + vPrevFocusedProcess.WindowHandle);
                                     vPrevFocusedProcess = null;
                                 }
@@ -692,7 +692,7 @@ namespace CtrlUI
                                 bool ClosedProcess = CloseProcessById(vPrevFocusedProcess.Identifier);
                                 if (ClosedProcess)
                                 {
-                                    await Notification_Send_Status("Closing", "Closed " + vPrevFocusedProcess.Title);
+                                    await Notification_Send_Status("AppClose", "Closed " + vPrevFocusedProcess.Title);
                                     Debug.WriteLine("Closed process: " + vPrevFocusedProcess.Title + " / " + vPrevFocusedProcess.Identifier + " / " + vPrevFocusedProcess.WindowHandle);
                                     vPrevFocusedProcess = null;
                                 }

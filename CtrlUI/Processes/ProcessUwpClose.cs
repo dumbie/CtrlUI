@@ -16,14 +16,14 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("Closing", "Closing " + dataBindApp.Name);
+                await Notification_Send_Status("AppClose", "Closing " + dataBindApp.Name);
                 Debug.WriteLine("Closing UWP process: " + dataBindApp.Name);
 
                 //Close the process
                 bool closedProcess = await CloseProcessUwpByWindowHandleOrProcessId(dataBindApp.Name, processMulti.Identifier, processMulti.WindowHandle);
                 if (closedProcess)
                 {
-                    await Notification_Send_Status("Closing", "Closed " + dataBindApp.Name);
+                    await Notification_Send_Status("AppClose", "Closed " + dataBindApp.Name);
                     Debug.WriteLine("Closed UWP process: " + dataBindApp.Name);
 
                     //Reset the process running status
@@ -46,7 +46,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("Closing", "Failed to close the app");
+                    await Notification_Send_Status("AppClose", "Failed to close the app");
                     Debug.WriteLine("Failed to close the application.");
                     return false;
                 }
@@ -63,14 +63,14 @@ namespace CtrlUI
                 //Get the multi process
                 ProcessMulti processMulti = dataBindApp.ProcessMulti.FirstOrDefault();
 
-                await Notification_Send_Status("Closing", "Closing " + dataBindApp.Name);
+                await Notification_Send_Status("AppClose", "Closing " + dataBindApp.Name);
                 Debug.WriteLine("Closing all UWP processes: " + dataBindApp.Name + " / " + processMulti.Identifier);
 
                 //Close the process
                 bool closedProcess = CloseProcessById(processMulti.Identifier);
                 if (closedProcess)
                 {
-                    await Notification_Send_Status("Closing", "Closed " + dataBindApp.Name);
+                    await Notification_Send_Status("AppClose", "Closed " + dataBindApp.Name);
                     Debug.WriteLine("Closed all UWP processes: " + dataBindApp.Name);
 
                     //Reset the process running status
@@ -93,7 +93,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("Closing", "Failed to close the app");
+                    await Notification_Send_Status("AppClose", "Failed to close the app");
                     Debug.WriteLine("Failed to close the application.");
                     return false;
                 }

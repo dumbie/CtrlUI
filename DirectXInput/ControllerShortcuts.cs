@@ -139,7 +139,7 @@ namespace DirectXInput
                             Debug.WriteLine("Button Global - Alt+Enter");
 
                             NotificationDetails notificationDetails = new NotificationDetails();
-                            notificationDetails.Icon = "MiniMaxi";
+                            notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Pressing Alt+Enter";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
@@ -157,7 +157,7 @@ namespace DirectXInput
                             Debug.WriteLine("Button Global - Alt+F4");
 
                             NotificationDetails notificationDetails = new NotificationDetails();
-                            notificationDetails.Icon = "Closing";
+                            notificationDetails.Icon = "AppClose";
                             notificationDetails.Text = "Pressing Alt+F4";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
@@ -175,7 +175,7 @@ namespace DirectXInput
                             Debug.WriteLine("Button Global - Win+Tab");
 
                             NotificationDetails notificationDetails = new NotificationDetails();
-                            notificationDetails.Icon = "MiniMaxi";
+                            notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Pressing Win+Tab";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
@@ -189,7 +189,7 @@ namespace DirectXInput
                             Debug.WriteLine("Button Global - Alt+Tab");
 
                             NotificationDetails notificationDetails = new NotificationDetails();
-                            notificationDetails.Icon = "MiniMaxi";
+                            notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Pressing Alt+Tab";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
@@ -281,7 +281,7 @@ namespace DirectXInput
                     Debug.WriteLine("Shortcut launch CtrlUI has been pressed.");
 
                     NotificationDetails notificationDetails = new NotificationDetails();
-                    notificationDetails.Icon = "App";
+                    notificationDetails.Icon = "AppLaunch";
                     notificationDetails.Text = "Launching CtrlUI";
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 

@@ -256,19 +256,19 @@
                         <TextBlock Margin="15,0,0,0" Text="Show or hide the fps overlayer" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonRunExe" Orientation="Horizontal">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Run.png" Width="50" HorizontalAlignment="Center"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/AppRunExe.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Launch an executable file from disk" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Name="menuButtonRunApp" Orientation="Horizontal">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/RunApp.png" Width="50" HorizontalAlignment="Center"/>
+                    <StackPanel Name="menuButtonRunStore" Orientation="Horizontal">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/AppRunStore.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Launch a Windows store application" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonAddExe" Orientation="Horizontal">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/AddExe.png" Width="50" HorizontalAlignment="Center"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/AppAddExe.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Add desktop application to the list" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Name="menuButtonAddApp" Orientation="Horizontal">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/AddApp.png" Width="50" HorizontalAlignment="Center"/>
+                    <StackPanel Name="menuButtonAddStore" Orientation="Horizontal">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/AppAddStore.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Add a store application to the list" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonDisconnect" Orientation="Horizontal">
@@ -276,7 +276,7 @@
                         <TextBlock Margin="15,0,0,0" Text="Disconnect active remote streams" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonCloseLaunchers" Orientation="Horizontal">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Closing.png" Width="50" HorizontalAlignment="Center"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/AppClose.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Close other running app launchers" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonShutdown" Orientation="Horizontal">
@@ -632,7 +632,7 @@
 
                     <ListBox Grid.Column="1" Name="Listbox_SettingsMenu" SelectedIndex="0" HorizontalAlignment="Center" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" Style="{StaticResource ListBoxHorizontal}">
                         <StackPanel Name="settingsButtonLaunch" Style="{StaticResource ListBoxMenuStackPanel}">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Icons/Run.png" Width="55" HorizontalAlignment="Center"/>
+                            <Image Source="pack://siteoforigin:,,,/Assets/Icons/AppRunExe.png" Width="55" HorizontalAlignment="Center"/>
                             <TextBlock Text="Launch" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Name="settingsButtonApps" Style="{StaticResource ListBoxMenuStackPanel}">
@@ -686,6 +686,26 @@
 
                             <CheckBox Name="cb_SettingsLaunchFpsOverlayer" Content="Launch Fps Overlayer on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will launch Fps Overlayer when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,20,0,20"/>
+
+                            <Button Name="btn_Settings_AppQuickLaunch" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/AppLaunch.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Name="btn_Settings_AppQuickLaunch_TextBlock" Margin="15,0,0,0" Text="Change quick launch app: Quick Launch" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+
+                            <Button Name="btn_Settings_LaunchDirectXInput" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/DirectXInput.png" Width="50" HorizontalAlignment="Center"/>
+                                        <TextBlock Margin="15,0,0,0" Text="Launch DirectXInput application" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelApps" Visibility="Collapsed">
@@ -837,29 +857,11 @@
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelOther" Visibility="Collapsed">
-                            <Button Name="btn_Settings_AppQuickLaunch" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/App.png" Width="50" HorizontalAlignment="Center"/>
-                                        <TextBlock Name="btn_Settings_AppQuickLaunch_TextBlock" Margin="15,0,0,0" Text="Change quick launch app: Quick Launch" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-
-                            <Button Name="btn_Settings_AddGeforceExperience" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                            <Button Name="btn_Settings_AddGeforceExperience" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Shortcut.png" Width="50" HorizontalAlignment="Center"/>
                                         <TextBlock Name="btn_Settings_AddGeforceExperience_TextBlock" Margin="15,0,0,0" Text="Add CtrlUI to GeForce Experience" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-
-                            <Button Name="btn_Settings_LaunchDirectXInput" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/DirectXInput.png" Width="50" HorizontalAlignment="Center"/>
-                                        <TextBlock Margin="15,0,0,0" Text="Launch DirectXInput application" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>

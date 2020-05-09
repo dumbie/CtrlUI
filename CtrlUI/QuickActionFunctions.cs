@@ -26,7 +26,7 @@ namespace CtrlUI
                     DataBindApp QuickLaunchApp = CombineAppLists(false, false).Where(x => x.QuickLaunch).FirstOrDefault();
                     if (QuickLaunchApp != null)
                     {
-                        AnswerQuickLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        AnswerQuickLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         AnswerQuickLaunch.Name = "Quick launch " + QuickLaunchApp.Name;
                         Answers.Add(AnswerQuickLaunch);
                     }
@@ -39,12 +39,12 @@ namespace CtrlUI
                 Answers.Add(AnswerSortApps);
 
                 DataBindString AnswerLaunchExe = new DataBindString();
-                AnswerLaunchExe.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Run.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerLaunchExe.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppRunExe.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerLaunchExe.Name = "Launch an executable file from disk";
                 Answers.Add(AnswerLaunchExe);
 
                 DataBindString AnswerLaunchUwp = new DataBindString();
-                AnswerLaunchUwp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/RunApp.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerLaunchUwp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppRunStore.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerLaunchUwp.Name = "Launch a Windows store application";
                 Answers.Add(AnswerLaunchUwp);
 
@@ -94,7 +94,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerLaunchUwp)
                     {
-                        await RunUwpApplication();
+                        await RunStoreApplication();
                     }
                     else if (messageResult == AnswerFileManager)
                     {
@@ -156,13 +156,13 @@ namespace CtrlUI
                 }
                 else
                 {
-                    await Notification_Send_Status("App", "Please set a quick launch app");
+                    await Notification_Send_Status("AppLaunch", "Please set a quick launch app");
                     Debug.WriteLine("Please set a quick launch app");
                 }
             }
             catch
             {
-                await Notification_Send_Status("App", "Please set a quick launch app");
+                await Notification_Send_Status("AppLaunch", "Please set a quick launch app");
                 Debug.WriteLine("Please set a quick launch app");
             }
         }

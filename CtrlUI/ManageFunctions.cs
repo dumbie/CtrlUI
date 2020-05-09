@@ -184,7 +184,7 @@ namespace CtrlUI
                     List<DataBindString> listAppCategories = new List<DataBindString>();
 
                     DataBindString categoryApp = new DataBindString();
-                    categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     categoryApp.Name = "App & Media";
                     listAppCategories.Add(categoryApp);
 
@@ -263,7 +263,7 @@ namespace CtrlUI
                 List<DataBindString> listAppCategories = new List<DataBindString>();
 
                 DataBindString categoryApp = new DataBindString();
-                categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 categoryApp.Name = "App & Media";
                 listAppCategories.Add(categoryApp);
 
@@ -308,7 +308,7 @@ namespace CtrlUI
         }
 
         //Add Windows store application
-        async Task Popup_Show_AddStoreApp()
+        async Task Popup_Show_AddStore()
         {
             try
             {
@@ -319,7 +319,7 @@ namespace CtrlUI
                 DataBindString stringGame = new DataBindString() { Name = "Game", Data1 = "Game", ImageBitmap = imageGame };
                 answersCategory.Add(stringGame);
 
-                BitmapImage imageApp = FileToBitmapImage(new string[] { "Assets/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageApp = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 DataBindString stringApp = new DataBindString() { Name = "App & Media", Data1 = "App", ImageBitmap = imageApp };
                 answersCategory.Add(stringApp);
 
