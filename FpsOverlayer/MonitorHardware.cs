@@ -430,8 +430,10 @@ namespace FpsOverlayer
             {
                 //Check if the information is visible
                 bool showResolution = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowResolution"]);
+                bool showDpiResolution = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowDpiResolution"]);
+                bool showColorBitDepth = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowColorBitDepth"]);
                 bool showRefreshRate = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowRefreshRate"]);
-                if (!showResolution && !showRefreshRate)
+                if (!showResolution && !showColorBitDepth && !showRefreshRate)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -448,7 +450,21 @@ namespace FpsOverlayer
                 string screenResolutionString = string.Empty;
                 if (showResolution)
                 {
-                    screenResolutionString = " " + displayMonitorSettings.WidthNative + "x" + displayMonitorSettings.HeightNative;
+                    if (showDpiResolution)
+                    {
+                        screenResolutionString = " " + displayMonitorSettings.WidthDpi + "x" + displayMonitorSettings.HeightDpi;
+                    }
+                    else
+                    {
+                        screenResolutionString = " " + displayMonitorSettings.WidthNative + "x" + displayMonitorSettings.HeightNative;
+                    }
+                }
+
+                //Get the screen color bit depth
+                string screenColorBitDepthString = string.Empty;
+                if (showColorBitDepth)
+                {
+                    screenColorBitDepthString = " " + displayMonitorSettings.BitDepth + "Bits";
                 }
 
                 //Get the screen refresh rate
@@ -458,7 +474,7 @@ namespace FpsOverlayer
                     int screenRefreshRateInt = displayMonitorSettings.RefreshRate;
                     if (screenRefreshRateInt > 0)
                     {
-                        if (showResolution)
+                        if (showResolution || showColorBitDepth)
                         {
                             screenRefreshRateString = " @ " + screenRefreshRateInt + "Hz";
                         }
@@ -470,7 +486,7 @@ namespace FpsOverlayer
                 }
 
                 //Update the screen resolution
-                string stringDisplay = AVFunctions.StringRemoveStart(vTitleMON + screenResolutionString + screenRefreshRateString, " ");
+                string stringDisplay = AVFunctions.StringRemoveStart(vTitleMON + screenResolutionString + screenColorBitDepthString + screenRefreshRateString, " ");
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     textblock_CurrentMon.Text = stringDisplay;

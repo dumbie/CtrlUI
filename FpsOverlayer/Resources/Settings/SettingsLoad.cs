@@ -68,6 +68,8 @@ namespace FpsOverlayer
 
                 checkbox_MonShowCategoryTitle.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowCategoryTitle"]);
                 checkbox_MonShowResolution.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowResolution"]);
+                checkbox_MonShowDpiResolution.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowDpiResolution"]);
+                checkbox_MonShowColorBitDepth.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowColorBitDepth"]);
                 checkbox_MonShowRefreshRate.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowRefreshRate"]);
 
                 checkbox_FpsShowCategoryTitle.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCategoryTitle"]);

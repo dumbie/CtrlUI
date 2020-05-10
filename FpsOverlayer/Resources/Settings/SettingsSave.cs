@@ -125,6 +125,8 @@ namespace FpsOverlayer
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
                 checkbox_MonShowResolution.Click += (sender, e) => { SettingSave("MonShowResolution", checkbox_MonShowResolution.IsChecked.ToString()); };
+                checkbox_MonShowDpiResolution.Click += (sender, e) => { SettingSave("MonShowDpiResolution", checkbox_MonShowDpiResolution.IsChecked.ToString()); };
+                checkbox_MonShowColorBitDepth.Click += (sender, e) => { SettingSave("MonShowColorBitDepth", checkbox_MonShowColorBitDepth.IsChecked.ToString()); };
                 checkbox_MonShowRefreshRate.Click += (sender, e) => { SettingSave("MonShowRefreshRate", checkbox_MonShowRefreshRate.IsChecked.ToString()); };
 
                 checkbox_FpsShowCategoryTitle.Click += (sender, e) =>

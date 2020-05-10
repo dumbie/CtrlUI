@@ -254,6 +254,12 @@
                 <CheckBox Name="checkbox_MonShowResolution" Content="Show the current resolution" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the current monitor resolution." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
+                <CheckBox Name="checkbox_MonShowDpiResolution" Content="Show the effective dpi resolution" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will show the dpi resolution instead of native." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                <CheckBox Name="checkbox_MonShowColorBitDepth" Content="Show the current color bit depth" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will show the current monitor color bit depth." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                 <CheckBox Name="checkbox_MonShowRefreshRate" Content="Show the current refresh rate" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the current monitor refresh rate." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 

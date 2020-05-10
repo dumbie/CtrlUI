@@ -65,6 +65,8 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["MonId"] == null) { SettingSave("MonId", "6"); }
                 if (ConfigurationManager.AppSettings["MonShowCategoryTitle"] == null) { SettingSave("MonShowCategoryTitle", "False"); }
                 if (ConfigurationManager.AppSettings["MonShowResolution"] == null) { SettingSave("MonShowResolution", "False"); }
+                if (ConfigurationManager.AppSettings["MonShowDpiResolution"] == null) { SettingSave("MonShowDpiResolution", "False"); }
+                if (ConfigurationManager.AppSettings["MonShowColorBitDepth"] == null) { SettingSave("MonShowColorBitDepth", "False"); }
                 if (ConfigurationManager.AppSettings["MonShowRefreshRate"] == null) { SettingSave("MonShowRefreshRate", "False"); }
 
                 if (ConfigurationManager.AppSettings["TimeId"] == null) { SettingSave("TimeId", "7"); }
