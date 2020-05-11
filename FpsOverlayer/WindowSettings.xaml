@@ -133,6 +133,9 @@
                 </StackPanel>
                 <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
+                <CheckBox Name="checkbox_GpuShowName" Content="Show the videocard name" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will show the videocard name in the overlay." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                 <CheckBox Name="checkbox_GpuShowPercentage" Content="Show load in percentage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the videocards load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
@@ -164,6 +167,9 @@
                     <TextBox Name="textbox_CpuCategoryTitle" MaxLength="20"  Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                 </StackPanel>
                 <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                <CheckBox Name="checkbox_CpuShowName" Content="Show the processor name" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will show the processor name in the overlay." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <CheckBox Name="checkbox_CpuShowPercentage" Content="Show load in percentage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the processors load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>

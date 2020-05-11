@@ -36,6 +36,7 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["GpuId"] == null) { SettingSave("GpuId", "4"); }
                 if (ConfigurationManager.AppSettings["GpuCategoryTitle"] == null) { SettingSave("GpuCategoryTitle", "GPU"); }
                 if (ConfigurationManager.AppSettings["GpuShowCategoryTitle"] == null) { SettingSave("GpuShowCategoryTitle", "True"); }
+                if (ConfigurationManager.AppSettings["GpuShowName"] == null) { SettingSave("GpuShowName", "False"); }
                 if (ConfigurationManager.AppSettings["GpuShowPercentage"] == null) { SettingSave("GpuShowPercentage", "True"); }
                 if (ConfigurationManager.AppSettings["GpuShowMemoryUsed"] == null) { SettingSave("GpuShowMemoryUsed", "True"); }
                 if (ConfigurationManager.AppSettings["GpuShowTemperature"] == null) { SettingSave("GpuShowTemperature", "True"); }
@@ -45,6 +46,7 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["CpuId"] == null) { SettingSave("CpuId", "3"); }
                 if (ConfigurationManager.AppSettings["CpuCategoryTitle"] == null) { SettingSave("CpuCategoryTitle", "CPU"); }
                 if (ConfigurationManager.AppSettings["CpuShowCategoryTitle"] == null) { SettingSave("CpuShowCategoryTitle", "True"); }
+                if (ConfigurationManager.AppSettings["CpuShowName"] == null) { SettingSave("CpuShowName", "False"); }
                 if (ConfigurationManager.AppSettings["CpuShowPercentage"] == null) { SettingSave("CpuShowPercentage", "True"); }
                 if (ConfigurationManager.AppSettings["CpuShowTemperature"] == null) { SettingSave("CpuShowTemperature", "True"); }
                 if (ConfigurationManager.AppSettings["CpuShowCoreFrequency"] == null) { SettingSave("CpuShowCoreFrequency", "True"); }

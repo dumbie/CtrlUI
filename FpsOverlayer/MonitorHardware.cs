@@ -227,12 +227,13 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
+                bool showName = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowName"]);
                 bool showPercentage = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowPercentage"]);
                 bool showTemperature = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowTemperature"]);
                 bool showMemoryUsed = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowMemoryUsed"]);
                 bool showCoreFrequency = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowCoreFrequency"]);
                 bool showFanSpeed = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowFanSpeed"]);
-                if (!showPercentage && !showTemperature && !showMemoryUsed && !showCoreFrequency && !showFanSpeed)
+                if (!showName && !showPercentage && !showTemperature && !showMemoryUsed && !showCoreFrequency && !showFanSpeed)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -244,11 +245,21 @@ namespace FpsOverlayer
                 if (hardwareItem.HardwareType == HardwareType.GpuNvidia || hardwareItem.HardwareType == HardwareType.GpuAmd)
                 {
                     hardwareItem.Update();
+                    string GpuName = string.Empty;
                     string GpuPercentage = string.Empty;
                     string GpuTemperature = string.Empty;
                     string GpuMemory = string.Empty;
                     string GpuFrequency = string.Empty;
                     string GpuFanSpeed = string.Empty;
+
+                    if (showName)
+                    {
+                        GpuName = hardwareItem.Name;
+                    }
+                    else
+                    {
+                        GpuName = string.Empty;
+                    }
 
                     foreach (ISensor sensor in hardwareItem.Sensors)
                     {
@@ -306,9 +317,27 @@ namespace FpsOverlayer
                         catch { }
                     }
 
-                    if (!string.IsNullOrWhiteSpace(GpuPercentage) || !string.IsNullOrWhiteSpace(GpuTemperature) || !string.IsNullOrWhiteSpace(GpuFrequency) || !string.IsNullOrWhiteSpace(GpuMemory) || !string.IsNullOrWhiteSpace(GpuFanSpeed))
+                    bool gpuNameNullOrWhiteSpace = string.IsNullOrWhiteSpace(GpuName);
+                    if (!gpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(GpuPercentage) || !string.IsNullOrWhiteSpace(GpuTemperature) || !string.IsNullOrWhiteSpace(GpuFrequency) || !string.IsNullOrWhiteSpace(GpuMemory) || !string.IsNullOrWhiteSpace(GpuFanSpeed))
                     {
-                        string stringDisplay = AVFunctions.StringRemoveStart(vTitleGPU + GpuPercentage + GpuTemperature + GpuFrequency + GpuMemory + GpuFanSpeed, " ");
+                        string stringDisplay = string.Empty;
+                        string stringStats = AVFunctions.StringRemoveStart(vTitleGPU + GpuPercentage + GpuTemperature + GpuFrequency + GpuMemory + GpuFanSpeed, " ");
+                        if (string.IsNullOrWhiteSpace(stringStats))
+                        {
+                            stringDisplay = GpuName;
+                        }
+                        else
+                        {
+                            if (gpuNameNullOrWhiteSpace)
+                            {
+                                stringDisplay = stringStats;
+                            }
+                            else
+                            {
+                                stringDisplay = GpuName + "\n" + stringStats;
+                            }
+                        }
+
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             textblock_CurrentGpu.Text = stringDisplay;
@@ -333,11 +362,12 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
+                bool showName = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowName"]);
                 bool showPercentage = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowPercentage"]);
                 bool showTemperature = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowTemperature"]);
                 bool showCoreFrequency = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowCoreFrequency"]);
                 bool showPowerUsage = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowPowerUsage"]);
-                if (!showPercentage && !showTemperature && !showCoreFrequency && !showPowerUsage)
+                if (!showName && !showPercentage && !showTemperature && !showCoreFrequency && !showPowerUsage)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -349,10 +379,20 @@ namespace FpsOverlayer
                 if (hardwareItem.HardwareType == HardwareType.Cpu)
                 {
                     hardwareItem.Update();
+                    string CpuName = string.Empty;
                     string CpuPercentage = string.Empty;
                     string CpuTemperature = string.Empty;
                     string CpuFrequency = string.Empty;
                     string CpuPower = string.Empty;
+
+                    if (showName)
+                    {
+                        CpuName = hardwareItem.Name;
+                    }
+                    else
+                    {
+                        CpuName = string.Empty;
+                    }
 
                     foreach (ISensor sensor in hardwareItem.Sensors)
                     {
@@ -402,9 +442,27 @@ namespace FpsOverlayer
                         catch { }
                     }
 
-                    if (!string.IsNullOrWhiteSpace(CpuTemperature) || !string.IsNullOrWhiteSpace(CpuPercentage) || !string.IsNullOrWhiteSpace(CpuFrequency) || !string.IsNullOrWhiteSpace(CpuPower))
+                    bool cpuNameNullOrWhiteSpace = string.IsNullOrWhiteSpace(CpuName);
+                    if (!cpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(CpuPercentage) || !string.IsNullOrWhiteSpace(CpuTemperature) || !string.IsNullOrWhiteSpace(CpuFrequency) || !string.IsNullOrWhiteSpace(CpuPower))
                     {
-                        string stringDisplay = AVFunctions.StringRemoveStart(vTitleCPU + CpuPercentage + CpuTemperature + CpuFrequency + CpuPower, " ");
+                        string stringDisplay = string.Empty;
+                        string stringStats = AVFunctions.StringRemoveStart(vTitleCPU + CpuPercentage + CpuTemperature + CpuFrequency + CpuPower, " ");
+                        if (string.IsNullOrWhiteSpace(stringStats))
+                        {
+                            stringDisplay = CpuName;
+                        }
+                        else
+                        {
+                            if (cpuNameNullOrWhiteSpace)
+                            {
+                                stringDisplay = stringStats;
+                            }
+                            else
+                            {
+                                stringDisplay = CpuName + "\n" + stringStats;
+                            }
+                        }
+
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             textblock_CurrentCpu.Text = stringDisplay;

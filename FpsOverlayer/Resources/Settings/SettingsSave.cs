@@ -91,6 +91,7 @@ namespace FpsOverlayer
                     SettingSave("GpuShowCategoryTitle", senderCheckBox.IsChecked.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
+                checkbox_GpuShowName.Click += (sender, e) => { SettingSave("GpuShowName", checkbox_GpuShowName.IsChecked.ToString()); };
                 checkbox_GpuShowPercentage.Click += (sender, e) => { SettingSave("GpuShowPercentage", checkbox_GpuShowPercentage.IsChecked.ToString()); };
                 checkbox_GpuShowMemoryUsed.Click += (sender, e) => { SettingSave("GpuShowMemoryUsed", checkbox_GpuShowMemoryUsed.IsChecked.ToString()); };
                 checkbox_GpuShowTemperature.Click += (sender, e) => { SettingSave("GpuShowTemperature", checkbox_GpuShowTemperature.IsChecked.ToString()); };
@@ -109,6 +110,7 @@ namespace FpsOverlayer
                     SettingSave("CpuShowCategoryTitle", senderCheckBox.IsChecked.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
+                checkbox_CpuShowName.Click += (sender, e) => { SettingSave("CpuShowName", checkbox_CpuShowName.IsChecked.ToString()); };
                 checkbox_CpuShowPercentage.Click += (sender, e) => { SettingSave("CpuShowPercentage", checkbox_CpuShowPercentage.IsChecked.ToString()); };
                 checkbox_CpuShowTemperature.Click += (sender, e) => { SettingSave("CpuShowTemperature", checkbox_CpuShowTemperature.IsChecked.ToString()); };
                 checkbox_CpuShowCoreFrequency.Click += (sender, e) => { SettingSave("CpuShowCoreFrequency", checkbox_CpuShowCoreFrequency.IsChecked.ToString()); };

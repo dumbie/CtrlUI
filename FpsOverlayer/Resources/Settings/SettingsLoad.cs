@@ -43,6 +43,7 @@ namespace FpsOverlayer
 
                 textbox_GpuCategoryTitle.Text = Convert.ToString(ConfigurationManager.AppSettings["GpuCategoryTitle"]);
                 checkbox_GpuShowCategoryTitle.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowCategoryTitle"]);
+                checkbox_GpuShowName.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowName"]);
                 checkbox_GpuShowPercentage.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowPercentage"]);
                 checkbox_GpuShowMemoryUsed.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowMemoryUsed"]);
                 checkbox_GpuShowTemperature.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowTemperature"]);
@@ -51,6 +52,7 @@ namespace FpsOverlayer
 
                 textbox_CpuCategoryTitle.Text = Convert.ToString(ConfigurationManager.AppSettings["CpuCategoryTitle"]);
                 checkbox_CpuShowCategoryTitle.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowCategoryTitle"]);
+                checkbox_CpuShowName.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowName"]);
                 checkbox_CpuShowPercentage.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowPercentage"]);
                 checkbox_CpuShowTemperature.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowTemperature"]);
                 checkbox_CpuShowCoreFrequency.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowCoreFrequency"]);
