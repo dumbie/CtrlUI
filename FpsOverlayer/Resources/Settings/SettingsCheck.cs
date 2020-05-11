@@ -34,6 +34,7 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["ColorMon"] == null) { SettingSave("ColorMon", "#21A000"); }
 
                 if (ConfigurationManager.AppSettings["GpuId"] == null) { SettingSave("GpuId", "4"); }
+                if (ConfigurationManager.AppSettings["GpuCategoryTitle"] == null) { SettingSave("GpuCategoryTitle", "GPU"); }
                 if (ConfigurationManager.AppSettings["GpuShowCategoryTitle"] == null) { SettingSave("GpuShowCategoryTitle", "True"); }
                 if (ConfigurationManager.AppSettings["GpuShowPercentage"] == null) { SettingSave("GpuShowPercentage", "True"); }
                 if (ConfigurationManager.AppSettings["GpuShowMemoryUsed"] == null) { SettingSave("GpuShowMemoryUsed", "True"); }
@@ -42,6 +43,7 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["GpuShowFanSpeed"] == null) { SettingSave("GpuShowFanSpeed", "True"); }
 
                 if (ConfigurationManager.AppSettings["CpuId"] == null) { SettingSave("CpuId", "3"); }
+                if (ConfigurationManager.AppSettings["CpuCategoryTitle"] == null) { SettingSave("CpuCategoryTitle", "CPU"); }
                 if (ConfigurationManager.AppSettings["CpuShowCategoryTitle"] == null) { SettingSave("CpuShowCategoryTitle", "True"); }
                 if (ConfigurationManager.AppSettings["CpuShowPercentage"] == null) { SettingSave("CpuShowPercentage", "True"); }
                 if (ConfigurationManager.AppSettings["CpuShowTemperature"] == null) { SettingSave("CpuShowTemperature", "True"); }
@@ -49,6 +51,7 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["CpuShowPowerUsage"] == null) { SettingSave("CpuShowPowerUsage", "True"); }
 
                 if (ConfigurationManager.AppSettings["MemId"] == null) { SettingSave("MemId", "5"); }
+                if (ConfigurationManager.AppSettings["MemCategoryTitle"] == null) { SettingSave("MemCategoryTitle", "MEM"); }
                 if (ConfigurationManager.AppSettings["MemShowCategoryTitle"] == null) { SettingSave("MemShowCategoryTitle", "True"); }
                 if (ConfigurationManager.AppSettings["MemShowPercentage"] == null) { SettingSave("MemShowPercentage", "True"); }
                 if (ConfigurationManager.AppSettings["MemShowUsed"] == null) { SettingSave("MemShowUsed", "True"); }
@@ -56,6 +59,7 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["MemShowTotal"] == null) { SettingSave("MemShowTotal", "True"); }
 
                 if (ConfigurationManager.AppSettings["NetId"] == null) { SettingSave("NetId", "2"); }
+                if (ConfigurationManager.AppSettings["NetCategoryTitle"] == null) { SettingSave("NetCategoryTitle", "NET"); }
                 if (ConfigurationManager.AppSettings["NetShowCategoryTitle"] == null) { SettingSave("NetShowCategoryTitle", "True"); }
                 if (ConfigurationManager.AppSettings["NetShowCurrentUsage"] == null) { SettingSave("NetShowCurrentUsage", "False"); }
 
@@ -63,6 +67,7 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["AppShowName"] == null) { SettingSave("AppShowName", "False"); }
 
                 if (ConfigurationManager.AppSettings["MonId"] == null) { SettingSave("MonId", "6"); }
+                if (ConfigurationManager.AppSettings["MonCategoryTitle"] == null) { SettingSave("MonCategoryTitle", "MON"); }
                 if (ConfigurationManager.AppSettings["MonShowCategoryTitle"] == null) { SettingSave("MonShowCategoryTitle", "False"); }
                 if (ConfigurationManager.AppSettings["MonShowResolution"] == null) { SettingSave("MonShowResolution", "False"); }
                 if (ConfigurationManager.AppSettings["MonShowDpiResolution"] == null) { SettingSave("MonShowDpiResolution", "False"); }
@@ -73,6 +78,7 @@ namespace FpsOverlayer
                 if (ConfigurationManager.AppSettings["TimeShowCurrentTime"] == null) { SettingSave("TimeShowCurrentTime", "True"); }
 
                 if (ConfigurationManager.AppSettings["FpsId"] == null) { SettingSave("FpsId", "1"); }
+                if (ConfigurationManager.AppSettings["FpsCategoryTitle"] == null) { SettingSave("FpsCategoryTitle", "FPS"); }
                 if (ConfigurationManager.AppSettings["FpsShowCategoryTitle"] == null) { SettingSave("FpsShowCategoryTitle", "False"); }
                 if (ConfigurationManager.AppSettings["FpsShowCurrentFps"] == null) { SettingSave("FpsShowCurrentFps", "True"); }
                 if (ConfigurationManager.AppSettings["FpsShowCurrentLatency"] == null) { SettingSave("FpsShowCurrentLatency", "True"); }

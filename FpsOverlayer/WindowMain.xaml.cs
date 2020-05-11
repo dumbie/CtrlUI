@@ -392,7 +392,7 @@ namespace FpsOverlayer
                 //Update the stats titles
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowCategoryTitle"]))
                 {
-                    vTitleGPU = "GPU";
+                    vTitleGPU = Convert.ToString(ConfigurationManager.AppSettings["GpuCategoryTitle"]);
                 }
                 else
                 {
@@ -400,7 +400,7 @@ namespace FpsOverlayer
                 }
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowCategoryTitle"]))
                 {
-                    vTitleCPU = "CPU";
+                    vTitleCPU = Convert.ToString(ConfigurationManager.AppSettings["CpuCategoryTitle"]);
                 }
                 else
                 {
@@ -408,7 +408,7 @@ namespace FpsOverlayer
                 }
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["MemShowCategoryTitle"]))
                 {
-                    vTitleMEM = "MEM";
+                    vTitleMEM = Convert.ToString(ConfigurationManager.AppSettings["MemCategoryTitle"]);
                 }
                 else
                 {
@@ -416,7 +416,7 @@ namespace FpsOverlayer
                 }
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["NetShowCategoryTitle"]))
                 {
-                    vTitleNET = "NET";
+                    vTitleNET = Convert.ToString(ConfigurationManager.AppSettings["NetCategoryTitle"]);
                 }
                 else
                 {
@@ -424,7 +424,7 @@ namespace FpsOverlayer
                 }
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowCategoryTitle"]))
                 {
-                    vTitleMON = "MON";
+                    vTitleMON = Convert.ToString(ConfigurationManager.AppSettings["MonCategoryTitle"]);
                 }
                 else
                 {
@@ -432,7 +432,7 @@ namespace FpsOverlayer
                 }
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCategoryTitle"]))
                 {
-                    vTitleFPS = "FPS";
+                    vTitleFPS = Convert.ToString(ConfigurationManager.AppSettings["FpsCategoryTitle"]);
                 }
                 else
                 {

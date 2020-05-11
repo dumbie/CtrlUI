@@ -127,8 +127,11 @@
                     <TextBlock Name="textblock_GpuPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
 
-                <CheckBox Name="checkbox_GpuShowCategoryTitle" Content="Show category title GPU" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the category title GPU in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="checkbox_GpuShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                    <TextBox Name="textbox_GpuCategoryTitle" MaxLength="20"  Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                </StackPanel>
+                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <CheckBox Name="checkbox_GpuShowPercentage" Content="Show load in percentage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the videocards load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
@@ -156,8 +159,11 @@
                     <TextBlock Name="textblock_CpuPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
 
-                <CheckBox Name="checkbox_CpuShowCategoryTitle" Content="Show category title CPU" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the category title CPU in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="checkbox_CpuShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                    <TextBox Name="textbox_CpuCategoryTitle" MaxLength="20"  Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                </StackPanel>
+                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <CheckBox Name="checkbox_CpuShowPercentage" Content="Show load in percentage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the processors load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
@@ -182,8 +188,11 @@
                     <TextBlock Name="textblock_MemPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
 
-                <CheckBox Name="checkbox_MemShowCategoryTitle" Content="Show category title MEM" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the category title MEM in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="checkbox_MemShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                    <TextBox Name="textbox_MemCategoryTitle" MaxLength="20"  Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                </StackPanel>
+                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowPercentage" Content="Show load in percentage" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the memory load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
@@ -208,8 +217,11 @@
                     <TextBlock Name="textblock_NetPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
 
-                <CheckBox Name="checkbox_NetShowCategoryTitle" Content="Show category title NET" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the category title NET in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="checkbox_NetShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                    <TextBox Name="textbox_NetCategoryTitle" MaxLength="20"  Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                </StackPanel>
+                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <CheckBox Name="checkbox_NetShowCurrentUsage" Content="Show current network usage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the current network usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
@@ -225,8 +237,11 @@
                     <TextBlock Name="textblock_FpsPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
 
-                <CheckBox Name="checkbox_FpsShowCategoryTitle" Content="Show category title FPS" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the category title FPS in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="checkbox_FpsShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                    <TextBox Name="textbox_FpsCategoryTitle" MaxLength="20"  Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                </StackPanel>
+                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <CheckBox Name="checkbox_FpsShowCurrentFps" Content="Show the current fps" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the current frames per second." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
@@ -248,8 +263,11 @@
                     <TextBlock Name="textblock_MonPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
 
-                <CheckBox Name="checkbox_MonShowCategoryTitle" Content="Show category title MON" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the category title MON in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="checkbox_MonShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                    <TextBox Name="textbox_MonCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                </StackPanel>
+                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <CheckBox Name="checkbox_MonShowResolution" Content="Show the current resolution" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the current monitor resolution." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
