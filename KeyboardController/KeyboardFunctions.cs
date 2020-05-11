@@ -75,7 +75,7 @@ namespace KeyboardController
                 }
                 catch { }
                 Debug.WriteLine("Sending key: " + sendKeyName + "/" + sendKeyVirtual);
-                PlayInterfaceSound(vConfigurationCtrlUI, "KeyboardPress", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
 
                 //Check for keys that are not caps capable or require extended
                 if (sendKeyName == "DotCom")

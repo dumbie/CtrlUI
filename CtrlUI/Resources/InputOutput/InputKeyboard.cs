@@ -22,22 +22,54 @@ namespace CtrlUI
                 int usedVirtualKey = windowMessage.wParam.ToInt32();
                 bool pressedShiftKey = vKeyboardPreviousVirtualKey == (int)KeysVirtual.Shift;
 
-                if (usedVirtualKey == (int)KeysVirtual.Left)
+                if (usedVirtualKey == (int)KeysVirtual.Q && pressedShiftKey)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Click", false);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.Up)
+                else if (usedVirtualKey == (int)KeysVirtual.W && pressedShiftKey)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                }
+                else if (usedVirtualKey == (int)KeysVirtual.Tab && pressedShiftKey)
+                {
+                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                }
+                else if (usedVirtualKey == (int)KeysVirtual.Tab)
+                {
+                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                }
+                else if (usedVirtualKey == (int)KeysVirtual.Home)
+                {
+                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                }
+                else if (usedVirtualKey == (int)KeysVirtual.Prior)
+                {
+                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                }
+                else if (usedVirtualKey == (int)KeysVirtual.End)
+                {
+                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                }
+                else if (usedVirtualKey == (int)KeysVirtual.Next)
+                {
+                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                }
+                else if (usedVirtualKey == (int)KeysVirtual.Left)
+                {
+                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
+                }
+                else if (usedVirtualKey == (int)KeysVirtual.Up)
+                {
+                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
                     NavigateUp(ref messageHandled);
                 }
                 else if (usedVirtualKey == (int)KeysVirtual.Right)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
                 }
                 else if (usedVirtualKey == (int)KeysVirtual.Down)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
                     NavigateDown(ref messageHandled);
                 }
                 else if (usedVirtualKey == (int)KeysVirtual.Space)

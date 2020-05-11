@@ -64,6 +64,9 @@ namespace KeyboardController
                 //Update the window position
                 UpdateWindowPosition();
 
+                //Update the keyboard opacity
+                UpdateKeyboardOpacity();
+
                 //Make window able to drag from border
                 this.MouseDown += WindowMain_MouseDown;
 
@@ -191,10 +194,6 @@ namespace KeyboardController
                     await FocusOnElement(focusKey, false, vProcessCurrent.MainWindowHandle);
                     await Task.Delay(10);
                 }
-
-                //Update the keyboard opacity
-                UpdateKeyboardOpacity();
-                await Task.Delay(10);
             }
             catch { }
         }
@@ -289,7 +288,7 @@ namespace KeyboardController
         {
             try
             {
-                PlayInterfaceSound(vConfigurationCtrlUI, "KeyboardPress", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                 Debug.WriteLine("Switching caps lock.");
 
                 //Disable hardware capslock
