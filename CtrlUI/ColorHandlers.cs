@@ -55,11 +55,11 @@ namespace CtrlUI
                     SettingSave("ColorAccentLight", selectedSolidColorBrush.ToString());
 
                     //Apply the new accent color
-                    Settings_Load_AccentColor(null);
+                    Settings_Load_AccentColor(vConfigurationApplication);
 
                     //Notify applications setting changed
-                    await NotifyDirectXInputSettingChanged("AccentColor");
-                    await NotifyKeyboardControllerSettingChanged("AccentColor");
+                    await NotifyDirectXInputSettingChanged("ColorAccentLight");
+                    await NotifyKeyboardControllerSettingChanged("ColorAccentLight");
 
                     await Popup_Close_ColorPicker();
                 }

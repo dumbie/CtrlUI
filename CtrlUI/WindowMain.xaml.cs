@@ -48,7 +48,7 @@ namespace CtrlUI
                 Settings_Save();
 
                 //Change application accent color
-                Settings_Load_AccentColor(null);
+                Settings_Load_AccentColor(vConfigurationApplication);
 
                 //Set the application background media
                 UpdateBackgroundMedia();

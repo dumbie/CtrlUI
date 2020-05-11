@@ -596,7 +596,7 @@ namespace CtrlUI
                     Debug.WriteLine("Emptying the Windows recycle bin.");
 
                     //Play recycle bin empty sound
-                    PlayInterfaceSound("RecycleBinEmpty", false);
+                    PlayInterfaceSound(vConfigurationApplication, "RecycleBinEmpty", false);
 
                     //Prepare the recycle bin task
                     void TaskAction()

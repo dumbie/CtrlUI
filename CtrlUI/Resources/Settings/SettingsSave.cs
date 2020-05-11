@@ -200,9 +200,9 @@ namespace CtrlUI
         {
             try
             {
-                vConfiguration.AppSettings.Settings.Remove(name);
-                vConfiguration.AppSettings.Settings.Add(name, value);
-                vConfiguration.Save();
+                vConfigurationApplication.AppSettings.Settings.Remove(name);
+                vConfigurationApplication.AppSettings.Settings.Add(name, value);
+                vConfigurationApplication.Save();
                 ConfigurationManager.RefreshSection("appSettings");
             }
             catch { }

@@ -56,7 +56,7 @@ namespace KeyboardController
                 UpdateKeyboardMode();
 
                 //Play window open sound
-                PlayInterfaceSound("PopupOpen", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                 //Activate window and focus on key
                 await KeyboardWindowActivate(key_h);
@@ -289,7 +289,7 @@ namespace KeyboardController
         {
             try
             {
-                PlayInterfaceSound("KeyboardPress", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "KeyboardPress", false);
                 Debug.WriteLine("Switching caps lock.");
 
                 //Disable hardware capslock
@@ -666,7 +666,7 @@ namespace KeyboardController
                 });
 
                 //Play window close sound
-                PlayInterfaceSound("PopupClose", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
                 //Stop the background tasks
                 TasksBackgroundStop();

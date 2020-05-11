@@ -51,10 +51,14 @@ namespace DirectXInput
                 {
                     string receivedString = (string)deserializedBytes.Object;
                     //Debug.WriteLine("Received string: " + receivedString);
-                    if (receivedString == "SettingChangedAccentColor")
+                    if (receivedString == "SettingChangedColorAccentLight")
                     {
                         Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
                         Settings_Load_AccentColor(vConfigurationCtrlUI);
+                    }
+                    else if (receivedString == "SettingChangedInterfaceSoundPackName")
+                    {
+                        Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
                     }
                     else if (receivedString == "SettingChangedDisplayMonitor")
                     {

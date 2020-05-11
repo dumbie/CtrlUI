@@ -139,7 +139,7 @@ namespace DirectXInput
 
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]))
                         {
-                            PlayInterfaceSound("BatteryLow", true);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "BatteryLow", true);
                         }
                     }
                     else if (Controller.BatteryPercentageCurrent <= 20 && (Controller.BatteryPercentagePrevious > 20 || Controller.BatteryPercentagePrevious == -1))
@@ -153,7 +153,7 @@ namespace DirectXInput
 
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]))
                         {
-                            PlayInterfaceSound("BatteryLow", true);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "BatteryLow", true);
                         }
                     }
 

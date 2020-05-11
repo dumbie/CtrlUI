@@ -13,12 +13,13 @@ namespace LibraryShared
         private static MediaPlayer windowsMediaPlayer = new MediaPlayer();
 
         //Get sound volume from settings
-        public static double ConvertSoundVolumeSetting(Configuration appConfiguration)
+        public static double ConvertSoundVolumeSetting(Configuration sourceConfig)
         {
             double soundVolume = 0.70;
             try
             {
-                int soundVolumeInt = Convert.ToInt32(appConfiguration.AppSettings.Settings["InterfaceSoundVolume"].Value);
+                if (sourceConfig == null) { sourceConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); }
+                int soundVolumeInt = Convert.ToInt32(sourceConfig.AppSettings.Settings["InterfaceSoundVolume"].Value);
                 soundVolume = (double)soundVolumeInt / 100;
             }
             catch { }
@@ -26,14 +27,15 @@ namespace LibraryShared
         }
 
         //Play interface sound
-        public static void PlayInterfaceSound(string soundName, bool forceSound)
+        public static void PlayInterfaceSound(Configuration sourceConfig, string soundName, bool forceSound)
         {
             try
             {
                 if (forceSound || Convert.ToBoolean(ConfigurationManager.AppSettings["InterfaceSound"]))
                 {
+                    if (sourceConfig == null) { sourceConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); }
                     double soundVolume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]) / 100;
-                    string soundPackName = ConfigurationManager.AppSettings["InterfaceSoundPackName"].ToString();
+                    string soundPackName = sourceConfig.AppSettings.Settings["InterfaceSoundPackName"].Value.ToString();
                     string soundFileName = "Assets/Sounds/" + soundPackName + "/" + soundName + ".mp3";
                     if (File.Exists(soundFileName))
                     {

@@ -21,7 +21,7 @@ namespace CtrlUI
         //Application Variables
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static CultureInfo vAppCultureInfo = new CultureInfo("en-US");
-        public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        public static Configuration vConfigurationApplication = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static Configuration vConfigurationDirectXInput = null;
 
         //Interaction Variables
@@ -33,6 +33,9 @@ namespace CtrlUI
         public static bool vMousePressDownXButton1 = false;
         public static List<string> vTabTargetLists = new List<string> { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Shortcuts", "lb_Processes", "lb_Manage_AddAppCategory" };
         public static List<string> vTabTargetButtons = new List<string> { "grid_Popup_TextInput_button_ConfirmText" };
+
+        //Keyboard variables
+        public static int vKeyboardPreviousVirtualKey = -1;
 
         //Image Variables
         public static string[] vImageSourceFolders = new string[] { "Assets/Apps", "Assets/Roms" };

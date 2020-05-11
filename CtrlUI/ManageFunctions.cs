@@ -362,7 +362,7 @@ namespace CtrlUI
                         return;
                     }
 
-                    PlayInterfaceSound("Confirm", false);
+                    PlayInterfaceSound(vConfigurationApplication, "Confirm", false);
 
                     await Notification_Send_Status("Plus", "Added " + vFilePickerResult.Name);
                     Debug.WriteLine("Adding UWP app: " + tb_AddAppName.Text + " to the list.");

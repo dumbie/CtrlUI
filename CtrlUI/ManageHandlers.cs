@@ -365,7 +365,7 @@ namespace CtrlUI
                         return;
                     }
 
-                    PlayInterfaceSound("Confirm", false);
+                    PlayInterfaceSound(vConfigurationApplication, "Confirm", false);
 
                     await Notification_Send_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding Win32 app: " + tb_AddAppName.Text + " to the list.");

@@ -14,35 +14,38 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle keyboard down
-        void HandleKeyboardDown(ref MSG WindowMessage, ref bool Handled)
+        void HandleKeyboardDown(ref MSG windowMessage, ref bool messageHandled)
         {
             try
             {
                 //Check the pressed keys
-                int UsedVirtualKey = WindowMessage.wParam.ToInt32();
+                int usedVirtualKey = windowMessage.wParam.ToInt32();
+                bool pressedShiftKey = vKeyboardPreviousVirtualKey == (int)KeysVirtual.Shift;
 
-                if (UsedVirtualKey == (int)KeysVirtual.Left)
+                if (usedVirtualKey == (int)KeysVirtual.Left)
                 {
-                    PlayInterfaceSound("Click", false);
+                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
                 }
-                else if (UsedVirtualKey == (int)KeysVirtual.Up)
+                else if (usedVirtualKey == (int)KeysVirtual.Up)
                 {
-                    PlayInterfaceSound("Click", false);
-                    NavigateUp(ref Handled);
+                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                    NavigateUp(ref messageHandled);
                 }
-                else if (UsedVirtualKey == (int)KeysVirtual.Right)
+                else if (usedVirtualKey == (int)KeysVirtual.Right)
                 {
-                    PlayInterfaceSound("Click", false);
+                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
                 }
-                else if (UsedVirtualKey == (int)KeysVirtual.Down)
+                else if (usedVirtualKey == (int)KeysVirtual.Down)
                 {
-                    PlayInterfaceSound("Click", false);
-                    NavigateDown(ref Handled);
+                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                    NavigateDown(ref messageHandled);
                 }
-                else if (UsedVirtualKey == (int)KeysVirtual.Space)
+                else if (usedVirtualKey == (int)KeysVirtual.Space)
                 {
-                    PlayInterfaceSound("Confirm", false);
+                    PlayInterfaceSound(vConfigurationApplication, "Confirm", false);
                 }
+
+                vKeyboardPreviousVirtualKey = usedVirtualKey;
             }
             catch { }
         }

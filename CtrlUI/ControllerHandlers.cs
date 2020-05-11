@@ -121,18 +121,13 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonShoulderLeft.PressedRaw)
                     {
                         Debug.WriteLine("Button: ShoulderLeftPressed");
-                        PlayInterfaceSound("ClickRight", false);
+                        PlayInterfaceSound(vConfigurationApplication, "ClickRight", false);
 
                         await AVActions.ActionDispatcherInvokeAsync(async delegate
                          {
                              if (grid_Popup_Settings.Visibility == Visibility.Visible)
                              {
-                                 int selectedIndex = Listbox_SettingsMenu.SelectedIndex;
-                                 if (selectedIndex > 0)
-                                 {
-                                     Listbox_SettingsMenu.SelectedIndex = Listbox_SettingsMenu.SelectedIndex - 1;
-                                     await Listbox_Settings_SingleTap();
-                                 }
+                                 await SettingsChangeTab(true);
                              }
                              else
                              {
@@ -147,14 +142,13 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonShoulderRight.PressedRaw)
                     {
                         Debug.WriteLine("Button: ShoulderRightPressed");
-                        PlayInterfaceSound("ClickRight", false);
+                        PlayInterfaceSound(vConfigurationApplication, "ClickRight", false);
 
                         await AVActions.ActionDispatcherInvokeAsync(async delegate
                         {
                             if (grid_Popup_Settings.Visibility == Visibility.Visible)
                             {
-                                Listbox_SettingsMenu.SelectedIndex = Listbox_SettingsMenu.SelectedIndex + 1;
-                                await Listbox_Settings_SingleTap();
+                                await SettingsChangeTab(false);
                             }
                             else
                             {
@@ -184,7 +178,7 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
                         Debug.WriteLine("Button: ThumbLeftPressed");
-                        PlayInterfaceSound("ClickRight", false);
+                        PlayInterfaceSound(vConfigurationApplication, "ClickRight", false);
 
                         KeySendSingle((byte)KeysVirtual.Home, vProcessCurrent.MainWindowHandle);
 
@@ -194,7 +188,7 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
                         Debug.WriteLine("Button: ThumbRightPressed");
-                        PlayInterfaceSound("ClickRight", false);
+                        PlayInterfaceSound(vConfigurationApplication, "ClickRight", false);
 
                         KeySendSingle((byte)KeysVirtual.End, vProcessCurrent.MainWindowHandle);
 
@@ -378,7 +372,7 @@ namespace CtrlUI
                     //Right stick movement
                     if (ControllerInput.ThumbRightX < -10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
                     {
-                        PlayInterfaceSound("ClickRight", false);
+                        PlayInterfaceSound(vConfigurationApplication, "ClickRight", false);
 
                         KeySendSingle((byte)KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
 
@@ -387,7 +381,7 @@ namespace CtrlUI
                     }
                     else if (ControllerInput.ThumbRightY > 10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
                     {
-                        PlayInterfaceSound("ClickRight", false);
+                        PlayInterfaceSound(vConfigurationApplication, "ClickRight", false);
 
                         KeySendSingle((byte)KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
 
@@ -396,7 +390,7 @@ namespace CtrlUI
                     }
                     else if (ControllerInput.ThumbRightX > 10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
                     {
-                        PlayInterfaceSound("ClickRight", false);
+                        PlayInterfaceSound(vConfigurationApplication, "ClickRight", false);
 
                         KeySendSingle((byte)KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
 
@@ -405,7 +399,7 @@ namespace CtrlUI
                     }
                     else if (ControllerInput.ThumbRightY < -10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
                     {
-                        PlayInterfaceSound("ClickRight", false);
+                        PlayInterfaceSound(vConfigurationApplication, "ClickRight", false);
 
                         KeySendSingle((byte)KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
 

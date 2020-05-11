@@ -58,9 +58,9 @@ namespace KeyboardController
         {
             try
             {
-                vConfiguration.AppSettings.Settings.Remove(Name);
-                vConfiguration.AppSettings.Settings.Add(Name, Value);
-                vConfiguration.Save();
+                vConfigurationApplication.AppSettings.Settings.Remove(Name);
+                vConfigurationApplication.AppSettings.Settings.Add(Name, Value);
+                vConfigurationApplication.Save();
                 ConfigurationManager.RefreshSection("appSettings");
             }
             catch { }

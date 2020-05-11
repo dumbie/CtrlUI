@@ -205,7 +205,7 @@ namespace DirectXInput
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutScreenshot"]))
                         {
                             Debug.WriteLine("Button Global - Screenshot");
-                            PlayInterfaceSound("Screenshot", true);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Screenshot", true);
                             KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.Snapshot, false);
 
                             ControllerUsed = true;

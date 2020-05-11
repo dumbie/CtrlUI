@@ -62,10 +62,14 @@ namespace KeyboardController
                     {
                         await Application_Exit();
                     }
-                    else if (receivedString == "SettingChangedAccentColor")
+                    else if (receivedString == "SettingChangedColorAccentLight")
                     {
                         Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
                         Settings_Load_AccentColor(vConfigurationCtrlUI);
+                    }
+                    else if (receivedString == "SettingChangedInterfaceSoundPackName")
+                    {
+                        Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
                     }
                     else if (receivedString == "SettingChangedDisplayMonitor")
                     {

@@ -78,5 +78,28 @@ namespace CtrlUI
                 Debug.WriteLine("Failed creating startup shortcut.");
             }
         }
+
+        //Change the settings tab
+        async Task SettingsChangeTab(bool changeLeft)
+        {
+            try
+            {
+                if (changeLeft)
+                {
+                    int selectedIndex = Listbox_SettingsMenu.SelectedIndex;
+                    if (selectedIndex > 0)
+                    {
+                        Listbox_SettingsMenu.SelectedIndex = Listbox_SettingsMenu.SelectedIndex - 1;
+                        await Listbox_Settings_SingleTap();
+                    }
+                }
+                else
+                {
+                    Listbox_SettingsMenu.SelectedIndex = Listbox_SettingsMenu.SelectedIndex + 1;
+                    await Listbox_Settings_SingleTap();
+                }
+            }
+            catch { }
+        }
     }
 }

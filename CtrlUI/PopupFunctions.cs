@@ -152,7 +152,7 @@ namespace CtrlUI
                     return;
                 }
 
-                PlayInterfaceSound("PopupOpen", false);
+                PlayInterfaceSound(vConfigurationApplication, "PopupOpen", false);
 
                 //Save the previous focus element
                 Popup_PreviousElementFocus_Save(vMainMenuElementFocus, null);
@@ -181,7 +181,7 @@ namespace CtrlUI
             {
                 if (vMainMenuOpen)
                 {
-                    PlayInterfaceSound("PopupClose", false);
+                    PlayInterfaceSound(vConfigurationApplication, "PopupClose", false);
 
                     //Reset popup variables
                     vMainMenuOpen = false;
@@ -206,7 +206,7 @@ namespace CtrlUI
             {
                 if (!vPopupOpen)
                 {
-                    PlayInterfaceSound("PopupOpen", false);
+                    PlayInterfaceSound(vConfigurationApplication, "PopupOpen", false);
 
                     //Update popup variables
                     vPopupElementTarget = ShowPopup;
@@ -236,7 +236,7 @@ namespace CtrlUI
             {
                 if (vPopupOpen)
                 {
-                    PlayInterfaceSound("PopupClose", false);
+                    PlayInterfaceSound(vConfigurationApplication, "PopupClose", false);
 
                     //Reset popup variables
                     vPopupOpen = false;

@@ -15,15 +15,8 @@ namespace LibraryShared
             {
                 Debug.WriteLine("Adjusting the application accent color.");
 
-                string colorHexLight = string.Empty;
-                if (sourceConfig != null)
-                {
-                    colorHexLight = Convert.ToString(sourceConfig.AppSettings.Settings["ColorAccentLight"].Value);
-                }
-                else
-                {
-                    colorHexLight = ConfigurationManager.AppSettings["ColorAccentLight"].ToString();
-                }
+                if (sourceConfig == null) { sourceConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); }
+                string colorHexLight = Convert.ToString(sourceConfig.AppSettings.Settings["ColorAccentLight"].Value);
 
                 SolidColorBrush targetSolidColorBrushLight = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;
                 SolidColorBrush targetSolidColorBrushDark = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;

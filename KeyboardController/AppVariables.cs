@@ -8,7 +8,7 @@ namespace KeyboardController
     partial class AppVariables
     {
         //Application Variables
-        public static Configuration vConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        public static Configuration vConfigurationApplication = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static Configuration vConfigurationCtrlUI = null;
 
         //Image Variables

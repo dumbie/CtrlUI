@@ -372,6 +372,10 @@ namespace CtrlUI
 
                     //Update the setting
                     SettingSave("InterfaceSoundPackName", messageResult.Name);
+
+                    //Notify applications setting changed
+                    await NotifyDirectXInputSettingChanged("InterfaceSoundPackName");
+                    await NotifyKeyboardControllerSettingChanged("InterfaceSoundPackName");
                 }
             }
             catch { }

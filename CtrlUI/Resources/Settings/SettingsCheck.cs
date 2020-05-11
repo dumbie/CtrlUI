@@ -34,7 +34,7 @@ namespace CtrlUI
 
                 if (ConfigurationManager.AppSettings["InterfaceSound"] == null) { SettingSave("InterfaceSound", "True"); }
                 if (ConfigurationManager.AppSettings["InterfaceSoundVolume"] == null) { SettingSave("InterfaceSoundVolume", "70"); }
-                if (ConfigurationManager.AppSettings["InterfaceSoundPackName"] == null) { SettingSave("InterfaceSoundPackName", "Default"); }
+                if (ConfigurationManager.AppSettings["InterfaceSoundPackName"] == null) { SettingSave("InterfaceSoundPackName", "Default"); } //Shared
                 if (ConfigurationManager.AppSettings["InterfaceClockStyleName"] == null) { SettingSave("InterfaceClockStyleName", "Cortana"); }
                 if (ConfigurationManager.AppSettings["InterfaceFontStyleName"] == null) { SettingSave("InterfaceFontStyleName", "Segoe UI"); }
 
