@@ -405,7 +405,7 @@ namespace CtrlUI
                                         {
                                             listImage = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                                         }
-                                        else if (listFileFullNameLower.EndsWith(".txt") || listFileFullNameLower.EndsWith(".rtf") || listFileFullNameLower.EndsWith(".doc") || listFileFullNameLower.EndsWith(".docx"))
+                                        else if (listFileFullNameLower.EndsWith(".txt") || listFileFullNameLower.EndsWith(".rtf") || listFileFullNameLower.EndsWith(".doc") || listFileFullNameLower.EndsWith(".docx") || listFileFullNameLower.EndsWith(".ini") || listFileFullNameLower.EndsWith(".cfg") || listFileFullNameLower.EndsWith(".nfo"))
                                         {
                                             listImage = FileToBitmapImage(new string[] { "Assets/Icons/FileTxt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                                         }

@@ -96,7 +96,7 @@
     <Compile Include="ControllerHandlers.cs" />
     <Compile Include="KeyboardFunctions.cs" />
     <Compile Include="NotificationFunctions.cs" />
-    <Compile Include="KeyboardHandler.cs" />
+    <Compile Include="MouseFunctions.cs" />
     <Compile Include="ProcessFunctions.cs" />
     <Compile Include="Resources\Settings\SettingsCheck.cs" />
     <Compile Include="Resources\Settings\SettingsLoad.cs" />

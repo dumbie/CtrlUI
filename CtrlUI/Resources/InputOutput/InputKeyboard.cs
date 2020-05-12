@@ -32,11 +32,11 @@ namespace CtrlUI
                 }
                 else if (usedVirtualKey == (int)KeysVirtual.Tab && pressedShiftKey)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
                 }
                 else if (usedVirtualKey == (int)KeysVirtual.Tab)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
                 }
                 else if (usedVirtualKey == (int)KeysVirtual.Home)
                 {

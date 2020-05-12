@@ -19,6 +19,9 @@ namespace KeyboardController
                 if (ConfigurationManager.AppSettings["KeyboardMode"] == null) { SettingSave("KeyboardMode", "0"); }
                 if (ConfigurationManager.AppSettings["KeyboardOpacity"] == null) { SettingSave("KeyboardOpacity", "0,95"); }
 
+                if (ConfigurationManager.AppSettings["MouseMoveSensitivity"] == null) { SettingSave("MouseMoveSensitivity", "12"); }
+                if (ConfigurationManager.AppSettings["MouseScrollSensitivity"] == null) { SettingSave("MouseScrollSensitivity", "14"); }
+
                 if (ConfigurationManager.AppSettings["DomainExtension"] == null) { SettingSave("DomainExtension", ".nl"); }
 
                 Debug.WriteLine("Checked the application settings.");

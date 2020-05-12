@@ -26,6 +26,18 @@ namespace KeyboardController
                     App.vWindowMain.UpdateKeyboardLayout();
                 };
 
+                slider_SettingsMouseMoveSensitivity.ValueChanged += (sender, e) =>
+                {
+                    textblock_SettingsMouseMoveSensitivity.Text = textblock_SettingsMouseMoveSensitivity.Tag.ToString() + Convert.ToInt32(slider_SettingsMouseMoveSensitivity.Value);
+                    SettingSave("MouseMoveSensitivity", Convert.ToInt32(slider_SettingsMouseMoveSensitivity.Value).ToString());
+                };
+
+                slider_SettingsMouseScrollSensitivity.ValueChanged += (sender, e) =>
+                {
+                    textblock_SettingsMouseScrollSensitivity.Text = textblock_SettingsMouseScrollSensitivity.Tag.ToString() + Convert.ToInt32(slider_SettingsMouseScrollSensitivity.Value);
+                    SettingSave("MouseScrollSensitivity", Convert.ToInt32(slider_SettingsMouseScrollSensitivity.Value).ToString());
+                };
+
                 cb_SettingsInterfaceSound.Click += (sender, e) =>
                 {
                     SettingSave("InterfaceSound", cb_SettingsInterfaceSound.IsChecked.ToString());

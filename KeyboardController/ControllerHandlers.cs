@@ -24,17 +24,29 @@ namespace KeyboardController
             {
                 if (Environment.TickCount >= vControllerDelay_Mouse)
                 {
-                    //Emulate mouse movement
-                    MouseMovementThumb(ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY);
+                    //Get the mouse move amount
+                    int moveSensitivity = Convert.ToInt32(ConfigurationManager.AppSettings["MouseMoveSensitivity"]);
+                    GetMouseMovementAmountFromThumb(moveSensitivity, ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY, true, out int moveHorizontalLeft, out int moveVerticalLeft);
 
-                    //Emulate mouse scrolling or move the keyboard window
+                    //Move the mouse cursor
+                    MouseMoveCursor(moveHorizontalLeft, moveVerticalLeft);
+
                     if (Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardMode"]) == 0)
                     {
-                        MoveKeyboardWindow(ControllerInput.ThumbRightX, ControllerInput.ThumbRightY);
+                        //Get the mouse move amount
+                        GetMouseMovementAmountFromThumb(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
+
+                        //Move the keyboard window
+                        MoveKeyboardWindow(moveHorizontalRight, moveVerticalRight);
                     }
                     else
                     {
-                        MouseWheelScrollingThumb(ControllerInput.ThumbRightX, ControllerInput.ThumbRightY);
+                        //Get the mouse scroll amount
+                        int scrollSensitivity = Convert.ToInt32(ConfigurationManager.AppSettings["MouseScrollSensitivity"]);
+                        GetMouseMovementAmountFromThumb(scrollSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, false, out int scrollHorizontalRight, out int scrollVerticalRight);
+
+                        //Scroll the mouse wheel
+                        MouseScrollWheel(scrollHorizontalRight, scrollVerticalRight);
                     }
 
                     //Emulate mouse click left

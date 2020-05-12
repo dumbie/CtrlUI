@@ -17,6 +17,12 @@ namespace KeyboardController
                 combobox_KeyboardLayout.SelectedIndex = Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardLayout"]);
                 cb_SettingsInterfaceSound.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["InterfaceSound"]);
 
+                //Load the mouse sensitivity
+                textblock_SettingsMouseMoveSensitivity.Text = textblock_SettingsMouseMoveSensitivity.Tag.ToString() + Convert.ToInt32(ConfigurationManager.AppSettings["MouseMoveSensitivity"]);
+                slider_SettingsMouseMoveSensitivity.Value = Convert.ToInt32(ConfigurationManager.AppSettings["MouseMoveSensitivity"]);
+                textblock_SettingsMouseScrollSensitivity.Text = textblock_SettingsMouseScrollSensitivity.Tag.ToString() + Convert.ToInt32(ConfigurationManager.AppSettings["MouseScrollSensitivity"]);
+                slider_SettingsMouseScrollSensitivity.Value = Convert.ToInt32(ConfigurationManager.AppSettings["MouseScrollSensitivity"]);
+
                 //Load the sound volume
                 textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]) + "%";
                 slider_SettingsSoundVolume.Value = Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]);
