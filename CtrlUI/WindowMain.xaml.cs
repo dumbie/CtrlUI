@@ -421,7 +421,7 @@ namespace CtrlUI
                 });
 
                 //Stop the background tasks
-                TasksBackgroundStop();
+                await TasksBackgroundStop();
 
                 //Disable the socket server
                 if (vArnoldVinkSockets != null)

@@ -66,16 +66,16 @@ namespace DirectXInput
             {
                 //Check if the controller is already in use
                 bool ControllerInuse = false;
-                if (vController0.Connected() && vController0.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController1.Connected() && vController1.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController2.Connected() && vController2.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController3.Connected() && vController3.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController0.Connected && vController0.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController1.Connected && vController1.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController2.Connected && vController2.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController3.Connected && vController3.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
                 if (ControllerInuse) { return; }
 
                 Debug.WriteLine("Found a connected " + ConnectedController.Type + " controller to use: " + ConnectedController.DisplayName);
 
                 //Connect the controller to available slot
-                if (!vController0.Connected())
+                if (!vController0.Connected)
                 {
                     vController0.Details = ConnectedController;
                     bool controllerStarted = await StartControllerDirectInput(vController0);
@@ -88,7 +88,7 @@ namespace DirectXInput
                         });
                     }
                 }
-                else if (!vController1.Connected())
+                else if (!vController1.Connected)
                 {
                     vController1.Details = ConnectedController;
                     bool controllerStarted = await StartControllerDirectInput(vController1);
@@ -101,7 +101,7 @@ namespace DirectXInput
                         });
                     }
                 }
-                else if (!vController2.Connected())
+                else if (!vController2.Connected)
                 {
                     vController2.Details = ConnectedController;
                     bool controllerStarted = await StartControllerDirectInput(vController2);
@@ -114,7 +114,7 @@ namespace DirectXInput
                         });
                     }
                 }
-                else if (!vController3.Connected())
+                else if (!vController3.Connected)
                 {
                     vController3.Details = ConnectedController;
                     bool controllerStarted = await StartControllerDirectInput(vController3);
@@ -137,10 +137,10 @@ namespace DirectXInput
             try
             {
                 //Debug.WriteLine("There is currently no manage controller.");
-                if (vController0.Connected() && GetManageController() == null) { SetManageController(vController0); }
-                else if (vController1.Connected() && GetManageController() == null) { SetManageController(vController1); }
-                else if (vController2.Connected() && GetManageController() == null) { SetManageController(vController2); }
-                else if (vController3.Connected() && GetManageController() == null) { SetManageController(vController3); }
+                if (vController0.Connected && GetManageController() == null) { SetManageController(vController0); }
+                else if (vController1.Connected && GetManageController() == null) { SetManageController(vController1); }
+                else if (vController2.Connected && GetManageController() == null) { SetManageController(vController2); }
+                else if (vController3.Connected && GetManageController() == null) { SetManageController(vController3); }
                 else if (GetManageController() == null)
                 {
                     //Debug.WriteLine("No other connected controller found to manage.");
@@ -161,7 +161,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected() && !Controller.Manage)
+                if (Controller.Connected && !Controller.Manage)
                 {
                     Debug.WriteLine("Setted the new manage controller to: " + Controller.NumberId);
 

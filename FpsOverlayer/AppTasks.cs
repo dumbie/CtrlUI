@@ -1,31 +1,24 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 
 namespace FpsOverlayer
 {
     public class AppTasks
     {
-        public static Task vTask_TraceEventProcess = null;
-        public static CancellationTokenSource vTaskToken_TraceEventProcess = null;
-
-        public static Task vTask_TraceEventOutput = null;
-        public static CancellationTokenSource vTaskToken_TraceEventOutput = null;
-
-        public static Task vTask_MonitorHardware = null;
-        public static CancellationTokenSource vTaskToken_MonitorHardware = null;
-
-        public static Task vTask_MonitorProcess = null;
-        public static CancellationTokenSource vTaskToken_MonitorProcess = null;
+        public static AVTaskDetails vTask_TraceEventProcess = new AVTaskDetails();
+        public static AVTaskDetails vTask_TraceEventOutput = new AVTaskDetails();
+        public static AVTaskDetails vTask_MonitorHardware = new AVTaskDetails();
+        public static AVTaskDetails vTask_MonitorProcess = new AVTaskDetails();
 
         //Stop all the background tasks
-        public static void TasksBackgroundStop()
+        public static async Task TasksBackgroundStop()
         {
             try
             {
-                vTaskToken_TraceEventProcess.Cancel();
-                vTaskToken_TraceEventOutput.Cancel();
-                vTaskToken_MonitorHardware.Cancel();
-                vTaskToken_MonitorProcess.Cancel();
+                await TaskStopLoop(vTask_TraceEventProcess);
+                await TaskStopLoop(vTask_TraceEventOutput);
+                await TaskStopLoop(vTask_MonitorHardware);
+                await TaskStopLoop(vTask_MonitorProcess);
             }
             catch { }
         }

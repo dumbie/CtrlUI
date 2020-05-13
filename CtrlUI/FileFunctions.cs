@@ -609,7 +609,7 @@ namespace CtrlUI
                     }
 
                     //Empty the windows recycle bin
-                    await AVActions.TaskStart(TaskAction, null);
+                    await AVActions.TaskStart(TaskAction);
                 }
             }
             catch { }

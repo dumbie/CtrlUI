@@ -3,8 +3,8 @@ using LibraryUsb;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -18,7 +18,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected())
+                if (Controller.Connected)
                 {
                     Debug.WriteLine("Initializing direct input for: " + Controller.Details.DisplayName);
 
@@ -41,7 +41,7 @@ namespace DirectXInput
                             txt_Controller_Information.Text = "The controller is no longer connected or supported.";
                         });
 
-                        await StopController(Controller, false);
+                        await StopControllerAsync(Controller, false);
                         return false;
                     }
 
@@ -85,29 +85,27 @@ namespace DirectXInput
                     //Start Translating DirectInput Controller Threads
                     if (Controller.Details.Type == "Win")
                     {
-                        Controller.InputTaskToken = new CancellationTokenSource();
                         async void TaskAction()
                         {
                             try
                             {
-                                await ReceiveWinInputData(Controller);
+                                await LoopReceiveWinInputData(Controller);
                             }
                             catch { }
                         }
-                        Controller.InputTask = AVActions.TaskStart(TaskAction, Controller.InputTaskToken);
+                        AVActions.TaskStartLoop(TaskAction, Controller.InputTask);
                     }
                     else
                     {
-                        Controller.InputTaskToken = new CancellationTokenSource();
                         async void TaskAction()
                         {
                             try
                             {
-                                await ReceiveHidInputData(Controller);
+                                await LoopReceiveHidInputData(Controller);
                             }
                             catch { }
                         }
-                        Controller.InputTask = AVActions.TaskStart(TaskAction, Controller.InputTaskToken);
+                        AVActions.TaskStartLoop(TaskAction, Controller.InputTask);
                     }
 
                     return true;
@@ -141,52 +139,73 @@ namespace DirectXInput
             catch { }
         }
 
-        //Stop the desired controller
-        async Task<bool> StopController(ControllerStatus Controller, bool RemoveAll360Bus)
+        //Stop the desired controller in task
+        void StopControllerTask(ControllerStatus Controller, bool removeAll360Bus)
         {
             try
             {
-                //Update user interface controller status
-                if (Controller.Connected())
+                async void TaskAction()
                 {
-                    Debug.WriteLine("Disconnecting the controller " + Controller.NumberId + ": " + Controller.Details.DisplayName);
-                    string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
-
-                    NotificationDetails notificationDetails = new NotificationDetails();
-                    notificationDetails.Icon = "Controller";
-                    notificationDetails.Text = "Disconnected (" + controllerNumberDisplay + ")";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
-                    AVActions.ActionDispatcherInvoke(delegate
+                    try
                     {
-                        txt_Controller_Information.Text = "Disconnected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
-                        if (Controller.NumberId == 0)
-                        {
-                            image_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            textblock_Controller0.Text = "No controller connected";
-                        }
-                        else if (Controller.NumberId == 1)
-                        {
-                            image_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            textblock_Controller1.Text = "No controller connected";
-                        }
-                        else if (Controller.NumberId == 2)
-                        {
-                            image_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            textblock_Controller2.Text = "No controller connected";
-                        }
-                        else if (Controller.NumberId == 3)
-                        {
-                            image_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            textblock_Controller3.Text = "No controller connected";
-                        }
-                    });
+                        await StopControllerAsync(Controller, removeAll360Bus);
+                    }
+                    catch { }
+                }
+                AVActions.TaskStart(TaskAction);
+            }
+            catch { }
+        }
+
+        //Stop the desired controller as async
+        async Task<bool> StopControllerAsync(ControllerStatus Controller, bool removeAll360Bus)
+        {
+            try
+            {
+                //Check if the controller is connected
+                if (Controller == null || !Controller.Connected || Controller.InputTask.Status == AVTaskStatus.StopRequested)
+                {
+                    Debug.WriteLine("Controller is already disconnected or disconnecting.");
+                    return false;
                 }
 
-                //Stop the controller task thread
-                Controller.InputTaskToken = null;
-                Controller.InputTask = null;
-                await Task.Delay(500);
+                Debug.WriteLine("Disconnecting the controller " + Controller.NumberId + ": " + Controller.Details.DisplayName);
+                string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
+
+                //Show controller disconnect notification
+                NotificationDetails notificationDetails = new NotificationDetails();
+                notificationDetails.Icon = "Controller";
+                notificationDetails.Text = "Disconnected (" + controllerNumberDisplay + ")";
+                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
+                //Update user interface controller status
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    txt_Controller_Information.Text = "Disconnected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
+                    if (Controller.NumberId == 0)
+                    {
+                        image_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        textblock_Controller0.Text = "No controller connected";
+                    }
+                    else if (Controller.NumberId == 1)
+                    {
+                        image_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        textblock_Controller1.Text = "No controller connected";
+                    }
+                    else if (Controller.NumberId == 2)
+                    {
+                        image_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        textblock_Controller2.Text = "No controller connected";
+                    }
+                    else if (Controller.NumberId == 3)
+                    {
+                        image_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        textblock_Controller3.Text = "No controller connected";
+                    }
+                });
+
+                //Stop the controller loop task
+                await TaskStopLoop(Controller.InputTask);
 
                 //Reset the controller status
                 Controller.ResetControllerStatus();
@@ -202,7 +221,7 @@ namespace DirectXInput
                     await Task.Delay(500);
 
                     //Stop and disconnect the x360 device
-                    if (RemoveAll360Bus) { Controller.X360Device.UnplugAll(); }
+                    if (removeAll360Bus) { Controller.X360Device.UnplugAll(); }
                     Controller.X360Device.Unplug(Controller.NumberId);
                     Controller.X360Device.Dispose();
                     Controller.X360Device = null;
@@ -269,18 +288,21 @@ namespace DirectXInput
         {
             try
             {
-                await StopController(vController0, true);
-                await StopController(vController1, true);
-                await StopController(vController2, true);
-                await StopController(vController3, true);
-
-                Debug.WriteLine("Stopped all the controllers direct input.");
-
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Controller";
-                notificationDetails.Text = "Disconnected all";
+                notificationDetails.Text = "Disconnecting controllers";
                 App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
+                await StopControllerAsync(vController0, true);
+                await StopControllerAsync(vController1, true);
+                await StopControllerAsync(vController2, true);
+                await StopControllerAsync(vController3, true);
+
+                notificationDetails.Icon = "Controller";
+                notificationDetails.Text = "Disconnected controllers";
+                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
+                Debug.WriteLine("Stopped all the controllers direct input.");
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     txt_Controller_Information.Text = "Disconnected all the connected controllers.";

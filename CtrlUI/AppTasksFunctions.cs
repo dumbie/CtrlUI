@@ -1,147 +1,203 @@
-﻿using System.Threading.Tasks;
-using static ArnoldVinkCode.AVActions;
+﻿using static ArnoldVinkCode.AVActions;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
 {
     public partial class WindowMain
     {
-        async void vTaskAction_UpdateClock()
+        async void vTaskLoop_UpdateClock()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_UpdateClock))
+                while (vTask_UpdateClock.Status == AVTaskStatus.Running)
                 {
                     UpdateClockTime();
-                    await Task.Delay(5000);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(5000, vTask_UpdateClock);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_UpdateClock.Status = AVTaskStatus.Stopped;
+            }
         }
 
-        async void vTaskAction_UpdateWindowStatus()
+        async void vTaskLoop_UpdateWindowStatus()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_UpdateWindowStatus))
+                while (vTask_UpdateWindowStatus.Status == AVTaskStatus.Running)
                 {
                     await UpdateWindowStatus();
-                    await Task.Delay(500);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(500, vTask_UpdateWindowStatus);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_UpdateWindowStatus.Status = AVTaskStatus.Stopped;
+            }
         }
 
-        async void vTaskAction_ControllerConnected()
+        async void vTaskLoop_ControllerConnected()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_ControllerConnected))
+                while (vTask_ControllerConnected.Status == AVTaskStatus.Running)
                 {
                     await UpdateControllerConnected();
-                    await Task.Delay(2000);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(2000, vTask_ControllerConnected);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_ControllerConnected.Status = AVTaskStatus.Stopped;
+            }
         }
 
-        async void vTaskAction_UpdateAppRunningTime()
+        async void vTaskLoop_UpdateAppRunningTime()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_UpdateAppRunningTime))
+                while (vTask_UpdateAppRunningTime.Status == AVTaskStatus.Running)
                 {
                     UpdateAppRunningTime();
-                    await Task.Delay(30000);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(60000, vTask_UpdateAppRunningTime);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_UpdateAppRunningTime.Status = AVTaskStatus.Stopped;
+            }
         }
 
-        async void vTaskAction_UpdateMediaInformation()
+        async void vTaskLoop_UpdateMediaInformation()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_UpdateMediaInformation))
+                while (vTask_UpdateMediaInformation.Status == AVTaskStatus.Running)
                 {
                     await UpdateCurrentMediaInformation();
-                    await Task.Delay(1000);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(1000, vTask_UpdateMediaInformation);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_UpdateMediaInformation.Status = AVTaskStatus.Stopped;
+            }
         }
 
-        async void vTaskAction_UpdateProcesses()
+        async void vTaskLoop_UpdateProcesses()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_UpdateProcesses))
+                while (vTask_UpdateProcesses.Status == AVTaskStatus.Running)
                 {
                     if (vAppActivated)
                     {
                         await RefreshListProcessesWithWait(false);
-                        await Task.Delay(3000);
+
+                        //Delay the loop task
+                        await TaskDelayLoop(3000, vTask_UpdateProcesses);
                     }
                     else
                     {
-                        await Task.Delay(500);
+                        //Delay the loop task
+                        await TaskDelayLoop(500, vTask_UpdateProcesses);
                     }
                 }
             }
             catch { }
+            finally
+            {
+                vTask_UpdateProcesses.Status = AVTaskStatus.Stopped;
+            }
         }
 
-        async void vTaskAction_UpdateShortcuts()
+        async void vTaskLoop_UpdateShortcuts()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_UpdateShortcuts))
+                while (vTask_UpdateShortcuts.Status == AVTaskStatus.Running)
                 {
                     if (vAppActivated)
                     {
                         await RefreshListShortcuts(false);
-                        await Task.Delay(6000);
+
+                        //Delay the loop task
+                        await TaskDelayLoop(6000, vTask_UpdateShortcuts);
                     }
                     else
                     {
-                        await Task.Delay(500);
+                        //Delay the loop task
+                        await TaskDelayLoop(500, vTask_UpdateShortcuts);
                     }
                 }
             }
             catch { }
+            finally
+            {
+                vTask_UpdateShortcuts.Status = AVTaskStatus.Stopped;
+            }
         }
 
-        async void vTaskAction_UpdateListStatus()
+        async void vTaskLoop_UpdateListStatus()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_UpdateListStatus))
+                while (vTask_UpdateListStatus.Status == AVTaskStatus.Running)
                 {
                     if (vAppActivated)
                     {
                         RefreshListStatus();
-                        await Task.Delay(2000);
+
+                        //Delay the loop task
+                        await TaskDelayLoop(2000, vTask_UpdateListStatus);
                     }
                     else
                     {
-                        await Task.Delay(500);
+                        //Delay the loop task
+                        await TaskDelayLoop(500, vTask_UpdateListStatus);
                     }
                 }
             }
             catch { }
+            finally
+            {
+                vTask_UpdateListStatus.Status = AVTaskStatus.Stopped;
+            }
         }
 
-        async void vTaskAction_ShowHideMouse()
+        async void vTaskLoop_ShowHideMouse()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_ShowHideMouse))
+                while (vTask_ShowHideMouse.Status == AVTaskStatus.Running)
                 {
                     await MouseCursorCheckMovement();
-                    await Task.Delay(3000);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(3000, vTask_ShowHideMouse);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_ShowHideMouse.Status = AVTaskStatus.Stopped;
+            }
         }
     }
 }

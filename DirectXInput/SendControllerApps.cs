@@ -48,7 +48,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Environment.TickCount >= Controller.Delay_KeyboardControllerShortcut)
+                if (Environment.TickCount >= Controller.Delay_KeyboardOutput)
                 {
                     //Check if socket server is running
                     if (vArnoldVinkSockets == null)
@@ -69,7 +69,7 @@ namespace DirectXInput
                     await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
 
                     //Update delay time
-                    Controller.Delay_KeyboardControllerShortcut = Environment.TickCount + vControllerDelayPollingTicks;
+                    Controller.Delay_KeyboardOutput = Environment.TickCount + vControllerDelayPollingTicks;
                 }
             }
             catch { }

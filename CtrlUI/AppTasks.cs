@@ -1,91 +1,55 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Configuration;
-using System.Threading;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 
 namespace CtrlUI
 {
     public partial class WindowMain
     {
-        public static Task vTask_ControllerConnected = null;
-        public static CancellationTokenSource vTaskToken_ControllerConnected = null;
-
-        public static Task vTask_UpdateClock = null;
-        public static CancellationTokenSource vTaskToken_UpdateClock = null;
-
-        public static Task vTask_UpdateWindowStatus = null;
-        public static CancellationTokenSource vTaskToken_UpdateWindowStatus = null;
-
-        public static Task vTask_UpdateProcesses = null;
-        public static CancellationTokenSource vTaskToken_UpdateProcesses = null;
-
-        public static Task vTask_UpdateShortcuts = null;
-        public static CancellationTokenSource vTaskToken_UpdateShortcuts = null;
-
-        public static Task vTask_UpdateListStatus = null;
-        public static CancellationTokenSource vTaskToken_UpdateListStatus = null;
-
-        public static Task vTask_UpdateAppRunningTime = null;
-        public static CancellationTokenSource vTaskToken_UpdateAppRunningTime = null;
-
-        public static Task vTask_UpdateMediaInformation = null;
-        public static CancellationTokenSource vTaskToken_UpdateMediaInformation = null;
-
-        public static Task vTask_ShowHideMouse = null;
-        public static CancellationTokenSource vTaskToken_ShowHideMouse = null;
+        public static AVTaskDetails vTask_UpdateClock = new AVTaskDetails();
+        public static AVTaskDetails vTask_UpdateWindowStatus = new AVTaskDetails();
+        public static AVTaskDetails vTask_ControllerConnected = new AVTaskDetails();
+        public static AVTaskDetails vTask_UpdateProcesses = new AVTaskDetails();
+        public static AVTaskDetails vTask_UpdateShortcuts = new AVTaskDetails();
+        public static AVTaskDetails vTask_UpdateListStatus = new AVTaskDetails();
+        public static AVTaskDetails vTask_UpdateAppRunningTime = new AVTaskDetails();
+        public static AVTaskDetails vTask_UpdateMediaInformation = new AVTaskDetails();
+        public static AVTaskDetails vTask_ShowHideMouse = new AVTaskDetails();
 
         //Start all the background tasks
         void TasksBackgroundStart()
         {
             try
             {
-                vTaskToken_UpdateClock = new CancellationTokenSource();
-                vTask_UpdateClock = AVActions.TaskStart(vTaskAction_UpdateClock, vTaskToken_UpdateClock);
-
-                vTaskToken_UpdateWindowStatus = new CancellationTokenSource();
-                vTask_UpdateWindowStatus = AVActions.TaskStart(vTaskAction_UpdateWindowStatus, vTaskToken_UpdateWindowStatus);
-
-                vTaskToken_ControllerConnected = new CancellationTokenSource();
-                vTask_ControllerConnected = AVActions.TaskStart(vTaskAction_ControllerConnected, vTaskToken_ControllerConnected);
-
-                vTaskToken_UpdateProcesses = new CancellationTokenSource();
-                vTask_UpdateProcesses = AVActions.TaskStart(vTaskAction_UpdateProcesses, vTaskToken_UpdateProcesses);
-
-                vTaskToken_UpdateShortcuts = new CancellationTokenSource();
-                vTask_UpdateShortcuts = AVActions.TaskStart(vTaskAction_UpdateShortcuts, vTaskToken_UpdateShortcuts);
-
-                vTaskToken_UpdateListStatus = new CancellationTokenSource();
-                vTask_UpdateListStatus = AVActions.TaskStart(vTaskAction_UpdateListStatus, vTaskToken_UpdateListStatus);
-
-                vTaskToken_UpdateAppRunningTime = new CancellationTokenSource();
-                vTask_UpdateAppRunningTime = AVActions.TaskStart(vTaskAction_UpdateAppRunningTime, vTaskToken_UpdateAppRunningTime);
-
-                vTaskToken_UpdateMediaInformation = new CancellationTokenSource();
-                vTask_UpdateMediaInformation = AVActions.TaskStart(vTaskAction_UpdateMediaInformation, vTaskToken_UpdateMediaInformation);
-
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["HideMouseCursor"]))
-                {
-                    TaskStart_ShowHideMouseCursor();
-                }
+                AVActions.TaskStartLoop(vTaskLoop_UpdateClock, vTask_UpdateClock);
+                AVActions.TaskStartLoop(vTaskLoop_UpdateWindowStatus, vTask_UpdateWindowStatus);
+                AVActions.TaskStartLoop(vTaskLoop_ControllerConnected, vTask_ControllerConnected);
+                AVActions.TaskStartLoop(vTaskLoop_UpdateProcesses, vTask_UpdateProcesses);
+                AVActions.TaskStartLoop(vTaskLoop_UpdateShortcuts, vTask_UpdateShortcuts);
+                AVActions.TaskStartLoop(vTaskLoop_UpdateListStatus, vTask_UpdateListStatus);
+                AVActions.TaskStartLoop(vTaskLoop_UpdateAppRunningTime, vTask_UpdateAppRunningTime);
+                AVActions.TaskStartLoop(vTaskLoop_UpdateMediaInformation, vTask_UpdateMediaInformation);
+                TaskStart_ShowHideMouseCursor();
             }
             catch { }
         }
 
         //Stop all the background tasks
-        public static void TasksBackgroundStop()
+        public static async Task TasksBackgroundStop()
         {
             try
             {
-                vTaskToken_ControllerConnected.Cancel();
-                vTaskToken_UpdateClock.Cancel();
-                vTaskToken_UpdateWindowStatus.Cancel();
-                vTaskToken_UpdateProcesses.Cancel();
-                vTaskToken_UpdateShortcuts.Cancel();
-                vTaskToken_UpdateListStatus.Cancel();
-                vTaskToken_UpdateAppRunningTime.Cancel();
-                vTaskToken_UpdateMediaInformation.Cancel();
-                vTaskToken_ShowHideMouse.Cancel();
+                await AVActions.TaskStopLoop(vTask_UpdateClock);
+                await AVActions.TaskStopLoop(vTask_UpdateWindowStatus);
+                await AVActions.TaskStopLoop(vTask_ControllerConnected);
+                await AVActions.TaskStopLoop(vTask_UpdateProcesses);
+                await AVActions.TaskStopLoop(vTask_UpdateShortcuts);
+                await AVActions.TaskStopLoop(vTask_UpdateListStatus);
+                await AVActions.TaskStopLoop(vTask_UpdateAppRunningTime);
+                await AVActions.TaskStopLoop(vTask_UpdateMediaInformation);
+                await AVActions.TaskStopLoop(vTask_ShowHideMouse);
             }
             catch { }
         }
@@ -94,8 +58,10 @@ namespace CtrlUI
         {
             try
             {
-                vTaskToken_ShowHideMouse = new CancellationTokenSource();
-                vTask_ShowHideMouse = AVActions.TaskStart(vTaskAction_ShowHideMouse, vTaskToken_ShowHideMouse);
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["HideMouseCursor"]))
+                {
+                    AVActions.TaskStartLoop(vTaskLoop_ShowHideMouse, vTask_ShowHideMouse);
+                }
             }
             catch { }
         }

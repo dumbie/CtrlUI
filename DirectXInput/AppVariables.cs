@@ -61,7 +61,7 @@ namespace DirectXInput
         public static ControllerStatus vController3 = new ControllerStatus(3);
         public static bool vControllerAnyConnected()
         {
-            return vController0.Connected() || vController1.Connected() || vController2.Connected() || vController3.Connected();
+            return vController0.Connected || vController1.Connected || vController2.Connected || vController3.Connected;
         }
 
         //Sockets Variables

@@ -217,8 +217,8 @@ namespace DirectXInput
                     {
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutDisconnectBluetooth"]))
                         {
-                            Debug.WriteLine("Shortcut Disconnect Bluetooth has been pressed.");
-                            await StopController(Controller, false);
+                            Debug.WriteLine("Shortcut disconnect Bluetooth has been pressed.");
+                            StopControllerTask(Controller, false);
 
                             ControllerUsed = true;
                             ControllerDelayLong = true;

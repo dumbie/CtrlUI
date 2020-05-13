@@ -1,8 +1,7 @@
 ﻿using LibraryUsb;
 using System;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 
 namespace LibraryShared
 {
@@ -27,12 +26,11 @@ namespace LibraryShared
             public int LastActive = 0;
             public int MilliSecondsReadTime = 2000;
             public int MilliSecondsTimeout = 4000;
-            public bool Connected() { return Details != null; }
             public ControllerDetails Details = null;
+            public bool Connected { get { return Details != null; } }
 
             //Controller Task
-            public Task InputTask = null;
-            public CancellationTokenSource InputTaskToken = null;
+            public AVTaskDetails InputTask = new AVTaskDetails();
 
             //Controller Mapping
             public string[] Mapping = new string[] { "Done", "None" }; //Map, Done, Cancel
@@ -57,7 +55,7 @@ namespace LibraryShared
 
             //Controller Input
             public int Delay_CtrlUIOutput = Environment.TickCount;
-            public int Delay_KeyboardControllerShortcut = Environment.TickCount;
+            public int Delay_KeyboardOutput = Environment.TickCount;
             public int Delay_MouseOutput = Environment.TickCount;
             public int Delay_ControllerShortcut = Environment.TickCount;
             public ControllerInput InputCurrent = new ControllerInput();
@@ -78,6 +76,9 @@ namespace LibraryShared
 
                     //Controller Connected
                     LastActive = 0;
+
+                    //Controller Task
+                    InputTask = new AVTaskDetails();
 
                     //Controller Mapping
                     Mapping = new string[] { "Done", "None" }; //Map, Done, Cancel

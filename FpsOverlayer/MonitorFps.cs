@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
@@ -25,18 +24,15 @@ namespace FpsOverlayer
                 vTraceEventSession.EnableProvider(vProvider_DxgKrnl.ToString());
                 vTraceEventSession.Source.AllEvents += ProcessEvents;
 
-                vTaskToken_TraceEventProcess = new CancellationTokenSource();
-                vTask_TraceEventProcess = AVActions.TaskStart(SourceEvents, vTaskToken_TraceEventProcess);
-
-                vTaskToken_TraceEventOutput = new CancellationTokenSource();
-                vTask_TraceEventOutput = AVActions.TaskStart(OutputEvents, vTaskToken_TraceEventOutput);
+                AVActions.TaskStart(LoopTraceEventSource);
+                AVActions.TaskStartLoop(LoopTraceEventOutput, vTask_TraceEventOutput);
 
                 Debug.WriteLine("Started monitoring fps.");
             }
             catch { }
         }
 
-        void SourceEvents()
+        void LoopTraceEventSource()
         {
             try
             {
@@ -45,11 +41,11 @@ namespace FpsOverlayer
             catch { }
         }
 
-        async void OutputEvents()
+        async void LoopTraceEventOutput()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_TraceEventOutput))
+                while (vTask_TraceEventOutput.Status == AVTaskStatus.Running)
                 {
                     try
                     {
@@ -63,7 +59,8 @@ namespace FpsOverlayer
                                 stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
                             });
 
-                            await Task.Delay(1000);
+                            //Delay the loop task
+                            await TaskDelayLoop(1000, vTask_TraceEventOutput);
                             continue;
                         }
 
@@ -107,10 +104,16 @@ namespace FpsOverlayer
                         }
                     }
                     catch { }
-                    await Task.Delay(1000);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(1000, vTask_TraceEventOutput);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_TraceEventOutput.Status = AVTaskStatus.Stopped;
+            }
         }
 
         void ProcessEvents(TraceEvent traceEvent)

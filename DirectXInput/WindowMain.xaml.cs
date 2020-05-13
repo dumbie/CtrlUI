@@ -241,7 +241,7 @@ namespace DirectXInput
                 ControllerStatus ManageController = GetManageController();
                 if (ManageController != null)
                 {
-                    await StopController(ManageController, false);
+                    await StopControllerAsync(ManageController, false);
                 }
             }
             catch { }
@@ -281,7 +281,7 @@ namespace DirectXInput
                         });
 
                         vDirectControllersProfile.Remove(ManageController.Details.Profile);
-                        await StopController(ManageController, false);
+                        await StopControllerAsync(ManageController, false);
 
                         //Save changes to Json file
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
@@ -360,7 +360,7 @@ namespace DirectXInput
                 CloseProcessesByNameOrTitle("KeyboardController", false);
 
                 //Stop the background tasks
-                TasksBackgroundStop();
+                await TasksBackgroundStop();
 
                 //Disconnect all the controllers
                 await StopAllControllers();

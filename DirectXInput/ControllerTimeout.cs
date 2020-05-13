@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Diagnostics;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -14,20 +13,12 @@ namespace DirectXInput
             try
             {
                 //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has timed out for " + Controller.TimeoutSeconds + " seconds.");
-                if (Controller.Connected() && Controller.InputReport != null && Controller.LastActive != 0)
+                if (Controller.Connected && Controller.InputReport != null && Controller.LastActive != 0)
                 {
                     if ((Environment.TickCount - Controller.LastActive) > Controller.MilliSecondsTimeout)
                     {
                         Debug.WriteLine("Controller " + Controller.NumberId + " has timed out, stopping and removing the controller.");
-                        async void TaskAction()
-                        {
-                            try
-                            {
-                                await StopController(Controller, false);
-                            }
-                            catch { }
-                        }
-                        AVActions.TaskStart(TaskAction, null);
+                        StopControllerTask(Controller, false);
                     }
                 }
             }

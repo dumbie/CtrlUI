@@ -25,7 +25,7 @@ namespace KeyboardController
                     }
                     catch { }
                 }
-                await AVActions.TaskStart(TaskAction, null);
+                await AVActions.TaskStart(TaskAction);
             }
             catch { }
         }

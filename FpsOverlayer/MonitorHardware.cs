@@ -3,8 +3,6 @@ using LibreHardwareMonitor.Hardware;
 using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
@@ -26,19 +24,18 @@ namespace FpsOverlayer
                 vHardwareComputer.IsNetworkEnabled = true;
                 vHardwareComputer.Open();
 
-                vTaskToken_MonitorHardware = new CancellationTokenSource();
-                vTask_MonitorHardware = AVActions.TaskStart(MonitorHardware, vTaskToken_MonitorHardware);
+                AVActions.TaskStartLoop(LoopMonitorHardware, vTask_MonitorHardware);
 
                 Debug.WriteLine("Started monitoring hardware.");
             }
             catch { }
         }
 
-        async void MonitorHardware()
+        async void LoopMonitorHardware()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_MonitorHardware))
+                while (vTask_MonitorHardware.Status == AVTaskStatus.Running)
                 {
                     try
                     {
@@ -57,14 +54,19 @@ namespace FpsOverlayer
                             }
                             catch { }
                         }
-
-                        int hardwareUpdateRate = Convert.ToInt32(ConfigurationManager.AppSettings["HardwareUpdateRateMs"]);
-                        await Task.Delay(hardwareUpdateRate);
                     }
                     catch { }
+
+                    //Delay the loop task
+                    int hardwareUpdateRate = Convert.ToInt32(ConfigurationManager.AppSettings["HardwareUpdateRateMs"]);
+                    await TaskDelayLoop(hardwareUpdateRate, vTask_MonitorHardware);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_MonitorHardware.Status = AVTaskStatus.Stopped;
+            }
         }
 
         //Update the network information

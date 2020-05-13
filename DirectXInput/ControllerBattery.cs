@@ -89,7 +89,7 @@ namespace DirectXInput
                 }
 
                 //Check if controller is connected
-                if (!Controller.Connected() && Controller.InputReport == null)
+                if (!Controller.Connected && Controller.InputReport == null)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {

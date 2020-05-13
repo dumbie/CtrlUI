@@ -61,6 +61,12 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Forms\AVMessageBox.xaml.cs">
       <Link>ArnoldVinkCode\Forms\AVMessageBox.xaml.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\AVActions.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkActions\AVActions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\Classes\AVTaskDetails.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkActions\Classes\AVTaskDetails.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs</Link>
     </Compile>
@@ -162,9 +168,6 @@
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketVariables.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketVariables.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVActions.cs">
-      <Link>ArnoldVinkCode\Functions\AVActions.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVClassConverters.cs">
       <Link>ArnoldVinkCode\Functions\AVClassConverters.cs</Link>

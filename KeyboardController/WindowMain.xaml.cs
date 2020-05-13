@@ -664,11 +664,8 @@ namespace KeyboardController
                     this.IsEnabled = false;
                 });
 
-                //Play window close sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
-
                 //Stop the background tasks
-                TasksBackgroundStop();
+                await TasksBackgroundStop();
 
                 //Disable the socket server
                 if (vArnoldVinkSockets != null)

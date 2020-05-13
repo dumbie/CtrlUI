@@ -2,8 +2,6 @@
 using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.ProcessClasses;
@@ -19,19 +17,17 @@ namespace FpsOverlayer
         {
             try
             {
-                vTaskToken_MonitorProcess = new CancellationTokenSource();
-                vTask_MonitorProcess = AVActions.TaskStart(MonitorProcess, vTaskToken_MonitorProcess);
-
+                AVActions.TaskStartLoop(LoopMonitorProcess, vTask_MonitorProcess);
                 Debug.WriteLine("Started monitoring processes.");
             }
             catch { }
         }
 
-        async void MonitorProcess()
+        async void LoopMonitorProcess()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_MonitorProcess))
+                while (vTask_MonitorProcess.Status == AVTaskStatus.Running)
                 {
                     try
                     {
@@ -50,7 +46,8 @@ namespace FpsOverlayer
                             //Hide the application name and frames
                             HideApplicationNameFrames();
 
-                            await Task.Delay(1000);
+                            //Delay the loop task
+                            await TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -67,7 +64,8 @@ namespace FpsOverlayer
                             //Update the application name
                             UpdateApplicationName(foregroundProcess.Title);
 
-                            await Task.Delay(1000);
+                            //Delay the loop task
+                            await TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -87,7 +85,8 @@ namespace FpsOverlayer
                             //Hide the application name and frames
                             HideApplicationNameFrames();
 
-                            await Task.Delay(1000);
+                            //Delay the loop task
+                            await TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -98,10 +97,16 @@ namespace FpsOverlayer
                         vTargetProcess = foregroundProcess;
                     }
                     catch { }
-                    await Task.Delay(1000);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(1000, vTask_MonitorProcess);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_MonitorProcess.Status = AVTaskStatus.Stopped;
+            }
         }
 
         //Hide the application name and frames

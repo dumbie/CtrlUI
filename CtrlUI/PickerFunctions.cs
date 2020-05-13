@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVFiles;
+using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -32,7 +32,7 @@ namespace CtrlUI
                     }
                     catch { }
                 }
-                await AVActions.TaskStartReturn(TaskAction, null);
+                await AVActions.TaskStartReturn(TaskAction);
             }
             catch { }
         }

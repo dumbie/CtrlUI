@@ -223,7 +223,7 @@ namespace CtrlUI
                                 }
                                 catch { }
                             }
-                            await AVActions.TaskStart(TaskAction, null);
+                            await AVActions.TaskStart(TaskAction);
                         }
                         //Rename file or folder
                         else if (messageResult == answerRename)

@@ -1,60 +1,83 @@
-﻿using System.Threading.Tasks;
-using static ArnoldVinkCode.AVActions;
+﻿using static ArnoldVinkCode.AVActions;
 
 namespace DirectXInput
 {
     public partial class WindowMain
     {
-        async void vTaskAction_UpdateWindowStatus()
+        async void vTaskLoop_UpdateWindowStatus()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_UpdateWindowStatus))
+                while (vTask_UpdateWindowStatus.Status == AVTaskStatus.Running)
                 {
                     UpdateWindowStatus();
-                    await Task.Delay(500);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(500, vTask_UpdateWindowStatus);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_UpdateWindowStatus.Status = AVTaskStatus.Stopped;
+            }
         }
 
-        async void vTaskAction_ControllerMonitor()
+        async void vTaskLoop_ControllerMonitor()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_ControllerMonitor))
+                while (vTask_ControllerMonitor.Status == AVTaskStatus.Running)
                 {
                     await MonitorControllers();
-                    await Task.Delay(2000);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(2000, vTask_ControllerMonitor);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_ControllerMonitor.Status = AVTaskStatus.Stopped;
+            }
         }
 
-        async void vTaskAction_ControllerTimeout()
+        async void vTaskLoop_ControllerTimeout()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_ControllerTimeout))
+                while (vTask_ControllerTimeout.Status == AVTaskStatus.Running)
                 {
                     CheckControllersTimeout();
-                    await Task.Delay(1000);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(1000, vTask_ControllerTimeout);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_ControllerTimeout.Status = AVTaskStatus.Stopped;
+            }
         }
 
-        async void vTaskAction_ControllerBattery()
+        async void vTaskLoop_ControllerBattery()
         {
             try
             {
-                while (TaskRunningCheck(vTaskToken_ControllerBattery))
+                while (vTask_ControllerBattery.Status == AVTaskStatus.Running)
                 {
                     CheckAllControllersLowBattery();
-                    await Task.Delay(5000);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(5000, vTask_ControllerBattery);
                 }
             }
             catch { }
+            finally
+            {
+                vTask_ControllerBattery.Status = AVTaskStatus.Stopped;
+            }
         }
     }
 }

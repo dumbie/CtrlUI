@@ -648,7 +648,7 @@ namespace FpsOverlayer
                 vHardwareComputer.Close();
 
                 //Stop the background tasks
-                TasksBackgroundStop();
+                await TasksBackgroundStop();
 
                 //Disable the socket server
                 if (vArnoldVinkSockets != null)
