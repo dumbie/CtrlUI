@@ -110,7 +110,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerFpsOverlayer)
                     {
-                        await CloseShowFpsOverlayer();
+                        await LaunchCloseFpsOverlayer();
                     }
                     else if (messageResult == AnswerXboxApp)
                     {

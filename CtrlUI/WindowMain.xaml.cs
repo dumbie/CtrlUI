@@ -126,7 +126,7 @@ namespace CtrlUI
                 //Update uwp application images
                 UpdateUwpApplicationImages();
 
-                //Start application tasks
+                //Start the background tasks
                 TasksBackgroundStart();
 
                 //Launch DirectXInput application
@@ -135,7 +135,7 @@ namespace CtrlUI
                 //Check settings if Fps Overlayer launches on start
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFpsOverlayer"]))
                 {
-                    await LaunchFpsOverlayer();
+                    await LaunchFpsOverlayer(false);
                 }
 
                 //Force window focus on CtrlUI

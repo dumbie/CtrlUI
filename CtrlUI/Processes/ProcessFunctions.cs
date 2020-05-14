@@ -4,8 +4,11 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.ArnoldVinkSockets;
+using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -450,37 +453,61 @@ namespace CtrlUI
             catch { }
         }
 
-        //Close or show the Fps Overlayer
-        async Task CloseShowFpsOverlayer()
+        //Launch or close the Fps Overlayer
+        async Task LaunchCloseFpsOverlayer()
         {
             try
             {
                 if (CheckRunningProcessByNameOrTitle("FpsOverlayer", false))
                 {
-                    //Close the fps overlayer
-                    await Notification_Send_Status("Close", "Closing Fps Overlayer");
-                    Debug.WriteLine("Closing Fps Overlayer");
-                    CloseProcessesByNameOrTitle("FpsOverlayer", false);
+                    //Close the Fps Overlayer
+                    await CloseFpsOverlayer();
                 }
                 else
                 {
-                    //Launch the fps overlayer
-                    await Notification_Send_Status("Fps", "Showing Fps Overlayer");
-                    Debug.WriteLine("Showing Fps Overlayer");
-                    await ProcessLauncherWin32Async("FpsOverlayer-Admin.exe", "", "", true, false);
+                    //Launch the Fps Overlayer
+                    await LaunchFpsOverlayer(true);
                 }
             }
             catch { }
         }
 
-        //Launch the Fps Overlayer
-        async Task LaunchFpsOverlayer()
+        //Close the Fps Overlayer
+        async Task CloseFpsOverlayer()
         {
             try
             {
-                if (!CheckRunningProcessByNameOrTitle("FpsOverlayer", false))
+                await Notification_Send_Status("Fps", "Closing Fps Overlayer");
+                Debug.WriteLine("Closing Fps Overlayer");
+
+                //Check if socket server is running
+                if (vArnoldVinkSockets == null)
                 {
-                    //Launch the fps overlayer
+                    Debug.WriteLine("The socket server is not running.");
+                    return;
+                }
+
+                //Prepare socket data
+                SocketSendContainer socketSend = new SocketSendContainer();
+                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
+                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
+                socketSend.Object = "ApplicationExit";
+                byte[] SerializedData = SerializeObjectToBytes(socketSend);
+
+                //Send socket data
+                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 3, vArnoldVinkSockets.vTcpClientTimeout);
+                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
+            }
+            catch { }
+        }
+
+        //Launch the Fps Overlayer
+        async Task LaunchFpsOverlayer(bool forceLaunch)
+        {
+            try
+            {
+                if (forceLaunch || !CheckRunningProcessByNameOrTitle("FpsOverlayer", false))
+                {
                     await Notification_Send_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");
                     await ProcessLauncherWin32Async("FpsOverlayer-Admin.exe", "", "", true, false);
@@ -497,7 +524,7 @@ namespace CtrlUI
                 if (CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
                     //Close the keyboard controller
-                    await Notification_Send_Status("Close", "Closing Keyboard");
+                    await Notification_Send_Status("Keyboard", "Closing Keyboard");
                     Debug.WriteLine("Closing on screen keyboard");
                     CloseProcessesByNameOrTitle("KeyboardController", false);
                 }

@@ -70,7 +70,7 @@ namespace KeyboardController
                 //Make window able to drag from border
                 this.MouseDown += WindowMain_MouseDown;
 
-                //Start application tasks
+                //Start the background tasks
                 TasksBackgroundStart();
 
                 //Launch DirectXInput application

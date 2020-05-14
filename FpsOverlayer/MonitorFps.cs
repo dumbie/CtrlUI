@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static FpsOverlayer.AppTasks;
@@ -24,7 +23,7 @@ namespace FpsOverlayer
                 vTraceEventSession.EnableProvider(vProvider_DxgKrnl.ToString());
                 vTraceEventSession.Source.AllEvents += ProcessEvents;
 
-                AVActions.TaskStart(LoopTraceEventSource);
+                AVActions.TaskStart(TaskTraceEventSource);
                 AVActions.TaskStartLoop(LoopTraceEventOutput, vTask_TraceEventOutput);
 
                 Debug.WriteLine("Started monitoring fps.");
@@ -32,7 +31,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        void LoopTraceEventSource()
+        void TaskTraceEventSource()
         {
             try
             {

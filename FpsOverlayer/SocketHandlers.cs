@@ -16,11 +16,11 @@ namespace FpsOverlayer
         {
             try
             {
-                void TaskAction()
+                async void TaskAction()
                 {
                     try
                     {
-                        ReceivedSocketHandlerThread(tcpClient, receivedBytes);
+                        await ReceivedSocketHandlerThread(tcpClient, receivedBytes);
                     }
                     catch { }
                 }
@@ -29,7 +29,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        void ReceivedSocketHandlerThread(TcpClient tcpClient, byte[] receivedBytes)
+        async Task ReceivedSocketHandlerThread(TcpClient tcpClient, byte[] receivedBytes)
         {
             try
             {
@@ -44,7 +44,11 @@ namespace FpsOverlayer
                 {
                     string receivedString = (string)DeserializedBytes.Object;
                     Debug.WriteLine("Received string: " + receivedString);
-                    if (receivedString == "SettingChangedDisplayMonitor")
+                    if (receivedString == "ApplicationExit")
+                    {
+                        await Application_Exit();
+                    }
+                    else if (receivedString == "SettingChangedDisplayMonitor")
                     {
                         Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
                         UpdateWindowPosition();

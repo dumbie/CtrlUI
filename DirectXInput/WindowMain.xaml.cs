@@ -83,7 +83,7 @@ namespace DirectXInput
                 //Allow DirectXInput process in HidGuardian
                 HidGuardianAllowProcess();
 
-                //Start application tasks
+                //Start the background tasks
                 TasksBackgroundStart();
 
                 //Set application first launch to false

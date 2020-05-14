@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using static CtrlUI.AppVariables;
