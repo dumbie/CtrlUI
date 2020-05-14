@@ -619,10 +619,10 @@ namespace KeyboardController
                 {
                     //Enable the application window
                     grid_WindowActive.Visibility = Visibility.Collapsed;
-                });
 
-                //Update the window style (focus workaround)
-                UpdateWindowStyle();
+                    //Update the window style (focus workaround)
+                    UpdateWindowStyle();
+                });
             }
             catch { }
         }
