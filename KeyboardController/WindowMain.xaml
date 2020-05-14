@@ -291,5 +291,13 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
+
+        <!-- Status - Window Active -->
+        <Grid Name="grid_WindowActive" Visibility="Collapsed">
+            <Grid.Background>
+                <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
+            </Grid.Background>
+            <TextBlock Name="grid_WindowActiveText" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="35" TextAlignment="Center" TextWrapping="Wrap" Text="Keyboard is blocked."/>
+        </Grid>
     </Grid>
 </Window>

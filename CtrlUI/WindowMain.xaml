@@ -1154,8 +1154,11 @@
         </Grid>
 
         <!-- Status - Window Active -->
-        <Grid Name="grid_WindowActive" Background="#1D1D1D" Opacity="0" IsHitTestVisible="False">
-            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="45" TextAlignment="Center" TextWrapping="Wrap" Text="Application window is not activated."/>
+        <Grid Name="grid_WindowActive" Visibility="Collapsed">
+            <Grid.Background>
+                <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
+            </Grid.Background>
+            <TextBlock Name="grid_WindowActiveText" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="45" TextAlignment="Center" TextWrapping="Wrap" Text="Application window is not activated."/>
         </Grid>
 
         <!-- Status - Current Date -->

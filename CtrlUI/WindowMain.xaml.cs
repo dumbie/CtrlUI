@@ -414,11 +414,9 @@ namespace CtrlUI
             try
             {
                 Debug.WriteLine("Exiting application.");
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    this.Opacity = 0.80;
-                    this.IsEnabled = false;
-                });
+
+                //Disable application window
+                AppWindowDisable("Closing CtrlUI, please wait.");
 
                 //Stop the background tasks
                 await TasksBackgroundStop();

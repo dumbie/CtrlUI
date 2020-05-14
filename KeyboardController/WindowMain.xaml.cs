@@ -559,84 +559,87 @@ namespace KeyboardController
             catch { }
         }
 
-        //Check if keyboard opener is the foreground window
-        async Task UpdateWindowStatus()
+        //Update the current window status
+        void UpdateWindowStatus()
         {
             try
             {
-                int FocusedAppId = GetFocusedProcess().Identifier;
+                int focusedAppId = GetFocusedProcess().Identifier;
 
-                if (vProcessCurrent.Id == FocusedAppId)
+                if (vProcessCurrent.Id == focusedAppId)
                 {
-                    await AppWindowActivated();
+                    AppWindowActivated();
                 }
                 else
                 {
-                    await AppWindowDeactivated();
+                    AppWindowDeactivated();
                 }
             }
             catch { }
         }
 
         //Application window activated event
-        async Task AppWindowActivated()
+        void AppWindowActivated()
         {
             try
             {
                 if (vKeysEnabled)
                 {
                     vKeysEnabled = false;
-                    await Notification_Send_Status("Keyboard", "Keyboard blocked");
 
-                    await AVActions.ActionDispatcherInvokeAsync(async delegate
-                    {
-                        //Disable all the key rows
-                        foreach (FrameworkElement child in sp_Row0.Children) { child.IsEnabled = false; }
-                        foreach (FrameworkElement child in sp_Row1.Children) { child.IsEnabled = false; }
-                        foreach (FrameworkElement child in sp_Row2.Children) { child.IsEnabled = false; }
-                        foreach (FrameworkElement child in sp_Row3.Children) { child.IsEnabled = false; }
-                        foreach (FrameworkElement child in sp_Row4.Children) { child.IsEnabled = false; }
-                        foreach (FrameworkElement child in sp_Row5.Children) { child.IsEnabled = false; }
-                        await Task.Delay(10);
-
-                        //Enable the close button
-                        key_Close.IsEnabled = true;
-                        await Task.Delay(10);
-
-                        //Focus on close button
-                        await FocusOnElement(key_Close, false, vProcessCurrent.MainWindowHandle);
-                        await Task.Delay(10);
-                    });
+                    //Disable application window
+                    AppWindowDisable("Keyboard is blocked,\nplease switch application.");
                 }
             }
             catch { }
         }
 
         //Application window deactivated event
-        async Task AppWindowDeactivated()
+        void AppWindowDeactivated()
         {
             try
             {
                 if (!vKeysEnabled)
                 {
                     vKeysEnabled = true;
-                    await Notification_Send_Status("Keyboard", "Keyboard enabled");
 
-                    await AVActions.ActionDispatcherInvokeAsync(async delegate
-                    {
-                        //Enable all the key rows
-                        foreach (FrameworkElement child in sp_Row0.Children) { child.IsEnabled = true; }
-                        foreach (FrameworkElement child in sp_Row1.Children) { child.IsEnabled = true; }
-                        foreach (FrameworkElement child in sp_Row2.Children) { child.IsEnabled = true; }
-                        foreach (FrameworkElement child in sp_Row3.Children) { child.IsEnabled = true; }
-                        foreach (FrameworkElement child in sp_Row4.Children) { child.IsEnabled = true; }
-                        foreach (FrameworkElement child in sp_Row5.Children) { child.IsEnabled = true; }
-                        await Task.Delay(10);
-
-                        //Activate keyboard window and focus on key
-                        await KeyboardWindowActivate(key_h);
-                    });
+                    //Enable application window
+                    AppWindowEnable();
                 }
+            }
+            catch { }
+        }
+
+        //Enable application window
+        void AppWindowEnable()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Enable the application window
+                    grid_WindowActive.Visibility = Visibility.Collapsed;
+                });
+
+                //Update the window style (focus workaround)
+                UpdateWindowStyle();
+            }
+            catch { }
+        }
+
+        //Disable application window
+        void AppWindowDisable(string windowText)
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Update window status message
+                    grid_WindowActiveText.Text = windowText;
+
+                    //Disable the application window
+                    grid_WindowActive.Visibility = Visibility.Visible;
+                });
             }
             catch { }
         }
@@ -658,11 +661,9 @@ namespace KeyboardController
             try
             {
                 Debug.WriteLine("Exiting application.");
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    this.Opacity = 0.80;
-                    this.IsEnabled = false;
-                });
+
+                //Disable application window
+                AppWindowDisable("Closing Keyboard, please wait.");
 
                 //Stop the background tasks
                 await TasksBackgroundStop();

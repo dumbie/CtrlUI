@@ -318,9 +318,8 @@ namespace CtrlUI
                     //Play background media
                     grid_Video_Background.Play();
 
-                    //Hide window status message
-                    grid_WindowActive.Opacity = 0;
-                    grid_App.IsHitTestVisible = true;
+                    //Enable application window
+                    AppWindowEnable();
 
                     //Hide the mouse cursor
                     await MouseCursorHide();
@@ -345,13 +344,43 @@ namespace CtrlUI
                     //Pause background media
                     grid_Video_Background.Pause();
 
-                    //Show window status message
-                    grid_WindowActive.Opacity = 0.80;
-                    grid_App.IsHitTestVisible = false;
+                    //Disable application window
+                    AppWindowDisable("Application window is not activated.");
 
                     //Pause ScrollViewerLoops
                     PauseResumeScrollviewerLoops(true);
                 }
+            }
+            catch { }
+        }
+
+        //Enable application window
+        void AppWindowEnable()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Enable the application window
+                    grid_WindowActive.Visibility = Visibility.Collapsed;
+                });
+            }
+            catch { }
+        }
+
+        //Disable application window
+        void AppWindowDisable(string windowText)
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Update window status message
+                    grid_WindowActiveText.Text = windowText;
+
+                    //Disable the application window
+                    grid_WindowActive.Visibility = Visibility.Visible;
+                });
             }
             catch { }
         }

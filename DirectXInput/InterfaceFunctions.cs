@@ -296,8 +296,8 @@ namespace DirectXInput
                     vAppActivated = true;
                     Debug.WriteLine("Activated the application.");
 
-                    grid_WindowActive.Opacity = 0;
-                    grid_App.IsHitTestVisible = true;
+                    //Enable application window
+                    AppWindowEnable();
                 }
             }
             catch { }
@@ -313,9 +313,40 @@ namespace DirectXInput
                     vAppActivated = false;
                     Debug.WriteLine("Deactivated the application.");
 
-                    grid_WindowActive.Opacity = 0.80;
-                    grid_App.IsHitTestVisible = false;
+                    //Disable application window
+                    AppWindowDisable("Application window is not activated.");
                 }
+            }
+            catch { }
+        }
+
+        //Enable application window
+        void AppWindowEnable()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Enable the application window
+                    grid_WindowActive.Visibility = Visibility.Collapsed;
+                });
+            }
+            catch { }
+        }
+
+        //Disable application window
+        void AppWindowDisable(string windowText)
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Update window status message
+                    grid_WindowActiveText.Text = windowText;
+
+                    //Disable the application window
+                    grid_WindowActive.Visibility = Visibility.Visible;
+                });
             }
             catch { }
         }

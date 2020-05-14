@@ -350,11 +350,9 @@ namespace DirectXInput
             try
             {
                 Debug.WriteLine("Exiting application.");
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    this.Opacity = 0.80;
-                    this.IsEnabled = false;
-                });
+
+                //Disable application window
+                AppWindowDisable("Closing DirectXInput, please wait.");
 
                 //Close the keyboard controller
                 CloseProcessesByNameOrTitle("KeyboardController", false);

@@ -10,7 +10,7 @@ namespace KeyboardController
             {
                 while (vTask_UpdateWindowStatus.Status == AVTaskStatus.Running)
                 {
-                    await UpdateWindowStatus();
+                    UpdateWindowStatus();
 
                     //Delay the loop task
                     await TaskDelayLoop(500, vTask_UpdateWindowStatus);
