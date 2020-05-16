@@ -2,6 +2,7 @@
 using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.ProcessClasses;
@@ -23,11 +24,11 @@ namespace FpsOverlayer
             catch { }
         }
 
-        async void LoopMonitorProcess()
+        Task LoopMonitorProcess()
         {
             try
             {
-                while (vTask_MonitorProcess.Status == AVTaskStatus.Running)
+                while (!vTask_MonitorProcess.TaskStopRequest)
                 {
                     try
                     {
@@ -47,7 +48,7 @@ namespace FpsOverlayer
                             HideApplicationNameFrames();
 
                             //Delay the loop task
-                            await TaskDelayLoop(1000, vTask_MonitorProcess);
+                            TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -65,7 +66,7 @@ namespace FpsOverlayer
                             UpdateApplicationName(foregroundProcess.Title);
 
                             //Delay the loop task
-                            await TaskDelayLoop(1000, vTask_MonitorProcess);
+                            TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -86,7 +87,7 @@ namespace FpsOverlayer
                             HideApplicationNameFrames();
 
                             //Delay the loop task
-                            await TaskDelayLoop(1000, vTask_MonitorProcess);
+                            TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -99,14 +100,11 @@ namespace FpsOverlayer
                     catch { }
 
                     //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_MonitorProcess);
+                    TaskDelayLoop(1000, vTask_MonitorProcess);
                 }
             }
             catch { }
-            finally
-            {
-                vTask_MonitorProcess.Status = AVTaskStatus.Stopped;
-            }
+            return Task.FromResult(0);
         }
 
         //Hide the application name and frames

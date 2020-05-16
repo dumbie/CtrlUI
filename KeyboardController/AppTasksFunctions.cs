@@ -1,26 +1,24 @@
-﻿using static ArnoldVinkCode.AVActions;
+﻿using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 
 namespace KeyboardController
 {
     public partial class WindowMain
     {
-        async void vTaskLoop_UpdateWindowStatus()
+        Task vTaskLoop_UpdateWindowStatus()
         {
             try
             {
-                while (vTask_UpdateWindowStatus.Status == AVTaskStatus.Running)
+                while (!vTask_UpdateWindowStatus.TaskStopRequest)
                 {
                     UpdateWindowStatus();
 
                     //Delay the loop task
-                    await TaskDelayLoop(500, vTask_UpdateWindowStatus);
+                    TaskDelayLoop(500, vTask_UpdateWindowStatus);
                 }
             }
             catch { }
-            finally
-            {
-                vTask_UpdateWindowStatus.Status = AVTaskStatus.Stopped;
-            }
+            return Task.FromResult(0);
         }
     }
 }

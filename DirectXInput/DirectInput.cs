@@ -85,7 +85,7 @@ namespace DirectXInput
                     //Start Translating DirectInput Controller Threads
                     if (Controller.Details.Type == "Win")
                     {
-                        async void TaskAction()
+                        async Task TaskAction()
                         {
                             try
                             {
@@ -97,7 +97,7 @@ namespace DirectXInput
                     }
                     else
                     {
-                        async void TaskAction()
+                        async Task TaskAction()
                         {
                             try
                             {
@@ -163,7 +163,7 @@ namespace DirectXInput
             try
             {
                 //Check if the controller is connected
-                if (Controller == null || !Controller.Connected || Controller.InputTask.Status == AVTaskStatus.StopRequested)
+                if (Controller == null || !Controller.Connected || !Controller.InputTask.TaskRunning)
                 {
                     Debug.WriteLine("Controller is already disconnected or disconnecting.");
                     return false;

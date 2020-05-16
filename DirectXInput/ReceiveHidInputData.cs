@@ -3,7 +3,6 @@ using LibraryUsb;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -22,7 +21,7 @@ namespace DirectXInput
                 SendXRumbleData(Controller, true, false, false);
 
                 //Receive input from the selected controller
-                while (Controller.InputTask.Status == AVTaskStatus.Running && Controller.HidDevice != null)
+                while (!Controller.InputTask.TaskStopRequest && Controller.HidDevice != null)
                 {
                     try
                     {
@@ -311,10 +310,6 @@ namespace DirectXInput
                 }
             }
             catch { }
-            finally
-            {
-                Controller.InputTask.Status = AVTaskStatus.Stopped;
-            }
         }
     }
 }

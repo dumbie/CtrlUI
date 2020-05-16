@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static FpsOverlayer.AppTasks;
@@ -40,11 +41,11 @@ namespace FpsOverlayer
             catch { }
         }
 
-        async void LoopTraceEventOutput()
+        Task LoopTraceEventOutput()
         {
             try
             {
-                while (vTask_TraceEventOutput.Status == AVTaskStatus.Running)
+                while (!vTask_TraceEventOutput.TaskStopRequest)
                 {
                     try
                     {
@@ -59,7 +60,7 @@ namespace FpsOverlayer
                             });
 
                             //Delay the loop task
-                            await TaskDelayLoop(1000, vTask_TraceEventOutput);
+                            TaskDelayLoop(1000, vTask_TraceEventOutput);
                             continue;
                         }
 
@@ -105,14 +106,11 @@ namespace FpsOverlayer
                     catch { }
 
                     //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_TraceEventOutput);
+                    TaskDelayLoop(1000, vTask_TraceEventOutput);
                 }
             }
             catch { }
-            finally
-            {
-                vTask_TraceEventOutput.Status = AVTaskStatus.Stopped;
-            }
+            return Task.FromResult(0);
         }
 
         void ProcessEvents(TraceEvent traceEvent)

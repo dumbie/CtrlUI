@@ -3,6 +3,7 @@ using LibreHardwareMonitor.Hardware;
 using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
@@ -31,11 +32,11 @@ namespace FpsOverlayer
             catch { }
         }
 
-        async void LoopMonitorHardware()
+        Task LoopMonitorHardware()
         {
             try
             {
-                while (vTask_MonitorHardware.Status == AVTaskStatus.Running)
+                while (!vTask_MonitorHardware.TaskStopRequest)
                 {
                     try
                     {
@@ -59,14 +60,11 @@ namespace FpsOverlayer
 
                     //Delay the loop task
                     int hardwareUpdateRate = Convert.ToInt32(ConfigurationManager.AppSettings["HardwareUpdateRateMs"]);
-                    await TaskDelayLoop(hardwareUpdateRate, vTask_MonitorHardware);
+                    TaskDelayLoop(hardwareUpdateRate, vTask_MonitorHardware);
                 }
             }
             catch { }
-            finally
-            {
-                vTask_MonitorHardware.Status = AVTaskStatus.Stopped;
-            }
+            return Task.FromResult(0);
         }
 
         //Update the network information
