@@ -43,7 +43,8 @@ namespace KeyboardController
         {
             try
             {
-                if (mouseHorizontal == 0 || mouseVertical == 0) { return; }
+                //Check the mouse movement position
+                if (mouseHorizontal == 0 && mouseVertical == 0) { return; }
 
                 //Get the current window position
                 WindowRectangle positionRect = new WindowRectangle();

@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using Microsoft.Win32;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -125,25 +126,6 @@ namespace CtrlUI
 
                     BitmapImage imageFolder = FileToBitmapImage(new string[] { "Assets/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
 
-                    //Add special folders
-                    DataBindFile dataBindFileDesktop = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Desktop", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDesktop, false, false);
-                    DataBindFile dataBindFileDocuments = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Documents", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDocuments, false, false);
-                    DataBindFile dataBindFilePictures = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Pictures", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
-                    DataBindFile dataBindFileVideos = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Videos", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileVideos, false, false);
-                    DataBindFile dataBindFileMusic = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Music", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileMusic, false, false);
-
-                    //Check and add the previous path
-                    if (!string.IsNullOrWhiteSpace(vFilePickerPreviousPath))
-                    {
-                        DataBindFile dataBindFilePreviousPath = new DataBindFile() { FileType = FileType.PreFolder, Name = "Previous", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolder, PathFile = vFilePickerPreviousPath };
-                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePreviousPath, false, false);
-                    }
-
                     //Add launch without a file option
                     if (vFilePickerShowNoFile)
                     {
@@ -152,6 +134,37 @@ namespace CtrlUI
                         DataBindFile dataBindFileWithoutFile = new DataBindFile() { FileType = FileType.PreFile, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutFile, false, false);
                     }
+
+                    //Check and add the previous path
+                    if (!string.IsNullOrWhiteSpace(vFilePickerPreviousPath))
+                    {
+                        DataBindFile dataBindFilePreviousPath = new DataBindFile() { FileType = FileType.PreFolder, Name = "Previous", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolder, PathFile = vFilePickerPreviousPath };
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePreviousPath, false, false);
+                    }
+
+                    //Add special folders
+                    DataBindFile dataBindFileDesktop = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Desktop", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDesktop, false, false);
+                    DataBindFile dataBindFileDocuments = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Documents", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDocuments, false, false);
+
+                    try
+                    {
+                        string downloadsPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "{374DE290-123F-4565-9164-39C4925E467B}", string.Empty).ToString();
+                        if (!string.IsNullOrWhiteSpace(downloadsPath) && Directory.Exists(downloadsPath))
+                        {
+                            DataBindFile dataBindFileDownloads = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Downloads", ImageBitmap = imageFolder, PathFile = downloadsPath };
+                            await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDownloads, false, false);
+                        }
+                    }
+                    catch { }
+
+                    DataBindFile dataBindFilePictures = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Pictures", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
+                    DataBindFile dataBindFileVideos = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Videos", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileVideos, false, false);
+                    DataBindFile dataBindFileMusic = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Music", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileMusic, false, false);
 
                     //Add all disk drives that are connected
                     DriveInfo[] diskDrives = DriveInfo.GetDrives();
