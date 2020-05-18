@@ -5,7 +5,7 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        Task vTaskLoop_UpdateWindowStatus()
+        async Task vTaskLoop_UpdateWindowStatus()
         {
             try
             {
@@ -14,11 +14,10 @@ namespace DirectXInput
                     UpdateWindowStatus();
 
                     //Delay the loop task
-                    TaskDelayLoop(500, vTask_UpdateWindowStatus);
+                    await TaskDelayLoop(500, vTask_UpdateWindowStatus);
                 }
             }
             catch { }
-            return Task.FromResult(0);
         }
 
         async Task vTaskLoop_ControllerMonitor()
@@ -30,13 +29,13 @@ namespace DirectXInput
                     await MonitorControllers();
 
                     //Delay the loop task
-                    TaskDelayLoop(2000, vTask_ControllerMonitor);
+                    await TaskDelayLoop(2000, vTask_ControllerMonitor);
                 }
             }
             catch { }
         }
 
-        Task vTaskLoop_ControllerTimeout()
+        async Task vTaskLoop_ControllerTimeout()
         {
             try
             {
@@ -45,14 +44,13 @@ namespace DirectXInput
                     CheckControllersTimeout();
 
                     //Delay the loop task
-                    TaskDelayLoop(1000, vTask_ControllerTimeout);
+                    await TaskDelayLoop(1000, vTask_ControllerTimeout);
                 }
             }
             catch { }
-            return Task.FromResult(0);
         }
 
-        Task vTaskLoop_ControllerBattery()
+        async Task vTaskLoop_ControllerBattery()
         {
             try
             {
@@ -61,11 +59,10 @@ namespace DirectXInput
                     CheckAllControllersLowBattery();
 
                     //Delay the loop task
-                    TaskDelayLoop(5000, vTask_ControllerBattery);
+                    await TaskDelayLoop(5000, vTask_ControllerBattery);
                 }
             }
             catch { }
-            return Task.FromResult(0);
         }
     }
 }

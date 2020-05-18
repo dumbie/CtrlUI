@@ -24,7 +24,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        Task LoopMonitorProcess()
+        async Task LoopMonitorProcess()
         {
             try
             {
@@ -48,7 +48,7 @@ namespace FpsOverlayer
                             HideApplicationNameFrames();
 
                             //Delay the loop task
-                            TaskDelayLoop(1000, vTask_MonitorProcess);
+                            await TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -66,7 +66,7 @@ namespace FpsOverlayer
                             UpdateApplicationName(foregroundProcess.Title);
 
                             //Delay the loop task
-                            TaskDelayLoop(1000, vTask_MonitorProcess);
+                            await TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -87,7 +87,7 @@ namespace FpsOverlayer
                             HideApplicationNameFrames();
 
                             //Delay the loop task
-                            TaskDelayLoop(1000, vTask_MonitorProcess);
+                            await TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -100,11 +100,10 @@ namespace FpsOverlayer
                     catch { }
 
                     //Delay the loop task
-                    TaskDelayLoop(1000, vTask_MonitorProcess);
+                    await TaskDelayLoop(1000, vTask_MonitorProcess);
                 }
             }
             catch { }
-            return Task.FromResult(0);
         }
 
         //Hide the application name and frames

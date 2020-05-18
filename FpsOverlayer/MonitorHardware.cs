@@ -32,7 +32,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        Task LoopMonitorHardware()
+        async Task LoopMonitorHardware()
         {
             try
             {
@@ -60,11 +60,10 @@ namespace FpsOverlayer
 
                     //Delay the loop task
                     int hardwareUpdateRate = Convert.ToInt32(ConfigurationManager.AppSettings["HardwareUpdateRateMs"]);
-                    TaskDelayLoop(hardwareUpdateRate, vTask_MonitorHardware);
+                    await TaskDelayLoop(hardwareUpdateRate, vTask_MonitorHardware);
                 }
             }
             catch { }
-            return Task.FromResult(0);
         }
 
         //Update the network information

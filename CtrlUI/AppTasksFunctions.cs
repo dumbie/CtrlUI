@@ -6,7 +6,7 @@ namespace CtrlUI
 {
     public partial class WindowMain
     {
-        Task vTaskLoop_UpdateClock()
+        async Task vTaskLoop_UpdateClock()
         {
             try
             {
@@ -15,11 +15,10 @@ namespace CtrlUI
                     UpdateClockTime();
 
                     //Delay the loop task
-                    TaskDelayLoop(5000, vTask_UpdateClock);
+                    await TaskDelayLoop(5000, vTask_UpdateClock);
                 }
             }
             catch { }
-            return Task.FromResult(0);
         }
 
         async Task vTaskLoop_UpdateWindowStatus()
@@ -31,7 +30,7 @@ namespace CtrlUI
                     await UpdateWindowStatus();
 
                     //Delay the loop task
-                    TaskDelayLoop(500, vTask_UpdateWindowStatus);
+                    await TaskDelayLoop(500, vTask_UpdateWindowStatus);
                 }
             }
             catch { }
@@ -46,13 +45,13 @@ namespace CtrlUI
                     await UpdateControllerConnected();
 
                     //Delay the loop task
-                    TaskDelayLoop(2000, vTask_ControllerConnected);
+                    await TaskDelayLoop(2000, vTask_ControllerConnected);
                 }
             }
             catch { }
         }
 
-        Task vTaskLoop_UpdateAppRunningTime()
+        async Task vTaskLoop_UpdateAppRunningTime()
         {
             try
             {
@@ -61,11 +60,10 @@ namespace CtrlUI
                     UpdateAppRunningTime();
 
                     //Delay the loop task
-                    TaskDelayLoop(60000, vTask_UpdateAppRunningTime);
+                    await TaskDelayLoop(60000, vTask_UpdateAppRunningTime);
                 }
             }
             catch { }
-            return Task.FromResult(0);
         }
 
         async Task vTaskLoop_UpdateMediaInformation()
@@ -77,7 +75,7 @@ namespace CtrlUI
                     await UpdateCurrentMediaInformation();
 
                     //Delay the loop task
-                    TaskDelayLoop(1000, vTask_UpdateMediaInformation);
+                    await TaskDelayLoop(1000, vTask_UpdateMediaInformation);
                 }
             }
             catch { }
@@ -94,12 +92,12 @@ namespace CtrlUI
                         await RefreshListProcessesWithWait(false);
 
                         //Delay the loop task
-                        TaskDelayLoop(3000, vTask_UpdateProcesses);
+                        await TaskDelayLoop(3000, vTask_UpdateProcesses);
                     }
                     else
                     {
                         //Delay the loop task
-                        TaskDelayLoop(500, vTask_UpdateProcesses);
+                        await TaskDelayLoop(500, vTask_UpdateProcesses);
                     }
                 }
             }
@@ -117,19 +115,19 @@ namespace CtrlUI
                         await RefreshListShortcuts(false);
 
                         //Delay the loop task
-                        TaskDelayLoop(6000, vTask_UpdateShortcuts);
+                        await TaskDelayLoop(6000, vTask_UpdateShortcuts);
                     }
                     else
                     {
                         //Delay the loop task
-                        TaskDelayLoop(500, vTask_UpdateShortcuts);
+                        await TaskDelayLoop(500, vTask_UpdateShortcuts);
                     }
                 }
             }
             catch { }
         }
 
-        Task vTaskLoop_UpdateListStatus()
+        async Task vTaskLoop_UpdateListStatus()
         {
             try
             {
@@ -140,17 +138,16 @@ namespace CtrlUI
                         RefreshListStatus();
 
                         //Delay the loop task
-                        TaskDelayLoop(2000, vTask_UpdateListStatus);
+                        await TaskDelayLoop(2000, vTask_UpdateListStatus);
                     }
                     else
                     {
                         //Delay the loop task
-                        TaskDelayLoop(500, vTask_UpdateListStatus);
+                        await TaskDelayLoop(500, vTask_UpdateListStatus);
                     }
                 }
             }
             catch { }
-            return Task.FromResult(0);
         }
 
         async Task vTaskLoop_ShowHideMouse()
@@ -162,7 +159,7 @@ namespace CtrlUI
                     await MouseCursorCheckMovement();
 
                     //Delay the loop task
-                    TaskDelayLoop(3000, vTask_ShowHideMouse);
+                    await TaskDelayLoop(3000, vTask_ShowHideMouse);
                 }
             }
             catch { }

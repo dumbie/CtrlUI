@@ -5,7 +5,7 @@ namespace KeyboardController
 {
     public partial class WindowMain
     {
-        Task vTaskLoop_UpdateWindowStatus()
+        async Task vTaskLoop_UpdateWindowStatus()
         {
             try
             {
@@ -14,11 +14,10 @@ namespace KeyboardController
                     UpdateWindowStatus();
 
                     //Delay the loop task
-                    TaskDelayLoop(500, vTask_UpdateWindowStatus);
+                    await TaskDelayLoop(500, vTask_UpdateWindowStatus);
                 }
             }
             catch { }
-            return Task.FromResult(0);
         }
     }
 }

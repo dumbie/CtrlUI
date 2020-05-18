@@ -41,7 +41,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        Task LoopTraceEventOutput()
+        async Task LoopTraceEventOutput()
         {
             try
             {
@@ -60,7 +60,7 @@ namespace FpsOverlayer
                             });
 
                             //Delay the loop task
-                            TaskDelayLoop(1000, vTask_TraceEventOutput);
+                            await TaskDelayLoop(1000, vTask_TraceEventOutput);
                             continue;
                         }
 
@@ -106,11 +106,10 @@ namespace FpsOverlayer
                     catch { }
 
                     //Delay the loop task
-                    TaskDelayLoop(1000, vTask_TraceEventOutput);
+                    await TaskDelayLoop(1000, vTask_TraceEventOutput);
                 }
             }
             catch { }
-            return Task.FromResult(0);
         }
 
         void ProcessEvents(TraceEvent traceEvent)
