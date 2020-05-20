@@ -196,6 +196,12 @@ namespace CtrlUI
             {
                 await Notification_Send_Status("Windows", "Showing start menu");
                 KeyPressSingle((byte)KeysVirtual.LeftWindows, false);
+
+                //Launch the keyboard controller
+                if (vAppActivated && vControllerAnyConnected())
+                {
+                    await LaunchKeyboardController(true);
+                }
             }
             catch { }
         }

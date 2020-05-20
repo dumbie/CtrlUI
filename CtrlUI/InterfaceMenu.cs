@@ -50,7 +50,6 @@ namespace CtrlUI
                     else if (SelStackPanel.Name == "menuButtonMoveMonitor") { await AppMoveMonitor(); }
                     else if (SelStackPanel.Name == "menuButtonSwitchMonitor") { await SwitchDisplayMonitor(); }
                     else if (SelStackPanel.Name == "menuButtonWindowsStart") { await ShowWindowStartMenu(); }
-                    else if (SelStackPanel.Name == "menuButtonSearch") { await Popup_ShowHide_Search(true); }
                     else if (SelStackPanel.Name == "menuButtonSorting") { await SortAppLists(false, false); }
                     else if (SelStackPanel.Name == "menuButtonMediaControl") { await Popup_Show(grid_Popup_Media, grid_Popup_Media_PlayPause); }
                     else if (SelStackPanel.Name == "menuButtonAudioDevice") { await SwitchAudioDevice(); }

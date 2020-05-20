@@ -219,10 +219,6 @@
                 </StackPanel>
 
                 <ListBox Grid.Row="1" Name="listbox_MainMenu" SelectedIndex="0" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemPaddingWhiteVertical}" Style="{StaticResource ListBoxVertical}">
-                    <StackPanel Name="menuButtonSearch" Orientation="Horizontal">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Search.png" Width="50" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="15,0,0,0" Text="Open application search panel" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </StackPanel>
                     <StackPanel Name="menuButtonWindowsStart" Orientation="Horizontal">
                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Windows.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Show the Windows start menu" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
