@@ -9,14 +9,9 @@ namespace LibraryShared
     {
         public class ControllerStatus
         {
-            public ControllerStatus(int numberId)
-            {
-                NumberId = numberId;
-            }
-
             //Controller Status
             public int NumberId = -1;
-            public bool Manage = false;
+            public bool Activated = false;
 
             //Battery Status
             public int BatteryPercentageCurrent = -1; //-1 Unknown, -2 Charging
@@ -60,7 +55,13 @@ namespace LibraryShared
             public int Delay_ControllerShortcut = Environment.TickCount;
             public ControllerInput InputCurrent = new ControllerInput();
 
-            //Reset the Controller Status to defaults
+            //Set used controller number
+            public ControllerStatus(int numberId)
+            {
+                NumberId = numberId;
+            }
+
+            //Reset controller status to defaults
             public void ResetControllerStatus()
             {
                 try
@@ -68,7 +69,7 @@ namespace LibraryShared
                     Debug.WriteLine("Reset the controller status for controller: " + NumberId);
 
                     //Controller Status
-                    Manage = false;
+                    Activated = false;
 
                     //Battery Status
                     BatteryPercentageCurrent = -1; //-1 Unknown, -2 Charging

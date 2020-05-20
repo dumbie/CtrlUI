@@ -7,15 +7,16 @@ namespace LibraryShared
         [Serializable]
         public class ControllerStatusDetails
         {
+            public int NumberId { get; set; } = -1;
+            public bool Activated { get; set; } = false;
+            public bool Connected { get; set; } = false;
+            public int BatteryPercentageCurrent { get; set; } = -1;
+
+            //Set used controller number
             public ControllerStatusDetails(int numberId)
             {
                 NumberId = numberId;
             }
-
-            public int NumberId { get; set; } = -1;
-            public bool Manage { get; set; } = false;
-            public bool Connected { get; set; } = false;
-            public int BatteryPercentageCurrent { get; set; } = -1;
         }
     }
 }

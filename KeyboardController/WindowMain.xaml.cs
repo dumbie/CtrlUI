@@ -564,7 +564,7 @@ namespace KeyboardController
         {
             try
             {
-                int focusedAppId = GetFocusedProcess().Identifier;
+                int focusedAppId = GetProcessMultiFromWindowHandle(GetForegroundWindow()).Identifier;
 
                 if (vProcessCurrent.Id == focusedAppId)
                 {

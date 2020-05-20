@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Net.Sockets;
@@ -18,75 +17,6 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Update the button press times
-        void UpdateButtonPressTimes(ControllerButtonDetails buttonDetails)
-        {
-            try
-            {
-                if (buttonDetails.PressedRaw)
-                {
-                    if (buttonDetails.PressTimeCurrent == 0)
-                    {
-                        //Debug.WriteLine("Starting button hold.");
-                        buttonDetails.PressTimeCurrent = Environment.TickCount;
-                    }
-                }
-                else
-                {
-                    if (buttonDetails.PressTimeDone)
-                    {
-                        buttonDetails.PressTimePrevious = 0;
-                        //Debug.WriteLine("Releasing button hold: 0");
-                    }
-                    else if (buttonDetails.PressTimeCurrent > 0)
-                    {
-                        buttonDetails.PressTimePrevious = Environment.TickCount - buttonDetails.PressTimeCurrent;
-                        //Debug.WriteLine("Releasing button hold: " + buttonDetails.PressTimePrevious);
-                    }
-
-                    buttonDetails.PressTimeDone = false;
-                    buttonDetails.PressTimeCurrent = 0;
-                }
-            }
-            catch { }
-        }
-
-        //Check the button press times
-        void CheckButtonPressTimes(ControllerButtonDetails buttonDetails)
-        {
-            try
-            {
-                buttonDetails.PressedShort = false;
-                buttonDetails.PressedLong = false;
-
-                if (!buttonDetails.PressTimeDone)
-                {
-                    if (buttonDetails.PressTimePrevious > 0)
-                    {
-                        if (AVFunctions.BetweenNumbers(buttonDetails.PressTimePrevious, 1, 500, true))
-                        {
-                            buttonDetails.PressedShort = true;
-                            buttonDetails.PressTimeDone = true;
-                            return;
-                        }
-                    }
-
-                    if (buttonDetails.PressTimeCurrent > 0)
-                    {
-                        int GuideCurrent = Environment.TickCount - buttonDetails.PressTimeCurrent;
-                        //Debug.WriteLine("Button status: " + GuideCurrent);
-                        if (GuideCurrent > 850)
-                        {
-                            buttonDetails.PressedLong = true;
-                            buttonDetails.PressTimeDone = true;
-                            return;
-                        }
-                    }
-                }
-            }
-            catch { }
-        }
-
         //Check if controller shortcut is pressed
         async Task<bool> ControllerShortcut(ControllerStatus Controller)
         {
@@ -97,6 +27,18 @@ namespace DirectXInput
             {
                 if (Environment.TickCount >= Controller.Delay_ControllerShortcut)
                 {
+                    //Activate the controller
+                    if (Controller.InputCurrent.ButtonGuide.PressedShort)
+                    {
+                        Debug.WriteLine("Shortcut activate controller has been pressed.");
+                        bool controllerActivated = ControllerActivate(Controller);
+
+                        ControllerUsed = true;
+                        ControllerDelayShort = true;
+
+                        if (controllerActivated) { return ControllerUsed; }
+                    }
+
                     //Show CtrlUI application
                     if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessKeyboardController == null && vProcessCtrlUI != null)
                     {
@@ -115,7 +57,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Close the keyboard controller
-                    else if ((Controller.InputCurrent.ButtonGuide.PressedShort || Controller.InputCurrent.ButtonGuide.PressedLong) && vProcessKeyboardController != null)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessKeyboardController != null)
                     {
                         Debug.WriteLine("Guide press closing keyboard controller.");
                         await CloseKeyboardController();
@@ -213,7 +155,7 @@ namespace DirectXInput
                         }
                     }
                     //Disconnect controller from Bluetooth
-                    else if ((Controller.InputCurrent.ButtonGuide.PressedRaw || Controller.InputCurrent.ButtonGuide.PressedShort || Controller.InputCurrent.ButtonGuide.PressedLong) && Controller.InputCurrent.ButtonStart.PressedRaw)
+                    else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonGuide.PressedRaw)
                     {
                         if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutDisconnectBluetooth"]))
                         {
@@ -223,15 +165,6 @@ namespace DirectXInput
                             ControllerUsed = true;
                             ControllerDelayLong = true;
                         }
-                    }
-                    //Set controller as manage controller
-                    else if (Controller.InputCurrent.ButtonStart.PressedRaw)
-                    {
-                        Debug.WriteLine("Shortcut set manage controller has been pressed.");
-                        SetManageController(Controller);
-
-                        ControllerUsed = true;
-                        ControllerDelayShort = true;
                     }
 
                     if (ControllerDelayShort)

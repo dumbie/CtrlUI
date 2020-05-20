@@ -60,7 +60,7 @@
                     <Grid Grid.Row="0">
                         <StackPanel>
                             <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Controller"/>
-                            <Rectangle Margin="0,25,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
+                            <Rectangle Margin="0,30,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
                         </StackPanel>
                     </Grid>
 
@@ -68,25 +68,25 @@
                         <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
                             <StackPanel>
                                 <StackPanel Orientation="Vertical" Margin="0,5,0,0">
-                                    <Button Name="button_Controller0" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the first controller">
+                                    <Button Name="button_Controller0" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to activate the first controller">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Name="image_Controller0" Source="pack://siteoforigin:,,,/Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller0" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button Name="button_Controller1" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the second controller">
+                                    <Button Name="button_Controller1" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to activate the second controller">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Name="image_Controller1" Source="pack://siteoforigin:,,,/Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller1" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button Name="button_Controller2" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the third controller">
+                                    <Button Name="button_Controller2" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to activate the third controller">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Name="image_Controller2" Source="pack://siteoforigin:,,,/Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller2" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button Name="button_Controller3" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to manage the fourth controller">
+                                    <Button Name="button_Controller3" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to activate the fourth controller">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Name="image_Controller3" Source="pack://siteoforigin:,,,/Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller3" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
@@ -95,14 +95,14 @@
                                 </StackPanel>
 
                                 <TextBlock Margin="0,10,0,0" Name="txt_Controller_Information" Text="Please connect a direct input controller to your device to get started." Style="{StaticResource TextBlockBlack}"/>
-                                <TextBlock Name="txt_Manage_Information" Text="To set a new manage controller press on the controller 'Start' button." Style="{StaticResource TextBlockGray}"/>
+                                <TextBlock Text="To activate a controller press on the 'Guide' button on the controller." Style="{StaticResource TextBlockGray}"/>
 
                                 <Button Margin="0,10,0,0" Name="btn_SearchNewControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Search for recently connected controllers"/>
                                 <Button Margin="0,10,0,0" Name="btn_CheckControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Manage the Windows game controllers"/>
                                 <Button Margin="0,10,0,0" Name="btn_CheckDeviceManager" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Open the Windows device manager"/>
                                 <Button Margin="0,10,0,0" Name="btn_DebugInformation" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Copy controller debug information"/>
-                                <Button Margin="0,10,0,0" Name="btn_RemoveController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Remove manage controller profile"/>
-                                <Button Margin="0,10,0,0" Name="btn_DisconnectController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect manage controller"/>
+                                <Button Margin="0,10,0,0" Name="btn_RemoveController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Remove active controller profile"/>
+                                <Button Margin="0,10,0,0" Name="btn_DisconnectController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect active controller"/>
                                 <Button Margin="0,10,0,0" Name="btn_DisconnectControllerAll" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect all the controllers"/>
                             </StackPanel>
                         </ScrollViewer>
@@ -258,7 +258,7 @@
                     <Grid Grid.Row="0">
                         <StackPanel>
                             <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcuts"/>
-                            <Rectangle Margin="0,25,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
+                            <Rectangle Margin="0,30,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
                         </StackPanel>
                     </Grid>
 
@@ -311,7 +311,7 @@
                     <Grid Grid.Row="0">
                         <StackPanel>
                             <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Settings"/>
-                            <Rectangle Margin="0,25,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
+                            <Rectangle Margin="0,30,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
                         </StackPanel>
                     </Grid>
 
@@ -355,7 +355,7 @@
                     <Grid Grid.Row="0">
                         <StackPanel>
                             <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Help"/>
-                            <Rectangle Margin="0,25,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
+                            <Rectangle Margin="0,30,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
                         </StackPanel>
                     </Grid>
 
@@ -374,12 +374,12 @@
                 </Grid>
             </Grid>
 
-            <!-- Overlap Information -->
+            <!-- Controller Information -->
             <Grid Grid.Column="1">
                 <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,5,10,5">
-                    <TextBlock Name="txt_ManageControllerLatency" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Latency"/>
-                    <TextBlock Name="txt_ManageControllerBattery" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Battery level"/>
-                    <TextBlock Name="txt_ManageControllerName" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Controller"/>
+                    <TextBlock Name="txt_ActiveControllerLatency" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Latency"/>
+                    <TextBlock Name="txt_ActiveControllerBattery" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Battery level"/>
+                    <TextBlock Name="txt_ActiveControllerName" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Controller"/>
                 </StackPanel>
             </Grid>
         </Grid>

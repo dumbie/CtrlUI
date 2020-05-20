@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static FpsOverlayer.AppTasks;
@@ -36,7 +37,7 @@ namespace FpsOverlayer
                         UpdateCurrentTime();
 
                         //Get and check the focused process
-                        ProcessMulti foregroundProcess = GetFocusedProcess();
+                        ProcessMulti foregroundProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
                         if (foregroundProcess == null)
                         {
                             Debug.WriteLine("No active or valid process found.");

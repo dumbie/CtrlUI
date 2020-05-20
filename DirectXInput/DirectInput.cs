@@ -77,7 +77,7 @@ namespace DirectXInput
                     });
 
                     //Update the controller interface settings
-                    UpdateControllerSettingsInterface(Controller);
+                    ControllerUpdateSettingsInterface(Controller);
 
                     //Update the last controller active time
                     Controller.LastActive = Environment.TickCount;
@@ -116,7 +116,7 @@ namespace DirectXInput
         }
 
         //Update the controller interface settings
-        void UpdateControllerSettingsInterface(ControllerStatus Controller)
+        void ControllerUpdateSettingsInterface(ControllerStatus Controller)
         {
             try
             {
@@ -288,18 +288,14 @@ namespace DirectXInput
         {
             try
             {
-                NotificationDetails notificationDetails = new NotificationDetails();
-                notificationDetails.Icon = "Controller";
-                notificationDetails.Text = "Disconnecting controllers";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
                 await StopControllerAsync(vController0, true);
                 await StopControllerAsync(vController1, true);
                 await StopControllerAsync(vController2, true);
                 await StopControllerAsync(vController3, true);
 
+                NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Controller";
-                notificationDetails.Text = "Disconnected controllers";
+                notificationDetails.Text = "Disconnected all";
                 App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 Debug.WriteLine("Stopped all the controllers direct input.");

@@ -106,14 +106,14 @@ namespace CtrlUI
                         controllerStatusOld = vController3;
                     }
 
-                    //Check if the controller is manage controller
-                    if (controllerStatusNew.Manage && vControllerActiveId != controllerStatusNew.NumberId)
+                    //Check if controller is active controller
+                    if (controllerStatusNew.Activated && vControllerActiveId != controllerStatusNew.NumberId)
                     {
                         await ActivateController(controllerStatusNew.NumberId);
                     }
 
                     //Update the battery icons and level
-                    if (controllerStatusNew.Manage)
+                    if (controllerStatusNew.Activated)
                     {
                         UpdateBatteryStatus(controllerStatusNew.BatteryPercentageCurrent);
                     }

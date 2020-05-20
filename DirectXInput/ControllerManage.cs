@@ -14,21 +14,21 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Monitor connected controllers
-        async Task MonitorControllers()
+        async Task ControllerMonitor()
         {
             try
             {
                 //Load all the connected controllers
-                await ReceiveAllControllers();
+                await ControllerReceiveAllConnected();
 
-                //Check if there is a manage controller
-                CheckManageController();
+                //Check if there is an active controller
+                ControllerCheckActivated();
             }
             catch { }
         }
 
         //Validate the controller
-        bool ValidateController(string vendorHexId, string productHexId, string controllerPath)
+        bool ControllerValidate(string vendorHexId, string productHexId, string controllerPath)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace DirectXInput
         }
 
         //Connect with the controller
-        async Task ConnectController(ControllerDetails ConnectedController)
+        async Task ControllerConnect(ControllerDetails ConnectedController)
         {
             try
             {
@@ -131,89 +131,97 @@ namespace DirectXInput
             catch { }
         }
 
-        //Check if there is a manage controller
-        void CheckManageController()
+        //Check if there is an actived controller
+        void ControllerCheckActivated()
         {
             try
             {
-                //Debug.WriteLine("There is currently no manage controller.");
-                if (vController0.Connected && GetManageController() == null) { SetManageController(vController0); }
-                else if (vController1.Connected && GetManageController() == null) { SetManageController(vController1); }
-                else if (vController2.Connected && GetManageController() == null) { SetManageController(vController2); }
-                else if (vController3.Connected && GetManageController() == null) { SetManageController(vController3); }
-                else if (GetManageController() == null)
+                //Debug.WriteLine("There is currently no actived controller.");
+                if (vController0.Connected && GetActiveController() == null) { ControllerActivate(vController0); }
+                else if (vController1.Connected && GetActiveController() == null) { ControllerActivate(vController1); }
+                else if (vController2.Connected && GetActiveController() == null) { ControllerActivate(vController2); }
+                else if (vController3.Connected && GetActiveController() == null) { ControllerActivate(vController3); }
+                else if (GetActiveController() == null)
                 {
-                    //Debug.WriteLine("No other connected controller found to manage.");
                     //Clear the current controller information
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        txt_ManageControllerLatency.Text = "Latency";
-                        txt_ManageControllerBattery.Text = "Battery level";
-                        txt_ManageControllerName.Text = "Controller";
+                        txt_ActiveControllerLatency.Text = "Latency";
+                        txt_ActiveControllerBattery.Text = "Battery level";
+                        txt_ActiveControllerName.Text = "Controller";
                     });
                 }
             }
             catch { }
         }
 
-        //Set a new manage controller
-        void SetManageController(ControllerStatus Controller)
+        //Activate controller
+        bool ControllerActivate(ControllerStatus Controller)
         {
             try
             {
-                if (Controller.Connected && !Controller.Manage)
+                if (Controller.Connected && !Controller.Activated)
                 {
-                    Debug.WriteLine("Setted the new manage controller to: " + Controller.NumberId);
+                    Debug.WriteLine("Activating controller: " + Controller.NumberId);
 
-                    if (GetManageController() != null) { GetManageController().Manage = false; }
-                    Controller.Manage = true;
-
-                    AVActions.ActionDispatcherInvoke(delegate
+                    if (GetActiveController() != null)
                     {
-                        txt_ManageControllerName.Text = Controller.Details.DisplayName;
-                        UpdateControllerSettingsInterface(Controller);
-                    });
+                        //Deactivate previous controller
+                        GetActiveController().Activated = false;
+
+                        //Show controller activated notification
+                        string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
+                        NotificationDetails notificationDetails = new NotificationDetails();
+                        notificationDetails.Icon = "Controller";
+                        notificationDetails.Text = "Activated (" + controllerNumberDisplay + ")";
+                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    }
+
+                    Controller.Activated = true;
+                    ControllerUpdateSettingsInterface(Controller);
+                    return true;
                 }
             }
             catch { }
+            return false;
         }
 
-        //Change the manager controller to 0
+        //Change the active controller to 0
         void Button_Controller0_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                SetManageController(vController0);
+                ControllerActivate(vController0);
             }
             catch { }
         }
 
-        //Change the manager controller to 1
+        //Change the active controller to 1
         void Button_Controller1_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                SetManageController(vController1);
+                ControllerActivate(vController1);
             }
             catch { }
         }
 
-        //Change the manager controller to 2
+        //Change the active controller to 2
         void Button_Controller2_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                SetManageController(vController2);
+                ControllerActivate(vController2);
             }
             catch { }
         }
 
-        //Change the manager controller to 3
+        //Change the active controller to 3
         void Button_Controller3_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                SetManageController(vController3);
+                ControllerActivate(vController3);
             }
             catch { }
         }
@@ -234,14 +242,14 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus ManageController = GetManageController();
-                if (ManageController != null && ManageController.InputReport != null)
+                ControllerStatus activeController = GetActiveController();
+                if (activeController != null && activeController.InputReport != null)
                 {
-                    string RawPackets = "(Out" + ManageController.OutputReport.Length + "/In" + ManageController.InputReport.Length + ")";
-                    RawPackets += "(Offset" + ManageController.InputHeaderByteOffset + ")";
-                    RawPackets += "(ProductId" + ManageController.Details.Profile.ProductID + "/VendorId" + ManageController.Details.Profile.VendorID + ")";
+                    string RawPackets = "(Out" + activeController.OutputReport.Length + "/In" + activeController.InputReport.Length + ")";
+                    RawPackets += "(Offset" + activeController.InputHeaderByteOffset + ")";
+                    RawPackets += "(ProductId" + activeController.Details.Profile.ProductID + "/VendorId" + activeController.Details.Profile.VendorID + ")";
 
-                    for (int Packet = 0; Packet < ManageController.InputReport.Length; Packet++) { RawPackets = RawPackets + " " + ManageController.InputReport[Packet]; }
+                    for (int Packet = 0; Packet < activeController.InputReport.Length; Packet++) { RawPackets = RawPackets + " " + activeController.InputReport[Packet]; }
                     Clipboard.SetText(RawPackets);
 
                     Debug.WriteLine("Controller debug information copied to clipboard.");
@@ -264,18 +272,18 @@ namespace DirectXInput
             catch { }
         }
 
-        //Returns the current manage controller status
-        ControllerStatus GetManageController()
+        //Returns the active controller status
+        ControllerStatus GetActiveController()
         {
             try
             {
-                if (vController0.Manage) { return vController0; }
-                else if (vController1.Manage) { return vController1; }
-                else if (vController2.Manage) { return vController2; }
-                else if (vController3.Manage) { return vController3; }
-                return null;
+                if (vController0.Activated) { return vController0; }
+                else if (vController1.Activated) { return vController1; }
+                else if (vController2.Activated) { return vController2; }
+                else if (vController3.Activated) { return vController3; }
             }
-            catch { return null; }
+            catch { }
+            return null;
         }
     }
 }

@@ -108,6 +108,7 @@
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppTrayMenu.cs" />
     <Compile Include="AppVariables.cs" />
+    <Compile Include="ControllerButton.cs" />
     <Compile Include="Resources\Settings\SettingsNotify.cs" />
     <Compile Include="NotificationFunctions.cs" />
     <Compile Include="WindowOverlay.xaml.cs" />

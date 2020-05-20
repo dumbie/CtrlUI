@@ -14,32 +14,35 @@ namespace DirectXInput
             try
             {
                 //Update the interface when window is active
-                if (vAppActivated && !vAppMinimized && Controller.Manage)
+                if (vAppActivated && !vAppMinimized && Controller.Activated)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         try
                         {
+                            //Update name
+                            txt_ActiveControllerName.Text = Controller.Details.DisplayName;
+
                             //Update latency
                             int Latency = Environment.TickCount - Controller.LastActive;
                             if (Latency > 0)
                             {
                                 double LatencyMs = new TimeSpan(Latency).TotalMilliseconds;
-                                txt_ManageControllerLatency.Text = LatencyMs + " ms";
+                                txt_ActiveControllerLatency.Text = LatencyMs + " ms";
                             }
 
                             //Update battery
                             if (Controller.BatteryPercentageCurrent == -2)
                             {
-                                txt_ManageControllerBattery.Text = "Battery charging";
+                                txt_ActiveControllerBattery.Text = "Battery charging";
                             }
                             else if (Controller.BatteryPercentageCurrent >= 0)
                             {
-                                txt_ManageControllerBattery.Text = "Battery is at " + Controller.BatteryPercentageCurrent + "%";
+                                txt_ActiveControllerBattery.Text = "Battery is at " + Controller.BatteryPercentageCurrent + "%";
                             }
                             else
                             {
-                                txt_ManageControllerBattery.Text = "Battery unknown";
+                                txt_ActiveControllerBattery.Text = "Battery unknown";
                             }
 
                             //D-Pad

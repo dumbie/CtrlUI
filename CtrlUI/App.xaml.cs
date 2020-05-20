@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVFirewall;
+using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.AppStartupCheck;
@@ -24,7 +25,7 @@ namespace CtrlUI
                 await Application_RestartDelay(e);
 
                 //Get previous focused application
-                vPrevFocusedProcess = GetFocusedProcess();
+                vPrevFocusedProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
 
                 //Check the application status
                 await Application_LaunchCheck("CtrlUI", ProcessPriorityClass.High, false, true);

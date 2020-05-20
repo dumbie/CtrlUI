@@ -114,8 +114,8 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus manageController = GetManageController();
-                if (manageController != null)
+                ControllerStatus activeController = GetActiveController();
+                if (activeController != null)
                 {
                     Button sendButton = sender as Button;
                     string mapButton = sendButton.Tag.ToString();
@@ -124,19 +124,19 @@ namespace DirectXInput
                     txt_Application_Status.Text = "Unmapped '" + mapButton + "' from the controller profile.";
 
                     //Store new button mapping in Json controller
-                    if (mapButton == "Button A") { manageController.Details.Profile.ButtonA = -1; }
-                    if (mapButton == "Button B") { manageController.Details.Profile.ButtonB = -1; }
-                    if (mapButton == "Button X") { manageController.Details.Profile.ButtonX = -1; }
-                    if (mapButton == "Button Y") { manageController.Details.Profile.ButtonY = -1; }
-                    if (mapButton == "Button LB") { manageController.Details.Profile.ButtonShoulderLeft = -1; }
-                    if (mapButton == "Button RB") { manageController.Details.Profile.ButtonShoulderRight = -1; }
-                    if (mapButton == "Button Back") { manageController.Details.Profile.ButtonBack = -1; }
-                    if (mapButton == "Button Start") { manageController.Details.Profile.ButtonStart = -1; }
-                    if (mapButton == "Button Guide") { manageController.Details.Profile.ButtonGuide = -1; }
-                    if (mapButton == "Button Thumb Left") { manageController.Details.Profile.ButtonThumbLeft = -1; }
-                    if (mapButton == "Button Thumb Right") { manageController.Details.Profile.ButtonThumbRight = -1; }
-                    if (mapButton == "Button Trigger Left") { manageController.Details.Profile.ButtonTriggerLeft = -1; }
-                    if (mapButton == "Button Trigger Right") { manageController.Details.Profile.ButtonTriggerRight = -1; }
+                    if (mapButton == "Button A") { activeController.Details.Profile.ButtonA = -1; }
+                    if (mapButton == "Button B") { activeController.Details.Profile.ButtonB = -1; }
+                    if (mapButton == "Button X") { activeController.Details.Profile.ButtonX = -1; }
+                    if (mapButton == "Button Y") { activeController.Details.Profile.ButtonY = -1; }
+                    if (mapButton == "Button LB") { activeController.Details.Profile.ButtonShoulderLeft = -1; }
+                    if (mapButton == "Button RB") { activeController.Details.Profile.ButtonShoulderRight = -1; }
+                    if (mapButton == "Button Back") { activeController.Details.Profile.ButtonBack = -1; }
+                    if (mapButton == "Button Start") { activeController.Details.Profile.ButtonStart = -1; }
+                    if (mapButton == "Button Guide") { activeController.Details.Profile.ButtonGuide = -1; }
+                    if (mapButton == "Button Thumb Left") { activeController.Details.Profile.ButtonThumbLeft = -1; }
+                    if (mapButton == "Button Thumb Right") { activeController.Details.Profile.ButtonThumbRight = -1; }
+                    if (mapButton == "Button Trigger Left") { activeController.Details.Profile.ButtonTriggerLeft = -1; }
+                    if (mapButton == "Button Trigger Right") { activeController.Details.Profile.ButtonTriggerRight = -1; }
 
                     //Save changes to Json file
                     JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
@@ -150,15 +150,15 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus manageController = GetManageController();
-                if (manageController != null)
+                ControllerStatus activeController = GetActiveController();
+                if (activeController != null)
                 {
                     Button sendButton = sender as Button;
                     string mapButton = sendButton.Tag.ToString();
 
                     //Set button to map
-                    manageController.Mapping[0] = "Map";
-                    manageController.Mapping[1] = mapButton;
+                    activeController.Mapping[0] = "Map";
+                    activeController.Mapping[1] = mapButton;
 
                     //Disable interface
                     txt_Application_Status.Text = "Waiting for '" + mapButton + "' press on the controller... ";
@@ -177,8 +177,8 @@ namespace DirectXInput
                             if (countdownTimeout++ >= 10)
                             {
                                 //Reset controller button mapping
-                                manageController.Mapping[0] = "Cancel";
-                                manageController.Mapping[1] = "None";
+                                activeController.Mapping[0] = "Cancel";
+                                activeController.Mapping[1] = "None";
                             }
                             else
                             {
@@ -190,10 +190,10 @@ namespace DirectXInput
                     vDispatcherTimerMapping.Start();
 
                     //Check if button is mapped
-                    while (manageController.Mapping[0] == "Map") { await Task.Delay(500); }
+                    while (activeController.Mapping[0] == "Map") { await Task.Delay(500); }
                     vDispatcherTimerMapping.Stop();
 
-                    if (manageController.Mapping[0] == "Done")
+                    if (activeController.Mapping[0] == "Done")
                     {
                         txt_Application_Status.Text = "Changed '" + mapButton + "' to the pressed controller button.";
                     }
@@ -217,15 +217,15 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus ManageController = GetManageController();
-                if (ManageController != null && !vControllerRumbleTest)
+                ControllerStatus activeController = GetActiveController();
+                if (activeController != null && !vControllerRumbleTest)
                 {
                     vControllerRumbleTest = true;
                     Button SendButton = sender as Button;
 
-                    if (SendButton.Name == "btn_RumbleTestLight") { SendXRumbleData(ManageController, true, true, false); } else { SendXRumbleData(ManageController, true, false, true); }
+                    if (SendButton.Name == "btn_RumbleTestLight") { SendXRumbleData(activeController, true, true, false); } else { SendXRumbleData(activeController, true, false, true); }
                     await Task.Delay(1000);
-                    SendXRumbleData(ManageController, true, false, false);
+                    SendXRumbleData(activeController, true, false, false);
 
                     vControllerRumbleTest = false;
                 }
@@ -238,10 +238,10 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus ManageController = GetManageController();
-                if (ManageController != null)
+                ControllerStatus activeController = GetActiveController();
+                if (activeController != null)
                 {
-                    await StopControllerAsync(ManageController, false);
+                    await StopControllerAsync(activeController, false);
                 }
             }
             catch { }
@@ -262,13 +262,13 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus ManageController = GetManageController();
-                if (ManageController != null)
+                ControllerStatus activeController = GetActiveController();
+                if (activeController != null)
                 {
-                    int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to remove this controller?", "This will reset the manage controller to it's defaults and disconnect it.", "Remove controller", "Cancel", "", "");
+                    int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to remove this controller?", "This will reset the active controller to it's defaults and disconnect it.", "Remove controller", "Cancel", "", "");
                     if (messageResult == 1)
                     {
-                        Debug.WriteLine("Removed the controller: " + ManageController.Details.DisplayName);
+                        Debug.WriteLine("Removed the controller: " + activeController.Details.DisplayName);
 
                         NotificationDetails notificationDetails = new NotificationDetails();
                         notificationDetails.Icon = "Controller";
@@ -277,11 +277,11 @@ namespace DirectXInput
 
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            txt_Controller_Information.Text = "Removed the controller: " + ManageController.Details.DisplayName;
+                            txt_Controller_Information.Text = "Removed the controller: " + activeController.Details.DisplayName;
                         });
 
-                        vDirectControllersProfile.Remove(ManageController.Details.Profile);
-                        await StopControllerAsync(ManageController, false);
+                        vDirectControllersProfile.Remove(activeController.Details.Profile);
+                        await StopControllerAsync(activeController, false);
 
                         //Save changes to Json file
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");

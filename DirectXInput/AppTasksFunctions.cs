@@ -26,7 +26,7 @@ namespace DirectXInput
             {
                 while (!vTask_ControllerMonitor.TaskStopRequest)
                 {
-                    await MonitorControllers();
+                    await ControllerMonitor();
 
                     //Delay the loop task
                     await TaskDelayLoop(2000, vTask_ControllerMonitor);

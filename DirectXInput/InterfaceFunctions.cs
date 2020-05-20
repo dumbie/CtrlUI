@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
@@ -109,106 +110,106 @@ namespace DirectXInput
                 //Save controller settings
                 cb_ControllerFakeGuideButton.Click += (sender, e) =>
                 {
-                    ControllerStatus ManageController = GetManageController();
-                    if (ManageController != null)
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
                     {
-                        ManageController.Details.Profile.FakeGuideButton = cb_ControllerFakeGuideButton.IsChecked.Value;
+                        activeController.Details.Profile.FakeGuideButton = cb_ControllerFakeGuideButton.IsChecked.Value;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 };
 
                 cb_ControllerUseButtonTriggers.Click += (sender, e) =>
                 {
-                    ControllerStatus ManageController = GetManageController();
-                    if (ManageController != null)
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
                     {
-                        ManageController.Details.Profile.UseButtonTriggers = cb_ControllerUseButtonTriggers.IsChecked.Value;
+                        activeController.Details.Profile.UseButtonTriggers = cb_ControllerUseButtonTriggers.IsChecked.Value;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 };
 
                 cb_ControllerDPadFourWayMovement.Click += (sender, e) =>
                 {
-                    ControllerStatus ManageController = GetManageController();
-                    if (ManageController != null)
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
                     {
-                        ManageController.Details.Profile.DPadFourWayMovement = cb_ControllerDPadFourWayMovement.IsChecked.Value;
+                        activeController.Details.Profile.DPadFourWayMovement = cb_ControllerDPadFourWayMovement.IsChecked.Value;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 };
 
                 cb_ControllerThumbFlipMovement.Click += (sender, e) =>
                 {
-                    ControllerStatus ManageController = GetManageController();
-                    if (ManageController != null)
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
                     {
-                        ManageController.Details.Profile.ThumbFlipMovement = cb_ControllerThumbFlipMovement.IsChecked.Value;
+                        activeController.Details.Profile.ThumbFlipMovement = cb_ControllerThumbFlipMovement.IsChecked.Value;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 };
 
                 cb_ControllerThumbFlipAxesLeft.Click += (sender, e) =>
                 {
-                    ControllerStatus ManageController = GetManageController();
-                    if (ManageController != null)
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
                     {
-                        ManageController.Details.Profile.ThumbFlipAxesLeft = cb_ControllerThumbFlipAxesLeft.IsChecked.Value;
+                        activeController.Details.Profile.ThumbFlipAxesLeft = cb_ControllerThumbFlipAxesLeft.IsChecked.Value;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 };
 
                 cb_ControllerThumbFlipAxesRight.Click += (sender, e) =>
                 {
-                    ControllerStatus ManageController = GetManageController();
-                    if (ManageController != null)
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
                     {
-                        ManageController.Details.Profile.ThumbFlipAxesRight = cb_ControllerThumbFlipAxesRight.IsChecked.Value;
+                        activeController.Details.Profile.ThumbFlipAxesRight = cb_ControllerThumbFlipAxesRight.IsChecked.Value;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 };
 
                 cb_ControllerThumbReverseAxesLeft.Click += (sender, e) =>
                 {
-                    ControllerStatus ManageController = GetManageController();
-                    if (ManageController != null)
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
                     {
-                        ManageController.Details.Profile.ThumbReverseAxesLeft = cb_ControllerThumbReverseAxesLeft.IsChecked.Value;
+                        activeController.Details.Profile.ThumbReverseAxesLeft = cb_ControllerThumbReverseAxesLeft.IsChecked.Value;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 };
 
                 cb_ControllerThumbReverseAxesRight.Click += (sender, e) =>
                 {
-                    ControllerStatus ManageController = GetManageController();
-                    if (ManageController != null)
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
                     {
-                        ManageController.Details.Profile.ThumbReverseAxesRight = cb_ControllerThumbReverseAxesRight.IsChecked.Value;
+                        activeController.Details.Profile.ThumbReverseAxesRight = cb_ControllerThumbReverseAxesRight.IsChecked.Value;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 };
 
                 slider_ControllerRumbleStrength.ValueChanged += (sender, e) =>
                 {
-                    ControllerStatus ManageController = GetManageController();
-                    if (ManageController != null)
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
                     {
                         textblock_ControllerRumbleStrength.Text = "Rumble strength: " + slider_ControllerRumbleStrength.Value.ToString("0") + "%";
-                        ManageController.Details.Profile.RumbleStrength = Convert.ToInt32(slider_ControllerRumbleStrength.Value);
+                        activeController.Details.Profile.RumbleStrength = Convert.ToInt32(slider_ControllerRumbleStrength.Value);
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 };
 
                 slider_ControllerLedBrightness.ValueChanged += (sender, e) =>
                 {
-                    ControllerStatus ManageController = GetManageController();
-                    if (ManageController != null)
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
                     {
                         textblock_ControllerLedBrightness.Text = "Led brightness: " + slider_ControllerLedBrightness.Value.ToString("0") + "%";
-                        ManageController.Details.Profile.LedBrightness = Convert.ToInt32(slider_ControllerLedBrightness.Value);
+                        activeController.Details.Profile.LedBrightness = Convert.ToInt32(slider_ControllerLedBrightness.Value);
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
 
                         //Update the controller led
-                        SendXRumbleData(ManageController, true, false, false);
+                        SendXRumbleData(activeController, true, false, false);
                     }
                 };
 
@@ -260,7 +261,7 @@ namespace DirectXInput
                 vProcessCtrlUI = GetProcessByNameOrTitle("CtrlUI", false);
                 vProcessKeyboardController = GetProcessByNameOrTitle("KeyboardController", false);
                 vProcessFpsOverlayer = GetProcessByNameOrTitle("FpsOverlayer", false);
-                int FocusedAppId = GetFocusedProcess().Identifier;
+                int FocusedAppId = GetProcessMultiFromWindowHandle(GetForegroundWindow()).Identifier;
 
                 //Check if CtrlUI is currently activated
                 if (vProcessCtrlUI != null && vProcessCtrlUI.Id == FocusedAppId) { vProcessCtrlUIActivated = true; } else { vProcessCtrlUIActivated = false; }

@@ -282,7 +282,7 @@ namespace CtrlUI
             {
                 vProcessDirectXInput = GetProcessByNameOrTitle("DirectXInput", false);
                 vProcessKeyboardController = GetProcessByNameOrTitle("KeyboardController", false);
-                int focusedAppId = GetFocusedProcess().Identifier;
+                int focusedAppId = GetProcessMultiFromWindowHandle(GetForegroundWindow()).Identifier;
 
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
@@ -589,7 +589,7 @@ namespace CtrlUI
                 Debug.WriteLine("Show or hide the CtrlUI window.");
 
                 //Get the current focused application
-                ProcessMulti foregroundProcess = GetFocusedProcess();
+                ProcessMulti foregroundProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
 
                 if (vAppMinimized || !vAppActivated)
                 {

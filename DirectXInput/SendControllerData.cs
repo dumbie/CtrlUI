@@ -24,7 +24,7 @@ namespace DirectXInput
                 bool BlockOutputApplication = false;
                 if (vProcessKeyboardController != null)
                 {
-                    if (Controller.Manage)
+                    if (Controller.Activated)
                     {
                         await OutputAppKeyboardController(Controller);
                     }
@@ -32,7 +32,7 @@ namespace DirectXInput
                 }
                 else if (vProcessCtrlUI != null && vProcessCtrlUIActivated)
                 {
-                    if (Controller.Manage)
+                    if (Controller.Activated)
                     {
                         await OutputAppCtrlUI(Controller);
                     }

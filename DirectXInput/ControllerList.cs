@@ -14,8 +14,8 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Find all the Hid Controllers
-        async Task ReceiveAllControllers()
+        //Receive all the connected Controllers
+        async Task ControllerReceiveAllConnected()
         {
             try
             {
@@ -32,7 +32,7 @@ namespace DirectXInput
                         string ProductHexId = "0x" + AVFunctions.StringShowAfter(EnumDevice.DevicePath, "pid_", 4).ToLower();
 
                         //Validate the connected controller
-                        if (!ValidateController(VendorHexId, ProductHexId, EnumDevice.DevicePath)) { continue; }
+                        if (!ControllerValidate(VendorHexId, ProductHexId, EnumDevice.DevicePath)) { continue; }
 
                         //Create new Json controller profile if it doesnt exist
                         IEnumerable<ControllerProfile> ProfileList = vDirectControllersProfile.Where(x => x.ProductID.ToLower() == ProductHexId && x.VendorID.ToLower() == VendorHexId);
@@ -65,7 +65,7 @@ namespace DirectXInput
                         };
 
                         //Connect with the controller
-                        await ConnectController(newController);
+                        await ControllerConnect(newController);
                     }
                     catch { }
                 }
@@ -89,7 +89,7 @@ namespace DirectXInput
                         string ProductHexId = FoundHidDevice.Attributes.ProductHexId.ToLower();
 
                         //Validate the connected controller
-                        if (!ValidateController(VendorHexId, ProductHexId, EnumDevice.DevicePath)) { continue; }
+                        if (!ControllerValidate(VendorHexId, ProductHexId, EnumDevice.DevicePath)) { continue; }
 
                         //Get controller product information
                         string ProductNameString = FoundHidDevice.Attributes.ProductName;
@@ -129,7 +129,7 @@ namespace DirectXInput
                         };
 
                         //Connect with the controller
-                        await ConnectController(newController);
+                        await ControllerConnect(newController);
                     }
                     catch { }
                 }
