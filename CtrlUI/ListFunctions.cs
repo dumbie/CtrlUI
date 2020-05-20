@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -158,7 +159,9 @@ namespace CtrlUI
                 }
 
                 //Remove no longer running and invalid processes
-                await ListBoxRemoveAll(lb_Processes, List_Processes, x => !x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !activeProcessesWindow.Contains(z.WindowHandle)) || x.ProcessMulti.Any(z => z.WindowHandle == IntPtr.Zero));
+                Func<DataBindApp, bool> filterProcessApp = x => x.Category == AppCategory.Process && (!x.ProcessMulti.Any() || x.ProcessMulti.Any(z => !activeProcessesWindow.Contains(z.WindowHandle)) || x.ProcessMulti.Any(z => z.WindowHandle == IntPtr.Zero));
+                await ListBoxRemoveAll(lb_Processes, List_Processes, filterProcessApp);
+                await ListBoxRemoveAll(lb_Search, List_Search, filterProcessApp);
             }
             catch { }
         }

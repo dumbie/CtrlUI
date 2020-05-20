@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
@@ -157,85 +156,80 @@ namespace CtrlUI
         }
 
         //Show the application edit popup
-        async Task Popup_Show_AppEdit(ListBox editListBox)
+        async Task Popup_Show_AppEdit(DataBindApp dataBindApp)
         {
             try
             {
-                int listboxSelectedIndex = editListBox.SelectedIndex;
-                if (editListBox.SelectedItems.Count > 0 && listboxSelectedIndex != -1)
+                grid_Popup_Manage_txt_Title.Text = "Edit application";
+                btn_AddAppLogo.IsEnabled = true;
+                btn_Manage_ResetAppLogo.IsEnabled = true;
+                tb_AddAppName.IsEnabled = true;
+                tb_AddAppExePath.IsEnabled = true;
+                tb_AddAppPathLaunch.IsEnabled = true;
+                btn_AddAppPathLaunch.IsEnabled = true;
+                tb_AddAppPathRoms.IsEnabled = true;
+                btn_Manage_SaveEditApp.Content = "Edit the application as filled in above";
+                grid_EditMoveApp.Visibility = Visibility.Visible;
+
+                //Set the variables as current edit app
+                vEditAppDataBind = dataBindApp;
+                vEditAppCategoryPrevious = dataBindApp.Category;
+
+                //Load the application categories
+                List<DataBindString> listAppCategories = new List<DataBindString>();
+
+                DataBindString categoryApp = new DataBindString();
+                categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                categoryApp.Name = "App & Media";
+                listAppCategories.Add(categoryApp);
+
+                DataBindString categoryGame = new DataBindString();
+                categoryGame.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                categoryGame.Name = "Game";
+                listAppCategories.Add(categoryGame);
+
+                DataBindString categoryEmulator = new DataBindString();
+                categoryEmulator.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                categoryEmulator.Name = "Emulator";
+                listAppCategories.Add(categoryEmulator);
+
+                lb_Manage_AddAppCategory.ItemsSource = listAppCategories;
+
+                //Select current application category
+                lb_Manage_AddAppCategory.SelectedIndex = (int)vEditAppDataBind.Category;
+
+                //Load application image
+                img_AddAppLogo.Source = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 120, 0);
+
+                //Fill the text boxes with application details
+                tb_AddAppName.Text = vEditAppDataBind.Name;
+                tb_AddAppExePath.Text = vEditAppDataBind.PathExe;
+                tb_AddAppPathLaunch.Text = vEditAppDataBind.PathLaunch;
+                tb_AddAppPathRoms.Text = vEditAppDataBind.PathRoms;
+                tb_AddAppArgument.Text = vEditAppDataBind.Argument;
+                checkbox_AddLaunchFilePicker.IsChecked = vEditAppDataBind.LaunchFilePicker;
+                checkbox_AddLaunchKeyboard.IsChecked = vEditAppDataBind.LaunchKeyboard;
+
+                //Hide and show situation based settings
+                if (vEditAppDataBind.Type == ProcessType.UWP)
                 {
-                    grid_Popup_Manage_txt_Title.Text = "Edit application";
-                    btn_AddAppLogo.IsEnabled = true;
-                    btn_Manage_ResetAppLogo.IsEnabled = true;
-                    tb_AddAppName.IsEnabled = true;
-                    tb_AddAppExePath.IsEnabled = true;
-                    tb_AddAppPathLaunch.IsEnabled = true;
-                    btn_AddAppPathLaunch.IsEnabled = true;
-                    tb_AddAppPathRoms.IsEnabled = true;
-                    btn_Manage_SaveEditApp.Content = "Edit the application as filled in above";
-                    grid_EditMoveApp.Visibility = Visibility.Visible;
-
-                    //Set the variables as current edit app
-                    vEditAppListBox = editListBox;
-                    vEditAppDataBind = (DataBindApp)editListBox.SelectedItem;
-                    vEditAppCategoryPrevious = vEditAppDataBind.Category;
-
-                    //Load the application categories
-                    List<DataBindString> listAppCategories = new List<DataBindString>();
-
-                    DataBindString categoryApp = new DataBindString();
-                    categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    categoryApp.Name = "App & Media";
-                    listAppCategories.Add(categoryApp);
-
-                    DataBindString categoryGame = new DataBindString();
-                    categoryGame.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    categoryGame.Name = "Game";
-                    listAppCategories.Add(categoryGame);
-
-                    DataBindString categoryEmulator = new DataBindString();
-                    categoryEmulator.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    categoryEmulator.Name = "Emulator";
-                    listAppCategories.Add(categoryEmulator);
-
-                    lb_Manage_AddAppCategory.ItemsSource = listAppCategories;
-
-                    //Select current application category
-                    lb_Manage_AddAppCategory.SelectedIndex = (int)vEditAppDataBind.Category;
-
-                    //Load application image
-                    img_AddAppLogo.Source = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 120, 0);
-
-                    //Fill the text boxes with application details
-                    tb_AddAppName.Text = vEditAppDataBind.Name;
-                    tb_AddAppExePath.Text = vEditAppDataBind.PathExe;
-                    tb_AddAppPathLaunch.Text = vEditAppDataBind.PathLaunch;
-                    tb_AddAppPathRoms.Text = vEditAppDataBind.PathRoms;
-                    tb_AddAppArgument.Text = vEditAppDataBind.Argument;
-                    checkbox_AddLaunchFilePicker.IsChecked = vEditAppDataBind.LaunchFilePicker;
-                    checkbox_AddLaunchKeyboard.IsChecked = vEditAppDataBind.LaunchKeyboard;
-
-                    //Hide and show situation based settings
-                    if (vEditAppDataBind.Type == ProcessType.UWP)
-                    {
-                        sp_AddAppExePath.Visibility = Visibility.Collapsed;
-                        sp_AddAppPathLaunch.Visibility = Visibility.Collapsed;
-                        sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
-                        checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
-                        sp_AddAppArgument.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        sp_AddAppExePath.Visibility = Visibility.Visible;
-                        sp_AddAppPathLaunch.Visibility = Visibility.Visible;
-                        if (vEditAppDataBind.Category == AppCategory.Emulator) { sp_AddAppPathRoms.Visibility = Visibility.Visible; } else { sp_AddAppPathRoms.Visibility = Visibility.Collapsed; }
-                        if (vEditAppDataBind.Category == AppCategory.App) { checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible; } else { checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed; }
-                        sp_AddAppArgument.Visibility = Visibility.Visible;
-                    }
-
-                    //Show the manage popup
-                    await Popup_Show(grid_Popup_Manage, btn_Manage_SaveEditApp);
+                    sp_AddAppExePath.Visibility = Visibility.Collapsed;
+                    sp_AddAppPathLaunch.Visibility = Visibility.Collapsed;
+                    sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
+                    checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
+                    sp_AddAppArgument.Visibility = Visibility.Collapsed;
                 }
+                else
+                {
+                    sp_AddAppExePath.Visibility = Visibility.Visible;
+                    sp_AddAppPathLaunch.Visibility = Visibility.Visible;
+                    if (vEditAppDataBind.Category == AppCategory.Emulator) { sp_AddAppPathRoms.Visibility = Visibility.Visible; } else { sp_AddAppPathRoms.Visibility = Visibility.Collapsed; }
+                    if (vEditAppDataBind.Category == AppCategory.App) { checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible; } else { checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed; }
+                    sp_AddAppArgument.Visibility = Visibility.Visible;
+                }
+
+                //Show the manage popup
+                await Popup_Show(grid_Popup_Manage, btn_Manage_SaveEditApp);
             }
             catch { }
         }

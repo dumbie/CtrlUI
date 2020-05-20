@@ -291,7 +291,7 @@ namespace CtrlUI
                     if (messageResult == AnswerEdit)
                     {
                         //Show application edit popup
-                        await Popup_Show_AppEdit(listboxSender);
+                        await Popup_Show_AppEdit(dataBindApp);
                     }
                     else if (messageResult == AnswerRemove)
                     {

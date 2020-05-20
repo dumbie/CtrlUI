@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Security.Principal;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
@@ -119,7 +118,6 @@ namespace CtrlUI
         public static DataBindFile vClipboardFile = null;
 
         //Manage Variables
-        public static ListBox vEditAppListBox = null;
         public static DataBindApp vEditAppDataBind = null;
         public static AppCategory vEditAppCategoryPrevious = AppCategory.App;
 

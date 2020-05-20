@@ -303,7 +303,7 @@ namespace CtrlUI
                         Answer1.Name = "Alright";
                         Answers.Add(Answer1);
 
-                        await Popup_Show_MessageBox("Application exe not found, please select another one", "", "", Answers);
+                        await Popup_Show_MessageBox("Application executable not found, please select another one", "", "", Answers);
                         return;
                     }
 

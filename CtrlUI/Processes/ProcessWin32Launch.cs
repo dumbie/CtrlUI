@@ -41,6 +41,15 @@ namespace CtrlUI
                     }
                 }
 
+                //Check if the application exists
+                if (!File.Exists(dataBindApp.PathExe))
+                {
+                    await Notification_Send_Status("Close", "Executable not found");
+                    Debug.WriteLine("Launch executable not found.");
+                    dataBindApp.StatusAvailable = Visibility.Visible;
+                    return false;
+                }
+
                 return await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, allowMinimize, runAsAdmin, createNoWindow, launchKeyboard);
             }
             catch { }
@@ -55,14 +64,8 @@ namespace CtrlUI
                 //Check if the application exists
                 if (!File.Exists(pathExe))
                 {
-                    List<DataBindString> Answers = new List<DataBindString>();
-                    DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    Answer1.Name = "Alright";
-                    Answers.Add(Answer1);
-
-                    await Popup_Show_MessageBox("App exe not found, please edit the application", "", "You can do this by interacting with the application and than click on the 'Edit app' button.", Answers);
-                    Debug.WriteLine("Launch executable not found");
+                    await Notification_Send_Status("Close", "Executable not found");
+                    Debug.WriteLine("Launch executable not found.");
                     return false;
                 }
 
