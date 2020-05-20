@@ -83,7 +83,17 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: YPressed");
 
-                        if (vFilePickerOpen)
+                        if (vTextInputOpen)
+                        {
+                            Debug.WriteLine("Resetting the text input popup.");
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Reset_TextInput(true, string.Empty); });
+                        }
+                        else if (vSearchOpen)
+                        {
+                            Debug.WriteLine("Resetting the search popup.");
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Reset_Search(true); });
+                        }
+                        else if (vFilePickerOpen)
                         {
                             KeySendSingle((byte)KeysVirtual.Back, vProcessCurrent.MainWindowHandle);
                         }
@@ -99,20 +109,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: XPressed");
 
-                        if (vTextInputOpen)
-                        {
-                            Debug.WriteLine("Resetting the text input popup.");
-                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Reset_TextInput(true, string.Empty); });
-                        }
-                        else if (vSearchOpen)
-                        {
-                            Debug.WriteLine("Resetting the search popup.");
-                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Reset_Search(true); });
-                        }
-                        else
-                        {
-                            KeySendSingle((byte)KeysVirtual.Delete, vProcessCurrent.MainWindowHandle);
-                        }
+                        KeySendSingle((byte)KeysVirtual.Delete, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayMedium = true;
