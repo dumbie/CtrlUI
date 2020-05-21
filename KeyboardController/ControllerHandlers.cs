@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInputOutputMouse;
@@ -13,7 +14,7 @@ namespace KeyboardController
     partial class WindowMain
     {
         //Process controller input for mouse
-        public bool ControllerInteractionMouse(ControllerInput ControllerInput)
+        public async Task<bool> ControllerInteractionMouse(ControllerInput ControllerInput)
         {
             bool ControllerUsed = false;
             bool ControllerDelayMicro = false;
@@ -76,7 +77,7 @@ namespace KeyboardController
                     //Emulate mouse click right
                     if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
-                        MousePressSingle(true);
+                        await MousePressSingle(true);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -105,7 +106,7 @@ namespace KeyboardController
         }
 
         //Process controller input for keyboard
-        public bool ControllerInteractionKeyboard(ControllerInput ControllerInput)
+        public async Task<bool> ControllerInteractionKeyboard(ControllerInput ControllerInput)
         {
             bool ControllerUsed = false;
             bool ControllerDelayMicro = false;
@@ -120,7 +121,7 @@ namespace KeyboardController
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        KeySendSingle((byte)KeysVirtual.Left, Process.GetCurrentProcess().MainWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Left, Process.GetCurrentProcess().MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -129,7 +130,7 @@ namespace KeyboardController
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        KeySendSingle((byte)KeysVirtual.Right, Process.GetCurrentProcess().MainWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Right, Process.GetCurrentProcess().MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -138,7 +139,7 @@ namespace KeyboardController
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        KeySendSingle((byte)KeysVirtual.Up, Process.GetCurrentProcess().MainWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Up, Process.GetCurrentProcess().MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -147,7 +148,7 @@ namespace KeyboardController
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        KeySendSingle((byte)KeysVirtual.Down, Process.GetCurrentProcess().MainWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Down, Process.GetCurrentProcess().MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -156,7 +157,7 @@ namespace KeyboardController
                     //Send internal space key
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
-                        KeySendSingle((byte)KeysVirtual.Space, Process.GetCurrentProcess().MainWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Space, Process.GetCurrentProcess().MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -165,7 +166,7 @@ namespace KeyboardController
                     else if (ControllerInput.ButtonB.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        KeyPressSingle((byte)KeysVirtual.Return, false);
+                        await KeyPressSingle((byte)KeysVirtual.Return, false);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -174,7 +175,7 @@ namespace KeyboardController
                     else if (ControllerInput.ButtonY.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        KeyPressSingle((byte)KeysVirtual.Space, false);
+                        await KeyPressSingle((byte)KeysVirtual.Space, false);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -183,7 +184,7 @@ namespace KeyboardController
                     else if (ControllerInput.ButtonX.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        KeyPressSingle((byte)KeysVirtual.Back, false);
+                        await KeyPressSingle((byte)KeysVirtual.Back, false);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -193,7 +194,7 @@ namespace KeyboardController
                     else if (ControllerInput.ButtonShoulderLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        KeyPressSingle((byte)KeysVirtual.Left, false);
+                        await KeyPressSingle((byte)KeysVirtual.Left, false);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -202,7 +203,7 @@ namespace KeyboardController
                     else if (ControllerInput.ButtonShoulderRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        KeyPressSingle((byte)KeysVirtual.Right, false);
+                        await KeyPressSingle((byte)KeysVirtual.Right, false);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -212,7 +213,7 @@ namespace KeyboardController
                     else if (ControllerInput.TriggerLeft > 0)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                        await KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -221,7 +222,7 @@ namespace KeyboardController
                     else if (ControllerInput.TriggerRight > 0)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        KeyPressSingle((byte)KeysVirtual.Tab, false);
+                        await KeyPressSingle((byte)KeysVirtual.Tab, false);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -231,7 +232,7 @@ namespace KeyboardController
                     else if (ControllerInput.ButtonBack.PressedRaw)
                     {
                         Debug.WriteLine("Button: BackPressed / Caps lock");
-                        SwitchCapsLock();
+                        await SwitchCapsLock();
 
                         ControllerUsed = true;
                         ControllerDelayMedium = true;

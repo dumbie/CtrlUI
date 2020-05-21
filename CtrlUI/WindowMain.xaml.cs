@@ -100,6 +100,9 @@ namespace CtrlUI
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
 
+                //Register application events
+                RegisterApplicationEvents();
+
                 //Bind all the lists to ListBox
                 ListBoxBindLists();
 
@@ -195,7 +198,7 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("Windows", "Showing start menu");
-                KeyPressSingle((byte)KeysVirtual.LeftWindows, false);
+                await KeyPressSingle((byte)KeysVirtual.LeftWindows, false);
 
                 //Launch the keyboard controller
                 if (vAppActivated && vControllerAnyConnected())

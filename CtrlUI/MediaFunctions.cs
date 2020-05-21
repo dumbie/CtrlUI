@@ -23,7 +23,7 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("Media", "Resuming or pausing media");
-                KeyPressSingle((byte)KeysVirtual.MediaPlayPause, false);
+                await KeyPressSingle((byte)KeysVirtual.MediaPlayPause, false);
             }
             catch { }
         }
@@ -34,7 +34,7 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("Next", "Going to next media item");
-                KeyPressSingle((byte)KeysVirtual.MediaNextTrack, false);
+                await KeyPressSingle((byte)KeysVirtual.MediaNextTrack, false);
 
                 //Close all open popups
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["CloseMediaScreen"]))
@@ -51,7 +51,7 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("Previous", "Going to previous media item");
-                KeyPressSingle((byte)KeysVirtual.MediaPrevTrack, false);
+                await KeyPressSingle((byte)KeysVirtual.MediaPrevTrack, false);
 
                 //Close all open popups
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["CloseMediaScreen"]))
@@ -68,7 +68,7 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("VolumeMute", "Switching mute");
-                KeyPressSingle((byte)KeysVirtual.VolumeMute, false);
+                await KeyPressSingle((byte)KeysVirtual.VolumeMute, false);
             }
             catch { }
         }
@@ -79,7 +79,7 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("VolumeDown", "Decreasing volume");
-                KeyPressSingle((byte)KeysVirtual.VolumeDown, false);
+                await KeyPressSingle((byte)KeysVirtual.VolumeDown, false);
             }
             catch { }
         }
@@ -90,7 +90,7 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("VolumeUp", "Increasing volume");
-                KeyPressSingle((byte)KeysVirtual.VolumeUp, false);
+                await KeyPressSingle((byte)KeysVirtual.VolumeUp, false);
             }
             catch { }
         }

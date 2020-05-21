@@ -418,7 +418,7 @@ namespace CtrlUI
                     CloseProcessesByNameOrTitle("nvstreamer", false);
 
                     //Disconnect Parsec Streaming
-                    KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.F3, false);
+                    await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.F3, false);
 
                     //Disconnect Remote Desktop
                     //LaunchProcess(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\tsdiscon.exe", "", "", "");

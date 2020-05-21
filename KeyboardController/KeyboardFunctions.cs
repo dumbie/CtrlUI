@@ -2,6 +2,7 @@
 using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVImage;
@@ -40,7 +41,7 @@ namespace KeyboardController
         }
 
         //Keyboard type string
-        void KeyboardTypeString(string typeString)
+        async Task KeyboardTypeString(string typeString)
         {
             try
             {
@@ -50,11 +51,11 @@ namespace KeyboardController
                     bool shiftPressed = (virtualKeyScan & 0x100) == 0x100;
                     if (shiftPressed)
                     {
-                        KeyPressCombo((byte)KeysVirtual.Shift, (byte)virtualKeyScan, false);
+                        await KeyPressCombo((byte)KeysVirtual.Shift, (byte)virtualKeyScan, false);
                     }
                     else
                     {
-                        KeyPressSingle((byte)virtualKeyScan, false);
+                        await KeyPressSingle((byte)virtualKeyScan, false);
                     }
                 }
             }
@@ -80,42 +81,42 @@ namespace KeyboardController
                 //Check for keys that are not caps capable or require extended
                 if (sendKeyName == "DotCom")
                 {
-                    KeyboardTypeString(key_DotCom.Content.ToString());
+                    await KeyboardTypeString(key_DotCom.Content.ToString());
                     return;
                 }
                 else if (sendKeyVirtual == (byte)KeysVirtual.Up)
                 {
-                    KeyPressSingle(sendKeyVirtual, true);
+                    await KeyPressSingle(sendKeyVirtual, true);
                     return;
                 }
                 else if (sendKeyVirtual == (byte)KeysVirtual.Down)
                 {
-                    KeyPressSingle(sendKeyVirtual, true);
+                    await KeyPressSingle(sendKeyVirtual, true);
                     return;
                 }
                 else if (sendKeyVirtual == (byte)KeysVirtual.Left)
                 {
-                    KeyPressSingle(sendKeyVirtual, true);
+                    await KeyPressSingle(sendKeyVirtual, true);
                     return;
                 }
                 else if (sendKeyVirtual == (byte)KeysVirtual.Right)
                 {
-                    KeyPressSingle(sendKeyVirtual, true);
+                    await KeyPressSingle(sendKeyVirtual, true);
                     return;
                 }
                 else if (sendKeyVirtual == (byte)KeysVirtual.Delete)
                 {
-                    KeyPressSingle(sendKeyVirtual, true);
+                    await KeyPressSingle(sendKeyVirtual, true);
                     return;
                 }
                 else if (sendKeyVirtual == (byte)KeysVirtual.Home)
                 {
-                    KeyPressSingle(sendKeyVirtual, false);
+                    await KeyPressSingle(sendKeyVirtual, false);
                     return;
                 }
                 else if (sendKeyVirtual == (byte)KeysVirtual.End)
                 {
-                    KeyPressSingle(sendKeyVirtual, false);
+                    await KeyPressSingle(sendKeyVirtual, false);
                     return;
                 }
 
@@ -124,15 +125,15 @@ namespace KeyboardController
                 {
                     if (sendKeyVirtual == (byte)KeysVirtual.Shift)
                     {
-                        KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.X, false);
+                        await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.X, false);
                     }
                     else if (sendKeyVirtual == (byte)KeysVirtual.Control)
                     {
-                        KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.C, false);
+                        await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.C, false);
                     }
                     else if (sendKeyVirtual == (byte)KeysVirtual.Menu)
                     {
-                        KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.V, false);
+                        await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.V, false);
                     }
                     else if (sendKeyVirtual == (byte)KeysVirtual.Space)
                     {
@@ -140,42 +141,42 @@ namespace KeyboardController
                     }
                     else if (sendKeyVirtual == (byte)KeysVirtual.Return)
                     {
-                        KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Z, false);
+                        await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Z, false);
                     }
                     else if (sendKeyVirtual == (byte)KeysVirtual.LeftWindows)
                     {
-                        KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.A, false);
+                        await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.A, false);
                     }
                     else
                     {
-                        KeyPressCombo((byte)KeysVirtual.Shift, sendKeyVirtual, false);
+                        await KeyPressCombo((byte)KeysVirtual.Shift, sendKeyVirtual, false);
                     }
                 }
                 else
                 {
-                    KeyPressSingle(sendKeyVirtual, false);
+                    await KeyPressSingle(sendKeyVirtual, false);
                 }
             }
             catch { }
         }
 
         //Handle capslock
-        void ButtonCaps_PreviewKeyUp(object sender, KeyEventArgs e)
+        async void ButtonCaps_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             try
             {
                 if (e.Key == Key.Space)
                 {
-                    SwitchCapsLock();
+                    await SwitchCapsLock();
                 }
             }
             catch { }
         }
-        void ButtonCaps_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        async void ButtonCaps_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                SwitchCapsLock();
+                await SwitchCapsLock();
             }
             catch { }
         }

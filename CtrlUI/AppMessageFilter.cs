@@ -13,11 +13,11 @@ namespace CtrlUI
                 if (Handled) { return; }
                 if (WindowMessage.message == (int)WindowMessages.WM_KEYUP)
                 {
-                    HandleKeyboardUp(ref WindowMessage, ref Handled);
+                    HandleKeyboardUp(WindowMessage, ref Handled);
                 }
                 else if (WindowMessage.message == (int)WindowMessages.WM_KEYDOWN)
                 {
-                    HandleKeyboardDown(ref WindowMessage, ref Handled);
+                    HandleKeyboardDown(WindowMessage, ref Handled);
                 }
                 else if (WindowMessage.message == (int)WindowMessages.WM_HOTKEY)
                 {

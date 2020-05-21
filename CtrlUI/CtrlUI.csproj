@@ -108,6 +108,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppEvents.cs" />
     <Compile Include="AppUpdate.cs" />
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />

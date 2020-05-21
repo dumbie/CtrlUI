@@ -14,18 +14,17 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        void ListBox_Search_KeyPressDown(object sender, KeyEventArgs e)
+        async void ListBox_Search_KeyPressDown(object sender, KeyEventArgs e)
         {
             try
             {
                 if (e.Key == Key.Up && lb_Search.SelectedIndex == 0)
                 {
-                    //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                    KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                    await KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
                 }
                 else if (e.Key == Key.Down && (lb_Search.Items.Count - 1) == lb_Search.SelectedIndex)
                 {
-                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                    await KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }

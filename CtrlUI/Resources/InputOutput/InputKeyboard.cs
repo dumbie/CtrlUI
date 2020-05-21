@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
 using static LibraryShared.SoundPlayer;
 
@@ -14,7 +13,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle keyboard down
-        void HandleKeyboardDown(ref MSG windowMessage, ref bool messageHandled)
+        void HandleKeyboardDown(MSG windowMessage, ref bool messageHandled)
         {
             try
             {
@@ -79,7 +78,7 @@ namespace CtrlUI
         }
 
         //Handle keyboard up
-        void HandleKeyboardUp(ref MSG WindowMessage, ref bool Handled)
+        void HandleKeyboardUp(MSG WindowMessage, ref bool Handled)
         {
             try
             {
@@ -103,7 +102,7 @@ namespace CtrlUI
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
                     if (vTabTargetLists.Any(x => x == parentListbox.Name))
                     {
-                        KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        EventKeyboardPressSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         Handled = true;
                         return;
                     }
@@ -112,14 +111,14 @@ namespace CtrlUI
                 {
                     if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
                     {
-                        KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        EventKeyboardPressSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         Handled = true;
                         return;
                     }
                 }
                 else if (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider))
                 {
-                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                    EventKeyboardPressSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                     Handled = true;
                     return;
                 }
@@ -138,8 +137,7 @@ namespace CtrlUI
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
                     if (vTabTargetLists.Any(x => x == parentListbox.Name))
                     {
-                        //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                        KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                        EventKeyboardPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
                         Handled = true;
                         return;
                     }
@@ -148,16 +146,14 @@ namespace CtrlUI
                 {
                     if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
                     {
-                        //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                        KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                        EventKeyboardPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
                         Handled = true;
                         return;
                     }
                 }
                 else if (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider))
                 {
-                    //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                    KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                    EventKeyboardPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
                     Handled = true;
                     return;
                 }

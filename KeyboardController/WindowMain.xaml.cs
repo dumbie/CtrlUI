@@ -47,10 +47,10 @@ namespace KeyboardController
                 Application_CreateTrayMenu();
 
                 //Disable hardware capslock
-                DisableHardwareCapsLock();
+                await DisableHardwareCapsLock();
 
                 //Update the keyboard layout
-                UpdateKeyboardLayout();
+                await UpdateKeyboardLayout();
 
                 //Update the keyboard mode
                 UpdateKeyboardMode();
@@ -209,14 +209,14 @@ namespace KeyboardController
         }
 
         //Switch keyboard layout
-        public void UpdateKeyboardLayout()
+        public async Task UpdateKeyboardLayout()
         {
             try
             {
                 //Disable caps lock
                 if (vCapsEnabled)
                 {
-                    SwitchCapsLock();
+                    await SwitchCapsLock();
                 }
 
                 //Change the keyboard layout
@@ -284,7 +284,7 @@ namespace KeyboardController
         }
 
         //Switch capslock on and off
-        public void SwitchCapsLock()
+        public async Task SwitchCapsLock()
         {
             try
             {
@@ -292,7 +292,7 @@ namespace KeyboardController
                 Debug.WriteLine("Switching caps lock.");
 
                 //Disable hardware capslock
-                DisableHardwareCapsLock();
+                await DisableHardwareCapsLock();
 
                 //Enable or disable software capslock
                 if (vCapsEnabled)
@@ -544,17 +544,18 @@ namespace KeyboardController
         }
 
         //Disable hardware capslock
-        public void DisableHardwareCapsLock()
+        public async Task DisableHardwareCapsLock()
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    if (Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
-                    {
-                        KeyPressSingle((byte)KeysVirtual.CapsLock, false);
-                    }
-                });
+                fix?
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+{
+    if (Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
+    {
+        await KeyPressSingle((byte)KeysVirtual.CapsLock, false);
+    }
+});
             }
             catch { }
         }

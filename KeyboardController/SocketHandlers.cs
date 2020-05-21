@@ -48,8 +48,8 @@ namespace KeyboardController
                         vControllerBusy = true;
 
                         ControllerInput receivedControllerInput = (ControllerInput)DeserializedBytes.Object;
-                        ControllerInteractionMouse(receivedControllerInput);
-                        ControllerInteractionKeyboard(receivedControllerInput);
+                        await ControllerInteractionMouse(receivedControllerInput);
+                        await ControllerInteractionKeyboard(receivedControllerInput);
 
                         vControllerBusy = false;
                     }

@@ -426,18 +426,17 @@ namespace CtrlUI
             }
             catch { }
         }
-        void ListBox_FilePicker_KeyPressDown(object sender, KeyEventArgs e)
+        async void ListBox_FilePicker_KeyPressDown(object sender, KeyEventArgs e)
         {
             try
             {
                 if (e.Key == Key.Up && lb_FilePicker.SelectedIndex == 0)
                 {
-                    //Improve: KeySendCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                    KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                    await KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
                 }
                 else if (e.Key == Key.Down && (lb_FilePicker.Items.Count - 1) == lb_FilePicker.SelectedIndex)
                 {
-                    KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                    await KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }

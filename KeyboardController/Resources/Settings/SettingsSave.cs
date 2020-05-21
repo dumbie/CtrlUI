@@ -20,10 +20,10 @@ namespace KeyboardController
                     App.vWindowMain.UpdateKeyboardOpacity();
                 };
 
-                combobox_KeyboardLayout.SelectionChanged += (sender, e) =>
+                combobox_KeyboardLayout.SelectionChanged += async (sender, e) =>
                 {
                     SettingSave("KeyboardLayout", combobox_KeyboardLayout.SelectedIndex.ToString());
-                    App.vWindowMain.UpdateKeyboardLayout();
+                    await App.vWindowMain.UpdateKeyboardLayout();
                 };
 
                 slider_SettingsMouseMoveSensitivity.ValueChanged += (sender, e) =>
