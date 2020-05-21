@@ -52,6 +52,15 @@ namespace CtrlUI
             catch { }
         }
 
+        async void Button_SearchInteractItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await lb_AppList_RightClick(lb_Search);
+            }
+            catch { }
+        }
+
         async void Grid_Popup_Search_textbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try

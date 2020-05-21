@@ -308,7 +308,7 @@ namespace CtrlUI
             catch { }
         }
 
-        //Go a folder up in the file picker
+        //Go up a folder in the file picker
         async Task FilePicker_GoFolderUp()
         {
             try
