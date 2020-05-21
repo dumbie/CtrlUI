@@ -22,21 +22,17 @@ namespace CtrlUI
                 int usedVirtualKey = windowMessage.wParam.ToInt32();
                 bool pressedShiftKey = vKeyboardPreviousVirtualKey == (int)KeysVirtual.Shift;
 
-                if (usedVirtualKey == (int)KeysVirtual.Q && pressedShiftKey)
-                {
-                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
-                }
-                else if (usedVirtualKey == (int)KeysVirtual.W && pressedShiftKey)
-                {
-                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
-                }
-                else if (usedVirtualKey == (int)KeysVirtual.Tab && pressedShiftKey)
+                if (usedVirtualKey == (int)KeysVirtual.Tab && pressedShiftKey)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Move", false);
                 }
                 else if (usedVirtualKey == (int)KeysVirtual.Tab)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Move", false);
+                }
+                else if (usedVirtualKey == (int)KeysVirtual.F13)
+                {
+                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
                 }
                 else if (usedVirtualKey == (int)KeysVirtual.Home)
                 {

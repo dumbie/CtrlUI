@@ -113,7 +113,7 @@ namespace CtrlUI
                     else if (SelStackPanel.Name == "settingsButtonOther")
                     {
                         settingsStackpanelOther.Visibility = Visibility.Visible;
-                        await FocusOnElement(btn_Settings_AppQuickLaunch, false, vProcessCurrent.MainWindowHandle);
+                        await FocusOnElement(btn_Settings_AddGeforceExperience, false, vProcessCurrent.MainWindowHandle);
                     }
                 }
             }

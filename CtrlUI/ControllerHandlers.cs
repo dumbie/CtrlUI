@@ -122,7 +122,7 @@ namespace CtrlUI
                              if (grid_Popup_Settings.Visibility == Visibility.Visible)
                              {
                                  await SettingsChangeTab(true);
-                                 KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Q, false);
+                                 KeySendSingle((byte)KeysVirtual.F13, vProcessCurrent.MainWindowHandle);
                              }
                              else
                              {
@@ -142,7 +142,7 @@ namespace CtrlUI
                             if (grid_Popup_Settings.Visibility == Visibility.Visible)
                             {
                                 await SettingsChangeTab(false);
-                                KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.W, false);
+                                KeySendSingle((byte)KeysVirtual.F13, vProcessCurrent.MainWindowHandle);
                             }
                             else
                             {
