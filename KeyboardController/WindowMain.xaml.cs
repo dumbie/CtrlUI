@@ -548,14 +548,13 @@ namespace KeyboardController
         {
             try
             {
-                fix?
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
-{
-    if (Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
-    {
-        await KeyPressSingle((byte)KeysVirtual.CapsLock, false);
-    }
-});
+                {
+                    if (Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
+                    {
+                        await KeyPressSingle((byte)KeysVirtual.CapsLock, false);
+                    }
+                });
             }
             catch { }
         }
