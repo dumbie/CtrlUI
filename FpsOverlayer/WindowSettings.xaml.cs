@@ -4,6 +4,8 @@ using System.Configuration;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using static FpsOverlayer.AppVariables;
+using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -190,39 +192,39 @@ namespace FpsOverlayer
                 {
                     if (AppId == newId)
                     {
-                        SettingSave("AppId", currentId.ToString());
+                        SettingSave(vConfigurationApplication, "AppId", currentId.ToString());
                     }
                     else if (FpsId == newId)
                     {
-                        SettingSave("FpsId", currentId.ToString());
+                        SettingSave(vConfigurationApplication, "FpsId", currentId.ToString());
                     }
                     else if (NetId == newId)
                     {
-                        SettingSave("NetId", currentId.ToString());
+                        SettingSave(vConfigurationApplication, "NetId", currentId.ToString());
                     }
                     else if (CpuId == newId)
                     {
-                        SettingSave("CpuId", currentId.ToString());
+                        SettingSave(vConfigurationApplication, "CpuId", currentId.ToString());
                     }
                     else if (GpuId == newId)
                     {
-                        SettingSave("GpuId", currentId.ToString());
+                        SettingSave(vConfigurationApplication, "GpuId", currentId.ToString());
                     }
                     else if (MemId == newId)
                     {
-                        SettingSave("MemId", currentId.ToString());
+                        SettingSave(vConfigurationApplication, "MemId", currentId.ToString());
                     }
                     else if (TimeId == newId)
                     {
-                        SettingSave("TimeId", currentId.ToString());
+                        SettingSave(vConfigurationApplication, "TimeId", currentId.ToString());
                     }
                     else if (MonId == newId)
                     {
-                        SettingSave("MonId", currentId.ToString());
+                        SettingSave(vConfigurationApplication, "MonId", currentId.ToString());
                     }
 
                     //Save new id
-                    SettingSave(targetName, newId.ToString());
+                    SettingSave(vConfigurationApplication, targetName, newId.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
 
                     //Update stats position text

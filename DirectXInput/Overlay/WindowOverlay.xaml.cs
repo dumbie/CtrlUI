@@ -11,7 +11,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
 
-namespace DirectXInput
+namespace DirectXInput.Overlay
 {
     public partial class WindowOverlay : Window
     {

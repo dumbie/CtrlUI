@@ -15,6 +15,7 @@ using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -208,11 +209,11 @@ namespace CtrlUI
 
                 //Disable video background
                 cb_SettingsVideoBackground.IsChecked = false;
-                SettingSave("VideoBackground", "False");
+                SettingSave(vConfigurationApplication, "VideoBackground", "False");
 
                 //Disable desktop background
                 cb_SettingsDesktopBackground.IsChecked = false;
-                SettingSave("DesktopBackground", "False");
+                SettingSave(vConfigurationApplication, "DesktopBackground", "False");
 
                 //Update the background media
                 UpdateBackgroundMedia();
@@ -247,7 +248,7 @@ namespace CtrlUI
 
                 //Enable video background
                 cb_SettingsVideoBackground.IsChecked = true;
-                SettingSave("VideoBackground", "True");
+                SettingSave(vConfigurationApplication, "VideoBackground", "True");
 
                 //Update the background media
                 UpdateBackgroundMedia();
@@ -299,7 +300,7 @@ namespace CtrlUI
                     await Notification_Send_Status("Font", "Font style changed");
 
                     //Update the setting
-                    SettingSave("InterfaceFontStyleName", messageResult.Name);
+                    SettingSave(vConfigurationApplication, "InterfaceFontStyleName", messageResult.Name);
 
                     //Update the font style
                     UpdateAppFontStyle();
@@ -335,7 +336,7 @@ namespace CtrlUI
                     await Notification_Send_Status("Clock", "Clock style changed");
 
                     //Update the setting
-                    SettingSave("InterfaceClockStyleName", messageResult.Name);
+                    SettingSave(vConfigurationApplication, "InterfaceClockStyleName", messageResult.Name);
 
                     //Update the clock style
                     UpdateClockStyle();
@@ -371,11 +372,10 @@ namespace CtrlUI
                     await Notification_Send_Status("VolumeUp", "Sound pack changed");
 
                     //Update the setting
-                    SettingSave("InterfaceSoundPackName", messageResult.Name);
+                    SettingSave(vConfigurationApplication, "InterfaceSoundPackName", messageResult.Name);
 
                     //Notify applications setting changed
                     await NotifyDirectXInputSettingChanged("InterfaceSoundPackName");
-                    await NotifyKeyboardControllerSettingChanged("InterfaceSoundPackName");
                 }
             }
             catch { }

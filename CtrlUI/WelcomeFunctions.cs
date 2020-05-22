@@ -3,8 +3,10 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ProcessClasses;
+using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -16,7 +18,7 @@ namespace CtrlUI
             try
             {
                 //Set application first launch to false
-                SettingSave("AppFirstLaunch", "False");
+                SettingSave(vConfigurationApplication, "AppFirstLaunch", "False");
 
                 //Open the Windows registry
                 RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);

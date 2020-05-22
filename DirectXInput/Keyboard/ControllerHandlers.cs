@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInputOutputMouse;
-using static KeyboardController.AppVariables;
+using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
 
-namespace KeyboardController
+namespace DirectXInput.Keyboard
 {
-    partial class WindowMain
+    partial class WindowKeyboard
     {
         //Process controller input for mouse
         public async Task<bool> ControllerInteractionMouse(ControllerInput ControllerInput)
@@ -23,7 +23,7 @@ namespace KeyboardController
             bool ControllerDelayLong = false;
             try
             {
-                if (Environment.TickCount >= vControllerDelay_Mouse)
+                if (Environment.TickCount >= vControllerDelayMouse)
                 {
                     //Get the mouse move amount
                     int moveSensitivity = Convert.ToInt32(ConfigurationManager.AppSettings["MouseMoveSensitivity"]);
@@ -85,19 +85,23 @@ namespace KeyboardController
 
                     if (ControllerDelayMicro)
                     {
-                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayMicroTicks;
+                        vControllerDelayMouse = Environment.TickCount + vControllerDelayMicroTicks;
                     }
                     else if (ControllerDelayShort)
                     {
-                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayShortTicks;
+                        vControllerDelayMouse = Environment.TickCount + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayMedium)
                     {
-                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayMediumTicks;
+                        vControllerDelayMouse = Environment.TickCount + vControllerDelayMediumTicks;
                     }
                     else if (ControllerDelayLong)
                     {
-                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayLongTicks;
+                        vControllerDelayMouse = Environment.TickCount + vControllerDelayLongTicks;
+                    }
+                    else
+                    {
+                        vControllerDelayMouse = Environment.TickCount + vControllerDelayNanoTicks;
                     }
                 }
             }
@@ -115,13 +119,13 @@ namespace KeyboardController
             bool ControllerDelayLong = false;
             try
             {
-                if (Environment.TickCount >= vControllerDelay_Keyboard)
+                if (Environment.TickCount >= vControllerDelayKeyboard)
                 {
                     //Send internal arrow left key
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Left, Process.GetCurrentProcess().MainWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Left, vInteropWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -130,7 +134,7 @@ namespace KeyboardController
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Right, Process.GetCurrentProcess().MainWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Right, vInteropWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -139,7 +143,7 @@ namespace KeyboardController
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Up, Process.GetCurrentProcess().MainWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Up, vInteropWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -148,7 +152,7 @@ namespace KeyboardController
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Down, Process.GetCurrentProcess().MainWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Down, vInteropWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -157,7 +161,7 @@ namespace KeyboardController
                     //Send internal space key
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
-                        await KeySendSingle((byte)KeysVirtual.Space, Process.GetCurrentProcess().MainWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Space, vInteropWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -249,19 +253,19 @@ namespace KeyboardController
 
                     if (ControllerDelayMicro)
                     {
-                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMicroTicks;
+                        vControllerDelayKeyboard = Environment.TickCount + vControllerDelayMicroTicks;
                     }
                     else if (ControllerDelayShort)
                     {
-                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayShortTicks;
+                        vControllerDelayKeyboard = Environment.TickCount + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayMedium)
                     {
-                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMediumTicks;
+                        vControllerDelayKeyboard = Environment.TickCount + vControllerDelayMediumTicks;
                     }
                     else if (ControllerDelayLong)
                     {
-                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayLongTicks;
+                        vControllerDelayKeyboard = Environment.TickCount + vControllerDelayLongTicks;
                     }
                 }
             }

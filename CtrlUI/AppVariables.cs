@@ -50,7 +50,6 @@ namespace CtrlUI
         //Process Variables
         public static Process vProcessCurrent = Process.GetCurrentProcess();
         public static Process vProcessDirectXInput = null;
-        public static Process vProcessKeyboardController = null;
 
         //App Status Variables
         public static ProcessMulti vPrevFocusedProcess = null;
@@ -133,9 +132,9 @@ namespace CtrlUI
         }
 
         public static bool vControllerBusy = false;
-        public static int vControllerDelayPollingTicks = 25;
+        public static int vControllerDelayNanoTicks = 10;
         public static int vControllerDelayMicroTicks = 75;
-        public static int vControllerDelayShortTicks = 130;
+        public static int vControllerDelayShortTicks = 125;
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 750;
         public static int vControllerDelay_DPad = Environment.TickCount;

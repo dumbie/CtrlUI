@@ -109,9 +109,13 @@
     <Compile Include="AppTrayMenu.cs" />
     <Compile Include="AppVariables.cs" />
     <Compile Include="ControllerButton.cs" />
+    <Compile Include="Keyboard\ControllerHandlers.cs" />
+    <Compile Include="Keyboard\KeyboardFunctions.cs" />
+    <Compile Include="Keyboard\MouseFunctions.cs" />
+    <Compile Include="Keyboard\WindowKeyboard.xaml.cs" />
     <Compile Include="Resources\Settings\SettingsNotify.cs" />
-    <Compile Include="NotificationFunctions.cs" />
-    <Compile Include="WindowOverlay.xaml.cs" />
+    <Compile Include="Overlay\NotificationFunctions.cs" />
+    <Compile Include="Overlay\WindowOverlay.xaml.cs" />
     <Compile Include="HidGuardian.cs" />
     <Compile Include="ControllerPreview.cs" />
     <Compile Include="ControllerShortcuts.cs" />
@@ -153,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Keyboard\WindowKeyboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="WindowMain.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -160,7 +168,7 @@
     <Compile Include="DirectInput.cs" />
     <Compile Include="JsonFunctions.cs" />
     <Compile Include="WindowMain.xaml.cs" />
-    <Page Include="WindowOverlay.xaml">
+    <Page Include="Overlay\WindowOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,6 +195,66 @@
       <Link>Assets\Icons\Battery\BatteryVerController4.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Close.png">
+      <Link>Assets\Icons\Close.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\BackOff.png">
+      <Link>Assets\Icons\Buttons\BackOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonDown.png">
+      <Link>Assets\Icons\Buttons\ButtonDown.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonLeft.png">
+      <Link>Assets\Icons\Buttons\ButtonLeft.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonRight.png">
+      <Link>Assets\Icons\Buttons\ButtonRight.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonUp.png">
+      <Link>Assets\Icons\Buttons\ButtonUp.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\GuideHoldOff.png">
+      <Link>Assets\Icons\Buttons\GuideHoldOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\GuideOff.png">
+      <Link>Assets\Icons\Buttons\GuideOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\LbOff.png">
+      <Link>Assets\Icons\Buttons\LbOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\LtOff.png">
+      <Link>Assets\Icons\Buttons\LtOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\RbOff.png">
+      <Link>Assets\Icons\Buttons\RbOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\RtOff.png">
+      <Link>Assets\Icons\Buttons\RtOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\StartOff.png">
+      <Link>Assets\Icons\Buttons\StartOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ThumbLeftOff.png">
+      <Link>Assets\Icons\Buttons\ThumbLeftOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ThumbRightOff.png">
+      <Link>Assets\Icons\Buttons\ThumbRightOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\CtrlUI\Assets\Icons\Controller-Dark.png">
       <Link>Assets\Icons\Controller-Dark.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -199,11 +267,31 @@
       <Link>Assets\Icons\Help.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="..\CtrlUI\Assets\Icons\Keyboard.png">
+      <Link>Assets\Icons\Keyboard.png</Link>
+    </Resource>
     <Content Include="..\CtrlUI\Assets\Icons\Settings.png">
       <Link>Assets\Icons\Settings.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\VolumeDown.png">
+      <Link>Assets\Icons\VolumeDown.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\VolumeUp.png">
+      <Link>Assets\Icons\VolumeUp.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Controller\ControllerAxeLight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Icons\ControllerShortcuts.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icons\KeyboardMove.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icons\KeyboardScroll.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\DirectCloseTools.json">
@@ -262,5 +350,6 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

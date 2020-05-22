@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Net.Sockets;
@@ -27,6 +28,9 @@ namespace DirectXInput
             {
                 if (Environment.TickCount >= Controller.Delay_ControllerShortcut)
                 {
+                    //Check if keyboard is visible
+                    bool keyboardVisible = App.vWindowKeyboard.IsVisible;
+
                     //Activate the controller
                     if (Controller.InputCurrent.ButtonGuide.PressedShort)
                     {
@@ -40,7 +44,7 @@ namespace DirectXInput
                     }
 
                     //Show CtrlUI application
-                    if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessKeyboardController == null && vProcessCtrlUI != null)
+                    if (Controller.InputCurrent.ButtonGuide.PressedShort && !keyboardVisible && vProcessCtrlUI != null)
                     {
                         Debug.WriteLine("Guide short press showing CtrlUI.");
                         await ShowCtrlUI();
@@ -49,26 +53,25 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Launch CtrlUI application
-                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessKeyboardController == null && vProcessCtrlUI == null)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && !keyboardVisible && vProcessCtrlUI == null)
                     {
                         await LaunchCtrlUI();
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
                     }
-                    //Close the keyboard controller
-                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessKeyboardController != null)
+                    //Hide the keyboard controller
+                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && keyboardVisible)
                     {
-                        Debug.WriteLine("Guide press closing keyboard controller.");
-                        await CloseKeyboardController();
+                        HideKeyboardController();
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
                     }
-                    //Launch the keyboard controller
-                    else if (Controller.InputCurrent.ButtonGuide.PressedLong && vProcessKeyboardController == null)
+                    //Show the keyboard controller
+                    else if (Controller.InputCurrent.ButtonGuide.PressedLong && !keyboardVisible)
                     {
-                        await LaunchKeyboardController();
+                        ShowKeyboardController();
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
@@ -181,25 +184,33 @@ namespace DirectXInput
             return ControllerUsed;
         }
 
-        //Launch the keyboard controller
-        async Task LaunchKeyboardController()
+        //Show keyboard controller
+        void ShowKeyboardController()
         {
             try
             {
+                Debug.WriteLine("Shortcut show keyboard controller has been pressed.");
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchKeyboardController"]))
                 {
-                    Debug.WriteLine("Shortcut launch keyboard controller has been pressed.");
-
-                    NotificationDetails notificationDetails = new NotificationDetails();
-                    notificationDetails.Icon = "Keyboard";
-                    notificationDetails.Text = "Showing Keyboard";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
-                    if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
+                    AVActions.ActionDispatcherInvoke(delegate
                     {
-                        await ProcessLauncherWin32Async("KeyboardController-Admin.exe", "", "", true, false);
-                    }
+                        App.vWindowKeyboard.Show();
+                    });
                 }
+            }
+            catch { }
+        }
+
+        //Hide keyboard controller
+        void HideKeyboardController()
+        {
+            try
+            {
+                Debug.WriteLine("Shortcut hide keyboard controller has been pressed.");
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    App.vWindowKeyboard.Hide();
+                });
             }
             catch { }
         }
@@ -248,32 +259,6 @@ namespace DirectXInput
 
                 //Send socket data
                 TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort - 1, vArnoldVinkSockets.vTcpClientTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
-            }
-            catch { }
-        }
-
-        //Close Keyboard Controller
-        async Task CloseKeyboardController()
-        {
-            try
-            {
-                //Check if socket server is running
-                if (vArnoldVinkSockets == null)
-                {
-                    Debug.WriteLine("The socket server is not running.");
-                    return;
-                }
-
-                //Prepare socket data
-                SocketSendContainer socketSend = new SocketSendContainer();
-                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
-                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
-                socketSend.Object = "ApplicationExit";
-                byte[] SerializedData = SerializeObjectToBytes(socketSend);
-
-                //Send socket data
-                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 1, vArnoldVinkSockets.vTcpClientTimeout);
                 await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
             }
             catch { }

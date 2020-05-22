@@ -87,7 +87,7 @@ namespace DirectXInput
                 TasksBackgroundStart();
 
                 //Set application first launch to false
-                SettingSave("AppFirstLaunch", "False");
+                SettingSave(vConfigurationApplication, "AppFirstLaunch", "False");
 
                 //Enable the socket server
                 EnableSocketServer();
@@ -353,9 +353,6 @@ namespace DirectXInput
 
                 //Disable application window
                 AppWindowDisable("Closing DirectXInput, please wait.");
-
-                //Close the keyboard controller
-                CloseProcessesByNameOrTitle("KeyboardController", false);
 
                 //Stop the background tasks
                 await TasksBackgroundStop();

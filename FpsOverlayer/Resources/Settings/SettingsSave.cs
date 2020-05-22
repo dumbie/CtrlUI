@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Media;
 using static FpsOverlayer.AppVariables;
+using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -16,230 +16,230 @@ namespace FpsOverlayer
             {
                 checkbox_DisplayBackground.Click += (sender, e) =>
                 {
-                    SettingSave("DisplayBackground", checkbox_DisplayBackground.IsChecked.ToString());
+                    SettingSave(vConfigurationApplication, "DisplayBackground", checkbox_DisplayBackground.IsChecked.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 slider_DisplayOpacity.ValueChanged += (sender, e) =>
                 {
                     textblock_DisplayOpacity.Text = textblock_DisplayOpacity.Tag + ": " + slider_DisplayOpacity.Value.ToString("0.00") + "%";
-                    SettingSave("DisplayOpacity", slider_DisplayOpacity.Value.ToString("0.00"));
+                    SettingSave(vConfigurationApplication, "DisplayOpacity", slider_DisplayOpacity.Value.ToString("0.00"));
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 slider_HardwareUpdateRateMs.ValueChanged += (sender, e) =>
                 {
                     textblock_HardwareUpdateRateMs.Text = textblock_HardwareUpdateRateMs.Tag + ": " + slider_HardwareUpdateRateMs.Value.ToString() + "ms";
-                    SettingSave("HardwareUpdateRateMs", slider_HardwareUpdateRateMs.Value.ToString());
+                    SettingSave(vConfigurationApplication, "HardwareUpdateRateMs", slider_HardwareUpdateRateMs.Value.ToString());
                 };
 
                 slider_MarginHorizontal.ValueChanged += (sender, e) =>
                 {
                     textblock_MarginHorizontal.Text = textblock_MarginHorizontal.Tag + ": " + slider_MarginHorizontal.Value.ToString("0") + "px";
-                    SettingSave("MarginHorizontal", slider_MarginHorizontal.Value.ToString("0"));
+                    SettingSave(vConfigurationApplication, "MarginHorizontal", slider_MarginHorizontal.Value.ToString("0"));
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 slider_MarginVertical.ValueChanged += (sender, e) =>
                 {
                     textblock_MarginVertical.Text = textblock_MarginVertical.Tag + ": " + slider_MarginVertical.Value.ToString("0") + "px";
-                    SettingSave("MarginVertical", slider_MarginVertical.Value.ToString("0"));
+                    SettingSave(vConfigurationApplication, "MarginVertical", slider_MarginVertical.Value.ToString("0"));
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 combobox_InterfaceFontStyleName.SelectionChanged += (sender, e) =>
                 {
-                    SettingSave("InterfaceFontStyleName", combobox_InterfaceFontStyleName.SelectedItem.ToString());
+                    SettingSave(vConfigurationApplication, "InterfaceFontStyleName", combobox_InterfaceFontStyleName.SelectedItem.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 combobox_TextPosition.SelectionChanged += async (sender, e) =>
                 {
-                    SettingSave("TextPosition", combobox_TextPosition.SelectedIndex.ToString());
+                    SettingSave(vConfigurationApplication, "TextPosition", combobox_TextPosition.SelectedIndex.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                     await NotifyDirectXInputSettingChanged("TextPosition");
                 };
 
                 combobox_TextDirection.SelectionChanged += (sender, e) =>
                 {
-                    SettingSave("TextDirection", combobox_TextDirection.SelectedIndex.ToString());
+                    SettingSave(vConfigurationApplication, "TextDirection", combobox_TextDirection.SelectedIndex.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 slider_TextSize.ValueChanged += (sender, e) =>
                 {
                     textblock_TextSize.Text = textblock_TextSize.Tag + ": " + slider_TextSize.Value.ToString("0") + "px";
-                    SettingSave("TextSize", slider_TextSize.Value.ToString("0"));
+                    SettingSave(vConfigurationApplication, "TextSize", slider_TextSize.Value.ToString("0"));
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 checkbox_TextColorSingle.Click += (sender, e) =>
                 {
-                    SettingSave("TextColorSingle", checkbox_TextColorSingle.IsChecked.ToString());
+                    SettingSave(vConfigurationApplication, "TextColorSingle", checkbox_TextColorSingle.IsChecked.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 textbox_GpuCategoryTitle.TextChanged += (sender, e) =>
                 {
                     TextBox senderTextbox = (TextBox)sender;
-                    SettingSave("GpuCategoryTitle", senderTextbox.Text);
+                    SettingSave(vConfigurationApplication, "GpuCategoryTitle", senderTextbox.Text);
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
                 checkbox_GpuShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
-                    SettingSave("GpuShowCategoryTitle", senderCheckBox.IsChecked.ToString());
+                    SettingSave(vConfigurationApplication, "GpuShowCategoryTitle", senderCheckBox.IsChecked.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
-                checkbox_GpuShowName.Click += (sender, e) => { SettingSave("GpuShowName", checkbox_GpuShowName.IsChecked.ToString()); };
-                checkbox_GpuShowPercentage.Click += (sender, e) => { SettingSave("GpuShowPercentage", checkbox_GpuShowPercentage.IsChecked.ToString()); };
-                checkbox_GpuShowMemoryUsed.Click += (sender, e) => { SettingSave("GpuShowMemoryUsed", checkbox_GpuShowMemoryUsed.IsChecked.ToString()); };
-                checkbox_GpuShowTemperature.Click += (sender, e) => { SettingSave("GpuShowTemperature", checkbox_GpuShowTemperature.IsChecked.ToString()); };
-                checkbox_GpuShowCoreFrequency.Click += (sender, e) => { SettingSave("GpuShowCoreFrequency", checkbox_GpuShowCoreFrequency.IsChecked.ToString()); };
-                checkbox_GpuShowFanSpeed.Click += (sender, e) => { SettingSave("GpuShowFanSpeed", checkbox_GpuShowFanSpeed.IsChecked.ToString()); };
+                checkbox_GpuShowName.Click += (sender, e) => { SettingSave(vConfigurationApplication, "GpuShowName", checkbox_GpuShowName.IsChecked.ToString()); };
+                checkbox_GpuShowPercentage.Click += (sender, e) => { SettingSave(vConfigurationApplication, "GpuShowPercentage", checkbox_GpuShowPercentage.IsChecked.ToString()); };
+                checkbox_GpuShowMemoryUsed.Click += (sender, e) => { SettingSave(vConfigurationApplication, "GpuShowMemoryUsed", checkbox_GpuShowMemoryUsed.IsChecked.ToString()); };
+                checkbox_GpuShowTemperature.Click += (sender, e) => { SettingSave(vConfigurationApplication, "GpuShowTemperature", checkbox_GpuShowTemperature.IsChecked.ToString()); };
+                checkbox_GpuShowCoreFrequency.Click += (sender, e) => { SettingSave(vConfigurationApplication, "GpuShowCoreFrequency", checkbox_GpuShowCoreFrequency.IsChecked.ToString()); };
+                checkbox_GpuShowFanSpeed.Click += (sender, e) => { SettingSave(vConfigurationApplication, "GpuShowFanSpeed", checkbox_GpuShowFanSpeed.IsChecked.ToString()); };
 
                 textbox_CpuCategoryTitle.TextChanged += (sender, e) =>
                 {
                     TextBox senderTextbox = (TextBox)sender;
-                    SettingSave("CpuCategoryTitle", senderTextbox.Text);
+                    SettingSave(vConfigurationApplication, "CpuCategoryTitle", senderTextbox.Text);
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
                 checkbox_CpuShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
-                    SettingSave("CpuShowCategoryTitle", senderCheckBox.IsChecked.ToString());
+                    SettingSave(vConfigurationApplication, "CpuShowCategoryTitle", senderCheckBox.IsChecked.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
-                checkbox_CpuShowName.Click += (sender, e) => { SettingSave("CpuShowName", checkbox_CpuShowName.IsChecked.ToString()); };
-                checkbox_CpuShowPercentage.Click += (sender, e) => { SettingSave("CpuShowPercentage", checkbox_CpuShowPercentage.IsChecked.ToString()); };
-                checkbox_CpuShowTemperature.Click += (sender, e) => { SettingSave("CpuShowTemperature", checkbox_CpuShowTemperature.IsChecked.ToString()); };
-                checkbox_CpuShowCoreFrequency.Click += (sender, e) => { SettingSave("CpuShowCoreFrequency", checkbox_CpuShowCoreFrequency.IsChecked.ToString()); };
-                checkbox_CpuShowPowerUsage.Click += (sender, e) => { SettingSave("CpuShowPowerUsage", checkbox_CpuShowPowerUsage.IsChecked.ToString()); };
+                checkbox_CpuShowName.Click += (sender, e) => { SettingSave(vConfigurationApplication, "CpuShowName", checkbox_CpuShowName.IsChecked.ToString()); };
+                checkbox_CpuShowPercentage.Click += (sender, e) => { SettingSave(vConfigurationApplication, "CpuShowPercentage", checkbox_CpuShowPercentage.IsChecked.ToString()); };
+                checkbox_CpuShowTemperature.Click += (sender, e) => { SettingSave(vConfigurationApplication, "CpuShowTemperature", checkbox_CpuShowTemperature.IsChecked.ToString()); };
+                checkbox_CpuShowCoreFrequency.Click += (sender, e) => { SettingSave(vConfigurationApplication, "CpuShowCoreFrequency", checkbox_CpuShowCoreFrequency.IsChecked.ToString()); };
+                checkbox_CpuShowPowerUsage.Click += (sender, e) => { SettingSave(vConfigurationApplication, "CpuShowPowerUsage", checkbox_CpuShowPowerUsage.IsChecked.ToString()); };
 
                 textbox_MemCategoryTitle.TextChanged += (sender, e) =>
                 {
                     TextBox senderTextbox = (TextBox)sender;
-                    SettingSave("MemCategoryTitle", senderTextbox.Text);
+                    SettingSave(vConfigurationApplication, "MemCategoryTitle", senderTextbox.Text);
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
                 checkbox_MemShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
-                    SettingSave("MemShowCategoryTitle", senderCheckBox.IsChecked.ToString());
+                    SettingSave(vConfigurationApplication, "MemShowCategoryTitle", senderCheckBox.IsChecked.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
-                checkbox_MemShowPercentage.Click += (sender, e) => { SettingSave("MemShowPercentage", checkbox_MemShowPercentage.IsChecked.ToString()); };
-                checkbox_MemShowUsed.Click += (sender, e) => { SettingSave("MemShowUsed", checkbox_MemShowUsed.IsChecked.ToString()); };
-                checkbox_MemShowFree.Click += (sender, e) => { SettingSave("MemShowFree", checkbox_MemShowFree.IsChecked.ToString()); };
-                checkbox_MemShowTotal.Click += (sender, e) => { SettingSave("MemShowTotal", checkbox_MemShowTotal.IsChecked.ToString()); };
+                checkbox_MemShowPercentage.Click += (sender, e) => { SettingSave(vConfigurationApplication, "MemShowPercentage", checkbox_MemShowPercentage.IsChecked.ToString()); };
+                checkbox_MemShowUsed.Click += (sender, e) => { SettingSave(vConfigurationApplication, "MemShowUsed", checkbox_MemShowUsed.IsChecked.ToString()); };
+                checkbox_MemShowFree.Click += (sender, e) => { SettingSave(vConfigurationApplication, "MemShowFree", checkbox_MemShowFree.IsChecked.ToString()); };
+                checkbox_MemShowTotal.Click += (sender, e) => { SettingSave(vConfigurationApplication, "MemShowTotal", checkbox_MemShowTotal.IsChecked.ToString()); };
 
                 textbox_NetCategoryTitle.TextChanged += (sender, e) =>
                 {
                     TextBox senderTextbox = (TextBox)sender;
-                    SettingSave("NetCategoryTitle", senderTextbox.Text);
+                    SettingSave(vConfigurationApplication, "NetCategoryTitle", senderTextbox.Text);
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
                 checkbox_NetShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
-                    SettingSave("NetShowCategoryTitle", senderCheckBox.IsChecked.ToString());
+                    SettingSave(vConfigurationApplication, "NetShowCategoryTitle", senderCheckBox.IsChecked.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
-                checkbox_NetShowCurrentUsage.Click += (sender, e) => { SettingSave("NetShowCurrentUsage", checkbox_NetShowCurrentUsage.IsChecked.ToString()); };
+                checkbox_NetShowCurrentUsage.Click += (sender, e) => { SettingSave(vConfigurationApplication, "NetShowCurrentUsage", checkbox_NetShowCurrentUsage.IsChecked.ToString()); };
 
-                checkbox_AppShowName.Click += (sender, e) => { SettingSave("AppShowName", checkbox_AppShowName.IsChecked.ToString()); };
-                checkbox_TimeShowCurrentTime.Click += (sender, e) => { SettingSave("TimeShowCurrentTime", checkbox_TimeShowCurrentTime.IsChecked.ToString()); };
+                checkbox_AppShowName.Click += (sender, e) => { SettingSave(vConfigurationApplication, "AppShowName", checkbox_AppShowName.IsChecked.ToString()); };
+                checkbox_TimeShowCurrentTime.Click += (sender, e) => { SettingSave(vConfigurationApplication, "TimeShowCurrentTime", checkbox_TimeShowCurrentTime.IsChecked.ToString()); };
 
                 textbox_MonCategoryTitle.TextChanged += (sender, e) =>
                 {
                     TextBox senderTextbox = (TextBox)sender;
-                    SettingSave("MonCategoryTitle", senderTextbox.Text);
+                    SettingSave(vConfigurationApplication, "MonCategoryTitle", senderTextbox.Text);
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
                 checkbox_MonShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
-                    SettingSave("MonShowCategoryTitle", senderCheckBox.IsChecked.ToString());
+                    SettingSave(vConfigurationApplication, "MonShowCategoryTitle", senderCheckBox.IsChecked.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
-                checkbox_MonShowResolution.Click += (sender, e) => { SettingSave("MonShowResolution", checkbox_MonShowResolution.IsChecked.ToString()); };
-                checkbox_MonShowDpiResolution.Click += (sender, e) => { SettingSave("MonShowDpiResolution", checkbox_MonShowDpiResolution.IsChecked.ToString()); };
-                checkbox_MonShowColorBitDepth.Click += (sender, e) => { SettingSave("MonShowColorBitDepth", checkbox_MonShowColorBitDepth.IsChecked.ToString()); };
-                checkbox_MonShowRefreshRate.Click += (sender, e) => { SettingSave("MonShowRefreshRate", checkbox_MonShowRefreshRate.IsChecked.ToString()); };
+                checkbox_MonShowResolution.Click += (sender, e) => { SettingSave(vConfigurationApplication, "MonShowResolution", checkbox_MonShowResolution.IsChecked.ToString()); };
+                checkbox_MonShowDpiResolution.Click += (sender, e) => { SettingSave(vConfigurationApplication, "MonShowDpiResolution", checkbox_MonShowDpiResolution.IsChecked.ToString()); };
+                checkbox_MonShowColorBitDepth.Click += (sender, e) => { SettingSave(vConfigurationApplication, "MonShowColorBitDepth", checkbox_MonShowColorBitDepth.IsChecked.ToString()); };
+                checkbox_MonShowRefreshRate.Click += (sender, e) => { SettingSave(vConfigurationApplication, "MonShowRefreshRate", checkbox_MonShowRefreshRate.IsChecked.ToString()); };
 
                 textbox_FpsCategoryTitle.TextChanged += (sender, e) =>
                 {
                     TextBox senderTextbox = (TextBox)sender;
-                    SettingSave("FpsCategoryTitle", senderTextbox.Text);
+                    SettingSave(vConfigurationApplication, "FpsCategoryTitle", senderTextbox.Text);
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
                 checkbox_FpsShowCategoryTitle.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;
-                    SettingSave("FpsShowCategoryTitle", senderCheckBox.IsChecked.ToString());
+                    SettingSave(vConfigurationApplication, "FpsShowCategoryTitle", senderCheckBox.IsChecked.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
-                checkbox_FpsShowCurrentFps.Click += (sender, e) => { SettingSave("FpsShowCurrentFps", checkbox_FpsShowCurrentFps.IsChecked.ToString()); };
-                checkbox_FpsShowCurrentLatency.Click += (sender, e) => { SettingSave("FpsShowCurrentLatency", checkbox_FpsShowCurrentLatency.IsChecked.ToString()); };
-                checkbox_FpsShowAverageFps.Click += (sender, e) => { SettingSave("FpsShowAverageFps", checkbox_FpsShowAverageFps.IsChecked.ToString()); };
+                checkbox_FpsShowCurrentFps.Click += (sender, e) => { SettingSave(vConfigurationApplication, "FpsShowCurrentFps", checkbox_FpsShowCurrentFps.IsChecked.ToString()); };
+                checkbox_FpsShowCurrentLatency.Click += (sender, e) => { SettingSave(vConfigurationApplication, "FpsShowCurrentLatency", checkbox_FpsShowCurrentLatency.IsChecked.ToString()); };
+                checkbox_FpsShowAverageFps.Click += (sender, e) => { SettingSave(vConfigurationApplication, "FpsShowAverageFps", checkbox_FpsShowAverageFps.IsChecked.ToString()); };
 
                 colorpicker_ColorSingle.SelectedColorChanged += (Color color) =>
                 {
-                    SettingSave("ColorSingle", color.ToString());
+                    SettingSave(vConfigurationApplication, "ColorSingle", color.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 colorpicker_ColorBackground.SelectedColorChanged += (Color color) =>
                 {
-                    SettingSave("ColorBackground", color.ToString());
+                    SettingSave(vConfigurationApplication, "ColorBackground", color.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 colorpicker_ColorGpu.SelectedColorChanged += (Color color) =>
                 {
-                    SettingSave("ColorGpu", color.ToString());
+                    SettingSave(vConfigurationApplication, "ColorGpu", color.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 colorpicker_ColorCpu.SelectedColorChanged += (Color color) =>
                 {
-                    SettingSave("ColorCpu", color.ToString());
+                    SettingSave(vConfigurationApplication, "ColorCpu", color.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 colorpicker_ColorMem.SelectedColorChanged += (Color color) =>
                 {
-                    SettingSave("ColorMem", color.ToString());
+                    SettingSave(vConfigurationApplication, "ColorMem", color.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 colorpicker_ColorNet.SelectedColorChanged += (Color color) =>
                 {
-                    SettingSave("ColorNet", color.ToString());
+                    SettingSave(vConfigurationApplication, "ColorNet", color.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 colorpicker_ColorApp.SelectedColorChanged += (Color color) =>
                 {
-                    SettingSave("ColorApp", color.ToString());
+                    SettingSave(vConfigurationApplication, "ColorApp", color.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 colorpicker_ColorTime.SelectedColorChanged += (Color color) =>
                 {
-                    SettingSave("ColorTime", color.ToString());
+                    SettingSave(vConfigurationApplication, "ColorTime", color.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 colorpicker_ColorMon.SelectedColorChanged += (Color color) =>
                 {
-                    SettingSave("ColorMon", color.ToString());
+                    SettingSave(vConfigurationApplication, "ColorMon", color.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
                 colorpicker_ColorFps.SelectedColorChanged += (Color color) =>
                 {
-                    SettingSave("ColorFps", color.ToString());
+                    SettingSave(vConfigurationApplication, "ColorFps", color.ToString());
                     App.vWindowMain.UpdateFpsOverlayStyle();
                 };
             }
@@ -247,19 +247,6 @@ namespace FpsOverlayer
             {
                 Debug.WriteLine("Failed to save the application settings: " + ex.Message);
             }
-        }
-
-        //Save - Application Setting
-        public void SettingSave(string Name, string Value)
-        {
-            try
-            {
-                vConfigurationApplication.AppSettings.Settings.Remove(Name);
-                vConfigurationApplication.AppSettings.Settings.Add(Name, Value);
-                vConfigurationApplication.Save();
-                ConfigurationManager.RefreshSection("appSettings");
-            }
-            catch { }
         }
     }
 }

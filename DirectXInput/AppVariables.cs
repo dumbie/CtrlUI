@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
@@ -37,7 +38,6 @@ namespace DirectXInput
         public static Process vProcessCurrent = Process.GetCurrentProcess();
         public static Process vProcessCtrlUI = null;
         public static bool vProcessCtrlUIActivated = false;
-        public static Process vProcessKeyboardController = null;
         public static Process vProcessFpsOverlayer = null;
 
         //App Status Variables
@@ -46,13 +46,22 @@ namespace DirectXInput
         public static bool vAppActivated = true;
         public static int vPrevComboboxIndex = -1;
 
+        //Keyboard Variables
+        public static bool vCapsEnabled = false;
+        public static bool vKeysEnabled = true;
+
+        //Mouse Variables
+        public static bool vMouseHoldingLeft = false;
+
         //Controller Variables
         public static bool vControllerBusy = false;
-        public static int vControllerDelayPollingTicks = 25;
+        public static int vControllerDelayNanoTicks = 10;
         public static int vControllerDelayMicroTicks = 75;
-        public static int vControllerDelayShortTicks = 130;
+        public static int vControllerDelayShortTicks = 125;
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 750;
+        public static int vControllerDelayKeyboard = Environment.TickCount;
+        public static int vControllerDelayMouse = Environment.TickCount;
         public static bool vControllerRumbleTest = false;
         public static List<string> vControllerTempBlockPaths = new List<string>();
         public static ControllerStatus vController0 = new ControllerStatus(0);

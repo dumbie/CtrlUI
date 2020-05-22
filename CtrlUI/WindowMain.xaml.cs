@@ -221,7 +221,7 @@ namespace CtrlUI
                     await Notification_Send_Status("MonitorNext", "Only one monitor");
 
                     //Save the new monitor number
-                    SettingSave("DisplayMonitor", "1");
+                    SettingSave(vConfigurationApplication, "DisplayMonitor", "1");
 
                     //Update the window position
                     await UpdateWindowPosition(true, true);
@@ -240,7 +240,7 @@ namespace CtrlUI
                 }
 
                 //Save the new monitor number
-                SettingSave("DisplayMonitor", monitorNumber.ToString());
+                SettingSave(vConfigurationApplication, "DisplayMonitor", monitorNumber.ToString());
 
                 //Update the window position
                 await UpdateWindowPosition(true, false);
@@ -291,7 +291,6 @@ namespace CtrlUI
                 if (notifyApps)
                 {
                     await NotifyDirectXInputSettingChanged("DisplayMonitor");
-                    await NotifyKeyboardControllerSettingChanged("DisplayMonitor");
                     await NotifyFpsOverlayerSettingChanged("DisplayMonitor");
                 }
 

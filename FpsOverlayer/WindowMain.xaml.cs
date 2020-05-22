@@ -155,7 +155,7 @@ namespace FpsOverlayer
                     }
 
                     Debug.WriteLine("Changing text size to: " + textSize);
-                    App.vWindowSettings.SettingSave("TextSize", textSize.ToString());
+                    SettingSave(vConfigurationApplication, "TextSize", textSize.ToString());
                     UpdateFpsOverlayStyle();
                 }
                 else
@@ -167,7 +167,7 @@ namespace FpsOverlayer
                     }
 
                     Debug.WriteLine("Changing text size to: " + textSize);
-                    App.vWindowSettings.SettingSave("TextSize", textSize.ToString());
+                    SettingSave(vConfigurationApplication, "TextSize", textSize.ToString());
                     UpdateFpsOverlayStyle();
                 }
             }
@@ -186,7 +186,7 @@ namespace FpsOverlayer
                 }
 
                 Debug.WriteLine("Changing text postion to: " + nextPosition);
-                App.vWindowSettings.SettingSave("TextPosition", nextPosition.ToString());
+                SettingSave(vConfigurationApplication, "TextPosition", nextPosition.ToString());
                 UpdateFpsOverlayStyle();
                 await App.vWindowSettings.NotifyDirectXInputSettingChanged("TextPosition");
             }

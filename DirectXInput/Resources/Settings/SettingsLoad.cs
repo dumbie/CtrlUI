@@ -28,6 +28,22 @@ namespace DirectXInput
                 cb_SettingsShortcutWinTab.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutWinTab"]);
                 cb_SettingsShortcutScreenshot.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutScreenshot"]);
 
+                //Load keyboard opacity
+                textblock_KeyboardOpacity.Text = textblock_KeyboardOpacity.Tag + ": " + ConfigurationManager.AppSettings["KeyboardOpacity"].ToString() + "%";
+                slider_KeyboardOpacity.Value = Convert.ToDouble(ConfigurationManager.AppSettings["KeyboardOpacity"]);
+
+                //Load keyboard layout
+                combobox_KeyboardLayout.SelectedIndex = Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardLayout"]);
+
+                //Load keyboard domain extension
+                textbox_SettingsDomainExtension.Text = ConfigurationManager.AppSettings["KeyboardDomainExtension"].ToString();
+
+                //Load mouse sensitivity
+                textblock_SettingsMouseMoveSensitivity.Text = textblock_SettingsMouseMoveSensitivity.Tag.ToString() + Convert.ToInt32(ConfigurationManager.AppSettings["MouseMoveSensitivity"]);
+                slider_SettingsMouseMoveSensitivity.Value = Convert.ToInt32(ConfigurationManager.AppSettings["MouseMoveSensitivity"]);
+                textblock_SettingsMouseScrollSensitivity.Text = textblock_SettingsMouseScrollSensitivity.Tag.ToString() + Convert.ToInt32(ConfigurationManager.AppSettings["MouseScrollSensitivity"]);
+                slider_SettingsMouseScrollSensitivity.Value = Convert.ToInt32(ConfigurationManager.AppSettings["MouseScrollSensitivity"]);
+
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;
 

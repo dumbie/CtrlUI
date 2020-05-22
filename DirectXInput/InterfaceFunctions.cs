@@ -21,62 +21,12 @@ namespace DirectXInput
             {
                 grid_Controller.Visibility = Visibility.Collapsed;
                 grid_Buttons.Visibility = Visibility.Collapsed;
+                grid_Virtual.Visibility = Visibility.Collapsed;
+                grid_Keyboard.Visibility = Visibility.Collapsed;
                 grid_Settings.Visibility = Visibility.Collapsed;
                 grid_Shortcuts.Visibility = Visibility.Collapsed;
                 grid_Help.Visibility = Visibility.Collapsed;
                 elementTarget.Visibility = Visibility.Visible;
-            }
-            catch { }
-        }
-
-        //Update element visibility
-        void UpdateElementVisibility(FrameworkElement elementTarget, bool Visible)
-        {
-            try
-            {
-                if (Visible)
-                {
-                    AVActions.ActionDispatcherInvoke(delegate { elementTarget.Visibility = Visibility.Visible; });
-                }
-                else
-                {
-                    AVActions.ActionDispatcherInvoke(delegate { elementTarget.Visibility = Visibility.Collapsed; });
-                }
-            }
-            catch { }
-        }
-
-        //Update element enabled
-        void UpdateElementEnabled(FrameworkElement elementTarget, bool Enabled)
-        {
-            try
-            {
-                if (Enabled)
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        elementTarget.IsEnabled = true;
-                        elementTarget.IsHitTestVisible = true;
-                    });
-                }
-                else
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        elementTarget.IsEnabled = false;
-                        elementTarget.IsHitTestVisible = false;
-                    });
-                }
-            }
-            catch { }
-        }
-
-        //Update element opacity
-        void UpdateElementOpacity(FrameworkElement elementTarget, double opacityTarget)
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate { elementTarget.Opacity = opacityTarget; });
             }
             catch { }
         }
@@ -259,7 +209,6 @@ namespace DirectXInput
             try
             {
                 vProcessCtrlUI = GetProcessByNameOrTitle("CtrlUI", false);
-                vProcessKeyboardController = GetProcessByNameOrTitle("KeyboardController", false);
                 vProcessFpsOverlayer = GetProcessByNameOrTitle("FpsOverlayer", false);
                 int FocusedAppId = GetProcessMultiFromWindowHandle(GetForegroundWindow()).Identifier;
 

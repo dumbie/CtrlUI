@@ -2,14 +2,14 @@
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
-using static KeyboardController.AppVariables;
+using static DirectXInput.AppVariables;
 
-namespace KeyboardController
+namespace DirectXInput.Keyboard
 {
-    partial class WindowMain
+    partial class WindowKeyboard
     {
         //Get the mouse movement amount based on thumb movement
-        void GetMouseMovementAmountFromThumb(int thumbSensitivity, int thumbHorizontal, int thumbVertical, bool flipVertical, out int mouseHorizontal, out int mouseVertical)
+        public void GetMouseMovementAmountFromThumb(int thumbSensitivity, int thumbHorizontal, int thumbVertical, bool flipVertical, out int mouseHorizontal, out int mouseVertical)
         {
             mouseHorizontal = 0;
             mouseVertical = 0;
@@ -30,7 +30,7 @@ namespace KeyboardController
                 }
                 else if (absHorizontal > smallOffset || absVertical > smallOffset)
                 {
-                    double mouseSensitivity = (double)thumbSensitivity / (double)30000;
+                    double mouseSensitivity = (double)thumbSensitivity / (double)20000;
                     mouseHorizontal = Convert.ToInt32(thumbHorizontal * mouseSensitivity);
                     mouseVertical = Convert.ToInt32(thumbVertical * mouseSensitivity);
                 }
@@ -39,7 +39,7 @@ namespace KeyboardController
         }
 
         //Move the keyboard window based on thumb movement
-        void MoveKeyboardWindow(int mouseHorizontal, int mouseVertical)
+        public void MoveKeyboardWindow(int mouseHorizontal, int mouseVertical)
         {
             try
             {

@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System;
-using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -15,17 +14,15 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.ProcessFunctions;
-using static KeyboardController.AppVariables;
-using static LibraryShared.Settings;
+using static DirectXInput.AppVariables;
 using static LibraryShared.SoundPlayer;
 
-namespace KeyboardController
+namespace DirectXInput.Keyboard
 {
-    public partial class WindowMain : Window
+    public partial class WindowKeyboard : Window
     {
         //Window Initialize
-        public WindowMain() { InitializeComponent(); }
+        public WindowKeyboard() { InitializeComponent(); }
 
         //Window Variables
         public static IntPtr vInteropWindowHandle = IntPtr.Zero;
@@ -40,14 +37,6 @@ namespace KeyboardController
 
                 //Update the window style
                 UpdateWindowStyle();
-
-                //Check application settings
-                WindowSettings.Settings_Check();
-                Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
-                Settings_Load_AccentColor(vConfigurationCtrlUI);
-
-                //Create tray icon
-                Application_CreateTrayMenu();
 
                 //Disable hardware capslock
                 await DisableHardwareCapsLock();
@@ -71,39 +60,16 @@ namespace KeyboardController
                 UpdateKeyboardOpacity();
 
                 //Make window able to drag from border
-                this.MouseDown += WindowMain_MouseDown;
-
-                //Start the background tasks
-                TasksBackgroundStart();
-
-                //Launch DirectXInput application
-                await LaunchDirectXInput();
+                this.MouseDown += WindowKeyboard_MouseDown;
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-
-                //Enable the socket server
-                EnableSocketServer();
-            }
-            catch { }
-        }
-
-        //Enable the socket server
-        private void EnableSocketServer()
-        {
-            try
-            {
-                int SocketServerPort = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["ServerPort"].Value) + 2;
-
-                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
-                vArnoldVinkSockets.vTcpClientTimeout = 250;
-                vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }
         }
 
         //Drag the window around
-        private void WindowMain_MouseDown(object sender, MouseButtonEventArgs e)
+        private void WindowKeyboard_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -148,7 +114,7 @@ namespace KeyboardController
         }
 
         //Update the window position
-        void UpdateWindowPosition()
+        public void UpdateWindowPosition()
         {
             try
             {
@@ -273,7 +239,7 @@ namespace KeyboardController
             {
                 if (vCapsEnabled)
                 {
-                    key_DotCom.Content = ConfigurationManager.AppSettings["DomainExtension"].ToString();
+                    key_DotCom.Content = ConfigurationManager.AppSettings["KeyboardDomainExtension"].ToString();
                 }
                 else
                 {
@@ -550,135 +516,11 @@ namespace KeyboardController
             {
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    if (Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
+                    if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
                         await KeyPressSingle((byte)KeysVirtual.CapsLock, false);
                     }
                 });
-            }
-            catch { }
-        }
-
-        //Update the current window status
-        void UpdateWindowStatus()
-        {
-            try
-            {
-                int focusedAppId = GetProcessMultiFromWindowHandle(GetForegroundWindow()).Identifier;
-
-                if (vProcessCurrent.Id == focusedAppId)
-                {
-                    AppWindowActivated();
-                }
-                else
-                {
-                    AppWindowDeactivated();
-                }
-            }
-            catch { }
-        }
-
-        //Application window activated event
-        void AppWindowActivated()
-        {
-            try
-            {
-                if (vKeysEnabled)
-                {
-                    vKeysEnabled = false;
-
-                    //Disable application window
-                    AppWindowDisable("Keyboard is blocked,\nplease switch application.");
-                }
-            }
-            catch { }
-        }
-
-        //Application window deactivated event
-        void AppWindowDeactivated()
-        {
-            try
-            {
-                if (!vKeysEnabled)
-                {
-                    vKeysEnabled = true;
-
-                    //Enable application window
-                    AppWindowEnable();
-                }
-            }
-            catch { }
-        }
-
-        //Enable application window
-        void AppWindowEnable()
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    //Enable the application window
-                    grid_WindowActive.Visibility = Visibility.Collapsed;
-
-                    //Update the window style (focus workaround)
-                    UpdateWindowStyle();
-                });
-            }
-            catch { }
-        }
-
-        //Disable application window
-        void AppWindowDisable(string windowText)
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    //Update window status message
-                    grid_WindowActiveText.Text = windowText;
-
-                    //Disable the application window
-                    grid_WindowActive.Visibility = Visibility.Visible;
-                });
-            }
-            catch { }
-        }
-
-        //Application Close Handler
-        protected async override void OnClosing(CancelEventArgs e)
-        {
-            try
-            {
-                e.Cancel = true;
-                await Application_Exit();
-            }
-            catch { }
-        }
-
-        //Close the application
-        async Task Application_Exit()
-        {
-            try
-            {
-                Debug.WriteLine("Exiting application.");
-
-                //Disable application window
-                AppWindowDisable("Closing Keyboard, please wait.");
-
-                //Stop the background tasks
-                await TasksBackgroundStop();
-
-                //Disable the socket server
-                if (vArnoldVinkSockets != null)
-                {
-                    await vArnoldVinkSockets.SocketServerDisable();
-                }
-
-                //Hide the visible tray icon
-                TrayNotifyIcon.Visible = false;
-
-                //Close the application
-                Environment.Exit(0);
             }
             catch { }
         }

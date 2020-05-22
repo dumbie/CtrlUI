@@ -10,12 +10,13 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessWin32Functions;
-using static KeyboardController.AppVariables;
+using static DirectXInput.AppVariables;
+using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
-namespace KeyboardController
+namespace DirectXInput.Keyboard
 {
-    partial class WindowMain
+    partial class WindowKeyboard
     {
         //Handle key press
         void ButtonKey_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -238,12 +239,12 @@ namespace KeyboardController
             {
                 if (Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardMode"]) == 0)
                 {
-                    WindowSettings.SettingSave("KeyboardMode", "1");
+                    SettingSave(vConfigurationApplication, "KeyboardMode", "1");
                     UpdateKeyboardMode();
                 }
                 else
                 {
-                    WindowSettings.SettingSave("KeyboardMode", "0");
+                    SettingSave(vConfigurationApplication, "KeyboardMode", "0");
                     UpdateKeyboardMode();
                 }
             }
@@ -251,22 +252,22 @@ namespace KeyboardController
         }
 
         //Handle close
-        async void ButtonClose_PreviewKeyUp(object sender, KeyEventArgs e)
+        void ButtonClose_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             try
             {
                 if (e.Key == Key.Space)
                 {
-                    await Application_Exit();
+                    this.Hide();
                 }
             }
             catch { }
         }
-        async void ButtonClose_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        void ButtonClose_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                await Application_Exit();
+                this.Hide();
             }
             catch { }
         }

@@ -72,22 +72,6 @@ namespace Updater
                     CloseProcess.Kill();
                 }
 
-                //Check if KeyboardController is running and close it
-                bool KeyboardControllerRunning = false;
-                foreach (Process CloseProcess in Process.GetProcessesByName("KeyboardController"))
-                {
-                    KeyboardControllerRunning = true;
-                    CloseProcess.Kill();
-                }
-                foreach (Process CloseProcess in Process.GetProcessesByName("KeyboardController-Admin"))
-                {
-                    CloseProcess.Kill();
-                }
-                foreach (Process CloseProcess in Process.GetProcessesByName("KeyboardController-Launcher"))
-                {
-                    CloseProcess.Kill();
-                }
-
                 //Wait for applications to have closed
                 await Task.Delay(1000);
 
@@ -147,7 +131,6 @@ namespace Updater
 
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlUI.exe.Config".ToLower())) { Debug.WriteLine("Skipping: CtrlUI.exe.Config"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectXInput.exe.Config".ToLower())) { Debug.WriteLine("Skipping: DirectXInput.exe.Config"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("KeyboardController.exe.Config".ToLower())) { Debug.WriteLine("Skipping: KeyboardController.exe.Config"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsOverlayer.exe.Config".ToLower())) { Debug.WriteLine("Skipping: FpsOverlayer.exe.Config"); continue; }
 
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Updater.exe".ToLower()))
@@ -184,13 +167,6 @@ namespace Updater
                 {
                     TextBlockUpdate("Running the updated version of the application.");
                     await ProcessLauncherWin32Async("DirectXInput-Admin.exe", "", "", true, false);
-                }
-
-                //Start KeyboardController after the update has completed.
-                if (KeyboardControllerRunning)
-                {
-                    TextBlockUpdate("Running the updated version of the application.");
-                    await ProcessLauncherWin32Async("KeyboardController-Admin.exe", "", "", true, false);
                 }
 
                 //Start FpsOverlayer after the update has completed.

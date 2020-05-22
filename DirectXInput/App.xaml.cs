@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using DirectXInput.Keyboard;
+using DirectXInput.Overlay;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using static ArnoldVinkCode.AVFirewall;
@@ -11,6 +13,7 @@ namespace DirectXInput
         //Application Windows
         public static WindowMain vWindowMain = new WindowMain();
         public static WindowOverlay vWindowOverlay = new WindowOverlay();
+        public static WindowKeyboard vWindowKeyboard = new WindowKeyboard();
 
         //Application Startup
         protected override async void OnStartup(StartupEventArgs e)

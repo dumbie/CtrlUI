@@ -282,7 +282,6 @@ namespace CtrlUI
             try
             {
                 vProcessDirectXInput = GetProcessByNameOrTitle("DirectXInput", false);
-                vProcessKeyboardController = GetProcessByNameOrTitle("KeyboardController", false);
                 int focusedAppId = GetProcessMultiFromWindowHandle(GetForegroundWindow()).Identifier;
 
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
@@ -534,7 +533,8 @@ namespace CtrlUI
                 }
 
                 //Check if the application is active and any controller is connected
-                if (vAppActivated && vControllerAnyConnected() && vProcessKeyboardController == null)
+                //Fix check if the keyboard is open
+                if (vAppActivated && vControllerAnyConnected())
                 {
                     //Move the mouse cursor
                     Point LocationFromScreen = new Point();

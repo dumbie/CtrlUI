@@ -7,6 +7,7 @@ using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -59,7 +60,7 @@ namespace CtrlUI
                     }
 
                     //Set the last application update check date
-                    SettingSave("AppUpdateCheck", DateTime.Now.ToString(vAppCultureInfo));
+                    SettingSave(vConfigurationApplication, "AppUpdateCheck", DateTime.Now.ToString(vAppCultureInfo));
                     vCheckingForUpdate = false;
                 }
             }

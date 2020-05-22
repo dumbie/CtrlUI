@@ -20,23 +20,21 @@ namespace DirectXInput
                 //Update interface controller preview
                 ControllerPreview(Controller);
 
-                //Check if CtrlUI or Keyboard controller is running
+                //Check if CtrlUI is running or keyboard is visible
                 bool BlockOutputApplication = false;
-                if (vProcessKeyboardController != null)
+                if (Controller.Activated)
                 {
-                    if (Controller.Activated)
+                    if (App.vWindowKeyboard.IsVisible)
                     {
-                        await OutputAppKeyboardController(Controller);
+                        await App.vWindowKeyboard.ControllerInteractionMouse(Controller.InputCurrent);
+                        await App.vWindowKeyboard.ControllerInteractionKeyboard(Controller.InputCurrent);
+                        BlockOutputApplication = true;
                     }
-                    BlockOutputApplication = true;
-                }
-                else if (vProcessCtrlUI != null && vProcessCtrlUIActivated)
-                {
-                    if (Controller.Activated)
+                    else if (vProcessCtrlUI != null && vProcessCtrlUIActivated)
                     {
                         await OutputAppCtrlUI(Controller);
+                        BlockOutputApplication = true;
                     }
-                    BlockOutputApplication = true;
                 }
 
                 //Check if controller shortcut is pressed

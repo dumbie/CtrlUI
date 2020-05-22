@@ -35,32 +35,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Notify - Keyboard setting changed
-        async Task NotifyKeyboardControllerSettingChanged(string settingName)
-        {
-            try
-            {
-                //Check if socket server is running
-                if (vArnoldVinkSockets == null)
-                {
-                    Debug.WriteLine("The socket server is not running.");
-                    return;
-                }
-
-                //Prepare socket data
-                SocketSendContainer socketSend = new SocketSendContainer();
-                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
-                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
-                socketSend.Object = "SettingChanged" + settingName;
-                byte[] SerializedData = SerializeObjectToBytes(socketSend);
-
-                //Send socket data
-                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 2, vArnoldVinkSockets.vTcpClientTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
-            }
-            catch { }
-        }
-
         //Notify - Fps Overlayer setting changed
         async Task NotifyFpsOverlayerSettingChanged(string settingName)
         {

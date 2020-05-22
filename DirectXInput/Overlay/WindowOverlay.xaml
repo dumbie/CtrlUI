@@ -1,9 +1,9 @@
-﻿<Window x:Class="DirectXInput.WindowOverlay"
+﻿<Window x:Class="DirectXInput.Overlay.WindowOverlay"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DirectXInput"
+        xmlns:local="clr-namespace:DirectXInput.Overlay"
         RenderOptions.BitmapScalingMode="HighQuality"
         mc:Ignorable="d"
         Title="DirectXInput Overlay"
@@ -46,7 +46,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Name="grid_Message_Status_Stackpanel" Margin="15,10,15,10" Orientation="Horizontal">
-                    <Image Name="grid_Message_Status_Image" Source="Assets/Icons/Help.png" Height="40"/>
+                    <Image Name="grid_Message_Status_Image" Source="pack://siteoforigin:,,,/Assets/Icons/Help.png" Height="40"/>
                     <TextBlock Name="grid_Message_Status_Text" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Notification" Margin="15,0,15,0"/>
                 </StackPanel>
                 <Rectangle Grid.Column="1" Name="grid_Message_Status_Rectangle" Fill="{DynamicResource ApplicationAccentLightBrush}" Width="4"/>

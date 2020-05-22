@@ -521,6 +521,7 @@ namespace CtrlUI
         {
             try
             {
+                //Fix send DirectXInput commmand
                 if (CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
                     //Close the keyboard controller
@@ -544,6 +545,7 @@ namespace CtrlUI
         {
             try
             {
+                //Fix send DirectXInput commmand
                 if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
                 {
                     //Launch the keyboard controller
