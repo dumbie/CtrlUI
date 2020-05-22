@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -88,8 +89,14 @@ namespace CtrlUI
             {
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
+                    //Get the currently focused element
                     FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                    if (frameworkElement == null || frameworkElement == focusListBox)
+
+                    //Check if focused element is disconnected
+                    bool disconnectedSource = frameworkElement.DataContext == BindingOperations.DisconnectedSource;
+
+                    //Focus on the listbox or select index
+                    if (disconnectedSource || frameworkElement == null || frameworkElement == focusListBox)
                     {
                         await ListboxFocusIndex(focusListBox, firstIndex, lastIndex, indexNumber);
                     }
