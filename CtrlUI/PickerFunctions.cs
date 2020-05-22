@@ -208,7 +208,18 @@ namespace CtrlUI
                                     locationType = FileType.Folder;
                                 }
 
-                                DataBindFile dataBindFileLocation = new DataBindFile() { FileType = locationType, Name = Locations.String2, NameSub = Locations.String1, ImageBitmap = imageFolder, PathFile = Locations.String2 };
+                                //Get the current disk size
+                                string diskSpace = string.Empty;
+                                try
+                                {
+                                    DriveInfo driveInfo = new DriveInfo(Locations.String2);
+                                    string freeSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalFreeSpace);
+                                    string usedSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalSize);
+                                    diskSpace = freeSpace + "/" + usedSpace;
+                                }
+                                catch { }
+
+                                DataBindFile dataBindFileLocation = new DataBindFile() { FileType = locationType, Name = Locations.String2, NameSub = Locations.String1, NameDetail = diskSpace, ImageBitmap = imageFolder, PathFile = Locations.String2 };
                                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileLocation, false, false);
                             }
                         }
