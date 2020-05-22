@@ -108,9 +108,7 @@ namespace CtrlUI
                 {
                     textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
                     SettingSave("DisplayMonitor", Convert.ToInt32(slider_SettingsDisplayMonitor.Value).ToString());
-
-                    int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
-                    await UpdateWindowPosition(monitorNumber, true, false);
+                    await UpdateWindowPosition(true, false);
                 };
 
                 slider_SettingsSoundVolume.ValueChanged += (sender, e) =>

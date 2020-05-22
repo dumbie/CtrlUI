@@ -38,6 +38,9 @@ namespace KeyboardController
                 //Get application interop window handle
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
+                //Update the window style
+                UpdateWindowStyle();
+
                 //Check application settings
                 WindowSettings.Settings_Check();
                 Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
@@ -170,9 +173,6 @@ namespace KeyboardController
         {
             try
             {
-                //Update the window style
-                UpdateWindowStyle();
-
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);

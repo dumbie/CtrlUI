@@ -47,6 +47,9 @@ namespace CtrlUI
                 Settings_Load();
                 Settings_Save();
 
+                //Update the window position
+                await UpdateWindowPosition(false, true);
+
                 //Change application accent color
                 Settings_Load_AccentColor(vConfigurationApplication);
 
@@ -70,10 +73,6 @@ namespace CtrlUI
                 {
                     this.Title += " (Admin)";
                 }
-
-                //Center the application window
-                int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
-                await UpdateWindowPosition(monitorNumber, false, true);
 
                 //Check settings if need to start in fullscreen of minimized
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]))
@@ -224,8 +223,8 @@ namespace CtrlUI
                     //Save the new monitor number
                     SettingSave("DisplayMonitor", "1");
 
-                    //Update the app window position
-                    await UpdateWindowPosition(1, true, true);
+                    //Update the window position
+                    await UpdateWindowPosition(true, true);
                     return;
                 }
 
@@ -243,14 +242,14 @@ namespace CtrlUI
                 //Save the new monitor number
                 SettingSave("DisplayMonitor", monitorNumber.ToString());
 
-                //Update the app window position
-                await UpdateWindowPosition(monitorNumber, true, false);
+                //Update the window position
+                await UpdateWindowPosition(true, false);
             }
             catch { }
         }
 
         //Update the window position
-        async Task UpdateWindowPosition(int monitorNumber, bool notifyApps, bool silent)
+        async Task UpdateWindowPosition(bool notifyApps, bool silent)
         {
             try
             {
@@ -262,6 +261,7 @@ namespace CtrlUI
                 }
 
                 //Get the current active screen
+                int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                 //Get the current window size

@@ -42,12 +42,12 @@ namespace FpsOverlayer
                 //Update the window style
                 UpdateWindowStyle();
 
-                //Update the window position
-                UpdateWindowPosition();
-
                 //Check application settings
                 App.vWindowSettings.Settings_Check();
                 Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+
+                //Update the window position
+                UpdateWindowPosition();
 
                 //Update the fps overlay style
                 UpdateFpsOverlayStyle();
