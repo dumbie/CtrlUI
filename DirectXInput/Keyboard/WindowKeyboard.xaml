@@ -16,7 +16,7 @@
             SizeToContent="WidthAndHeight"
             Background="Transparent"
             SnapsToDevicePixels="True"
-            Opacity="0.01">
+            Opacity="0">
 
     <!-- Grid Application -->
     <Grid Name="grid_Application">

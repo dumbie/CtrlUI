@@ -29,7 +29,7 @@ namespace DirectXInput
                 if (Environment.TickCount >= Controller.Delay_ControllerShortcut)
                 {
                     //Check if keyboard is visible
-                    bool keyboardVisible = App.vWindowKeyboard.IsVisible;
+                    bool keyboardVisible = App.vWindowKeyboard.vWindowVisible;
 
                     //Activate the controller
                     if (Controller.InputCurrent.ButtonGuide.PressedShort)
@@ -63,7 +63,7 @@ namespace DirectXInput
                     //Hide the keyboard controller
                     else if (Controller.InputCurrent.ButtonGuide.PressedShort && keyboardVisible)
                     {
-                        HideKeyboardController();
+                        KeyboardControllerHideShow(false);
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
@@ -71,7 +71,7 @@ namespace DirectXInput
                     //Show the keyboard controller
                     else if (Controller.InputCurrent.ButtonGuide.PressedLong && !keyboardVisible)
                     {
-                        ShowKeyboardController();
+                        KeyboardControllerHideShow(true);
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
@@ -184,32 +184,22 @@ namespace DirectXInput
             return ControllerUsed;
         }
 
-        //Show keyboard controller
-        void ShowKeyboardController()
+        //Hide or show the keyboard controller
+        void KeyboardControllerHideShow(bool forceShow)
         {
             try
             {
-                Debug.WriteLine("Shortcut show keyboard controller has been pressed.");
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchKeyboardController"]))
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        App.vWindowKeyboard.Show();
-                    });
-                }
-            }
-            catch { }
-        }
-
-        //Hide keyboard controller
-        void HideKeyboardController()
-        {
-            try
-            {
-                Debug.WriteLine("Shortcut hide keyboard controller has been pressed.");
+                Debug.WriteLine("Shortcut keyboard controller has been pressed.");
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    App.vWindowKeyboard.Hide();
+                    if (forceShow || !App.vWindowKeyboard.vWindowVisible)
+                    {
+                        App.vWindowKeyboard.Show();
+                    }
+                    else
+                    {
+                        App.vWindowKeyboard.Hide();
+                    }
                 });
             }
             catch { }

@@ -533,7 +533,7 @@ namespace CtrlUI
                 }
 
                 //Check if the application is active and any controller is connected
-                //Fix check if the keyboard is open
+                //Fix check if the keyboard window is open in DirectXInput
                 if (vAppActivated && vControllerAnyConnected())
                 {
                     //Move the mouse cursor

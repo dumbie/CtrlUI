@@ -45,7 +45,7 @@ namespace CtrlUI
         {
             try
             {
-                await CloseShowKeyboardController();
+                await KeyboardControllerHideShow(false);
                 await FocusOnElement(grid_Popup_Search_textbox, false, vProcessCurrent.MainWindowHandle);
             }
             catch { }

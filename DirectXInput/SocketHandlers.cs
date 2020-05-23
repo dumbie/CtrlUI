@@ -76,6 +76,14 @@ namespace DirectXInput
                     {
                         await SendControllerStatusDetailsList(deserializedBytes);
                     }
+                    else if (receivedString == "KeyboardHideShow")
+                    {
+                        KeyboardControllerHideShow(false);
+                    }
+                    else if (receivedString == "KeyboardShow")
+                    {
+                        KeyboardControllerHideShow(true);
+                    }
                 }
             }
             catch { }

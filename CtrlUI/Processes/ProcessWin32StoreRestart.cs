@@ -42,7 +42,7 @@ namespace CtrlUI
                 //Launch the keyboard controller
                 if (launchKeyboard)
                 {
-                    await LaunchKeyboardController(true);
+                    await KeyboardControllerHideShow(true);
                 }
             }
             catch { }

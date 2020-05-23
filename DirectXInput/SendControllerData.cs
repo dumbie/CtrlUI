@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Configuration;
 using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
@@ -20,22 +21,8 @@ namespace DirectXInput
                 //Update interface controller preview
                 ControllerPreview(Controller);
 
-                //Check if CtrlUI is running or keyboard is visible
-                bool BlockOutputApplication = false;
-                if (Controller.Activated)
-                {
-                    if (App.vWindowKeyboard.IsVisible)
-                    {
-                        await App.vWindowKeyboard.ControllerInteractionMouse(Controller.InputCurrent);
-                        await App.vWindowKeyboard.ControllerInteractionKeyboard(Controller.InputCurrent);
-                        BlockOutputApplication = true;
-                    }
-                    else if (vProcessCtrlUI != null && vProcessCtrlUIActivated)
-                    {
-                        await OutputAppCtrlUI(Controller);
-                        BlockOutputApplication = true;
-                    }
-                }
+                //Check if controller output needs to be forwarded
+                bool BlockOutputApplication = await ControllerOutput(Controller);
 
                 //Check if controller shortcut is pressed
                 bool BlockOutputShortcut = await ControllerShortcut(Controller);

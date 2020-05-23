@@ -25,7 +25,8 @@ namespace DirectXInput.Keyboard
         public WindowKeyboard() { InitializeComponent(); }
 
         //Window Variables
-        public static IntPtr vInteropWindowHandle = IntPtr.Zero;
+        private IntPtr vInteropWindowHandle = IntPtr.Zero;
+        public bool vWindowVisible = false;
 
         //Window Initialized
         protected override async void OnSourceInitialized(EventArgs e)
@@ -47,23 +48,48 @@ namespace DirectXInput.Keyboard
                 //Update the keyboard mode
                 UpdateKeyboardMode();
 
-                //Play window open sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
-
                 //Activate window and focus on key
                 await KeyboardWindowActivate(key_h);
 
                 //Update the window position
                 UpdateWindowPosition();
 
-                //Update the keyboard opacity
-                UpdateKeyboardOpacity();
-
                 //Make window able to drag from border
                 this.MouseDown += WindowKeyboard_MouseDown;
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+            }
+            catch { }
+        }
+
+        //Hide the keyboard window
+        public new void Hide()
+        {
+            try
+            {
+                //Play window close sound
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+
+                //Update the keyboard opacity
+                this.Opacity = 0;
+                vWindowVisible = false;
+                Debug.WriteLine("Hiding the keyboard window.");
+            }
+            catch { }
+        }
+
+        //Show the keyboard window
+        public new void Show()
+        {
+            try
+            {
+                //Play window open sound
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
+
+                //Update the keyboard opacity
+                UpdateKeyboardOpacity();
+                Debug.WriteLine("Showing the keyboard window.");
             }
             catch { }
         }
@@ -170,6 +196,8 @@ namespace DirectXInput.Keyboard
             try
             {
                 this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeyboardOpacity"]);
+                this.Visibility = Visibility.Visible;
+                vWindowVisible = true;
             }
             catch { }
         }

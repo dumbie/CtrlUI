@@ -73,7 +73,7 @@ namespace CtrlUI
                     //Launch the keyboard controller
                     if (launchKeyboard)
                     {
-                        await LaunchKeyboardController(true);
+                        await KeyboardControllerHideShow(true);
                     }
 
                     vChangingWindow = false;
@@ -516,43 +516,37 @@ namespace CtrlUI
             catch { }
         }
 
-        //Close or show the keyboard controller
-        async Task CloseShowKeyboardController()
+        //Hide or show the keyboard controller
+        async Task KeyboardControllerHideShow(bool forceShow)
         {
             try
             {
-                //Fix send DirectXInput commmand
-                if (CheckRunningProcessByNameOrTitle("KeyboardController", false))
+                //Check if socket server is running
+                if (vArnoldVinkSockets == null)
                 {
-                    //Close the keyboard controller
-                    await Notification_Send_Status("Keyboard", "Closing Keyboard");
-                    Debug.WriteLine("Closing on screen keyboard");
-                    CloseProcessesByNameOrTitle("KeyboardController", false);
+                    Debug.WriteLine("The socket server is not running.");
+                    return;
+                }
+
+                //Prepare socket data
+                SocketSendContainer socketSend = new SocketSendContainer();
+                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
+                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
+                if (forceShow)
+                {
+                    socketSend.Object = "KeyboardShow";
                 }
                 else
                 {
-                    //Launch the keyboard controller
-                    await Notification_Send_Status("Keyboard", "Showing Keyboard");
-                    Debug.WriteLine("Showing on screen keyboard");
-                    await ProcessLauncherWin32Async("KeyboardController-Admin.exe", "", "", true, false);
+                    socketSend.Object = "KeyboardHideShow";
                 }
-            }
-            catch { }
-        }
 
-        //Launch the keyboard controller
-        async Task LaunchKeyboardController(bool silentLaunch)
-        {
-            try
-            {
-                //Fix send DirectXInput commmand
-                if (!CheckRunningProcessByNameOrTitle("KeyboardController", false))
-                {
-                    //Launch the keyboard controller
-                    if (!silentLaunch) { await Notification_Send_Status("Keyboard", "Showing Keyboard"); }
-                    Debug.WriteLine("Showing on screen keyboard");
-                    await ProcessLauncherWin32Async("KeyboardController-Admin.exe", "", "", true, false);
-                }
+                //Request controller status
+                byte[] SerializedData = SerializeObjectToBytes(socketSend);
+
+                //Send socket data
+                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 1, vArnoldVinkSockets.vTcpClientTimeout);
+                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
             }
             catch { }
         }

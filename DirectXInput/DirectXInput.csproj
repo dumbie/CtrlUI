@@ -131,7 +131,7 @@
     <Compile Include="Resources\Settings\SettingsCheck.cs" />
     <Compile Include="Resources\Settings\SettingsLoad.cs" />
     <Compile Include="Resources\Settings\SettingsSave.cs" />
-    <Compile Include="SendControllerApps.cs" />
+    <Compile Include="ControllerOutput.cs" />
     <Compile Include="SendControllerData.cs" />
     <Compile Include="SendXRumbleData.cs" />
     <Compile Include="PrepareXInputData.cs" />
