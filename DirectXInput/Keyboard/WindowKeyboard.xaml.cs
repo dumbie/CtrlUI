@@ -72,6 +72,7 @@ namespace DirectXInput.Keyboard
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
                 //Update the keyboard opacity
+                this.Title = "DirectXInput Keyboard (Hidden)";
                 this.Opacity = 0;
                 vWindowVisible = false;
                 Debug.WriteLine("Hiding the keyboard window.");
@@ -195,6 +196,7 @@ namespace DirectXInput.Keyboard
         {
             try
             {
+                this.Title = "DirectXInput Keyboard (Visible)";
                 this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeyboardOpacity"]);
                 this.Visibility = Visibility.Visible;
                 vWindowVisible = true;

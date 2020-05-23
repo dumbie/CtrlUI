@@ -526,36 +526,38 @@ namespace CtrlUI
                 //Update the last mouse interaction time
                 vMouseLastInteraction = Environment.TickCount;
 
-                //Check if the mouse hide setting is enabled
+                //Check if mouse hide setting is enabled
                 if (!Convert.ToBoolean(ConfigurationManager.AppSettings["HideMouseCursor"]))
                 {
                     return;
                 }
 
-                //Check if the application is active and any controller is connected
-                //Fix check if the keyboard window is open in DirectXInput
-                if (vAppActivated && vControllerAnyConnected())
+                //Check if keyboard is visible, application is active and any controller is connected
+                IntPtr keyboardWindowHandle = FindWindowEx(IntPtr.Zero, IntPtr.Zero, null, "DirectXInput Keyboard (Visible)");
+                if (!vAppActivated && !vControllerAnyConnected() && keyboardWindowHandle != IntPtr.Zero)
                 {
-                    //Move the mouse cursor
-                    Point LocationFromScreen = new Point();
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        LocationFromScreen = this.PointToScreen(new Point(255, 44));
-                    });
-
-                    int TargetX = Convert.ToInt32(LocationFromScreen.X);
-                    int TargetY = Convert.ToInt32(LocationFromScreen.Y);
-                    SetCursorPos(TargetX, TargetY);
-                    await Task.Delay(10);
-
-                    //Hide the mouse cursor
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        Mouse.SetCursor(Cursors.None);
-                    });
-
-                    //Debug.WriteLine("Hiding the mouse cursor.");
+                    return;
                 }
+
+                //Move the mouse cursor
+                Point LocationFromScreen = new Point();
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    LocationFromScreen = this.PointToScreen(new Point(255, 44));
+                });
+
+                int TargetX = Convert.ToInt32(LocationFromScreen.X);
+                int TargetY = Convert.ToInt32(LocationFromScreen.Y);
+                SetCursorPos(TargetX, TargetY);
+                await Task.Delay(10);
+
+                //Hide the mouse cursor
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    Mouse.SetCursor(Cursors.None);
+                });
+
+                //Debug.WriteLine("Hiding the mouse cursor.");
             }
             catch { }
         }
