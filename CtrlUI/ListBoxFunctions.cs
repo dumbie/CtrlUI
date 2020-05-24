@@ -93,7 +93,7 @@ namespace CtrlUI
                     FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
 
                     //Check if focused element is disconnected
-                    bool disconnectedSource = frameworkElement.DataContext == BindingOperations.DisconnectedSource;
+                    bool disconnectedSource = frameworkElement == null || frameworkElement.DataContext == BindingOperations.DisconnectedSource;
 
                     //Focus on the listbox or select index
                     if (disconnectedSource || frameworkElement == null || frameworkElement == focusListBox)

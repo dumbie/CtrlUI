@@ -534,7 +534,7 @@ namespace CtrlUI
 
                 //Check if keyboard is visible, application is active and any controller is connected
                 IntPtr keyboardWindowHandle = FindWindowEx(IntPtr.Zero, IntPtr.Zero, null, "DirectXInput Keyboard (Visible)");
-                if (!vAppActivated && !vControllerAnyConnected() && keyboardWindowHandle != IntPtr.Zero)
+                if (!vAppActivated || !vControllerAnyConnected() || keyboardWindowHandle != IntPtr.Zero)
                 {
                     return;
                 }

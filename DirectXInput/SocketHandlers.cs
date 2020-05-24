@@ -78,11 +78,11 @@ namespace DirectXInput
                     }
                     else if (receivedString == "KeyboardHideShow")
                     {
-                        KeyboardControllerHideShow(false);
+                        await KeyboardControllerHideShow(false);
                     }
                     else if (receivedString == "KeyboardShow")
                     {
-                        KeyboardControllerHideShow(true);
+                        await KeyboardControllerHideShow(true);
                     }
                 }
             }

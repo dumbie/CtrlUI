@@ -36,8 +36,10 @@ namespace CtrlUI
         {
             try
             {
-                //Register Hotkeys and Filtermessage
+                //Get interop window handle
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+
+                //Register Hotkeys and Filtermessage
                 ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
                 RegisterHotKey(vInteropWindowHandle, HotKeyRegisterId, (byte)KeysModifiers.Win, (byte)KeysVirtual.CapsLock);
 

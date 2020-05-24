@@ -45,13 +45,13 @@ namespace DirectXInput
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["AppFirstLaunch"]))
                 {
                     Debug.WriteLine("First launch showing the window.");
-                    Application_ShowHideWindow();
+                    await Application_ShowHideWindow();
                 }
 
                 //Check xbox bus driver status
                 if (!await CheckXboxBusDriverStatus())
                 {
-                    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
+                    if (!ShowInTaskbar) { await Application_ShowHideWindow(); }
                     await Message_InstallDrivers();
                     return;
                 }
@@ -292,11 +292,14 @@ namespace DirectXInput
         }
 
         //Monitor window state changes
-        void CheckWindowStateAndSize(object sender, EventArgs e)
+        async void CheckWindowStateAndSize(object sender, EventArgs e)
         {
             try
             {
-                if (WindowState == WindowState.Minimized) { Application_ShowHideWindow(); }
+                if (WindowState == WindowState.Minimized)
+                {
+                    await Application_ShowHideWindow();
+                }
             }
             catch { }
         }

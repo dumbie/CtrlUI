@@ -39,7 +39,7 @@ namespace DirectXInput
                 if (ConfigurationManager.AppSettings["KeyboardOpacity"] == null) { SettingSave(vConfigurationApplication, "KeyboardOpacity", "0,95"); }
                 if (ConfigurationManager.AppSettings["KeyboardDomainExtension"] == null) { SettingSave(vConfigurationApplication, "KeyboardDomainExtension", ".nl"); }
                 if (ConfigurationManager.AppSettings["MouseMoveSensitivity"] == null) { SettingSave(vConfigurationApplication, "MouseMoveSensitivity", "10"); }
-                if (ConfigurationManager.AppSettings["MouseScrollSensitivity"] == null) { SettingSave(vConfigurationApplication, "MouseScrollSensitivity", "12"); }
+                if (ConfigurationManager.AppSettings["MouseScrollSensitivity"] == null) { SettingSave(vConfigurationApplication, "MouseScrollSensitivity", "10"); }
             }
             catch (Exception ex)
             {

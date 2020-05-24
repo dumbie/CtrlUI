@@ -23,7 +23,7 @@ namespace DirectXInput.Keyboard
             bool ControllerDelayLong = false;
             try
             {
-                if (Environment.TickCount >= vControllerDelayMouse)
+                if (Environment.TickCount >= vControllerDelay_Mouse)
                 {
                     //Get the mouse move amount
                     int moveSensitivity = Convert.ToInt32(ConfigurationManager.AppSettings["MouseMoveSensitivity"]);
@@ -85,23 +85,23 @@ namespace DirectXInput.Keyboard
 
                     if (ControllerDelayMicro)
                     {
-                        vControllerDelayMouse = Environment.TickCount + vControllerDelayMicroTicks;
+                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayMicroTicks;
                     }
                     else if (ControllerDelayShort)
                     {
-                        vControllerDelayMouse = Environment.TickCount + vControllerDelayShortTicks;
+                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayMedium)
                     {
-                        vControllerDelayMouse = Environment.TickCount + vControllerDelayMediumTicks;
+                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayMediumTicks;
                     }
                     else if (ControllerDelayLong)
                     {
-                        vControllerDelayMouse = Environment.TickCount + vControllerDelayLongTicks;
+                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayLongTicks;
                     }
                     else
                     {
-                        vControllerDelayMouse = Environment.TickCount + vControllerDelayNanoTicks;
+                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayNanoTicks;
                     }
                 }
             }
@@ -119,13 +119,13 @@ namespace DirectXInput.Keyboard
             bool ControllerDelayLong = false;
             try
             {
-                if (Environment.TickCount >= vControllerDelayKeyboard)
+                if (Environment.TickCount >= vControllerDelay_Keyboard)
                 {
                     //Send internal arrow left key
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Left, vInteropWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Left, vKeyboardWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -134,7 +134,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Right, vInteropWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Right, vKeyboardWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -143,7 +143,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Up, vInteropWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Up, vKeyboardWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -152,7 +152,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Down, vInteropWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Down, vKeyboardWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -161,7 +161,7 @@ namespace DirectXInput.Keyboard
                     //Send internal space key
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
-                        await KeySendSingle((byte)KeysVirtual.Space, vInteropWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Space, vKeyboardWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -253,19 +253,19 @@ namespace DirectXInput.Keyboard
 
                     if (ControllerDelayMicro)
                     {
-                        vControllerDelayKeyboard = Environment.TickCount + vControllerDelayMicroTicks;
+                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMicroTicks;
                     }
                     else if (ControllerDelayShort)
                     {
-                        vControllerDelayKeyboard = Environment.TickCount + vControllerDelayShortTicks;
+                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayMedium)
                     {
-                        vControllerDelayKeyboard = Environment.TickCount + vControllerDelayMediumTicks;
+                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMediumTicks;
                     }
                     else if (ControllerDelayLong)
                     {
-                        vControllerDelayKeyboard = Environment.TickCount + vControllerDelayLongTicks;
+                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayLongTicks;
                     }
                 }
             }

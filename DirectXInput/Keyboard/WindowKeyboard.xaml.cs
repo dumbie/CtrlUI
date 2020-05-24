@@ -25,7 +25,7 @@ namespace DirectXInput.Keyboard
         public WindowKeyboard() { InitializeComponent(); }
 
         //Window Variables
-        private IntPtr vInteropWindowHandle = IntPtr.Zero;
+        private IntPtr vKeyboardWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
 
         //Window Initialized
@@ -33,8 +33,8 @@ namespace DirectXInput.Keyboard
         {
             try
             {
-                //Get application interop window handle
-                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+                //Get interop window handle
+                vKeyboardWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
                 //Update the window style
                 UpdateWindowStyle();
@@ -48,11 +48,14 @@ namespace DirectXInput.Keyboard
                 //Update the keyboard mode
                 UpdateKeyboardMode();
 
-                //Activate window and focus on key
-                await KeyboardWindowActivate(key_h);
-
                 //Update the window position
                 UpdateWindowPosition();
+
+                //Check mouse cursor position
+                CheckMousePosition();
+
+                //Focus on keyboard button
+                await FocusKeyboardButton(true);
 
                 //Make window able to drag from border
                 this.MouseDown += WindowKeyboard_MouseDown;
@@ -81,15 +84,28 @@ namespace DirectXInput.Keyboard
         }
 
         //Show the keyboard window
-        public new void Show()
+        public new async Task Show()
         {
             try
             {
+                //Delay keyboard input
+                vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMediumTicks;
+
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                 //Update the keyboard opacity
                 UpdateKeyboardOpacity();
+
+                //Check mouse cursor position
+                CheckMousePosition();
+
+                //Focus on keyboard button
+                await FocusKeyboardButton(false);
+
+                //Update the window style (focus workaround)
+                UpdateWindowStyle();
+
                 Debug.WriteLine("Showing the keyboard window.");
             }
             catch { }
@@ -126,14 +142,14 @@ namespace DirectXInput.Keyboard
             {
                 //Set the window style
                 IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+                SetWindowLongAuto(vKeyboardWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
 
                 //Set the window style ex
                 IntPtr UpdatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
-                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, UpdatedExStyle);
+                SetWindowLongAuto(vKeyboardWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, UpdatedExStyle);
 
                 //Set the window as top most
-                SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
+                SetWindowPos(vKeyboardWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
 
                 Debug.WriteLine("The window style has been updated.");
             }
@@ -156,13 +172,13 @@ namespace DirectXInput.Keyboard
                 //Move the window to bottom center
                 int horizontalLeft = (int)(displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthNative - windowWidth) / 2);
                 int verticalTop = (int)(displayMonitorSettings.BoundsTop + displayMonitorSettings.HeightNative - windowHeight);
-                WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
+                WindowMove(vKeyboardWindowHandle, horizontalLeft, verticalTop);
             }
             catch { }
         }
 
         //Activate keyboard window
-        async Task KeyboardWindowActivate(FrameworkElement focusKey)
+        void CheckMousePosition()
         {
             try
             {
@@ -178,14 +194,19 @@ namespace DirectXInput.Keyboard
                 {
                     previousCursorPosition.Y = Convert.ToInt32(displayMonitorSettings.HeightNative - this.Height - 20);
                     SetCursorPos(previousCursorPosition.X, previousCursorPosition.Y);
-                    await Task.Delay(10);
                 }
+            }
+            catch { }
+        }
 
-                //Focus on keyboard button
-                if (focusKey != null)
+        //Focus on keyboard button
+        async Task FocusKeyboardButton(bool forceFocus)
+        {
+            try
+            {
+                if (forceFocus || System.Windows.Input.Keyboard.FocusedElement == null)
                 {
-                    await FocusOnElement(focusKey, false, vProcessCurrent.MainWindowHandle);
-                    await Task.Delay(10);
+                    await FocusOnElement(key_h, false, vKeyboardWindowHandle);
                 }
             }
             catch { }

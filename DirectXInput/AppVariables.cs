@@ -57,11 +57,11 @@ namespace DirectXInput
         public static bool vControllerBusy = false;
         public static int vControllerDelayNanoTicks = 10;
         public static int vControllerDelayMicroTicks = 75;
-        public static int vControllerDelayShortTicks = 125;
+        public static int vControllerDelayShortTicks = 130;
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 750;
-        public static int vControllerDelayKeyboard = Environment.TickCount;
-        public static int vControllerDelayMouse = Environment.TickCount;
+        public static int vControllerDelay_Keyboard = Environment.TickCount;
+        public static int vControllerDelay_Mouse = Environment.TickCount;
         public static bool vControllerRumbleTest = false;
         public static List<string> vControllerTempBlockPaths = new List<string>();
         public static ControllerStatus vController0 = new ControllerStatus(0);

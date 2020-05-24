@@ -36,7 +36,7 @@ namespace FpsOverlayer
         {
             try
             {
-                //Get application interop window handle
+                //Get interop window handle
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
                 //Update the window style

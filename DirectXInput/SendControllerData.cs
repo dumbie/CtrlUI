@@ -1,8 +1,6 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Threading.Tasks;
-using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
 namespace DirectXInput

@@ -63,7 +63,7 @@ namespace DirectXInput
                     //Hide the keyboard controller
                     else if (Controller.InputCurrent.ButtonGuide.PressedShort && keyboardVisible)
                     {
-                        KeyboardControllerHideShow(false);
+                        await KeyboardControllerHideShow(false);
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
@@ -71,7 +71,7 @@ namespace DirectXInput
                     //Show the keyboard controller
                     else if (Controller.InputCurrent.ButtonGuide.PressedLong && !keyboardVisible)
                     {
-                        KeyboardControllerHideShow(true);
+                        await KeyboardControllerHideShow(true);
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
@@ -185,16 +185,16 @@ namespace DirectXInput
         }
 
         //Hide or show the keyboard controller
-        void KeyboardControllerHideShow(bool forceShow)
+        async Task KeyboardControllerHideShow(bool forceShow)
         {
             try
             {
-                Debug.WriteLine("Shortcut keyboard controller has been pressed.");
-                AVActions.ActionDispatcherInvoke(delegate
+                Debug.WriteLine("Shortcut keyboard has been pressed.");
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
                     if (forceShow || !App.vWindowKeyboard.vWindowVisible)
                     {
-                        App.vWindowKeyboard.Show();
+                        await App.vWindowKeyboard.Show();
                     }
                     else
                     {
