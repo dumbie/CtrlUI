@@ -232,6 +232,9 @@
     <Content Include="Assets\Extensions\Cfg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Extensions\Inf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Extensions\Ini.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -274,7 +277,16 @@
     <Content Include="Assets\Icons\AppRestart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Icons\Eject.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Icons\Emulator.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icons\FolderNetwork.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icons\FolderDisc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Icons\Game.png">
@@ -870,6 +882,10 @@
       <Project>{318363b3-3252-438d-8f71-7a271a276da6}</Project>
       <Name>LibraryShared</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\LibraryUsb\LibraryUsb.csproj">
+      <Project>{a9092d5a-1b08-4ea8-b684-0e2ac4d1af1a}</Project>
+      <Name>LibraryUsb</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

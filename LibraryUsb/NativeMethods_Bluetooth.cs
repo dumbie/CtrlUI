@@ -5,10 +5,6 @@ namespace LibraryUsb
 {
     public static class NativeMethods_Bluetooth
     {
-        public const int IOCTL_BTH_DISCONNECT_DEVICE = 0x41000c;
-        public const int IOCTL_HID_ACTIVATE_DEVICE = 0xb001f;
-        public const int IOCTL_HID_DEACTIVATE_DEVICE = 0xb0023;
-
         public const int BLUETOOTH_MAX_NAME_SIZE = 248;
         public const int BLUETOOTH_SERVICE_DISABLE = 0;
         public const int BLUETOOTH_SERVICE_ENABLE = 1;

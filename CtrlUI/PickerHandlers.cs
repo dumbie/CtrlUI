@@ -61,15 +61,16 @@ namespace CtrlUI
         {
             try
             {
-                //Check if actions are enabled
-                if (grid_Popup_FilePicker_button_ControllerLeft.Visibility != Visibility.Visible)
-                {
-                    Debug.WriteLine("File and folders action cancelled, no actions available.");
-                    return;
-                }
-
                 //Get the selected list item
                 DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
+
+                //Check if actions are available
+                if (vFilePickerCurrentPath == "PC" && selectedItem.FileType != FileType.FolderDisc)
+                {
+                    Debug.WriteLine("File and folders action cancelled, no actions available.");
+                    await Notification_Send_Status("Close", "No actions available");
+                    return;
+                }
 
                 //Check the selected file type
                 if (selectedItem.FileType == FileType.UwpApp)
@@ -103,13 +104,34 @@ namespace CtrlUI
                         }
                     }
                 }
+                else if (selectedItem.FileType == FileType.FolderDisc)
+                {
+                    //Add answers for messagebox
+                    List<DataBindString> Answers = new List<DataBindString>();
+
+                    DataBindString answerEjectDisc = new DataBindString();
+                    answerEjectDisc.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Eject.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerEjectDisc.Name = "Eject or unmount the disc";
+                    Answers.Add(answerEjectDisc);
+
+                    //Show the messagebox prompt
+                    DataBindString messageResult = await Popup_Show_MessageBox("Application actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
+                    if (messageResult != null && messageResult == answerEjectDisc)
+                    {
+                        bool ejectResult = await FilePicker_EjectDrive(selectedItem.PathFile);
+                        if (ejectResult)
+                        {
+                            //Fix remove and select index
+                        }
+                    }
+                }
                 else
                 {
                     //Add answers for messagebox
                     List<DataBindString> Answers = new List<DataBindString>();
 
                     //Check the file type
-                    bool preFile = selectedItem.FileType == FileType.PreFolder || selectedItem.FileType == FileType.PreFile || selectedItem.FileType == FileType.GoUp;
+                    bool preFile = selectedItem.FileType == FileType.FolderPre || selectedItem.FileType == FileType.FilePre || selectedItem.FileType == FileType.GoUp;
 
                     //Check the sorting type
                     string sortType = string.Empty;
@@ -450,11 +472,11 @@ namespace CtrlUI
                 if (lb_FilePicker.SelectedItems.Count > 0 && lb_FilePicker.SelectedIndex != -1)
                 {
                     DataBindFile SelectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
-                    if (SelectedItem.FileType == FileType.Folder)
+                    if (SelectedItem.FileType == FileType.Folder || SelectedItem.FileType == FileType.FolderDisc)
                     {
                         await Popup_Show_FilePicker(SelectedItem.PathFile, -1, true, null);
                     }
-                    else if (SelectedItem.FileType == FileType.PreFolder)
+                    else if (SelectedItem.FileType == FileType.FolderPre)
                     {
                         await Popup_Show_FilePicker(SelectedItem.PathFile, -1, false, null);
                     }

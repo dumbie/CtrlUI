@@ -112,7 +112,7 @@ namespace CtrlUI
                     AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_NoFilesAvailable, VisibilityProperty, Visibility.Collapsed);
 
                     //Enable or disable the side navigate buttons
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerLeft, VisibilityProperty, Visibility.Collapsed);
+                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerLeft, VisibilityProperty, Visibility.Visible);
                     AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerUp, VisibilityProperty, Visibility.Collapsed);
 
                     //Enable or disable the copy paste status
@@ -124,28 +124,31 @@ namespace CtrlUI
                     //Enable or disable the current path
                     AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_CurrentPath, VisibilityProperty, Visibility.Collapsed);
 
+                    //Load folder images
                     BitmapImage imageFolder = FileToBitmapImage(new string[] { "Assets/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage imageFolderDisc = FileToBitmapImage(new string[] { "Assets/Icons/FolderDisc.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage imageFolderNetwork = FileToBitmapImage(new string[] { "Assets/Icons/FolderNetwork.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
 
                     //Add launch without a file option
                     if (vFilePickerShowNoFile)
                     {
                         string fileDescription = "Launch application without a file";
                         BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        DataBindFile dataBindFileWithoutFile = new DataBindFile() { FileType = FileType.PreFile, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
+                        DataBindFile dataBindFileWithoutFile = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutFile, false, false);
                     }
 
                     //Check and add the previous path
                     if (!string.IsNullOrWhiteSpace(vFilePickerPreviousPath))
                     {
-                        DataBindFile dataBindFilePreviousPath = new DataBindFile() { FileType = FileType.PreFolder, Name = "Previous", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolder, PathFile = vFilePickerPreviousPath };
+                        DataBindFile dataBindFilePreviousPath = new DataBindFile() { FileType = FileType.FolderPre, Name = "Previous", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolder, PathFile = vFilePickerPreviousPath };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePreviousPath, false, false);
                     }
 
                     //Add special folders
-                    DataBindFile dataBindFileDesktop = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Desktop", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
+                    DataBindFile dataBindFileDesktop = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Desktop", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDesktop, false, false);
-                    DataBindFile dataBindFileDocuments = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Documents", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) };
+                    DataBindFile dataBindFileDocuments = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Documents", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDocuments, false, false);
 
                     try
@@ -153,17 +156,17 @@ namespace CtrlUI
                         string downloadsPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "{374DE290-123F-4565-9164-39C4925E467B}", string.Empty).ToString();
                         if (!string.IsNullOrWhiteSpace(downloadsPath) && Directory.Exists(downloadsPath))
                         {
-                            DataBindFile dataBindFileDownloads = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Downloads", ImageBitmap = imageFolder, PathFile = downloadsPath };
+                            DataBindFile dataBindFileDownloads = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Downloads", ImageBitmap = imageFolder, PathFile = downloadsPath };
                             await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDownloads, false, false);
                         }
                     }
                     catch { }
 
-                    DataBindFile dataBindFilePictures = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Pictures", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
+                    DataBindFile dataBindFilePictures = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Pictures", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
-                    DataBindFile dataBindFileVideos = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Videos", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) };
+                    DataBindFile dataBindFileVideos = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Videos", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileVideos, false, false);
-                    DataBindFile dataBindFileMusic = new DataBindFile() { FileType = FileType.PreFolder, Name = "My Music", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) };
+                    DataBindFile dataBindFileMusic = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Music", ImageBitmap = imageFolder, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileMusic, false, false);
 
                     //Add all disk drives that are connected
@@ -186,7 +189,20 @@ namespace CtrlUI
                                 string usedSpace = AVFunctions.ConvertBytesSizeToString(disk.TotalSize);
                                 string diskSpace = freeSpace + "/" + usedSpace;
 
-                                DataBindFile dataBindFileDisk = new DataBindFile() { FileType = FileType.Folder, Name = disk.Name, NameSub = disk.VolumeLabel, NameDetail = diskSpace, ImageBitmap = imageFolder, PathFile = disk.Name };
+                                DataBindFile dataBindFileDisk = new DataBindFile() { FileType = FileType.Folder, Name = disk.Name, NameSub = disk.VolumeLabel, NameDetail = diskSpace, PathFile = disk.Name };
+                                if (disk.DriveType == DriveType.CDRom)
+                                {
+                                    dataBindFileDisk.FileType = FileType.FolderDisc;
+                                    dataBindFileDisk.ImageBitmap = imageFolderDisc;
+                                }
+                                else if (disk.DriveType == DriveType.Network)
+                                {
+                                    dataBindFileDisk.ImageBitmap = imageFolderNetwork;
+                                }
+                                else
+                                {
+                                    dataBindFileDisk.ImageBitmap = imageFolder;
+                                }
                                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileDisk, false, false);
                             }
                         }
@@ -201,7 +217,7 @@ namespace CtrlUI
                             if (Directory.Exists(Locations.String2))
                             {
                                 //Check if the location is a root folder
-                                FileType locationType = FileType.PreFolder;
+                                FileType locationType = FileType.FolderPre;
                                 DirectoryInfo locationInfo = new DirectoryInfo(Locations.String2);
                                 if (locationInfo.Parent == null)
                                 {
@@ -210,16 +226,31 @@ namespace CtrlUI
 
                                 //Get the current disk size
                                 string diskSpace = string.Empty;
+                                DriveType disktype = DriveType.Unknown;
                                 try
                                 {
                                     DriveInfo driveInfo = new DriveInfo(Locations.String2);
+                                    disktype = driveInfo.DriveType;
                                     string freeSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalFreeSpace);
                                     string usedSpace = AVFunctions.ConvertBytesSizeToString(driveInfo.TotalSize);
                                     diskSpace = freeSpace + "/" + usedSpace;
                                 }
                                 catch { }
 
-                                DataBindFile dataBindFileLocation = new DataBindFile() { FileType = locationType, Name = Locations.String2, NameSub = Locations.String1, NameDetail = diskSpace, ImageBitmap = imageFolder, PathFile = Locations.String2 };
+                                DataBindFile dataBindFileLocation = new DataBindFile() { FileType = locationType, Name = Locations.String2, NameSub = Locations.String1, NameDetail = diskSpace, PathFile = Locations.String2 };
+                                if (disktype == DriveType.CDRom)
+                                {
+                                    dataBindFileLocation.FileType = FileType.FolderDisc;
+                                    dataBindFileLocation.ImageBitmap = imageFolderDisc;
+                                }
+                                else if (disktype == DriveType.Network)
+                                {
+                                    dataBindFileLocation.ImageBitmap = imageFolderNetwork;
+                                }
+                                else
+                                {
+                                    dataBindFileLocation.ImageBitmap = imageFolder;
+                                }
                                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileLocation, false, false);
                             }
                         }
@@ -285,12 +316,12 @@ namespace CtrlUI
                     {
                         string fileDescription = "Launch the emulator without a rom loaded";
                         BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        DataBindFile dataBindFileWithoutRom = new DataBindFile() { FileType = FileType.PreFile, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
+                        DataBindFile dataBindFileWithoutRom = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutRom, false, false);
 
                         string romDescription = "Launch the emulator with this folder as rom";
                         BitmapImage romImage = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        DataBindFile dataBindFileFolderRom = new DataBindFile() { FileType = FileType.PreFile, Name = romDescription, Description = romDescription + ".", ImageBitmap = romImage, PathFile = targetPath };
+                        DataBindFile dataBindFileFolderRom = new DataBindFile() { FileType = FileType.FilePre, Name = romDescription, Description = romDescription + ".", ImageBitmap = romImage, PathFile = targetPath };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolderRom, false, false);
                     }
 

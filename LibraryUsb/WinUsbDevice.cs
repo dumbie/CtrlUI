@@ -98,7 +98,6 @@ namespace LibraryUsb
         {
             if (IsActive)
             {
-                int Transferred = 0;
                 byte[] Buffer = new byte[16];
 
                 Buffer[0] = 0x10;
@@ -112,7 +111,7 @@ namespace LibraryUsb
                 Buffer[6] = (byte)((Serial >> 16) & 0xFF);
                 Buffer[7] = (byte)((Serial >> 24) & 0xFF);
 
-                return DeviceIoControl(FileHandle, 0x2A4000, Buffer, Buffer.Length, null, 0, ref Transferred, IntPtr.Zero);
+                return DeviceIoControl(FileHandle, IoControlCodes.IOCTL_DEVICE_CONNECT, Buffer, Buffer.Length, null, 0, out uint Transferred, IntPtr.Zero);
             }
             return false;
         }
@@ -121,7 +120,6 @@ namespace LibraryUsb
         {
             if (IsActive)
             {
-                int Transferred = 0;
                 byte[] Buffer = new byte[16];
 
                 Buffer[0] = 0x10;
@@ -135,7 +133,7 @@ namespace LibraryUsb
                 Buffer[6] = (byte)((Serial >> 16) & 0xFF);
                 Buffer[7] = (byte)((Serial >> 24) & 0xFF);
 
-                return DeviceIoControl(FileHandle, 0x2A4004, Buffer, Buffer.Length, null, 0, ref Transferred, IntPtr.Zero);
+                return DeviceIoControl(FileHandle, IoControlCodes.IOCTL_DEVICE_DISCONNECT, Buffer, Buffer.Length, null, 0, out uint Transferred, IntPtr.Zero);
             }
             return false;
         }
@@ -144,7 +142,6 @@ namespace LibraryUsb
         {
             if (IsActive)
             {
-                int Transfered = 0;
                 byte[] Buffer = new byte[16];
 
                 Buffer[0] = 0x10;
@@ -152,7 +149,7 @@ namespace LibraryUsb
                 Buffer[2] = 0x00;
                 Buffer[3] = 0x00;
 
-                return DeviceIoControl(FileHandle, 0x2A4004, Buffer, Buffer.Length, null, 0, ref Transfered, IntPtr.Zero);
+                return DeviceIoControl(FileHandle, IoControlCodes.IOCTL_DEVICE_DISCONNECT, Buffer, Buffer.Length, null, 0, out uint Transfered, IntPtr.Zero);
             }
             return false;
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -15,6 +16,8 @@ using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
+using static LibraryUsb.NativeMethods_DeviceManager;
+using static LibraryUsb.NativeMethods_Hid;
 
 namespace CtrlUI
 {
@@ -58,7 +61,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
+                if (dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUp)
                 {
                     await Notification_Send_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
@@ -91,7 +94,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
+                if (dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUp)
                 {
                     await Notification_Send_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
@@ -310,7 +313,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
+                if (dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUp)
                 {
                     await Notification_Send_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
@@ -512,7 +515,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.FileType == FileType.PreFolder || dataBindFile.FileType == FileType.PreFile || dataBindFile.FileType == FileType.GoUp)
+                if (dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUp)
                 {
                     await Notification_Send_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
@@ -576,6 +579,47 @@ namespace CtrlUI
                 await Notification_Send_Status("Remove", "Failed removing");
                 Debug.WriteLine("Failed removing file or folder: " + ex.Message);
             }
+        }
+
+        //Eject or unmount disc
+        async Task<bool> FilePicker_EjectDrive(string driveLetter)
+        {
+            try
+            {
+                driveLetter = Path.GetPathRoot(driveLetter).Replace("\\", string.Empty);
+                string devicePath = @"\\.\" + driveLetter;
+
+                Debug.WriteLine("Ejecting the disc drive: " + devicePath);
+                await Notification_Send_Status("FolderDisc", "Ejecting the disc");
+
+                SECURITY_ATTRIBUTES security = new SECURITY_ATTRIBUTES();
+                security.lpSecurityDescriptor = IntPtr.Zero;
+                security.bInheritHandle = true;
+                security.nLength = Marshal.SizeOf(security);
+
+                uint fileAttributes = (uint)FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL | (uint)FILE_FLAG.FILE_FLAG_NORMAL;
+                uint desiredAccess = (uint)GENERIC_MODE.GENERIC_WRITE | (uint)GENERIC_MODE.GENERIC_READ;
+                uint shareMode = (uint)FILE_SHARE.FILE_SHARE_READ | (uint)FILE_SHARE.FILE_SHARE_WRITE;
+
+                //Open the drive
+                IntPtr fileHandle = CreateFile(devicePath, desiredAccess, shareMode, ref security, OPEN_EXISTING, fileAttributes, 0);
+                if (fileHandle == IntPtr.Zero || fileHandle == (IntPtr)INVALID_HANDLE_VALUE)
+                {
+                    await Notification_Send_Status("Close", "Ejecting disc failed");
+                    return false;
+                }
+
+                //Eject the media
+                DeviceIoControl(fileHandle, IoControlCodes.IOCTL_STORAGE_EJECT_MEDIA, IntPtr.Zero, 0, IntPtr.Zero, 0, out uint TransferredEject, IntPtr.Zero);
+
+                //Close the drive
+                LibraryUsb.NativeMethods_Hid.CloseHandle(fileHandle);
+
+                await Notification_Send_Status("FolderDisc", "Ejected the disc");
+                return true;
+            }
+            catch { }
+            return false;
         }
 
         //Empty the Windows Recycle Bin

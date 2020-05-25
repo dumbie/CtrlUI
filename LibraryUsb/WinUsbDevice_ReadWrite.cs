@@ -79,8 +79,7 @@ namespace LibraryUsb
                 return false;
             }
 
-            int Transferred = 0;
-            return DeviceIoControl(FileHandle, 0x2A400C, Input, Input.Length, Output, Output.Length, ref Transferred, IntPtr.Zero) && Transferred > 0;
+            return DeviceIoControl(FileHandle, IoControlCodes.IOCTL_DEVICE_SENDDATA, Input, Input.Length, Output, Output.Length, out uint Transferred, IntPtr.Zero) && Transferred > 0;
         }
     }
 }

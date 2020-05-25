@@ -6,9 +6,10 @@
         {
             GoUp,
             UwpApp,
-            PreFolder,
+            FolderPre,
+            FolderDisc,
             Folder,
-            PreFile,
+            FilePre,
             File
         }
     }

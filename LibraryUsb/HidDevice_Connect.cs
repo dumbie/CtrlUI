@@ -66,14 +66,13 @@ namespace LibraryUsb
                 BLUETOOTH_FIND_RADIO_PARAMS RadioFindParams = new BLUETOOTH_FIND_RADIO_PARAMS();
                 RadioFindParams.dwSize = Marshal.SizeOf(RadioFindParams);
 
-                int Transferred = 0;
                 IntPtr BluetoothHandle = IntPtr.Zero;
                 IntPtr RadioHandle = BluetoothFindFirstRadio(ref RadioFindParams, ref BluetoothHandle);
 
                 bool ControllerDisconnected = false;
                 while (!ControllerDisconnected)
                 {
-                    ControllerDisconnected = DeviceIoControl(BluetoothHandle, IOCTL_BTH_DISCONNECT_DEVICE, MacAddressBytes, MacAddressBytes.Length, null, 0, ref Transferred, IntPtr.Zero);
+                    ControllerDisconnected = DeviceIoControl(BluetoothHandle, IoControlCodes.IOCTL_BTH_DISCONNECT_DEVICE, MacAddressBytes, MacAddressBytes.Length, null, 0, out uint Transferred, IntPtr.Zero);
                     CloseHandle(BluetoothHandle);
                     if (!ControllerDisconnected)
                     {
