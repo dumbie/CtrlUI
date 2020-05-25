@@ -165,7 +165,7 @@ namespace CtrlUI
                     Answers.Add(answerCreateFolder);
 
                     DataBindString answerCreateTextFile = new DataBindString();
-                    answerCreateTextFile.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/FileTxt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerCreateTextFile.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Extensions/Txt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     answerCreateTextFile.Name = "Create a new text file here";
                     Answers.Add(answerCreateTextFile);
 

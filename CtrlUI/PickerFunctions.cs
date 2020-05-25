@@ -421,25 +421,14 @@ namespace CtrlUI
                                     else
                                     {
                                         string listFileFullNameLower = listFile.FullName.ToLower();
+                                        string listFileExtensionLower = listFile.Extension.ToLower().Replace(".", string.Empty);
                                         if (listFileFullNameLower.EndsWith(".jpg") || listFileFullNameLower.EndsWith(".png") || listFileFullNameLower.EndsWith(".gif"))
                                         {
                                             listImage = FileToBitmapImage(new string[] { listFile.FullName }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 50, 0);
                                         }
-                                        else if (listFileFullNameLower.EndsWith(".exe"))
-                                        {
-                                            listImage = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                                        }
-                                        else if (listFileFullNameLower.EndsWith(".txt") || listFileFullNameLower.EndsWith(".rtf") || listFileFullNameLower.EndsWith(".doc") || listFileFullNameLower.EndsWith(".docx") || listFileFullNameLower.EndsWith(".ini") || listFileFullNameLower.EndsWith(".cfg") || listFileFullNameLower.EndsWith(".nfo"))
-                                        {
-                                            listImage = FileToBitmapImage(new string[] { "Assets/Icons/FileTxt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                                        }
-                                        else if (listFileFullNameLower.EndsWith(".bat"))
-                                        {
-                                            listImage = FileToBitmapImage(new string[] { "Assets/Icons/FileBat.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                                        }
                                         else
                                         {
-                                            listImage = FileToBitmapImage(new string[] { "Assets/Icons/File.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                                            listImage = FileToBitmapImage(new string[] { "Assets/Extensions/" + listFileExtensionLower + ".png", "Assets/Icons/File.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 50, 0);
                                         }
                                     }
 
@@ -495,9 +484,20 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("Close", "Picker failed");
                 Debug.WriteLine("Failed loading filepicker: " + ex.Message);
+                await FilePicker_Failed();
             }
+        }
+
+        //File Picker failed
+        async Task FilePicker_Failed()
+        {
+            try
+            {
+                await Notification_Send_Status("Close", "Picker loading failed");
+                await FilePicker_GoFolderUp();
+            }
+            catch { }
         }
 
         //Get rom details image and description

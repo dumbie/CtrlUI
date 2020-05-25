@@ -291,19 +291,6 @@ namespace DirectXInput
             catch { }
         }
 
-        //Monitor window state changes
-        async void CheckWindowStateAndSize(object sender, EventArgs e)
-        {
-            try
-            {
-                if (WindowState == WindowState.Minimized)
-                {
-                    await Application_ShowHideWindow();
-                }
-            }
-            catch { }
-        }
-
         //Close other running controller tools
         void CloseControllerTools()
         {

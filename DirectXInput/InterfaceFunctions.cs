@@ -36,10 +36,6 @@ namespace DirectXInput
         {
             try
             {
-                //Monitor window state changes
-                SizeChanged += CheckWindowStateAndSize;
-                StateChanged += CheckWindowStateAndSize;
-
                 //Main menu functions
                 lb_Menu.PreviewKeyUp += lb_Menu_KeyPressUp;
                 lb_Menu.PreviewMouseUp += lb_Menu_MousePressUp;

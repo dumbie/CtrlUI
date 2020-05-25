@@ -58,9 +58,8 @@ namespace CtrlUI
         {
             try
             {
-                //Monitor window state changes
-                SizeChanged += CheckWindowStateAndSize;
-                StateChanged += CheckWindowStateAndSize;
+                //Make sure the correct window style is set
+                StateChanged += CheckWindowStateAndStyle;
 
                 //Main menu functions
                 grid_Popup_MainMenu_button_Close.Click += Button_Popup_Close_Click;

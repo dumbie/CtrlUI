@@ -47,7 +47,7 @@ namespace CtrlUI
                 bool keyboardLaunch = (keyboardExtension || keyboardProcess) && vControllerAnyConnected();
 
                 //Launch the Win32 application
-                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, true, false, false, keyboardLaunch);
+                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, true, false, false, keyboardLaunch, true);
             }
             catch { }
         }
@@ -449,7 +449,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("FileTxt", "Creating text file");
+                await Notification_Send_Status("Font", "Creating text file");
                 Debug.WriteLine("Creating new text file in: " + vFilePickerCurrentPath);
 
                 //Show the text input popup
@@ -464,7 +464,7 @@ namespace CtrlUI
                     //Check if the text file exists
                     if (File.Exists(newFilePath))
                     {
-                        await Notification_Send_Status("FileTxt", "Text file already exists");
+                        await Notification_Send_Status("Font", "Text file already exists");
                         Debug.WriteLine("Create text file already exists.");
                         return;
                     }
@@ -483,7 +483,7 @@ namespace CtrlUI
                     string fileDetailed = fileSize + " (" + fileDate + ")";
 
                     //Create new file databindfile
-                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Icons/FileTxt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Extensions/Txt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, Name = fileName, NameDetail = fileDetailed, DateModified = dateCreated, ImageBitmap = fileImage, PathFile = newFilePath };
 
                     //Add the new listbox item
@@ -495,13 +495,13 @@ namespace CtrlUI
                     //Check if there are files or folders
                     FilePicker_CheckFilesAndFoldersCount();
 
-                    await Notification_Send_Status("FileTxt", "Created new text file");
+                    await Notification_Send_Status("Font", "Created new text file");
                     Debug.WriteLine("Created new text file in: " + newFilePath);
                 }
             }
             catch (Exception ex)
             {
-                await Notification_Send_Status("FileTxt", "Failed creating file");
+                await Notification_Send_Status("Font", "Failed creating file");
                 Debug.WriteLine("Failed creating new text file: " + ex.Message);
             }
         }

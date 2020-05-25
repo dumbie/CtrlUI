@@ -339,6 +339,7 @@ namespace CtrlUI
         {
             try
             {
+                if (mediaThumbnail == null) { return null; }
                 using (IRandomAccessStreamWithContentType streamReference = await mediaThumbnail.OpenReadAsync())
                 {
                     using (Stream stream = streamReference.AsStream())

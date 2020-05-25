@@ -50,14 +50,14 @@ namespace CtrlUI
                     return false;
                 }
 
-                return await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, allowMinimize, runAsAdmin, createNoWindow, launchKeyboard);
+                return await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, allowMinimize, runAsAdmin, createNoWindow, launchKeyboard, false);
             }
             catch { }
             return false;
         }
 
         //Launch a Win32 application manually
-        async Task<bool> PrepareProcessLauncherWin32Async(string appTitle, string pathExe, string pathLaunch, string launchArgument, bool silent, bool allowMinimize, bool runAsAdmin, bool createNoWindow, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherWin32Async(string appTitle, string pathExe, string pathLaunch, string launchArgument, bool silent, bool allowMinimize, bool runAsAdmin, bool createNoWindow, bool launchKeyboard, bool ignoreFailed)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace CtrlUI
 
                 //Launch the Win32 application
                 Process launchProcess = await ProcessLauncherWin32Async(pathExe, pathLaunch, launchArgument, runAsAdmin, createNoWindow);
-                if (launchProcess == null)
+                if (!ignoreFailed && launchProcess == null)
                 {
                     //Show failed launch messagebox
                     await LaunchProcessFailed();

@@ -307,12 +307,11 @@ namespace CtrlUI
             catch { }
         }
 
-        //Monitor window state changes
-        void CheckWindowStateAndSize(object sender, EventArgs e)
+        //Make sure the correct window style is set
+        void CheckWindowStateAndStyle(object sender, EventArgs e)
         {
             try
             {
-                //Make sure the correct window style is set
                 if (WindowState == WindowState.Maximized && WindowStyle != WindowStyle.None) { WindowStyle = WindowStyle.None; }
                 else if (WindowState == WindowState.Normal && WindowStyle != WindowStyle.SingleBorderWindow) { WindowStyle = WindowStyle.SingleBorderWindow; }
             }

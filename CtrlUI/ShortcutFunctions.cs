@@ -93,9 +93,16 @@ namespace CtrlUI
                         }
                         catch { }
 
+                        //Expand environment variables
+                        string targetPath = Environment.ExpandEnvironmentVariables(shellLinkObject.Target.Path);
+                        string workingPath = Environment.ExpandEnvironmentVariables(shellLinkObject.WorkingDirectory);
+                        iconPath = Environment.ExpandEnvironmentVariables(iconPath);
+                        shortcutPath = Environment.ExpandEnvironmentVariables(shortcutPath);
+
+                        //Set shortcut details
                         shortcutDetails.Title = StripShortcutFilename(Path.GetFileNameWithoutExtension(shortcutPath));
-                        shortcutDetails.TargetPath = shellLinkObject.Target.Path;
-                        shortcutDetails.WorkingPath = shellLinkObject.WorkingDirectory;
+                        shortcutDetails.TargetPath = targetPath;
+                        shortcutDetails.WorkingPath = workingPath;
                         shortcutDetails.NameExe = Path.GetFileName(shortcutDetails.TargetPath);
                         shortcutDetails.IconIndex = iconIndex;
                         shortcutDetails.IconPath = iconPath;
@@ -241,6 +248,7 @@ namespace CtrlUI
 
                 //Get the shortcut target file name
                 string targetPathLower = shortcutDetails.TargetPath.ToLower();
+                string targetExtensionLower = Path.GetExtension(targetPathLower).Replace(".", string.Empty);
                 Visibility shortcutLauncher = Visibility.Collapsed;
                 Visibility shortcutWindowStore = Visibility.Collapsed;
                 Visibility shortcutAvailable = Visibility.Collapsed;
@@ -261,6 +269,10 @@ namespace CtrlUI
                     if (!File.Exists(targetPathLower))
                     {
                         shortcutAvailable = Visibility.Visible;
+                    }
+                    else
+                    {
+                        shortcutLauncher = Visibility.Visible;
                     }
                 }
                 else if (targetPathLower.Contains("://"))
@@ -306,14 +318,9 @@ namespace CtrlUI
                 {
                     iconBitmapImage = FileToBitmapImage(new string[] { "Unknown" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
                 }
-                else if (targetPathLower.EndsWith(".bat"))
-                {
-                    shortcutLauncher = Visibility.Visible;
-                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, "Assets/Icons/FileBat.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, shortcutDetails.IconIndex);
-                }
                 else
                 {
-                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, targetPathLower, shortcutDetails.IconPath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, shortcutDetails.IconIndex);
+                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, targetPathLower, shortcutDetails.IconPath, "Assets/Extensions/" + targetExtensionLower + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, shortcutDetails.IconIndex);
                 }
 
                 //Add the shortcut to the list
