@@ -582,7 +582,7 @@ namespace CtrlUI
         }
 
         //Eject or unmount disc
-        async Task<bool> FilePicker_EjectDrive(string driveLetter)
+        async Task<bool> FilePicker_EjectDrive(DataBindFile dataBindFile, string driveLetter)
         {
             try
             {
@@ -614,6 +614,9 @@ namespace CtrlUI
 
                 //Close the drive
                 LibraryUsb.NativeMethods_Hid.CloseHandle(fileHandle);
+
+                //Remove drive from the listbox
+                await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile, true);
 
                 await Notification_Send_Status("FolderDisc", "Ejected the disc");
                 return true;

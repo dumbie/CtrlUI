@@ -23,6 +23,7 @@ namespace LibraryShared
             public int MilliSecondsTimeout = 4000;
             public ControllerDetails Details = null;
             public bool Connected { get { return Details != null; } }
+            public bool BlockOutput = false;
 
             //Controller Task
             public AVTaskDetails InputTask = new AVTaskDetails();
@@ -75,8 +76,9 @@ namespace LibraryShared
                     BatteryPercentageCurrent = -1; //-1 Unknown, -2 Charging
                     BatteryPercentagePrevious = -1; //-1 Unknown, -2 Charging
 
-                    //Controller Connected
+                    //Controller Details
                     LastActive = 0;
+                    BlockOutput = false;
 
                     //Controller Task
                     InputTask = new AVTaskDetails();

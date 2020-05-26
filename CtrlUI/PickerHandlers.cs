@@ -118,11 +118,7 @@ namespace CtrlUI
                     DataBindString messageResult = await Popup_Show_MessageBox("Application actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
                     if (messageResult != null && messageResult == answerEjectDisc)
                     {
-                        bool ejectResult = await FilePicker_EjectDrive(selectedItem.PathFile);
-                        if (ejectResult)
-                        {
-                            //Fix remove and select index
-                        }
+                        await FilePicker_EjectDrive(selectedItem, selectedItem.PathFile);
                     }
                 }
                 else

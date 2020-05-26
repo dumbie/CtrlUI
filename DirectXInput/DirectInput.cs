@@ -144,6 +144,10 @@ namespace DirectXInput
         {
             try
             {
+                //Update controller block status
+                Controller.BlockOutput = true;
+
+                //Start the controller stop task
                 async void TaskAction()
                 {
                     try
@@ -169,6 +173,10 @@ namespace DirectXInput
                     return false;
                 }
 
+                //Update controller block status
+                Controller.BlockOutput = true;
+
+                //Get controller display number
                 Debug.WriteLine("Disconnecting the controller " + Controller.NumberId + ": " + Controller.Details.DisplayName);
                 string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
 

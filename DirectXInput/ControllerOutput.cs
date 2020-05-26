@@ -16,7 +16,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Activated)
+                if (Controller.Activated && !Controller.BlockOutput)
                 {
                     //Check if keyboard is visible
                     if (App.vWindowKeyboard.vWindowVisible)

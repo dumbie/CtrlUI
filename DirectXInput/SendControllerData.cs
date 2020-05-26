@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using static LibraryShared.Classes;
 
@@ -19,14 +20,14 @@ namespace DirectXInput
                 //Update interface controller preview
                 ControllerPreview(Controller);
 
-                //Check if controller output needs to be forwarded
-                bool BlockOutputApplication = await ControllerOutput(Controller);
-
                 //Check if controller shortcut is pressed
                 bool BlockOutputShortcut = await ControllerShortcut(Controller);
 
+                //Check if controller output needs to be forwarded
+                bool BlockOutputApplication = await ControllerOutput(Controller);
+
                 //Check if output or guide button needs to be blocked
-                if (BlockOutputApplication || BlockOutputShortcut)
+                if (BlockOutputApplication || BlockOutputShortcut || Controller.BlockOutput)
                 {
                     //Prepare empty XOutput device data
                     PrepareXInputData(Controller, true);

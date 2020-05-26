@@ -28,9 +28,6 @@ namespace DirectXInput
             {
                 if (Environment.TickCount >= Controller.Delay_ControllerShortcut)
                 {
-                    //Check if keyboard is visible
-                    bool keyboardVisible = App.vWindowKeyboard.vWindowVisible;
-
                     //Activate the controller
                     if (Controller.InputCurrent.ButtonGuide.PressedShort)
                     {
@@ -44,7 +41,7 @@ namespace DirectXInput
                     }
 
                     //Show CtrlUI application
-                    if (Controller.InputCurrent.ButtonGuide.PressedShort && !keyboardVisible && vProcessCtrlUI != null)
+                    if (Controller.InputCurrent.ButtonGuide.PressedShort && !App.vWindowKeyboard.vWindowVisible && vProcessCtrlUI != null)
                     {
                         Debug.WriteLine("Guide short press showing CtrlUI.");
                         await ShowCtrlUI();
@@ -53,7 +50,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Launch CtrlUI application
-                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && !keyboardVisible && vProcessCtrlUI == null)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && !App.vWindowKeyboard.vWindowVisible && vProcessCtrlUI == null)
                     {
                         await LaunchCtrlUI();
 
@@ -61,7 +58,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Hide the keyboard controller
-                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && keyboardVisible)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && App.vWindowKeyboard.vWindowVisible)
                     {
                         await KeyboardControllerHideShow(false);
 
@@ -69,7 +66,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Show the keyboard controller
-                    else if (Controller.InputCurrent.ButtonGuide.PressedLong && !keyboardVisible)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedLong && !App.vWindowKeyboard.vWindowVisible)
                     {
                         await KeyboardControllerHideShow(true);
 
