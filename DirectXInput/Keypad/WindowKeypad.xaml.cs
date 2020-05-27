@@ -1,28 +1,33 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System;
+using System.Configuration;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
+using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
-using static LibraryShared.Settings;
+using static LibraryShared.SoundPlayer;
 
-namespace DirectXInput.Overlay
+namespace DirectXInput.Keypad
 {
-    public partial class WindowOverlay : Window
+    public partial class WindowKeypad : Window
     {
         //Window Initialize
-        public WindowOverlay() { InitializeComponent(); }
+        public WindowKeypad() { InitializeComponent(); }
 
         //Window Variables
-        public static IntPtr vInteropWindowHandle = IntPtr.Zero;
+        private IntPtr vInteropWindowHandle = IntPtr.Zero;
+        public bool vWindowVisible = false;
 
         //Window Initialized
-        protected override void OnSourceInitialized(EventArgs e)
+        protected override async void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -32,17 +37,50 @@ namespace DirectXInput.Overlay
                 //Update the window style
                 UpdateWindowStyle();
 
-                //Update the window and text position
+                //Update the window position
                 UpdateWindowPosition();
-
-                //Update the battery status position
-                UpdateBatteryPosition();
-
-                //Update the notification position
-                UpdateNotificationPosition();
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
+                //Disable hardware capslock
+                await DisableHardwareCapsLock();
+            }
+            catch { }
+        }
+
+        //Hide the keyboard window
+        public new void Hide()
+        {
+            try
+            {
+                //Play window close sound
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+
+                //Update the keyboard opacity
+                this.Opacity = 0;
+                vWindowVisible = false;
+                Debug.WriteLine("Hiding the Keypad window.");
+            }
+            catch { }
+        }
+
+        //Show the keyboard window
+        public new void Show()
+        {
+            try
+            {
+                //Delay keyboard input
+                vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMediumTicks;
+
+                //Play window open sound
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
+
+                //Update the keyboard opacity
+                this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeypadOpacity"]);
+                this.Visibility = Visibility.Visible;
+                vWindowVisible = true;
+                Debug.WriteLine("Showing the Keypad window.");
             }
             catch { }
         }
@@ -83,9 +121,6 @@ namespace DirectXInput.Overlay
         {
             try
             {
-                //Load current CtrlUI settings
-                Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
-
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
@@ -97,54 +132,16 @@ namespace DirectXInput.Overlay
             catch { }
         }
 
-        //Update the notification position
-        public void UpdateNotificationPosition()
+        //Disable hardware capslock
+        public async Task DisableHardwareCapsLock()
         {
             try
             {
-                //Check current fps overlay position
-                int fpsTextPosition = Convert.ToInt32(vConfigurationFpsOverlayer.AppSettings.Settings["TextPosition"].Value);
-                //Debug.WriteLine("Fps overlayer text position: " + fpsTextPosition);
-
-                //Move the notification position
-                AVActions.ActionDispatcherInvoke(delegate
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    if (vProcessFpsOverlayer == null || (vProcessFpsOverlayer != null && fpsTextPosition != 0))
+                    if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
-                        grid_Message_Status.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                        grid_Message_Status_Stackpanel.SetValue(Grid.ColumnProperty, 0);
-                        grid_Message_Status_Rectangle.SetValue(Grid.ColumnProperty, 1);
-                    }
-                    else
-                    {
-                        grid_Message_Status.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-                        grid_Message_Status_Stackpanel.SetValue(Grid.ColumnProperty, 1);
-                        grid_Message_Status_Rectangle.SetValue(Grid.ColumnProperty, 0);
-                    }
-                });
-            }
-            catch { }
-        }
-
-        //Update the battery status position
-        public void UpdateBatteryPosition()
-        {
-            try
-            {
-                //Check current fps overlay position
-                int fpsTextPosition = Convert.ToInt32(vConfigurationFpsOverlayer.AppSettings.Settings["TextPosition"].Value);
-                //Debug.WriteLine("Fps overlayer text position: " + fpsTextPosition);
-
-                //Move the battery status position
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    if (vProcessFpsOverlayer == null || (vProcessFpsOverlayer != null && fpsTextPosition != 6))
-                    {
-                        stackpanel_Battery_Warning.VerticalAlignment = VerticalAlignment.Bottom;
-                    }
-                    else
-                    {
-                        stackpanel_Battery_Warning.VerticalAlignment = VerticalAlignment.Top;
+                        await KeyPressSingle((byte)KeysVirtual.CapsLock, false);
                     }
                 });
             }

@@ -25,7 +25,7 @@ namespace DirectXInput.Keyboard
         public WindowKeyboard() { InitializeComponent(); }
 
         //Window Variables
-        private IntPtr vKeyboardWindowHandle = IntPtr.Zero;
+        private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
 
         //Window Initialized
@@ -34,7 +34,7 @@ namespace DirectXInput.Keyboard
             try
             {
                 //Get interop window handle
-                vKeyboardWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
                 //Update the window style
                 UpdateWindowStyle();
@@ -129,7 +129,6 @@ namespace DirectXInput.Keyboard
         {
             try
             {
-                //Update the window and text position
                 UpdateWindowPosition();
             }
             catch { }
@@ -142,14 +141,14 @@ namespace DirectXInput.Keyboard
             {
                 //Set the window style
                 IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                SetWindowLongAuto(vKeyboardWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
 
                 //Set the window style ex
                 IntPtr UpdatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
-                SetWindowLongAuto(vKeyboardWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, UpdatedExStyle);
+                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, UpdatedExStyle);
 
                 //Set the window as top most
-                SetWindowPos(vKeyboardWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
+                SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
 
                 Debug.WriteLine("The window style has been updated.");
             }
@@ -172,7 +171,7 @@ namespace DirectXInput.Keyboard
                 //Move the window to bottom center
                 int horizontalLeft = (int)(displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthNative - windowWidth) / 2);
                 int verticalTop = (int)(displayMonitorSettings.BoundsTop + displayMonitorSettings.HeightNative - windowHeight);
-                WindowMove(vKeyboardWindowHandle, horizontalLeft, verticalTop);
+                WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
             }
             catch { }
         }
@@ -206,7 +205,7 @@ namespace DirectXInput.Keyboard
             {
                 if (forceFocus || System.Windows.Input.Keyboard.FocusedElement == null)
                 {
-                    await FocusOnElement(key_h, false, vKeyboardWindowHandle);
+                    await FocusOnElement(key_h, false, vInteropWindowHandle);
                 }
             }
             catch { }

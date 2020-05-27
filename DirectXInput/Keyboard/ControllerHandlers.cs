@@ -125,7 +125,7 @@ namespace DirectXInput.Keyboard
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Left, vKeyboardWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Left, vInteropWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -134,7 +134,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Right, vKeyboardWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Right, vInteropWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -143,7 +143,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Up, vKeyboardWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Up, vInteropWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -152,7 +152,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Down, vKeyboardWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Down, vInteropWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -161,7 +161,7 @@ namespace DirectXInput.Keyboard
                     //Send internal space key
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
-                        await KeySendSingle((byte)KeysVirtual.Space, vKeyboardWindowHandle);
+                        await KeySendSingle((byte)KeysVirtual.Space, vInteropWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;

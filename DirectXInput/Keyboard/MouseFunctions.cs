@@ -48,7 +48,7 @@ namespace DirectXInput.Keyboard
 
                 //Get the current window position
                 WindowRectangle positionRect = new WindowRectangle();
-                GetWindowRect(vKeyboardWindowHandle, ref positionRect);
+                GetWindowRect(vInteropWindowHandle, ref positionRect);
                 int moveLeft = positionRect.Left + mouseHorizontal;
                 int moveTop = positionRect.Top + mouseVertical;
                 int moveRight = positionRect.Right + mouseHorizontal;
@@ -73,7 +73,7 @@ namespace DirectXInput.Keyboard
                 double screenLimitBottom = displayMonitorSettings.BoundsBottom - 20;
                 if (screenEdgeLeft > screenLimitLeft && screenEdgeTop > screenLimitTop && screenEdgeRight < screenLimitRight && screenEdgeBottom < screenLimitBottom)
                 {
-                    WindowMove(vKeyboardWindowHandle, moveLeft, moveTop);
+                    WindowMove(vInteropWindowHandle, moveLeft, moveTop);
                 }
             }
             catch { }

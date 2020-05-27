@@ -58,7 +58,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Hide the keyboard controller
-                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && App.vWindowKeyboard.vWindowVisible)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible))
                     {
                         await KeyboardControllerHideShow(false);
 
@@ -66,9 +66,17 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Show the keyboard controller
-                    else if (Controller.InputCurrent.ButtonGuide.PressedLong && !App.vWindowKeyboard.vWindowVisible)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedLong && !App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
                     {
                         await KeyboardControllerHideShow(true);
+
+                        ControllerUsed = true;
+                        ControllerDelayLong = true;
+                    }
+                    //Switch between keyboard and Keypad
+                    else if (Controller.InputCurrent.ButtonGuide.PressedLong && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible))
+                    {
+                        await KeyboardKeypadSwitch();
 
                         ControllerUsed = true;
                         ControllerDelayLong = true;
@@ -179,6 +187,29 @@ namespace DirectXInput
             }
             catch { }
             return ControllerUsed;
+        }
+
+        //Switch between keyboard and keypad
+        async Task KeyboardKeypadSwitch()
+        {
+            try
+            {
+                Debug.WriteLine("Switching between keyboard and keypad");
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                {
+                    if (App.vWindowKeyboard.vWindowVisible)
+                    {
+                        App.vWindowKeyboard.Hide();
+                        App.vWindowKeypad.Show();
+                    }
+                    else
+                    {
+                        App.vWindowKeypad.Hide();
+                        await App.vWindowKeyboard.Show();
+                    }
+                });
+            }
+            catch { }
         }
 
         //Hide or show the keyboard controller

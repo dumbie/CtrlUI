@@ -1,0 +1,161 @@
+﻿<Window x:Class="DirectXInput.Keypad.WindowKeypad"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:local="clr-namespace:DirectXInput.Keypad"
+            xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
+            RenderOptions.BitmapScalingMode="HighQuality"
+            mc:Ignorable="d"
+            Title="DirectXInput Keypad"
+            Background="Transparent"
+            WindowStyle="None"
+            AllowsTransparency="True"
+            ShowInTaskbar="False"
+            Topmost="True"
+            SnapsToDevicePixels="True">
+
+    <!-- Grid Application -->
+    <Grid Name="grid_Application">
+
+        <!-- Keyboard Arrows -->
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <Grid>
+                <TextBlock Name="textblock_ArrowUp" Text="⯅" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
+                    <Image.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
+                    </Image.Effect>
+                </Image>
+            </Grid>
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <TextBlock Name="textblock_ArrowLeft" Text="⯇" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
+                        </Image.Effect>
+                    </Image>
+                </Grid>
+
+                <Grid>
+                    <TextBlock Name="textblock_ArrowDown" Text="⯆" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
+                        </Image.Effect>
+                    </Image>
+                </Grid>
+                <Grid>
+                    <TextBlock Name="textblock_ArrowRight" Text="⯈" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
+                        </Image.Effect>
+                    </Image>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Keyboard Escape/Enter -->
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <TextBlock Name="textblock_ButtonBack" Text="Esc" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
+                        </Image.Effect>
+                    </Image>
+                </Grid>
+                <Grid>
+                    <TextBlock Name="textblock_ButtonStart" Text="Entr" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
+                        </Image.Effect>
+                    </Image>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Keyboard Actions -->
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Grid Margin="0,0,0,-5">
+                <TextBlock Name="textblock_ButtonY" Text="Ctrl&#10;Alt" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
+                    <Image.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
+                    </Image.Effect>
+                </Image>
+            </Grid>
+            <StackPanel Orientation="Horizontal">
+                <Grid Margin="0,0,0,-5">
+                    <TextBlock Name="textblock_ButtonX" Text="Spc" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
+                        </Image.Effect>
+                    </Image>
+                </Grid>
+                <Grid Height="75" Width="75" Margin="-10"/>
+                <Grid Margin="0,0,0,-5">
+                    <TextBlock Name="textblock_ButtonB" Text="Alt" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
+                        </Image.Effect>
+                    </Image>
+                </Grid>
+            </StackPanel>
+            <Grid>
+                <TextBlock Name="textblock_ButtonA" Text="Ctrl" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
+                    <Image.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
+                    </Image.Effect>
+                </Image>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

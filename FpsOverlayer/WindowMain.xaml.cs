@@ -95,7 +95,6 @@ namespace FpsOverlayer
         {
             try
             {
-                //Update the window position
                 UpdateWindowPosition();
             }
             catch { }
