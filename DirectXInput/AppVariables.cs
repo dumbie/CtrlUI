@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Security.Principal;
 using System.Windows.Threading;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static LibraryShared.Classes;
 
 namespace DirectXInput
@@ -49,9 +50,8 @@ namespace DirectXInput
         //Keyboard Variables
         public static bool vCapsEnabled = false;
         public static bool vKeysEnabled = true;
-
-        //Mouse Variables
-        public static bool vMouseHoldingLeft = false;
+        public static List<MouseVirtual> vMouseStatus = new List<MouseVirtual>();
+        public static List<KeysVirtual> vKeyboardStatus = new List<KeysVirtual>();
 
         //Controller Variables
         public static bool vControllerBusy = false;

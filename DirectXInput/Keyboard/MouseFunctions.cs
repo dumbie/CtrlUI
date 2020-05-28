@@ -30,7 +30,7 @@ namespace DirectXInput.Keyboard
                 }
                 else if (absHorizontal > smallOffset || absVertical > smallOffset)
                 {
-                    double mouseSensitivity = (double)thumbSensitivity / (double)20000;
+                    double mouseSensitivity = (double)thumbSensitivity / (double)30000;
                     mouseHorizontal = Convert.ToInt32(thumbHorizontal * mouseSensitivity);
                     mouseVertical = Convert.ToInt32(thumbVertical * mouseSensitivity);
                 }

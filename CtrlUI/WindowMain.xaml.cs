@@ -41,7 +41,7 @@ namespace CtrlUI
 
                 //Register Hotkeys and Filtermessage
                 ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
-                RegisterHotKey(vInteropWindowHandle, HotKeyRegisterId, (byte)KeysModifiers.Win, (byte)KeysVirtual.CapsLock);
+                RegisterHotKey(vInteropWindowHandle, HotKeyRegisterId, (byte)KeysModifier.Win, (byte)KeysVirtual.CapsLock);
 
                 //Check application settings
                 Settings_Check();

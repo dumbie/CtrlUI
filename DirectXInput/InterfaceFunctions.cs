@@ -23,6 +23,7 @@ namespace DirectXInput
                 grid_Buttons.Visibility = Visibility.Collapsed;
                 grid_Virtual.Visibility = Visibility.Collapsed;
                 grid_Keyboard.Visibility = Visibility.Collapsed;
+                grid_Keypad.Visibility = Visibility.Collapsed;
                 grid_Settings.Visibility = Visibility.Collapsed;
                 grid_Shortcuts.Visibility = Visibility.Collapsed;
                 grid_Help.Visibility = Visibility.Collapsed;

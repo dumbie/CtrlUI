@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
@@ -10,13 +9,9 @@ namespace DirectXInput.Keypad
     partial class WindowKeypad
     {
         //Process controller input for keyboard
-        public async Task<bool> ControllerInteractionKeyboard(ControllerInput controllerInput)
+        public bool ControllerInteractionKeyboard(ControllerInput controllerInput)
         {
             bool ControllerUsed = false;
-            bool ControllerDelayMicro = false;
-            bool ControllerDelayShort = false;
-            bool ControllerDelayMedium = false;
-            bool ControllerDelayLong = false;
             try
             {
                 //Update interface controller preview
@@ -30,84 +25,223 @@ namespace DirectXInput.Keypad
                 //Press arrow left key
                 if (controllerInput.DPadLeft.PressedRaw)
                 {
-                    await KeyPressSingle((byte)KeysVirtual.Left, false);
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Left))
+                    {
+                        vKeyboardStatus.Add(KeysVirtual.Left);
+                        KeyToggleSingle((byte)KeysVirtual.Left, false, true);
 
-                    ControllerUsed = true;
-                    ControllerDelayShort = true;
+                        ControllerUsed = true;
+                    }
                 }
+                else
+                {
+                    if (vKeyboardStatus.Contains(KeysVirtual.Left))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Left);
+                        KeyToggleSingle((byte)KeysVirtual.Left, false, false);
+
+                        ControllerUsed = true;
+                    }
+                }
+
                 //Press arrow right key
-                else if (controllerInput.DPadRight.PressedRaw)
+                if (controllerInput.DPadRight.PressedRaw)
                 {
-                    await KeyPressSingle((byte)KeysVirtual.Right, false);
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Right))
+                    {
+                        vKeyboardStatus.Add(KeysVirtual.Right);
+                        KeyToggleSingle((byte)KeysVirtual.Right, false, true);
 
-                    ControllerUsed = true;
-                    ControllerDelayShort = true;
+                        ControllerUsed = true;
+                    }
                 }
+                else
+                {
+                    if (vKeyboardStatus.Contains(KeysVirtual.Right))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Right);
+                        KeyToggleSingle((byte)KeysVirtual.Right, false, false);
+
+                        ControllerUsed = true;
+                    }
+                }
+
                 //Press arrow up key
-                else if (controllerInput.DPadUp.PressedRaw)
+                if (controllerInput.DPadUp.PressedRaw)
                 {
-                    await KeyPressSingle((byte)KeysVirtual.Up, false);
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Up))
+                    {
+                        vKeyboardStatus.Add(KeysVirtual.Up);
+                        KeyToggleSingle((byte)KeysVirtual.Up, false, true);
 
-                    ControllerUsed = true;
-                    ControllerDelayShort = true;
+                        ControllerUsed = true;
+                    }
                 }
-                //Press arrow down key
-                else if (controllerInput.DPadDown.PressedRaw)
+                else
                 {
-                    await KeyPressSingle((byte)KeysVirtual.Down, false);
+                    if (vKeyboardStatus.Contains(KeysVirtual.Up))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Up);
+                        KeyToggleSingle((byte)KeysVirtual.Up, false, false);
 
-                    ControllerUsed = true;
-                    ControllerDelayShort = true;
+                        ControllerUsed = true;
+                    }
+                }
+
+                //Press arrow down key
+                if (controllerInput.DPadDown.PressedRaw)
+                {
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Down))
+                    {
+                        vKeyboardStatus.Add(KeysVirtual.Down);
+                        KeyToggleSingle((byte)KeysVirtual.Down, false, true);
+
+                        ControllerUsed = true;
+                    }
+                }
+                else
+                {
+                    if (vKeyboardStatus.Contains(KeysVirtual.Down))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Down);
+                        KeyToggleSingle((byte)KeysVirtual.Down, false, false);
+
+                        ControllerUsed = true;
+                    }
                 }
 
                 //Press button a key
-                else if (controllerInput.ButtonA.PressedRaw)
+                if (controllerInput.ButtonA.PressedRaw)
                 {
-                    await KeyPressSingle((byte)KeysVirtual.Control, false);
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Control))
+                    {
+                        vKeyboardStatus.Add(KeysVirtual.Control);
+                        KeyToggleSingle((byte)KeysVirtual.Control, false, true);
 
-                    ControllerUsed = true;
-                    ControllerDelayShort = true;
+                        ControllerUsed = true;
+                    }
                 }
+                else
+                {
+                    if (vKeyboardStatus.Contains(KeysVirtual.Control))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Control);
+                        KeyToggleSingle((byte)KeysVirtual.Control, false, false);
+
+                        ControllerUsed = true;
+                    }
+                }
+
                 //Press button b key
-                else if (controllerInput.ButtonB.PressedRaw)
+                if (controllerInput.ButtonB.PressedRaw)
                 {
-                    await KeyPressSingle((byte)KeysVirtual.Menu, false);
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Menu))
+                    {
+                        vKeyboardStatus.Add(KeysVirtual.Menu);
+                        KeyToggleSingle((byte)KeysVirtual.Menu, false, true);
 
-                    ControllerUsed = true;
-                    ControllerDelayShort = true;
+                        ControllerUsed = true;
+                    }
                 }
+                else
+                {
+                    if (vKeyboardStatus.Contains(KeysVirtual.Menu))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Menu);
+                        KeyToggleSingle((byte)KeysVirtual.Menu, false, false);
+
+                        ControllerUsed = true;
+                    }
+                }
+
                 //Press button y key
-                else if (controllerInput.ButtonY.PressedRaw)
+                if (controllerInput.ButtonY.PressedRaw)
                 {
-                    await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Menu, false);
+                    KeysVirtual comboKey = KeysVirtual.Control | KeysVirtual.Menu;
+                    if (!vKeyboardStatus.Contains(comboKey))
+                    {
+                        vKeyboardStatus.Add(comboKey);
+                        KeyToggleCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Menu, false, true);
 
-                    ControllerUsed = true;
-                    ControllerDelayShort = true;
+                        ControllerUsed = true;
+                    }
                 }
+                else
+                {
+                    KeysVirtual comboKey = KeysVirtual.Control | KeysVirtual.Menu;
+                    if (vKeyboardStatus.Contains(comboKey))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == comboKey);
+                        KeyToggleCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Menu, false, false);
+
+                        ControllerUsed = true;
+                    }
+                }
+
                 //Press button x key
-                else if (controllerInput.ButtonX.PressedRaw)
+                if (controllerInput.ButtonX.PressedRaw)
                 {
-                    await KeyPressSingle((byte)KeysVirtual.Space, false);
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Space))
+                    {
+                        vKeyboardStatus.Add(KeysVirtual.Space);
+                        KeyToggleSingle((byte)KeysVirtual.Space, false, true);
 
-                    ControllerUsed = true;
-                    ControllerDelayShort = true;
+                        ControllerUsed = true;
+                    }
+                }
+                else
+                {
+                    if (vKeyboardStatus.Contains(KeysVirtual.Space))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Space);
+                        KeyToggleSingle((byte)KeysVirtual.Space, false, false);
+
+                        ControllerUsed = true;
+                    }
                 }
 
-                if (ControllerDelayMicro)
+                //Press button back key
+                if (controllerInput.ButtonBack.PressedRaw)
                 {
-                    vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMicroTicks;
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Escape))
+                    {
+                        vKeyboardStatus.Add(KeysVirtual.Escape);
+                        KeyToggleSingle((byte)KeysVirtual.Escape, false, true);
+
+                        ControllerUsed = true;
+                    }
                 }
-                else if (ControllerDelayShort)
+                else
                 {
-                    vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayShortTicks;
+                    if (vKeyboardStatus.Contains(KeysVirtual.Escape))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Escape);
+                        KeyToggleSingle((byte)KeysVirtual.Escape, false, false);
+
+                        ControllerUsed = true;
+                    }
                 }
-                else if (ControllerDelayMedium)
+
+                //Press button start key
+                if (controllerInput.ButtonStart.PressedRaw)
                 {
-                    vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMediumTicks;
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Return))
+                    {
+                        vKeyboardStatus.Add(KeysVirtual.Return);
+                        KeyToggleSingle((byte)KeysVirtual.Return, false, true);
+
+                        ControllerUsed = true;
+                    }
                 }
-                else if (ControllerDelayLong)
+                else
                 {
-                    vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayLongTicks;
+                    if (vKeyboardStatus.Contains(KeysVirtual.Return))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Return);
+                        KeyToggleSingle((byte)KeysVirtual.Return, false, false);
+
+                        ControllerUsed = true;
+                    }
                 }
             }
             catch { }

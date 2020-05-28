@@ -134,6 +134,14 @@ namespace DirectXInput
                         App.vWindowKeyboard.UpdateDomainExtension();
                     }
                 };
+
+                //Keypad settings
+                slider_KeypadOpacity.ValueChanged += (sender, e) =>
+                {
+                    textblock_KeypadOpacity.Text = textblock_KeypadOpacity.Tag + ": " + slider_KeypadOpacity.Value.ToString("0.00") + "%";
+                    SettingSave(vConfigurationApplication, "KeypadOpacity", slider_KeypadOpacity.Value.ToString("0.00"));
+                    //Fix App.vWindowKeypad.UpdateKeypadOpacity();
+                };
             }
             catch (Exception ex)
             {

@@ -53,22 +53,22 @@ namespace DirectXInput.Keyboard
                     //Emulate mouse click left
                     if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
-                        if (!vMouseHoldingLeft)
+                        if (!vMouseStatus.Contains(MouseVirtual.MOUSEEVENTF_LEFTDOWN))
                         {
+                            vMouseStatus.Add(MouseVirtual.MOUSEEVENTF_LEFTDOWN);
                             MouseToggle(false, true);
 
-                            vMouseHoldingLeft = true;
                             ControllerUsed = true;
                             ControllerDelayMicro = true;
                         }
                     }
                     else
                     {
-                        if (vMouseHoldingLeft)
+                        if (vMouseStatus.Contains(MouseVirtual.MOUSEEVENTF_LEFTDOWN))
                         {
+                            vMouseStatus.RemoveAll(x => x == MouseVirtual.MOUSEEVENTF_LEFTDOWN);
                             MouseToggle(false, false);
 
-                            vMouseHoldingLeft = false;
                             ControllerUsed = true;
                             ControllerDelayMicro = true;
                         }
@@ -77,7 +77,7 @@ namespace DirectXInput.Keyboard
                     //Emulate mouse click right
                     if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
-                        await MousePressSingle(true);
+                        await MousePress(true);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;

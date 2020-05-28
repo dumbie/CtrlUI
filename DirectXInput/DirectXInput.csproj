@@ -277,6 +277,10 @@
     <Resource Include="..\CtrlUI\Assets\Icons\Keyboard.png">
       <Link>Assets\Icons\Keyboard.png</Link>
     </Resource>
+    <Content Include="..\CtrlUI\Assets\Icons\Keypad.png">
+      <Link>Assets\Icons\Keypad.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\CtrlUI\Assets\Icons\Settings.png">
       <Link>Assets\Icons\Settings.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
