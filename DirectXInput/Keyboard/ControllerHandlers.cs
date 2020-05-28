@@ -19,8 +19,6 @@ namespace DirectXInput.Keyboard
             bool ControllerUsed = false;
             bool ControllerDelayMicro = false;
             bool ControllerDelayShort = false;
-            bool ControllerDelayMedium = false;
-            bool ControllerDelayLong = false;
             try
             {
                 if (Environment.TickCount >= vControllerDelay_Mouse)
@@ -91,14 +89,6 @@ namespace DirectXInput.Keyboard
                     {
                         vControllerDelay_Mouse = Environment.TickCount + vControllerDelayShortTicks;
                     }
-                    else if (ControllerDelayMedium)
-                    {
-                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayMediumTicks;
-                    }
-                    else if (ControllerDelayLong)
-                    {
-                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayLongTicks;
-                    }
                     else
                     {
                         vControllerDelay_Mouse = Environment.TickCount + vControllerDelayNanoTicks;
@@ -113,10 +103,8 @@ namespace DirectXInput.Keyboard
         public async Task<bool> ControllerInteractionKeyboard(ControllerInput ControllerInput)
         {
             bool ControllerUsed = false;
-            bool ControllerDelayMicro = false;
             bool ControllerDelayShort = false;
             bool ControllerDelayMedium = false;
-            bool ControllerDelayLong = false;
             try
             {
                 if (Environment.TickCount >= vControllerDelay_Keyboard)
@@ -251,21 +239,13 @@ namespace DirectXInput.Keyboard
                         ControllerDelayMedium = true;
                     }
 
-                    if (ControllerDelayMicro)
-                    {
-                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMicroTicks;
-                    }
-                    else if (ControllerDelayShort)
+                    if (ControllerDelayShort)
                     {
                         vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayMedium)
                     {
                         vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMediumTicks;
-                    }
-                    else if (ControllerDelayLong)
-                    {
-                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayLongTicks;
                     }
                 }
             }

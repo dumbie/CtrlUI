@@ -65,6 +65,7 @@ namespace DirectXInput
                         Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
                         App.vWindowOverlay.UpdateWindowPosition();
                         App.vWindowKeyboard.UpdateWindowPosition();
+                        App.vWindowKeypad.UpdateWindowPosition();
                     }
                     else if (receivedString == "SettingChangedTextPosition")
                     {

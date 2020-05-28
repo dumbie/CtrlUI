@@ -71,14 +71,17 @@ namespace DirectXInput.Keyboard
         {
             try
             {
-                //Play window close sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                if (this.Opacity != 0)
+                {
+                    //Play window close sound
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                //Update the keyboard opacity
-                this.Title = "DirectXInput Keyboard (Hidden)";
-                this.Opacity = 0;
-                vWindowVisible = false;
-                Debug.WriteLine("Hiding the keyboard window.");
+                    //Update the keyboard opacity
+                    this.Title = "DirectXInput Keyboard (Hidden)";
+                    this.Opacity = 0;
+                    vWindowVisible = false;
+                    Debug.WriteLine("Hiding the keyboard window.");
+                }
             }
             catch { }
         }

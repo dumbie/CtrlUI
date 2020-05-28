@@ -243,6 +243,50 @@ namespace DirectXInput.Keypad
                         ControllerUsed = true;
                     }
                 }
+
+                //Press button shoulder left key
+                if (controllerInput.ButtonShoulderLeft.PressedRaw)
+                {
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Shift))
+                    {
+                        vKeyboardStatus.Add(KeysVirtual.Shift);
+                        KeyToggleSingle((byte)KeysVirtual.Shift, false, true);
+
+                        ControllerUsed = true;
+                    }
+                }
+                else
+                {
+                    if (vKeyboardStatus.Contains(KeysVirtual.Shift))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Shift);
+                        KeyToggleSingle((byte)KeysVirtual.Shift, false, false);
+
+                        ControllerUsed = true;
+                    }
+                }
+
+                //Press button shoulder right key
+                if (controllerInput.ButtonShoulderRight.PressedRaw)
+                {
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Y))
+                    {
+                        vKeyboardStatus.Add(KeysVirtual.Y);
+                        KeyToggleSingle((byte)KeysVirtual.Y, false, true);
+
+                        ControllerUsed = true;
+                    }
+                }
+                else
+                {
+                    if (vKeyboardStatus.Contains(KeysVirtual.Y))
+                    {
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Y);
+                        KeyToggleSingle((byte)KeysVirtual.Y, false, false);
+
+                        ControllerUsed = true;
+                    }
+                }
             }
             catch { }
             return ControllerUsed;

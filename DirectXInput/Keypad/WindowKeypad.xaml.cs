@@ -54,13 +54,16 @@ namespace DirectXInput.Keypad
         {
             try
             {
-                //Play window close sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                if (this.Opacity != 0)
+                {
+                    //Play window close sound
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                //Update the keyboard opacity
-                this.Opacity = 0;
-                vWindowVisible = false;
-                Debug.WriteLine("Hiding the Keypad window.");
+                    //Update the keyboard opacity
+                    this.Opacity = 0;
+                    vWindowVisible = false;
+                    Debug.WriteLine("Hiding the Keypad window.");
+                }
             }
             catch { }
         }

@@ -41,7 +41,7 @@ namespace DirectXInput
                     }
 
                     //Show CtrlUI application
-                    if (Controller.InputCurrent.ButtonGuide.PressedShort && !App.vWindowKeyboard.vWindowVisible && vProcessCtrlUI != null)
+                    if (Controller.InputCurrent.ButtonGuide.PressedShort && !App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible && vProcessCtrlUI != null)
                     {
                         Debug.WriteLine("Guide short press showing CtrlUI.");
                         await ShowCtrlUI();
@@ -50,7 +50,7 @@ namespace DirectXInput
                         ControllerDelayLong = true;
                     }
                     //Launch CtrlUI application
-                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && !App.vWindowKeyboard.vWindowVisible && vProcessCtrlUI == null)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && !App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible && vProcessCtrlUI == null)
                     {
                         await LaunchCtrlUI();
 
@@ -220,13 +220,14 @@ namespace DirectXInput
                 Debug.WriteLine("Shortcut keyboard has been pressed.");
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    if (forceShow || !App.vWindowKeyboard.vWindowVisible)
+                    if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
                     {
                         await App.vWindowKeyboard.Show();
                     }
-                    else
+                    else if (!forceShow)
                     {
                         App.vWindowKeyboard.Hide();
+                        App.vWindowKeypad.Hide();
                     }
                 });
             }
