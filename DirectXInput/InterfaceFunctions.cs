@@ -20,8 +20,7 @@ namespace DirectXInput
             try
             {
                 grid_Controller.Visibility = Visibility.Collapsed;
-                grid_Buttons.Visibility = Visibility.Collapsed;
-                grid_Virtual.Visibility = Visibility.Collapsed;
+                grid_Mapping.Visibility = Visibility.Collapsed;
                 grid_Keyboard.Visibility = Visibility.Collapsed;
                 grid_Keypad.Visibility = Visibility.Collapsed;
                 grid_Settings.Visibility = Visibility.Collapsed;
@@ -160,7 +159,7 @@ namespace DirectXInput
                     }
                 };
 
-                //Buttons functions
+                //Controller button mapping functions
                 btn_SetA.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
                 btn_SetA.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
                 btn_SetB.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
@@ -187,6 +186,16 @@ namespace DirectXInput
                 btn_SetTriggerLeft.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
                 btn_SetTriggerRight.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
                 btn_SetTriggerRight.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+
+                //Keypad button mapping functions
+                btn_SetPadA.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadB.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadX.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadY.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadShoulderLeft.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadShoulderRight.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadBack.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadStart.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
 
                 //Settings functions
                 btn_CheckControllers.Click += btn_CheckControllers_Click;

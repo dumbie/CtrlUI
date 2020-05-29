@@ -8,6 +8,7 @@ using System.Security.Principal;
 using System.Windows.Threading;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace DirectXInput
 {
@@ -27,8 +28,15 @@ namespace DirectXInput
         public static bool vSingleTappedEvent = true;
 
         //Dispatcher Timers
-        public static DispatcherTimer vDispatcherTimerMapping = new DispatcherTimer();
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
+
+        //Mapping Variables
+        public static DispatcherTimer vMappingControllerTimer = new DispatcherTimer();
+        public static MappingStatus vMappingControllerStatus = MappingStatus.Done;
+        public static string vMappingControllerButton = "None";
+        public static DispatcherTimer vMappingKeypadTimer = new DispatcherTimer();
+        public static MappingStatus vMappingKeypadStatus = MappingStatus.Done;
+        public static string vMappingKeypadButton = "None";
 
         //MessageBox Variables
         public static bool vMessageBoxOpen = false;
@@ -78,6 +86,7 @@ namespace DirectXInput
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
+        public static KeypadMapping vDirectKeypadMapping = new KeypadMapping();
         public static List<ProfileShared> vDirectCloseTools = new List<ProfileShared>();
         public static List<ControllerSupported> vDirectControllersSupported = new List<ControllerSupported>();
         public static List<ControllerSupported> vDirectControllersIgnored = new List<ControllerSupported>();

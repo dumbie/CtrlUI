@@ -18,56 +18,56 @@ namespace CtrlUI
             try
             {
                 //Check the pressed keys
-                int usedVirtualKey = windowMessage.wParam.ToInt32();
-                bool pressedShiftKey = vKeyboardPreviousVirtualKey == (int)KeysVirtual.Shift;
+                KeysVirtual usedVirtualKey = (KeysVirtual)windowMessage.wParam;
+                bool pressedShiftKey = vKeyboardPreviousVirtualKey == KeysVirtual.Shift;
 
-                if (usedVirtualKey == (int)KeysVirtual.Tab && pressedShiftKey)
+                if (usedVirtualKey == KeysVirtual.Tab && pressedShiftKey)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Move", false);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.Tab)
+                else if (usedVirtualKey == KeysVirtual.Tab)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Move", false);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.F13)
+                else if (usedVirtualKey == KeysVirtual.F13)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Click", false);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.Home)
+                else if (usedVirtualKey == KeysVirtual.Home)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Click", false);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.Prior)
+                else if (usedVirtualKey == KeysVirtual.Prior)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Click", false);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.End)
+                else if (usedVirtualKey == KeysVirtual.End)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Click", false);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.Next)
+                else if (usedVirtualKey == KeysVirtual.Next)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Click", false);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.Left)
+                else if (usedVirtualKey == KeysVirtual.Left)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Move", false);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.Up)
+                else if (usedVirtualKey == KeysVirtual.Up)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Move", false);
                     NavigateUp(ref messageHandled);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.Right)
+                else if (usedVirtualKey == KeysVirtual.Right)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Move", false);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.Down)
+                else if (usedVirtualKey == KeysVirtual.Down)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Move", false);
                     NavigateDown(ref messageHandled);
                 }
-                else if (usedVirtualKey == (int)KeysVirtual.Space)
+                else if (usedVirtualKey == KeysVirtual.Space)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Confirm", false);
                 }
@@ -78,15 +78,15 @@ namespace CtrlUI
         }
 
         //Handle keyboard up
-        void HandleKeyboardUp(MSG WindowMessage, ref bool Handled)
+        void HandleKeyboardUp(MSG windowMessage, ref bool messageHandled)
         {
             try
             {
                 //Check the pressed keys
-                int UsedVirtualKey = WindowMessage.wParam.ToInt32();
+                KeysVirtual usedVirtualKey = (KeysVirtual)windowMessage.wParam;
 
-                if (UsedVirtualKey == (int)KeysVirtual.Up) { Handled = true; }
-                else if (UsedVirtualKey == (int)KeysVirtual.Down) { Handled = true; }
+                if (usedVirtualKey == KeysVirtual.Up) { messageHandled = true; }
+                else if (usedVirtualKey == KeysVirtual.Down) { messageHandled = true; }
             }
             catch { }
         }

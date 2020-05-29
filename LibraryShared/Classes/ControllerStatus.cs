@@ -28,9 +28,6 @@ namespace LibraryShared
             //Controller Task
             public AVTaskDetails InputTask = new AVTaskDetails();
 
-            //Controller Mapping
-            public string[] Mapping = new string[] { "Done", "None" }; //Map, Done, Cancel
-
             //WinUsb Device Variables
             public WinUsbDevice WinUsbDevice = null;
 
@@ -82,9 +79,6 @@ namespace LibraryShared
 
                     //Controller Task
                     InputTask = new AVTaskDetails();
-
-                    //Controller Mapping
-                    Mapping = new string[] { "Done", "None" }; //Map, Done, Cancel
 
                     //Device In and Output
                     InputHeaderOffsetFinished = false;

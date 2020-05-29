@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
@@ -34,7 +35,7 @@ namespace CtrlUI
         public static List<string> vTabTargetButtons = new List<string> { "grid_Popup_TextInput_button_ConfirmText" };
 
         //Keyboard variables
-        public static int vKeyboardPreviousVirtualKey = -1;
+        public static KeysVirtual? vKeyboardPreviousVirtualKey = null;
 
         //Image Variables
         public static string[] vImageSourceFolders = new string[] { "Assets/Apps", "Assets/Roms" };

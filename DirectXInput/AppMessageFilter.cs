@@ -1,7 +1,7 @@
 ﻿using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
 
-namespace CtrlUI
+namespace DirectXInput
 {
     partial class WindowMain
     {
@@ -14,15 +14,6 @@ namespace CtrlUI
                 if (windowMessage.message == (int)WindowMessages.WM_KEYUP || windowMessage.message == (int)WindowMessages.WM_SYSKEYUP)
                 {
                     HandleKeyboardUp(windowMessage, ref messageHandled);
-                }
-                else if (windowMessage.message == (int)WindowMessages.WM_KEYDOWN)
-                {
-                    HandleKeyboardDown(windowMessage, ref messageHandled);
-                }
-                else if (windowMessage.message == (int)WindowMessages.WM_HOTKEY)
-                {
-                    HandleHotkey(windowMessage);
-                    messageHandled = true;
                 }
             }
             catch { }

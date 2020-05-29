@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 using static ArnoldVinkCode.ProcessFunctions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -18,6 +19,23 @@ namespace DirectXInput
     {
         //Window Initialize
         public WindowMain() { InitializeComponent(); }
+
+        //Window Variables
+        public static IntPtr vInteropWindowHandle = IntPtr.Zero;
+
+        //Window Initialized
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            try
+            {
+                //Get interop window handle
+                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+
+                //Register Hotkeys and Filtermessage
+                ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
+            }
+            catch { }
+        }
 
         //Run application startup code
         public async Task Startup()
@@ -74,6 +92,9 @@ namespace DirectXInput
                 //Load controllers ignored
                 JsonLoadProfile(ref vDirectControllersIgnored, "DirectControllersIgnored");
 
+                //Load keypad mapping
+                JsonLoadProfile(ref vDirectKeypadMapping, "DirectKeypadMapping");
+
                 //Load controllers profile
                 JsonLoadList_ControllerProfile();
 
@@ -105,109 +126,6 @@ namespace DirectXInput
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
                 vArnoldVinkSockets.vTcpClientTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
-            }
-            catch { }
-        }
-
-        //Unmap button
-        void Btn_MapController_MouseRight(object sender, RoutedEventArgs args)
-        {
-            try
-            {
-                ControllerStatus activeController = GetActiveController();
-                if (activeController != null)
-                {
-                    Button sendButton = sender as Button;
-                    string mapButton = sendButton.Tag.ToString();
-
-                    Debug.WriteLine("Unmapped button: " + mapButton);
-                    txt_Application_Status.Text = "Unmapped '" + mapButton + "' from the controller profile.";
-
-                    //Store new button mapping in Json controller
-                    if (mapButton == "Button A") { activeController.Details.Profile.ButtonA = -1; }
-                    if (mapButton == "Button B") { activeController.Details.Profile.ButtonB = -1; }
-                    if (mapButton == "Button X") { activeController.Details.Profile.ButtonX = -1; }
-                    if (mapButton == "Button Y") { activeController.Details.Profile.ButtonY = -1; }
-                    if (mapButton == "Button LB") { activeController.Details.Profile.ButtonShoulderLeft = -1; }
-                    if (mapButton == "Button RB") { activeController.Details.Profile.ButtonShoulderRight = -1; }
-                    if (mapButton == "Button Back") { activeController.Details.Profile.ButtonBack = -1; }
-                    if (mapButton == "Button Start") { activeController.Details.Profile.ButtonStart = -1; }
-                    if (mapButton == "Button Guide") { activeController.Details.Profile.ButtonGuide = -1; }
-                    if (mapButton == "Button Thumb Left") { activeController.Details.Profile.ButtonThumbLeft = -1; }
-                    if (mapButton == "Button Thumb Right") { activeController.Details.Profile.ButtonThumbRight = -1; }
-                    if (mapButton == "Button Trigger Left") { activeController.Details.Profile.ButtonTriggerLeft = -1; }
-                    if (mapButton == "Button Trigger Right") { activeController.Details.Profile.ButtonTriggerRight = -1; }
-
-                    //Save changes to Json file
-                    JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
-                }
-            }
-            catch { }
-        }
-
-        //Map button
-        async void Btn_MapController_MouseLeft(object sender, RoutedEventArgs args)
-        {
-            try
-            {
-                ControllerStatus activeController = GetActiveController();
-                if (activeController != null)
-                {
-                    Button sendButton = sender as Button;
-                    string mapButton = sendButton.Tag.ToString();
-
-                    //Set button to map
-                    activeController.Mapping[0] = "Map";
-                    activeController.Mapping[1] = mapButton;
-
-                    //Disable interface
-                    txt_Application_Status.Text = "Waiting for '" + mapButton + "' press on the controller... ";
-                    pb_UpdateProgress.IsIndeterminate = true;
-                    grid_ControllerPreview.IsEnabled = false;
-                    grid_ControllerPreview.Opacity = 0.50;
-
-                    //Start mapping timer
-                    int countdownTimeout = 0;
-                    AVFunctions.TimerRenew(ref vDispatcherTimerMapping);
-                    vDispatcherTimerMapping.Interval = TimeSpan.FromSeconds(1);
-                    vDispatcherTimerMapping.Tick += delegate
-                    {
-                        try
-                        {
-                            if (countdownTimeout++ >= 10)
-                            {
-                                //Reset controller button mapping
-                                activeController.Mapping[0] = "Cancel";
-                                activeController.Mapping[1] = "None";
-                            }
-                            else
-                            {
-                                txt_Application_Status.Text = "Waiting for '" + mapButton + "' press on the controller... " + (11 - countdownTimeout).ToString() + "sec.";
-                            }
-                        }
-                        catch { }
-                    };
-                    vDispatcherTimerMapping.Start();
-
-                    //Check if button is mapped
-                    while (activeController.Mapping[0] == "Map") { await Task.Delay(500); }
-                    vDispatcherTimerMapping.Stop();
-
-                    if (activeController.Mapping[0] == "Done")
-                    {
-                        txt_Application_Status.Text = "Changed '" + mapButton + "' to the pressed controller button.";
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Cancelled button mapping.");
-                        txt_Application_Status.Text = "Cancelled button mapping, please select a button to change.";
-                    }
-
-                    //Enable interface
-                    pb_UpdateProgress.IsIndeterminate = false;
-                    grid_ControllerPreview.IsEnabled = true;
-                    grid_ControllerPreview.Opacity = 1.00;
-                }
             }
             catch { }
         }

@@ -216,37 +216,9 @@ namespace DirectXInput
                             }
                         }
 
-                        //Check if controller mapping is enabled
-                        if (Controller.Mapping[0] == "Map")
-                        {
-                            //Store new button mapping in Json controller
-                            int ButtonMapId = Array.FindIndex(Controller.InputCurrent.RawBytes, ButtonPressed => ButtonPressed);
-                            if (ButtonMapId != -1)
-                            {
-                                Debug.WriteLine("Mapped button " + Controller.Mapping[1] + " to: " + ButtonMapId);
-                                if (Controller.Mapping[1] == "Button A") { Controller.Details.Profile.ButtonA = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button B") { Controller.Details.Profile.ButtonB = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button X") { Controller.Details.Profile.ButtonX = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Y") { Controller.Details.Profile.ButtonY = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button LB") { Controller.Details.Profile.ButtonShoulderLeft = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button RB") { Controller.Details.Profile.ButtonShoulderRight = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Back") { Controller.Details.Profile.ButtonBack = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Start") { Controller.Details.Profile.ButtonStart = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Guide") { Controller.Details.Profile.ButtonGuide = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Thumb Left") { Controller.Details.Profile.ButtonThumbLeft = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Thumb Right") { Controller.Details.Profile.ButtonThumbRight = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Trigger Left") { Controller.Details.Profile.ButtonTriggerLeft = ButtonMapId; }
-                                if (Controller.Mapping[1] == "Button Trigger Right") { Controller.Details.Profile.ButtonTriggerRight = ButtonMapId; }
-
-                                //Reset controller button mapping
-                                Controller.Mapping[0] = "Done";
-                                Controller.Mapping[1] = "None";
-
-                                //Save changes to Json file
-                                JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
-                            }
-                        }
-                        else
+                        //Save controller button mapping
+                        bool controllerMapping = ControllerSaveMapping(Controller);
+                        if (!controllerMapping)
                         {
                             //Set button mapping input data
                             if (Controller.Details.Profile.ButtonA == null) { Controller.InputCurrent.ButtonA.PressedRaw = Controller.InputCurrent.RawBytes[1]; }

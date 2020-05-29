@@ -133,7 +133,7 @@
                     </Image>
                 </Grid>
                 <Grid Margin="0,0,0,-5">
-                    <TextBlock Name="textblock_ButtonShoulderRight" Text="Y" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Name="textblock_ButtonShoulderRight" Text="Tab" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock.Effect>
                             <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
                         </TextBlock.Effect>
