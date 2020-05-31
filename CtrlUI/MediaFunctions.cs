@@ -51,7 +51,7 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("Previous", "Going to previous media item");
-                await KeyPressSingle((byte)KeysVirtual.MediaPrevTrack, false);
+                await KeyPressSingle((byte)KeysVirtual.MediaPreviousTrack, false);
 
                 //Close all open popups
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["CloseMediaScreen"]))

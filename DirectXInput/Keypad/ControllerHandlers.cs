@@ -137,9 +137,9 @@ namespace DirectXInput.Keypad
                 //Press button b key
                 if (controllerInput.ButtonB.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Menu))
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Alt))
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Menu);
+                        vKeyboardStatus.Add(KeysVirtual.Alt);
                         KeyToggleSingle((byte)vDirectKeypadMapping.ButtonB, false, true);
 
                         ControllerUsed = true;
@@ -147,9 +147,9 @@ namespace DirectXInput.Keypad
                 }
                 else
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Menu))
+                    if (vKeyboardStatus.Contains(KeysVirtual.Alt))
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Menu);
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Alt);
                         KeyToggleSingle((byte)vDirectKeypadMapping.ButtonB, false, false);
 
                         ControllerUsed = true;
@@ -159,11 +159,11 @@ namespace DirectXInput.Keypad
                 //Press button y key
                 if (controllerInput.ButtonY.PressedRaw)
                 {
-                    KeysVirtual comboKey = KeysVirtual.Control | KeysVirtual.Menu;
+                    KeysVirtual comboKey = KeysVirtual.Control | KeysVirtual.Alt;
                     if (!vKeyboardStatus.Contains(comboKey))
                     {
                         vKeyboardStatus.Add(comboKey);
-                        KeyToggleCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Menu, false, true);
+                        KeyToggleCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Alt, false, true);
                         //Fix add support for combo key presses
 
                         ControllerUsed = true;
@@ -171,11 +171,11 @@ namespace DirectXInput.Keypad
                 }
                 else
                 {
-                    KeysVirtual comboKey = KeysVirtual.Control | KeysVirtual.Menu;
+                    KeysVirtual comboKey = KeysVirtual.Control | KeysVirtual.Alt;
                     if (vKeyboardStatus.Contains(comboKey))
                     {
                         vKeyboardStatus.RemoveAll(x => x == comboKey);
-                        KeyToggleCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Menu, false, false);
+                        KeyToggleCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Alt, false, false);
                         //Fix add support for combo key presses
 
                         ControllerUsed = true;
@@ -229,9 +229,9 @@ namespace DirectXInput.Keypad
                 //Press button start key
                 if (controllerInput.ButtonStart.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Return))
+                    if (!vKeyboardStatus.Contains(KeysVirtual.Enter))
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Return);
+                        vKeyboardStatus.Add(KeysVirtual.Enter);
                         KeyToggleSingle((byte)vDirectKeypadMapping.ButtonStart, false, true);
 
                         ControllerUsed = true;
@@ -239,9 +239,9 @@ namespace DirectXInput.Keypad
                 }
                 else
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Return))
+                    if (vKeyboardStatus.Contains(KeysVirtual.Enter))
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Return);
+                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Enter);
                         KeyToggleSingle((byte)vDirectKeypadMapping.ButtonStart, false, false);
 
                         ControllerUsed = true;

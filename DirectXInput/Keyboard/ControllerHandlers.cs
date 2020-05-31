@@ -158,7 +158,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.ButtonB.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressSingle((byte)KeysVirtual.Return, false);
+                        await KeyPressSingle((byte)KeysVirtual.Enter, false);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -176,7 +176,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.ButtonX.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressSingle((byte)KeysVirtual.Back, false);
+                        await KeyPressSingle((byte)KeysVirtual.BackSpace, false);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;

@@ -40,6 +40,9 @@ namespace DirectXInput.Keypad
                 //Update the window position
                 UpdateWindowPosition();
 
+                //Update the key names
+                UpdateKeypadNames();
+
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
@@ -131,6 +134,26 @@ namespace DirectXInput.Keypad
                 //Move and resize the window
                 WindowMove(vInteropWindowHandle, displayMonitorSettings.BoundsLeft, displayMonitorSettings.BoundsTop);
                 WindowResize(vInteropWindowHandle, displayMonitorSettings.WidthNative, displayMonitorSettings.HeightNative);
+            }
+            catch { }
+        }
+
+        //Update the key names
+        public void UpdateKeypadNames()
+        {
+            try
+            {
+                textblock_ButtonBack.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonBack, true);
+                textblock_ButtonStart.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonStart, true);
+
+                textblock_ButtonX.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonX, true);
+                textblock_ButtonY.Text = "Ctrl\nAlt"; //GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonY, true);
+
+                textblock_ButtonA.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonA, true);
+                textblock_ButtonB.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonB, true);
+
+                textblock_ButtonShoulderLeft.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonShoulderLeft, true);
+                textblock_ButtonShoulderRight.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonShoulderRight, true);
             }
             catch { }
         }

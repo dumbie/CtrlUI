@@ -132,7 +132,7 @@ namespace DirectXInput.Keyboard
                     {
                         await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.C, false);
                     }
-                    else if (sendKeyVirtual == (byte)KeysVirtual.Menu)
+                    else if (sendKeyVirtual == (byte)KeysVirtual.Alt)
                     {
                         await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.V, false);
                     }
@@ -140,7 +140,7 @@ namespace DirectXInput.Keyboard
                     {
                         await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\Taskmgr.exe", "", "", false, false);
                     }
-                    else if (sendKeyVirtual == (byte)KeysVirtual.Return)
+                    else if (sendKeyVirtual == (byte)KeysVirtual.Enter)
                     {
                         await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Z, false);
                     }

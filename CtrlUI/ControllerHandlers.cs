@@ -95,7 +95,7 @@ namespace CtrlUI
                         }
                         else if (vFilePickerOpen)
                         {
-                            await KeySendSingle((byte)KeysVirtual.Back, vProcessCurrent.MainWindowHandle);
+                            await KeySendSingle((byte)KeysVirtual.BackSpace, vProcessCurrent.MainWindowHandle);
                         }
                         else
                         {

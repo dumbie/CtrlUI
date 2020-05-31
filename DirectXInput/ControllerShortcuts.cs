@@ -93,7 +93,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+Enter";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            await KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.Return, false);
+                            await KeyPressCombo((byte)KeysVirtual.Alt, (byte)KeysVirtual.Enter, false);
 
                             ControllerUsed = true;
                             ControllerDelayLong = true;
@@ -111,7 +111,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+F4";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            await KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.F4, false);
+                            await KeyPressCombo((byte)KeysVirtual.Alt, (byte)KeysVirtual.F4, false);
 
                             ControllerUsed = true;
                             ControllerDelayLong = true;
@@ -143,7 +143,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+Tab";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            await KeyPressCombo((byte)KeysVirtual.Menu, (byte)KeysVirtual.Tab, false);
+                            await KeyPressCombo((byte)KeysVirtual.Alt, (byte)KeysVirtual.Tab, false);
 
                             ControllerUsed = true;
                             ControllerDelayLong = true;

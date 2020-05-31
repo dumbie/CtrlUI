@@ -60,6 +60,9 @@ namespace DirectXInput
                 if (vMappingKeypadStatus == MappingStatus.Done)
                 {
                     txt_KeypadMap_Status.Text = "Changed '" + mapButton + "' to the pressed keyboard button.";
+
+                    //Update the key names
+                    App.vWindowKeypad.UpdateKeypadNames();
                 }
                 else
                 {
