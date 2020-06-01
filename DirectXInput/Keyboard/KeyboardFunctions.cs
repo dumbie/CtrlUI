@@ -82,7 +82,16 @@ namespace DirectXInput.Keyboard
                 //Check for keys that are not caps capable or require extended
                 if (sendKeyName == "DotCom")
                 {
-                    await KeyboardTypeString(key_DotCom.Content.ToString());
+                    string extensionString = string.Empty;
+                    if (vCapsEnabled)
+                    {
+                        extensionString = ConfigurationManager.AppSettings["KeyboardDomainExtension"].ToString();
+                    }
+                    else
+                    {
+                        extensionString = ".com";
+                    }
+                    await KeyboardTypeString(extensionString);
                     return;
                 }
                 else if (sendKeyVirtual == (byte)KeysVirtual.Up)
