@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInputOutputClass;
 

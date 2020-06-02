@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -10,9 +9,8 @@ namespace DirectXInput.Keypad
     partial class WindowKeypad
     {
         //Process controller input for keyboard
-        public bool ControllerInteractionKeyboard(ControllerInput controllerInput)
+        public void ControllerInteractionKeyboard(ControllerInput controllerInput)
         {
-            bool ControllerUsed = false;
             try
             {
                 //Update interface controller preview
@@ -31,273 +29,352 @@ namespace DirectXInput.Keypad
                 //Press arrow left key
                 if (controllerInput.DPadLeft.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Left))
+                    if (!vKeypadDownStatus.DPadLeft)
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Left);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadLeft, false, true);
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.DPadLeft = true;
+                        if (directKeypadMappingProfile.DPadLeftMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.DPadLeftMod, (byte)directKeypadMappingProfile.DPadLeft, false, vKeypadDownStatus.DPadLeft);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.DPadLeft, false, vKeypadDownStatus.DPadLeft);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.DPadLeft)
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Left))
+                    vKeypadDownStatus.DPadLeft = false;
+                    if (directKeypadMappingProfile.DPadLeftMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Left);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadLeft, false, false);
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.DPadLeftMod, (byte)directKeypadMappingProfile.DPadLeft, false, vKeypadDownStatus.DPadLeft);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadLeft, false, vKeypadDownStatus.DPadLeft);
                     }
                 }
 
                 //Press arrow right key
                 if (controllerInput.DPadRight.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Right))
+                    if (!vKeypadDownStatus.DPadRight)
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Right);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadRight, false, true);
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.DPadRight = true;
+                        if (directKeypadMappingProfile.DPadRightMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.DPadRightMod, (byte)directKeypadMappingProfile.DPadRight, false, vKeypadDownStatus.DPadRight);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.DPadRight, false, vKeypadDownStatus.DPadRight);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.DPadRight)
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Right))
+                    vKeypadDownStatus.DPadRight = false;
+                    if (directKeypadMappingProfile.DPadRightMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Right);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadRight, false, false);
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.DPadRightMod, (byte)directKeypadMappingProfile.DPadRight, false, vKeypadDownStatus.DPadRight);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadRight, false, vKeypadDownStatus.DPadRight);
                     }
                 }
 
                 //Press arrow up key
                 if (controllerInput.DPadUp.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Up))
+                    if (!vKeypadDownStatus.DPadUp)
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Up);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadUp, false, true);
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.DPadUp = true;
+                        if (directKeypadMappingProfile.DPadUpMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.DPadUpMod, (byte)directKeypadMappingProfile.DPadUp, false, vKeypadDownStatus.DPadUp);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.DPadUp, false, vKeypadDownStatus.DPadUp);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.DPadUp)
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Up))
+                    vKeypadDownStatus.DPadUp = false;
+                    if (directKeypadMappingProfile.DPadUpMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Up);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadUp, false, false);
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.DPadUpMod, (byte)directKeypadMappingProfile.DPadUp, false, vKeypadDownStatus.DPadUp);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadUp, false, vKeypadDownStatus.DPadUp);
                     }
                 }
 
                 //Press arrow down key
                 if (controllerInput.DPadDown.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Down))
+                    if (!vKeypadDownStatus.DPadDown)
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Down);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadDown, false, true);
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.DPadDown = true;
+                        if (directKeypadMappingProfile.DPadDownMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.DPadDownMod, (byte)directKeypadMappingProfile.DPadDown, false, vKeypadDownStatus.DPadDown);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.DPadDown, false, vKeypadDownStatus.DPadDown);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.DPadDown)
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Down))
+                    vKeypadDownStatus.DPadDown = false;
+                    if (directKeypadMappingProfile.DPadDownMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Down);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadDown, false, false);
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.DPadDownMod, (byte)directKeypadMappingProfile.DPadDown, false, vKeypadDownStatus.DPadDown);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadDown, false, vKeypadDownStatus.DPadDown);
                     }
                 }
 
                 //Press button a key
                 if (controllerInput.ButtonA.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Control))
+                    if (!vKeypadDownStatus.ButtonA)
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Control);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonA, false, true);
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.ButtonA = true;
+                        if (directKeypadMappingProfile.ButtonAMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.ButtonAMod, (byte)directKeypadMappingProfile.ButtonA, false, vKeypadDownStatus.ButtonA);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.ButtonA, false, vKeypadDownStatus.ButtonA);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.ButtonA)
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Control))
+                    vKeypadDownStatus.ButtonA = false;
+                    if (directKeypadMappingProfile.ButtonAMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Control);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonA, false, false);
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.ButtonAMod, (byte)directKeypadMappingProfile.ButtonA, false, vKeypadDownStatus.ButtonA);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonA, false, vKeypadDownStatus.ButtonA);
                     }
                 }
 
                 //Press button b key
                 if (controllerInput.ButtonB.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Alt))
+                    if (!vKeypadDownStatus.ButtonB)
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Alt);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonB, false, true);
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.ButtonB = true;
+                        if (directKeypadMappingProfile.ButtonBMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.ButtonBMod, (byte)directKeypadMappingProfile.ButtonB, false, vKeypadDownStatus.ButtonB);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.ButtonB, false, vKeypadDownStatus.ButtonB);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.ButtonB)
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Alt))
+                    vKeypadDownStatus.ButtonB = false;
+                    if (directKeypadMappingProfile.ButtonBMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Alt);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonB, false, false);
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.ButtonBMod, (byte)directKeypadMappingProfile.ButtonB, false, vKeypadDownStatus.ButtonB);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonB, false, vKeypadDownStatus.ButtonB);
                     }
                 }
 
                 //Press button y key
                 if (controllerInput.ButtonY.PressedRaw)
                 {
-                    KeysVirtual comboKey = KeysVirtual.Control | KeysVirtual.Alt;
-                    if (!vKeyboardStatus.Contains(comboKey))
+                    if (!vKeypadDownStatus.ButtonY)
                     {
-                        vKeyboardStatus.Add(comboKey);
-                        KeyToggleCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Alt, false, true);
-                        //Fix add support for combo key presses
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.ButtonY = true;
+                        if (directKeypadMappingProfile.ButtonYMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.ButtonYMod, (byte)directKeypadMappingProfile.ButtonY, false, vKeypadDownStatus.ButtonY);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.ButtonY, false, vKeypadDownStatus.ButtonY);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.ButtonY)
                 {
-                    KeysVirtual comboKey = KeysVirtual.Control | KeysVirtual.Alt;
-                    if (vKeyboardStatus.Contains(comboKey))
+                    vKeypadDownStatus.ButtonY = false;
+                    if (directKeypadMappingProfile.ButtonYMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == comboKey);
-                        KeyToggleCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Alt, false, false);
-                        //Fix add support for combo key presses
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.ButtonYMod, (byte)directKeypadMappingProfile.ButtonY, false, vKeypadDownStatus.ButtonY);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonY, false, vKeypadDownStatus.ButtonY);
                     }
                 }
 
                 //Press button x key
                 if (controllerInput.ButtonX.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Space))
+                    if (!vKeypadDownStatus.ButtonX)
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Space);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonX, false, true);
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.ButtonX = true;
+                        if (directKeypadMappingProfile.ButtonXMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.ButtonXMod, (byte)directKeypadMappingProfile.ButtonX, false, vKeypadDownStatus.ButtonX);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.ButtonX, false, vKeypadDownStatus.ButtonX);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.ButtonX)
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Space))
+                    vKeypadDownStatus.ButtonX = false;
+                    if (directKeypadMappingProfile.ButtonXMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Space);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonX, false, false);
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.ButtonXMod, (byte)directKeypadMappingProfile.ButtonX, false, vKeypadDownStatus.ButtonX);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonX, false, vKeypadDownStatus.ButtonX);
                     }
                 }
 
                 //Press button back key
                 if (controllerInput.ButtonBack.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Escape))
+                    if (!vKeypadDownStatus.ButtonBack)
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Escape);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonBack, false, true);
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.ButtonBack = true;
+                        if (directKeypadMappingProfile.ButtonBackMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.ButtonBackMod, (byte)directKeypadMappingProfile.ButtonBack, false, vKeypadDownStatus.ButtonBack);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.ButtonBack, false, vKeypadDownStatus.ButtonBack);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.ButtonBack)
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Escape))
+                    vKeypadDownStatus.ButtonBack = false;
+                    if (directKeypadMappingProfile.ButtonBackMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Escape);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonBack, false, false);
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.ButtonBackMod, (byte)directKeypadMappingProfile.ButtonBack, false, vKeypadDownStatus.ButtonBack);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonBack, false, vKeypadDownStatus.ButtonBack);
                     }
                 }
 
                 //Press button start key
                 if (controllerInput.ButtonStart.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Enter))
+                    if (!vKeypadDownStatus.ButtonStart)
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Enter);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonStart, false, true);
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.ButtonStart = true;
+                        if (directKeypadMappingProfile.ButtonStartMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.ButtonStartMod, (byte)directKeypadMappingProfile.ButtonStart, false, vKeypadDownStatus.ButtonStart);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.ButtonStart, false, vKeypadDownStatus.ButtonStart);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.ButtonStart)
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Enter))
+                    vKeypadDownStatus.ButtonStart = false;
+                    if (directKeypadMappingProfile.ButtonStartMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Enter);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonStart, false, false);
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.ButtonStartMod, (byte)directKeypadMappingProfile.ButtonStart, false, vKeypadDownStatus.ButtonStart);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonStart, false, vKeypadDownStatus.ButtonStart);
                     }
                 }
 
                 //Press button shoulder left key
                 if (controllerInput.ButtonShoulderLeft.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Shift))
+                    if (!vKeypadDownStatus.ButtonShoulderLeft)
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Shift);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderLeft, false, true);
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.ButtonShoulderLeft = true;
+                        if (directKeypadMappingProfile.ButtonShoulderLeftMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.ButtonShoulderLeftMod, (byte)directKeypadMappingProfile.ButtonShoulderLeft, false, vKeypadDownStatus.ButtonShoulderLeft);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderLeft, false, vKeypadDownStatus.ButtonShoulderLeft);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.ButtonShoulderLeft)
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Shift))
+                    vKeypadDownStatus.ButtonShoulderLeft = false;
+                    if (directKeypadMappingProfile.ButtonShoulderLeftMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Shift);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderLeft, false, false);
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.ButtonShoulderLeftMod, (byte)directKeypadMappingProfile.ButtonShoulderLeft, false, vKeypadDownStatus.ButtonShoulderLeft);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderLeft, false, vKeypadDownStatus.ButtonShoulderLeft);
                     }
                 }
 
                 //Press button shoulder right key
                 if (controllerInput.ButtonShoulderRight.PressedRaw)
                 {
-                    if (!vKeyboardStatus.Contains(KeysVirtual.Y))
+                    if (!vKeypadDownStatus.ButtonShoulderRight)
                     {
-                        vKeyboardStatus.Add(KeysVirtual.Y);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderRight, false, true);
-
-                        ControllerUsed = true;
+                        vKeypadDownStatus.ButtonShoulderRight = true;
+                        if (directKeypadMappingProfile.ButtonShoulderRightMod != null)
+                        {
+                            KeyToggleCombo((byte)directKeypadMappingProfile.ButtonShoulderRightMod, (byte)directKeypadMappingProfile.ButtonShoulderRight, false, vKeypadDownStatus.ButtonShoulderRight);
+                        }
+                        else
+                        {
+                            KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderRight, false, vKeypadDownStatus.ButtonShoulderRight);
+                        }
                     }
                 }
-                else
+                else if (vKeypadDownStatus.ButtonShoulderRight)
                 {
-                    if (vKeyboardStatus.Contains(KeysVirtual.Y))
+                    vKeypadDownStatus.ButtonShoulderRight = false;
+                    if (directKeypadMappingProfile.ButtonShoulderRightMod != null)
                     {
-                        vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Y);
-                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderRight, false, false);
-
-                        ControllerUsed = true;
+                        KeyToggleCombo((byte)directKeypadMappingProfile.ButtonShoulderRightMod, (byte)directKeypadMappingProfile.ButtonShoulderRight, false, vKeypadDownStatus.ButtonShoulderRight);
+                    }
+                    else
+                    {
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderRight, false, vKeypadDownStatus.ButtonShoulderRight);
                     }
                 }
             }
             catch { }
-            return ControllerUsed;
         }
     }
 }

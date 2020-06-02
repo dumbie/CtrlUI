@@ -14,9 +14,8 @@ namespace DirectXInput.Keyboard
     partial class WindowKeyboard
     {
         //Process controller input for mouse
-        public async Task<bool> ControllerInteractionMouse(ControllerInput ControllerInput)
+        public async Task ControllerInteractionMouse(ControllerInput ControllerInput)
         {
-            bool ControllerUsed = false;
             bool ControllerDelayMicro = false;
             bool ControllerDelayShort = false;
             try
@@ -51,25 +50,20 @@ namespace DirectXInput.Keyboard
                     //Emulate mouse click left
                     if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
-                        if (!vMouseStatus.Contains(MouseVirtual.MOUSEEVENTF_LEFTDOWN))
+                        if (!vMouseDownStatus)
                         {
-                            vMouseStatus.Add(MouseVirtual.MOUSEEVENTF_LEFTDOWN);
+                            vMouseDownStatus = true;
                             MouseToggle(false, true);
 
-                            ControllerUsed = true;
                             ControllerDelayMicro = true;
                         }
                     }
-                    else
+                    else if (vMouseDownStatus)
                     {
-                        if (vMouseStatus.Contains(MouseVirtual.MOUSEEVENTF_LEFTDOWN))
-                        {
-                            vMouseStatus.RemoveAll(x => x == MouseVirtual.MOUSEEVENTF_LEFTDOWN);
-                            MouseToggle(false, false);
+                        vMouseDownStatus = false;
+                        MouseToggle(false, false);
 
-                            ControllerUsed = true;
-                            ControllerDelayMicro = true;
-                        }
+                        ControllerDelayMicro = true;
                     }
 
                     //Emulate mouse click right
@@ -77,7 +71,6 @@ namespace DirectXInput.Keyboard
                     {
                         await MousePress(true);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
 
@@ -96,13 +89,11 @@ namespace DirectXInput.Keyboard
                 }
             }
             catch { }
-            return ControllerUsed;
         }
 
         //Process controller input for keyboard
-        public async Task<bool> ControllerInteractionKeyboard(ControllerInput ControllerInput)
+        public async Task ControllerInteractionKeyboard(ControllerInput ControllerInput)
         {
-            bool ControllerUsed = false;
             bool ControllerDelayShort = false;
             bool ControllerDelayMedium = false;
             try
@@ -115,7 +106,6 @@ namespace DirectXInput.Keyboard
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         await KeySendSingle((byte)KeysVirtual.Left, vInteropWindowHandle);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     //Send internal arrow right key
@@ -124,7 +114,6 @@ namespace DirectXInput.Keyboard
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         await KeySendSingle((byte)KeysVirtual.Right, vInteropWindowHandle);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     //Send internal arrow up key
@@ -133,7 +122,6 @@ namespace DirectXInput.Keyboard
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         await KeySendSingle((byte)KeysVirtual.Up, vInteropWindowHandle);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     //Send internal arrow down key
@@ -142,7 +130,6 @@ namespace DirectXInput.Keyboard
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         await KeySendSingle((byte)KeysVirtual.Down, vInteropWindowHandle);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
 
@@ -151,7 +138,6 @@ namespace DirectXInput.Keyboard
                     {
                         await KeySendSingle((byte)KeysVirtual.Space, vInteropWindowHandle);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     //Send external enter key
@@ -160,7 +146,6 @@ namespace DirectXInput.Keyboard
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await KeyPressSingle((byte)KeysVirtual.Enter, false);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     //Send external space key
@@ -169,7 +154,6 @@ namespace DirectXInput.Keyboard
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await KeyPressSingle((byte)KeysVirtual.Space, false);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     //Send external backspace key
@@ -178,7 +162,6 @@ namespace DirectXInput.Keyboard
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await KeyPressSingle((byte)KeysVirtual.BackSpace, false);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
 
@@ -188,7 +171,6 @@ namespace DirectXInput.Keyboard
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await KeyPressSingle((byte)KeysVirtual.Left, false);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     //Send external arrow right key
@@ -197,7 +179,6 @@ namespace DirectXInput.Keyboard
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await KeyPressSingle((byte)KeysVirtual.Right, false);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
 
@@ -207,7 +188,6 @@ namespace DirectXInput.Keyboard
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     //Send external tab
@@ -216,7 +196,6 @@ namespace DirectXInput.Keyboard
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await KeyPressSingle((byte)KeysVirtual.Tab, false);
 
-                        ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
 
@@ -226,7 +205,6 @@ namespace DirectXInput.Keyboard
                         Debug.WriteLine("Button: BackPressed / Caps lock");
                         await SwitchCapsLock();
 
-                        ControllerUsed = true;
                         ControllerDelayMedium = true;
                     }
                     //Switch caps lock
@@ -235,7 +213,6 @@ namespace DirectXInput.Keyboard
                         Debug.WriteLine("Button: StartPressed / Scroll and Move");
                         SwitchKeyboardMode();
 
-                        ControllerUsed = true;
                         ControllerDelayMedium = true;
                     }
 
@@ -250,7 +227,6 @@ namespace DirectXInput.Keyboard
                 }
             }
             catch { }
-            return ControllerUsed;
         }
     }
 }
