@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
@@ -24,13 +25,16 @@ namespace DirectXInput.Keypad
 
                 //Fix some applications dont handle pressdown as repeat / add 30ms repeating key presses
 
+                //Get keypad mapping profile
+                KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();
+
                 //Press arrow left key
                 if (controllerInput.DPadLeft.PressedRaw)
                 {
                     if (!vKeyboardStatus.Contains(KeysVirtual.Left))
                     {
                         vKeyboardStatus.Add(KeysVirtual.Left);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.DPadLeft, false, true);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadLeft, false, true);
 
                         ControllerUsed = true;
                     }
@@ -40,7 +44,7 @@ namespace DirectXInput.Keypad
                     if (vKeyboardStatus.Contains(KeysVirtual.Left))
                     {
                         vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Left);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.DPadLeft, false, false);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadLeft, false, false);
 
                         ControllerUsed = true;
                     }
@@ -52,7 +56,7 @@ namespace DirectXInput.Keypad
                     if (!vKeyboardStatus.Contains(KeysVirtual.Right))
                     {
                         vKeyboardStatus.Add(KeysVirtual.Right);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.DPadRight, false, true);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadRight, false, true);
 
                         ControllerUsed = true;
                     }
@@ -62,7 +66,7 @@ namespace DirectXInput.Keypad
                     if (vKeyboardStatus.Contains(KeysVirtual.Right))
                     {
                         vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Right);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.DPadRight, false, false);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadRight, false, false);
 
                         ControllerUsed = true;
                     }
@@ -74,7 +78,7 @@ namespace DirectXInput.Keypad
                     if (!vKeyboardStatus.Contains(KeysVirtual.Up))
                     {
                         vKeyboardStatus.Add(KeysVirtual.Up);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.DPadUp, false, true);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadUp, false, true);
 
                         ControllerUsed = true;
                     }
@@ -84,7 +88,7 @@ namespace DirectXInput.Keypad
                     if (vKeyboardStatus.Contains(KeysVirtual.Up))
                     {
                         vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Up);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.DPadUp, false, false);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadUp, false, false);
 
                         ControllerUsed = true;
                     }
@@ -96,7 +100,7 @@ namespace DirectXInput.Keypad
                     if (!vKeyboardStatus.Contains(KeysVirtual.Down))
                     {
                         vKeyboardStatus.Add(KeysVirtual.Down);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.DPadDown, false, true);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadDown, false, true);
 
                         ControllerUsed = true;
                     }
@@ -106,7 +110,7 @@ namespace DirectXInput.Keypad
                     if (vKeyboardStatus.Contains(KeysVirtual.Down))
                     {
                         vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Down);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.DPadDown, false, false);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.DPadDown, false, false);
 
                         ControllerUsed = true;
                     }
@@ -118,7 +122,7 @@ namespace DirectXInput.Keypad
                     if (!vKeyboardStatus.Contains(KeysVirtual.Control))
                     {
                         vKeyboardStatus.Add(KeysVirtual.Control);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonA, false, true);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonA, false, true);
 
                         ControllerUsed = true;
                     }
@@ -128,7 +132,7 @@ namespace DirectXInput.Keypad
                     if (vKeyboardStatus.Contains(KeysVirtual.Control))
                     {
                         vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Control);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonA, false, false);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonA, false, false);
 
                         ControllerUsed = true;
                     }
@@ -140,7 +144,7 @@ namespace DirectXInput.Keypad
                     if (!vKeyboardStatus.Contains(KeysVirtual.Alt))
                     {
                         vKeyboardStatus.Add(KeysVirtual.Alt);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonB, false, true);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonB, false, true);
 
                         ControllerUsed = true;
                     }
@@ -150,7 +154,7 @@ namespace DirectXInput.Keypad
                     if (vKeyboardStatus.Contains(KeysVirtual.Alt))
                     {
                         vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Alt);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonB, false, false);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonB, false, false);
 
                         ControllerUsed = true;
                     }
@@ -188,7 +192,7 @@ namespace DirectXInput.Keypad
                     if (!vKeyboardStatus.Contains(KeysVirtual.Space))
                     {
                         vKeyboardStatus.Add(KeysVirtual.Space);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonX, false, true);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonX, false, true);
 
                         ControllerUsed = true;
                     }
@@ -198,7 +202,7 @@ namespace DirectXInput.Keypad
                     if (vKeyboardStatus.Contains(KeysVirtual.Space))
                     {
                         vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Space);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonX, false, false);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonX, false, false);
 
                         ControllerUsed = true;
                     }
@@ -210,7 +214,7 @@ namespace DirectXInput.Keypad
                     if (!vKeyboardStatus.Contains(KeysVirtual.Escape))
                     {
                         vKeyboardStatus.Add(KeysVirtual.Escape);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonBack, false, true);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonBack, false, true);
 
                         ControllerUsed = true;
                     }
@@ -220,7 +224,7 @@ namespace DirectXInput.Keypad
                     if (vKeyboardStatus.Contains(KeysVirtual.Escape))
                     {
                         vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Escape);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonBack, false, false);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonBack, false, false);
 
                         ControllerUsed = true;
                     }
@@ -232,7 +236,7 @@ namespace DirectXInput.Keypad
                     if (!vKeyboardStatus.Contains(KeysVirtual.Enter))
                     {
                         vKeyboardStatus.Add(KeysVirtual.Enter);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonStart, false, true);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonStart, false, true);
 
                         ControllerUsed = true;
                     }
@@ -242,7 +246,7 @@ namespace DirectXInput.Keypad
                     if (vKeyboardStatus.Contains(KeysVirtual.Enter))
                     {
                         vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Enter);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonStart, false, false);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonStart, false, false);
 
                         ControllerUsed = true;
                     }
@@ -254,7 +258,7 @@ namespace DirectXInput.Keypad
                     if (!vKeyboardStatus.Contains(KeysVirtual.Shift))
                     {
                         vKeyboardStatus.Add(KeysVirtual.Shift);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonShoulderLeft, false, true);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderLeft, false, true);
 
                         ControllerUsed = true;
                     }
@@ -264,7 +268,7 @@ namespace DirectXInput.Keypad
                     if (vKeyboardStatus.Contains(KeysVirtual.Shift))
                     {
                         vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Shift);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonShoulderLeft, false, false);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderLeft, false, false);
 
                         ControllerUsed = true;
                     }
@@ -276,7 +280,7 @@ namespace DirectXInput.Keypad
                     if (!vKeyboardStatus.Contains(KeysVirtual.Y))
                     {
                         vKeyboardStatus.Add(KeysVirtual.Y);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonShoulderRight, false, true);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderRight, false, true);
 
                         ControllerUsed = true;
                     }
@@ -286,7 +290,7 @@ namespace DirectXInput.Keypad
                     if (vKeyboardStatus.Contains(KeysVirtual.Y))
                     {
                         vKeyboardStatus.RemoveAll(x => x == KeysVirtual.Y);
-                        KeyToggleSingle((byte)vDirectKeypadMapping.ButtonShoulderRight, false, false);
+                        KeyToggleSingle((byte)directKeypadMappingProfile.ButtonShoulderRight, false, false);
 
                         ControllerUsed = true;
                     }

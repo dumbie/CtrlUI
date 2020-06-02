@@ -15,11 +15,11 @@ namespace CtrlUI
                 {
                     HandleKeyboardUp(windowMessage, ref messageHandled);
                 }
-                else if (windowMessage.message == (int)WindowMessages.WM_KEYDOWN)
+                else if (windowMessage.message == (int)WindowMessages.WM_KEYDOWN || windowMessage.message == (int)WindowMessages.WM_SYSKEYDOWN)
                 {
                     HandleKeyboardDown(windowMessage, ref messageHandled);
                 }
-                else if (windowMessage.message == (int)WindowMessages.WM_HOTKEY)
+                else if (windowMessage.message == (int)WindowMessages.WM_HOTKEY || windowMessage.message == (int)WindowMessages.WM_SYSKEYUP)
                 {
                     HandleHotkey(windowMessage);
                     messageHandled = true;

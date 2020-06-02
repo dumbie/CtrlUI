@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -13,6 +14,7 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput.Keypad
@@ -143,17 +145,20 @@ namespace DirectXInput.Keypad
         {
             try
             {
-                textblock_ButtonBack.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonBack, true);
-                textblock_ButtonStart.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonStart, true);
+                //Get keypad mapping profile
+                KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();
 
-                textblock_ButtonX.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonX, true);
+                textblock_ButtonBack.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonBack, true);
+                textblock_ButtonStart.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonStart, true);
+
+                textblock_ButtonX.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonX, true);
                 textblock_ButtonY.Text = "Ctrl\nAlt"; //GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonY, true);
 
-                textblock_ButtonA.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonA, true);
-                textblock_ButtonB.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonB, true);
+                textblock_ButtonA.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonA, true);
+                textblock_ButtonB.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonB, true);
 
-                textblock_ButtonShoulderLeft.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonShoulderLeft, true);
-                textblock_ButtonShoulderRight.Text = GetVirtualKeyName((KeysVirtual)vDirectKeypadMapping.ButtonShoulderRight, true);
+                textblock_ButtonShoulderLeft.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonShoulderLeft, true);
+                textblock_ButtonShoulderRight.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonShoulderRight, true);
             }
             catch { }
         }

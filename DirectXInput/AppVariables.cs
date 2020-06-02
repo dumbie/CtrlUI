@@ -86,7 +86,7 @@ namespace DirectXInput
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
-        public static KeypadMapping vDirectKeypadMapping = new KeypadMapping();
+        public static List<KeypadMapping> vDirectKeypadMapping = new List<KeypadMapping>();
         public static List<ProfileShared> vDirectCloseTools = new List<ProfileShared>();
         public static List<ControllerSupported> vDirectControllersSupported = new List<ControllerSupported>();
         public static List<ControllerSupported> vDirectControllersIgnored = new List<ControllerSupported>();

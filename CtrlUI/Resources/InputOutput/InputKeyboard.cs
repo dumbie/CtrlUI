@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,9 +20,15 @@ namespace CtrlUI
             {
                 //Check the pressed keys
                 KeysVirtual usedVirtualKey = (KeysVirtual)windowMessage.wParam;
-                bool pressedShiftKey = vKeyboardPreviousVirtualKey == KeysVirtual.Shift;
 
-                if (usedVirtualKey == KeysVirtual.Tab && pressedShiftKey)
+                //Check pressed key modifier
+                KeysVirtual? usedModifierKey = null;
+                System.Windows.Forms.Keys keysData = (System.Windows.Forms.Keys)(int)usedVirtualKey | System.Windows.Forms.Control.ModifierKeys;
+                if (keysData.HasFlag(System.Windows.Forms.Keys.Control)) { usedModifierKey = KeysVirtual.Control; }
+                else if (keysData.HasFlag(System.Windows.Forms.Keys.Alt)) { usedModifierKey = KeysVirtual.Alt; }
+                else if (keysData.HasFlag(System.Windows.Forms.Keys.Shift)) { usedModifierKey = KeysVirtual.Shift; }
+
+                if (usedVirtualKey == KeysVirtual.Tab && usedModifierKey == KeysVirtual.Shift)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Move", false);
                 }
@@ -71,8 +78,6 @@ namespace CtrlUI
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Confirm", false);
                 }
-
-                vKeyboardPreviousVirtualKey = usedVirtualKey;
             }
             catch { }
         }
