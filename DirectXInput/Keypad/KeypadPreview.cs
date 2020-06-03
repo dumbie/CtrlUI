@@ -35,7 +35,12 @@ namespace DirectXInput.Keypad
                         if (controllerInput.ButtonStart.PressedRaw) { textblock_ButtonStart.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonStart.Foreground = targetSolidColorBrushWhite; }
 
                         if (controllerInput.ButtonShoulderLeft.PressedRaw) { textblock_ButtonShoulderLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonShoulderLeft.Foreground = targetSolidColorBrushWhite; }
+                        if (controllerInput.ButtonTriggerLeft.PressedRaw) { textblock_ButtonTriggerLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonTriggerLeft.Foreground = targetSolidColorBrushWhite; }
+                        if (controllerInput.ButtonThumbLeft.PressedRaw) { textblock_ButtonThumbLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonThumbLeft.Foreground = targetSolidColorBrushWhite; }
+
                         if (controllerInput.ButtonShoulderRight.PressedRaw) { textblock_ButtonShoulderRight.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonShoulderRight.Foreground = targetSolidColorBrushWhite; }
+                        if (controllerInput.ButtonTriggerRight.PressedRaw) { textblock_ButtonTriggerRight.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonTriggerRight.Foreground = targetSolidColorBrushWhite; }
+                        if (controllerInput.ButtonThumbRight.PressedRaw) { textblock_ButtonThumbRight.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonThumbRight.Foreground = targetSolidColorBrushWhite; }
                     }
                     catch { }
                 });

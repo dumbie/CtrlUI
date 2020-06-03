@@ -211,6 +211,24 @@ namespace DirectXInput.Keypad
                     textblock_ButtonShoulderLeft.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonShoulderLeft, true);
                 }
 
+                if (directKeypadMappingProfile.ButtonTriggerLeftMod != null)
+                {
+                    textblock_ButtonTriggerLeft.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonTriggerLeftMod, true) + "\n" + GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonTriggerLeft, true);
+                }
+                else
+                {
+                    textblock_ButtonTriggerLeft.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonTriggerLeft, true);
+                }
+
+                if (directKeypadMappingProfile.ButtonThumbLeftMod != null)
+                {
+                    textblock_ButtonThumbLeft.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonThumbLeftMod, true) + "\n" + GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonThumbLeft, true);
+                }
+                else
+                {
+                    textblock_ButtonThumbLeft.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonThumbLeft, true);
+                }
+
                 if (directKeypadMappingProfile.ButtonShoulderRightMod != null)
                 {
                     textblock_ButtonShoulderRight.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonShoulderRightMod, true) + "\n" + GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonShoulderRight, true);
@@ -218,6 +236,24 @@ namespace DirectXInput.Keypad
                 else
                 {
                     textblock_ButtonShoulderRight.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonShoulderRight, true);
+                }
+
+                if (directKeypadMappingProfile.ButtonTriggerRightMod != null)
+                {
+                    textblock_ButtonTriggerRight.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonTriggerRightMod, true) + "\n" + GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonTriggerRight, true);
+                }
+                else
+                {
+                    textblock_ButtonTriggerRight.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonTriggerRight, true);
+                }
+
+                if (directKeypadMappingProfile.ButtonThumbRightMod != null)
+                {
+                    textblock_ButtonThumbRight.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonThumbRightMod, true) + "\n" + GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonThumbRight, true);
+                }
+                else
+                {
+                    textblock_ButtonThumbRight.Text = GetVirtualKeyName((KeysVirtual)directKeypadMappingProfile.ButtonThumbRight, true);
                 }
             }
             catch { }

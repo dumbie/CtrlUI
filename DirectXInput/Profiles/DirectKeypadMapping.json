@@ -13,6 +13,10 @@
         "ButtonBack":27,
         "ButtonStart":13,
         "ButtonShoulderLeft":16,
-        "ButtonShoulderRight":9
+        "ButtonThumbLeft":89,
+        "ButtonTriggerLeft":9,
+        "ButtonShoulderRight":9,
+        "ButtonThumbRight":78,
+        "ButtonTriggerRight":16
     }
 ]

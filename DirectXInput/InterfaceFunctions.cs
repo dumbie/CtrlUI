@@ -193,7 +193,11 @@ namespace DirectXInput
                 btn_SetPadX.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
                 btn_SetPadY.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
                 btn_SetPadShoulderLeft.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadTriggerLeft.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbLeft.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
                 btn_SetPadShoulderRight.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadTriggerRight.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbRight.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
                 btn_SetPadBack.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
                 btn_SetPadStart.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
 

@@ -132,7 +132,7 @@ namespace CtrlUI
                 Answer1.Name = "Manage controllers";
                 Answers.Add(Answer1);
 
-                DataBindString messageResult = await Popup_Show_MessageBox("This will open a window you can't controller", "", "You can always return back to CtrlUI using the 'Guide' button on your controller or you can use the Keyboard Controller's mouse function.", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("This will open a window you can't controller", "", "You can always return back to CtrlUI using the 'Guide' button on your controller or you can use the on-screen keyboard mouse function.", Answers);
                 if (messageResult != null && messageResult == Answer1)
                 {
                     Process.Start("joy.cpl");
