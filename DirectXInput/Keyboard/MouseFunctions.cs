@@ -16,19 +16,17 @@ namespace DirectXInput.Keyboard
             try
             {
                 //Check the thumb movement
-                int smallOffset = 2500;
-                int normalOffset = 15000;
                 if (flipVertical) { thumbVertical = -thumbVertical; }
                 int absHorizontal = Math.Abs(thumbHorizontal);
                 int absVertical = Math.Abs(thumbVertical);
 
-                if (absHorizontal > normalOffset || absVertical > normalOffset)
+                if (absHorizontal > vControllerOffsetNormal || absVertical > vControllerOffsetNormal)
                 {
                     double mouseSensitivity = (double)thumbSensitivity / (double)15000;
                     mouseHorizontal = Convert.ToInt32(thumbHorizontal * mouseSensitivity);
                     mouseVertical = Convert.ToInt32(thumbVertical * mouseSensitivity);
                 }
-                else if (absHorizontal > smallOffset || absVertical > smallOffset)
+                else if (absHorizontal > vControllerOffsetSmall || absVertical > vControllerOffsetSmall)
                 {
                     double mouseSensitivity = (double)thumbSensitivity / (double)30000;
                     mouseHorizontal = Convert.ToInt32(thumbHorizontal * mouseSensitivity);

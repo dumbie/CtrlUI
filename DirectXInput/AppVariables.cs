@@ -62,6 +62,9 @@ namespace DirectXInput
 
         //Controller Variables
         public static bool vControllerBusy = false;
+        public static int vControllerOffsetSmall = 2500;
+        public static int vControllerOffsetMedium = 7500;
+        public static int vControllerOffsetNormal = 15000;
         public static int vControllerDelayNanoTicks = 10;
         public static int vControllerDelayMicroTicks = 75;
         public static int vControllerDelayShortTicks = 130;

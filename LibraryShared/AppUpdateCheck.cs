@@ -23,6 +23,12 @@ namespace LibraryShared
                 File_Delete("Profiles/FpsPositionProcess.json");
                 File_Delete("Profiles/ShortcutLocations.json");
                 File_Delete("Assets/Custom.ttf");
+                File_Delete("KeyboardController-Admin.exe");
+                File_Delete("KeyboardController-Admin.exe.config");
+                File_Delete("KeyboardController-Launcher.exe");
+                File_Delete("KeyboardController-Launcher.exe.config");
+                File_Delete("KeyboardController.exe");
+                File_Delete("KeyboardController.exe.config");
 
                 //Rename old file names
                 File_Move("Profiles/Apps.json", "Profiles/CtrlApplications.json", true);

@@ -19,23 +19,31 @@ namespace DirectXInput.Keypad
                 {
                     ControllerPreview(controllerInput);
 
-                    vControllerDelay_KeypadPreview = Environment.TickCount + vControllerDelayNanoTicks;
+                    vControllerDelay_KeypadPreview = Environment.TickCount + vControllerDelayMicroTicks;
                 }
 
                 //Get keypad mapping profile
                 KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();
 
                 //Press arrow left key
+                bool thumbLeftLeft = controllerInput.ThumbLeftX < -vControllerOffsetMedium;
                 PressKeypadKey(controllerInput.DPadLeft.PressedRaw, ref vKeypadDownStatus.DPadLeft, directKeypadMappingProfile.DPadLeftMod, directKeypadMappingProfile.DPadLeft);
+                PressKeypadKey(thumbLeftLeft, ref vKeypadDownStatus.ThumbLeftLeft, directKeypadMappingProfile.ThumbLeftLeftMod, directKeypadMappingProfile.ThumbLeftLeft);
 
                 //Press arrow right key
+                bool thumbLeftRight = controllerInput.ThumbLeftX > vControllerOffsetMedium;
                 PressKeypadKey(controllerInput.DPadRight.PressedRaw, ref vKeypadDownStatus.DPadRight, directKeypadMappingProfile.DPadRightMod, directKeypadMappingProfile.DPadRight);
+                PressKeypadKey(thumbLeftRight, ref vKeypadDownStatus.ThumbLeftRight, directKeypadMappingProfile.ThumbLeftRightMod, directKeypadMappingProfile.ThumbLeftRight);
 
                 //Press arrow up key
+                bool thumbLeftUp = controllerInput.ThumbLeftY > vControllerOffsetMedium;
                 PressKeypadKey(controllerInput.DPadUp.PressedRaw, ref vKeypadDownStatus.DPadUp, directKeypadMappingProfile.DPadUpMod, directKeypadMappingProfile.DPadUp);
+                PressKeypadKey(thumbLeftUp, ref vKeypadDownStatus.ThumbLeftUp, directKeypadMappingProfile.ThumbLeftUpMod, directKeypadMappingProfile.ThumbLeftUp);
 
                 //Press arrow down key
+                bool thumbLeftDown = controllerInput.ThumbLeftY < -vControllerOffsetMedium;
                 PressKeypadKey(controllerInput.DPadDown.PressedRaw, ref vKeypadDownStatus.DPadDown, directKeypadMappingProfile.DPadDownMod, directKeypadMappingProfile.DPadDown);
+                PressKeypadKey(thumbLeftDown, ref vKeypadDownStatus.ThumbLeftDown, directKeypadMappingProfile.ThumbLeftDownMod, directKeypadMappingProfile.ThumbLeftDown);
 
                 //Press button a key
                 PressKeypadKey(controllerInput.ButtonA.PressedRaw, ref vKeypadDownStatus.ButtonA, directKeypadMappingProfile.ButtonAMod, directKeypadMappingProfile.ButtonA);
