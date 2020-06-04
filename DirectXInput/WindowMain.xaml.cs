@@ -227,6 +227,16 @@ namespace DirectXInput
             catch { }
         }
 
+        //Make sure the correct window style is set
+        async void CheckWindowStateAndStyle(object sender, EventArgs e)
+        {
+            try
+            {
+                if (WindowState == WindowState.Minimized) { await Application_ShowHideWindow(); }
+            }
+            catch { }
+        }
+
         //Application Close Handler
         protected async override void OnClosing(CancelEventArgs e)
         {
