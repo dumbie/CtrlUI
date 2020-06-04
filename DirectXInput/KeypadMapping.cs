@@ -92,7 +92,35 @@ namespace DirectXInput
                     KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();
 
                     Debug.WriteLine("Mapped button " + vMappingKeypadButton + " to: " + usedModifierKey + " / " + usedVirtualKey);
-                    if (vMappingKeypadButton == "Button A")
+                    if (vMappingKeypadButton == "Arrow Left")
+                    {
+                        if (usedModifierKey != null) { directKeypadMappingProfile.DPadLeftMod = usedModifierKey; } else { directKeypadMappingProfile.DPadLeftMod = null; }
+                        directKeypadMappingProfile.DPadLeft = usedVirtualKey;
+                        if (usedModifierKey != null) { directKeypadMappingProfile.ThumbLeftLeftMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbLeftLeftMod = null; }
+                        directKeypadMappingProfile.ThumbLeftLeft = usedVirtualKey;
+                    }
+                    else if (vMappingKeypadButton == "Arrow Up")
+                    {
+                        if (usedModifierKey != null) { directKeypadMappingProfile.DPadUpMod = usedModifierKey; } else { directKeypadMappingProfile.DPadUpMod = null; }
+                        directKeypadMappingProfile.DPadUp = usedVirtualKey;
+                        if (usedModifierKey != null) { directKeypadMappingProfile.ThumbLeftUpMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbLeftUpMod = null; }
+                        directKeypadMappingProfile.ThumbLeftUp = usedVirtualKey;
+                    }
+                    else if (vMappingKeypadButton == "Arrow Right")
+                    {
+                        if (usedModifierKey != null) { directKeypadMappingProfile.DPadRightMod = usedModifierKey; } else { directKeypadMappingProfile.DPadRightMod = null; }
+                        directKeypadMappingProfile.DPadRight = usedVirtualKey;
+                        if (usedModifierKey != null) { directKeypadMappingProfile.ThumbLeftRightMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbLeftRightMod = null; }
+                        directKeypadMappingProfile.ThumbLeftRight = usedVirtualKey;
+                    }
+                    else if (vMappingKeypadButton == "Arrow Down")
+                    {
+                        if (usedModifierKey != null) { directKeypadMappingProfile.DPadDownMod = usedModifierKey; } else { directKeypadMappingProfile.DPadDownMod = null; }
+                        directKeypadMappingProfile.DPadDown = usedVirtualKey;
+                        if (usedModifierKey != null) { directKeypadMappingProfile.ThumbLeftDownMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbLeftDownMod = null; }
+                        directKeypadMappingProfile.ThumbLeftDown = usedVirtualKey;
+                    }
+                    else if (vMappingKeypadButton == "Button A")
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonAMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonAMod = null; }
                         directKeypadMappingProfile.ButtonA = usedVirtualKey;

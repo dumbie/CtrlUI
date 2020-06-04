@@ -386,6 +386,11 @@
                                     </Grid.Background>
 
                                     <!-- Mapping -->
+                                    <Button Name="btn_SetPadArrowLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Arrow Left" Margin="0,65,510,0" Height="26" Width="26" ToolTipService.ToolTip="Map Arrow Left"/>
+                                    <Button Name="btn_SetPadArrowUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Arrow Up" Margin="0,0,435,10" Height="26" Width="26" ToolTipService.ToolTip="Map Arrow Up"/>
+                                    <Button Name="btn_SetPadArrowRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Arrow Right" Margin="0,65,360,0" Height="26" Width="26" ToolTipService.ToolTip="Map Arrow Right"/>
+                                    <Button Name="btn_SetPadArrowDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Arrow Down" Margin="0,65,435,0" Height="26" Width="26" ToolTipService.ToolTip="Map Arrow Down"/>
+
                                     <Button Name="btn_SetPadA" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button A" Height="26" Width="26" Margin="434,60,0,0" ToolTipService.ToolTip="Map Button A"/>
                                     <Button Name="btn_SetPadB" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button B" Height="26" Width="26" Margin="508,65,0,0" ToolTipService.ToolTip="Map Button B"/>
                                     <Button Name="btn_SetPadX" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button X" Height="26" Width="26" Margin="434,0,0,10" ToolTipService.ToolTip="Map Button X"/>
