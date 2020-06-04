@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Security.Principal;
 using System.Windows.Threading;
+using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 
@@ -47,6 +48,7 @@ namespace DirectXInput
         public static Process vProcessCtrlUI = null;
         public static bool vProcessCtrlUIActivated = false;
         public static Process vProcessFpsOverlayer = null;
+        public static ProcessMulti vProcessForeground = null;
 
         //App Status Variables
         public static bool vAppMaximized = false;
@@ -59,6 +61,9 @@ namespace DirectXInput
         public static bool vKeysEnabled = true;
         public static bool vMouseDownStatus = false;
         public static KeypadStatus vKeypadDownStatus = new KeypadStatus();
+
+        //Keypad Variables
+        public static string vKeypadPreviousProcess = string.Empty;
 
         //Controller Variables
         public static bool vControllerBusy = false;
@@ -88,10 +93,10 @@ namespace DirectXInput
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
-        public static List<KeypadMapping> vDirectKeypadMapping = new List<KeypadMapping>();
         public static List<ProfileShared> vDirectCloseTools = new List<ProfileShared>();
         public static List<ControllerSupported> vDirectControllersSupported = new List<ControllerSupported>();
         public static List<ControllerSupported> vDirectControllersIgnored = new List<ControllerSupported>();
+        public static ObservableCollection<KeypadMapping> vDirectKeypadMapping = new ObservableCollection<KeypadMapping>();
         public static ObservableCollection<ControllerProfile> vDirectControllersProfile = new ObservableCollection<ControllerProfile>();
     }
 }

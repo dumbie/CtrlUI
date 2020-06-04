@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -17,13 +18,23 @@ namespace DirectXInput.Keypad
                 //Update interface controller preview
                 if (Environment.TickCount >= vControllerDelay_KeypadPreview)
                 {
-                    ControllerPreview(controllerInput);
+                    UpdateKeypadPreview(controllerInput);
 
                     vControllerDelay_KeypadPreview = Environment.TickCount + vControllerDelayMicroTicks;
                 }
 
                 //Get keypad mapping profile
-                KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();
+                string processNameLower = vProcessForeground.Name.ToLower();
+                KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == processNameLower).FirstOrDefault();
+                if (directKeypadMappingProfile == null) { directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault(); }
+
+                //Update the key names
+                if (processNameLower != vKeypadPreviousProcess)
+                {
+                    Debug.WriteLine("Keypad process changed to: " + processNameLower);
+                    vKeypadPreviousProcess = processNameLower;
+                    UpdateKeypadNames();
+                }
 
                 //Press arrow left key
                 bool thumbLeftLeft = controllerInput.ThumbLeftX < -vControllerOffsetMedium;

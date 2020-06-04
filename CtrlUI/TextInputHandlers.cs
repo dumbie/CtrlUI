@@ -24,16 +24,7 @@ namespace CtrlUI
             {
                 if (e.Key == Key.Enter)
                 {
-                    //Set the text input result
-                    if (grid_Popup_TextInput_textbox.Text == "Enter text...")
-                    {
-                        await Notification_Send_Status("Rename", "Invalid text");
-                        vTextInputResult = string.Empty;
-                    }
-                    else
-                    {
-                        vTextInputResult = grid_Popup_TextInput_textbox.Text;
-                    }
+                    await ValidateSetTextInput();
                 }
             }
             catch { }
@@ -44,16 +35,7 @@ namespace CtrlUI
         {
             try
             {
-                //Set the text input result
-                if (grid_Popup_TextInput_textbox.Text == "Enter text...")
-                {
-                    await Notification_Send_Status("Rename", "Invalid text");
-                    vTextInputResult = string.Empty;
-                }
-                else
-                {
-                    vTextInputResult = grid_Popup_TextInput_textbox.Text;
-                }
+                await ValidateSetTextInput();
             }
             catch { }
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ArnoldVinkCode.Styles;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -64,14 +65,15 @@ namespace CtrlUI
         {
             try
             {
-                string stringSearch = grid_Popup_Search_textbox.Text;
-                if (!string.IsNullOrWhiteSpace(stringSearch) && stringSearch != "Search application...")
+                string searchString = grid_Popup_Search_textbox.Text;
+                string placeholderString = (string)grid_Popup_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                if (!string.IsNullOrWhiteSpace(searchString) && searchString != placeholderString)
                 {
                     //Clear the current popup list
                     List_Search.Clear();
 
                     //Search for applications
-                    IEnumerable<DataBindApp> searchResult = CombineAppLists(true, true).Where(x => x.Name.ToLower().Contains(stringSearch.ToLower()));
+                    IEnumerable<DataBindApp> searchResult = CombineAppLists(true, true).Where(x => x.Name.ToLower().Contains(searchString.ToLower()));
                     foreach (DataBindApp dataBindApp in searchResult)
                     {
                         try
@@ -87,7 +89,7 @@ namespace CtrlUI
                     //Select the first search index
                     lb_Search.SelectedIndex = 0;
 
-                    Debug.WriteLine("Search application: " + stringSearch);
+                    Debug.WriteLine("Search application: " + searchString);
                 }
                 else
                 {

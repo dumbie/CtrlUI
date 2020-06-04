@@ -9,7 +9,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Update interface controller preview
-        void ControllerPreview(ControllerStatus Controller)
+        void UpdateControllerPreview(ControllerStatus Controller)
         {
             try
             {

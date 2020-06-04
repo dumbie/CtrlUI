@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkCode.Styles;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVInterface;
@@ -77,7 +78,8 @@ namespace CtrlUI
                 }
                 else
                 {
-                    grid_Popup_Search_textbox.Text = "Search application...";
+                    string placeholderString = (string)grid_Popup_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                    grid_Popup_Search_textbox.Text = placeholderString;
                 }
 
                 grid_Popup_Search_textblock_Result.Text = "Please enter a search term above.";
@@ -127,8 +129,9 @@ namespace CtrlUI
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    string stringSearch = grid_Popup_Search_textbox.Text;
-                    if (string.IsNullOrWhiteSpace(stringSearch) || stringSearch == "Search application...")
+                    string searchString = grid_Popup_Search_textbox.Text;
+                    string placeholderString = (string)grid_Popup_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                    if (string.IsNullOrWhiteSpace(searchString) || searchString == placeholderString)
                     {
                         grid_Popup_Search_Count_TextBlock.Text = string.Empty;
                         grid_Popup_Search_textblock_Result.Text = "Please enter a search term above.";

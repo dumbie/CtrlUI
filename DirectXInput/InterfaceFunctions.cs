@@ -207,6 +207,8 @@ namespace DirectXInput
                 btn_SetPadThumbRight.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
                 btn_SetPadBack.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
                 btn_SetPadStart.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_Settings_KeypadProcessProfile_Add.Click += Btn_Settings_KeypadProcessProfile_Add_Click;
+                btn_Settings_KeypadProcessProfile_Remove.Click += Btn_Settings_KeypadProcessProfile_Remove_Click;
 
                 //Settings functions
                 btn_CheckControllers.Click += btn_CheckControllers_Click;
@@ -227,10 +229,10 @@ namespace DirectXInput
             {
                 vProcessCtrlUI = GetProcessByNameOrTitle("CtrlUI", false);
                 vProcessFpsOverlayer = GetProcessByNameOrTitle("FpsOverlayer", false);
-                int FocusedAppId = GetProcessMultiFromWindowHandle(GetForegroundWindow()).Identifier;
+                vProcessForeground = GetProcessMultiFromWindowHandle(GetForegroundWindow());
 
                 //Check if CtrlUI is currently activated
-                if (vProcessCtrlUI != null && vProcessCtrlUI.Id == FocusedAppId) { vProcessCtrlUIActivated = true; } else { vProcessCtrlUIActivated = false; }
+                if (vProcessCtrlUI != null && vProcessCtrlUI.Id == vProcessForeground.Identifier) { vProcessCtrlUIActivated = true; } else { vProcessCtrlUIActivated = false; }
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
@@ -238,7 +240,7 @@ namespace DirectXInput
                     {
                         if (WindowState == WindowState.Maximized) { vAppMaximized = true; } else { vAppMaximized = false; }
                         if (WindowState == WindowState.Minimized) { vAppMinimized = true; } else { vAppMinimized = false; }
-                        if (vProcessCurrent.Id == FocusedAppId)
+                        if (vProcessCurrent.Id == vProcessForeground.Identifier)
                         {
                             AppWindowActivated();
                         }

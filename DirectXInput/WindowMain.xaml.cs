@@ -94,6 +94,9 @@ namespace DirectXInput
 
                 //Load keypad mapping
                 JsonLoadProfile(ref vDirectKeypadMapping, "DirectKeypadMapping");
+                combobox_KeypadProcessProfile.ItemsSource = vDirectKeypadMapping;
+                combobox_KeypadProcessProfile.DisplayMemberPath = "Name";
+                combobox_KeypadProcessProfile.SelectedIndex = 0;
 
                 //Load controllers profile
                 JsonLoadList_ControllerProfile();

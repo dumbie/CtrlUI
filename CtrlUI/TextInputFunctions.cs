@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using ArnoldVinkCode.Styles;
+using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
@@ -111,7 +112,8 @@ namespace CtrlUI
                 }
                 else
                 {
-                    grid_Popup_TextInput_textbox.Text = "Enter text...";
+                    string placeholderString = (string)grid_Popup_TextInput_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                    grid_Popup_TextInput_textbox.Text = placeholderString;
                 }
 
                 //Show or hide the keyboard icon
@@ -146,6 +148,26 @@ namespace CtrlUI
 
                     //Focus on the previous focus element
                     await Popup_PreviousElementFocus_Focus(vTextInputElementFocus);
+                }
+            }
+            catch { }
+        }
+
+        //Validate and set the text input result
+        async Task ValidateSetTextInput()
+        {
+            try
+            {
+                string textboxString = grid_Popup_TextInput_textbox.Text;
+                string placeholderString = (string)grid_Popup_TextInput_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                if (textboxString == placeholderString)
+                {
+                    await Notification_Send_Status("Rename", "Invalid text");
+                    vTextInputResult = string.Empty;
+                }
+                else
+                {
+                    vTextInputResult = textboxString;
                 }
             }
             catch { }

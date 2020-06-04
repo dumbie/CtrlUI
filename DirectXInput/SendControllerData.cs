@@ -17,7 +17,7 @@ namespace DirectXInput
                 CheckButtonPressTimes(Controller.InputCurrent.ButtonGuide);
 
                 //Update interface controller preview
-                ControllerPreview(Controller);
+                UpdateControllerPreview(Controller);
 
                 //Check if controller shortcut is pressed
                 bool BlockOutputShortcut = await ControllerShortcut(Controller);

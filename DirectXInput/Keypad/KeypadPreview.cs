@@ -8,8 +8,8 @@ namespace DirectXInput.Keypad
 {
     public partial class WindowKeypad
     {
-        //Update interface controller preview
-        void ControllerPreview(ControllerInput controllerInput)
+        //Update interface keypad preview
+        void UpdateKeypadPreview(ControllerInput controllerInput)
         {
             try
             {
@@ -21,10 +21,10 @@ namespace DirectXInput.Keypad
                         SolidColorBrush targetSolidColorBrushAccent = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
 
                         //D-Pad
-                        if (vKeypadDownStatus.DPadLeft || vKeypadDownStatus.ThumbLeftLeft) { textblock_ArrowLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_ArrowLeft.Foreground = targetSolidColorBrushWhite; }
-                        if (vKeypadDownStatus.DPadUp || vKeypadDownStatus.ThumbLeftUp) { textblock_ArrowUp.Foreground = targetSolidColorBrushAccent; } else { textblock_ArrowUp.Foreground = targetSolidColorBrushWhite; }
-                        if (vKeypadDownStatus.DPadRight || vKeypadDownStatus.ThumbLeftRight) { textblock_ArrowRight.Foreground = targetSolidColorBrushAccent; } else { textblock_ArrowRight.Foreground = targetSolidColorBrushWhite; }
-                        if (vKeypadDownStatus.DPadDown || vKeypadDownStatus.ThumbLeftDown) { textblock_ArrowDown.Foreground = targetSolidColorBrushAccent; } else { textblock_ArrowDown.Foreground = targetSolidColorBrushWhite; }
+                        if (vKeypadDownStatus.DPadLeft || vKeypadDownStatus.ThumbLeftLeft) { textblock_LeftLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_LeftLeft.Foreground = targetSolidColorBrushWhite; }
+                        if (vKeypadDownStatus.DPadUp || vKeypadDownStatus.ThumbLeftUp) { textblock_LeftUp.Foreground = targetSolidColorBrushAccent; } else { textblock_LeftUp.Foreground = targetSolidColorBrushWhite; }
+                        if (vKeypadDownStatus.DPadRight || vKeypadDownStatus.ThumbLeftRight) { textblock_LeftRight.Foreground = targetSolidColorBrushAccent; } else { textblock_LeftRight.Foreground = targetSolidColorBrushWhite; }
+                        if (vKeypadDownStatus.DPadDown || vKeypadDownStatus.ThumbLeftDown) { textblock_LeftDown.Foreground = targetSolidColorBrushAccent; } else { textblock_LeftDown.Foreground = targetSolidColorBrushWhite; }
 
                         //Buttons
                         if (vKeypadDownStatus.ButtonA) { textblock_ButtonA.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonA.Foreground = targetSolidColorBrushWhite; }

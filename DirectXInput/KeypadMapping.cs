@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -89,7 +88,7 @@ namespace DirectXInput
                 if (vMappingKeypadStatus == MappingStatus.Mapping)
                 {
                     //Get keypad mapping profile
-                    KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();
+                    KeypadMapping directKeypadMappingProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
 
                     Debug.WriteLine("Mapped button " + vMappingKeypadButton + " to: " + usedModifierKey + " / " + usedVirtualKey);
                     if (vMappingKeypadButton == "Arrow Left")

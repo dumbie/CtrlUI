@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DirectXInput"
+        xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
         mc:Ignorable="d"
         RenderOptions.BitmapScalingMode="HighQuality"
         Title="DirectXInput (Beta)"
@@ -408,12 +409,25 @@
                                     <Button Name="btn_SetPadStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Tag="Button Start" Margin="40,65,0,0" Height="26" Width="26" ToolTipService.ToolTip="Map Button Start"/>
                                 </Grid>
 
+                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Profile"/>
+                                <TextBlock Text="Automatically load the keypad mapping for an application process." Tag="Keypad display transparency" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <ComboBox Name="combobox_KeypadProcessProfile" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="300" Style="{StaticResource ComboBoxBlack}"/>
+                                    <Button Name="btn_Settings_KeypadProcessProfile_Remove" Margin="10,0,0,0" Width="155" Content="Remove profile" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBox Name="textbox_Settings_KeypadProcessProfile_Name" HorizontalAlignment="Left" Width="300" Style="{StaticResource TextBoxBlack}" Text="Application process name..." styles:TextboxPlaceholder.Placeholder="Application process name..."/>
+                                    <Button Name="btn_Settings_KeypadProcessProfile_Add" Margin="10,0,0,0" Width="155" Content="Add new profile" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                </StackPanel>
+
                                 <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Settings"/>
                                 <TextBlock Name="textblock_KeypadOpacity" Text="Keypad display transparency" Tag="Keypad display transparency" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the transparency of the on screen keypad." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_KeypadOpacity" Height="18" Width="400" Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_KeypadOpacity" Height="18" Width="460" Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
-                                <TextBlock Margin="0,15,0,0" Text="* You can access the keypad by holding the guide button when the keyboard is already open." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Margin="0,15,0,0" Text="* You can access the keypad by holding the guide button when the on screen keyboard is already open." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>

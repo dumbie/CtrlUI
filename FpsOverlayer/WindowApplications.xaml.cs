@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode.Styles;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -67,8 +68,9 @@ namespace FpsOverlayer
         {
             try
             {
-                string processName = textbox_AddApp.Text;
-                Debug.WriteLine("Adding new process: " + processName);
+                string processNameString = textbox_AddApp.Text;
+                string placeholderString = (string)textbox_AddApp.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                Debug.WriteLine("Adding new process: " + processNameString);
 
                 //Color brushes
                 BrushConverter BrushConvert = new BrushConverter();
@@ -76,7 +78,7 @@ namespace FpsOverlayer
                 Brush BrushValid = BrushConvert.ConvertFromString("#1DB954") as Brush;
 
                 //Check if the name is empty
-                if (string.IsNullOrWhiteSpace(processName))
+                if (string.IsNullOrWhiteSpace(processNameString))
                 {
                     textbox_AddApp.BorderBrush = BrushInvalid;
                     Debug.WriteLine("Please enter an application process.");
@@ -84,7 +86,7 @@ namespace FpsOverlayer
                 }
 
                 //Check if the name is place holder
-                if (processName == "Process name")
+                if (processNameString == placeholderString)
                 {
                     textbox_AddApp.BorderBrush = BrushInvalid;
                     Debug.WriteLine("Please enter an application process.");
@@ -92,7 +94,7 @@ namespace FpsOverlayer
                 }
 
                 //Check if process already exists
-                if (AppVariables.vFpsPositionProcessName.Any(x => x.String1.ToLower() == processName.ToLower()))
+                if (AppVariables.vFpsPositionProcessName.Any(x => x.String1.ToLower() == processNameString.ToLower()))
                 {
                     textbox_AddApp.BorderBrush = BrushInvalid;
                     Debug.WriteLine("Application process already exists.");
@@ -100,10 +102,10 @@ namespace FpsOverlayer
                 }
 
                 //Clear name from the textbox
-                textbox_AddApp.Text = "Process name";
+                textbox_AddApp.Text = placeholderString;
 
                 ProfileShared FpsPositionProcessName = new ProfileShared();
-                FpsPositionProcessName.String1 = processName;
+                FpsPositionProcessName.String1 = processNameString;
                 FpsPositionProcessName.Int1 = 0;
 
                 AppVariables.vFpsPositionProcessName.Add(FpsPositionProcessName);
