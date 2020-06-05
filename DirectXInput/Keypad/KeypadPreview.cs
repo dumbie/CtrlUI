@@ -21,10 +21,10 @@ namespace DirectXInput.Keypad
                         SolidColorBrush targetSolidColorBrushAccent = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
 
                         //D-Pad
-                        if (vKeypadDownStatus.DPadLeft || vKeypadDownStatus.ThumbLeftLeft) { textblock_LeftLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_LeftLeft.Foreground = targetSolidColorBrushWhite; }
-                        if (vKeypadDownStatus.DPadUp || vKeypadDownStatus.ThumbLeftUp) { textblock_LeftUp.Foreground = targetSolidColorBrushAccent; } else { textblock_LeftUp.Foreground = targetSolidColorBrushWhite; }
-                        if (vKeypadDownStatus.DPadRight || vKeypadDownStatus.ThumbLeftRight) { textblock_LeftRight.Foreground = targetSolidColorBrushAccent; } else { textblock_LeftRight.Foreground = targetSolidColorBrushWhite; }
-                        if (vKeypadDownStatus.DPadDown || vKeypadDownStatus.ThumbLeftDown) { textblock_LeftDown.Foreground = targetSolidColorBrushAccent; } else { textblock_LeftDown.Foreground = targetSolidColorBrushWhite; }
+                        if (vKeypadDownStatus.DPadLeft || vKeypadDownStatus.ThumbLeftLeft) { textblock_ThumbLeftLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbLeftLeft.Foreground = targetSolidColorBrushWhite; }
+                        if (vKeypadDownStatus.DPadUp || vKeypadDownStatus.ThumbLeftUp) { textblock_ThumbLeftUp.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbLeftUp.Foreground = targetSolidColorBrushWhite; }
+                        if (vKeypadDownStatus.DPadRight || vKeypadDownStatus.ThumbLeftRight) { textblock_ThumbLeftRight.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbLeftRight.Foreground = targetSolidColorBrushWhite; }
+                        if (vKeypadDownStatus.DPadDown || vKeypadDownStatus.ThumbLeftDown) { textblock_ThumbLeftDown.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbLeftDown.Foreground = targetSolidColorBrushWhite; }
 
                         //Buttons
                         if (vKeypadDownStatus.ButtonA) { textblock_ButtonA.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonA.Foreground = targetSolidColorBrushWhite; }

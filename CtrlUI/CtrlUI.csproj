@@ -889,6 +889,7 @@
     <ProjectReference Include="..\LibraryUsb\LibraryUsb.csproj">
       <Project>{a9092d5a-1b08-4ea8-b684-0e2ac4d1af1a}</Project>
       <Name>LibraryUsb</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -146,19 +146,19 @@ namespace DirectXInput.Keypad
         {
             try
             {
+                //Get keypad mapping profile
+                KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == vProcessForeground.Name.ToLower()).FirstOrDefault();
+                if (directKeypadMappingProfile == null) { directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault(); }
+
+                //Update all keypad key details
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     try
                     {
-                        //Get keypad mapping profile
-                        KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == vProcessForeground.Name.ToLower()).FirstOrDefault();
-                        if (directKeypadMappingProfile == null) { directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault(); }
-
-                        //Update all keypad key details
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.DPadLeftMod, directKeypadMappingProfile.DPadLeft, grid_LeftLeft, textblock_LeftLeft);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.DPadUpMod, directKeypadMappingProfile.DPadUp, grid_LeftUp, textblock_LeftUp);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.DPadRightMod, directKeypadMappingProfile.DPadRight, grid_LeftRight, textblock_LeftRight);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.DPadDownMod, directKeypadMappingProfile.DPadDown, grid_LeftDown, textblock_LeftDown);
+                        UpdateKeypadKeyDetails(directKeypadMappingProfile.DPadLeftMod, directKeypadMappingProfile.DPadLeft, grid_ThumbLeftLeft, textblock_ThumbLeftLeft);
+                        UpdateKeypadKeyDetails(directKeypadMappingProfile.DPadUpMod, directKeypadMappingProfile.DPadUp, grid_ThumbLeftUp, textblock_ThumbLeftUp);
+                        UpdateKeypadKeyDetails(directKeypadMappingProfile.DPadRightMod, directKeypadMappingProfile.DPadRight, grid_ThumbLeftRight, textblock_ThumbLeftRight);
+                        UpdateKeypadKeyDetails(directKeypadMappingProfile.DPadDownMod, directKeypadMappingProfile.DPadDown, grid_ThumbLeftDown, textblock_ThumbLeftDown);
                         UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonBackMod, directKeypadMappingProfile.ButtonBack, grid_ButtonBack, textblock_ButtonBack);
                         UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonStartMod, directKeypadMappingProfile.ButtonStart, grid_ButtonStart, textblock_ButtonStart);
                         UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonXMod, directKeypadMappingProfile.ButtonX, grid_ButtonX, textblock_ButtonX);

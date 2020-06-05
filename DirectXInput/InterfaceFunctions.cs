@@ -191,22 +191,38 @@ namespace DirectXInput
                 btn_SetTriggerRight.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
 
                 //Keypad button mapping functions
-                btn_SetPadArrowLeft.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
-                btn_SetPadArrowUp.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
-                btn_SetPadArrowRight.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
-                btn_SetPadArrowDown.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbLeftLeft.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbLeftLeft.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
+                btn_SetPadThumbLeftUp.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbLeftUp.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
+                btn_SetPadThumbLeftRight.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbLeftRight.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
+                btn_SetPadThumbLeftDown.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbLeftDown.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadA.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadA.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadB.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadB.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadX.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadX.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadY.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadY.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadShoulderLeft.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadShoulderLeft.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadTriggerLeft.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadTriggerLeft.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadThumbLeft.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbLeft.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadShoulderRight.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadShoulderRight.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadTriggerRight.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadTriggerRight.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadThumbRight.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbRight.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadBack.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadBack.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadStart.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadStart.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_Settings_KeypadProcessProfile_Add.Click += Btn_Settings_KeypadProcessProfile_Add_Click;
                 btn_Settings_KeypadProcessProfile_Remove.Click += Btn_Settings_KeypadProcessProfile_Remove_Click;
 

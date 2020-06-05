@@ -8,8 +8,9 @@ namespace LibraryShared
     {
         public class KeypadMapping : INotifyPropertyChanged
         {
-            //Mapping name
+            //Mapping Details
             public string Name { get; set; } = string.Empty;
+            public int ButtonRepeatIntervalMs { get; set; } = 30;
 
             //Raw Thumbs
             public KeysVirtual? ThumbLeftUpMod { get; set; } = null;

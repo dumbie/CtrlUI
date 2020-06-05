@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Security.Principal;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
@@ -33,10 +34,10 @@ namespace DirectXInput
         //Mapping Variables
         public static DispatcherTimer vMappingControllerTimer = new DispatcherTimer();
         public static MappingStatus vMappingControllerStatus = MappingStatus.Done;
-        public static string vMappingControllerButton = "None";
+        public static Button vMappingControllerButton = null;
         public static DispatcherTimer vMappingKeypadTimer = new DispatcherTimer();
         public static MappingStatus vMappingKeypadStatus = MappingStatus.Done;
-        public static string vMappingKeypadButton = "None";
+        public static Button vMappingKeypadButton = null;
 
         //MessageBox Variables
         public static bool vMessageBoxOpen = false;

@@ -18,15 +18,14 @@ namespace DirectXInput
         {
             try
             {
-                Button sendButton = sender as Button;
-                string mapButton = sendButton.Tag.ToString();
-
                 //Set button to map
+                Button sendButton = sender as Button;
+                string mapNameString = sendButton.ToolTip.ToString();
                 vMappingKeypadStatus = MappingStatus.Mapping;
-                vMappingKeypadButton = mapButton;
+                vMappingKeypadButton = sendButton;
 
                 //Disable interface
-                txt_KeypadMap_Status.Text = "Waiting for keyboard key press for '" + mapButton + "'...";
+                txt_KeypadMap_Status.Text = "Waiting for keyboard key press for '" + mapNameString + "'...";
                 pb_KeypadMapProgress.IsIndeterminate = true;
                 grid_KeypadPreview.IsEnabled = false;
                 grid_KeypadPreview.Opacity = 0.50;
@@ -43,11 +42,11 @@ namespace DirectXInput
                         {
                             //Reset controller button mapping
                             vMappingKeypadStatus = MappingStatus.Cancel;
-                            vMappingKeypadButton = "None";
+                            vMappingKeypadButton = null;
                         }
                         else
                         {
-                            txt_KeypadMap_Status.Text = "Waiting for keyboard key press for '" + mapButton + "'... " + (11 - countdownTimeout).ToString() + "sec.";
+                            txt_KeypadMap_Status.Text = "Waiting for keyboard key press for '" + mapNameString + "'... " + (11 - countdownTimeout).ToString() + "sec.";
                         }
                     }
                     catch { }
@@ -60,7 +59,7 @@ namespace DirectXInput
 
                 if (vMappingKeypadStatus == MappingStatus.Done)
                 {
-                    txt_KeypadMap_Status.Text = "Changed '" + mapButton + "' to the pressed keyboard button.";
+                    txt_KeypadMap_Status.Text = "Changed '" + mapNameString + "' to the pressed keyboard button.";
 
                     //Update the key names
                     App.vWindowKeypad.UpdateKeypadNames();
@@ -79,6 +78,118 @@ namespace DirectXInput
             catch { }
         }
 
+        //Unmap keypad button
+        void Btn_MapKeypad_MouseRight(object sender, RoutedEventArgs args)
+        {
+            try
+            {
+                Button sendButton = sender as Button;
+                string mapNameString = sendButton.ToolTip.ToString();
+                Debug.WriteLine("Unmapped button: " + mapNameString);
+                txt_KeypadMap_Status.Text = "Unmapped '" + mapNameString + "' from the keypad.";
+
+                //Get keypad mapping profile
+                KeypadMapping directKeypadMappingProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
+
+                //Store new keypad mapping in Json
+                if (sendButton == btn_SetPadThumbLeftLeft)
+                {
+                    directKeypadMappingProfile.DPadLeftMod = null;
+                    directKeypadMappingProfile.DPadLeft = null;
+                    directKeypadMappingProfile.ThumbLeftLeftMod = null;
+                    directKeypadMappingProfile.ThumbLeftLeft = null;
+                }
+                else if (sendButton == btn_SetPadThumbLeftUp)
+                {
+                    directKeypadMappingProfile.DPadUpMod = null;
+                    directKeypadMappingProfile.DPadUp = null;
+                    directKeypadMappingProfile.ThumbLeftUpMod = null;
+                    directKeypadMappingProfile.ThumbLeftUp = null;
+                }
+                else if (sendButton == btn_SetPadThumbLeftRight)
+                {
+                    directKeypadMappingProfile.DPadRightMod = null;
+                    directKeypadMappingProfile.DPadRight = null;
+                    directKeypadMappingProfile.ThumbLeftRightMod = null;
+                    directKeypadMappingProfile.ThumbLeftRight = null;
+                }
+                else if (sendButton == btn_SetPadThumbLeftDown)
+                {
+                    directKeypadMappingProfile.DPadDownMod = null;
+                    directKeypadMappingProfile.DPadDown = null;
+                    directKeypadMappingProfile.ThumbLeftDownMod = null;
+                    directKeypadMappingProfile.ThumbLeftDown = null;
+                }
+                else if (sendButton == btn_SetPadA)
+                {
+                    directKeypadMappingProfile.ButtonAMod = null;
+                    directKeypadMappingProfile.ButtonA = null;
+                }
+                else if (sendButton == btn_SetPadB)
+                {
+                    directKeypadMappingProfile.ButtonBMod = null;
+                    directKeypadMappingProfile.ButtonB = null;
+                }
+                else if (sendButton == btn_SetPadX)
+                {
+                    directKeypadMappingProfile.ButtonXMod = null;
+                    directKeypadMappingProfile.ButtonX = null;
+                }
+                else if (sendButton == btn_SetPadY)
+                {
+                    directKeypadMappingProfile.ButtonYMod = null;
+                    directKeypadMappingProfile.ButtonY = null;
+                }
+                else if (sendButton == btn_SetPadShoulderLeft)
+                {
+                    directKeypadMappingProfile.ButtonShoulderLeftMod = null;
+                    directKeypadMappingProfile.ButtonShoulderLeft = null;
+                }
+                else if (sendButton == btn_SetPadShoulderRight)
+                {
+                    directKeypadMappingProfile.ButtonShoulderRightMod = null;
+                    directKeypadMappingProfile.ButtonShoulderRight = null;
+                }
+                else if (sendButton == btn_SetPadBack)
+                {
+                    directKeypadMappingProfile.ButtonBackMod = null;
+                    directKeypadMappingProfile.ButtonBack = null;
+                }
+                else if (sendButton == btn_SetPadStart)
+                {
+                    directKeypadMappingProfile.ButtonStartMod = null;
+                    directKeypadMappingProfile.ButtonStart = null;
+                }
+                else if (sendButton == btn_SetPadThumbLeft)
+                {
+                    directKeypadMappingProfile.ButtonThumbLeftMod = null;
+                    directKeypadMappingProfile.ButtonThumbLeft = null;
+                }
+                else if (sendButton == btn_SetPadThumbRight)
+                {
+                    directKeypadMappingProfile.ButtonThumbRightMod = null;
+                    directKeypadMappingProfile.ButtonThumbRight = null;
+                }
+                else if (sendButton == btn_SetPadTriggerLeft)
+                {
+                    directKeypadMappingProfile.ButtonTriggerLeftMod = null;
+                    directKeypadMappingProfile.ButtonTriggerLeft = null;
+                }
+                else if (sendButton == btn_SetPadTriggerRight)
+                {
+                    directKeypadMappingProfile.ButtonTriggerRightMod = null;
+                    directKeypadMappingProfile.ButtonTriggerRight = null;
+                }
+
+                //Save changes to Json file
+                JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
+
+                //Update the key names
+                App.vWindowKeypad.UpdateKeypadNames();
+            }
+            catch { }
+        }
+
         //Save keypad button mapping
         bool KeypadSaveMapping(KeysVirtual usedVirtualKey, KeysVirtual? usedModifierKey)
         {
@@ -90,96 +201,93 @@ namespace DirectXInput
                     //Get keypad mapping profile
                     KeypadMapping directKeypadMappingProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
 
-                    Debug.WriteLine("Mapped button " + vMappingKeypadButton + " to: " + usedModifierKey + " / " + usedVirtualKey);
-                    if (vMappingKeypadButton == "Arrow Left")
+                    string mapNameString = vMappingKeypadButton.ToolTip.ToString();
+                    Debug.WriteLine("Mapped button " + mapNameString + " to: " + usedModifierKey + " / " + usedVirtualKey);
+
+                    if (vMappingKeypadButton == btn_SetPadThumbLeftLeft)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.DPadLeftMod = usedModifierKey; } else { directKeypadMappingProfile.DPadLeftMod = null; }
                         directKeypadMappingProfile.DPadLeft = usedVirtualKey;
                         if (usedModifierKey != null) { directKeypadMappingProfile.ThumbLeftLeftMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbLeftLeftMod = null; }
                         directKeypadMappingProfile.ThumbLeftLeft = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Arrow Up")
+                    else if (vMappingKeypadButton == btn_SetPadThumbLeftUp)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.DPadUpMod = usedModifierKey; } else { directKeypadMappingProfile.DPadUpMod = null; }
                         directKeypadMappingProfile.DPadUp = usedVirtualKey;
                         if (usedModifierKey != null) { directKeypadMappingProfile.ThumbLeftUpMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbLeftUpMod = null; }
                         directKeypadMappingProfile.ThumbLeftUp = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Arrow Right")
+                    else if (vMappingKeypadButton == btn_SetPadThumbLeftRight)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.DPadRightMod = usedModifierKey; } else { directKeypadMappingProfile.DPadRightMod = null; }
                         directKeypadMappingProfile.DPadRight = usedVirtualKey;
                         if (usedModifierKey != null) { directKeypadMappingProfile.ThumbLeftRightMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbLeftRightMod = null; }
                         directKeypadMappingProfile.ThumbLeftRight = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Arrow Down")
+                    else if (vMappingKeypadButton == btn_SetPadThumbLeftDown)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.DPadDownMod = usedModifierKey; } else { directKeypadMappingProfile.DPadDownMod = null; }
                         directKeypadMappingProfile.DPadDown = usedVirtualKey;
                         if (usedModifierKey != null) { directKeypadMappingProfile.ThumbLeftDownMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbLeftDownMod = null; }
                         directKeypadMappingProfile.ThumbLeftDown = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button A")
+                    else if (vMappingKeypadButton == btn_SetPadA)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonAMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonAMod = null; }
                         directKeypadMappingProfile.ButtonA = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button B")
+                    else if (vMappingKeypadButton == btn_SetPadB)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonBMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonBMod = null; }
                         directKeypadMappingProfile.ButtonB = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button X")
+                    else if (vMappingKeypadButton == btn_SetPadX)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonXMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonXMod = null; }
                         directKeypadMappingProfile.ButtonX = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button Y")
+                    else if (vMappingKeypadButton == btn_SetPadY)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonYMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonYMod = null; }
                         directKeypadMappingProfile.ButtonY = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button LB")
+                    else if (vMappingKeypadButton == btn_SetPadShoulderLeft)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonShoulderLeftMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonShoulderLeftMod = null; }
                         directKeypadMappingProfile.ButtonShoulderLeft = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button RB")
+                    else if (vMappingKeypadButton == btn_SetPadShoulderRight)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonShoulderRightMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonShoulderRightMod = null; }
                         directKeypadMappingProfile.ButtonShoulderRight = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button Back")
+                    else if (vMappingKeypadButton == btn_SetPadBack)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonBackMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonBackMod = null; }
                         directKeypadMappingProfile.ButtonBack = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button Start")
+                    else if (vMappingKeypadButton == btn_SetPadStart)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonStartMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonStartMod = null; }
                         directKeypadMappingProfile.ButtonStart = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button Guide")
-                    {
-                        if (usedModifierKey != null) { directKeypadMappingProfile.ButtonGuideMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonGuideMod = null; }
-                        directKeypadMappingProfile.ButtonGuide = usedVirtualKey;
-                    }
-                    else if (vMappingKeypadButton == "Button Thumb Left")
+                    else if (vMappingKeypadButton == btn_SetPadThumbLeft)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonThumbLeftMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonThumbLeftMod = null; }
                         directKeypadMappingProfile.ButtonThumbLeft = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button Thumb Right")
+                    else if (vMappingKeypadButton == btn_SetPadThumbRight)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonThumbRightMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonThumbRightMod = null; }
                         directKeypadMappingProfile.ButtonThumbRight = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button Trigger Left")
+                    else if (vMappingKeypadButton == btn_SetPadTriggerLeft)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonTriggerLeftMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonTriggerLeftMod = null; }
                         directKeypadMappingProfile.ButtonTriggerLeft = usedVirtualKey;
                     }
-                    else if (vMappingKeypadButton == "Button Trigger Right")
+                    else if (vMappingKeypadButton == btn_SetPadTriggerRight)
                     {
                         if (usedModifierKey != null) { directKeypadMappingProfile.ButtonTriggerRightMod = usedModifierKey; } else { directKeypadMappingProfile.ButtonTriggerRightMod = null; }
                         directKeypadMappingProfile.ButtonTriggerRight = usedVirtualKey;
@@ -187,11 +295,10 @@ namespace DirectXInput
 
                     //Reset controller button mapping
                     vMappingKeypadStatus = MappingStatus.Done;
-                    vMappingKeypadButton = "None";
+                    vMappingKeypadButton = null;
 
                     //Save changes to Json file
                     JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
-
                     return true;
                 }
             }

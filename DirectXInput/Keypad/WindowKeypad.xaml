@@ -53,50 +53,50 @@
             </Grid.ColumnDefinitions>
             <!-- Keyboard Arrows -->
             <StackPanel Grid.Column="0">
-                <Grid Name="grid_LeftUp" HorizontalAlignment="Center">
+                <Grid Name="grid_ThumbLeftUp" HorizontalAlignment="Center">
                     <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
                         <Image.Effect>
                             <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
                         </Image.Effect>
                     </Image>
-                    <TextBlock Name="textblock_LeftUp" Text="⯅" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Name="textblock_ThumbLeftUp" Text="?" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock.Effect>
                             <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
                         </TextBlock.Effect>
                     </TextBlock>
                 </Grid>
                 <StackPanel Orientation="Horizontal">
-                    <Grid Name="grid_LeftLeft">
+                    <Grid Name="grid_ThumbLeftLeft">
                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
                             <Image.Effect>
                                 <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
                             </Image.Effect>
                         </Image>
-                        <TextBlock Name="textblock_LeftLeft" Text="⯇" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Name="textblock_ThumbLeftLeft" Text="?" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock.Effect>
                                 <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
                             </TextBlock.Effect>
                         </TextBlock>
                     </Grid>
-                    <Grid Name="grid_LeftDown">
+                    <Grid Name="grid_ThumbLeftDown">
                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
                             <Image.Effect>
                                 <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
                             </Image.Effect>
                         </Image>
-                        <TextBlock Name="textblock_LeftDown" Text="⯆" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Name="textblock_ThumbLeftDown" Text="?" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock.Effect>
                                 <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
                             </TextBlock.Effect>
                         </TextBlock>
                     </Grid>
-                    <Grid Name="grid_LeftRight">
+                    <Grid Name="grid_ThumbLeftRight">
                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png" Height="75" Width="75">
                             <Image.Effect>
                                 <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.80" BlurRadius="2"/>
                             </Image.Effect>
                         </Image>
-                        <TextBlock Name="textblock_LeftRight" Text="⯈" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Name="textblock_ThumbLeftRight" Text="?" Style="{StaticResource TextBlockWhite}" FontSize="25" FontWeight="SemiBold" LineHeight="25" LineStackingStrategy="BlockLineHeight"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock.Effect>
                                 <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
                             </TextBlock.Effect>

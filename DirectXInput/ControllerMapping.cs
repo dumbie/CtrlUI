@@ -21,25 +21,24 @@ namespace DirectXInput
                 if (activeController != null)
                 {
                     Button sendButton = sender as Button;
-                    string mapButton = sendButton.Tag.ToString();
-
-                    Debug.WriteLine("Unmapped button: " + mapButton);
-                    txt_ControllerMap_Status.Text = "Unmapped '" + mapButton + "' from the controller profile.";
+                    string mapNameString = sendButton.ToolTip.ToString();
+                    Debug.WriteLine("Unmapped button: " + mapNameString);
+                    txt_ControllerMap_Status.Text = "Unmapped '" + mapNameString + "' from the controller profile.";
 
                     //Store new button mapping in Json controller
-                    if (mapButton == "Button A") { activeController.Details.Profile.ButtonA = -1; }
-                    else if (mapButton == "Button B") { activeController.Details.Profile.ButtonB = -1; }
-                    else if (mapButton == "Button X") { activeController.Details.Profile.ButtonX = -1; }
-                    else if (mapButton == "Button Y") { activeController.Details.Profile.ButtonY = -1; }
-                    else if (mapButton == "Button LB") { activeController.Details.Profile.ButtonShoulderLeft = -1; }
-                    else if (mapButton == "Button RB") { activeController.Details.Profile.ButtonShoulderRight = -1; }
-                    else if (mapButton == "Button Back") { activeController.Details.Profile.ButtonBack = -1; }
-                    else if (mapButton == "Button Start") { activeController.Details.Profile.ButtonStart = -1; }
-                    else if (mapButton == "Button Guide") { activeController.Details.Profile.ButtonGuide = -1; }
-                    else if (mapButton == "Button Thumb Left") { activeController.Details.Profile.ButtonThumbLeft = -1; }
-                    else if (mapButton == "Button Thumb Right") { activeController.Details.Profile.ButtonThumbRight = -1; }
-                    else if (mapButton == "Button Trigger Left") { activeController.Details.Profile.ButtonTriggerLeft = -1; }
-                    else if (mapButton == "Button Trigger Right") { activeController.Details.Profile.ButtonTriggerRight = -1; }
+                    if (sendButton == btn_SetA) { activeController.Details.Profile.ButtonA = -1; }
+                    else if (sendButton == btn_SetB) { activeController.Details.Profile.ButtonB = -1; }
+                    else if (sendButton == btn_SetX) { activeController.Details.Profile.ButtonX = -1; }
+                    else if (sendButton == btn_SetY) { activeController.Details.Profile.ButtonY = -1; }
+                    else if (sendButton == btn_SetShoulderLeft) { activeController.Details.Profile.ButtonShoulderLeft = -1; }
+                    else if (sendButton == btn_SetShoulderRight) { activeController.Details.Profile.ButtonShoulderRight = -1; }
+                    else if (sendButton == btn_SetBack) { activeController.Details.Profile.ButtonBack = -1; }
+                    else if (sendButton == btn_SetStart) { activeController.Details.Profile.ButtonStart = -1; }
+                    else if (sendButton == btn_SetGuide) { activeController.Details.Profile.ButtonGuide = -1; }
+                    else if (sendButton == btn_SetThumbLeft) { activeController.Details.Profile.ButtonThumbLeft = -1; }
+                    else if (sendButton == btn_SetThumbRight) { activeController.Details.Profile.ButtonThumbRight = -1; }
+                    else if (sendButton == btn_SetTriggerLeft) { activeController.Details.Profile.ButtonTriggerLeft = -1; }
+                    else if (sendButton == btn_SetTriggerRight) { activeController.Details.Profile.ButtonTriggerRight = -1; }
 
                     //Save changes to Json file
                     JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
@@ -56,15 +55,14 @@ namespace DirectXInput
                 ControllerStatus activeController = GetActiveController();
                 if (activeController != null)
                 {
-                    Button sendButton = sender as Button;
-                    string mapButton = sendButton.Tag.ToString();
-
                     //Set button to map
+                    Button sendButton = sender as Button;
+                    string mapNameString = sendButton.ToolTip.ToString();
                     vMappingControllerStatus = MappingStatus.Mapping;
-                    vMappingControllerButton = mapButton;
+                    vMappingControllerButton = sendButton;
 
                     //Disable interface
-                    txt_ControllerMap_Status.Text = "Waiting for '" + mapButton + "' press on the controller...";
+                    txt_ControllerMap_Status.Text = "Waiting for '" + mapNameString + "' press on the controller...";
                     pb_ControllerMapProgress.IsIndeterminate = true;
                     grid_ControllerPreview.IsEnabled = false;
                     grid_ControllerPreview.Opacity = 0.50;
@@ -81,11 +79,11 @@ namespace DirectXInput
                             {
                                 //Reset controller button mapping
                                 vMappingControllerStatus = MappingStatus.Cancel;
-                                vMappingControllerButton = "None";
+                                vMappingControllerButton = null;
                             }
                             else
                             {
-                                txt_ControllerMap_Status.Text = "Waiting for '" + mapButton + "' press on the controller... " + (11 - countdownTimeout).ToString() + "sec.";
+                                txt_ControllerMap_Status.Text = "Waiting for '" + mapNameString + "' press on the controller... " + (11 - countdownTimeout).ToString() + "sec.";
                             }
                         }
                         catch { }
@@ -98,7 +96,7 @@ namespace DirectXInput
 
                     if (vMappingControllerStatus == MappingStatus.Done)
                     {
-                        txt_ControllerMap_Status.Text = "Changed '" + mapButton + "' to the pressed controller button.";
+                        txt_ControllerMap_Status.Text = "Changed '" + mapNameString + "' to the pressed controller button.";
                     }
                     else
                     {
@@ -124,27 +122,35 @@ namespace DirectXInput
                 if (vMappingControllerStatus == MappingStatus.Mapping)
                 {
                     //Store new button mapping in Json controller
-                    int ButtonMapId = Array.FindIndex(Controller.InputCurrent.RawBytes, ButtonPressed => ButtonPressed);
-                    if (ButtonMapId != -1)
+                    int buttonMapId = Array.FindIndex(Controller.InputCurrent.RawBytes, ButtonPressed => ButtonPressed);
+                    if (buttonMapId != -1)
                     {
-                        Debug.WriteLine("Mapped button " + vMappingControllerButton + " to: " + ButtonMapId);
-                        if (vMappingControllerButton == "Button A") { Controller.Details.Profile.ButtonA = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button B") { Controller.Details.Profile.ButtonB = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button X") { Controller.Details.Profile.ButtonX = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button Y") { Controller.Details.Profile.ButtonY = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button LB") { Controller.Details.Profile.ButtonShoulderLeft = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button RB") { Controller.Details.Profile.ButtonShoulderRight = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button Back") { Controller.Details.Profile.ButtonBack = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button Start") { Controller.Details.Profile.ButtonStart = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button Guide") { Controller.Details.Profile.ButtonGuide = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button Thumb Left") { Controller.Details.Profile.ButtonThumbLeft = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button Thumb Right") { Controller.Details.Profile.ButtonThumbRight = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button Trigger Left") { Controller.Details.Profile.ButtonTriggerLeft = ButtonMapId; }
-                        else if (vMappingControllerButton == "Button Trigger Right") { Controller.Details.Profile.ButtonTriggerRight = ButtonMapId; }
+                        AVActions.ActionDispatcherInvoke(delegate
+                        {
+                            try
+                            {
+                                string mapNameString = vMappingControllerButton.ToolTip.ToString();
+                                Debug.WriteLine("Mapped button " + mapNameString + " to: " + buttonMapId);
+                                if (vMappingControllerButton == btn_SetA) { Controller.Details.Profile.ButtonA = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetB) { Controller.Details.Profile.ButtonB = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetX) { Controller.Details.Profile.ButtonX = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetY) { Controller.Details.Profile.ButtonY = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetShoulderLeft) { Controller.Details.Profile.ButtonShoulderLeft = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetShoulderRight) { Controller.Details.Profile.ButtonShoulderRight = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetBack) { Controller.Details.Profile.ButtonBack = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetStart) { Controller.Details.Profile.ButtonStart = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetGuide) { Controller.Details.Profile.ButtonGuide = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetThumbLeft) { Controller.Details.Profile.ButtonThumbLeft = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetThumbRight) { Controller.Details.Profile.ButtonThumbRight = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetTriggerLeft) { Controller.Details.Profile.ButtonTriggerLeft = buttonMapId; }
+                                else if (vMappingControllerButton == btn_SetTriggerRight) { Controller.Details.Profile.ButtonTriggerRight = buttonMapId; }
+                            }
+                            catch { }
+                        });
 
                         //Reset controller button mapping
                         vMappingControllerStatus = MappingStatus.Done;
-                        vMappingControllerButton = "None";
+                        vMappingControllerButton = null;
 
                         //Save changes to Json file
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
