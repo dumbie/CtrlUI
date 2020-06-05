@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -83,7 +82,8 @@ namespace DirectXInput.Keypad
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                 //Update the keypad opacity
-                this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeypadOpacity"]);
+                UpdateKeypadOpacity(true);
+                UpdateKeypadStyle();
                 this.Visibility = Visibility.Visible;
                 vWindowVisible = true;
                 Debug.WriteLine("Showing the Keypad window.");
@@ -92,13 +92,32 @@ namespace DirectXInput.Keypad
         }
 
         //Update the keypad opacity
-        public void UpdateKeypadOpacity()
+        public void UpdateKeypadOpacity(bool forceUpdate)
+        {
+            try
+            {
+                if (forceUpdate || this.Opacity != 0)
+                {
+                    //Get keypad mapping profile
+                    string processNameLower = vProcessForeground.Name.ToLower();
+                    KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == processNameLower).FirstOrDefault();
+                    if (directKeypadMappingProfile == null) { directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault(); }
+
+                    //Update the keypad opacity
+                    this.Opacity = directKeypadMappingProfile.KeypadOpacity;
+                }
+            }
+            catch { }
+        }
+
+        //Update the keypad style
+        public void UpdateKeypadStyle()
         {
             try
             {
                 if (this.Opacity != 0)
                 {
-                    this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeypadOpacity"]);
+                    //Fix add code
                 }
             }
             catch { }

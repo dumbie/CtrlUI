@@ -233,6 +233,7 @@ namespace DirectXInput
                 btn_SetPadStart.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_Settings_KeypadProcessProfile_Add.Click += Btn_Settings_KeypadProcessProfile_Add_Click;
                 btn_Settings_KeypadProcessProfile_Remove.Click += Btn_Settings_KeypadProcessProfile_Remove_Click;
+                combobox_KeypadProcessProfile.SelectionChanged += Combobox_KeypadProcessProfile_SelectionChanged;
 
                 //Settings functions
                 btn_CheckControllers.Click += btn_CheckControllers_Click;

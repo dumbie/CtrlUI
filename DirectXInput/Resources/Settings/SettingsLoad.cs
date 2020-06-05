@@ -44,10 +44,6 @@ namespace DirectXInput
                 textblock_SettingsMouseScrollSensitivity.Text = textblock_SettingsMouseScrollSensitivity.Tag.ToString() + Convert.ToInt32(ConfigurationManager.AppSettings["MouseScrollSensitivity"]);
                 slider_SettingsMouseScrollSensitivity.Value = Convert.ToInt32(ConfigurationManager.AppSettings["MouseScrollSensitivity"]);
 
-                //Load keypad opacity
-                textblock_KeypadOpacity.Text = textblock_KeypadOpacity.Tag + ": " + ConfigurationManager.AppSettings["KeypadOpacity"].ToString() + "%";
-                slider_KeypadOpacity.Value = Convert.ToDouble(ConfigurationManager.AppSettings["KeypadOpacity"]);
-
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;
 

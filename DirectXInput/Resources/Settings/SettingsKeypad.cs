@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -85,6 +86,48 @@ namespace DirectXInput
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     Debug.WriteLine("Default profile cannot be removed.");
                 }
+            }
+            catch { }
+        }
+
+        //Load and set keypad profile
+        void Combobox_KeypadProcessProfile_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                Load_Keypad_Profile();
+            }
+            catch { }
+        }
+
+        //Load keypad profile
+        void Load_Keypad_Profile()
+        {
+            try
+            {
+                Debug.WriteLine("Loading keypad profile.");
+
+                //Select the default profile
+                if (combobox_KeypadProcessProfile.SelectedIndex == -1)
+                {
+                    combobox_KeypadProcessProfile.ItemsSource = vDirectKeypadMapping;
+                    combobox_KeypadProcessProfile.DisplayMemberPath = "Name";
+                    combobox_KeypadProcessProfile.SelectedIndex = 0;
+                    return;
+                }
+
+                KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
+
+                //Load keypad opacity
+                textblock_KeypadOpacity.Text = textblock_KeypadOpacity.Tag + ": " + selectedProfile.KeypadOpacity.ToString("0.00") + "%";
+                slider_KeypadOpacity.Value = selectedProfile.KeypadOpacity;
+
+                //Load keypad style
+                combobox_KeypadDisplayStyle.SelectedIndex = selectedProfile.KeypadDisplayStyle;
+
+                //Load keypad repeat interval
+                textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + selectedProfile.ButtonRepeatIntervalMs + "ms";
+                slider_KeypadRepeatIntervalMs.Value = selectedProfile.ButtonRepeatIntervalMs;
             }
             catch { }
         }

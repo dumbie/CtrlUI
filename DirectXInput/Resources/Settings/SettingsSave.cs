@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Controls;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 
 namespace DirectXInput
@@ -138,9 +139,36 @@ namespace DirectXInput
                 //Keypad settings
                 slider_KeypadOpacity.ValueChanged += (sender, e) =>
                 {
+                    KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
+                    selectedProfile.KeypadOpacity = slider_KeypadOpacity.Value;
+
+                    //Save changes to Json file
+                    JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
+
                     textblock_KeypadOpacity.Text = textblock_KeypadOpacity.Tag + ": " + slider_KeypadOpacity.Value.ToString("0.00") + "%";
-                    SettingSave(vConfigurationApplication, "KeypadOpacity", slider_KeypadOpacity.Value.ToString("0.00"));
-                    App.vWindowKeypad.UpdateKeypadOpacity();
+                    App.vWindowKeypad.UpdateKeypadOpacity(false);
+                };
+
+                combobox_KeypadDisplayStyle.SelectionChanged += (sender, e) =>
+                {
+                    KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
+                    selectedProfile.KeypadDisplayStyle = combobox_KeypadDisplayStyle.SelectedIndex;
+
+                    //Save changes to Json file
+                    JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
+
+                    App.vWindowKeypad.UpdateKeypadStyle();
+                };
+
+                slider_KeypadRepeatIntervalMs.ValueChanged += (sender, e) =>
+                {
+                    KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
+                    selectedProfile.ButtonRepeatIntervalMs = Convert.ToInt32(slider_KeypadRepeatIntervalMs.Value);
+
+                    //Save changes to Json file
+                    JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
+
+                    textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + Convert.ToInt32(slider_KeypadRepeatIntervalMs.Value) + "ms";
                 };
             }
             catch (Exception ex)

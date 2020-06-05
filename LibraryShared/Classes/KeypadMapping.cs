@@ -11,6 +11,8 @@ namespace LibraryShared
             //Mapping Details
             public string Name { get; set; } = string.Empty;
             public int ButtonRepeatIntervalMs { get; set; } = 30;
+            public double KeypadOpacity { get; set; } = 0.70;
+            public int KeypadDisplayStyle { get; set; } = 0;
 
             //Raw Thumbs
             public KeysVirtual? ThumbLeftUpMod { get; set; } = null;
