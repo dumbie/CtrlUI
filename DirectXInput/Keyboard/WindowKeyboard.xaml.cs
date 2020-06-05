@@ -100,9 +100,6 @@ namespace DirectXInput.Keyboard
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
-                //Update the keyboard opacity
-                UpdateKeyboardOpacity();
-
                 //Check mouse cursor position
                 CheckMousePosition();
 
@@ -112,7 +109,25 @@ namespace DirectXInput.Keyboard
                 //Update the window style (focus workaround)
                 UpdateWindowStyle();
 
+                //Update the keyboard opacity
+                this.Title = "DirectXInput Keyboard (Visible)";
+                this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeyboardOpacity"]);
+                this.Visibility = Visibility.Visible;
+                vWindowVisible = true;
                 Debug.WriteLine("Showing the keyboard window.");
+            }
+            catch { }
+        }
+
+        //Update keyboard opacity
+        public void UpdateKeyboardOpacity()
+        {
+            try
+            {
+                if (this.Opacity != 0)
+                {
+                    this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeyboardOpacity"]);
+                }
             }
             catch { }
         }
@@ -213,19 +228,6 @@ namespace DirectXInput.Keyboard
                 {
                     await FocusOnElement(key_h, false, vInteropWindowHandle);
                 }
-            }
-            catch { }
-        }
-
-        //Update keyboard opacity
-        public void UpdateKeyboardOpacity()
-        {
-            try
-            {
-                this.Title = "DirectXInput Keyboard (Visible)";
-                this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeyboardOpacity"]);
-                this.Visibility = Visibility.Visible;
-                vWindowVisible = true;
             }
             catch { }
         }

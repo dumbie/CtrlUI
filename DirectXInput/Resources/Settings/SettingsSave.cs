@@ -104,7 +104,7 @@ namespace DirectXInput
                 {
                     textblock_KeyboardOpacity.Text = textblock_KeyboardOpacity.Tag + ": " + slider_KeyboardOpacity.Value.ToString("0.00") + "%";
                     SettingSave(vConfigurationApplication, "KeyboardOpacity", slider_KeyboardOpacity.Value.ToString("0.00"));
-                    //Fix App.vWindowKeyboard.UpdateKeyboardOpacity();
+                    App.vWindowKeyboard.UpdateKeyboardOpacity();
                 };
 
                 combobox_KeyboardLayout.SelectionChanged += async (sender, e) =>
@@ -140,7 +140,7 @@ namespace DirectXInput
                 {
                     textblock_KeypadOpacity.Text = textblock_KeypadOpacity.Tag + ": " + slider_KeypadOpacity.Value.ToString("0.00") + "%";
                     SettingSave(vConfigurationApplication, "KeypadOpacity", slider_KeypadOpacity.Value.ToString("0.00"));
-                    //Fix App.vWindowKeypad.UpdateKeypadOpacity();
+                    App.vWindowKeypad.UpdateKeypadOpacity();
                 };
             }
             catch (Exception ex)

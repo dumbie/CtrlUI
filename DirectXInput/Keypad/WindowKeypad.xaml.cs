@@ -55,7 +55,7 @@ namespace DirectXInput.Keypad
             catch { }
         }
 
-        //Hide the keyboard window
+        //Hide the keypad window
         public new void Hide()
         {
             try
@@ -65,7 +65,7 @@ namespace DirectXInput.Keypad
                     //Play window close sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                    //Update the keyboard opacity
+                    //Update the keypad opacity
                     this.Opacity = 0;
                     vWindowVisible = false;
                     Debug.WriteLine("Hiding the Keypad window.");
@@ -74,22 +74,32 @@ namespace DirectXInput.Keypad
             catch { }
         }
 
-        //Show the keyboard window
+        //Show the keypad window
         public new void Show()
         {
             try
             {
-                //Delay keyboard input
-                vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMediumTicks;
-
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
-                //Update the keyboard opacity
+                //Update the keypad opacity
                 this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeypadOpacity"]);
                 this.Visibility = Visibility.Visible;
                 vWindowVisible = true;
                 Debug.WriteLine("Showing the Keypad window.");
+            }
+            catch { }
+        }
+
+        //Update the keypad opacity
+        public void UpdateKeypadOpacity()
+        {
+            try
+            {
+                if (this.Opacity != 0)
+                {
+                    this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeypadOpacity"]);
+                }
             }
             catch { }
         }
