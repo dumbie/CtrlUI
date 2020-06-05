@@ -36,13 +36,13 @@ namespace DirectXInput
                 //Keyboard settings
                 if (ConfigurationManager.AppSettings["KeyboardLayout"] == null) { SettingSave(vConfigurationApplication, "KeyboardLayout", "0"); }
                 if (ConfigurationManager.AppSettings["KeyboardMode"] == null) { SettingSave(vConfigurationApplication, "KeyboardMode", "0"); }
-                if (ConfigurationManager.AppSettings["KeyboardOpacity"] == null) { SettingSave(vConfigurationApplication, "KeyboardOpacity", "0,95"); }
+                if (ConfigurationManager.AppSettings["KeyboardOpacity"] == null) { SettingSave(vConfigurationApplication, "KeyboardOpacity", "0,90"); }
                 if (ConfigurationManager.AppSettings["KeyboardDomainExtension"] == null) { SettingSave(vConfigurationApplication, "KeyboardDomainExtension", ".nl"); }
                 if (ConfigurationManager.AppSettings["MouseMoveSensitivity"] == null) { SettingSave(vConfigurationApplication, "MouseMoveSensitivity", "10"); }
                 if (ConfigurationManager.AppSettings["MouseScrollSensitivity"] == null) { SettingSave(vConfigurationApplication, "MouseScrollSensitivity", "10"); }
 
                 //Keypad settings
-                if (ConfigurationManager.AppSettings["KeypadOpacity"] == null) { SettingSave(vConfigurationApplication, "KeypadOpacity", "0,75"); }
+                if (ConfigurationManager.AppSettings["KeypadOpacity"] == null) { SettingSave(vConfigurationApplication, "KeypadOpacity", "0,70"); }
             }
             catch (Exception ex)
             {

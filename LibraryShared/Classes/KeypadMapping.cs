@@ -30,12 +30,6 @@ namespace LibraryShared
             public KeysVirtual? ThumbRightRightMod { get; set; } = null;
             public KeysVirtual? ThumbRightRight { get; set; } = null;
 
-            //Raw Triggers
-            public KeysVirtual? TriggerLeftMod { get; set; } = null;
-            public KeysVirtual? TriggerLeft { get; set; } = null;
-            public KeysVirtual? TriggerRightMod { get; set; } = null;
-            public KeysVirtual? TriggerRight { get; set; } = null;
-
             //Raw D-Pad
             public KeysVirtual? DPadUpMod { get; set; } = null;
             public KeysVirtual? DPadUp { get; set; } = null;

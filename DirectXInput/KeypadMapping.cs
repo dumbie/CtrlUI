@@ -120,6 +120,26 @@ namespace DirectXInput
                     directKeypadMappingProfile.ThumbLeftDownMod = null;
                     directKeypadMappingProfile.ThumbLeftDown = null;
                 }
+                else if (sendButton == btn_SetPadThumbRightLeft)
+                {
+                    directKeypadMappingProfile.ThumbRightLeftMod = null;
+                    directKeypadMappingProfile.ThumbRightLeft = null;
+                }
+                else if (sendButton == btn_SetPadThumbRightUp)
+                {
+                    directKeypadMappingProfile.ThumbRightUpMod = null;
+                    directKeypadMappingProfile.ThumbRightUp = null;
+                }
+                else if (sendButton == btn_SetPadThumbRightRight)
+                {
+                    directKeypadMappingProfile.ThumbRightRightMod = null;
+                    directKeypadMappingProfile.ThumbRightRight = null;
+                }
+                else if (sendButton == btn_SetPadThumbRightDown)
+                {
+                    directKeypadMappingProfile.ThumbRightDownMod = null;
+                    directKeypadMappingProfile.ThumbRightDown = null;
+                }
                 else if (sendButton == btn_SetPadA)
                 {
                     directKeypadMappingProfile.ButtonAMod = null;
@@ -231,6 +251,26 @@ namespace DirectXInput
                         directKeypadMappingProfile.DPadDown = usedVirtualKey;
                         if (usedModifierKey != null) { directKeypadMappingProfile.ThumbLeftDownMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbLeftDownMod = null; }
                         directKeypadMappingProfile.ThumbLeftDown = usedVirtualKey;
+                    }
+                    else if (vMappingKeypadButton == btn_SetPadThumbRightLeft)
+                    {
+                        if (usedModifierKey != null) { directKeypadMappingProfile.ThumbRightLeftMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbRightLeftMod = null; }
+                        directKeypadMappingProfile.ThumbRightLeft = usedVirtualKey;
+                    }
+                    else if (vMappingKeypadButton == btn_SetPadThumbRightUp)
+                    {
+                        if (usedModifierKey != null) { directKeypadMappingProfile.ThumbRightUpMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbRightUpMod = null; }
+                        directKeypadMappingProfile.ThumbRightUp = usedVirtualKey;
+                    }
+                    else if (vMappingKeypadButton == btn_SetPadThumbRightRight)
+                    {
+                        if (usedModifierKey != null) { directKeypadMappingProfile.ThumbRightRightMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbRightRightMod = null; }
+                        directKeypadMappingProfile.ThumbRightRight = usedVirtualKey;
+                    }
+                    else if (vMappingKeypadButton == btn_SetPadThumbRightDown)
+                    {
+                        if (usedModifierKey != null) { directKeypadMappingProfile.ThumbRightDownMod = usedModifierKey; } else { directKeypadMappingProfile.ThumbRightDownMod = null; }
+                        directKeypadMappingProfile.ThumbRightDown = usedVirtualKey;
                     }
                     else if (vMappingKeypadButton == btn_SetPadA)
                     {

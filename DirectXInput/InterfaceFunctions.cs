@@ -199,6 +199,14 @@ namespace DirectXInput
                 btn_SetPadThumbLeftRight.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadThumbLeftDown.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
                 btn_SetPadThumbLeftDown.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
+                btn_SetPadThumbRightLeft.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbRightLeft.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
+                btn_SetPadThumbRightUp.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbRightUp.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
+                btn_SetPadThumbRightRight.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbRightRight.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
+                btn_SetPadThumbRightDown.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
+                btn_SetPadThumbRightDown.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadA.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
                 btn_SetPadA.MouseRightButtonUp += Btn_MapKeypad_MouseRight;
                 btn_SetPadB.PreviewMouseLeftButtonUp += Btn_MapKeypad_MouseLeft;
