@@ -98,13 +98,7 @@ namespace DirectXInput.Keypad
             {
                 if (forceUpdate || this.Opacity != 0)
                 {
-                    //Get keypad mapping profile
-                    string processNameLower = vProcessForeground.Name.ToLower();
-                    KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == processNameLower).FirstOrDefault();
-                    if (directKeypadMappingProfile == null) { directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault(); }
-
-                    //Update the keypad opacity
-                    this.Opacity = directKeypadMappingProfile.KeypadOpacity;
+                    this.Opacity = vKeypadMappingProfile.KeypadOpacity;
                 }
             }
             catch { }
@@ -119,6 +113,24 @@ namespace DirectXInput.Keypad
                 {
                     //Fix add code
                 }
+            }
+            catch { }
+        }
+
+        //Set the keypad mapping profile
+        void SetKeypadMappingProfile()
+        {
+            try
+            {
+                //Improve process title name contains? duke3d dosbox
+                string processNameLower = vProcessForeground.Name.ToLower();
+                string processTitleLower = vProcessForeground.Title.ToLower();
+                KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == processNameLower || processTitleLower.Contains(x.Name.ToLower())).FirstOrDefault();
+                if (directKeypadMappingProfile == null)
+                {
+                    directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();
+                }
+                vKeypadMappingProfile = directKeypadMappingProfile;
             }
             catch { }
         }
@@ -175,35 +187,31 @@ namespace DirectXInput.Keypad
         {
             try
             {
-                //Get keypad mapping profile
-                KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == vProcessForeground.Name.ToLower()).FirstOrDefault();
-                if (directKeypadMappingProfile == null) { directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault(); }
-
                 //Update all keypad key details
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     try
                     {
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ThumbLeftLeftMod, directKeypadMappingProfile.ThumbLeftLeft, grid_ThumbLeftLeft, textblock_ThumbLeftLeft);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ThumbLeftUpMod, directKeypadMappingProfile.ThumbLeftUp, grid_ThumbLeftUp, textblock_ThumbLeftUp);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ThumbLeftRightMod, directKeypadMappingProfile.ThumbLeftRight, grid_ThumbLeftRight, textblock_ThumbLeftRight);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ThumbLeftDownMod, directKeypadMappingProfile.ThumbLeftDown, grid_ThumbLeftDown, textblock_ThumbLeftDown);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ThumbRightLeftMod, directKeypadMappingProfile.ThumbRightLeft, grid_ThumbRightLeft, textblock_ThumbRightLeft);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ThumbRightUpMod, directKeypadMappingProfile.ThumbRightUp, grid_ThumbRightUp, textblock_ThumbRightUp);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ThumbRightRightMod, directKeypadMappingProfile.ThumbRightRight, grid_ThumbRightRight, textblock_ThumbRightRight);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ThumbRightDownMod, directKeypadMappingProfile.ThumbRightDown, grid_ThumbRightDown, textblock_ThumbRightDown);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonBackMod, directKeypadMappingProfile.ButtonBack, grid_ButtonBack, textblock_ButtonBack);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonStartMod, directKeypadMappingProfile.ButtonStart, grid_ButtonStart, textblock_ButtonStart);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonXMod, directKeypadMappingProfile.ButtonX, grid_ButtonX, textblock_ButtonX);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonYMod, directKeypadMappingProfile.ButtonY, grid_ButtonY, textblock_ButtonY);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonAMod, directKeypadMappingProfile.ButtonA, grid_ButtonA, textblock_ButtonA);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonBMod, directKeypadMappingProfile.ButtonB, grid_ButtonB, textblock_ButtonB);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonShoulderLeftMod, directKeypadMappingProfile.ButtonShoulderLeft, grid_ButtonShoulderLeft, textblock_ButtonShoulderLeft);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonTriggerLeftMod, directKeypadMappingProfile.ButtonTriggerLeft, grid_ButtonTriggerLeft, textblock_ButtonTriggerLeft);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonThumbLeftMod, directKeypadMappingProfile.ButtonThumbLeft, grid_ButtonThumbLeft, textblock_ButtonThumbLeft);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonShoulderRightMod, directKeypadMappingProfile.ButtonShoulderRight, grid_ButtonShoulderRight, textblock_ButtonShoulderRight);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonTriggerRightMod, directKeypadMappingProfile.ButtonTriggerRight, grid_ButtonTriggerRight, textblock_ButtonTriggerRight);
-                        UpdateKeypadKeyDetails(directKeypadMappingProfile.ButtonThumbRightMod, directKeypadMappingProfile.ButtonThumbRight, grid_ButtonThumbRight, textblock_ButtonThumbRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftLeftMod, vKeypadMappingProfile.ThumbLeftLeft, grid_ThumbLeftLeft, textblock_ThumbLeftLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftUpMod, vKeypadMappingProfile.ThumbLeftUp, grid_ThumbLeftUp, textblock_ThumbLeftUp);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftRightMod, vKeypadMappingProfile.ThumbLeftRight, grid_ThumbLeftRight, textblock_ThumbLeftRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftDownMod, vKeypadMappingProfile.ThumbLeftDown, grid_ThumbLeftDown, textblock_ThumbLeftDown);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightLeftMod, vKeypadMappingProfile.ThumbRightLeft, grid_ThumbRightLeft, textblock_ThumbRightLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightUpMod, vKeypadMappingProfile.ThumbRightUp, grid_ThumbRightUp, textblock_ThumbRightUp);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightRightMod, vKeypadMappingProfile.ThumbRightRight, grid_ThumbRightRight, textblock_ThumbRightRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightDownMod, vKeypadMappingProfile.ThumbRightDown, grid_ThumbRightDown, textblock_ThumbRightDown);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonBackMod, vKeypadMappingProfile.ButtonBack, grid_ButtonBack, textblock_ButtonBack);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonStartMod, vKeypadMappingProfile.ButtonStart, grid_ButtonStart, textblock_ButtonStart);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonXMod, vKeypadMappingProfile.ButtonX, grid_ButtonX, textblock_ButtonX);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonYMod, vKeypadMappingProfile.ButtonY, grid_ButtonY, textblock_ButtonY);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonAMod, vKeypadMappingProfile.ButtonA, grid_ButtonA, textblock_ButtonA);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonBMod, vKeypadMappingProfile.ButtonB, grid_ButtonB, textblock_ButtonB);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonShoulderLeftMod, vKeypadMappingProfile.ButtonShoulderLeft, grid_ButtonShoulderLeft, textblock_ButtonShoulderLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonTriggerLeftMod, vKeypadMappingProfile.ButtonTriggerLeft, grid_ButtonTriggerLeft, textblock_ButtonTriggerLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonThumbLeftMod, vKeypadMappingProfile.ButtonThumbLeft, grid_ButtonThumbLeft, textblock_ButtonThumbLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonShoulderRightMod, vKeypadMappingProfile.ButtonShoulderRight, grid_ButtonShoulderRight, textblock_ButtonShoulderRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonTriggerRightMod, vKeypadMappingProfile.ButtonTriggerRight, grid_ButtonTriggerRight, textblock_ButtonTriggerRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonThumbRightMod, vKeypadMappingProfile.ButtonThumbRight, grid_ButtonThumbRight, textblock_ButtonThumbRight);
                     }
                     catch { }
                 });

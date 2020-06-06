@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
@@ -15,98 +14,101 @@ namespace DirectXInput.Keypad
         {
             try
             {
-                //Update interface controller preview
-                if (Environment.TickCount >= vControllerDelay_KeypadPreview)
+                if (Environment.TickCount >= vControllerDelay_Keypad)
                 {
+                    //Update interface controller preview
                     UpdateKeypadPreview(controllerInput);
 
-                    vControllerDelay_KeypadPreview = Environment.TickCount + vControllerDelayMicroTicks;
-                }
+                    //Check if the keypad process changed
+                    string processNameLower = vProcessForeground.Name.ToLower();
+                    string processTitleLower = vProcessForeground.Title.ToLower();
+                    if (processNameLower != vKeypadPreviousProcessName || processTitleLower != vKeypadPreviousProcessTitle)
+                    {
+                        Debug.WriteLine("Keypad process changed to: " + processNameLower + "/" + processTitleLower);
+                        vKeypadPreviousProcessName = processNameLower;
+                        vKeypadPreviousProcessTitle = processTitleLower;
 
-                //Get keypad mapping profile
-                string processNameLower = vProcessForeground.Name.ToLower();
-                KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == processNameLower).FirstOrDefault();
-                if (directKeypadMappingProfile == null) { directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault(); }
+                        //Set the keypad mapping profile
+                        SetKeypadMappingProfile();
 
-                //Update the key names
-                if (processNameLower != vKeypadPreviousProcess)
-                {
-                    Debug.WriteLine("Keypad process changed to: " + processNameLower);
-                    vKeypadPreviousProcess = processNameLower;
-                    UpdateKeypadNames();
+                        //Update the key names
+                        UpdateKeypadNames();
+                    }
+
+                    vControllerDelay_Keypad = Environment.TickCount + vControllerDelayMicroTicks;
                 }
 
                 //Press thumb left left
                 bool thumbLeftLeft = controllerInput.ThumbLeftX < -vControllerOffsetMedium;
-                PressKeypadKey(controllerInput.DPadLeft.PressedRaw, vKeypadDownStatus.DPadLeft, directKeypadMappingProfile.DPadLeftMod, directKeypadMappingProfile.DPadLeft, directKeypadMappingProfile.ButtonRepeatIntervalMs);
-                PressKeypadKey(thumbLeftLeft, vKeypadDownStatus.ThumbLeftLeft, directKeypadMappingProfile.ThumbLeftLeftMod, directKeypadMappingProfile.ThumbLeftLeft, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.DPadLeft.PressedRaw, vKeypadDownStatus.DPadLeft, vKeypadMappingProfile.DPadLeftMod, vKeypadMappingProfile.DPadLeft, vKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(thumbLeftLeft, vKeypadDownStatus.ThumbLeftLeft, vKeypadMappingProfile.ThumbLeftLeftMod, vKeypadMappingProfile.ThumbLeftLeft, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press thumb left right
                 bool thumbLeftRight = controllerInput.ThumbLeftX > vControllerOffsetMedium;
-                PressKeypadKey(controllerInput.DPadRight.PressedRaw, vKeypadDownStatus.DPadRight, directKeypadMappingProfile.DPadRightMod, directKeypadMappingProfile.DPadRight, directKeypadMappingProfile.ButtonRepeatIntervalMs);
-                PressKeypadKey(thumbLeftRight, vKeypadDownStatus.ThumbLeftRight, directKeypadMappingProfile.ThumbLeftRightMod, directKeypadMappingProfile.ThumbLeftRight, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.DPadRight.PressedRaw, vKeypadDownStatus.DPadRight, vKeypadMappingProfile.DPadRightMod, vKeypadMappingProfile.DPadRight, vKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(thumbLeftRight, vKeypadDownStatus.ThumbLeftRight, vKeypadMappingProfile.ThumbLeftRightMod, vKeypadMappingProfile.ThumbLeftRight, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press thumb left up
                 bool thumbLeftUp = controllerInput.ThumbLeftY > vControllerOffsetMedium;
-                PressKeypadKey(controllerInput.DPadUp.PressedRaw, vKeypadDownStatus.DPadUp, directKeypadMappingProfile.DPadUpMod, directKeypadMappingProfile.DPadUp, directKeypadMappingProfile.ButtonRepeatIntervalMs);
-                PressKeypadKey(thumbLeftUp, vKeypadDownStatus.ThumbLeftUp, directKeypadMappingProfile.ThumbLeftUpMod, directKeypadMappingProfile.ThumbLeftUp, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.DPadUp.PressedRaw, vKeypadDownStatus.DPadUp, vKeypadMappingProfile.DPadUpMod, vKeypadMappingProfile.DPadUp, vKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(thumbLeftUp, vKeypadDownStatus.ThumbLeftUp, vKeypadMappingProfile.ThumbLeftUpMod, vKeypadMappingProfile.ThumbLeftUp, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press thumb left down
                 bool thumbLeftDown = controllerInput.ThumbLeftY < -vControllerOffsetMedium;
-                PressKeypadKey(controllerInput.DPadDown.PressedRaw, vKeypadDownStatus.DPadDown, directKeypadMappingProfile.DPadDownMod, directKeypadMappingProfile.DPadDown, directKeypadMappingProfile.ButtonRepeatIntervalMs);
-                PressKeypadKey(thumbLeftDown, vKeypadDownStatus.ThumbLeftDown, directKeypadMappingProfile.ThumbLeftDownMod, directKeypadMappingProfile.ThumbLeftDown, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.DPadDown.PressedRaw, vKeypadDownStatus.DPadDown, vKeypadMappingProfile.DPadDownMod, vKeypadMappingProfile.DPadDown, vKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(thumbLeftDown, vKeypadDownStatus.ThumbLeftDown, vKeypadMappingProfile.ThumbLeftDownMod, vKeypadMappingProfile.ThumbLeftDown, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press thumb right left
                 bool thumbRightLeft = controllerInput.ThumbRightX < -vControllerOffsetMedium;
-                PressKeypadKey(thumbRightLeft, vKeypadDownStatus.ThumbRightLeft, directKeypadMappingProfile.ThumbRightLeftMod, directKeypadMappingProfile.ThumbRightLeft, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(thumbRightLeft, vKeypadDownStatus.ThumbRightLeft, vKeypadMappingProfile.ThumbRightLeftMod, vKeypadMappingProfile.ThumbRightLeft, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press thumb right right
                 bool thumbRightRight = controllerInput.ThumbRightX > vControllerOffsetMedium;
-                PressKeypadKey(thumbRightRight, vKeypadDownStatus.ThumbRightRight, directKeypadMappingProfile.ThumbRightRightMod, directKeypadMappingProfile.ThumbRightRight, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(thumbRightRight, vKeypadDownStatus.ThumbRightRight, vKeypadMappingProfile.ThumbRightRightMod, vKeypadMappingProfile.ThumbRightRight, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press thumb right up
                 bool thumbRightUp = controllerInput.ThumbRightY > vControllerOffsetMedium;
-                PressKeypadKey(thumbRightUp, vKeypadDownStatus.ThumbRightUp, directKeypadMappingProfile.ThumbRightUpMod, directKeypadMappingProfile.ThumbRightUp, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(thumbRightUp, vKeypadDownStatus.ThumbRightUp, vKeypadMappingProfile.ThumbRightUpMod, vKeypadMappingProfile.ThumbRightUp, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press thumb right down
                 bool thumbRightDown = controllerInput.ThumbRightY < -vControllerOffsetMedium;
-                PressKeypadKey(thumbRightDown, vKeypadDownStatus.ThumbRightDown, directKeypadMappingProfile.ThumbRightDownMod, directKeypadMappingProfile.ThumbRightDown, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(thumbRightDown, vKeypadDownStatus.ThumbRightDown, vKeypadMappingProfile.ThumbRightDownMod, vKeypadMappingProfile.ThumbRightDown, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button a key
-                PressKeypadKey(controllerInput.ButtonA.PressedRaw, vKeypadDownStatus.ButtonA, directKeypadMappingProfile.ButtonAMod, directKeypadMappingProfile.ButtonA, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonA.PressedRaw, vKeypadDownStatus.ButtonA, vKeypadMappingProfile.ButtonAMod, vKeypadMappingProfile.ButtonA, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button b key
-                PressKeypadKey(controllerInput.ButtonB.PressedRaw, vKeypadDownStatus.ButtonB, directKeypadMappingProfile.ButtonBMod, directKeypadMappingProfile.ButtonB, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonB.PressedRaw, vKeypadDownStatus.ButtonB, vKeypadMappingProfile.ButtonBMod, vKeypadMappingProfile.ButtonB, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button x key
-                PressKeypadKey(controllerInput.ButtonX.PressedRaw, vKeypadDownStatus.ButtonX, directKeypadMappingProfile.ButtonXMod, directKeypadMappingProfile.ButtonX, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonX.PressedRaw, vKeypadDownStatus.ButtonX, vKeypadMappingProfile.ButtonXMod, vKeypadMappingProfile.ButtonX, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button y key
-                PressKeypadKey(controllerInput.ButtonY.PressedRaw, vKeypadDownStatus.ButtonY, directKeypadMappingProfile.ButtonYMod, directKeypadMappingProfile.ButtonY, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonY.PressedRaw, vKeypadDownStatus.ButtonY, vKeypadMappingProfile.ButtonYMod, vKeypadMappingProfile.ButtonY, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button back key
-                PressKeypadKey(controllerInput.ButtonBack.PressedRaw, vKeypadDownStatus.ButtonBack, directKeypadMappingProfile.ButtonBackMod, directKeypadMappingProfile.ButtonBack, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonBack.PressedRaw, vKeypadDownStatus.ButtonBack, vKeypadMappingProfile.ButtonBackMod, vKeypadMappingProfile.ButtonBack, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button start key
-                PressKeypadKey(controllerInput.ButtonStart.PressedRaw, vKeypadDownStatus.ButtonStart, directKeypadMappingProfile.ButtonStartMod, directKeypadMappingProfile.ButtonStart, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonStart.PressedRaw, vKeypadDownStatus.ButtonStart, vKeypadMappingProfile.ButtonStartMod, vKeypadMappingProfile.ButtonStart, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button shoulder left key
-                PressKeypadKey(controllerInput.ButtonShoulderLeft.PressedRaw, vKeypadDownStatus.ButtonShoulderLeft, directKeypadMappingProfile.ButtonShoulderLeftMod, directKeypadMappingProfile.ButtonShoulderLeft, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonShoulderLeft.PressedRaw, vKeypadDownStatus.ButtonShoulderLeft, vKeypadMappingProfile.ButtonShoulderLeftMod, vKeypadMappingProfile.ButtonShoulderLeft, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button trigger left key
-                PressKeypadKey(controllerInput.ButtonTriggerLeft.PressedRaw, vKeypadDownStatus.ButtonTriggerLeft, directKeypadMappingProfile.ButtonTriggerLeftMod, directKeypadMappingProfile.ButtonTriggerLeft, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonTriggerLeft.PressedRaw, vKeypadDownStatus.ButtonTriggerLeft, vKeypadMappingProfile.ButtonTriggerLeftMod, vKeypadMappingProfile.ButtonTriggerLeft, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button thumb left key
-                PressKeypadKey(controllerInput.ButtonThumbLeft.PressedRaw, vKeypadDownStatus.ButtonThumbLeft, directKeypadMappingProfile.ButtonThumbLeftMod, directKeypadMappingProfile.ButtonThumbLeft, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonThumbLeft.PressedRaw, vKeypadDownStatus.ButtonThumbLeft, vKeypadMappingProfile.ButtonThumbLeftMod, vKeypadMappingProfile.ButtonThumbLeft, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button shoulder right key
-                PressKeypadKey(controllerInput.ButtonShoulderRight.PressedRaw, vKeypadDownStatus.ButtonShoulderRight, directKeypadMappingProfile.ButtonShoulderRightMod, directKeypadMappingProfile.ButtonShoulderRight, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonShoulderRight.PressedRaw, vKeypadDownStatus.ButtonShoulderRight, vKeypadMappingProfile.ButtonShoulderRightMod, vKeypadMappingProfile.ButtonShoulderRight, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button trigger right key
-                PressKeypadKey(controllerInput.ButtonTriggerRight.PressedRaw, vKeypadDownStatus.ButtonTriggerRight, directKeypadMappingProfile.ButtonTriggerRightMod, directKeypadMappingProfile.ButtonTriggerRight, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonTriggerRight.PressedRaw, vKeypadDownStatus.ButtonTriggerRight, vKeypadMappingProfile.ButtonTriggerRightMod, vKeypadMappingProfile.ButtonTriggerRight, vKeypadMappingProfile.ButtonRepeatIntervalMs);
 
                 //Press button thumb right key
-                PressKeypadKey(controllerInput.ButtonThumbRight.PressedRaw, vKeypadDownStatus.ButtonThumbRight, directKeypadMappingProfile.ButtonThumbRightMod, directKeypadMappingProfile.ButtonThumbRight, directKeypadMappingProfile.ButtonRepeatIntervalMs);
+                PressKeypadKey(controllerInput.ButtonThumbRight.PressedRaw, vKeypadDownStatus.ButtonThumbRight, vKeypadMappingProfile.ButtonThumbRightMod, vKeypadMappingProfile.ButtonThumbRight, vKeypadMappingProfile.ButtonRepeatIntervalMs);
             }
             catch { }
         }

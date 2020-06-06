@@ -61,10 +61,12 @@ namespace DirectXInput
         public static bool vCapsEnabled = false;
         public static bool vKeysEnabled = true;
         public static bool vMouseDownStatus = false;
-        public static KeypadStatus vKeypadDownStatus = new KeypadStatus();
 
         //Keypad Variables
-        public static string vKeypadPreviousProcess = string.Empty;
+        public static KeypadMapping vKeypadMappingProfile = new KeypadMapping();
+        public static KeypadStatus vKeypadDownStatus = new KeypadStatus();
+        public static string vKeypadPreviousProcessName = string.Empty;
+        public static string vKeypadPreviousProcessTitle = string.Empty;
 
         //Controller Variables
         public static bool vControllerBusy = false;
@@ -76,7 +78,7 @@ namespace DirectXInput
         public static int vControllerDelayShortTicks = 130;
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 750;
-        public static int vControllerDelay_KeypadPreview = Environment.TickCount;
+        public static int vControllerDelay_Keypad = Environment.TickCount;
         public static int vControllerDelay_Keyboard = Environment.TickCount;
         public static int vControllerDelay_Mouse = Environment.TickCount;
         public static bool vControllerRumbleTest = false;
