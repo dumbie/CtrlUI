@@ -52,7 +52,7 @@ namespace DirectXInput
                 {
                     Debug.WriteLine("Minimizing application to tray.");
                     ShowInTaskbar = false;
-                    Visibility = Visibility.Hidden;
+                    Visibility = Visibility.Collapsed;
                     WindowState = WindowState.Normal;
                     if (App.vWindowKeyboard.vWindowVisible)
                     {

@@ -9,6 +9,8 @@
                 <ResourceDictionary Source="Styles/MainColors.xaml"/>
                 <ResourceDictionary Source="Styles/ControlTemplates.xaml"/>
                 <ResourceDictionary Source="Styles/MainStyles.xaml"/>
+                <ResourceDictionary Source="Styles/KeyboardStyles.xaml"/>
+                <ResourceDictionary Source="Styles/KeypadStyles.xaml"/>
                 <ResourceDictionary Source="Styles/Scrollbar.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

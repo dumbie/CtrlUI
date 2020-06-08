@@ -200,7 +200,7 @@ namespace DirectXInput
                     if (App.vWindowKeyboard.vWindowVisible)
                     {
                         App.vWindowKeyboard.Hide();
-                        App.vWindowKeypad.Show();
+                        await App.vWindowKeypad.Show();
                     }
                     else
                     {

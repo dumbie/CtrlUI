@@ -429,7 +429,7 @@
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Settings"/>
                                 <TextBlock Name="textblock_KeypadOpacity" Text="Keypad display transparency" Tag="Keypad display transparency" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the transparency of the on screen keypad." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_KeypadOpacity" Height="18" Width="460" Minimum="0.05" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_KeypadOpacity" Height="18" Width="460" Minimum="0" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                                 <TextBlock Margin="0,10,0,0" Text="Keypad display style mode" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Select the displayed keypad style mode." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>

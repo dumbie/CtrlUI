@@ -171,20 +171,20 @@ namespace CtrlUI
         {
             try
             {
-                Visibility visbilityGames = List_Games.Any() ? Visibility.Visible : Visibility.Collapsed;
-                AVActions.ElementSetValue(sp_Games, VisibilityProperty, visbilityGames);
+                Visibility visibilityGames = List_Games.Any() ? Visibility.Visible : Visibility.Collapsed;
+                AVActions.ElementSetValue(sp_Games, VisibilityProperty, visibilityGames);
 
-                Visibility visbilityApps = List_Apps.Any() ? Visibility.Visible : Visibility.Collapsed;
-                AVActions.ElementSetValue(sp_Apps, VisibilityProperty, visbilityApps);
+                Visibility visibilityApps = List_Apps.Any() ? Visibility.Visible : Visibility.Collapsed;
+                AVActions.ElementSetValue(sp_Apps, VisibilityProperty, visibilityApps);
 
-                Visibility visbilityEmulators = List_Emulators.Any() ? Visibility.Visible : Visibility.Collapsed;
-                AVActions.ElementSetValue(sp_Emulators, VisibilityProperty, visbilityEmulators);
+                Visibility visibilityEmulators = List_Emulators.Any() ? Visibility.Visible : Visibility.Collapsed;
+                AVActions.ElementSetValue(sp_Emulators, VisibilityProperty, visibilityEmulators);
 
-                Visibility visbilityShortcuts = List_Shortcuts.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherShortcuts"]) ? Visibility.Visible : Visibility.Collapsed;
-                AVActions.ElementSetValue(sp_Shortcuts, VisibilityProperty, visbilityShortcuts);
+                Visibility visibilityShortcuts = List_Shortcuts.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherShortcuts"]) ? Visibility.Visible : Visibility.Collapsed;
+                AVActions.ElementSetValue(sp_Shortcuts, VisibilityProperty, visibilityShortcuts);
 
-                Visibility visbilityProcesses = List_Processes.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherProcesses"]) ? Visibility.Visible : Visibility.Collapsed;
-                AVActions.ElementSetValue(sp_Processes, VisibilityProperty, visbilityProcesses);
+                Visibility visibilityProcesses = List_Processes.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherProcesses"]) ? Visibility.Visible : Visibility.Collapsed;
+                AVActions.ElementSetValue(sp_Processes, VisibilityProperty, visibilityProcesses);
             }
             catch { }
         }

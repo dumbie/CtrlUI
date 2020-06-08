@@ -17,7 +17,7 @@ namespace DirectXInput.Keypad
                 if (Environment.TickCount >= vControllerDelay_Keypad)
                 {
                     //Update interface controller preview
-                    UpdateKeypadPreview(controllerInput);
+                    UpdateKeypadPreview();
 
                     //Check if the keypad process changed
                     string processNameLower = vProcessForeground.Name.ToLower();
@@ -33,6 +33,12 @@ namespace DirectXInput.Keypad
 
                         //Update the key names
                         UpdateKeypadNames();
+
+                        //Update the keypad opacity
+                        UpdateKeypadOpacity();
+
+                        //Update the keypad style
+                        UpdateKeypadStyle();
                     }
 
                     vControllerDelay_Keypad = Environment.TickCount + vControllerDelayMicroTicks;

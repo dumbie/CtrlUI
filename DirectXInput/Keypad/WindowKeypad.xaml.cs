@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace DirectXInput.Keypad
         public bool vWindowVisible = false;
 
         //Window Initialized
-        protected override async void OnSourceInitialized(EventArgs e)
+        protected override void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -47,9 +48,6 @@ namespace DirectXInput.Keypad
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-
-                //Disable hardware capslock
-                await DisableHardwareCapsLock();
             }
             catch { }
         }
@@ -59,31 +57,41 @@ namespace DirectXInput.Keypad
         {
             try
             {
-                if (this.Opacity != 0)
-                {
-                    //Play window close sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                //Play window close sound
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                    //Update the keypad opacity
-                    this.Opacity = 0;
-                    vWindowVisible = false;
-                    Debug.WriteLine("Hiding the Keypad window.");
-                }
+                //Update the keypad visibility
+                this.Visibility = Visibility.Collapsed;
+                vWindowVisible = false;
+                Debug.WriteLine("Hiding the Keypad window.");
             }
             catch { }
         }
 
         //Show the keypad window
-        public new void Show()
+        public new async Task Show()
         {
             try
             {
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
+                //Disable hardware capslock
+                await DisableHardwareCapsLock();
+
+                //Set the keypad mapping profile
+                SetKeypadMappingProfile();
+
+                //Update the key names
+                UpdateKeypadNames();
+
                 //Update the keypad opacity
-                UpdateKeypadOpacity(true);
+                UpdateKeypadOpacity();
+
+                //Update the keypad style
                 UpdateKeypadStyle();
+
+                //Update the keypad visibility
                 this.Visibility = Visibility.Visible;
                 vWindowVisible = true;
                 Debug.WriteLine("Showing the Keypad window.");
@@ -92,14 +100,18 @@ namespace DirectXInput.Keypad
         }
 
         //Update the keypad opacity
-        public void UpdateKeypadOpacity(bool forceUpdate)
+        public void UpdateKeypadOpacity()
         {
             try
             {
-                if (forceUpdate || this.Opacity != 0)
+                AVActions.ActionDispatcherInvoke(delegate
                 {
-                    this.Opacity = vKeypadMappingProfile.KeypadOpacity;
-                }
+                    try
+                    {
+                        this.Opacity = vKeypadMappingProfile.KeypadOpacity;
+                    }
+                    catch { }
+                });
             }
             catch { }
         }
@@ -109,10 +121,40 @@ namespace DirectXInput.Keypad
         {
             try
             {
-                if (this.Opacity != 0)
+                AVActions.ActionDispatcherInvoke(delegate
                 {
-                    //Fix add code
-                }
+                    try
+                    {
+                        Debug.WriteLine("Setting keypad style to: " + vKeypadMappingProfile.KeypadDisplayStyle);
+
+                        List<TextBlock> allTextBlocks = AVFunctions.FindVisualChildren<TextBlock>(grid_Application);
+                        foreach (TextBlock textBlock in allTextBlocks)
+                        {
+                            if (vKeypadMappingProfile.KeypadDisplayStyle == 0)
+                            {
+                                textBlock.Style = (Style)Application.Current.Resources["KeypadTextLight"];
+                            }
+                            else
+                            {
+                                textBlock.Style = (Style)Application.Current.Resources["KeypadTextDark"];
+                            }
+                        }
+
+                        List<Image> allImages = AVFunctions.FindVisualChildren<Image>(grid_Application);
+                        foreach (Image image in allImages)
+                        {
+                            if (vKeypadMappingProfile.KeypadDisplayStyle == 0)
+                            {
+                                image.Style = (Style)Application.Current.Resources["KeypadImageLight"];
+                            }
+                            else
+                            {
+                                image.Style = (Style)Application.Current.Resources["KeypadImageDark"];
+                            }
+                        }
+                    }
+                    catch { }
+                });
             }
             catch { }
         }
@@ -122,7 +164,6 @@ namespace DirectXInput.Keypad
         {
             try
             {
-                //Improve process title name contains? duke3d dosbox
                 string processNameLower = vProcessForeground.Name.ToLower();
                 string processTitleLower = vProcessForeground.Title.ToLower();
                 KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == processNameLower || processTitleLower.Contains(x.Name.ToLower())).FirstOrDefault();
@@ -182,12 +223,11 @@ namespace DirectXInput.Keypad
             catch { }
         }
 
-        //Update all key names
+        //Update all keypad key names
         public void UpdateKeypadNames()
         {
             try
             {
-                //Update all keypad key details
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     try
@@ -237,7 +277,7 @@ namespace DirectXInput.Keypad
                 else
                 {
                     keyTextBlock.Text = "?";
-                    keyGrid.Opacity = 0.20;
+                    keyGrid.Opacity = 0;
                 }
             }
             catch { }

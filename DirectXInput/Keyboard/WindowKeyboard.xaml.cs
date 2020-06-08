@@ -39,9 +39,6 @@ namespace DirectXInput.Keyboard
                 //Update the window style
                 UpdateWindowStyle();
 
-                //Disable hardware capslock
-                await DisableHardwareCapsLock();
-
                 //Update keyboard keys
                 UpdateKeyboardKeys();
 
@@ -80,8 +77,10 @@ namespace DirectXInput.Keyboard
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
                     //Update the keyboard opacity
-                    this.Title = "DirectXInput Keyboard (Hidden)";
                     this.Opacity = 0;
+
+                    //Update the keyboard visibility
+                    this.Title = "DirectXInput Keyboard (Hidden)";
                     vWindowVisible = false;
                     Debug.WriteLine("Hiding the keyboard window.");
                 }
@@ -100,6 +99,9 @@ namespace DirectXInput.Keyboard
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
+                //Disable hardware capslock
+                await DisableHardwareCapsLock();
+
                 //Check mouse cursor position
                 CheckMousePosition();
 
@@ -110,8 +112,10 @@ namespace DirectXInput.Keyboard
                 UpdateWindowStyle();
 
                 //Update the keyboard opacity
+                UpdateKeyboardOpacity(true);
+
+                //Update the keyboard visibility
                 this.Title = "DirectXInput Keyboard (Visible)";
-                this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeyboardOpacity"]);
                 this.Visibility = Visibility.Visible;
                 vWindowVisible = true;
                 Debug.WriteLine("Showing the keyboard window.");
@@ -120,11 +124,11 @@ namespace DirectXInput.Keyboard
         }
 
         //Update keyboard opacity
-        public void UpdateKeyboardOpacity()
+        public void UpdateKeyboardOpacity(bool forceUpdate)
         {
             try
             {
-                if (this.Opacity != 0)
+                if (forceUpdate || this.Opacity != 0)
                 {
                     this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeyboardOpacity"]);
                 }
