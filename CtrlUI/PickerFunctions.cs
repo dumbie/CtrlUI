@@ -59,70 +59,75 @@ namespace CtrlUI
                 vFilePickerResult = null;
                 vFilePickerOpen = true;
 
-                //Disable the file picker list
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    //Disable the file picker list
                     lb_FilePicker.IsEnabled = false;
-                    image_FilePicker_Loading.Show();
+                    imagegif_FilePicker_Loading.Show();
+
+                    //Set file picker header texts
+                    grid_Popup_FilePicker_txt_Title.Text = vFilePickerTitle;
+                    grid_Popup_FilePicker_txt_Description.Text = vFilePickerDescription;
+
+                    //Change the list picker item style
+                    if (vFilePickerShowRoms)
+                    {
+                        lb_FilePicker.Style = Application.Current.Resources["ListBoxWrapPanel"] as Style;
+                        lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemRom"] as DataTemplate;
+                        grid_Popup_Filepicker_Row1.HorizontalAlignment = HorizontalAlignment.Center;
+                    }
+                    else
+                    {
+                        lb_FilePicker.Style = Application.Current.Resources["ListBoxVertical"] as Style;
+                        lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemFile"] as DataTemplate;
+                        grid_Popup_Filepicker_Row1.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    }
                 });
-
-                //Set file picker header texts
-                AVActions.ElementSetValue(grid_Popup_FilePicker_txt_Title, TextBlock.TextProperty, vFilePickerTitle);
-                AVActions.ElementSetValue(grid_Popup_FilePicker_txt_Description, TextBlock.TextProperty, vFilePickerDescription);
-
-                //Change the list picker item style
-                if (vFilePickerShowRoms)
-                {
-                    AVActions.ElementSetValue(lb_FilePicker, StyleProperty, Application.Current.Resources["ListBoxWrapPanel"] as Style);
-                    AVActions.ElementSetValue(lb_FilePicker, ListBox.ItemTemplateProperty, Application.Current.Resources["ListBoxItemRom"] as DataTemplate);
-                    AVActions.ElementSetValue(grid_Popup_Filepicker_Row1, HorizontalAlignmentProperty, HorizontalAlignment.Center);
-                }
-                else
-                {
-                    AVActions.ElementSetValue(lb_FilePicker, StyleProperty, Application.Current.Resources["ListBoxVertical"] as Style);
-                    AVActions.ElementSetValue(lb_FilePicker, ListBox.ItemTemplateProperty, Application.Current.Resources["ListBoxItemFile"] as DataTemplate);
-                    AVActions.ElementSetValue(grid_Popup_Filepicker_Row1, HorizontalAlignmentProperty, HorizontalAlignment.Stretch);
-                }
 
                 //Show the popup
                 Popup_Show_Element(grid_Popup_FilePicker);
 
-                //Get and update the current index and path
+                //Update the current path
                 vFilePickerCurrentPath = targetPath;
-                if (storeIndex)
-                {
-                    int selectedIndex = (int)AVActions.ElementGetValue(lb_FilePicker, ListBox.SelectedIndexProperty);
-                    Debug.WriteLine("Adding navigation history index: " + selectedIndex);
-                    vFilePickerNavigateIndexes.Add(selectedIndex);
-                }
 
-                //Clear the current file picker list
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    //Update the current index
+                    if (storeIndex)
+                    {
+                        int selectedIndex = lb_FilePicker.SelectedIndex;
+                        Debug.WriteLine("Adding navigation history index: " + selectedIndex);
+                        vFilePickerNavigateIndexes.Add(selectedIndex);
+                    }
+
+                    //Clear the current file picker list
                     List_FilePicker.Clear();
                 });
 
                 //Get and list all the disk drives
                 if (targetPath == "PC")
                 {
-                    //Enable or disable selection button in the list
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_SelectFolder, VisibilityProperty, Visibility.Collapsed);
-
-                    //Enable or disable file and folder availability
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_NoFilesAvailable, VisibilityProperty, Visibility.Collapsed);
-
-                    //Enable or disable the side navigate buttons
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerLeft, VisibilityProperty, Visibility.Visible);
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerUp, VisibilityProperty, Visibility.Collapsed);
-
-                    //Enable or disable the copy paste status
-                    if (vClipboardFile != null)
+                    AVActions.ActionDispatcherInvoke(delegate
                     {
-                        AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_ClipboardStatus, VisibilityProperty, Visibility.Visible);
-                    }
+                        //Enable or disable selection button in the list
+                        grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Collapsed;
 
-                    //Enable or disable the current path
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_CurrentPath, VisibilityProperty, Visibility.Collapsed);
+                        //Enable or disable file and folder availability
+                        grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;
+
+                        //Enable or disable the side navigate buttons
+                        grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Visible;
+                        grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
+
+                        //Enable or disable the copy paste status
+                        if (vClipboardFile != null)
+                        {
+                            grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
+                        }
+
+                        //Enable or disable the current path
+                        grid_Popup_FilePicker_textblock_CurrentPath.Visibility = Visibility.Collapsed;
+                    });
 
                     //Load folder images
                     BitmapImage imageFolder = FileToBitmapImage(new string[] { "Assets/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -260,21 +265,24 @@ namespace CtrlUI
                 //Get and list all the UWP applications
                 else if (targetPath == "UWP")
                 {
-                    //Enable or disable selection button in the list
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_SelectFolder, VisibilityProperty, Visibility.Collapsed);
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        //Enable or disable selection button in the list
+                        grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Collapsed;
 
-                    //Enable or disable file and folder availability
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_NoFilesAvailable, VisibilityProperty, Visibility.Collapsed);
+                        //Enable or disable file and folder availability
+                        grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;
 
-                    //Enable or disable the side navigate buttons
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerLeft, VisibilityProperty, Visibility.Visible);
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerUp, VisibilityProperty, Visibility.Collapsed);
+                        //Enable or disable the side navigate buttons
+                        grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Visible;
+                        grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
 
-                    //Enable or disable the copy paste status
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_ClipboardStatus, VisibilityProperty, Visibility.Collapsed);
+                        //Enable or disable the copy paste status
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Collapsed;
 
-                    //Enable or disable the current path
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_CurrentPath, VisibilityProperty, Visibility.Collapsed);
+                        //Enable or disable the current path
+                        grid_Popup_FilePicker_textblock_CurrentPath.Visibility = Visibility.Collapsed;
+                    });
 
                     //Add uwp applications to the filepicker list
                     await ListLoadAllUwpApplications(lb_FilePicker, List_FilePicker);
@@ -298,15 +306,15 @@ namespace CtrlUI
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
 
-                    //Enable or disable the copy paste status
-                    if (vClipboardFile != null)
-                    {
-                        AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_ClipboardStatus, VisibilityProperty, Visibility.Visible);
-                    }
-
-                    //Enable or disable the current path
                     AVActions.ActionDispatcherInvoke(delegate
                     {
+                        //Enable or disable the copy paste status
+                        if (vClipboardFile != null)
+                        {
+                            grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
+                        }
+
+                        //Enable or disable the current path
                         grid_Popup_FilePicker_textblock_CurrentPath.Text = "Current path: " + targetPath;
                         grid_Popup_FilePicker_textblock_CurrentPath.Visibility = Visibility.Visible;
                     });
@@ -326,8 +334,11 @@ namespace CtrlUI
                     }
 
                     //Enable or disable the side navigate buttons
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerLeft, VisibilityProperty, Visibility.Visible);
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_button_ControllerUp, VisibilityProperty, Visibility.Visible);
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Visible;
+                        grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Visible;
+                    });
 
                     //Get all the top files and folders
                     DirectoryInfo directoryInfo = new DirectoryInfo(targetPath);
@@ -424,7 +435,10 @@ namespace CtrlUI
                         try
                         {
                             //Enable or disable selection button in the list
-                            AVActions.ElementSetValue(grid_Popup_FilePicker_button_SelectFolder, VisibilityProperty, Visibility.Collapsed);
+                            AVActions.ActionDispatcherInvoke(delegate
+                            {
+                                grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Collapsed;
+                            });
 
                             //Filter files in and out
                             if (vFilePickerFilterIn.Any())
@@ -496,7 +510,10 @@ namespace CtrlUI
                     else
                     {
                         //Enable or disable selection button in the list
-                        AVActions.ElementSetValue(grid_Popup_FilePicker_button_SelectFolder, VisibilityProperty, Visibility.Visible);
+                        AVActions.ActionDispatcherInvoke(delegate
+                        {
+                            grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Visible;
+                        });
                     }
 
                     //Check if there are files or folders
@@ -507,7 +524,7 @@ namespace CtrlUI
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     lb_FilePicker.IsEnabled = true;
-                    image_FilePicker_Loading.Hide();
+                    imagegif_FilePicker_Loading.Hide();
                 });
 
                 //Focus on the file picker listbox
@@ -606,13 +623,19 @@ namespace CtrlUI
                 if (totalFileCount > 0)
                 {
                     //Enable or disable file and folder availability
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_NoFilesAvailable, VisibilityProperty, Visibility.Collapsed);
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;
+                    });
                     Debug.WriteLine("There are files and folders in the list.");
                 }
                 else
                 {
                     //Enable or disable file and folder availability
-                    AVActions.ElementSetValue(grid_Popup_FilePicker_textblock_NoFilesAvailable, VisibilityProperty, Visibility.Visible);
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Visible;
+                    });
                     Debug.WriteLine("None files and folders in the list.");
                 }
             }

@@ -995,7 +995,7 @@
                             <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_CurrentPath" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
                             <Button Margin="0,0,0,10" Name="grid_Popup_FilePicker_button_SelectFolder" Content="Select the currently opened folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
                         </StackPanel>
-                        <styles:AVGifPlayer Name="image_FilePicker_Loading" GifSource="pack://siteoforigin:,,,/Assets/Icons/Loading.gif" Opacity="0.80" Height="140" SpeedRatio="5"/>
+                        <styles:AVGifPlayer Name="imagegif_FilePicker_Loading" GifSource="pack://siteoforigin:,,,/Assets/Icons/Loading.gif" Opacity="0.80" Height="140" SpeedRatio="5"/>
                     </Grid>
 
                     <styles:ScrollViewerLoopVertical ScrollLoopStep="2" Grid.Column="1" Style="{StaticResource ScrollViewerVertical}" Width="320" x:Name="grid_Popup_FilePicker_stackpanel_Description" Visibility="Collapsed">

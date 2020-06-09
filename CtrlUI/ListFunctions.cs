@@ -172,19 +172,19 @@ namespace CtrlUI
             try
             {
                 Visibility visibilityGames = List_Games.Any() ? Visibility.Visible : Visibility.Collapsed;
-                AVActions.ElementSetValue(sp_Games, VisibilityProperty, visibilityGames);
-
                 Visibility visibilityApps = List_Apps.Any() ? Visibility.Visible : Visibility.Collapsed;
-                AVActions.ElementSetValue(sp_Apps, VisibilityProperty, visibilityApps);
-
                 Visibility visibilityEmulators = List_Emulators.Any() ? Visibility.Visible : Visibility.Collapsed;
-                AVActions.ElementSetValue(sp_Emulators, VisibilityProperty, visibilityEmulators);
-
                 Visibility visibilityShortcuts = List_Shortcuts.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherShortcuts"]) ? Visibility.Visible : Visibility.Collapsed;
-                AVActions.ElementSetValue(sp_Shortcuts, VisibilityProperty, visibilityShortcuts);
-
                 Visibility visibilityProcesses = List_Processes.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherProcesses"]) ? Visibility.Visible : Visibility.Collapsed;
-                AVActions.ElementSetValue(sp_Processes, VisibilityProperty, visibilityProcesses);
+
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    sp_Games.Visibility = visibilityGames;
+                    sp_Apps.Visibility = visibilityApps;
+                    sp_Emulators.Visibility = visibilityEmulators;
+                    sp_Shortcuts.Visibility = visibilityShortcuts;
+                    sp_Processes.Visibility = visibilityProcesses;
+                });
             }
             catch { }
         }

@@ -248,28 +248,24 @@ namespace CtrlUI
                 //Update the time and image
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    try
-                    {
-                        //Rotate the clock images
-                        int clockSecond = DateTime.Now.Second;
-                        int clockMinute = DateTime.Now.Minute;
-                        int clockHour = DateTime.Now.Hour;
-                        img_Main_Time_Minute.LayoutTransform = new RotateTransform((clockMinute * 360 / 60) + (clockSecond / 60 * 6));
-                        img_Main_Time_Hour.LayoutTransform = new RotateTransform((clockHour * 360 / 12) + (clockMinute / 2));
+                    //Rotate the clock images
+                    int clockSecond = DateTime.Now.Second;
+                    int clockMinute = DateTime.Now.Minute;
+                    int clockHour = DateTime.Now.Hour;
+                    img_Main_Time_Minute.LayoutTransform = new RotateTransform((clockMinute * 360 / 60) + (clockSecond / 60 * 6));
+                    img_Main_Time_Hour.LayoutTransform = new RotateTransform((clockHour * 360 / 12) + (clockMinute / 2));
 
-                        //Change the time format
-                        if (vMainMenuOpen)
-                        {
-                            txt_Main_Date.Text = DateTime.Now.ToString("d MMMM");
-                            txt_Main_Time.Text = DateTime.Now.ToShortTimeString();
-                        }
-                        else
-                        {
-                            txt_Main_Date.Text = string.Empty;
-                            txt_Main_Time.Text = DateTime.Now.ToShortTimeString();
-                        }
+                    //Change the time format
+                    if (vMainMenuOpen)
+                    {
+                        txt_Main_Date.Text = DateTime.Now.ToString("d MMMM");
+                        txt_Main_Time.Text = DateTime.Now.ToShortTimeString();
                     }
-                    catch { }
+                    else
+                    {
+                        txt_Main_Date.Text = string.Empty;
+                        txt_Main_Time.Text = DateTime.Now.ToShortTimeString();
+                    }
                 });
             }
             catch { }
@@ -413,86 +409,99 @@ namespace CtrlUI
                 }
 
                 //Update main menu launchers status
-                if (processesList.Any(x => x.ProcessName.ToLower() == "steam"))
-                {
-                    AVActions.ElementSetValue(img_Menu_SteamStatus, OpacityProperty, 1.00);
-                }
-                else
-                {
-                    AVActions.ElementSetValue(img_Menu_SteamStatus, OpacityProperty, 0.40);
-                }
+                bool runningSteam = processesList.Any(x => x.ProcessName.ToLower() == "steam");
+                bool runningOrigin = processesList.Any(x => x.ProcessName.ToLower() == "origin");
+                bool runningGog = processesList.Any(x => x.ProcessName.ToLower() == "galaxyclient");
+                bool runningUplay = processesList.Any(x => x.ProcessName.ToLower() == "upc");
+                bool runningBethesda = processesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher");
+                bool runningEpic = processesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher");
+                bool runningBlizzard = processesList.Any(x => x.ProcessName.ToLower() == "battle.net");
+                bool runningDirectXInput = processesList.Any(x => x.ProcessName.ToLower() == "directxinput");
+                bool runningFpsOverlayer = processesList.Any(x => x.ProcessName.ToLower() == "fpsoverlayer");
 
-                if (processesList.Any(x => x.ProcessName.ToLower() == "origin"))
+                AVActions.ActionDispatcherInvoke(delegate
                 {
-                    AVActions.ElementSetValue(img_Menu_OriginStatus, OpacityProperty, 1.00);
-                }
-                else
-                {
-                    AVActions.ElementSetValue(img_Menu_OriginStatus, OpacityProperty, 0.40);
-                }
+                    if (runningSteam)
+                    {
+                        img_Menu_SteamStatus.Opacity = 1.00;
+                    }
+                    else
+                    {
+                        img_Menu_SteamStatus.Opacity = 0.40;
+                    }
 
-                if (processesList.Any(x => x.ProcessName.ToLower() == "galaxyclient"))
-                {
-                    AVActions.ElementSetValue(img_Menu_GoGStatus, OpacityProperty, 1.00);
-                }
-                else
-                {
-                    AVActions.ElementSetValue(img_Menu_GoGStatus, OpacityProperty, 0.40);
-                }
+                    if (runningOrigin)
+                    {
+                        img_Menu_OriginStatus.Opacity = 1.00;
+                    }
+                    else
+                    {
+                        img_Menu_OriginStatus.Opacity = 0.40;
+                    }
 
-                if (processesList.Any(x => x.ProcessName.ToLower() == "upc"))
-                {
-                    AVActions.ElementSetValue(img_Menu_UplayStatus, OpacityProperty, 1.00);
-                }
-                else
-                {
-                    AVActions.ElementSetValue(img_Menu_UplayStatus, OpacityProperty, 0.40);
-                }
+                    if (runningGog)
+                    {
+                        img_Menu_GoGStatus.Opacity = 1.00;
+                    }
+                    else
+                    {
+                        img_Menu_GoGStatus.Opacity = 0.40;
+                    }
 
-                if (processesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher"))
-                {
-                    AVActions.ElementSetValue(img_Menu_BethesdaStatus, OpacityProperty, 1.00);
-                }
-                else
-                {
-                    AVActions.ElementSetValue(img_Menu_BethesdaStatus, OpacityProperty, 0.40);
-                }
+                    if (runningUplay)
+                    {
+                        img_Menu_UplayStatus.Opacity = 1.00;
+                    }
+                    else
+                    {
+                        img_Menu_UplayStatus.Opacity = 0.40;
+                    }
 
-                if (processesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher"))
-                {
-                    AVActions.ElementSetValue(img_Menu_EpicStatus, OpacityProperty, 1.00);
-                }
-                else
-                {
-                    AVActions.ElementSetValue(img_Menu_EpicStatus, OpacityProperty, 0.40);
-                }
+                    if (runningBethesda)
+                    {
+                        img_Menu_BethesdaStatus.Opacity = 1.00;
+                    }
+                    else
+                    {
+                        img_Menu_BethesdaStatus.Opacity = 0.40;
+                    }
 
-                if (processesList.Any(x => x.ProcessName.ToLower() == "battle.net"))
-                {
-                    AVActions.ElementSetValue(img_Menu_BlizzardStatus, OpacityProperty, 1.00);
-                }
-                else
-                {
-                    AVActions.ElementSetValue(img_Menu_BlizzardStatus, OpacityProperty, 0.40);
-                }
+                    if (runningEpic)
+                    {
+                        img_Menu_EpicStatus.Opacity = 1.00;
+                    }
+                    else
+                    {
+                        img_Menu_EpicStatus.Opacity = 0.40;
+                    }
 
-                if (processesList.Any(x => x.ProcessName.ToLower() == "directxinput"))
-                {
-                    AVActions.ElementSetValue(img_Menu_DirectXInput, OpacityProperty, 1.00);
-                }
-                else
-                {
-                    AVActions.ElementSetValue(img_Menu_DirectXInput, OpacityProperty, 0.40);
-                }
+                    if (runningBlizzard)
+                    {
+                        img_Menu_BlizzardStatus.Opacity = 1.00;
+                    }
+                    else
+                    {
+                        img_Menu_BlizzardStatus.Opacity = 0.40;
+                    }
 
-                if (processesList.Any(x => x.ProcessName.ToLower() == "fpsoverlayer"))
-                {
-                    AVActions.ElementSetValue(img_Menu_FpsOverlayer, OpacityProperty, 1.00);
-                }
-                else
-                {
-                    AVActions.ElementSetValue(img_Menu_FpsOverlayer, OpacityProperty, 0.40);
-                }
+                    if (runningDirectXInput)
+                    {
+                        img_Menu_DirectXInput.Opacity = 1.00;
+                    }
+                    else
+                    {
+                        img_Menu_DirectXInput.Opacity = 0.40;
+                    }
+
+                    if (runningFpsOverlayer)
+                    {
+                        img_Menu_FpsOverlayer.Opacity = 1.00;
+                    }
+                    else
+                    {
+                        img_Menu_FpsOverlayer.Opacity = 0.40;
+                    }
+                });
             }
             catch { }
         }
@@ -545,9 +554,9 @@ namespace CtrlUI
                     LocationFromScreen = this.PointToScreen(new Point(255, 44));
                 });
 
-                int TargetX = Convert.ToInt32(LocationFromScreen.X);
-                int TargetY = Convert.ToInt32(LocationFromScreen.Y);
-                SetCursorPos(TargetX, TargetY);
+                int targetX = Convert.ToInt32(LocationFromScreen.X);
+                int targetY = Convert.ToInt32(LocationFromScreen.Y);
+                SetCursorPos(targetX, targetY);
                 await Task.Delay(10);
 
                 //Hide the mouse cursor

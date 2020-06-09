@@ -23,51 +23,54 @@ namespace CtrlUI
         {
             try
             {
-                //Show the popup
-                AVActions.ElementSetValue(elementTarget, VisibilityProperty, Visibility.Visible);
-                AVActions.ElementSetValue(elementTarget, IsEnabledProperty, true);
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Show the popup
+                    elementTarget.Visibility = Visibility.Visible;
+                    elementTarget.IsEnabled = true;
 
-                //Hide the background
-                AVActions.ElementSetValue(grid_Video_Background, OpacityProperty, 0.08);
-                AVActions.ElementSetValue(grid_Main, OpacityProperty, 0.08);
-                AVActions.ElementSetValue(grid_Main, IsEnabledProperty, false);
+                    //Hide the background
+                    grid_Video_Background.Opacity = 0.08;
+                    grid_Main.Opacity = 0.08;
+                    grid_Main.IsEnabled = false;
 
-                //Hide other popups
-                if (elementTarget != grid_Popup_TextInput && vTextInputOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_TextInput, OpacityProperty, 0.02);
-                    AVActions.ElementSetValue(grid_Popup_TextInput, IsEnabledProperty, false);
-                }
-                if (elementTarget != grid_Popup_MessageBox && vMessageBoxOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_MessageBox, OpacityProperty, 0.02);
-                    AVActions.ElementSetValue(grid_Popup_MessageBox, IsEnabledProperty, false);
-                }
-                if (elementTarget != grid_Popup_FilePicker && vFilePickerOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_FilePicker, OpacityProperty, 0.02);
-                    AVActions.ElementSetValue(grid_Popup_FilePicker, IsEnabledProperty, false);
-                }
-                if (elementTarget != vPopupElementTarget && vPopupOpen)
-                {
-                    AVActions.ElementSetValue(vPopupElementTarget, OpacityProperty, 0.02);
-                    AVActions.ElementSetValue(vPopupElementTarget, IsEnabledProperty, false);
-                }
-                if (elementTarget != grid_Popup_ColorPicker && vColorPickerOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_ColorPicker, OpacityProperty, 0.02);
-                    AVActions.ElementSetValue(grid_Popup_ColorPicker, IsEnabledProperty, false);
-                }
-                if (elementTarget != grid_Popup_Search && vSearchOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_Search, OpacityProperty, 0.02);
-                    AVActions.ElementSetValue(grid_Popup_Search, IsEnabledProperty, false);
-                }
-                if (elementTarget != grid_Popup_MainMenu && vMainMenuOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_MainMenu, OpacityProperty, 0.02);
-                    AVActions.ElementSetValue(grid_Popup_MainMenu, IsEnabledProperty, false);
-                }
+                    //Hide other popups
+                    if (elementTarget != grid_Popup_TextInput && vTextInputOpen)
+                    {
+                        grid_Popup_TextInput.Opacity = 0.02;
+                        grid_Popup_TextInput.IsEnabled = false;
+                    }
+                    if (elementTarget != grid_Popup_MessageBox && vMessageBoxOpen)
+                    {
+                        grid_Popup_MessageBox.Opacity = 0.02;
+                        grid_Popup_MessageBox.IsEnabled = false;
+                    }
+                    if (elementTarget != grid_Popup_FilePicker && vFilePickerOpen)
+                    {
+                        grid_Popup_FilePicker.Opacity = 0.02;
+                        grid_Popup_FilePicker.IsEnabled = false;
+                    }
+                    if (elementTarget != vPopupElementTarget && vPopupOpen)
+                    {
+                        vPopupElementTarget.Opacity = 0.02;
+                        vPopupElementTarget.IsEnabled = false;
+                    }
+                    if (elementTarget != grid_Popup_ColorPicker && vColorPickerOpen)
+                    {
+                        grid_Popup_ColorPicker.Opacity = 0.02;
+                        grid_Popup_ColorPicker.IsEnabled = false;
+                    }
+                    if (elementTarget != grid_Popup_Search && vSearchOpen)
+                    {
+                        grid_Popup_Search.Opacity = 0.02;
+                        grid_Popup_Search.IsEnabled = false;
+                    }
+                    if (elementTarget != grid_Popup_MainMenu && vMainMenuOpen)
+                    {
+                        grid_Popup_MainMenu.Opacity = 0.02;
+                        grid_Popup_MainMenu.IsEnabled = false;
+                    }
+                });
             }
             catch { }
         }
@@ -77,56 +80,59 @@ namespace CtrlUI
         {
             try
             {
-                //Hide the popup
-                AVActions.ElementSetValue(elementTarget, VisibilityProperty, Visibility.Collapsed);
-                AVActions.ElementSetValue(elementTarget, IsEnabledProperty, false);
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Hide the popup
+                    elementTarget.Visibility = Visibility.Collapsed;
+                    elementTarget.IsEnabled = false;
 
-                //Show the background
-                if (!Popup_Any_Open())
-                {
-                    double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
-                    AVActions.ElementSetValue(grid_Video_Background, OpacityProperty, backgroundBrightness);
-                    AVActions.ElementSetValue(grid_Main, OpacityProperty, 1.00);
-                    AVActions.ElementSetValue(grid_Main, IsEnabledProperty, true);
-                    return;
-                }
+                    //Show the background
+                    if (!Popup_Any_Open())
+                    {
+                        double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
+                        grid_Video_Background.Opacity = backgroundBrightness;
+                        grid_Main.Opacity = 1.00;
+                        grid_Main.IsEnabled = true;
+                        return;
+                    }
 
-                //Show other popups
-                if (vTextInputOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_TextInput, OpacityProperty, 1.00);
-                    AVActions.ElementSetValue(grid_Popup_TextInput, IsEnabledProperty, true);
-                }
-                else if (vMessageBoxOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_MessageBox, OpacityProperty, 1.00);
-                    AVActions.ElementSetValue(grid_Popup_MessageBox, IsEnabledProperty, true);
-                }
-                else if (vFilePickerOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_FilePicker, OpacityProperty, 1.00);
-                    AVActions.ElementSetValue(grid_Popup_FilePicker, IsEnabledProperty, true);
-                }
-                else if (vPopupOpen)
-                {
-                    AVActions.ElementSetValue(vPopupElementTarget, OpacityProperty, 1.00);
-                    AVActions.ElementSetValue(vPopupElementTarget, IsEnabledProperty, true);
-                }
-                else if (vColorPickerOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_ColorPicker, OpacityProperty, 1.00);
-                    AVActions.ElementSetValue(grid_Popup_ColorPicker, IsEnabledProperty, true);
-                }
-                else if (vSearchOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_Search, OpacityProperty, 1.00);
-                    AVActions.ElementSetValue(grid_Popup_Search, IsEnabledProperty, true);
-                }
-                else if (vMainMenuOpen)
-                {
-                    AVActions.ElementSetValue(grid_Popup_MainMenu, OpacityProperty, 1.00);
-                    AVActions.ElementSetValue(grid_Popup_MainMenu, IsEnabledProperty, true);
-                }
+                    //Show other popups
+                    if (vTextInputOpen)
+                    {
+                        grid_Popup_TextInput.Opacity = 1.00;
+                        grid_Popup_TextInput.IsEnabled = true;
+                    }
+                    else if (vMessageBoxOpen)
+                    {
+                        grid_Popup_MessageBox.Opacity = 1.00;
+                        grid_Popup_MessageBox.IsEnabled = true;
+                    }
+                    else if (vFilePickerOpen)
+                    {
+                        grid_Popup_FilePicker.Opacity = 1.00;
+                        grid_Popup_FilePicker.IsEnabled = true;
+                    }
+                    else if (vPopupOpen)
+                    {
+                        vPopupElementTarget.Opacity = 1.00;
+                        vPopupElementTarget.IsEnabled = true;
+                    }
+                    else if (vColorPickerOpen)
+                    {
+                        grid_Popup_ColorPicker.Opacity = 1.00;
+                        grid_Popup_ColorPicker.IsEnabled = true;
+                    }
+                    else if (vSearchOpen)
+                    {
+                        grid_Popup_Search.Opacity = 1.00;
+                        grid_Popup_Search.IsEnabled = true;
+                    }
+                    else if (vMainMenuOpen)
+                    {
+                        grid_Popup_MainMenu.Opacity = 1.00;
+                        grid_Popup_MainMenu.IsEnabled = true;
+                    }
+                });
             }
             catch { }
         }
