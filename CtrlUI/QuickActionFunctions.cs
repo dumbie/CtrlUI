@@ -68,15 +68,6 @@ namespace CtrlUI
                 AnswerFpsOverlayer.Name = "Show or hide the fps overlayer";
                 Answers.Add(AnswerFpsOverlayer);
 
-                //Check if the Xbox Companion app is installed
-                DataBindString AnswerXboxApp = new DataBindString();
-                if (UwpGetAppPackageByAppUserModelId("Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp") != null)
-                {
-                    AnswerXboxApp.ImageBitmap = FileToBitmapImage(new string[] { "Xbox" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    AnswerXboxApp.Name = "Open Xbox Companion app";
-                    Answers.Add(AnswerXboxApp);
-                }
-
                 DataBindString messageResult = await Popup_Show_MessageBox("Quick action", "* You can change the quick launch application in the CtrlUI settings.", "", Answers);
                 if (messageResult != null)
                 {
@@ -112,10 +103,6 @@ namespace CtrlUI
                     {
                         await LaunchCloseFpsOverlayer();
                     }
-                    else if (messageResult == AnswerXboxApp)
-                    {
-                        await LaunchXboxCompanion();
-                    }
                 }
             }
             catch { }
@@ -131,17 +118,6 @@ namespace CtrlUI
         //    }
         //    catch { }
         //}
-
-        //Launch windows Xbox Companion
-        async Task LaunchXboxCompanion()
-        {
-            try
-            {
-                //Launch the UWP or Win32Store application
-                await PrepareProcessLauncherUwpAndWin32StoreAsync("Xbox Companion", "Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp", string.Empty, false, false, true);
-            }
-            catch { }
-        }
 
         //Launch the set quick launch app
         async Task LaunchQuickLaunchApp()

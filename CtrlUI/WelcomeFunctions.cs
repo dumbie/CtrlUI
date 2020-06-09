@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ProcessClasses;
+using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -76,8 +77,11 @@ namespace CtrlUI
                 }
 
                 //Add Xbox uwp application to the list
-                DataBindApp dataBindAppXbox = new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.App, Name = "Xbox", NameExe = "XboxApp.exe", PathExe = "Microsoft.XboxApp_8wekyb3d8bbwe!Microsoft.XboxApp" };
-                await AddAppToList(dataBindAppXbox, true, true);
+                if (UwpGetAppPackageByAppUserModelId("Microsoft.GamingApp_8wekyb3d8bbwe!App") != null)
+                {
+                    DataBindApp dataBindAppXbox = new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.App, Name = "Xbox", NameExe = "XboxPcApp.exe", PathExe = "Microsoft.GamingApp_8wekyb3d8bbwe!App" };
+                    await AddAppToList(dataBindAppXbox, true, true);
+                }
 
                 //Search for PS4 Remote Play install and add to the list
                 using (RegistryKey RegKeyPS4Remote = registryKeyLocalMachine.OpenSubKey("SOFTWARE\\Sony Corporation\\PS4 Remote Play"))
