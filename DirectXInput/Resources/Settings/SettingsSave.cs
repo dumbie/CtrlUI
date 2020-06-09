@@ -160,6 +160,19 @@ namespace DirectXInput
                     App.vWindowKeypad.UpdateKeypadStyle();
                 };
 
+                slider_KeypadDisplaySize.ValueChanged += (sender, e) =>
+                {
+                    KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
+                    selectedProfile.KeypadDisplaySize = Convert.ToInt32(slider_KeypadDisplaySize.Value);
+
+                    //Save changes to Json file
+                    JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
+
+                    textblock_KeypadDisplaySize.Text = textblock_KeypadDisplaySize.Tag + ": " + selectedProfile.KeypadDisplaySize + "%";
+
+                    App.vWindowKeypad.UpdateKeypadSize();
+                };
+
                 slider_KeypadRepeatIntervalMs.ValueChanged += (sender, e) =>
                 {
                     KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
@@ -168,7 +181,7 @@ namespace DirectXInput
                     //Save changes to Json file
                     JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
 
-                    textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + Convert.ToInt32(slider_KeypadRepeatIntervalMs.Value) + "ms";
+                    textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + selectedProfile.ButtonRepeatIntervalMs + "ms";
                 };
             }
             catch (Exception ex)

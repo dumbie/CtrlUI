@@ -284,7 +284,7 @@
                                 <TextBlock Text="Enabling this will launch CtrlUI when the Guide button is shortly pressed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <CheckBox Name="cb_SettingsShortcutLaunchKeyboardController" Margin="0,10,0,0" Content="Open keyboard by holding the Guide button" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will launch keyboard when the Guide button is hold down." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <TextBlock Text="Enabling this will show the keyboard when the Guide button is hold down." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Windows Settings"/>
                                 <CheckBox Name="cb_SettingsShortcutAltEnter" Content="Press Alt and Enter by pressing RB and Start combined" Style="{StaticResource CheckBoxBlack}"/>
@@ -354,7 +354,7 @@
                                 <TextBlock Text="Change the used mouse scrollwheel sensitivity." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_SettingsMouseScrollSensitivity" Height="18" Width="400" Minimum="1" Maximum="50" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
-                                <TextBlock Margin="0,15,0,0" Text="* You can access the keyboard by holding the guide button." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Margin="0,15,0,0" Text="* You can access the on screen keyboard by holding the guide button." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
@@ -426,19 +426,24 @@
                                     <Button Name="btn_SetPadStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,35,45,0" Height="26" Width="26" ToolTipService.ToolTip="Button Start"/>
                                 </Grid>
 
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Settings"/>
-                                <TextBlock Name="textblock_KeypadOpacity" Text="Keypad display transparency" Tag="Keypad display transparency" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                                <TextBlock Text="Change the transparency of the on screen keypad." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_KeypadOpacity" Height="18" Width="460" Minimum="0" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-
-                                <TextBlock Margin="0,10,0,0" Text="Keypad display style mode" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Display"/>
+                                <TextBlock Text="Keypad display style mode" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Select the displayed keypad style mode." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <ComboBox Name="combobox_KeypadDisplayStyle" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="300" Style="{StaticResource ComboBoxBlack}">
                                     <ComboBoxItem>Light Mode</ComboBoxItem>
                                     <ComboBoxItem>Dark Mode</ComboBoxItem>
                                 </ComboBox>
 
-                                <TextBlock Margin="0,10,0,0" Name="textblock_KeypadRepeatIntervalMs" Text="Key press repeat interval" Tag="Key press repeat interval" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Margin="0,10,0,0" Name="textblock_KeypadOpacity" Text="Keypad display transparency" Tag="Keypad display transparency" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Text="Change the transparency of the on screen keypad." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <Slider Name="slider_KeypadOpacity" Height="18" Width="460" Minimum="0" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                                <TextBlock Margin="0,10,0,0" Name="textblock_KeypadDisplaySize" Text="Keypad display size" Tag="Keypad display size" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Text="Change the keypad display size." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <Slider Name="slider_KeypadDisplaySize" Height="18" Width="460" Minimum="50" Maximum="200" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Settings"/>
+                                <TextBlock Name="textblock_KeypadRepeatIntervalMs" Text="Key press repeat interval" Tag="Key press repeat interval" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the key press repeat interval in milliseconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_KeypadRepeatIntervalMs" Height="18" Width="460" Minimum="0" Maximum="200" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 

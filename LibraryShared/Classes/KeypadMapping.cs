@@ -13,6 +13,7 @@ namespace LibraryShared
             public int ButtonRepeatIntervalMs { get; set; } = 30;
             public double KeypadOpacity { get; set; } = 0.70;
             public int KeypadDisplayStyle { get; set; } = 0;
+            public int KeypadDisplaySize { get; set; } = 100;
 
             //Raw Thumbs
             public KeysVirtual? ThumbLeftUpMod { get; set; } = null;

@@ -814,8 +814,8 @@ namespace CtrlUI
         {
             try
             {
-                int FontSize = Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
-                Debug.WriteLine("Adjusting the font size to: " + FontSize);
+                int targetFontSize = Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
+                Debug.WriteLine("Adjusting the font size to: " + targetFontSize);
 
                 double TextSizeTiny = 10;
                 double TextSizeInterface = 16;
@@ -827,15 +827,15 @@ namespace CtrlUI
                 double TextSizeSubTitle = 60;
                 double TextSizeTitle = 75;
 
-                Application.Current.Resources["TextSizeTiny"] = TextSizeTiny + FontSize;
-                Application.Current.Resources["TextSizeInterface"] = TextSizeInterface + FontSize;
-                Application.Current.Resources["TextSizeSmall"] = TextSizeSmall + FontSize;
-                Application.Current.Resources["TextSizeMedium"] = TextSizeMedium + FontSize;
-                Application.Current.Resources["TextSizeLarge"] = TextSizeLarge + FontSize;
-                Application.Current.Resources["TextSizeHuge"] = TextSizeHuge + FontSize;
-                Application.Current.Resources["TextSizePreTitle"] = TextSizePreTitle + FontSize;
-                Application.Current.Resources["TextSizeSubTitle"] = TextSizeSubTitle + FontSize;
-                Application.Current.Resources["TextSizeTitle"] = TextSizeTitle + FontSize;
+                Application.Current.Resources["TextSizeTiny"] = TextSizeTiny + targetFontSize;
+                Application.Current.Resources["TextSizeInterface"] = TextSizeInterface + targetFontSize;
+                Application.Current.Resources["TextSizeSmall"] = TextSizeSmall + targetFontSize;
+                Application.Current.Resources["TextSizeMedium"] = TextSizeMedium + targetFontSize;
+                Application.Current.Resources["TextSizeLarge"] = TextSizeLarge + targetFontSize;
+                Application.Current.Resources["TextSizeHuge"] = TextSizeHuge + targetFontSize;
+                Application.Current.Resources["TextSizePreTitle"] = TextSizePreTitle + targetFontSize;
+                Application.Current.Resources["TextSizeSubTitle"] = TextSizeSubTitle + targetFontSize;
+                Application.Current.Resources["TextSizeTitle"] = TextSizeTitle + targetFontSize;
             }
             catch { }
         }

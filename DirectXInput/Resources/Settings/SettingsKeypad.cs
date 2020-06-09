@@ -122,8 +122,12 @@ namespace DirectXInput
                 textblock_KeypadOpacity.Text = textblock_KeypadOpacity.Tag + ": " + selectedProfile.KeypadOpacity.ToString("0.00") + "%";
                 slider_KeypadOpacity.Value = selectedProfile.KeypadOpacity;
 
-                //Load keypad style
+                //Load keypad display style
                 combobox_KeypadDisplayStyle.SelectedIndex = selectedProfile.KeypadDisplayStyle;
+
+                //Load keypad display size
+                textblock_KeypadDisplaySize.Text = textblock_KeypadDisplaySize.Tag + ": " + selectedProfile.KeypadDisplaySize + "%";
+                slider_KeypadDisplaySize.Value = selectedProfile.KeypadDisplaySize;
 
                 //Load keypad repeat interval
                 textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + selectedProfile.ButtonRepeatIntervalMs + "ms";

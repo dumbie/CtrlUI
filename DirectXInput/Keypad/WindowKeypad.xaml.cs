@@ -91,6 +91,9 @@ namespace DirectXInput.Keypad
                 //Update the keypad style
                 UpdateKeypadStyle();
 
+                //Update the keypad size
+                UpdateKeypadSize();
+
                 //Update the keypad visibility
                 this.Visibility = Visibility.Visible;
                 vWindowVisible = true;
@@ -152,6 +155,30 @@ namespace DirectXInput.Keypad
                                 image.Style = (Style)Application.Current.Resources["KeypadImageDark"];
                             }
                         }
+                    }
+                    catch { }
+                });
+            }
+            catch { }
+        }
+
+        //Update the keypad size
+        public void UpdateKeypadSize()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    try
+                    {
+                        int targetPercentage = vKeypadMappingProfile.KeypadDisplaySize;
+                        Debug.WriteLine("Changing keypad size to: " + targetPercentage);
+
+                        double keypadTextSize = 25;
+                        double keypadImageSize = 75;
+
+                        Application.Current.Resources["KeypadTextSize"] = (keypadTextSize / 100) * targetPercentage;
+                        Application.Current.Resources["KeypadImageSize"] = (keypadImageSize / 100) * targetPercentage;
                     }
                     catch { }
                 });

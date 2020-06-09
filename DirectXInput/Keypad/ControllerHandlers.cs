@@ -39,6 +39,9 @@ namespace DirectXInput.Keypad
 
                         //Update the keypad style
                         UpdateKeypadStyle();
+
+                        //Update the keypad size
+                        UpdateKeypadSize();
                     }
 
                     vControllerDelay_Keypad = Environment.TickCount + vControllerDelayMicroTicks;
