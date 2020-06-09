@@ -27,6 +27,14 @@ namespace CtrlUI
                 else if (keysData.HasFlag(System.Windows.Forms.Keys.Alt)) { usedModifierKey = KeysVirtual.Alt; }
                 else if (keysData.HasFlag(System.Windows.Forms.Keys.Shift)) { usedModifierKey = KeysVirtual.Shift; }
 
+                //Check if a textbox is focused
+                bool focusedTextBox = false;
+                FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
+                if (frameworkElement != null && frameworkElement.GetType() == typeof(TextBox))
+                {
+                    focusedTextBox = true;
+                }
+
                 if (usedVirtualKey == KeysVirtual.Tab && usedModifierKey == KeysVirtual.Shift)
                 {
                     PlayInterfaceSound(vConfigurationApplication, "Move", false);
@@ -75,7 +83,17 @@ namespace CtrlUI
                 }
                 else if (usedVirtualKey == KeysVirtual.Space)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Confirm", false);
+                    if (!focusedTextBox)
+                    {
+                        PlayInterfaceSound(vConfigurationApplication, "Confirm", false);
+                    }
+                }
+                else if (usedVirtualKey == KeysVirtual.BackSpace)
+                {
+                    if (vFilePickerOpen && !focusedTextBox)
+                    {
+                        PlayInterfaceSound(vConfigurationApplication, "Confirm", false);
+                    }
                 }
             }
             catch { }
@@ -101,7 +119,7 @@ namespace CtrlUI
             try
             {
                 FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                if (frameworkElement.GetType() == typeof(ListBoxItem))
+                if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
                     if (vTabTargetLists.Any(x => x == parentListbox.Name))
@@ -111,7 +129,7 @@ namespace CtrlUI
                         return;
                     }
                 }
-                else if (frameworkElement.GetType() == typeof(Button))
+                else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
                 {
                     if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
                     {
@@ -120,7 +138,7 @@ namespace CtrlUI
                         return;
                     }
                 }
-                else if (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider))
+                else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider)))
                 {
                     EventKeyboardPressSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                     Handled = true;
@@ -136,7 +154,7 @@ namespace CtrlUI
             try
             {
                 FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                if (frameworkElement.GetType() == typeof(ListBoxItem))
+                if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
                     if (vTabTargetLists.Any(x => x == parentListbox.Name))
@@ -146,7 +164,7 @@ namespace CtrlUI
                         return;
                     }
                 }
-                else if (frameworkElement.GetType() == typeof(Button))
+                else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
                 {
                     if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
                     {
@@ -155,7 +173,7 @@ namespace CtrlUI
                         return;
                     }
                 }
-                else if (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider))
+                else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider)))
                 {
                     EventKeyboardPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
                     Handled = true;

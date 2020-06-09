@@ -314,20 +314,27 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Saved previous focus element: " + previousFocus);
                         frameworkElementFocus.FocusElement = previousFocus;
-                        if (frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
+                        if (frameworkElementFocus.FocusElement != null && frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
                         {
                             frameworkElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElementFocus.FocusElement);
                             frameworkElementFocus.FocusIndex = frameworkElementFocus.FocusListBox.SelectedIndex;
                         }
                     }
-                    else if (Keyboard.FocusedElement != null && Keyboard.FocusedElement != App.vWindowMain)
+                    else
                     {
-                        Debug.WriteLine("Saved previous focus keyboard: " + Keyboard.FocusedElement);
-                        frameworkElementFocus.FocusElement = (FrameworkElement)Keyboard.FocusedElement;
-                        if (frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
+                        //Get the currently focused element
+                        FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
+
+                        //Check the currently focused element
+                        if (frameworkElement != null && frameworkElement != App.vWindowMain)
                         {
-                            frameworkElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElementFocus.FocusElement);
-                            frameworkElementFocus.FocusIndex = frameworkElementFocus.FocusListBox.SelectedIndex;
+                            Debug.WriteLine("Saved previous focus keyboard: " + frameworkElement);
+                            frameworkElementFocus.FocusElement = frameworkElement;
+                            if (frameworkElementFocus.FocusElement != null && frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
+                            {
+                                frameworkElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElementFocus.FocusElement);
+                                frameworkElementFocus.FocusIndex = frameworkElementFocus.FocusListBox.SelectedIndex;
+                            }
                         }
                     }
                 });

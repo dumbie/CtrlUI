@@ -14,7 +14,6 @@ using static CtrlUI.AppVariables;
 using static LibraryShared.AppStartupCheck;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
 {
@@ -355,8 +354,6 @@ namespace CtrlUI
                         await Popup_Show_MessageBox("This application already exists", "", "", answersConfirm);
                         return;
                     }
-
-                    PlayInterfaceSound(vConfigurationApplication, "Confirm", false);
 
                     await Notification_Send_Status("Plus", "Added " + vFilePickerResult.Name);
                     Debug.WriteLine("Adding UWP app: " + tb_AddAppName.Text + " to the list.");
