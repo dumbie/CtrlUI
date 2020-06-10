@@ -71,7 +71,7 @@ namespace DirectXInput.Keyboard
         {
             try
             {
-                if (this.Opacity != 0)
+                if (vWindowVisible)
                 {
                     //Delay CtrlUI output
                     vController0.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayMediumTicks;

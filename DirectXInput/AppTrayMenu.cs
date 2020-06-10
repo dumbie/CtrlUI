@@ -22,7 +22,8 @@ namespace DirectXInput
                 Debug.WriteLine("Creating application tray menu.");
 
                 //Create a context menu for systray.
-                TrayContextMenu.MenuItems.Add("Settings", NotifyIcon_Settings);
+                TrayContextMenu.MenuItems.Add("Hide Keyboard/pad", NotifyIcon_HideKeyboard);
+                TrayContextMenu.MenuItems.Add("Open Settings", NotifyIcon_Settings);
                 TrayContextMenu.MenuItems.Add("Website", NotifyIcon_Website);
                 TrayContextMenu.MenuItems.Add("Exit", NotifyIcon_Exit);
 
@@ -70,17 +71,51 @@ namespace DirectXInput
             catch { }
         }
 
-        async void NotifyIcon_DoubleClick(object sender, EventArgs args) { await Application_ShowHideWindow(); }
+        async void NotifyIcon_DoubleClick(object sender, EventArgs args)
+        {
+            try
+            {
+                await Application_ShowHideWindow();
+            }
+            catch { }
+        }
 
-        async void NotifyIcon_Settings(object sender, EventArgs args) { await Application_ShowHideWindow(); }
+        async void NotifyIcon_Settings(object sender, EventArgs args)
+        {
+            try
+            {
+                await Application_ShowHideWindow();
+            }
+            catch { }
+        }
 
-        void NotifyIcon_Website(object sender, EventArgs args) { Process.Start("https://projects.arnoldvink.com"); }
+        void NotifyIcon_HideKeyboard(object sender, EventArgs args)
+        {
+            try
+            {
+                App.vWindowKeyboard.Hide();
+                App.vWindowKeypad.Hide();
+            }
+            catch { }
+        }
+
+        void NotifyIcon_Website(object sender, EventArgs args)
+        {
+            try
+            {
+                Process.Start("https://projects.arnoldvink.com");
+            }
+            catch { }
+        }
 
         async void NotifyIcon_MouseUp(object sender, MouseEventArgs args)
         {
             try
             {
-                if (args.Button == MouseButtons.Middle) { await StopAllControllers(); }
+                if (args.Button == MouseButtons.Middle)
+                {
+                    await StopAllControllers();
+                }
             }
             catch { }
         }

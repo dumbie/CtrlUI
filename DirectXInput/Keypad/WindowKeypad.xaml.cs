@@ -57,13 +57,16 @@ namespace DirectXInput.Keypad
         {
             try
             {
-                //Play window close sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                if (vWindowVisible)
+                {
+                    //Play window close sound
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                //Update the keypad visibility
-                this.Visibility = Visibility.Collapsed;
-                vWindowVisible = false;
-                Debug.WriteLine("Hiding the Keypad window.");
+                    //Update the keypad visibility
+                    this.Visibility = Visibility.Collapsed;
+                    vWindowVisible = false;
+                    Debug.WriteLine("Hiding the Keypad window.");
+                }
             }
             catch { }
         }
