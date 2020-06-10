@@ -23,7 +23,7 @@ namespace DirectXInput
         {
             bool ControllerUsed = false;
             bool ControllerDelayShort = false;
-            bool ControllerDelayLong = false;
+            bool ControllerDelayLonger = false;
             try
             {
                 if (Environment.TickCount >= Controller.Delay_ControllerShortcut)
@@ -47,7 +47,7 @@ namespace DirectXInput
                         await ShowCtrlUI();
 
                         ControllerUsed = true;
-                        ControllerDelayLong = true;
+                        ControllerDelayLonger = true;
                     }
                     //Launch CtrlUI application
                     else if (Controller.InputCurrent.ButtonGuide.PressedShort && !App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible && vProcessCtrlUI == null)
@@ -55,7 +55,7 @@ namespace DirectXInput
                         await LaunchCtrlUI();
 
                         ControllerUsed = true;
-                        ControllerDelayLong = true;
+                        ControllerDelayLonger = true;
                     }
                     //Hide the keyboard controller
                     else if (Controller.InputCurrent.ButtonGuide.PressedShort && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible))
@@ -63,7 +63,7 @@ namespace DirectXInput
                         await KeyboardControllerHideShow(false);
 
                         ControllerUsed = true;
-                        ControllerDelayLong = true;
+                        ControllerDelayLonger = true;
                     }
                     //Show the keyboard controller
                     else if (Controller.InputCurrent.ButtonGuide.PressedLong && !App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
@@ -71,7 +71,7 @@ namespace DirectXInput
                         await KeyboardControllerHideShow(true);
 
                         ControllerUsed = true;
-                        ControllerDelayLong = true;
+                        ControllerDelayLonger = true;
                     }
                     //Switch between keyboard and Keypad
                     else if (Controller.InputCurrent.ButtonGuide.PressedLong && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible))
@@ -79,7 +79,7 @@ namespace DirectXInput
                         await KeyboardKeypadSwitch();
 
                         ControllerUsed = true;
-                        ControllerDelayLong = true;
+                        ControllerDelayLonger = true;
                     }
                     //Press Alt+Enter
                     else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderRight.PressedRaw)
@@ -96,7 +96,7 @@ namespace DirectXInput
                             await KeyPressCombo((byte)KeysVirtual.Alt, (byte)KeysVirtual.Enter, false);
 
                             ControllerUsed = true;
-                            ControllerDelayLong = true;
+                            ControllerDelayLonger = true;
                         }
                     }
                     //Press Alt+F4
@@ -114,7 +114,7 @@ namespace DirectXInput
                             await KeyPressCombo((byte)KeysVirtual.Alt, (byte)KeysVirtual.F4, false);
 
                             ControllerUsed = true;
-                            ControllerDelayLong = true;
+                            ControllerDelayLonger = true;
                         }
                     }
                     //Press Alt+Tab or Win+Tab
@@ -132,7 +132,7 @@ namespace DirectXInput
                             await KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.Tab, false);
 
                             ControllerUsed = true;
-                            ControllerDelayLong = true;
+                            ControllerDelayLonger = true;
                         }
                         else if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltTab"]))
                         {
@@ -146,7 +146,7 @@ namespace DirectXInput
                             await KeyPressCombo((byte)KeysVirtual.Alt, (byte)KeysVirtual.Tab, false);
 
                             ControllerUsed = true;
-                            ControllerDelayLong = true;
+                            ControllerDelayLonger = true;
                         }
                     }
                     //Make screenshot
@@ -159,7 +159,7 @@ namespace DirectXInput
                             await KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.Snapshot, false);
 
                             ControllerUsed = true;
-                            ControllerDelayLong = true;
+                            ControllerDelayLonger = true;
                         }
                     }
                     //Disconnect controller from Bluetooth
@@ -171,7 +171,7 @@ namespace DirectXInput
                             StopControllerTask(Controller, false);
 
                             ControllerUsed = true;
-                            ControllerDelayLong = true;
+                            ControllerDelayLonger = true;
                         }
                     }
 
@@ -179,9 +179,9 @@ namespace DirectXInput
                     {
                         Controller.Delay_ControllerShortcut = Environment.TickCount + vControllerDelayShortTicks;
                     }
-                    else if (ControllerDelayLong)
+                    else if (ControllerDelayLonger)
                     {
-                        Controller.Delay_ControllerShortcut = Environment.TickCount + vControllerDelayLongTicks;
+                        Controller.Delay_ControllerShortcut = Environment.TickCount + vControllerDelayLongerTicks;
                     }
                 }
             }

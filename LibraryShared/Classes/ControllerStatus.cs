@@ -48,8 +48,6 @@ namespace LibraryShared
 
             //Controller Input
             public int Delay_CtrlUIOutput = Environment.TickCount;
-            public int Delay_KeyboardOutput = Environment.TickCount;
-            public int Delay_MouseOutput = Environment.TickCount;
             public int Delay_ControllerShortcut = Environment.TickCount;
             public ControllerInput InputCurrent = new ControllerInput();
 

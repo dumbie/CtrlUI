@@ -73,6 +73,12 @@ namespace DirectXInput.Keyboard
             {
                 if (this.Opacity != 0)
                 {
+                    //Delay CtrlUI output
+                    vController0.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayMediumTicks;
+                    vController1.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayMediumTicks;
+                    vController2.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayMediumTicks;
+                    vController3.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayMediumTicks;
+
                     //Play window close sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 

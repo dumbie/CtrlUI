@@ -37,7 +37,7 @@ namespace CtrlUI
             bool ControllerUsed = false;
             bool ControllerDelayShort = false;
             bool ControllerDelayMedium = false;
-            bool ControllerDelayLong = false;
+            bool ControllerDelayLonger = false;
             try
             {
                 if (Environment.TickCount >= vControllerDelay_Button)
@@ -158,7 +158,7 @@ namespace CtrlUI
                         await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_ShowHide_MainMenu(false); });
 
                         ControllerUsed = true;
-                        ControllerDelayLong = true;
+                        ControllerDelayLonger = true;
                     }
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
@@ -166,7 +166,7 @@ namespace CtrlUI
                         await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_ShowHide_Search(false); });
 
                         ControllerUsed = true;
-                        ControllerDelayLong = true;
+                        ControllerDelayLonger = true;
                     }
                     else if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
@@ -193,9 +193,9 @@ namespace CtrlUI
                     {
                         vControllerDelay_Button = Environment.TickCount + vControllerDelayMediumTicks;
                     }
-                    else if (ControllerDelayLong)
+                    else if (ControllerDelayLonger)
                     {
-                        vControllerDelay_Button = Environment.TickCount + vControllerDelayLongTicks;
+                        vControllerDelay_Button = Environment.TickCount + vControllerDelayLongerTicks;
                     }
                 }
             }
@@ -208,7 +208,7 @@ namespace CtrlUI
         {
             bool ControllerUsed = false;
             bool ControllerDelayShort = false;
-            bool ControllerDelayLong = false;
+            bool ControllerDelayLonger = false;
             try
             {
                 if (Environment.TickCount >= vControllerDelay_DPad)
@@ -254,9 +254,9 @@ namespace CtrlUI
                     {
                         vControllerDelay_DPad = Environment.TickCount + vControllerDelayShortTicks;
                     }
-                    else if (ControllerDelayLong)
+                    else if (ControllerDelayLonger)
                     {
-                        vControllerDelay_DPad = Environment.TickCount + vControllerDelayLongTicks;
+                        vControllerDelay_DPad = Environment.TickCount + vControllerDelayLongerTicks;
                     }
                 }
             }
@@ -269,7 +269,7 @@ namespace CtrlUI
         {
             bool ControllerUsed = false;
             bool ControllerDelayShort = false;
-            bool ControllerDelayLong = false;
+            bool ControllerDelayLonger = false;
             try
             {
                 if (Environment.TickCount >= vControllerDelay_Trigger)
@@ -286,7 +286,7 @@ namespace CtrlUI
                             await KeyPressSingle((byte)KeysVirtual.VolumeMute, false);
 
                             ControllerUsed = true;
-                            ControllerDelayLong = true;
+                            ControllerDelayLonger = true;
                         }
                         else if (ControllerInput.TriggerLeft > 0)
                         {
@@ -308,9 +308,9 @@ namespace CtrlUI
                     {
                         vControllerDelay_Trigger = Environment.TickCount + vControllerDelayShortTicks;
                     }
-                    else if (ControllerDelayLong)
+                    else if (ControllerDelayLonger)
                     {
-                        vControllerDelay_Trigger = Environment.TickCount + vControllerDelayLongTicks;
+                        vControllerDelay_Trigger = Environment.TickCount + vControllerDelayLongerTicks;
                     }
                 }
             }
@@ -323,7 +323,7 @@ namespace CtrlUI
         {
             bool ControllerUsed = false;
             bool ControllerDelayShort = false;
-            bool ControllerDelayLong = false;
+            bool ControllerDelayLonger = false;
             try
             {
                 if (Environment.TickCount >= vControllerDelay_Stick)
@@ -392,9 +392,9 @@ namespace CtrlUI
                     {
                         vControllerDelay_Stick = Environment.TickCount + vControllerDelayShortTicks;
                     }
-                    else if (ControllerDelayLong)
+                    else if (ControllerDelayLonger)
                     {
-                        vControllerDelay_Stick = Environment.TickCount + vControllerDelayLongTicks;
+                        vControllerDelay_Stick = Environment.TickCount + vControllerDelayLongerTicks;
                     }
                 }
             }
