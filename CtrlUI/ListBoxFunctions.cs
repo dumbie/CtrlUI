@@ -141,14 +141,14 @@ namespace CtrlUI
                     else
                     {
                         Debug.WriteLine("Listbox cannot be focused on, pressing tab key.");
-                        await KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        await KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                     }
                 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed focusing on the listbox, pressing tab key: " + ex.Message);
-                await KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                await KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
             }
         }
 

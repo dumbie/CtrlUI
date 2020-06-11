@@ -48,15 +48,15 @@ namespace DirectXInput.Keyboard
             {
                 foreach (char charString in typeString)
                 {
-                    short virtualKeyScan = VkKeyScanEx(charString, IntPtr.Zero);
-                    bool shiftPressed = (virtualKeyScan & 0x100) == 0x100;
+                    KeysVirtual virtualKeyScan = VkKeyScanEx(charString, IntPtr.Zero);
+                    bool shiftPressed = ((short)virtualKeyScan & 0x100) == 0x100;
                     if (shiftPressed)
                     {
-                        await KeyPressCombo((byte)KeysVirtual.Shift, (byte)virtualKeyScan, false);
+                        await KeyPressComboAuto(KeysVirtual.Shift, virtualKeyScan);
                     }
                     else
                     {
-                        await KeyPressSingle((byte)virtualKeyScan, false);
+                        await KeyPressSingleAuto(virtualKeyScan);
                     }
                 }
             }
@@ -70,16 +70,16 @@ namespace DirectXInput.Keyboard
             {
                 Button sendButton = sender as Button;
                 string sendKeyName = sendButton.Tag.ToString();
-                byte sendKeyVirtual = 0;
+                KeysVirtual sendKeyVirtual = KeysVirtual.Null;
                 try
                 {
-                    sendKeyVirtual = (byte)(KeysVirtual)Enum.Parse(typeof(KeysVirtual), sendKeyName, true);
+                    sendKeyVirtual = (KeysVirtual)Enum.Parse(typeof(KeysVirtual), sendKeyName, true);
                 }
                 catch { }
                 Debug.WriteLine("Sending key: " + sendKeyName + "/" + sendKeyVirtual);
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
 
-                //Check for keys that are not caps capable or require extended
+                //Check for string text input
                 if (sendKeyName == "DotCom")
                 {
                     string extensionString = string.Empty;
@@ -94,77 +94,50 @@ namespace DirectXInput.Keyboard
                     await KeyboardTypeString(extensionString);
                     return;
                 }
-                else if (sendKeyVirtual == (byte)KeysVirtual.Up)
-                {
-                    await KeyPressSingle(sendKeyVirtual, true);
-                    return;
-                }
-                else if (sendKeyVirtual == (byte)KeysVirtual.Down)
-                {
-                    await KeyPressSingle(sendKeyVirtual, true);
-                    return;
-                }
-                else if (sendKeyVirtual == (byte)KeysVirtual.Left)
-                {
-                    await KeyPressSingle(sendKeyVirtual, true);
-                    return;
-                }
-                else if (sendKeyVirtual == (byte)KeysVirtual.Right)
-                {
-                    await KeyPressSingle(sendKeyVirtual, true);
-                    return;
-                }
-                else if (sendKeyVirtual == (byte)KeysVirtual.Delete)
-                {
-                    await KeyPressSingle(sendKeyVirtual, true);
-                    return;
-                }
-                else if (sendKeyVirtual == (byte)KeysVirtual.Home)
-                {
-                    await KeyPressSingle(sendKeyVirtual, false);
-                    return;
-                }
-                else if (sendKeyVirtual == (byte)KeysVirtual.End)
-                {
-                    await KeyPressSingle(sendKeyVirtual, false);
-                    return;
-                }
 
                 //Check if the caps lock is enabled
                 if (vCapsEnabled)
                 {
-                    if (sendKeyVirtual == (byte)KeysVirtual.Shift)
+                    if (sendKeyVirtual == KeysVirtual.Shift)
                     {
-                        await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.X, false);
+                        await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.X);
                     }
-                    else if (sendKeyVirtual == (byte)KeysVirtual.Control)
+                    else if (sendKeyVirtual == KeysVirtual.Control)
                     {
-                        await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.C, false);
+                        await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.C);
                     }
-                    else if (sendKeyVirtual == (byte)KeysVirtual.Alt)
+                    else if (sendKeyVirtual == KeysVirtual.Alt)
                     {
-                        await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.V, false);
+                        await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.V);
                     }
-                    else if (sendKeyVirtual == (byte)KeysVirtual.Space)
+                    else if (sendKeyVirtual == KeysVirtual.Space)
                     {
                         await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\Taskmgr.exe", "", "", false, false);
                     }
-                    else if (sendKeyVirtual == (byte)KeysVirtual.Enter)
+                    else if (sendKeyVirtual == KeysVirtual.Enter)
                     {
-                        await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.Z, false);
+                        await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.Z);
                     }
-                    else if (sendKeyVirtual == (byte)KeysVirtual.LeftWindows)
+                    else if (sendKeyVirtual == KeysVirtual.LeftWindows)
                     {
-                        await KeyPressCombo((byte)KeysVirtual.Control, (byte)KeysVirtual.A, false);
+                        await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.A);
+                    }
+                    else if (sendKeyVirtual == KeysVirtual.Home)
+                    {
+                        await KeyPressSingleAuto(KeysVirtual.Home);
+                    }
+                    else if (sendKeyVirtual == KeysVirtual.End)
+                    {
+                        await KeyPressSingleAuto(KeysVirtual.End);
                     }
                     else
                     {
-                        await KeyPressCombo((byte)KeysVirtual.Shift, sendKeyVirtual, false);
+                        await KeyPressComboAuto(KeysVirtual.Shift, sendKeyVirtual);
                     }
                 }
                 else
                 {
-                    await KeyPressSingle(sendKeyVirtual, false);
+                    await KeyPressSingleAuto(sendKeyVirtual);
                 }
             }
             catch { }

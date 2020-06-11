@@ -41,7 +41,7 @@ namespace CtrlUI
 
                 //Register Hotkeys and Filtermessage
                 ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
-                RegisterHotKey(vInteropWindowHandle, HotKeyRegisterId, (byte)KeysModifier.Win, (byte)KeysVirtual.CapsLock);
+                RegisterHotKey(vInteropWindowHandle, HotKeyRegisterId, (byte)KeysModifier.Win, KeysVirtual.CapsLock);
 
                 //Check application settings
                 Settings_Check();
@@ -199,7 +199,7 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("Windows", "Showing start menu");
-                await KeyPressSingle((byte)KeysVirtual.LeftWindows, false);
+                await KeyPressSingleAuto(KeysVirtual.LeftWindows);
 
                 //Launch the keyboard controller
                 if (vAppActivated && vControllerAnyConnected())

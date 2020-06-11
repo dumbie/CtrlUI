@@ -123,7 +123,7 @@ namespace DirectXInput.Keypad
         }
 
         //Press keyboard key binded to keypad
-        void PressKeypadKey(bool buttonPressed, KeypadDownStatus keypadDownStatus, KeysVirtual? keyModifier, KeysVirtual? key, int buttonRepeatIntervalMs)
+        void PressKeypadKey(bool buttonPressed, KeypadDownStatus keypadDownStatus, KeysVirtual? modifierKey, KeysVirtual? virtualKey, int buttonRepeatIntervalMs)
         {
             try
             {
@@ -133,26 +133,26 @@ namespace DirectXInput.Keypad
                     {
                         keypadDownStatus.Pressed = true;
                         keypadDownStatus.LastPress = Environment.TickCount;
-                        if (keyModifier != null)
+                        if (modifierKey != null)
                         {
-                            KeyToggleCombo((byte)keyModifier, (byte)key, false, true);
+                            KeyToggleComboAuto((KeysVirtual)modifierKey, (KeysVirtual)virtualKey, true);
                         }
                         else
                         {
-                            KeyToggleSingle((byte)key, false, true);
+                            KeyToggleSingleAuto((KeysVirtual)virtualKey, true);
                         }
                     }
                 }
                 else if (keypadDownStatus.Pressed)
                 {
                     keypadDownStatus.Pressed = false;
-                    if (keyModifier != null)
+                    if (modifierKey != null)
                     {
-                        KeyToggleCombo((byte)keyModifier, (byte)key, false, false);
+                        KeyToggleComboAuto((KeysVirtual)modifierKey, (KeysVirtual)virtualKey, false);
                     }
                     else
                     {
-                        KeyToggleSingle((byte)key, false, false);
+                        KeyToggleSingleAuto((KeysVirtual)virtualKey, false);
                     }
                 }
             }

@@ -39,7 +39,7 @@ namespace CtrlUI
                     //Debug.WriteLine("Checking desktop processes.");
 
                     //Get all assets apps images
-                    string[] imageFilter = new string[] { "jpg", "png" };
+                    string[] imageFilter = { "jpg", "png" };
                     DirectoryInfo directoryInfoApps = new DirectoryInfo("Assets/Apps");
                     FileInfo[] directoryImagesApps = directoryInfoApps.GetFiles("*", SearchOption.AllDirectories).Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
 

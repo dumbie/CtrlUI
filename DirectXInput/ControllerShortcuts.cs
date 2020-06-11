@@ -93,7 +93,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+Enter";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            await KeyPressCombo((byte)KeysVirtual.Alt, (byte)KeysVirtual.Enter, false);
+                            await KeyPressComboAuto(KeysVirtual.Alt, KeysVirtual.Enter);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -111,7 +111,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+F4";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            await KeyPressCombo((byte)KeysVirtual.Alt, (byte)KeysVirtual.F4, false);
+                            await KeyPressComboAuto(KeysVirtual.Alt, KeysVirtual.F4);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -129,7 +129,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Win+Tab";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            await KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.Tab, false);
+                            await KeyPressComboAuto(KeysVirtual.LeftWindows, KeysVirtual.Tab);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -143,7 +143,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+Tab";
                             App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            await KeyPressCombo((byte)KeysVirtual.Alt, (byte)KeysVirtual.Tab, false);
+                            await KeyPressComboAuto(KeysVirtual.Alt, KeysVirtual.Tab);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -156,7 +156,8 @@ namespace DirectXInput
                         {
                             Debug.WriteLine("Button Global - Screenshot");
                             PlayInterfaceSound(vConfigurationCtrlUI, "Screenshot", true);
-                            await KeyPressCombo((byte)KeysVirtual.LeftWindows, (byte)KeysVirtual.Snapshot, false);
+
+                            await KeyPressComboAuto(KeysVirtual.LeftWindows, KeysVirtual.Snapshot);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;

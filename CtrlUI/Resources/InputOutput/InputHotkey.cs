@@ -14,8 +14,8 @@ namespace CtrlUI
                 Debug.WriteLine("Hotkey pressed.");
 
                 //Check the pressed keys
-                int UsedVirtualKey = ((int)windowMessage.lParam >> 16) & 0xFFFF;
-                if (UsedVirtualKey == (byte)KeysVirtual.CapsLock) { await AppWindow_HideShow(); }
+                KeysVirtual usedVirtualKey = (KeysVirtual)(((int)windowMessage.lParam >> 16) & 0xFFFF);
+                if (usedVirtualKey == KeysVirtual.CapsLock) { await AppWindow_HideShow(); }
             }
             catch { }
         }

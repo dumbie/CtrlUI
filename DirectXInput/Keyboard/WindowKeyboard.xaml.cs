@@ -784,7 +784,7 @@ namespace DirectXInput.Keyboard
                 {
                     if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
-                        await KeyPressSingle((byte)KeysVirtual.CapsLock, false);
+                        await KeyPressSingleAuto(KeysVirtual.CapsLock);
                     }
                 });
             }

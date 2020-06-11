@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 
 namespace CtrlUI
@@ -7,9 +8,9 @@ namespace CtrlUI
     public partial class WindowMain
     {
         //Application events
-        public delegate Task DelegateKeyboardPressSingle(byte virtualKey, IntPtr WindowHandle);
+        public delegate Task DelegateKeyboardPressSingle(KeysVirtual virtualKey, IntPtr windowHandle);
         public DelegateKeyboardPressSingle EventKeyboardPressSingle = null;
-        public delegate Task DelegateKeyboardPressCombo(byte Modifier, byte virtualKey, bool ExtendedKey);
+        public delegate Task DelegateKeyboardPressCombo(KeysVirtual modifierKey, KeysVirtual virtualKey);
         public DelegateKeyboardPressCombo EventKeyboardPressCombo = null;
 
         //Register application events
@@ -18,7 +19,7 @@ namespace CtrlUI
             try
             {
                 EventKeyboardPressSingle += KeySendSingle;
-                EventKeyboardPressCombo += KeyPressCombo;
+                EventKeyboardPressCombo += KeyPressComboAuto;
             }
             catch { }
         }

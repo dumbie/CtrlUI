@@ -104,7 +104,7 @@ namespace DirectXInput.Keyboard
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Left, vInteropWindowHandle);
+                        await KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
@@ -112,7 +112,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Right, vInteropWindowHandle);
+                        await KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
@@ -120,7 +120,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Up, vInteropWindowHandle);
+                        await KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
@@ -128,7 +128,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle((byte)KeysVirtual.Down, vInteropWindowHandle);
+                        await KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
@@ -136,7 +136,7 @@ namespace DirectXInput.Keyboard
                     //Send internal space key
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
-                        await KeySendSingle((byte)KeysVirtual.Space, vInteropWindowHandle);
+                        await KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
@@ -144,7 +144,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.ButtonB.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressSingle((byte)KeysVirtual.Enter, false);
+                        await KeyPressSingleAuto(KeysVirtual.Enter);
 
                         ControllerDelayShort = true;
                     }
@@ -152,7 +152,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.ButtonY.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressSingle((byte)KeysVirtual.Space, false);
+                        await KeyPressSingleAuto(KeysVirtual.Space);
 
                         ControllerDelayShort = true;
                     }
@@ -160,7 +160,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.ButtonX.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressSingle((byte)KeysVirtual.BackSpace, false);
+                        await KeyPressSingleAuto(KeysVirtual.BackSpace);
 
                         ControllerDelayShort = true;
                     }
@@ -169,7 +169,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.ButtonShoulderLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressSingle((byte)KeysVirtual.Left, false);
+                        await KeyPressSingleAuto(KeysVirtual.Left);
 
                         ControllerDelayShort = true;
                     }
@@ -177,7 +177,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.ButtonShoulderRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressSingle((byte)KeysVirtual.Right, false);
+                        await KeyPressSingleAuto(KeysVirtual.Right);
 
                         ControllerDelayShort = true;
                     }
@@ -186,7 +186,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.TriggerLeft > 0)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                        await KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
 
                         ControllerDelayShort = true;
                     }
@@ -194,7 +194,7 @@ namespace DirectXInput.Keyboard
                     else if (ControllerInput.TriggerRight > 0)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressSingle((byte)KeysVirtual.Tab, false);
+                        await KeyPressSingleAuto(KeysVirtual.Tab);
 
                         ControllerDelayShort = true;
                     }

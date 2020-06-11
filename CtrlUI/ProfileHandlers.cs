@@ -60,11 +60,11 @@ namespace CtrlUI
             {
                 if (e.Key == Key.Up && lb_ProfileManager.SelectedIndex == 0)
                 {
-                    await KeyPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                    await KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
                 }
                 else if (e.Key == Key.Down && (lb_ProfileManager.Items.Count - 1) == lb_ProfileManager.SelectedIndex)
                 {
-                    await KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                    await KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }

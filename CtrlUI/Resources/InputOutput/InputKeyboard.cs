@@ -122,9 +122,9 @@ namespace CtrlUI
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vTabTargetLists.Any(x => x == parentListbox.Name))
+                    if (vTabTargetLists.Contains(parentListbox.Name))
                     {
-                        EventKeyboardPressSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        EventKeyboardPressSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         Handled = true;
                         return;
                     }
@@ -133,14 +133,14 @@ namespace CtrlUI
                 {
                     if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
                     {
-                        EventKeyboardPressSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        EventKeyboardPressSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         Handled = true;
                         return;
                     }
                 }
                 else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider)))
                 {
-                    EventKeyboardPressSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                    EventKeyboardPressSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                     Handled = true;
                     return;
                 }
@@ -157,9 +157,9 @@ namespace CtrlUI
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vTabTargetLists.Any(x => x == parentListbox.Name))
+                    if (vTabTargetLists.Contains(parentListbox.Name))
                     {
-                        EventKeyboardPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                        EventKeyboardPressCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;
                         return;
                     }
@@ -168,14 +168,14 @@ namespace CtrlUI
                 {
                     if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
                     {
-                        EventKeyboardPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                        EventKeyboardPressCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;
                         return;
                     }
                 }
                 else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider)))
                 {
-                    EventKeyboardPressCombo((byte)KeysVirtual.Shift, (byte)KeysVirtual.Tab, false);
+                    EventKeyboardPressCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                     Handled = true;
                     return;
                 }

@@ -51,7 +51,7 @@ namespace CtrlUI
                 nameFile = Regex.Replace(nameFile, @"\s+", " ");
 
                 //Remove words
-                string[] nameFilterRemoveContains = new string[] { "usa", "eur", "pal", "ntsc", "repack", "proper" };
+                string[] nameFilterRemoveContains = { "usa", "eur", "pal", "ntsc", "repack", "proper" };
                 string[] nameRomSplit = nameFile.Split(' ').Where(x => !nameFilterRemoveContains.Any(x.Contains)).ToArray();
 
                 //Take words

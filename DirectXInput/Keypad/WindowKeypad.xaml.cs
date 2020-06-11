@@ -290,18 +290,18 @@ namespace DirectXInput.Keypad
         }
 
         //Update key details
-        void UpdateKeypadKeyDetails(KeysVirtual? keyMod, KeysVirtual? key, Grid keyGrid, TextBlock keyTextBlock)
+        void UpdateKeypadKeyDetails(KeysVirtual? modifierKey, KeysVirtual? virtualKey, Grid keyGrid, TextBlock keyTextBlock)
         {
             try
             {
-                if (keyMod != null)
+                if (modifierKey != null)
                 {
-                    keyTextBlock.Text = GetVirtualKeyName((KeysVirtual)keyMod, true) + "\n" + GetVirtualKeyName((KeysVirtual)key, true);
+                    keyTextBlock.Text = GetVirtualKeyName((KeysVirtual)modifierKey, true) + "\n" + GetVirtualKeyName((KeysVirtual)virtualKey, true);
                     keyGrid.Opacity = 1;
                 }
-                else if (key != null)
+                else if (virtualKey != null)
                 {
-                    keyTextBlock.Text = GetVirtualKeyName((KeysVirtual)key, true);
+                    keyTextBlock.Text = GetVirtualKeyName((KeysVirtual)virtualKey, true);
                     keyGrid.Opacity = 1;
                 }
                 else
@@ -322,7 +322,7 @@ namespace DirectXInput.Keypad
                 {
                     if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
-                        await KeyPressSingle((byte)KeysVirtual.CapsLock, false);
+                        await KeyPressSingleAuto(KeysVirtual.CapsLock);
                     }
                 });
             }

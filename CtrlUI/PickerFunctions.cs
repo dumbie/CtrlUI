@@ -359,8 +359,8 @@ namespace CtrlUI
                     FileInfo[] directoryRomDescriptions = new FileInfo[] { };
                     if (vFilePickerShowRoms)
                     {
-                        string[] imageFilter = new string[] { "jpg", "png" };
-                        string[] descriptionFilter = new string[] { "txt" };
+                        string[] imageFilter = { "jpg", "png" };
+                        string[] descriptionFilter = { "txt" };
 
                         DirectoryInfo directoryInfoRoms = new DirectoryInfo("Assets/Roms");
                         FileInfo[] directoryPathsRoms = directoryInfoRoms.GetFiles("*", SearchOption.AllDirectories);

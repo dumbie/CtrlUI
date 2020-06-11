@@ -248,8 +248,8 @@ namespace CtrlUI
             try
             {
                 //Set uwp application filters
-                string[] whiteListFamilyName = new string[] { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe" };
-                string[] blackListFamilyNameId = new string[] { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!PdfReader" };
+                string[] whiteListFamilyName = { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe" };
+                string[] blackListFamilyNameId = { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!PdfReader" };
 
                 //Get all the installed uwp apps
                 PackageManager deployPackageManager = new PackageManager();

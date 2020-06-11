@@ -370,7 +370,7 @@ namespace CtrlUI
                     else
                     {
                         Debug.WriteLine("No previous focus element, pressing tab key.");
-                        await KeySendSingle((byte)KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        await KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                     }
 
                     //Reset the previous focus

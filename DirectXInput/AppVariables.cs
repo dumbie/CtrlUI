@@ -22,7 +22,7 @@ namespace DirectXInput
         public static Configuration vConfigurationFpsOverlayer = null;
 
         //Image Variables
-        public static string[] vImageSourceFolders = new string[] { "Assets/Apps", "Assets/Roms" };
+        public static string[] vImageSourceFolders = { "Assets/Apps", "Assets/Roms" };
         public static string vImageBackupSource = "Assets/Apps/Unknown.png";
 
         //Interaction Variables
