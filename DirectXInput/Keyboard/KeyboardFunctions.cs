@@ -48,15 +48,16 @@ namespace DirectXInput.Keyboard
             {
                 foreach (char charString in typeString)
                 {
-                    KeysVirtual virtualKeyScan = VkKeyScanEx(charString, IntPtr.Zero);
-                    bool shiftPressed = ((short)virtualKeyScan & 0x100) == 0x100;
+                    short scanVirtualKey = VkKeyScanEx(charString, IntPtr.Zero);
+                    KeysVirtual usedVirtualKey = (KeysVirtual)scanVirtualKey;
+                    bool shiftPressed = (scanVirtualKey & (short)VkKeyScanModifiers.SHIFT) > 0;
                     if (shiftPressed)
                     {
-                        await KeyPressComboAuto(KeysVirtual.Shift, virtualKeyScan);
+                        await KeyPressComboAuto(KeysVirtual.Shift, usedVirtualKey);
                     }
                     else
                     {
-                        await KeyPressSingleAuto(virtualKeyScan);
+                        await KeyPressSingleAuto(usedVirtualKey);
                     }
                 }
             }
