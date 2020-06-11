@@ -35,7 +35,8 @@ namespace DirectXInput
                 //Load keyboard layout
                 combobox_KeyboardLayout.SelectedIndex = Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardLayout"]);
 
-                //Load keyboard domain extension
+                //Load keyboard domain extensions
+                textbox_SettingsDomainExtensionDefault.Text = ConfigurationManager.AppSettings["KeyboardDomainExtensionDefault"].ToString();
                 textbox_SettingsDomainExtension.Text = ConfigurationManager.AppSettings["KeyboardDomainExtension"].ToString();
 
                 //Load mouse sensitivity

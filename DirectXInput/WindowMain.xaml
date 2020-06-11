@@ -337,6 +337,10 @@
                                     <ComboBoxItem>AZERTY</ComboBoxItem>
                                 </ComboBox>
 
+                                <TextBlock Text="Default domain name extension" Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Text="Change the used domain extension when caps is disabled." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <TextBox Name="textbox_SettingsDomainExtensionDefault" HorizontalAlignment="Left" Width="400" Style="{StaticResource TextBoxBlack}"/>
+
                                 <TextBlock Text="Custom domain name extension" Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the used domain extension when caps is enabled." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <TextBox Name="textbox_SettingsDomainExtension" HorizontalAlignment="Left" Width="400" Style="{StaticResource TextBoxBlack}"/>

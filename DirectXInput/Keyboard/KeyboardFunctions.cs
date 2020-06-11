@@ -68,76 +68,74 @@ namespace DirectXInput.Keyboard
         {
             try
             {
-                Button sendButton = sender as Button;
-                string sendKeyName = sendButton.Tag.ToString();
-                KeysVirtual sendKeyVirtual = KeysVirtual.Null;
-                try
-                {
-                    sendKeyVirtual = (KeysVirtual)Enum.Parse(typeof(KeysVirtual), sendKeyName, true);
-                }
-                catch { }
-                Debug.WriteLine("Sending key: " + sendKeyName + "/" + sendKeyVirtual);
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
 
-                //Check for string text input
-                if (sendKeyName == "DotCom")
+                Button sendButton = sender as Button;
+                Type sendKeyType = sendButton.Tag.GetType();
+                string sendKeyName = sendButton.Tag.ToString();
+                if (sendKeyType == typeof(string))
                 {
-                    string extensionString = string.Empty;
-                    if (vCapsEnabled)
+                    if (sendKeyName == "DotCom")
                     {
-                        extensionString = ConfigurationManager.AppSettings["KeyboardDomainExtension"].ToString();
-                    }
-                    else
-                    {
-                        extensionString = ".com";
-                    }
-                    await KeyboardTypeString(extensionString);
-                    return;
-                }
-
-                //Check if the caps lock is enabled
-                if (vCapsEnabled)
-                {
-                    if (sendKeyVirtual == KeysVirtual.Shift)
-                    {
-                        await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.X);
-                    }
-                    else if (sendKeyVirtual == KeysVirtual.Control)
-                    {
-                        await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.C);
-                    }
-                    else if (sendKeyVirtual == KeysVirtual.Alt)
-                    {
-                        await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.V);
-                    }
-                    else if (sendKeyVirtual == KeysVirtual.Space)
-                    {
-                        await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\Taskmgr.exe", "", "", false, false);
-                    }
-                    else if (sendKeyVirtual == KeysVirtual.Enter)
-                    {
-                        await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.Z);
-                    }
-                    else if (sendKeyVirtual == KeysVirtual.LeftWindows)
-                    {
-                        await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.A);
-                    }
-                    else if (sendKeyVirtual == KeysVirtual.Home)
-                    {
-                        await KeyPressSingleAuto(KeysVirtual.Home);
-                    }
-                    else if (sendKeyVirtual == KeysVirtual.End)
-                    {
-                        await KeyPressSingleAuto(KeysVirtual.End);
-                    }
-                    else
-                    {
-                        await KeyPressComboAuto(KeysVirtual.Shift, sendKeyVirtual);
+                        if (vCapsEnabled)
+                        {
+                            await KeyboardTypeString(ConfigurationManager.AppSettings["KeyboardDomainExtension"].ToString());
+                        }
+                        else
+                        {
+                            await KeyboardTypeString(ConfigurationManager.AppSettings["KeyboardDomainExtensionDefault"].ToString());
+                        }
                     }
                 }
                 else
                 {
-                    await KeyPressSingleAuto(sendKeyVirtual);
+                    KeysVirtual sendKeyVirtual = (KeysVirtual)sendButton.Tag;
+                    Debug.WriteLine("Sending key: " + sendKeyVirtual);
+
+                    //Check if the caps lock is enabled
+                    if (vCapsEnabled)
+                    {
+                        if (sendKeyVirtual == KeysVirtual.Shift)
+                        {
+                            await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.X);
+                        }
+                        else if (sendKeyVirtual == KeysVirtual.Control)
+                        {
+                            await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.C);
+                        }
+                        else if (sendKeyVirtual == KeysVirtual.Alt)
+                        {
+                            await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.V);
+                        }
+                        else if (sendKeyVirtual == KeysVirtual.Space)
+                        {
+                            await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\Taskmgr.exe", "", "", false, false);
+                        }
+                        else if (sendKeyVirtual == KeysVirtual.Enter)
+                        {
+                            await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.Z);
+                        }
+                        else if (sendKeyVirtual == KeysVirtual.LeftWindows)
+                        {
+                            await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.A);
+                        }
+                        else if (sendKeyVirtual == KeysVirtual.Home)
+                        {
+                            await KeyPressSingleAuto(KeysVirtual.Home);
+                        }
+                        else if (sendKeyVirtual == KeysVirtual.End)
+                        {
+                            await KeyPressSingleAuto(KeysVirtual.End);
+                        }
+                        else
+                        {
+                            await KeyPressComboAuto(KeysVirtual.Shift, sendKeyVirtual);
+                        }
+                    }
+                    else
+                    {
+                        await KeyPressSingleAuto(sendKeyVirtual);
+                    }
                 }
             }
             catch { }

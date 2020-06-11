@@ -507,7 +507,8 @@ namespace DirectXInput.Keyboard
                 }
                 else
                 {
-                    key_DotCom.Content = ".com";
+                    string extensionString = ConfigurationManager.AppSettings["KeyboardDomainExtensionDefault"].ToString();
+                    key_DotCom.Content = AVFunctions.StringCut(extensionString, 4, string.Empty);
                 }
             }
             catch { }

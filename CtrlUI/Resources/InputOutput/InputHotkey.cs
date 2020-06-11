@@ -15,7 +15,10 @@ namespace CtrlUI
 
                 //Check the pressed keys
                 KeysVirtual usedVirtualKey = (KeysVirtual)(((int)windowMessage.lParam >> 16) & 0xFFFF);
-                if (usedVirtualKey == KeysVirtual.CapsLock) { await AppWindow_HideShow(); }
+                if (usedVirtualKey == KeysVirtual.CapsLock)
+                {
+                    await AppWindow_HideShow();
+                }
             }
             catch { }
         }

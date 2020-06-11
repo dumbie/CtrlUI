@@ -126,6 +126,16 @@ namespace DirectXInput
                     SettingSave(vConfigurationApplication, "MouseScrollSensitivity", Convert.ToInt32(slider_SettingsMouseScrollSensitivity.Value).ToString());
                 };
 
+                textbox_SettingsDomainExtensionDefault.TextChanged += (sender, e) =>
+                {
+                    TextBox senderTextBox = (TextBox)sender;
+                    if (!string.IsNullOrWhiteSpace(senderTextBox.Text))
+                    {
+                        SettingSave(vConfigurationApplication, "KeyboardDomainExtensionDefault", senderTextBox.Text);
+                        App.vWindowKeyboard.UpdateDomainExtension();
+                    }
+                };
+
                 textbox_SettingsDomainExtension.TextChanged += (sender, e) =>
                 {
                     TextBox senderTextBox = (TextBox)sender;
