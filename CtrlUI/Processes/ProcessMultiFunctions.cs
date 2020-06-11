@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using static ArnoldVinkCode.ProcessClasses;
+using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -29,6 +32,72 @@ namespace CtrlUI
             return IntPtr.Zero;
         }
 
+        //Check if databind paths are available
+        async Task<bool> CheckDatabindPathAuto(DataBindApp dataBindApp)
+        {
+            try
+            {
+                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                {
+                    //Check if the application exists
+                    if (UwpGetAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
+                    {
+                        await Notification_Send_Status("Close", "Application not found");
+                        Debug.WriteLine("Launch application not found.");
+                        dataBindApp.StatusAvailable = Visibility.Visible;
+                        return false;
+                    }
+                }
+                else if (dataBindApp.LaunchFilePicker)
+                {
+                    //Check if the application exists
+                    if (!File.Exists(dataBindApp.PathExe))
+                    {
+                        await Notification_Send_Status("Close", "Executable not found");
+                        Debug.WriteLine("Launch executable not found.");
+                        dataBindApp.StatusAvailable = Visibility.Visible;
+                        return false;
+                    }
+                }
+                else if (dataBindApp.Category == AppCategory.Emulator)
+                {
+                    //Check if the rom folder exists
+                    if (!Directory.Exists(dataBindApp.PathRoms))
+                    {
+                        await Notification_Send_Status("Close", "Rom folder not found");
+                        Debug.WriteLine("Rom folder not found.");
+                        dataBindApp.StatusAvailable = Visibility.Visible;
+                        return false;
+                    }
+
+                    //Check if the application exists
+                    if (!File.Exists(dataBindApp.PathExe))
+                    {
+                        await Notification_Send_Status("Close", "Executable not found");
+                        Debug.WriteLine("Launch executable not found.");
+                        dataBindApp.StatusAvailable = Visibility.Visible;
+                        return false;
+                    }
+                }
+                else
+                {
+                    //Check if the application exists
+                    if (!File.Exists(dataBindApp.PathExe))
+                    {
+                        await Notification_Send_Status("Close", "Executable not found");
+                        Debug.WriteLine("Launch executable not found.");
+                        dataBindApp.StatusAvailable = Visibility.Visible;
+                        return false;
+                    }
+                }
+
+                //Paths are available update status
+                dataBindApp.StatusAvailable = Visibility.Collapsed;
+            }
+            catch { }
+            return true;
+        }
+
         //Launch databind process
         async Task LaunchProcessDatabindAuto(DataBindApp dataBindApp)
         {
@@ -39,7 +108,10 @@ namespace CtrlUI
                 bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
                 bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
 
-                //Launch new process
+                //Check if databind paths are available
+                if (!await CheckDatabindPathAuto(dataBindApp)) { return; }
+
+                //Launch the databind process
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
                     await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp, false, true, keyboardLaunch);

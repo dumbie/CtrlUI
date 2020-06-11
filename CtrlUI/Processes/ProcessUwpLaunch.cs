@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static LibraryShared.Classes;
 
@@ -15,15 +14,6 @@ namespace CtrlUI
         {
             try
             {
-                //Check if the application exists
-                if (UwpGetAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
-                {
-                    await Notification_Send_Status("Close", "Application not found");
-                    Debug.WriteLine("Launch application not found.");
-                    dataBindApp.StatusAvailable = Visibility.Visible;
-                    return false;
-                }
-
                 return await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, silent, allowMinimize, launchKeyboard);
             }
             catch { }

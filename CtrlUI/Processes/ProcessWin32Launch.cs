@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -39,15 +38,6 @@ namespace CtrlUI
                     {
                         appTitle += " with file";
                     }
-                }
-
-                //Check if the application exists
-                if (!File.Exists(dataBindApp.PathExe))
-                {
-                    await Notification_Send_Status("Close", "Executable not found");
-                    Debug.WriteLine("Launch executable not found.");
-                    dataBindApp.StatusAvailable = Visibility.Visible;
-                    return false;
                 }
 
                 return await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, allowMinimize, runAsAdmin, createNoWindow, launchKeyboard, false);
@@ -145,25 +135,6 @@ namespace CtrlUI
         {
             try
             {
-                //Check if the rom folder location exists
-                if (!Directory.Exists(dataBindApp.PathRoms))
-                {
-                    dataBindApp.StatusAvailable = Visibility.Visible;
-
-                    List<DataBindString> Answers = new List<DataBindString>();
-                    DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    Answer1.Name = "Alright";
-                    Answers.Add(Answer1);
-
-                    await Popup_Show_MessageBox("Rom folder not found, please edit the application", "", "You can do this by interacting with the application and than click on the 'Edit app' button.", Answers);
-                    return "Cancel";
-                }
-                else
-                {
-                    dataBindApp.StatusAvailable = Visibility.Collapsed;
-                }
-
                 //Select a file from list to launch
                 vFilePickerFilterIn = new List<string>();
                 vFilePickerFilterOut = new List<string> { "jpg", "png" };
