@@ -232,26 +232,26 @@ namespace CtrlUI
                                 storeImageWide = appxDetails.WideLargestLogoPath;
                             }
 
-                            //Check apps images for process name
-                            string foundAppImage = string.Empty;
-                            string processNameFiltered = FileFilterName(processTitle, false, true, 0);
-                            foreach (FileInfo foundImage in directoryImagesApps)
-                            {
-                                try
-                                {
-                                    string imageNameFiltered = FileFilterName(foundImage.Name, true, true, 0);
-                                    //Debug.WriteLine(imageNameFiltered + " / " + processNameFiltered);
-                                    if (processNameFiltered.Contains(imageNameFiltered))
-                                    {
-                                        foundAppImage = foundImage.FullName;
-                                        break;
-                                    }
-                                }
-                                catch { }
-                            }
+                            ////Check apps images for process name
+                            //string foundAppImage = string.Empty;
+                            //string processNameFiltered = FileFilterName(processTitle, false, true, 0);
+                            //foreach (FileInfo foundImage in directoryImagesApps)
+                            //{
+                            //    try
+                            //    {
+                            //        string imageNameFiltered = FileFilterName(foundImage.Name, true, true, 0);
+                            //        //Debug.WriteLine(imageNameFiltered + " / " + processNameFiltered);
+                            //        if (processNameFiltered.Contains(imageNameFiltered))
+                            //        {
+                            //            foundAppImage = foundImage.FullName;
+                            //            break;
+                            //        }
+                            //    }
+                            //    catch { }
+                            //}
 
                             //Load the application image
-                            BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processTitle, processNameExeNoExt, foundAppImage, storeImageSquare, storeImageWide, processPathExeImage, processPathExe }, vImageSourceFolders, vImageBackupSource, processWindowHandle, 90, 0);
+                            BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processTitle, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExeImage, processPathExe }, vImageSourceFolders, vImageBackupSource, processWindowHandle, 90, 0);
 
                             //Create new ProcessMulti list
                             List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();
