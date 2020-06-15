@@ -113,6 +113,7 @@
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
+    <Compile Include="RecycleBinFunctions.cs" />
     <Compile Include="NotificationFunctions.cs" />
     <Compile Include="Resources\IGDB\DownloadImage.cs" />
     <Compile Include="Resources\IGDB\LoadInfoConsole.cs" />
@@ -479,10 +480,7 @@
     <Content Include="Assets\Roms\Dlc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Nintendo 64\Mario Kart 64.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Roms\Nintendo 64.txt">
+    <Content Include="Assets\Roms\Nintendo 64\Mario Kart 64.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Roms\Nintendo GameCube.png">
@@ -671,7 +669,7 @@
     <Content Include="Assets\Roms\Nintendo 64\Super Mario 64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Nintendo 64\Super Mario 64.txt">
+    <Content Include="Assets\Roms\Nintendo 64\Super Mario 64.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Icons\Controller.png">
@@ -778,6 +776,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Fonts\Unispace.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Roms\Nintendo 64.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

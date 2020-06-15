@@ -15,7 +15,6 @@ using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.SoundPlayer;
 using static LibraryUsb.NativeMethods_DeviceManager;
 using static LibraryUsb.NativeMethods_Hid;
 
@@ -623,43 +622,6 @@ namespace CtrlUI
             }
             catch { }
             return false;
-        }
-
-        //Empty the Windows Recycle Bin
-        async Task RecycleBin_Empty()
-        {
-            try
-            {
-                List<DataBindString> messageAnswers = new List<DataBindString>();
-                DataBindString answerEmpty = new DataBindString();
-                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                answerEmpty.Name = "Empty recycle bin";
-                messageAnswers.Add(answerEmpty);
-
-                DataBindString messageResult = await Popup_Show_MessageBox("Empty the recycle bin?", "", "This will permanently remove all the files from your recycle bin.", messageAnswers);
-                if (messageResult != null && messageResult == answerEmpty)
-                {
-                    await Notification_Send_Status("Remove", "Emptying recycle bin");
-                    Debug.WriteLine("Emptying the Windows recycle bin.");
-
-                    //Play recycle bin empty sound
-                    PlayInterfaceSound(vConfigurationApplication, "RecycleBinEmpty", false);
-
-                    //Prepare the recycle bin task
-                    void TaskAction()
-                    {
-                        try
-                        {
-                            SHEmptyRecycleBin(IntPtr.Zero, null, RecycleBin_FLAGS.SHRB_NOCONFIRMATION | RecycleBin_FLAGS.SHRB_NOSOUND);
-                        }
-                        catch { }
-                    }
-
-                    //Empty the windows recycle bin
-                    await AVActions.TaskStart(TaskAction);
-                }
-            }
-            catch { }
         }
 
         //Get the total directory size

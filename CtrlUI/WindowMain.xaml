@@ -283,9 +283,9 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Folder.png" Width="50" HorizontalAlignment="Center"/>
                         <TextBlock Margin="15,0,0,0" Text="Show file browser and manager" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Name="menuButtonEmptyRecycleBin" Orientation="Horizontal">
+                    <StackPanel Name="menuButtonRecycleBin" Orientation="Horizontal">
                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Remove.png" Width="50" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="15,0,0,0" Text="Empty Windows recycle bin" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="15,0,0,0" Text="Manage Windows recycle bin" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonSettings" Orientation="Horizontal">
                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Settings.png" Width="50" HorizontalAlignment="Center"/>
