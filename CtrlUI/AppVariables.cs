@@ -23,6 +23,9 @@ namespace CtrlUI
         public static Configuration vConfigurationApplication = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static Configuration vConfigurationDirectXInput = null;
 
+        //Api Variables
+        public static string vApiIGDBUserKey = "b25eb31b7612c7158867a3cd7849dbee"; //Yes, I know I didn't remove the api key.
+
         //Interaction Variables
         public static int vMouseLastInteraction = Environment.TickCount;
         public static PointWin vMousePreviousPosition = new PointWin();

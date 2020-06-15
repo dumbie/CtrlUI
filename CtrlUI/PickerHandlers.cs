@@ -199,7 +199,7 @@ namespace CtrlUI
                     if (!preFile && vFilePickerShowRoms)
                     {
                         answerDownloadRomInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerDownloadRomInfo.Name = "Download rom game information";
+                        answerDownloadRomInfo.Name = "Download game information";
                         Answers.Add(answerDownloadRomInfo);
                     }
 
@@ -263,29 +263,29 @@ namespace CtrlUI
                         {
                             await FilePicker_FileRemove(selectedItem, true);
                         }
-                        //Download rom game information
+                        //Download game information
                         else if (messageResult == answerDownloadRomInfo)
                         {
-                            RomInformation informationDownloaded = await RomDownloadInformation(selectedItem.Name, 210);
+                            DownloadInfoGame informationDownloaded = await DownloadInfoGame(selectedItem.Name, 210);
                             if (informationDownloaded != null)
                             {
-                                selectedItem.Description = informationDownloaded.RomDescription;
-                                if (informationDownloaded.RomImageBitmap != null)
+                                selectedItem.Description = ApiIGDB_GameSummaryString(informationDownloaded.Details);
+                                if (informationDownloaded.ImageBitmap != null)
                                 {
-                                    selectedItem.ImageBitmap = informationDownloaded.RomImageBitmap;
+                                    selectedItem.ImageBitmap = informationDownloaded.ImageBitmap;
                                 }
                             }
                         }
                         //Download console information
                         else if (messageResult == answerDownloadConsoleInfo)
                         {
-                            RomInformation informationDownloaded = await ConsoleDownloadInformation(selectedItem.Name, 210);
+                            DownloadInfoConsole informationDownloaded = await DownloadInfoConsole(selectedItem.Name, 210);
                             if (informationDownloaded != null)
                             {
-                                selectedItem.Description = informationDownloaded.RomDescription;
-                                if (informationDownloaded.RomImageBitmap != null)
+                                selectedItem.Description = ApiIGDB_ConsoleSummaryString(informationDownloaded.Details);
+                                if (informationDownloaded.ImageBitmap != null)
                                 {
-                                    selectedItem.ImageBitmap = informationDownloaded.RomImageBitmap;
+                                    selectedItem.ImageBitmap = informationDownloaded.ImageBitmap;
                                 }
                             }
                         }

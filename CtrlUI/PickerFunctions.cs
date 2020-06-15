@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -360,7 +361,7 @@ namespace CtrlUI
                     if (vFilePickerShowRoms)
                     {
                         string[] imageFilter = { "jpg", "png" };
-                        string[] descriptionFilter = { "txt" };
+                        string[] descriptionFilter = { "json" };
 
                         DirectoryInfo directoryInfoRoms = new DirectoryInfo("Assets/Roms");
                         FileInfo[] directoryPathsRoms = directoryInfoRoms.GetFiles("*", SearchOption.AllDirectories);
@@ -606,9 +607,18 @@ namespace CtrlUI
                 }
 
                 //Update description and image
-                listDescription = FileToString(new string[] { romPathDescription, subPathDescription });
-                if (string.IsNullOrWhiteSpace(listDescription)) { listDescription = "There is no description available."; }
                 listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "Rom" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 210, 0);
+                string jsonFile = FileToString(new string[] { romPathDescription, subPathDescription });
+                if (jsonFile.Contains("platform_logo"))
+                {
+                    ApiIGDBPlatformVersions platformVersionsJson = JsonConvert.DeserializeObject<ApiIGDBPlatformVersions>(jsonFile);
+                    listDescription = ApiIGDB_ConsoleSummaryString(platformVersionsJson);
+                }
+                else
+                {
+                    ApiIGDBGames gamesJson = JsonConvert.DeserializeObject<ApiIGDBGames>(jsonFile);
+                    listDescription = ApiIGDB_GameSummaryString(gamesJson);
+                }
             }
             catch { }
         }

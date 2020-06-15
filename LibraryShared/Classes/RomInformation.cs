@@ -4,10 +4,16 @@ namespace LibraryShared
 {
     public partial class Classes
     {
-        public class RomInformation
+        public class DownloadInfoGame
         {
-            public BitmapImage RomImageBitmap { get; set; }
-            public string RomDescription { get; set; }
+            public BitmapImage ImageBitmap { get; set; }
+            public ApiIGDBGames Details { get; set; }
+        }
+
+        public class DownloadInfoConsole
+        {
+            public BitmapImage ImageBitmap { get; set; }
+            public ApiIGDBPlatformVersions Details { get; set; }
         }
     }
 }
