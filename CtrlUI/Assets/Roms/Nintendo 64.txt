@@ -1,6 +1,0 @@
-Manufacturer: Nintendo
-Release Date: 23 June 1996
-
-The Nintendo 64 is a home game console developed and released by Nintendo in Japan on June 23, 1996, in North America on September 29, 1996, and in Europe and Australia on March 1, 1997. As it's name suggests, the console is designed around a 64-bit CPU based on the MIPS processor architecture owned by Silicon Graphics, Inc., marking the first occurrence of a high-performance computing manufacturer like SGI developing technology for a major game console marketed to the general public. The N64's hardware was built to display polygonal 3D graphics natively; this meant a substantial boost in processing power over it's predecessor, the Super Nintendo Entertainment System, which required additional co-processors like the Super FX chip for polygons.
-
-Like Nintendo's previous home consoles, the N64 uses cartridges as it's software medium. This was in contrast to it's two main competitors, the Sony PlayStation and Sega Saturn, both of which used less-expensive compact disc-based media. Although Nintendo 64 games avoided the lengthier load times associated with discs, the decision to use cartridges also meant higher manufacturing costs for game publishers, leading to reduced third-party software support for the N64 over it's lifespan.
