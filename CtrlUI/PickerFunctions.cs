@@ -120,7 +120,7 @@ namespace CtrlUI
                         grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
 
                         //Enable or disable the copy paste status
-                        if (vClipboardFile != null)
+                        if (vClipboardFiles.Any())
                         {
                             grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
                         }
@@ -309,7 +309,7 @@ namespace CtrlUI
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         //Enable or disable the copy paste status
-                        if (vClipboardFile != null)
+                        if (vClipboardFiles.Any())
                         {
                             grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
                         }
@@ -408,10 +408,11 @@ namespace CtrlUI
                                     string folderDetailed = folderDate;
 
                                     //Check the copy cut type
-                                    ClipboardType folderClipboard = ClipboardType.None;
-                                    if (vClipboardFile != null && listFolder.FullName == vClipboardFile.PathFile)
+                                    ClipboardType clipboardType = ClipboardType.None;
+                                    DataBindFile clipboardFile = vClipboardFiles.Where(x => x.PathFile == listFolder.FullName).FirstOrDefault();
+                                    if (clipboardFile != null)
                                     {
-                                        folderClipboard = vClipboardFile.ClipboardType;
+                                        clipboardType = clipboardFile.ClipboardType;
                                     }
 
                                     //Add folder to the list
@@ -419,7 +420,7 @@ namespace CtrlUI
                                     bool hiddenFileFolder = listFolder.Attributes.HasFlag(FileAttributes.Hidden);
                                     if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
-                                        DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, ClipboardType = folderClipboard, Name = listFolder.Name, NameDetail = folderDetailed, Description = listDescription, DateModified = listFolder.LastWriteTime, ImageBitmap = listImage, PathFile = listFolder.FullName };
+                                        DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, ClipboardType = clipboardType, Name = listFolder.Name, NameDetail = folderDetailed, Description = listDescription, DateModified = listFolder.LastWriteTime, ImageBitmap = listImage, PathFile = listFolder.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
                                     }
                                 }
@@ -487,10 +488,11 @@ namespace CtrlUI
                                     string fileDetailed = fileSize + " (" + fileDate + ")";
 
                                     //Check the copy cut type
-                                    ClipboardType fileClipboard = ClipboardType.None;
-                                    if (vClipboardFile != null && listFile.FullName == vClipboardFile.PathFile)
+                                    ClipboardType clipboardType = ClipboardType.None;
+                                    DataBindFile clipboardFile = vClipboardFiles.Where(x => x.PathFile == listFile.FullName).FirstOrDefault();
+                                    if (clipboardFile != null)
                                     {
-                                        fileClipboard = vClipboardFile.ClipboardType;
+                                        clipboardType = clipboardFile.ClipboardType;
                                     }
 
                                     //Add file to the list
@@ -498,7 +500,7 @@ namespace CtrlUI
                                     bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
                                     if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
                                     {
-                                        DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, ClipboardType = fileClipboard, Name = listFile.Name, NameDetail = fileDetailed, Description = listDescription, DateModified = listFile.LastWriteTime, ImageBitmap = listImage, PathFile = listFile.FullName };
+                                        DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, ClipboardType = clipboardType, Name = listFile.Name, NameDetail = fileDetailed, Description = listDescription, DateModified = listFile.LastWriteTime, ImageBitmap = listImage, PathFile = listFile.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
                                     }
                                 }
@@ -544,6 +546,31 @@ namespace CtrlUI
             {
                 await Notification_Send_Status("Close", "Picker loading failed");
                 await FilePicker_GoFolderUp();
+            }
+            catch { }
+        }
+
+        //File Picker select item
+        void FilePicker_SelectItem()
+        {
+            try
+            {
+                //Check the current path
+                if (vFilePickerCurrentPath == "PC")
+                {
+                    return;
+                }
+
+                //Select or unselect item
+                DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
+                if (selectedItem.Selected != Visibility.Visible)
+                {
+                    selectedItem.Selected = Visibility.Visible;
+                }
+                else
+                {
+                    selectedItem.Selected = Visibility.Collapsed;
+                }
             }
             catch { }
         }

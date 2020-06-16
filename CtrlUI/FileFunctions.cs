@@ -54,8 +54,50 @@ namespace CtrlUI
             catch { }
         }
 
+        //Reset and clear the clipboard
+        void Clipboard_ResetClear()
+        {
+            try
+            {
+                foreach (DataBindFile dataBindFile in vClipboardFiles)
+                {
+                    dataBindFile.ClipboardType = ClipboardType.None;
+                    vClipboardFiles.Remove(dataBindFile);
+                }
+            }
+            catch { }
+        }
+
+        //Update the clipboard status text
+        void Clipboard_UpdateStatusText()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    if (vClipboardFiles.Count == 1)
+                    {
+                        DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault();
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + clipboardFile.FileType.ToString() + " " + clipboardFile.ClipboardType.ToString() + ") " + clipboardFile.PathFile;
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
+                    }
+                    else if (vClipboardFiles.Count > 1)
+                    {
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard has " + vClipboardFiles.Count + " files and folders.";
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = string.Empty;
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Collapsed;
+                    }
+                });
+            }
+            catch { }
+        }
+
         //Set copy file from the file picker
-        async Task FilePicker_FileCopy(DataBindFile dataBindFile)
+        async Task FilePicker_FileCopy_Single(DataBindFile dataBindFile)
         {
             try
             {
@@ -70,25 +112,21 @@ namespace CtrlUI
                 await Notification_Send_Status("Copy", "Copying file or folder");
                 Debug.WriteLine("Clipboard copy file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
-                //Reset the clipboard variables
-                if (vClipboardFile != null)
-                {
-                    vClipboardFile.ClipboardType = ClipboardType.None;
-                }
+                //Reset and clear the clipboard
+                Clipboard_ResetClear();
 
                 //Set the clipboard variables
-                vClipboardFile = dataBindFile;
-                vClipboardFile.ClipboardType = ClipboardType.Copy;
+                dataBindFile.ClipboardType = ClipboardType.Copy;
+                vClipboardFiles.Add(dataBindFile);
 
-                //Update the interface text
-                grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardFile.FileType.ToString() + " " + vClipboardFile.ClipboardType.ToString() + ") " + vClipboardFile.PathFile;
-                grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
+                //Update the clipboard status text
+                Clipboard_UpdateStatusText();
             }
             catch { }
         }
 
         //Set cut file from the file picker
-        async Task FilePicker_FileCut(DataBindFile dataBindFile)
+        async Task FilePicker_FileCut_Single(DataBindFile dataBindFile)
         {
             try
             {
@@ -103,19 +141,15 @@ namespace CtrlUI
                 await Notification_Send_Status("Cut", "Cutting file or folder");
                 Debug.WriteLine("Clipboard cut file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
-                //Reset the clipboard variables
-                if (vClipboardFile != null)
-                {
-                    vClipboardFile.ClipboardType = ClipboardType.None;
-                }
+                //Reset and clear the clipboard
+                Clipboard_ResetClear();
 
                 //Set the clipboard variables
-                vClipboardFile = dataBindFile;
-                vClipboardFile.ClipboardType = ClipboardType.Cut;
+                dataBindFile.ClipboardType = ClipboardType.Cut;
+                vClipboardFiles.Add(dataBindFile);
 
-                //Update the interface text
-                grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardFile.FileType.ToString() + " " + vClipboardFile.ClipboardType.ToString() + ") " + vClipboardFile.PathFile;
-                grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
+                //Update the clipboard status text
+                Clipboard_UpdateStatusText();
             }
             catch { }
         }
@@ -125,177 +159,172 @@ namespace CtrlUI
         {
             try
             {
-                //Get the current file picker path
-                string oldFilePath = Path.GetFullPath(vClipboardFile.PathFile);
-                string newFileName = Path.GetFileNameWithoutExtension(oldFilePath);
-                string newFileExtension = Path.GetExtension(oldFilePath);
-                string newFileDirectory = Path.GetFullPath(vFilePickerCurrentPath);
-                string newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
-
-                //Move or copy the file or folder
-                if (vClipboardFile.ClipboardType == ClipboardType.Cut)
+                foreach (DataBindFile clipboardFile in vClipboardFiles)
                 {
-                    await Notification_Send_Status("Cut", "Moving file or folder");
-                    Debug.WriteLine("Moving file or folder: " + oldFilePath + " to " + newFilePath);
+                    //Get the current file picker path
+                    string oldFilePath = Path.GetFullPath(clipboardFile.PathFile);
+                    string newFileName = Path.GetFileNameWithoutExtension(oldFilePath);
+                    string newFileExtension = Path.GetExtension(oldFilePath);
+                    string newFileDirectory = Path.GetFullPath(vFilePickerCurrentPath);
+                    string newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
 
-                    //Check if moving to same directory
-                    if (oldFilePath == newFilePath)
+                    //Move or copy the file or folder
+                    if (clipboardFile.ClipboardType == ClipboardType.Cut)
                     {
-                        await Notification_Send_Status("Cut", "Invalid move folder");
-                        Debug.WriteLine("Moving file or folder to the same directory.");
-                        return;
-                    }
+                        await Notification_Send_Status("Cut", "Moving file or folder");
+                        Debug.WriteLine("Moving file or folder: " + oldFilePath + " to " + newFilePath);
 
-                    //Check file or folder
-                    FileAttributes fileAttribute = File.GetAttributes(oldFilePath);
-                    if (fileAttribute.HasFlag(FileAttributes.Directory))
-                    {
-                        //Check if the directory exists
-                        if (Directory.Exists(newFilePath))
+                        //Check if moving to same directory
+                        if (oldFilePath == newFilePath)
                         {
-                            //Count existing file names
-                            int fileCount = Directory.GetDirectories(newFileDirectory, "*" + newFileName + "*").Count();
+                            await Notification_Send_Status("Cut", "Invalid move folder");
+                            Debug.WriteLine("Moving file or folder to the same directory.");
+                            return;
+                        }
 
-                            //Update the file name
-                            newFileName += " - Cut (" + fileCount + ")";
-                            newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
+                        //Check file or folder
+                        FileAttributes fileAttribute = File.GetAttributes(oldFilePath);
+                        if (fileAttribute.HasFlag(FileAttributes.Directory))
+                        {
+                            //Check if the directory exists
+                            if (Directory.Exists(newFilePath))
+                            {
+                                //Count existing file names
+                                int fileCount = Directory.GetDirectories(newFileDirectory, "*" + newFileName + "*").Count();
+
+                                //Update the file name
+                                newFileName += " - Cut (" + fileCount + ")";
+                                newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
+                            }
+                        }
+                        else
+                        {
+                            //Check if the file exists
+                            if (File.Exists(newFilePath))
+                            {
+                                //Count existing file names
+                                int fileCount = Directory.GetFiles(newFileDirectory, "*" + newFileName + "*").Count();
+
+                                //Update the file name
+                                newFileName += " - Cut (" + fileCount + ")";
+                                newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
+                            }
+                        }
+
+                        //Update file name in new clipboard
+                        DataBindFile updatedClipboard = CloneClassObject(clipboardFile);
+                        updatedClipboard.Name = newFileName + newFileExtension;
+                        updatedClipboard.PathFile = newFilePath;
+                        updatedClipboard.ClipboardType = ClipboardType.None;
+
+                        //Remove the moved listbox item
+                        await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, clipboardFile, false);
+
+                        //Add the new listbox item
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
+
+                        //Focus on the listbox item
+                        await ListboxFocusIndex(lb_FilePicker, false, true, -1);
+
+                        //Reset and clear the clipboard
+                        Clipboard_ResetClear();
+
+                        //Update the clipboard status text
+                        Clipboard_UpdateStatusText();
+
+                        //Move file or folder
+                        SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
+                        shFileOpstruct.wFunc = FILEOP_FUNC.FO_MOVE;
+                        shFileOpstruct.pFrom = oldFilePath + "\0\0";
+                        shFileOpstruct.pTo = newFilePath + "\0\0";
+                        int shFileResult = SHFileOperation(ref shFileOpstruct);
+
+                        //Check file operation status
+                        if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
+                        {
+                            await Notification_Send_Status("Cut", "File or folder moved");
+                            Debug.WriteLine("File or folder moved: " + oldFilePath + " to " + newFilePath);
+                        }
+                        else if (shFileOpstruct.fAnyOperationsAborted)
+                        {
+                            await Notification_Send_Status("Cut", "File or folder move aborted");
+                            Debug.WriteLine("File or folder move aborted: " + oldFilePath + " to " + newFilePath);
+                        }
+                        else
+                        {
+                            await Notification_Send_Status("Cut", "File or folder move failed");
+                            Debug.WriteLine("File or folder move failed: " + oldFilePath + " to " + newFilePath);
                         }
                     }
                     else
                     {
-                        //Check if the file exists
-                        if (File.Exists(newFilePath))
+                        await Notification_Send_Status("Copy", "Copying file or folder");
+                        Debug.WriteLine("Copying file or folder: " + oldFilePath + " to " + newFilePath);
+
+                        //Check file or folder
+                        FileAttributes fileAttribute = File.GetAttributes(oldFilePath);
+                        if (fileAttribute.HasFlag(FileAttributes.Directory))
                         {
-                            //Count existing file names
-                            int fileCount = Directory.GetFiles(newFileDirectory, "*" + newFileName + "*").Count();
+                            //Check if the directory exists
+                            if (Directory.Exists(newFilePath))
+                            {
+                                //Count existing file names
+                                int fileCount = Directory.GetDirectories(newFileDirectory, "*" + newFileName + "*").Count();
 
-                            //Update the file name
-                            newFileName += " - Cut (" + fileCount + ")";
-                            newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
+                                //Update the file name
+                                newFileName += " - Copy (" + fileCount + ")";
+                                newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
+                            }
                         }
-                    }
-
-                    //Update file name in new clipboard
-                    DataBindFile updatedClipboard = CloneClassObject(vClipboardFile);
-                    updatedClipboard.Name = newFileName + newFileExtension;
-                    updatedClipboard.PathFile = newFilePath;
-                    updatedClipboard.ClipboardType = ClipboardType.None;
-
-                    //Remove the moved listbox item
-                    await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, vClipboardFile, false);
-
-                    //Add the new listbox item
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
-
-                    //Focus on the listbox item
-                    await ListboxFocusIndex(lb_FilePicker, false, true, -1);
-
-                    //Reset the clipboard variables
-                    if (vClipboardFile != null)
-                    {
-                        vClipboardFile.ClipboardType = ClipboardType.None;
-                        vClipboardFile = null;
-                    }
-
-                    //Update the interface text
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = string.Empty;
-                        grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Collapsed;
-                    });
-
-                    //Move file or folder
-                    SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
-                    shFileOpstruct.wFunc = FILEOP_FUNC.FO_MOVE;
-                    shFileOpstruct.pFrom = oldFilePath + "\0\0";
-                    shFileOpstruct.pTo = newFilePath + "\0\0";
-                    int shFileResult = SHFileOperation(ref shFileOpstruct);
-
-                    //Check file operation status
-                    if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
-                    {
-                        await Notification_Send_Status("Cut", "File or folder moved");
-                        Debug.WriteLine("File or folder moved: " + oldFilePath + " to " + newFilePath);
-                    }
-                    else if (shFileOpstruct.fAnyOperationsAborted)
-                    {
-                        await Notification_Send_Status("Cut", "File or folder move aborted");
-                        Debug.WriteLine("File or folder move aborted: " + oldFilePath + " to " + newFilePath);
-                    }
-                    else
-                    {
-                        await Notification_Send_Status("Cut", "File or folder move failed");
-                        Debug.WriteLine("File or folder move failed: " + oldFilePath + " to " + newFilePath);
-                    }
-                }
-                else
-                {
-                    await Notification_Send_Status("Copy", "Copying file or folder");
-                    Debug.WriteLine("Copying file or folder: " + oldFilePath + " to " + newFilePath);
-
-                    //Check file or folder
-                    FileAttributes fileAttribute = File.GetAttributes(oldFilePath);
-                    if (fileAttribute.HasFlag(FileAttributes.Directory))
-                    {
-                        //Check if the directory exists
-                        if (Directory.Exists(newFilePath))
+                        else
                         {
-                            //Count existing file names
-                            int fileCount = Directory.GetDirectories(newFileDirectory, "*" + newFileName + "*").Count();
+                            //Check if the file exists
+                            if (File.Exists(newFilePath))
+                            {
+                                //Count existing file names
+                                int fileCount = Directory.GetFiles(newFileDirectory, "*" + newFileName + "*").Count();
 
-                            //Update the file name
-                            newFileName += " - Copy (" + fileCount + ")";
-                            newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
+                                //Update the file name
+                                newFileName += " - Copy (" + fileCount + ")";
+                                newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
+                            }
                         }
-                    }
-                    else
-                    {
-                        //Check if the file exists
-                        if (File.Exists(newFilePath))
+
+                        //Update file name in new clipboard
+                        DataBindFile updatedClipboard = CloneClassObject(clipboardFile);
+                        updatedClipboard.Name = newFileName + newFileExtension;
+                        updatedClipboard.PathFile = newFilePath;
+                        updatedClipboard.ClipboardType = ClipboardType.None;
+
+                        //Add the new listbox item
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
+
+                        //Focus on the listbox item
+                        await ListboxFocusIndex(lb_FilePicker, false, true, -1);
+
+                        //Copy file or folder
+                        SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
+                        shFileOpstruct.wFunc = FILEOP_FUNC.FO_COPY;
+                        shFileOpstruct.pFrom = oldFilePath + "\0\0";
+                        shFileOpstruct.pTo = newFilePath + "\0\0";
+                        int shFileResult = SHFileOperation(ref shFileOpstruct);
+
+                        //Check file operation status
+                        if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                         {
-                            //Count existing file names
-                            int fileCount = Directory.GetFiles(newFileDirectory, "*" + newFileName + "*").Count();
-
-                            //Update the file name
-                            newFileName += " - Copy (" + fileCount + ")";
-                            newFilePath = Path.Combine(newFileDirectory, newFileName + newFileExtension);
+                            await Notification_Send_Status("Copy", "File or folder copied");
+                            Debug.WriteLine("File or folder copied: " + oldFilePath + " to " + newFilePath);
                         }
-                    }
-
-                    //Update file name in new clipboard
-                    DataBindFile updatedClipboard = CloneClassObject(vClipboardFile);
-                    updatedClipboard.Name = newFileName + newFileExtension;
-                    updatedClipboard.PathFile = newFilePath;
-                    updatedClipboard.ClipboardType = ClipboardType.None;
-
-                    //Add the new listbox item
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
-
-                    //Focus on the listbox item
-                    await ListboxFocusIndex(lb_FilePicker, false, true, -1);
-
-                    //Copy file or folder
-                    SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
-                    shFileOpstruct.wFunc = FILEOP_FUNC.FO_COPY;
-                    shFileOpstruct.pFrom = oldFilePath + "\0\0";
-                    shFileOpstruct.pTo = newFilePath + "\0\0";
-                    int shFileResult = SHFileOperation(ref shFileOpstruct);
-
-                    //Check file operation status
-                    if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
-                    {
-                        await Notification_Send_Status("Copy", "File or folder copied");
-                        Debug.WriteLine("File or folder copied: " + oldFilePath + " to " + newFilePath);
-                    }
-                    else if (shFileOpstruct.fAnyOperationsAborted)
-                    {
-                        await Notification_Send_Status("Copy", "File or folder copy aborted");
-                        Debug.WriteLine("File or folder copy aborted: " + oldFilePath + " to " + newFilePath);
-                    }
-                    else
-                    {
-                        await Notification_Send_Status("Copy", "File or folder copy failed");
-                        Debug.WriteLine("File or folder copy failed: " + oldFilePath + " to " + newFilePath);
+                        else if (shFileOpstruct.fAnyOperationsAborted)
+                        {
+                            await Notification_Send_Status("Copy", "File or folder copy aborted");
+                            Debug.WriteLine("File or folder copy aborted: " + oldFilePath + " to " + newFilePath);
+                        }
+                        else
+                        {
+                            await Notification_Send_Status("Copy", "File or folder copy failed");
+                            Debug.WriteLine("File or folder copy failed: " + oldFilePath + " to " + newFilePath);
+                        }
                     }
                 }
             }
@@ -377,12 +406,8 @@ namespace CtrlUI
                     dataBindFile.Name = newFileName + newFileExtension;
                     dataBindFile.PathFile = newFilePath;
 
-                    //Check if the renamed item is clipboard and update it
-                    if (vClipboardFile != null && vClipboardFile.PathFile == dataBindFile.PathFile)
-                    {
-                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard (" + vClipboardFile.FileType.ToString() + " " + vClipboardFile.ClipboardType.ToString() + ") " + vClipboardFile.PathFile;
-                        grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
-                    }
+                    //Update the clipboard status text
+                    Clipboard_UpdateStatusText();
 
                     await Notification_Send_Status("Rename", "Renamed file or folder");
                     Debug.WriteLine("Renamed file or folder to: " + newFileName + newFileExtension);
@@ -539,15 +564,15 @@ namespace CtrlUI
                 int shFileResult = SHFileOperation(ref shFileOpstruct);
 
                 //Check if the removed item is clipboard and reset it
-                if (vClipboardFile != null && vClipboardFile.PathFile == dataBindFile.PathFile)
+                DataBindFile clipboardFile = vClipboardFiles.Where(x => x.PathFile == dataBindFile.PathFile).FirstOrDefault();
+                if (clipboardFile != null)
                 {
-                    //Reset the clipboard variables
-                    vClipboardFile.ClipboardType = ClipboardType.None;
-                    vClipboardFile = null;
+                    //Remove the clipboard item
+                    clipboardFile.ClipboardType = ClipboardType.None;
+                    vClipboardFiles.Remove(clipboardFile);
 
-                    //Update the interface text
-                    grid_Popup_FilePicker_textblock_ClipboardStatus.Text = string.Empty;
-                    grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Collapsed;
+                    //Update the clipboard status text
+                    Clipboard_UpdateStatusText();
                 }
 
                 //Remove file from the listbox

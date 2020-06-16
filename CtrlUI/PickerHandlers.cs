@@ -162,10 +162,17 @@ namespace CtrlUI
                     }
 
                     DataBindString answerPaste = new DataBindString();
-                    if (vClipboardFile != null)
+                    if (vClipboardFiles.Count == 1)
+                    {
+                        DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault();
+                        answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Paste.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerPaste.Name = "Paste (" + clipboardFile.FileType.ToString() + " " + clipboardFile.ClipboardType.ToString() + ") " + clipboardFile.Name;
+                        Answers.Add(answerPaste);
+                    }
+                    else if (vClipboardFiles.Count > 1)
                     {
                         answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Paste.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerPaste.Name = "Paste (" + vClipboardFile.FileType.ToString() + " " + vClipboardFile.ClipboardType.ToString() + ") " + vClipboardFile.Name;
+                        answerPaste.Name = "Paste " + vClipboardFiles.Count + " files and folders.";
                         Answers.Add(answerPaste);
                     }
 
@@ -223,12 +230,12 @@ namespace CtrlUI
                         //Copy file or folder
                         else if (messageResult == answerCopy)
                         {
-                            await FilePicker_FileCopy(selectedItem);
+                            await FilePicker_FileCopy_Single(selectedItem);
                         }
                         //Cut file or folder
                         else if (messageResult == answerCut)
                         {
-                            await FilePicker_FileCut(selectedItem);
+                            await FilePicker_FileCut_Single(selectedItem);
                         }
                         //Paste file or folder
                         else if (messageResult == answerPaste)
@@ -440,6 +447,10 @@ namespace CtrlUI
                 else if (e.Key == Key.Delete)
                 {
                     await FilePicker_Actions();
+                }
+                else if (e.Key == Key.LeftCtrl)
+                {
+                    FilePicker_SelectItem();
                 }
             }
             catch { }

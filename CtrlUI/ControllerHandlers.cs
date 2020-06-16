@@ -163,7 +163,20 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
                         Debug.WriteLine("Button: StartPressed / Show hide search");
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_ShowHide_Search(false); });
+                        if (vFilePickerOpen)
+                        {
+                            AVActions.ActionDispatcherInvoke(delegate
+                            {
+                                FilePicker_SelectItem();
+                            });
+                        }
+                        else
+                        {
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate
+                            { 
+                                await Popup_ShowHide_Search(false); 
+                            });
+                        }
 
                         ControllerUsed = true;
                         ControllerDelayLonger = true;

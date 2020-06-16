@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using static LibraryShared.Enums;
 
@@ -33,6 +34,20 @@ namespace LibraryShared
                     if (this.PrivClipboardType != value)
                     {
                         this.PrivClipboardType = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private Visibility PrivSelected = Visibility.Collapsed;
+            public Visibility Selected
+            {
+                get { return this.PrivSelected; }
+                set
+                {
+                    if (this.PrivSelected != value)
+                    {
+                        this.PrivSelected = value;
                         NotifyPropertyChanged();
                     }
                 }

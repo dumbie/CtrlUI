@@ -114,7 +114,7 @@ namespace CtrlUI
         public static ObservableCollection<ProfileShared> vProfileManagerListShared = null;
 
         //Clipboard Variables
-        public static DataBindFile vClipboardFile = null;
+        public static List<DataBindFile> vClipboardFiles = new List<DataBindFile>();
 
         //Manage Variables
         public static DataBindApp vEditAppDataBind = null;
