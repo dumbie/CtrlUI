@@ -1027,6 +1027,12 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Hamburger.png" Height="35" Width="35" Margin="0,0,-5,0" />
                     </StackPanel>
                 </Button>
+                <Button Name="grid_Popup_FilePicker_button_ControllerStart" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Select file or folder" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Buttons/StartOff.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Check.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Grid>
 

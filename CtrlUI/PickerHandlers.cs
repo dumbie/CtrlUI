@@ -47,6 +47,15 @@ namespace CtrlUI
             catch { }
         }
 
+        void Button_FilePicker_button_ControllerStart_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                FilePicker_SelectItem();
+            }
+            catch { }
+        }
+
         async void Button_FilePicker_button_ControllerLeft_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -129,6 +138,9 @@ namespace CtrlUI
                     //Check the file type
                     bool preFile = selectedItem.FileType == FileType.FolderPre || selectedItem.FileType == FileType.FilePre || selectedItem.FileType == FileType.GoUp;
 
+                    //Check selected items
+                    int selectedItems = List_FilePicker.Count(x => x.Selected == Visibility.Visible);
+
                     //Check the sorting type
                     string sortType = string.Empty;
                     if (vFilePickerSortByName)
@@ -149,7 +161,14 @@ namespace CtrlUI
                     if (!preFile)
                     {
                         answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Copy.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerCopy.Name = "Copy the file or folder";
+                        if (selectedItems > 1)
+                        {
+                            answerCopy.Name = "Copy selected files and folders";
+                        }
+                        else
+                        {
+                            answerCopy.Name = "Copy the file or folder";
+                        }
                         Answers.Add(answerCopy);
                     }
 
@@ -157,7 +176,14 @@ namespace CtrlUI
                     if (!preFile)
                     {
                         answerCut.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Cut.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerCut.Name = "Cut the file or folder";
+                        if (selectedItems > 1)
+                        {
+                            answerCut.Name = "Cut selected files and folders";
+                        }
+                        else
+                        {
+                            answerCut.Name = "Cut the file or folder";
+                        }
                         Answers.Add(answerCut);
                     }
 

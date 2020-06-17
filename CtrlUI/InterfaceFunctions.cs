@@ -110,6 +110,7 @@ namespace CtrlUI
                 grid_Popup_FilePicker_button_ControllerRight.Click += Button_FilePicker_button_ControllerRight_Click;
                 grid_Popup_FilePicker_button_ControllerLeft.Click += Button_FilePicker_button_ControllerLeft_Click;
                 grid_Popup_FilePicker_button_ControllerUp.Click += Button_FilePicker_button_ControllerUp_Click;
+                grid_Popup_FilePicker_button_ControllerStart.Click += Button_FilePicker_button_ControllerStart_Click;
                 grid_Popup_Media_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Manage_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Help_button_Close.Click += Button_Popup_Close_Click;

@@ -348,7 +348,6 @@ namespace CtrlUI
                     return;
                 }
 
-                await Notification_Send_Status("Rename", "Renaming file or folder");
                 Debug.WriteLine("Renaming file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
 
                 //Show the text input popup

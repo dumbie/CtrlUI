@@ -118,6 +118,7 @@ namespace CtrlUI
                         //Enable or disable the side navigate buttons
                         grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Visible;
                         grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
+                        grid_Popup_FilePicker_button_ControllerStart.Visibility = Visibility.Collapsed;
 
                         //Enable or disable the copy paste status
                         if (vClipboardFiles.Any())
@@ -276,6 +277,7 @@ namespace CtrlUI
                         //Enable or disable the side navigate buttons
                         grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Visible;
                         grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Collapsed;
+                        grid_Popup_FilePicker_button_ControllerStart.Visibility = Visibility.Collapsed;
 
                         //Enable or disable the copy paste status
                         grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Collapsed;
@@ -338,6 +340,7 @@ namespace CtrlUI
                     {
                         grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Visible;
                         grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Visible;
+                        grid_Popup_FilePicker_button_ControllerStart.Visibility = Visibility.Visible;
                     });
 
                     //Get all the top files and folders
@@ -555,21 +558,23 @@ namespace CtrlUI
         {
             try
             {
-                //Check the current path
-                if (vFilePickerCurrentPath == "PC")
+                DataBindFile dataBindFile = (DataBindFile)lb_FilePicker.SelectedItem;
+
+                //Check the file or folder
+                if (vFilePickerCurrentPath == "PC" || dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUp)
                 {
+                    Debug.WriteLine("Invalid file type, cannot be selected.");
                     return;
                 }
 
                 //Select or unselect item
-                DataBindFile selectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
-                if (selectedItem.Selected != Visibility.Visible)
+                if (dataBindFile.Selected != Visibility.Visible)
                 {
-                    selectedItem.Selected = Visibility.Visible;
+                    dataBindFile.Selected = Visibility.Visible;
                 }
                 else
                 {
-                    selectedItem.Selected = Visibility.Collapsed;
+                    dataBindFile.Selected = Visibility.Collapsed;
                 }
             }
             catch { }
