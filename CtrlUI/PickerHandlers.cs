@@ -197,8 +197,20 @@ namespace CtrlUI
                     }
                     else if (vClipboardFiles.Count > 1)
                     {
+                        int copyCount = vClipboardFiles.Count(x => x.ClipboardType == ClipboardType.Copy);
+                        int cutCount = vClipboardFiles.Count(x => x.ClipboardType == ClipboardType.Cut);
+                        string statusCount = string.Empty;
+                        if (copyCount > cutCount)
+                        {
+                            statusCount = "(" + copyCount + "x copy)";
+                        }
+                        else
+                        {
+                            statusCount = "(" + cutCount + "x cut)";
+                        }
+
                         answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Paste.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerPaste.Name = "Paste " + vClipboardFiles.Count + " files or folders";
+                        answerPaste.Name = "Paste " + statusCount + " files or folders";
                         Answers.Add(answerPaste);
                     }
 

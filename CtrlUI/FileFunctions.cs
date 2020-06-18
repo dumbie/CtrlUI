@@ -86,7 +86,19 @@ namespace CtrlUI
                     }
                     else if (vClipboardFiles.Count > 1)
                     {
-                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard has " + vClipboardFiles.Count + " files or folders.";
+                        int copyCount = vClipboardFiles.Count(x => x.ClipboardType == ClipboardType.Copy);
+                        int cutCount = vClipboardFiles.Count(x => x.ClipboardType == ClipboardType.Cut);
+                        string statusCount = string.Empty;
+                        if (copyCount > cutCount)
+                        {
+                            statusCount = "(" + copyCount + "x copy)";
+                        }
+                        else
+                        {
+                            statusCount = "(" + cutCount + "x cut)";
+                        }
+
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard " + statusCount + " files or folders.";
                         grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
                     }
                     else
