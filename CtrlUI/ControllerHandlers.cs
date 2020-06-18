@@ -167,14 +167,14 @@ namespace CtrlUI
                         {
                             AVActions.ActionDispatcherInvoke(delegate
                             {
-                                FilePicker_SelectItem();
+                                FilePicker_CheckItem();
                             });
                         }
                         else
                         {
                             await AVActions.ActionDispatcherInvokeAsync(async delegate
-                            { 
-                                await Popup_ShowHide_Search(false); 
+                            {
+                                await Popup_ShowHide_Search(false);
                             });
                         }
 

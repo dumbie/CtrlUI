@@ -39,15 +39,15 @@ namespace LibraryShared
                 }
             }
 
-            private Visibility PrivSelected = Visibility.Collapsed;
-            public Visibility Selected
+            private Visibility PrivChecked = Visibility.Collapsed;
+            public Visibility Checked
             {
-                get { return this.PrivSelected; }
+                get { return this.PrivChecked; }
                 set
                 {
-                    if (this.PrivSelected != value)
+                    if (this.PrivChecked != value)
                     {
-                        this.PrivSelected = value;
+                        this.PrivChecked = value;
                         NotifyPropertyChanged();
                     }
                 }

@@ -51,7 +51,7 @@ namespace CtrlUI
         {
             try
             {
-                FilePicker_SelectItem();
+                FilePicker_CheckItem();
             }
             catch { }
         }
@@ -138,8 +138,8 @@ namespace CtrlUI
                     //Check the file type
                     bool preFile = selectedItem.FileType == FileType.FolderPre || selectedItem.FileType == FileType.FilePre || selectedItem.FileType == FileType.GoUp;
 
-                    //Check selected items
-                    int selectedItems = List_FilePicker.Count(x => x.Selected == Visibility.Visible);
+                    //Count checked items
+                    int checkedItems = List_FilePicker.Count(x => x.Checked == Visibility.Visible);
 
                     //Check the sorting type
                     string sortType = string.Empty;
@@ -157,34 +157,34 @@ namespace CtrlUI
                     answerSort.Name = sortType;
                     Answers.Add(answerSort);
 
-                    DataBindString answerCopy = new DataBindString();
+                    DataBindString answerCopySingle = new DataBindString();
                     if (!preFile)
                     {
-                        answerCopy.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Copy.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        if (selectedItems > 1)
-                        {
-                            answerCopy.Name = "Copy selected files and folders";
-                        }
-                        else
-                        {
-                            answerCopy.Name = "Copy the file or folder";
-                        }
-                        Answers.Add(answerCopy);
+                        answerCopySingle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Copy.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerCopySingle.Name = "Copy the file or folder";
+                        Answers.Add(answerCopySingle);
+                    }
+                    DataBindString answerCopyChecked = new DataBindString();
+                    if (checkedItems > 0)
+                    {
+                        answerCopyChecked.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Copy.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerCopyChecked.Name = "Copy selected files and folders";
+                        Answers.Add(answerCopyChecked);
                     }
 
-                    DataBindString answerCut = new DataBindString();
+                    DataBindString answerCutSingle = new DataBindString();
                     if (!preFile)
                     {
-                        answerCut.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Cut.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        if (selectedItems > 1)
-                        {
-                            answerCut.Name = "Cut selected files and folders";
-                        }
-                        else
-                        {
-                            answerCut.Name = "Cut the file or folder";
-                        }
-                        Answers.Add(answerCut);
+                        answerCutSingle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Cut.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerCutSingle.Name = "Cut the file or folder";
+                        Answers.Add(answerCutSingle);
+                    }
+                    DataBindString answerCutChecked = new DataBindString();
+                    if (checkedItems > 0)
+                    {
+                        answerCutChecked.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Cut.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerCutChecked.Name = "Cut selected files and folders";
+                        Answers.Add(answerCutChecked);
                     }
 
                     DataBindString answerPaste = new DataBindString();
@@ -198,7 +198,7 @@ namespace CtrlUI
                     else if (vClipboardFiles.Count > 1)
                     {
                         answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Paste.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerPaste.Name = "Paste " + vClipboardFiles.Count + " files and folders.";
+                        answerPaste.Name = "Paste " + vClipboardFiles.Count + " files or folders";
                         Answers.Add(answerPaste);
                     }
 
@@ -253,13 +253,23 @@ namespace CtrlUI
                         {
                             await FilePicker_SortFilesFolders(false);
                         }
+                        //Copy checked files or folders
+                        else if (messageResult == answerCopyChecked)
+                        {
+                            await FilePicker_FileCopy_Checked();
+                        }
+                        //Cut checked files or folders
+                        else if (messageResult == answerCutChecked)
+                        {
+                            await FilePicker_FileCut_Checked();
+                        }
                         //Copy file or folder
-                        else if (messageResult == answerCopy)
+                        else if (messageResult == answerCopySingle)
                         {
                             await FilePicker_FileCopy_Single(selectedItem);
                         }
                         //Cut file or folder
-                        else if (messageResult == answerCut)
+                        else if (messageResult == answerCutSingle)
                         {
                             await FilePicker_FileCut_Single(selectedItem);
                         }
@@ -476,7 +486,7 @@ namespace CtrlUI
                 }
                 else if (e.Key == Key.LeftCtrl)
                 {
-                    FilePicker_SelectItem();
+                    FilePicker_CheckItem();
                 }
             }
             catch { }

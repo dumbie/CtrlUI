@@ -553,8 +553,8 @@ namespace CtrlUI
             catch { }
         }
 
-        //File Picker select item
-        void FilePicker_SelectItem()
+        //File Picker check item
+        void FilePicker_CheckItem()
         {
             try
             {
@@ -567,14 +567,14 @@ namespace CtrlUI
                     return;
                 }
 
-                //Select or unselect item
-                if (dataBindFile.Selected != Visibility.Visible)
+                //Check or uncheck item
+                if (dataBindFile.Checked != Visibility.Visible)
                 {
-                    dataBindFile.Selected = Visibility.Visible;
+                    dataBindFile.Checked = Visibility.Visible;
                 }
                 else
                 {
-                    dataBindFile.Selected = Visibility.Collapsed;
+                    dataBindFile.Checked = Visibility.Collapsed;
                 }
             }
             catch { }

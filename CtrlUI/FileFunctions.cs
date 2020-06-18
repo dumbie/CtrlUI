@@ -62,10 +62,13 @@ namespace CtrlUI
                 foreach (DataBindFile dataBindFile in vClipboardFiles)
                 {
                     dataBindFile.ClipboardType = ClipboardType.None;
-                    vClipboardFiles.Remove(dataBindFile);
                 }
+                vClipboardFiles.Clear();
             }
-            catch { }
+            catch
+            {
+                Debug.WriteLine("Failed to reset and clear clipboard.");
+            }
         }
 
         //Update the clipboard status text
@@ -83,7 +86,7 @@ namespace CtrlUI
                     }
                     else if (vClipboardFiles.Count > 1)
                     {
-                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard has " + vClipboardFiles.Count + " files and folders.";
+                        grid_Popup_FilePicker_textblock_ClipboardStatus.Text = "Clipboard has " + vClipboardFiles.Count + " files or folders.";
                         grid_Popup_FilePicker_textblock_ClipboardStatus.Visibility = Visibility.Visible;
                     }
                     else
@@ -125,6 +128,38 @@ namespace CtrlUI
             catch { }
         }
 
+        //Set copy file from the file picker
+        async Task FilePicker_FileCopy_Checked()
+        {
+            try
+            {
+                await Notification_Send_Status("Copy", "Copying files and folders");
+                Debug.WriteLine("Clipboard copy checked files and folders.");
+
+                //Reset and clear the clipboard
+                Clipboard_ResetClear();
+
+                foreach (DataBindFile dataBindFile in List_FilePicker.Where(x => x.Checked == Visibility.Visible))
+                {
+                    //Check the file or folder
+                    if (dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUp)
+                    {
+                        await Notification_Send_Status("Close", "Invalid file or folder");
+                        Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                        return;
+                    }
+
+                    //Set the clipboard variables
+                    dataBindFile.ClipboardType = ClipboardType.Copy;
+                    vClipboardFiles.Add(dataBindFile);
+                }
+
+                //Update the clipboard status text
+                Clipboard_UpdateStatusText();
+            }
+            catch { }
+        }
+
         //Set cut file from the file picker
         async Task FilePicker_FileCut_Single(DataBindFile dataBindFile)
         {
@@ -154,11 +189,44 @@ namespace CtrlUI
             catch { }
         }
 
+        //Set cut file from the file picker
+        async Task FilePicker_FileCut_Checked()
+        {
+            try
+            {
+                await Notification_Send_Status("Cut", "Cutting files and folders");
+                Debug.WriteLine("Clipboard cut checked files and folders.");
+
+                //Reset and clear the clipboard
+                Clipboard_ResetClear();
+
+                foreach (DataBindFile dataBindFile in List_FilePicker.Where(x => x.Checked == Visibility.Visible))
+                {
+                    //Check the file or folder
+                    if (dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUp)
+                    {
+                        await Notification_Send_Status("Close", "Invalid file or folder");
+                        Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
+                        return;
+                    }
+
+                    //Set the clipboard variables
+                    dataBindFile.ClipboardType = ClipboardType.Cut;
+                    vClipboardFiles.Add(dataBindFile);
+                }
+
+                //Update the clipboard status text
+                Clipboard_UpdateStatusText();
+            }
+            catch { }
+        }
+
         //Paste file from the file picker
         async Task FilePicker_FilePaste()
         {
             try
             {
+                bool resetClipboard = false;
                 foreach (DataBindFile clipboardFile in vClipboardFiles)
                 {
                     //Get the current file picker path
@@ -179,6 +247,14 @@ namespace CtrlUI
                         {
                             await Notification_Send_Status("Cut", "Invalid move folder");
                             Debug.WriteLine("Moving file or folder to the same directory.");
+                            return;
+                        }
+
+                        //Check if moving in the directory
+                        if (newFilePath.Contains(oldFilePath))
+                        {
+                            await Notification_Send_Status("Cut", "Invalid move folder");
+                            Debug.WriteLine("Moving file or folder to the sub directory.");
                             return;
                         }
 
@@ -223,14 +299,7 @@ namespace CtrlUI
                         //Add the new listbox item
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
 
-                        //Focus on the listbox item
-                        await ListboxFocusIndex(lb_FilePicker, false, true, -1);
-
-                        //Reset and clear the clipboard
-                        Clipboard_ResetClear();
-
-                        //Update the clipboard status text
-                        Clipboard_UpdateStatusText();
+                        resetClipboard = true;
 
                         //Move file or folder
                         SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
@@ -299,9 +368,6 @@ namespace CtrlUI
                         //Add the new listbox item
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
 
-                        //Focus on the listbox item
-                        await ListboxFocusIndex(lb_FilePicker, false, true, -1);
-
                         //Copy file or folder
                         SHFILEOPSTRUCT shFileOpstruct = new SHFILEOPSTRUCT();
                         shFileOpstruct.wFunc = FILEOP_FUNC.FO_COPY;
@@ -326,6 +392,18 @@ namespace CtrlUI
                             Debug.WriteLine("File or folder copy failed: " + oldFilePath + " to " + newFilePath);
                         }
                     }
+                }
+
+                //Focus on the listbox item
+                await ListboxFocusIndex(lb_FilePicker, false, true, -1);
+
+                if (resetClipboard)
+                {
+                    //Reset and clear the clipboard
+                    Clipboard_ResetClear();
+
+                    //Update the clipboard status text
+                    Clipboard_UpdateStatusText();
                 }
             }
             catch (Exception ex)
