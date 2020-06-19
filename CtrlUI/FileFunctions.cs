@@ -304,6 +304,7 @@ namespace CtrlUI
                         updatedClipboard.Name = newFileName + newFileExtension;
                         updatedClipboard.PathFile = newFilePath;
                         updatedClipboard.ClipboardType = ClipboardType.None;
+                        updatedClipboard.Checked = Visibility.Collapsed;
 
                         //Remove the moved listbox item
                         await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, clipboardFile, false);
@@ -376,6 +377,7 @@ namespace CtrlUI
                         updatedClipboard.Name = newFileName + newFileExtension;
                         updatedClipboard.PathFile = newFilePath;
                         updatedClipboard.ClipboardType = ClipboardType.None;
+                        updatedClipboard.Checked = Visibility.Collapsed;
 
                         //Add the new listbox item
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, updatedClipboard, false, false);
@@ -623,7 +625,7 @@ namespace CtrlUI
         }
 
         //Remove file from the file picker
-        async Task FilePicker_FileRemove(DataBindFile dataBindFile, bool useRecycleBin)
+        async Task FilePicker_FileRemove(DataBindFile dataBindFile)
         {
             try
             {
@@ -633,6 +635,33 @@ namespace CtrlUI
                     await Notification_Send_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);
                     return;
+                }
+
+                //Use recyclebin or remove permanently
+                bool useRecycleBin = true;
+
+                //Confirm file remove prompt
+                List<DataBindString> messageAnswers = new List<DataBindString>();
+                DataBindString answerRecycle = new DataBindString();
+                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerRecycle.Name = "Move file or folder to recycle bin*";
+                messageAnswers.Add(answerRecycle);
+
+                DataBindString answerPerma = new DataBindString();
+                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/RemoveCross.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerPerma.Name = "Remove file or folder permanently";
+                messageAnswers.Add(answerPerma);
+
+                string deleteString = "Do you want to remove: " + dataBindFile.Name + "?";
+                DataBindString messageResult = await Popup_Show_MessageBox("Remove file or folder", "* Files and folders on a network drive get permanently deleted.", deleteString, messageAnswers);
+                if (messageResult == null)
+                {
+                    Debug.WriteLine("Cancelled file or folder removal.");
+                    return;
+                }
+                else if (messageResult == answerPerma)
+                {
+                    useRecycleBin = false;
                 }
 
                 await Notification_Send_Status("Remove", "Remove file or folder");

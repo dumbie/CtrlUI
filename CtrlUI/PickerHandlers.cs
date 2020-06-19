@@ -222,21 +222,11 @@ namespace CtrlUI
                         Answers.Add(answerRename);
                     }
 
-                    DataBindString answerCreateFolder = new DataBindString();
-                    answerCreateFolder.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/FolderAdd.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    answerCreateFolder.Name = "Create a new folder here";
-                    Answers.Add(answerCreateFolder);
-
-                    DataBindString answerCreateTextFile = new DataBindString();
-                    answerCreateTextFile.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Extensions/Txt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    answerCreateTextFile.Name = "Create a new text file here";
-                    Answers.Add(answerCreateTextFile);
-
                     DataBindString answerRemove = new DataBindString();
                     if (!preFile)
                     {
                         answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerRemove.Name = "Move file or folder to recycle bin*";
+                        answerRemove.Name = "Remove the file or folder";
                         Answers.Add(answerRemove);
                     }
 
@@ -256,8 +246,18 @@ namespace CtrlUI
                         Answers.Add(answerDownloadConsoleInfo);
                     }
 
+                    DataBindString answerCreateFolder = new DataBindString();
+                    answerCreateFolder.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/FolderAdd.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerCreateFolder.Name = "Create a new folder here";
+                    Answers.Add(answerCreateFolder);
+
+                    DataBindString answerCreateTextFile = new DataBindString();
+                    answerCreateTextFile.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Extensions/Txt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerCreateTextFile.Name = "Create a new text file here";
+                    Answers.Add(answerCreateTextFile);
+
                     //Show the messagebox prompt
-                    DataBindString messageResult = await Popup_Show_MessageBox("File and folder actions", "* Files and folders on a network drive get permanently deleted.", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
+                    DataBindString messageResult = await Popup_Show_MessageBox("File and folder actions", "", "Please select an action that you want to use on: " + selectedItem.Name, Answers);
                     if (messageResult != null)
                     {
                         //Sort files and folders
@@ -316,7 +316,7 @@ namespace CtrlUI
                         //Remove file or folder
                         else if (messageResult == answerRemove)
                         {
-                            await FilePicker_FileRemove(selectedItem, true);
+                            await FilePicker_FileRemove(selectedItem);
                         }
                         //Download game information
                         else if (messageResult == answerDownloadRomInfo)

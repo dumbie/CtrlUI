@@ -26,7 +26,7 @@ namespace CtrlUI
                 //Add empty the recycle bin
                 DataBindString answerEmpty = new DataBindString();
                 answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                answerEmpty.Name = "Empty the recycle bin";
+                answerEmpty.Name = "Empty the Windows recycle bin";
                 Answers.Add(answerEmpty);
 
                 //Add files and folders from recycle bin
@@ -103,11 +103,11 @@ namespace CtrlUI
                 answerRestore.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Restart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 if (folderItem.IsFolder)
                 {
-                    answerRestore.Name = "Restore folder to disk";
+                    answerRestore.Name = "Restore the folder to disk";
                 }
                 else
                 {
-                    answerRestore.Name = "Restore file to disk";
+                    answerRestore.Name = "Restore the file to disk";
                 }
                 Answers.Add(answerRestore);
 
@@ -172,7 +172,7 @@ namespace CtrlUI
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerEmpty = new DataBindString();
                 answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                answerEmpty.Name = "Empty recycle bin";
+                answerEmpty.Name = "Empty the recycle bin";
                 messageAnswers.Add(answerEmpty);
 
                 DataBindString messageResult = await Popup_Show_MessageBox("Empty the recycle bin?", "", "This will permanently remove all the files and folders from your recycle bin.", messageAnswers);

@@ -167,9 +167,9 @@ namespace DirectXInput
             try
             {
                 //Check if the controller is connected
-                if (Controller == null || !Controller.Connected || !Controller.InputTask.TaskRunning)
+                if (Controller == null || !Controller.Connected)
                 {
-                    Debug.WriteLine("Controller is already disconnected or disconnecting.");
+                    Debug.WriteLine("Controller is already disconnected.");
                     return false;
                 }
 
@@ -355,7 +355,7 @@ namespace DirectXInput
 
                     if (!DisabledDevice && !EnabledDevice)
                     {
-                        Debug.WriteLine("Device no longer connected: " + Controller.Details.DisplayName);
+                        Debug.WriteLine("Connecting device no longer connected: " + Controller.Details.DisplayName);
                         return false;
                     }
                     else if (!Controller.HidDevice.OpenDeviceExclusively())
