@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using static CtrlUI.AppBusyWait;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -30,40 +31,16 @@ namespace CtrlUI
             }
         }
 
-        //Wait for processes list refresh
-        async Task RefreshListProcessesWait()
-        {
-            try
-            {
-                if (vBusyRefreshingProcesses)
-                {
-                    Debug.WriteLine("Processes are currently refreshing, waiting.");
-                    while (vBusyRefreshingProcesses)
-                    {
-                        await Task.Delay(10);
-                    }
-                }
-            }
-            catch { }
-        }
-
         //Refresh the processes and status
         async Task RefreshListProcessesWithWait(bool refreshWait)
         {
             try
             {
                 //Check if already refreshing
-                if (vBusyRefreshingProcesses)
+                if (await WaitForBusyBoolCancel(() => vBusyRefreshingProcesses, refreshWait))
                 {
-                    if (refreshWait)
-                    {
-                        await RefreshListProcessesWait();
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Processes are already refreshing, cancelling.");
-                        return;
-                    }
+                    Debug.WriteLine("Processes are already refreshing, cancelling.");
+                    return;
                 }
 
                 //Update the refreshing status

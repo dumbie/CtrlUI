@@ -125,6 +125,7 @@ namespace Updater
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlLocationsShortcut.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsShortcut.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsPositionProcessName.json".ToLower())) { Debug.WriteLine("Skipping: FpsPositionProcessName.json"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectControllersProfile.json".ToLower())) { Debug.WriteLine("Skipping: DirectControllersProfile.json"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectKeypadMapping.json".ToLower())) { Debug.WriteLine("Skipping: DirectKeypadMapping.json"); continue; }
 
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Background.png".ToLower())) { Debug.WriteLine("Skipping: Background.png"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("BackgroundLive.mp4".ToLower())) { Debug.WriteLine("Skipping: BackgroundLive.mp4"); continue; }

@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="AppEvents.cs" />
     <Compile Include="AppUpdate.cs" />
+    <Compile Include="AppBusyWait.cs" />
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
