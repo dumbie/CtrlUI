@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
+using static DirectXInput.SettingsNotify;
 using static LibraryShared.Classes;
 
 namespace DirectXInput.Keypad
@@ -10,7 +12,7 @@ namespace DirectXInput.Keypad
     partial class WindowKeypad
     {
         //Process controller input for keyboard
-        public void ControllerInteractionKeyboard(ControllerInput controllerInput)
+        public async Task ControllerInteractionKeyboard(ControllerInput controllerInput)
         {
             try
             {
@@ -41,7 +43,10 @@ namespace DirectXInput.Keypad
                         UpdateKeypadStyle();
 
                         //Update the keypad size
-                        UpdateKeypadSize();
+                        double keypadHeight = UpdateKeypadSize();
+
+                        //Notify - Fps Overlayer keypad size changed
+                        await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(keypadHeight));
                     }
 
                     vControllerDelay_Keypad = Environment.TickCount + vControllerDelayMicroTicks;

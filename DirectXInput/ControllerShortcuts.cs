@@ -205,7 +205,7 @@ namespace DirectXInput
                     }
                     else
                     {
-                        App.vWindowKeypad.Hide();
+                        await App.vWindowKeypad.Hide();
                         await App.vWindowKeyboard.Show();
                     }
                 });
@@ -228,7 +228,7 @@ namespace DirectXInput
                     else if (!forceShow)
                     {
                         App.vWindowKeyboard.Hide();
-                        App.vWindowKeypad.Hide();
+                        await App.vWindowKeypad.Hide();
                     }
                 });
             }

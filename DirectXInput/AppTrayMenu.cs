@@ -89,12 +89,12 @@ namespace DirectXInput
             catch { }
         }
 
-        void NotifyIcon_HideKeyboard(object sender, EventArgs args)
+        async void NotifyIcon_HideKeyboard(object sender, EventArgs args)
         {
             try
             {
                 App.vWindowKeyboard.Hide();
-                App.vWindowKeypad.Hide();
+                await App.vWindowKeypad.Hide();
             }
             catch { }
         }

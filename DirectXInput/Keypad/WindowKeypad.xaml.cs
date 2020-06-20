@@ -15,6 +15,7 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
+using static DirectXInput.SettingsNotify;
 using static LibraryShared.Classes;
 using static LibraryShared.SoundPlayer;
 
@@ -53,7 +54,7 @@ namespace DirectXInput.Keypad
         }
 
         //Hide the keypad window
-        public new void Hide()
+        public new async Task Hide()
         {
             try
             {
@@ -63,9 +64,13 @@ namespace DirectXInput.Keypad
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
                     //Update the keypad visibility
+                    this.Title = "DirectXInput Keypad (Hidden)";
                     this.Visibility = Visibility.Collapsed;
                     vWindowVisible = false;
                     Debug.WriteLine("Hiding the Keypad window.");
+
+                    //Notify - Fps Overlayer keypad size changed
+                    await NotifyFpsOverlayerKeypadSizeChanged(0);
                 }
             }
             catch { }
@@ -95,9 +100,13 @@ namespace DirectXInput.Keypad
                 UpdateKeypadStyle();
 
                 //Update the keypad size
-                UpdateKeypadSize();
+                double keypadHeight = UpdateKeypadSize();
+
+                //Notify - Fps Overlayer keypad size changed
+                await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(keypadHeight));
 
                 //Update the keypad visibility
+                this.Title = "DirectXInput Keypad (Visible)";
                 this.Visibility = Visibility.Visible;
                 vWindowVisible = true;
                 Debug.WriteLine("Showing the Keypad window.");
@@ -166,8 +175,9 @@ namespace DirectXInput.Keypad
         }
 
         //Update the keypad size
-        public void UpdateKeypadSize()
+        public double UpdateKeypadSize()
         {
+            double keypadHeight = 0;
             try
             {
                 AVActions.ActionDispatcherInvoke(delegate
@@ -179,14 +189,17 @@ namespace DirectXInput.Keypad
 
                         double keypadTextSize = 25;
                         double keypadImageSize = 75;
+                        double newImageSize = (keypadImageSize / 100) * targetPercentage;
+                        keypadHeight = newImageSize * 2;
 
                         Application.Current.Resources["KeypadTextSize"] = (keypadTextSize / 100) * targetPercentage;
-                        Application.Current.Resources["KeypadImageSize"] = (keypadImageSize / 100) * targetPercentage;
+                        Application.Current.Resources["KeypadImageSize"] = newImageSize;
                     }
                     catch { }
                 });
             }
             catch { }
+            return keypadHeight;
         }
 
         //Set the keypad mapping profile

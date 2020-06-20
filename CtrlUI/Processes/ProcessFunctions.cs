@@ -126,6 +126,7 @@ namespace CtrlUI
                     }
 
                     //Refresh the processes list
+                    await Notification_Send_Status("AppLaunch", "Preparing launch");
                     await RefreshListProcessesWithWait(true);
 
                     //Check if process is running

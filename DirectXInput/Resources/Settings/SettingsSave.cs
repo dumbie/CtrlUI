@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Controls;
 using static DirectXInput.AppVariables;
+using static DirectXInput.SettingsNotify;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 
@@ -170,7 +171,7 @@ namespace DirectXInput
                     App.vWindowKeypad.UpdateKeypadStyle();
                 };
 
-                slider_KeypadDisplaySize.ValueChanged += (sender, e) =>
+                slider_KeypadDisplaySize.ValueChanged += async (sender, e) =>
                 {
                     KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
                     selectedProfile.KeypadDisplaySize = Convert.ToInt32(slider_KeypadDisplaySize.Value);
@@ -180,7 +181,11 @@ namespace DirectXInput
 
                     textblock_KeypadDisplaySize.Text = textblock_KeypadDisplaySize.Tag + ": " + selectedProfile.KeypadDisplaySize + "%";
 
-                    App.vWindowKeypad.UpdateKeypadSize();
+                    //Update the keypad size
+                    double keypadHeight = App.vWindowKeypad.UpdateKeypadSize();
+
+                    //Notify - Fps Overlayer keypad size changed
+                    await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(keypadHeight));
                 };
 
                 slider_KeypadRepeatIntervalMs.ValueChanged += (sender, e) =>

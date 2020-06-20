@@ -200,6 +200,7 @@
     <Compile Include="AppLaunchCheck.cs" />
     <Compile Include="Classes\KeypadStatus.cs" />
     <Compile Include="Classes\KeypadMapping.cs" />
+    <Compile Include="Classes\KeypadSize.cs" />
     <Compile Include="Enums\MappingStatus.cs" />
     <Compile Include="Classes\NotificationDetails.cs" />
     <Compile Include="Classes\ControllerButtonDetails.cs" />

@@ -210,7 +210,7 @@ namespace FpsOverlayer
                 }
 
                 //Hide or show the fps overlayer
-                if (targetTextPosition == 8)
+                if (targetTextPosition == 8) //Hidden
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -309,6 +309,7 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
                         double marginVertical = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        marginVertical += vKeypadBottomMargin;
                         grid_FpsOverlayer.Margin = new Thickness(0, 0, marginHorizontal, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
@@ -328,6 +329,7 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
                         double marginVertical = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        marginVertical += vKeypadBottomMargin;
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
@@ -347,6 +349,7 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(ConfigurationManager.AppSettings["MarginHorizontal"]);
                         double marginVertical = Convert.ToDouble(ConfigurationManager.AppSettings["MarginVertical"]);
+                        marginVertical += vKeypadBottomMargin;
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;

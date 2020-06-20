@@ -27,7 +27,7 @@ namespace DirectXInput
                     }
                     else if (App.vWindowKeypad.vWindowVisible)
                     {
-                        App.vWindowKeypad.ControllerInteractionKeyboard(Controller.InputCurrent);
+                        await App.vWindowKeypad.ControllerInteractionKeyboard(Controller.InputCurrent);
                         return true;
                     }
                     else if (vProcessCtrlUI != null && vProcessCtrlUIActivated)

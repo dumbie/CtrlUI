@@ -1,10 +1,12 @@
 ﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static FpsOverlayer.AppVariables;
+using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 
 namespace FpsOverlayer
@@ -53,6 +55,16 @@ namespace FpsOverlayer
                         Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
                         UpdateWindowPosition();
                     }
+                }
+                else if (DeserializedBytes.Object is KeypadSize)
+                {
+                    KeypadSize receivedKeypadSize = (KeypadSize)DeserializedBytes.Object;
+
+                    //Set the window keypad margin
+                    vKeypadBottomMargin = receivedKeypadSize.Height;
+
+                    //Update the fps overlay position
+                    UpdateFpsOverlayPosition(vTargetProcess.Name);
                 }
             }
             catch { }
