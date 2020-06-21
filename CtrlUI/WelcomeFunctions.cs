@@ -77,9 +77,9 @@ namespace CtrlUI
                 }
 
                 //Add Xbox uwp application to the list
-                if (UwpGetAppPackageByAppUserModelId("Microsoft.GamingApp_8wekyb3d8bbwe!App") != null)
+                if (UwpGetAppPackageByAppUserModelId("Microsoft.GamingApp_8wekyb3d8bbwe!Microsoft.Xbox.App") != null)
                 {
-                    DataBindApp dataBindAppXbox = new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.App, Name = "Xbox", NameExe = "XboxPcApp.exe", PathExe = "Microsoft.GamingApp_8wekyb3d8bbwe!App" };
+                    DataBindApp dataBindAppXbox = new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.App, Name = "Xbox", NameExe = "XboxPcApp.exe", PathExe = "Microsoft.GamingApp_8wekyb3d8bbwe!Microsoft.Xbox.App" };
                     await AddAppToList(dataBindAppXbox, true, true);
                 }
 
