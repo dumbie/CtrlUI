@@ -80,7 +80,7 @@ namespace DirectXInput
                     ControllerUpdateSettingsInterface(Controller);
 
                     //Update the controller last read time
-                    Controller.LastReadTicks = Environment.TickCount;
+                    Controller.LastReadTicks = Stopwatch.GetTimestamp();
 
                     //Update the controller last active time
                     Controller.LastActiveTicks = Environment.TickCount;

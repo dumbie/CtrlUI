@@ -36,7 +36,7 @@ namespace DirectXInput
                         }
 
                         //Update the controller last read time
-                        Controller.LastReadTicks = Environment.TickCount;
+                        Controller.LastReadTicks = Stopwatch.GetTimestamp();
 
                         //Detect and adjust controller header offset
                         if (!Controller.InputHeaderOffsetFinished)

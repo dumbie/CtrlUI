@@ -18,7 +18,7 @@ namespace LibraryShared
             public int BatteryPercentagePrevious = -1; //-1 Unknown, -2 Charging
 
             //Controller Details
-            public int LastReadTicks = 0;
+            public long LastReadTicks = 0;
             public int LastActiveTicks = 0;
             public int MilliSecondsAllowRead = 2000;
             public int MilliSecondsTimeout = 4000;

@@ -55,7 +55,7 @@ namespace DirectXInput
                         }
 
                         //Update the controller last read time
-                        Controller.LastReadTicks = Environment.TickCount;
+                        Controller.LastReadTicks = Stopwatch.GetTimestamp();
 
                         //Offsets for thumb sticks
                         int OffsetThumbLeftX = 6;

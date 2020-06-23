@@ -21,11 +21,11 @@ namespace DirectXInput
                 {
                     if (CheckControllerIdle(Controller))
                     {
-                        int idleTime = Environment.TickCount - Controller.LastActiveTicks;
-                        int targetTime = Convert.ToInt32(ConfigurationManager.AppSettings["ControllerIdleDisconnectMin"]) * 60000;
-                        if (idleTime > targetTime)
+                        int idleTimeMs = Environment.TickCount - Controller.LastActiveTicks;
+                        int targetTimeMs = Convert.ToInt32(ConfigurationManager.AppSettings["ControllerIdleDisconnectMin"]) * 60000;
+                        if (idleTimeMs > targetTimeMs)
                         {
-                            Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTime + "/" + targetTime + "ms");
+                            Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTimeMs + "/" + targetTimeMs + "ms");
                             Controller.LastActiveTicks = Environment.TickCount;
                             StopControllerTask(Controller, false, "idle");
                             return;
