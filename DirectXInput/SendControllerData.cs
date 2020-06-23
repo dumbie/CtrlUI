@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using static LibraryShared.Classes;
 
@@ -12,21 +13,41 @@ namespace DirectXInput
         {
             try
             {
-                //Update the button press times
-                UpdateButtonPressTimes(Controller.InputCurrent.ButtonGuide);
-                CheckButtonPressTimes(Controller.InputCurrent.ButtonGuide);
+                //Update and check button press times
+                UpdateCheckButtonPressTimes(Controller.InputCurrent.ButtonGuide);
+
+                //Check if the controller is currently idle
+                if (Controller.Details.Wireless)
+                {
+                    if (CheckControllerIdle(Controller))
+                    {
+                        int idleTime = Environment.TickCount - Controller.LastActiveTicks;
+                        int targetTime = Convert.ToInt32(ConfigurationManager.AppSettings["ControllerIdleDisconnectMin"]) * 60000;
+                        if (idleTime > targetTime)
+                        {
+                            Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTime + "/" + targetTime + "ms");
+                            Controller.LastActiveTicks = Environment.TickCount;
+                            StopControllerTask(Controller, false, "idle");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        Controller.LastActiveTicks = Environment.TickCount;
+                    }
+                }
 
                 //Update interface controller preview
                 UpdateControllerPreview(Controller);
 
                 //Check if controller shortcut is pressed
-                bool BlockOutputShortcut = await ControllerShortcut(Controller);
+                bool blockOutputShortcut = await ControllerShortcut(Controller);
 
                 //Check if controller output needs to be forwarded
-                bool BlockOutputApplication = await ControllerOutput(Controller);
+                bool blockOutputApplication = await ControllerOutput(Controller);
 
                 //Check if output or guide button needs to be blocked
-                if (BlockOutputApplication || BlockOutputShortcut || Controller.BlockOutput)
+                if (blockOutputApplication || blockOutputShortcut || Controller.BlockOutput)
                 {
                     //Prepare empty XOutput device data
                     PrepareXInputData(Controller, true);

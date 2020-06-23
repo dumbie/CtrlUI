@@ -160,7 +160,7 @@ namespace DirectXInput
                 ControllerStatus activeController = GetActiveController();
                 if (activeController != null)
                 {
-                    await StopControllerAsync(activeController, false);
+                    await StopControllerAsync(activeController, false, string.Empty);
                 }
             }
             catch { }
@@ -200,7 +200,7 @@ namespace DirectXInput
                         });
 
                         vDirectControllersProfile.Remove(activeController.Details.Profile);
-                        await StopControllerAsync(activeController, false);
+                        await StopControllerAsync(activeController, false, "removed");
 
                         //Save changes to Json file
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");

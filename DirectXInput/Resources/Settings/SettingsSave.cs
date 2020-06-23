@@ -49,6 +49,13 @@ namespace DirectXInput
                     SettingSave(vConfigurationApplication, "BatteryPlaySoundLow", cb_SettingsBatteryPlaySoundLow.IsChecked.ToString());
                 };
 
+                slider_ControllerIdleDisconnectMin.ValueChanged += (sender, e) =>
+                {
+                    string controllerIdleDisconnectMinString = slider_ControllerIdleDisconnectMin.Value.ToString();
+                    SettingSave(vConfigurationApplication, "ControllerIdleDisconnectMin", controllerIdleDisconnectMinString);
+                    textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinString + " minutes";
+                };
+
                 //Shortcut settings
                 cb_SettingsShortcutLaunchCtrlUI.Click += (sender, e) =>
                 {

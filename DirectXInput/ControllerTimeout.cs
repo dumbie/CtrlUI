@@ -13,12 +13,12 @@ namespace DirectXInput
             try
             {
                 //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has timed out for " + Controller.TimeoutSeconds + " seconds.");
-                if (Controller.Connected && Controller.InputReport != null && Controller.LastActive != 0)
+                if (Controller.Connected && Controller.InputReport != null && Controller.LastReadTicks != 0)
                 {
-                    if ((Environment.TickCount - Controller.LastActive) > Controller.MilliSecondsTimeout)
+                    if ((Environment.TickCount - Controller.LastReadTicks) > Controller.MilliSecondsTimeout)
                     {
                         Debug.WriteLine("Controller " + Controller.NumberId + " has timed out, stopping and removing the controller.");
-                        StopControllerTask(Controller, false);
+                        StopControllerTask(Controller, false, "timeout");
                     }
                 }
             }

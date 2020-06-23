@@ -41,7 +41,7 @@ namespace DirectXInput
                             txt_Controller_Information.Text = "The controller is no longer connected or supported.";
                         });
 
-                        await StopControllerAsync(Controller, false);
+                        await StopControllerAsync(Controller, false, "unsupported");
                         return false;
                     }
 
@@ -79,8 +79,11 @@ namespace DirectXInput
                     //Update the controller interface settings
                     ControllerUpdateSettingsInterface(Controller);
 
-                    //Update the last controller active time
-                    Controller.LastActive = Environment.TickCount;
+                    //Update the controller last read time
+                    Controller.LastReadTicks = Environment.TickCount;
+
+                    //Update the controller last active time
+                    Controller.LastActiveTicks = Environment.TickCount;
 
                     //Start Translating DirectInput Controller Threads
                     if (Controller.Details.Type == "Win")
@@ -140,7 +143,7 @@ namespace DirectXInput
         }
 
         //Stop the desired controller in task
-        void StopControllerTask(ControllerStatus Controller, bool removeAll360Bus)
+        void StopControllerTask(ControllerStatus Controller, bool removeAll360Bus, string disconnectTag)
         {
             try
             {
@@ -152,7 +155,7 @@ namespace DirectXInput
                 {
                     try
                     {
-                        await StopControllerAsync(Controller, removeAll360Bus);
+                        await StopControllerAsync(Controller, removeAll360Bus, disconnectTag);
                     }
                     catch { }
                 }
@@ -162,7 +165,7 @@ namespace DirectXInput
         }
 
         //Stop the desired controller as async
-        async Task<bool> StopControllerAsync(ControllerStatus Controller, bool removeAll360Bus)
+        async Task<bool> StopControllerAsync(ControllerStatus Controller, bool removeAll360Bus, string disconnectTag)
         {
             try
             {
@@ -183,7 +186,14 @@ namespace DirectXInput
                 //Show controller disconnect notification
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Controller";
-                notificationDetails.Text = "Disconnected (" + controllerNumberDisplay + ")";
+                if (string.IsNullOrWhiteSpace(disconnectTag))
+                {
+                    notificationDetails.Text = "Disconnected (" + controllerNumberDisplay + ")";
+                }
+                else
+                {
+                    notificationDetails.Text = "Disconnected " + disconnectTag + " (" + controllerNumberDisplay + ")";
+                }
                 App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Update user interface controller status
@@ -296,15 +306,10 @@ namespace DirectXInput
         {
             try
             {
-                await StopControllerAsync(vController0, true);
-                await StopControllerAsync(vController1, true);
-                await StopControllerAsync(vController2, true);
-                await StopControllerAsync(vController3, true);
-
-                NotificationDetails notificationDetails = new NotificationDetails();
-                notificationDetails.Icon = "Controller";
-                notificationDetails.Text = "Disconnected all";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                await StopControllerAsync(vController0, true, "all");
+                await StopControllerAsync(vController1, true, "all");
+                await StopControllerAsync(vController2, true, "all");
+                await StopControllerAsync(vController3, true, "all");
 
                 Debug.WriteLine("Stopped all the controllers direct input.");
                 AVActions.ActionDispatcherInvoke(delegate
@@ -371,7 +376,7 @@ namespace DirectXInput
                         Controller.OutputReport = new byte[Controller.HidDevice.Capabilities.OutputReportByteLength];
 
                         //Read data from the controller
-                        bool ReadFile = await Controller.HidDevice.ReadFileTimeout(Controller.InputReport, (uint)Controller.InputReport.Length, IntPtr.Zero, Controller.MilliSecondsReadTime);
+                        bool ReadFile = await Controller.HidDevice.ReadFileTimeout(Controller.InputReport, (uint)Controller.InputReport.Length, IntPtr.Zero, Controller.MilliSecondsAllowRead);
 
                         //Check if the controller connected
                         if (!ReadFile)

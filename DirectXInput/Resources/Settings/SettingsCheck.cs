@@ -32,6 +32,7 @@ namespace DirectXInput
                 if (ConfigurationManager.AppSettings["BatteryShowIconLow"] == null) { SettingSave(vConfigurationApplication, "BatteryShowIconLow", "True"); }
                 if (ConfigurationManager.AppSettings["BatteryShowPercentageLow"] == null) { SettingSave(vConfigurationApplication, "BatteryShowPercentageLow", "False"); }
                 if (ConfigurationManager.AppSettings["BatteryPlaySoundLow"] == null) { SettingSave(vConfigurationApplication, "BatteryPlaySoundLow", "True"); }
+                if (ConfigurationManager.AppSettings["ControllerIdleDisconnectMin"] == null) { SettingSave(vConfigurationApplication, "ControllerIdleDisconnectMin", "10"); }
 
                 //Keyboard settings
                 if (ConfigurationManager.AppSettings["KeyboardLayout"] == null) { SettingSave(vConfigurationApplication, "KeyboardLayout", "0"); }

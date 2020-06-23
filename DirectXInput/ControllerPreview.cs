@@ -24,11 +24,11 @@ namespace DirectXInput
                             txt_ActiveControllerName.Text = Controller.Details.DisplayName;
 
                             //Update latency
-                            int Latency = Environment.TickCount - Controller.LastActive;
-                            if (Latency > 0)
+                            int latencyTicks = Environment.TickCount - Controller.LastReadTicks;
+                            if (latencyTicks > 0)
                             {
-                                double LatencyMs = new TimeSpan(Latency).TotalMilliseconds;
-                                txt_ActiveControllerLatency.Text = LatencyMs + " ms";
+                                double latencyMs = new TimeSpan(latencyTicks).TotalMilliseconds;
+                                txt_ActiveControllerLatency.Text = latencyMs + " ms";
                             }
 
                             //Update battery

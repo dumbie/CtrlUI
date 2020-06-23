@@ -18,8 +18,9 @@ namespace LibraryShared
             public int BatteryPercentagePrevious = -1; //-1 Unknown, -2 Charging
 
             //Controller Details
-            public int LastActive = 0;
-            public int MilliSecondsReadTime = 2000;
+            public int LastReadTicks = 0;
+            public int LastActiveTicks = 0;
+            public int MilliSecondsAllowRead = 2000;
             public int MilliSecondsTimeout = 4000;
             public ControllerDetails Details = null;
             public bool Connected { get { return Details != null; } }
@@ -72,7 +73,8 @@ namespace LibraryShared
                     BatteryPercentagePrevious = -1; //-1 Unknown, -2 Charging
 
                     //Controller Details
-                    LastActive = 0;
+                    LastReadTicks = 0;
+                    LastActiveTicks = 0;
                     BlockOutput = false;
 
                     //Controller Task

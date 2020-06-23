@@ -5,11 +5,12 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Update the button press times
-        void UpdateButtonPressTimes(ControllerButtonDetails buttonDetails)
+        //Update and check button press times
+        void UpdateCheckButtonPressTimes(ControllerButtonDetails buttonDetails)
         {
             try
             {
+                //Update button press times
                 if (buttonDetails.PressedRaw)
                 {
                     if (buttonDetails.PressTimeCurrent == 0)
@@ -33,15 +34,8 @@ namespace DirectXInput
                     buttonDetails.PressTimeCurrent = 0;
                     //Debug.WriteLine("Releasing button press: " + buttonDetails.PressTimePrevious);
                 }
-            }
-            catch { }
-        }
 
-        //Check the button press times
-        void CheckButtonPressTimes(ControllerButtonDetails buttonDetails)
-        {
-            try
-            {
+                //Check button press times
                 buttonDetails.PressedShort = false;
                 buttonDetails.PressedLong = false;
 

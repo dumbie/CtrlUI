@@ -20,6 +20,11 @@ namespace DirectXInput
                 cb_SettingsBatteryShowIconLow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryShowIconLow"]);
                 cb_SettingsBatteryShowPercentageLow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryShowPercentageLow"]);
 
+                //Load controller idle
+                int controllerIdleDisconnectMinInt = Convert.ToInt32(ConfigurationManager.AppSettings["ControllerIdleDisconnectMin"]);
+                textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinInt + " minutes";
+                slider_ControllerIdleDisconnectMin.Value = controllerIdleDisconnectMinInt;
+
                 cb_SettingsShortcutLaunchCtrlUI.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchCtrlUI"]);
                 cb_SettingsShortcutLaunchKeyboardController.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchKeyboardController"]);
                 cb_SettingsShortcutAltEnter.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltEnter"]);

@@ -109,6 +109,7 @@
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppTrayMenu.cs" />
     <Compile Include="AppVariables.cs" />
+    <Compile Include="ControllerIdle.cs" />
     <Compile Include="ControllerButton.cs" />
     <Compile Include="ControllerMapping.cs" />
     <Compile Include="Keypad\ControllerHandlers.cs" />
