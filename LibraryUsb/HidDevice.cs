@@ -98,10 +98,18 @@ namespace LibraryUsb
                 HidDeviceAttributes returnDeviceAttributes = new HidDeviceAttributes(hiddDeviceAttributes);
 
                 //Get the product name
-                GetProductDescription(out byte[] ProductNameBytes);
-                if (ProductNameBytes != null)
+                GetProductDescription(out byte[] productNameBytes);
+                if (productNameBytes != null)
                 {
-                    returnDeviceAttributes.ProductName = ProductNameBytes.ToUTF16String().Replace("\0", "");
+                    string productNameString = productNameBytes.ToUTF16String().Replace("\0", "");
+                    if (!string.IsNullOrWhiteSpace(productNameString))
+                    {
+                        returnDeviceAttributes.ProductName = productNameString;
+                    }
+                    else
+                    {
+                        returnDeviceAttributes.ProductName = returnDeviceAttributes.ProductHexId + " Unknown";
+                    }
                 }
                 else
                 {
@@ -109,10 +117,18 @@ namespace LibraryUsb
                 }
 
                 //Get the vendor name
-                GetManufacturer(out byte[] VendorNameBytes);
-                if (VendorNameBytes != null)
+                GetManufacturer(out byte[] vendorNameBytes);
+                if (vendorNameBytes != null)
                 {
-                    returnDeviceAttributes.VendorName = VendorNameBytes.ToUTF16String().Replace("\0", "");
+                    string vendorNameString = vendorNameBytes.ToUTF16String().Replace("\0", "");
+                    if (!string.IsNullOrWhiteSpace(vendorNameString))
+                    {
+                        returnDeviceAttributes.VendorName = vendorNameString;
+                    }
+                    else
+                    {
+                        returnDeviceAttributes.VendorName = returnDeviceAttributes.VendorHexId + " Unknown";
+                    }
                 }
                 else
                 {

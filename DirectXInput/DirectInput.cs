@@ -133,6 +133,7 @@ namespace DirectXInput
                     cb_ControllerThumbFlipAxesRight.IsChecked = Controller.Details.Profile.ThumbFlipAxesRight;
                     cb_ControllerThumbReverseAxesLeft.IsChecked = Controller.Details.Profile.ThumbReverseAxesLeft;
                     cb_ControllerThumbReverseAxesRight.IsChecked = Controller.Details.Profile.ThumbReverseAxesRight;
+                    cb_ControllerIgnore.IsChecked = Controller.Details.Profile.ControllerIgnore;
                     textblock_ControllerRumbleStrength.Text = "Rumble strength: " + Convert.ToInt32(Controller.Details.Profile.RumbleStrength) + "%";
                     slider_ControllerRumbleStrength.Value = Controller.Details.Profile.RumbleStrength;
                     textblock_ControllerLedBrightness.Text = "Led brightness: " + Convert.ToInt32(Controller.Details.Profile.LedBrightness) + "%";

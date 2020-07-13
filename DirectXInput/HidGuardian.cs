@@ -84,5 +84,28 @@ namespace DirectXInput
             }
             catch { }
         }
+
+        //Release the controller from HidGuardian
+        public void HidGuardianReleaseController(ControllerDetails ConnectedController)
+        {
+            try
+            {
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                {
+                    using (RegistryKey openSubKey = registryKeyLocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\HidGuardian\Parameters", true))
+                    {
+                        string[] stringArray = openSubKey.GetValue("AffectedDevices") as string[];
+                        List<string> stringList = (stringArray != null) ? new List<string>(stringArray) : new List<string>();
+                        if (stringList.Contains(ConnectedController.HardwareId))
+                        {
+                            stringList.Remove(ConnectedController.HardwareId);
+                            openSubKey.SetValue("AffectedDevices", stringList.ToArray());
+                            Debug.WriteLine("Released HidGuardian controller: " + ConnectedController.HardwareId);
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
     }
 }

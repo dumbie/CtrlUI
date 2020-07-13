@@ -529,6 +529,21 @@ namespace LibraryShared
                 }
             }
 
+            //Controller Input
+            private bool PrivControllerIgnore = false;
+            public bool ControllerIgnore
+            {
+                get { return this.PrivControllerIgnore; }
+                set
+                {
+                    if (this.PrivControllerIgnore != value)
+                    {
+                        this.PrivControllerIgnore = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             public event PropertyChangedEventHandler PropertyChanged;
             private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
             {

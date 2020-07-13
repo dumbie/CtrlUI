@@ -49,6 +49,7 @@ namespace DirectXInput
                 button_Controller2.Click += Button_Controller2_Click;
                 button_Controller3.Click += Button_Controller3_Click;
                 btn_SearchNewControllers.Click += Btn_SearchNewControllers_Click;
+                Btn_AllowIgnoredControllers.Click += Btn_AllowIgnoredControllers_Click;
                 btn_DisconnectController.Click += Btn_DisconnectController_Click;
                 btn_DisconnectControllerAll.Click += Btn_DisconnectControllerAll_Click;
                 btn_RemoveController.Click += Btn_RemoveController_Click;
@@ -134,6 +135,28 @@ namespace DirectXInput
                     {
                         activeController.Details.Profile.ThumbReverseAxesRight = cb_ControllerThumbReverseAxesRight.IsChecked.Value;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    }
+                };
+
+                cb_ControllerIgnore.Click += async (sender, e) =>
+                {
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
+                    {
+                        //Update json profile
+                        activeController.Details.Profile.ControllerIgnore = cb_ControllerIgnore.IsChecked.Value;
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+
+                        if (cb_ControllerIgnore.IsChecked.Value)
+                        {
+                            //Release controller from hid guardian
+                            HidGuardianReleaseController(activeController.Details);
+
+                            //Disconnect the controller
+                            await StopControllerAsync(activeController, false, "ignored");
+                        }
+
+                        Debug.Write("Ignored controller: " + cb_ControllerIgnore.IsChecked.Value);
                     }
                 };
 

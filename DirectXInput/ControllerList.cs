@@ -35,8 +35,8 @@ namespace DirectXInput
                         if (!ControllerValidate(VendorHexId, ProductHexId, EnumDevice.DevicePath)) { continue; }
 
                         //Create new Json controller profile if it doesnt exist
-                        IEnumerable<ControllerProfile> ProfileList = vDirectControllersProfile.Where(x => x.ProductID.ToLower() == ProductHexId && x.VendorID.ToLower() == VendorHexId);
-                        if (!ProfileList.Any())
+                        IEnumerable<ControllerProfile> profileList = vDirectControllersProfile.Where(x => x.ProductID.ToLower() == ProductHexId && x.VendorID.ToLower() == VendorHexId);
+                        if (!profileList.Any())
                         {
                             vDirectControllersProfile.Add(new ControllerProfile()
                             {
@@ -51,6 +51,14 @@ namespace DirectXInput
 
                             Debug.WriteLine("Added win profile: " + EnumDevice.Description);
                         }
+                        ControllerProfile profileController = profileList.FirstOrDefault();
+
+                        //Check if controller is ignored
+                        if (profileController.ControllerIgnore)
+                        {
+                            //Debug.WriteLine("Controller is ignored: " + ProductHexId + "/" + VendorHexId);
+                            return;
+                        }
 
                         //Check if controller is wireless
                         bool ConnectedWireless = EnumDevice.DevicePath.ToLower().Contains("00805f9b34fb");
@@ -58,7 +66,7 @@ namespace DirectXInput
                         ControllerDetails newController = new ControllerDetails()
                         {
                             Type = "Win",
-                            Profile = ProfileList.FirstOrDefault(),
+                            Profile = profileController,
                             DisplayName = EnumDevice.Description,
                             Path = EnumDevice.DevicePath,
                             Wireless = ConnectedWireless
@@ -96,8 +104,8 @@ namespace DirectXInput
                         string VendorNameString = FoundHidDevice.Attributes.VendorName;
 
                         //Create new Json controller profile if it doesnt exist
-                        IEnumerable<ControllerProfile> ProfileList = vDirectControllersProfile.Where(x => x.ProductID.ToLower() == ProductHexId && x.VendorID.ToLower() == VendorHexId);
-                        if (!ProfileList.Any())
+                        IEnumerable<ControllerProfile> profileList = vDirectControllersProfile.Where(x => x.ProductID.ToLower() == ProductHexId && x.VendorID.ToLower() == VendorHexId);
+                        if (!profileList.Any())
                         {
                             ControllerProfile NewController = new ControllerProfile()
                             {
@@ -114,6 +122,14 @@ namespace DirectXInput
 
                             Debug.WriteLine("Added hid profile: " + ProductNameString + " (" + VendorNameString + ")");
                         }
+                        ControllerProfile profileController = profileList.FirstOrDefault();
+
+                        //Check if controller is ignored
+                        if (profileController.ControllerIgnore)
+                        {
+                            //Debug.WriteLine("Controller is ignored: " + ProductHexId + "/" + VendorHexId);
+                            return;
+                        }
 
                         //Check if controller is wireless
                         bool ConnectedWireless = FoundHidDevice.DevicePath.ToLower().Contains("00805f9b34fb");
@@ -121,7 +137,7 @@ namespace DirectXInput
                         ControllerDetails newController = new ControllerDetails()
                         {
                             Type = "Hid",
-                            Profile = ProfileList.FirstOrDefault(),
+                            Profile = profileController,
                             DisplayName = ProductNameString,
                             HardwareId = FoundHidDevice.HardwareId,
                             Path = FoundHidDevice.DevicePath,

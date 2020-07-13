@@ -12,18 +12,42 @@ namespace DirectXInput
 {
     partial class WindowMain
     {
-        //Reset the temp blocked controller path list
+        //Reset temp blocked controller path list
         void Btn_SearchNewControllers_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                vControllerTempBlockPaths = new List<string>();
-                Debug.WriteLine("Reset the temp blocked controller path list.");
+                //Reset temp blocked controller path list
+                vControllerTempBlockPaths.Clear();
 
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Controller";
                 notificationDetails.Text = "Searching for controllers";
                 App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                Debug.WriteLine("Reset temp blocked controller path list.");
+            }
+            catch { }
+        }
+
+        //Allow all the ignored controllers
+        void Btn_AllowIgnoredControllers_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Allow all the ignored controllers
+                foreach (ControllerProfile profile in vDirectControllersProfile)
+                {
+                    profile.ControllerIgnore = false;
+                }
+
+                //Save changes to Json file
+                JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+
+                NotificationDetails notificationDetails = new NotificationDetails();
+                notificationDetails.Icon = "Controller";
+                notificationDetails.Text = "Allowing controllers";
+                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                Debug.WriteLine("Showing all the ignored controllers.");
             }
             catch { }
         }
