@@ -149,7 +149,7 @@ namespace DirectXInput
                         txt_ActiveControllerType.Text = "Type";
                         txt_ActiveControllerLatency.Text = "Latency";
                         txt_ActiveControllerBattery.Text = "Battery";
-                        txt_ActiveControllerName.Text = "Controller";
+                        txt_ActiveControllerName.Text = "No controller";
                     });
                 }
             }

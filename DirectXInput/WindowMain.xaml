@@ -540,13 +540,15 @@
 
             <!-- Controller Information -->
             <Grid Grid.Column="1" VerticalAlignment="Top" Height="70">
-                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Name="txt_ActiveControllerName" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeLarge}" Text="No controller"/>
+                <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,2">
                     <TextBlock Name="txt_ActiveControllerType" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Type"/>
                     <TextBlock Name="txt_ActiveControllerLatency" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Latency"/>
                     <TextBlock Name="txt_ActiveControllerBattery" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Battery"/>
-                </StackPanel>
-                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,0">
-                    <TextBlock Name="txt_ActiveControllerName" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Left" Text="Controller"/>
                 </StackPanel>
             </Grid>
         </Grid>
