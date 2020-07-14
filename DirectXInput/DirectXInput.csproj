@@ -144,6 +144,7 @@
     <Compile Include="SendControllerData.cs" />
     <Compile Include="SendXRumbleData.cs" />
     <Compile Include="PrepareXInputData.cs" />
+    <Compile Include="ConnectionFunctions.cs" />
     <Compile Include="SettingsFunctions.cs" />
     <Compile Include="SocketHandlers.cs" />
     <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates.xaml">
@@ -288,15 +289,20 @@
       <Link>Assets\Icons\Help.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="..\CtrlUI\Assets\Icons\Keyboard.png">
+    <Content Include="..\CtrlUI\Assets\Icons\Keyboard.png">
       <Link>Assets\Icons\Keyboard.png</Link>
-    </Resource>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\CtrlUI\Assets\Icons\Keypad.png">
       <Link>Assets\Icons\Keypad.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\CtrlUI\Assets\Icons\Settings.png">
       <Link>Assets\Icons\Settings.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Icons\Shortcut.png">
+      <Link>Assets\Icons\Shortcut.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\CtrlUI\Assets\Icons\VolumeDown.png">
@@ -319,13 +325,13 @@
     <Content Include="Assets\Icons\Buttons\Keyboard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\ControllerShortcuts.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\Icons\KeyboardMove.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Icons\KeyboardScroll.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icons\Usb.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\DirectCloseTools.json">
@@ -349,9 +355,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Controller\ControllerRumble.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Icons\ControllerButtons.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Assets\AppIcon.ico" />

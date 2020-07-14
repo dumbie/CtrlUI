@@ -1,77 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
 using static ArnoldVinkCode.AVFiles;
-using static DirectXInput.AppVariables;
-using static LibraryShared.Classes;
 
 namespace DirectXInput
 {
     partial class WindowMain
     {
-        //Reset temp blocked controller path list
-        void Btn_SearchNewControllers_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //Reset temp blocked controller path list
-                vControllerTempBlockPaths.Clear();
-
-                NotificationDetails notificationDetails = new NotificationDetails();
-                notificationDetails.Icon = "Controller";
-                notificationDetails.Text = "Searching for controllers";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-                Debug.WriteLine("Reset temp blocked controller path list.");
-            }
-            catch { }
-        }
-
-        //Allow all the ignored controllers
-        void Btn_AllowIgnoredControllers_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //Allow all the ignored controllers
-                foreach (ControllerProfile profile in vDirectControllersProfile)
-                {
-                    profile.ControllerIgnore = false;
-                }
-
-                //Save changes to Json file
-                JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
-
-                NotificationDetails notificationDetails = new NotificationDetails();
-                notificationDetails.Icon = "Controller";
-                notificationDetails.Text = "Allowing controllers";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-                Debug.WriteLine("Showing all the ignored controllers.");
-            }
-            catch { }
-        }
-
-        //Open Windows Game controller settings
-        void btn_CheckControllers_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Process.Start("joy.cpl");
-            }
-            catch { }
-        }
-
-        //Open Windows device manager
-        void btn_CheckDeviceManager_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Process.Start("devmgmt.msc");
-            }
-            catch { }
-        }
-
         //Create startup shortcut
         void ManageShortcutStartup()
         {

@@ -19,8 +19,8 @@ namespace DirectXInput
         {
             try
             {
+                grid_Connection.Visibility = Visibility.Collapsed;
                 grid_Controller.Visibility = Visibility.Collapsed;
-                grid_Mapping.Visibility = Visibility.Collapsed;
                 grid_Keyboard.Visibility = Visibility.Collapsed;
                 grid_Keypad.Visibility = Visibility.Collapsed;
                 grid_Settings.Visibility = Visibility.Collapsed;
@@ -43,19 +43,24 @@ namespace DirectXInput
                 lb_Menu.PreviewKeyUp += lb_Menu_KeyPressUp;
                 lb_Menu.PreviewMouseUp += lb_Menu_MousePressUp;
 
-                //Controller functions
+                //Connection functions
                 button_Controller0.Click += Button_Controller0_Click;
                 button_Controller1.Click += Button_Controller1_Click;
                 button_Controller2.Click += Button_Controller2_Click;
                 button_Controller3.Click += Button_Controller3_Click;
                 btn_SearchNewControllers.Click += Btn_SearchNewControllers_Click;
+                Btn_IgnoreController.Click += Btn_IgnoreController_Click;
                 Btn_AllowIgnoredControllers.Click += Btn_AllowIgnoredControllers_Click;
                 btn_DisconnectController.Click += Btn_DisconnectController_Click;
                 btn_DisconnectControllerAll.Click += Btn_DisconnectControllerAll_Click;
                 btn_RemoveController.Click += Btn_RemoveController_Click;
+                btn_DebugInformation.Click += Btn_CopyControllerDebugInfo_Click;
+                btn_CheckControllers.Click += btn_CheckControllers_Click;
+                btn_CheckDeviceManager.Click += btn_CheckDeviceManager_Click;
+
+                //Controller functions
                 btn_RumbleTestLight.Click += Btn_TestRumble_Click;
                 btn_RumbleTestHeavy.Click += Btn_TestRumble_Click;
-                btn_DebugInformation.Click += Btn_CopyControllerDebugInfo_Click;
 
                 //Save controller settings
                 cb_ControllerFakeGuideButton.Click += (sender, e) =>
@@ -135,28 +140,6 @@ namespace DirectXInput
                     {
                         activeController.Details.Profile.ThumbReverseAxesRight = cb_ControllerThumbReverseAxesRight.IsChecked.Value;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
-                    }
-                };
-
-                cb_ControllerIgnore.Click += async (sender, e) =>
-                {
-                    ControllerStatus activeController = GetActiveController();
-                    if (activeController != null)
-                    {
-                        //Update json profile
-                        activeController.Details.Profile.ControllerIgnore = cb_ControllerIgnore.IsChecked.Value;
-                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
-
-                        if (cb_ControllerIgnore.IsChecked.Value)
-                        {
-                            //Release controller from hid guardian
-                            HidGuardianReleaseController(activeController.Details);
-
-                            //Disconnect the controller
-                            await StopControllerAsync(activeController, false, "ignored");
-                        }
-
-                        Debug.Write("Ignored controller: " + cb_ControllerIgnore.IsChecked.Value);
                     }
                 };
 
@@ -259,8 +242,6 @@ namespace DirectXInput
                 combobox_KeypadProcessProfile.SelectionChanged += Combobox_KeypadProcessProfile_SelectionChanged;
 
                 //Settings functions
-                btn_CheckControllers.Click += btn_CheckControllers_Click;
-                btn_CheckDeviceManager.Click += btn_CheckDeviceManager_Click;
                 btn_Settings_InstallDrivers.Click += btn_Settings_InstallDrivers_Click;
 
                 //Help functions

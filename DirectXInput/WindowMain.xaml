@@ -28,23 +28,23 @@
             <!-- Grid Menu -->
             <Grid Name="grid_Menu" Grid.Column="0" Width="95" Background="#1D1D1D">
                 <ListBox Name="lb_Menu" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" Style="{StaticResource ListBoxVertical}">
-                    <StackPanel Name="menuButtonController" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage your controller">
+                    <StackPanel Name="menuButtonConnection" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage controller connection">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Usb.png" Width="55" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Connection" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonController" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage controller settings">
                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Controller.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Controller" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Name="menuButtonMapping" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage button mappings">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/ControllerButtons.png" Width="55" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Mapping" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                    </StackPanel>
                     <StackPanel Name="menuButtonShortcuts" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage controller shortcuts">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/ControllerShortcuts.png" Width="55" HorizontalAlignment="Center"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Shortcut.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Shortcuts" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Name="menuButtonKeyboard" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open Keyboard settings">
+                    <StackPanel Name="menuButtonKeyboard" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open keyboard settings">
                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Keyboard.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Keyboard" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Name="menuButtonKeypad" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open Keyboard settings">
+                    <StackPanel Name="menuButtonKeypad" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open keypad settings">
                         <Image Source="pack://siteoforigin:,,,/Assets/Icons/Keypad.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Keypad" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
@@ -59,8 +59,8 @@
                 </ListBox>
             </Grid>
 
-            <!-- Grid Controller -->
-            <Grid Name="grid_Controller" Grid.Column="1" Background="#F1F1F1" Visibility="Visible">
+            <!-- Grid Connection -->
+            <Grid Name="grid_Connection" Grid.Column="1" Background="#F1F1F1" Visibility="Visible">
                 <Grid Margin="10,5,10,10" HorizontalAlignment="Stretch">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -69,7 +69,7 @@
 
                     <Grid Grid.Row="0">
                         <StackPanel>
-                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Controller"/>
+                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Connection"/>
                             <Rectangle Margin="0,30,0,0" HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
                         </StackPanel>
                     </Grid>
@@ -111,9 +111,10 @@
                                 <Button Margin="0,10,0,0" Name="btn_CheckControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Manage the Windows game controllers"/>
                                 <Button Margin="0,10,0,0" Name="btn_CheckDeviceManager" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Open the Windows device manager"/>
                                 <Button Margin="0,10,0,0" Name="btn_DebugInformation" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Copy controller debug information"/>
+                                <Button Margin="0,20,0,0" Name="btn_RemoveController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Remove the active controller profile"/>
+                                <Button Margin="0,20,0,0" Name="Btn_IgnoreController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Ignore and disconnect active controller"/>
                                 <Button Margin="0,10,0,0" Name="Btn_AllowIgnoredControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Allow all the ignored controllers"/>
-                                <Button Margin="0,10,0,0" Name="btn_RemoveController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Remove active controller profile"/>
-                                <Button Margin="0,10,0,0" Name="btn_DisconnectController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect active controller"/>
+                                <Button Margin="0,20,0,0" Name="btn_DisconnectController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect active controller"/>
                                 <Button Margin="0,10,0,0" Name="btn_DisconnectControllerAll" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect all controllers"/>
                             </StackPanel>
                         </ScrollViewer>
@@ -121,8 +122,8 @@
                 </Grid>
             </Grid>
 
-            <!-- Grid Mapping -->
-            <Grid Name="grid_Mapping" Grid.Column="1" Background="#F1F1F1" Visibility="Collapsed">
+            <!-- Grid Controller -->
+            <Grid Name="grid_Controller" Grid.Column="1" Background="#F1F1F1" Visibility="Collapsed">
                 <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -131,7 +132,7 @@
 
                     <Grid Grid.Row="0">
                         <StackPanel>
-                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Mapping"/>
+                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Controller"/>
                             <ProgressBar Height="2" Margin="0,30,0,0" Name="pb_ControllerMapProgress" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch" Value="100"/>
                         </StackPanel>
                     </Grid>
@@ -252,10 +253,6 @@
                                 <TextBlock Name="textblock_ControllerLedBrightness" Style="{StaticResource TextBlockBlack}" Text="Led brightness"/>
                                 <TextBlock Text="Changes the controllers led brightness accordingly." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_ControllerLedBrightness" Minimum="1" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Input Settings"/>
-                                <CheckBox Name="cb_ControllerIgnore" Content="Ignore this controller input" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will ignore the controller and not convert it to XInput." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
@@ -503,7 +500,7 @@
                                 <TextBlock Text="Change the minutes a wireless controller will automatically disconnect itself after it hasn't been used for a while to save the controllers battery life." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_ControllerIdleDisconnectMin" Height="18" Width="460" Minimum="3" Maximum="180" TickFrequency="1" SmallChange="1" LargeChange="1" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
-                                <Button Name="btn_Settings_InstallDrivers" Margin="0,15,0,0" Content="Click here to install the required drivers" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                <Button Name="btn_Settings_InstallDrivers" Margin="0,20,0,0" Content="Click here to install the required drivers" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
@@ -542,11 +539,14 @@
             </Grid>
 
             <!-- Controller Information -->
-            <Grid Grid.Column="1">
-                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,5,10,5">
+            <Grid Grid.Column="1" VerticalAlignment="Top" Height="70">
+                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,2">
+                    <TextBlock Name="txt_ActiveControllerType" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Type"/>
                     <TextBlock Name="txt_ActiveControllerLatency" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Latency"/>
-                    <TextBlock Name="txt_ActiveControllerBattery" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Battery level"/>
-                    <TextBlock Name="txt_ActiveControllerName" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Controller"/>
+                    <TextBlock Name="txt_ActiveControllerBattery" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Right" Text="Battery"/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,0">
+                    <TextBlock Name="txt_ActiveControllerName" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Left" Text="Controller"/>
                 </StackPanel>
             </Grid>
         </Grid>

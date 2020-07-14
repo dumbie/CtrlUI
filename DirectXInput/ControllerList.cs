@@ -57,7 +57,7 @@ namespace DirectXInput
                         if (profileController.ControllerIgnore)
                         {
                             //Debug.WriteLine("Controller is ignored: " + ProductHexId + "/" + VendorHexId);
-                            return;
+                            continue;
                         }
 
                         //Check if controller is wireless
@@ -128,7 +128,7 @@ namespace DirectXInput
                         if (profileController.ControllerIgnore)
                         {
                             //Debug.WriteLine("Controller is ignored: " + ProductHexId + "/" + VendorHexId);
-                            return;
+                            continue;
                         }
 
                         //Check if controller is wireless

@@ -152,64 +152,6 @@ namespace DirectXInput
             catch { }
         }
 
-        //Disconnect and stop the controller
-        async void Btn_DisconnectController_Click(object sender, RoutedEventArgs args)
-        {
-            try
-            {
-                ControllerStatus activeController = GetActiveController();
-                if (activeController != null)
-                {
-                    await StopControllerAsync(activeController, false, string.Empty);
-                }
-            }
-            catch { }
-        }
-
-        //Disconnect and stop all controllers
-        async void Btn_DisconnectControllerAll_Click(object sender, RoutedEventArgs args)
-        {
-            try
-            {
-                await StopAllControllers();
-            }
-            catch { }
-        }
-
-        //Remove the controller from the list
-        async void Btn_RemoveController_Click(object sender, RoutedEventArgs args)
-        {
-            try
-            {
-                ControllerStatus activeController = GetActiveController();
-                if (activeController != null)
-                {
-                    int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to remove this controller?", "This will reset the active controller to it's defaults and disconnect it.", "Remove controller", "Cancel", "", "");
-                    if (messageResult == 1)
-                    {
-                        Debug.WriteLine("Removed the controller: " + activeController.Details.DisplayName);
-
-                        NotificationDetails notificationDetails = new NotificationDetails();
-                        notificationDetails.Icon = "Controller";
-                        notificationDetails.Text = "Removed controller";
-                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            txt_Controller_Information.Text = "Removed the controller: " + activeController.Details.DisplayName;
-                        });
-
-                        vDirectControllersProfile.Remove(activeController.Details.Profile);
-                        await StopControllerAsync(activeController, false, "removed");
-
-                        //Save changes to Json file
-                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
-                    }
-                }
-            }
-            catch { }
-        }
-
         //Close other running controller tools
         void CloseControllerTools()
         {

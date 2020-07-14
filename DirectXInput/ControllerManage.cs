@@ -146,8 +146,9 @@ namespace DirectXInput
                     //Clear the current controller information
                     AVActions.ActionDispatcherInvoke(delegate
                     {
+                        txt_ActiveControllerType.Text = "Type";
                         txt_ActiveControllerLatency.Text = "Latency";
-                        txt_ActiveControllerBattery.Text = "Battery level";
+                        txt_ActiveControllerBattery.Text = "Battery";
                         txt_ActiveControllerName.Text = "Controller";
                     });
                 }
@@ -233,41 +234,6 @@ namespace DirectXInput
             {
                 ComboBox SelectedComboBox = (ComboBox)sender;
                 vPrevComboboxIndex = SelectedComboBox.SelectedIndex;
-            }
-            catch { }
-        }
-
-        //Copy Controller Debug Information
-        void Btn_CopyControllerDebugInfo_Click(object sender, RoutedEventArgs args)
-        {
-            try
-            {
-                ControllerStatus activeController = GetActiveController();
-                if (activeController != null && activeController.InputReport != null)
-                {
-                    string RawPackets = "(Out" + activeController.OutputReport.Length + "/In" + activeController.InputReport.Length + ")";
-                    RawPackets += "(Offset" + activeController.InputHeaderByteOffset + ")";
-                    RawPackets += "(ProductId" + activeController.Details.Profile.ProductID + "/VendorId" + activeController.Details.Profile.VendorID + ")";
-
-                    for (int Packet = 0; Packet < activeController.InputReport.Length; Packet++) { RawPackets = RawPackets + " " + activeController.InputReport[Packet]; }
-                    Clipboard.SetText(RawPackets);
-
-                    Debug.WriteLine("Controller debug information copied to clipboard.");
-
-                    NotificationDetails notificationDetails = new NotificationDetails();
-                    notificationDetails.Icon = "Paste";
-                    notificationDetails.Text = "Debug information copied";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-                }
-                else
-                {
-                    Debug.WriteLine("Controller debug information is not available.");
-
-                    NotificationDetails notificationDetails = new NotificationDetails();
-                    notificationDetails.Icon = "Paste";
-                    notificationDetails.Text = "No information available";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-                }
             }
             catch { }
         }

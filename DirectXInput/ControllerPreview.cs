@@ -21,7 +21,8 @@ namespace DirectXInput
                     {
                         try
                         {
-                            //Update name
+                            //Update name and type
+                            txt_ActiveControllerType.Text = Controller.Details.Wireless ? "Wireless" : "Wired";
                             txt_ActiveControllerName.Text = Controller.Details.DisplayName;
 
                             //Update latency
