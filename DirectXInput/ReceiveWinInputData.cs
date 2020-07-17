@@ -125,11 +125,38 @@ namespace DirectXInput
                             ThumbRightY = -ThumbRightY;
                         }
 
+                        //Check the thumbs deadzone
+                        if (Controller.Details.Profile.DeadzoneThumbLeft != 0)
+                        {
+                            int deadzoneRangeLeft = ((int)32767.5 * Controller.Details.Profile.DeadzoneThumbLeft) / 100;
+                            if (Math.Abs(ThumbLeftX) < deadzoneRangeLeft) { ThumbLeftX = 0; }
+                            if (Math.Abs(ThumbLeftY) < deadzoneRangeLeft) { ThumbLeftY = 0; }
+                        }
+                        if (Controller.Details.Profile.DeadzoneThumbRight != 0)
+                        {
+                            int deadzoneRangeRight = ((int)32767.5 * Controller.Details.Profile.DeadzoneThumbRight) / 100;
+                            if (Math.Abs(ThumbRightX) < deadzoneRangeRight) { ThumbRightX = 0; }
+                            if (Math.Abs(ThumbRightY) < deadzoneRangeRight) { ThumbRightY = 0; }
+                        }
+
+                        //Calculate thumbs sensitivity
+                        if (Controller.Details.Profile.SensitivityThumb != 1)
+                        {
+                            ThumbLeftX = Convert.ToInt32(ThumbLeftX * Controller.Details.Profile.SensitivityThumb);
+                            ThumbLeftY = Convert.ToInt32(ThumbLeftY * Controller.Details.Profile.SensitivityThumb);
+                            ThumbRightX = Convert.ToInt32(ThumbRightX * Controller.Details.Profile.SensitivityThumb);
+                            ThumbRightY = Convert.ToInt32(ThumbRightY * Controller.Details.Profile.SensitivityThumb);
+                        }
+
                         //Check the thumbs range
                         if (ThumbLeftX > 32767) { ThumbLeftX = 32767; }
+                        else if (ThumbLeftX < -32767) { ThumbLeftX = -32767; }
                         if (ThumbLeftY > 32767) { ThumbLeftY = 32767; }
+                        else if (ThumbLeftY < -32767) { ThumbLeftY = -32767; }
                         if (ThumbRightX > 32767) { ThumbRightX = 32767; }
+                        else if (ThumbRightX < -32767) { ThumbRightX = -32767; }
                         if (ThumbRightY > 32767) { ThumbRightY = 32767; }
+                        else if (ThumbRightY < -32767) { ThumbRightY = -32767; }
 
                         //Store the thumbs
                         Controller.InputCurrent.ThumbLeftX = ThumbLeftX;

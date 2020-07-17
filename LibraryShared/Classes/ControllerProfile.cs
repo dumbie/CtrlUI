@@ -499,6 +499,47 @@ namespace LibraryShared
                 }
             }
 
+            //Controller Movement
+            private int PrivDeadzoneThumbLeft = 0;
+            public int DeadzoneThumbLeft
+            {
+                get { return this.PrivDeadzoneThumbLeft; }
+                set
+                {
+                    if (this.PrivDeadzoneThumbLeft != value)
+                    {
+                        this.PrivDeadzoneThumbLeft = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+            private int PrivDeadzoneThumbRight = 0;
+            public int DeadzoneThumbRight
+            {
+                get { return this.PrivDeadzoneThumbRight; }
+                set
+                {
+                    if (this.PrivDeadzoneThumbRight != value)
+                    {
+                        this.PrivDeadzoneThumbRight = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+            private double PrivSensitivityThumb = 1;
+            public double SensitivityThumb
+            {
+                get { return this.PrivSensitivityThumb; }
+                set
+                {
+                    if (this.PrivSensitivityThumb != value)
+                    {
+                        this.PrivSensitivityThumb = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             //Controller Rumble
             private int PrivRumbleStrength = 75;
             public int RumbleStrength
@@ -529,16 +570,16 @@ namespace LibraryShared
                 }
             }
 
-            //Controller Input
-            private bool PrivControllerIgnore = false;
-            public bool ControllerIgnore
+            //Controller Ignore
+            private bool PrivIgnore = false;
+            public bool Ignore
             {
-                get { return this.PrivControllerIgnore; }
+                get { return this.PrivIgnore; }
                 set
                 {
-                    if (this.PrivControllerIgnore != value)
+                    if (this.PrivIgnore != value)
                     {
-                        this.PrivControllerIgnore = value;
+                        this.PrivIgnore = value;
                         NotifyPropertyChanged();
                     }
                 }

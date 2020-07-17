@@ -54,7 +54,7 @@ namespace DirectXInput
                         ControllerProfile profileController = profileList.FirstOrDefault();
 
                         //Check if controller is ignored
-                        if (profileController.ControllerIgnore)
+                        if (profileController.Ignore)
                         {
                             //Debug.WriteLine("Controller is ignored: " + ProductHexId + "/" + VendorHexId);
                             continue;
@@ -125,7 +125,7 @@ namespace DirectXInput
                         ControllerProfile profileController = profileList.FirstOrDefault();
 
                         //Check if controller is ignored
-                        if (profileController.ControllerIgnore)
+                        if (profileController.Ignore)
                         {
                             //Debug.WriteLine("Controller is ignored: " + ProductHexId + "/" + VendorHexId);
                             continue;

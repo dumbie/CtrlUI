@@ -133,6 +133,12 @@ namespace DirectXInput
                     cb_ControllerThumbFlipAxesRight.IsChecked = Controller.Details.Profile.ThumbFlipAxesRight;
                     cb_ControllerThumbReverseAxesLeft.IsChecked = Controller.Details.Profile.ThumbReverseAxesLeft;
                     cb_ControllerThumbReverseAxesRight.IsChecked = Controller.Details.Profile.ThumbReverseAxesRight;
+                    textblock_ControllerDeadzoneThumbLeft.Text = "Deadzone range left stick: " + Convert.ToInt32(Controller.Details.Profile.DeadzoneThumbLeft) + "%";
+                    slider_ControllerDeadzoneThumbLeft.Value = Controller.Details.Profile.DeadzoneThumbLeft;
+                    textblock_ControllerDeadzoneThumbRight.Text = "Deadzone range right stick: " + Convert.ToInt32(Controller.Details.Profile.DeadzoneThumbRight) + "%";
+                    slider_ControllerDeadzoneThumbRight.Value = Controller.Details.Profile.DeadzoneThumbRight;
+                    textblock_ControllerSensitivityThumb.Text = "Thumb sticks sensitivity: " + Controller.Details.Profile.SensitivityThumb.ToString("0.00");
+                    slider_ControllerSensitivityThumb.Value = Controller.Details.Profile.SensitivityThumb;
                     textblock_ControllerRumbleStrength.Text = "Rumble strength: " + Convert.ToInt32(Controller.Details.Profile.RumbleStrength) + "%";
                     slider_ControllerRumbleStrength.Value = Controller.Details.Profile.RumbleStrength;
                     textblock_ControllerLedBrightness.Text = "Led brightness: " + Convert.ToInt32(Controller.Details.Profile.LedBrightness) + "%";

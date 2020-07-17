@@ -43,7 +43,7 @@ namespace DirectXInput
                     if (messageResult == 1)
                     {
                         //Update json profile
-                        activeController.Details.Profile.ControllerIgnore = true;
+                        activeController.Details.Profile.Ignore = true;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
 
                         //Release controller from hid guardian
@@ -74,7 +74,7 @@ namespace DirectXInput
                 //Allow all the ignored controllers
                 foreach (ControllerProfile profile in vDirectControllersProfile)
                 {
-                    profile.ControllerIgnore = false;
+                    profile.Ignore = false;
                 }
 
                 //Save changes to Json file

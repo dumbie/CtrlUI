@@ -143,12 +143,45 @@ namespace DirectXInput
                     }
                 };
 
+                slider_ControllerDeadzoneThumbLeft.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_ControllerDeadzoneThumbLeft.Text = "Deadzone range left stick: " + Convert.ToInt32(slider_ControllerDeadzoneThumbLeft.Value) + "%";
+                        activeController.Details.Profile.DeadzoneThumbLeft = Convert.ToInt32(slider_ControllerDeadzoneThumbLeft.Value);
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    }
+                };
+
+                slider_ControllerDeadzoneThumbRight.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_ControllerDeadzoneThumbRight.Text = "Deadzone range right stick: " + Convert.ToInt32(slider_ControllerDeadzoneThumbRight.Value) + "%";
+                        activeController.Details.Profile.DeadzoneThumbRight = Convert.ToInt32(slider_ControllerDeadzoneThumbRight.Value);
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    }
+                };
+
+                slider_ControllerSensitivityThumb.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_ControllerSensitivityThumb.Text = "Thumb sticks sensitivity: " + slider_ControllerSensitivityThumb.Value.ToString("0.00");
+                        activeController.Details.Profile.SensitivityThumb = slider_ControllerSensitivityThumb.Value;
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    }
+                };
+
                 slider_ControllerRumbleStrength.ValueChanged += (sender, e) =>
                 {
                     ControllerStatus activeController = GetActiveController();
                     if (activeController != null)
                     {
-                        textblock_ControllerRumbleStrength.Text = "Rumble strength: " + slider_ControllerRumbleStrength.Value.ToString("0") + "%";
+                        textblock_ControllerRumbleStrength.Text = "Rumble strength: " + Convert.ToInt32(slider_ControllerRumbleStrength.Value) + "%";
                         activeController.Details.Profile.RumbleStrength = Convert.ToInt32(slider_ControllerRumbleStrength.Value);
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
