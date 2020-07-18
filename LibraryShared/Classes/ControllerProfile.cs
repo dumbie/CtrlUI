@@ -61,35 +61,7 @@ namespace LibraryShared
                 }
             }
 
-            //Controller Thumbs
-            private string PrivThumbLeftX;
-            public string ThumbLeftX
-            {
-                get { return this.PrivThumbLeftX; }
-                set
-                {
-                    if (this.PrivThumbLeftX != value)
-                    {
-                        this.PrivThumbLeftX = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private string PrivThumbLeftY;
-            public string ThumbLeftY
-            {
-                get { return this.PrivThumbLeftY; }
-                set
-                {
-                    if (this.PrivThumbLeftY != value)
-                    {
-                        this.PrivThumbLeftY = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
+            //Controller Mapping Thumb Stick
             private int? PrivButtonThumbLeft;
             public int? ButtonThumbLeft
             {
@@ -99,34 +71,6 @@ namespace LibraryShared
                     if (this.PrivButtonThumbLeft != value)
                     {
                         this.PrivButtonThumbLeft = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private string PrivThumbRightX;
-            public string ThumbRightX
-            {
-                get { return this.PrivThumbRightX; }
-                set
-                {
-                    if (this.PrivThumbRightX != value)
-                    {
-                        this.PrivThumbRightX = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            private string PrivThumbRightY;
-            public string ThumbRightY
-            {
-                get { return this.PrivThumbRightY; }
-                set
-                {
-                    if (this.PrivThumbRightY != value)
-                    {
-                        this.PrivThumbRightY = value;
                         NotifyPropertyChanged();
                     }
                 }
@@ -146,9 +90,9 @@ namespace LibraryShared
                 }
             }
 
-            //Controller D-Pad
-            private string PrivDPadLeft;
-            public string DPadLeft
+            //Controller Mapping D-Pad
+            private int? PrivDPadLeft;
+            public int? DPadLeft
             {
                 get { return this.PrivDPadLeft; }
                 set
@@ -161,8 +105,8 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivDPadUp;
-            public string DPadUp
+            private int? PrivDPadUp;
+            public int? DPadUp
             {
                 get { return this.PrivDPadUp; }
                 set
@@ -175,8 +119,8 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivDPadRight;
-            public string DPadRight
+            private int? PrivDPadRight;
+            public int? DPadRight
             {
                 get { return this.PrivDPadRight; }
                 set
@@ -189,8 +133,8 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivDPadDown;
-            public string DPadDown
+            private int? PrivDPadDown;
+            public int? DPadDown
             {
                 get { return this.PrivDPadDown; }
                 set
@@ -203,7 +147,7 @@ namespace LibraryShared
                 }
             }
 
-            //Controller Buttons
+            //Controller Mapping Buttons
             private int? PrivButtonA;
             public int? ButtonA
             {
@@ -344,20 +288,6 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivTriggerLeftAnalog;
-            public string TriggerLeftAnalog
-            {
-                get { return this.PrivTriggerLeftAnalog; }
-                set
-                {
-                    if (this.PrivTriggerLeftAnalog != value)
-                    {
-                        this.PrivTriggerLeftAnalog = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
             private int? PrivButtonTriggerRight;
             public int? ButtonTriggerRight
             {
@@ -372,21 +302,7 @@ namespace LibraryShared
                 }
             }
 
-            private string PrivTriggerRightAnalog;
-            public string TriggerRightAnalog
-            {
-                get { return this.PrivTriggerRightAnalog; }
-                set
-                {
-                    if (this.PrivTriggerRightAnalog != value)
-                    {
-                        this.PrivTriggerRightAnalog = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
-            //Controller Settings
+            //Controller Button
             private bool PrivFakeGuideButton;
             public bool FakeGuideButton
             {
@@ -401,6 +317,7 @@ namespace LibraryShared
                 }
             }
 
+            //Controller Trigger
             private bool PrivUseButtonTriggers;
             public bool UseButtonTriggers
             {
@@ -415,6 +332,49 @@ namespace LibraryShared
                 }
             }
 
+            private int PrivDeadzoneTriggerLeft = 0;
+            public int DeadzoneTriggerLeft
+            {
+                get { return this.PrivDeadzoneTriggerLeft; }
+                set
+                {
+                    if (this.PrivDeadzoneTriggerLeft != value)
+                    {
+                        this.PrivDeadzoneTriggerLeft = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private int PrivDeadzoneTriggerRight = 0;
+            public int DeadzoneTriggerRight
+            {
+                get { return this.PrivDeadzoneTriggerRight; }
+                set
+                {
+                    if (this.PrivDeadzoneTriggerRight != value)
+                    {
+                        this.PrivDeadzoneTriggerRight = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private double PrivSensitivityTrigger = 1;
+            public double SensitivityTrigger
+            {
+                get { return this.PrivSensitivityTrigger; }
+                set
+                {
+                    if (this.PrivSensitivityTrigger != value)
+                    {
+                        this.PrivSensitivityTrigger = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            //Controller D-Pad
             private bool PrivDPadFourWayMovement;
             public bool DPadFourWayMovement
             {
@@ -429,6 +389,7 @@ namespace LibraryShared
                 }
             }
 
+            //Controller Thumb Stick
             private bool PrivThumbFlipMovement;
             public bool ThumbFlipMovement
             {
@@ -499,7 +460,6 @@ namespace LibraryShared
                 }
             }
 
-            //Controller Movement
             private int PrivDeadzoneThumbLeft = 0;
             public int DeadzoneThumbLeft
             {
@@ -513,6 +473,7 @@ namespace LibraryShared
                     }
                 }
             }
+
             private int PrivDeadzoneThumbRight = 0;
             public int DeadzoneThumbRight
             {
@@ -526,6 +487,7 @@ namespace LibraryShared
                     }
                 }
             }
+
             private double PrivSensitivityThumb = 1;
             public double SensitivityThumb
             {

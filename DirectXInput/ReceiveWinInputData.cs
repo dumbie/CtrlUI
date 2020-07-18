@@ -167,8 +167,34 @@ namespace DirectXInput
                         //Raw Triggers
                         if (Controller.InputReport.Length >= OffsetTriggerRight)
                         {
-                            Controller.InputCurrent.TriggerLeft = Controller.InputReport[OffsetTriggerLeft];
-                            Controller.InputCurrent.TriggerRight = Controller.InputReport[OffsetTriggerRight];
+                            int triggerLeftBytes = Controller.InputReport[OffsetTriggerLeft];
+                            int triggerRightBytes = Controller.InputReport[OffsetTriggerRight];
+
+                            //Check the triggers deadzone
+                            if (Controller.Details.Profile.DeadzoneTriggerLeft != 0)
+                            {
+                                int deadzoneRangeLeft = (255 * Controller.Details.Profile.DeadzoneTriggerLeft) / 100;
+                                if (triggerLeftBytes < deadzoneRangeLeft) { triggerLeftBytes = 0; }
+                            }
+                            if (Controller.Details.Profile.DeadzoneTriggerRight != 0)
+                            {
+                                int deadzoneRangeRight = (255 * Controller.Details.Profile.DeadzoneTriggerRight) / 100;
+                                if (triggerRightBytes < deadzoneRangeRight) { triggerRightBytes = 0; }
+                            }
+
+                            //Calculate trigger sensitivity
+                            if (Controller.Details.Profile.SensitivityTrigger != 1)
+                            {
+                                triggerLeftBytes = Convert.ToInt32(triggerLeftBytes * Controller.Details.Profile.SensitivityTrigger);
+                                triggerRightBytes = Convert.ToInt32(triggerRightBytes * Controller.Details.Profile.SensitivityTrigger);
+                            }
+
+                            //Check the triggers range
+                            if (triggerLeftBytes > 255) { triggerLeftBytes = 255; }
+                            if (triggerRightBytes > 255) { triggerRightBytes = 255; }
+
+                            Controller.InputCurrent.TriggerLeft = Convert.ToByte(triggerLeftBytes);
+                            Controller.InputCurrent.TriggerRight = Convert.ToByte(triggerRightBytes);
                         }
                         else if (!Controller.Details.Profile.UseButtonTriggers)
                         {

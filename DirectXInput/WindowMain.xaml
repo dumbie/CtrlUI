@@ -221,8 +221,20 @@
                                 <TextBlock Text="Enabling this will fake the Start and Back button combined as the Guide button on a controller without the Guide button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Trigger Settings"/>
-                                <CheckBox Name="cb_ControllerUseButtonTriggers" Style="{StaticResource CheckBoxBlack}" Content="Use the controller triggers as press buttons"/>
+                                <CheckBox Name="cb_ControllerUseButtonTriggers" Style="{StaticResource CheckBoxBlack}" Content="Change the controller triggers to press buttons"/>
                                 <TextBlock Text="Enabling this will change your triggers into buttons." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneTriggerLeft" Style="{StaticResource TextBlockBlack}" Text="Deadzone range left trigger" Tag="Deadzone range left trigger: "/>
+                                <TextBlock Text="Changes the range when left trigger starts to register press." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <Slider Name="slider_ControllerDeadzoneTriggerLeft" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneTriggerRight" Style="{StaticResource TextBlockBlack}" Text="Deadzone range right trigger" Tag="Deadzone range right trigger: "/>
+                                <TextBlock Text="Changes the range when right trigger starts to register press." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <Slider Name="slider_ControllerDeadzoneTriggerRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityTrigger" Style="{StaticResource TextBlockBlack}" Text="Triggers sensitivity" Tag="Triggers sensitivity: "/>
+                                <TextBlock Text="Changes the press sensitivity on both triggers." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <Slider Name="slider_ControllerSensitivityTrigger" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="D-Pad Settings"/>
                                 <CheckBox Name="cb_ControllerDPadFourWayMovement" Content="Change your D-Pad into four way only presses" Style="{StaticResource CheckBoxBlack}"/>
@@ -244,25 +256,25 @@
                                 <CheckBox Name="cb_ControllerThumbReverseAxesRight" Content="Reverse the axes movement on right thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will reverse the axes on the right thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneThumbLeft" Style="{StaticResource TextBlockBlack}" Text="Deadzone range left stick"/>
+                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneThumbLeft" Style="{StaticResource TextBlockBlack}" Text="Deadzone range left stick" Tag="Deadzone range left stick: "/>
                                 <TextBlock Text="Changes the range when left thumb stick starts to move from the inside." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_ControllerDeadzoneThumbLeft" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
-                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneThumbRight" Style="{StaticResource TextBlockBlack}" Text="Deadzone range right stick"/>
+                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneThumbRight" Style="{StaticResource TextBlockBlack}" Text="Deadzone range right stick" Tag="Deadzone range right stick: "/>
                                 <TextBlock Text="Changes the range when right thumb stick starts to move from the inside." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_ControllerDeadzoneThumbRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
-                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityThumb" Style="{StaticResource TextBlockBlack}" Text="Thumb sticks sensitivity"/>
+                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityThumb" Style="{StaticResource TextBlockBlack}" Text="Thumb sticks sensitivity" Tag="Thumb sticks sensitivity: "/>
                                 <TextBlock Text="Changes the movement sensitivity on both thumb sticks." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_ControllerSensitivityThumb" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Rumble Settings"/>
-                                <TextBlock Name="textblock_ControllerRumbleStrength" Style="{StaticResource TextBlockBlack}" Text="Rumble strength"/>
+                                <TextBlock Name="textblock_ControllerRumbleStrength" Style="{StaticResource TextBlockBlack}" Text="Rumble strength" Tag="Rumble strength: "/>
                                 <TextBlock Text="Changes the controller rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_ControllerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Led Settings"/>
-                                <TextBlock Name="textblock_ControllerLedBrightness" Style="{StaticResource TextBlockBlack}" Text="Led brightness"/>
+                                <TextBlock Name="textblock_ControllerLedBrightness" Style="{StaticResource TextBlockBlack}" Text="Led brightness" Tag="Led brightness: "/>
                                 <TextBlock Text="Changes the controller led brightness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_ControllerLedBrightness" Minimum="1" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
                             </StackPanel>

@@ -73,6 +73,7 @@ namespace DirectXInput
                     }
                 };
 
+                //Controller Trigger
                 cb_ControllerUseButtonTriggers.Click += (sender, e) =>
                 {
                     ControllerStatus activeController = GetActiveController();
@@ -83,6 +84,40 @@ namespace DirectXInput
                     }
                 };
 
+                slider_ControllerDeadzoneTriggerLeft.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_ControllerDeadzoneTriggerLeft.Text = textblock_ControllerDeadzoneTriggerLeft.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneTriggerLeft.Value) + "%";
+                        activeController.Details.Profile.DeadzoneTriggerLeft = Convert.ToInt32(slider_ControllerDeadzoneTriggerLeft.Value);
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    }
+                };
+
+                slider_ControllerDeadzoneTriggerRight.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_ControllerDeadzoneTriggerRight.Text = textblock_ControllerDeadzoneTriggerRight.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneTriggerRight.Value) + "%";
+                        activeController.Details.Profile.DeadzoneTriggerRight = Convert.ToInt32(slider_ControllerDeadzoneTriggerRight.Value);
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    }
+                };
+
+                slider_ControllerSensitivityTrigger.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_ControllerSensitivityTrigger.Text = textblock_ControllerSensitivityTrigger.Tag.ToString() + slider_ControllerSensitivityTrigger.Value.ToString("0.00");
+                        activeController.Details.Profile.SensitivityTrigger = slider_ControllerSensitivityTrigger.Value;
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    }
+                };
+
+                //Controller D-Pad
                 cb_ControllerDPadFourWayMovement.Click += (sender, e) =>
                 {
                     ControllerStatus activeController = GetActiveController();
@@ -93,6 +128,7 @@ namespace DirectXInput
                     }
                 };
 
+                //Controller Thumb Stick
                 cb_ControllerThumbFlipMovement.Click += (sender, e) =>
                 {
                     ControllerStatus activeController = GetActiveController();
@@ -148,7 +184,7 @@ namespace DirectXInput
                     ControllerStatus activeController = GetActiveController();
                     if (activeController != null)
                     {
-                        textblock_ControllerDeadzoneThumbLeft.Text = "Deadzone range left stick: " + Convert.ToInt32(slider_ControllerDeadzoneThumbLeft.Value) + "%";
+                        textblock_ControllerDeadzoneThumbLeft.Text = textblock_ControllerDeadzoneThumbLeft.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneThumbLeft.Value) + "%";
                         activeController.Details.Profile.DeadzoneThumbLeft = Convert.ToInt32(slider_ControllerDeadzoneThumbLeft.Value);
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
@@ -159,7 +195,7 @@ namespace DirectXInput
                     ControllerStatus activeController = GetActiveController();
                     if (activeController != null)
                     {
-                        textblock_ControllerDeadzoneThumbRight.Text = "Deadzone range right stick: " + Convert.ToInt32(slider_ControllerDeadzoneThumbRight.Value) + "%";
+                        textblock_ControllerDeadzoneThumbRight.Text = textblock_ControllerDeadzoneThumbRight.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneThumbRight.Value) + "%";
                         activeController.Details.Profile.DeadzoneThumbRight = Convert.ToInt32(slider_ControllerDeadzoneThumbRight.Value);
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
@@ -170,7 +206,7 @@ namespace DirectXInput
                     ControllerStatus activeController = GetActiveController();
                     if (activeController != null)
                     {
-                        textblock_ControllerSensitivityThumb.Text = "Thumb sticks sensitivity: " + slider_ControllerSensitivityThumb.Value.ToString("0.00");
+                        textblock_ControllerSensitivityThumb.Text = textblock_ControllerSensitivityThumb.Tag.ToString() + slider_ControllerSensitivityThumb.Value.ToString("0.00");
                         activeController.Details.Profile.SensitivityThumb = slider_ControllerSensitivityThumb.Value;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
@@ -181,7 +217,7 @@ namespace DirectXInput
                     ControllerStatus activeController = GetActiveController();
                     if (activeController != null)
                     {
-                        textblock_ControllerRumbleStrength.Text = "Rumble strength: " + Convert.ToInt32(slider_ControllerRumbleStrength.Value) + "%";
+                        textblock_ControllerRumbleStrength.Text = textblock_ControllerRumbleStrength.Tag.ToString() + Convert.ToInt32(slider_ControllerRumbleStrength.Value) + "%";
                         activeController.Details.Profile.RumbleStrength = Convert.ToInt32(slider_ControllerRumbleStrength.Value);
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
@@ -192,7 +228,7 @@ namespace DirectXInput
                     ControllerStatus activeController = GetActiveController();
                     if (activeController != null)
                     {
-                        textblock_ControllerLedBrightness.Text = "Led brightness: " + slider_ControllerLedBrightness.Value.ToString("0") + "%";
+                        textblock_ControllerLedBrightness.Text = textblock_ControllerLedBrightness.Tag.ToString() + Convert.ToInt32(slider_ControllerLedBrightness.Value) + "%";
                         activeController.Details.Profile.LedBrightness = Convert.ToInt32(slider_ControllerLedBrightness.Value);
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
 
