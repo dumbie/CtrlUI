@@ -38,11 +38,6 @@ namespace CtrlUI
                     if (showStatus) { await Notification_Send_Status("Refresh", "Refreshing desktop apps"); }
                     //Debug.WriteLine("Checking desktop processes.");
 
-                    //Get all assets apps images
-                    string[] imageFilter = { "jpg", "png" };
-                    DirectoryInfo directoryInfoApps = new DirectoryInfo("Assets/Apps");
-                    FileInfo[] directoryImagesApps = directoryInfoApps.GetFiles("*", SearchOption.AllDirectories).Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-
                     //Add new running process if needed
                     foreach (Process processApp in processesList)
                     {
@@ -231,24 +226,6 @@ namespace CtrlUI
                                 storeImageSquare = appxDetails.SquareLargestLogoPath;
                                 storeImageWide = appxDetails.WideLargestLogoPath;
                             }
-
-                            ////Check apps images for process name
-                            //string foundAppImage = string.Empty;
-                            //string processNameFiltered = FileFilterName(processTitle, false, true, 0);
-                            //foreach (FileInfo foundImage in directoryImagesApps)
-                            //{
-                            //    try
-                            //    {
-                            //        string imageNameFiltered = FileFilterName(foundImage.Name, true, true, 0);
-                            //        //Debug.WriteLine(imageNameFiltered + " / " + processNameFiltered);
-                            //        if (processNameFiltered.Contains(imageNameFiltered))
-                            //        {
-                            //            foundAppImage = foundImage.FullName;
-                            //            break;
-                            //        }
-                            //    }
-                            //    catch { }
-                            //}
 
                             //Load the application image
                             BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processTitle, processNameExeNoExt, storeImageSquare, storeImageWide, processPathExeImage, processPathExe }, vImageSourceFolders, vImageBackupSource, processWindowHandle, 90, 0);
