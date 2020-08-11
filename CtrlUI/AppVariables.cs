@@ -33,7 +33,7 @@ namespace CtrlUI
         public static bool vMousePressDownLeftClick = false;
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
-        public static string[] vTabTargetLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Shortcuts", "lb_Processes", "lb_Manage_AddAppCategory" };
+        public static string[] vTabTargetLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Manage_AddAppCategory" };
         public static string[] vTabTargetButtons = { "grid_Popup_TextInput_button_ConfirmText" };
 
         //Image Variables
@@ -161,6 +161,7 @@ namespace CtrlUI
         public static ObservableCollection<ProfileShared> vCtrlLocationsFile = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlLocationsShortcut = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<DataBindApp> List_Games = new ObservableCollection<DataBindApp>();
+        public static ObservableCollection<DataBindApp> List_Launchers = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Apps = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Emulators = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindApp> List_Shortcuts = new ObservableCollection<DataBindApp>();

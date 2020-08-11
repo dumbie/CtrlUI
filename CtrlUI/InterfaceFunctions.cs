@@ -33,6 +33,7 @@ namespace CtrlUI
                 if (sp_Games.Visibility == Visibility.Visible && lb_Games.Items.Count > 0) { return lb_Games; }
                 else if (sp_Apps.Visibility == Visibility.Visible && lb_Apps.Items.Count > 0) { return lb_Apps; }
                 else if (sp_Emulators.Visibility == Visibility.Visible && lb_Emulators.Items.Count > 0) { return lb_Emulators; }
+                else if (sp_Launchers.Visibility == Visibility.Visible && lb_Launchers.Items.Count > 0) { return lb_Launchers; }
                 else if (sp_Shortcuts.Visibility == Visibility.Visible && lb_Shortcuts.Items.Count > 0) { return lb_Shortcuts; }
                 else if (sp_Processes.Visibility == Visibility.Visible && lb_Processes.Items.Count > 0) { return lb_Processes; }
             }
@@ -45,6 +46,7 @@ namespace CtrlUI
             {
                 if (sp_Processes.Visibility == Visibility.Visible) { return lb_Processes; }
                 else if (sp_Shortcuts.Visibility == Visibility.Visible) { return lb_Shortcuts; }
+                else if (sp_Launchers.Visibility == Visibility.Visible) { return lb_Launchers; }
                 else if (sp_Emulators.Visibility == Visibility.Visible) { return lb_Emulators; }
                 else if (sp_Apps.Visibility == Visibility.Visible) { return lb_Apps; }
                 else if (sp_Games.Visibility == Visibility.Visible) { return lb_Games; }
@@ -78,6 +80,8 @@ namespace CtrlUI
                 lb_Apps.PreviewMouseUp += ListBox_Apps_MousePressUp;
                 lb_Emulators.PreviewKeyUp += ListBox_Apps_KeyPressUp;
                 lb_Emulators.PreviewMouseUp += ListBox_Apps_MousePressUp;
+                lb_Launchers.PreviewKeyUp += ListBox_Apps_KeyPressUp;
+                lb_Launchers.PreviewMouseUp += ListBox_Apps_MousePressUp;
                 lb_Shortcuts.PreviewKeyUp += ListBox_Apps_KeyPressUp;
                 lb_Shortcuts.PreviewMouseUp += ListBox_Apps_MousePressUp;
                 lb_Processes.PreviewKeyUp += ListBox_Apps_KeyPressUp;

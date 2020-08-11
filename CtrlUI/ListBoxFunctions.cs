@@ -36,6 +36,11 @@ namespace CtrlUI
                 TextSearch.SetTextPath(lb_Emulators, "Name");
                 lb_Emulators.ItemsSource = List_Emulators;
 
+                lb_Launchers.IsTextSearchEnabled = true;
+                lb_Launchers.IsTextSearchCaseSensitive = false;
+                TextSearch.SetTextPath(lb_Launchers, "Name");
+                lb_Launchers.ItemsSource = List_Launchers;
+
                 lb_Shortcuts.IsTextSearchEnabled = true;
                 lb_Shortcuts.IsTextSearchCaseSensitive = false;
                 TextSearch.SetTextPath(lb_Shortcuts, "Name");
@@ -72,6 +77,7 @@ namespace CtrlUI
                 lb_Games.SelectedIndex = 0;
                 lb_Apps.SelectedIndex = 0;
                 lb_Emulators.SelectedIndex = 0;
+                lb_Launchers.SelectedIndex = 0;
                 lb_Shortcuts.SelectedIndex = 0;
                 lb_Processes.SelectedIndex = 0;
                 lb_FilePicker.SelectedIndex = 0;

@@ -225,6 +225,8 @@
     <Compile Include="Settings\SettingsSave.cs" />
     <Compile Include="Settings\SettingsLoad.cs" />
     <Compile Include="SoundPlayer.cs" />
+    <Compile Include="SteamKit2\Types\KeyValue.cs" />
+    <Compile Include="SteamKit2\Util\StreamHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibraryUsb\LibraryUsb.csproj">

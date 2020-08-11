@@ -19,7 +19,7 @@ namespace CtrlUI
             int NewNumber = 0;
             try
             {
-                IEnumerable<DataBindApp> CurrentApps = CombineAppLists(false, false);
+                IEnumerable<DataBindApp> CurrentApps = CombineAppLists(false, false, false);
                 if (CurrentApps.Any())
                 {
                     NewNumber = CurrentApps.Select(x => x.Number).Max() + 1;
@@ -41,7 +41,7 @@ namespace CtrlUI
                 await SortAppLists(true, true);
 
                 //Get the target application
-                IEnumerable<DataBindApp> combinedApps = CombineAppLists(false, false).Where(x => x.Category == vEditAppDataBind.Category);
+                IEnumerable<DataBindApp> combinedApps = CombineAppLists(false, false, false).Where(x => x.Category == vEditAppDataBind.Category);
                 DataBindApp TargetAppDataBind = combinedApps.OrderByDescending(x => x.Number).Where(x => x.Number < vEditAppDataBind.Number).FirstOrDefault();
                 int selectedNumber = vEditAppDataBind.Number;
                 int targetNumber = TargetAppDataBind.Number;
@@ -69,7 +69,7 @@ namespace CtrlUI
                 await SortAppLists(true, true);
 
                 //Get the target application
-                IEnumerable<DataBindApp> combinedApps = CombineAppLists(false, false).Where(x => x.Category == vEditAppDataBind.Category);
+                IEnumerable<DataBindApp> combinedApps = CombineAppLists(false, false, false).Where(x => x.Category == vEditAppDataBind.Category);
                 DataBindApp TargetAppDataBind = combinedApps.OrderBy(x => x.Number).Where(x => x.Number > vEditAppDataBind.Number).FirstOrDefault();
                 int selectedNumber = vEditAppDataBind.Number;
                 int targetNumber = TargetAppDataBind.Number;
@@ -149,6 +149,7 @@ namespace CtrlUI
                     SortObservableCollection(lb_Games, List_Games, x => x.Number, null, true);
                     SortObservableCollection(lb_Apps, List_Apps, x => x.Number, null, true);
                     SortObservableCollection(lb_Emulators, List_Emulators, x => x.Number, null, true);
+                    SortObservableCollection(lb_Launchers, List_Launchers, x => x.Name, null, true);
                     SortObservableCollection(lb_Shortcuts, List_Shortcuts, x => x.TimeCreation, null, false);
                     SortObservableCollection(lb_Processes, List_Processes, x => x.RunningTime, null, true);
 
@@ -165,6 +166,7 @@ namespace CtrlUI
                     SortObservableCollection(lb_Games, List_Games, x => x.Name, null, true);
                     SortObservableCollection(lb_Apps, List_Apps, x => x.Name, null, true);
                     SortObservableCollection(lb_Emulators, List_Emulators, x => x.Name, null, true);
+                    SortObservableCollection(lb_Launchers, List_Launchers, x => x.Name, null, true);
                     SortObservableCollection(lb_Shortcuts, List_Shortcuts, x => x.Name, null, true);
                     SortObservableCollection(lb_Processes, List_Processes, x => x.Name, null, true);
 

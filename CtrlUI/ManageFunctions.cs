@@ -112,6 +112,10 @@ namespace CtrlUI
                 {
                     await ListBoxRemoveItem(lb_Shortcuts, List_Shortcuts, dataBindApp, true);
                 }
+                else if (dataBindApp.Category == AppCategory.Launcher)
+                {
+                    await ListBoxRemoveItem(lb_Launchers, List_Launchers, dataBindApp, true);
+                }
 
                 //Remove application from search listbox
                 if (vSearchOpen)
@@ -343,7 +347,7 @@ namespace CtrlUI
                     if (vFilePickerCancelled) { return; }
 
                     //Check if new application already exists
-                    if (CombineAppLists(false, false).Any(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower() || x.PathExe.ToLower() == vFilePickerResult.PathFile.ToLower()))
+                    if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == vFilePickerResult.Name.ToLower() || x.PathExe.ToLower() == vFilePickerResult.PathFile.ToLower()))
                     {
                         List<DataBindString> answersConfirm = new List<DataBindString>();
                         DataBindString answerAlright = new DataBindString();

@@ -9,7 +9,8 @@
             Game = 1,
             Emulator = 2,
             Shortcut = 3,
-            Process = 4
+            Process = 4,
+            Launcher = 5
         }
     }
 }

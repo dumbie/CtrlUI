@@ -12,6 +12,7 @@ namespace CtrlUI
         public static AVTaskDetails vTask_UpdateWindowStatus = new AVTaskDetails();
         public static AVTaskDetails vTask_ControllerConnected = new AVTaskDetails();
         public static AVTaskDetails vTask_UpdateProcesses = new AVTaskDetails();
+        public static AVTaskDetails vTask_UpdateLaunchers = new AVTaskDetails();
         public static AVTaskDetails vTask_UpdateShortcuts = new AVTaskDetails();
         public static AVTaskDetails vTask_UpdateListStatus = new AVTaskDetails();
         public static AVTaskDetails vTask_UpdateAppRunningTime = new AVTaskDetails();
@@ -27,6 +28,7 @@ namespace CtrlUI
                 AVActions.TaskStartLoop(vTaskLoop_UpdateWindowStatus, vTask_UpdateWindowStatus);
                 AVActions.TaskStartLoop(vTaskLoop_ControllerConnected, vTask_ControllerConnected);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateProcesses, vTask_UpdateProcesses);
+                AVActions.TaskStartLoop(vTaskLoop_UpdateLaunchers, vTask_UpdateLaunchers);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateShortcuts, vTask_UpdateShortcuts);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateListStatus, vTask_UpdateListStatus);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateAppRunningTime, vTask_UpdateAppRunningTime);

@@ -187,7 +187,7 @@ namespace CtrlUI
                         string targetArgumentLower = shortcutDetails.Argument.ToLower();
 
                         //Check if already in combined list and remove it
-                        if (CombineAppLists(false, false).Any(x => x.PathExe.ToLower() == targetPathLower))
+                        if (CombineAppLists(false, false, false).Any(x => x.PathExe.ToLower() == targetPathLower))
                         {
                             //Debug.WriteLine("Shortcut is in the combined list skipping: " + fileNameStripped.ToLower());
                             await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);

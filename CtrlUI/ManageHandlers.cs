@@ -352,7 +352,7 @@ namespace CtrlUI
                 if (BtnTextContent == "Add the application as filled in above")
                 {
                     //Check if new application already exists
-                    if (CombineAppLists(false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower() || x.PathExe.ToLower() == tb_AddAppExePath.Text.ToLower()))
+                    if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower() || x.PathExe.ToLower() == tb_AddAppExePath.Text.ToLower()))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
@@ -393,7 +393,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Application name has not changed or just caps.");
                     }
-                    else if (CombineAppLists(false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower()))
+                    else if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower()))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
@@ -410,7 +410,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Application executable has not changed.");
                     }
-                    else if (CombineAppLists(false, false).Any(x => x.PathExe.ToLower() == tb_AddAppExePath.Text.ToLower()))
+                    else if (CombineAppLists(false, false, false).Any(x => x.PathExe.ToLower() == tb_AddAppExePath.Text.ToLower()))
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();

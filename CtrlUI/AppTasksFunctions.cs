@@ -104,6 +104,29 @@ namespace CtrlUI
             catch { }
         }
 
+        async Task vTaskLoop_UpdateLaunchers()
+        {
+            try
+            {
+                while (!vTask_UpdateLaunchers.TaskStopRequest)
+                {
+                    if (vAppActivated)
+                    {
+                        await LoadLauncherApplications();
+
+                        //Delay the loop task
+                        await TaskDelayLoop(15000, vTask_UpdateLaunchers);
+                    }
+                    else
+                    {
+                        //Delay the loop task
+                        await TaskDelayLoop(500, vTask_UpdateLaunchers);
+                    }
+                }
+            }
+            catch { }
+        }
+
         async Task vTaskLoop_UpdateShortcuts()
         {
             try

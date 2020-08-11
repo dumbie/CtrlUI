@@ -16,13 +16,14 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Combine all the saved lists to make comparison
-        IEnumerable<DataBindApp> CombineAppLists(bool IncludeShortcuts, bool IncludeProcesses)
+        IEnumerable<DataBindApp> CombineAppLists(bool includeShortcuts, bool includeProcesses, bool includeLaunchers)
         {
             try
             {
                 IEnumerable<DataBindApp> CombinedApps = List_Apps.Concat(List_Games).Concat(List_Emulators);
-                if (IncludeShortcuts) { CombinedApps = CombinedApps.Concat(List_Shortcuts); }
-                if (IncludeProcesses) { CombinedApps = CombinedApps.Concat(List_Processes); }
+                if (includeShortcuts) { CombinedApps = CombinedApps.Concat(List_Shortcuts); }
+                if (includeProcesses) { CombinedApps = CombinedApps.Concat(List_Processes); }
+                if (includeLaunchers) { CombinedApps = CombinedApps.Concat(List_Launchers); }
                 return CombinedApps;
             }
             catch
@@ -88,7 +89,7 @@ namespace CtrlUI
                 List<IntPtr> activeProcessesWindow = new List<IntPtr>();
 
                 //Get the currently running processes
-                IEnumerable<DataBindApp> currentListApps = CombineAppLists(true, false).Where(x => x.StatusLauncher == Visibility.Collapsed);
+                IEnumerable<DataBindApp> currentListApps = CombineAppLists(true, false, false).Where(x => x.StatusLauncher == Visibility.Collapsed);
 
                 //Update all the processes
                 await ListLoadCheckProcessesUwp(activeProcessesId, activeProcessesWindow, currentListApps, false);
@@ -151,6 +152,7 @@ namespace CtrlUI
                 Visibility visibilityGames = List_Games.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityApps = List_Apps.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityEmulators = List_Emulators.Any() ? Visibility.Visible : Visibility.Collapsed;
+                Visibility visibilityLaunchers = List_Launchers.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityShortcuts = List_Shortcuts.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherShortcuts"]) ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityProcesses = List_Processes.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherProcesses"]) ? Visibility.Visible : Visibility.Collapsed;
 
@@ -159,6 +161,7 @@ namespace CtrlUI
                     sp_Games.Visibility = visibilityGames;
                     sp_Apps.Visibility = visibilityApps;
                     sp_Emulators.Visibility = visibilityEmulators;
+                    sp_Launchers.Visibility = visibilityLaunchers;
                     sp_Shortcuts.Visibility = visibilityShortcuts;
                     sp_Processes.Visibility = visibilityProcesses;
                 });
@@ -173,7 +176,7 @@ namespace CtrlUI
             {
                 bool ApplicationUpdated = false;
                 //Debug.WriteLine("Updating the application running time.");
-                foreach (DataBindApp dataBindApp in CombineAppLists(false, false).Where(x => x.RunningTimeLastUpdate != 0))
+                foreach (DataBindApp dataBindApp in CombineAppLists(false, false, false).Where(x => x.RunningTimeLastUpdate != 0))
                 {
                     try
                     {
@@ -207,6 +210,7 @@ namespace CtrlUI
                 string List_Games_Count = List_Games.Count.ToString();
                 string List_Apps_Count = List_Apps.Count.ToString();
                 string List_Emulators_Count = List_Emulators.Count.ToString();
+                string List_Launchers_Count = List_Launchers.Count.ToString();
                 string List_Shortcuts_Count = List_Shortcuts.Count.ToString();
                 string List_Processes_Count = List_Processes.Count.ToString();
 
@@ -215,6 +219,7 @@ namespace CtrlUI
                     tb_Games_Count.Text = List_Games_Count;
                     tb_Apps_Count.Text = List_Apps_Count;
                     tb_Emulators_Count.Text = List_Emulators_Count;
+                    tb_Launchers_Count.Text = List_Launchers_Count;
                     tb_Shortcuts_Count.Text = List_Shortcuts_Count;
                     tb_Processes_Count.Text = List_Processes_Count;
                 });

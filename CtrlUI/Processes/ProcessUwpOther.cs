@@ -55,7 +55,7 @@ namespace CtrlUI
                 bool UpdatedImages = false;
 
                 //Update all the uwp apps image paths
-                foreach (DataBindApp dataBindApp in CombineAppLists(false, false).Where(x => x.Type == ProcessType.UWP || x.Type == ProcessType.Win32Store))
+                foreach (DataBindApp dataBindApp in CombineAppLists(false, false, false).Where(x => x.Type == ProcessType.UWP || x.Type == ProcessType.Win32Store))
                 {
                     try
                     {

@@ -22,7 +22,7 @@ namespace CtrlUI
                 //Get the current quick launch application
                 try
                 {
-                    DataBindApp QuickLaunchApp = CombineAppLists(false, false).Where(x => x.QuickLaunch).FirstOrDefault();
+                    DataBindApp QuickLaunchApp = CombineAppLists(false, false, false).Where(x => x.QuickLaunch).FirstOrDefault();
                     if (QuickLaunchApp != null)
                     {
                         AnswerQuickLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -123,7 +123,7 @@ namespace CtrlUI
         {
             try
             {
-                DataBindApp quickLaunchApp = CombineAppLists(false, false).Where(x => x.QuickLaunch).FirstOrDefault();
+                DataBindApp quickLaunchApp = CombineAppLists(false, false, false).Where(x => x.QuickLaunch).FirstOrDefault();
                 if (quickLaunchApp != null)
                 {
                     //Check which launch method needs to be used
