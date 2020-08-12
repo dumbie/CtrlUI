@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
@@ -91,8 +90,12 @@ namespace CtrlUI
         {
             try
             {
+                //Get steam main path
                 string steamMainPath = libraryPaths.FirstOrDefault();
-                List<string> steamApplicationAvailable = new List<string>();
+
+                //Get steam icon image
+                BitmapImage steamBitmapImage = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 10, 0);
+
                 foreach (string path in libraryPaths)
                 {
                     try
@@ -102,8 +105,7 @@ namespace CtrlUI
                         string[] manifestFiles = Directory.GetFiles(steamAppsPath, "appmanifest*");
                         foreach (string manifestPath in manifestFiles)
                         {
-                            string runCommand = await SteamAddApplication(manifestPath, steamMainPath);
-                            steamApplicationAvailable.Add(runCommand);
+                            await SteamAddApplication(manifestPath, steamMainPath, steamBitmapImage);
                         }
                     }
                     catch (Exception ex)
@@ -111,14 +113,11 @@ namespace CtrlUI
                         Debug.WriteLine("Failed scanning steam library: " + ex.Message);
                     }
                 }
-
-                //Remove deleted steam applications
-                await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => !steamApplicationAvailable.Any(y => y == x.PathExe));
             }
             catch { }
         }
 
-        async Task<string> SteamAddApplication(string appmanifestPath, string steamMainPath)
+        async Task SteamAddApplication(string appmanifestPath, string steamMainPath, BitmapImage steamBitmapImage)
         {
             try
             {
@@ -130,20 +129,21 @@ namespace CtrlUI
 
                 //Get launch argument
                 string runCommand = "steam://rungameid/" + appId;
+                vLauncherAppAvailableCheck.Add(runCommand);
 
-                //Check if steam application is already added
-                DataBindApp shortcutExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == runCommand.ToLower()).FirstOrDefault();
-                if (shortcutExistCheck != null)
+                //Check if application is already added
+                DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == runCommand.ToLower()).FirstOrDefault();
+                if (launcherExistCheck != null)
                 {
-                    Debug.WriteLine("Steam id already in list: " + appId);
-                    return runCommand;
+                    //Debug.WriteLine("Steam id already in list: " + appId);
+                    return;
                 }
 
                 //Check if application id is in blacklist
                 if (vSteamIdBlacklist.Contains(appId))
                 {
                     Debug.WriteLine("Steam id is blacklisted: " + appId);
-                    return runCommand;
+                    return;
                 }
 
                 //Get application name
@@ -156,7 +156,7 @@ namespace CtrlUI
                 //Get application image
                 string libraryImageName = steamMainPath + "\\appcache\\librarycache\\" + appId + "_library_600x900.jpg";
                 string logoImageName = steamMainPath + "\\appcache\\librarycache\\" + appId + "_logo.png";
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { libraryImageName, logoImageName }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { libraryImageName, logoImageName, "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
@@ -165,16 +165,14 @@ namespace CtrlUI
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
-                    StatusLauncher = Visibility.Visible
+                    StatusLauncher = steamBitmapImage
                 };
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
-                Debug.WriteLine("Added steam app: " + appId + "/" + appName);
-                return runCommand;
+                //Debug.WriteLine("Added steam app: " + appId + "/" + appName);
             }
             catch
             {
                 Debug.WriteLine("Failed adding steam app: " + appmanifestPath);
-                return string.Empty;
             }
         }
     }

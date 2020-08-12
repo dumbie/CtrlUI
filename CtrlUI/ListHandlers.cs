@@ -82,6 +82,10 @@ namespace CtrlUI
                     {
                         await RightClickShortcut(listboxSender, listboxSelectedIndex, selectedItem);
                     }
+                    else if (selectedItem.Category == AppCategory.Launcher)
+                    {
+                        await Notification_Send_Status("Help", selectedItem.PathExe);
+                    }
                     else
                     {
                         await RightClickList(listboxSender, listboxSelectedIndex, selectedItem);

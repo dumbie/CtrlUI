@@ -324,7 +324,7 @@ namespace CtrlUI
                 }
 
                 //Add the shortcut to the list
-                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusLauncher = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
+                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusUrlProtocol = shortcutLauncher, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
                 await ListBoxAddItem(lb_Shortcuts, List_Shortcuts, dataBindApp, false, false);
             }
             catch

@@ -89,7 +89,7 @@ namespace CtrlUI
                 List<IntPtr> activeProcessesWindow = new List<IntPtr>();
 
                 //Get the currently running processes
-                IEnumerable<DataBindApp> currentListApps = CombineAppLists(true, false, false).Where(x => x.StatusLauncher == Visibility.Collapsed);
+                IEnumerable<DataBindApp> currentListApps = CombineAppLists(true, false, false).Where(x => x.StatusUrlProtocol == Visibility.Collapsed);
 
                 //Update all the processes
                 await ListLoadCheckProcessesUwp(activeProcessesId, activeProcessesWindow, currentListApps, false);

@@ -119,7 +119,7 @@ namespace CtrlUI
                 else
                 {
                     //Run process url protocol
-                    if (dataBindApp.StatusLauncher == Visibility.Visible || dataBindApp.Category == AppCategory.Launcher)
+                    if (dataBindApp.StatusUrlProtocol == Visibility.Visible || dataBindApp.Category == AppCategory.Launcher)
                     {
                         await LaunchProcessUrlProtocol(dataBindApp);
                         return;

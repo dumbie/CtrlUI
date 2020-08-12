@@ -13,7 +13,8 @@
                 <Ellipse VerticalAlignment="Center" Margin="2,0,2,0" Fill="#FFB900" Height="8" Width="8" Opacity="0.80" Visibility="{Binding StatusSuspended}"/>
                 <Path VerticalAlignment="Center" Margin="2,0,2,0" Data="M0,0 L1,1 M0,1 L1,0" Stretch="Fill" Stroke="#CD192A" StrokeThickness="3" Width="10" Height="10" Opacity="0.80" Visibility="{Binding StatusAvailable}"/>
                 <Image VerticalAlignment="Center" Margin="2,0,2,0" Source="pack://siteoforigin:,,,/Assets/Icons/StatusStore.png" Height="8" Width="8" Opacity="0.80" Visibility="{Binding StatusStore}"/>
-                <Polygon VerticalAlignment="Center" Margin="2,0,2,0" Fill="#1DBB55" Points="0,0 8,4, 0,8" Opacity="0.80" Visibility="{Binding StatusLauncher}"/>
+                <Image VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncher}" Opacity="0.80"/>
+                <Polygon VerticalAlignment="Center" Margin="2,0,2,0" Fill="#1DBB55" Points="0,0 8,4, 0,8" Opacity="0.80" Visibility="{Binding StatusUrlProtocol}"/>
                 <TextBlock VerticalAlignment="Center" Margin="2,0,2,0" Text="{Binding RunningProcessCount}" FontSize="{DynamicResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
             </StackPanel>
             <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">

@@ -266,7 +266,7 @@ namespace LibraryShared
                 }
             }
 
-            private BitmapImage PrivImageBitmap = new BitmapImage();
+            private BitmapImage PrivImageBitmap = null;
             public BitmapImage ImageBitmap
             {
                 get { return this.PrivImageBitmap; }
@@ -350,8 +350,22 @@ namespace LibraryShared
                 }
             }
 
-            private Visibility PrivStatusLauncher = Visibility.Collapsed;
-            public Visibility StatusLauncher
+            private Visibility PrivStatusUrlProtocol = Visibility.Collapsed;
+            public Visibility StatusUrlProtocol
+            {
+                get { return this.PrivStatusUrlProtocol; }
+                set
+                {
+                    if (this.PrivStatusUrlProtocol != value)
+                    {
+                        this.PrivStatusUrlProtocol = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private BitmapImage PrivStatusLauncher = null;
+            public BitmapImage StatusLauncher
             {
                 get { return this.PrivStatusLauncher; }
                 set

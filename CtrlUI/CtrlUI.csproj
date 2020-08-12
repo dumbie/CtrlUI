@@ -114,6 +114,7 @@
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
+    <Compile Include="Launchers\OriginListApps.cs" />
     <Compile Include="Launchers\SteamListApps.cs" />
     <Compile Include="Launchers\LoadLaunchers.cs" />
     <Compile Include="RecycleBinFunctions.cs" />
