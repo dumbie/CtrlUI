@@ -18,12 +18,12 @@ namespace CtrlUI
         {
             try
             {
-                //Get origin icon image
-                BitmapImage originBitmapImage = FileToBitmapImage(new string[] { "Origin" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 10, 0);
+                //Get launcher icon image
+                BitmapImage launcherImage = FileToBitmapImage(new string[] { "Origin" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 10, 0);
 
-                //Get local content path
-                string programDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-                string localContentPath = Path.Combine(programDataPath, "Origin\\LocalContent");
+                //Get launcher paths
+                string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                string localContentPath = Path.Combine(commonApplicationDataPath, "Origin\\LocalContent");
 
                 //Check local content paths
                 string[] localContentDirectories = Directory.GetDirectories(localContentPath, "*");
@@ -31,7 +31,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        await OriginAddApplication(localContentAppPath, originBitmapImage);
+                        await OriginAddApplication(localContentAppPath, launcherImage);
                     }
                     catch { }
                 }
@@ -42,7 +42,7 @@ namespace CtrlUI
             }
         }
 
-        async Task OriginAddApplication(string localContentAppPath, BitmapImage originBitmapImage)
+        async Task OriginAddApplication(string localContentAppPath, BitmapImage launcherImage)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace CtrlUI
                 DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == runCommand.ToLower()).FirstOrDefault();
                 if (launcherExistCheck != null)
                 {
-                    //Debug.WriteLine("Origin id already in list: " + appIds);
+                    //Debug.WriteLine("Origin app already in list: " + appIds);
                     return;
                 }
 
@@ -99,7 +99,7 @@ namespace CtrlUI
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
-                    StatusLauncher = originBitmapImage
+                    StatusLauncher = launcherImage
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);

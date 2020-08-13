@@ -115,7 +115,7 @@ namespace CtrlUI
                         await LoadLauncherApplications();
 
                         //Delay the loop task
-                        await TaskDelayLoop(15000, vTask_UpdateLaunchers);
+                        await TaskDelayLoop(60000, vTask_UpdateLaunchers);
                     }
                     else
                     {
