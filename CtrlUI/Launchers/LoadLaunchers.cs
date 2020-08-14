@@ -28,6 +28,9 @@ namespace CtrlUI
                 //Scan and add library from Epic Games
                 await EpicScanAddLibrary();
 
+                //Scan and add library from Uplay
+                await UplayScanAddLibrary();
+
                 //Remove deleted launcher applications
                 await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => !vLauncherAppAvailableCheck.Any(y => y == x.PathExe));
 
