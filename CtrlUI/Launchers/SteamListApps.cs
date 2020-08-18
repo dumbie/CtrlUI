@@ -105,8 +105,7 @@ namespace CtrlUI
                     {
                         string steamAppsPath = Path.Combine(path, "steamapps");
                         //Debug.WriteLine("Scanning steam library: " + steamAppsPath);
-                        string[] manifestFiles = Directory.GetFiles(steamAppsPath, "appmanifest*");
-                        foreach (string manifestPath in manifestFiles)
+                        foreach (string manifestPath in Directory.GetFiles(steamAppsPath, "appmanifest*.acf"))
                         {
                             await SteamAddApplication(manifestPath, steamMainPath, launcherImage);
                         }

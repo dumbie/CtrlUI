@@ -115,11 +115,14 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\AVImage.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\AVImage.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetBitmapFromExecutable.cs">
-      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetBitmapFromExecutable.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetMemoryStreamFromExecutable.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetMemoryStreamFromExecutable.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetBitmapSourceFromWindow.cs">
-      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetBitmapSourceFromWindow.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetMemoryStreamFromIcoFile.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetMemoryStreamFromIcoFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetMemoryStreamSourceFromWindow.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetMemoryStreamSourceFromWindow.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
@@ -198,6 +201,7 @@
     </Compile>
     <Compile Include="AppUpdateCheck.cs" />
     <Compile Include="AppLaunchCheck.cs" />
+    <Compile Include="Classes\LauncherGoG.cs" />
     <Compile Include="Classes\LauncherEpic.cs" />
     <Compile Include="Classes\KeypadStatus.cs" />
     <Compile Include="Classes\KeypadMapping.cs" />

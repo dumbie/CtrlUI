@@ -63,9 +63,6 @@ namespace CtrlUI
                     return;
                 }
 
-                //Get application name
-                string appName = Path.GetFileName(installDir);
-
                 //Get launch argument
                 string runCommand = "uplay://launch/" + appId;
                 vLauncherAppAvailableCheck.Add(runCommand);
@@ -77,6 +74,9 @@ namespace CtrlUI
                     //Debug.WriteLine("Uplay app already in list: " + appIds);
                     return;
                 }
+
+                //Get application name
+                string appName = Path.GetFileName(installDir);
 
                 //Get application image
                 //Fix open yaml configurations and look for image (Uplay Launcher\cache\assets)

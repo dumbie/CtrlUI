@@ -31,13 +31,19 @@ namespace CtrlUI
                 //Scan and add library from Uplay
                 await UplayScanAddLibrary();
 
+                //Scan and add library from GoG
+                await GoGScanAddLibrary();
+
+                //Scan and add library from Battle.net
+
                 //Remove deleted launcher applications
                 await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => !vLauncherAppAvailableCheck.Any(y => y == x.PathExe));
 
-                //Sort applications by name
+                //Sort applications and select first item
                 if (sortByName)
                 {
                     SortObservableCollection(lb_Launchers, List_Launchers, x => x.Name, null, true);
+                    lb_Launchers.SelectedIndex = 0;
                 }
             }
             catch { }

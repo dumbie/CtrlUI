@@ -73,9 +73,6 @@ namespace CtrlUI
                 //Get application manifest
                 EpicInstalledManifest appManifest = installedManifests.Where(x => x.AppName.ToLower() == appNameId.ToLower()).FirstOrDefault();
 
-                //Get application name
-                string appName = appManifest.DisplayName;
-
                 //Get launch argument
                 string runCommand = "com.epicgames.launcher://apps/" + appNameId + "?action=launch&silent=true";
                 vLauncherAppAvailableCheck.Add(runCommand);
@@ -87,6 +84,9 @@ namespace CtrlUI
                     //Debug.WriteLine("Epic app already in list: " + appIds);
                     return;
                 }
+
+                //Get application name
+                string appName = appManifest.DisplayName;
 
                 //Get application image
                 BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Epic" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);

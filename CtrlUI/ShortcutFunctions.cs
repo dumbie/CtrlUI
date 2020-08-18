@@ -320,7 +320,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, targetPathLower, shortcutDetails.IconPath, "Assets/Extensions/" + targetExtensionLower + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, shortcutDetails.IconIndex);
+                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, targetPathLower, "Assets/Extensions/" + targetExtensionLower + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, shortcutDetails.IconIndex);
                 }
 
                 //Add the shortcut to the list

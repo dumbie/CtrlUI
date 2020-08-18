@@ -26,8 +26,7 @@ namespace CtrlUI
                 string localContentPath = Path.Combine(commonApplicationDataPath, "Origin\\LocalContent");
 
                 //Check local content paths
-                string[] localContentDirectories = Directory.GetDirectories(localContentPath, "*");
-                foreach (string localContentAppPath in localContentDirectories)
+                foreach (string localContentAppPath in Directory.GetDirectories(localContentPath, "*"))
                 {
                     try
                     {
@@ -46,9 +45,6 @@ namespace CtrlUI
         {
             try
             {
-                //Get application name
-                string appName = Path.GetFileName(localContentAppPath);
-
                 //Get application mfst files
                 string appIds = string.Empty;
                 string[] localContentFiles = Directory.GetFiles(localContentAppPath, "*.mfst");
@@ -56,7 +52,7 @@ namespace CtrlUI
                 //Check if application is installed
                 if (!localContentFiles.Any())
                 {
-                    Debug.WriteLine("Origin game is not installed: " + appName);
+                    Debug.WriteLine("Origin game is not installed: " + localContentAppPath);
                     return;
                 }
 
@@ -88,6 +84,9 @@ namespace CtrlUI
                     //Debug.WriteLine("Origin app already in list: " + appIds);
                     return;
                 }
+
+                //Get application name
+                string appName = Path.GetFileName(localContentAppPath);
 
                 //Get application image
                 BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Origin" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
