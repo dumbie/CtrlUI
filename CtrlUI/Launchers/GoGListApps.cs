@@ -30,15 +30,24 @@ namespace CtrlUI
                 GoGConfig gogConfigDeserial = JsonConvert.DeserializeObject<GoGConfig>(gogConfigJson);
 
                 //Add applications from json path
-                foreach (string infoFile in Directory.GetFiles(gogConfigDeserial.libraryPath, "goggame*.info", SearchOption.AllDirectories))
+                string[] gameFolders = Directory.GetDirectories(gogConfigDeserial.libraryPath, "*");
+                foreach (string infoFolder in gameFolders)
                 {
                     try
                     {
-                        string icoFilePath = infoFile.Replace(".info", ".ico");
-                        string gogGamePath = Path.GetDirectoryName(infoFile);
-                        string infoFileString = File.ReadAllText(infoFile);
-                        GoGGameInfo gogGameInfo = JsonConvert.DeserializeObject<GoGGameInfo>(infoFileString);
-                        await GoGAddApplication(gogGamePath, gogGameInfo, icoFilePath, launcherImage);
+                        string[] infoFiles = Directory.GetFiles(infoFolder, "goggame*.info");
+                        foreach (string infoFile in infoFiles)
+                        {
+                            try
+                            {
+                                string icoFilePath = infoFile.Replace(".info", ".ico");
+                                string gogGamePath = Path.GetDirectoryName(infoFile);
+                                string infoFileString = File.ReadAllText(infoFile);
+                                GoGGameInfo gogGameInfo = JsonConvert.DeserializeObject<GoGGameInfo>(infoFileString);
+                                await GoGAddApplication(gogGamePath, gogGameInfo, icoFilePath, launcherImage);
+                            }
+                            catch { }
+                        }
                     }
                     catch { }
                 }
