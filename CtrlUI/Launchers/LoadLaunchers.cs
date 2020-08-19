@@ -35,6 +35,7 @@ namespace CtrlUI
                 await GoGScanAddLibrary();
 
                 //Scan and add library from Battle.net
+                await BattleNetScanAddLibrary();
 
                 //Remove deleted launcher applications
                 await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => !vLauncherAppAvailableCheck.Any(y => y == x.PathExe));
