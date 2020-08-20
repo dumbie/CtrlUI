@@ -105,6 +105,37 @@ namespace CtrlUI
             catch { }
         }
 
+        async void Grid_Popup_Welcome_button_Epic_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Button ButtonSender = (sender as Button);
+
+                vFilePickerFilterIn = new List<string> { "EpicGamesLauncher.exe" };
+                vFilePickerFilterOut = new List<string>();
+                vFilePickerTitle = "Epic Games";
+                vFilePickerDescription = "Please select the Epic executable:";
+                vFilePickerShowNoFile = false;
+                vFilePickerShowRoms = false;
+                vFilePickerShowFiles = true;
+                vFilePickerShowDirectories = true;
+                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
+
+                while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
+                if (vFilePickerCancelled) { return; }
+
+                //Add application to the list
+                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Epic Games", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                await AddAppToList(dataBindApp, true, true);
+
+                //Disable the icon after selection
+                ButtonSender.IsEnabled = false;
+                ButtonSender.Opacity = 0.40;
+            }
+            catch { }
+        }
+
         async void Grid_Popup_Welcome_button_Uplay_Click(object sender, RoutedEventArgs e)
         {
             try

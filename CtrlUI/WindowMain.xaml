@@ -214,9 +214,10 @@
                         <Image Name="img_Menu_UplayStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_OriginStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_GoGStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                        <Image Name="img_Menu_BethesdaStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_EpicStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_BethesdaStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_BlizzardStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_RockstarStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
 
                         <Image Name="img_Menu_FpsOverlayer" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
                         <Image Name="img_Menu_DirectXInput" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
@@ -412,16 +413,18 @@
                             <Button Name="grid_Popup_Welcome_button_Steam" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Image Name="grid_Popup_Welcome_img_Steam"/>
                             </Button>
-                            <Button Name="grid_Popup_Welcome_button_GoG" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                <Image Name="grid_Popup_Welcome_img_GoG"/>
+                            <Button Name="grid_Popup_Welcome_button_Uplay" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_Uplay"/>
                             </Button>
                             <Button Name="grid_Popup_Welcome_button_Origin" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Image Name="grid_Popup_Welcome_img_Origin"/>
                             </Button>
-                            <Button Name="grid_Popup_Welcome_button_Uplay" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                <Image Name="grid_Popup_Welcome_img_Uplay"/>
+                            <Button Name="grid_Popup_Welcome_button_GoG" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_GoG"/>
                             </Button>
-
+                            <Button Name="grid_Popup_Welcome_button_Epic" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_Epic"/>
+                            </Button>
                             <Button Name="grid_Popup_Welcome_button_Battle" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Image Name="grid_Popup_Welcome_img_Battle"/>
                             </Button>

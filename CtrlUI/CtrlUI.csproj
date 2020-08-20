@@ -142,6 +142,7 @@
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
     <Compile Include="Launchers\BattleNetListApps.cs" />
+    <Compile Include="Launchers\RockstarListApps.cs" />
     <Compile Include="Launchers\BethesdaListApps.cs" />
     <Compile Include="Launchers\GoGListApps.cs" />
     <Compile Include="Launchers\UplayListApps.cs" />
@@ -265,7 +266,10 @@
     <Content Include="Assets\Apps\DirectXInput.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Epic.png">
+    <Content Include="Assets\Apps\Rockstar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Apps\Epic Games.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Extensions\Exe.png">

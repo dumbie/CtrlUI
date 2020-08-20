@@ -167,6 +167,7 @@ namespace CtrlUI
                 grid_Popup_Welcome_button_Origin.Click += Grid_Popup_Welcome_button_Origin_Click;
                 grid_Popup_Welcome_button_Uplay.Click += Grid_Popup_Welcome_button_Uplay_Click;
                 grid_Popup_Welcome_button_GoG.Click += Grid_Popup_Welcome_button_GoG_Click;
+                grid_Popup_Welcome_button_Epic.Click += Grid_Popup_Welcome_button_Epic_Click;
                 grid_Popup_Welcome_button_Battle.Click += Grid_Popup_Welcome_button_Battle_Click;
                 grid_Popup_Welcome_button_PS4Remote.Click += Grid_Popup_Welcome_button_PS4Remote_Click;
 
@@ -421,6 +422,7 @@ namespace CtrlUI
                 bool runningBethesda = processesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher");
                 bool runningEpic = processesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher");
                 bool runningBlizzard = processesList.Any(x => x.ProcessName.ToLower() == "battle.net");
+                bool runningRockstar = processesList.Any(x => x.ProcessName.ToLower() == "rockstarservice");
                 bool runningDirectXInput = processesList.Any(x => x.ProcessName.ToLower() == "directxinput");
                 bool runningFpsOverlayer = processesList.Any(x => x.ProcessName.ToLower() == "fpsoverlayer");
 
@@ -487,6 +489,15 @@ namespace CtrlUI
                     else
                     {
                         img_Menu_BlizzardStatus.Opacity = 0.40;
+                    }
+
+                    if (runningRockstar)
+                    {
+                        img_Menu_RockstarStatus.Opacity = 1.00;
+                    }
+                    else
+                    {
+                        img_Menu_RockstarStatus.Opacity = 0.40;
                     }
 
                     if (runningDirectXInput)
@@ -864,8 +875,9 @@ namespace CtrlUI
                 img_Menu_OriginStatus.Source = FileToBitmapImage(new string[] { "Origin" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
                 img_Menu_GoGStatus.Source = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
                 img_Menu_BethesdaStatus.Source = FileToBitmapImage(new string[] { "Bethesda" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
-                img_Menu_EpicStatus.Source = FileToBitmapImage(new string[] { "Epic" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
+                img_Menu_EpicStatus.Source = FileToBitmapImage(new string[] { "Epic Games" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
                 img_Menu_BlizzardStatus.Source = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
+                img_Menu_RockstarStatus.Source = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
 
                 img_Menu_DirectXInput.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
                 img_Menu_FpsOverlayer.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
@@ -882,6 +894,7 @@ namespace CtrlUI
                     grid_Popup_Welcome_img_GoG.Source = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_Battle.Source = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_PS4Remote.Source = FileToBitmapImage(new string[] { "Remote Play" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_Epic.Source = FileToBitmapImage(new string[] { "Epic Games" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
                 }
             }
             catch { }

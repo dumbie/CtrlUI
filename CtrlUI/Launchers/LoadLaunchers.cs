@@ -40,6 +40,9 @@ namespace CtrlUI
                 //Scan and add library from Bethesda
                 await BethesdaScanAddLibrary();
 
+                //Scan and add library from Rockstar
+                await RockstarScanAddLibrary();
+
                 //Remove deleted launcher applications
                 await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => !vLauncherAppAvailableCheck.Any(y => y == x.PathExe));
 

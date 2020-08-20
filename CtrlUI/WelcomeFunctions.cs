@@ -140,6 +140,25 @@ namespace CtrlUI
                     }
                 }
 
+                //Search for Epic install and add to the list
+                using (RegistryKey RegKeyEpic = registryKeyLocalMachine.OpenSubKey("Software\\Classes\\com.epicgames.launcher\\DefaultIcon"))
+                {
+                    if (RegKeyEpic != null)
+                    {
+                        string RegKeyExePath = RegKeyEpic.GetValue("").ToString().Replace(",0", string.Empty);
+                        if (File.Exists(RegKeyExePath))
+                        {
+                            //Add application to the list
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Epic Games", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
+                            await AddAppToList(dataBindApp, true, true);
+
+                            //Disable the icon after selection
+                            grid_Popup_Welcome_button_Epic.IsEnabled = false;
+                            grid_Popup_Welcome_button_Epic.Opacity = 0.40;
+                        }
+                    }
+                }
+
                 //Search for Origin install and add to the list
                 using (RegistryKey RegKeyOrigin = registryKeyLocalMachine.OpenSubKey("Software\\Origin"))
                 {
