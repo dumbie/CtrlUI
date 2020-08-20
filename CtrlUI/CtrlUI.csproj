@@ -142,6 +142,7 @@
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
     <Compile Include="Launchers\BattleNetListApps.cs" />
+    <Compile Include="Launchers\BethesdaListApps.cs" />
     <Compile Include="Launchers\GoGListApps.cs" />
     <Compile Include="Launchers\UplayListApps.cs" />
     <Compile Include="Launchers\EpicListApps.cs" />
