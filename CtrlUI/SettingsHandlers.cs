@@ -128,7 +128,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Manage controllers";
                 Answers.Add(Answer1);
 
@@ -205,7 +205,7 @@ namespace CtrlUI
                 UnloadBackgroundMedia();
 
                 //Copy new background file
-                File_Copy(vFilePickerResult.PathFile, "Assets/Background.png", true);
+                File_Copy(vFilePickerResult.PathFile, "Assets/User/Background.png", true);
 
                 //Disable video background
                 cb_SettingsVideoBackground.IsChecked = false;
@@ -244,11 +244,29 @@ namespace CtrlUI
                 UnloadBackgroundMedia();
 
                 //Copy new background file
-                File_Copy(vFilePickerResult.PathFile, "Assets/BackgroundLive.mp4", true);
+                File_Copy(vFilePickerResult.PathFile, "Assets/User/BackgroundLive.mp4", true);
 
                 //Enable video background
                 cb_SettingsVideoBackground.IsChecked = true;
                 Setting_Save(vConfigurationCtrlUI, "VideoBackground", "True");
+
+                //Update the background media
+                UpdateBackgroundMedia();
+            }
+            catch { }
+        }
+
+        //Reset the interface background
+        void Button_Settings_ResetBackground_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Unload the current background media
+                UnloadBackgroundMedia();
+
+                //Remove background files
+                File_Delete("Assets/User/Background.png");
+                File_Delete("Assets/User/BackgroundLive.mp4");
 
                 //Update the background media
                 UpdateBackgroundMedia();
@@ -263,7 +281,7 @@ namespace CtrlUI
             {
                 //Add font styles to string list
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageFonts = FileToBitmapImage(new string[] { "Assets/Icons/Font.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFonts = FileToBitmapImage(new string[] { "Assets/Default/Icons/Font.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
 
                 //Add default fonts
                 DataBindString AnswerSegoe = new DataBindString();
@@ -287,8 +305,12 @@ namespace CtrlUI
                 Answers.Add(AnswerArial);
 
                 //Add custom fonts
-                DirectoryInfo directoryInfo = new DirectoryInfo("Assets/Fonts");
-                FileInfo[] fontFiles = directoryInfo.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
+                DirectoryInfo directoryInfoUser = new DirectoryInfo("Assets/User/Fonts");
+                FileInfo[] fontFilesUser = directoryInfoUser.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
+                DirectoryInfo directoryInfoDefault = new DirectoryInfo("Assets/Default/Fonts");
+                FileInfo[] fontFilesDefault = directoryInfoDefault.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
+                IEnumerable<FileInfo> fontFiles = fontFilesUser.Concat(fontFilesDefault);
+
                 foreach (FileInfo fontFile in fontFiles)
                 {
                     DataBindString AnswerCustom = new DataBindString();
@@ -307,7 +329,7 @@ namespace CtrlUI
                     //Update the setting
                     Setting_Save(vConfigurationCtrlUI, "InterfaceFontStyleName", messageResult.Name);
 
-                    //Update the font style
+                    //Adjust the application font family
                     UpdateAppFontStyle();
                 }
             }
@@ -321,12 +343,16 @@ namespace CtrlUI
             {
                 //Add clock styles to string list
                 List<DataBindString> Answers = new List<DataBindString>();
-                DirectoryInfo directoryInfo = new DirectoryInfo("Assets/Clocks");
-                DirectoryInfo[] clockStyles = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly);
+
+                DirectoryInfo directoryInfoUser = new DirectoryInfo("Assets/User/Clocks");
+                DirectoryInfo[] clockStylesUser = directoryInfoUser.GetDirectories("*", SearchOption.TopDirectoryOnly);
+                DirectoryInfo directoryInfoDefault = new DirectoryInfo("Assets/Default/Clocks");
+                DirectoryInfo[] clockStylesDefault = directoryInfoDefault.GetDirectories("*", SearchOption.TopDirectoryOnly);
+                IEnumerable<DirectoryInfo> clockStyles = clockStylesUser.Concat(clockStylesDefault);
 
                 foreach (DirectoryInfo clockStyle in clockStyles)
                 {
-                    BitmapImage imageClocks = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle.Name + "/Preview.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage imageClocks = FileToBitmapImage(new string[] { clockStyle.FullName + "/Preview.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     DataBindString AnswerCustom = new DataBindString();
                     AnswerCustom.ImageBitmap = imageClocks;
                     AnswerCustom.Name = clockStyle.Name;
@@ -357,9 +383,13 @@ namespace CtrlUI
             {
                 //Add sound packs to string list
                 List<DataBindString> Answers = new List<DataBindString>();
-                DirectoryInfo directoryInfo = new DirectoryInfo("Assets/Sounds");
-                DirectoryInfo[] soundPacks = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly);
-                BitmapImage imagePacks = FileToBitmapImage(new string[] { "Assets/Icons/VolumeUp.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                DirectoryInfo directoryInfoUser = new DirectoryInfo("Assets/User/Sounds");
+                DirectoryInfo[] soundPacksUser = directoryInfoUser.GetDirectories("*", SearchOption.TopDirectoryOnly);
+                DirectoryInfo directoryInfoDefault = new DirectoryInfo("Assets/Default/Sounds");
+                DirectoryInfo[] soundPacksDefault = directoryInfoDefault.GetDirectories("*", SearchOption.TopDirectoryOnly);
+                IEnumerable<DirectoryInfo> soundPacks = soundPacksUser.Concat(soundPacksDefault);
+
+                BitmapImage imagePacks = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeUp.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
 
                 foreach (DirectoryInfo soundPack in soundPacks)
                 {
@@ -425,8 +455,8 @@ namespace CtrlUI
                 string TargetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
                 string TargetName = Assembly.GetEntryAssembly().GetName().Name;
                 string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/" + TargetName + ".url";
-                string TargetFileBoxArtFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/" + TargetName + "/box-art.png";
-                string TargetFileBoxArtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/" + TargetName;
+                string TargetFileBoxArtFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/Default/" + TargetName + "/box-art.png";
+                string TargetFileBoxArtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/Default/" + TargetName;
                 string TargetDirectoryStreamingAssets = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets";
 
                 //Check if the Streaming Assets folder exists
@@ -454,7 +484,7 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
@@ -471,7 +501,7 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     Answer1.Name = "Alright";
                     Answers.Add(Answer1);
 
@@ -482,7 +512,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Alright";
                 Answers.Add(Answer1);
 

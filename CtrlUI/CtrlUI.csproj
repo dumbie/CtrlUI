@@ -138,6 +138,9 @@
     <Compile Include="AppEvents.cs" />
     <Compile Include="AppUpdate.cs" />
     <Compile Include="AppBusyWait.cs" />
+    <Content Include="Assets\User\Assets in this folder will not get overwritten when updating">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
@@ -257,537 +260,537 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Apps\Battle.net.png">
+    <Content Include="Assets\Default\Apps\Battle.net.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Bethesda.png">
+    <Content Include="Assets\Default\Apps\Bethesda.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\DirectXInput.png">
+    <Content Include="Assets\Default\Apps\DirectXInput.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Rockstar.png">
+    <Content Include="Assets\Default\Apps\Rockstar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Epic Games.png">
+    <Content Include="Assets\Default\Apps\Epic Games.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Exe.png">
+    <Content Include="Assets\Default\Extensions\Exe.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Cfg.png">
+    <Content Include="Assets\Default\Extensions\Cfg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Inf.png">
+    <Content Include="Assets\Default\Extensions\Inf.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Ini.png">
+    <Content Include="Assets\Default\Extensions\Ini.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Doc.png">
+    <Content Include="Assets\Default\Extensions\Doc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Docx.png">
+    <Content Include="Assets\Default\Extensions\Docx.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Flac.png">
+    <Content Include="Assets\Default\Extensions\Flac.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Nfo.png">
+    <Content Include="Assets\Default\Extensions\Nfo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Iso.png">
+    <Content Include="Assets\Default\Extensions\Iso.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Zip.png">
+    <Content Include="Assets\Default\Extensions\Zip.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\7z.png">
+    <Content Include="Assets\Default\Extensions\7z.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Rar.png">
+    <Content Include="Assets\Default\Extensions\Rar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Pdf.png">
+    <Content Include="Assets\Default\Extensions\Pdf.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Mp3.png">
+    <Content Include="Assets\Default\Extensions\Mp3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Mp4.png">
+    <Content Include="Assets\Default\Extensions\Mp4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Mkv.png">
+    <Content Include="Assets\Default\Extensions\Mkv.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\AppRestart.png">
+    <Content Include="Assets\Default\Icons\AppRestart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Eject.png">
+    <Content Include="Assets\Default\Icons\Eject.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Emulator.png">
+    <Content Include="Assets\Default\Icons\Emulator.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\FolderNetwork.png">
+    <Content Include="Assets\Default\Icons\FolderNetwork.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\FolderDisc.png">
+    <Content Include="Assets\Default\Icons\FolderDisc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Game.png">
+    <Content Include="Assets\Default\Icons\Game.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Keypad.png">
+    <Content Include="Assets\Default\Icons\Keypad.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\VolumeUp.png">
+    <Content Include="Assets\Default\Icons\VolumeUp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\MonitorNext.png">
+    <Content Include="Assets\Default\Icons\MonitorNext.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\TextClear.png">
+    <Content Include="Assets\Default\Icons\TextClear.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\GuideHoldOff-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\GuideHoldOff-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\GuideHoldOff.png">
+    <Content Include="Assets\Default\Icons\Buttons\GuideHoldOff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Controller-Dark.png">
+    <Content Include="Assets\Default\Icons\Controller-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\File.png">
+    <Content Include="Assets\Default\Icons\File.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Folder.png">
+    <Content Include="Assets\Default\Icons\Folder.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Up.png">
+    <Content Include="Assets\Default\Icons\Up.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\AppMinimize.png">
+    <Content Include="Assets\Default\Icons\AppMinimize.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Remove.png">
+    <Content Include="Assets\Default\Icons\Remove.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Check.png">
+    <Content Include="Assets\Default\Icons\Check.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Restart.png">
+    <Content Include="Assets\Default\Icons\Restart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\MonitorSwitch.png">
+    <Content Include="Assets\Default\Icons\MonitorSwitch.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Windows.png">
+    <Content Include="Assets\Default\Icons\Windows.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\VolumeDown.png">
+    <Content Include="Assets\Default\Icons\VolumeDown.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\VolumeMute.png">
+    <Content Include="Assets\Default\Icons\VolumeMute.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Hide.png">
+    <Content Include="Assets\Default\Icons\Hide.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Rename.png">
+    <Content Include="Assets\Default\Icons\Rename.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Copy.png">
+    <Content Include="Assets\Default\Icons\Copy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Cut.png">
+    <Content Include="Assets\Default\Icons\Cut.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Paste.png">
+    <Content Include="Assets\Default\Icons\Paste.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\AppAddStore.png">
+    <Content Include="Assets\Default\Icons\AppAddStore.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Profile.png">
+    <Content Include="Assets\Default\Icons\Profile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\FolderAdd.png">
+    <Content Include="Assets\Default\Icons\FolderAdd.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\RemoveCross.png">
+    <Content Include="Assets\Default\Icons\RemoveCross.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\FpsOverlayer.png">
+    <Content Include="Assets\Default\Apps\FpsOverlayer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\BackgroundLive.mp4">
+    <Content Include="Assets\Default\BackgroundLive.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Pause.png">
+    <Content Include="Assets\Default\Icons\Pause.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Play.png">
+    <Content Include="Assets\Default\Icons\Play.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Clocks\Cortana\Center.png">
+    <Content Include="Assets\Default\Clocks\Cortana\Center.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Clocks\Cortana\Face.png">
+    <Content Include="Assets\Default\Clocks\Cortana\Face.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Clocks\Cortana\Hour.png">
+    <Content Include="Assets\Default\Clocks\Cortana\Hour.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Clocks\Cortana\Minute.png">
+    <Content Include="Assets\Default\Clocks\Cortana\Minute.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Download.png">
+    <Content Include="Assets\Default\Icons\Download.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Resources\IGDB\Genres.json" />
     <EmbeddedResource Include="Resources\IGDB\Platforms.json" />
-    <Content Include="Assets\Clocks\Cortana\Preview.png">
+    <Content Include="Assets\Default\Clocks\Cortana\Preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Clocks\Squircle\Center.png">
+    <Content Include="Assets\Default\Clocks\Squircle\Center.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Clocks\Squircle\Face.png">
+    <Content Include="Assets\Default\Clocks\Squircle\Face.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Clocks\Squircle\Hour.png">
+    <Content Include="Assets\Default\Clocks\Squircle\Hour.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Clocks\Squircle\Minute.png">
+    <Content Include="Assets\Default\Clocks\Squircle\Minute.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Font.png">
+    <Content Include="Assets\Default\Icons\Font.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Clocks\Squircle\Preview.png">
+    <Content Include="Assets\Default\Clocks\Squircle\Preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Shortcut.png">
+    <Content Include="Assets\Default\Icons\Shortcut.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\List.png">
+    <Content Include="Assets\Default\Icons\List.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Interface.png">
+    <Content Include="Assets\Default\Icons\Interface.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Background.png">
+    <Content Include="Assets\Default\Icons\Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Network.png">
+    <Content Include="Assets\Default\Icons\Network.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Clock.png">
+    <Content Include="Assets\Default\Icons\Clock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerController1.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerController1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerController2.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerController2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerController3.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerController3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerController4.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerController4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\BackgroundVideo.png">
+    <Content Include="Assets\Default\Icons\BackgroundVideo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\DirectXInput.png">
+    <Content Include="Assets\Default\Icons\DirectXInput.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Txt.png">
+    <Content Include="Assets\Default\Extensions\Txt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Loading.gif">
+    <Content Include="Assets\Default\Icons\Loading.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Bios.png">
+    <Content Include="Assets\Default\Roms\Bios.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Disc.png">
+    <Content Include="Assets\Default\Roms\Disc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Dlc.png">
+    <Content Include="Assets\Default\Roms\Dlc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Nintendo 64\Mario Kart 64.json">
+    <Content Include="Assets\Default\Roms\Nintendo 64\Mario Kart 64.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Nintendo GameCube.png">
+    <Content Include="Assets\Default\Roms\Nintendo GameCube.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Nintendo 64\Mario Kart 64.png">
+    <Content Include="Assets\Default\Roms\Nintendo 64\Mario Kart 64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Origin.png">
+    <Content Include="Assets\Default\Apps\Origin.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Rom.png">
+    <Content Include="Assets\Default\Roms\Rom.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Sega Dreamcast.png">
+    <Content Include="Assets\Default\Roms\Sega Dreamcast.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Sony PlayStation 1.png">
+    <Content Include="Assets\Default\Roms\Sony PlayStation 1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Sony PlayStation 2.png">
+    <Content Include="Assets\Default\Roms\Sony PlayStation 2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Remote Play.png">
+    <Content Include="Assets\Default\Apps\Remote Play.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Sony PlayStation 3.png">
+    <Content Include="Assets\Default\Roms\Sony PlayStation 3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Sony PlayStation 4.png">
+    <Content Include="Assets\Default\Roms\Sony PlayStation 4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Nintendo Switch.png">
+    <Content Include="Assets\Default\Roms\Nintendo Switch.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Uplay.png">
+    <Content Include="Assets\Default\Apps\Uplay.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\GoG.png">
+    <Content Include="Assets\Default\Apps\GoG.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Spotify.png">
+    <Content Include="Assets\Default\Apps\Spotify.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Nintendo Wii U.png">
+    <Content Include="Assets\Default\Roms\Nintendo Wii U.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Microsoft Xbox 360.png">
+    <Content Include="Assets\Default\Roms\Microsoft Xbox 360.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Xbox.png">
+    <Content Include="Assets\Default\Apps\Xbox.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\BoxArt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Media.png">
+    <Content Include="Assets\Default\Icons\Media.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\AppRunExe.png">
+    <Content Include="Assets\Default\Icons\AppRunExe.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Controller-Accent.png">
+    <Content Include="Assets\Default\Icons\Controller-Accent.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\BackOff-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\BackOff-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\ButtonDown-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\ButtonDown-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\ButtonLeft-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\ButtonLeft-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\ButtonRight-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\ButtonRight-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\ButtonUp-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\ButtonUp-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\GuideOff-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\GuideOff-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\LbOff-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\LbOff-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\LtOff-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\LtOff-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\RbOff-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\RbOff-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\RtOff-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\RtOff-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\StartOff-Dark.png">
+    <Content Include="Assets\Default\Icons\Buttons\StartOff-Dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\BackOff.png">
+    <Content Include="Assets\Default\Icons\Buttons\BackOff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\ButtonDown.png">
+    <Content Include="Assets\Default\Icons\Buttons\ButtonDown.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\ButtonLeft.png">
+    <Content Include="Assets\Default\Icons\Buttons\ButtonLeft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\ButtonRight.png">
+    <Content Include="Assets\Default\Icons\Buttons\ButtonRight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\ButtonUp.png">
+    <Content Include="Assets\Default\Icons\Buttons\ButtonUp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\GuideOff.png">
+    <Content Include="Assets\Default\Icons\Buttons\GuideOff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\LbOff.png">
+    <Content Include="Assets\Default\Icons\Buttons\LbOff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\LtOff.png">
+    <Content Include="Assets\Default\Icons\Buttons\LtOff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\RbOff.png">
+    <Content Include="Assets\Default\Icons\Buttons\RbOff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\RtOff.png">
+    <Content Include="Assets\Default\Icons\Buttons\RtOff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\StartOff.png">
+    <Content Include="Assets\Default\Icons\Buttons\StartOff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\AppLaunch.png">
+    <Content Include="Assets\Default\Icons\AppLaunch.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Next.png">
+    <Content Include="Assets\Default\Icons\Next.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Previous.png">
+    <Content Include="Assets\Default\Icons\Previous.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\AppMiniMaxi.png">
+    <Content Include="Assets\Default\Icons\AppMiniMaxi.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Edit.png">
+    <Content Include="Assets\Default\Icons\Edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\AppClose.png">
+    <Content Include="Assets\Default\Icons\AppClose.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\AppRunStore.png">
+    <Content Include="Assets\Default\Icons\AppRunStore.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerCharge.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerCharge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Keyboard.png">
+    <Content Include="Assets\Default\Icons\Keyboard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Search.png">
+    <Content Include="Assets\Default\Icons\Search.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\StatusStore.png">
+    <Content Include="Assets\Default\Icons\StatusStore.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Sorting.png">
+    <Content Include="Assets\Default\Icons\Sorting.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Extensions\Bat.png">
+    <Content Include="Assets\Default\Extensions\Bat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\ThumbLeftOff.png">
+    <Content Include="Assets\Default\Icons\Buttons\ThumbLeftOff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\ThumbRightOff.png">
+    <Content Include="Assets\Default\Icons\Buttons\ThumbRightOff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Fps.png">
+    <Content Include="Assets\Default\Icons\Fps.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Sony PSP.png">
+    <Content Include="Assets\Default\Roms\Sony PSP.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Sony Vita.png">
+    <Content Include="Assets\Default\Roms\Sony Vita.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Nintendo 64\Super Mario 64.png">
+    <Content Include="Assets\Default\Roms\Nintendo 64\Super Mario 64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Nintendo 64\Super Mario 64.json">
+    <Content Include="Assets\Default\Roms\Nintendo 64\Super Mario 64.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Controller.png">
+    <Content Include="Assets\Default\Icons\Controller.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\AppAddExe.png">
+    <Content Include="Assets\Default\Icons\AppAddExe.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Minus.png">
+    <Content Include="Assets\Default\Icons\Minus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Plus.png">
+    <Content Include="Assets\Default\Icons\Plus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Tools.png">
+    <Content Include="Assets\Default\Roms\Tools.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Update.png">
+    <Content Include="Assets\Default\Roms\Update.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\ArcticZephyr\BatteryLow.mp3">
+    <Content Include="Assets\Default\Sounds\ArcticZephyr\BatteryLow.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\ArcticZephyr\Move.mp3">
+    <Content Include="Assets\Default\Sounds\ArcticZephyr\Move.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\ArcticZephyr\Click.mp3">
+    <Content Include="Assets\Default\Sounds\ArcticZephyr\Click.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\ArcticZephyr\Confirm.mp3">
+    <Content Include="Assets\Default\Sounds\ArcticZephyr\Confirm.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\ArcticZephyr\PopupClose.mp3">
+    <Content Include="Assets\Default\Sounds\ArcticZephyr\PopupClose.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\ArcticZephyr\PopupOpen.mp3">
+    <Content Include="Assets\Default\Sounds\ArcticZephyr\PopupOpen.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\ArcticZephyr\PromptClose.mp3">
+    <Content Include="Assets\Default\Sounds\ArcticZephyr\PromptClose.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\ArcticZephyr\PromptOpen.mp3">
+    <Content Include="Assets\Default\Sounds\ArcticZephyr\PromptOpen.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\ArcticZephyr\RecycleBinEmpty.mp3">
+    <Content Include="Assets\Default\Sounds\ArcticZephyr\RecycleBinEmpty.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\ArcticZephyr\Screenshot.mp3">
+    <Content Include="Assets\Default\Sounds\ArcticZephyr\Screenshot.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\Default\BatteryLow.mp3">
+    <Content Include="Assets\Default\Sounds\Default\BatteryLow.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\Default\Move.mp3">
+    <Content Include="Assets\Default\Sounds\Default\Move.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\Default\Click.mp3">
+    <Content Include="Assets\Default\Sounds\Default\Click.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\Default\Confirm.mp3">
+    <Content Include="Assets\Default\Sounds\Default\Confirm.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\Default\PopupClose.mp3">
+    <Content Include="Assets\Default\Sounds\Default\PopupClose.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\Default\PopupOpen.mp3">
+    <Content Include="Assets\Default\Sounds\Default\PopupOpen.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\Default\PromptClose.mp3">
+    <Content Include="Assets\Default\Sounds\Default\PromptClose.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\Default\PromptOpen.mp3">
+    <Content Include="Assets\Default\Sounds\Default\PromptOpen.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\Default\RecycleBinEmpty.mp3">
+    <Content Include="Assets\Default\Sounds\Default\RecycleBinEmpty.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sounds\Default\Screenshot.mp3">
+    <Content Include="Assets\Default\Sounds\Default\Screenshot.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\CtrlApplications.json">
@@ -812,13 +815,13 @@
     <Content Include="Profiles\CtrlLocationsFile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Fonts\HelveticaNeue.ttf">
+    <Content Include="Assets\Default\Fonts\HelveticaNeue.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Fonts\Unispace.ttf">
+    <Content Include="Assets\Default\Fonts\Unispace.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Nintendo 64.json">
+    <Content Include="Assets\Default\Roms\Nintendo 64.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
@@ -838,62 +841,62 @@
     <None Include="Properties\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Icons\Battery\BatteryVerDis10.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerDis10.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerDis100.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerDis100.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerDis20.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerDis20.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerDis30.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerDis30.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerDis40.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerDis40.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerDis50.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerDis50.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerDis60.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerDis60.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerDis70.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerDis70.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerDis80.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerDis80.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerDis90.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerDis90.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Battery\BatteryVerNoBattery.png">
+    <Content Include="Assets\Default\Icons\Battery\BatteryVerNoBattery.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Stream.png">
+    <Content Include="Assets\Default\Icons\Stream.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Assets\AppIcon.ico" />
-    <Content Include="Assets\Apps\Microsoft Edge.png">
+    <Content Include="Assets\Default\Apps\Microsoft Edge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Kodi.png">
+    <Content Include="Assets\Default\Apps\Kodi.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Unknown.png">
+    <Content Include="Assets\Default\Apps\Unknown.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Apps\Steam.png">
+    <Content Include="Assets\Default\Apps\Steam.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Roms\Nintendo 64.png">
+    <Content Include="Assets\Default\Roms\Nintendo 64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Background.png">
+    <Content Include="Assets\Default\Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Hamburger.png">
+    <Content Include="Assets\Default\Icons\Hamburger.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -910,22 +913,22 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Icons\Close.png">
+    <Content Include="Assets\Default\Icons\Close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Fullscreen.png">
+    <Content Include="Assets\Default\Icons\Fullscreen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Help.png">
+    <Content Include="Assets\Default\Icons\Help.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Refresh.png">
+    <Content Include="Assets\Default\Icons\Refresh.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Settings.png">
+    <Content Include="Assets\Default\Icons\Settings.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Shutdown.png">
+    <Content Include="Assets\Default\Icons\Shutdown.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -952,7 +955,10 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets\User\Apps\" />
+    <Folder Include="Assets\User\Clocks\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)SignToolExe.exe</PostBuildEvent>

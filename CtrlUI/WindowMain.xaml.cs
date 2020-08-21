@@ -353,22 +353,22 @@ namespace CtrlUI
                 //Show the closing messagebox
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
-                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 Answer1.Name = "Close CtrlUI";
                 Answers.Add(Answer1);
 
                 DataBindString Answer4 = new DataBindString();
-                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppRestart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer4.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 Answer4.Name = "Restart CtrlUI";
                 Answers.Add(Answer4);
 
                 DataBindString Answer3 = new DataBindString();
-                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Shutdown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer3.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shutdown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 Answer3.Name = "Shutdown my PC";
                 Answers.Add(Answer3);
 
                 DataBindString Answer2 = new DataBindString();
-                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Restart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer2.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Restart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 Answer2.Name = "Restart my PC";
                 Answers.Add(Answer2);
 

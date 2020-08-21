@@ -41,7 +41,7 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerRemove.Name = "Move shortcut file to recycle bin";
                 Answers.Add(AnswerRemove);
 
@@ -322,7 +322,7 @@ namespace CtrlUI
                 }
                 else
                 {
-                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, targetPathLower, "Assets/Extensions/" + targetExtensionLower + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, shortcutDetails.IconIndex);
+                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, targetPathLower, "Assets/Default/Extensions/" + targetExtensionLower + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, shortcutDetails.IconIndex);
                 }
 
                 //Add the shortcut to the list

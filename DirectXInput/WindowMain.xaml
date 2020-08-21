@@ -29,31 +29,31 @@
             <Grid Name="grid_Menu" Grid.Column="0" Width="95" Background="#1D1D1D">
                 <ListBox Name="lb_Menu" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" Style="{StaticResource ListBoxVertical}">
                     <StackPanel Name="menuButtonConnection" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage controller connection">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Usb.png" Width="55" HorizontalAlignment="Center"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Usb.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Connection" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonController" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage controller settings">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Controller.png" Width="55" HorizontalAlignment="Center"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Controller" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonShortcuts" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage controller shortcuts">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Shortcut.png" Width="55" HorizontalAlignment="Center"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shortcut.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Shortcuts" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonKeyboard" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open keyboard settings">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Keyboard.png" Width="55" HorizontalAlignment="Center"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keyboard.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Keyboard" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonKeypad" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open keypad settings">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Keypad.png" Width="55" HorizontalAlignment="Center"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keypad.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Keypad" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonSettings" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application settings">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Settings.png" Width="55" HorizontalAlignment="Center"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Settings.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Settings" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonHelp" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application help">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/Help.png" Width="55" HorizontalAlignment="Center"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Help.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Help" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </ListBox>
@@ -80,25 +80,25 @@
                                 <StackPanel Orientation="Vertical" Margin="0,5,0,0">
                                     <Button Name="button_Controller0" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to activate the first controller">
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Name="image_Controller0" Source="pack://siteoforigin:,,,/Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
+                                            <Image Name="image_Controller0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller0" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                                         </StackPanel>
                                     </Button>
                                     <Button Name="button_Controller1" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to activate the second controller">
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Name="image_Controller1" Source="pack://siteoforigin:,,,/Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
+                                            <Image Name="image_Controller1" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller1" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                                         </StackPanel>
                                     </Button>
                                     <Button Name="button_Controller2" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to activate the third controller">
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Name="image_Controller2" Source="pack://siteoforigin:,,,/Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
+                                            <Image Name="image_Controller2" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller2" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                                         </StackPanel>
                                     </Button>
                                     <Button Name="button_Controller3" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to activate the fourth controller">
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Name="image_Controller3" Source="pack://siteoforigin:,,,/Assets/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
+                                            <Image Name="image_Controller3" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller3" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                                         </StackPanel>
                                     </Button>
@@ -145,40 +145,40 @@
 
                                 <Grid Name="grid_ControllerPreview" Width="500" Height="255" Margin="0,10,0,0">
                                     <Grid.Background>
-                                        <ImageBrush ImageSource="pack://siteoforigin:,,,/Assets/Controller/ControllerPreview.png"/>
+                                        <ImageBrush ImageSource="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerPreview.png"/>
                                     </Grid.Background>
 
                                     <!-- Preview -->
-                                    <Image Name="img_ControllerPreview_Rumble" Source="pack://siteoforigin:,,,/Assets/Controller/ControllerRumble.png" Visibility="Collapsed"/>
+                                    <Image Name="img_ControllerPreview_Rumble" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerRumble.png" Visibility="Collapsed"/>
 
-                                    <Image Name="img_ControllerPreview_ButtonA" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,109,105,121"/>
-                                    <Image Name="img_ControllerPreview_ButtonB" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="394,85,81,145"/>
-                                    <Image Name="img_ControllerPreview_ButtonX" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="346,85,130,145"/>
-                                    <Image Name="img_ControllerPreview_ButtonY" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,60,105,170"/>
+                                    <Image Name="img_ControllerPreview_ButtonA" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,109,105,121"/>
+                                    <Image Name="img_ControllerPreview_ButtonB" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="394,85,81,145"/>
+                                    <Image Name="img_ControllerPreview_ButtonX" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="346,85,130,145"/>
+                                    <Image Name="img_ControllerPreview_ButtonY" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,60,105,170"/>
 
-                                    <Image Name="img_ControllerPreview_ButtonBack" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="197,57,278,173"/>
-                                    <Image Name="img_ControllerPreview_ButtonStart" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="278,57,196,173"/>
-                                    <Image Name="img_ControllerPreview_ButtonGuide" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,56,235,169"/>
+                                    <Image Name="img_ControllerPreview_ButtonBack" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="197,57,278,173"/>
+                                    <Image Name="img_ControllerPreview_ButtonStart" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="278,57,196,173"/>
+                                    <Image Name="img_ControllerPreview_ButtonGuide" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,56,235,169"/>
 
-                                    <Image Name="img_ControllerPreview_ButtonThumbLeft" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="42" Height="42" Margin="178,117,280,96"/>
-                                    <Image Name="img_ControllerPreview_ButtonThumbRight" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="42" Height="42" Margin="282,117,176,96"/>
+                                    <Image Name="img_ControllerPreview_ButtonThumbLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="42" Height="42" Margin="178,117,280,96"/>
+                                    <Image Name="img_ControllerPreview_ButtonThumbRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="42" Height="42" Margin="282,117,176,96"/>
 
                                     <StackPanel Margin="282,117,176,96" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <Image Name="img_ControllerPreview_RightAxe" Source="pack://siteoforigin:,,,/Assets/Controller/ControllerAxe.png" Width="25" Height="25"/>
+                                        <Image Name="img_ControllerPreview_RightAxe" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerAxe.png" Width="25" Height="25"/>
                                     </StackPanel>
                                     <StackPanel Margin="178,117,280,96" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <Image Name="img_ControllerPreview_LeftAxe" Source="pack://siteoforigin:,,,/Assets/Controller/ControllerAxe.png" Width="25" Height="25"/>
+                                        <Image Name="img_ControllerPreview_LeftAxe" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerAxe.png" Width="25" Height="25"/>
                                     </StackPanel>
 
-                                    <Image Name="img_ControllerPreview_DPadLeft" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="65,85,410,145"/>
-                                    <Image Name="img_ControllerPreview_DPadUp" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="106,45,369,185"/>
-                                    <Image Name="img_ControllerPreview_DPadRight" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="147,85,328,145"/>
-                                    <Image Name="img_ControllerPreview_DPadDown" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="106,123,369,107"/>
+                                    <Image Name="img_ControllerPreview_DPadLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="65,85,410,145"/>
+                                    <Image Name="img_ControllerPreview_DPadUp" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="106,45,369,185"/>
+                                    <Image Name="img_ControllerPreview_DPadRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="147,85,328,145"/>
+                                    <Image Name="img_ControllerPreview_DPadDown" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="106,123,369,107"/>
 
-                                    <Image Name="img_ControllerPreview_ButtonShoulderLeft" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="16,7,459,223"/>
-                                    <Image Name="img_ControllerPreview_TriggerLeft" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="11,47,464,183"/>
-                                    <Image Name="img_ControllerPreview_ButtonShoulderRight" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="460,7,15,223"/>
-                                    <Image Name="img_ControllerPreview_TriggerRight" Source="pack://siteoforigin:,,,/Assets/Controller/ButtonPress.png" Width="25" Height="25" Margin="465,47,10,183"/>
+                                    <Image Name="img_ControllerPreview_ButtonShoulderLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="16,7,459,223"/>
+                                    <Image Name="img_ControllerPreview_TriggerLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="11,47,464,183"/>
+                                    <Image Name="img_ControllerPreview_ButtonShoulderRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="460,7,15,223"/>
+                                    <Image Name="img_ControllerPreview_TriggerRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="465,47,10,183"/>
 
                                     <!-- Mapping -->
                                     <Button Name="btn_SetA" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="24" Width="24" Margin="371,109,105,122" ToolTipService.ToolTip="Button A"/>
@@ -425,7 +425,7 @@
                                 <TextBlock Name="txt_KeypadMap_Status" Text="Click on a button below that you want to change on the keypad." Style="{StaticResource TextBlockGray}"/>
                                 <Grid Name="grid_KeypadPreview" Width="550" Height="73" Margin="0,10,0,0">
                                     <Grid.Background>
-                                        <ImageBrush ImageSource="pack://siteoforigin:,,,/Assets/Controller/KeypadPreview.png" Stretch="Uniform"/>
+                                        <ImageBrush ImageSource="pack://siteoforigin:,,,/Assets/Default/Controller/KeypadPreview.png" Stretch="Uniform"/>
                                     </Grid.Background>
 
                                     <!-- Mapping -->

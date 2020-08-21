@@ -189,10 +189,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Icons\FpsDown.png">
+    <Content Include="Assets\Default\Icons\FpsDown.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\FpsUp.png">
+    <Content Include="Assets\Default\Icons\FpsUp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.png">

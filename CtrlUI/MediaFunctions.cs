@@ -288,7 +288,7 @@ namespace CtrlUI
                     if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
                     {
                         string currentImage = grid_Popup_Media_PlayPause_Image.Source.ToString();
-                        string updatedImage = "Assets/Icons/Pause.png";
+                        string updatedImage = "Assets/Default/Icons/Pause.png";
                         if (currentImage.ToLower() != updatedImage.ToLower())
                         {
                             grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -301,7 +301,7 @@ namespace CtrlUI
                     else
                     {
                         string currentImage = grid_Popup_Media_PlayPause_Image.Source.ToString();
-                        string updatedImage = "Assets/Icons/Play.png";
+                        string updatedImage = "Assets/Default/Icons/Play.png";
                         if (currentImage.ToLower() != updatedImage.ToLower())
                         {
                             grid_Popup_Media_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);

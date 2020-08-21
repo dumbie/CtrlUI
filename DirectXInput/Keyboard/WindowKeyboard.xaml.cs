@@ -646,7 +646,7 @@ namespace DirectXInput.Keyboard
 
                         //Update the volume down button
                         key_VolumeDown.Tag = KeysVirtual.VolumeDown;
-                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Icons/VolumeDown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeDown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     });
                 }
                 else
@@ -769,7 +769,7 @@ namespace DirectXInput.Keyboard
 
                         //Update the volume mute button
                         key_VolumeDown.Tag = KeysVirtual.VolumeMute;
-                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Icons/VolumeMute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeMute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     });
                 }
             }

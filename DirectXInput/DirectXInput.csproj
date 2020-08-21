@@ -201,137 +201,137 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController1.png">
-      <Link>Assets\Icons\Battery\BatteryVerController1.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerController1.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerController1.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController2.png">
-      <Link>Assets\Icons\Battery\BatteryVerController2.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerController2.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerController2.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController3.png">
-      <Link>Assets\Icons\Battery\BatteryVerController3.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerController3.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerController3.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Battery\BatteryVerController4.png">
-      <Link>Assets\Icons\Battery\BatteryVerController4.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerController4.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerController4.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Close.png">
-      <Link>Assets\Icons\Close.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Close.png">
+      <Link>Assets\Default\Icons\Close.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\BackOff.png">
-      <Link>Assets\Icons\Buttons\BackOff.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\BackOff.png">
+      <Link>Assets\Default\Icons\Buttons\BackOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonDown.png">
-      <Link>Assets\Icons\Buttons\ButtonDown.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\ButtonDown.png">
+      <Link>Assets\Default\Icons\Buttons\ButtonDown.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonLeft.png">
-      <Link>Assets\Icons\Buttons\ButtonLeft.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\ButtonLeft.png">
+      <Link>Assets\Default\Icons\Buttons\ButtonLeft.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonRight.png">
-      <Link>Assets\Icons\Buttons\ButtonRight.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\ButtonRight.png">
+      <Link>Assets\Default\Icons\Buttons\ButtonRight.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ButtonUp.png">
-      <Link>Assets\Icons\Buttons\ButtonUp.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\ButtonUp.png">
+      <Link>Assets\Default\Icons\Buttons\ButtonUp.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\GuideHoldOff.png">
-      <Link>Assets\Icons\Buttons\GuideHoldOff.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\GuideHoldOff.png">
+      <Link>Assets\Default\Icons\Buttons\GuideHoldOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\GuideOff.png">
-      <Link>Assets\Icons\Buttons\GuideOff.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\GuideOff.png">
+      <Link>Assets\Default\Icons\Buttons\GuideOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\LbOff.png">
-      <Link>Assets\Icons\Buttons\LbOff.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\LbOff.png">
+      <Link>Assets\Default\Icons\Buttons\LbOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\LtOff.png">
-      <Link>Assets\Icons\Buttons\LtOff.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\LtOff.png">
+      <Link>Assets\Default\Icons\Buttons\LtOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\RbOff.png">
-      <Link>Assets\Icons\Buttons\RbOff.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\RbOff.png">
+      <Link>Assets\Default\Icons\Buttons\RbOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\RtOff.png">
-      <Link>Assets\Icons\Buttons\RtOff.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\RtOff.png">
+      <Link>Assets\Default\Icons\Buttons\RtOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\StartOff.png">
-      <Link>Assets\Icons\Buttons\StartOff.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\StartOff.png">
+      <Link>Assets\Default\Icons\Buttons\StartOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ThumbLeftOff.png">
-      <Link>Assets\Icons\Buttons\ThumbLeftOff.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\ThumbLeftOff.png">
+      <Link>Assets\Default\Icons\Buttons\ThumbLeftOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Buttons\ThumbRightOff.png">
-      <Link>Assets\Icons\Buttons\ThumbRightOff.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\ThumbRightOff.png">
+      <Link>Assets\Default\Icons\Buttons\ThumbRightOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Controller-Dark.png">
-      <Link>Assets\Icons\Controller-Dark.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Controller-Dark.png">
+      <Link>Assets\Default\Icons\Controller-Dark.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Controller.png">
-      <Link>Assets\Icons\Controller.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Controller.png">
+      <Link>Assets\Default\Icons\Controller.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Help.png">
-      <Link>Assets\Icons\Help.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Help.png">
+      <Link>Assets\Default\Icons\Help.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Keyboard.png">
-      <Link>Assets\Icons\Keyboard.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Keyboard.png">
+      <Link>Assets\Default\Icons\Keyboard.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Keypad.png">
-      <Link>Assets\Icons\Keypad.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Keypad.png">
+      <Link>Assets\Default\Icons\Keypad.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Settings.png">
-      <Link>Assets\Icons\Settings.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Settings.png">
+      <Link>Assets\Default\Icons\Settings.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\Shortcut.png">
-      <Link>Assets\Icons\Shortcut.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Shortcut.png">
+      <Link>Assets\Default\Icons\Shortcut.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\VolumeDown.png">
-      <Link>Assets\Icons\VolumeDown.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\VolumeDown.png">
+      <Link>Assets\Default\Icons\VolumeDown.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CtrlUI\Assets\Icons\VolumeUp.png">
-      <Link>Assets\Icons\VolumeUp.png</Link>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\VolumeUp.png">
+      <Link>Assets\Default\Icons\VolumeUp.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Controller\ControllerAxeLight.png">
+    <Content Include="Assets\Default\Controller\ControllerAxeLight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Controller\KeypadPreview.png">
+    <Content Include="Assets\Default\Controller\KeypadPreview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\KeyboardDark.png">
+    <Content Include="Assets\Default\Icons\Buttons\KeyboardDark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Buttons\Keyboard.png">
+    <Content Include="Assets\Default\Icons\Buttons\Keyboard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\KeyboardMove.png">
+    <Content Include="Assets\Default\Icons\KeyboardMove.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\KeyboardScroll.png">
+    <Content Include="Assets\Default\Icons\KeyboardScroll.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Usb.png">
+    <Content Include="Assets\Default\Icons\Usb.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\DirectCloseTools.json">
@@ -348,16 +348,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\App.manifest" />
-    <Content Include="Assets\Controller\ControllerPreview.png">
+    <Content Include="Assets\Default\Controller\ControllerPreview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Controller\ButtonPress.png">
+    <Content Include="Assets\Default\Controller\ButtonPress.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Controller\ControllerAxe.png">
+    <Content Include="Assets\Default\Controller\ControllerAxe.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Controller\ControllerRumble.png">
+    <Content Include="Assets\Default\Controller\ControllerRumble.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Assets\AppIcon.ico" />

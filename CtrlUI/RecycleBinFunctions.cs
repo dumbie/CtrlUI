@@ -25,7 +25,7 @@ namespace CtrlUI
 
                 //Add empty the recycle bin
                 DataBindString answerEmpty = new DataBindString();
-                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 answerEmpty.Name = "Empty the Windows recycle bin";
                 Answers.Add(answerEmpty);
 
@@ -66,8 +66,8 @@ namespace CtrlUI
                 Folder folderShell = shell.NameSpace(10);
 
                 //Load file and folder images
-                BitmapImage listImageFolder = FileToBitmapImage(new string[] { "Assets/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                BitmapImage listImageFile = FileToBitmapImage(new string[] { "Assets/Icons/File.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage listImageFolder = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage listImageFile = FileToBitmapImage(new string[] { "Assets/Default/Icons/File.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
 
                 //Add recycle bin items to the list
                 foreach (FolderItem folderItem in folderShell.Items())
@@ -100,7 +100,7 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString answerRestore = new DataBindString();
-                answerRestore.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Restart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerRestore.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Restart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 if (folderItem.IsFolder)
                 {
                     answerRestore.Name = "Restore the folder to disk";
@@ -112,7 +112,7 @@ namespace CtrlUI
                 Answers.Add(answerRestore);
 
                 DataBindString answerDelete = new DataBindString();
-                answerDelete.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerDelete.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 if (folderItem.IsFolder)
                 {
                     answerDelete.Name = "Permanently delete folder";
@@ -171,7 +171,7 @@ namespace CtrlUI
             {
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerEmpty = new DataBindString();
-                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerEmpty.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 answerEmpty.Name = "Empty the recycle bin";
                 messageAnswers.Add(answerEmpty);
 

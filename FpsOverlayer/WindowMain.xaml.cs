@@ -534,25 +534,8 @@ namespace FpsOverlayer
                 //Update the stats opacity
                 grid_FpsOverlayer.Opacity = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "DisplayOpacity"));
 
-                //Update the stats font family
-                string InterfaceFontStyleName = Setting_Load(vConfigurationFpsOverlayer, "InterfaceFontStyleName").ToString();
-                if (InterfaceFontStyleName == "Segoe UI" || InterfaceFontStyleName == "Verdana" || InterfaceFontStyleName == "Consolas" || InterfaceFontStyleName == "Arial")
-                {
-                    this.FontFamily = new FontFamily(InterfaceFontStyleName);
-                }
-                else
-                {
-                    try
-                    {
-                        string fontPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/Fonts/" + InterfaceFontStyleName + ".ttf";
-                        ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPath);
-                        this.FontFamily = fontFamilies.First();
-                    }
-                    catch
-                    {
-                        Debug.WriteLine("Failed loading the custom font.");
-                    }
-                }
+                //Adjust the application font family
+                UpdateAppFontStyle();
 
                 //Update the stats text size
                 double targetTextSize = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "TextSize"));
@@ -619,6 +602,38 @@ namespace FpsOverlayer
                 UpdateFpsOverlayPosition(vTargetProcess.Name);
             }
             catch { }
+        }
+
+        //Adjust the application font family
+        void UpdateAppFontStyle()
+        {
+            try
+            {
+                string interfaceFontStyleName = Setting_Load(vConfigurationFpsOverlayer, "InterfaceFontStyleName").ToString();
+                if (interfaceFontStyleName == "Segoe UI" || interfaceFontStyleName == "Verdana" || interfaceFontStyleName == "Consolas" || interfaceFontStyleName == "Arial")
+                {
+                    this.FontFamily = new FontFamily(interfaceFontStyleName);
+                }
+                else
+                {
+                    string fontPathUser = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/User/Fonts/" + interfaceFontStyleName + ".ttf";
+                    string fontPathDefault = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/Default/Fonts/" + interfaceFontStyleName + ".ttf";
+                    if (File.Exists(fontPathUser))
+                    {
+                        ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPathUser);
+                        this.FontFamily = fontFamilies.FirstOrDefault();
+                    }
+                    else if (File.Exists(fontPathDefault))
+                    {
+                        ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPathDefault);
+                        this.FontFamily = fontFamilies.FirstOrDefault();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed setting application font: " + ex.Message);
+            }
         }
 
         //Application Close Handler

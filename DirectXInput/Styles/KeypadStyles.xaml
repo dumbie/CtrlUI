@@ -17,7 +17,7 @@
         </Setter>
         <Setter Property="Height" Value="{DynamicResource KeypadImageSize}"/>
         <Setter Property="Width" Value="{DynamicResource KeypadImageSize}"/>
-        <Setter Property="Source" Value="pack://siteoforigin:,,,/Assets/Icons/Buttons/Keyboard.png"/>
+        <Setter Property="Source" Value="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/Keyboard.png"/>
     </Style>
     <Style x:Key="KeypadImageDark" TargetType="Image">
         <Setter Property="Effect">
@@ -27,7 +27,7 @@
         </Setter>
         <Setter Property="Height" Value="{DynamicResource KeypadImageSize}"/>
         <Setter Property="Width" Value="{DynamicResource KeypadImageSize}"/>
-        <Setter Property="Source" Value="pack://siteoforigin:,,,/Assets/Icons/Buttons/KeyboardDark.png"/>
+        <Setter Property="Source" Value="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/KeyboardDark.png"/>
     </Style>
 
     <!--Text Styles-->

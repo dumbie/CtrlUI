@@ -119,10 +119,10 @@
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Videocard Settings"/>
                     <Button Name="button_GpuUp" Margin="8,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsUp.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
                     </Button>
                     <Button Name="button_GpuDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsDown.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
                     </Button>
                     <TextBlock Name="textblock_GpuPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
@@ -154,10 +154,10 @@
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Processor Settings"/>
                     <Button Name="button_CpuUp" Margin="8,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsUp.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
                     </Button>
                     <Button Name="button_CpuDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsDown.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
                     </Button>
                     <TextBlock Name="textblock_CpuPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
@@ -186,10 +186,10 @@
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Memory Settings"/>
                     <Button Name="button_MemUp" Margin="8,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsUp.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
                     </Button>
                     <Button Name="button_MemDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsDown.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
                     </Button>
                     <TextBlock Name="textblock_MemPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
@@ -215,10 +215,10 @@
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Network Settings"/>
                     <Button Name="button_NetUp" Margin="8,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsUp.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
                     </Button>
                     <Button Name="button_NetDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsDown.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
                     </Button>
                     <TextBlock Name="textblock_NetPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
@@ -235,10 +235,10 @@
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Frames Settings"/>
                     <Button Name="button_FpsUp" Margin="8,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsUp.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
                     </Button>
                     <Button Name="button_FpsDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsDown.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
                     </Button>
                     <TextBlock Name="textblock_FpsPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
@@ -261,10 +261,10 @@
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Monitor Settings"/>
                     <Button Name="button_MonUp" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsUp.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
                     </Button>
                     <Button Name="button_MonDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsDown.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
                     </Button>
                     <TextBlock Name="textblock_MonPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
@@ -290,10 +290,10 @@
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Settings"/>
                     <Button Name="button_AppUp" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsUp.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
                     </Button>
                     <Button Name="button_AppDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsDown.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
                     </Button>
                     <TextBlock Name="textblock_AppPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>
@@ -304,10 +304,10 @@
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Time Settings"/>
                     <Button Name="button_TimeUp" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsUp.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
                     </Button>
                     <Button Name="button_TimeDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Icons/FpsDown.png" Height="30"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
                     </Button>
                     <TextBlock Name="textblock_TimePosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
                 </StackPanel>

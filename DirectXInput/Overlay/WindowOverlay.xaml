@@ -18,19 +18,19 @@
         <!-- Status - Battery Status -->
         <StackPanel Name="stackpanel_Battery_Warning" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,1,0,1">
             <StackPanel Name="stackpanel_Battery_Warning_Controller1" Margin="0,0,8,0" Visibility="Collapsed">
-                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Icons/Battery/BatteryVerController1.png" HorizontalAlignment="Center"/>
+                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerController1.png" HorizontalAlignment="Center"/>
                 <TextBlock Name="textblock_Battery_Warning_Controller1" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Name="stackpanel_Battery_Warning_Controller2" Margin="0,0,8,0" Visibility="Collapsed">
-                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Icons/Battery/BatteryVerController2.png" HorizontalAlignment="Center"/>
+                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerController2.png" HorizontalAlignment="Center"/>
                 <TextBlock Name="textblock_Battery_Warning_Controller2" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Name="stackpanel_Battery_Warning_Controller3" Margin="0,0,8,0" Visibility="Collapsed">
-                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Icons/Battery/BatteryVerController3.png" HorizontalAlignment="Center"/>
+                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerController3.png" HorizontalAlignment="Center"/>
                 <TextBlock Name="textblock_Battery_Warning_Controller3" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Name="stackpanel_Battery_Warning_Controller4" Margin="0,0,8,0" Visibility="Collapsed">
-                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Icons/Battery/BatteryVerController4.png" HorizontalAlignment="Center"/>
+                <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerController4.png" HorizontalAlignment="Center"/>
                 <TextBlock Name="textblock_Battery_Warning_Controller4" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>
         </StackPanel>
@@ -46,7 +46,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Name="grid_Message_Status_Stackpanel" Margin="15,10,15,10" Orientation="Horizontal">
-                    <Image Name="grid_Message_Status_Image" Source="pack://siteoforigin:,,,/Assets/Icons/Help.png" Height="40"/>
+                    <Image Name="grid_Message_Status_Image" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Help.png" Height="40"/>
                     <TextBlock Name="grid_Message_Status_Text" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Notification" Margin="15,0,15,0"/>
                 </StackPanel>
                 <Rectangle Grid.Column="1" Name="grid_Message_Status_Rectangle" Fill="{DynamicResource ApplicationAccentLightBrush}" Width="4"/>

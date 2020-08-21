@@ -218,22 +218,22 @@ namespace DirectXInput
                     txt_Controller_Information.Text = "Disconnected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
                     if (Controller.NumberId == 0)
                     {
-                        image_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         textblock_Controller0.Text = "No controller connected";
                     }
                     else if (Controller.NumberId == 1)
                     {
-                        image_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         textblock_Controller1.Text = "No controller connected";
                     }
                     else if (Controller.NumberId == 2)
                     {
-                        image_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         textblock_Controller2.Text = "No controller connected";
                     }
                     else if (Controller.NumberId == 3)
                     {
-                        image_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         textblock_Controller3.Text = "No controller connected";
                     }
                 });

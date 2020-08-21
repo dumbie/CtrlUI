@@ -183,6 +183,7 @@ namespace CtrlUI
                 btn_Settings_ColorPickerAccent.Click += Button_Settings_ColorPickerAccent;
                 btn_Settings_ChangeBackgroundImage.Click += Button_Settings_ChangeBackgroundImage_Click;
                 btn_Settings_ChangeBackgroundVideo.Click += Button_Settings_ChangeBackgroundVideo_Click;
+                btn_Settings_ResetBackground.Click += Button_Settings_ResetBackground_Click;
                 btn_Settings_InterfaceSoundPackName.Click += Button_Settings_InterfaceSoundPackName;
                 btn_Settings_InterfaceClockStyleName.Click += Button_Settings_InterfaceClockStyleName;
                 btn_Settings_InterfaceFontStyleName.Click += Button_Settings_InterfaceFontStyleName;
@@ -217,19 +218,24 @@ namespace CtrlUI
                 }
                 else
                 {
-                    try
+                    string fontPathUser = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/User/Fonts/" + interfaceFontStyleName + ".ttf";
+                    string fontPathDefault = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/Default/Fonts/" + interfaceFontStyleName + ".ttf";
+                    if (File.Exists(fontPathUser))
                     {
-                        string fontPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Assets/Fonts/" + interfaceFontStyleName + ".ttf";
-                        ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPath);
-                        this.FontFamily = fontFamilies.First();
+                        ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPathUser);
+                        this.FontFamily = fontFamilies.FirstOrDefault();
                     }
-                    catch
+                    else if (File.Exists(fontPathDefault))
                     {
-                        Debug.WriteLine("Failed loading the custom font.");
+                        ICollection<FontFamily> fontFamilies = Fonts.GetFontFamilies(fontPathDefault);
+                        this.FontFamily = fontFamilies.FirstOrDefault();
                     }
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed setting application font: " + ex.Message);
+            }
         }
 
         //Update the user interface clock style
@@ -238,10 +244,16 @@ namespace CtrlUI
             try
             {
                 string clockStyle = Setting_Load(vConfigurationCtrlUI, "InterfaceClockStyleName").ToString();
-                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Face.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
-                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Hour.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
-                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Minute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
-                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Center.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
+                string clockPath = "Assets/Default/Clocks/" + clockStyle;
+                if (Directory.Exists("Assets/User/Clocks/" + clockStyle))
+                {
+                    clockPath = "Assets/User/Clocks/" + clockStyle;
+                }
+
+                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { clockPath + "/Face.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
+                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { clockPath + "/Hour.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
+                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { clockPath + "/Minute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
+                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { clockPath + "/Center.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
             }
             catch { }
         }
@@ -694,17 +706,17 @@ namespace CtrlUI
 
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString AnswerSwitch = new DataBindString();
-                    AnswerSwitch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppRestart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerSwitch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRestart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerSwitch.Name = "Return to application";
                     Answers.Add(AnswerSwitch);
 
                     DataBindString AnswerClose = new DataBindString();
-                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerClose.Name = "Close the application";
                     Answers.Add(AnswerClose);
 
                     DataBindString AnswerMinimize = new DataBindString();
-                    AnswerMinimize.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppMinimize.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerMinimize.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMinimize.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerMinimize.Name = "Minimize CtrlUI";
                     Answers.Add(AnswerMinimize);
 

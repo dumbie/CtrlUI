@@ -25,7 +25,7 @@ namespace CtrlUI
                     DataBindApp QuickLaunchApp = CombineAppLists(false, false, false).Where(x => x.QuickLaunch).FirstOrDefault();
                     if (QuickLaunchApp != null)
                     {
-                        AnswerQuickLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        AnswerQuickLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         AnswerQuickLaunch.Name = "Quick launch " + QuickLaunchApp.Name;
                         Answers.Add(AnswerQuickLaunch);
                     }
@@ -33,37 +33,37 @@ namespace CtrlUI
                 catch { }
 
                 DataBindString AnswerSortApps = new DataBindString();
-                AnswerSortApps.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Sorting.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerSortApps.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Sorting.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerSortApps.Name = "Sort applications by name or number and date";
                 Answers.Add(AnswerSortApps);
 
                 DataBindString AnswerLaunchExe = new DataBindString();
-                AnswerLaunchExe.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppRunExe.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerLaunchExe.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRunExe.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerLaunchExe.Name = "Launch an executable file from disk";
                 Answers.Add(AnswerLaunchExe);
 
                 DataBindString AnswerLaunchUwp = new DataBindString();
-                AnswerLaunchUwp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/AppRunStore.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerLaunchUwp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRunStore.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerLaunchUwp.Name = "Launch a Windows store application";
                 Answers.Add(AnswerLaunchUwp);
 
                 DataBindString AnswerFileManager = new DataBindString();
-                AnswerFileManager.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerFileManager.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerFileManager.Name = "Show file browser and manager";
                 Answers.Add(AnswerFileManager);
 
                 DataBindString AnswerControlMedia = new DataBindString();
-                AnswerControlMedia.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Media.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerControlMedia.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Media.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerControlMedia.Name = "Control playing media and volume";
                 Answers.Add(AnswerControlMedia);
 
                 DataBindString AnswerStartMenu = new DataBindString();
-                AnswerStartMenu.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Windows.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerStartMenu.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Windows.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerStartMenu.Name = "Show the Windows start menu";
                 Answers.Add(AnswerStartMenu);
 
                 DataBindString AnswerFpsOverlayer = new DataBindString();
-                AnswerFpsOverlayer.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Fps.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerFpsOverlayer.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Fps.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerFpsOverlayer.Name = "Show or hide the fps overlayer";
                 Answers.Add(AnswerFpsOverlayer);
 

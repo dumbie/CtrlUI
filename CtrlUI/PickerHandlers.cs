@@ -88,12 +88,12 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
 
                     DataBindString answerUpdate = new DataBindString();
-                    answerUpdate.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Refresh.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerUpdate.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     answerUpdate.Name = "Check application update";
                     Answers.Add(answerUpdate);
 
                     DataBindString answerRemove = new DataBindString();
-                    answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/RemoveCross.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     answerRemove.Name = "Remove the application";
                     Answers.Add(answerRemove);
 
@@ -119,7 +119,7 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
 
                     DataBindString answerEjectDisc = new DataBindString();
-                    answerEjectDisc.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Eject.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerEjectDisc.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Eject.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     answerEjectDisc.Name = "Eject or unmount the disc";
                     Answers.Add(answerEjectDisc);
 
@@ -153,21 +153,21 @@ namespace CtrlUI
                     }
 
                     DataBindString answerSort = new DataBindString();
-                    answerSort.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Sorting.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerSort.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Sorting.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     answerSort.Name = sortType;
                     Answers.Add(answerSort);
 
                     DataBindString answerCopySingle = new DataBindString();
                     if (!preFile)
                     {
-                        answerCopySingle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Copy.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerCopySingle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Copy.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerCopySingle.Name = "Copy the file or folder";
                         Answers.Add(answerCopySingle);
                     }
                     DataBindString answerCopyChecked = new DataBindString();
                     if (checkedItems > 0)
                     {
-                        answerCopyChecked.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Copy.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerCopyChecked.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Copy.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerCopyChecked.Name = "Copy selected files and folders";
                         Answers.Add(answerCopyChecked);
                     }
@@ -175,14 +175,14 @@ namespace CtrlUI
                     DataBindString answerCutSingle = new DataBindString();
                     if (!preFile)
                     {
-                        answerCutSingle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Cut.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerCutSingle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Cut.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerCutSingle.Name = "Cut the file or folder";
                         Answers.Add(answerCutSingle);
                     }
                     DataBindString answerCutChecked = new DataBindString();
                     if (checkedItems > 0)
                     {
-                        answerCutChecked.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Cut.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerCutChecked.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Cut.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerCutChecked.Name = "Cut selected files and folders";
                         Answers.Add(answerCutChecked);
                     }
@@ -191,7 +191,7 @@ namespace CtrlUI
                     if (vClipboardFiles.Count == 1)
                     {
                         DataBindFile clipboardFile = vClipboardFiles.FirstOrDefault();
-                        answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Paste.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Paste.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerPaste.Name = "Paste (" + clipboardFile.FileType.ToString() + " " + clipboardFile.ClipboardType.ToString() + ") " + clipboardFile.Name;
                         Answers.Add(answerPaste);
                     }
@@ -209,7 +209,7 @@ namespace CtrlUI
                             statusCount = "(" + cutCount + "x cut)";
                         }
 
-                        answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Paste.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerPaste.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Paste.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerPaste.Name = "Paste " + statusCount + " files or folders";
                         Answers.Add(answerPaste);
                     }
@@ -217,7 +217,7 @@ namespace CtrlUI
                     DataBindString answerRename = new DataBindString();
                     if (!preFile)
                     {
-                        answerRename.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Rename.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerRename.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Rename.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerRename.Name = "Rename the file or folder";
                         Answers.Add(answerRename);
                     }
@@ -225,7 +225,7 @@ namespace CtrlUI
                     DataBindString answerRemove = new DataBindString();
                     if (!preFile)
                     {
-                        answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerRemove.Name = "Remove the file or folder";
                         Answers.Add(answerRemove);
                     }
@@ -233,7 +233,7 @@ namespace CtrlUI
                     DataBindString answerDownloadRomInfo = new DataBindString();
                     if (!preFile && vFilePickerShowRoms)
                     {
-                        answerDownloadRomInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerDownloadRomInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerDownloadRomInfo.Name = "Download game information";
                         Answers.Add(answerDownloadRomInfo);
                     }
@@ -241,18 +241,18 @@ namespace CtrlUI
                     DataBindString answerDownloadConsoleInfo = new DataBindString();
                     if (!preFile && vFilePickerShowRoms)
                     {
-                        answerDownloadConsoleInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerDownloadConsoleInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerDownloadConsoleInfo.Name = "Download console information";
                         Answers.Add(answerDownloadConsoleInfo);
                     }
 
                     DataBindString answerCreateFolder = new DataBindString();
-                    answerCreateFolder.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/FolderAdd.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerCreateFolder.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/FolderAdd.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     answerCreateFolder.Name = "Create a new folder here";
                     Answers.Add(answerCreateFolder);
 
                     DataBindString answerCreateTextFile = new DataBindString();
-                    answerCreateTextFile.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Extensions/Txt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerCreateTextFile.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Extensions/Txt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     answerCreateTextFile.Name = "Create a new text file here";
                     Answers.Add(answerCreateTextFile);
 

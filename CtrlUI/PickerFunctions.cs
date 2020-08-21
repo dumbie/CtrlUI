@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -131,15 +132,15 @@ namespace CtrlUI
                     });
 
                     //Load folder images
-                    BitmapImage imageFolder = FileToBitmapImage(new string[] { "Assets/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    BitmapImage imageFolderDisc = FileToBitmapImage(new string[] { "Assets/Icons/FolderDisc.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    BitmapImage imageFolderNetwork = FileToBitmapImage(new string[] { "Assets/Icons/FolderNetwork.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage imageFolder = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage imageFolderDisc = FileToBitmapImage(new string[] { "Assets/Default/Icons/FolderDisc.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage imageFolderNetwork = FileToBitmapImage(new string[] { "Assets/Default/Icons/FolderNetwork.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
 
                     //Add launch without a file option
                     if (vFilePickerShowNoFile)
                     {
                         string fileDescription = "Launch application without a file";
-                        BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         DataBindFile dataBindFileWithoutFile = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutFile, false, false);
                     }
@@ -297,13 +298,13 @@ namespace CtrlUI
                     //Add the Go up directory to the list
                     if (Path.GetPathRoot(targetPath) != targetPath)
                     {
-                        BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Icons/Up.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Default/Icons/Up.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         DataBindFile dataBindFileGoUp = new DataBindFile() { FileType = FileType.GoUp, Name = "Go up", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = Path.GetDirectoryName(targetPath) };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
                     else
                     {
-                        BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Icons/Up.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Default/Icons/Up.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         DataBindFile dataBindFileGoUp = new DataBindFile() { FileType = FileType.GoUp, Name = "Go up", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = "PC" };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
@@ -325,12 +326,12 @@ namespace CtrlUI
                     if (vFilePickerShowRoms)
                     {
                         string fileDescription = "Launch the emulator without a rom loaded";
-                        BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         DataBindFile dataBindFileWithoutRom = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutRom, false, false);
 
                         string romDescription = "Launch the emulator with this folder as rom";
-                        BitmapImage romImage = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        BitmapImage romImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         DataBindFile dataBindFileFolderRom = new DataBindFile() { FileType = FileType.FilePre, Name = romDescription, Description = romDescription + ".", ImageBitmap = romImage, PathFile = targetPath };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolderRom, false, false);
                     }
@@ -366,8 +367,11 @@ namespace CtrlUI
                         string[] imageFilter = { "jpg", "png" };
                         string[] descriptionFilter = { "json" };
 
-                        DirectoryInfo directoryInfoRoms = new DirectoryInfo("Assets/Roms");
-                        FileInfo[] directoryPathsRoms = directoryInfoRoms.GetFiles("*", SearchOption.AllDirectories);
+                        DirectoryInfo directoryInfoRomsUser = new DirectoryInfo("Assets/User/Roms");
+                        FileInfo[] directoryPathsRomsUser = directoryInfoRomsUser.GetFiles("*", SearchOption.AllDirectories);
+                        DirectoryInfo directoryInfoRomsDefault = new DirectoryInfo("Assets/Default/Roms");
+                        FileInfo[] directoryPathsRomsDefault = directoryInfoRomsDefault.GetFiles("*", SearchOption.AllDirectories);
+                        IEnumerable<FileInfo> directoryPathsRoms = directoryPathsRomsUser.Concat(directoryPathsRomsDefault);
 
                         FileInfo[] romsImages = directoryPathsRoms.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
                         FileInfo[] filesImages = directoryFiles.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
@@ -398,7 +402,7 @@ namespace CtrlUI
                                     }
                                     else
                                     {
-                                        listImage = FileToBitmapImage(new string[] { "Assets/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                                        listImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                                     }
 
                                     //Get the folder size
@@ -477,7 +481,7 @@ namespace CtrlUI
                                         }
                                         else
                                         {
-                                            listImage = FileToBitmapImage(new string[] { "Assets/Extensions/" + listFileExtensionLower + ".png", "Assets/Icons/File.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 50, 0);
+                                            listImage = FileToBitmapImage(new string[] { "Assets/Default/Extensions/" + listFileExtensionLower + ".png", "Assets/Default/Icons/File.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 50, 0);
                                         }
                                     }
 

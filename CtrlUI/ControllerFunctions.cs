@@ -219,7 +219,7 @@ namespace CtrlUI
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
-                        img_Main_Battery.Source = FileToBitmapImage(new string[] { "Assets/Icons/Battery/BatteryVerCharge.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Main_Battery.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Battery/BatteryVerCharge.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         img_Main_Battery.Visibility = Visibility.Visible;
                         grid_Main_Time.Visibility = Visibility.Visible;
                     });
@@ -246,7 +246,7 @@ namespace CtrlUI
 
                     //Set the used battery status icon
                     string currentImage = img_Main_Battery.Source.ToString();
-                    string updatedImage = "Assets/Icons/Battery/BatteryVerDis" + percentageNumber + ".png";
+                    string updatedImage = "Assets/Default/Icons/Battery/BatteryVerDis" + percentageNumber + ".png";
                     if (currentImage.ToLower() != updatedImage.ToLower())
                     {
                         img_Main_Battery.Source = FileToBitmapImage(new string[] { updatedImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -280,10 +280,10 @@ namespace CtrlUI
                     await Notification_Send_Status("Controller", "Activated (1)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     });
                 }
                 else if (controllerId == 1)
@@ -292,10 +292,10 @@ namespace CtrlUI
                     await Notification_Send_Status("Controller", "Activated (2)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     });
                 }
                 else if (controllerId == 2)
@@ -304,10 +304,10 @@ namespace CtrlUI
                     await Notification_Send_Status("Controller", "Activated (3)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     });
                 }
                 else if (controllerId == 3)
@@ -316,10 +316,10 @@ namespace CtrlUI
                     await Notification_Send_Status("Controller", "Activated (4)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Menu_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     });
                 }
             }

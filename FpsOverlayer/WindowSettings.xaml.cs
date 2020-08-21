@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using static FpsOverlayer.AppVariables;
@@ -46,8 +48,12 @@ namespace FpsOverlayer
                 combobox_InterfaceFontStyleName.Items.Add("Arial");
 
                 //Add custom fonts
-                DirectoryInfo directoryInfo = new DirectoryInfo("Assets/Fonts");
-                FileInfo[] fontFiles = directoryInfo.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
+                DirectoryInfo directoryInfoUser = new DirectoryInfo("Assets/User/Fonts");
+                FileInfo[] fontFilesUser = directoryInfoUser.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
+                DirectoryInfo directoryInfoDefault = new DirectoryInfo("Assets/Default/Fonts");
+                FileInfo[] fontFilesDefault = directoryInfoDefault.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
+                IEnumerable<FileInfo> fontFiles = fontFilesUser.Concat(fontFilesDefault);
+
                 foreach (FileInfo fontFile in fontFiles)
                 {
                     combobox_InterfaceFontStyleName.Items.Add(Path.GetFileNameWithoutExtension(fontFile.Name));

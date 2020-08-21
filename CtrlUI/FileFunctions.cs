@@ -539,7 +539,7 @@ namespace CtrlUI
                     DirectoryInfo listDirectory = Directory.CreateDirectory(newFolderPath);
 
                     //Create new folder databindfile
-                    BitmapImage folderImage = FileToBitmapImage(new string[] { "Assets/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage folderImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, Name = listDirectory.Name, DateModified = listDirectory.LastWriteTime, ImageBitmap = folderImage, PathFile = listDirectory.FullName };
 
                     //Add the new listbox item
@@ -601,7 +601,7 @@ namespace CtrlUI
                     string fileDetailed = fileSize + " (" + fileDate + ")";
 
                     //Create new file databindfile
-                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Extensions/Txt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Default/Extensions/Txt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, Name = fileName, NameDetail = fileDetailed, DateModified = dateCreated, ImageBitmap = fileImage, PathFile = newFilePath };
 
                     //Add the new listbox item
@@ -643,12 +643,12 @@ namespace CtrlUI
                 //Confirm file remove prompt
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerRecycle = new DataBindString();
-                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 answerRecycle.Name = "Move file or folder to recycle bin*";
                 messageAnswers.Add(answerRecycle);
 
                 DataBindString answerPerma = new DataBindString();
-                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Icons/RemoveCross.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 answerPerma.Name = "Remove file or folder permanently";
                 messageAnswers.Add(answerPerma);
 

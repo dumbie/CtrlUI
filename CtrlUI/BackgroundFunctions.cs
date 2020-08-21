@@ -57,8 +57,10 @@ namespace CtrlUI
             try
             {
                 string cacheWorkaround = new string(' ', new Random().Next(1, 20));
-                string defaultWallpaperImage = "Assets/Background.png" + cacheWorkaround;
-                string defaultWallpaperVideo = "Assets/BackgroundLive.mp4" + cacheWorkaround;
+                string userWallpaperImage = "Assets/User/Background.png" + cacheWorkaround;
+                string userWallpaperVideo = "Assets/User/BackgroundLive.mp4" + cacheWorkaround;
+                string defaultWallpaperImage = "Assets/Default/Background.png" + cacheWorkaround;
+                string defaultWallpaperVideo = "Assets/Default/BackgroundLive.mp4" + cacheWorkaround;
 
                 //Update the application background play speed
                 UpdateBackgroundPlaySpeed();
@@ -72,18 +74,39 @@ namespace CtrlUI
                 //Set background source
                 if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "VideoBackground")))
                 {
-                    grid_Video_Background.Source = new Uri(defaultWallpaperVideo, UriKind.RelativeOrAbsolute);
+                    if (File.Exists(userWallpaperVideo))
+                    {
+                        grid_Video_Background.Source = new Uri(userWallpaperVideo, UriKind.RelativeOrAbsolute);
+                    }
+                    else
+                    {
+                        grid_Video_Background.Source = new Uri(defaultWallpaperVideo, UriKind.RelativeOrAbsolute);
+                    }
                 }
-                else if (!Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "DesktopBackground")))
+                else if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "DesktopBackground")))
                 {
-                    grid_Video_Background.Source = new Uri(defaultWallpaperImage, UriKind.RelativeOrAbsolute);
-                }
-                else
-                {
-                    string desktopWallpaper = Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop", "WallPaper", defaultWallpaperImage).ToString();
+                    string desktopWallpaper = Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop", "WallPaper", string.Empty).ToString();
                     if (File.Exists(desktopWallpaper))
                     {
                         grid_Video_Background.Source = new Uri(desktopWallpaper, UriKind.RelativeOrAbsolute);
+                    }
+                    else
+                    {
+                        if (File.Exists(userWallpaperImage))
+                        {
+                            grid_Video_Background.Source = new Uri(userWallpaperImage, UriKind.RelativeOrAbsolute);
+                        }
+                        else
+                        {
+                            grid_Video_Background.Source = new Uri(defaultWallpaperImage, UriKind.RelativeOrAbsolute);
+                        }
+                    }
+                }
+                else
+                {
+                    if (File.Exists(userWallpaperImage))
+                    {
+                        grid_Video_Background.Source = new Uri(userWallpaperImage, UriKind.RelativeOrAbsolute);
                     }
                     else
                     {

@@ -23,8 +23,8 @@ namespace DirectXInput
         public static Configuration vConfigurationFpsOverlayer = Settings_Load_FpsOverlayer();
 
         //Image Variables
-        public static string[] vImageSourceFolders = { "Assets/Apps", "Assets/Roms" };
-        public static string vImageBackupSource = "Assets/Apps/Unknown.png";
+        public static string[] vImageSourceFolders = { "Assets/User/Apps", "Assets/Default/Apps", "Assets/User/Roms", "Assets/Default/Roms" };
+        public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;

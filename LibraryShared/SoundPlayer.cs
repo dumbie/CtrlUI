@@ -23,7 +23,13 @@ namespace LibraryShared
                     double soundVolume = (double)Convert.ToInt32(Setting_Load(sourceConfig, "InterfaceSoundVolume")) / 100;
                     if (forceSound && soundVolume <= 0.20) { soundVolume = 0.70; }
                     string soundPackName = Setting_Load(sourceConfig, "InterfaceSoundPackName").ToString();
-                    string soundFileName = "Assets/Sounds/" + soundPackName + "/" + soundName + ".mp3";
+
+                    string soundFileName = "Assets/Default/Sounds/" + soundPackName + "/" + soundName + ".mp3";
+                    if (Directory.Exists("Assets/User/Sounds/" + soundPackName))
+                    {
+                        soundFileName = "Assets/User/Sounds/" + soundPackName + "/" + soundName + ".mp3";
+                    }
+
                     if (File.Exists(soundFileName))
                     {
                         Uri soundFileUri = new Uri(soundFileName, UriKind.RelativeOrAbsolute);

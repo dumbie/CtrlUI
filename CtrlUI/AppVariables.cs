@@ -38,8 +38,8 @@ namespace CtrlUI
         public static string[] vTabTargetButtons = { "grid_Popup_TextInput_button_ConfirmText" };
 
         //Image Variables
-        public static string[] vImageSourceFolders = { "Assets/Apps", "Assets/Roms" };
-        public static string vImageBackupSource = "Assets/Apps/Unknown.png";
+        public static string[] vImageSourceFolders = { "Assets/User/Apps", "Assets/Default/Apps", "Assets/User/Roms", "Assets/Default/Roms" };
+        public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
 
         //Update Variables
         public static bool vCheckingForUpdate = false;

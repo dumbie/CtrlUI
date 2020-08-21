@@ -45,7 +45,7 @@ namespace CtrlUI
 
                 //Ask user which console to download
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "Assets/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 foreach (ApiIGDBPlatforms infoPlatforms in iGDBPlatforms)
                 {
                     DataBindString answerDownload = new DataBindString();
@@ -65,7 +65,7 @@ namespace CtrlUI
                 }
 
                 //Create downloaded directory
-                AVFiles.Directory_Create("Assets/Roms/Downloaded", false);
+                AVFiles.Directory_Create("Assets/User/Roms/Downloaded", false);
 
                 //Convert result back to json
                 ApiIGDBPlatforms selectedConsole = (ApiIGDBPlatforms)messageResult.Data1;
@@ -113,7 +113,7 @@ namespace CtrlUI
                             downloadedBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
 
                             //Save bytes to image file
-                            File.WriteAllBytes("Assets/Roms/Downloaded/" + nameConsoleSave + ".png", imageBytes);
+                            File.WriteAllBytes("Assets/User/Roms/Downloaded/" + nameConsoleSave + ".png", imageBytes);
                             Debug.WriteLine("Saved image: " + imageBytes.Length + "bytes/" + imageUri);
                         }
                         catch { }
@@ -128,7 +128,7 @@ namespace CtrlUI
                 string serializedObject = JsonConvert.SerializeObject(targetPlatformVersions, jsonSettings);
 
                 //Save json information
-                File.WriteAllText("Assets/Roms/Downloaded/" + nameConsoleSave + ".json", serializedObject);
+                File.WriteAllText("Assets/User/Roms/Downloaded/" + nameConsoleSave + ".json", serializedObject);
 
                 await Notification_Send_Status("Download", "Downloaded information");
                 Debug.WriteLine("Downloaded and saved information for: " + nameConsole);
