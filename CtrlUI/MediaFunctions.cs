@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Configuration;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +11,7 @@ using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -37,7 +37,7 @@ namespace CtrlUI
                 await KeyPressSingleAuto(KeysVirtual.MediaNextTrack);
 
                 //Close all open popups
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["CloseMediaScreen"]))
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "CloseMediaScreen")))
                 {
                     await Popup_Close_All();
                 }
@@ -54,7 +54,7 @@ namespace CtrlUI
                 await KeyPressSingleAuto(KeysVirtual.MediaPreviousTrack);
 
                 //Close all open popups
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["CloseMediaScreen"]))
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "CloseMediaScreen")))
                 {
                     await Popup_Close_All();
                 }
@@ -109,7 +109,7 @@ namespace CtrlUI
 
                 //Check if the media popup is opened or setting is enabled
                 bool mediaUpdatePopup = false;
-                bool mediaUpdateSetting = Convert.ToBoolean(ConfigurationManager.AppSettings["ShowMediaMain"]);
+                bool mediaUpdateSetting = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowMediaMain"));
 
                 await AVActions.ActionDispatcherInvokeAsync(delegate
                 {

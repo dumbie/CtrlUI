@@ -201,6 +201,9 @@
     <Content Include="Resources\LibreHardwareMonitorLib.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="FpsOverlayer.exe.csettings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <Content Include="Profiles\FpsPositionProcessName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

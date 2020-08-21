@@ -130,9 +130,9 @@ namespace Updater
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Background.png".ToLower())) { Debug.WriteLine("Skipping: Background.png"); continue; }
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("BackgroundLive.mp4".ToLower())) { Debug.WriteLine("Skipping: BackgroundLive.mp4"); continue; }
 
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlUI.exe.Config".ToLower())) { Debug.WriteLine("Skipping: CtrlUI.exe.Config"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectXInput.exe.Config".ToLower())) { Debug.WriteLine("Skipping: DirectXInput.exe.Config"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsOverlayer.exe.Config".ToLower())) { Debug.WriteLine("Skipping: FpsOverlayer.exe.Config"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlUI.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: CtrlUI.exe.csettings"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectXInput.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: DirectXInput.exe.csettings"); continue; }
+                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsOverlayer.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: FpsOverlayer.exe.csettings"); continue; }
 
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Updater.exe".ToLower()))
                                     {

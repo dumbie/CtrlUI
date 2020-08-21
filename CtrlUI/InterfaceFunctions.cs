@@ -2,7 +2,6 @@
 using ArnoldVinkCode.Styles;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -19,6 +18,7 @@ using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -210,8 +210,8 @@ namespace CtrlUI
         {
             try
             {
-                string interfaceFontStyleName = ConfigurationManager.AppSettings["InterfaceFontStyleName"].ToString();
-                if (interfaceFontStyleName == "Segoe UI" || interfaceFontStyleName == "Verdana" || interfaceFontStyleName == "Consolas")
+                string interfaceFontStyleName = Setting_Load(vConfigurationCtrlUI, "InterfaceFontStyleName").ToString();
+                if (interfaceFontStyleName == "Segoe UI" || interfaceFontStyleName == "Verdana" || interfaceFontStyleName == "Consolas" || interfaceFontStyleName == "Arial")
                 {
                     this.FontFamily = new FontFamily(interfaceFontStyleName);
                 }
@@ -237,7 +237,7 @@ namespace CtrlUI
         {
             try
             {
-                string clockStyle = ConfigurationManager.AppSettings["InterfaceClockStyleName"].ToString();
+                string clockStyle = Setting_Load(vConfigurationCtrlUI, "InterfaceClockStyleName").ToString();
                 img_Main_Time_Face.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Face.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
                 img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Hour.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
                 img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { "Assets/Clocks/" + clockStyle + "/Minute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
@@ -551,7 +551,7 @@ namespace CtrlUI
                 vMouseLastInteraction = Environment.TickCount;
 
                 //Check if mouse hide setting is enabled
-                if (!Convert.ToBoolean(ConfigurationManager.AppSettings["HideMouseCursor"]))
+                if (!Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideMouseCursor")))
                 {
                     return;
                 }
@@ -620,7 +620,7 @@ namespace CtrlUI
 
                 if (vAppMinimized || !vAppActivated)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "PopupOpen", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                     //Check previous focused application
                     try
@@ -714,7 +714,7 @@ namespace CtrlUI
                         if (messageResult == AnswerSwitch)
                         {
                             //Minimize the CtrlUI window
-                            if (Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"]))
+                            if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow")))
                             {
                                 await AppMinimize(true);
                             }
@@ -839,7 +839,7 @@ namespace CtrlUI
         {
             try
             {
-                int targetFontSize = Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
+                int targetFontSize = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "AppFontSize"));
                 Debug.WriteLine("Adjusting the font size to: " + targetFontSize);
 
                 double TextSizeTiny = 10;
@@ -883,7 +883,7 @@ namespace CtrlUI
                 img_Menu_FpsOverlayer.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
 
                 //Check if the first launch logo's need to be loaded
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["AppFirstLaunch"]))
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "AppFirstLaunch")))
                 {
                     grid_Popup_Welcome_img_Edge.Source = FileToBitmapImage(new string[] { "Microsoft Edge" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_Kodi.Source = FileToBitmapImage(new string[] { "Kodi" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);

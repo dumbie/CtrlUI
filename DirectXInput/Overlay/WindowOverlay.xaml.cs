@@ -84,10 +84,10 @@ namespace DirectXInput.Overlay
             try
             {
                 //Load current CtrlUI settings
-                Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+                vConfigurationCtrlUI = Settings_Load_CtrlUI();
 
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                 //Move and resize the window
@@ -103,7 +103,7 @@ namespace DirectXInput.Overlay
             try
             {
                 //Check current fps overlay position
-                int fpsTextPosition = Convert.ToInt32(vConfigurationFpsOverlayer.AppSettings.Settings["TextPosition"].Value);
+                int fpsTextPosition = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition"));
                 //Debug.WriteLine("Fps overlayer text position: " + fpsTextPosition);
 
                 //Move the notification position
@@ -132,7 +132,7 @@ namespace DirectXInput.Overlay
             try
             {
                 //Check current fps overlay position
-                int fpsTextPosition = Convert.ToInt32(vConfigurationFpsOverlayer.AppSettings.Settings["TextPosition"].Value);
+                int fpsTextPosition = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition"));
                 //Debug.WriteLine("Fps overlayer text position: " + fpsTextPosition);
 
                 //Move the battery status position

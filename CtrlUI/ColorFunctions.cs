@@ -50,7 +50,7 @@ namespace CtrlUI
                 Popup_Reset_ColorPicker();
 
                 //Show the search popup
-                PlayInterfaceSound(vConfigurationApplication, "PopupOpen", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                 //Save the previous focus element
                 Popup_PreviousElementFocus_Save(vColorPickerElementFocus, null);
@@ -93,7 +93,7 @@ namespace CtrlUI
             {
                 if (vColorPickerOpen)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "PopupClose", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
                     //Reset popup variables
                     vColorPickerOpen = false;

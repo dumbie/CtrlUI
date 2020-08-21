@@ -12,6 +12,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -20,8 +21,8 @@ namespace CtrlUI
         //Application Variables
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static CultureInfo vAppCultureInfo = new CultureInfo("en-US");
-        public static Configuration vConfigurationApplication = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        public static Configuration vConfigurationDirectXInput = null;
+        public static Configuration vConfigurationCtrlUI = Settings_Load_CtrlUI();
+        public static Configuration vConfigurationDirectXInput = Settings_Load_DirectXInput();
 
         //Api Variables
         public static string vApiIGDBUserKey = "b25eb31b7612c7158867a3cd7849dbee"; //Yes, I know I didn't remove the api key.

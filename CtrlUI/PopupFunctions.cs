@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +11,7 @@ using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -89,7 +89,7 @@ namespace CtrlUI
                     //Show the background
                     if (!Popup_Any_Open())
                     {
-                        double backgroundBrightness = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
+                        double backgroundBrightness = (double)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundBrightness")) / 100;
                         grid_Video_Background.Opacity = backgroundBrightness;
                         grid_Main.Opacity = 1.00;
                         grid_Main.IsEnabled = true;
@@ -158,7 +158,7 @@ namespace CtrlUI
                     return;
                 }
 
-                PlayInterfaceSound(vConfigurationApplication, "PopupOpen", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                 //Save the previous focus element
                 Popup_PreviousElementFocus_Save(vMainMenuElementFocus, null);
@@ -187,7 +187,7 @@ namespace CtrlUI
             {
                 if (vMainMenuOpen)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "PopupClose", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
                     //Reset popup variables
                     vMainMenuOpen = false;
@@ -212,7 +212,7 @@ namespace CtrlUI
             {
                 if (!vPopupOpen)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "PopupOpen", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                     //Update popup variables
                     vPopupElementTarget = ShowPopup;
@@ -242,7 +242,7 @@ namespace CtrlUI
             {
                 if (vPopupOpen)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "PopupClose", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
                     //Reset popup variables
                     vPopupOpen = false;

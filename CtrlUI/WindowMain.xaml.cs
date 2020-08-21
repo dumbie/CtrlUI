@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,7 +44,6 @@ namespace CtrlUI
 
                 //Check application settings
                 Settings_Check();
-                Settings_Load_DirectXInput(ref vConfigurationDirectXInput);
                 Settings_Load();
                 Settings_Save();
 
@@ -53,7 +51,7 @@ namespace CtrlUI
                 await UpdateWindowPosition(false, true);
 
                 //Change application accent color
-                Settings_Load_AccentColor(vConfigurationApplication);
+                Settings_Load_AccentColor(vConfigurationCtrlUI);
 
                 //Set the application background media
                 UpdateBackgroundMedia();
@@ -77,11 +75,11 @@ namespace CtrlUI
                 }
 
                 //Check settings if need to start in fullscreen of minimized
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]))
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFullscreen")))
                 {
                     await AppSwitchScreenMode(true, false);
                 }
-                else if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]))
+                else if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized")))
                 {
                     await AppMinimize(false);
                 }
@@ -137,19 +135,19 @@ namespace CtrlUI
                 await LaunchDirectXInput(true);
 
                 //Check settings if Fps Overlayer launches on start
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFpsOverlayer"]))
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFpsOverlayer")))
                 {
                     await LaunchFpsOverlayer(false);
                 }
 
                 //Force window focus on CtrlUI
-                if (!Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]))
+                if (!Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized")))
                 {
                     await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
                 }
 
                 //Check settings if this is the first application launch
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["AppFirstLaunch"]))
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "AppFirstLaunch")))
                 {
                     await AddFirstLaunchApps();
                 }
@@ -162,7 +160,8 @@ namespace CtrlUI
                 }
 
                 //Check for available application update
-                if (DateTime.Now.Subtract(DateTime.Parse(ConfigurationManager.AppSettings["AppUpdateCheck"], vAppCultureInfo)).Days >= 5)
+                string lastUpdateTime = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "AppUpdateCheck"));
+                if (DateTime.Now.Subtract(DateTime.Parse(lastUpdateTime, vAppCultureInfo)).Days >= 5)
                 {
                     await CheckForAppUpdate(true);
                 }
@@ -184,7 +183,7 @@ namespace CtrlUI
         {
             try
             {
-                int SocketServerPort = Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]);
+                int SocketServerPort = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort"));
 
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
                 vArnoldVinkSockets.vTcpClientTimeout = 250;
@@ -223,7 +222,7 @@ namespace CtrlUI
                     await Notification_Send_Status("MonitorNext", "Only one monitor");
 
                     //Save the new monitor number
-                    SettingSave(vConfigurationApplication, "DisplayMonitor", "1");
+                    Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", "1");
 
                     //Update the window position
                     await UpdateWindowPosition(true, true);
@@ -231,7 +230,7 @@ namespace CtrlUI
                 }
 
                 //Check the next target monitor
-                int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
+                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 if (monitorNumber >= totalScreenCount)
                 {
                     monitorNumber = 1;
@@ -242,7 +241,7 @@ namespace CtrlUI
                 }
 
                 //Save the new monitor number
-                SettingSave(vConfigurationApplication, "DisplayMonitor", monitorNumber.ToString());
+                Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", monitorNumber.ToString());
 
                 //Update the window position
                 await UpdateWindowPosition(true, false);
@@ -263,7 +262,7 @@ namespace CtrlUI
                 }
 
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
+                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                 //Get the current window size

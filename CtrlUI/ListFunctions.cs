@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +9,7 @@ using static CtrlUI.AppBusyWait;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -153,8 +153,8 @@ namespace CtrlUI
                 Visibility visibilityApps = List_Apps.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityEmulators = List_Emulators.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityLaunchers = List_Launchers.Any() ? Visibility.Visible : Visibility.Collapsed;
-                Visibility visibilityShortcuts = List_Shortcuts.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherShortcuts"]) ? Visibility.Visible : Visibility.Collapsed;
-                Visibility visibilityProcesses = List_Processes.Any() && Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherProcesses"]) ? Visibility.Visible : Visibility.Collapsed;
+                Visibility visibilityShortcuts = List_Shortcuts.Any() && Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherShortcuts")) ? Visibility.Visible : Visibility.Collapsed;
+                Visibility visibilityProcesses = List_Processes.Any() && Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherProcesses")) ? Visibility.Visible : Visibility.Collapsed;
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {

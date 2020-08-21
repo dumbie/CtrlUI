@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using ArnoldVinkCode;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static CtrlUI.AppVariables;
+using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -44,13 +48,18 @@ namespace CtrlUI
                 await RockstarScanAddLibrary();
 
                 //Remove deleted launcher applications
-                await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => !vLauncherAppAvailableCheck.Any(y => y == x.PathExe));
+                Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && !vLauncherAppAvailableCheck.Any(y => y == x.PathExe);
+                await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                await ListBoxRemoveAll(lb_Search, List_Search, filterLauncherApp);
 
                 //Sort applications and select first item
                 if (sortByName)
                 {
                     SortObservableCollection(lb_Launchers, List_Launchers, x => x.Name, null, true);
-                    lb_Launchers.SelectedIndex = 0;
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        lb_Launchers.SelectedIndex = 0;
+                    });
                 }
             }
             catch { }

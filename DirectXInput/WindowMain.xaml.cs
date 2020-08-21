@@ -2,7 +2,6 @@
 using AVForms;
 using System;
 using System.ComponentModel;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -44,11 +43,11 @@ namespace DirectXInput
             {
                 //Initialize Settings
                 Settings_Check();
-                Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
-                Settings_Load_AccentColor(vConfigurationCtrlUI);
-                Settings_Load_FpsOverlayer(ref vConfigurationFpsOverlayer);
                 Settings_Load();
                 Settings_Save();
+
+                //Change application accent color
+                Settings_Load_AccentColor(vConfigurationCtrlUI);
 
                 //Create the tray menu
                 Application_CreateTrayMenu();
@@ -60,7 +59,7 @@ namespace DirectXInput
                 }
 
                 //Check settings if window needs to be shown
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["AppFirstLaunch"]))
+                if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "AppFirstLaunch")))
                 {
                     Debug.WriteLine("First launch showing the window.");
                     await Application_ShowHideWindow();
@@ -109,7 +108,7 @@ namespace DirectXInput
                 TasksBackgroundStart();
 
                 //Set application first launch to false
-                SettingSave(vConfigurationApplication, "AppFirstLaunch", "False");
+                Setting_Save(vConfigurationDirectXInput, "AppFirstLaunch", "False");
 
                 //Enable the socket server
                 EnableSocketServer();
@@ -122,7 +121,7 @@ namespace DirectXInput
         {
             try
             {
-                int SocketServerPort = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["ServerPort"].Value) + 1;
+                int SocketServerPort = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort")) + 1;
 
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
                 vArnoldVinkSockets.vTcpClientTimeout = 250;

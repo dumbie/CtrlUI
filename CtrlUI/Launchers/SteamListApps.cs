@@ -164,6 +164,7 @@ namespace CtrlUI
                 DataBindApp dataBindApp = new DataBindApp()
                 {
                     Category = AppCategory.Launcher,
+                    Launcher = AppLauncher.Steam,
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,

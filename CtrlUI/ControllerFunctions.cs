@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -12,6 +11,7 @@ using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -177,7 +177,7 @@ namespace CtrlUI
         {
             try
             {
-                if (ForceHide || Convert.ToBoolean(ConfigurationManager.AppSettings["HideBatteryLevel"]))
+                if (ForceHide || Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideBatteryLevel")))
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {

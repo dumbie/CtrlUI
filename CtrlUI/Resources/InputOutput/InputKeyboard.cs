@@ -37,62 +37,62 @@ namespace CtrlUI
 
                 if (usedVirtualKey == KeysVirtual.Tab && usedModifierKey == KeysVirtual.Shift)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                 }
                 else if (usedVirtualKey == KeysVirtual.Tab)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                 }
                 else if (usedVirtualKey == KeysVirtual.F13)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                 }
                 else if (usedVirtualKey == KeysVirtual.Home)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                 }
                 else if (usedVirtualKey == KeysVirtual.Prior)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                 }
                 else if (usedVirtualKey == KeysVirtual.End)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                 }
                 else if (usedVirtualKey == KeysVirtual.Next)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Click", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                 }
                 else if (usedVirtualKey == KeysVirtual.Left)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                 }
                 else if (usedVirtualKey == KeysVirtual.Up)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                     NavigateUp(ref messageHandled);
                 }
                 else if (usedVirtualKey == KeysVirtual.Right)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                 }
                 else if (usedVirtualKey == KeysVirtual.Down)
                 {
-                    PlayInterfaceSound(vConfigurationApplication, "Move", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                     NavigateDown(ref messageHandled);
                 }
                 else if (usedVirtualKey == KeysVirtual.Space)
                 {
                     if (!focusedTextBox)
                     {
-                        PlayInterfaceSound(vConfigurationApplication, "Confirm", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Confirm", false);
                     }
                 }
                 else if (usedVirtualKey == KeysVirtual.BackSpace)
                 {
                     if (vFilePickerOpen && !focusedTextBox)
                     {
-                        PlayInterfaceSound(vConfigurationApplication, "Confirm", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Confirm", false);
                     }
                 }
             }

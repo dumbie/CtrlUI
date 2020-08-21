@@ -52,10 +52,10 @@ namespace CtrlUI
                 {
                     //Save the new accent color
                     SolidColorBrush selectedSolidColorBrush = (SolidColorBrush)lb_ColorPicker.SelectedItem;
-                    SettingSave(vConfigurationApplication, "ColorAccentLight", selectedSolidColorBrush.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "ColorAccentLight", selectedSolidColorBrush.ToString());
 
-                    //Apply the new accent color
-                    Settings_Load_AccentColor(vConfigurationApplication);
+                    //Change application accent color
+                    Settings_Load_AccentColor(vConfigurationCtrlUI);
 
                     //Notify applications setting changed
                     await NotifyDirectXInputSettingChanged("ColorAccentLight");

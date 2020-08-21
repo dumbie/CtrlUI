@@ -1,13 +1,13 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput
@@ -99,13 +99,13 @@ namespace DirectXInput
                 }
 
                 //Check controller battery level overlay
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryShowIconLow"]) && Controller.BatteryPercentageCurrent <= 20 && Controller.BatteryPercentageCurrent >= 0)
+                if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowIconLow")) && Controller.BatteryPercentageCurrent <= 20 && Controller.BatteryPercentageCurrent >= 0)
                 {
                     Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level, showing overlay.");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         App.vWindowOverlay.UpdateBatteryPosition();
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryShowPercentageLow"]))
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowPercentageLow")))
                         {
                             targetControllerTextblock.Text = Controller.BatteryPercentageCurrent + "%";
                             targetControllerTextblock.Visibility = Visibility.Visible;
@@ -137,7 +137,7 @@ namespace DirectXInput
                         notificationDetails.Text = "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%";
                         App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]))
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryPlaySoundLow")))
                         {
                             PlayInterfaceSound(vConfigurationCtrlUI, "BatteryLow", true);
                         }
@@ -151,7 +151,7 @@ namespace DirectXInput
                         notificationDetails.Text = "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%";
                         App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["BatteryPlaySoundLow"]))
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryPlaySoundLow")))
                         {
                             PlayInterfaceSound(vConfigurationCtrlUI, "BatteryLow", true);
                         }

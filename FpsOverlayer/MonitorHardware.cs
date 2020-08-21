@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using LibreHardwareMonitor.Hardware;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,6 +8,7 @@ using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
+using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -59,7 +59,7 @@ namespace FpsOverlayer
                     catch { }
 
                     //Delay the loop task
-                    int hardwareUpdateRate = Convert.ToInt32(ConfigurationManager.AppSettings["HardwareUpdateRateMs"]);
+                    int hardwareUpdateRate = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "HardwareUpdateRateMs"));
                     await TaskDelayLoop(hardwareUpdateRate, vTask_MonitorHardware);
                 }
             }
@@ -72,7 +72,7 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showCurrentUsage = Convert.ToBoolean(ConfigurationManager.AppSettings["NetShowCurrentUsage"]);
+                bool showCurrentUsage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "NetShowCurrentUsage"));
                 if (!showCurrentUsage)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
@@ -140,10 +140,10 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showPercentage = Convert.ToBoolean(ConfigurationManager.AppSettings["MemShowPercentage"]);
-                bool showUsed = Convert.ToBoolean(ConfigurationManager.AppSettings["MemShowUsed"]);
-                bool showFree = Convert.ToBoolean(ConfigurationManager.AppSettings["MemShowFree"]);
-                bool showTotal = Convert.ToBoolean(ConfigurationManager.AppSettings["MemShowTotal"]);
+                bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowPercentage"));
+                bool showUsed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowUsed"));
+                bool showFree = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowFree"));
+                bool showTotal = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowTotal"));
                 if (!showPercentage && !showUsed && !showFree && !showTotal)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
@@ -226,12 +226,12 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showName = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowName"]);
-                bool showPercentage = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowPercentage"]);
-                bool showTemperature = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowTemperature"]);
-                bool showMemoryUsed = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowMemoryUsed"]);
-                bool showCoreFrequency = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowCoreFrequency"]);
-                bool showFanSpeed = Convert.ToBoolean(ConfigurationManager.AppSettings["GpuShowFanSpeed"]);
+                bool showName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowName"));
+                bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowPercentage"));
+                bool showTemperature = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowTemperature"));
+                bool showMemoryUsed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowMemoryUsed"));
+                bool showCoreFrequency = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowCoreFrequency"));
+                bool showFanSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowFanSpeed"));
                 if (!showName && !showPercentage && !showTemperature && !showMemoryUsed && !showCoreFrequency && !showFanSpeed)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
@@ -361,11 +361,11 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showName = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowName"]);
-                bool showPercentage = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowPercentage"]);
-                bool showTemperature = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowTemperature"]);
-                bool showCoreFrequency = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowCoreFrequency"]);
-                bool showPowerUsage = Convert.ToBoolean(ConfigurationManager.AppSettings["CpuShowPowerUsage"]);
+                bool showName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowName"));
+                bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPercentage"));
+                bool showTemperature = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature"));
+                bool showCoreFrequency = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency"));
+                bool showPowerUsage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerUsage"));
                 if (!showName && !showPercentage && !showTemperature && !showCoreFrequency && !showPowerUsage)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
@@ -486,10 +486,10 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showResolution = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowResolution"]);
-                bool showDpiResolution = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowDpiResolution"]);
-                bool showColorBitDepth = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowColorBitDepth"]);
-                bool showRefreshRate = Convert.ToBoolean(ConfigurationManager.AppSettings["MonShowRefreshRate"]);
+                bool showResolution = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowResolution"));
+                bool showDpiResolution = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowDpiResolution"));
+                bool showColorBitDepth = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowColorBitDepth"));
+                bool showRefreshRate = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MonShowRefreshRate"));
                 if (!showResolution && !showColorBitDepth && !showRefreshRate)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
@@ -500,7 +500,7 @@ namespace FpsOverlayer
                 }
 
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
 
                 //Get the screen resolution
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);

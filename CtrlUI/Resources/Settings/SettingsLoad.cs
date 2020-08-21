@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using static CtrlUI.AppVariables;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -15,40 +16,40 @@ namespace CtrlUI
         {
             try
             {
-                cb_SettingsLaunchFullscreen.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFullscreen"]);
-                cb_SettingsLaunchMinimized.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchMinimized"]);
-                cb_SettingsShowOtherShortcuts.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherShortcuts"]);
-                cb_SettingsShowOtherProcesses.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherProcesses"]);
-                cb_SettingsHideAppProcesses.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["HideAppProcesses"]);
-                cb_SettingsHideBatteryLevel.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["HideBatteryLevel"]);
-                cb_SettingsHideMouseCursor.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["HideMouseCursor"]);
-                cb_SettingsHideControllerHelp.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["HideControllerHelp"]);
-                cb_SettingsShowHiddenFilesFolders.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"]);
-                cb_SettingsHideNetworkDrives.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["HideNetworkDrives"]);
-                cb_SettingsInterfaceSound.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["InterfaceSound"]);
-                cb_SettingsCloseMediaScreen.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["CloseMediaScreen"]);
-                cb_SettingsShowMediaMain.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShowMediaMain"]);
-                cb_SettingsMinimizeAppOnShow.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"]);
-                cb_SettingsShortcutVolume.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"]);
-                cb_SettingsLaunchFpsOverlayer.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["LaunchFpsOverlayer"]);
+                cb_SettingsLaunchFullscreen.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFullscreen"));
+                cb_SettingsLaunchMinimized.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized"));
+                cb_SettingsShowOtherShortcuts.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherShortcuts"));
+                cb_SettingsShowOtherProcesses.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherProcesses"));
+                cb_SettingsHideAppProcesses.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideAppProcesses"));
+                cb_SettingsHideBatteryLevel.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideBatteryLevel"));
+                cb_SettingsHideMouseCursor.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideMouseCursor"));
+                cb_SettingsHideControllerHelp.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideControllerHelp"));
+                cb_SettingsShowHiddenFilesFolders.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders"));
+                cb_SettingsHideNetworkDrives.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideNetworkDrives"));
+                cb_SettingsInterfaceSound.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "InterfaceSound"));
+                cb_SettingsCloseMediaScreen.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "CloseMediaScreen"));
+                cb_SettingsShowMediaMain.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowMediaMain"));
+                cb_SettingsMinimizeAppOnShow.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow"));
+                cb_SettingsShortcutVolume.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShortcutVolume"));
+                cb_SettingsLaunchFpsOverlayer.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFpsOverlayer"));
 
                 //Load the socket used ports
-                txt_SettingsSocketClientPortStart.Text = Convert.ToString(ConfigurationManager.AppSettings["ServerPort"]);
-                txt_SettingsSocketClientPortRange.Text = Convert.ToString(Convert.ToInt32(ConfigurationManager.AppSettings["ServerPort"]) + 3);
+                txt_SettingsSocketClientPortStart.Text = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ServerPort"));
+                txt_SettingsSocketClientPortRange.Text = Convert.ToString(Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort")) + 3);
 
                 //Load the application font size
-                textblock_SettingsFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
-                slider_SettingsFontSize.Value = Convert.ToInt32(ConfigurationManager.AppSettings["AppFontSize"]);
+                textblock_SettingsFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "AppFontSize"));
+                slider_SettingsFontSize.Value = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "AppFontSize"));
 
                 //Load the display monitor
-                int monitorNumber = Convert.ToInt32(ConfigurationManager.AppSettings["DisplayMonitor"]);
+                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + monitorNumber;
                 slider_SettingsDisplayMonitor.Value = monitorNumber;
                 slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count();
 
                 //Load the sound volume
-                textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]) + "%";
-                slider_SettingsSoundVolume.Value = Convert.ToInt32(ConfigurationManager.AppSettings["InterfaceSoundVolume"]);
+                textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "InterfaceSoundVolume")) + "%";
+                slider_SettingsSoundVolume.Value = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "InterfaceSoundVolume"));
 
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;
@@ -68,17 +69,17 @@ namespace CtrlUI
                 }
 
                 //Background settings
-                cb_SettingsVideoBackground.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["VideoBackground"]);
-                cb_SettingsDesktopBackground.IsChecked = Convert.ToBoolean(ConfigurationManager.AppSettings["DesktopBackground"]);
+                cb_SettingsVideoBackground.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "VideoBackground"));
+                cb_SettingsDesktopBackground.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "DesktopBackground"));
 
-                textblock_SettingsBackgroundBrightness.Text = "Background brightness: " + Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) + "%";
-                slider_SettingsBackgroundBrightness.Value = Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]);
+                textblock_SettingsBackgroundBrightness.Text = "Background brightness: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundBrightness")) + "%";
+                slider_SettingsBackgroundBrightness.Value = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundBrightness"));
 
-                textblock_SettingsBackgroundPlayVolume.Text = "Video playback volume: " + Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlayVolume"]) + "%";
-                slider_SettingsBackgroundPlayVolume.Value = Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlayVolume"]);
+                textblock_SettingsBackgroundPlayVolume.Text = "Video playback volume: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundPlayVolume")) + "%";
+                slider_SettingsBackgroundPlayVolume.Value = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundPlayVolume"));
 
-                textblock_SettingsBackgroundPlaySpeed.Text = "Video playback speed: " + Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlaySpeed"]) + "%";
-                slider_SettingsBackgroundPlaySpeed.Value = Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlaySpeed"]);
+                textblock_SettingsBackgroundPlaySpeed.Text = "Video playback speed: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundPlaySpeed")) + "%";
+                slider_SettingsBackgroundPlaySpeed.Value = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundPlaySpeed"));
 
                 return true;
             }

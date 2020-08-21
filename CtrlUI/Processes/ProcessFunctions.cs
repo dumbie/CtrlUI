@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -18,6 +17,7 @@ using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -208,7 +208,7 @@ namespace CtrlUI
                 else if (processWindowHandle != IntPtr.Zero)
                 {
                     //Minimize the CtrlUI window
-                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["MinimizeAppOnShow"]))
+                    if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow")))
                     {
                         await AppMinimize(true);
                     }

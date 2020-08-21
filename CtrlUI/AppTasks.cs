@@ -1,8 +1,9 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Configuration;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
+using static CtrlUI.AppVariables;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -60,7 +61,7 @@ namespace CtrlUI
         {
             try
             {
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["HideMouseCursor"]))
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideMouseCursor")))
                 {
                     AVActions.TaskStartLoop(vTaskLoop_ShowHideMouse, vTask_ShowHideMouse);
                 }

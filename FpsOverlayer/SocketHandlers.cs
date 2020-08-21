@@ -51,7 +51,7 @@ namespace FpsOverlayer
                     }
                     else if (receivedString == "SettingChangedDisplayMonitor")
                     {
-                        Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+                        vConfigurationCtrlUI = Settings_Load_CtrlUI();
                         UpdateWindowPosition();
                     }
                 }

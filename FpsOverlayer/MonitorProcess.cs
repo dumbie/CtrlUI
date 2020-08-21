@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,6 +9,7 @@ using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
+using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -126,7 +126,7 @@ namespace FpsOverlayer
         {
             try
             {
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["TimeShowCurrentTime"]))
+                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "TimeShowCurrentTime")))
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -152,7 +152,7 @@ namespace FpsOverlayer
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["AppShowName"]))
+                    if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "AppShowName")))
                     {
                         if (!string.IsNullOrWhiteSpace(processTitle) && processTitle != "Unknown")
                         {

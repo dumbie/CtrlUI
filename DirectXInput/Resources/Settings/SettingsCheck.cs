@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Diagnostics;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
@@ -13,35 +12,31 @@ namespace DirectXInput
         {
             try
             {
-                if (ConfigurationManager.AppSettings["AppFirstLaunch"] == null) { SettingSave(vConfigurationApplication, "AppFirstLaunch", "True"); }
-                if (ConfigurationManager.AppSettings["ShortcutDisconnectBluetooth"] == null) { SettingSave(vConfigurationApplication, "ShortcutDisconnectBluetooth", "True"); }
-                if (ConfigurationManager.AppSettings["ExclusiveGuide"] == null) { SettingSave(vConfigurationApplication, "ExclusiveGuide", "True"); }
+                if (Setting_Load(vConfigurationDirectXInput, "AppFirstLaunch") == null) { Setting_Save(vConfigurationDirectXInput, "AppFirstLaunch", "True"); }
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth", "True"); }
+                if (Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide") == null) { Setting_Save(vConfigurationDirectXInput, "ExclusiveGuide", "True"); }
 
-                if (ConfigurationManager.AppSettings["ShortcutLaunchCtrlUI"] == null) { SettingSave(vConfigurationApplication, "ShortcutLaunchCtrlUI", "True"); }
-                if (ConfigurationManager.AppSettings["ShortcutLaunchKeyboardController"] == null) { SettingSave(vConfigurationApplication, "ShortcutLaunchKeyboardController", "True"); } //Shared
-                if (ConfigurationManager.AppSettings["ShortcutAltEnter"] == null) { SettingSave(vConfigurationApplication, "ShortcutAltEnter", "True"); } //Shared
-                if (ConfigurationManager.AppSettings["ShortcutAltF4"] == null) { SettingSave(vConfigurationApplication, "ShortcutAltF4", "True"); } //Shared
-                if (ConfigurationManager.AppSettings["ShortcutAltTab"] == null) { SettingSave(vConfigurationApplication, "ShortcutAltTab", "True"); } //Shared
-                if (ConfigurationManager.AppSettings["ShortcutWinTab"] == null) { SettingSave(vConfigurationApplication, "ShortcutWinTab", "False"); } //Shared
-                if (ConfigurationManager.AppSettings["ShortcutScreenshot"] == null) { SettingSave(vConfigurationApplication, "ShortcutScreenshot", "True"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", "True"); }
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController", "True"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltEnter", "True"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltF4") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltF4", "True"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", "True"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutWinTab") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutWinTab", "False"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshot", "True"); } //Shared
 
-                if (ConfigurationManager.AppSettings["InterfaceSound"] == null) { SettingSave(vConfigurationApplication, "InterfaceSound", "True"); }
-                if (ConfigurationManager.AppSettings["InterfaceSoundVolume"] == null) { SettingSave(vConfigurationApplication, "InterfaceSoundVolume", "80"); }
-                if (ConfigurationManager.AppSettings["InterfaceSoundPackName"] == null) { SettingSave(vConfigurationApplication, "InterfaceSoundPackName", "Default"); }
-
-                if (ConfigurationManager.AppSettings["BatteryShowIconLow"] == null) { SettingSave(vConfigurationApplication, "BatteryShowIconLow", "True"); }
-                if (ConfigurationManager.AppSettings["BatteryShowPercentageLow"] == null) { SettingSave(vConfigurationApplication, "BatteryShowPercentageLow", "False"); }
-                if (ConfigurationManager.AppSettings["BatteryPlaySoundLow"] == null) { SettingSave(vConfigurationApplication, "BatteryPlaySoundLow", "True"); }
-                if (ConfigurationManager.AppSettings["ControllerIdleDisconnectMin"] == null) { SettingSave(vConfigurationApplication, "ControllerIdleDisconnectMin", "10"); }
+                if (Setting_Load(vConfigurationDirectXInput, "BatteryShowIconLow") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryShowIconLow", "True"); }
+                if (Setting_Load(vConfigurationDirectXInput, "BatteryShowPercentageLow") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryShowPercentageLow", "False"); }
+                if (Setting_Load(vConfigurationDirectXInput, "BatteryPlaySoundLow") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryPlaySoundLow", "True"); }
+                if (Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", "10"); }
 
                 //Keyboard settings
-                if (ConfigurationManager.AppSettings["KeyboardLayout"] == null) { SettingSave(vConfigurationApplication, "KeyboardLayout", "0"); }
-                if (ConfigurationManager.AppSettings["KeyboardMode"] == null) { SettingSave(vConfigurationApplication, "KeyboardMode", "0"); }
-                if (ConfigurationManager.AppSettings["KeyboardOpacity"] == null) { SettingSave(vConfigurationApplication, "KeyboardOpacity", "0,90"); }
-                if (ConfigurationManager.AppSettings["KeyboardDomainExtensionDefault"] == null) { SettingSave(vConfigurationApplication, "KeyboardDomainExtensionDefault", ".com"); }
-                if (ConfigurationManager.AppSettings["KeyboardDomainExtension"] == null) { SettingSave(vConfigurationApplication, "KeyboardDomainExtension", ".nl"); }
-                if (ConfigurationManager.AppSettings["MouseMoveSensitivity"] == null) { SettingSave(vConfigurationApplication, "MouseMoveSensitivity", "10"); }
-                if (ConfigurationManager.AppSettings["MouseScrollSensitivity"] == null) { SettingSave(vConfigurationApplication, "MouseScrollSensitivity", "10"); }
+                if (Setting_Load(vConfigurationDirectXInput, "KeyboardLayout") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardLayout", "0"); }
+                if (Setting_Load(vConfigurationDirectXInput, "KeyboardMode") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardMode", "0"); }
+                if (Setting_Load(vConfigurationDirectXInput, "KeyboardOpacity") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardOpacity", "0,90"); }
+                if (Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtensionDefault") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardDomainExtensionDefault", ".com"); }
+                if (Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtension") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardDomainExtension", ".nl"); }
+                if (Setting_Load(vConfigurationDirectXInput, "MouseMoveSensitivity") == null) { Setting_Save(vConfigurationDirectXInput, "MouseMoveSensitivity", "10"); }
+                if (Setting_Load(vConfigurationDirectXInput, "MouseScrollSensitivity") == null) { Setting_Save(vConfigurationDirectXInput, "MouseScrollSensitivity", "10"); }
             }
             catch (Exception ex)
             {

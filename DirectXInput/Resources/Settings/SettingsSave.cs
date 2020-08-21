@@ -17,12 +17,12 @@ namespace DirectXInput
             {
                 cb_SettingsShortcutDisconnectBluetooth.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ShortcutDisconnectBluetooth", cb_SettingsShortcutDisconnectBluetooth.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth", cb_SettingsShortcutDisconnectBluetooth.IsChecked.ToString());
                 };
 
                 cb_SettingsExclusiveGuide.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ExclusiveGuide", cb_SettingsExclusiveGuide.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "ExclusiveGuide", cb_SettingsExclusiveGuide.IsChecked.ToString());
                 };
 
                 cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };
@@ -30,7 +30,7 @@ namespace DirectXInput
                 //Battery settings
                 cb_SettingsBatteryShowIconLow.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "BatteryShowIconLow", cb_SettingsBatteryShowIconLow.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "BatteryShowIconLow", cb_SettingsBatteryShowIconLow.IsChecked.ToString());
 
                     //Check all controllers for low battery level
                     CheckAllControllersLowBattery();
@@ -38,7 +38,7 @@ namespace DirectXInput
 
                 cb_SettingsBatteryShowPercentageLow.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "BatteryShowPercentageLow", cb_SettingsBatteryShowPercentageLow.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "BatteryShowPercentageLow", cb_SettingsBatteryShowPercentageLow.IsChecked.ToString());
 
                     //Check all controllers for low battery level
                     CheckAllControllersLowBattery();
@@ -46,46 +46,46 @@ namespace DirectXInput
 
                 cb_SettingsBatteryPlaySoundLow.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "BatteryPlaySoundLow", cb_SettingsBatteryPlaySoundLow.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "BatteryPlaySoundLow", cb_SettingsBatteryPlaySoundLow.IsChecked.ToString());
                 };
 
                 slider_ControllerIdleDisconnectMin.ValueChanged += (sender, e) =>
                 {
                     string controllerIdleDisconnectMinString = slider_ControllerIdleDisconnectMin.Value.ToString();
-                    SettingSave(vConfigurationApplication, "ControllerIdleDisconnectMin", controllerIdleDisconnectMinString);
+                    Setting_Save(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", controllerIdleDisconnectMinString);
                     textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinString + " minutes";
                 };
 
                 //Shortcut settings
                 cb_SettingsShortcutLaunchCtrlUI.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ShortcutLaunchCtrlUI", cb_SettingsShortcutLaunchCtrlUI.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", cb_SettingsShortcutLaunchCtrlUI.IsChecked.ToString());
                 };
 
                 cb_SettingsShortcutLaunchKeyboardController.Click += async (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ShortcutLaunchKeyboardController", cb_SettingsShortcutLaunchKeyboardController.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController", cb_SettingsShortcutLaunchKeyboardController.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
                 cb_SettingsShortcutAltEnter.Click += async (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ShortcutAltEnter", cb_SettingsShortcutAltEnter.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutAltEnter", cb_SettingsShortcutAltEnter.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
                 cb_SettingsShortcutAltF4.Click += async (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ShortcutAltF4", cb_SettingsShortcutAltF4.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutAltF4", cb_SettingsShortcutAltF4.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
                 cb_SettingsShortcutAltTab.Click += async (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ShortcutAltTab", cb_SettingsShortcutAltTab.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", cb_SettingsShortcutAltTab.IsChecked.ToString());
                     if (cb_SettingsShortcutAltTab.IsChecked == true)
                     {
-                        SettingSave(vConfigurationApplication, "ShortcutWinTab", "False");
+                        Setting_Save(vConfigurationDirectXInput, "ShortcutWinTab", "False");
                         cb_SettingsShortcutWinTab.IsChecked = false;
                     }
                     await NotifyCtrlUISettingChanged("Shortcut");
@@ -93,10 +93,10 @@ namespace DirectXInput
 
                 cb_SettingsShortcutWinTab.Click += async (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ShortcutWinTab", cb_SettingsShortcutWinTab.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutWinTab", cb_SettingsShortcutWinTab.IsChecked.ToString());
                     if (cb_SettingsShortcutWinTab.IsChecked == true)
                     {
-                        SettingSave(vConfigurationApplication, "ShortcutAltTab", "False");
+                        Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", "False");
                         cb_SettingsShortcutAltTab.IsChecked = false;
                     }
                     await NotifyCtrlUISettingChanged("Shortcut");
@@ -104,7 +104,7 @@ namespace DirectXInput
 
                 cb_SettingsShortcutScreenshot.Click += async (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ShortcutScreenshot", cb_SettingsShortcutScreenshot.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshot", cb_SettingsShortcutScreenshot.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
@@ -112,26 +112,26 @@ namespace DirectXInput
                 slider_KeyboardOpacity.ValueChanged += (sender, e) =>
                 {
                     textblock_KeyboardOpacity.Text = textblock_KeyboardOpacity.Tag + ": " + slider_KeyboardOpacity.Value.ToString("0.00") + "%";
-                    SettingSave(vConfigurationApplication, "KeyboardOpacity", slider_KeyboardOpacity.Value.ToString("0.00"));
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardOpacity", slider_KeyboardOpacity.Value.ToString("0.00"));
                     App.vWindowKeyboard.UpdateKeyboardOpacity(false);
                 };
 
                 combobox_KeyboardLayout.SelectionChanged += async (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "KeyboardLayout", combobox_KeyboardLayout.SelectedIndex.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardLayout", combobox_KeyboardLayout.SelectedIndex.ToString());
                     await App.vWindowKeyboard.UpdateKeyboardLayout();
                 };
 
                 slider_SettingsMouseMoveSensitivity.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsMouseMoveSensitivity.Text = textblock_SettingsMouseMoveSensitivity.Tag.ToString() + Convert.ToInt32(slider_SettingsMouseMoveSensitivity.Value);
-                    SettingSave(vConfigurationApplication, "MouseMoveSensitivity", Convert.ToInt32(slider_SettingsMouseMoveSensitivity.Value).ToString());
+                    Setting_Save(vConfigurationDirectXInput, "MouseMoveSensitivity", Convert.ToInt32(slider_SettingsMouseMoveSensitivity.Value).ToString());
                 };
 
                 slider_SettingsMouseScrollSensitivity.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsMouseScrollSensitivity.Text = textblock_SettingsMouseScrollSensitivity.Tag.ToString() + Convert.ToInt32(slider_SettingsMouseScrollSensitivity.Value);
-                    SettingSave(vConfigurationApplication, "MouseScrollSensitivity", Convert.ToInt32(slider_SettingsMouseScrollSensitivity.Value).ToString());
+                    Setting_Save(vConfigurationDirectXInput, "MouseScrollSensitivity", Convert.ToInt32(slider_SettingsMouseScrollSensitivity.Value).ToString());
                 };
 
                 textbox_SettingsDomainExtensionDefault.TextChanged += (sender, e) =>
@@ -139,7 +139,7 @@ namespace DirectXInput
                     TextBox senderTextBox = (TextBox)sender;
                     if (!string.IsNullOrWhiteSpace(senderTextBox.Text))
                     {
-                        SettingSave(vConfigurationApplication, "KeyboardDomainExtensionDefault", senderTextBox.Text);
+                        Setting_Save(vConfigurationDirectXInput, "KeyboardDomainExtensionDefault", senderTextBox.Text);
                         App.vWindowKeyboard.UpdateDomainExtension();
                     }
                 };
@@ -149,7 +149,7 @@ namespace DirectXInput
                     TextBox senderTextBox = (TextBox)sender;
                     if (!string.IsNullOrWhiteSpace(senderTextBox.Text))
                     {
-                        SettingSave(vConfigurationApplication, "KeyboardDomainExtension", senderTextBox.Text);
+                        Setting_Save(vConfigurationDirectXInput, "KeyboardDomainExtension", senderTextBox.Text);
                         App.vWindowKeyboard.UpdateDomainExtension();
                     }
                 };

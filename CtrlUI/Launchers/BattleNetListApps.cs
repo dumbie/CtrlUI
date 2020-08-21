@@ -136,6 +136,7 @@ namespace CtrlUI
                 DataBindApp dataBindApp = new DataBindApp()
                 {
                     Category = AppCategory.Launcher,
+                    Launcher = AppLauncher.BattleNet,
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = launcherExePath,

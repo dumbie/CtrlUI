@@ -60,7 +60,7 @@ namespace CtrlUI
                     }
 
                     //Set the last application update check date
-                    SettingSave(vConfigurationApplication, "AppUpdateCheck", DateTime.Now.ToString(vAppCultureInfo));
+                    Setting_Save(vConfigurationCtrlUI, "AppUpdateCheck", DateTime.Now.ToString(vAppCultureInfo));
                     vCheckingForUpdate = false;
                 }
             }

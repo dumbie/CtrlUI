@@ -53,23 +53,23 @@ namespace DirectXInput
                     //Debug.WriteLine("Received string: " + receivedString);
                     if (receivedString == "SettingChangedColorAccentLight")
                     {
-                        Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+                        vConfigurationCtrlUI = Settings_Load_CtrlUI();
                         Settings_Load_AccentColor(vConfigurationCtrlUI);
                     }
                     else if (receivedString == "SettingChangedInterfaceSoundPackName")
                     {
-                        Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+                        vConfigurationCtrlUI = Settings_Load_CtrlUI();
                     }
                     else if (receivedString == "SettingChangedDisplayMonitor")
                     {
-                        Settings_Load_CtrlUI(ref vConfigurationCtrlUI);
+                        vConfigurationCtrlUI = Settings_Load_CtrlUI();
                         App.vWindowOverlay.UpdateWindowPosition();
                         App.vWindowKeyboard.UpdateWindowPosition();
                         App.vWindowKeypad.UpdateWindowPosition();
                     }
                     else if (receivedString == "SettingChangedTextPosition")
                     {
-                        Settings_Load_FpsOverlayer(ref vConfigurationFpsOverlayer);
+                        vConfigurationFpsOverlayer = Settings_Load_FpsOverlayer();
                         App.vWindowOverlay.UpdateNotificationPosition();
                         App.vWindowOverlay.UpdateBatteryPosition();
                     }

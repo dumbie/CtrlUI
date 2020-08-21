@@ -3,7 +3,6 @@ using Microsoft.Diagnostics.Tracing;
 using Microsoft.Diagnostics.Tracing.Session;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +10,7 @@ using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
+using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
@@ -77,11 +77,11 @@ namespace FpsOverlayer
 
                         //Convert fps to string
                         string StringCurrentFramesPerSecond = string.Empty;
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCurrentFps"])) { StringCurrentFramesPerSecond = " " + CurrentFramesPerSecond.ToString() + "FPS"; }
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "FpsShowCurrentFps"))) { StringCurrentFramesPerSecond = " " + CurrentFramesPerSecond.ToString() + "FPS"; }
                         string StringCurrentFrameTimes = string.Empty;
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowCurrentLatency"])) { StringCurrentFrameTimes = " " + CurrentFrameTimes.ToString("0.00") + "MS"; }
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "FpsShowCurrentLatency"))) { StringCurrentFrameTimes = " " + CurrentFrameTimes.ToString("0.00") + "MS"; }
                         string StringAverageFramesPerSecond = string.Empty;
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["FpsShowAverageFps"])) { StringAverageFramesPerSecond = " " + AverageFramesPerSecond.ToString() + "AVG"; }
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "FpsShowAverageFps"))) { StringAverageFramesPerSecond = " " + AverageFramesPerSecond.ToString() + "AVG"; }
 
                         //Update the fps counter
                         Debug.WriteLine("(" + vTargetProcess.Identifier + ") MS" + CurrentFrameTimes.ToString("0.00") + " / FPS " + CurrentFramesPerSecond + " / AVG " + AverageFramesPerSecond);

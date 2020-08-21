@@ -41,6 +41,20 @@ namespace LibraryShared
                 }
             }
 
+            private AppLauncher PrivLauncher = AppLauncher.Unknown;
+            public AppLauncher Launcher
+            {
+                get { return this.PrivLauncher; }
+                set
+                {
+                    if (this.PrivLauncher != value)
+                    {
+                        this.PrivLauncher = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private ProcessType PrivType = ProcessType.Unknown;
             public ProcessType Type
             {

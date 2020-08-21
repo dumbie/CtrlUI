@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -80,11 +79,11 @@ namespace DirectXInput.Keyboard
                     {
                         if (vCapsEnabled)
                         {
-                            await KeyboardTypeString(ConfigurationManager.AppSettings["KeyboardDomainExtension"].ToString());
+                            await KeyboardTypeString(Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtension").ToString());
                         }
                         else
                         {
-                            await KeyboardTypeString(ConfigurationManager.AppSettings["KeyboardDomainExtensionDefault"].ToString());
+                            await KeyboardTypeString(Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtensionDefault").ToString());
                         }
                     }
                 }
@@ -189,7 +188,7 @@ namespace DirectXInput.Keyboard
         {
             try
             {
-                if (Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardMode"]) == 0)
+                if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode")) == 0)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -218,14 +217,14 @@ namespace DirectXInput.Keyboard
         {
             try
             {
-                if (Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardMode"]) == 0)
+                if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode")) == 0)
                 {
-                    SettingSave(vConfigurationApplication, "KeyboardMode", "1");
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", "1");
                     UpdateKeyboardMode();
                 }
                 else
                 {
-                    SettingSave(vConfigurationApplication, "KeyboardMode", "0");
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", "0");
                     UpdateKeyboardMode();
                 }
             }

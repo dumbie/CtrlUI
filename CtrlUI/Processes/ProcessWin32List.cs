@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,6 +14,7 @@ using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -174,7 +174,7 @@ namespace CtrlUI
                                 }
 
                                 //Remove app from processes list
-                                if (Convert.ToBoolean(ConfigurationManager.AppSettings["HideAppProcesses"]))
+                                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideAppProcesses")))
                                 {
                                     await ListBoxRemoveAll(lb_Processes, List_Processes, filterCombinedApp);
                                     appUpdatedContinueLoop = true;

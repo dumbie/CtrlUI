@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -65,7 +64,7 @@ namespace CtrlUI
                     //Debug.WriteLine("Received string: " + receivedString);
                     if (receivedString == "SettingChangedShortcut")
                     {
-                        Settings_Load_DirectXInput(ref vConfigurationDirectXInput);
+                        vConfigurationDirectXInput = Settings_Load_DirectXInput();
                         UpdateControllerHelp();
                     }
                     else if (receivedString == "AppWindowHideShow")

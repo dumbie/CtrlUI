@@ -209,11 +209,11 @@ namespace CtrlUI
 
                 //Disable video background
                 cb_SettingsVideoBackground.IsChecked = false;
-                SettingSave(vConfigurationApplication, "VideoBackground", "False");
+                Setting_Save(vConfigurationCtrlUI, "VideoBackground", "False");
 
                 //Disable desktop background
                 cb_SettingsDesktopBackground.IsChecked = false;
-                SettingSave(vConfigurationApplication, "DesktopBackground", "False");
+                Setting_Save(vConfigurationCtrlUI, "DesktopBackground", "False");
 
                 //Update the background media
                 UpdateBackgroundMedia();
@@ -248,7 +248,7 @@ namespace CtrlUI
 
                 //Enable video background
                 cb_SettingsVideoBackground.IsChecked = true;
-                SettingSave(vConfigurationApplication, "VideoBackground", "True");
+                Setting_Save(vConfigurationCtrlUI, "VideoBackground", "True");
 
                 //Update the background media
                 UpdateBackgroundMedia();
@@ -281,6 +281,11 @@ namespace CtrlUI
                 AnswerConsolas.Name = "Consolas";
                 Answers.Add(AnswerConsolas);
 
+                DataBindString AnswerArial = new DataBindString();
+                AnswerArial.ImageBitmap = imageFonts;
+                AnswerArial.Name = "Arial";
+                Answers.Add(AnswerArial);
+
                 //Add custom fonts
                 DirectoryInfo directoryInfo = new DirectoryInfo("Assets/Fonts");
                 FileInfo[] fontFiles = directoryInfo.GetFiles("*.ttf", SearchOption.TopDirectoryOnly);
@@ -300,7 +305,7 @@ namespace CtrlUI
                     await Notification_Send_Status("Font", "Font style changed");
 
                     //Update the setting
-                    SettingSave(vConfigurationApplication, "InterfaceFontStyleName", messageResult.Name);
+                    Setting_Save(vConfigurationCtrlUI, "InterfaceFontStyleName", messageResult.Name);
 
                     //Update the font style
                     UpdateAppFontStyle();
@@ -336,7 +341,7 @@ namespace CtrlUI
                     await Notification_Send_Status("Clock", "Clock style changed");
 
                     //Update the setting
-                    SettingSave(vConfigurationApplication, "InterfaceClockStyleName", messageResult.Name);
+                    Setting_Save(vConfigurationCtrlUI, "InterfaceClockStyleName", messageResult.Name);
 
                     //Update the clock style
                     UpdateClockStyle();
@@ -372,7 +377,7 @@ namespace CtrlUI
                     await Notification_Send_Status("VolumeUp", "Sound pack changed");
 
                     //Update the setting
-                    SettingSave(vConfigurationApplication, "InterfaceSoundPackName", messageResult.Name);
+                    Setting_Save(vConfigurationCtrlUI, "InterfaceSoundPackName", messageResult.Name);
 
                     //Notify applications setting changed
                     await NotifyDirectXInputSettingChanged("InterfaceSoundPackName");

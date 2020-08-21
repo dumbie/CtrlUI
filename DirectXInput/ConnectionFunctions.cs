@@ -1,12 +1,7 @@
 ﻿using ArnoldVinkCode;
 using AVForms;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Reflection;
 using System.Windows;
-using static ArnoldVinkCode.AVFiles;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 

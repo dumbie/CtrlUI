@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Diagnostics;
 using System.Windows;
 using static DirectXInput.AppVariables;

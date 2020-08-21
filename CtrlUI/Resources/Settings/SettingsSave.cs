@@ -17,54 +17,54 @@ namespace CtrlUI
             {
                 cb_SettingsLaunchFullscreen.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "LaunchFullscreen", cb_SettingsLaunchFullscreen.IsChecked.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "LaunchFullscreen", cb_SettingsLaunchFullscreen.IsChecked.ToString());
                     if ((bool)cb_SettingsLaunchFullscreen.IsChecked)
                     {
                         cb_SettingsLaunchMinimized.IsChecked = false;
-                        SettingSave(vConfigurationApplication, "LaunchMinimized", cb_SettingsLaunchMinimized.IsChecked.ToString());
+                        Setting_Save(vConfigurationCtrlUI, "LaunchMinimized", cb_SettingsLaunchMinimized.IsChecked.ToString());
                     }
                 };
 
                 cb_SettingsLaunchMinimized.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "LaunchMinimized", cb_SettingsLaunchMinimized.IsChecked.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "LaunchMinimized", cb_SettingsLaunchMinimized.IsChecked.ToString());
                     if ((bool)cb_SettingsLaunchMinimized.IsChecked)
                     {
                         cb_SettingsLaunchFullscreen.IsChecked = false;
-                        SettingSave(vConfigurationApplication, "LaunchFullscreen", cb_SettingsLaunchFullscreen.IsChecked.ToString());
+                        Setting_Save(vConfigurationCtrlUI, "LaunchFullscreen", cb_SettingsLaunchFullscreen.IsChecked.ToString());
                     }
                 };
 
-                cb_SettingsCloseMediaScreen.Click += (sender, e) => { SettingSave(vConfigurationApplication, "CloseMediaScreen", cb_SettingsCloseMediaScreen.IsChecked.ToString()); };
-                cb_SettingsShowMediaMain.Click += (sender, e) => { SettingSave(vConfigurationApplication, "ShowMediaMain", cb_SettingsShowMediaMain.IsChecked.ToString()); };
-                cb_SettingsMinimizeAppOnShow.Click += (sender, e) => { SettingSave(vConfigurationApplication, "MinimizeAppOnShow", cb_SettingsMinimizeAppOnShow.IsChecked.ToString()); };
+                cb_SettingsCloseMediaScreen.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "CloseMediaScreen", cb_SettingsCloseMediaScreen.IsChecked.ToString()); };
+                cb_SettingsShowMediaMain.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "ShowMediaMain", cb_SettingsShowMediaMain.IsChecked.ToString()); };
+                cb_SettingsMinimizeAppOnShow.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "MinimizeAppOnShow", cb_SettingsMinimizeAppOnShow.IsChecked.ToString()); };
 
-                cb_SettingsLaunchFpsOverlayer.Click += (sender, e) => { SettingSave(vConfigurationApplication, "LaunchFpsOverlayer", cb_SettingsLaunchFpsOverlayer.IsChecked.ToString()); };
+                cb_SettingsLaunchFpsOverlayer.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "LaunchFpsOverlayer", cb_SettingsLaunchFpsOverlayer.IsChecked.ToString()); };
 
                 cb_SettingsShortcutVolume.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ShortcutVolume", cb_SettingsShortcutVolume.IsChecked.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "ShortcutVolume", cb_SettingsShortcutVolume.IsChecked.ToString());
                     UpdateControllerHelp();
                 };
 
                 cb_SettingsShowOtherShortcuts.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ShowOtherShortcuts", cb_SettingsShowOtherShortcuts.IsChecked.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "ShowOtherShortcuts", cb_SettingsShowOtherShortcuts.IsChecked.ToString());
                 };
 
                 cb_SettingsShowOtherProcesses.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "ShowOtherProcesses", cb_SettingsShowOtherProcesses.IsChecked.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "ShowOtherProcesses", cb_SettingsShowOtherProcesses.IsChecked.ToString());
                 };
 
                 cb_SettingsHideAppProcesses.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "HideAppProcesses", cb_SettingsHideAppProcesses.IsChecked.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "HideAppProcesses", cb_SettingsHideAppProcesses.IsChecked.ToString());
                 };
 
                 cb_SettingsHideBatteryLevel.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "HideBatteryLevel", cb_SettingsHideBatteryLevel.IsChecked.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "HideBatteryLevel", cb_SettingsHideBatteryLevel.IsChecked.ToString());
                     if ((bool)cb_SettingsHideBatteryLevel.IsChecked)
                     {
                         HideBatteryStatus(true);
@@ -73,7 +73,7 @@ namespace CtrlUI
 
                 cb_SettingsHideMouseCursor.Click += async (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "HideMouseCursor", cb_SettingsHideMouseCursor.IsChecked.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "HideMouseCursor", cb_SettingsHideMouseCursor.IsChecked.ToString());
                     if ((bool)cb_SettingsHideMouseCursor.IsChecked)
                     {
                         TaskStart_ShowHideMouseCursor();
@@ -88,66 +88,66 @@ namespace CtrlUI
 
                 cb_SettingsHideControllerHelp.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "HideControllerHelp", cb_SettingsHideControllerHelp.IsChecked.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "HideControllerHelp", cb_SettingsHideControllerHelp.IsChecked.ToString());
                     UpdateControllerHelp();
                 };
 
-                cb_SettingsShowHiddenFilesFolders.Click += (sender, e) => { SettingSave(vConfigurationApplication, "ShowHiddenFilesFolders", cb_SettingsShowHiddenFilesFolders.IsChecked.ToString()); };
-                cb_SettingsHideNetworkDrives.Click += (sender, e) => { SettingSave(vConfigurationApplication, "HideNetworkDrives", cb_SettingsHideNetworkDrives.IsChecked.ToString()); };
-                cb_SettingsInterfaceSound.Click += (sender, e) => { SettingSave(vConfigurationApplication, "InterfaceSound", cb_SettingsInterfaceSound.IsChecked.ToString()); };
+                cb_SettingsShowHiddenFilesFolders.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "ShowHiddenFilesFolders", cb_SettingsShowHiddenFilesFolders.IsChecked.ToString()); };
+                cb_SettingsHideNetworkDrives.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "HideNetworkDrives", cb_SettingsHideNetworkDrives.IsChecked.ToString()); };
+                cb_SettingsInterfaceSound.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "InterfaceSound", cb_SettingsInterfaceSound.IsChecked.ToString()); };
                 cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };
 
                 slider_SettingsFontSize.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(slider_SettingsFontSize.Value);
-                    SettingSave(vConfigurationApplication, "AppFontSize", Convert.ToInt32(slider_SettingsFontSize.Value).ToString());
+                    Setting_Save(vConfigurationCtrlUI, "AppFontSize", Convert.ToInt32(slider_SettingsFontSize.Value).ToString());
                     AdjustApplicationFontSize();
                 };
 
                 slider_SettingsDisplayMonitor.ValueChanged += async (sender, e) =>
                 {
                     textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
-                    SettingSave(vConfigurationApplication, "DisplayMonitor", Convert.ToInt32(slider_SettingsDisplayMonitor.Value).ToString());
+                    Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", Convert.ToInt32(slider_SettingsDisplayMonitor.Value).ToString());
                     await UpdateWindowPosition(true, false);
                 };
 
                 slider_SettingsSoundVolume.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(slider_SettingsSoundVolume.Value) + "%";
-                    SettingSave(vConfigurationApplication, "InterfaceSoundVolume", Convert.ToInt32(slider_SettingsSoundVolume.Value).ToString());
+                    Setting_Save(vConfigurationCtrlUI, "InterfaceSoundVolume", Convert.ToInt32(slider_SettingsSoundVolume.Value).ToString());
                 };
 
                 //Background Settings
                 cb_SettingsVideoBackground.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "VideoBackground", cb_SettingsVideoBackground.IsChecked.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "VideoBackground", cb_SettingsVideoBackground.IsChecked.ToString());
                     UpdateBackgroundMedia();
                 };
 
                 cb_SettingsDesktopBackground.Click += (sender, e) =>
                 {
-                    SettingSave(vConfigurationApplication, "DesktopBackground", cb_SettingsDesktopBackground.IsChecked.ToString());
+                    Setting_Save(vConfigurationCtrlUI, "DesktopBackground", cb_SettingsDesktopBackground.IsChecked.ToString());
                     UpdateBackgroundMedia();
                 };
 
                 slider_SettingsBackgroundBrightness.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsBackgroundBrightness.Text = "Background brightness: " + Convert.ToInt32(slider_SettingsBackgroundBrightness.Value) + "%";
-                    SettingSave(vConfigurationApplication, "BackgroundBrightness", Convert.ToInt32(slider_SettingsBackgroundBrightness.Value).ToString());
+                    Setting_Save(vConfigurationCtrlUI, "BackgroundBrightness", Convert.ToInt32(slider_SettingsBackgroundBrightness.Value).ToString());
                     UpdateBackgroundBrightness();
                 };
 
                 slider_SettingsBackgroundPlayVolume.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsBackgroundPlayVolume.Text = "Video playback volume: " + Convert.ToInt32(slider_SettingsBackgroundPlayVolume.Value) + "%";
-                    SettingSave(vConfigurationApplication, "BackgroundPlayVolume", Convert.ToInt32(slider_SettingsBackgroundPlayVolume.Value).ToString());
+                    Setting_Save(vConfigurationCtrlUI, "BackgroundPlayVolume", Convert.ToInt32(slider_SettingsBackgroundPlayVolume.Value).ToString());
                     UpdateBackgroundPlayVolume();
                 };
 
                 slider_SettingsBackgroundPlaySpeed.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsBackgroundPlaySpeed.Text = "Video playback speed: " + Convert.ToInt32(slider_SettingsBackgroundPlaySpeed.Value) + "%";
-                    SettingSave(vConfigurationApplication, "BackgroundPlaySpeed", Convert.ToInt32(slider_SettingsBackgroundPlaySpeed.Value).ToString());
+                    Setting_Save(vConfigurationCtrlUI, "BackgroundPlaySpeed", Convert.ToInt32(slider_SettingsBackgroundPlaySpeed.Value).ToString());
                     UpdateBackgroundPlaySpeed();
                 };
 
@@ -184,7 +184,7 @@ namespace CtrlUI
                     txt_SettingsSocketClientPortStart.BorderBrush = BrushValid;
                     txt_SettingsSocketClientPortRange.BorderBrush = BrushValid;
                     txt_SettingsSocketClientPortRange.Text = Convert.ToString(NewServerPort + 2);
-                    SettingSave(vConfigurationApplication, "ServerPort", txt_SettingsSocketClientPortStart.Text);
+                    Setting_Save(vConfigurationCtrlUI, "ServerPort", txt_SettingsSocketClientPortStart.Text);
                 };
             }
             catch (Exception ex)

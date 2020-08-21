@@ -17,6 +17,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput.Keypad
@@ -256,7 +257,7 @@ namespace DirectXInput.Keypad
             try
             {
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                 //Move and resize the window

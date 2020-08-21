@@ -3,6 +3,7 @@ using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Settings;
 
 namespace DirectXInput.Keyboard
 {
@@ -53,7 +54,7 @@ namespace DirectXInput.Keyboard
                 int moveBottom = positionRect.Bottom + mouseVertical;
 
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                 //Get the current window size

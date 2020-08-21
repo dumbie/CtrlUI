@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +14,7 @@ using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput.Keyboard
@@ -136,7 +136,7 @@ namespace DirectXInput.Keyboard
             {
                 if (forceUpdate || this.Opacity != 0)
                 {
-                    this.Opacity = Convert.ToDouble(ConfigurationManager.AppSettings["KeyboardOpacity"]);
+                    this.Opacity = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardOpacity"));
                 }
             }
             catch { }
@@ -192,7 +192,7 @@ namespace DirectXInput.Keyboard
             try
             {
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                 //Get the current window size
@@ -213,7 +213,7 @@ namespace DirectXInput.Keyboard
             try
             {
                 //Get the current active screen
-                int monitorNumber = Convert.ToInt32(vConfigurationCtrlUI.AppSettings.Settings["DisplayMonitor"].Value);
+                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
                 //Get the current mouse position
@@ -449,7 +449,7 @@ namespace DirectXInput.Keyboard
                 }
 
                 //Change the keyboard layout
-                if (Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardLayout"]) == 0)
+                if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout")) == 0)
                 {
                     Debug.WriteLine("Switching keyboard layout: QWERTY");
                     key_a.Content = "a";
@@ -463,7 +463,7 @@ namespace DirectXInput.Keyboard
                     key_z.Content = "z";
                     key_z.Tag = KeysVirtual.Z;
                 }
-                else if (Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardLayout"]) == 1) //QWERTZ
+                else if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout")) == 1) //QWERTZ
                 {
                     Debug.WriteLine("Switching keyboard layout: QWERTZ");
                     key_a.Content = "a";
@@ -477,7 +477,7 @@ namespace DirectXInput.Keyboard
                     key_z.Content = "y";
                     key_z.Tag = KeysVirtual.Y;
                 }
-                else if (Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardLayout"]) == 2) //AZERTY
+                else if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout")) == 2) //AZERTY
                 {
                     Debug.WriteLine("Switching keyboard layout: AZERTY");
                     key_a.Content = "q";
@@ -502,12 +502,12 @@ namespace DirectXInput.Keyboard
             {
                 if (vCapsEnabled)
                 {
-                    string extensionString = ConfigurationManager.AppSettings["KeyboardDomainExtension"].ToString();
+                    string extensionString = Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtension").ToString();
                     key_DotCom.Content = AVFunctions.StringCut(extensionString, 4, string.Empty);
                 }
                 else
                 {
-                    string extensionString = ConfigurationManager.AppSettings["KeyboardDomainExtensionDefault"].ToString();
+                    string extensionString = Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtensionDefault").ToString();
                     key_DotCom.Content = AVFunctions.StringCut(extensionString, 4, string.Empty);
                 }
             }

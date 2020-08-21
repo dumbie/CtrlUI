@@ -8,14 +8,15 @@ using System.Configuration;
 using System.Diagnostics;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace FpsOverlayer
 {
     public class AppVariables
     {
         //Application Variables
-        public static Configuration vConfigurationApplication = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        public static Configuration vConfigurationCtrlUI = null;
+        public static Configuration vConfigurationCtrlUI = Settings_Load_CtrlUI();
+        public static Configuration vConfigurationFpsOverlayer = Settings_Load_FpsOverlayer();
         public static ProcessMulti vTargetProcess = new ProcessMulti();
         public static bool vManualHidden = false;
 

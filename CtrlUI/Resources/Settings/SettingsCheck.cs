@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Diagnostics;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Settings;
@@ -13,44 +12,44 @@ namespace CtrlUI
         {
             try
             {
-                if (ConfigurationManager.AppSettings["AppFirstLaunch"] == null) { SettingSave(vConfigurationApplication, "AppFirstLaunch", "True"); }
-                if (ConfigurationManager.AppSettings["AppUpdateCheck"] == null) { SettingSave(vConfigurationApplication, "AppUpdateCheck", DateTime.Now.ToString(vAppCultureInfo)); }
-                if (ConfigurationManager.AppSettings["AppFontSize"] == null) { SettingSave(vConfigurationApplication, "AppFontSize", "0"); }
+                if (Setting_Load(vConfigurationCtrlUI, "AppFirstLaunch") == null) { Setting_Save(vConfigurationCtrlUI, "AppFirstLaunch", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "AppUpdateCheck") == null) { Setting_Save(vConfigurationCtrlUI, "AppUpdateCheck", DateTime.Now.ToString(vAppCultureInfo)); }
+                if (Setting_Load(vConfigurationCtrlUI, "AppFontSize") == null) { Setting_Save(vConfigurationCtrlUI, "AppFontSize", "0"); }
 
-                if (ConfigurationManager.AppSettings["DisplayMonitor"] == null) { SettingSave(vConfigurationApplication, "DisplayMonitor", "1"); } //Shared
-                if (ConfigurationManager.AppSettings["ColorAccentLight"] == null) { SettingSave(vConfigurationApplication, "ColorAccentLight", "#00C7FF"); } //Shared
-                if (ConfigurationManager.AppSettings["ServerPort"] == null) { SettingSave(vConfigurationApplication, "ServerPort", "1010"); } //Shared
+                if (Setting_Load(vConfigurationCtrlUI, "DisplayMonitor") == null) { Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", "1"); } //Shared
+                if (Setting_Load(vConfigurationCtrlUI, "ColorAccentLight") == null) { Setting_Save(vConfigurationCtrlUI, "ColorAccentLight", "#00C7FF"); } //Shared
+                if (Setting_Load(vConfigurationCtrlUI, "ServerPort") == null) { Setting_Save(vConfigurationCtrlUI, "ServerPort", "1010"); } //Shared
 
-                if (ConfigurationManager.AppSettings["LaunchFullscreen"] == null) { SettingSave(vConfigurationApplication, "LaunchFullscreen", "True"); }
-                if (ConfigurationManager.AppSettings["LaunchMinimized"] == null) { SettingSave(vConfigurationApplication, "LaunchMinimized", "False"); }
-                if (ConfigurationManager.AppSettings["ShowOtherShortcuts"] == null) { SettingSave(vConfigurationApplication, "ShowOtherShortcuts", "True"); }
-                if (ConfigurationManager.AppSettings["ShowOtherProcesses"] == null) { SettingSave(vConfigurationApplication, "ShowOtherProcesses", "True"); }
-                if (ConfigurationManager.AppSettings["HideAppProcesses"] == null) { SettingSave(vConfigurationApplication, "HideAppProcesses", "False"); }
+                if (Setting_Load(vConfigurationCtrlUI, "LaunchFullscreen") == null) { Setting_Save(vConfigurationCtrlUI, "LaunchFullscreen", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "LaunchMinimized") == null) { Setting_Save(vConfigurationCtrlUI, "LaunchMinimized", "False"); }
+                if (Setting_Load(vConfigurationCtrlUI, "ShowOtherShortcuts") == null) { Setting_Save(vConfigurationCtrlUI, "ShowOtherShortcuts", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "ShowOtherProcesses") == null) { Setting_Save(vConfigurationCtrlUI, "ShowOtherProcesses", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "HideAppProcesses") == null) { Setting_Save(vConfigurationCtrlUI, "HideAppProcesses", "False"); }
 
-                if (ConfigurationManager.AppSettings["HideBatteryLevel"] == null) { SettingSave(vConfigurationApplication, "HideBatteryLevel", "False"); }
-                if (ConfigurationManager.AppSettings["HideMouseCursor"] == null) { SettingSave(vConfigurationApplication, "HideMouseCursor", "True"); }
-                if (ConfigurationManager.AppSettings["HideControllerHelp"] == null) { SettingSave(vConfigurationApplication, "HideControllerHelp", "False"); }
-                if (ConfigurationManager.AppSettings["ShowHiddenFilesFolders"] == null) { SettingSave(vConfigurationApplication, "ShowHiddenFilesFolders", "False"); }
-                if (ConfigurationManager.AppSettings["HideNetworkDrives"] == null) { SettingSave(vConfigurationApplication, "HideNetworkDrives", "False"); }
+                if (Setting_Load(vConfigurationCtrlUI, "HideBatteryLevel") == null) { Setting_Save(vConfigurationCtrlUI, "HideBatteryLevel", "False"); }
+                if (Setting_Load(vConfigurationCtrlUI, "HideMouseCursor") == null) { Setting_Save(vConfigurationCtrlUI, "HideMouseCursor", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "HideControllerHelp") == null) { Setting_Save(vConfigurationCtrlUI, "HideControllerHelp", "False"); }
+                if (Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders") == null) { Setting_Save(vConfigurationCtrlUI, "ShowHiddenFilesFolders", "False"); }
+                if (Setting_Load(vConfigurationCtrlUI, "HideNetworkDrives") == null) { Setting_Save(vConfigurationCtrlUI, "HideNetworkDrives", "False"); }
 
-                if (ConfigurationManager.AppSettings["InterfaceSound"] == null) { SettingSave(vConfigurationApplication, "InterfaceSound", "True"); }
-                if (ConfigurationManager.AppSettings["InterfaceSoundVolume"] == null) { SettingSave(vConfigurationApplication, "InterfaceSoundVolume", "70"); }
-                if (ConfigurationManager.AppSettings["InterfaceSoundPackName"] == null) { SettingSave(vConfigurationApplication, "InterfaceSoundPackName", "Default"); } //Shared
-                if (ConfigurationManager.AppSettings["InterfaceClockStyleName"] == null) { SettingSave(vConfigurationApplication, "InterfaceClockStyleName", "Cortana"); }
-                if (ConfigurationManager.AppSettings["InterfaceFontStyleName"] == null) { SettingSave(vConfigurationApplication, "InterfaceFontStyleName", "Segoe UI"); }
+                if (Setting_Load(vConfigurationCtrlUI, "InterfaceSound") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceSound", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "InterfaceSoundVolume") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceSoundVolume", "70"); }
+                if (Setting_Load(vConfigurationCtrlUI, "InterfaceSoundPackName") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceSoundPackName", "Default"); } //Shared
+                if (Setting_Load(vConfigurationCtrlUI, "InterfaceClockStyleName") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceClockStyleName", "Cortana"); }
+                if (Setting_Load(vConfigurationCtrlUI, "InterfaceFontStyleName") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceFontStyleName", "Segoe UI"); }
 
-                if (ConfigurationManager.AppSettings["CloseMediaScreen"] == null) { SettingSave(vConfigurationApplication, "CloseMediaScreen", "False"); }
-                if (ConfigurationManager.AppSettings["ShowMediaMain"] == null) { SettingSave(vConfigurationApplication, "ShowMediaMain", "True"); }
-                if (ConfigurationManager.AppSettings["MinimizeAppOnShow"] == null) { SettingSave(vConfigurationApplication, "MinimizeAppOnShow", "False"); }
-                if (ConfigurationManager.AppSettings["ShortcutVolume"] == null) { SettingSave(vConfigurationApplication, "ShortcutVolume", "True"); }
-                if (ConfigurationManager.AppSettings["LaunchFpsOverlayer"] == null) { SettingSave(vConfigurationApplication, "LaunchFpsOverlayer", "False"); }
+                if (Setting_Load(vConfigurationCtrlUI, "CloseMediaScreen") == null) { Setting_Save(vConfigurationCtrlUI, "CloseMediaScreen", "False"); }
+                if (Setting_Load(vConfigurationCtrlUI, "ShowMediaMain") == null) { Setting_Save(vConfigurationCtrlUI, "ShowMediaMain", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow") == null) { Setting_Save(vConfigurationCtrlUI, "MinimizeAppOnShow", "False"); }
+                if (Setting_Load(vConfigurationCtrlUI, "ShortcutVolume") == null) { Setting_Save(vConfigurationCtrlUI, "ShortcutVolume", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "LaunchFpsOverlayer") == null) { Setting_Save(vConfigurationCtrlUI, "LaunchFpsOverlayer", "False"); }
 
                 //Background settings
-                if (ConfigurationManager.AppSettings["VideoBackground"] == null) { SettingSave(vConfigurationApplication, "VideoBackground", "True"); }
-                if (ConfigurationManager.AppSettings["DesktopBackground"] == null) { SettingSave(vConfigurationApplication, "DesktopBackground", "False"); }
-                if (ConfigurationManager.AppSettings["BackgroundBrightness"] == null) { SettingSave(vConfigurationApplication, "BackgroundBrightness", "80"); }
-                if (ConfigurationManager.AppSettings["BackgroundPlayVolume"] == null) { SettingSave(vConfigurationApplication, "BackgroundPlayVolume", "30"); }
-                if (ConfigurationManager.AppSettings["BackgroundPlaySpeed"] == null) { SettingSave(vConfigurationApplication, "BackgroundPlaySpeed", "100"); }
+                if (Setting_Load(vConfigurationCtrlUI, "VideoBackground") == null) { Setting_Save(vConfigurationCtrlUI, "VideoBackground", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "DesktopBackground") == null) { Setting_Save(vConfigurationCtrlUI, "DesktopBackground", "False"); }
+                if (Setting_Load(vConfigurationCtrlUI, "BackgroundBrightness") == null) { Setting_Save(vConfigurationCtrlUI, "BackgroundBrightness", "80"); }
+                if (Setting_Load(vConfigurationCtrlUI, "BackgroundPlayVolume") == null) { Setting_Save(vConfigurationCtrlUI, "BackgroundPlayVolume", "30"); }
+                if (Setting_Load(vConfigurationCtrlUI, "BackgroundPlaySpeed") == null) { Setting_Save(vConfigurationCtrlUI, "BackgroundPlaySpeed", "100"); }
             }
             catch (Exception ex)
             {

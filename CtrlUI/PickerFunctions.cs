@@ -2,7 +2,6 @@
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,6 +13,7 @@ using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -47,7 +47,7 @@ namespace CtrlUI
                 if (!vFilePickerOpen)
                 {
                     //Play the popup opening sound
-                    PlayInterfaceSound(vConfigurationApplication, "PopupOpen", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                     //Save the previous focus element
                     Popup_PreviousElementFocus_Save(vFilePickerElementFocus, previousFocus);
@@ -182,7 +182,7 @@ namespace CtrlUI
                         try
                         {
                             //Skip network drive depending on the setting
-                            if (disk.DriveType == DriveType.Network && Convert.ToBoolean(ConfigurationManager.AppSettings["HideNetworkDrives"]))
+                            if (disk.DriveType == DriveType.Network && Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideNetworkDrives")))
                             {
                                 continue;
                             }
@@ -421,7 +421,7 @@ namespace CtrlUI
                                     //Add folder to the list
                                     bool systemFileFolder = listFolder.Attributes.HasFlag(FileAttributes.System);
                                     bool hiddenFileFolder = listFolder.Attributes.HasFlag(FileAttributes.Hidden);
-                                    if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
+                                    if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders"))))
                                     {
                                         DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, ClipboardType = clipboardType, Name = listFolder.Name, NameDetail = folderDetailed, Description = listDescription, DateModified = listFolder.LastWriteTime, ImageBitmap = listImage, PathFile = listFolder.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
@@ -501,7 +501,7 @@ namespace CtrlUI
                                     //Add file to the list
                                     bool systemFileFolder = listFile.Attributes.HasFlag(FileAttributes.System);
                                     bool hiddenFileFolder = listFile.Attributes.HasFlag(FileAttributes.Hidden);
-                                    if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(ConfigurationManager.AppSettings["ShowHiddenFilesFolders"])))
+                                    if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders"))))
                                     {
                                         DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, ClipboardType = clipboardType, Name = listFile.Name, NameDetail = fileDetailed, Description = listDescription, DateModified = listFile.LastWriteTime, ImageBitmap = listImage, PathFile = listFile.FullName };
                                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
@@ -688,7 +688,7 @@ namespace CtrlUI
         {
             try
             {
-                PlayInterfaceSound(vConfigurationApplication, "PopupClose", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
                 //Reset and update popup variables
                 vFilePickerOpen = false;

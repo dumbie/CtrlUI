@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -22,7 +23,7 @@ namespace DirectXInput
                     if (CheckControllerIdle(Controller))
                     {
                         int idleTimeMs = Environment.TickCount - Controller.LastActiveTicks;
-                        int targetTimeMs = Convert.ToInt32(ConfigurationManager.AppSettings["ControllerIdleDisconnectMin"]) * 60000;
+                        int targetTimeMs = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin")) * 60000;
                         if (idleTimeMs > targetTimeMs)
                         {
                             Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTimeMs + "/" + targetTimeMs + "ms");
@@ -55,7 +56,7 @@ namespace DirectXInput
                 else
                 {
                     //Check if guide button is CtrlUI exclusive
-                    if (Controller.InputCurrent.ButtonGuide.PressedRaw && Convert.ToBoolean(ConfigurationManager.AppSettings["ExclusiveGuide"]))
+                    if (Controller.InputCurrent.ButtonGuide.PressedRaw && Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide")))
                     {
                         Controller.InputCurrent.ButtonGuide.PressedRaw = false;
                     }

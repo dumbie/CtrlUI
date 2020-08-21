@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
@@ -19,10 +18,10 @@ namespace CtrlUI
             try
             {
                 //Load the current DirectXInput settings
-                Settings_Load_DirectXInput(ref vConfigurationDirectXInput);
+                vConfigurationDirectXInput = Settings_Load_DirectXInput();
 
                 bool processDirectXInputRunning = CheckRunningProcessByNameOrTitle("DirectXInput", false);
-                bool ShortcutLaunchKeyboardController = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutLaunchKeyboardController"].Value);
+                bool ShortcutLaunchKeyboardController = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController"));
                 if (ShortcutLaunchKeyboardController && processDirectXInputRunning)
                 {
                     return true;
@@ -51,7 +50,7 @@ namespace CtrlUI
                     }
 
                     //Check if the help setting is enabled or disabled
-                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["HideControllerHelp"]))
+                    if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideControllerHelp")))
                     {
                         grid_Popup_Media_Volume_Help.Visibility = Visibility.Collapsed;
                         sp_ControllerHelp.Visibility = Visibility.Collapsed;
@@ -63,7 +62,7 @@ namespace CtrlUI
                     }
 
                     //Check CtrlUI settings
-                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"]))
+                    if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShortcutVolume")))
                     {
                         sp_ControllerHelpVolume.Visibility = Visibility.Visible;
                     }
@@ -73,7 +72,7 @@ namespace CtrlUI
                     }
 
                     //Check DirectXInput settings
-                    bool ShortcutLaunchKeyboardController = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutLaunchKeyboardController"].Value);
+                    bool ShortcutLaunchKeyboardController = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController"));
                     if (processDirectXInputRunning && ShortcutLaunchKeyboardController)
                     {
                         sp_ControllerHelpGuideHold.Visibility = Visibility.Visible;
@@ -83,7 +82,7 @@ namespace CtrlUI
                         sp_ControllerHelpGuideHold.Visibility = Visibility.Collapsed;
                     }
 
-                    bool ShortcutScreenshot = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutScreenshot"].Value);
+                    bool ShortcutScreenshot = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot"));
                     if (processDirectXInputRunning && ShortcutScreenshot)
                     {
                         sp_ControllerHelpScreenshot.Visibility = Visibility.Visible;
@@ -93,7 +92,7 @@ namespace CtrlUI
                         sp_ControllerHelpScreenshot.Visibility = Visibility.Collapsed;
                     }
 
-                    bool ShortcutAltEnter = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutAltEnter"].Value);
+                    bool ShortcutAltEnter = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter"));
                     if (processDirectXInputRunning && ShortcutAltEnter)
                     {
                         sp_ControllerHelpAltEnter.Visibility = Visibility.Visible;
@@ -103,14 +102,14 @@ namespace CtrlUI
                         sp_ControllerHelpAltEnter.Visibility = Visibility.Collapsed;
                     }
 
-                    bool ShortcutAltTab = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutAltTab"].Value);
+                    bool ShortcutAltTab = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab"));
                     if (processDirectXInputRunning && ShortcutAltTab)
                     {
                         tb_ControllerHelpAltTab.Text = "Alt+Tab";
                         sp_ControllerHelpAltTab.Visibility = Visibility.Visible;
                     }
 
-                    bool ShortcutWinTab = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutWinTab"].Value);
+                    bool ShortcutWinTab = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutWinTab"));
                     if (processDirectXInputRunning && ShortcutWinTab)
                     {
                         tb_ControllerHelpAltTab.Text = "Win+Tab";
@@ -122,7 +121,7 @@ namespace CtrlUI
                         sp_ControllerHelpAltTab.Visibility = Visibility.Collapsed;
                     }
 
-                    bool ShortcutAltF4 = Convert.ToBoolean(vConfigurationDirectXInput.AppSettings.Settings["ShortcutAltF4"].Value);
+                    bool ShortcutAltF4 = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltF4"));
                     if (processDirectXInputRunning && ShortcutAltF4)
                     {
                         sp_ControllerHelpAltF4.Visibility = Visibility.Visible;

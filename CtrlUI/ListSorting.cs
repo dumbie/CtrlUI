@@ -149,7 +149,7 @@ namespace CtrlUI
                     SortObservableCollection(lb_Games, List_Games, x => x.Number, null, true);
                     SortObservableCollection(lb_Apps, List_Apps, x => x.Number, null, true);
                     SortObservableCollection(lb_Emulators, List_Emulators, x => x.Number, null, true);
-                    SortObservableCollection(lb_Launchers, List_Launchers, x => x.Name, null, true);
+                    SortObservableCollection(lb_Launchers, List_Launchers, x => x.Launcher, null, true);
                     SortObservableCollection(lb_Shortcuts, List_Shortcuts, x => x.TimeCreation, null, false);
                     SortObservableCollection(lb_Processes, List_Processes, x => x.RunningTime, null, true);
 

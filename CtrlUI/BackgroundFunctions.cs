@@ -1,10 +1,11 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using static CtrlUI.AppVariables;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -25,7 +26,7 @@ namespace CtrlUI
         {
             try
             {
-                grid_Video_Background.Opacity = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundBrightness"]) / 100;
+                grid_Video_Background.Opacity = (double)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundBrightness")) / 100;
             }
             catch { }
         }
@@ -35,7 +36,7 @@ namespace CtrlUI
         {
             try
             {
-                grid_Video_Background.SpeedRatio = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlaySpeed"]) / 100;
+                grid_Video_Background.SpeedRatio = (double)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundPlaySpeed")) / 100;
             }
             catch { }
         }
@@ -45,7 +46,7 @@ namespace CtrlUI
         {
             try
             {
-                grid_Video_Background.Volume = (double)Convert.ToInt32(ConfigurationManager.AppSettings["BackgroundPlayVolume"]) / 100;
+                grid_Video_Background.Volume = (double)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundPlayVolume")) / 100;
             }
             catch { }
         }
@@ -69,11 +70,11 @@ namespace CtrlUI
                 UpdateBackgroundPlayVolume();
 
                 //Set background source
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["VideoBackground"]))
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "VideoBackground")))
                 {
                     grid_Video_Background.Source = new Uri(defaultWallpaperVideo, UriKind.RelativeOrAbsolute);
                 }
-                else if (!Convert.ToBoolean(ConfigurationManager.AppSettings["DesktopBackground"]))
+                else if (!Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "DesktopBackground")))
                 {
                     grid_Video_Background.Source = new Uri(defaultWallpaperImage, UriKind.RelativeOrAbsolute);
                 }

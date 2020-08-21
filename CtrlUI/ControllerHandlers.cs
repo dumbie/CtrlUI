@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,6 +9,7 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -292,7 +292,7 @@ namespace CtrlUI
                     await AVActions.ActionDispatcherInvokeAsync(delegate { MediaPopupOpen = grid_Popup_Media.Visibility == Visibility.Visible; });
 
                     //Control the volume with controller triggers
-                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutVolume"]) || MediaPopupOpen)
+                    if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShortcutVolume")) || MediaPopupOpen)
                     {
                         if (ControllerInput.TriggerLeft > 0 && ControllerInput.TriggerRight > 0)
                         {

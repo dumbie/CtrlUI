@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVInputOutputClass;
@@ -7,6 +6,7 @@ using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInputOutputMouse;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput.Keyboard
@@ -23,13 +23,13 @@ namespace DirectXInput.Keyboard
                 if (Environment.TickCount >= vControllerDelay_Mouse)
                 {
                     //Get the mouse move amount
-                    int moveSensitivity = Convert.ToInt32(ConfigurationManager.AppSettings["MouseMoveSensitivity"]);
+                    int moveSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MouseMoveSensitivity"));
                     GetMouseMovementAmountFromThumb(moveSensitivity, ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY, true, out int moveHorizontalLeft, out int moveVerticalLeft);
 
                     //Move the mouse cursor
                     MouseMoveCursor(moveHorizontalLeft, moveVerticalLeft);
 
-                    if (Convert.ToInt32(ConfigurationManager.AppSettings["KeyboardMode"]) == 0)
+                    if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode")) == 0)
                     {
                         //Get the mouse move amount
                         GetMouseMovementAmountFromThumb(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
@@ -40,7 +40,7 @@ namespace DirectXInput.Keyboard
                     else
                     {
                         //Get the mouse scroll amount
-                        int scrollSensitivity = Convert.ToInt32(ConfigurationManager.AppSettings["MouseScrollSensitivity"]);
+                        int scrollSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MouseScrollSensitivity"));
                         GetMouseMovementAmountFromThumb(scrollSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, false, out int scrollHorizontalRight, out int scrollVerticalRight);
 
                         //Scroll the mouse wheel

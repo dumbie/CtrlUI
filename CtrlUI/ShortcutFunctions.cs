@@ -1,7 +1,6 @@
 ﻿using Shell32;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -17,6 +16,7 @@ using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -129,7 +129,7 @@ namespace CtrlUI
             try
             {
                 //Check if shortcuts need to be updated
-                if (!Convert.ToBoolean(ConfigurationManager.AppSettings["ShowOtherShortcuts"]))
+                if (!Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherShortcuts")))
                 {
                     //Debug.WriteLine("Shortcuts don't need to be updated, cancelling.");
                     return;
@@ -174,7 +174,9 @@ namespace CtrlUI
                 directoryShortcuts = directoryShortcuts.OrderBy(x => x.Name);
 
                 //Remove shortcuts that are no longer available from the list
-                await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => !directoryShortcuts.Any(y => StripShortcutFilename(y.Name) == x.Name));
+                Func<DataBindApp, bool> filterShortcutApp = x => x.Category == AppCategory.Shortcut && !directoryShortcuts.Any(y => StripShortcutFilename(y.Name) == x.Name);
+                await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, filterShortcutApp);
+                await ListBoxRemoveAll(lb_Search, List_Search, filterShortcutApp);
 
                 //Get shortcut information and add it to the list
                 foreach (FileInfo file in directoryShortcuts)
@@ -187,7 +189,7 @@ namespace CtrlUI
                         string targetArgumentLower = shortcutDetails.Argument.ToLower();
 
                         //Check if already in combined list and remove it
-                        if (CombineAppLists(false, false, false).Any(x => x.PathExe.ToLower() == targetPathLower))
+                        if (CombineAppLists(false, false, true).Any(x => x.PathExe.ToLower() == targetPathLower))
                         {
                             //Debug.WriteLine("Shortcut is in the combined list skipping: " + fileNameStripped.ToLower());
                             await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);

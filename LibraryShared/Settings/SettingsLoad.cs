@@ -8,6 +8,19 @@ namespace LibraryShared
 {
     public partial class Settings
     {
+        //Load - Application Setting Value
+        public static object Setting_Load(Configuration sourceConfig, string settingName)
+        {
+            try
+            {
+                return sourceConfig.AppSettings.Settings[settingName].Value;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         //Load - Accent Color settings
         public static void Settings_Load_AccentColor(Configuration sourceConfig)
         {
@@ -15,8 +28,7 @@ namespace LibraryShared
             {
                 Debug.WriteLine("Adjusting the application accent color.");
 
-                if (sourceConfig == null) { sourceConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); }
-                string colorHexLight = Convert.ToString(sourceConfig.AppSettings.Settings["ColorAccentLight"].Value);
+                string colorHexLight = Convert.ToString(Setting_Load(sourceConfig, "ColorAccentLight"));
 
                 SolidColorBrush targetSolidColorBrushLight = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;
                 SolidColorBrush targetSolidColorBrushDark = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;
@@ -31,53 +43,56 @@ namespace LibraryShared
         }
 
         //Load - CtrlUI Settings
-        public static bool Settings_Load_CtrlUI(ref Configuration targetConfig)
+        public static Configuration Settings_Load_CtrlUI()
         {
             try
             {
                 ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "CtrlUI.exe.Config";
-                targetConfig = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-                return true;
+                configMap.ExeConfigFilename = "CtrlUI.exe.csettings";
+                Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+                Debug.WriteLine("Loaded the CtrlUI settings.");
+                return configuration;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to load the CtrlUI settings: " + ex.Message);
-                return false;
+                return null;
             }
         }
 
         //Load - DirectXInput Settings
-        public static bool Settings_Load_DirectXInput(ref Configuration targetConfig)
+        public static Configuration Settings_Load_DirectXInput()
         {
             try
             {
                 ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "DirectXInput.exe.Config";
-                targetConfig = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-                return true;
+                configMap.ExeConfigFilename = "DirectXInput.exe.csettings";
+                Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+                Debug.WriteLine("Loaded the DirectXInput settings.");
+                return configuration;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to load the DirectXInput settings: " + ex.Message);
-                return false;
+                return null;
             }
         }
 
         //Load - Fps Overlayer Settings
-        public static bool Settings_Load_FpsOverlayer(ref Configuration targetConfig)
+        public static Configuration Settings_Load_FpsOverlayer()
         {
             try
             {
                 ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-                configMap.ExeConfigFilename = "FpsOverlayer.exe.Config";
-                targetConfig = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-                return true;
+                configMap.ExeConfigFilename = "FpsOverlayer.exe.csettings";
+                Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+                Debug.WriteLine("Loaded the Fps Overlayer settings.");
+                return configuration;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to load the Fps Overlayer settings: " + ex.Message);
-                return false;
+                return null;
             }
         }
     }

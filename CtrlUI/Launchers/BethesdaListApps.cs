@@ -89,6 +89,7 @@ namespace CtrlUI
                 DataBindApp dataBindApp = new DataBindApp()
                 {
                     Category = AppCategory.Launcher,
+                    Launcher = AppLauncher.Bethesda,
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,

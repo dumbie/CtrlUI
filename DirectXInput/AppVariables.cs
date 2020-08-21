@@ -10,6 +10,7 @@ using System.Windows.Threading;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -17,9 +18,9 @@ namespace DirectXInput
     {
         //Application Variables
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        public static Configuration vConfigurationApplication = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        public static Configuration vConfigurationCtrlUI = null;
-        public static Configuration vConfigurationFpsOverlayer = null;
+        public static Configuration vConfigurationCtrlUI = Settings_Load_CtrlUI();
+        public static Configuration vConfigurationDirectXInput = Settings_Load_DirectXInput();
+        public static Configuration vConfigurationFpsOverlayer = Settings_Load_FpsOverlayer();
 
         //Image Variables
         public static string[] vImageSourceFolders = { "Assets/Apps", "Assets/Roms" };

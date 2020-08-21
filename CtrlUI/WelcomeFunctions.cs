@@ -19,7 +19,7 @@ namespace CtrlUI
             try
             {
                 //Set application first launch to false
-                SettingSave(vConfigurationApplication, "AppFirstLaunch", "False");
+                Setting_Save(vConfigurationCtrlUI, "AppFirstLaunch", "False");
 
                 //Open the Windows registry
                 RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
@@ -145,7 +145,7 @@ namespace CtrlUI
                 {
                     if (RegKeyEpic != null)
                     {
-                        string RegKeyExePath = RegKeyEpic.GetValue("").ToString().Replace(",0", string.Empty);
+                        string RegKeyExePath = RegKeyEpic.GetValue(null).ToString().Replace(",0", string.Empty);
                         if (File.Exists(RegKeyExePath))
                         {
                             //Add application to the list

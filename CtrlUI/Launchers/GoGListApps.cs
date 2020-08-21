@@ -74,6 +74,7 @@ namespace CtrlUI
 
                 //Get executable launch path
                 string runCommand = Path.Combine(gogGamePath, primaryTask.path);
+                runCommand = runCommand.Replace("/", "\\");
                 vLauncherAppAvailableCheck.Add(runCommand);
 
                 //Check if application is already added
@@ -104,6 +105,7 @@ namespace CtrlUI
                 DataBindApp dataBindApp = new DataBindApp()
                 {
                     Category = AppCategory.Launcher,
+                    Launcher = AppLauncher.GoG,
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,

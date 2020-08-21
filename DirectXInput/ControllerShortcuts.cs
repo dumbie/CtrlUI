@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -12,6 +11,7 @@ using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput
@@ -84,7 +84,7 @@ namespace DirectXInput
                     //Press Alt+Enter
                     else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderRight.PressedRaw)
                     {
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltEnter"]))
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter")))
                         {
                             Debug.WriteLine("Button Global - Alt+Enter");
 
@@ -102,7 +102,7 @@ namespace DirectXInput
                     //Press Alt+F4
                     else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderLeft.PressedRaw)
                     {
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltF4"]))
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltF4")))
                         {
                             Debug.WriteLine("Button Global - Alt+F4");
 
@@ -120,7 +120,7 @@ namespace DirectXInput
                     //Press Alt+Tab or Win+Tab
                     else if (Controller.InputCurrent.ButtonBack.PressedRaw && Controller.InputCurrent.ButtonShoulderRight.PressedRaw)
                     {
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutWinTab"]))
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutWinTab")))
                         {
                             Debug.WriteLine("Button Global - Win+Tab");
 
@@ -134,7 +134,7 @@ namespace DirectXInput
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
                         }
-                        else if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutAltTab"]))
+                        else if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab")))
                         {
                             Debug.WriteLine("Button Global - Alt+Tab");
 
@@ -152,7 +152,7 @@ namespace DirectXInput
                     //Make screenshot
                     else if (Controller.InputCurrent.ButtonBack.PressedRaw && Controller.InputCurrent.ButtonShoulderLeft.PressedRaw)
                     {
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutScreenshot"]))
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot")))
                         {
                             Debug.WriteLine("Button Global - Screenshot");
                             PlayInterfaceSound(vConfigurationCtrlUI, "Screenshot", true);
@@ -166,7 +166,7 @@ namespace DirectXInput
                     //Disconnect controller from Bluetooth
                     else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonGuide.PressedRaw)
                     {
-                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutDisconnectBluetooth"]))
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth")))
                         {
                             Debug.WriteLine("Shortcut disconnect Bluetooth has been pressed.");
                             StopControllerTask(Controller, false, string.Empty);
@@ -240,7 +240,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["ShortcutLaunchCtrlUI"]))
+                if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI")))
                 {
                     Debug.WriteLine("Shortcut launch CtrlUI has been pressed.");
 
