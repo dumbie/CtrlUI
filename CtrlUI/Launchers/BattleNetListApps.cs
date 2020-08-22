@@ -25,23 +25,21 @@ namespace CtrlUI
             try
             {
                 //Open the Windows registry
-                RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
-
-                //Search for Battle.net install directory
-                using (RegistryKey RegKeyBattle = registryKeyLocalMachine.OpenSubKey("Software\\Blizzard Entertainment\\Battle.net\\Capabilities"))
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    if (RegKeyBattle != null)
+                    //Search for Battle.net install directory
+                    using (RegistryKey RegKeyBattle = registryKeyLocalMachine.OpenSubKey("Software\\Blizzard Entertainment\\Battle.net\\Capabilities"))
                     {
-                        string RegKeyExePath = RegKeyBattle.GetValue("ApplicationIcon").ToString().Replace("\"", "").Replace(",0", "");
-                        if (File.Exists(RegKeyExePath))
+                        if (RegKeyBattle != null)
                         {
-                            return RegKeyExePath;
+                            string RegKeyExePath = RegKeyBattle.GetValue("ApplicationIcon").ToString().Replace("\"", "").Replace(",0", "");
+                            if (File.Exists(RegKeyExePath))
+                            {
+                                return RegKeyExePath;
+                            }
                         }
                     }
                 }
-
-                //Close and dispose the registry
-                registryKeyLocalMachine.Dispose();
             }
             catch { }
             return string.Empty;

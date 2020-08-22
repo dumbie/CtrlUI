@@ -15,6 +15,31 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        string UplayInstallPath()
+        {
+            try
+            {
+                //Open the Windows registry
+                using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                {
+                    //Search for Uplay install directory
+                    using (RegistryKey RegKeyUplay = registryKeyLocalMachine.OpenSubKey("Software\\Ubisoft\\Launcher"))
+                    {
+                        if (RegKeyUplay != null)
+                        {
+                            string RegKeyExePath = RegKeyUplay.GetValue("InstallDir").ToString() + "upc.exe";
+                            if (File.Exists(RegKeyExePath))
+                            {
+                                return Path.GetDirectoryName(RegKeyExePath);
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+            return string.Empty;
+        }
+
         async Task UplayScanAddLibrary()
         {
             try
@@ -64,7 +89,7 @@ namespace CtrlUI
                 }
 
                 //Get launch argument
-                string runCommand = "uplay://launch/" + appId;
+                string runCommand = "uplay://launch/" + appId + "/0";
                 vLauncherAppAvailableCheck.Add(runCommand);
 
                 //Check if application is already added
@@ -80,6 +105,7 @@ namespace CtrlUI
 
                 //Get application image
                 //Fix open yaml configurations and look for image (Uplay Launcher\cache\assets)
+                //string configurationsPath = Path.Combine(UplayInstallPath(), "cache\\configuration\\configurations"); > thumbimage
                 BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Uplay" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
 
                 //Add the application to the list

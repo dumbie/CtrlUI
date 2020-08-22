@@ -23,23 +23,21 @@ namespace CtrlUI
             try
             {
                 //Open the Windows registry
-                RegistryKey registryKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32);
-
-                //Search for Steam install directory
-                using (RegistryKey RegKeySteam = registryKeyCurrentUser.OpenSubKey("Software\\Valve\\Steam"))
+                using (RegistryKey registryKeyCurrentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
                 {
-                    if (RegKeySteam != null)
+                    //Search for Steam install directory
+                    using (RegistryKey RegKeySteam = registryKeyCurrentUser.OpenSubKey("Software\\Valve\\Steam"))
                     {
-                        string RegKeyExePath = RegKeySteam.GetValue("SteamExe").ToString();
-                        if (File.Exists(RegKeyExePath))
+                        if (RegKeySteam != null)
                         {
-                            return Path.GetDirectoryName(RegKeyExePath);
+                            string RegKeyExePath = RegKeySteam.GetValue("SteamExe").ToString();
+                            if (File.Exists(RegKeyExePath))
+                            {
+                                return Path.GetDirectoryName(RegKeyExePath);
+                            }
                         }
                     }
                 }
-
-                //Close and dispose the registry
-                registryKeyCurrentUser.Dispose();
             }
             catch { }
             return string.Empty;

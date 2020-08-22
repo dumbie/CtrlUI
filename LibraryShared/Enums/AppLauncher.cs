@@ -12,7 +12,8 @@
             GoG = 4,
             Bethesda = 5,
             BattleNet = 6,
-            Rockstar = 7
+            Rockstar = 7,
+            UWP = 8
         }
     }
 }
