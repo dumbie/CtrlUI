@@ -49,9 +49,6 @@ namespace CtrlUI
         {
             try
             {
-                //Get launcher icon image
-                BitmapImage launcherImage = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 10, 0);
-
                 //Get launcher paths
                 string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 string productDatabasePath = Path.Combine(commonApplicationDataPath, "Battle.net\\Agent\\product.db");
@@ -64,7 +61,7 @@ namespace CtrlUI
                     {
                         try
                         {
-                            await BattleNetAddApplication(productInstall, launcherImage, launcherExePath);
+                            await BattleNetAddApplication(productInstall, launcherExePath);
                         }
                         catch { }
                     }
@@ -76,7 +73,7 @@ namespace CtrlUI
             }
         }
 
-        async Task BattleNetAddApplication(ProductInstall productInstall, BitmapImage launcherImage, string launcherExePath)
+        async Task BattleNetAddApplication(ProductInstall productInstall, string launcherExePath)
         {
             try
             {
@@ -139,7 +136,7 @@ namespace CtrlUI
                     ImageBitmap = iconBitmapImage,
                     PathExe = launcherExePath,
                     Argument = launchArgument,
-                    StatusLauncher = launcherImage,
+                    StatusLauncher = vImagePreloadBattleNet,
                     LaunchKeyboard = true
                 };
 

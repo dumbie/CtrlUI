@@ -216,7 +216,7 @@
                         <Image Name="img_Menu_GoGStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_EpicStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_BethesdaStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                        <Image Name="img_Menu_BlizzardStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_BattleNetStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_RockstarStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
 
                         <Image Name="img_Menu_FpsOverlayer" Opacity="0.40" Width="30" Margin="25,0,0,0"/>

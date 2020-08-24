@@ -18,9 +18,6 @@ namespace CtrlUI
         {
             try
             {
-                //Get launcher icon image
-                BitmapImage launcherImage = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 10, 0);
-
                 //Get launcher paths
                 string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 string gogConfigPath = Path.Combine(commonApplicationDataPath, "GOG.com\\Galaxy\\config.json");
@@ -44,7 +41,7 @@ namespace CtrlUI
                                 string gogGamePath = Path.GetDirectoryName(infoFile);
                                 string infoFileString = File.ReadAllText(infoFile);
                                 GoGGameInfo gogGameInfo = JsonConvert.DeserializeObject<GoGGameInfo>(infoFileString);
-                                await GoGAddApplication(gogGamePath, gogGameInfo, icoFilePath, launcherImage);
+                                await GoGAddApplication(gogGamePath, gogGameInfo, icoFilePath);
                             }
                             catch { }
                         }
@@ -58,7 +55,7 @@ namespace CtrlUI
             }
         }
 
-        async Task GoGAddApplication(string gogGamePath, GoGGameInfo gogGameInfo, string icoFilePath, BitmapImage launcherImage)
+        async Task GoGAddApplication(string gogGamePath, GoGGameInfo gogGameInfo, string icoFilePath)
         {
             try
             {
@@ -110,7 +107,7 @@ namespace CtrlUI
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
                     Argument = launchArgument,
-                    StatusLauncher = launcherImage
+                    StatusLauncher = vImagePreloadGoG
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);

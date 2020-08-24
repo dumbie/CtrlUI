@@ -8,6 +8,8 @@ using System.Globalization;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
@@ -40,6 +42,14 @@ namespace CtrlUI
         //Image Variables
         public static string[] vImageSourceFolders = { "Assets/User/Apps", "Assets/Default/Apps", "Assets/User/Roms", "Assets/Default/Roms" };
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
+        public static BitmapImage vImagePreloadSteam = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadUplay = FileToBitmapImage(new string[] { "Uplay" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadOrigin = FileToBitmapImage(new string[] { "Origin" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadGoG = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadBethesda = FileToBitmapImage(new string[] { "Bethesda" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadEpic = FileToBitmapImage(new string[] { "Epic Games" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadBattleNet = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadRockstar = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
 
         //Update Variables
         public static bool vCheckingForUpdate = false;

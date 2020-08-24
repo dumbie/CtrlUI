@@ -255,6 +255,7 @@ namespace CtrlUI
                 Visibility shortcutWindowStore = Visibility.Collapsed;
                 Visibility shortcutAvailable = Visibility.Collapsed;
                 ProcessType shortcutProcessType = ProcessType.Win32;
+                BitmapImage launcherImage = null;
 
                 //Check if executable or UrlProtocol app shortcut
                 if (targetPathLower.EndsWith(".exe"))
@@ -281,6 +282,32 @@ namespace CtrlUI
                 {
                     //Check if shortcut is url protocol
                     shortcutUrlProtocol = Visibility.Visible;
+
+                    //Check if url protocol is a launcher and set icon
+                    if (targetPathLower.Contains("steam://"))
+                    {
+                        launcherImage = vImagePreloadSteam;
+                    }
+                    else if (targetPathLower.Contains("com.epicgames.launcher://"))
+                    {
+                        launcherImage = vImagePreloadEpic;
+                    }
+                    else if (targetPathLower.Contains("uplay://"))
+                    {
+                        launcherImage = vImagePreloadUplay;
+                    }
+                    else if (targetPathLower.Contains("battlenet://"))
+                    {
+                        launcherImage = vImagePreloadBattleNet;
+                    }
+                    else if (targetPathLower.Contains("bethesdanet://"))
+                    {
+                        launcherImage = vImagePreloadBethesda;
+                    }
+                    else if (targetPathLower.Contains("origin://"))
+                    {
+                        launcherImage = vImagePreloadOrigin;
+                    }
                 }
                 else if (!targetPathLower.Contains("/") && targetPathLower.Contains("!") && targetPathLower.Contains("_"))
                 {
@@ -326,7 +353,7 @@ namespace CtrlUI
                 }
 
                 //Add the shortcut to the list
-                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusUrlProtocol = shortcutUrlProtocol, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
+                DataBindApp dataBindApp = new DataBindApp() { Type = shortcutProcessType, Category = AppCategory.Shortcut, Name = shortcutDetails.Title, NameExe = shortcutDetails.NameExe, ImageBitmap = iconBitmapImage, PathExe = shortcutDetails.TargetPath, PathLaunch = shortcutDetails.WorkingPath, ShortcutPath = shortcutDetails.ShortcutPath, Argument = shortcutDetails.Argument, StatusStore = shortcutWindowStore, StatusUrlProtocol = shortcutUrlProtocol, StatusLauncher = launcherImage, TimeCreation = shortcutDetails.TimeModify, StatusAvailable = shortcutAvailable };
                 await ListBoxAddItem(lb_Shortcuts, List_Shortcuts, dataBindApp, false, false);
             }
             catch

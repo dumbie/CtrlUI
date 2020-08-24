@@ -18,9 +18,6 @@ namespace CtrlUI
         {
             try
             {
-                //Get launcher icon image
-                BitmapImage launcherImage = FileToBitmapImage(new string[] { "Bethesda" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 10, 0);
-
                 //Improve read installed applications from cdpprod.dch file
 
                 //Open the Windows registry
@@ -43,7 +40,7 @@ namespace CtrlUI
                                             string appName = installDetails.GetValue("DisplayName")?.ToString();
                                             string appIcon = installDetails.GetValue("DisplayIcon")?.ToString();
                                             string installDir = installDetails.GetValue("Path")?.ToString().Replace("\"", string.Empty);
-                                            await BethesdaAddApplication(appId, appName, appIcon, installDir, launcherImage);
+                                            await BethesdaAddApplication(appId, appName, appIcon, installDir);
                                         }
                                     }
                                 }
@@ -59,7 +56,7 @@ namespace CtrlUI
             }
         }
 
-        async Task BethesdaAddApplication(string appId, string appName, string appIcon, string installDir, BitmapImage launcherImage)
+        async Task BethesdaAddApplication(string appId, string appName, string appIcon, string installDir)
         {
             try
             {
@@ -94,7 +91,7 @@ namespace CtrlUI
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
                     PathLaunch = installDir,
-                    StatusLauncher = launcherImage
+                    StatusLauncher = vImagePreloadBethesda
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);

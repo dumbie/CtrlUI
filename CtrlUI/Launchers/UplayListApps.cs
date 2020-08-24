@@ -44,9 +44,6 @@ namespace CtrlUI
         {
             try
             {
-                //Get launcher icon image
-                BitmapImage launcherImage = FileToBitmapImage(new string[] { "Uplay" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 10, 0);
-
                 //Open the Windows registry
                 using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
@@ -62,7 +59,7 @@ namespace CtrlUI
                                     {
                                         string installDir = installDetails.GetValue("InstallDir").ToString();
                                         installDir = AVFunctions.StringRemoveEnd(installDir, "/");
-                                        await UplayAddApplication(appId, installDir, launcherImage);
+                                        await UplayAddApplication(appId, installDir);
                                     }
                                 }
                                 catch { }
@@ -77,7 +74,7 @@ namespace CtrlUI
             }
         }
 
-        async Task UplayAddApplication(string appId, string installDir, BitmapImage launcherImage)
+        async Task UplayAddApplication(string appId, string installDir)
         {
             try
             {
@@ -116,7 +113,7 @@ namespace CtrlUI
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
-                    StatusLauncher = launcherImage
+                    StatusLauncher = vImagePreloadUplay
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);

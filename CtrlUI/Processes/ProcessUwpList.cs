@@ -276,6 +276,12 @@ namespace CtrlUI
                         //Get detailed application information
                         AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
 
+                        //Check if executable name is valid
+                        if (string.IsNullOrWhiteSpace(appxDetails.ExecutableName))
+                        {
+                            continue;
+                        }
+
                         //Check if application name is valid
                         if (string.IsNullOrWhiteSpace(appxDetails.DisplayName) || appxDetails.DisplayName.StartsWith("ms-resource"))
                         {

@@ -47,6 +47,9 @@ namespace CtrlUI
                 //Scan and add library from Rockstar
                 await RockstarScanAddLibrary();
 
+                ////Scan and add library from UWP games
+                //await UwpScanAddLibrary();
+
                 //Remove deleted launcher applications
                 Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && !vLauncherAppAvailableCheck.Any(y => y == x.PathExe);
                 await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);

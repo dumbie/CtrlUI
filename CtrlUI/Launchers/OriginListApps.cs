@@ -18,9 +18,6 @@ namespace CtrlUI
         {
             try
             {
-                //Get launcher icon image
-                BitmapImage launcherImage = FileToBitmapImage(new string[] { "Origin" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 10, 0);
-
                 //Get launcher paths
                 string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 string localContentPath = Path.Combine(commonApplicationDataPath, "Origin\\LocalContent");
@@ -30,7 +27,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        await OriginAddApplication(localContentAppPath, launcherImage);
+                        await OriginAddApplication(localContentAppPath);
                     }
                     catch { }
                 }
@@ -41,7 +38,7 @@ namespace CtrlUI
             }
         }
 
-        async Task OriginAddApplication(string localContentAppPath, BitmapImage launcherImage)
+        async Task OriginAddApplication(string localContentAppPath)
         {
             try
             {
@@ -99,7 +96,7 @@ namespace CtrlUI
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
-                    StatusLauncher = launcherImage
+                    StatusLauncher = vImagePreloadOrigin
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);

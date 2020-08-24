@@ -18,9 +18,6 @@ namespace CtrlUI
         {
             try
             {
-                //Get launcher icon image
-                BitmapImage launcherImage = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 10, 0);
-
                 //Improve Launcher.exe with argument -launchTitleInFolder *gamepath*
 
                 //Open the Windows registry
@@ -43,7 +40,7 @@ namespace CtrlUI
                                             string appName = installDetails.GetValue("DisplayName")?.ToString();
                                             string appExe = installDetails.GetValue("DisplayIcon")?.ToString().Replace("\"", string.Empty);
                                             string installDir = installDetails.GetValue("InstallLocation")?.ToString().Replace("\"", string.Empty);
-                                            await RockstarAddApplication(appExe, appName, installDir, launcherImage);
+                                            await RockstarAddApplication(appExe, appName, installDir);
                                         }
                                     }
                                 }
@@ -59,7 +56,7 @@ namespace CtrlUI
             }
         }
 
-        async Task RockstarAddApplication(string appExe, string appName, string installDir, BitmapImage launcherImage)
+        async Task RockstarAddApplication(string appExe, string appName, string installDir)
         {
             try
             {
@@ -91,7 +88,7 @@ namespace CtrlUI
                     ImageBitmap = iconBitmapImage,
                     PathExe = appExe,
                     PathLaunch = installDir,
-                    StatusLauncher = launcherImage
+                    StatusLauncher = vImagePreloadRockstar
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);

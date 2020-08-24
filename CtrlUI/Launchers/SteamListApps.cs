@@ -94,9 +94,6 @@ namespace CtrlUI
                 //Get steam main path
                 string steamMainPath = libraryPaths.FirstOrDefault();
 
-                //Get launcher icon image
-                BitmapImage launcherImage = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 10, 0);
-
                 foreach (string path in libraryPaths)
                 {
                     try
@@ -105,7 +102,7 @@ namespace CtrlUI
                         //Debug.WriteLine("Scanning steam library: " + steamAppsPath);
                         foreach (string manifestPath in Directory.GetFiles(steamAppsPath, "appmanifest*.acf"))
                         {
-                            await SteamAddApplication(manifestPath, steamMainPath, launcherImage);
+                            await SteamAddApplication(manifestPath, steamMainPath);
                         }
                     }
                     catch (Exception ex)
@@ -117,7 +114,7 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task SteamAddApplication(string appmanifestPath, string steamMainPath, BitmapImage launcherImage)
+        async Task SteamAddApplication(string appmanifestPath, string steamMainPath)
         {
             try
             {
@@ -166,7 +163,7 @@ namespace CtrlUI
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
-                    StatusLauncher = launcherImage
+                    StatusLauncher = vImagePreloadSteam
                 };
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
                 //Debug.WriteLine("Added steam app: " + appId + "/" + appName);

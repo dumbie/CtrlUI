@@ -19,9 +19,6 @@ namespace CtrlUI
         {
             try
             {
-                //Get launcher icon image
-                BitmapImage launcherImage = FileToBitmapImage(new string[] { "Epic Games" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 10, 0);
-
                 //Get launcher paths
                 string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 string launcherInstalledPath = Path.Combine(commonApplicationDataPath, "Epic\\UnrealEngineLauncher\\LauncherInstalled.dat");
@@ -48,7 +45,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        await EpicAddApplication(appInstalled.AppName, appInstalled.InstallLocation, installedManifests, launcherImage);
+                        await EpicAddApplication(appInstalled.AppName, appInstalled.InstallLocation, installedManifests);
                     }
                     catch { }
                 }
@@ -59,7 +56,7 @@ namespace CtrlUI
             }
         }
 
-        async Task EpicAddApplication(string appNameId, string installLocation, List<EpicInstalledManifest> installedManifests, BitmapImage launcherImage)
+        async Task EpicAddApplication(string appNameId, string installLocation, List<EpicInstalledManifest> installedManifests)
         {
             try
             {
@@ -99,7 +96,7 @@ namespace CtrlUI
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
-                    StatusLauncher = launcherImage
+                    StatusLauncher = vImagePreloadEpic
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);

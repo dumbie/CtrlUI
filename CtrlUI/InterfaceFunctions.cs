@@ -496,11 +496,11 @@ namespace CtrlUI
 
                     if (runningBlizzard)
                     {
-                        img_Menu_BlizzardStatus.Opacity = 1.00;
+                        img_Menu_BattleNetStatus.Opacity = 1.00;
                     }
                     else
                     {
-                        img_Menu_BlizzardStatus.Opacity = 0.40;
+                        img_Menu_BattleNetStatus.Opacity = 0.40;
                     }
 
                     if (runningRockstar)
@@ -882,17 +882,17 @@ namespace CtrlUI
         {
             try
             {
-                img_Menu_SteamStatus.Source = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
-                img_Menu_UplayStatus.Source = FileToBitmapImage(new string[] { "Uplay" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
-                img_Menu_OriginStatus.Source = FileToBitmapImage(new string[] { "Origin" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
-                img_Menu_GoGStatus.Source = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
-                img_Menu_BethesdaStatus.Source = FileToBitmapImage(new string[] { "Bethesda" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
-                img_Menu_EpicStatus.Source = FileToBitmapImage(new string[] { "Epic Games" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
-                img_Menu_BlizzardStatus.Source = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
-                img_Menu_RockstarStatus.Source = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
+                img_Menu_SteamStatus.Source = vImagePreloadSteam;
+                img_Menu_UplayStatus.Source = vImagePreloadUplay;
+                img_Menu_OriginStatus.Source = vImagePreloadOrigin;
+                img_Menu_GoGStatus.Source = vImagePreloadGoG;
+                img_Menu_BethesdaStatus.Source = vImagePreloadBethesda;
+                img_Menu_EpicStatus.Source = vImagePreloadEpic;
+                img_Menu_BattleNetStatus.Source = vImagePreloadBattleNet;
+                img_Menu_RockstarStatus.Source = vImagePreloadRockstar;
 
-                img_Menu_DirectXInput.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
-                img_Menu_FpsOverlayer.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 30, 0);
+                img_Menu_DirectXInput.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+                img_Menu_FpsOverlayer.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
 
                 //Check if the first launch logo's need to be loaded
                 if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "AppFirstLaunch")))
@@ -900,13 +900,13 @@ namespace CtrlUI
                     grid_Popup_Welcome_img_Edge.Source = FileToBitmapImage(new string[] { "Microsoft Edge" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_Kodi.Source = FileToBitmapImage(new string[] { "Kodi" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_Spotify.Source = FileToBitmapImage(new string[] { "Spotify" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_Steam.Source = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_Origin.Source = FileToBitmapImage(new string[] { "Origin" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_Uplay.Source = FileToBitmapImage(new string[] { "Uplay" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_GoG.Source = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_Battle.Source = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_PS4Remote.Source = FileToBitmapImage(new string[] { "Remote Play" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
-                    grid_Popup_Welcome_img_Epic.Source = FileToBitmapImage(new string[] { "Epic Games" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_Steam.Source = vImagePreloadSteam;
+                    grid_Popup_Welcome_img_Origin.Source = vImagePreloadOrigin;
+                    grid_Popup_Welcome_img_Uplay.Source = vImagePreloadUplay;
+                    grid_Popup_Welcome_img_GoG.Source = vImagePreloadGoG;
+                    grid_Popup_Welcome_img_Battle.Source = vImagePreloadBattleNet;
+                    grid_Popup_Welcome_img_Epic.Source = vImagePreloadEpic;
                 }
             }
             catch { }
