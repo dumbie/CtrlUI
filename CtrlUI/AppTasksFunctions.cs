@@ -138,7 +138,7 @@ namespace CtrlUI
                         await RefreshListShortcuts(false);
 
                         //Delay the loop task
-                        await TaskDelayLoop(6000, vTask_UpdateShortcuts);
+                        await TaskDelayLoop(30000, vTask_UpdateShortcuts);
                     }
                     else
                     {

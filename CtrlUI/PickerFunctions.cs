@@ -64,7 +64,7 @@ namespace CtrlUI
                 {
                     //Disable the file picker list
                     lb_FilePicker.IsEnabled = false;
-                    imagegif_FilePicker_Loading.Show();
+                    gif_FilePicker_Loading.Show();
 
                     //Set file picker header texts
                     grid_Popup_FilePicker_txt_Title.Text = vFilePickerTitle;
@@ -533,7 +533,7 @@ namespace CtrlUI
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     lb_FilePicker.IsEnabled = true;
-                    imagegif_FilePicker_Loading.Hide();
+                    gif_FilePicker_Loading.Hide();
                 });
 
                 //Focus on the file picker listbox

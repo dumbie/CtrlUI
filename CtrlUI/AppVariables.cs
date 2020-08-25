@@ -50,6 +50,7 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadEpic = FileToBitmapImage(new string[] { "Epic Games" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadBattleNet = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadRockstar = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadMicrosoft = FileToBitmapImage(new string[] { "Microsoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
 
         //Update Variables
         public static bool vCheckingForUpdate = false;
@@ -57,6 +58,7 @@ namespace CtrlUI
         //Busy Variables
         public static bool vBusyRefreshingProcesses = false;
         public static bool vBusyRefreshingShortcuts = false;
+        public static bool vBusyRefreshingLaunchers = false;
 
         //Process Variables
         public static Process vProcessCurrent = Process.GetCurrentProcess();

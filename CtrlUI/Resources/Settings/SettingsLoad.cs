@@ -18,9 +18,20 @@ namespace CtrlUI
             {
                 cb_SettingsLaunchFullscreen.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFullscreen"));
                 cb_SettingsLaunchMinimized.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized"));
+
                 cb_SettingsShowOtherShortcuts.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherShortcuts"));
                 cb_SettingsShowOtherProcesses.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherProcesses"));
                 cb_SettingsHideAppProcesses.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideAppProcesses"));
+                cb_SettingsShowLibrarySteam.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibrarySteam"));
+                cb_SettingsShowLibraryOrigin.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryOrigin"));
+                cb_SettingsShowLibraryEpic.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEpic"));
+                cb_SettingsShowLibraryUplay.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUplay"));
+                cb_SettingsShowLibraryGoG.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryGoG"));
+                cb_SettingsShowLibraryBattleNet.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryBattleNet"));
+                cb_SettingsShowLibraryBethesda.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryBethesda"));
+                cb_SettingsShowLibraryRockstar.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryRockstar"));
+                cb_SettingsShowLibraryUwp.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUwp"));
+
                 cb_SettingsHideBatteryLevel.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideBatteryLevel"));
                 cb_SettingsHideMouseCursor.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideMouseCursor"));
                 cb_SettingsHideControllerHelp.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideControllerHelp"));

@@ -77,18 +77,30 @@
                         <ListBox Name="lb_Emulators" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
                     </StackPanel>
                     <StackPanel Name="sp_Launchers">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Launchers"/>
-                            <TextBlock Name="tb_Launchers_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Launchers"/>
+                            <TextBlock Grid.Column="1" Name="tb_Launchers_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
+                            <styles:AVGifPlayer Grid.Column="2" Name="gif_Launchers_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="25" SpeedRatio="5" HorizontalAlignment="Right"/>
+                        </Grid>
                         <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
                         <ListBox Name="lb_Launchers" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
                     </StackPanel>
                     <StackPanel Name="sp_Shortcuts">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcuts"/>
-                            <TextBlock Name="tb_Shortcuts_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcuts"/>
+                            <TextBlock Grid.Column="1" Name="tb_Shortcuts_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
+                            <styles:AVGifPlayer Grid.Column="2" Name="gif_Shortcuts_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="25" SpeedRatio="5" HorizontalAlignment="Right"/>
+                        </Grid>
                         <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
                         <ListBox Name="lb_Shortcuts" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
                     </StackPanel>
@@ -730,6 +742,37 @@
 
                             <CheckBox Name="cb_SettingsHideAppProcesses" Content="Hide added apps from the processes" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will hide all the added applications from the processes list to prevent double apps." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,20,0,20"/>
+
+                            <CheckBox Name="cb_SettingsShowLibrarySteam" Content="Shows games from Steam library" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from your Steam library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShowLibraryOrigin" Content="Shows games from Origin library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from your Origin library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShowLibraryEpic" Content="Shows games from Epic Games library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from your Epic Games library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShowLibraryUplay" Content="Shows games from Uplay library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from your Uplay library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShowLibraryGoG" Content="Shows games from GoG library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from your GoG library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShowLibraryBattleNet" Content="Shows games from Battle.net library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from your Battle.net library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShowLibraryBethesda" Content="Shows games from Bethesda library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from your Bethesda library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShowLibraryRockstar" Content="Shows games from Rockstar library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from your Rockstar library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <CheckBox Name="cb_SettingsShowLibraryUwp" Content="Shows games from Microsoft Store" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from the Microsoft Store." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                            <TextBlock Text="* It may take a minute before your launcher library gets updated." Margin="0,20,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelInterface" Visibility="Collapsed">
@@ -1015,7 +1058,7 @@
                             <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_CurrentPath" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
                             <Button Margin="0,0,0,10" Name="grid_Popup_FilePicker_button_SelectFolder" Content="Select the currently opened folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
                         </StackPanel>
-                        <styles:AVGifPlayer Name="imagegif_FilePicker_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Opacity="0.80" Height="140" SpeedRatio="5"/>
+                        <styles:AVGifPlayer Name="gif_FilePicker_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Opacity="0.80" Height="140" SpeedRatio="5"/>
                     </Grid>
 
                     <styles:ScrollViewerLoopVertical ScrollLoopStep="2" Grid.Column="1" Style="{StaticResource ScrollViewerVertical}" Width="320" x:Name="grid_Popup_FilePicker_stackpanel_Description" Visibility="Collapsed">

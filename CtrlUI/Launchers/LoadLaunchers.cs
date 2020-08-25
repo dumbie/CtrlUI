@@ -1,11 +1,13 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -17,6 +19,22 @@ namespace CtrlUI
         {
             try
             {
+                //Check if already refreshing
+                if (vBusyRefreshingLaunchers)
+                {
+                    Debug.WriteLine("Launchers are already refreshing, cancelling.");
+                    return;
+                }
+
+                //Update the refreshing status
+                vBusyRefreshingLaunchers = true;
+
+                //Show the loading gif
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    gif_Launchers_Loading.Show();
+                });
+
                 //Check if sorting is required
                 bool sortByName = !List_Launchers.Any();
 
@@ -24,31 +42,58 @@ namespace CtrlUI
                 vLauncherAppAvailableCheck.Clear();
 
                 //Scan and add library from Steam
-                await SteamScanAddLibrary();
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibrarySteam")))
+                {
+                    await SteamScanAddLibrary();
+                }
 
                 //Scan and add library from Origin
-                await OriginScanAddLibrary();
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryOrigin")))
+                {
+                    await OriginScanAddLibrary();
+                }
 
                 //Scan and add library from Epic Games
-                await EpicScanAddLibrary();
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEpic")))
+                {
+                    await EpicScanAddLibrary();
+                }
 
                 //Scan and add library from Uplay
-                await UplayScanAddLibrary();
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUplay")))
+                {
+                    await UplayScanAddLibrary();
+                }
 
                 //Scan and add library from GoG
-                await GoGScanAddLibrary();
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryGoG")))
+                {
+                    await GoGScanAddLibrary();
+                }
 
                 //Scan and add library from Battle.net
-                await BattleNetScanAddLibrary();
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryBattleNet")))
+                {
+                    await BattleNetScanAddLibrary();
+                }
 
                 //Scan and add library from Bethesda
-                await BethesdaScanAddLibrary();
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryBethesda")))
+                {
+                    await BethesdaScanAddLibrary();
+                }
 
                 //Scan and add library from Rockstar
-                await RockstarScanAddLibrary();
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryRockstar")))
+                {
+                    await RockstarScanAddLibrary();
+                }
 
-                ////Scan and add library from UWP games
-                //await UwpScanAddLibrary();
+                //Scan and add library from UWP games
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUwp")))
+                {
+                    await UwpScanAddLibrary();
+                }
 
                 //Remove deleted launcher applications
                 Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && !vLauncherAppAvailableCheck.Any(y => y == x.PathExe);
@@ -64,8 +109,19 @@ namespace CtrlUI
                         lb_Launchers.SelectedIndex = 0;
                     });
                 }
+
+                //Hide the loading gif
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    gif_Launchers_Loading.Hide();
+                });
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed loading launchers: " + ex.Message);
+            }
+            //Update the refreshing status
+            vBusyRefreshingLaunchers = true;
         }
     }
 }

@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
 using static CtrlUI.AppVariables;
+using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 
 namespace CtrlUI
@@ -60,6 +62,69 @@ namespace CtrlUI
                 cb_SettingsHideAppProcesses.Click += (sender, e) =>
                 {
                     Setting_Save(vConfigurationCtrlUI, "HideAppProcesses", cb_SettingsHideAppProcesses.IsChecked.ToString());
+                };
+
+                cb_SettingsShowLibrarySteam.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibrarySteam", cb_SettingsShowLibrarySteam.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Steam;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
+                cb_SettingsShowLibraryOrigin.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryOrigin", cb_SettingsShowLibraryOrigin.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Origin;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
+                cb_SettingsShowLibraryEpic.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryEpic", cb_SettingsShowLibraryEpic.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Epic;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
+                cb_SettingsShowLibraryUplay.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryUplay", cb_SettingsShowLibraryUplay.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Uplay;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
+                cb_SettingsShowLibraryGoG.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryGoG", cb_SettingsShowLibraryGoG.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.GoG;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
+                cb_SettingsShowLibraryBattleNet.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryBattleNet", cb_SettingsShowLibraryBattleNet.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.BattleNet;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
+                cb_SettingsShowLibraryBethesda.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryBethesda", cb_SettingsShowLibraryBethesda.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Bethesda;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
+                cb_SettingsShowLibraryRockstar.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryRockstar", cb_SettingsShowLibraryRockstar.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Rockstar;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
+                cb_SettingsShowLibraryUwp.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryUwp", cb_SettingsShowLibraryUwp.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.UWP;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 };
 
                 cb_SettingsHideBatteryLevel.Click += (sender, e) =>

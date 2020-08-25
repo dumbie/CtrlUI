@@ -1,4 +1,5 @@
-﻿using Shell32;
+﻿using ArnoldVinkCode;
+using Shell32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -145,6 +146,12 @@ namespace CtrlUI
                 //Update the refreshing status
                 vBusyRefreshingShortcuts = true;
 
+                //Show the loading gif
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    gif_Shortcuts_Loading.Show();
+                });
+
                 //Show refresh status message
                 if (showStatus)
                 {
@@ -227,6 +234,12 @@ namespace CtrlUI
                     }
                     catch { }
                 }
+
+                //Hide the loading gif
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    gif_Shortcuts_Loading.Hide();
+                });
             }
             catch (Exception ex)
             {
