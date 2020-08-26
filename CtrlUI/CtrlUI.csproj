@@ -157,6 +157,9 @@
     <Compile Include="Launchers\OriginListApps.cs" />
     <Compile Include="Launchers\SteamListApps.cs" />
     <Compile Include="Launchers\LoadLaunchers.cs" />
+    <Compile Include="ListProcessHandlers.cs" />
+    <Compile Include="ListLauncherHandlers.cs" />
+    <Compile Include="ListShortcutHandlers.cs" />
     <Compile Include="RecycleBinFunctions.cs" />
     <Compile Include="NotificationFunctions.cs" />
     <Compile Include="Resources\IGDB\DownloadImage.cs" />
@@ -518,49 +521,49 @@
     <Content Include="Assets\Default\Icons\Loading.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Bios.png">
+    <Content Include="Assets\Default\Games\Bios.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Disc.png">
+    <Content Include="Assets\Default\Games\Disc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Dlc.png">
+    <Content Include="Assets\Default\Games\Dlc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Nintendo 64\Mario Kart 64.json">
+    <Content Include="Assets\Default\Games\Nintendo 64\Mario Kart 64.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Nintendo GameCube.png">
+    <Content Include="Assets\Default\Games\Nintendo GameCube.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Nintendo 64\Mario Kart 64.png">
+    <Content Include="Assets\Default\Games\Nintendo 64\Mario Kart 64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Apps\Origin.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Rom.png">
+    <Content Include="Assets\Default\Games\Rom.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Sega Dreamcast.png">
+    <Content Include="Assets\Default\Games\Sega Dreamcast.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Sony PlayStation 1.png">
+    <Content Include="Assets\Default\Games\Sony PlayStation 1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Sony PlayStation 2.png">
+    <Content Include="Assets\Default\Games\Sony PlayStation 2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Apps\Remote Play.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Sony PlayStation 3.png">
+    <Content Include="Assets\Default\Games\Sony PlayStation 3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Sony PlayStation 4.png">
+    <Content Include="Assets\Default\Games\Sony PlayStation 4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Nintendo Switch.png">
+    <Content Include="Assets\Default\Games\Nintendo Switch.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Apps\Uplay.png">
@@ -572,10 +575,10 @@
     <Content Include="Assets\Default\Apps\Spotify.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Nintendo Wii U.png">
+    <Content Include="Assets\Default\Games\Nintendo Wii U.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Microsoft Xbox 360.png">
+    <Content Include="Assets\Default\Games\Microsoft Xbox 360.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Apps\Xbox.png">
@@ -707,16 +710,16 @@
     <Content Include="Assets\Default\Icons\Fps.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Sony PSP.png">
+    <Content Include="Assets\Default\Games\Sony PSP.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Sony Vita.png">
+    <Content Include="Assets\Default\Games\Sony Vita.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Nintendo 64\Super Mario 64.png">
+    <Content Include="Assets\Default\Games\Nintendo 64\Super Mario 64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Nintendo 64\Super Mario 64.json">
+    <Content Include="Assets\Default\Games\Nintendo 64\Super Mario 64.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Icons\Controller.png">
@@ -731,10 +734,10 @@
     <Content Include="Assets\Default\Icons\Plus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Tools.png">
+    <Content Include="Assets\Default\Games\Tools.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Update.png">
+    <Content Include="Assets\Default\Games\Update.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Sounds\ArcticZephyr\BatteryLow.mp3">
@@ -825,7 +828,7 @@
     <Content Include="Assets\Default\Fonts\Unispace.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Nintendo 64.json">
+    <Content Include="Assets\Default\Games\Nintendo 64.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
@@ -839,6 +842,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="CtrlUI.exe.csettings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\CtrlIgnoreLauncherName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\App.manifest" />
@@ -894,7 +900,7 @@
     <Content Include="Assets\Default\Apps\Steam.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Roms\Nintendo 64.png">
+    <Content Include="Assets\Default\Games\Nintendo 64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Background.png">
@@ -958,10 +964,6 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\User\Apps\" />
-    <Folder Include="Assets\User\Clocks\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

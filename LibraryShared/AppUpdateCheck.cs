@@ -34,6 +34,9 @@ namespace LibraryShared
                 File_Move("Profiles/Apps.json", "Profiles/CtrlApplications.json", true);
                 File_Move("Profiles/Controllers.json", "Profiles/DirectControllersProfile.json", true);
 
+                //Rename old folder names
+                Directory_Move("Assets/Roms", "Assets/User/Games", true);
+
                 //Check - If updater has been updated
                 File_Move("UpdaterNew.exe", "Updater.exe", true);
 

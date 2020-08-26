@@ -115,6 +115,7 @@ namespace CtrlUI
                 JsonLoadProfile(ref vCtrlCloseLaunchers, "CtrlCloseLaunchers");
                 JsonLoadProfile(ref vCtrlLocationsFile, "CtrlLocationsFile");
                 JsonLoadProfile(ref vCtrlLocationsShortcut, "CtrlLocationsShortcut");
+                JsonLoadProfile(ref vCtrlIgnoreLauncherName, "CtrlIgnoreLauncherName");
                 JsonLoadProfile(ref vCtrlIgnoreShortcutName, "CtrlIgnoreShortcutName");
                 JsonLoadProfile(ref vCtrlIgnoreShortcutUri, "CtrlIgnoreShortcutUri");
                 JsonLoadProfile(ref vCtrlIgnoreProcessName, "CtrlIgnoreProcessName");

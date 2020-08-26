@@ -124,6 +124,15 @@ namespace CtrlUI
                     appName += " (" + appBranch + ")";
                 }
 
+                //Check if application name is ignored
+                string appNameLower = appName.ToLower();
+                if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
+                {
+                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    return;
+                }
+
                 //Get application image
                 BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Battle.Net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
 

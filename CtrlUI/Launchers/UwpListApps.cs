@@ -38,6 +38,14 @@ namespace CtrlUI
                         if (appPackage.IsResourcePackage) { continue; }
                         if (appPackage.SignatureKind != PackageSignatureKind.Store) { continue; }
 
+                        //Check if the application is a game
+                        IEnumerable<GameListEntry> uwpGameList = (await GameList.FindAllAsync(appPackage.Id.FamilyName)).Where(x => x.Category == GameListCategory.ConfirmedBySystem);
+                        if (!uwpGameList.Any())
+                        {
+                            //Debug.WriteLine(appPackage.Id.FamilyName + " is not an uwp game.");
+                            continue;
+                        }
+
                         //Get detailed application information
                         AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
 
@@ -50,14 +58,6 @@ namespace CtrlUI
                         //Check if application name is valid
                         if (string.IsNullOrWhiteSpace(appxDetails.DisplayName) || appxDetails.DisplayName.StartsWith("ms-resource"))
                         {
-                            continue;
-                        }
-
-                        //Check if the application is a game
-                        IEnumerable<GameListEntry> uwpGameList = (await GameList.FindAllAsync(appPackage.Id.FamilyName)).Where(x => x.Category == GameListCategory.ConfirmedBySystem);
-                        if (!uwpGameList.Any())
-                        {
-                            //Debug.WriteLine(appPackage.Id.FamilyName + " is not an uwp game.");
                             continue;
                         }
 
@@ -79,6 +79,15 @@ namespace CtrlUI
                 //Get application name
                 string appName = appxDetails.DisplayName;
 
+                //Check if application name is ignored
+                string appNameLower = appName.ToLower();
+                if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
+                {
+                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    return;
+                }
+
                 //Get basic application information
                 string runCommand = appPackage.Id.FamilyName;
                 vLauncherAppAvailableCheck.Add(runCommand);
@@ -92,7 +101,7 @@ namespace CtrlUI
                 }
 
                 //Load the application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath, appName, "Microsoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath, "Microsoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()

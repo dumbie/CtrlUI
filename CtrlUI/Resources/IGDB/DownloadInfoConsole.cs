@@ -57,7 +57,7 @@ namespace CtrlUI
                 }
 
                 //Get selected result
-                DataBindString messageResult = await Popup_Show_MessageBox("Select a found console (" + Answers.Count() + ")", "* Information will be saved in the \"Assets\\Roms\\Downloaded\" folder as:\n" + nameConsoleSave, "Download image and description for the console:", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("Select a found console (" + Answers.Count() + ")", "* Information will be saved in the \"Assets\\User\\Games\\Downloaded\" folder as:\n" + nameConsoleSave, "Download image and description for the console:", Answers);
                 if (messageResult == null)
                 {
                     Debug.WriteLine("No console selected");
@@ -65,7 +65,7 @@ namespace CtrlUI
                 }
 
                 //Create downloaded directory
-                AVFiles.Directory_Create("Assets/User/Roms/Downloaded", false);
+                AVFiles.Directory_Create("Assets/User/Games/Downloaded", false);
 
                 //Convert result back to json
                 ApiIGDBPlatforms selectedConsole = (ApiIGDBPlatforms)messageResult.Data1;
@@ -113,7 +113,7 @@ namespace CtrlUI
                             downloadedBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
 
                             //Save bytes to image file
-                            File.WriteAllBytes("Assets/User/Roms/Downloaded/" + nameConsoleSave + ".png", imageBytes);
+                            File.WriteAllBytes("Assets/User/Games/Downloaded/" + nameConsoleSave + ".png", imageBytes);
                             Debug.WriteLine("Saved image: " + imageBytes.Length + "bytes/" + imageUri);
                         }
                         catch { }
@@ -128,7 +128,7 @@ namespace CtrlUI
                 string serializedObject = JsonConvert.SerializeObject(targetPlatformVersions, jsonSettings);
 
                 //Save json information
-                File.WriteAllText("Assets/User/Roms/Downloaded/" + nameConsoleSave + ".json", serializedObject);
+                File.WriteAllText("Assets/User/Games/Downloaded/" + nameConsoleSave + ".json", serializedObject);
 
                 await Notification_Send_Status("Download", "Downloaded information");
                 Debug.WriteLine("Downloaded and saved information for: " + nameConsole);

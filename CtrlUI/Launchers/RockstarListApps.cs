@@ -60,6 +60,15 @@ namespace CtrlUI
         {
             try
             {
+                //Check if application name is ignored
+                string appNameLower = appName.ToLower();
+                if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
+                {
+                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    return;
+                }
+
                 //Check if application is installed
                 if (!Directory.Exists(installDir))
                 {
@@ -77,7 +86,7 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appExe, appName, "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appExe, "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()

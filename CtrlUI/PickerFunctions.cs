@@ -367,9 +367,9 @@ namespace CtrlUI
                         string[] imageFilter = { "jpg", "png" };
                         string[] descriptionFilter = { "json" };
 
-                        DirectoryInfo directoryInfoRomsUser = new DirectoryInfo("Assets/User/Roms");
+                        DirectoryInfo directoryInfoRomsUser = new DirectoryInfo("Assets/User/Games");
                         FileInfo[] directoryPathsRomsUser = directoryInfoRomsUser.GetFiles("*", SearchOption.AllDirectories);
-                        DirectoryInfo directoryInfoRomsDefault = new DirectoryInfo("Assets/Default/Roms");
+                        DirectoryInfo directoryInfoRomsDefault = new DirectoryInfo("Assets/Default/Games");
                         FileInfo[] directoryPathsRomsDefault = directoryInfoRomsDefault.GetFiles("*", SearchOption.AllDirectories);
                         IEnumerable<FileInfo> directoryPathsRoms = directoryPathsRomsUser.Concat(directoryPathsRomsDefault);
 

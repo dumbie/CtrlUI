@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Media;
@@ -40,7 +41,13 @@ namespace CtrlUI
         public static string[] vTabTargetButtons = { "grid_Popup_TextInput_button_ConfirmText" };
 
         //Image Variables
-        public static string[] vImageSourceFolders = { "Assets/User/Apps", "Assets/Default/Apps", "Assets/User/Roms", "Assets/Default/Roms" };
+        public static ImageSourceFolders[] vImageSourceFolders =
+        {
+            new ImageSourceFolders() { SourcePath = "Assets/User/Apps", SearchOption = SearchOption.AllDirectories },
+            new ImageSourceFolders() { SourcePath = "Assets/Default/Apps", SearchOption = SearchOption.AllDirectories },
+            new ImageSourceFolders() { SourcePath = "Assets/User/Games", SearchOption = SearchOption.AllDirectories },
+            new ImageSourceFolders() { SourcePath = "Assets/Default/Games", SearchOption = SearchOption.AllDirectories }
+        };
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
         public static BitmapImage vImagePreloadSteam = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadUplay = FileToBitmapImage(new string[] { "Uplay" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
@@ -166,6 +173,7 @@ namespace CtrlUI
 
         //Application Lists
         public static ObservableCollection<ProfileShared> vCtrlIgnoreProcessName = new ObservableCollection<ProfileShared>();
+        public static ObservableCollection<ProfileShared> vCtrlIgnoreLauncherName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutUri = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlKeyboardExtensionName = new ObservableCollection<ProfileShared>();

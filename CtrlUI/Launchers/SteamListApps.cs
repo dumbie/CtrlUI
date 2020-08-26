@@ -150,10 +150,19 @@ namespace CtrlUI
                     appName = keyValue["installDir"].Value;
                 }
 
+                //Check if application name is ignored
+                string appNameLower = appName.ToLower();
+                if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
+                {
+                    Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    return;
+                }
+
                 //Get application image
                 string libraryImageName = steamMainPath + "\\appcache\\librarycache\\" + appId + "_library_600x900.jpg";
                 string logoImageName = steamMainPath + "\\appcache\\librarycache\\" + appId + "_logo.png";
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { libraryImageName, logoImageName, "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, libraryImageName, logoImageName, "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()

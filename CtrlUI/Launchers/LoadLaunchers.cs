@@ -121,7 +121,7 @@ namespace CtrlUI
                 Debug.WriteLine("Failed loading launchers: " + ex.Message);
             }
             //Update the refreshing status
-            vBusyRefreshingLaunchers = true;
+            vBusyRefreshingLaunchers = false;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Security.Principal;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -23,7 +24,13 @@ namespace DirectXInput
         public static Configuration vConfigurationFpsOverlayer = Settings_Load_FpsOverlayer();
 
         //Image Variables
-        public static string[] vImageSourceFolders = { "Assets/User/Apps", "Assets/Default/Apps", "Assets/User/Roms", "Assets/Default/Roms" };
+        public static ImageSourceFolders[] vImageSourceFolders =
+        {
+            new ImageSourceFolders() { SourcePath = "Assets/User/Apps", SearchOption = SearchOption.AllDirectories },
+            new ImageSourceFolders() { SourcePath = "Assets/Default/Apps", SearchOption = SearchOption.AllDirectories },
+            new ImageSourceFolders() { SourcePath = "Assets/User/Games", SearchOption = SearchOption.AllDirectories },
+            new ImageSourceFolders() { SourcePath = "Assets/Default/Games", SearchOption = SearchOption.AllDirectories }
+        };
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
 
         //Interaction Variables

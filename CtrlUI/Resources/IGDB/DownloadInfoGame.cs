@@ -80,7 +80,7 @@ namespace CtrlUI
                 }
 
                 //Get selected result
-                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game (" + Answers.Count() + ")", "* Information will be saved in the \"Assets\\Roms\\Downloaded\" folder as:\n" + nameRomSave, "Download image and description for the game:", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game (" + Answers.Count() + ")", "* Information will be saved in the \"Assets\\User\\Games\\Downloaded\" folder as:\n" + nameRomSave, "Download image and description for the game:", Answers);
                 if (messageResult == null)
                 {
                     Debug.WriteLine("No game selected");
@@ -88,7 +88,7 @@ namespace CtrlUI
                 }
 
                 //Create downloaded directory
-                AVFiles.Directory_Create("Assets/User/Roms/Downloaded", false);
+                AVFiles.Directory_Create("Assets/User/Games/Downloaded", false);
 
                 //Convert result back to json
                 ApiIGDBGames selectedGame = (ApiIGDBGames)messageResult.Data1;
@@ -121,7 +121,7 @@ namespace CtrlUI
                             downloadedBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
 
                             //Save bytes to image file
-                            File.WriteAllBytes("Assets/User/Roms/Downloaded/" + nameRomSave + ".png", imageBytes);
+                            File.WriteAllBytes("Assets/User/Games/Downloaded/" + nameRomSave + ".png", imageBytes);
                             Debug.WriteLine("Saved image: " + imageBytes.Length + "bytes/" + imageUri);
                         }
                         catch { }
@@ -136,7 +136,7 @@ namespace CtrlUI
                 string serializedObject = JsonConvert.SerializeObject(selectedGame, jsonSettings);
 
                 //Save json information
-                File.WriteAllText("Assets/User/Roms/Downloaded/" + nameRomSave + ".json", serializedObject);
+                File.WriteAllText("Assets/User/Games/Downloaded/" + nameRomSave + ".json", serializedObject);
 
                 await Notification_Send_Status("Download", "Downloaded information");
                 Debug.WriteLine("Downloaded and saved information for: " + nameRom);

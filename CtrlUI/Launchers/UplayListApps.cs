@@ -100,6 +100,15 @@ namespace CtrlUI
                 //Get application name
                 string appName = Path.GetFileName(installDir);
 
+                //Check if application name is ignored
+                string appNameLower = appName.ToLower();
+                if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
+                {
+                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    return;
+                }
+
                 //Get application image
                 //Fix open yaml configurations and look for image (Uplay Launcher\cache\assets)
                 //string configurationsPath = Path.Combine(UplayInstallPath(), "cache\\configuration\\configurations"); > thumbimage

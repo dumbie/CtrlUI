@@ -64,6 +64,15 @@ namespace CtrlUI
                     vProfileManagerListShared = vCtrlLocationsFile;
                     lb_ProfileManager.ItemsSource = vCtrlLocationsFile;
                 }
+                else if (vProfileManagerName == "CtrlIgnoreLauncherName")
+                {
+                    grid_Popup_ProfileManager_txt_Description.Text = "Ignored launcher names";
+                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Launcher name";
+                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
+
+                    vProfileManagerListShared = vCtrlIgnoreLauncherName;
+                    lb_ProfileManager.ItemsSource = vCtrlIgnoreLauncherName;
+                }
                 else if (vProfileManagerName == "CtrlIgnoreShortcutName")
                 {
                     grid_Popup_ProfileManager_txt_Description.Text = "Ignored shortcuts names";
@@ -222,6 +231,9 @@ namespace CtrlUI
 
                 DataBindString stringCtrlIgnoreProcessName = new DataBindString() { Name = "Ignored process names", Data1 = "CtrlIgnoreProcessName", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlIgnoreProcessName);
+
+                DataBindString stringCtrlIgnoreLauncherName = new DataBindString() { Name = "Ignored launcher names", Data1 = "CtrlIgnoreLauncherName", ImageBitmap = imageProfile };
+                Answers.Add(stringCtrlIgnoreLauncherName);
 
                 DataBindString stringCtrlIgnoreShortcutName = new DataBindString() { Name = "Ignored shortcuts names", Data1 = "CtrlIgnoreShortcutName", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlIgnoreShortcutName);

@@ -56,7 +56,10 @@ namespace CtrlUI
                 //Check app running status
                 CheckAppRunningStatus(processesList);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed refreshing processes: " + ex.Message);
+            }
             //Update the refreshing status
             vBusyRefreshingProcesses = false;
         }

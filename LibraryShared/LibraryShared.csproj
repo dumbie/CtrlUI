@@ -139,6 +139,9 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\AVImage.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\AVImage.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Classes\ImageSourceFolders.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\Classes\ImageSourceFolders.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetMemoryStreamFromExecutable.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetMemoryStreamFromExecutable.cs</Link>
     </Compile>

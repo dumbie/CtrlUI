@@ -82,11 +82,20 @@ namespace CtrlUI
                     return;
                 }
 
-                //Get application launch argument
-                string launchArgument = primaryTask.arguments;
-
                 //Get application name
                 string appName = gogGameInfo.name;
+
+                //Check if application name is ignored
+                string appNameLower = appName.ToLower();
+                if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
+                {
+                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                    return;
+                }
+
+                //Get application launch argument
+                string launchArgument = primaryTask.arguments;
 
                 //Get application image
                 string appImage = string.Empty;
@@ -96,7 +105,7 @@ namespace CtrlUI
                     appImage = Path.Combine(gogGamePath, playtaskIcon.icon);
                     //Debug.WriteLine("Set GoG image to: " + appImage);
                 }
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appImage, icoFilePath, appName, "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appImage, icoFilePath, "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
