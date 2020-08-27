@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using Windows.Gaming.Preview.GamesEnumeration;
-using Windows.Management.Deployment;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessUwpFunctions;
@@ -23,28 +21,28 @@ namespace CtrlUI
         {
             try
             {
-                //Get all the installed uwp apps
-                PackageManager deployPackageManager = new PackageManager();
-                string currentUserIdentity = WindowsIdentity.GetCurrent().User.Value;
-                IEnumerable<Package> appPackages = deployPackageManager.FindPackagesForUser(currentUserIdentity);
-                foreach (Package appPackage in appPackages)
+                //Get all the installed uwp games
+                IEnumerable<GameListEntry> uwpGameList = (await GameList.FindAllAsync()).Where(x => x.Category == GameListCategory.ConfirmedBySystem);
+                if (!uwpGameList.Any())
+                {
+                    Debug.WriteLine("No installed uwp games found to list.");
+                    return;
+                }
+
+                //Add all the installed uwp games
+                foreach (GameListEntry uwpGame in uwpGameList)
                 {
                     try
                     {
-                        //Filter out system apps and others
-                        if (appPackage.IsBundle) { continue; }
-                        if (appPackage.IsOptional) { continue; }
-                        if (appPackage.IsFramework) { continue; }
-                        if (appPackage.IsResourcePackage) { continue; }
-                        if (appPackage.SignatureKind != PackageSignatureKind.Store) { continue; }
-
-                        //Check if the application is a game
-                        IEnumerable<GameListEntry> uwpGameList = (await GameList.FindAllAsync(appPackage.Id.FamilyName)).Where(x => x.Category == GameListCategory.ConfirmedBySystem);
-                        if (!uwpGameList.Any())
+                        //Get and check uwp application FamilyName
+                        string appFamilyName = uwpGame.Properties.FirstOrDefault(x => x.Key == "PackageFamilyName").Value.ToString();
+                        if (string.IsNullOrWhiteSpace(appFamilyName))
                         {
-                            //Debug.WriteLine(appPackage.Id.FamilyName + " is not an uwp game.");
                             continue;
                         }
+
+                        //Get uwp application package
+                        Package appPackage = UwpGetAppPackageByFamilyName(appFamilyName);
 
                         //Get detailed application information
                         AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
