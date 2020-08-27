@@ -125,7 +125,7 @@ namespace DirectXInput
                 ControllerStatus activeController = GetActiveController();
                 if (activeController != null)
                 {
-                    await StopControllerAsync(activeController, false, string.Empty);
+                    await StopControllerAsync(activeController, false, "manually");
                 }
                 else
                 {

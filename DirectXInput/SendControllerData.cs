@@ -24,7 +24,7 @@ namespace DirectXInput
                     {
                         int idleTimeMs = Environment.TickCount - Controller.LastActiveTicks;
                         int targetTimeMs = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin")) * 60000;
-                        if (idleTimeMs > targetTimeMs)
+                        if (targetTimeMs > 0 && idleTimeMs > targetTimeMs)
                         {
                             Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTimeMs + "/" + targetTimeMs + "ms");
                             Controller.LastActiveTicks = Environment.TickCount;

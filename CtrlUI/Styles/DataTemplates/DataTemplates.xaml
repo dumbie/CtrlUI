@@ -113,7 +113,19 @@
 
             <Grid Grid.Row="0">
                 <Image Source="{Binding ImageBitmap}" Width="170" Height="115"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Folder.png" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.80">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding FileType}" Value="Folder">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Copy.png" Margin="10,0,0,0" Height="30" Width="30" Opacity="0.80">
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">

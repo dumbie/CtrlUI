@@ -27,7 +27,7 @@ namespace CtrlUI
         }
 
         //Filter rom name
-        public string FilterNameRom(string nameFile, bool removeExtension, bool removeSpaces, int takeWords)
+        public string FilterNameRom(string nameFile, bool removeExtension, bool removeSpaces, bool removeConsole, int takeWords)
         {
             try
             {
@@ -51,16 +51,33 @@ namespace CtrlUI
                 //Replace characters
                 nameFile = nameFile.Replace("'", " ").Replace(".", " ").Replace(",", " ").Replace("-", " ").Replace("_", " ");
 
+                //Remove disc and number
+                nameFile = Regex.Replace(nameFile, @"disc\s?\d+", string.Empty);
+
+                //Remove multi and number
+                nameFile = Regex.Replace(nameFile, @"multi\s?\d+", string.Empty);
+
+                //Remove whole words
+                string[] nameFilterRemove = { "usa", "eur", "pal", "ntsc", "repack", "proper", "ps2dvd", "psn" };
+                foreach (string replaceString in nameFilterRemove)
+                {
+                    nameFile = Regex.Replace(nameFile, @"\b" + replaceString + @"\b", string.Empty);
+                }
+
+                if (removeConsole)
+                {
+                    IEnumerable<string> consoleSlugNames = vApiIGDBPlatforms.Select(x => x.slug).Where(x => !string.IsNullOrWhiteSpace(x));
+                    foreach (string replaceString in consoleSlugNames)
+                    {
+                        nameFile = Regex.Replace(nameFile, @"\b" + replaceString + @"\b", string.Empty);
+                    }
+                }
+
                 //Replace double spaces
                 nameFile = Regex.Replace(nameFile, @"\s+", " ");
 
-                //Remove words
-                nameFile = Regex.Replace(nameFile, @"disc\s?\d+", string.Empty);
-                string[] nameFilterRemoveContains = { "usa", "eur", "pal", "ntsc", "repack", "proper" };
-                IEnumerable<string> consoleSlugNames = vApiIGDBPlatforms.Select(x => x.slug).Where(x => !string.IsNullOrWhiteSpace(x));
-                string[] nameRomSplit = nameFile.Split(' ').Where(x => !nameFilterRemoveContains.Any(x.Contains) || !consoleSlugNames.Any(x.Contains)).ToArray();
-
-                //Take words
+                //Split and take words 
+                string[] nameRomSplit = nameFile.Split(' ');
                 if (takeWords <= 0)
                 {
                     nameFile = string.Join(" ", nameRomSplit);
