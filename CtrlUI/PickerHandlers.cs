@@ -321,7 +321,7 @@ namespace CtrlUI
                         //Download game information
                         else if (messageResult == answerDownloadRomInfo)
                         {
-                            DownloadInfoGame informationDownloaded = await DownloadInfoGame(selectedItem.Name, 210);
+                            DownloadInfoGame informationDownloaded = await DownloadInfoGame(selectedItem.Name, 210, false);
                             if (informationDownloaded != null)
                             {
                                 selectedItem.Description = ApiIGDB_GameSummaryString(informationDownloaded.Details);

@@ -23,7 +23,7 @@ namespace CtrlUI
             try
             {
                 //Filter the name
-                string nameConsoleSave = FileFilterName(nameConsole, true, false, 0);
+                string nameConsoleSave = FilterNameRom(nameConsole, true, false, 0);
 
                 //Show the text input popup
                 string nameConsoleDownload = await Popup_ShowHide_TextInput("Console search", nameConsoleSave, "Search information for the console", true);
@@ -32,10 +32,10 @@ namespace CtrlUI
                     Debug.WriteLine("No search term entered.");
                     return null;
                 }
-                nameConsoleDownload = FileFilterName(nameConsoleDownload, false, true, 0);
+                nameConsoleDownload = FilterNameRom(nameConsoleDownload, false, true, 0);
 
                 //Search for consoles
-                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => FileFilterName(x.name, false, true, 0).Contains(nameConsoleDownload) || (x.alternative_name != null && FileFilterName(x.alternative_name, false, true, 0).Contains(nameConsoleDownload)));
+                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => FilterNameRom(x.name, false, true, 0).Contains(nameConsoleDownload) || (x.alternative_name != null && FilterNameRom(x.alternative_name, false, true, 0).Contains(nameConsoleDownload)));
                 if (iGDBPlatforms == null || !iGDBPlatforms.Any())
                 {
                     Debug.WriteLine("No consoles found");

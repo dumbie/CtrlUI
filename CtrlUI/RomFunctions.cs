@@ -1,25 +1,44 @@
 ﻿using ArnoldVinkCode;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using static CtrlUI.AppVariables;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Filter the file name
-        public string FileFilterName(string nameFile, bool removeExtension, bool removeSpaces, int takeWords)
+        //Filter file name
+        public string FilterNameFile(string nameFile)
         {
             try
             {
+                //Remove invalid characters
+                nameFile = string.Join(string.Empty, nameFile.Split(Path.GetInvalidFileNameChars()));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed filtering file name: " + ex.Message);
+            }
+            return nameFile;
+        }
+
+        //Filter rom name
+        public string FilterNameRom(string nameFile, bool removeExtension, bool removeSpaces, int takeWords)
+        {
+            try
+            {
+                //Remove invalid characters
+                nameFile = FilterNameFile(nameFile);
+
                 //Remove file extension
                 if (removeExtension)
                 {
                     nameFile = Path.GetFileNameWithoutExtension(nameFile);
                 }
-
-                //Remove invalid characters
-                nameFile = string.Join(string.Empty, nameFile.Split(Path.GetInvalidFileNameChars()));
 
                 //Lowercase the rom name
                 nameFile = nameFile.ToLower();
@@ -36,8 +55,10 @@ namespace CtrlUI
                 nameFile = Regex.Replace(nameFile, @"\s+", " ");
 
                 //Remove words
+                nameFile = Regex.Replace(nameFile, @"disc\s?\d+", string.Empty);
                 string[] nameFilterRemoveContains = { "usa", "eur", "pal", "ntsc", "repack", "proper" };
-                string[] nameRomSplit = nameFile.Split(' ').Where(x => !nameFilterRemoveContains.Any(x.Contains)).ToArray();
+                IEnumerable<string> consoleSlugNames = vApiIGDBPlatforms.Select(x => x.slug).Where(x => !string.IsNullOrWhiteSpace(x));
+                string[] nameRomSplit = nameFile.Split(' ').Where(x => !nameFilterRemoveContains.Any(x.Contains) || !consoleSlugNames.Any(x.Contains)).ToArray();
 
                 //Take words
                 if (takeWords <= 0)
@@ -60,7 +81,10 @@ namespace CtrlUI
                     nameFile = AVFunctions.StringRemoveEnd(nameFile, " ");
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed filtering rom name: " + ex.Message);
+            }
             return nameFile;
         }
     }

@@ -163,6 +163,8 @@
     <Compile Include="RecycleBinFunctions.cs" />
     <Compile Include="NotificationFunctions.cs" />
     <Compile Include="Resources\IGDB\DownloadImage.cs" />
+    <Compile Include="Resources\IGDB\DownloadInfoPlatforms.cs" />
+    <Compile Include="Resources\IGDB\DownloadInfoGenres.cs" />
     <Compile Include="Resources\IGDB\LoadInfoConsole.cs" />
     <Compile Include="Resources\IGDB\LoadInfoGame.cs" />
     <Compile Include="Resources\Settings\SettingsNotify.cs" />

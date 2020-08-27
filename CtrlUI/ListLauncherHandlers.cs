@@ -39,7 +39,7 @@ namespace CtrlUI
                 {
                     if (messageResult == AnswerDownload)
                     {
-                        DownloadInfoGame informationDownloaded = await DownloadInfoGame(dataBindApp.Name, 100);
+                        DownloadInfoGame informationDownloaded = await DownloadInfoGame(dataBindApp.Name, 100, true);
                         if (informationDownloaded != null)
                         {
                             if (informationDownloaded.ImageBitmap != null)

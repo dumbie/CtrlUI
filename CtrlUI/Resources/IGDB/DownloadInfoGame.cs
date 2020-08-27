@@ -18,15 +18,16 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Download game information
-        public async Task<DownloadInfoGame> DownloadInfoGame(string nameRom, int imageWidth)
+        public async Task<DownloadInfoGame> DownloadInfoGame(string nameRom, int imageWidth, bool saveOriginalName)
         {
             try
             {
-                //Filter the name
-                string nameRomSave = FileFilterName(nameRom, true, false, 0);
+                //Filter the game name
+                string nameRomSaveOriginal = FilterNameFile(nameRom);
+                string nameRomSaveFilter = FilterNameRom(nameRom, true, false, 0);
 
                 //Show the text input popup
-                string nameRomDownload = await Popup_ShowHide_TextInput("Game search", nameRomSave, "Search information for the game", true);
+                string nameRomDownload = await Popup_ShowHide_TextInput("Game search", nameRomSaveFilter, "Search information for the game", true);
                 if (string.IsNullOrWhiteSpace(nameRomDownload))
                 {
                     Debug.WriteLine("No search term entered.");
@@ -80,7 +81,7 @@ namespace CtrlUI
                 }
 
                 //Get selected result
-                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game (" + Answers.Count() + ")", "* Information will be saved in the \"Assets\\User\\Games\\Downloaded\" folder as:\n" + nameRomSave, "Download image and description for the game:", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game (" + Answers.Count() + ")", "* Information will be saved in the \"Assets\\User\\Games\\Downloaded\" folder as:\n" + nameRomSaveFilter, "Download image and description for the game:", Answers);
                 if (messageResult == null)
                 {
                     Debug.WriteLine("No game selected");
@@ -121,7 +122,15 @@ namespace CtrlUI
                             downloadedBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
 
                             //Save bytes to image file
-                            File.WriteAllBytes("Assets/User/Games/Downloaded/" + nameRomSave + ".png", imageBytes);
+                            if (saveOriginalName)
+                            {
+                                File.WriteAllBytes("Assets/User/Games/Downloaded/" + nameRomSaveOriginal + ".png", imageBytes);
+                            }
+                            else
+                            {
+                                File.WriteAllBytes("Assets/User/Games/Downloaded/" + nameRomSaveFilter + ".png", imageBytes);
+                            }
+
                             Debug.WriteLine("Saved image: " + imageBytes.Length + "bytes/" + imageUri);
                         }
                         catch { }
@@ -136,7 +145,14 @@ namespace CtrlUI
                 string serializedObject = JsonConvert.SerializeObject(selectedGame, jsonSettings);
 
                 //Save json information
-                File.WriteAllText("Assets/User/Games/Downloaded/" + nameRomSave + ".json", serializedObject);
+                if (saveOriginalName)
+                {
+                    File.WriteAllText("Assets/User/Games/Downloaded/" + nameRomSaveOriginal + ".json", serializedObject);
+                }
+                else
+                {
+                    File.WriteAllText("Assets/User/Games/Downloaded/" + nameRomSaveFilter + ".json", serializedObject);
+                }
 
                 await Notification_Send_Status("Download", "Downloaded information");
                 Debug.WriteLine("Downloaded and saved information for: " + nameRom);

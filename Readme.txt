@@ -57,8 +57,8 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
 | Changelog
-v1.30.0.0 (?-August-2020)
-- CtrlUI now loads applications from your Steam library.
+v1.30.0.0 (28-August-2020)
+- CtrlUI now loads games from other installed game launchers.
 * Miscellaneous application improvements and fixes.
 
 v1.18.0.0 (5-May-2020)
