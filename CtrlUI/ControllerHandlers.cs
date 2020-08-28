@@ -75,6 +75,10 @@ namespace CtrlUI
                         {
                             await KeySendSingle(KeysVirtual.Escape, vProcessCurrent.MainWindowHandle);
                         }
+                        else
+                        {
+                            await SortAppLists(false, false);
+                        }
 
                         ControllerUsed = true;
                         ControllerDelayMedium = true;

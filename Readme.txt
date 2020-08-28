@@ -1,8 +1,8 @@
 CtrlUI (Controller User Interface) is a Windows application, game and emulator launcher for your game controller,
 this application allow you to run all your favorite applications from one location with lots of useful features.
 
-DirectXInput converts your DirectInput controller like a DualShock 1, 2, 3 and 4 to a XInput controller,
-so that it can be used with almost every game and application released with support for Xbox controllers.
+DirectXInput converts your game controller like a DualShock 1, 2, 3 and 4 to a Xbox (XInput) controller,
+so that it can be used with almost every game and application released that support Xbox controllers.
 
 Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and memory information.
 
