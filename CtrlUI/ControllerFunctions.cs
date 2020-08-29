@@ -143,7 +143,7 @@ namespace CtrlUI
                         {
                             AVActions.ActionDispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 1.00; });
                             string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
-                            await Notification_Send_Status("Controller", "Connected (" + ControllerIdDisplay + ")");
+                            //await Notification_Send_Status("Controller", "Connected (" + ControllerIdDisplay + ")");
 
                             //Hide the mouse cursor
                             await MouseCursorHide();
@@ -155,7 +155,7 @@ namespace CtrlUI
                         {
                             AVActions.ActionDispatcherInvoke(delegate { controllerStatusStackpanel.Opacity = 0.40; });
                             string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
-                            await Notification_Send_Status("Controller", "Disconnected (" + ControllerIdDisplay + ")");
+                            //await Notification_Send_Status("Controller", "Disconnected (" + ControllerIdDisplay + ")");
 
                             //Hide the battery status
                             if (vControllerActiveId == controllerStatusNew.NumberId)
