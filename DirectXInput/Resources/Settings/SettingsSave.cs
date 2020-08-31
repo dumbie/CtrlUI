@@ -116,6 +116,11 @@ namespace DirectXInput
                     App.vWindowKeyboard.UpdateKeyboardOpacity(false);
                 };
 
+                cb_SettingsKeyboardResetPosition.Click += (sender, e) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardResetPosition", cb_SettingsKeyboardResetPosition.IsChecked.ToString());
+                };
+
                 combobox_KeyboardLayout.SelectionChanged += async (sender, e) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "KeyboardLayout", combobox_KeyboardLayout.SelectedIndex.ToString());

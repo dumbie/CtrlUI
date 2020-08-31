@@ -39,6 +39,7 @@ namespace DirectXInput
                 slider_KeyboardOpacity.Value = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardOpacity"));
 
                 //Load keyboard layout
+                cb_SettingsKeyboardResetPosition.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition"));
                 combobox_KeyboardLayout.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout"));
 
                 //Load keyboard domain extensions

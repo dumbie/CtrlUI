@@ -375,6 +375,9 @@
                                 <TextBlock Text="Change the transparency of the on screen keyboard." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_KeyboardOpacity" Height="18" Width="400" Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
+                                <CheckBox Name="cb_SettingsKeyboardResetPosition" Content="Reset keyboard position on opening" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will reset the keyboard to it's default position when you open the keyboard." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Mouse Settings"/>
                                 <TextBlock Name="textblock_SettingsMouseMoveSensitivity" Text="Mouse movement sensitivity" Tag="Mouse movement sensitivity: " Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the used mouse movement sensitivity." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>

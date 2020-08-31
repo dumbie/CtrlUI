@@ -120,6 +120,12 @@ namespace DirectXInput.Keyboard
                 //Update the keyboard opacity
                 UpdateKeyboardOpacity(true);
 
+                //Update the window position
+                if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition")))
+                {
+                    UpdateWindowPosition();
+                }
+
                 //Update the keyboard visibility
                 this.Title = "DirectXInput Keyboard (Visible)";
                 this.Visibility = Visibility.Visible;
