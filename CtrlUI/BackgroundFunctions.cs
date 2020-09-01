@@ -16,6 +16,7 @@ namespace CtrlUI
         {
             try
             {
+                grid_Video_Background.Stop();
                 grid_Video_Background.Source = null;
             }
             catch { }
@@ -61,6 +62,9 @@ namespace CtrlUI
                 string userWallpaperVideo = "Assets/User/BackgroundLive.mp4" + cacheWorkaround;
                 string defaultWallpaperImage = "Assets/Default/Background.png" + cacheWorkaround;
                 string defaultWallpaperVideo = "Assets/Default/BackgroundLive.mp4" + cacheWorkaround;
+
+                //Unload the current background media
+                UnloadBackgroundMedia();
 
                 //Update the application background play speed
                 UpdateBackgroundPlaySpeed();
@@ -142,7 +146,7 @@ namespace CtrlUI
             {
                 //Debug.WriteLine("Background media ended, restarting.");
                 MediaElement senderMediaElement = (MediaElement)sender;
-                senderMediaElement.Position = new TimeSpan(0, 0, 0, 0, 200);
+                senderMediaElement.Position = new TimeSpan(0, 0, 0, 0, 150);
             }
             catch { }
         }
