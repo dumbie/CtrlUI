@@ -37,6 +37,14 @@ namespace CtrlUI
                         {
                             try
                             {
+                                //Check if window handle is already added
+                                string windowHandleString = threadWindowHandle.ToString();
+                                if (multiAnswers.Any(x => x.Data1.ToString() == windowHandleString))
+                                {
+                                    //Debug.WriteLine("Duplicate window handle detected, skipping.");
+                                    continue;
+                                }
+
                                 //Validate the window handle
                                 if (threadWindowHandle == processMulti.WindowHandle || ValidateWindowHandle(threadWindowHandle))
                                 {
@@ -46,7 +54,7 @@ namespace CtrlUI
 
                                     //Get the window title
                                     string windowTitleString = GetWindowTitleFromWindowHandle(threadWindowHandle);
-                                    string windowSubString = threadWindowHandle.ToString();
+                                    string windowSubString = windowHandleString;
 
                                     //Check window main
                                     if (threadWindowHandle == processMulti.WindowHandle)
@@ -84,6 +92,7 @@ namespace CtrlUI
                                     Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppMiniMaxi.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                                     Answer1.Name = windowTitleString;
                                     Answer1.NameSub = windowSubString;
+                                    Answer1.Data1 = windowHandleString;
 
                                     //Add window to selection
                                     if (threadWindowHandle == processMulti.WindowHandle)
