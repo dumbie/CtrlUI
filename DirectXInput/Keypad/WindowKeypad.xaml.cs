@@ -215,6 +215,17 @@ namespace DirectXInput.Keypad
                 {
                     directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();
                 }
+
+                //Show keypad mapping profile notification
+                if (vKeypadMappingProfile != directKeypadMappingProfile)
+                {
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "Keypad";
+                    notificationDetails.Text = "Profile set to " + directKeypadMappingProfile.Name;
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                }
+
+                //Update the keypad mapping profile
                 vKeypadMappingProfile = directKeypadMappingProfile;
             }
             catch { }

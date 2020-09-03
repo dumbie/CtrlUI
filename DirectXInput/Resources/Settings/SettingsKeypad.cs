@@ -48,9 +48,9 @@ namespace DirectXInput
 
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Plus";
-                notificationDetails.Text = "Application added";
+                notificationDetails.Text = "Added keypad profile";
                 App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-                Debug.WriteLine("Added the keypad profile.");
+                Debug.WriteLine("Added keypad profile.");
             }
             catch { }
         }
