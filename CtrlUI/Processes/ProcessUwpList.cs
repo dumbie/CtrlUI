@@ -66,7 +66,7 @@ namespace CtrlUI
                                         IntPtr threadWindowHandleEx = FindWindowEx(threadWindowHandle, IntPtr.Zero, "Windows.UI.Core.CoreWindow", null);
                                         if (threadWindowHandleEx != IntPtr.Zero)
                                         {
-                                            GetWindowThreadProcessId(threadWindowHandleEx, out processIdentifier);
+                                            processIdentifier = GetProcessIdFromWindowHandle(threadWindowHandleEx);
                                             if (processIdentifier > 0)
                                             {
                                                 processApp = GetProcessById(processIdentifier);
