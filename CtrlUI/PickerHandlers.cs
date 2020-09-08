@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -538,6 +539,18 @@ namespace CtrlUI
                     else if (SelectedItem.FileType == FileType.GoUp)
                     {
                         await FilePicker_GoFolderUp();
+                    }
+                    else if (SelectedItem.FileType == FileType.Link)
+                    {
+                        ShortcutDetails shortcutDetails = ReadShortcutFile(SelectedItem.PathFile);
+                        if (Directory.Exists(shortcutDetails.TargetPath))
+                        {
+                            await Popup_Show_FilePicker(shortcutDetails.TargetPath, -1, false, null);
+                        }
+                        else
+                        { 
+                            await Popup_Close_FilePicker(true, false);
+                        }
                     }
                     else
                     {

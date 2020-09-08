@@ -10,7 +10,8 @@
             FolderDisc,
             Folder,
             FilePre,
-            File
+            File,
+            Link
         }
     }
 }
