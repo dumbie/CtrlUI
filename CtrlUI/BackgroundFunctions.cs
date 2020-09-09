@@ -144,9 +144,12 @@ namespace CtrlUI
         {
             try
             {
-                //Debug.WriteLine("Background media ended, restarting.");
                 MediaElement senderMediaElement = (MediaElement)sender;
-                senderMediaElement.Position = new TimeSpan(0, 0, 0, 0, 200);
+                if (senderMediaElement.NaturalDuration != Duration.Automatic)
+                {
+                    //Debug.WriteLine("Background media ended, restarting: " + senderMediaElement.NaturalDuration);
+                    senderMediaElement.Position = new TimeSpan(0, 0, 0, 0, 200);
+                }
             }
             catch { }
         }

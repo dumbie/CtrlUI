@@ -163,9 +163,6 @@ namespace DirectXInput
         {
             try
             {
-                //Update controller block status
-                Controller.BlockOutput = true;
-
                 //Start the controller stop task
                 async void TaskAction()
                 {
@@ -194,6 +191,9 @@ namespace DirectXInput
 
                 //Update controller block status
                 Controller.BlockOutput = true;
+
+                //Update last disconnect time
+                vControllerLastDisconnect = DateTime.Now;
 
                 //Get controller display number
                 Debug.WriteLine("Disconnecting the controller " + Controller.NumberId + ": " + Controller.Details.DisplayName);

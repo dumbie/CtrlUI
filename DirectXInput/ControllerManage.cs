@@ -18,6 +18,14 @@ namespace DirectXInput
         {
             try
             {
+                //Check last controller disconnect time
+                double lastDisconnectSeconds = (DateTime.Now - vControllerLastDisconnect).TotalSeconds;
+                if (lastDisconnectSeconds <= 2)
+                {
+                    Debug.WriteLine("A controller disconnected recently, delaying monitor.");
+                    return;
+                }
+
                 //Load all the connected controllers
                 await ControllerReceiveAllConnected();
 
