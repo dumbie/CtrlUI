@@ -63,6 +63,9 @@ namespace CtrlUI
                 string defaultWallpaperImage = "Assets/Default/Background.png" + cacheWorkaround;
                 string defaultWallpaperVideo = "Assets/Default/BackgroundLive.mp4" + cacheWorkaround;
 
+                //Set media loaded behavior
+                grid_Video_Background.LoadedBehavior = MediaState.Manual;
+
                 //Unload the current background media
                 UnloadBackgroundMedia();
 
@@ -119,7 +122,6 @@ namespace CtrlUI
                 }
 
                 //Play background media
-                grid_Video_Background.LoadedBehavior = MediaState.Manual;
                 grid_Video_Background.Play();
             }
             catch

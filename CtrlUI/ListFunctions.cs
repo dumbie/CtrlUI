@@ -20,14 +20,17 @@ namespace CtrlUI
         {
             try
             {
-                IEnumerable<DataBindApp> CombinedApps = List_Apps.Concat(List_Games).Concat(List_Emulators);
-                if (includeShortcuts) { CombinedApps = CombinedApps.Concat(List_Shortcuts); }
-                if (includeProcesses) { CombinedApps = CombinedApps.Concat(List_Processes); }
-                if (includeLaunchers) { CombinedApps = CombinedApps.Concat(List_Launchers); }
-                return CombinedApps;
+                IEnumerable<DataBindApp> combinedLists = List_Apps.ToList();
+                combinedLists = combinedLists.Concat(List_Games.ToList());
+                combinedLists = combinedLists.Concat(List_Emulators.ToList());
+                if (includeShortcuts) { combinedLists = combinedLists.Concat(List_Shortcuts.ToList()); }
+                if (includeProcesses) { combinedLists = combinedLists.Concat(List_Processes.ToList()); }
+                if (includeLaunchers) { combinedLists = combinedLists.Concat(List_Launchers.ToList()); }
+                return combinedLists;
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine("Failed combining application lists: " + ex.Message);
                 return null;
             }
         }

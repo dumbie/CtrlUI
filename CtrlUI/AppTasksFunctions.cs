@@ -97,7 +97,7 @@ namespace CtrlUI
                     else
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(500, vTask_UpdateProcesses);
+                        await TaskDelayLoop(1000, vTask_UpdateProcesses);
                     }
                 }
             }
@@ -120,7 +120,7 @@ namespace CtrlUI
                     else
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(500, vTask_UpdateLaunchers);
+                        await TaskDelayLoop(1000, vTask_UpdateLaunchers);
                     }
                 }
             }
@@ -143,7 +143,7 @@ namespace CtrlUI
                     else
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(500, vTask_UpdateShortcuts);
+                        await TaskDelayLoop(1000, vTask_UpdateShortcuts);
                     }
                 }
             }
@@ -166,7 +166,7 @@ namespace CtrlUI
                     else
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(500, vTask_UpdateListStatus);
+                        await TaskDelayLoop(1000, vTask_UpdateListStatus);
                     }
                 }
             }
