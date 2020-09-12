@@ -38,7 +38,7 @@
         <!-- Status - Message Status -->
         <Grid Name="grid_Message_Status" IsHitTestVisible="False" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,50,0,0" Visibility="Collapsed">
             <Grid.Background>
-                <SolidColorBrush Color="#1D1D1D" Opacity="0.90"/>
+                <SolidColorBrush Color="#1D1D1D" Opacity="0.80"/>
             </Grid.Background>
             <Grid>
                 <Grid.ColumnDefinitions>
