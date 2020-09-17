@@ -1,10 +1,10 @@
 ﻿using ArnoldVinkCode;
+using Shell32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -15,8 +15,6 @@ using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryUsb.NativeMethods_DeviceManager;
-using static LibraryUsb.NativeMethods_Hid;
 
 namespace CtrlUI
 {
@@ -723,47 +721,31 @@ namespace CtrlUI
             }
         }
 
-        //Eject or unmount disc
+        //Eject disc or unmount the image
         async Task<bool> FilePicker_EjectDrive(DataBindFile dataBindFile, string driveLetter)
         {
             try
             {
-                driveLetter = Path.GetPathRoot(driveLetter).Replace("\\", string.Empty);
-                string devicePath = @"\\.\" + driveLetter;
+                Debug.WriteLine("Ejecting the disc drive: " + driveLetter);
+                await Notification_Send_Status("FolderDisc", "Ejecting the drive");
 
-                Debug.WriteLine("Ejecting the disc drive: " + devicePath);
-                await Notification_Send_Status("FolderDisc", "Ejecting the disc");
+                //Get the drive
+                int ssfDRIVES = 17;
+                Shell shell = new Shell();
+                Folder folder = shell.NameSpace(ssfDRIVES);
+                FolderItem folderItem = folder.ParseName(driveLetter);
 
-                SECURITY_ATTRIBUTES security = new SECURITY_ATTRIBUTES();
-                security.lpSecurityDescriptor = IntPtr.Zero;
-                security.bInheritHandle = true;
-                security.nLength = Marshal.SizeOf(security);
-
-                uint fileAttributes = (uint)FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL | (uint)FILE_FLAG.FILE_FLAG_NORMAL;
-                uint desiredAccess = (uint)GENERIC_MODE.GENERIC_WRITE | (uint)GENERIC_MODE.GENERIC_READ;
-                uint shareMode = (uint)FILE_SHARE.FILE_SHARE_READ | (uint)FILE_SHARE.FILE_SHARE_WRITE;
-
-                //Open the drive
-                IntPtr fileHandle = CreateFile(devicePath, desiredAccess, shareMode, ref security, OPEN_EXISTING, fileAttributes, 0);
-                if (fileHandle == IntPtr.Zero || fileHandle == (IntPtr)INVALID_HANDLE_VALUE)
-                {
-                    await Notification_Send_Status("Close", "Ejecting disc failed");
-                    return false;
-                }
-
-                //Eject the media
-                DeviceIoControl(fileHandle, IoControlCodes.IOCTL_STORAGE_EJECT_MEDIA, IntPtr.Zero, 0, IntPtr.Zero, 0, out uint TransferredEject, IntPtr.Zero);
-
-                //Close the drive
-                LibraryUsb.NativeMethods_Hid.CloseHandle(fileHandle);
+                //Eject the disc or image
+                folderItem.InvokeVerb("Eject");
 
                 //Remove drive from the listbox
                 await ListBoxRemoveItem(lb_FilePicker, List_FilePicker, dataBindFile, true);
 
-                await Notification_Send_Status("FolderDisc", "Ejected the disc");
+                await Notification_Send_Status("FolderDisc", "Ejected the drive");
                 return true;
             }
             catch { }
+            await Notification_Send_Status("Close", "Ejecting drive failed");
             return false;
         }
 

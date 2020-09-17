@@ -121,7 +121,7 @@ namespace CtrlUI
 
                     DataBindString answerEjectDisc = new DataBindString();
                     answerEjectDisc.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Eject.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    answerEjectDisc.Name = "Eject or unmount the disc";
+                    answerEjectDisc.Name = "Eject disc or unmount the image";
                     Answers.Add(answerEjectDisc);
 
                     //Show the messagebox prompt
@@ -548,7 +548,7 @@ namespace CtrlUI
                             await Popup_Show_FilePicker(shortcutDetails.TargetPath, -1, false, null);
                         }
                         else
-                        { 
+                        {
                             await Popup_Close_FilePicker(true, false);
                         }
                     }
