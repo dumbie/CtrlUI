@@ -97,6 +97,7 @@ namespace FpsOverlayer
                 checkbox_GpuShowTemperature.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "GpuShowTemperature", checkbox_GpuShowTemperature.IsChecked.ToString()); };
                 checkbox_GpuShowCoreFrequency.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "GpuShowCoreFrequency", checkbox_GpuShowCoreFrequency.IsChecked.ToString()); };
                 checkbox_GpuShowFanSpeed.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "GpuShowFanSpeed", checkbox_GpuShowFanSpeed.IsChecked.ToString()); };
+                checkbox_GpuShowPowerUsage.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "GpuShowPowerUsage", checkbox_GpuShowPowerUsage.IsChecked.ToString()); };
 
                 textbox_CpuCategoryTitle.TextChanged += (sender, e) =>
                 {

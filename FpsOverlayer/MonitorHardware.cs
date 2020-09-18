@@ -232,7 +232,8 @@ namespace FpsOverlayer
                 bool showMemoryUsed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowMemoryUsed"));
                 bool showCoreFrequency = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowCoreFrequency"));
                 bool showFanSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowFanSpeed"));
-                if (!showName && !showPercentage && !showTemperature && !showMemoryUsed && !showCoreFrequency && !showFanSpeed)
+                bool showPowerUsage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerUsage"));
+                if (!showName && !showPercentage && !showTemperature && !showMemoryUsed && !showCoreFrequency && !showFanSpeed && !showPowerUsage)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -250,6 +251,7 @@ namespace FpsOverlayer
                     string GpuMemory = string.Empty;
                     string GpuFrequency = string.Empty;
                     string GpuFanSpeed = string.Empty;
+                    string GpuPower = string.Empty;
 
                     if (showName)
                     {
@@ -312,15 +314,20 @@ namespace FpsOverlayer
                                     GpuFanSpeed = " " + sensor.Value.ToString() + "RPM";
                                 }
                             }
+                            else if (showPowerUsage && sensor.SensorType == SensorType.Power)
+                            {
+                                //Debug.WriteLine("GPU Power: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
+                                GpuPower = " " + Convert.ToInt32(sensor.Value) + "W";
+                            }
                         }
                         catch { }
                     }
 
                     bool gpuNameNullOrWhiteSpace = string.IsNullOrWhiteSpace(GpuName);
-                    if (!gpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(GpuPercentage) || !string.IsNullOrWhiteSpace(GpuTemperature) || !string.IsNullOrWhiteSpace(GpuFrequency) || !string.IsNullOrWhiteSpace(GpuMemory) || !string.IsNullOrWhiteSpace(GpuFanSpeed))
+                    if (!gpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(GpuPercentage) || !string.IsNullOrWhiteSpace(GpuTemperature) || !string.IsNullOrWhiteSpace(GpuFrequency) || !string.IsNullOrWhiteSpace(GpuMemory) || !string.IsNullOrWhiteSpace(GpuFanSpeed) || !string.IsNullOrWhiteSpace(GpuPower))
                     {
                         string stringDisplay = string.Empty;
-                        string stringStats = AVFunctions.StringRemoveStart(vTitleGPU + GpuPercentage + GpuTemperature + GpuFrequency + GpuMemory + GpuFanSpeed, " ");
+                        string stringStats = AVFunctions.StringRemoveStart(vTitleGPU + GpuPercentage + GpuTemperature + GpuFrequency + GpuMemory + GpuFanSpeed + GpuPower, " ");
                         if (string.IsNullOrWhiteSpace(stringStats))
                         {
                             stringDisplay = GpuName;

@@ -50,6 +50,7 @@ namespace FpsOverlayer
                 checkbox_GpuShowTemperature.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowTemperature"));
                 checkbox_GpuShowCoreFrequency.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowCoreFrequency"));
                 checkbox_GpuShowFanSpeed.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowFanSpeed"));
+                checkbox_GpuShowPowerUsage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerUsage"));
 
                 textbox_CpuCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "CpuCategoryTitle"));
                 checkbox_CpuShowCategoryTitle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCategoryTitle"));
