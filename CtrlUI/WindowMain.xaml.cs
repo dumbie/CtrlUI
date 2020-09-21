@@ -96,6 +96,9 @@ namespace CtrlUI
                 //Load the help text
                 LoadHelp();
 
+                //Add main menu items
+                MainMenuAddItems();
+
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
 
@@ -132,6 +135,9 @@ namespace CtrlUI
                 //Start the background tasks
                 TasksBackgroundStart();
 
+                //Enable the socket server
+                EnableSocketServer();
+
                 //Launch DirectXInput application
                 await LaunchDirectXInput(true);
 
@@ -160,21 +166,17 @@ namespace CtrlUI
                     await ListboxFocusIndex(TopVisibleListBoxWithItems(), true, false, -1);
                 }
 
-                //Check for available application update
-                string lastUpdateTime = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "AppUpdateCheck"));
-                if (DateTime.Now.Subtract(DateTime.Parse(lastUpdateTime, vAppCultureInfo)).Days >= 5)
-                {
-                    await CheckForAppUpdate(true);
-                }
-
                 //Update the controller help
                 UpdateControllerHelp();
 
                 //Update the controller connection status
                 await UpdateControllerConnected();
 
-                //Enable the socket server
-                EnableSocketServer();
+                //Check for available application update
+                if (await CheckForAppUpdate(true))
+                {
+                    MainMenuInsertUpdate();
+                }
             }
             catch { }
         }

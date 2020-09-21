@@ -13,7 +13,6 @@ namespace CtrlUI
             try
             {
                 if (Setting_Load(vConfigurationCtrlUI, "AppFirstLaunch") == null) { Setting_Save(vConfigurationCtrlUI, "AppFirstLaunch", "True"); }
-                if (Setting_Load(vConfigurationCtrlUI, "AppUpdateCheck") == null) { Setting_Save(vConfigurationCtrlUI, "AppUpdateCheck", DateTime.Now.ToString(vAppCultureInfo)); }
                 if (Setting_Load(vConfigurationCtrlUI, "AppFontSize") == null) { Setting_Save(vConfigurationCtrlUI, "AppFontSize", "0"); }
 
                 if (Setting_Load(vConfigurationCtrlUI, "DisplayMonitor") == null) { Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", "1"); } //Shared

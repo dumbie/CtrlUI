@@ -7,15 +7,15 @@ using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
         //Check for available application update
-        public async Task CheckForAppUpdate(bool silentCheck)
+        public async Task<bool> CheckForAppUpdate(bool silentCheck)
         {
+            bool updateAvailable = false;
             try
             {
                 if (!vCheckingForUpdate)
@@ -25,23 +25,23 @@ namespace CtrlUI
                     string ResCurrentVersion = await AVDownloader.DownloadStringAsync(5000, "CtrlUI", null, new Uri("https://download.arnoldvink.com/CtrlUI.zip-version.txt" + "?nc=" + Environment.TickCount));
                     if (!string.IsNullOrWhiteSpace(ResCurrentVersion) && ResCurrentVersion != Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0])
                     {
+                        updateAvailable = true;
                         if (silentCheck)
                         {
-                            await Notification_Send_Status("Refresh", "Update available");
+                            await Notification_Send_Status("Refresh", "CtrlUI update available");
                         }
                         else
                         {
                             List<DataBindString> Answers = new List<DataBindString>();
                             DataBindString Answer1 = new DataBindString();
                             Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            Answer1.Name = "Update now";
+                            Answer1.Name = "Update and restart CtrlUI";
                             Answers.Add(Answer1);
 
                             DataBindString messageResult = await Popup_Show_MessageBox("A newer version has been found: v" + ResCurrentVersion, "", "Do you want to update the application to the newest version now?", Answers);
                             if (messageResult != null && messageResult == Answer1)
                             {
-                                await ProcessLauncherWin32Async("Updater.exe", "", "", false, false);
-                                await Application_Exit();
+                                await AppUpdateRestart();
                             }
                         }
                     }
@@ -59,14 +59,22 @@ namespace CtrlUI
                         }
                     }
 
-                    //Set the last application update check date
-                    Setting_Save(vConfigurationCtrlUI, "AppUpdateCheck", DateTime.Now.ToString(vAppCultureInfo));
                     vCheckingForUpdate = false;
                 }
             }
             catch
             {
                 vCheckingForUpdate = false;
+                await AppUpdateFailed(silentCheck);
+            }
+            return updateAvailable;
+        }
+
+        //Application update check failed message
+        async Task AppUpdateFailed(bool silentCheck)
+        {
+            try
+            {
                 if (!silentCheck)
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
@@ -78,6 +86,18 @@ namespace CtrlUI
                     await Popup_Show_MessageBox("Failed to check for application update", "", "Please check your internet connection and try again.", Answers);
                 }
             }
+            catch { }
+        }
+
+        //Launch updater and restart application
+        async Task AppUpdateRestart()
+        {
+            try
+            {
+                await ProcessLauncherWin32Async("Updater.exe", "", "", false, false);
+                await Application_Exit();
+            }
+            catch { }
         }
     }
 }

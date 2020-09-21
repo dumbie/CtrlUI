@@ -190,5 +190,6 @@ namespace CtrlUI
         public static ObservableCollection<DataBindApp> List_Search = new ObservableCollection<DataBindApp>();
         public static ObservableCollection<DataBindFile> List_FilePicker = new ObservableCollection<DataBindFile>();
         public static ObservableCollection<SolidColorBrush> List_ColorPicker = new ObservableCollection<SolidColorBrush>();
+        public static ObservableCollection<DataBindString> List_MainMenu = new ObservableCollection<DataBindString>();
     }
 }

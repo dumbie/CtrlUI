@@ -67,7 +67,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("VolumeMute", "Switching mute");
+                await Notification_Send_Status("VolumeMute", "Toggling mute");
                 await KeyPressSingleAuto(KeysVirtual.VolumeMute);
             }
             catch { }

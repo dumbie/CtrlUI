@@ -153,9 +153,13 @@ namespace CtrlUI
                     SortObservableCollection(lb_Shortcuts, List_Shortcuts, x => x.TimeCreation, null, false);
                     SortObservableCollection(lb_Processes, List_Processes, x => x.RunningTime, null, true);
 
-                    menuButtonSorting_TextBlock.Text = "Sort applications by name";
+                    DataBindString menuSortItem = List_MainMenu.Where(x => x.Data1.ToString() == "menuButtonSorting").FirstOrDefault();
+                    if (menuSortItem != null)
+                    {
+                        menuSortItem.Name = "Sort applications by name";
+                    }
+
                     ToolTip newTooltip = new ToolTip() { Content = "Sort by name" };
-                    menuButtonSorting.ToolTip = newTooltip;
                     button_MenuSorting.ToolTip = newTooltip;
                 }
                 else if (vSortType == "Number")
@@ -170,9 +174,13 @@ namespace CtrlUI
                     SortObservableCollection(lb_Shortcuts, List_Shortcuts, x => x.Name, null, true);
                     SortObservableCollection(lb_Processes, List_Processes, x => x.Name, null, true);
 
-                    menuButtonSorting_TextBlock.Text = "Sort applications by number or date";
+                    DataBindString menuSortItem = List_MainMenu.Where(x => x.Data1.ToString() == "menuButtonSorting").FirstOrDefault();
+                    if (menuSortItem != null)
+                    {
+                        menuSortItem.Name = "Sort applications by number or date";
+                    }
+
                     ToolTip newTooltip = new ToolTip() { Content = "Sort by number or date" };
-                    menuButtonSorting.ToolTip = newTooltip;
                     button_MenuSorting.ToolTip = newTooltip;
                 }
             }
