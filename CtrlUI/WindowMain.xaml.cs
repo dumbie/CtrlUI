@@ -173,10 +173,7 @@ namespace CtrlUI
                 await UpdateControllerConnected();
 
                 //Check for available application update
-                if (await CheckForAppUpdate(true))
-                {
-                    MainMenuInsertUpdate();
-                }
+                await CheckForAppUpdate(true);
             }
             catch { }
         }

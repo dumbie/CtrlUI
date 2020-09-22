@@ -17,13 +17,21 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Downloading IGDB genres.");
 
+                //Authenticate with Twitch
+                string authAccessToken = await Api_Twitch_Authenticate();
+                if (string.IsNullOrWhiteSpace(authAccessToken))
+                {
+                    return;
+                }
+
                 //Set request headers
                 string[] requestAccept = new[] { "Accept", "application/json" };
-                string[] requestUserKey = new[] { "User-Key", vApiIGDBUserKey };
-                string[][] requestHeaders = new string[][] { requestAccept, requestUserKey };
+                string[] requestClientID = new[] { "Client-ID", vApiIGDBClientID };
+                string[] requestAuthorization = new[] { "Authorization", "Bearer " + authAccessToken };
+                string[][] requestHeaders = new string[][] { requestAccept, requestClientID, requestAuthorization };
 
                 //Create request uri
-                Uri requestUri = new Uri("https://api-v3.igdb.com/genres");
+                Uri requestUri = new Uri("https://api.igdb.com/v4/genres");
 
                 //Create request body
                 string requestBodyString = "fields *; limit 500; sort id asc;";

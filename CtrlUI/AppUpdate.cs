@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVImage;
@@ -18,55 +19,65 @@ namespace CtrlUI
             bool updateAvailable = false;
             try
             {
-                if (!vCheckingForUpdate)
+                //Check if already updating
+                if (vBusyCheckingForUpdate)
                 {
-                    vCheckingForUpdate = true;
+                    Debug.WriteLine("Already checking for application update, cancelling.");
+                    return updateAvailable;
+                }
 
-                    string ResCurrentVersion = await AVDownloader.DownloadStringAsync(5000, "CtrlUI", null, new Uri("https://download.arnoldvink.com/CtrlUI.zip-version.txt" + "?nc=" + Environment.TickCount));
-                    if (!string.IsNullOrWhiteSpace(ResCurrentVersion) && ResCurrentVersion != Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0])
+                //Update the updating status
+                vBusyCheckingForUpdate = true;
+
+                string currentVersion = await AVDownloader.DownloadStringAsync(5000, "CtrlUI", null, new Uri("https://download.arnoldvink.com/CtrlUI.zip-version.txt" + "?nc=" + Environment.TickCount));
+                if (!string.IsNullOrWhiteSpace(currentVersion) && currentVersion != Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0])
+                {
+                    //Update status variable
+                    updateAvailable = true;
+
+                    //Insert main menu item
+                    MainMenuInsertUpdate();
+
+                    //Notification or interaction
+                    if (silentCheck)
                     {
-                        updateAvailable = true;
-                        if (silentCheck)
-                        {
-                            await Notification_Send_Status("Refresh", "CtrlUI update available");
-                        }
-                        else
-                        {
-                            List<DataBindString> Answers = new List<DataBindString>();
-                            DataBindString Answer1 = new DataBindString();
-                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            Answer1.Name = "Update and restart CtrlUI";
-                            Answers.Add(Answer1);
-
-                            DataBindString messageResult = await Popup_Show_MessageBox("A newer version has been found: v" + ResCurrentVersion, "", "Do you want to update the application to the newest version now?", Answers);
-                            if (messageResult != null && messageResult == Answer1)
-                            {
-                                await AppUpdateRestart();
-                            }
-                        }
+                        await Notification_Send_Status("Refresh", "CtrlUI update available");
                     }
                     else
                     {
-                        if (!silentCheck)
-                        {
-                            List<DataBindString> Answers = new List<DataBindString>();
-                            DataBindString Answer1 = new DataBindString();
-                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            Answer1.Name = "Alright";
-                            Answers.Add(Answer1);
+                        List<DataBindString> Answers = new List<DataBindString>();
+                        DataBindString Answer1 = new DataBindString();
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.Name = "Update and restart CtrlUI";
+                        Answers.Add(Answer1);
 
-                            await Popup_Show_MessageBox("No new application update has been found", "", "", Answers);
+                        DataBindString messageResult = await Popup_Show_MessageBox("A newer version has been found: v" + currentVersion, "", "Do you want to update the application to the newest version now?", Answers);
+                        if (messageResult != null && messageResult == Answer1)
+                        {
+                            await AppUpdateRestart();
                         }
                     }
+                }
+                else
+                {
+                    if (!silentCheck)
+                    {
+                        List<DataBindString> Answers = new List<DataBindString>();
+                        DataBindString Answer1 = new DataBindString();
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.Name = "Alright";
+                        Answers.Add(Answer1);
 
-                    vCheckingForUpdate = false;
+                        await Popup_Show_MessageBox("No new application update has been found", "", "", Answers);
+                    }
                 }
             }
             catch
             {
-                vCheckingForUpdate = false;
                 await AppUpdateFailed(silentCheck);
             }
+
+            vBusyCheckingForUpdate = false;
             return updateAvailable;
         }
 

@@ -28,7 +28,8 @@ namespace CtrlUI
         public static Configuration vConfigurationDirectXInput = Settings_Load_DirectXInput();
 
         //Api Variables
-        public static string vApiIGDBUserKey = "b25eb31b7612c7158867a3cd7849dbee"; //Yes, I know I didn't remove the api key.
+        public static string vApiIGDBClientID = "pf1397qtj00w9z55vmwbp7lzf557ja"; //Yes, I know I didn't remove the api key.
+        public static string vApiIGDBAuthorization = "3ofmaqyzmxs2kz3yniey9kim2y253s"; //Yes, I know I didn't remove the api key.
 
         //Interaction Variables
         public static int vMouseLastInteraction = Environment.TickCount;
@@ -59,10 +60,8 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadRockstar = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadMicrosoft = FileToBitmapImage(new string[] { "Microsoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
 
-        //Update Variables
-        public static bool vCheckingForUpdate = false;
-
         //Busy Variables
+        public static bool vBusyCheckingForUpdate = false;
         public static bool vBusyRefreshingProcesses = false;
         public static bool vBusyRefreshingShortcuts = false;
         public static bool vBusyRefreshingLaunchers = false;

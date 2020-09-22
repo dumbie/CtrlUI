@@ -33,8 +33,6 @@
             public int parent_game { get; set; }
             public int[] platforms { get; set; }
             public int[] player_perspectives { get; set; }
-            public double popularity { get; set; }
-            public int pulse_count { get; set; }
             public double rating { get; set; }
             public int rating_count { get; set; }
             public long[] release_dates { get; set; }
@@ -47,7 +45,6 @@
             public string summary { get; set; }
             public long[] tags { get; set; }
             public int[] themes { get; set; }
-            public int time_to_beat { get; set; }
             public double total_rating { get; set; }
             public int total_rating_count { get; set; }
             public long updated_at { get; set; }
@@ -90,7 +87,7 @@
             public int generation { get; set; }
             public string name { get; set; }
             public int platform_logo { get; set; }
-            public int product_family { get; set; }
+            public int platform_family { get; set; }
             public string slug { get; set; }
             public string summary { get; set; }
             public long updated_at { get; set; }

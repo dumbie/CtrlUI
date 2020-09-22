@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -251,13 +252,16 @@ namespace CtrlUI
         {
             try
             {
-                DataBindString menuButtonUpdateRestart = new DataBindString
+                if (!List_MainMenu.Any(x => x.Data1.ToString() == "menuButtonUpdateRestart"))
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Update and restart CtrlUI",
-                    Data1 = "menuButtonUpdateRestart"
-                };
-                List_MainMenu.Insert(0, menuButtonUpdateRestart);
+                    DataBindString menuButtonUpdateRestart = new DataBindString
+                    {
+                        ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                        Name = "Update and restart CtrlUI",
+                        Data1 = "menuButtonUpdateRestart"
+                    };
+                    List_MainMenu.Insert(0, menuButtonUpdateRestart);
+                }
             }
             catch { }
         }

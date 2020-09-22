@@ -174,6 +174,7 @@
     <Compile Include="ListShortcutHandlers.cs" />
     <Compile Include="RecycleBinFunctions.cs" />
     <Compile Include="NotificationFunctions.cs" />
+    <Compile Include="Resources\IGDB\TwitchAuth.cs" />
     <Compile Include="Resources\IGDB\DownloadImage.cs" />
     <Compile Include="Resources\IGDB\DownloadInfoPlatforms.cs" />
     <Compile Include="Resources\IGDB\DownloadInfoGenres.cs" />
