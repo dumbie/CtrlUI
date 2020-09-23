@@ -30,6 +30,8 @@ namespace CtrlUI
         //Api Variables
         public static string vApiIGDBClientID = "pf1397qtj00w9z55vmwbp7lzf557ja"; //Yes, I know I didn't remove the api key.
         public static string vApiIGDBAuthorization = "3ofmaqyzmxs2kz3yniey9kim2y253s"; //Yes, I know I didn't remove the api key.
+        public static string vApiIGDBTokenCache = string.Empty;
+        public static DateTime? vApiIGDBTokenExpire = null;
 
         //Interaction Variables
         public static int vMouseLastInteraction = Environment.TickCount;

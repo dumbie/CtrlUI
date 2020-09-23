@@ -15,6 +15,13 @@ namespace CtrlUI
         {
             try
             {
+                //Check if auth token is cached
+                if (vApiIGDBTokenExpire != null && DateTime.Now < vApiIGDBTokenExpire)
+                {
+                    Debug.WriteLine("Returning auth cache from Twitch.");
+                    return vApiIGDBTokenCache;
+                }
+
                 Debug.WriteLine("Authenticating with Twitch.");
 
                 //Set request headers
@@ -38,7 +45,9 @@ namespace CtrlUI
                 //Check if authenticated
                 if (jsonAuth.access_token != null && !string.IsNullOrWhiteSpace(jsonAuth.access_token))
                 {
-                    return jsonAuth.access_token;
+                    vApiIGDBTokenCache = jsonAuth.access_token;
+                    vApiIGDBTokenExpire = DateTime.Now.AddSeconds(jsonAuth.expires_in).AddSeconds(-30);
+                    return vApiIGDBTokenCache;
                 }
                 else
                 {
