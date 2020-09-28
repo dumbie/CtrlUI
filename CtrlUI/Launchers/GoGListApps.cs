@@ -1,9 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using ArnoldVinkCode;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
@@ -66,65 +70,76 @@ namespace CtrlUI
                     return;
                 }
 
-                //Get primary playtask
-                GoGPlayTasks primaryTask = gogGameInfo.playTasks.Where(x => x.isPrimary).FirstOrDefault();
-
-                //Get executable launch path
-                string runCommand = Path.Combine(gogGamePath, primaryTask.path);
-                runCommand = runCommand.Replace("/", "\\");
-                vLauncherAppAvailableCheck.Add(runCommand);
-
-                //Check if application is already added
-                DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == runCommand.ToLower()).FirstOrDefault();
-                if (launcherExistCheck != null)
+                //Add game playtasks
+                IEnumerable<GoGPlayTasks> gameTasks = gogGameInfo.playTasks.Where(x => x.isPrimary || x.category == GoGAppCategory.game);
+                foreach (GoGPlayTasks gameTask in gameTasks)
                 {
-                    //Debug.WriteLine("GoG app already in list: " + appIds);
-                    return;
+                    try
+                    {
+                        //Get executable launch path
+                        string runCommand = Path.Combine(gogGamePath, gameTask.path);
+                        runCommand = runCommand.Replace("/", "\\");
+                        runCommand = Regex.Replace(runCommand, @"\s*(\\){2,}\s*", "\\");
+                        vLauncherAppAvailableCheck.Add(runCommand);
+
+                        //Check if application is already added
+                        DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == runCommand.ToLower()).FirstOrDefault();
+                        if (launcherExistCheck != null)
+                        {
+                            //Debug.WriteLine("GoG app already in list: " + appIds);
+                            return;
+                        }
+
+                        //Get application name
+                        string appName = gogGameInfo.name;
+
+                        //Check if application name is ignored
+                        string appNameLower = appName.ToLower();
+                        if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
+                        {
+                            //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
+                            await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
+                            return;
+                        }
+
+                        //Get application launch argument
+                        string launchArgument = gameTask.arguments;
+
+                        //Get application image
+                        string appImage = string.Empty;
+                        GoGPlayTasks playtaskIcon = gogGameInfo.playTasks.Where(x => x.icon != null && !string.IsNullOrWhiteSpace(x.icon)).FirstOrDefault();
+                        if (playtaskIcon != null)
+                        {
+                            appImage = Path.Combine(gogGamePath, playtaskIcon.icon);
+                            //Debug.WriteLine("Set GoG image to: " + appImage);
+                        }
+                        BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appImage, icoFilePath, "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+
+                        //Check the application category
+                        Visibility categoryLauncher = gameTask.category == GoGAppCategory.launcher ? Visibility.Visible : Visibility.Collapsed;
+
+                        //Add the application to the list
+                        DataBindApp dataBindApp = new DataBindApp()
+                        {
+                            Category = AppCategory.Launcher,
+                            Launcher = AppLauncher.GoG,
+                            Name = appName,
+                            ImageBitmap = iconBitmapImage,
+                            PathExe = runCommand,
+                            Argument = launchArgument,
+                            StatusLauncher = vImagePreloadGoG,
+                            StatusUrlProtocol = categoryLauncher
+                        };
+
+                        await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
+                        //Debug.WriteLine("Added GoG game: " + appName + "/" + gameTask.category);
+                    }
+                    catch { }
                 }
-
-                //Get application name
-                string appName = gogGameInfo.name;
-
-                //Check if application name is ignored
-                string appNameLower = appName.ToLower();
-                if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
-                {
-                    //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
-                    return;
-                }
-
-                //Get application launch argument
-                string launchArgument = primaryTask.arguments;
-
-                //Get application image
-                string appImage = string.Empty;
-                GoGPlayTasks playtaskIcon = gogGameInfo.playTasks.Where(x => x.icon != null && !string.IsNullOrWhiteSpace(x.icon)).FirstOrDefault();
-                if (playtaskIcon != null)
-                {
-                    appImage = Path.Combine(gogGamePath, playtaskIcon.icon);
-                    //Debug.WriteLine("Set GoG image to: " + appImage);
-                }
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appImage, icoFilePath, "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
-
-                //Add the application to the list
-                DataBindApp dataBindApp = new DataBindApp()
-                {
-                    Category = AppCategory.Launcher,
-                    Launcher = AppLauncher.GoG,
-                    Name = appName,
-                    ImageBitmap = iconBitmapImage,
-                    PathExe = runCommand,
-                    Argument = launchArgument,
-                    StatusLauncher = vImagePreloadGoG
-                };
-
-                await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
-                //Debug.WriteLine("Added GoG app: " + appName);
             }
             catch
             {
-                Debug.WriteLine("Failed adding GoG app: " + gogGameInfo.name);
+                Debug.WriteLine("Failed adding GoG game: " + gogGameInfo.name);
             }
         }
     }

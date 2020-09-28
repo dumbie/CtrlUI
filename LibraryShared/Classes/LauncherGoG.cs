@@ -4,6 +4,14 @@ namespace LibraryShared
 {
     partial class Classes
     {
+        public enum GoGAppCategory
+        {
+            game,
+            tool,
+            launcher,
+            document
+        }
+
         public class GoGConfig
         {
             public string libraryPath;
@@ -12,6 +20,7 @@ namespace LibraryShared
         public class GoGPlayTasks
         {
             public bool isPrimary;
+            public GoGAppCategory category;
             public string type;
             public string icon;
             public string path;
