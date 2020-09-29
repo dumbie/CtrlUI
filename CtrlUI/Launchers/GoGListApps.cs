@@ -1,5 +1,4 @@
-﻿using ArnoldVinkCode;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,9 +44,12 @@ namespace CtrlUI
                                 string gogGamePath = Path.GetDirectoryName(infoFile);
                                 string infoFileString = File.ReadAllText(infoFile);
                                 GoGGameInfo gogGameInfo = JsonConvert.DeserializeObject<GoGGameInfo>(infoFileString);
-                                await GoGAddApplication(gogGamePath, gogGameInfo, icoFilePath);
+                                await GoGAddApplication(gogGamePath, icoFilePath, gogGameInfo);
                             }
-                            catch { }
+                            catch
+                            {
+                                Debug.WriteLine("Failed to deserialize GoG game.");
+                            }
                         }
                     }
                     catch { }
@@ -59,7 +61,7 @@ namespace CtrlUI
             }
         }
 
-        async Task GoGAddApplication(string gogGamePath, GoGGameInfo gogGameInfo, string icoFilePath)
+        async Task GoGAddApplication(string gogGamePath, string icoFilePath, GoGGameInfo gogGameInfo)
         {
             try
             {
@@ -87,11 +89,15 @@ namespace CtrlUI
                         if (launcherExistCheck != null)
                         {
                             //Debug.WriteLine("GoG app already in list: " + appIds);
-                            return;
+                            continue;
                         }
 
                         //Get application name
-                        string appName = gogGameInfo.name;
+                        string appName = gameTask.name;
+                        if (string.IsNullOrWhiteSpace(appName))
+                        {
+                            appName = gogGameInfo.name;
+                        }
 
                         //Check if application name is ignored
                         string appNameLower = appName.ToLower();
@@ -99,7 +105,7 @@ namespace CtrlUI
                         {
                             //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
                             await ListBoxRemoveAll(lb_Launchers, List_Launchers, x => x.Name.ToLower() == appNameLower);
-                            return;
+                            continue;
                         }
 
                         //Get application launch argument

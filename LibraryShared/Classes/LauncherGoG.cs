@@ -23,6 +23,7 @@ namespace LibraryShared
             public GoGAppCategory category;
             public string type;
             public string icon;
+            public string name;
             public string path;
             public string workingDir;
             public string arguments;

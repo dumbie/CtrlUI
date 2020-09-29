@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,8 +12,6 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        public static List<string> vLauncherAppAvailableCheck = new List<string>();
-
         async Task LoadLauncherApplications()
         {
             try
