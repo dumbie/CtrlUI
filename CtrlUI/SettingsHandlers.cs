@@ -485,7 +485,7 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
                     Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    Answer1.Name = "Alright";
+                    Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
                     await Popup_Show_MessageBox("CtrlUI has been added to GeForce Experience", "", "You can now remotely launch CtrlUI from your devices.", Answers);
@@ -502,7 +502,7 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
                     Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    Answer1.Name = "Alright";
+                    Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
                     await Popup_Show_MessageBox("CtrlUI has been removed from GeForce Experience", "", "", Answers);
@@ -513,7 +513,7 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
                 Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Alright";
+                Answer1.Name = "Ok";
                 Answers.Add(Answer1);
 
                 Debug.WriteLine("Failed add GeForce Experience: " + ex.Message);

@@ -65,7 +65,7 @@ namespace CtrlUI
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
                         Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Alright";
+                        Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
                         await Popup_Show_MessageBox("No new application update has been found", "", "", Answers);
@@ -91,7 +91,7 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
                     Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    Answer1.Name = "Alright";
+                    Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
                     await Popup_Show_MessageBox("Failed to check for application update", "", "Please check your internet connection and try again.", Answers);

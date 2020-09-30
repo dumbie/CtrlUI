@@ -28,7 +28,7 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
                     Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    Answer1.Name = "Alright";
+                    Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
                     await Popup_Show_MessageBox("Please enter an application name first", "", "", Answers);
@@ -236,7 +236,7 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
                     Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    Answer1.Name = "Alright";
+                    Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
                     await Popup_Show_MessageBox("Please enter an application name first", "", "", Answers);
@@ -249,7 +249,7 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
                     Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    Answer1.Name = "Alright";
+                    Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
                     await Popup_Show_MessageBox("Please select an application executable file first", "", "", Answers);
@@ -262,7 +262,7 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
                     Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    Answer1.Name = "Alright";
+                    Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 
                     await Popup_Show_MessageBox("Sorry, you can't add CtrlUI as an application", "", "", Answers);
@@ -278,7 +278,7 @@ namespace CtrlUI
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
                         Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Alright";
+                        Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
                         await Popup_Show_MessageBox("Application executable not found, please select another one", "", "", Answers);
@@ -291,7 +291,7 @@ namespace CtrlUI
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
                         Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Alright";
+                        Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
                         await Popup_Show_MessageBox("Launch folder not found, please select another one", "", "", Answers);
@@ -306,7 +306,7 @@ namespace CtrlUI
                             List<DataBindString> Answers = new List<DataBindString>();
                             DataBindString Answer1 = new DataBindString();
                             Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            Answer1.Name = "Alright";
+                            Answer1.Name = "Ok";
                             Answers.Add(Answer1);
 
                             await Popup_Show_MessageBox("Please select an emulator rom folder first", "", "", Answers);
@@ -317,7 +317,7 @@ namespace CtrlUI
                             List<DataBindString> Answers = new List<DataBindString>();
                             DataBindString Answer1 = new DataBindString();
                             Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                            Answer1.Name = "Alright";
+                            Answer1.Name = "Ok";
                             Answers.Add(Answer1);
 
                             await Popup_Show_MessageBox("Rom folder not found, please select another one", "", "", Answers);
@@ -336,7 +336,7 @@ namespace CtrlUI
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
                         Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Alright";
+                        Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
                         await Popup_Show_MessageBox("This application already exists", "", "", Answers);
@@ -377,7 +377,7 @@ namespace CtrlUI
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
                         Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Alright";
+                        Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
                         await Popup_Show_MessageBox("This application name already exists, please use another one", "", "", Answers);
@@ -394,7 +394,7 @@ namespace CtrlUI
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
                         Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        Answer1.Name = "Alright";
+                        Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
                         await Popup_Show_MessageBox("This application executable already exists, please select another one", "", "", Answers);

@@ -142,14 +142,14 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Classes\ImageSourceFolders.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\Classes\ImageSourceFolders.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetMemoryStreamFromExecutable.cs">
-      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetMemoryStreamFromExecutable.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromExeFile.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromExeFile.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetMemoryStreamFromIcoFile.cs">
-      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetMemoryStreamFromIcoFile.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromIcoFile.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromIcoFile.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetMemoryStreamSourceFromWindow.cs">
-      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetMemoryStreamSourceFromWindow.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromWindow.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromWindow.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>

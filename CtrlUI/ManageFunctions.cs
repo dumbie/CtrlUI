@@ -341,7 +341,7 @@ namespace CtrlUI
                         List<DataBindString> answersConfirm = new List<DataBindString>();
                         DataBindString answerAlright = new DataBindString();
                         answerAlright.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerAlright.Name = "Alright";
+                        answerAlright.Name = "Ok";
                         answersConfirm.Add(answerAlright);
 
                         await Popup_Show_MessageBox("This application already exists", "", "", answersConfirm);

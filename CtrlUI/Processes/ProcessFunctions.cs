@@ -293,7 +293,7 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
                 DataBindString Answer1 = new DataBindString();
                 Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                Answer1.Name = "Alright";
+                Answer1.Name = "Ok";
                 Answers.Add(Answer1);
 
                 await Popup_Show_MessageBox("Failed to launch the application", "", "Perhaps the application has moved to a new location or has closed.", Answers);
