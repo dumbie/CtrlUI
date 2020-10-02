@@ -108,7 +108,25 @@ namespace CtrlUI
                 AnswerRemove.Name = "Remove application from list";
                 Answers.Add(AnswerRemove);
 
-                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", ApplicationRuntimeString(dataBindApp.RunningTime, "application"), "", Answers);
+                //Get process details
+                string processDetails = dataBindApp.PathExe;
+                if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
+                {
+                    processDetails += " (" + dataBindApp.NameExe + ")";
+                }
+
+                //Get process running time
+                string processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "application");
+                if (string.IsNullOrWhiteSpace(processRunningTimeString))
+                {
+                    processRunningTimeString = processDetails;
+                }
+                else
+                {
+                    processRunningTimeString += "\n" + processDetails;
+                }
+
+                DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);
                 if (messageResult != null)
                 {
                     if (messageResult == AnswerEdit)

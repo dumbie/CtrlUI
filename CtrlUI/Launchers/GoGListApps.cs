@@ -113,7 +113,7 @@ namespace CtrlUI
 
                         //Get application image
                         string appImage = string.Empty;
-                        GoGPlayTasks playtaskIcon = gogGameInfo.playTasks.Where(x => x.icon != null && !string.IsNullOrWhiteSpace(x.icon)).FirstOrDefault();
+                        GoGPlayTasks playtaskIcon = gogGameInfo.playTasks.Where(x => !string.IsNullOrWhiteSpace(x.icon)).FirstOrDefault();
                         if (playtaskIcon != null)
                         {
                             appImage = Path.Combine(gogGamePath, playtaskIcon.icon);

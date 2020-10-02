@@ -58,7 +58,14 @@ namespace CtrlUI
                 }
                 Answers.Add(AnswerRestartWithout);
 
-                //Get the process running time
+                //Get process details
+                string processDetails = dataBindApp.PathExe;
+                if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
+                {
+                    processDetails += " (" + dataBindApp.NameExe + ")";
+                }
+
+                //Get process running time
                 string processRunningTimeString = string.Empty;
                 if (dataBindApp.Category == AppCategory.Shortcut)
                 {
@@ -70,11 +77,11 @@ namespace CtrlUI
                 }
                 if (string.IsNullOrWhiteSpace(processRunningTimeString))
                 {
-                    processRunningTimeString = dataBindApp.PathExe;
+                    processRunningTimeString = processDetails;
                 }
                 else
                 {
-                    processRunningTimeString += "\n" + dataBindApp.PathExe;
+                    processRunningTimeString += "\n" + processDetails;
                 }
 
                 //Show the messagebox

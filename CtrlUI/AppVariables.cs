@@ -60,6 +60,7 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadEpic = FileToBitmapImage(new string[] { "Epic Games" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadBattleNet = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadRockstar = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadDiscord = FileToBitmapImage(new string[] { "Discord" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadMicrosoft = FileToBitmapImage(new string[] { "Microsoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
 
         //Busy Variables

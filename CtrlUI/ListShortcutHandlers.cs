@@ -18,15 +18,22 @@ namespace CtrlUI
         {
             try
             {
-                //Get the process running time
+                //Get process details
+                string processDetails = dataBindApp.PathExe;
+                if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
+                {
+                    processDetails += " (" + dataBindApp.NameExe + ")";
+                }
+
+                //Get process running time
                 string processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "shortcut process");
                 if (string.IsNullOrWhiteSpace(processRunningTimeString))
                 {
-                    processRunningTimeString = dataBindApp.PathExe;
+                    processRunningTimeString = processDetails;
                 }
                 else
                 {
-                    processRunningTimeString += "\n" + dataBindApp.PathExe;
+                    processRunningTimeString += "\n" + processDetails;
                 }
 
                 List<DataBindString> Answers = new List<DataBindString>();

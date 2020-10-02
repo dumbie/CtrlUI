@@ -170,6 +170,7 @@ namespace CtrlUI
                 grid_Popup_Welcome_button_Epic.Click += Grid_Popup_Welcome_button_Epic_Click;
                 grid_Popup_Welcome_button_Battle.Click += Grid_Popup_Welcome_button_Battle_Click;
                 grid_Popup_Welcome_button_PS4Remote.Click += Grid_Popup_Welcome_button_PS4Remote_Click;
+                grid_Popup_Welcome_button_Discord.Click += Grid_Popup_Welcome_button_Discord_Click;
 
                 //Settings functions
                 grid_Popup_Settings_button_Close.Click += Button_Popup_Close_Click;
@@ -435,6 +436,7 @@ namespace CtrlUI
                 bool runningEpic = processesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher");
                 bool runningBlizzard = processesList.Any(x => x.ProcessName.ToLower() == "battle.net");
                 bool runningRockstar = processesList.Any(x => x.ProcessName.ToLower() == "rockstarservice");
+                bool runningDiscord = processesList.Any(x => x.ProcessName.ToLower() == "discord");
                 bool runningDirectXInput = processesList.Any(x => x.ProcessName.ToLower() == "directxinput");
                 bool runningFpsOverlayer = processesList.Any(x => x.ProcessName.ToLower() == "fpsoverlayer");
 
@@ -512,22 +514,31 @@ namespace CtrlUI
                         img_Menu_RockstarStatus.Opacity = 0.40;
                     }
 
-                    if (runningDirectXInput)
+                    if (runningDiscord)
                     {
-                        img_Menu_DirectXInput.Opacity = 1.00;
+                        img_Menu_DiscordStatus.Opacity = 1.00;
                     }
                     else
                     {
-                        img_Menu_DirectXInput.Opacity = 0.40;
+                        img_Menu_DiscordStatus.Opacity = 0.40;
+                    }
+
+                    if (runningDirectXInput)
+                    {
+                        img_Menu_DirectXInputStatus.Opacity = 1.00;
+                    }
+                    else
+                    {
+                        img_Menu_DirectXInputStatus.Opacity = 0.40;
                     }
 
                     if (runningFpsOverlayer)
                     {
-                        img_Menu_FpsOverlayer.Opacity = 1.00;
+                        img_Menu_FpsOverlayerStatus.Opacity = 1.00;
                     }
                     else
                     {
-                        img_Menu_FpsOverlayer.Opacity = 0.40;
+                        img_Menu_FpsOverlayerStatus.Opacity = 0.40;
                     }
                 });
             }
@@ -925,9 +936,10 @@ namespace CtrlUI
                 img_Menu_EpicStatus.Source = vImagePreloadEpic;
                 img_Menu_BattleNetStatus.Source = vImagePreloadBattleNet;
                 img_Menu_RockstarStatus.Source = vImagePreloadRockstar;
+                img_Menu_DiscordStatus.Source = vImagePreloadDiscord;
 
-                img_Menu_DirectXInput.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-                img_Menu_FpsOverlayer.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+                img_Menu_DirectXInputStatus.Source = FileToBitmapImage(new string[] { "DirectXInput" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+                img_Menu_FpsOverlayerStatus.Source = FileToBitmapImage(new string[] { "FpsOverlayer" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
 
                 //Check if the first launch logo's need to be loaded
                 if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "AppFirstLaunch")))
@@ -936,6 +948,7 @@ namespace CtrlUI
                     grid_Popup_Welcome_img_Kodi.Source = FileToBitmapImage(new string[] { "Kodi" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_Spotify.Source = FileToBitmapImage(new string[] { "Spotify" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_PS4Remote.Source = FileToBitmapImage(new string[] { "Remote Play" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
+                    grid_Popup_Welcome_img_Discord.Source = vImagePreloadDiscord;
                     grid_Popup_Welcome_img_Steam.Source = vImagePreloadSteam;
                     grid_Popup_Welcome_img_Origin.Source = vImagePreloadOrigin;
                     grid_Popup_Welcome_img_Uplay.Source = vImagePreloadUplay;

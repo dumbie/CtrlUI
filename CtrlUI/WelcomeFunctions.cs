@@ -44,8 +44,21 @@ namespace CtrlUI
                     }
                 }
 
+                //Search for Discord install and add to the list
+                string DiscordExePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Discord\\Update.exe";
+                if (File.Exists(DiscordExePath))
+                {
+                    //Add application to the list
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Discord", NameExe = "Discord.exe", Argument = "--processStart Discord.exe", PathExe = DiscordExePath, PathLaunch = Path.GetDirectoryName(DiscordExePath) };
+                    await AddAppToList(dataBindApp, true, true);
+
+                    //Disable the icon after selection
+                    grid_Popup_Welcome_button_Discord.IsEnabled = false;
+                    grid_Popup_Welcome_button_Discord.Opacity = 0.40;
+                }
+
                 //Search for Spotify install and add to the list
-                string SpotifyExePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Spotify/Spotify.exe";
+                string SpotifyExePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Spotify\\Spotify.exe";
                 if (File.Exists(SpotifyExePath))
                 {
                     //Add application to the list

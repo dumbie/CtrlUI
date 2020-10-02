@@ -115,7 +115,7 @@ namespace CtrlUI
                             }
 
                             //Set the application search filters
-                            Func<DataBindApp, bool> filterCombinedApp = x => x.PathExe != null && Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == processNameExeNoExtLower;
+                            Func<DataBindApp, bool> filterCombinedApp = x => (!string.IsNullOrWhiteSpace(x.PathExe) && Path.GetFileNameWithoutExtension(x.PathExe).ToLower() == processNameExeNoExtLower) || (!string.IsNullOrWhiteSpace(x.NameExe) && x.NameExe.ToLower() == processNameExeLower);
                             Func<DataBindApp, bool> filterProcessApp = x => x.ProcessMulti.Any(z => z.WindowHandle == processWindowHandle);
 
                             //Check if process is a Win32Store app
@@ -126,7 +126,7 @@ namespace CtrlUI
                                 processPathExe = processAppUserModelId;
                                 processPathExeLower = processAppUserModelId.ToLower();
                                 processStatusStore = Visibility.Visible;
-                                filterCombinedApp = x => x.PathExe != null && x.PathExe.ToLower() == processPathExeLower;
+                                filterCombinedApp = x => (!string.IsNullOrWhiteSpace(x.PathExe) && x.PathExe.ToLower() == processPathExeLower) || (!string.IsNullOrWhiteSpace(x.NameExe) && x.NameExe.ToLower() == processNameExeLower);
 
                                 //Validate the window handle
                                 if (!windowValidation)

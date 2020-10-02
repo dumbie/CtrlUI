@@ -43,7 +43,7 @@ namespace CtrlUI
                 ApiTwitchOauth2 jsonAuth = JsonConvert.DeserializeObject<ApiTwitchOauth2>(resultAuth);
 
                 //Check if authenticated
-                if (jsonAuth.access_token != null && !string.IsNullOrWhiteSpace(jsonAuth.access_token))
+                if (!string.IsNullOrWhiteSpace(jsonAuth.access_token))
                 {
                     vApiIGDBTokenCache = jsonAuth.access_token;
                     vApiIGDBTokenExpire = DateTime.Now.AddSeconds(jsonAuth.expires_in).AddSeconds(-30);

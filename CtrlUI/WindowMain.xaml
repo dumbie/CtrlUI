@@ -230,9 +230,10 @@
                         <Image Name="img_Menu_BethesdaStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_BattleNetStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_RockstarStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_DiscordStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
 
-                        <Image Name="img_Menu_FpsOverlayer" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
-                        <Image Name="img_Menu_DirectXInput" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_FpsOverlayerStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
+                        <Image Name="img_Menu_DirectXInputStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                     </StackPanel>
 
                     <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Main Menu"/>
@@ -340,6 +341,9 @@
                             </Button>
                             <Button Name="grid_Popup_Welcome_button_PS4Remote" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Image Name="grid_Popup_Welcome_img_PS4Remote"/>
+                            </Button>
+                            <Button Name="grid_Popup_Welcome_button_Discord" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_Discord"/>
                             </Button>
                             <Button Name="grid_Popup_Welcome_button_Steam" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Image Name="grid_Popup_Welcome_img_Steam"/>
