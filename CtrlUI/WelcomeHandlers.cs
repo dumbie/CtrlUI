@@ -64,7 +64,7 @@ namespace CtrlUI
                 if (vFilePickerCancelled) { return; }
 
                 //Add application to the list
-                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Discord", NameExe = "Discord.exe", Argument = "--processStart Discord.exe", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Discord", NameExe = "Discord.exe", Argument = "--processStart Discord.exe", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile), LaunchKeyboard = true };
                 await AddAppToList(dataBindApp, true, true);
 
                 //Disable the icon after selection

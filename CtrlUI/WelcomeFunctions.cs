@@ -49,7 +49,7 @@ namespace CtrlUI
                 if (File.Exists(DiscordExePath))
                 {
                     //Add application to the list
-                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Discord", NameExe = "Discord.exe", Argument = "--processStart Discord.exe", PathExe = DiscordExePath, PathLaunch = Path.GetDirectoryName(DiscordExePath) };
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Discord", NameExe = "Discord.exe", Argument = "--processStart Discord.exe", PathExe = DiscordExePath, PathLaunch = Path.GetDirectoryName(DiscordExePath), LaunchKeyboard = true };
                     await AddAppToList(dataBindApp, true, true);
 
                     //Disable the icon after selection
@@ -62,7 +62,7 @@ namespace CtrlUI
                 if (File.Exists(SpotifyExePath))
                 {
                     //Add application to the list
-                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Spotify", PathExe = SpotifyExePath, PathLaunch = Path.GetDirectoryName(SpotifyExePath) };
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Spotify", PathExe = SpotifyExePath, PathLaunch = Path.GetDirectoryName(SpotifyExePath), LaunchKeyboard = true };
                     await AddAppToList(dataBindApp, true, true);
 
                     //Disable the icon after selection
@@ -101,7 +101,7 @@ namespace CtrlUI
                 {
                     if (RegKeyPS4Remote != null)
                     {
-                        string RegKeyExePath = RegKeyPS4Remote.GetValue("Path").ToString() + "\\RemotePlay.exe";
+                        string RegKeyExePath = RegKeyPS4Remote.GetValue("Path").ToString() + "RemotePlay.exe";
                         if (File.Exists(RegKeyExePath))
                         {
                             //Add application to the list

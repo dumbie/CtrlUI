@@ -37,6 +37,10 @@ namespace CtrlUI
                 }
 
                 List<DataBindString> Answers = new List<DataBindString>();
+                DataBindString AnswerDownload = new DataBindString();
+                AnswerDownload.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerDownload.Name = "Download game information";
+                Answers.Add(AnswerDownload);
 
                 DataBindString AnswerRemove = new DataBindString();
                 AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -56,7 +60,18 @@ namespace CtrlUI
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);
                 if (messageResult != null)
                 {
-                    if (messageResult == AnswerRemove)
+                    if (messageResult == AnswerDownload)
+                    {
+                        DownloadInfoGame informationDownloaded = await DownloadInfoGame(dataBindApp.Name, 100, true);
+                        if (informationDownloaded != null)
+                        {
+                            if (informationDownloaded.ImageBitmap != null)
+                            {
+                                dataBindApp.ImageBitmap = informationDownloaded.ImageBitmap;
+                            }
+                        }
+                    }
+                    else if (messageResult == AnswerRemove)
                     {
                         await RemoveShortcutFile(listboxSender, listboxSelectedIndex, dataBindApp);
                     }

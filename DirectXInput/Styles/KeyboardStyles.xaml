@@ -16,7 +16,7 @@
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ApplicationAccentLightBrush}"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Template" Value="{StaticResource ButtonTemplateWhite}"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplateWhiteRound}"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
     </Style>
 </ResourceDictionary>
