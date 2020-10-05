@@ -99,8 +99,17 @@ namespace CtrlUI
                             appName = gogGameInfo.name;
                         }
 
-                        //Check if application name is ignored
+                        //Check application name
                         string appNameLower = appName.ToLower();
+                        string[] nameFilterCheck = { "run", "launch", "launcher" };
+                        bool replaceName = nameFilterCheck.Any(x => appNameLower.Contains(x));
+                        if (replaceName)
+                        {
+                            appName = gogGameInfo.name;
+                            appNameLower = appName.ToLower();
+                        }
+
+                        //Check if application name is ignored
                         if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
                         {
                             //Debug.WriteLine("Launcher is on the blacklist skipping: " + appName);
