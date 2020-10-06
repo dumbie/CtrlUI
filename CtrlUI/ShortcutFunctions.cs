@@ -192,11 +192,12 @@ namespace CtrlUI
                     {
                         //Read shortcut file information
                         ShortcutDetails shortcutDetails = ReadShortcutFile(file.FullName);
+                        string targetTitleLower = shortcutDetails.Title.ToLower();
                         string targetPathLower = shortcutDetails.TargetPath.ToLower();
                         string targetArgumentLower = shortcutDetails.Argument.ToLower();
 
                         //Check if already in combined list and remove it
-                        if (CombineAppLists(false, false, true).Any(x => x.PathExe.ToLower() == targetPathLower))
+                        if (CombineAppLists(false, false, true).Any(x => x.Name.ToLower() == targetTitleLower || x.PathExe.ToLower() == targetPathLower))
                         {
                             //Debug.WriteLine("Shortcut is in the combined list skipping: " + fileNameStripped.ToLower());
                             await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);
@@ -204,7 +205,7 @@ namespace CtrlUI
                         }
 
                         //Check if shortcut name is in shortcut blacklist
-                        if (vCtrlIgnoreShortcutName.Any(x => x.String1.ToLower() == shortcutDetails.Title.ToLower()))
+                        if (vCtrlIgnoreShortcutName.Any(x => x.String1.ToLower() == targetTitleLower))
                         {
                             //Debug.WriteLine("Shortcut is on the blacklist skipping: " + fileNameStripped.ToLower());
                             await ListBoxRemoveAll(lb_Shortcuts, List_Shortcuts, x => x.PathExe.ToLower() == targetPathLower);

@@ -85,6 +85,9 @@ namespace CtrlUI
                 //Get application name
                 string appName = Path.GetFileName(localContentAppPath);
 
+                //Replace characters in name
+                appName = appName.Replace("(TM)", "™");
+
                 //Check if application name is ignored
                 string appNameLower = appName.ToLower();
                 if (vCtrlIgnoreLauncherName.Any(x => x.String1.ToLower() == appNameLower))
