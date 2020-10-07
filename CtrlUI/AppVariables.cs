@@ -10,6 +10,7 @@ using System.Security.Principal;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
@@ -40,8 +41,12 @@ namespace CtrlUI
         public static bool vMousePressDownLeftClick = false;
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
+        public static string[] vSelectTargetLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes" };
         public static string[] vTabTargetLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Manage_AddAppCategory" };
         public static string[] vTabTargetButtons = { "grid_Popup_TextInput_button_ConfirmText" };
+
+        //Dispatcher Timers
+        public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
 
         //Image Variables
         public static ImageSourceFolders[] vImageSourceFolders =

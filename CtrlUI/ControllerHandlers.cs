@@ -77,7 +77,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            await SortAppLists(false, false);
+                            await SortAppLists(false);
                         }
 
                         ControllerUsed = true;
@@ -378,28 +378,28 @@ namespace CtrlUI
                     //Right stick movement
                     if (ControllerInput.ThumbRightX < -10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
                     {
-                        await KeySendSingle(KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
+                        await ListBoxSelectNearCharacter(false);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.ThumbRightY > 10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
                     {
-                        await KeySendSingle(KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
+                        await ListBoxSelectNearCharacter(false);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.ThumbRightX > 10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
                     {
-                        await KeySendSingle(KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
+                        await ListBoxSelectNearCharacter(true);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.ThumbRightY < -10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
                     {
-                        await KeySendSingle(KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
+                        await ListBoxSelectNearCharacter(true);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;

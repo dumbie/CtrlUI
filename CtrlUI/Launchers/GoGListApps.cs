@@ -102,7 +102,7 @@ namespace CtrlUI
                         //Check application name
                         string appNameLower = appName.ToLower();
                         string[] nameFilterCheck = { "run", "launch", "launcher" };
-                        bool replaceName = nameFilterCheck.Any(x => appNameLower.Contains(x));
+                        bool replaceName = nameFilterCheck.Any(x => appNameLower.StartsWith(x));
                         if (replaceName)
                         {
                             appName = gogGameInfo.name;

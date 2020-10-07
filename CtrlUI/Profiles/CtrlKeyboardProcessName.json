@@ -22,5 +22,8 @@
   },
   {
     "String1": "rundll32"
+  },
+  {
+    "String1": "launcher"
   }
 ]

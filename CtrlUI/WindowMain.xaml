@@ -1147,6 +1147,18 @@
             </StackPanel>
         </Grid>
 
+        <!-- Status - Select Character -->
+        <Grid Name="grid_SelectCharacter" VerticalAlignment="Center" Visibility="Collapsed">
+            <Grid.Background>
+                <SolidColorBrush Color="#1D1D1D" Opacity="0.60"/>
+            </Grid.Background>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <TextBlock Name="grid_SelectCharacterPreviousText" Style="{StaticResource TextBlockGray}" FontSize="35" LineStackingStrategy="BlockLineHeight" LineHeight="100" Text="A"/>
+                <TextBlock Name="grid_SelectCharacterCurrentText" Margin="10,0,10,0" Style="{StaticResource TextBlockWhite}" FontSize="100" LineStackingStrategy="BlockLineHeight" LineHeight="100" Text="B"/>
+                <TextBlock Name="grid_SelectCharacterNextText" Style="{StaticResource TextBlockGray}" FontSize="35" LineStackingStrategy="BlockLineHeight" LineHeight="100" Text="C"/>
+            </StackPanel>
+        </Grid>
+
         <!-- Status - Window Active -->
         <Grid Name="grid_WindowActive" Visibility="Collapsed">
             <Grid.Background>

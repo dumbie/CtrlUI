@@ -219,7 +219,7 @@ namespace CtrlUI
                     else if (e.Key == Key.F1) { await Popup_Show(grid_Popup_Help, grid_Popup_Help_button_Close); }
                     else if (e.Key == Key.F2) { await QuickActionPrompt(); }
                     else if (e.Key == Key.F3) { await Popup_ShowHide_Search(false); }
-                    else if (e.Key == Key.F4) { await SortAppLists(false, false); }
+                    else if (e.Key == Key.F4) { await SortAppLists(false); }
                     else if (e.Key == Key.F6) { await Popup_ShowHide_MainMenu(false); }
                 }
             }
