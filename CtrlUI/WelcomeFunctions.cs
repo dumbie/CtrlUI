@@ -34,7 +34,7 @@ namespace CtrlUI
                         if (File.Exists(RegKeyExePath))
                         {
                             //Add application to the list
-                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Microsoft Edge", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), LaunchKeyboard = true };
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Edge", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), LaunchKeyboard = true };
                             await AddAppToList(dataBindApp, true, true);
 
                             //Disable the icon after selection

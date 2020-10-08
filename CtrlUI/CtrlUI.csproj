@@ -906,7 +906,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Assets\AppIcon.ico" />
-    <Content Include="Assets\Default\Apps\Microsoft Edge.png">
+    <Content Include="Assets\Default\Apps\Edge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Apps\Kodi.png">
