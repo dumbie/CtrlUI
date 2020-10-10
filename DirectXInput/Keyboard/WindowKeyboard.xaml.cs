@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVDisplayMonitor;
@@ -55,7 +56,7 @@ namespace DirectXInput.Keyboard
                 CheckMousePosition();
 
                 //Focus on keyboard button
-                await FocusKeyboardButton(true);
+                await FocusKeyboardButton(true, key_h);
 
                 //Make window able to drag from border
                 this.MouseDown += WindowKeyboard_MouseDown;
@@ -112,7 +113,7 @@ namespace DirectXInput.Keyboard
                 CheckMousePosition();
 
                 //Focus on keyboard button
-                await FocusKeyboardButton(false);
+                await FocusKeyboardButton(false, key_h);
 
                 //Update the window style (focus workaround)
                 UpdateWindowStyle();
@@ -236,13 +237,13 @@ namespace DirectXInput.Keyboard
         }
 
         //Focus on keyboard button
-        async Task FocusKeyboardButton(bool forceFocus)
+        async Task FocusKeyboardButton(bool forceFocus, Button targetButton)
         {
             try
             {
                 if (forceFocus || System.Windows.Input.Keyboard.FocusedElement == null)
                 {
-                    await FocusOnElement(key_h, false, vInteropWindowHandle);
+                    await FocusOnElement(targetButton, false, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -431,7 +432,7 @@ namespace DirectXInput.Keyboard
                 key_Alt.Tag = KeysVirtual.Alt;
                 key_LeftWindows.Content = "Windows";
                 key_LeftWindows.Tag = KeysVirtual.LeftWindows;
-                key_Space.Content = "Space";
+                key_SpaceText.Text = "Space";
                 key_Space.Tag = KeysVirtual.Space;
                 key_Enter.Content = "Enter";
                 key_Enter.Tag = KeysVirtual.Enter;
@@ -439,6 +440,110 @@ namespace DirectXInput.Keyboard
                 key_Escape.Tag = KeysVirtual.Escape;
                 key_VolumeDown.Tag = KeysVirtual.VolumeDown;
                 key_VolumeUp.Tag = KeysVirtual.VolumeUp;
+
+                //Emoji Row 1
+                key_Emoji1Text.Text = "😀";
+                key_Emoji1.Tag = "Emoji";
+                key_Emoji2Text.Text = "🤣";
+                key_Emoji2.Tag = "Emoji";
+                key_Emoji3Text.Text = "😅";
+                key_Emoji3.Tag = "Emoji";
+                key_Emoji4Text.Text = "😊";
+                key_Emoji4.Tag = "Emoji";
+                key_Emoji5Text.Text = "😍";
+                key_Emoji5.Tag = "Emoji";
+                key_Emoji6Text.Text = "😗";
+                key_Emoji6.Tag = "Emoji";
+                key_Emoji7Text.Text = "☺";
+                key_Emoji7.Tag = "Emoji";
+                key_Emoji8Text.Text = "🤩";
+                key_Emoji8.Tag = "Emoji";
+                key_Emoji9Text.Text = "😐";
+                key_Emoji9.Tag = "Emoji";
+                key_Emoji10Text.Text = "🙄";
+                key_Emoji10.Tag = "Emoji";
+                key_Emoji11Text.Text = "😥";
+                key_Emoji11.Tag = "Emoji";
+                key_Emoji12Text.Text = "😇";
+                key_Emoji12.Tag = "Emoji";
+
+                //Emoji Row 2
+                key_Emoji13Text.Text = "😁";
+                key_Emoji13.Tag = "Emoji";
+                key_Emoji14Text.Text = "🤭";
+                key_Emoji14.Tag = "Emoji";
+                key_Emoji15Text.Text = "😆";
+                key_Emoji15.Tag = "Emoji";
+                key_Emoji16Text.Text = "😋";
+                key_Emoji16.Tag = "Emoji";
+                key_Emoji17Text.Text = "😘";
+                key_Emoji17.Tag = "Emoji";
+                key_Emoji18Text.Text = "😭";
+                key_Emoji18.Tag = "Emoji";
+                key_Emoji19Text.Text = "🙂";
+                key_Emoji19.Tag = "Emoji";
+                key_Emoji20Text.Text = "🤔";
+                key_Emoji20.Tag = "Emoji";
+                key_Emoji21Text.Text = "🤫";
+                key_Emoji21.Tag = "Emoji";
+                key_Emoji22Text.Text = "😏";
+                key_Emoji22.Tag = "Emoji";
+                key_Emoji23Text.Text = "😪";
+                key_Emoji23.Tag = "Emoji";
+                key_Emoji24Text.Text = "😮";
+                key_Emoji24.Tag = "Emoji";
+
+                //Emoji Row 3
+                key_Emoji25Text.Text = "😂";
+                key_Emoji25.Tag = "Emoji";
+                key_Emoji26Text.Text = "😄";
+                key_Emoji26.Tag = "Emoji";
+                key_Emoji27Text.Text = "😉";
+                key_Emoji27.Tag = "Emoji";
+                key_Emoji28Text.Text = "😤";
+                key_Emoji28.Tag = "Emoji";
+                key_Emoji29Text.Text = "😨";
+                key_Emoji29.Tag = "Emoji";
+                key_Emoji30Text.Text = "😎";
+                key_Emoji30.Tag = "Emoji";
+                key_Emoji31Text.Text = "😓";
+                key_Emoji31.Tag = "Emoji";
+                key_Emoji32Text.Text = "🤨";
+                key_Emoji32.Tag = "Emoji";
+                key_Emoji33Text.Text = "😴";
+                key_Emoji33.Tag = "Emoji";
+                key_Emoji34Text.Text = "😣";
+                key_Emoji34.Tag = "Emoji";
+                key_Emoji35Text.Text = "🤐";
+                key_Emoji35.Tag = "Emoji";
+                key_Emoji36Text.Text = "🤒";
+                key_Emoji36.Tag = "Emoji";
+
+                //Emoji Row 4
+                key_Emoji37Text.Text = "€";
+                key_Emoji37.Tag = "Emoji";
+                key_Emoji38Text.Text = "£";
+                key_Emoji38.Tag = "Emoji";
+                key_Emoji39Text.Text = "©";
+                key_Emoji39.Tag = "Emoji";
+                key_Emoji40Text.Text = "™";
+                key_Emoji40.Tag = "Emoji";
+                key_Emoji41Text.Text = ":)";
+                key_Emoji41.Tag = "Emoji";
+                key_Emoji42Text.Text = ":(";
+                key_Emoji42.Tag = "Emoji";
+                key_Emoji43Text.Text = ";)";
+                key_Emoji43.Tag = "Emoji";
+                key_Emoji44Text.Text = ";(";
+                key_Emoji44.Tag = "Emoji";
+                key_Emoji45Text.Text = ":D";
+                key_Emoji45.Tag = "Emoji";
+                key_Emoji46Text.Text = ":O";
+                key_Emoji46.Tag = "Emoji";
+                key_Emoji47Text.Text = ":P";
+                key_Emoji47.Tag = "Emoji";
+                key_Emoji48Text.Text = ":/";
+                key_Emoji48.Tag = "Emoji";
             }
             catch { }
         }
@@ -496,6 +601,35 @@ namespace DirectXInput.Keyboard
                     key_y.Tag = KeysVirtual.Y;
                     key_z.Content = "w";
                     key_z.Tag = KeysVirtual.W;
+                }
+            }
+            catch { }
+        }
+
+        //Show or hide the emoji menu
+        public async Task ShowHideEmojiMenu()
+        {
+            try
+            {
+                if (border_Emoji.Visibility == Visibility.Collapsed)
+                {
+                    //Show the emoji menu
+                    border_Emoji.Visibility = Visibility.Visible;
+                    grid_Keyboard.Opacity = 0.60;
+                    grid_Keyboard.IsEnabled = false;
+
+                    //Focus on keyboard button
+                    await FocusKeyboardButton(true, key_Emoji1);
+                }
+                else
+                {
+                    //Hide the emoji menu
+                    border_Emoji.Visibility = Visibility.Collapsed;
+                    grid_Keyboard.Opacity = 1;
+                    grid_Keyboard.IsEnabled = true;
+
+                    //Focus on keyboard button
+                    await FocusKeyboardButton(true, key_Space);
                 }
             }
             catch { }
@@ -641,7 +775,7 @@ namespace DirectXInput.Keyboard
                         key_Control.Content = "Ctrl";
                         key_Alt.Content = "Alt";
                         key_LeftWindows.Content = "Windows";
-                        key_Space.Content = "Space";
+                        key_SpaceText.Text = "Space";
                         key_Enter.Content = "Enter";
 
                         key_Escape.Content = "Escape";
@@ -764,7 +898,7 @@ namespace DirectXInput.Keyboard
                         key_Control.Content = "Copy";
                         key_Alt.Content = "Paste";
                         key_LeftWindows.Content = "Select all";
-                        key_Space.Content = "Task manager";
+                        key_SpaceText.Text = "😄😋😁";
                         key_Enter.Content = "Undo";
 
                         key_Escape.Content = "Menu";

@@ -5,6 +5,7 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:local="clr-namespace:DirectXInput.Keyboard"
             xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
+            xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
             RenderOptions.BitmapScalingMode="HighQuality"
             mc:Ignorable="d"
             Title="DirectXInput Keyboard"
@@ -25,7 +26,7 @@
         </Grid.Background>
 
         <!-- Grid Keyboard -->
-        <Grid Name="grid_Keyboard" Margin="2">
+        <Grid Margin="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -75,7 +76,7 @@
             </StackPanel>
 
             <!-- Keyboard -->
-            <StackPanel Grid.Row="1" Background="#1D1D1D">
+            <StackPanel Name="grid_Keyboard" Grid.Row="1" Background="#1D1D1D">
                 <StackPanel Margin="3,5,7,5">
                     <!-- Key Row 0 -->
                     <StackPanel Name="sp_Row0" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -272,7 +273,9 @@
                         <Button Name="key_Control" Width="70" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_Alt" Width="70" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_LeftWindows" Width="100" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
-                        <Button Name="key_Space" Width="140" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
+                        <Button Name="key_Space" Width="140" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                            <emoji:TextBlock Name="key_SpaceText"/>
+                        </Button>
                         <Button Name="key_Enter" Width="70" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_Escape" Width="69" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_VolumeDown" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
@@ -291,5 +294,176 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
+
+        <!-- Emoji -->
+        <Border Name="border_Emoji" CornerRadius="4" VerticalAlignment="Bottom" Margin="0,0,0,55" Width="625" Height="255" Visibility="Collapsed">
+            <Border.Background>
+                <SolidColorBrush Color="#1D1D1D" Opacity="0.95"/>
+            </Border.Background>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <!-- Emoji Row 1 -->
+                <StackPanel Name="sp_Emoji_Row1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4,4,0">
+                    <Button Name="key_Emoji1" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji1Text"/>
+                    </Button>
+                    <Button Name="key_Emoji2" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji2Text"/>
+                    </Button>
+                    <Button Name="key_Emoji3" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji3Text"/>
+                    </Button>
+                    <Button Name="key_Emoji4" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji4Text"/>
+                    </Button>
+                    <Button Name="key_Emoji5" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji5Text"/>
+                    </Button>
+                    <Button Name="key_Emoji6" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji6Text"/>
+                    </Button>
+                    <Button Name="key_Emoji7" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji7Text"/>
+                    </Button>
+                    <Button Name="key_Emoji8" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji8Text"/>
+                    </Button>
+                    <Button Name="key_Emoji9" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji9Text"/>
+                    </Button>
+                    <Button Name="key_Emoji10" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji10Text"/>
+                    </Button>
+                    <Button Name="key_Emoji11" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji11Text"/>
+                    </Button>
+                    <Button Name="key_Emoji12" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji12Text"/>
+                    </Button>
+                </StackPanel>
+                <!-- Emoji Row 2 -->
+                <StackPanel Name="sp_Emoji_Row2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4,4,0">
+                    <Button Name="key_Emoji13" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji13Text"/>
+                    </Button>
+                    <Button Name="key_Emoji14" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji14Text"/>
+                    </Button>
+                    <Button Name="key_Emoji15" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji15Text"/>
+                    </Button>
+                    <Button Name="key_Emoji16" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji16Text"/>
+                    </Button>
+                    <Button Name="key_Emoji17" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji17Text"/>
+                    </Button>
+                    <Button Name="key_Emoji18" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji18Text"/>
+                    </Button>
+                    <Button Name="key_Emoji19" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji19Text"/>
+                    </Button>
+                    <Button Name="key_Emoji20" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji20Text"/>
+                    </Button>
+                    <Button Name="key_Emoji21" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji21Text"/>
+                    </Button>
+                    <Button Name="key_Emoji22" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji22Text"/>
+                    </Button>
+                    <Button Name="key_Emoji23" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji23Text"/>
+                    </Button>
+                    <Button Name="key_Emoji24" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji24Text"/>
+                    </Button>
+                </StackPanel>
+                <!-- Emoji Row 3 -->
+                <StackPanel Name="sp_Emoji_Row3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4,4,0">
+                    <Button Name="key_Emoji25" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji25Text"/>
+                    </Button>
+                    <Button Name="key_Emoji26" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji26Text"/>
+                    </Button>
+                    <Button Name="key_Emoji27" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji27Text"/>
+                    </Button>
+                    <Button Name="key_Emoji28" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji28Text"/>
+                    </Button>
+                    <Button Name="key_Emoji29" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji29Text"/>
+                    </Button>
+                    <Button Name="key_Emoji30" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji30Text"/>
+                    </Button>
+                    <Button Name="key_Emoji31" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji31Text"/>
+                    </Button>
+                    <Button Name="key_Emoji32" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji32Text"/>
+                    </Button>
+                    <Button Name="key_Emoji33" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji33Text"/>
+                    </Button>
+                    <Button Name="key_Emoji34" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji34Text"/>
+                    </Button>
+                    <Button Name="key_Emoji35" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji35Text"/>
+                    </Button>
+                    <Button Name="key_Emoji36" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji36Text"/>
+                    </Button>
+                </StackPanel>
+                <!-- Emoji Row 4 -->
+                <StackPanel Name="sp_Emoji_Row4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4,4,0">
+                    <Button Name="key_Emoji37" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji37Text"/>
+                    </Button>
+                    <Button Name="key_Emoji38" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji38Text"/>
+                    </Button>
+                    <Button Name="key_Emoji39" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji39Text"/>
+                    </Button>
+                    <Button Name="key_Emoji40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji40Text"/>
+                    </Button>
+                    <Button Name="key_Emoji41" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji41Text"/>
+                    </Button>
+                    <Button Name="key_Emoji42" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji42Text"/>
+                    </Button>
+                    <Button Name="key_Emoji43" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji43Text"/>
+                    </Button>
+                    <Button Name="key_Emoji44" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji44Text"/>
+                    </Button>
+                    <Button Name="key_Emoji45" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji45Text"/>
+                    </Button>
+                    <Button Name="key_Emoji46" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji46Text"/>
+                    </Button>
+                    <Button Name="key_Emoji47" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji47Text"/>
+                    </Button>
+                    <Button Name="key_Emoji48" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <emoji:TextBlock Name="key_Emoji48Text"/>
+                    </Button>
+                </StackPanel>
+                <!-- Emoji Row 5 -->
+                <StackPanel Name="sp_Emoji_Row5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4,4,0">
+                    <Button Name="key_EmojiClose" Width="608" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseEmoji_PreviewKeyUp" PreviewMouseUp="ButtonCloseEmoji_PreviewMouseUp">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

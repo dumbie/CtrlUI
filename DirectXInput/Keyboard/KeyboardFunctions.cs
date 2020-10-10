@@ -4,11 +4,10 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
-using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
@@ -18,53 +17,30 @@ namespace DirectXInput.Keyboard
     partial class WindowKeyboard
     {
         //Handle key press
-        void ButtonKey_PreviewKeyUp(object sender, KeyEventArgs e)
+        async void ButtonKey_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             try
             {
                 if (e.Key == Key.Space)
                 {
                     //Send the clicked button
-                    KeyButtonClick(sender);
+                    await KeyButtonClick(sender);
                 }
             }
             catch { }
         }
-        void ButtonKey_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        async void ButtonKey_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
                 //Send the clicked button
-                KeyButtonClick(sender);
-            }
-            catch { }
-        }
-
-        //Keyboard type string
-        async Task KeyboardTypeString(string typeString)
-        {
-            try
-            {
-                foreach (char charString in typeString)
-                {
-                    short scanVirtualKey = VkKeyScanEx(charString, IntPtr.Zero);
-                    KeysVirtual usedVirtualKey = (KeysVirtual)scanVirtualKey;
-                    bool shiftPressed = (scanVirtualKey & (short)VkKeyScanModifiers.SHIFT) > 0;
-                    if (shiftPressed)
-                    {
-                        await KeyPressComboAuto(KeysVirtual.Shift, usedVirtualKey);
-                    }
-                    else
-                    {
-                        await KeyPressSingleAuto(usedVirtualKey);
-                    }
-                }
+                await KeyButtonClick(sender);
             }
             catch { }
         }
 
         //Send the clicked button
-        async void KeyButtonClick(object sender)
+        async Task KeyButtonClick(object sender)
         {
             try
             {
@@ -79,11 +55,19 @@ namespace DirectXInput.Keyboard
                     {
                         if (vCapsEnabled)
                         {
-                            await KeyboardTypeString(Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtension").ToString());
+                            KeyTypeStringSend(Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtension").ToString());
                         }
                         else
                         {
-                            await KeyboardTypeString(Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtensionDefault").ToString());
+                            KeyTypeStringSend(Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtensionDefault").ToString());
+                        }
+                    }
+                    else if (sendKeyName == "Emoji")
+                    {
+                        Emoji.Wpf.TextBlock emojiTextblock = FindVisualChild<Emoji.Wpf.TextBlock>(sendButton);
+                        if (emojiTextblock != null)
+                        {
+                            KeyTypeStringSend(emojiTextblock.Text);
                         }
                     }
                 }
@@ -109,7 +93,7 @@ namespace DirectXInput.Keyboard
                         }
                         else if (sendKeyVirtual == KeysVirtual.Space)
                         {
-                            await ProcessLauncherWin32Async(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\Taskmgr.exe", "", "", false, false);
+                            await ShowHideEmojiMenu();
                         }
                         else if (sendKeyVirtual == KeysVirtual.Enter)
                         {
@@ -248,6 +232,27 @@ namespace DirectXInput.Keyboard
             try
             {
                 this.Hide();
+            }
+            catch { }
+        }
+
+        //Handle emoji close
+        async void ButtonCloseEmoji_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Space)
+                {
+                    await ShowHideEmojiMenu();
+                }
+            }
+            catch { }
+        }
+        async void ButtonCloseEmoji_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                await ShowHideEmojiMenu();
             }
             catch { }
         }
