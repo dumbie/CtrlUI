@@ -8,6 +8,7 @@ using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -306,6 +307,13 @@ namespace DirectXInput
 
                 //Dispose the connected controller
                 Controller.Details = null;
+
+                //Check if any controller is connected
+                if (!vControllerAnyConnected() && Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardCloseNoController")))
+                {
+                    Debug.WriteLine("No controller connected closing keyboard.");
+                    await KeyboardControllerHide();
+                }
 
                 Debug.WriteLine("Succesfully stopped the direct input controller.");
                 return true;

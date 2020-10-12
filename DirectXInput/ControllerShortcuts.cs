@@ -235,6 +235,20 @@ namespace DirectXInput
             catch { }
         }
 
+        //Hide the keyboard controller
+        async Task KeyboardControllerHide()
+        {
+            try
+            {
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                {
+                    App.vWindowKeyboard.Hide();
+                    await App.vWindowKeypad.Hide();
+                });
+            }
+            catch { }
+        }
+
         //Launch CtrlUI when not running
         async Task LaunchCtrlUI()
         {

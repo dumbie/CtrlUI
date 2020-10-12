@@ -116,6 +116,11 @@ namespace DirectXInput
                     App.vWindowKeyboard.UpdateKeyboardOpacity(false);
                 };
 
+                cb_SettingsKeyboardCloseNoController.Click += (sender, e) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardCloseNoController", cb_SettingsKeyboardCloseNoController.IsChecked.ToString());
+                };
+
                 cb_SettingsKeyboardResetPosition.Click += (sender, e) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "KeyboardResetPosition", cb_SettingsKeyboardResetPosition.IsChecked.ToString());
