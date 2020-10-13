@@ -94,13 +94,15 @@ namespace CtrlUI
                 //Manage functions
                 btn_Manage_ResetAppLogo.Click += Button_Manage_ResetAppLogo_Click;
                 btn_Manage_SaveEditApp.Click += Button_Manage_SaveEditApp_Click;
-                btn_Manage_MoveAppLeft.Click += Btn_Manage_MoveAppLeft_Click;
-                btn_Manage_MoveAppRight.Click += Btn_Manage_MoveAppRight_Click;
                 lb_Manage_AddAppCategory.SelectionChanged += Lb_Manage_AddAppCategory_SelectionChanged;
                 btn_AddAppLogo.Click += Button_AddAppLogo_Click;
                 btn_AddAppExePath.Click += Button_AddAppExePath_Click;
                 btn_AddAppPathLaunch.Click += Button_AddAppPathLaunch_Click;
                 btn_AddAppPathRoms.Click += Button_AddAppPathRoms_Click;
+
+                //Move app functions
+                btn_MoveAppLeft.Click += Btn_Manage_MoveAppLeft_Click;
+                btn_MoveAppRight.Click += Btn_Manage_MoveAppRight_Click;
 
                 //Media functions
                 grid_Popup_Media_Previous.Click += Button_Media_PreviousItem;
@@ -118,6 +120,7 @@ namespace CtrlUI
                 grid_Popup_Media_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Manage_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Help_button_Close.Click += Button_Popup_Close_Click;
+                grid_Popup_MoveApplication_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_MessageBox_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Welcome_button_Close.Click += Button_Popup_Close_Click;
 

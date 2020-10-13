@@ -108,6 +108,11 @@ namespace CtrlUI
                 AnswerRemove.Name = "Remove application from list";
                 Answers.Add(AnswerRemove);
 
+                DataBindString AnswerMove = new DataBindString();
+                AnswerMove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Move.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerMove.Name = "Move application position in list";
+                Answers.Add(AnswerMove);
+
                 //Get process details
                 string processDetails = dataBindApp.PathExe;
                 if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))

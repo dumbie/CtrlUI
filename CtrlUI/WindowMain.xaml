@@ -531,15 +531,6 @@
                         <CheckBox Name="checkbox_AddRunAsUser" Margin="0,10,0,0" Content="Launch application with normal privileges (not admin)" Visibility="Collapsed" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>-->
 
                         <Button Name="btn_Manage_SaveEditApp" Margin="0,10,0,0" Content="Add or edit the application above" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                        <Grid Name="grid_EditMoveApp" Margin="0,10,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Name="btn_Manage_MoveAppLeft" Content="Move application to the left" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                            <Button Grid.Column="1" Name="btn_Manage_MoveAppRight" Margin="10,0,0,0" Content="Move application to the right" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                        </Grid>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
@@ -1066,6 +1057,41 @@
             <!-- Shortcuts -->
             <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
                 <Button Name="grid_Popup_ProfileManager_button_ControllerRight" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Popup - Move Application -->
+        <Grid Name="grid_Popup_MoveApplication" Visibility="Collapsed">
+            <Grid Margin="150,35,150,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Move application"/>
+                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <Button Width="150" Height="150" VerticalAlignment="Top" Name="btn_MoveAppLeft" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MoveLeft.png"/>
+                    </Button>
+                    <Image Width="150" Height="150" VerticalAlignment="Top" Name="image_MoveAppIcon" Margin="10,0,10,0"/>
+                    <Button Width="150" Height="150" VerticalAlignment="Top" Name="btn_MoveAppRight" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MoveRight.png"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_MoveApplication_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />

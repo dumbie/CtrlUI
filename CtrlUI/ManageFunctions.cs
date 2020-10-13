@@ -161,7 +161,6 @@ namespace CtrlUI
                 btn_AddAppPathLaunch.IsEnabled = true;
                 tb_AddAppPathRoms.IsEnabled = true;
                 btn_Manage_SaveEditApp.Content = "Edit the application as filled in above";
-                grid_EditMoveApp.Visibility = Visibility.Visible;
 
                 //Set the variables as current edit app
                 vEditAppDataBind = dataBindApp;
@@ -243,7 +242,6 @@ namespace CtrlUI
                 btn_AddAppPathLaunch.IsEnabled = false;
                 tb_AddAppPathRoms.IsEnabled = false;
                 btn_Manage_SaveEditApp.Content = "Add the application as filled in above";
-                grid_EditMoveApp.Visibility = Visibility.Collapsed;
 
                 //Load the application categories
                 List<DataBindString> listAppCategories = new List<DataBindString>();
