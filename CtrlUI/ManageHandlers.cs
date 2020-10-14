@@ -498,23 +498,5 @@ namespace CtrlUI
                 Debug.WriteLine("App edit failed: " + ex.Message);
             }
         }
-
-        async void Btn_Manage_MoveAppRight_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await MoveApplicationList_Right();
-            }
-            catch { }
-        }
-
-        async void Btn_Manage_MoveAppLeft_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await MoveApplicationList_Left();
-            }
-            catch { }
-        }
     }
 }

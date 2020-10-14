@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -31,62 +30,6 @@ namespace CtrlUI
             }
             catch { }
             return NewNumber;
-        }
-
-        async Task MoveApplicationList_Left()
-        {
-            try
-            {
-                //Sort the lists by number
-                await SortAppListsByNumber(true);
-
-                //Get the target application
-                IEnumerable<DataBindApp> combinedApps = CombineAppLists(false, false, false).Where(x => x.Category == vEditAppDataBind.Category);
-                DataBindApp TargetAppDataBind = combinedApps.OrderByDescending(x => x.Number).Where(x => x.Number < vEditAppDataBind.Number).FirstOrDefault();
-                int selectedNumber = vEditAppDataBind.Number;
-                int targetNumber = TargetAppDataBind.Number;
-                Debug.WriteLine("Current number: " + selectedNumber + " / New number: " + targetNumber);
-
-                //Update the application number
-                vEditAppDataBind.Number = targetNumber;
-                TargetAppDataBind.Number = selectedNumber;
-
-                //Sort the lists by number
-                await SortAppListsByNumber(true);
-                await Notification_Send_Status("Sorting", "Moving app left");
-
-                //Save json applist
-                JsonSaveApplications();
-            }
-            catch { }
-        }
-
-        async Task MoveApplicationList_Right()
-        {
-            try
-            {
-                //Sort the lists by number
-                await SortAppListsByNumber(true);
-
-                //Get the target application
-                IEnumerable<DataBindApp> combinedApps = CombineAppLists(false, false, false).Where(x => x.Category == vEditAppDataBind.Category);
-                DataBindApp TargetAppDataBind = combinedApps.OrderBy(x => x.Number).Where(x => x.Number > vEditAppDataBind.Number).FirstOrDefault();
-                int selectedNumber = vEditAppDataBind.Number;
-                int targetNumber = TargetAppDataBind.Number;
-                Debug.WriteLine("Current number: " + selectedNumber + " / New number: " + targetNumber);
-
-                //Update the application number
-                vEditAppDataBind.Number = targetNumber;
-                TargetAppDataBind.Number = selectedNumber;
-
-                //Sort the lists by number
-                await SortAppListsByNumber(true);
-                await Notification_Send_Status("Sorting", "Moving app right");
-
-                //Save json applist
-                JsonSaveApplications();
-            }
-            catch { }
         }
 
         public void SortObservableCollection<TSource, TKey>(ListBox targetListBox, ObservableCollection<TSource> targetSource, Func<TSource, TKey> key, Func<TSource, bool> where, bool ascending)

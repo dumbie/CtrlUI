@@ -145,6 +145,7 @@ namespace CtrlUI
 
         //Manage Variables
         public static DataBindApp vEditAppDataBind = null;
+        public static DataBindApp vMoveAppDataBind = null;
         public static AppCategory vEditAppCategoryPrevious = AppCategory.App;
 
         //Controller Variables

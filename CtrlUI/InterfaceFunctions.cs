@@ -101,8 +101,8 @@ namespace CtrlUI
                 btn_AddAppPathRoms.Click += Button_AddAppPathRoms_Click;
 
                 //Move app functions
-                btn_MoveAppLeft.Click += Btn_Manage_MoveAppLeft_Click;
-                btn_MoveAppRight.Click += Btn_Manage_MoveAppRight_Click;
+                btn_MoveAppLeft.Click += Btn_MoveAppLeft_Click;
+                btn_MoveAppRight.Click += Btn_MoveAppRight_Click;
 
                 //Media functions
                 grid_Popup_Media_Previous.Click += Button_Media_PreviousItem;
@@ -432,7 +432,7 @@ namespace CtrlUI
 
                 //Update main menu launchers status
                 bool runningSteam = processesList.Any(x => x.ProcessName.ToLower() == "steam");
-                bool runningOrigin = processesList.Any(x => x.ProcessName.ToLower() == "origin");
+                bool runningOrigin = processesList.Any(x => x.ProcessName.ToLower() == "eadesktop" || x.ProcessName.ToLower() == "origin");
                 bool runningGog = processesList.Any(x => x.ProcessName.ToLower() == "galaxyclient");
                 bool runningUplay = processesList.Any(x => x.ProcessName.ToLower() == "upc");
                 bool runningBethesda = processesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher");

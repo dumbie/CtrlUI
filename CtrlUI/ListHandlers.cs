@@ -94,7 +94,7 @@ namespace CtrlUI
         {
             try
             {
-                Debug.WriteLine("Editing app: " + dataBindApp.Name + " from: " + listboxSender.Name);
+                Debug.WriteLine("Right clicked app: " + dataBindApp.Name + " from: " + listboxSender.Name);
 
                 //Show the messagebox popup with options
                 List<DataBindString> Answers = new List<DataBindString>();
@@ -146,6 +146,11 @@ namespace CtrlUI
 
                         //Select the previous index
                         await ListboxFocusIndex(listboxSender, false, false, listboxSelectedIndex);
+                    }
+                    else if (messageResult == AnswerMove)
+                    {
+                        //Show application move popup
+                        await Popup_Show_AppMove(dataBindApp);
                     }
                 }
             }

@@ -385,7 +385,7 @@ namespace CtrlUI
                     }
                     else if (ControllerInput.ThumbRightY > 10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
                     {
-                        await ListBoxSelectNearCharacter(false);
+                        await KeySendSingle(KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -399,7 +399,7 @@ namespace CtrlUI
                     }
                     else if (ControllerInput.ThumbRightY < -10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
                     {
-                        await ListBoxSelectNearCharacter(true);
+                        await KeySendSingle(KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;

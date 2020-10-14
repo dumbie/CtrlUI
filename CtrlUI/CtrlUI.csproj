@@ -184,6 +184,8 @@
     <Compile Include="ListProcessHandlers.cs" />
     <Compile Include="ListLauncherHandlers.cs" />
     <Compile Include="ListShortcutHandlers.cs" />
+    <Compile Include="MoveAppHandlers.cs" />
+    <Compile Include="MoveAppFunctions.cs" />
     <Compile Include="RecycleBinFunctions.cs" />
     <Compile Include="NotificationFunctions.cs" />
     <Compile Include="Resources\IGDB\TwitchAuth.cs" />
