@@ -96,12 +96,12 @@ namespace CtrlUI
                     await AddAppToList(dataBindAppXbox, true, true);
                 }
 
-                //Search for PS4 Remote Play install and add to the list
-                using (RegistryKey RegKeyPS4Remote = registryKeyLocalMachine.OpenSubKey("SOFTWARE\\Sony Corporation\\PS4 Remote Play"))
+                //Search for PS Remote Play install and add to the list
+                using (RegistryKey RegKeyPSRemote = registryKeyLocalMachine.OpenSubKey("SOFTWARE\\Sony Corporation\\PS Remote Play"))
                 {
-                    if (RegKeyPS4Remote != null)
+                    if (RegKeyPSRemote != null)
                     {
-                        string RegKeyExePath = RegKeyPS4Remote.GetValue("Path").ToString() + "RemotePlay.exe";
+                        string RegKeyExePath = RegKeyPSRemote.GetValue("Path").ToString() + "RemotePlay.exe";
                         if (File.Exists(RegKeyExePath))
                         {
                             //Add application to the list
@@ -109,8 +109,8 @@ namespace CtrlUI
                             await AddAppToList(dataBindApp, true, true);
 
                             //Disable the icon after selection
-                            grid_Popup_Welcome_button_PS4Remote.IsEnabled = false;
-                            grid_Popup_Welcome_button_PS4Remote.Opacity = 0.40;
+                            grid_Popup_Welcome_button_PSRemote.IsEnabled = false;
+                            grid_Popup_Welcome_button_PSRemote.Opacity = 0.40;
                         }
                     }
                 }

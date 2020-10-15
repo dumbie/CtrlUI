@@ -339,8 +339,8 @@
                             <Button Name="grid_Popup_Welcome_button_Kodi" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Image Name="grid_Popup_Welcome_img_Kodi"/>
                             </Button>
-                            <Button Name="grid_Popup_Welcome_button_PS4Remote" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                <Image Name="grid_Popup_Welcome_img_PS4Remote"/>
+                            <Button Name="grid_Popup_Welcome_button_PSRemote" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_PSRemote"/>
                             </Button>
                             <Button Name="grid_Popup_Welcome_button_Discord" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Image Name="grid_Popup_Welcome_img_Discord"/>

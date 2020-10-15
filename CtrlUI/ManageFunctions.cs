@@ -90,6 +90,24 @@ namespace CtrlUI
         {
             try
             {
+                //Confirm application remove prompt
+                if (!silent)
+                {
+                    List<DataBindString> messageAnswers = new List<DataBindString>();
+                    DataBindString answerYes = new DataBindString();
+                    answerYes.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerYes.Name = "Remove application from list";
+                    messageAnswers.Add(answerYes);
+
+                    string deleteString = "Are you sure you want to remove: " + dataBindApp.Name + "?";
+                    DataBindString messageResult = await Popup_Show_MessageBox("Remove application", "", deleteString, messageAnswers);
+                    if (messageResult == null)
+                    {
+                        Debug.WriteLine("Cancelled application removal.");
+                        return;
+                    }
+                }
+
                 //Remove application from the listboxes
                 if (dataBindApp.Category == AppCategory.Game)
                 {

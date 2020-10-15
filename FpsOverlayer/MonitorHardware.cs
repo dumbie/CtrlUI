@@ -43,6 +43,10 @@ namespace FpsOverlayer
                         //Update the monitor information
                         UpdateMonitorInformation();
 
+                        //Network usage variables
+                        float networkUpFloat = 0;
+                        float networkDownFloat = 0;
+
                         //Update the hardware information
                         foreach (IHardware hardwareItem in vHardwareComputer.Hardware)
                         {
@@ -51,7 +55,7 @@ namespace FpsOverlayer
                                 UpdateCpuInformation(hardwareItem);
                                 UpdateGpuInformation(hardwareItem);
                                 UpdateMemoryInformation(hardwareItem);
-                                UpdateNetworkInformation(hardwareItem);
+                                UpdateNetworkInformation(hardwareItem, ref networkUpFloat, ref networkDownFloat);
                             }
                             catch { }
                         }
@@ -67,7 +71,7 @@ namespace FpsOverlayer
         }
 
         //Update the network information
-        void UpdateNetworkInformation(IHardware hardwareItem)
+        void UpdateNetworkInformation(IHardware hardwareItem, ref float networkUpFloat, ref float networkDownFloat)
         {
             try
             {
@@ -86,8 +90,6 @@ namespace FpsOverlayer
                 {
                     hardwareItem.Update();
                     string networkUsage = string.Empty;
-                    float networkUpFloat = 0;
-                    float networkDownFloat = 0;
 
                     foreach (ISensor sensor in hardwareItem.Sensors)
                     {

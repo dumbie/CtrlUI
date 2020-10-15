@@ -12,7 +12,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async void Grid_Popup_Welcome_button_PS4Remote_Click(object sender, RoutedEventArgs e)
+        async void Grid_Popup_Welcome_button_PSRemote_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -20,8 +20,8 @@ namespace CtrlUI
 
                 vFilePickerFilterIn = new List<string> { "RemotePlay.exe" };
                 vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "PS4 Remote Play";
-                vFilePickerDescription = "Please select the PS4 Remote Play executable:";
+                vFilePickerTitle = "PS Remote Play";
+                vFilePickerDescription = "Please select the PS Remote Play executable:";
                 vFilePickerShowNoFile = false;
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
