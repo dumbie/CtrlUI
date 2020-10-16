@@ -7,7 +7,7 @@
         xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
         mc:Ignorable="d"
         RenderOptions.BitmapScalingMode="HighQuality"
-        Title="DirectXInput (Beta)"
+        Title="DirectXInput"
         ShowInTaskbar="False"
         Background="#1D1D1D"
         MinHeight="700"

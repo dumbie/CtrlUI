@@ -9,7 +9,6 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInterface;
@@ -786,7 +785,7 @@ namespace DirectXInput.Keyboard
 
                         //Update the volume down button
                         key_VolumeDown.Tag = KeysVirtual.VolumeDown;
-                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeDown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_VolumeDown.Source = vImagePreloadIconVolumeDown;
                     });
                 }
                 else
@@ -909,7 +908,7 @@ namespace DirectXInput.Keyboard
 
                         //Update the volume mute button
                         key_VolumeDown.Tag = KeysVirtual.VolumeMute;
-                        image_VolumeDown.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeMute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_VolumeDown.Source = vImagePreloadIconVolumeMute;
                     });
                 }
             }

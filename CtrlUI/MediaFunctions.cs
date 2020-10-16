@@ -100,6 +100,20 @@ namespace CtrlUI
         {
             try
             {
+                //Check if volume is currently muted
+                bool currentVolumeMuted = AudioMuteGetStatus();
+                await AVActions.ActionDispatcherInvokeAsync(delegate
+                {
+                    if (currentVolumeMuted)
+                    {
+                        img_Main_VolumeMute.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        img_Main_VolumeMute.Visibility = Visibility.Collapsed;
+                    }
+                });
+
                 //Check if the application window is activated
                 if (!vAppActivated)
                 {
@@ -136,7 +150,6 @@ namespace CtrlUI
                 //Get the current audio volume and mute status
                 string currentVolumeString = string.Empty;
                 int currentVolumeInt = AudioVolumeGet();
-                bool currentVolumeMuted = AudioMuteGetStatus();
                 if (currentVolumeInt >= 0)
                 {
                     currentVolumeString = "Volume " + currentVolumeInt + "%";
@@ -266,14 +279,6 @@ namespace CtrlUI
                     {
                         main_Media_Information_Artist.Text = mediaArtist;
                         main_Media_Information_Title.Text = " " + mediaTitle;
-                        if (currentVolumeInt == 0 || currentVolumeMuted)
-                        {
-                            main_Media_Information_Volume.Text = " (Muted)";
-                        }
-                        else
-                        {
-                            main_Media_Information_Volume.Text = string.Empty;
-                        }
                         main_Media_Information.Visibility = Visibility.Visible;
                     }
 
@@ -296,7 +301,6 @@ namespace CtrlUI
 
                         main_Media_Information_Artist.Opacity = 1;
                         main_Media_Information_Title.Opacity = 1;
-                        main_Media_Information_Volume.Opacity = 1;
                     }
                     else
                     {
@@ -309,7 +313,6 @@ namespace CtrlUI
 
                         main_Media_Information_Artist.Opacity = 0.40;
                         main_Media_Information_Title.Opacity = 0.40;
-                        main_Media_Information_Volume.Opacity = 0.40;
                     }
                 });
             }

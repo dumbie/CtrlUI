@@ -7,7 +7,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Principal;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -32,6 +34,12 @@ namespace DirectXInput
             new ImageSourceFolders() { SourcePath = "Assets/Default/Games", SearchOption = SearchOption.AllDirectories }
         };
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
+        public static BitmapImage vImagePreloadIconVolumeDown = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeDown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadIconVolumeMute = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeMute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadIconKeyboardMove = FileToBitmapImage(new string[] { "Assets/Default/Icons/KeyboardMove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadIconKeyboardScroll = FileToBitmapImage(new string[] { "Assets/Default/Icons/KeyboardScroll.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadIconControllerAccent = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadIconControllerDark = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;

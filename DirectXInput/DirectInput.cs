@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
-using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
@@ -219,22 +218,22 @@ namespace DirectXInput
                     txt_Controller_Information.Text = "Disconnected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
                     if (Controller.NumberId == 0)
                     {
-                        image_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_Controller0.Source = vImagePreloadIconControllerDark;
                         textblock_Controller0.Text = "No controller connected";
                     }
                     else if (Controller.NumberId == 1)
                     {
-                        image_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_Controller1.Source = vImagePreloadIconControllerDark;
                         textblock_Controller1.Text = "No controller connected";
                     }
                     else if (Controller.NumberId == 2)
                     {
-                        image_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_Controller2.Source = vImagePreloadIconControllerDark;
                         textblock_Controller2.Text = "No controller connected";
                     }
                     else if (Controller.NumberId == 3)
                     {
-                        image_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_Controller3.Source = vImagePreloadIconControllerDark;
                         textblock_Controller3.Text = "No controller connected";
                     }
                 });

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVFunctions;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
@@ -177,7 +176,7 @@ namespace DirectXInput.Keyboard
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         textblock_ThumbRightOff.Text = "Move";
-                        image_ScrollMove.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/KeyboardScroll.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_ScrollMove.Source = vImagePreloadIconKeyboardScroll;
                         //ToolTip newTooltip = new ToolTip() { Content = "Switch to mouse wheel mode" };
                         //key_ScrollMove.ToolTip = newTooltip;
                     });
@@ -187,7 +186,7 @@ namespace DirectXInput.Keyboard
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         textblock_ThumbRightOff.Text = "Scroll";
-                        image_ScrollMove.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/KeyboardMove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_ScrollMove.Source = vImagePreloadIconKeyboardMove;
                         //ToolTip newTooltip = new ToolTip() { Content = "Switch to window move mode" };
                         //key_ScrollMove.ToolTip = newTooltip;
                     });

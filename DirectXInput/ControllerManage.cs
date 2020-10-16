@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -91,7 +90,7 @@ namespace DirectXInput
                     {
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            image_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_Controller0.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller0.Text = vController0.Details.DisplayName;
                         });
                     }
@@ -104,7 +103,7 @@ namespace DirectXInput
                     {
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            image_Controller1.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_Controller1.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller1.Text = vController1.Details.DisplayName;
                         });
                     }
@@ -117,7 +116,7 @@ namespace DirectXInput
                     {
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            image_Controller2.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_Controller2.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller2.Text = vController2.Details.DisplayName;
                         });
                     }
@@ -130,7 +129,7 @@ namespace DirectXInput
                     {
                         AVActions.ActionDispatcherInvoke(delegate
                         {
-                            image_Controller3.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_Controller3.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller3.Text = vController3.Details.DisplayName;
                         });
                     }
