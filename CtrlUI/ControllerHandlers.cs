@@ -159,7 +159,10 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonBack.PressedRaw)
                     {
                         Debug.WriteLine("Button: BackPressed / Show hide menu");
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_ShowHide_MainMenu(false); });
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
+                        {
+                            await Popup_ShowHide_Search(false);
+                        });
 
                         ControllerUsed = true;
                         ControllerDelayLonger = true;
@@ -178,7 +181,7 @@ namespace CtrlUI
                         {
                             await AVActions.ActionDispatcherInvokeAsync(async delegate
                             {
-                                await Popup_ShowHide_Search(false);
+                                await Popup_ShowHide_MainMenu(false);
                             });
                         }
 

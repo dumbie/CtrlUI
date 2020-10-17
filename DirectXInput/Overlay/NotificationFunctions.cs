@@ -5,7 +5,7 @@ using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
-namespace DirectXInput.Overlay
+namespace DirectXInput.OverlayCode
 {
     public partial class WindowOverlay : Window
     {

@@ -7,7 +7,7 @@ using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
 using static LibraryShared.Classes;
 
-namespace DirectXInput.Keypad
+namespace DirectXInput.KeypadCode
 {
     partial class WindowKeypad
     {

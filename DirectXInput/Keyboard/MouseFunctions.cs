@@ -5,7 +5,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
 
-namespace DirectXInput.Keyboard
+namespace DirectXInput.KeyboardCode
 {
     partial class WindowKeyboard
     {

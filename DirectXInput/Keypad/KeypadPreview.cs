@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using static DirectXInput.AppVariables;
 
-namespace DirectXInput.Keypad
+namespace DirectXInput.KeypadCode
 {
     public partial class WindowKeypad
     {

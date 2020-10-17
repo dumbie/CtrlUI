@@ -102,7 +102,7 @@ namespace CtrlUI
                     if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                     {
                         ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                        if (vSelectTargetLists.Contains(parentListbox.Name) && vSortType == "Name")
+                        if (vSelectTargetLists.Contains(parentListbox.Name))
                         {
                             //Make sure the list is sorted by name
                             await SortAppListsByName(true);

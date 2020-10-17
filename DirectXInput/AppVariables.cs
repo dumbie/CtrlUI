@@ -44,6 +44,10 @@ namespace DirectXInput
         //Interaction Variables
         public static bool vSingleTappedEvent = true;
 
+        //Emoji Variables
+        public static Button vEmojiFocusedButtonOpen = null;
+        public static Button vEmojiFocusedButtonClose = null;
+
         //Dispatcher Timers
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
 

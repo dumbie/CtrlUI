@@ -17,7 +17,7 @@ using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
-namespace DirectXInput.Keyboard
+namespace DirectXInput.KeyboardCode
 {
     public partial class WindowKeyboard : Window
     {
@@ -240,7 +240,7 @@ namespace DirectXInput.Keyboard
         {
             try
             {
-                if (forceFocus || System.Windows.Input.Keyboard.FocusedElement == null)
+                if (forceFocus || Keyboard.FocusedElement == null)
                 {
                     await FocusOnElement(targetButton, false, vInteropWindowHandle);
                 }
@@ -617,8 +617,22 @@ namespace DirectXInput.Keyboard
                     grid_Keyboard.Opacity = 0.60;
                     grid_Keyboard.IsEnabled = false;
 
+                    //Store close focus button
+                    FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
+                    if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
+                    {
+                        vEmojiFocusedButtonClose = (Button)frameworkElement;
+                    }
+
                     //Focus on keyboard button
-                    await FocusKeyboardButton(true, key_Emoji1);
+                    if (vEmojiFocusedButtonOpen == null)
+                    {
+                        await FocusKeyboardButton(true, key_Emoji1);
+                    }
+                    else
+                    {
+                        await FocusKeyboardButton(true, vEmojiFocusedButtonOpen);
+                    }
                 }
                 else
                 {
@@ -627,8 +641,22 @@ namespace DirectXInput.Keyboard
                     grid_Keyboard.Opacity = 1;
                     grid_Keyboard.IsEnabled = true;
 
+                    //Store open focus button
+                    FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
+                    if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
+                    {
+                        vEmojiFocusedButtonOpen = (Button)frameworkElement;
+                    }
+
                     //Focus on keyboard button
-                    await FocusKeyboardButton(true, key_Space);
+                    if (vEmojiFocusedButtonClose == null)
+                    {
+                        await FocusKeyboardButton(true, key_Space);
+                    }
+                    else
+                    {
+                        await FocusKeyboardButton(true, vEmojiFocusedButtonClose);
+                    }
                 }
             }
             catch { }

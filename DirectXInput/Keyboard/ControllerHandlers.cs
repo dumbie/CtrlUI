@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVInputOutputClass;
@@ -9,7 +10,7 @@ using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
-namespace DirectXInput.Keyboard
+namespace DirectXInput.KeyboardCode
 {
     partial class WindowKeyboard
     {
@@ -182,32 +183,44 @@ namespace DirectXInput.Keyboard
                         ControllerDelayShort = true;
                     }
 
-                    //Send external shift+tab
+                    //Switch caps lock
                     else if (ControllerInput.TriggerLeft > 0)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
-
-                        ControllerDelayShort = true;
-                    }
-                    //Send external tab
-                    else if (ControllerInput.TriggerRight > 0)
-                    {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressSingleAuto(KeysVirtual.Tab);
-
-                        ControllerDelayShort = true;
-                    }
-
-                    //Switch scroll and move
-                    else if (ControllerInput.ButtonBack.PressedRaw)
-                    {
-                        Debug.WriteLine("Button: BackPressed / Caps lock");
+                        Debug.WriteLine("Button: TriggerLeft / Caps lock");
                         await SwitchCapsLock();
 
                         ControllerDelayMedium = true;
                     }
-                    //Switch caps lock
+                    //Send external tab
+                    else if (ControllerInput.TriggerRight > 0)
+                    {
+                        Debug.WriteLine("Button: TriggerRight / Press Tab");
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+
+                        if (vCapsEnabled)
+                        {
+                            await KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
+                        }
+                        else
+                        {
+                            await KeyPressSingleAuto(KeysVirtual.Tab);
+                        }
+
+                        ControllerDelayShort = true;
+                    }
+
+                    //Show hide emoji menu
+                    else if (ControllerInput.ButtonBack.PressedRaw)
+                    {
+                        Debug.WriteLine("Button: BackPressed / Show hide emoji menu");
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
+                        {
+                            await ShowHideEmojiMenu();
+                        });
+
+                        ControllerDelayMedium = true;
+                    }
+                    //Switch scroll and move
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
                         Debug.WriteLine("Button: StartPressed / Scroll and Move");

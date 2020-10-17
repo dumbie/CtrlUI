@@ -1,6 +1,6 @@
-﻿using DirectXInput.Keyboard;
-using DirectXInput.Keypad;
-using DirectXInput.Overlay;
+﻿using DirectXInput.KeyboardCode;
+using DirectXInput.KeypadCode;
+using DirectXInput.OverlayCode;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows;

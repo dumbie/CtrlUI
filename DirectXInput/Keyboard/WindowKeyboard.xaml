@@ -1,9 +1,9 @@
-﻿<Window x:Class="DirectXInput.Keyboard.WindowKeyboard"
+﻿<Window x:Class="DirectXInput.KeyboardCode.WindowKeyboard"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-            xmlns:local="clr-namespace:DirectXInput.Keyboard"
+            xmlns:local="clr-namespace:DirectXInput.KeyboardCode"
             xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
             xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
             RenderOptions.BitmapScalingMode="HighQuality"
@@ -52,12 +52,15 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="26" Opacity="0.80"/>
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Margin="5,0,0,0" Height="25" Opacity="0.80"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
                         <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Arrows"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LtOff.png" Height="26" Opacity="0.80"/>
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RtOff.png" Margin="5,0,0,0" Height="25" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Caps"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RtOff.png" Height="26" Opacity="0.80"/>
                         <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Tab"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
@@ -67,10 +70,6 @@
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbRightOff.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_ThumbRightOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Move"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Height="26" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Caps"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -296,7 +295,7 @@
         </Grid>
 
         <!-- Emoji -->
-        <Border Name="border_Emoji" CornerRadius="4" VerticalAlignment="Bottom" Margin="0,0,0,55" Width="625" Height="255" Visibility="Collapsed">
+        <Border Name="border_Emoji" CornerRadius="4" VerticalAlignment="Bottom" Margin="0,0,0,55" Width="625" Height="260" Visibility="Collapsed">
             <Border.Background>
                 <SolidColorBrush Color="#1D1D1D" Opacity="0.95"/>
             </Border.Background>
@@ -458,7 +457,7 @@
                     </Button>
                 </StackPanel>
                 <!-- Emoji Row 5 -->
-                <StackPanel Name="sp_Emoji_Row5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4,4,0">
+                <StackPanel Name="sp_Emoji_Row5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4,4,4">
                     <Button Name="key_EmojiClose" Width="608" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseEmoji_PreviewKeyUp" PreviewMouseUp="ButtonCloseEmoji_PreviewMouseUp">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
                     </Button>

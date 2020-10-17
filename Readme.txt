@@ -24,9 +24,8 @@ Keyboard Controller is an on screen keyboard which can be used by your controlle
 | Installation Instructions
 1) Extract the CtrlUI folder to any directory you want on your computer.
 2) Make sure that you have installed all the requirements listed below.
-3) Launch CtrlUI.exe and setup a few basic apps in the welcome screen*
+3) Launch CtrlUI Admin and setup a few basic apps in the welcome screen.
 4) Enjoy using your new controller friendly based user interface.
-* For the best experience please use CtrlUI-Admin.exe
 
 | Uninstallation Instructions
 1) Run the Driver Installer and click on "Uninstall drivers"
@@ -40,7 +39,7 @@ Keyboard Controller is an on screen keyboard which can be used by your controlle
 - For more information and help open the "Help" window or tab in the application.
 
 | Known issues
-- Keyboard Controller and Fps Overlayer do not show up when you are in a fullscreen app.
+- Keyboard Controller and Fps Overlayer might not show up when you are in a fullscreen app.
 - The Alt+Enter controller shortcut does not work for all Windows Store applications.
 
 | Requirements
@@ -57,9 +56,12 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
 | Changelog
+v1.31.0.0 (16-October-2020)
+- Added emoji's menu to the on screen keyboard.
+* Miscellaneous application improvements and fixes.
+
 v1.30.0.0 (28-August-2020)
 - CtrlUI now loads games from other installed game launchers.
-* Miscellaneous application improvements and fixes.
 
 v1.18.0.0 (5-May-2020)
 - DirectXInput now shows overlay notifications.

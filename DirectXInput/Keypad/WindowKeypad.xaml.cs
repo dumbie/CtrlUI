@@ -20,7 +20,7 @@ using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
-namespace DirectXInput.Keypad
+namespace DirectXInput.KeypadCode
 {
     public partial class WindowKeypad : Window
     {
