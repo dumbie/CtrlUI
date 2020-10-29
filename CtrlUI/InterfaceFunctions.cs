@@ -167,8 +167,8 @@ namespace CtrlUI
                 grid_Popup_Welcome_button_Kodi.Click += Grid_Popup_Welcome_button_Kodi_Click;
                 grid_Popup_Welcome_button_Spotify.Click += Grid_Popup_Welcome_button_Spotify_Click;
                 grid_Popup_Welcome_button_Steam.Click += Grid_Popup_Welcome_button_Steam_Click;
-                grid_Popup_Welcome_button_Origin.Click += Grid_Popup_Welcome_button_Origin_Click;
-                grid_Popup_Welcome_button_Uplay.Click += Grid_Popup_Welcome_button_Uplay_Click;
+                grid_Popup_Welcome_button_EADesktop.Click += Grid_Popup_Welcome_button_EADesktop_Click;
+                grid_Popup_Welcome_button_Ubisoft.Click += Grid_Popup_Welcome_button_Ubisoft_Click;
                 grid_Popup_Welcome_button_GoG.Click += Grid_Popup_Welcome_button_GoG_Click;
                 grid_Popup_Welcome_button_Epic.Click += Grid_Popup_Welcome_button_Epic_Click;
                 grid_Popup_Welcome_button_Battle.Click += Grid_Popup_Welcome_button_Battle_Click;
@@ -432,9 +432,9 @@ namespace CtrlUI
 
                 //Update main menu launchers status
                 bool runningSteam = processesList.Any(x => x.ProcessName.ToLower() == "steam");
-                bool runningOrigin = processesList.Any(x => x.ProcessName.ToLower() == "eadesktop" || x.ProcessName.ToLower() == "origin");
+                bool runningEADesktop = processesList.Any(x => x.ProcessName.ToLower() == "eadesktop" || x.ProcessName.ToLower() == "origin");
                 bool runningGog = processesList.Any(x => x.ProcessName.ToLower() == "galaxyclient");
-                bool runningUplay = processesList.Any(x => x.ProcessName.ToLower() == "upc");
+                bool runningUbisoft = processesList.Any(x => x.ProcessName.ToLower() == "ubisoftconnect" || x.ProcessName.ToLower() == "upc");
                 bool runningBethesda = processesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher");
                 bool runningEpic = processesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher");
                 bool runningBlizzard = processesList.Any(x => x.ProcessName.ToLower() == "battle.net");
@@ -454,13 +454,13 @@ namespace CtrlUI
                         img_Menu_SteamStatus.Opacity = 0.40;
                     }
 
-                    if (runningOrigin)
+                    if (runningEADesktop)
                     {
-                        img_Menu_OriginStatus.Opacity = 1.00;
+                        img_Menu_EADesktopStatus.Opacity = 1.00;
                     }
                     else
                     {
-                        img_Menu_OriginStatus.Opacity = 0.40;
+                        img_Menu_EADesktopStatus.Opacity = 0.40;
                     }
 
                     if (runningGog)
@@ -472,13 +472,13 @@ namespace CtrlUI
                         img_Menu_GoGStatus.Opacity = 0.40;
                     }
 
-                    if (runningUplay)
+                    if (runningUbisoft)
                     {
-                        img_Menu_UplayStatus.Opacity = 1.00;
+                        img_Menu_UbisoftStatus.Opacity = 1.00;
                     }
                     else
                     {
-                        img_Menu_UplayStatus.Opacity = 0.40;
+                        img_Menu_UbisoftStatus.Opacity = 0.40;
                     }
 
                     if (runningBethesda)
@@ -932,8 +932,8 @@ namespace CtrlUI
             try
             {
                 img_Menu_SteamStatus.Source = vImagePreloadSteam;
-                img_Menu_UplayStatus.Source = vImagePreloadUplay;
-                img_Menu_OriginStatus.Source = vImagePreloadOrigin;
+                img_Menu_UbisoftStatus.Source = vImagePreloadUbisoft;
+                img_Menu_EADesktopStatus.Source = vImagePreloadEADesktop;
                 img_Menu_GoGStatus.Source = vImagePreloadGoG;
                 img_Menu_BethesdaStatus.Source = vImagePreloadBethesda;
                 img_Menu_EpicStatus.Source = vImagePreloadEpic;
@@ -953,8 +953,8 @@ namespace CtrlUI
                     grid_Popup_Welcome_img_PSRemote.Source = FileToBitmapImage(new string[] { "Remote Play" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 75, 0);
                     grid_Popup_Welcome_img_Discord.Source = vImagePreloadDiscord;
                     grid_Popup_Welcome_img_Steam.Source = vImagePreloadSteam;
-                    grid_Popup_Welcome_img_Origin.Source = vImagePreloadOrigin;
-                    grid_Popup_Welcome_img_Uplay.Source = vImagePreloadUplay;
+                    grid_Popup_Welcome_img_EADesktop.Source = vImagePreloadEADesktop;
+                    grid_Popup_Welcome_img_Ubisoft.Source = vImagePreloadUbisoft;
                     grid_Popup_Welcome_img_GoG.Source = vImagePreloadGoG;
                     grid_Popup_Welcome_img_Battle.Source = vImagePreloadBattleNet;
                     grid_Popup_Welcome_img_Epic.Source = vImagePreloadEpic;

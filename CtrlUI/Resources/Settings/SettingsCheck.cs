@@ -26,9 +26,9 @@ namespace CtrlUI
                 if (Setting_Load(vConfigurationCtrlUI, "ShowOtherProcesses") == null) { Setting_Save(vConfigurationCtrlUI, "ShowOtherProcesses", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "HideAppProcesses") == null) { Setting_Save(vConfigurationCtrlUI, "HideAppProcesses", "False"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibrarySteam") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibrarySteam", "True"); }
-                if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryOrigin") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryOrigin", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryEADesktop") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryEADesktop", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryEpic") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryEpic", "True"); }
-                if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryUplay") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryUplay", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryUbisoft") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryUbisoft", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryGoG") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryGoG", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryBattleNet") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryBattleNet", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryBethesda") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryBethesda", "True"); }

@@ -23,9 +23,9 @@ namespace CtrlUI
                 cb_SettingsShowOtherProcesses.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherProcesses"));
                 cb_SettingsHideAppProcesses.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideAppProcesses"));
                 cb_SettingsShowLibrarySteam.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibrarySteam"));
-                cb_SettingsShowLibraryOrigin.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryOrigin"));
+                cb_SettingsShowLibraryEADesktop.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEADesktop"));
                 cb_SettingsShowLibraryEpic.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEpic"));
-                cb_SettingsShowLibraryUplay.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUplay"));
+                cb_SettingsShowLibraryUbisoft.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUbisoft"));
                 cb_SettingsShowLibraryGoG.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryGoG"));
                 cb_SettingsShowLibraryBattleNet.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryBattleNet"));
                 cb_SettingsShowLibraryBethesda.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryBethesda"));

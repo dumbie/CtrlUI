@@ -15,19 +15,19 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        string UplayInstallPath()
+        string UbisoftInstallPath()
         {
             try
             {
                 //Open the Windows registry
                 using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    //Search for Uplay install directory
-                    using (RegistryKey RegKeyUplay = registryKeyLocalMachine.OpenSubKey("Software\\Ubisoft\\Launcher"))
+                    //Search for Ubisoft install directory
+                    using (RegistryKey RegKeyUbisoft = registryKeyLocalMachine.OpenSubKey("Software\\Ubisoft\\Launcher"))
                     {
-                        if (RegKeyUplay != null)
+                        if (RegKeyUbisoft != null)
                         {
-                            string RegKeyExePath = RegKeyUplay.GetValue("InstallDir").ToString() + "upc.exe";
+                            string RegKeyExePath = RegKeyUbisoft.GetValue("InstallDir").ToString() + "upc.exe";
                             if (File.Exists(RegKeyExePath))
                             {
                                 return Path.GetDirectoryName(RegKeyExePath);
@@ -40,26 +40,26 @@ namespace CtrlUI
             return string.Empty;
         }
 
-        async Task UplayScanAddLibrary()
+        async Task UbisoftScanAddLibrary()
         {
             try
             {
                 //Open the Windows registry
                 using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    using (RegistryKey RegKeyUplay = registryKeyLocalMachine.OpenSubKey("Software\\Ubisoft\\Launcher\\Installs"))
+                    using (RegistryKey RegKeyUbisoft = registryKeyLocalMachine.OpenSubKey("Software\\Ubisoft\\Launcher\\Installs"))
                     {
-                        if (RegKeyUplay != null)
+                        if (RegKeyUbisoft != null)
                         {
-                            foreach (string appId in RegKeyUplay.GetSubKeyNames())
+                            foreach (string appId in RegKeyUbisoft.GetSubKeyNames())
                             {
                                 try
                                 {
-                                    using (RegistryKey installDetails = RegKeyUplay.OpenSubKey(appId))
+                                    using (RegistryKey installDetails = RegKeyUbisoft.OpenSubKey(appId))
                                     {
                                         string installDir = installDetails.GetValue("InstallDir").ToString();
                                         installDir = AVFunctions.StringRemoveEnd(installDir, "/");
-                                        await UplayAddApplication(appId, installDir);
+                                        await UbisoftAddApplication(appId, installDir);
                                     }
                                 }
                                 catch { }
@@ -70,18 +70,18 @@ namespace CtrlUI
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed adding uplay library: " + ex.Message);
+                Debug.WriteLine("Failed adding Ubisoft library: " + ex.Message);
             }
         }
 
-        async Task UplayAddApplication(string appId, string installDir)
+        async Task UbisoftAddApplication(string appId, string installDir)
         {
             try
             {
                 //Check if application is installed
                 if (!Directory.Exists(installDir))
                 {
-                    Debug.WriteLine("Uplay game is not installed: " + appId);
+                    Debug.WriteLine("Ubisoft game is not installed: " + appId);
                     return;
                 }
 
@@ -93,7 +93,7 @@ namespace CtrlUI
                 DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == runCommand.ToLower()).FirstOrDefault();
                 if (launcherExistCheck != null)
                 {
-                    //Debug.WriteLine("Uplay app already in list: " + appIds);
+                    //Debug.WriteLine("Ubisoft app already in list: " + appIds);
                     return;
                 }
 
@@ -110,27 +110,27 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                //Fix open yaml configurations and look for image (Uplay Launcher\cache\assets)
-                //string configurationsPath = Path.Combine(UplayInstallPath(), "cache\\configuration\\configurations"); > thumbimage
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Uplay" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+                //Fix open yaml configurations and look for image (Ubisoft Launcher\cache\assets)
+                //string configurationsPath = Path.Combine(UbisoftInstallPath(), "cache\\configuration\\configurations"); > thumbimage
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Ubisoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
                 {
                     Category = AppCategory.Launcher,
-                    Launcher = AppLauncher.Uplay,
+                    Launcher = AppLauncher.Ubisoft,
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
-                    StatusLauncher = vImagePreloadUplay
+                    StatusLauncher = vImagePreloadUbisoft
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
-                //Debug.WriteLine("Added uplay app: " + appName);
+                //Debug.WriteLine("Added Ubisoft app: " + appName);
             }
             catch
             {
-                Debug.WriteLine("Failed adding uplay app: " + appId);
+                Debug.WriteLine("Failed adding Ubisoft app: " + appId);
             }
         }
     }

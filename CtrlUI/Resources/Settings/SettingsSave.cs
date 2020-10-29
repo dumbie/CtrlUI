@@ -71,10 +71,10 @@ namespace CtrlUI
                     await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 };
 
-                cb_SettingsShowLibraryOrigin.Click += async (sender, e) =>
+                cb_SettingsShowLibraryEADesktop.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryOrigin", cb_SettingsShowLibraryOrigin.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Origin;
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryEADesktop", cb_SettingsShowLibraryEADesktop.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.EADesktop;
                     await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 };
 
@@ -85,10 +85,10 @@ namespace CtrlUI
                     await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 };
 
-                cb_SettingsShowLibraryUplay.Click += async (sender, e) =>
+                cb_SettingsShowLibraryUbisoft.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryUplay", cb_SettingsShowLibraryUplay.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Uplay;
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryUbisoft", cb_SettingsShowLibraryUbisoft.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Ubisoft;
                     await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 };
 

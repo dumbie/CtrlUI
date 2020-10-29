@@ -141,7 +141,7 @@
     <Content Include="Assets\Default\Apps\Discord.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Apps\EADesktop.png">
+    <Content Include="Assets\Default\Apps\EA Desktop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Apps\Microsoft.png">
@@ -179,9 +179,9 @@
     <Compile Include="Launchers\RockstarListApps.cs" />
     <Compile Include="Launchers\BethesdaListApps.cs" />
     <Compile Include="Launchers\GoGListApps.cs" />
-    <Compile Include="Launchers\UplayListApps.cs" />
+    <Compile Include="Launchers\UbisoftListApps.cs" />
     <Compile Include="Launchers\EpicListApps.cs" />
-    <Compile Include="Launchers\OriginListApps.cs" />
+    <Compile Include="Launchers\EADesktopListApps.cs" />
     <Compile Include="Launchers\SteamListApps.cs" />
     <Compile Include="Launchers\LoadLaunchers.cs" />
     <Compile Include="ListProcessHandlers.cs" />
@@ -311,7 +311,7 @@
     <Content Include="Assets\Default\Apps\Rockstar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Apps\Epic Games.png">
+    <Content Include="Assets\Default\Apps\Epic.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Extensions\Exe.png">
@@ -571,9 +571,6 @@
     <Content Include="Assets\Default\Games\Nintendo 64\Mario Kart 64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Apps\Origin.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\Default\Games\Rom.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -598,7 +595,7 @@
     <Content Include="Assets\Default\Games\Nintendo Switch.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Apps\Uplay.png">
+    <Content Include="Assets\Default\Apps\Ubisoft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Apps\GoG.png">

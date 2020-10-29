@@ -14,7 +14,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task OriginScanAddLibrary()
+        async Task EADesktopScanAddLibrary()
         {
             try
             {
@@ -27,18 +27,18 @@ namespace CtrlUI
                 {
                     try
                     {
-                        await OriginAddApplication(localContentAppPath);
+                        await EADesktopAddApplication(localContentAppPath);
                     }
                     catch { }
                 }
             }
             catch
             {
-                Debug.WriteLine("Failed adding origin library.");
+                Debug.WriteLine("Failed adding EADesktop library.");
             }
         }
 
-        async Task OriginAddApplication(string localContentAppPath)
+        async Task EADesktopAddApplication(string localContentAppPath)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace CtrlUI
                 //Check if application is installed
                 if (!localContentFiles.Any())
                 {
-                    Debug.WriteLine("Origin game is not installed: " + localContentAppPath);
+                    Debug.WriteLine("EADesktop game is not installed: " + localContentAppPath);
                     return;
                 }
 
@@ -78,7 +78,7 @@ namespace CtrlUI
                 DataBindApp launcherExistCheck = List_Launchers.Where(x => x.PathExe.ToLower() == runCommand.ToLower()).FirstOrDefault();
                 if (launcherExistCheck != null)
                 {
-                    //Debug.WriteLine("Origin app already in list: " + appIds);
+                    //Debug.WriteLine("EADesktop app already in list: " + appIds);
                     return;
                 }
 
@@ -98,25 +98,25 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Origin" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "EA Desktop" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()
                 {
                     Category = AppCategory.Launcher,
-                    Launcher = AppLauncher.Origin,
+                    Launcher = AppLauncher.EADesktop,
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
-                    StatusLauncher = vImagePreloadOrigin
+                    StatusLauncher = vImagePreloadEADesktop
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);
-                //Debug.WriteLine("Added origin app: " + appIds + "/" + appName);
+                //Debug.WriteLine("Added EADesktop app: " + appIds + "/" + appName);
             }
             catch
             {
-                Debug.WriteLine("Failed adding origin app: " + localContentAppPath);
+                Debug.WriteLine("Failed adding EADesktop app: " + localContentAppPath);
             }
         }
     }

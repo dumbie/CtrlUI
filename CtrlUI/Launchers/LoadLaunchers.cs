@@ -44,22 +44,22 @@ namespace CtrlUI
                     await SteamScanAddLibrary();
                 }
 
-                //Scan and add library from Origin
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryOrigin")))
+                //Scan and add library from EA Desktop
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEADesktop")))
                 {
-                    await OriginScanAddLibrary();
+                    await EADesktopScanAddLibrary();
                 }
 
-                //Scan and add library from Epic Games
+                //Scan and add library from Epic
                 if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEpic")))
                 {
                     await EpicScanAddLibrary();
                 }
 
-                //Scan and add library from Uplay
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUplay")))
+                //Scan and add library from Ubisoft
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUbisoft")))
                 {
-                    await UplayScanAddLibrary();
+                    await UbisoftScanAddLibrary();
                 }
 
                 //Scan and add library from GoG

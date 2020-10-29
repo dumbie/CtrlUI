@@ -308,7 +308,7 @@ namespace CtrlUI
                     }
                     else if (targetPathLower.Contains("uplay://"))
                     {
-                        launcherImage = vImagePreloadUplay;
+                        launcherImage = vImagePreloadUbisoft;
                     }
                     else if (targetPathLower.Contains("battlenet://"))
                     {
@@ -320,7 +320,7 @@ namespace CtrlUI
                     }
                     else if (targetPathLower.Contains("origin://"))
                     {
-                        launcherImage = vImagePreloadOrigin;
+                        launcherImage = vImagePreloadEADesktop;
                     }
                 }
                 else if (!targetPathLower.Contains("/") && targetPathLower.Contains("!") && targetPathLower.Contains("_"))

@@ -222,8 +222,8 @@
                         </StackPanel>
 
                         <Image Name="img_Menu_SteamStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
-                        <Image Name="img_Menu_UplayStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                        <Image Name="img_Menu_OriginStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_UbisoftStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        <Image Name="img_Menu_EADesktopStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_GoGStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_EpicStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_BethesdaStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
@@ -347,11 +347,11 @@
                             <Button Name="grid_Popup_Welcome_button_Steam" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Image Name="grid_Popup_Welcome_img_Steam"/>
                             </Button>
-                            <Button Name="grid_Popup_Welcome_button_Uplay" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                <Image Name="grid_Popup_Welcome_img_Uplay"/>
+                            <Button Name="grid_Popup_Welcome_button_Ubisoft" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_Ubisoft"/>
                             </Button>
-                            <Button Name="grid_Popup_Welcome_button_Origin" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                <Image Name="grid_Popup_Welcome_img_Origin"/>
+                            <Button Name="grid_Popup_Welcome_button_EADesktop" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Name="grid_Popup_Welcome_img_EADesktop"/>
                             </Button>
                             <Button Name="grid_Popup_Welcome_button_GoG" Margin="10,0,0,0" Height="75" Width="75" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Image Name="grid_Popup_Welcome_img_GoG"/>
@@ -661,14 +661,14 @@
                             <CheckBox Name="cb_SettingsShowLibrarySteam" Content="Shows games from Steam library" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will show all the installed games from your Steam library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                            <CheckBox Name="cb_SettingsShowLibraryOrigin" Content="Shows games from Origin library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                            <TextBlock Text="Enabling this will show all the installed games from your Origin library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <CheckBox Name="cb_SettingsShowLibraryEADesktop" Content="Shows games from EA Desktop library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from your EA Desktop library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                            <CheckBox Name="cb_SettingsShowLibraryEpic" Content="Shows games from Epic Games library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                            <TextBlock Text="Enabling this will show all the installed games from your Epic Games library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <CheckBox Name="cb_SettingsShowLibraryEpic" Content="Shows games from Epic library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from your Epic library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                            <CheckBox Name="cb_SettingsShowLibraryUplay" Content="Shows games from Uplay library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                            <TextBlock Text="Enabling this will show all the installed games from your Uplay library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <CheckBox Name="cb_SettingsShowLibraryUbisoft" Content="Shows games from Ubisoft library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show all the installed games from your Ubisoft library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                             <CheckBox Name="cb_SettingsShowLibraryGoG" Content="Shows games from GoG library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will show all the installed games from your GoG library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>

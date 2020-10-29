@@ -144,8 +144,8 @@ namespace CtrlUI
 
                 vFilePickerFilterIn = new List<string> { "EpicGamesLauncher.exe" };
                 vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Epic Games";
-                vFilePickerDescription = "Please select the Epic executable:";
+                vFilePickerTitle = "Epic";
+                vFilePickerDescription = "Please select the Epic Games executable:";
                 vFilePickerShowNoFile = false;
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
@@ -157,7 +157,7 @@ namespace CtrlUI
                 if (vFilePickerCancelled) { return; }
 
                 //Add application to the list
-                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Epic Games", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Epic", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
                 await AddAppToList(dataBindApp, true, true);
 
                 //Disable the icon after selection
@@ -167,7 +167,7 @@ namespace CtrlUI
             catch { }
         }
 
-        async void Grid_Popup_Welcome_button_Uplay_Click(object sender, RoutedEventArgs e)
+        async void Grid_Popup_Welcome_button_Ubisoft_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -175,8 +175,8 @@ namespace CtrlUI
 
                 vFilePickerFilterIn = new List<string> { "upc.exe" };
                 vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Uplay";
-                vFilePickerDescription = "Please select the Uplay executable:";
+                vFilePickerTitle = "Ubisoft";
+                vFilePickerDescription = "Please select the Ubisoft Connect executable:";
                 vFilePickerShowNoFile = false;
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
@@ -188,7 +188,7 @@ namespace CtrlUI
                 if (vFilePickerCancelled) { return; }
 
                 //Add application to the list
-                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Uplay", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Ubisoft", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
                 await AddAppToList(dataBindApp, true, true);
 
                 //Disable the icon after selection
@@ -198,16 +198,16 @@ namespace CtrlUI
             catch { }
         }
 
-        async void Grid_Popup_Welcome_button_Origin_Click(object sender, RoutedEventArgs e)
+        async void Grid_Popup_Welcome_button_EADesktop_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "origin.exe" };
+                vFilePickerFilterIn = new List<string> { "eadesktop.exe", "origin.exe" };
                 vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Origin";
-                vFilePickerDescription = "Please select the Origin executable:";
+                vFilePickerTitle = "EA";
+                vFilePickerDescription = "Please select the EA Desktop executable:";
                 vFilePickerShowNoFile = false;
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
@@ -219,7 +219,7 @@ namespace CtrlUI
                 if (vFilePickerCancelled) { return; }
 
                 //Add application to the list
-                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Origin", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
+                DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "EA Desktop", PathExe = vFilePickerResult.PathFile, PathLaunch = Path.GetDirectoryName(vFilePickerResult.PathFile) };
                 await AddAppToList(dataBindApp, true, true);
 
                 //Disable the icon after selection

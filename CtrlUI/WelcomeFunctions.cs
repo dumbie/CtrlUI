@@ -162,7 +162,7 @@ namespace CtrlUI
                         if (File.Exists(RegKeyExePath))
                         {
                             //Add application to the list
-                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Epic Games", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Epic", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
                             await AddAppToList(dataBindApp, true, true);
 
                             //Disable the icon after selection
@@ -172,40 +172,40 @@ namespace CtrlUI
                     }
                 }
 
-                //Search for Origin install and add to the list
-                using (RegistryKey RegKeyOrigin = registryKeyLocalMachine.OpenSubKey("Software\\Origin"))
+                //Search for EA Desktop install and add to the list
+                using (RegistryKey RegKeyEADesktop = registryKeyLocalMachine.OpenSubKey("Software\\Origin"))
                 {
-                    if (RegKeyOrigin != null)
+                    if (RegKeyEADesktop != null)
                     {
-                        string RegKeyExePath = RegKeyOrigin.GetValue("ClientPath").ToString();
+                        string RegKeyExePath = RegKeyEADesktop.GetValue("ClientPath").ToString();
                         if (File.Exists(RegKeyExePath))
                         {
                             //Add application to the list
-                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Origin", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "EA Desktop", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
                             await AddAppToList(dataBindApp, true, true);
 
                             //Disable the icon after selection
-                            grid_Popup_Welcome_button_Origin.IsEnabled = false;
-                            grid_Popup_Welcome_button_Origin.Opacity = 0.40;
+                            grid_Popup_Welcome_button_EADesktop.IsEnabled = false;
+                            grid_Popup_Welcome_button_EADesktop.Opacity = 0.40;
                         }
                     }
                 }
 
-                //Search for Uplay install and add to the list
-                using (RegistryKey RegKeyUplay = registryKeyLocalMachine.OpenSubKey("Software\\Ubisoft\\Launcher"))
+                //Search for Ubisoft install and add to the list
+                using (RegistryKey RegKeyUbisoft = registryKeyLocalMachine.OpenSubKey("Software\\Ubisoft\\Launcher"))
                 {
-                    if (RegKeyUplay != null)
+                    if (RegKeyUbisoft != null)
                     {
-                        string RegKeyExePath = RegKeyUplay.GetValue("InstallDir").ToString() + "upc.exe";
+                        string RegKeyExePath = RegKeyUbisoft.GetValue("InstallDir").ToString() + "upc.exe";
                         if (File.Exists(RegKeyExePath))
                         {
                             //Add application to the list
-                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Uplay", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Ubisoft", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath) };
                             await AddAppToList(dataBindApp, true, true);
 
                             //Disable the icon after selection
-                            grid_Popup_Welcome_button_Uplay.IsEnabled = false;
-                            grid_Popup_Welcome_button_Uplay.Opacity = 0.40;
+                            grid_Popup_Welcome_button_Ubisoft.IsEnabled = false;
+                            grid_Popup_Welcome_button_Ubisoft.Opacity = 0.40;
                         }
                     }
                 }
