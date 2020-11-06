@@ -156,7 +156,7 @@ namespace CtrlUI
                         //Check file operation status
                         if (shFileResult == 0 && !shFileOpstruct.fAnyOperationsAborted)
                         {
-                            await Notification_Send_Status("Remove", "File or folder deleted");
+                            await Notification_Send_Status("Remove", "File or folder permanently deleted");
                         }
                     }
                 }

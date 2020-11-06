@@ -73,7 +73,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerRemove)
                     {
-                        await RemoveShortcutFile(listboxSender, listboxSelectedIndex, dataBindApp);
+                        await RemoveShortcutFile(listboxSender, listboxSelectedIndex, dataBindApp, false);
                     }
                     else if (messageResult == AnswerRename)
                     {
@@ -118,10 +118,28 @@ namespace CtrlUI
         }
 
         //Remove the shortcut file
-        async Task RemoveShortcutFile(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp)
+        async Task RemoveShortcutFile(ListBox listboxSender, int listboxSelectedIndex, DataBindApp dataBindApp, bool silent)
         {
             try
             {
+                //Confirm shortcut remove prompt
+                if (!silent)
+                {
+                    List<DataBindString> messageAnswers = new List<DataBindString>();
+                    DataBindString answerYes = new DataBindString();
+                    answerYes.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerYes.Name = "Move shortcut file to recycle bin";
+                    messageAnswers.Add(answerYes);
+
+                    string deleteString = "Are you sure you want to remove: " + dataBindApp.Name + "?";
+                    DataBindString messageResult = await Popup_Show_MessageBox("Remove shortcut", "", deleteString, messageAnswers);
+                    if (messageResult == null)
+                    {
+                        Debug.WriteLine("Cancelled shortcut removal.");
+                        return;
+                    }
+                }
+
                 await Notification_Send_Status("Minus", "Removing shortcut " + dataBindApp.Name);
                 Debug.WriteLine("Removing shortcut: " + dataBindApp.Name + " path: " + dataBindApp.ShortcutPath);
 

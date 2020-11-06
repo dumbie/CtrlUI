@@ -51,7 +51,7 @@ namespace CtrlUI
                 {
                     if (messageResult == AnswerRemove)
                     {
-                        await RemoveShortcutFile(lb_Shortcuts, lb_Shortcuts.SelectedIndex, dataBindApp);
+                        await RemoveShortcutFile(lb_Shortcuts, lb_Shortcuts.SelectedIndex, dataBindApp, true);
                     }
                 }
             }

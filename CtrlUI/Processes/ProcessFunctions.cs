@@ -227,11 +227,6 @@ namespace CtrlUI
 
                     //Focus or Close when process is already running
                     List<DataBindString> Answers = new List<DataBindString>();
-                    DataBindString AnswerClose = new DataBindString();
-                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    AnswerClose.Name = "Close application";
-                    Answers.Add(AnswerClose);
-
                     DataBindString AnswerLaunch = new DataBindString();
                     AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerLaunch.Name = "Launch new instance";
@@ -258,6 +253,11 @@ namespace CtrlUI
                         AnswerRestartWithout.NameSub = "(Without argument)";
                     }
                     Answers.Add(AnswerRestartWithout);
+
+                    DataBindString AnswerClose = new DataBindString();
+                    AnswerClose.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerClose.Name = "Close application";
+                    Answers.Add(AnswerClose);
 
                     //Show the messagebox
                     DataBindString messageResult = await Popup_Show_MessageBox("Application has no window", "", "", Answers);

@@ -18,5 +18,10 @@
     "CodeName": "SonyDualShock4",
     "ProductIDs": [ "0x05c4", "0x09cc", "0x0ba0" ],
     "VendorID": "0x054c"
+  },
+  {
+    "CodeName": "SonyDualSense5",
+    "ProductIDs": [ "0x0ce6" ],
+    "VendorID": "0x054c"
   }
 ]

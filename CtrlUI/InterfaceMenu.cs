@@ -156,7 +156,7 @@ namespace CtrlUI
                 DataBindString menuButtonRunStore = new DataBindString
                 {
                     ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRunStore.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Launch a Windows store application",
+                    Name = "Launch Windows store application",
                     Data1 = "menuButtonRunStore"
                 };
                 List_MainMenu.Add(menuButtonRunStore);
@@ -172,7 +172,7 @@ namespace CtrlUI
                 DataBindString menuButtonAddStore = new DataBindString
                 {
                     ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddStore.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Add a store application to the list",
+                    Name = "Add Windows store application to the list",
                     Data1 = "menuButtonAddStore"
                 };
                 List_MainMenu.Add(menuButtonAddStore);

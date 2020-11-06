@@ -216,13 +216,13 @@ namespace CtrlUI
                 tb_AddAppPathLaunch.Text = vEditAppDataBind.PathLaunch;
                 tb_AddAppPathRoms.Text = vEditAppDataBind.PathRoms;
                 tb_AddAppArgument.Text = vEditAppDataBind.Argument;
+                tb_AddAppNameExe.Text = vEditAppDataBind.NameExe;
                 checkbox_AddLaunchFilePicker.IsChecked = vEditAppDataBind.LaunchFilePicker;
                 checkbox_AddLaunchKeyboard.IsChecked = vEditAppDataBind.LaunchKeyboard;
 
                 //Hide and show situation based settings
                 if (vEditAppDataBind.Type == ProcessType.UWP)
                 {
-                    sp_AddAppExePath.Visibility = Visibility.Collapsed;
                     sp_AddAppPathLaunch.Visibility = Visibility.Collapsed;
                     sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
                     checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
@@ -230,7 +230,6 @@ namespace CtrlUI
                 }
                 else
                 {
-                    sp_AddAppExePath.Visibility = Visibility.Visible;
                     sp_AddAppPathLaunch.Visibility = Visibility.Visible;
                     if (vEditAppDataBind.Category == AppCategory.Emulator) { sp_AddAppPathRoms.Visibility = Visibility.Visible; } else { sp_AddAppPathRoms.Visibility = Visibility.Collapsed; }
                     if (vEditAppDataBind.Category == AppCategory.App) { checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible; } else { checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed; }
@@ -293,11 +292,11 @@ namespace CtrlUI
                 tb_AddAppPathLaunch.Text = string.Empty;
                 tb_AddAppPathRoms.Text = string.Empty;
                 tb_AddAppArgument.Text = string.Empty;
+                tb_AddAppNameExe.Text = string.Empty;
                 checkbox_AddLaunchFilePicker.IsChecked = false;
                 checkbox_AddLaunchKeyboard.IsChecked = false;
 
                 //Hide and show situation based settings
-                sp_AddAppExePath.Visibility = Visibility.Visible;
                 sp_AddAppPathLaunch.Visibility = Visibility.Visible;
                 sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
                 checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;

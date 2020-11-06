@@ -159,12 +159,12 @@ namespace CtrlUI
             try
             {
                 //Get the currently selected category
-                AppCategory selectedAddCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
+                AppCategory selectedCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
 
                 //Check if the application is UWP
-                bool UwpApplication = sp_AddAppExePath.Visibility == Visibility.Collapsed;
+                bool uwpApplication = vEditAppDataBind.Type == ProcessType.UWP;
 
-                if (UwpApplication || selectedAddCategory != AppCategory.Emulator)
+                if (uwpApplication || selectedCategory != AppCategory.Emulator)
                 {
                     sp_AddAppPathRoms.Visibility = Visibility.Collapsed;
                 }
@@ -173,7 +173,7 @@ namespace CtrlUI
                     sp_AddAppPathRoms.Visibility = Visibility.Visible;
                 }
 
-                if (UwpApplication || selectedAddCategory != AppCategory.App)
+                if (uwpApplication || selectedCategory != AppCategory.App)
                 {
                     checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed;
                 }
@@ -345,7 +345,7 @@ namespace CtrlUI
 
                     await Notification_Send_Status("Plus", "Added " + tb_AddAppName.Text);
                     Debug.WriteLine("Adding Win32 app: " + tb_AddAppName.Text + " to the list.");
-                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = selectedAddCategory, Name = tb_AddAppName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked };
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = selectedAddCategory, Name = tb_AddAppName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, NameExe = tb_AddAppNameExe.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked };
                     await AddAppToList(dataBindApp, true, true);
 
                     //Close the open popup
@@ -417,10 +417,18 @@ namespace CtrlUI
                     vEditAppDataBind.PathLaunch = tb_AddAppPathLaunch.Text;
                     vEditAppDataBind.PathRoms = tb_AddAppPathRoms.Text;
                     vEditAppDataBind.Argument = tb_AddAppArgument.Text;
+                    vEditAppDataBind.NameExe = tb_AddAppNameExe.Text;
                     vEditAppDataBind.LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked;
                     vEditAppDataBind.LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked;
-                    vEditAppDataBind.StatusAvailable = Visibility.Collapsed;
                     vEditAppDataBind.ImageBitmap = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+
+                    //Reset the application status
+                    vEditAppDataBind.StatusAvailable = Visibility.Collapsed;
+                    vEditAppDataBind.StatusRunning = Visibility.Collapsed;
+                    vEditAppDataBind.StatusSuspended = Visibility.Collapsed;
+                    vEditAppDataBind.RunningProcessCount = string.Empty;
+                    vEditAppDataBind.RunningTimeLastUpdate = 0;
+                    vEditAppDataBind.ProcessMulti.Clear();
 
                     await Notification_Send_Status("Edit", "Edited " + vEditAppDataBind.Name);
                     Debug.WriteLine("Editing application: " + vEditAppDataBind.Name + " in the list.");

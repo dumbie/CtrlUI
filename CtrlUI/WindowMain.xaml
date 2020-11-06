@@ -483,44 +483,31 @@
                         <ListBox Name="lb_Manage_AddAppCategory" SelectionMode="Single" Height="90" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemAppCategory}" Style="{StaticResource ListBoxHorizontal}" Template="{StaticResource ListBoxHorizontalNoScrollTemplate}"/>
 
                         <StackPanel Name="sp_AddAppExePath">
-                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application executable:"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" Name="tb_AddAppExePath" Margin="0,0,10,0" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <Button Grid.Column="1" Name="btn_AddAppExePath" MinWidth="320" Content="Select application executable file" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                            </Grid>
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application launch executable:"/>
+                            <TextBox Name="tb_AddAppExePath" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Name="btn_AddAppExePath" Margin="0,5,0,0" Content="Select application launch executable" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
                         <StackPanel Name="sp_AddAppPathLaunch">
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application launch folder:"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" Name="tb_AddAppPathLaunch" Margin="0,0,10,0" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <Button Grid.Column="1" Name="btn_AddAppPathLaunch" MinWidth="320" Content="Select application launch folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                            </Grid>
+                            <TextBox Name="tb_AddAppPathLaunch" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Name="btn_AddAppPathLaunch" Margin="0,5,0,0" Content="Select application launch folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
                         <StackPanel Name="sp_AddAppPathRoms" Visibility="Collapsed">
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Emulator rom folder:"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" Name="tb_AddAppPathRoms" Margin="0,0,10,0" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <Button Grid.Column="1" Name="btn_AddAppPathRoms" MinWidth="320" Content="Select emulator rom folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
-                            </Grid>
+                            <TextBox Name="tb_AddAppPathRoms" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Button Name="btn_AddAppPathRoms" Margin="0,5,0,0" Content="Select emulator rom folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
                         <StackPanel Name="sp_AddAppArgument">
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application launch argument:"/>
                             <TextBox Name="tb_AddAppArgument" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        </StackPanel>
+
+                        <StackPanel Name="sp_AddAppNameExe">
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Process executable name:"/>
+                            <TextBox Name="tb_AddAppNameExe" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
                         <CheckBox Name="checkbox_AddLaunchFilePicker" Margin="0,10,0,0" Content="Select a file to open with when launching this application" Visibility="Collapsed" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>
