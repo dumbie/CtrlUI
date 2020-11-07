@@ -287,6 +287,10 @@ namespace DirectXInput.KeypadCode
                 {
                     try
                     {
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadLeftMod, vKeypadMappingProfile.DPadLeft, grid_DPadLeft, textblock_DPadLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadUpMod, vKeypadMappingProfile.DPadUp, grid_DPadUp, textblock_DPadUp);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadRightMod, vKeypadMappingProfile.DPadRight, grid_DPadRight, textblock_DPadRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadDownMod, vKeypadMappingProfile.DPadDown, grid_DPadDown, textblock_DPadDown);
                         UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftLeftMod, vKeypadMappingProfile.ThumbLeftLeft, grid_ThumbLeftLeft, textblock_ThumbLeftLeft);
                         UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftUpMod, vKeypadMappingProfile.ThumbLeftUp, grid_ThumbLeftUp, textblock_ThumbLeftUp);
                         UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftRightMod, vKeypadMappingProfile.ThumbLeftRight, grid_ThumbLeftRight, textblock_ThumbLeftRight);

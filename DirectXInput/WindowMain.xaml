@@ -12,9 +12,9 @@
         Background="#1D1D1D"
         MinHeight="700"
         Height="700"
-        MinWidth="680"
-        MaxWidth="680"
-        Width="680">
+        MinWidth="700"
+        MaxWidth="700"
+        Width="700">
 
     <!-- Grid Application -->
     <Grid Name="grid_App">
@@ -61,7 +61,7 @@
 
             <!-- Grid Connection -->
             <Grid Name="grid_Connection" Grid.Column="1" Background="#F1F1F1" Visibility="Visible">
-                <Grid Margin="10,5,10,10" HorizontalAlignment="Stretch">
+                <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -189,8 +189,8 @@
                                     <Button Name="btn_SetShoulderLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,445,220" Height="35" Width="55" ToolTipService.ToolTip="Left Shoulder"/>
                                     <Button Name="btn_SetShoulderRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="445,0,0,220" Height="35" Width="55" ToolTipService.ToolTip="Right Shoulder"/>
 
-                                    <Button Name="btn_SetThumbLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="179,118,281,97" Height="40" Width="40" ToolTipService.ToolTip="Left Thumb Stick"/>
-                                    <Button Name="btn_SetThumbRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="282,118,178,97" Height="40" Width="40" ToolTipService.ToolTip="Right Thumb Stick"/>
+                                    <Button Name="btn_SetThumbLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="179,118,281,97" Height="40" Width="40" ToolTipService.ToolTip="Left Thumb Button"/>
+                                    <Button Name="btn_SetThumbRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="282,118,178,97" Height="40" Width="40" ToolTipService.ToolTip="Right Thumb Button"/>
 
                                     <Button Name="btn_SetTriggerLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="3,39,457,176" Height="40" Width="40" ToolTipService.ToolTip="Left Trigger"/>
                                     <Button Name="btn_SetTriggerRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="457,39,3,176" Height="40" Width="40" ToolTipService.ToolTip="Right Trigger"/>
@@ -429,37 +429,42 @@
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Mapping"/>
                                 <TextBlock Name="txt_KeypadMap_Status" Text="Click on a button below that you want to change on the keypad." Style="{StaticResource TextBlockGray}"/>
-                                <Grid Name="grid_KeypadPreview" Width="550" Height="73" Margin="0,10,0,0">
+                                <Grid Name="grid_KeypadPreview" HorizontalAlignment="Left" Width="556" Height="94" Margin="0,10,0,0">
                                     <Grid.Background>
                                         <ImageBrush ImageSource="pack://siteoforigin:,,,/Assets/Default/Controller/KeypadPreview.png" Stretch="Uniform"/>
                                     </Grid.Background>
 
                                     <!-- Mapping -->
-                                    <Button Name="btn_SetPadThumbLeftLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,35,508,0" Height="26" Width="26" ToolTipService.ToolTip="DPad and Thumb Left"/>
-                                    <Button Name="btn_SetPadThumbLeftUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,434,40" Height="26" Width="26" ToolTipService.ToolTip="DPad and Thumb Up"/>
-                                    <Button Name="btn_SetPadThumbLeftRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,35,360,0" Height="26" Width="26" ToolTipService.ToolTip="DPad and Thumb Right"/>
-                                    <Button Name="btn_SetPadThumbLeftDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,35,434,0" Height="26" Width="26" ToolTipService.ToolTip="DPad and Thumb Down"/>
+                                    <Button Name="btn_SetPadDPadLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,524,0" Height="26" Width="26" Tag="DPad Left"/>
+                                    <Button Name="btn_SetPadDPadUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,460,62" Height="26" Width="26" Tag="DPad Up"/>
+                                    <Button Name="btn_SetPadDPadRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,398,0" Height="26" Width="26" Tag="DPad Right"/>
+                                    <Button Name="btn_SetPadDPadDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,58,460,0" Height="26" Width="26" Tag="DPad Down"/>
 
-                                    <Button Name="btn_SetPadThumbRightLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="355,35,0,0" Height="26" Width="26" ToolTipService.ToolTip="Right Thumb Left"/>
-                                    <Button Name="btn_SetPadThumbRightUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="430,0,0,40" Height="26" Width="26" ToolTipService.ToolTip="Right Thumb Up"/>
-                                    <Button Name="btn_SetPadThumbRightRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="505,35,0,0" Height="26" Width="26" ToolTipService.ToolTip="Right Thumb Right"/>
-                                    <Button Name="btn_SetPadThumbRightDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="430,35,0,0" Height="26" Width="26" ToolTipService.ToolTip="Right Thumb Down"/>
+                                    <Button Name="btn_SetPadThumbLeftLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,320,0" Height="26" Width="26" Tag="Left Thumb Left"/>
+                                    <Button Name="btn_SetPadThumbLeftUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,258,62" Height="26" Width="26" Tag="Left Thumb Up"/>
+                                    <Button Name="btn_SetPadThumbLeftRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,194,0" Height="26" Width="26" Tag="Left Thumb Right"/>
+                                    <Button Name="btn_SetPadThumbLeftDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,58,258,0" Height="26" Width="26" Tag="Left Thumb Down"/>
+                                    <Button Name="btn_SetPadThumbLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,258,0" Height="26" Width="26" Tag="Left Thumb Button"/>
 
-                                    <Button Name="btn_SetPadA" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="198,35,0,0" ToolTipService.ToolTip="Button A"/>
-                                    <Button Name="btn_SetPadB" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="272,35,0,0" ToolTipService.ToolTip="Button B"/>
-                                    <Button Name="btn_SetPadX" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="198,0,0,40" ToolTipService.ToolTip="Button X"/>
-                                    <Button Name="btn_SetPadY" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="272,0,0,40" ToolTipService.ToolTip="Button Y"/>
+                                    <Button Name="btn_SetPadShoulderLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,116,0" Height="26" Width="26" Tag="Left Shoulder"/>
+                                    <Button Name="btn_SetPadTriggerLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,58,116,0" Height="26" Width="26" Tag="Left Trigger"/>
 
-                                    <Button Name="btn_SetPadShoulderLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,275,40" Height="26" Width="26" ToolTipService.ToolTip="Left Shoulder"/>
-                                    <Button Name="btn_SetPadTriggerLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,35,275,0" Height="26" Width="26" ToolTipService.ToolTip="Left Trigger"/>
-                                    <Button Name="btn_SetPadThumbLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,360,40" Height="26" Width="26" ToolTipService.ToolTip="Left Thumb Stick"/>
+                                    <Button Name="btn_SetPadBack" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,58,36,0" Height="26" Width="26" Tag="Button Back"/>
+                                    <Button Name="btn_SetPadStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="35,58,0,0" Height="26" Width="26" Tag="Button Start"/>
 
-                                    <Button Name="btn_SetPadShoulderRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="115,0,0,40" Height="26" Width="26" ToolTipService.ToolTip="Right Shoulder"/>
-                                    <Button Name="btn_SetPadTriggerRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="115,35,0,0" Height="26" Width="26" ToolTipService.ToolTip="Right Trigger"/>
-                                    <Button Name="btn_SetPadThumbRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="355,0,0,40" Height="26" Width="26" ToolTipService.ToolTip="Right Thumb Stick"/>
+                                    <Button Name="btn_SetPadShoulderRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="115,0,0,0" Height="26" Width="26" Tag="Right Shoulder"/>
+                                    <Button Name="btn_SetPadTriggerRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="115,58,0,0" Height="26" Width="26" Tag="Right Trigger"/>
 
-                                    <Button Name="btn_SetPadBack" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,35,115,0" Height="26" Width="26" ToolTipService.ToolTip="Button Back"/>
-                                    <Button Name="btn_SetPadStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,35,45,0" Height="26" Width="26" ToolTipService.ToolTip="Button Start"/>
+                                    <Button Name="btn_SetPadThumbRightLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="192,0,0,0" Height="26" Width="26" Tag="Right Thumb Left"/>
+                                    <Button Name="btn_SetPadThumbRightUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="255,0,0,62" Height="26" Width="26" Tag="Right Thumb Up"/>
+                                    <Button Name="btn_SetPadThumbRightRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="318,0,0,0" Height="26" Width="26" Tag="Right Thumb Right"/>
+                                    <Button Name="btn_SetPadThumbRightDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="255,58,0,0" Height="26" Width="26" Tag="Right Thumb Down"/>
+                                    <Button Name="btn_SetPadThumbRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="255,0,0,0" Height="26" Width="26" Tag="Right Thumb Button"/>
+
+                                    <Button Name="btn_SetPadA" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="460,58,0,0" Tag="Button A"/>
+                                    <Button Name="btn_SetPadB" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="522,0,0,0" Tag="Button B"/>
+                                    <Button Name="btn_SetPadX" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="398,0,0,0" Tag="Button X"/>
+                                    <Button Name="btn_SetPadY" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="460,0,0,62" Tag="Button Y"/>
                                 </Grid>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Display"/>
@@ -476,7 +481,7 @@
 
                                 <TextBlock Margin="0,10,0,0" Name="textblock_KeypadDisplaySize" Text="Keypad display size" Tag="Keypad display size" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the keypad display size." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_KeypadDisplaySize" Height="18" Width="460" Minimum="50" Maximum="200" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_KeypadDisplaySize" Height="18" Width="460" Minimum="30" Maximum="200" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Settings"/>
                                 <TextBlock Name="textblock_KeypadRepeatIntervalMs" Text="Key press repeat interval" Tag="Key press repeat interval" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>

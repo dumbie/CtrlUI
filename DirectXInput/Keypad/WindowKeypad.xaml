@@ -28,37 +28,68 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <!-- Keyboard Arrows -->
-            <StackPanel Grid.Column="0">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <!-- Controller D-Pad -->
+            <StackPanel Grid.Column="0" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Grid Name="grid_DPadUp">
+                        <Image Style="{StaticResource KeypadImageLight}"/>
+                        <TextBlock Name="textblock_DPadUp" Style="{StaticResource KeypadTextLight}"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Grid Name="grid_DPadLeft">
+                        <Image Style="{StaticResource KeypadImageLight}"/>
+                        <TextBlock Name="textblock_DPadLeft" Text="?" Style="{StaticResource KeypadTextLight}"/>
+                    </Grid>
+                    <Grid Width="{DynamicResource KeypadImageSize}" Height="{DynamicResource KeypadImageSize}"/>
+                    <Grid Name="grid_DPadRight">
+                        <Image Style="{StaticResource KeypadImageLight}"/>
+                        <TextBlock Name="textblock_DPadRight" Style="{StaticResource KeypadTextLight}"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Grid Name="grid_DPadDown">
+                        <Image Style="{StaticResource KeypadImageLight}"/>
+                        <TextBlock Name="textblock_DPadDown" Style="{StaticResource KeypadTextLight}"/>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            
+            <!-- Controller Thumb Left -->
+            <StackPanel Grid.Column="1" Margin="15,0,0,0" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Grid Name="grid_ThumbLeftUp">
                         <Image Style="{StaticResource KeypadImageLight}"/>
                         <TextBlock Name="textblock_ThumbLeftUp" Style="{StaticResource KeypadTextLight}"/>
                     </Grid>
-                    <Grid Name="grid_ButtonThumbLeft">
-                        <Image Style="{StaticResource KeypadImageLight}"/>
-                        <TextBlock Name="textblock_ButtonThumbLeft" Style="{StaticResource KeypadTextLight}"/>
-                    </Grid>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Grid Name="grid_ThumbLeftLeft">
                         <Image Style="{StaticResource KeypadImageLight}"/>
                         <TextBlock Name="textblock_ThumbLeftLeft" Style="{StaticResource KeypadTextLight}"/>
                     </Grid>
-                    <Grid Name="grid_ThumbLeftDown">
+                    <Grid Name="grid_ButtonThumbLeft">
                         <Image Style="{StaticResource KeypadImageLight}"/>
-                        <TextBlock Name="textblock_ThumbLeftDown" Style="{StaticResource KeypadTextLight}"/>
+                        <TextBlock Name="textblock_ButtonThumbLeft" Style="{StaticResource KeypadTextLight}"/>
                     </Grid>
                     <Grid Name="grid_ThumbLeftRight">
                         <Image Style="{StaticResource KeypadImageLight}"/>
                         <TextBlock Name="textblock_ThumbLeftRight" Style="{StaticResource KeypadTextLight}"/>
                     </Grid>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <Grid Name="grid_ThumbLeftDown">
+                        <Image Style="{StaticResource KeypadImageLight}"/>
+                        <TextBlock Name="textblock_ThumbLeftDown" Style="{StaticResource KeypadTextLight}"/>
+                    </Grid>
+                </StackPanel>
             </StackPanel>
 
-            <!-- Keyboard Triggers Left -->
-            <StackPanel Grid.Column="1" Margin="20,0,0,0">
+            <!-- Controller Triggers Left -->
+            <StackPanel Grid.Column="2" Margin="15,0,0,0" VerticalAlignment="Bottom">
                 <Grid Name="grid_ButtonShoulderLeft">
                     <Image Style="{StaticResource KeypadImageLight}"/>
                     <TextBlock Name="textblock_ButtonShoulderLeft" Style="{StaticResource KeypadTextLight}"/>
@@ -89,8 +120,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <!-- Keyboard Triggers Right -->
-            <StackPanel Grid.Column="0" Margin="0,0,20,0">
+            <!-- Controller Triggers Right -->
+            <StackPanel Grid.Column="0" Margin="0,0,15,0" VerticalAlignment="Bottom">
                 <Grid Name="grid_ButtonShoulderRight">
                     <Image Style="{StaticResource KeypadImageLight}"/>
                     <TextBlock Name="textblock_ButtonShoulderRight" Style="{StaticResource KeypadTextLight}"/>
@@ -101,54 +132,60 @@
                 </Grid>
             </StackPanel>
 
-            <!-- Keyboard Actions -->
-            <StackPanel Grid.Column="1" Margin="0,0,20,0">
-                <StackPanel Orientation="Horizontal">
-                    <Grid Name="grid_ButtonX">
-                        <Image Style="{StaticResource KeypadImageLight}"/>
-                        <TextBlock Name="textblock_ButtonX" Text="?" Style="{StaticResource KeypadTextLight}"/>
-                    </Grid>
-                    <Grid Name="grid_ButtonY">
-                        <Image Style="{StaticResource KeypadImageLight}"/>
-                        <TextBlock Name="textblock_ButtonY" Style="{StaticResource KeypadTextLight}"/>
-                    </Grid>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Grid Name="grid_ButtonA">
-                        <Image Style="{StaticResource KeypadImageLight}"/>
-                        <TextBlock Name="textblock_ButtonA" Style="{StaticResource KeypadTextLight}"/>
-                    </Grid>
-                    <Grid Name="grid_ButtonB">
-                        <Image Style="{StaticResource KeypadImageLight}"/>
-                        <TextBlock Name="textblock_ButtonB" Style="{StaticResource KeypadTextLight}"/>
-                    </Grid>
-                </StackPanel>
-            </StackPanel>
-
-            <!-- Keyboard Arrows -->
-            <StackPanel Grid.Column="2">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Grid Name="grid_ButtonThumbRight">
-                        <Image Style="{StaticResource KeypadImageLight}"/>
-                        <TextBlock Name="textblock_ButtonThumbRight" Style="{StaticResource KeypadTextLight}"/>
-                    </Grid>
+            <!-- Controller Thumb Right -->
+            <StackPanel Grid.Column="1" Margin="0,0,15,0" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Grid Name="grid_ThumbRightUp" HorizontalAlignment="Center">
                         <Image Style="{StaticResource KeypadImageLight}"/>
                         <TextBlock Name="textblock_ThumbRightUp" Style="{StaticResource KeypadTextLight}"/>
                     </Grid>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Grid Name="grid_ThumbRightLeft">
                         <Image Style="{StaticResource KeypadImageLight}"/>
                         <TextBlock Name="textblock_ThumbRightLeft" Style="{StaticResource KeypadTextLight}"/>
                     </Grid>
+                    <Grid Name="grid_ButtonThumbRight">
+                        <Image Style="{StaticResource KeypadImageLight}"/>
+                        <TextBlock Name="textblock_ButtonThumbRight" Style="{StaticResource KeypadTextLight}"/>
+                    </Grid>
+
+                    <Grid Name="grid_ThumbRightRight">
+                        <Image Style="{StaticResource KeypadImageLight}"/>
+                        <TextBlock Name="textblock_ThumbRightRight" Style="{StaticResource KeypadTextLight}"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Grid Name="grid_ThumbRightDown">
                         <Image Style="{StaticResource KeypadImageLight}"/>
                         <TextBlock Name="textblock_ThumbRightDown" Style="{StaticResource KeypadTextLight}"/>
                     </Grid>
-                    <Grid Name="grid_ThumbRightRight">
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Controller ABXY -->
+            <StackPanel Grid.Column="2" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Grid Name="grid_ButtonY">
                         <Image Style="{StaticResource KeypadImageLight}"/>
-                        <TextBlock Name="textblock_ThumbRightRight" Style="{StaticResource KeypadTextLight}"/>
+                        <TextBlock Name="textblock_ButtonY" Style="{StaticResource KeypadTextLight}"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Grid Name="grid_ButtonX">
+                        <Image Style="{StaticResource KeypadImageLight}"/>
+                        <TextBlock Name="textblock_ButtonX" Text="?" Style="{StaticResource KeypadTextLight}"/>
+                    </Grid>
+                    <Grid Width="{DynamicResource KeypadImageSize}" Height="{DynamicResource KeypadImageSize}"/>
+                    <Grid Name="grid_ButtonB">
+                        <Image Style="{StaticResource KeypadImageLight}"/>
+                        <TextBlock Name="textblock_ButtonB" Style="{StaticResource KeypadTextLight}"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Grid Name="grid_ButtonA">
+                        <Image Style="{StaticResource KeypadImageLight}"/>
+                        <TextBlock Name="textblock_ButtonA" Style="{StaticResource KeypadTextLight}"/>
                     </Grid>
                 </StackPanel>
             </StackPanel>
