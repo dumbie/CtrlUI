@@ -393,10 +393,14 @@ namespace CtrlUI
 
                 foreach (DirectoryInfo soundPack in soundPacks)
                 {
-                    DataBindString AnswerCustom = new DataBindString();
-                    AnswerCustom.ImageBitmap = imagePacks;
-                    AnswerCustom.Name = soundPack.Name;
-                    Answers.Add(AnswerCustom);
+                    try
+                    {
+                        DataBindString AnswerCustom = new DataBindString();
+                        AnswerCustom.ImageBitmap = imagePacks;
+                        AnswerCustom.Name = soundPack.Name;
+                        Answers.Add(AnswerCustom);
+                    }
+                    catch { }
                 }
 
                 //Show the messagebox

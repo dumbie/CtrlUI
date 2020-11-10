@@ -112,14 +112,16 @@ namespace DirectXInput.OverlayCode
                     if (vProcessFpsOverlayer == null || (vProcessFpsOverlayer != null && fpsTextPosition != 0))
                     {
                         grid_Message_Status.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                        grid_Message_Status_Stackpanel.SetValue(Grid.ColumnProperty, 0);
-                        grid_Message_Status_Rectangle.SetValue(Grid.ColumnProperty, 1);
+                        grid_Message_Status_Grid.SetValue(Grid.ColumnProperty, 0);
+                        grid_Message_Status_Border.SetValue(Grid.ColumnProperty, 1);
+                        grid_Message_Status_Border.SetValue(Border.CornerRadiusProperty, new CornerRadius(0, 2, 2, 0));
                     }
                     else
                     {
                         grid_Message_Status.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-                        grid_Message_Status_Stackpanel.SetValue(Grid.ColumnProperty, 1);
-                        grid_Message_Status_Rectangle.SetValue(Grid.ColumnProperty, 0);
+                        grid_Message_Status_Grid.SetValue(Grid.ColumnProperty, 1);
+                        grid_Message_Status_Border.SetValue(Grid.ColumnProperty, 0);
+                        grid_Message_Status_Border.SetValue(Border.CornerRadiusProperty, new CornerRadius(2, 0, 0, 2));
                     }
                 });
             }

@@ -13,10 +13,9 @@
         <Setter Property="Margin" Value="4,0,0,0"/>
         <Setter Property="Foreground" Value="#F1F1F1"/>
         <Setter Property="Background" Value="{DynamicResource ApplicationAccentLightBrush}"/>
-        <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource ApplicationAccentLightBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Template" Value="{StaticResource ButtonTemplateWhiteRound}"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplateWhite}"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
     </Style>
 </ResourceDictionary>

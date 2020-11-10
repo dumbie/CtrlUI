@@ -37,20 +37,20 @@
 
         <!-- Status - Message Status -->
         <Grid Name="grid_Message_Status" IsHitTestVisible="False" MinHeight="60" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,50,0,0" Visibility="Collapsed">
-            <Grid.Background>
-                <SolidColorBrush Color="#1D1D1D" Opacity="0.80"/>
-            </Grid.Background>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Name="grid_Message_Status_Stackpanel" Margin="15,10,15,10" Orientation="Horizontal">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Name="grid_Message_Status_Grid">
+                <Grid.Background>
+                    <SolidColorBrush Color="#1D1D1D" Opacity="0.80"/>
+                </Grid.Background>
+                <StackPanel Margin="15,10,15,10" Orientation="Horizontal">
                     <Image Name="grid_Message_Status_Image" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Help.png" Height="40"/>
                     <TextBlock Name="grid_Message_Status_Text" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Notification" Margin="15,0,15,0"/>
                 </StackPanel>
-                <Rectangle Grid.Column="1" Name="grid_Message_Status_Rectangle" Fill="{DynamicResource ApplicationAccentLightBrush}" Width="4"/>
             </Grid>
+            <Border Grid.Column="1" CornerRadius="0,2,2,0" Name="grid_Message_Status_Border" Opacity="0.80" Background="{DynamicResource ApplicationAccentLightBrush}" Width="4"/>
         </Grid>
     </Grid>
 </Window>

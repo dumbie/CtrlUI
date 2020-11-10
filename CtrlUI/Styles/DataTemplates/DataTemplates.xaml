@@ -70,18 +70,21 @@
 
     <!-- ListBoxItemString -->
     <DataTemplate x:Key="ListBoxItemString">
-        <Grid Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="{Binding ImageBitmap}" Height="50" Width="50"/>
-            <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-            <TextBlock Grid.Column="2" Text="{Binding NameSub}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-            <TextBlock Grid.Column="3" Text="{Binding NameDetail}" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" Margin="10,0,5,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-        </Grid>
+        <StackPanel Margin="5,0,5,0">
+            <Grid Margin="0,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="{Binding ImageBitmap}" Height="50" Width="50"/>
+                <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="20,0,0,0" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                <TextBlock Grid.Column="2" Text="{Binding NameSub}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                <TextBlock Grid.Column="3" Text="{Binding NameDetail}" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" Margin="10,0,5,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+            </Grid>
+            <Border Margin="70,0,0,0" Opacity="0.20" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
+        </StackPanel>
     </DataTemplate>
 
     <!-- ListboxItemProfile -->
@@ -100,7 +103,7 @@
 
     <!-- ListboxItemColor -->
     <DataTemplate x:Key="ListboxItemColor">
-        <Rectangle Fill="{Binding}" Width="70" Height="70"/>
+        <Border CornerRadius="2" Background="{Binding}" Width="70" Height="70"/>
     </DataTemplate>
 
     <!-- ListBoxItemRom -->

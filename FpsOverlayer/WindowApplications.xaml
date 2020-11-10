@@ -25,6 +25,6 @@
             <Button Name="button_AddApp" Margin="10,0,0,0" Content="Add process" Style="{StaticResource ButtonAccentBlack}"/>
         </StackPanel>
 
-        <ListBox Grid.Row="1" Name="listbox_Apps" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingBlack}" ItemTemplate="{StaticResource ListBoxItemAppPosition}" Style="{StaticResource ListBoxVertical}"/>
+        <ListBox Grid.Row="1" Name="listbox_Apps" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemBlack}" ItemTemplate="{StaticResource ListBoxItemAppPosition}" Style="{StaticResource ListBoxVertical}"/>
     </Grid>
 </Window>

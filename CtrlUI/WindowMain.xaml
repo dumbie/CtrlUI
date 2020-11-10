@@ -56,24 +56,24 @@
                             <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Games"/>
                             <TextBlock Name="tb_Games_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
                         </StackPanel>
-                        <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
-                        <ListBox Name="lb_Games" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
+                        <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
+                        <ListBox Name="lb_Games" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
                     </StackPanel>
                     <StackPanel Name="sp_Apps">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Apps &amp; Media"/>
                             <TextBlock Name="tb_Apps_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
                         </StackPanel>
-                        <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
-                        <ListBox Name="lb_Apps" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
+                        <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
+                        <ListBox Name="lb_Apps" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
                     </StackPanel>
                     <StackPanel Name="sp_Emulators">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Emulators"/>
                             <TextBlock Name="tb_Emulators_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
                         </StackPanel>
-                        <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
-                        <ListBox Name="lb_Emulators" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
+                        <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
+                        <ListBox Name="lb_Emulators" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
                     </StackPanel>
                     <StackPanel Name="sp_Launchers">
                         <Grid>
@@ -86,8 +86,8 @@
                             <TextBlock Grid.Column="1" Name="tb_Launchers_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
                             <styles:AVGifPlayer Grid.Column="2" Name="gif_Launchers_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="25" SpeedRatio="5" HorizontalAlignment="Right"/>
                         </Grid>
-                        <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
-                        <ListBox Name="lb_Launchers" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
+                        <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
+                        <ListBox Name="lb_Launchers" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
                     </StackPanel>
                     <StackPanel Name="sp_Shortcuts">
                         <Grid>
@@ -100,16 +100,16 @@
                             <TextBlock Grid.Column="1" Name="tb_Shortcuts_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
                             <styles:AVGifPlayer Grid.Column="2" Name="gif_Shortcuts_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="25" SpeedRatio="5" HorizontalAlignment="Right"/>
                         </Grid>
-                        <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
-                        <ListBox Name="lb_Shortcuts" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
+                        <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
+                        <ListBox Name="lb_Shortcuts" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
                     </StackPanel>
                     <StackPanel Name="sp_Processes">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Processes"/>
                             <TextBlock Name="tb_Processes_Count" Margin="5,0,0,3.5" VerticalAlignment="Bottom" Style="{StaticResource TextBlockAccent}"/>
                         </StackPanel>
-                        <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}"/>
-                        <ListBox Name="lb_Processes" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
+                        <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
+                        <ListBox Name="lb_Processes" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxHorizontal}"/>
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
@@ -206,19 +206,19 @@
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <StackPanel Name="stackpanel_Menu_Controller0" Opacity="0.40">
                             <Image Name="img_Menu_Controller0" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Accent.png"/>
-                            <Rectangle HorizontalAlignment="Center" Fill="#0ABEF0" Width="15" Height="2" SnapsToDevicePixels="True"/>
+                            <Border CornerRadius="2" HorizontalAlignment="Center" Background="#0ABEF0" Width="15" Height="3" SnapsToDevicePixels="True"/>
                         </StackPanel>
                         <StackPanel Name="stackpanel_Menu_Controller1" Opacity="0.40">
                             <Image Name="img_Menu_Controller1" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
-                            <Rectangle HorizontalAlignment="Center" Fill="#F0140A" Width="15" Height="2" SnapsToDevicePixels="True"/>
+                            <Border CornerRadius="2" HorizontalAlignment="Center" Background="#F0140A" Width="15" Height="3" SnapsToDevicePixels="True"/>
                         </StackPanel>
                         <StackPanel Name="stackpanel_Menu_Controller2" Opacity="0.40">
                             <Image Name="img_Menu_Controller2" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
-                            <Rectangle HorizontalAlignment="Center" Fill="#14F00A" Width="15" Height="2" SnapsToDevicePixels="True"/>
+                            <Border CornerRadius="2" HorizontalAlignment="Center" Background="#14F00A" Width="15" Height="3" SnapsToDevicePixels="True"/>
                         </StackPanel>
                         <StackPanel Name="stackpanel_Menu_Controller3" Opacity="0.40">
                             <Image Name="img_Menu_Controller3" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
-                            <Rectangle HorizontalAlignment="Center" Fill="#F0D205" Width="15" Height="2" SnapsToDevicePixels="True"/>
+                            <Border CornerRadius="2" HorizontalAlignment="Center" Background="#F0D205" Width="15" Height="3" SnapsToDevicePixels="True"/>
                         </StackPanel>
 
                         <Image Name="img_Menu_SteamStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
@@ -236,10 +236,10 @@
                     </StackPanel>
 
                     <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Main Menu"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                 </StackPanel>
 
-                <ListBox Grid.Row="1" Name="listbox_MainMenu" SelectedIndex="0" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemPaddingWhiteVertical}" ItemTemplate="{StaticResource ListBoxItemString}" Style="{StaticResource ListBoxVertical}"/>
+                <ListBox Grid.Row="1" Name="listbox_MainMenu" SelectedIndex="0" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemString}" Style="{StaticResource ListBoxVertical}"/>
             </Grid>
 
             <!-- Shortcuts -->
@@ -277,11 +277,11 @@
                         </Button>
                     </Grid>
 
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                     <TextBlock Name="grid_Popup_Search_textblock_Result" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" HorizontalAlignment="Center"/>
                 </StackPanel>
 
-                <ListBox Grid.Row="1" Name="lb_Search" Focusable="False" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanel}"/>
+                <ListBox Grid.Row="1" Name="lb_Search" Focusable="False" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanel}"/>
             </Grid>
 
             <!-- Shortcuts -->
@@ -317,7 +317,7 @@
 
                 <StackPanel Grid.Row="0">
                     <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Welcome to Controller User Interface"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                 </StackPanel>
 
                 <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
@@ -394,7 +394,7 @@
 
                 <StackPanel Grid.Row="0">
                     <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Media Control"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                 </StackPanel>
 
                 <StackPanel Name="grid_Popup_Media_Information" Visibility="Collapsed" Grid.Row="1" Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
@@ -463,7 +463,7 @@
 
                 <StackPanel Grid.Row="0">
                     <TextBlock Name="grid_Popup_Manage_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Manage"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                 </StackPanel>
 
                 <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
@@ -480,7 +480,7 @@
                         </StackPanel>
 
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application category:"/>
-                        <ListBox Name="lb_Manage_AddAppCategory" SelectionMode="Single" Height="90" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemAppCategory}" Style="{StaticResource ListBoxHorizontal}" Template="{StaticResource ListBoxHorizontalNoScrollTemplate}"/>
+                        <ListBox Name="lb_Manage_AddAppCategory" SelectionMode="Single" Height="90" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemAppCategory}" Style="{StaticResource ListBoxHorizontal}" Template="{StaticResource ListBoxHorizontalNoScrollTemplate}"/>
 
                         <StackPanel Name="sp_AddAppExePath">
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application launch executable:"/>
@@ -543,7 +543,7 @@
 
                 <StackPanel Grid.Row="0">
                     <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Settings"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                 </StackPanel>
 
                 <Grid Grid.Row="1">
@@ -555,7 +555,7 @@
 
                     <Image Grid.Column="0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="30" Margin="0,0,10,0"/>
 
-                    <ListBox Grid.Column="1" Name="Listbox_SettingsMenu" SelectedIndex="0" HorizontalAlignment="Center" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" Style="{StaticResource ListBoxHorizontal}">
+                    <ListBox Grid.Column="1" Name="Listbox_SettingsMenu" SelectedIndex="0" HorizontalAlignment="Center" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" Style="{StaticResource ListBoxHorizontal}">
                         <StackPanel Name="settingsButtonLaunch" Style="{StaticResource ListBoxMenuStackPanel}">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/AppRunExe.png" Width="55" HorizontalAlignment="Center"/>
                             <TextBlock Text="Launch" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -612,7 +612,7 @@
                             <CheckBox Name="cb_SettingsLaunchFpsOverlayer" Content="Launch Fps Overlayer on CtrlUI startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will launch Fps Overlayer when you start CtrlUI automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                            <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,20,0,20"/>
+                            <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
 
                             <Button Name="btn_Settings_AppQuickLaunch" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Button.Content>
@@ -643,7 +643,7 @@
                             <CheckBox Name="cb_SettingsHideAppProcesses" Content="Hide added apps from the processes" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will hide all the added applications from the processes list to prevent double apps." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                            <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,20,0,20"/>
+                            <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
 
                             <CheckBox Name="cb_SettingsShowLibrarySteam" Content="Shows games from Steam library" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will show all the installed games from your Steam library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
@@ -698,12 +698,12 @@
                             <TextBlock Text="Select the font size that you want to use in this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Slider Name="slider_SettingsFontSize" Width="400" Maximum="8" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
-                            <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,20,0,20"/>
+                            <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
 
                             <Button Name="btn_Settings_ColorPickerAccent" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <Rectangle Name="rectangle_Settings_ColorPickerAccent" Width="50" Height="50" Fill="{DynamicResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
+                                        <Border CornerRadius="2" Name="rectangle_Settings_ColorPickerAccent" Width="50" Height="50" Background="{DynamicResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
                                         <TextBlock Margin="15,0,0,0" Text="Change the application accent color" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Button.Content>
@@ -747,7 +747,7 @@
                             <TextBlock Text="Change playback speed of the background video." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Slider Name="slider_SettingsBackgroundPlaySpeed" Width="400" Minimum="50" Maximum="150" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
-                            <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,20,0,20"/>
+                            <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
 
                             <Button Name="btn_Settings_ChangeBackgroundImage" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Button.Content>
@@ -788,7 +788,7 @@
                             <TextBlock Text="Change the used user interface sound volume level." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Slider Name="slider_SettingsSoundVolume" Width="400" Minimum="5" Maximum="100" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>
 
-                            <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,20,0,20"/>
+                            <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
 
                             <Button Name="btn_Settings_InterfaceSoundPackName" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
                                 <Button.Content>
@@ -874,7 +874,7 @@
 
                 <StackPanel Grid.Row="0">
                     <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Help"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                 </StackPanel>
 
                 <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
@@ -908,11 +908,11 @@
 
                 <StackPanel Grid.Row="0">
                     <TextBlock Name="grid_Popup_ColorPicker_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Accent Color"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                     <TextBlock Name="grid_Popup_ColorPicker_txt_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Please select a new accent color:"/>
                 </StackPanel>
 
-                <ListBox Grid.Row="1" Name="lb_ColorPicker" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListboxItemColor}" Style="{StaticResource ListBoxWrapPanel}"/>
+                <ListBox Grid.Row="1" Name="lb_ColorPicker" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemColor}" Style="{StaticResource ListBoxWrapPanel}"/>
             </Grid>
 
             <!-- Shortcuts -->
@@ -936,7 +936,7 @@
 
                 <StackPanel Grid.Row="0">
                     <TextBlock Name="grid_Popup_FilePicker_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="File Browser"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                     <TextBlock Name="grid_Popup_FilePicker_txt_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Description"/>
                 </StackPanel>
 
@@ -951,7 +951,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <ListBox Grid.Row="0" Name="lb_FilePicker" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemFile}" Style="{StaticResource ListBoxVertical}"/>
+                        <ListBox Grid.Row="0" Name="lb_FilePicker" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemFile}" Style="{StaticResource ListBoxVertical}"/>
                         <StackPanel Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Stretch">
                             <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_NoFilesAvailable" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed" Text="No files or folders available in this directory."/>
                             <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_ClipboardStatus" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
@@ -1011,7 +1011,7 @@
                 <StackPanel Grid.Row="0">
                     <TextBlock Name="grid_Popup_ProfileManager_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Profile Manager"/>
                     <TextBlock Name="grid_Popup_ProfileManager_txt_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Profile"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,0"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,0"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1">
@@ -1037,7 +1037,7 @@
                     <Button Name="grid_Popup_ProfileManager_button_ChangeProfile" Margin="0,10,0,0" Content="Change manage profile" Style="{StaticResource ButtonAccentWhite}"/>
                 </StackPanel>
 
-                <ListBox Grid.Row="2" Margin="0,10,0,0" Name="lb_ProfileManager" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListboxItemProfile}" Style="{StaticResource ListBoxVertical}"/>
+                <ListBox Grid.Row="2" Margin="0,10,0,0" Name="lb_ProfileManager" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemProfile}" Style="{StaticResource ListBoxVertical}"/>
             </Grid>
 
             <!-- Shortcuts -->
@@ -1061,7 +1061,7 @@
 
                 <StackPanel Grid.Row="0">
                     <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Move application"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
@@ -1097,11 +1097,11 @@
 
                 <StackPanel Grid.Row="0">
                     <TextBlock Name="grid_MessageBox_Question" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Question"/>
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                     <TextBlock Name="grid_MessageBox_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Description"/>
                 </StackPanel>
 
-                <ListBox Grid.Row="1" Name="lb_MessageBox" VerticalAlignment="Top" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoPaddingWhite}" ItemTemplate="{StaticResource ListBoxItemString}" Style="{StaticResource ListBoxVertical}"/>
+                <ListBox Grid.Row="1" Name="lb_MessageBox" VerticalAlignment="Top" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemString}" Style="{StaticResource ListBoxVertical}"/>
                 <TextBlock Grid.Row="2" Name="grid_MessageBox_Subtitle" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" TextAlignment="Center" TextWrapping="Wrap" Text="Subtitle"/>
             </Grid>
 
@@ -1137,7 +1137,7 @@
                         </Button>
                     </Grid>
 
-                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource RectangleHorizontalAccent}" Margin="0,5,0,5"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                     <Button Name="grid_Popup_TextInput_button_ConfirmText" Style="{StaticResource ButtonAccentWhite}" HorizontalAlignment="Center" Margin="0,10,0,10" Content="Return and use the entered text"/>
                 </StackPanel>
             </Grid>
