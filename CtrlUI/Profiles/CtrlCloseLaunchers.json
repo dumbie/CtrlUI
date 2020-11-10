@@ -60,6 +60,12 @@
     "String1": "Innova.Launcher"
   },
   {
-    "String1": " RobotCacheClient"
-  } 
+    "String1": "RobotCacheClient"
+  },
+  {
+    "String1": "BigBox"
+  },
+  {
+    "String1": "LaunchBox"
+  }
 ]

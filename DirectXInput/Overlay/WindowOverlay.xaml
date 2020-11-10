@@ -43,7 +43,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Name="grid_Message_Status_Grid">
                 <Grid.Background>
-                    <SolidColorBrush Color="#1D1D1D" Opacity="0.80"/>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.80"/>
                 </Grid.Background>
                 <StackPanel Margin="15,10,15,10" Orientation="Horizontal">
                     <Image Name="grid_Message_Status_Image" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Help.png" Height="40"/>

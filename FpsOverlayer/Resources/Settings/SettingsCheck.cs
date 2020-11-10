@@ -23,7 +23,7 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "HardwareUpdateRateMs") == null) { Setting_Save(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", "1000"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "TextColorSingle") == null) { Setting_Save(vConfigurationFpsOverlayer, "TextColorSingle", "False"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorBackground") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorBackground", "#101010"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "ColorBackground") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorBackground", "#1D1D1D"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorSingle") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorSingle", "#F1F1F1"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorGpu") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorGpu", "#A3FF39"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorCpu") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorCpu", "#00EAFF"); }

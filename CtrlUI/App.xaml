@@ -7,10 +7,13 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/MainColors.xaml"/>
-                <ResourceDictionary Source="Styles/CheckBox.xaml"/>
-                <ResourceDictionary Source="Styles/Scrollbar.xaml"/>
-                <ResourceDictionary Source="Styles/Slider.xaml"/>
-                <ResourceDictionary Source="Styles/ControlTemplates.xaml"/>
+                <ResourceDictionary Source="Styles/ControlTemplates/Button.xaml"/>
+                <ResourceDictionary Source="Styles/ControlTemplates/CheckBox.xaml"/>
+                <ResourceDictionary Source="Styles/ControlTemplates/ComboBox.xaml"/>
+                <ResourceDictionary Source="Styles/ControlTemplates/ListBox.xaml"/>
+                <ResourceDictionary Source="Styles/ControlTemplates/Scrollbar.xaml"/>
+                <ResourceDictionary Source="Styles/ControlTemplates/Slider.xaml"/>
+                <ResourceDictionary Source="Styles/ControlTemplates/TextBox.xaml"/>
                 <ResourceDictionary Source="Styles/MainStyles.xaml"/>
                 <ResourceDictionary Source="Styles/DataTemplates/DataTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>

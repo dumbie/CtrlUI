@@ -11,7 +11,7 @@
         Height="550"
         MinWidth="465"
         MaxWidth="465"
-        Background="#F1F1F1">
+        Background="{DynamicResource ApplicationWhiteBrush}">
 
     <!-- Grid Applications -->
     <Grid Margin="10,5,0,0" HorizontalAlignment="Left">
@@ -22,7 +22,7 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <TextBox Name="textbox_AddApp" Width="300" Text="Process name..." styles:TextboxPlaceholder.Placeholder="Process name..." Style="{StaticResource TextBoxBlack}"/>
-            <Button Name="button_AddApp" Margin="10,0,0,0" Content="Add process" Style="{StaticResource ButtonAccentBlack}"/>
+            <Button Name="button_AddApp" Margin="10,0,0,0" Content="Add process" Style="{StaticResource ButtonAccentWhite}"/>
         </StackPanel>
 
         <ListBox Grid.Row="1" Name="listbox_Apps" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemBlack}" ItemTemplate="{StaticResource ListBoxItemAppPosition}" Style="{StaticResource ListBoxVertical}"/>

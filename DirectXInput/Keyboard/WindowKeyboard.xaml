@@ -35,7 +35,7 @@
             <!-- Help Bar -->
             <StackPanel Grid.Row="0" Height="38">
                 <StackPanel.Background>
-                    <SolidColorBrush Color="#1D1D1D" Opacity="0.80"/>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.80"/>
                 </StackPanel.Background>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
@@ -75,7 +75,7 @@
             </StackPanel>
 
             <!-- Keyboard -->
-            <StackPanel Name="grid_Keyboard" Grid.Row="1" Background="#1D1D1D">
+            <StackPanel Name="grid_Keyboard" Grid.Row="1" Background="{DynamicResource ApplicationBlackBrush}">
                 <StackPanel Margin="3,5,7,5">
                     <!-- Key Row 0 -->
                     <StackPanel Name="sp_Row0" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -297,7 +297,7 @@
         <!-- Emoji -->
         <Border Name="border_Emoji" CornerRadius="4" VerticalAlignment="Bottom" Margin="0,0,0,55" Width="625" Height="260" Visibility="Collapsed">
             <Border.Background>
-                <SolidColorBrush Color="#1D1D1D" Opacity="0.95"/>
+                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
             </Border.Background>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <!-- Emoji Row 1 -->

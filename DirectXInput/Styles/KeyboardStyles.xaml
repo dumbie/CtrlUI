@@ -11,7 +11,7 @@
         <Setter Property="MinWidth" Value="47"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="Margin" Value="4,0,0,0"/>
-        <Setter Property="Foreground" Value="#F1F1F1"/>
+        <Setter Property="Foreground" Value="{DynamicResource ApplicationWhiteBrush}"/>
         <Setter Property="Background" Value="{DynamicResource ApplicationAccentLightBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>

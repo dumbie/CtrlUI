@@ -99,8 +99,8 @@
     <Resource Include="Assets\AppIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates.xaml">
-      <Link>Styles\ControlTemplates.xaml</Link>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Button.xaml">
+      <Link>Styles\ControlTemplates\Button.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

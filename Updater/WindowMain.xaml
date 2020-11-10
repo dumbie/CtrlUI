@@ -9,7 +9,7 @@
         Height="125"
         Width="500"
         ResizeMode="CanMinimize"
-        Background="#F1F1F1"
+        Background="{DynamicResource ApplicationWhiteBrush}"
         Topmost="True">
 
     <StackPanel Margin="10,5,10,5">

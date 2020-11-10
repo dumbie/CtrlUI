@@ -12,7 +12,7 @@
         Height="620"
         MinWidth="500"
         MaxWidth="500"
-        Background="#F1F1F1"
+        Background="{DynamicResource ApplicationWhiteBrush}"
         RenderOptions.BitmapScalingMode="HighQuality">
 
     <!-- Grid Settings -->
@@ -34,22 +34,22 @@
                 <TextBlock Text="Stats display screen margins" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                 <TextBlock Text="Change the stats overlay margin from the screen border." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="130" Name="textblock_MarginHorizontal" Tag="Horizontal" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    <TextBlock Width="130" Name="textblock_MarginHorizontal" Text="Horizontal" Tag="Horizontal" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     <Slider Minimum="-10" Maximum="600" Height="18" Width="310" Name="slider_MarginHorizontal" Style="{StaticResource SliderWhite}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="130" Name="textblock_MarginVertical" Tag="Vertical" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    <TextBlock Width="130" Name="textblock_MarginVertical" Text="Vertical" Tag="Vertical" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     <Slider Minimum="-10" Maximum="600" Height="18" Width="310" Name="slider_MarginVertical" Style="{StaticResource SliderWhite}"/>
                 </StackPanel>
 
                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Text Settings"/>
                 <TextBlock Text="Text display font" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                 <TextBlock Text="Change the font in which the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <ComboBox Name="combobox_InterfaceFontStyleName" HorizontalAlignment="Left" Width="400" Style="{StaticResource ComboBoxBlack}"/>
+                <ComboBox Name="combobox_InterfaceFontStyleName" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxWhite}"/>
 
                 <TextBlock Margin="0,10,0,0" Text="Text display position" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                 <TextBlock Text="Change the position of where the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <ComboBox Name="combobox_TextPosition" HorizontalAlignment="Left" Width="400" Style="{StaticResource ComboBoxBlack}">
+                <ComboBox Name="combobox_TextPosition" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxWhite}">
                     <ComboBoxItem>Top left</ComboBoxItem>
                     <ComboBoxItem>Top center</ComboBoxItem>
                     <ComboBoxItem>Top right</ComboBoxItem>
@@ -62,7 +62,7 @@
 
                 <TextBlock Text="Text display direction" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                 <TextBlock Text="Change the direction the stats are displayed in." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <ComboBox Name="combobox_TextDirection" HorizontalAlignment="Left" Width="400" Style="{StaticResource ComboBoxBlack}">
+                <ComboBox Name="combobox_TextDirection" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxWhite}">
                     <ComboBoxItem>Horizontal</ComboBoxItem>
                     <ComboBoxItem>Vertical</ComboBoxItem>
                 </ComboBox>
