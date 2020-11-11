@@ -45,11 +45,11 @@
                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Text Settings"/>
                 <TextBlock Text="Text display font" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                 <TextBlock Text="Change the font in which the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <ComboBox Name="combobox_InterfaceFontStyleName" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxWhite}"/>
+                <ComboBox Name="combobox_InterfaceFontStyleName" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}"/>
 
                 <TextBlock Margin="0,10,0,0" Text="Text display position" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                 <TextBlock Text="Change the position of where the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <ComboBox Name="combobox_TextPosition" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxWhite}">
+                <ComboBox Name="combobox_TextPosition" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
                     <ComboBoxItem>Top left</ComboBoxItem>
                     <ComboBoxItem>Top center</ComboBoxItem>
                     <ComboBoxItem>Top right</ComboBoxItem>
@@ -62,7 +62,7 @@
 
                 <TextBlock Text="Text display direction" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                 <TextBlock Text="Change the direction the stats are displayed in." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <ComboBox Name="combobox_TextDirection" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxWhite}">
+                <ComboBox Name="combobox_TextDirection" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
                     <ComboBoxItem>Horizontal</ComboBoxItem>
                     <ComboBoxItem>Vertical</ComboBoxItem>
                 </ComboBox>

@@ -9,7 +9,7 @@
         <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
             <TextBlock Width="175" Text="{Binding String1}" Style="{StaticResource TextBlockBlack}" VerticalAlignment="Center"/>
 
-            <ComboBox Margin="10,0,0,0" Width="200" Height="35" Name="combobox_TextPosition" SelectedIndex="{Binding Int1}" SelectionChanged="Combobox_TextPosition_SelectionChanged" HorizontalAlignment="Left" Style="{StaticResource ComboBoxWhite}">
+            <ComboBox Margin="10,0,0,0" Width="200" Height="35" Name="combobox_TextPosition" SelectedIndex="{Binding Int1}" SelectionChanged="Combobox_TextPosition_SelectionChanged" HorizontalAlignment="Left" Style="{StaticResource ComboBoxBlack}">
                 <ComboBoxItem>Top left</ComboBoxItem>
                 <ComboBoxItem>Top center</ComboBoxItem>
                 <ComboBoxItem>Top right</ComboBoxItem>
@@ -21,7 +21,7 @@
                 <ComboBoxItem>Hidden</ComboBoxItem>
             </ComboBox>
 
-            <Button Margin="10,0,0,0" Height="35" Content="X" Style="{StaticResource ButtonAccentWhite}" PreviewMouseLeftButtonUp="Button_MouseLeftButtonUp" ToolTipService.ToolTip="Remove the application"/>
+            <Button Margin="10,0,0,0" Height="35" Content="X" Style="{StaticResource ButtonAccentBlack}" PreviewMouseLeftButtonUp="Button_MouseLeftButtonUp" ToolTipService.ToolTip="Remove the application"/>
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

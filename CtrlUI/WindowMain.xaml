@@ -469,8 +469,8 @@
                 <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
                     <StackPanel>
                         <TextBlock HorizontalAlignment="Left" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application image:"/>
-                        <Button Name="btn_AddAppLogo" BorderBrush="{DynamicResource ApplicationWhiteBrush}" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Change application image">
-                            <Image Name="img_AddAppLogo" Margin="0,5,0,5" Width="120" Height="120"/>
+                        <Button Name="btn_AddAppLogo" Style="{StaticResource ButtonImageTransparentWhiteBorder}" BorderBrush="{DynamicResource ApplicationAccentLightBrush}" ToolTipService.ToolTip="Change application image">
+                            <Image Name="img_AddAppLogo" Margin="0,5,0,5" MaxWidth="120" MaxHeight="120"/>
                         </Button>
                         <Button Name="btn_Manage_ResetAppLogo" Margin="0,5,0,0" Content="Reset the application image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
 

@@ -54,7 +54,7 @@ namespace CtrlUI
                 Settings_Load_AccentColor(vConfigurationCtrlUI);
 
                 //Set the application background media
-                UpdateBackgroundMedia();
+                UpdateBackgroundMedia(true);
 
                 //Set the application clock style
                 UpdateClockStyle();

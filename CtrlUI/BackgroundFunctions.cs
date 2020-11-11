@@ -53,7 +53,7 @@ namespace CtrlUI
         }
 
         //Update the application background media
-        void UpdateBackgroundMedia()
+        void UpdateBackgroundMedia(bool updateBrightness)
         {
             try
             {
@@ -73,7 +73,10 @@ namespace CtrlUI
                 UpdateBackgroundPlaySpeed();
 
                 //Update the application background brightness
-                UpdateBackgroundBrightness();
+                if (updateBrightness)
+                {
+                    UpdateBackgroundBrightness();
+                }
 
                 //Update the application background volume
                 UpdateBackgroundPlayVolume();
@@ -136,7 +139,7 @@ namespace CtrlUI
             try
             {
                 Debug.WriteLine("Background media failed, restarting.");
-                UpdateBackgroundMedia();
+                UpdateBackgroundMedia(true);
             }
             catch { }
         }

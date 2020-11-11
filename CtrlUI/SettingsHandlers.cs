@@ -216,7 +216,7 @@ namespace CtrlUI
                 Setting_Save(vConfigurationCtrlUI, "DesktopBackground", "False");
 
                 //Update the background media
-                UpdateBackgroundMedia();
+                UpdateBackgroundMedia(false);
             }
             catch { }
         }
@@ -251,7 +251,7 @@ namespace CtrlUI
                 Setting_Save(vConfigurationCtrlUI, "VideoBackground", "True");
 
                 //Update the background media
-                UpdateBackgroundMedia();
+                UpdateBackgroundMedia(false);
             }
             catch { }
         }
@@ -269,7 +269,7 @@ namespace CtrlUI
                 File_Delete("Assets/User/BackgroundLive.mp4");
 
                 //Update the background media
-                UpdateBackgroundMedia();
+                UpdateBackgroundMedia(false);
             }
             catch { }
         }

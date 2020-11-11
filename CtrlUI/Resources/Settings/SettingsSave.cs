@@ -186,20 +186,20 @@ namespace CtrlUI
                 cb_SettingsVideoBackground.Click += (sender, e) =>
                 {
                     Setting_Save(vConfigurationCtrlUI, "VideoBackground", cb_SettingsVideoBackground.IsChecked.ToString());
-                    UpdateBackgroundMedia();
+                    UpdateBackgroundMedia(false);
                 };
 
                 cb_SettingsDesktopBackground.Click += (sender, e) =>
                 {
                     Setting_Save(vConfigurationCtrlUI, "DesktopBackground", cb_SettingsDesktopBackground.IsChecked.ToString());
-                    UpdateBackgroundMedia();
+                    UpdateBackgroundMedia(false);
                 };
 
                 slider_SettingsBackgroundBrightness.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsBackgroundBrightness.Text = "Background brightness: " + Convert.ToInt32(slider_SettingsBackgroundBrightness.Value) + "%";
                     Setting_Save(vConfigurationCtrlUI, "BackgroundBrightness", Convert.ToInt32(slider_SettingsBackgroundBrightness.Value).ToString());
-                    UpdateBackgroundBrightness();
+                    //UpdateBackgroundBrightness();
                 };
 
                 slider_SettingsBackgroundPlayVolume.ValueChanged += (sender, e) =>
