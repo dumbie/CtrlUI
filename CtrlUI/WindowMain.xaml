@@ -268,7 +268,7 @@
                     </TextBlock>
 
                     <Grid>
-                        <TextBox Name="grid_Popup_Search_textbox" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparent}" Text="Search application..." styles:TextboxPlaceholder.Placeholder="Search application..."/>
+                        <TextBox Name="grid_Popup_Search_textbox" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparentWhite}" Text="Search application..." styles:TextboxPlaceholder.Placeholder="Search application..."/>
                         <Button Name="grid_Popup_Search_button_Reset" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the search panel">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="22" Width="22" Margin="0,0,5,0"/>
@@ -814,8 +814,8 @@
                             <TextBlock Text="Sockets client and server ports:*" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Sockets are used to receive and send information to the other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <StackPanel Orientation="Horizontal">
-                                <TextBox Name="txt_SettingsSocketClientPortStart" Style="{StaticResource TextBoxBlack}" Width="120" HorizontalAlignment="Left"/>
-                                <TextBox Name="txt_SettingsSocketClientPortRange" IsEnabled="False" Style="{StaticResource TextBoxBlack}" Width="120" Margin="5,0,0,0" HorizontalAlignment="Left"/>
+                                <TextBox Name="txt_SettingsSocketClientPortStart" Style="{StaticResource TextBoxWhite}" Width="120" HorizontalAlignment="Left"/>
+                                <TextBox Name="txt_SettingsSocketClientPortRange" IsEnabled="False" Style="{StaticResource TextBoxWhite}" Width="120" Margin="5,0,0,0" HorizontalAlignment="Left"/>
                             </StackPanel>
 
                             <TextBlock Text="* Changing the port requires you to restart the other applications." Margin="0,20,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
@@ -1128,7 +1128,7 @@
                     <TextBlock Name="grid_Popup_TextInput_textblock_Title" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="Text Input" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}"/>
 
                     <Grid>
-                        <TextBox Name="grid_Popup_TextInput_textbox" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparent}" Text="Enter text..." styles:TextboxPlaceholder.Placeholder="Enter text..."/>
+                        <TextBox Name="grid_Popup_TextInput_textbox" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparentWhite}" Text="Enter text..." styles:TextboxPlaceholder.Placeholder="Enter text..."/>
                         <Button Name="grid_Popup_TextInput_button_Reset" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the text input">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="22" Width="22" Margin="0,0,5,0"/>

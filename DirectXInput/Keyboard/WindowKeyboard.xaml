@@ -21,9 +21,11 @@
 
     <!-- Grid Application -->
     <Grid Name="grid_Application">
-        <Grid.Background>
-            <SolidColorBrush Color="{DynamicResource ApplicationAccentLightColor}" Opacity="0.50"/>
-        </Grid.Background>
+        <Border CornerRadius="4">
+            <Border.Background>
+                <SolidColorBrush Color="{DynamicResource ApplicationAccentLightColor}" Opacity="0.50"/>
+            </Border.Background>
+        </Border>
 
         <!-- Grid Keyboard -->
         <Grid Margin="2">
@@ -33,10 +35,12 @@
             </Grid.RowDefinitions>
 
             <!-- Help Bar -->
-            <StackPanel Grid.Row="0" Height="38">
-                <StackPanel.Background>
-                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.80"/>
-                </StackPanel.Background>
+            <Grid Name="grid_HelpBar" Grid.Row="0">
+                <Border CornerRadius="4,4,0,0">
+                    <Border.Background>
+                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.80"/>
+                    </Border.Background>
+                </Border>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="26" Opacity="0.80"/>
@@ -72,11 +76,16 @@
                         <TextBlock Name="textblock_ThumbRightOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Move"/>
                     </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </Grid>
 
             <!-- Keyboard -->
-            <StackPanel Name="grid_Keyboard" Grid.Row="1" Background="{DynamicResource ApplicationBlackBrush}">
-                <StackPanel Margin="3,5,7,5">
+            <Grid Name="grid_Keyboard" Grid.Row="1">
+                <Border CornerRadius="0,0,4,4">
+                    <Border.Background>
+                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}"/>
+                    </Border.Background>
+                </Border>
+                <StackPanel Margin="1,5,5,5">
                     <!-- Key Row 0 -->
                     <StackPanel Name="sp_Row0" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Name="key_F1" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
@@ -99,79 +108,79 @@
                         <Button Name="key_Tilde" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_Tilde_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Tilde_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Tilde_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_1" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_1_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_1_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_1_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_2" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_2_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_2_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_2_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_3" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_3_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_3_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_3_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_4" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_4_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_4_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_4_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_5" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_5_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_5_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_5_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_6" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_6_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_6_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_6_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_7" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_7_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_7_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_7_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_8" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_8_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_8_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_8_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_9" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_9_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_9_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_9_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_0" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_0_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_0_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_0_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_Minus" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_Minus_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Minus_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Minus_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_Plus" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_Plus_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Plus_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Plus_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_BackSpace" Width="80" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
@@ -192,13 +201,13 @@
                         <Button Name="key_OpenBracket" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_OpenBracket_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_OpenBracket_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_OpenBracket_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_CloseBracket" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_CloseBracket_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_CloseBracket_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_CloseBracket_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_DotCom" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
@@ -218,20 +227,20 @@
                         <Button Name="key_Semicolon" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_Semicolon_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Semicolon_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Semicolon_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_Quote" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_Quote_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Quote_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Quote_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_Up" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_Pipe" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_Pipe_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Pipe_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Pipe_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                     </StackPanel>
@@ -248,19 +257,19 @@
                         <Button Name="key_Comma" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_Comma_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Comma_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Comma_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_Period" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_Period_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Period_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Period_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_Question" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Grid>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-5" Name="key_Question_Normal" FontSize="{DynamicResource TextSizeMedium}"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Question_Caps" Foreground="#555" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" Name="key_Question_Caps" Foreground="{DynamicResource ApplicationDarkGrayBrush}" FontSize="{DynamicResource TextSizeSmall}" FontWeight="SemiBold"/>
                             </Grid>
                         </Button>
                         <Button Name="key_Left" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
@@ -291,7 +300,7 @@
                         </Button>
                     </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </Grid>
         </Grid>
 
         <!-- Emoji -->

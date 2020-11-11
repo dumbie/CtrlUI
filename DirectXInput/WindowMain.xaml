@@ -12,9 +12,9 @@
         Background="{DynamicResource ApplicationBlackBrush}"
         MinHeight="700"
         Height="700"
-        MinWidth="700"
-        MaxWidth="700"
-        Width="700">
+        MinWidth="720"
+        MaxWidth="720"
+        Width="720">
 
     <!-- Grid Application -->
     <Grid Name="grid_App">

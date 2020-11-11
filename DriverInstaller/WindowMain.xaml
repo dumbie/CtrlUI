@@ -36,7 +36,7 @@
                 </StackPanel>
             </Grid>
 
-            <TextBox Grid.Row="1" Name="textbox_Status" Foreground="#888" Style="{StaticResource TextBoxTransparent}"/>
+            <TextBox Grid.Row="1" Name="textbox_Status" IsReadOnly="True" Foreground="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource TextBoxTransparentBlack}"/>
         </Grid>
     </Grid>
 </Window>

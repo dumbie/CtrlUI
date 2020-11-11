@@ -1,21 +1,48 @@
 ﻿<ResourceDictionary
     x:Class="ArnoldVinkCode.Styles.KeyboardStyles"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!--Button Styles-->
+    <!-- Button Style -->
     <Style x:Key="ButtonKeyboard" TargetType="Button">
         <Setter Property="FontSize" Value="{DynamicResource TextSizeMedium}"/>
-        <Setter Property="MinHeight" Value="45"/>
-        <Setter Property="MinWidth" Value="47"/>
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="Margin" Value="4,0,0,0"/>
         <Setter Property="Foreground" Value="{DynamicResource ApplicationWhiteBrush}"/>
         <Setter Property="Background" Value="{DynamicResource ApplicationAccentLightBrush}"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ApplicationAccentLightBrush}"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="4,0,0,0"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Template" Value="{StaticResource ButtonTemplateWhite}"/>
+        <Setter Property="MinHeight" Value="45"/>
+        <Setter Property="MinWidth" Value="47"/>
+        <Setter Property="Template" Value="{DynamicResource ButtonTemplateKeyboard}"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
     </Style>
+
+    <!--Button Template Keyboard-->
+    <ControlTemplate x:Key="ButtonTemplateKeyboard" TargetType="{x:Type Button}">
+        <Border x:Name="border" CornerRadius="2" BorderThickness="2" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ApplicationWhiteBrush}"/>
+                <Setter Property="Background" TargetName="border" Value="{DynamicResource ApplicationAccentDarkBrush}"/>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ApplicationWhiteBrush}"/>
+                <Setter Property="Background" TargetName="border" Value="{DynamicResource ApplicationAccentDarkBrush}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ApplicationWhiteBrush}"/>
+                <Setter Property="Background" TargetName="border" Value="{DynamicResource ApplicationAccentDimBrush}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.50"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 </ResourceDictionary>
