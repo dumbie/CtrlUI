@@ -84,8 +84,8 @@ namespace DirectXInput
             catch { }
         }
 
-        //Copy Controller Debug Information
-        void Btn_CopyControllerDebugInfo_Click(object sender, RoutedEventArgs args)
+        //Generate controller debug information
+        string GenerateControllerDebugInformation()
         {
             try
             {
@@ -97,7 +97,26 @@ namespace DirectXInput
                     RawPackets += "(ProductId" + activeController.Details.Profile.ProductID + "/VendorId" + activeController.Details.Profile.VendorID + ")";
 
                     for (int Packet = 0; Packet < activeController.InputReport.Length; Packet++) { RawPackets = RawPackets + " " + activeController.InputReport[Packet]; }
-                    Clipboard.SetText(RawPackets);
+                    return RawPackets;
+                }
+                else
+                {
+                    return "No controller connected to debug.";
+                }
+            }
+            catch { }
+            return "Failed to generate debug information.";
+        }
+
+        //Copy controller debug information
+        void Btn_CopyDebugInformation_Click(object sender, RoutedEventArgs args)
+        {
+            try
+            {
+                ControllerStatus activeController = GetActiveController();
+                if (activeController != null && activeController.InputReport != null)
+                {
+                    Clipboard.SetText(GenerateControllerDebugInformation());
 
                     Debug.WriteLine("Controller debug information copied to clipboard.");
                     NotificationDetails notificationDetails = new NotificationDetails();

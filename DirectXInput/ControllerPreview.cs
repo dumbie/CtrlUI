@@ -1,8 +1,10 @@
 ﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -41,6 +43,17 @@ namespace DirectXInput
                             else
                             {
                                 txt_ActiveControllerBattery.Text = "Battery unknown";
+                            }
+
+                            //Update debug information
+                            if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShowDebugInformation")))
+                            {
+                                textblock_LiveDebugInformation.Text = GenerateControllerDebugInformation();
+                                textblock_LiveDebugInformation.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                textblock_LiveDebugInformation.Visibility = Visibility.Collapsed;
                             }
 
                             //D-Pad

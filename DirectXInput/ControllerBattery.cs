@@ -1,8 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using static DirectXInput.AppVariables;
@@ -20,8 +18,7 @@ namespace DirectXInput
             try
             {
                 //Check which controller is connected
-                IEnumerable<ControllerSupported> TargetController = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
-                if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && Controller.Details.Wireless)
+                if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && Controller.Details.Wireless)
                 {
                     //Bluetooth - DualShock 4
                     int BatteryOffset = 30 + Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset;
@@ -39,7 +36,7 @@ namespace DirectXInput
                         Controller.BatteryPercentageCurrent = RawBattery;
                     }
                 }
-                else if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && !Controller.Details.Wireless)
+                else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && !Controller.Details.Wireless)
                 {
                     //Wired USB - DualShock 4
                     Controller.BatteryPercentageCurrent = -2;

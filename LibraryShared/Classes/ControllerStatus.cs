@@ -51,6 +51,7 @@ namespace LibraryShared
             public int Delay_CtrlUIOutput = Environment.TickCount;
             public int Delay_ControllerShortcut = Environment.TickCount;
             public ControllerInput InputCurrent = new ControllerInput();
+            public ControllerSupported SupportedCurrent = new ControllerSupported();
 
             //Set used controller number
             public ControllerStatus(int numberId)
@@ -89,6 +90,7 @@ namespace LibraryShared
 
                     //Controller Input
                     InputCurrent = new ControllerInput();
+                    SupportedCurrent = new ControllerSupported();
                 }
                 catch { }
             }

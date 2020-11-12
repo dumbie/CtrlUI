@@ -41,7 +41,7 @@ namespace DirectXInput
                         //Detect and adjust controller header offset
                         if (!Controller.InputHeaderOffsetFinished)
                         {
-                            if (Controller.InputReport[0 + Controller.InputHeaderByteOffset] > 4)
+                            if (Controller.InputReport[Controller.InputHeaderByteOffset] > 4)
                             {
                                 Controller.InputHeaderByteOffset++;
                                 Debug.WriteLine("Adjusted the controller header offset to: " + Controller.InputHeaderByteOffset);
@@ -54,22 +54,42 @@ namespace DirectXInput
                             }
                         }
 
-                        //Offsets for thumb sticks
-                        int OffsetThumbLeftX = 1 + Controller.InputHeaderByteOffset;
-                        int OffsetThumbLeftY = 2 + Controller.InputHeaderByteOffset;
-                        int OffsetThumbRightX = 3 + Controller.InputHeaderByteOffset;
-                        int OffsetThumbRightY = 4 + Controller.InputHeaderByteOffset;
+                        //Set controller read offfsets
+                        int OffsetThumbLeftX = Controller.InputHeaderByteOffset;
+                        int OffsetThumbLeftY = Controller.InputHeaderByteOffset;
+                        int OffsetThumbRightX = Controller.InputHeaderByteOffset;
+                        int OffsetThumbRightY = Controller.InputHeaderByteOffset;
+                        int OffsetButtonsGroup1 = Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset; //D-Pad and A,B,X,Y
+                        int OffsetButtonsGroup2 = Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset; //ShoulderLeftRight, TriggerLeftRight, ThumbLeftRight, Back, Start
+                        int OffsetButtonsGroup3 = Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset; //Guide, Touchpad, Mute
+                        int OffsetTriggerLeft = Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset;
+                        int OffsetTriggerRight = Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset;
+                        if (Controller.Details.Wireless)
+                        {
+                            OffsetThumbLeftX += Controller.SupportedCurrent.OffsetWireless.ThumbLeftX;
+                            OffsetThumbLeftY += Controller.SupportedCurrent.OffsetWireless.ThumbLeftY;
+                            OffsetThumbRightX += Controller.SupportedCurrent.OffsetWireless.ThumbRightX;
+                            OffsetThumbRightY += Controller.SupportedCurrent.OffsetWireless.ThumbRightY;
+                            OffsetButtonsGroup1 += Controller.SupportedCurrent.OffsetWireless.ButtonsGroup1;
+                            OffsetButtonsGroup2 += Controller.SupportedCurrent.OffsetWireless.ButtonsGroup2;
+                            OffsetButtonsGroup3 += Controller.SupportedCurrent.OffsetWireless.ButtonsGroup3;
+                            OffsetTriggerLeft += Controller.SupportedCurrent.OffsetWireless.TriggerLeft;
+                            OffsetTriggerRight += Controller.SupportedCurrent.OffsetWireless.TriggerRight;
+                        }
+                        else
+                        {
+                            OffsetThumbLeftX += Controller.SupportedCurrent.OffsetUsb.ThumbLeftX;
+                            OffsetThumbLeftY += Controller.SupportedCurrent.OffsetUsb.ThumbLeftY;
+                            OffsetThumbRightX += Controller.SupportedCurrent.OffsetUsb.ThumbRightX;
+                            OffsetThumbRightY += Controller.SupportedCurrent.OffsetUsb.ThumbRightY;
+                            OffsetButtonsGroup1 += Controller.SupportedCurrent.OffsetUsb.ButtonsGroup1;
+                            OffsetButtonsGroup2 += Controller.SupportedCurrent.OffsetUsb.ButtonsGroup2;
+                            OffsetButtonsGroup3 += Controller.SupportedCurrent.OffsetUsb.ButtonsGroup3;
+                            OffsetTriggerLeft += Controller.SupportedCurrent.OffsetUsb.TriggerLeft;
+                            OffsetTriggerRight += Controller.SupportedCurrent.OffsetUsb.TriggerRight;
+                        }
 
-                        //Offsets for DPad and Buttons
-                        int OffsetButtonsGroup1 = 5 + Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset; //D-Pad and A,B,X,Y
-                        int OffsetButtonsGroup2 = 6 + Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset; //ShoulderLeftRight, TriggerLeftRight, ThumbLeftRight, Back, Start
-                        int OffsetButtonsGroup3 = 7 + Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset; //Guide, Touchpad
-
-                        //Offsets for Triggers
-                        int OffsetTriggerLeft = 8 + Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset;
-                        int OffsetTriggerRight = 9 + Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset;
-
-                        //Detect controller button offset
+                        //Detect and adjust controller button offset
                         if (Controller.InputReport[OffsetButtonsGroup1] == 255)
                         {
                             Controller.InputButtonByteOffset++;
@@ -230,7 +250,7 @@ namespace DirectXInput
 
                         //Raw Buttons (Group 3)
                         int ButtonIdGroup3 = 0;
-                        for (int ButtonByte = 40; ButtonByte < 42; ButtonByte++)
+                        for (int ButtonByte = 40; ButtonByte < 45; ButtonByte++)
                         {
                             Controller.InputCurrent.RawBytes[ButtonByte] = ((byte)Controller.InputReport[OffsetButtonsGroup3] & (1 << ButtonIdGroup3)) != 0;
                             ButtonIdGroup3++;
@@ -330,7 +350,7 @@ namespace DirectXInput
                     }
                     catch
                     {
-                        Debug.WriteLine("Direct input data report is out of range or empty, skipping.");
+                        Debug.WriteLine("Direct input hid data report is out of range or empty, skipping.");
                     }
                 }
             }

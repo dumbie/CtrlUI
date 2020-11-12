@@ -1,9 +1,7 @@
 ﻿using ArnoldVinkCode;
 using LibraryUsb;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -48,8 +46,11 @@ namespace DirectXInput
                     }
 
                     //Check which controller is connected
-                    IEnumerable<ControllerSupported> TargetController = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
-                    if (TargetController.Any(x => x.CodeName == "SonyDualSense5") && !Controller.Details.Wireless)
+                    if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
+                    {
+                        Debug.WriteLine("BlueRumb DS5");
+                    }
+                    else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && !Controller.Details.Wireless)
                     {
                         //Wired USB Output - DualSense 5
                         byte[] OutputReport = new byte[Controller.OutputReport.Length];
@@ -90,7 +91,7 @@ namespace DirectXInput
                         NativeMethods_Hid.WriteFile(Controller.HidDevice.DeviceHandle, OutputReport, (uint)OutputReport.Length, out uint bytesWritten, IntPtr.Zero);
                         Debug.WriteLine("UsbRumb DS5");
                     }
-                    else if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && Controller.Details.Wireless)
+                    else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && Controller.Details.Wireless)
                     {
                         //Bluetooth Output - DualShock 4
                         byte[] OutputReport = new byte[Controller.OutputReport.Length];
@@ -133,7 +134,7 @@ namespace DirectXInput
                         NativeMethods_Hid.HidD_SetOutputReport(Controller.HidDevice.DeviceHandle, OutputReport, OutputReport.Length);
                         Debug.WriteLine("BlueRumb DS4");
                     }
-                    else if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && !Controller.Details.Wireless)
+                    else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && !Controller.Details.Wireless)
                     {
                         //Wired USB Output - DualShock 4
                         byte[] OutputReport = new byte[Controller.OutputReport.Length];
@@ -175,7 +176,7 @@ namespace DirectXInput
                         NativeMethods_Hid.WriteFile(Controller.HidDevice.DeviceHandle, OutputReport, (uint)OutputReport.Length, out uint bytesWritten, IntPtr.Zero);
                         Debug.WriteLine("UsbRumb DS4");
                     }
-                    else if (TargetController.Any(x => x.CodeName == "SonyDualShock3"))
+                    else if (Controller.SupportedCurrent.CodeName == "SonyDualShock3")
                     {
                         //Wired USB Output - DualShock 3
                         byte[] OutputReport =
@@ -205,7 +206,7 @@ namespace DirectXInput
                         Controller.WinUsbDevice.SendTransfer(0x21, 0x09, 0x0201, OutputReport, ref Transferred);
                         Debug.WriteLine("UsbRumb DS3");
                     }
-                    else if (TargetController.Any(x => x.CodeName == "SonyDualShock12"))
+                    else if (Controller.SupportedCurrent.CodeName == "SonyDualShock12")
                     {
                         //Wired USB Output - DualShock 1 and 2
                         int HeavyMotorDS2 = Convert.ToInt32(HeavyMotor) / 2;

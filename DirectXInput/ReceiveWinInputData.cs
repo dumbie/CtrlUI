@@ -1,8 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -19,17 +17,9 @@ namespace DirectXInput
                 Debug.WriteLine("Receive and Translate Win DirectInput for: " + Controller.Details.DisplayName);
 
                 //Wake up USB controllers
-                IEnumerable<ControllerSupported> TargetController = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
-                if (TargetController.Any(x => x.CodeName == "SonyDualShock3"))
+                if (Controller.SupportedCurrent.CodeName == "SonyDualShock3" || Controller.SupportedCurrent.CodeName == "SonyMoveNavigation3")
                 {
-                    Debug.WriteLine("Waking up USB controller: SonyDualShock3");
-                    byte[] EnableBytes = { 0x42, 0x0C, 0x00, 0x00 };
-                    int Transferred = 0;
-                    Controller.WinUsbDevice.SendTransfer(0x21, 0x09, 0x3F4, EnableBytes, ref Transferred);
-                }
-                else if (TargetController.Any(x => x.CodeName == "SonyMoveNavigation3"))
-                {
-                    Debug.WriteLine("Waking up USB controller: SonyMoveNavigation3");
+                    Debug.WriteLine("Waking up USB controller: SonyDualShock3 or SonyMoveNavigation3");
                     byte[] EnableBytes = { 0x42, 0x0C, 0x00, 0x00 };
                     int Transferred = 0;
                     Controller.WinUsbDevice.SendTransfer(0x21, 0x09, 0x3F4, EnableBytes, ref Transferred);
@@ -325,7 +315,7 @@ namespace DirectXInput
                     }
                     catch
                     {
-                        Debug.WriteLine("Direct input data report is out of range or empty, skipping.");
+                        Debug.WriteLine("Direct input win data report is out of range or empty, skipping.");
                     }
                 }
             }

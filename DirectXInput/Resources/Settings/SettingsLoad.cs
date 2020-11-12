@@ -26,6 +26,8 @@ namespace DirectXInput
                 textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinInt + " minutes";
                 slider_ControllerIdleDisconnectMin.Value = controllerIdleDisconnectMinInt;
 
+                cb_ControllerShowDebugInformation.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShowDebugInformation"));
+
                 cb_SettingsShortcutLaunchCtrlUI.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI"));
                 cb_SettingsShortcutLaunchKeyboardController.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController"));
                 cb_SettingsShortcutAltEnter.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter"));

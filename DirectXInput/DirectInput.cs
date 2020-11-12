@@ -85,6 +85,9 @@ namespace DirectXInput
                     //Update the controller last active time
                     Controller.LastActiveTicks = Environment.TickCount;
 
+                    //Set the controller supported profile
+                    Controller.SupportedCurrent = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower())).FirstOrDefault();
+
                     //Start Translating DirectInput Controller Threads
                     if (Controller.Details.Type == "Win")
                     {

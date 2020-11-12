@@ -54,7 +54,7 @@ namespace DirectXInput
                 btn_DisconnectController.Click += Btn_DisconnectController_Click;
                 btn_DisconnectControllerAll.Click += Btn_DisconnectControllerAll_Click;
                 btn_RemoveController.Click += Btn_RemoveController_Click;
-                btn_DebugInformation.Click += Btn_CopyControllerDebugInfo_Click;
+                btn_CopyDebugInformation.Click += Btn_CopyDebugInformation_Click;
                 btn_CheckControllers.Click += btn_CheckControllers_Click;
                 btn_CheckDeviceManager.Click += btn_CheckDeviceManager_Click;
 

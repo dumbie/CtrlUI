@@ -110,9 +110,8 @@
                                 <Button Margin="0,10,0,0" Name="btn_SearchNewControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Search for recently connected controllers"/>
                                 <Button Margin="0,10,0,0" Name="btn_CheckControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Manage the Windows game controllers"/>
                                 <Button Margin="0,10,0,0" Name="btn_CheckDeviceManager" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Open the Windows device manager"/>
-                                <Button Margin="0,10,0,0" Name="btn_DebugInformation" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Copy controller debug information"/>
                                 <Button Margin="0,20,0,0" Name="btn_RemoveController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Remove the active controller profile"/>
-                                <Button Margin="0,20,0,0" Name="Btn_IgnoreController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Ignore and disconnect active controller"/>
+                                <Button Margin="0,10,0,0" Name="Btn_IgnoreController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Ignore and disconnect active controller"/>
                                 <Button Margin="0,10,0,0" Name="Btn_AllowIgnoredControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Allow previously ignored controllers"/>
                                 <Button Margin="0,20,0,0" Name="btn_DisconnectController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect active controller"/>
                                 <Button Margin="0,10,0,0" Name="btn_DisconnectControllerAll" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect all controllers"/>
@@ -210,6 +209,8 @@
                                     <TextBlock Name="textblock_Thumb_Right_X_Left" Text="0" Width="50" TextAlignment="Right" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,20,0,0"/>
                                     <TextBlock Name="textblock_Thumb_Right_X_Right" Text="0" Width="50" TextAlignment="Left" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,20,0,0"/>
                                 </Grid>
+
+                                <TextBlock Name="textblock_LiveDebugInformation" HorizontalAlignment="Center" Style="{StaticResource TextBlockBlack}" Text="Live controller debug information" TextWrapping="Wrap" Width="570" Height="100"/>
 
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
                                     <Button Name="btn_RumbleTestLight" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Light"/>
@@ -537,7 +538,14 @@
                                 <TextBlock Text="Change the minutes a wireless controller will automatically disconnect itself after it hasn't been used for a while to save the controllers battery life." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_ControllerIdleDisconnectMin" Height="18" Width="460" Minimum="3" Maximum="180" TickFrequency="1" SmallChange="1" LargeChange="1" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
-                                <Button Name="btn_Settings_InstallDrivers" Margin="0,20,0,0" Content="Click here to install the required drivers" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Debug Settings"/>
+                                <CheckBox Name="cb_ControllerShowDebugInformation" Content="Show controller debug information" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will show live controller debug information on the controller tab." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <Button Margin="0,10,0,0" Name="btn_CopyDebugInformation" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Copy controller debug information"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Other Settings"/>
+                                <Button Name="btn_Settings_InstallDrivers" Content="Install the required drivers" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>

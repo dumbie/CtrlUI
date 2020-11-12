@@ -56,6 +56,11 @@ namespace DirectXInput
                     textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinString + " minutes";
                 };
 
+                cb_ControllerShowDebugInformation.Click += (sender, e) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ShowDebugInformation", cb_ControllerShowDebugInformation.IsChecked.ToString());
+                };
+
                 //Shortcut settings
                 cb_SettingsShortcutLaunchCtrlUI.Click += (sender, e) =>
                 {
