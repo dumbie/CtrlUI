@@ -49,7 +49,20 @@ namespace DirectXInput
 
                     //Check which controller is connected
                     IEnumerable<ControllerSupported> TargetController = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower()));
-                    if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && Controller.Details.Wireless)
+                    if (TargetController.Any(x => x.CodeName == "SonyDualSense5") && !Controller.Details.Wireless)
+                    {
+                        //Wired USB Output - DualSense 5
+                        byte[] OutputReport = new byte[Controller.OutputReport.Length];
+                        OutputReport[0] = 0x02;
+                        OutputReport[1] = 0xFF;
+                        OutputReport[3] = LightMotor;
+                        OutputReport[4] = HeavyMotor;
+
+                        //Send data to the controller
+                        NativeMethods_Hid.WriteFile(Controller.HidDevice.DeviceHandle, OutputReport, (uint)OutputReport.Length, out uint bytesWritten, IntPtr.Zero);
+                        Debug.WriteLine("UsbRumb DS5");
+                    }
+                    else if (TargetController.Any(x => x.CodeName == "SonyDualShock4") && Controller.Details.Wireless)
                     {
                         //Bluetooth Output - DualShock 4
                         byte[] OutputReport = new byte[Controller.OutputReport.Length];
