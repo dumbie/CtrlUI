@@ -55,8 +55,36 @@ namespace DirectXInput
                         byte[] OutputReport = new byte[Controller.OutputReport.Length];
                         OutputReport[0] = 0x02;
                         OutputReport[1] = 0xFF;
+                        OutputReport[2] = 0x44;
                         OutputReport[3] = LightMotor;
                         OutputReport[4] = HeavyMotor;
+
+                        //Set the controller led color
+                        double ControllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
+                        if (Controller.NumberId == 0)
+                        {
+                            OutputReport[45] = Convert.ToByte(10 * ControllerLedBrightness); //Red
+                            OutputReport[46] = Convert.ToByte(190 * ControllerLedBrightness); //Green
+                            OutputReport[47] = Convert.ToByte(240 * ControllerLedBrightness); //Blue
+                        }
+                        else if (Controller.NumberId == 1)
+                        {
+                            OutputReport[45] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                            OutputReport[46] = Convert.ToByte(20 * ControllerLedBrightness); //Green
+                            OutputReport[47] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                        }
+                        else if (Controller.NumberId == 2)
+                        {
+                            OutputReport[45] = Convert.ToByte(20 * ControllerLedBrightness); //Red
+                            OutputReport[46] = Convert.ToByte(240 * ControllerLedBrightness); //Green
+                            OutputReport[47] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                        }
+                        else
+                        {
+                            OutputReport[45] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                            OutputReport[46] = Convert.ToByte(210 * ControllerLedBrightness); //Green
+                            OutputReport[47] = Convert.ToByte(5 * ControllerLedBrightness); //Blue
+                        }
 
                         //Send data to the controller
                         NativeMethods_Hid.WriteFile(Controller.HidDevice.DeviceHandle, OutputReport, (uint)OutputReport.Length, out uint bytesWritten, IntPtr.Zero);
