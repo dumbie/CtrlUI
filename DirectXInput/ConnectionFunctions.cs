@@ -93,7 +93,8 @@ namespace DirectXInput
                 if (activeController != null && activeController.InputReport != null)
                 {
                     string RawPackets = "(Out" + activeController.OutputReport.Length + "/In" + activeController.InputReport.Length + ")";
-                    RawPackets += "(Offset" + activeController.InputHeaderByteOffset + ")";
+                    RawPackets += "(OffHd" + activeController.InputHeaderByteOffset + ")";
+                    RawPackets += "(OffBt" + activeController.InputButtonByteOffset + ")";
                     RawPackets += "(ProductId" + activeController.Details.Profile.ProductID + "/VendorId" + activeController.Details.Profile.VendorID + ")";
 
                     for (int Packet = 0; Packet < activeController.InputReport.Length; Packet++) { RawPackets = RawPackets + " " + activeController.InputReport[Packet]; }
@@ -101,11 +102,11 @@ namespace DirectXInput
                 }
                 else
                 {
-                    return "No controller connected to debug.";
+                    return "No controller connected to debug";
                 }
             }
             catch { }
-            return "Failed to generate debug information.";
+            return "Failed to generate debug information";
         }
 
         //Copy controller debug information

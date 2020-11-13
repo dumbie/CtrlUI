@@ -48,6 +48,17 @@ namespace DirectXInput
                     //Check which controller is connected
                     if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
                     {
+                        ////Bluetooth Output - DualSense 5
+                        //byte[] OutputReport = new byte[Controller.OutputReport.Length];
+
+                        //If battery is low turn on microphone led
+                        if (Controller.BatteryPercentageCurrent <= 20 && Controller.BatteryPercentageCurrent >= 0)
+                        {
+                            //OutputReport[?] = 0x01; //Microphone led
+                        }
+
+                        //Send data to the controller
+                        //NativeMethods_Hid.HidD_SetOutputReport(Controller.HidDevice.DeviceHandle, OutputReport, OutputReport.Length);
                         Debug.WriteLine("BlueRumb DS5");
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && !Controller.Details.Wireless)
@@ -56,9 +67,10 @@ namespace DirectXInput
                         byte[] OutputReport = new byte[Controller.OutputReport.Length];
                         OutputReport[0] = 0x02;
                         OutputReport[1] = 0xFF;
-                        OutputReport[2] = 0x44;
+                        OutputReport[2] = 0x17;
                         OutputReport[3] = LightMotor;
                         OutputReport[4] = HeavyMotor;
+                        OutputReport[9] = 0x00; //Microphone led
 
                         //Set the controller led color
                         double ControllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;

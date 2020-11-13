@@ -82,24 +82,28 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Name="image_Controller0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller0" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                                            <TextBlock Name="textblock_Controller0CodeName" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Margin="10,0,0,0"/>
                                         </StackPanel>
                                     </Button>
                                     <Button Name="button_Controller1" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to activate the second controller">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Name="image_Controller1" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller1" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                                            <TextBlock Name="textblock_Controller1CodeName" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Margin="10,0,0,0"/>
                                         </StackPanel>
                                     </Button>
                                     <Button Name="button_Controller2" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to activate the third controller">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Name="image_Controller2" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller2" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                                            <TextBlock Name="textblock_Controller2CodeName" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Margin="10,0,0,0"/>
                                         </StackPanel>
                                     </Button>
                                     <Button Name="button_Controller3" Style="{StaticResource ButtonImageTransparentBlackBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Click to activate the fourth controller">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Name="image_Controller3" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Dark.png" Width="35" Margin="0,0,10,0"/>
                                             <TextBlock Name="textblock_Controller3" Text="No controller connected" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                                            <TextBlock Name="textblock_Controller3CodeName" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Margin="10,0,0,0"/>
                                         </StackPanel>
                                     </Button>
                                 </StackPanel>
@@ -210,7 +214,8 @@
                                     <TextBlock Name="textblock_Thumb_Right_X_Right" Text="0" Width="50" TextAlignment="Left" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,20,0,0"/>
                                 </Grid>
 
-                                <TextBlock Name="textblock_LiveDebugInformation" HorizontalAlignment="Center" Style="{StaticResource TextBlockBlack}" Text="Live controller debug information" TextWrapping="Wrap" Width="570" Height="100"/>
+                                <TextBlock Name="textblock_LiveDebugInformation" HorizontalAlignment="Center" Style="{StaticResource TextBlockBlack}" Text="Live controller debug information" TextWrapping="Wrap" Width="570" Height="105"/>
+                                <Button Name="btn_CopyDebugInformation" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource ButtonAccentBlack}" Content="Copy controller debug information"/>
 
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
                                     <Button Name="btn_RumbleTestLight" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Light"/>
@@ -541,8 +546,6 @@
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Debug Settings"/>
                                 <CheckBox Name="cb_ControllerShowDebugInformation" Content="Show controller debug information" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will show live controller debug information on the controller tab." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <Button Margin="0,10,0,0" Name="btn_CopyDebugInformation" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Copy controller debug information"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Other Settings"/>
                                 <Button Name="btn_Settings_InstallDrivers" Content="Install the required drivers" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>

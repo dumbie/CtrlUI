@@ -50,10 +50,12 @@ namespace DirectXInput
                             {
                                 textblock_LiveDebugInformation.Text = GenerateControllerDebugInformation();
                                 textblock_LiveDebugInformation.Visibility = Visibility.Visible;
+                                btn_CopyDebugInformation.Visibility = Visibility.Visible;
                             }
                             else
                             {
                                 textblock_LiveDebugInformation.Visibility = Visibility.Collapsed;
+                                btn_CopyDebugInformation.Visibility = Visibility.Collapsed;
                             }
 
                             //D-Pad

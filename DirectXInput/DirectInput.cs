@@ -87,6 +87,11 @@ namespace DirectXInput
 
                     //Set the controller supported profile
                     Controller.SupportedCurrent = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower())).FirstOrDefault();
+                    if (Controller.SupportedCurrent == null)
+                    {
+                        Debug.WriteLine("Unsupported controller detected, using default profile.");
+                        Controller.SupportedCurrent = new ControllerSupported();
+                    }
 
                     //Start Translating DirectInput Controller Threads
                     if (Controller.Details.Type == "Win")
@@ -223,21 +228,29 @@ namespace DirectXInput
                     {
                         image_Controller0.Source = vImagePreloadIconControllerDark;
                         textblock_Controller0.Text = "No controller connected";
+                        textblock_Controller0CodeName.Text = string.Empty;
+                        textblock_LiveDebugInformation.Text = "No controller connected to debug";
                     }
                     else if (Controller.NumberId == 1)
                     {
                         image_Controller1.Source = vImagePreloadIconControllerDark;
                         textblock_Controller1.Text = "No controller connected";
+                        textblock_Controller1CodeName.Text = string.Empty;
+                        textblock_LiveDebugInformation.Text = "No controller connected to debug";
                     }
                     else if (Controller.NumberId == 2)
                     {
                         image_Controller2.Source = vImagePreloadIconControllerDark;
                         textblock_Controller2.Text = "No controller connected";
+                        textblock_Controller2CodeName.Text = string.Empty;
+                        textblock_LiveDebugInformation.Text = "No controller connected to debug";
                     }
                     else if (Controller.NumberId == 3)
                     {
                         image_Controller3.Source = vImagePreloadIconControllerDark;
                         textblock_Controller3.Text = "No controller connected";
+                        textblock_Controller3CodeName.Text = string.Empty;
+                        textblock_LiveDebugInformation.Text = "No controller connected to debug";
                     }
                 });
 

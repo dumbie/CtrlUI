@@ -92,6 +92,7 @@ namespace DirectXInput
                         {
                             image_Controller0.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller0.Text = vController0.Details.DisplayName;
+                            textblock_Controller0CodeName.Text = vController0.SupportedCurrent.CodeName;
                         });
                     }
                 }
@@ -105,6 +106,7 @@ namespace DirectXInput
                         {
                             image_Controller1.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller1.Text = vController1.Details.DisplayName;
+                            textblock_Controller1CodeName.Text = vController1.SupportedCurrent.CodeName;
                         });
                     }
                 }
@@ -118,6 +120,7 @@ namespace DirectXInput
                         {
                             image_Controller2.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller2.Text = vController2.Details.DisplayName;
+                            textblock_Controller2CodeName.Text = vController2.SupportedCurrent.CodeName;
                         });
                     }
                 }
@@ -131,6 +134,7 @@ namespace DirectXInput
                         {
                             image_Controller3.Source = vImagePreloadIconControllerAccent;
                             textblock_Controller3.Text = vController3.Details.DisplayName;
+                            textblock_Controller3CodeName.Text = vController3.SupportedCurrent.CodeName;
                         });
                     }
                 }

@@ -4,7 +4,7 @@
     {
         public class ControllerSupported
         {
-            public string CodeName { get; set; }
+            public string CodeName { get; set; } = "Unsupported";
             public string[] ProductIDs { get; set; }
             public string VendorID { get; set; }
             public Offset OffsetUsb { get; set; } = new Offset();
