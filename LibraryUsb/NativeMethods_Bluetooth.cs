@@ -92,5 +92,8 @@ namespace LibraryUsb
 
         [DllImport("bthprops.cpl")]
         public static extern uint BluetoothRemoveDevice(ref BLUETOOTH_ADDRESS Address);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern bool CloseHandle(IntPtr hObject);
     }
 }

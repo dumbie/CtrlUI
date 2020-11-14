@@ -25,10 +25,15 @@
     "VendorID": "0x054c",
     "OffsetUsb": 
     {
-        "ThumbLeftX": 1,
-        "ThumbLeftY": 2,
-        "ThumbRightX": 3,
-        "ThumbRightY": 4,
+        "ButtonsGroup1": 8,
+        "ButtonsGroup2": 9,
+        "ButtonsGroup3": 10,
+        "TriggerLeft": 5,
+        "TriggerRight": 6
+    },
+    "OffsetWireless": 
+    {
+        "BeginOffset": 1,
         "ButtonsGroup1": 8,
         "ButtonsGroup2": 9,
         "ButtonsGroup3": 10,

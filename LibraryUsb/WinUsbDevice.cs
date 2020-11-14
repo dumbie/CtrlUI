@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static LibraryUsb.NativeMethods_DeviceManager;
-using static LibraryUsb.NativeMethods_Hid;
+using static LibraryUsb.NativeMethods_Flags;
 using static LibraryUsb.NativeMethods_SetupApi;
 using static LibraryUsb.NativeMethods_WinUsb;
 
@@ -17,7 +17,8 @@ namespace LibraryUsb
         }
 
         public Guid GuidClass = Guid.Empty;
-        public string DevicePath = string.Empty;
+        public string DevicePath { get; set; }
+        public bool Connected { get; set; }
         public bool IsActive = false;
 
         public IntPtr FileHandle = IntPtr.Zero;
@@ -38,10 +39,10 @@ namespace LibraryUsb
             return false;
         }
 
-        public bool OpenDevicePath(string DevicePath, bool Initialize)
+        public bool OpenDevicePath(string devicePath, bool Initialize)
         {
-            this.DevicePath = DevicePath.ToUpper();
-            if (GetDeviceHandle(this.DevicePath))
+            DevicePath = devicePath.ToUpper();
+            if (OpenDevice())
             {
                 if (Initialize)
                 {
@@ -71,27 +72,35 @@ namespace LibraryUsb
             return IsActive;
         }
 
-        public bool Dispose()
+        public bool CloseDevice()
         {
-            IsActive = false;
-
-            if (WinUsbHandle != (IntPtr)INVALID_HANDLE_VALUE)
+            try
             {
-                WinUsb_AbortPipe(WinUsbHandle, IntIn);
-                WinUsb_AbortPipe(WinUsbHandle, BulkIn);
-                WinUsb_AbortPipe(WinUsbHandle, BulkOut);
+                IsActive = false;
 
-                WinUsb_Free(WinUsbHandle);
-                WinUsbHandle = (IntPtr)INVALID_HANDLE_VALUE;
+                if (WinUsbHandle != (IntPtr)INVALID_HANDLE_VALUE)
+                {
+                    WinUsb_AbortPipe(WinUsbHandle, IntIn);
+                    WinUsb_AbortPipe(WinUsbHandle, BulkIn);
+                    WinUsb_AbortPipe(WinUsbHandle, BulkOut);
+
+                    WinUsb_Free(WinUsbHandle);
+                    WinUsbHandle = (IntPtr)INVALID_HANDLE_VALUE;
+                }
+
+                if (FileHandle != IntPtr.Zero)
+                {
+                    CloseHandle(FileHandle);
+                    FileHandle = IntPtr.Zero;
+                }
+
+                return true;
             }
-
-            if (FileHandle != IntPtr.Zero)
+            catch (Exception ex)
             {
-                CloseHandle(FileHandle);
-                FileHandle = IntPtr.Zero;
+                Debug.WriteLine("Failed to close win device: " + ex.Message);
+                return false;
             }
-
-            return true;
         }
 
         public bool Plugin(int Serial)
@@ -285,25 +294,31 @@ namespace LibraryUsb
             return false;
         }
 
-        private bool GetDeviceHandle(string devicePath)
+        private bool OpenDevice()
         {
-            SECURITY_ATTRIBUTES security = new SECURITY_ATTRIBUTES();
-            security.lpSecurityDescriptor = IntPtr.Zero;
-            security.bInheritHandle = true;
-            security.nLength = Marshal.SizeOf(security);
-
-            uint fileAttributes = (uint)FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL | (uint)FILE_FLAG.FILE_FLAG_OVERLAPPED;
-            uint desiredAccess = (uint)GENERIC_MODE.GENERIC_WRITE | (uint)GENERIC_MODE.GENERIC_READ;
-            uint shareMode = (uint)FILE_SHARE.FILE_SHARE_READ | (uint)FILE_SHARE.FILE_SHARE_WRITE;
-
-            FileHandle = CreateFile(devicePath, desiredAccess, shareMode, ref security, OPEN_EXISTING, fileAttributes, 0);
-
-            if (FileHandle == IntPtr.Zero || FileHandle == (IntPtr)INVALID_HANDLE_VALUE)
+            try
             {
-                FileHandle = IntPtr.Zero;
+                uint shareMode = (uint)FILE_SHARE.FILE_SHARE_READ | (uint)FILE_SHARE.FILE_SHARE_WRITE;
+                uint desiredAccess = (uint)GENERIC_MODE.GENERIC_READ | (uint)GENERIC_MODE.GENERIC_WRITE;
+                uint fileAttributes = (uint)FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL | (uint)FILE_FLAG.FILE_FLAG_OVERLAPPED;
+                FileHandle = CreateFile(DevicePath, desiredAccess, shareMode, IntPtr.Zero, OPEN_EXISTING, fileAttributes, 0);
+                if (FileHandle == IntPtr.Zero || FileHandle == (IntPtr)INVALID_HANDLE_VALUE)
+                {
+                    Connected = false;
+                    return false;
+                }
+                else
+                {
+                    Connected = true;
+                    return true;
+                }
             }
-
-            return FileHandle != IntPtr.Zero;
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to open win device: " + ex.Message);
+                Connected = false;
+                return false;
+            }
         }
 
         private bool UsbEndpointDirectionIn(int addr)

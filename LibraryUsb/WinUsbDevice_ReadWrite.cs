@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using static LibraryUsb.NativeMethods_DeviceManager;
 using static LibraryUsb.NativeMethods_WinUsb;
 
@@ -7,32 +6,52 @@ namespace LibraryUsb
 {
     public partial class WinUsbDevice
     {
-        public USB_DEVICE_DESCRIPTOR ReadDescriptor(ref int Transferred)
+        public bool ReadIntPipe(byte[] inputBuffer)
         {
-            USB_DEVICE_DESCRIPTOR USB_DEVICE_DESCRIPTOR = new USB_DEVICE_DESCRIPTOR();
-            int USB_DEVICE_DESCRIPTOR_SIZE = Marshal.SizeOf(USB_DEVICE_DESCRIPTOR);
-            WinUsb_GetDescriptor(WinUsbHandle, 0x01, 0, 0, ref USB_DEVICE_DESCRIPTOR, USB_DEVICE_DESCRIPTOR_SIZE, ref Transferred);
-            return USB_DEVICE_DESCRIPTOR;
+            try
+            {
+                if (!IsActive)
+                {
+                    return false;
+                }
+
+                int Transferred = 0;
+                bool Readed = WinUsb_ReadPipe(WinUsbHandle, IntIn, inputBuffer, inputBuffer.Length, ref Transferred, IntPtr.Zero);
+                if (Readed && Transferred > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch { }
+            return false;
         }
 
-        public bool ReadIntPipe(byte[] Buffer, int Length, ref int Transferred)
+        public bool ReadBulkPipe(byte[] inputBuffer)
         {
-            if (!IsActive)
+            try
             {
-                return false;
+                if (!IsActive)
+                {
+                    return false;
+                }
+
+                int Transferred = 0;
+                bool Readed = WinUsb_ReadPipe(WinUsbHandle, BulkIn, inputBuffer, inputBuffer.Length, ref Transferred, IntPtr.Zero);
+                if (Readed && Transferred > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-
-            return WinUsb_ReadPipe(WinUsbHandle, IntIn, Buffer, Length, ref Transferred, IntPtr.Zero);
-        }
-
-        public bool ReadBulkPipe(byte[] Buffer, int Length, ref int Transferred)
-        {
-            if (!IsActive)
-            {
-                return false;
-            }
-
-            return WinUsb_ReadPipe(WinUsbHandle, BulkIn, Buffer, Length, ref Transferred, IntPtr.Zero);
+            catch { }
+            return false;
         }
 
         public bool WriteIntPipe(byte[] Buffer, int Length, ref int Transferred)
@@ -55,7 +74,7 @@ namespace LibraryUsb
             return WinUsb_WritePipe(WinUsbHandle, BulkOut, Buffer, Length, ref Transferred, IntPtr.Zero);
         }
 
-        public bool SendTransfer(byte RequestType, byte Request, ushort Value, byte[] Buffer, ref int Transferred)
+        public bool WriteControlTransfer(byte RequestType, byte Request, ushort Value, byte[] Buffer, ref int Transferred)
         {
             if (!IsActive)
             {
@@ -72,7 +91,7 @@ namespace LibraryUsb
             return WinUsb_ControlTransfer(WinUsbHandle, Setup, Buffer, Buffer.Length, ref Transferred, IntPtr.Zero);
         }
 
-        public bool Send(byte[] Input, byte[] Output)
+        public bool WriteDeviceIO(byte[] Input, byte[] Output)
         {
             if (!IsActive)
             {

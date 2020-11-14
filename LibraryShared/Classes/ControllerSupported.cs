@@ -12,6 +12,7 @@
 
             public class Offset
             {
+                public int BeginOffset { get; set; } = 0;
                 public int ThumbLeftX { get; set; } = 1;
                 public int ThumbLeftY { get; set; } = 2;
                 public int ThumbRightX { get; set; } = 3;

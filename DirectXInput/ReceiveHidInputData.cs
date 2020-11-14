@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using LibraryUsb;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -26,10 +25,8 @@ namespace DirectXInput
                     try
                     {
                         //Read data from the controller
-                        bool ReadFile = NativeMethods_Hid.ReadFile(Controller.HidDevice.DeviceHandle, Controller.InputReport, (uint)Controller.InputReport.Length, out uint bytesRead, IntPtr.Zero);
-
-                        //Check if there is data from the controller
-                        if (!ReadFile)
+                        bool Readed = Controller.HidDevice.ReadBytesFile(Controller.InputReport);
+                        if (!Readed)
                         {
                             Debug.WriteLine("Failed to read input data from hid controller: " + Controller.NumberId);
                             continue;
@@ -41,60 +38,72 @@ namespace DirectXInput
                         //Detect and adjust controller header offset
                         if (!Controller.InputHeaderOffsetFinished)
                         {
-                            if (Controller.InputReport[Controller.InputHeaderByteOffset] > 4)
+                            byte currentHeader = Controller.InputReport[Controller.InputHeaderOffsetByte];
+                            if (currentHeader != 49)
                             {
-                                Controller.InputHeaderByteOffset++;
-                                Debug.WriteLine("Adjusted the controller header offset to: " + Controller.InputHeaderByteOffset);
-                                continue;
+                                if (currentHeader > 4)
+                                {
+                                    Controller.InputHeaderOffsetByte++;
+                                    Debug.WriteLine("Adjusted the controller header offset to: " + Controller.InputHeaderOffsetByte);
+                                    continue;
+                                }
                             }
                             else
                             {
                                 Controller.InputHeaderOffsetFinished = true;
-                                Debug.WriteLine("Finished adjusting controller header offset to: " + Controller.InputHeaderByteOffset);
+                                Debug.WriteLine("Finished adjusting controller header offset to: " + Controller.InputHeaderOffsetByte);
                             }
                         }
 
                         //Set controller read offfsets
-                        int OffsetThumbLeftX = Controller.InputHeaderByteOffset;
-                        int OffsetThumbLeftY = Controller.InputHeaderByteOffset;
-                        int OffsetThumbRightX = Controller.InputHeaderByteOffset;
-                        int OffsetThumbRightY = Controller.InputHeaderByteOffset;
-                        int OffsetButtonsGroup1 = Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset; //D-Pad and A,B,X,Y
-                        int OffsetButtonsGroup2 = Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset; //ShoulderLeftRight, TriggerLeftRight, ThumbLeftRight, Back, Start
-                        int OffsetButtonsGroup3 = Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset; //Guide, Touchpad, Mute
-                        int OffsetTriggerLeft = Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset;
-                        int OffsetTriggerRight = Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset;
+                        int OffsetThumbLeftX = Controller.InputHeaderOffsetByte;
+                        int OffsetThumbLeftY = Controller.InputHeaderOffsetByte;
+                        int OffsetThumbRightX = Controller.InputHeaderOffsetByte;
+                        int OffsetThumbRightY = Controller.InputHeaderOffsetByte;
+                        int OffsetButtonsGroup1 = Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte; //D-Pad and A,B,X,Y
+                        int OffsetButtonsGroup2 = Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte; //ShoulderLeftRight, TriggerLeftRight, ThumbLeftRight, Back, Start
+                        int OffsetButtonsGroup3 = Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte; //Guide, Touchpad, Mute
+                        int OffsetTriggerLeft = Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
+                        int OffsetTriggerRight = Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
                         if (Controller.Details.Wireless)
                         {
-                            OffsetThumbLeftX += Controller.SupportedCurrent.OffsetWireless.ThumbLeftX;
-                            OffsetThumbLeftY += Controller.SupportedCurrent.OffsetWireless.ThumbLeftY;
-                            OffsetThumbRightX += Controller.SupportedCurrent.OffsetWireless.ThumbRightX;
-                            OffsetThumbRightY += Controller.SupportedCurrent.OffsetWireless.ThumbRightY;
-                            OffsetButtonsGroup1 += Controller.SupportedCurrent.OffsetWireless.ButtonsGroup1;
-                            OffsetButtonsGroup2 += Controller.SupportedCurrent.OffsetWireless.ButtonsGroup2;
-                            OffsetButtonsGroup3 += Controller.SupportedCurrent.OffsetWireless.ButtonsGroup3;
-                            OffsetTriggerLeft += Controller.SupportedCurrent.OffsetWireless.TriggerLeft;
-                            OffsetTriggerRight += Controller.SupportedCurrent.OffsetWireless.TriggerRight;
+                            OffsetThumbLeftX += Controller.SupportedCurrent.OffsetWireless.ThumbLeftX + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
+                            OffsetThumbLeftY += Controller.SupportedCurrent.OffsetWireless.ThumbLeftY + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
+                            OffsetThumbRightX += Controller.SupportedCurrent.OffsetWireless.ThumbRightX + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
+                            OffsetThumbRightY += Controller.SupportedCurrent.OffsetWireless.ThumbRightY + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
+                            OffsetButtonsGroup1 += Controller.SupportedCurrent.OffsetWireless.ButtonsGroup1 + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
+                            OffsetButtonsGroup2 += Controller.SupportedCurrent.OffsetWireless.ButtonsGroup2 + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
+                            OffsetButtonsGroup3 += Controller.SupportedCurrent.OffsetWireless.ButtonsGroup3 + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
+                            OffsetTriggerLeft += Controller.SupportedCurrent.OffsetWireless.TriggerLeft + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
+                            OffsetTriggerRight += Controller.SupportedCurrent.OffsetWireless.TriggerRight + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
                         }
                         else
                         {
-                            OffsetThumbLeftX += Controller.SupportedCurrent.OffsetUsb.ThumbLeftX;
-                            OffsetThumbLeftY += Controller.SupportedCurrent.OffsetUsb.ThumbLeftY;
-                            OffsetThumbRightX += Controller.SupportedCurrent.OffsetUsb.ThumbRightX;
-                            OffsetThumbRightY += Controller.SupportedCurrent.OffsetUsb.ThumbRightY;
-                            OffsetButtonsGroup1 += Controller.SupportedCurrent.OffsetUsb.ButtonsGroup1;
-                            OffsetButtonsGroup2 += Controller.SupportedCurrent.OffsetUsb.ButtonsGroup2;
-                            OffsetButtonsGroup3 += Controller.SupportedCurrent.OffsetUsb.ButtonsGroup3;
-                            OffsetTriggerLeft += Controller.SupportedCurrent.OffsetUsb.TriggerLeft;
-                            OffsetTriggerRight += Controller.SupportedCurrent.OffsetUsb.TriggerRight;
+                            OffsetThumbLeftX += Controller.SupportedCurrent.OffsetUsb.ThumbLeftX + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
+                            OffsetThumbLeftY += Controller.SupportedCurrent.OffsetUsb.ThumbLeftY + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
+                            OffsetThumbRightX += Controller.SupportedCurrent.OffsetUsb.ThumbRightX + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
+                            OffsetThumbRightY += Controller.SupportedCurrent.OffsetUsb.ThumbRightY + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
+                            OffsetButtonsGroup1 += Controller.SupportedCurrent.OffsetUsb.ButtonsGroup1 + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
+                            OffsetButtonsGroup2 += Controller.SupportedCurrent.OffsetUsb.ButtonsGroup2 + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
+                            OffsetButtonsGroup3 += Controller.SupportedCurrent.OffsetUsb.ButtonsGroup3 + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
+                            OffsetTriggerLeft += Controller.SupportedCurrent.OffsetUsb.TriggerLeft + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
+                            OffsetTriggerRight += Controller.SupportedCurrent.OffsetUsb.TriggerRight + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
                         }
 
                         //Detect and adjust controller button offset
-                        if (Controller.InputReport[OffsetButtonsGroup1] == 255)
+                        if (!Controller.InputButtonOffsetFinished)
                         {
-                            Controller.InputButtonByteOffset++;
-                            Debug.WriteLine("Adjusted the controller button offset to: " + Controller.InputButtonByteOffset);
-                            continue;
+                            if (Controller.InputReport[OffsetButtonsGroup1] == 255)
+                            {
+                                Controller.InputButtonOffsetByte++;
+                                Debug.WriteLine("Adjusted the controller button offset to: " + Controller.InputButtonOffsetByte);
+                                continue;
+                            }
+                            else
+                            {
+                                Controller.InputButtonOffsetFinished = true;
+                                Debug.WriteLine("Finished adjusting controller button offset to: " + Controller.InputButtonOffsetByte);
+                            }
                         }
 
                         //Calculate left thumbs

@@ -1,207 +1,226 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static LibraryUsb.HidDeviceAttributes;
+using static LibraryUsb.HidDeviceCapabilities;
+using static LibraryUsb.NativeMethods_Flags;
 using static LibraryUsb.NativeMethods_Hid;
 
 namespace LibraryUsb
 {
     public partial class HidDevice
     {
-        public string DevicePath { get; }
-        public IntPtr DeviceHandle { get; set; }
-        public string Description { get; }
-        public string HardwareId { get; }
-        public HidDeviceCapabilities Capabilities { get; }
-        public HidDeviceAttributes Attributes { get; }
+        public string DevicePath { get; set; }
+        private IntPtr FileHandle { get; set; }
+        public string HardwareId { get; set; }
+        public HidDeviceAttributes Attributes { get; set; }
+        public HidDeviceCapabilities Capabilities { get; set; }
+        public bool Connected { get; set; }
 
-        public HidDevice(string devicePath, string description, string hardwareId)
+        public HidDevice(string devicePath, string hardwareId, bool getDetails)
         {
             try
             {
                 DevicePath = devicePath;
-                Description = description;
                 HardwareId = hardwareId;
 
-                OpenDeviceExclusively();
-                CheckConnectionState();
-                Attributes = GetDeviceAttributes();
-                Capabilities = GetDeviceCapabilities();
-                CloseDevice();
+                if (!getDetails)
+                {
+                    DisableDevice();
+                    EnableDevice();
+                }
+
+                OpenDevice();
+                GetDeviceAttributes();
+                GetDeviceCapabilities();
+                GetFeature();
+                GetProductName();
+                GetVendorName();
+                GetSerialNumber();
+
+                if (getDetails)
+                {
+                    CloseDevice();
+                }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error querying HID device: " + DevicePath + " / " + ex.Message);
+                Debug.WriteLine("Failed to create hid device: " + ex.Message);
             }
         }
 
-        //Use GetFeature to timeout disconnected device
-        public void CheckConnectionState()
+        private bool OpenDevice()
         {
             try
             {
-                byte[] FeatureBytes = new byte[64];
-                FeatureBytes[0] = 0x02;
-                HidD_GetFeature(DeviceHandle, FeatureBytes, FeatureBytes.Length);
-            }
-            catch { }
-        }
-
-        public bool GetProductDescription(out byte[] data)
-        {
-            data = new byte[254];
-            try
-            {
-                return HidD_GetProductString(DeviceHandle, ref data[0], data.Length);
+                uint shareMode = (uint)FILE_SHARE.FILE_SHARE_READ | (uint)FILE_SHARE.FILE_SHARE_WRITE;
+                uint desiredAccess = (uint)GENERIC_MODE.GENERIC_READ | (uint)GENERIC_MODE.GENERIC_WRITE;
+                uint fileAttributes = (uint)FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL | (uint)FILE_FLAG.FILE_FLAG_NORMAL;
+                FileHandle = CreateFile(DevicePath, desiredAccess, shareMode, IntPtr.Zero, OPEN_EXISTING, fileAttributes, 0);
+                if (FileHandle == IntPtr.Zero || FileHandle == (IntPtr)INVALID_HANDLE_VALUE)
+                {
+                    Connected = false;
+                    return false;
+                }
+                else
+                {
+                    Connected = true;
+                    return true;
+                }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error accessing HID device: " + DevicePath + " / " + ex.Message);
+                Debug.WriteLine("Failed to open hid device: " + ex.Message);
+                Connected = false;
                 return false;
             }
         }
 
-        public bool GetManufacturer(out byte[] data)
+        public bool CloseDevice()
         {
-            data = new byte[254];
             try
             {
-                return HidD_GetManufacturerString(DeviceHandle, ref data[0], data.Length);
+                if (FileHandle != IntPtr.Zero)
+                {
+                    CloseHandle(FileHandle);
+                    FileHandle = IntPtr.Zero;
+                }
+
+                return true;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error accessing HID device: " + DevicePath + " / " + ex.Message);
+                Debug.WriteLine("Failed to close hid device: " + ex.Message);
                 return false;
             }
         }
 
-        public bool GetSerialNumber(out byte[] data)
+        private bool GetFeature()
         {
-            data = new byte[254];
             try
             {
-                return HidD_GetSerialNumberString(DeviceHandle, ref data[0], data.Length);
+                int featureLength = Capabilities.FeatureReportByteLength;
+                if (featureLength <= 0) { featureLength = 64; }
+
+                byte[] data = new byte[featureLength];
+                data[0] = 0x05;
+                return HidD_GetFeature(FileHandle, data, data.Length);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error accessing HID device: " + DevicePath + " / " + ex.Message);
+                Debug.WriteLine("Failed to get feature: " + ex.Message);
                 return false;
             }
         }
 
-        private HidDeviceAttributes GetDeviceAttributes()
+        private bool GetDeviceAttributes()
         {
             try
             {
                 HIDD_ATTRIBUTES hiddDeviceAttributes = new HIDD_ATTRIBUTES();
                 hiddDeviceAttributes.Size = Marshal.SizeOf(hiddDeviceAttributes);
-                HidD_GetAttributes(DeviceHandle, ref hiddDeviceAttributes);
-                HidDeviceAttributes returnDeviceAttributes = new HidDeviceAttributes(hiddDeviceAttributes);
-
-                //Get the product name
-                GetProductDescription(out byte[] productNameBytes);
-                if (productNameBytes != null)
-                {
-                    string productNameString = productNameBytes.ToUTF16String().Replace("\0", "");
-                    if (!string.IsNullOrWhiteSpace(productNameString))
-                    {
-                        returnDeviceAttributes.ProductName = productNameString;
-                    }
-                    else
-                    {
-                        returnDeviceAttributes.ProductName = returnDeviceAttributes.ProductHexId + " Unknown";
-                    }
-                }
-                else
-                {
-                    returnDeviceAttributes.ProductName = returnDeviceAttributes.ProductHexId + " Unknown";
-                }
-
-                //Get the vendor name
-                GetManufacturer(out byte[] vendorNameBytes);
-                if (vendorNameBytes != null)
-                {
-                    string vendorNameString = vendorNameBytes.ToUTF16String().Replace("\0", "");
-                    if (!string.IsNullOrWhiteSpace(vendorNameString))
-                    {
-                        returnDeviceAttributes.VendorName = vendorNameString;
-                    }
-                    else
-                    {
-                        returnDeviceAttributes.VendorName = returnDeviceAttributes.VendorHexId + " Unknown";
-                    }
-                }
-                else
-                {
-                    returnDeviceAttributes.VendorName = returnDeviceAttributes.VendorHexId + " Unknown";
-                }
-
-                //Get the serial number
-                GetSerialNumber(out byte[] SerialNumberBytes);
-                if (SerialNumberBytes != null)
-                {
-                    returnDeviceAttributes.SerialNumber = SerialNumberBytes.ToUTF16String().Replace("\0", "");
-                }
-                else
-                {
-                    returnDeviceAttributes.SerialNumber = string.Empty;
-                }
-
-                return returnDeviceAttributes;
+                HidD_GetAttributes(FileHandle, ref hiddDeviceAttributes);
+                Attributes = new HidDeviceAttributes(hiddDeviceAttributes);
+                return true;
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                Debug.WriteLine("Failed to get device attributes: " + ex.Message);
+                return false;
             }
         }
 
-        private HidDeviceCapabilities GetDeviceCapabilities()
+        private bool GetProductName()
+        {
+            try
+            {
+                byte[] data = new byte[254];
+                HidD_GetProductString(FileHandle, ref data[0], data.Length);
+                string productNameString = data.ToUTF16String().Replace("\0", string.Empty);
+                if (!string.IsNullOrWhiteSpace(productNameString))
+                {
+                    Attributes.ProductName = productNameString;
+                }
+                else
+                {
+                    Attributes.ProductName = Attributes.ProductHexId + " Unknown";
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Attributes.ProductName = Attributes.ProductHexId + " Unknown";
+                Debug.WriteLine("Failed to get product name: " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool GetVendorName()
+        {
+            try
+            {
+                byte[] data = new byte[254];
+                HidD_GetManufacturerString(FileHandle, ref data[0], data.Length);
+                string vendorNameString = data.ToUTF16String().Replace("\0", string.Empty);
+                if (!string.IsNullOrWhiteSpace(vendorNameString))
+                {
+                    Attributes.VendorName = vendorNameString;
+                }
+                else
+                {
+                    Attributes.VendorName = Attributes.VendorHexId + " Unknown";
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Attributes.VendorName = Attributes.VendorHexId + " Unknown";
+                Debug.WriteLine("Failed to get vendor name: " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool GetSerialNumber()
+        {
+            try
+            {
+                byte[] data = new byte[254];
+                HidD_GetSerialNumberString(FileHandle, ref data[0], data.Length);
+                string serialNumberString = data.ToUTF16String().Replace("\0", "");
+                if (!string.IsNullOrWhiteSpace(serialNumberString))
+                {
+                    Attributes.SerialNumber = serialNumberString;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to get serial number: " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool GetDeviceCapabilities()
         {
             try
             {
                 IntPtr preparsedDataPointer = IntPtr.Zero;
                 HIDP_CAPS deviceCapabilities = new HIDP_CAPS();
 
-                if (HidD_GetPreparsedData(DeviceHandle, ref preparsedDataPointer))
+                if (HidD_GetPreparsedData(FileHandle, ref preparsedDataPointer))
                 {
                     HidP_GetCaps(preparsedDataPointer, ref deviceCapabilities);
                     HidD_FreePreparsedData(preparsedDataPointer);
                 }
 
-                return new HidDeviceCapabilities(deviceCapabilities);
+                Capabilities = new HidDeviceCapabilities(deviceCapabilities);
+                return true;
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                Debug.WriteLine("Failed to get device capabilities: " + ex.Message);
+                return false;
             }
-        }
-
-        private IntPtr DeviceOpen(string devicePath, uint shareMode)
-        {
-            IntPtr CreateResult = IntPtr.Zero;
-            try
-            {
-                SECURITY_ATTRIBUTES security = new SECURITY_ATTRIBUTES();
-                security.lpSecurityDescriptor = IntPtr.Zero;
-                security.bInheritHandle = true;
-                security.nLength = Marshal.SizeOf(security);
-
-                uint fileAttributes = (uint)FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL | (uint)FILE_FLAG.FILE_FLAG_NORMAL;
-                uint desiredAccess = (uint)GENERIC_MODE.GENERIC_WRITE | (uint)GENERIC_MODE.GENERIC_READ;
-
-                CreateResult = CreateFile(devicePath, desiredAccess, shareMode, ref security, OPEN_EXISTING, fileAttributes, 0);
-            }
-            catch { }
-            return CreateResult;
-        }
-
-        public void CloseDevice()
-        {
-            try
-            {
-                CancelIoEx(DeviceHandle, IntPtr.Zero);
-                CloseHandle(DeviceHandle);
-            }
-            catch { }
         }
     }
 }

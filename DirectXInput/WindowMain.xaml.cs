@@ -141,7 +141,14 @@ namespace DirectXInput
                     vControllerRumbleTest = true;
                     Button SendButton = sender as Button;
 
-                    if (SendButton.Name == "btn_RumbleTestLight") { SendXRumbleData(activeController, true, true, false); } else { SendXRumbleData(activeController, true, false, true); }
+                    if (SendButton.Name == "btn_RumbleTestLight")
+                    {
+                        SendXRumbleData(activeController, true, true, false);
+                    }
+                    else
+                    {
+                        SendXRumbleData(activeController, true, false, true);
+                    }
                     await Task.Delay(1000);
                     SendXRumbleData(activeController, true, false, false);
 
@@ -219,6 +226,9 @@ namespace DirectXInput
 
                 //Disconnect all the controllers
                 await StopAllControllers();
+
+                //Reset HidGuardian to defaults
+                HidGuardianResetDefaults();
 
                 //Disable the socket server
                 if (vArnoldVinkSockets != null)

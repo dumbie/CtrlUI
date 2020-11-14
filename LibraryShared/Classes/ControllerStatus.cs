@@ -20,7 +20,7 @@ namespace LibraryShared
             //Controller Details
             public long LastReadTicks = 0;
             public int LastActiveTicks = 0;
-            public int MilliSecondsAllowRead = 2000;
+            public int MilliSecondsAllowReadWrite = 2000;
             public int MilliSecondsTimeout = 4000;
             public ControllerDetails Details = null;
             public bool Connected { get { return Details != null; } }
@@ -40,8 +40,9 @@ namespace LibraryShared
 
             //Device In and Output
             public bool InputHeaderOffsetFinished = false;
-            public int InputHeaderByteOffset = 0;
-            public int InputButtonByteOffset = 0;
+            public int InputHeaderOffsetByte = 0;
+            public bool InputButtonOffsetFinished = false;
+            public int InputButtonOffsetByte = 0;
             public byte[] InputReport = null;
             public byte[] OutputReport = null;
             public byte[] XInputData = new byte[28];
@@ -83,8 +84,9 @@ namespace LibraryShared
 
                     //Device In and Output
                     InputHeaderOffsetFinished = false;
-                    InputHeaderByteOffset = 0;
-                    InputButtonByteOffset = 0;
+                    InputHeaderOffsetByte = 0;
+                    InputButtonOffsetFinished = false;
+                    InputButtonOffsetByte = 0;
                     InputReport = null;
                     OutputReport = null;
 

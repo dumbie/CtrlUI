@@ -267,13 +267,20 @@ namespace DirectXInput
                     PrepareXInputData(Controller, true);
 
                     //Send XOutput device data
-                    Controller.X360Device.Send(Controller.XInputData, Controller.XOutputData);
+                    Controller.X360Device.WriteDeviceIO(Controller.XInputData, Controller.XOutputData);
                     await Task.Delay(500);
 
                     //Stop and disconnect the x360 device
-                    if (removeAll360Bus) { Controller.X360Device.UnplugAll(); }
-                    Controller.X360Device.Unplug(Controller.NumberId);
-                    Controller.X360Device.Dispose();
+                    if (removeAll360Bus)
+                    {
+                        Controller.X360Device.UnplugAll();
+                    }
+                    else
+                    {
+                        Controller.X360Device.Unplug(Controller.NumberId);
+                    }
+                    await Task.Delay(500);
+                    Controller.X360Device.CloseDevice();
                     Controller.X360Device = null;
 
                     //Reset the input and output report
@@ -287,7 +294,7 @@ namespace DirectXInput
                     try
                     {
                         //Dispose and stop connection with the controller
-                        Controller.WinUsbDevice.Dispose();
+                        Controller.WinUsbDevice.CloseDevice();
                     }
                     catch { }
 
@@ -373,13 +380,14 @@ namespace DirectXInput
                     Controller.WinUsbDevice = new WinUsbDevice();
                     if (!Controller.WinUsbDevice.OpenDevicePath(Controller.Details.Path, true))
                     {
-                        Debug.WriteLine("Invalid winusb device, blocking: " + Controller.Details.DisplayName);
+                        Debug.WriteLine("Invalid winusb open device, blocking: " + Controller.Details.DisplayName);
                         vControllerTempBlockPaths.Add(Controller.Details.Path);
                         return false;
                     }
                     else
                     {
-                        Controller.InputHeaderByteOffset = 0;
+                        Controller.InputHeaderOffsetByte = 0;
+                        Controller.InputButtonOffsetByte = 0;
                         Controller.InputReport = new byte[Controller.WinUsbDevice.IntIn];
                         Controller.OutputReport = new byte[Controller.WinUsbDevice.IntOut];
 
@@ -391,42 +399,32 @@ namespace DirectXInput
                 //Find and connect to hid controller
                 else
                 {
-                    Controller.HidDevice = new HidDevice(Controller.Details.Path, Controller.Details.DisplayName, Controller.Details.HardwareId);
-
-                    //Disable and enable device to allow exclusive
-                    bool DisabledDevice = Controller.HidDevice.DisableDevice();
-                    bool EnabledDevice = Controller.HidDevice.EnableDevice();
-
-                    if (!DisabledDevice && !EnabledDevice)
+                    Controller.HidDevice = new HidDevice(Controller.Details.Path, Controller.Details.HardwareId, false);
+                    if (!Controller.HidDevice.Connected)
                     {
-                        Debug.WriteLine("Connecting device no longer connected: " + Controller.Details.DisplayName);
-                        return false;
-                    }
-                    else if (!Controller.HidDevice.OpenDeviceExclusively())
-                    {
-                        Debug.WriteLine("Invalid exclusive hid device, blocking: " + Controller.Details.DisplayName);
+                        Debug.WriteLine("Invalid hid open device, blocking: " + Controller.Details.DisplayName);
                         vControllerTempBlockPaths.Add(Controller.Details.Path);
                         return false;
                     }
                     else
                     {
-                        Controller.InputHeaderByteOffset = 0;
+                        Controller.InputHeaderOffsetByte = 0;
+                        Controller.InputButtonOffsetByte = 0;
                         Controller.InputReport = new byte[Controller.HidDevice.Capabilities.InputReportByteLength];
                         Controller.OutputReport = new byte[Controller.HidDevice.Capabilities.OutputReportByteLength];
 
                         //Read data from the controller
-                        bool ReadFile = await Controller.HidDevice.ReadFileTimeout(Controller.InputReport, (uint)Controller.InputReport.Length, IntPtr.Zero, Controller.MilliSecondsAllowRead);
-
-                        //Check if the controller connected
-                        if (!ReadFile)
+                        bool Readed = await Controller.HidDevice.ReadBytesFileTimeout(Controller.InputReport, Controller.MilliSecondsAllowReadWrite);
+                        if (!Readed)
                         {
-                            Debug.WriteLine("Invalid hid device, blocking: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadFile);
+                            Debug.WriteLine("Invalid hid read device, blocking: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + Readed);
                             vControllerTempBlockPaths.Add(Controller.Details.Path);
                             return false;
                         }
                         else if (!Controller.InputReport.Take(5).Any(x => x != 0))
                         {
-                            Debug.WriteLine("Invalid hid data: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + ReadFile);
+                            Debug.WriteLine("Invalid hid data: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + Readed);
+                            vControllerTempBlockPaths.Add(Controller.Details.Path);
                             return false;
                         }
                         else
@@ -448,7 +446,6 @@ namespace DirectXInput
         //Open Xbox bus driver
         async Task<bool> OpenXboxBusDriver(ControllerStatus Controller)
         {
-            bool driverOpened = false;
             try
             {
                 Controller.X360Device = new WinUsbDevice("{F679F562-3164-42CE-A4DB-E7DDBE723909}");
@@ -457,21 +454,20 @@ namespace DirectXInput
                     Controller.X360Device.Unplug(Controller.NumberId);
                     await Task.Delay(500);
                     Controller.X360Device.Plugin(Controller.NumberId);
-                    driverOpened = true;
+                    return true;
                 }
                 else
                 {
-                    driverOpened = false;
+                    return false;
                 }
             }
             catch { }
-            return driverOpened;
+            return false;
         }
 
         //Check Xbox bus driver status
         async Task<bool> CheckXboxBusDriverStatus()
         {
-            bool driverInstalled = false;
             try
             {
                 WinUsbDevice X360Device = new WinUsbDevice("{F679F562-3164-42CE-A4DB-E7DDBE723909}");
@@ -480,18 +476,18 @@ namespace DirectXInput
                     Debug.WriteLine("Xbox drivers are installed.");
                     X360Device.UnplugAll();
                     await Task.Delay(500);
-                    X360Device.Dispose();
+                    X360Device.CloseDevice();
                     X360Device = null;
-                    driverInstalled = true;
+                    return true;
                 }
                 else
                 {
                     Debug.WriteLine("Xbox drivers not installed.");
-                    driverInstalled = false;
+                    return false;
                 }
             }
             catch { }
-            return driverInstalled;
+            return false;
         }
     }
 }

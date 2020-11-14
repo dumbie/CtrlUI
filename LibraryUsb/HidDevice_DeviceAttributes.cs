@@ -1,8 +1,19 @@
-﻿namespace LibraryUsb
+﻿using System.Runtime.InteropServices;
+
+namespace LibraryUsb
 {
     public class HidDeviceAttributes
     {
-        public HidDeviceAttributes(NativeMethods_Hid.HIDD_ATTRIBUTES attributes)
+        [StructLayout(LayoutKind.Sequential)]
+        public struct HIDD_ATTRIBUTES
+        {
+            internal int Size;
+            internal ushort VendorID;
+            internal ushort ProductID;
+            internal short VersionNumber;
+        }
+
+        public HidDeviceAttributes(HIDD_ATTRIBUTES attributes)
         {
             VendorId = attributes.VendorID;
             ProductId = attributes.ProductID;

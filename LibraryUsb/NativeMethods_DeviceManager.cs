@@ -6,9 +6,6 @@ namespace LibraryUsb
     public static class NativeMethods_DeviceManager
     {
         [DllImport("kernel32.dll")]
-        public static extern bool DeviceIoControl(IntPtr hDevice, IoControlCodes dwIoControlCode, IntPtr lpInBuffer, int nInBufferSize, IntPtr lpOutBuffer, int nOutBufferSize, out uint lpBytesReturned, IntPtr lpOverlapped);
-
-        [DllImport("kernel32.dll")]
         public static extern bool DeviceIoControl(IntPtr hDevice, IoControlCodes dwIoControlCode, byte[] lpInBuffer, int nInBufferSize, byte[] lpOutBuffer, int nOutBufferSize, out uint lpBytesReturned, IntPtr lpOverlapped);
 
         public enum IoControlCodes : uint

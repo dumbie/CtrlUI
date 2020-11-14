@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using LibraryUsb;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -100,7 +99,7 @@ namespace DirectXInput
                         }
 
                         //Send data to the controller
-                        NativeMethods_Hid.WriteFile(Controller.HidDevice.DeviceHandle, OutputReport, (uint)OutputReport.Length, out uint bytesWritten, IntPtr.Zero);
+                        Controller.HidDevice.WriteBytesFile(OutputReport);
                         Debug.WriteLine("UsbRumb DS5");
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && Controller.Details.Wireless)
@@ -143,7 +142,7 @@ namespace DirectXInput
                         }
 
                         //Send data to the controller
-                        NativeMethods_Hid.HidD_SetOutputReport(Controller.HidDevice.DeviceHandle, OutputReport, OutputReport.Length);
+                        Controller.HidDevice.WriteBytesOutputReport(OutputReport);
                         Debug.WriteLine("BlueRumb DS4");
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && !Controller.Details.Wireless)
@@ -185,7 +184,7 @@ namespace DirectXInput
                         }
 
                         //Send data to the controller
-                        NativeMethods_Hid.WriteFile(Controller.HidDevice.DeviceHandle, OutputReport, (uint)OutputReport.Length, out uint bytesWritten, IntPtr.Zero);
+                        Controller.HidDevice.WriteBytesFile(OutputReport);
                         Debug.WriteLine("UsbRumb DS4");
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualShock3")
@@ -215,7 +214,7 @@ namespace DirectXInput
 
                         //Send data to the controller
                         int Transferred = 0;
-                        Controller.WinUsbDevice.SendTransfer(0x21, 0x09, 0x0201, OutputReport, ref Transferred);
+                        Controller.WinUsbDevice.WriteControlTransfer(0x21, 0x09, 0x0201, OutputReport, ref Transferred);
                         Debug.WriteLine("UsbRumb DS3");
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualShock12")
@@ -228,7 +227,7 @@ namespace DirectXInput
                         OutputReport[4] = (byte)(LightMotor > 0 ? 0x01 : 0x00); //On or Off
 
                         //Send data to the controller
-                        NativeMethods_Hid.WriteFile(Controller.HidDevice.DeviceHandle, OutputReport, (uint)OutputReport.Length, out uint bytesWritten, IntPtr.Zero);
+                        Controller.HidDevice.WriteBytesFile(OutputReport);
                         Debug.WriteLine("UsbRumb DS1 and 2");
                     }
                 }

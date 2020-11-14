@@ -90,7 +90,7 @@ namespace DirectXInput
                         if (!EnumDevice.Description.EndsWith("game controller")) { continue; }
 
                         //Read information from the controller
-                        HidDevice FoundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.Description, EnumDevice.HardwareId);
+                        HidDevice FoundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.HardwareId, true);
 
                         //Get vendor and product hex id
                         string VendorHexId = FoundHidDevice.Attributes.VendorHexId.ToLower();

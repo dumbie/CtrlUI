@@ -27,25 +27,6 @@ namespace LibraryUsb
             public byte iInterface;
         }
 
-        [StructLayout(LayoutKind.Explicit, Size = 18, CharSet = CharSet.Auto)]
-        public struct USB_DEVICE_DESCRIPTOR
-        {
-            [FieldOffset(0)] public byte bLength;
-            [FieldOffset(1)] public byte bDescriptorType;
-            [FieldOffset(2)] public ushort bcdUSB;
-            [FieldOffset(4)] public byte bDeviceClass;
-            [FieldOffset(5)] public byte bDeviceSubClass;
-            [FieldOffset(6)] public byte bDeviceProtocol;
-            [FieldOffset(7)] public byte bMaxPacketSize0;
-            [FieldOffset(8)] public ushort idVendor;
-            [FieldOffset(10)] public ushort idProduct;
-            [FieldOffset(12)] public ushort bcdDevice;
-            [FieldOffset(14)] public byte iVendor;
-            [FieldOffset(15)] public byte iProduct;
-            [FieldOffset(16)] public byte iSerialNumber;
-            [FieldOffset(17)] public byte bNumConfigurations;
-        }
-
         [StructLayout(LayoutKind.Sequential)]
         public struct WINUSB_PIPE_INFORMATION
         {
@@ -67,9 +48,6 @@ namespace LibraryUsb
 
         [DllImport("winusb.dll")]
         public static extern bool WinUsb_Initialize(IntPtr DeviceHandle, ref IntPtr InterfaceHandle);
-
-        [DllImport("winusb.dll")]
-        public static extern bool WinUsb_GetDescriptor(IntPtr InterfaceHandle, byte DescriptorType, byte Index, ushort LanguageID, ref USB_DEVICE_DESCRIPTOR UsbAltDeviceDescriptor, int BufferLength, ref int LengthTransferred);
 
         [DllImport("winusb.dll")]
         public static extern bool WinUsb_QueryInterfaceSettings(IntPtr InterfaceHandle, byte AlternateInterfaceNumber, ref USB_INTERFACE_DESCRIPTOR UsbAltInterfaceDescriptor);
@@ -94,5 +72,11 @@ namespace LibraryUsb
 
         [DllImport("winusb.dll")]
         public static extern bool WinUsb_Free(IntPtr InterfaceHandle);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr CreateFile(string lpFileName, uint dwDesiredAccess, uint dwShareMode, IntPtr lpSecurityAttributes, uint dwCreationDisposition, uint dwFlagsAndAttributes, uint hTemplateFile);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern bool CloseHandle(IntPtr hObject);
     }
 }

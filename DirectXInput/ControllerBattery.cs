@@ -18,10 +18,33 @@ namespace DirectXInput
             try
             {
                 //Check which controller is connected
-                if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && Controller.Details.Wireless)
+                if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
+                {
+                    //Bluetooth - DualSense 5
+                    int BatteryOffset = 54 + Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
+                    byte BatteryReport = Controller.InputReport[BatteryOffset];
+
+                    bool BatteryCharging = TranslateByte_0x10(0, BatteryReport) != 0;
+                    if (BatteryCharging)
+                    {
+                        Controller.BatteryPercentageCurrent = -2;
+                    }
+                    else
+                    {
+                        int RawBattery = TranslateByte_0x0F(0, BatteryReport) * 10 + 10;
+                        if (RawBattery > 100) { RawBattery = 100; }
+                        Controller.BatteryPercentageCurrent = RawBattery;
+                    }
+                }
+                else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && !Controller.Details.Wireless)
+                {
+                    //Wired USB - DualSense 5
+                    Controller.BatteryPercentageCurrent = -2;
+                }
+                else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && Controller.Details.Wireless)
                 {
                     //Bluetooth - DualShock 4
-                    int BatteryOffset = 30 + Controller.InputHeaderByteOffset + Controller.InputButtonByteOffset;
+                    int BatteryOffset = 30 + Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
                     byte BatteryReport = Controller.InputReport[BatteryOffset];
 
                     bool BatteryCharging = TranslateByte_0x10(0, BatteryReport) != 0;
