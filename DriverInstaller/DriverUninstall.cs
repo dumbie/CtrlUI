@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using static DriverInstaller.AppVariables;
-using static DriverInstaller.DeviceManager;
-using static LibraryUsb.NativeMethods_SetupApi;
+using static LibraryUsb.DeviceManager;
+using static LibraryUsb.NativeMethods_DeviceManager;
+using static LibraryUsb.NativeMethods_Variables;
 
 namespace DriverInstaller
 {
@@ -72,7 +73,7 @@ namespace DriverInstaller
         {
             try
             {
-                if (Uninstall(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverUninstall(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("Virtual Bus Driver uninstalled.");
                 }
@@ -88,7 +89,7 @@ namespace DriverInstaller
         {
             try
             {
-                if (Uninstall(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverUninstall(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("DS3 USB Driver uninstalled.");
                 }
@@ -104,7 +105,7 @@ namespace DriverInstaller
         {
             try
             {
-                if (Uninstall(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverUninstall(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("HidGuardian Driver uninstalled.");
                 }
@@ -124,7 +125,7 @@ namespace DriverInstaller
             {
                 using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    using (RegistryKey openSubKey = registryKeyLocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{" + vClassGuid_Hid.ToString() + "}", true))
+                    using (RegistryKey openSubKey = registryKeyLocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{" + GuidClassHidClass.ToString() + "}", true))
                     {
                         string[] stringArray = openSubKey.GetValue("UpperFilters") as string[];
                         List<string> stringList = (stringArray != null) ? new List<string>(stringArray) : new List<string>();

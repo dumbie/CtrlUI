@@ -3,44 +3,45 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static LibraryUsb.HidDeviceAttributes;
 using static LibraryUsb.HidDeviceCapabilities;
-using static LibraryUsb.NativeMethods_Flags;
 using static LibraryUsb.NativeMethods_Hid;
+using static LibraryUsb.NativeMethods_Variables;
 
 namespace LibraryUsb
 {
     public partial class HidDevice
     {
-        public string DevicePath { get; set; }
-        private IntPtr FileHandle { get; set; }
-        public string HardwareId { get; set; }
-        public HidDeviceAttributes Attributes { get; set; }
-        public HidDeviceCapabilities Capabilities { get; set; }
-        public bool Connected { get; set; }
+        public bool Connected;
+        public string DevicePath;
+        public string HardwareId;
+        private IntPtr FileHandle;
+        public HidDeviceAttributes Attributes;
+        public HidDeviceCapabilities Capabilities;
 
-        public HidDevice(string devicePath, string hardwareId, bool getDetails)
+        public HidDevice(string devicePath, string hardwareId, bool initialize, bool closeDevice)
         {
             try
             {
                 DevicePath = devicePath;
                 HardwareId = hardwareId;
 
-                if (!getDetails)
+                if (initialize)
                 {
                     DisableDevice();
                     EnableDevice();
                 }
 
-                OpenDevice();
-                GetDeviceAttributes();
-                GetDeviceCapabilities();
-                GetFeature();
-                GetProductName();
-                GetVendorName();
-                GetSerialNumber();
-
-                if (getDetails)
+                if (OpenDevice())
                 {
-                    CloseDevice();
+                    GetDeviceAttributes();
+                    GetDeviceCapabilities();
+                    GetFeature();
+                    GetProductName();
+                    GetVendorName();
+                    GetSerialNumber();
+                    if (closeDevice)
+                    {
+                        CloseDevice();
+                    }
                 }
             }
             catch (Exception ex)
@@ -56,7 +57,7 @@ namespace LibraryUsb
                 uint shareMode = (uint)FILE_SHARE.FILE_SHARE_READ | (uint)FILE_SHARE.FILE_SHARE_WRITE;
                 uint desiredAccess = (uint)GENERIC_MODE.GENERIC_READ | (uint)GENERIC_MODE.GENERIC_WRITE;
                 uint fileAttributes = (uint)FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL | (uint)FILE_FLAG.FILE_FLAG_NORMAL;
-                FileHandle = CreateFile(DevicePath, desiredAccess, shareMode, IntPtr.Zero, OPEN_EXISTING, fileAttributes, 0);
+                FileHandle = CreateFile(DevicePath, desiredAccess, shareMode, IntPtr.Zero, CREATION_FLAG.OPEN_EXISTING, fileAttributes, 0);
                 if (FileHandle == IntPtr.Zero || FileHandle == (IntPtr)INVALID_HANDLE_VALUE)
                 {
                     Connected = false;
@@ -85,7 +86,7 @@ namespace LibraryUsb
                     CloseHandle(FileHandle);
                     FileHandle = IntPtr.Zero;
                 }
-
+                Connected = false;
                 return true;
             }
             catch (Exception ex)
@@ -127,6 +128,33 @@ namespace LibraryUsb
             {
                 Debug.WriteLine("Failed to get device attributes: " + ex.Message);
                 return false;
+            }
+        }
+
+        private bool GetDeviceCapabilities()
+        {
+            IntPtr preparsedDataPointer = IntPtr.Zero;
+            try
+            {
+                HIDP_CAPS deviceCapabilities = new HIDP_CAPS();
+                if (HidD_GetPreparsedData(FileHandle, ref preparsedDataPointer))
+                {
+                    HidP_GetCaps(preparsedDataPointer, ref deviceCapabilities);
+                }
+                Capabilities = new HidDeviceCapabilities(deviceCapabilities);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to get device capabilities: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                if (preparsedDataPointer != IntPtr.Zero)
+                {
+                    HidD_FreePreparsedData(preparsedDataPointer);
+                }
             }
         }
 
@@ -196,29 +224,6 @@ namespace LibraryUsb
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to get serial number: " + ex.Message);
-                return false;
-            }
-        }
-
-        private bool GetDeviceCapabilities()
-        {
-            try
-            {
-                IntPtr preparsedDataPointer = IntPtr.Zero;
-                HIDP_CAPS deviceCapabilities = new HIDP_CAPS();
-
-                if (HidD_GetPreparsedData(FileHandle, ref preparsedDataPointer))
-                {
-                    HidP_GetCaps(preparsedDataPointer, ref deviceCapabilities);
-                    HidD_FreePreparsedData(preparsedDataPointer);
-                }
-
-                Capabilities = new HidDeviceCapabilities(deviceCapabilities);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to get device capabilities: " + ex.Message);
                 return false;
             }
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using static LibraryUsb.NativeMethods_DeviceManager;
 using static LibraryUsb.NativeMethods_WinUsb;
 
@@ -6,99 +7,94 @@ namespace LibraryUsb
 {
     public partial class WinUsbDevice
     {
-        public bool ReadIntPipe(byte[] inputBuffer)
+        public bool WriteBytesIntPipe(byte[] outputBuffer)
         {
             try
             {
-                if (!IsActive)
-                {
-                    return false;
-                }
-
-                int Transferred = 0;
-                bool Readed = WinUsb_ReadPipe(WinUsbHandle, IntIn, inputBuffer, inputBuffer.Length, ref Transferred, IntPtr.Zero);
-                if (Readed && Transferred > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                if (!Connected) { return false; }
+                return WinUsb_WritePipe(WinUsbHandle, IntOut, outputBuffer, outputBuffer.Length, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
             }
-            catch { }
-            return false;
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to write intpipe bytes: " + ex.Message);
+                return false;
+            }
         }
 
-        public bool ReadBulkPipe(byte[] inputBuffer)
+        public bool WriteBytesBulkPipe(byte[] outputBuffer)
         {
             try
             {
-                if (!IsActive)
-                {
-                    return false;
-                }
-
-                int Transferred = 0;
-                bool Readed = WinUsb_ReadPipe(WinUsbHandle, BulkIn, inputBuffer, inputBuffer.Length, ref Transferred, IntPtr.Zero);
-                if (Readed && Transferred > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                if (!Connected) { return false; }
+                return WinUsb_WritePipe(WinUsbHandle, BulkOut, outputBuffer, outputBuffer.Length, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
             }
-            catch { }
-            return false;
-        }
-
-        public bool WriteIntPipe(byte[] Buffer, int Length, ref int Transferred)
-        {
-            if (!IsActive)
+            catch (Exception ex)
             {
+                Debug.WriteLine("Failed to write bulkpipe bytes: " + ex.Message);
                 return false;
             }
-
-            return WinUsb_WritePipe(WinUsbHandle, IntOut, Buffer, Length, ref Transferred, IntPtr.Zero);
         }
 
-        public bool WriteBulkPipe(byte[] Buffer, int Length, ref int Transferred)
+        public bool WriteBytesTransfer(byte requestType, byte request, ushort value, byte[] outputBuffer)
         {
-            if (!IsActive)
+            try
             {
+                if (!Connected) { return false; }
+                WINUSB_SETUP_PACKET setupPacket = new WINUSB_SETUP_PACKET();
+                setupPacket.RequestType = requestType;
+                setupPacket.Request = request;
+                setupPacket.Value = value;
+                setupPacket.Index = 0;
+                setupPacket.Length = (ushort)outputBuffer.Length;
+                return WinUsb_ControlTransfer(WinUsbHandle, setupPacket, outputBuffer, outputBuffer.Length, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to write transfer bytes: " + ex.Message);
                 return false;
             }
-
-            return WinUsb_WritePipe(WinUsbHandle, BulkOut, Buffer, Length, ref Transferred, IntPtr.Zero);
         }
 
-        public bool WriteControlTransfer(byte RequestType, byte Request, ushort Value, byte[] Buffer, ref int Transferred)
+        public bool WriteBytesDeviceIO(byte[] inputBuffer, byte[] outputBuffer)
         {
-            if (!IsActive)
+            try
             {
+                if (!Connected) { return false; }
+                return DeviceIoControl(FileHandle, IoControlCodes.IOCTL_DEVICE_SENDDATA, inputBuffer, inputBuffer.Length, outputBuffer, outputBuffer.Length, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to write deviceio bytes: " + ex.Message);
                 return false;
             }
-
-            WINUSB_SETUP_PACKET Setup = new WINUSB_SETUP_PACKET();
-            Setup.RequestType = RequestType;
-            Setup.Request = Request;
-            Setup.Value = Value;
-            Setup.Index = 0;
-            Setup.Length = (ushort)Buffer.Length;
-
-            return WinUsb_ControlTransfer(WinUsbHandle, Setup, Buffer, Buffer.Length, ref Transferred, IntPtr.Zero);
         }
 
-        public bool WriteDeviceIO(byte[] Input, byte[] Output)
+        public bool ReadBytesIntPipe(byte[] inputBuffer)
         {
-            if (!IsActive)
+            try
             {
+                if (!Connected) { return false; }
+                return WinUsb_ReadPipe(WinUsbHandle, IntIn, inputBuffer, inputBuffer.Length, out int bytesRead, IntPtr.Zero) && bytesRead > 0;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to read intpipe bytes: " + ex.Message);
                 return false;
             }
+        }
 
-            return DeviceIoControl(FileHandle, IoControlCodes.IOCTL_DEVICE_SENDDATA, Input, Input.Length, Output, Output.Length, out uint Transferred, IntPtr.Zero) && Transferred > 0;
+        public bool ReadBytesBulkPipe(byte[] inputBuffer)
+        {
+            try
+            {
+                if (!Connected) { return false; }
+                return WinUsb_ReadPipe(WinUsbHandle, BulkIn, inputBuffer, inputBuffer.Length, out int bytesRead, IntPtr.Zero) && bytesRead > 0;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to read bulkpipe bytes: " + ex.Message);
+                return false;
+            }
         }
     }
 }

@@ -7,8 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryUsb.HidDevices;
-using static LibraryUsb.NativeMethods_Hid;
+using static LibraryUsb.Enumerate;
+using static LibraryUsb.NativeMethods_Variables;
 
 namespace DirectXInput
 {
@@ -20,9 +20,7 @@ namespace DirectXInput
             try
             {
                 //Add Win Usb Devices
-                //DualShock 3 ScpDriver guid
-                Guid EnumerateClass = new Guid("{E2824A09-DBAA-4407-85CA-C8E8FF5F6FFA}");
-                IEnumerable<EnumerateInfo> SelectedWinDevice = EnumerateDevices(EnumerateClass);
+                IEnumerable<EnumerateInfo> SelectedWinDevice = EnumerateDevices(GuidClassDS3ScpDriver);
                 foreach (EnumerateInfo EnumDevice in SelectedWinDevice)
                 {
                     try
@@ -79,9 +77,7 @@ namespace DirectXInput
                 }
 
                 //Add Hib Usb Devices
-                //Get the current hid guid
-                HidD_GetHidGuid(ref EnumerateClass);
-                IEnumerable<EnumerateInfo> SelectedHidDevice = EnumerateDevices(EnumerateClass);
+                IEnumerable<EnumerateInfo> SelectedHidDevice = EnumerateDevices(GuidClassHidDevice);
                 foreach (EnumerateInfo EnumDevice in SelectedHidDevice)
                 {
                     try
@@ -90,18 +86,18 @@ namespace DirectXInput
                         if (!EnumDevice.Description.EndsWith("game controller")) { continue; }
 
                         //Read information from the controller
-                        HidDevice FoundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.HardwareId, true);
+                        HidDevice foundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.HardwareId, false, true);
 
                         //Get vendor and product hex id
-                        string VendorHexId = FoundHidDevice.Attributes.VendorHexId.ToLower();
-                        string ProductHexId = FoundHidDevice.Attributes.ProductHexId.ToLower();
+                        string VendorHexId = foundHidDevice.Attributes.VendorHexId.ToLower();
+                        string ProductHexId = foundHidDevice.Attributes.ProductHexId.ToLower();
 
                         //Validate the connected controller
                         if (!ControllerValidate(VendorHexId, ProductHexId, EnumDevice.DevicePath)) { continue; }
 
                         //Get controller product information
-                        string ProductNameString = FoundHidDevice.Attributes.ProductName;
-                        string VendorNameString = FoundHidDevice.Attributes.VendorName;
+                        string ProductNameString = foundHidDevice.Attributes.ProductName;
+                        string VendorNameString = foundHidDevice.Attributes.VendorName;
 
                         //Create new Json controller profile if it doesnt exist
                         IEnumerable<ControllerProfile> profileList = vDirectControllersProfile.Where(x => x.ProductID.ToLower() == ProductHexId && x.VendorID.ToLower() == VendorHexId);
@@ -132,15 +128,15 @@ namespace DirectXInput
                         }
 
                         //Check if controller is wireless
-                        bool ConnectedWireless = FoundHidDevice.DevicePath.ToLower().Contains("00805f9b34fb");
+                        bool ConnectedWireless = foundHidDevice.DevicePath.ToLower().Contains("00805f9b34fb");
 
                         ControllerDetails newController = new ControllerDetails()
                         {
                             Type = "Hid",
                             Profile = profileController,
                             DisplayName = ProductNameString,
-                            HardwareId = FoundHidDevice.HardwareId,
-                            Path = FoundHidDevice.DevicePath,
+                            HardwareId = foundHidDevice.HardwareId,
+                            Path = foundHidDevice.DevicePath,
                             Wireless = ConnectedWireless
                         };
 

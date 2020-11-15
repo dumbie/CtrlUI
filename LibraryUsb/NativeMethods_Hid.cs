@@ -2,14 +2,12 @@
 using System.Runtime.InteropServices;
 using static LibraryUsb.HidDeviceAttributes;
 using static LibraryUsb.HidDeviceCapabilities;
+using static LibraryUsb.NativeMethods_Variables;
 
 namespace LibraryUsb
 {
     public class NativeMethods_Hid
     {
-        [DllImport("hid.dll")]
-        public static extern void HidD_GetHidGuid(ref Guid hidGuid);
-
         [DllImport("hid.dll")]
         public static extern bool HidD_GetAttributes(IntPtr hidDeviceObject, ref HIDD_ATTRIBUTES attributes);
 
@@ -38,13 +36,13 @@ namespace LibraryUsb
         public static extern bool HidD_SetOutputReport(IntPtr hidDeviceObject, byte[] lpReportBuffer, int reportBufferLength);
 
         [DllImport("kernel32.dll")]
-        public static extern bool ReadFile(IntPtr hFile, byte[] lpBuffer, uint nNumberOfBytesToRead, out uint lpNumberOfBytesRead, IntPtr lpOverlapped);
+        public static extern bool ReadFile(IntPtr hFile, byte[] lpBuffer, int nNumberOfBytesToRead, out int lpNumberOfBytesRead, IntPtr lpOverlapped);
 
         [DllImport("kernel32.dll")]
-        public static extern bool WriteFile(IntPtr hFile, byte[] lpBuffer, uint nNumberOfBytesToWrite, out uint lpNumberOfBytesWritten, IntPtr lpOverlapped);
+        public static extern bool WriteFile(IntPtr hFile, byte[] lpBuffer, int nNumberOfBytesToWrite, out int lpNumberOfBytesWritten, IntPtr lpOverlapped);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr CreateFile(string lpFileName, uint dwDesiredAccess, uint dwShareMode, IntPtr lpSecurityAttributes, uint dwCreationDisposition, uint dwFlagsAndAttributes, uint hTemplateFile);
+        public static extern IntPtr CreateFile(string lpFileName, uint dwDesiredAccess, uint dwShareMode, IntPtr lpSecurityAttributes, CREATION_FLAG dwCreationDisposition, uint dwFlagsAndAttributes, uint hTemplateFile);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public static extern bool CloseHandle(IntPtr hObject);

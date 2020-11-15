@@ -9,50 +9,62 @@ namespace LibraryUsb
     public partial class HidDevice
     {
         //Disconnect the device from bluetooth
-        public void DisconnectBluetooth()
+        public bool DisconnectBluetooth()
         {
+            IntPtr radioHandle = IntPtr.Zero;
+            IntPtr bluetoothHandle = IntPtr.Zero;
             try
             {
                 Debug.WriteLine("Attempting to disconnect bluetooth device.");
 
-                //Get the device serial number
-                string MacAddressRaw = Attributes.SerialNumber;
-
-                //Set and parse the mac address
-                byte[] MacAddressBytes = new byte[8];
-                string[] MacAddressSplit = { $"{MacAddressRaw[0]}{MacAddressRaw[1]}", $"{MacAddressRaw[2]}{MacAddressRaw[3]}", $"{MacAddressRaw[4]}{MacAddressRaw[5]}", $"{MacAddressRaw[6]}{MacAddressRaw[7]}", $"{MacAddressRaw[8]}{MacAddressRaw[9]}", $"{MacAddressRaw[10]}{MacAddressRaw[11]}" };
+                //Get and parse the mac address
+                string macAddressRaw = Attributes.SerialNumber;
+                byte[] macAddressBytes = new byte[8];
+                string[] macAddressSplit = { $"{macAddressRaw[0]}{macAddressRaw[1]}", $"{macAddressRaw[2]}{macAddressRaw[3]}", $"{macAddressRaw[4]}{macAddressRaw[5]}", $"{macAddressRaw[6]}{macAddressRaw[7]}", $"{macAddressRaw[8]}{macAddressRaw[9]}", $"{macAddressRaw[10]}{macAddressRaw[11]}" };
                 for (int i = 0; i < 6; i++)
                 {
-                    MacAddressBytes[5 - i] = Convert.ToByte(MacAddressSplit[i], 16);
+                    macAddressBytes[5 - i] = Convert.ToByte(macAddressSplit[i], 16);
                 }
 
-                Debug.WriteLine("Disconnecting bluetooth device: " + MacAddressRaw);
+                Debug.WriteLine("Disconnecting bluetooth device: " + macAddressRaw);
 
                 //Disconnect the device from bluetooth
-                BLUETOOTH_FIND_RADIO_PARAMS RadioFindParams = new BLUETOOTH_FIND_RADIO_PARAMS();
-                RadioFindParams.dwSize = Marshal.SizeOf(RadioFindParams);
+                BLUETOOTH_FIND_RADIO_PARAMS radioFindParams = new BLUETOOTH_FIND_RADIO_PARAMS();
+                radioFindParams.dwSize = Marshal.SizeOf(radioFindParams);
+                radioHandle = BluetoothFindFirstRadio(ref radioFindParams, ref bluetoothHandle);
 
-                IntPtr BluetoothHandle = IntPtr.Zero;
-                IntPtr RadioHandle = BluetoothFindFirstRadio(ref RadioFindParams, ref BluetoothHandle);
-
-                bool ControllerDisconnected = false;
-                while (!ControllerDisconnected)
+                bool bluetoothDisconnected = false;
+                while (!bluetoothDisconnected)
                 {
-                    ControllerDisconnected = DeviceIoControl(BluetoothHandle, IoControlCodes.IOCTL_BTH_DISCONNECT_DEVICE, MacAddressBytes, MacAddressBytes.Length, null, 0, out uint Transferred, IntPtr.Zero);
-                    CloseHandle(BluetoothHandle);
-                    if (!ControllerDisconnected)
+                    bluetoothDisconnected = DeviceIoControl(bluetoothHandle, IoControlCodes.IOCTL_BTH_DISCONNECT_DEVICE, macAddressBytes, macAddressBytes.Length, null, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
+                    if (!bluetoothDisconnected)
                     {
-                        if (!BluetoothFindNextRadio(RadioHandle, ref BluetoothHandle))
+                        if (!BluetoothFindNextRadio(radioHandle, ref bluetoothHandle))
                         {
-                            ControllerDisconnected = true;
+                            bluetoothDisconnected = true;
                         }
                     }
                 }
 
-                BluetoothFindRadioClose(RadioHandle);
-                Debug.WriteLine("Bluetooth disconnected succesfully: " + ControllerDisconnected);
+                Debug.WriteLine("Succesfully disconnected bluetooth: " + bluetoothDisconnected);
+                return bluetoothDisconnected;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed disconnecting bluetooth: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                if (radioHandle != IntPtr.Zero)
+                {
+                    BluetoothFindRadioClose(radioHandle);
+                }
+                if (bluetoothHandle != IntPtr.Zero)
+                {
+                    CloseHandle(bluetoothHandle);
+                }
+            }
         }
     }
 }

@@ -11,11 +11,12 @@ namespace LibraryUsb
         {
             try
             {
+                if (!Connected) { return false; }
                 return HidD_SetOutputReport(FileHandle, outputBuffer, outputBuffer.Length);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to write output report bytes: " + ex.Message);
+                Debug.WriteLine("Failed to write outputreport bytes: " + ex.Message);
                 return false;
             }
         }
@@ -24,7 +25,8 @@ namespace LibraryUsb
         {
             try
             {
-                return WriteFile(FileHandle, outputBuffer, (uint)outputBuffer.Length, out uint bytesWritten, IntPtr.Zero);
+                if (!Connected) { return false; }
+                return WriteFile(FileHandle, outputBuffer, outputBuffer.Length, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
             }
             catch (Exception ex)
             {
@@ -37,21 +39,24 @@ namespace LibraryUsb
         {
             try
             {
-                IntPtr lpOverlapped = IntPtr.Zero;
-                return ReadFile(FileHandle, inputBuffer, (uint)inputBuffer.Length, out uint lpNumberOfBytesRead, lpOverlapped);
+                if (!Connected) { return false; }
+                return ReadFile(FileHandle, inputBuffer, inputBuffer.Length, out int bytesRead, IntPtr.Zero) && bytesRead > 0;
             }
-            catch { }
-            return false;
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to read file bytes: " + ex.Message);
+                return false;
+            }
         }
 
         public async Task<bool> ReadBytesFileTimeout(byte[] inputBuffer, int readTimeOut)
         {
             try
             {
+                if (!Connected) { return false; }
                 Task<bool> readTask = Task.Run(delegate
                 {
-                    IntPtr lpOverlapped = IntPtr.Zero;
-                    return ReadFile(FileHandle, inputBuffer, (uint)inputBuffer.Length, out uint lpNumberOfBytesRead, lpOverlapped);
+                    return ReadFile(FileHandle, inputBuffer, inputBuffer.Length, out int bytesRead, IntPtr.Zero) && bytesRead > 0;
                 });
 
                 Task delayTask = Task.Delay(readTimeOut);
@@ -60,9 +65,16 @@ namespace LibraryUsb
                 {
                     return readTask.Result;
                 }
+                else
+                {
+                    return false;
+                }
             }
-            catch { }
-            return false;
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to read file timeout bytes: " + ex.Message);
+                return false;
+            }
         }
     }
 }

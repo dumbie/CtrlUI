@@ -20,21 +20,20 @@ namespace DirectXInput
                 if (Controller.SupportedCurrent.CodeName == "SonyDualShock3" || Controller.SupportedCurrent.CodeName == "SonyMoveNavigation3")
                 {
                     Debug.WriteLine("Waking up USB controller: SonyDualShock3 or SonyMoveNavigation3");
-                    byte[] EnableBytes = { 0x42, 0x0C, 0x00, 0x00 };
-                    int Transferred = 0;
-                    Controller.WinUsbDevice.WriteControlTransfer(0x21, 0x09, 0x3F4, EnableBytes, ref Transferred);
+                    byte[] enableBytes = { 0x42, 0x0C, 0x00, 0x00 };
+                    Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x3F4, enableBytes);
                 }
 
                 //Send output to activate controller
                 SendXRumbleData(Controller, true, false, false);
 
                 //Receive input from the selected controller
-                while (!Controller.InputTask.TaskStopRequest && Controller.WinUsbDevice != null && Controller.WinUsbDevice.IsActive)
+                while (!Controller.InputTask.TaskStopRequest && Controller.WinUsbDevice != null && Controller.WinUsbDevice.Connected)
                 {
                     try
                     {
                         //Read data from the controller
-                        bool Readed = Controller.WinUsbDevice.ReadIntPipe(Controller.InputReport);
+                        bool Readed = Controller.WinUsbDevice.ReadBytesIntPipe(Controller.InputReport);
                         if (!Readed)
                         {
                             Debug.WriteLine("Failed to read input data from win controller: " + Controller.NumberId);

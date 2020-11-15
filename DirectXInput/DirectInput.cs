@@ -8,6 +8,7 @@ using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
+using static LibraryUsb.NativeMethods_Variables;
 
 namespace DirectXInput
 {
@@ -267,7 +268,7 @@ namespace DirectXInput
                     PrepareXInputData(Controller, true);
 
                     //Send XOutput device data
-                    Controller.X360Device.WriteDeviceIO(Controller.XInputData, Controller.XOutputData);
+                    Controller.X360Device.WriteBytesDeviceIO(Controller.XInputData, Controller.XOutputData);
                     await Task.Delay(500);
 
                     //Stop and disconnect the x360 device
@@ -307,7 +308,10 @@ namespace DirectXInput
                     //Disconnect controller from bluetooth
                     try
                     {
-                        if (Controller.Details.Wireless) { Controller.HidDevice.DisconnectBluetooth(); }
+                        if (Controller.Details.Wireless)
+                        {
+                            Controller.HidDevice.DisconnectBluetooth();
+                        }
                     }
                     catch
                     {
@@ -377,8 +381,8 @@ namespace DirectXInput
                 //Find and connect to win controller
                 if (Controller.Details.Type == "Win")
                 {
-                    Controller.WinUsbDevice = new WinUsbDevice();
-                    if (!Controller.WinUsbDevice.OpenDevicePath(Controller.Details.Path, true))
+                    Controller.WinUsbDevice = new WinUsbDevice(Guid.Empty, Controller.Details.Path, true, false);
+                    if (!Controller.WinUsbDevice.Connected)
                     {
                         Debug.WriteLine("Invalid winusb open device, blocking: " + Controller.Details.DisplayName);
                         vControllerTempBlockPaths.Add(Controller.Details.Path);
@@ -399,7 +403,7 @@ namespace DirectXInput
                 //Find and connect to hid controller
                 else
                 {
-                    Controller.HidDevice = new HidDevice(Controller.Details.Path, Controller.Details.HardwareId, false);
+                    Controller.HidDevice = new HidDevice(Controller.Details.Path, Controller.Details.HardwareId, true, false);
                     if (!Controller.HidDevice.Connected)
                     {
                         Debug.WriteLine("Invalid hid open device, blocking: " + Controller.Details.DisplayName);
@@ -448,8 +452,8 @@ namespace DirectXInput
         {
             try
             {
-                Controller.X360Device = new WinUsbDevice("{F679F562-3164-42CE-A4DB-E7DDBE723909}");
-                if (Controller.X360Device.OpenDeviceClass(false))
+                Controller.X360Device = new WinUsbDevice(GuidClassXboxBus, string.Empty, false, false);
+                if (Controller.X360Device.Connected)
                 {
                     Controller.X360Device.Unplug(Controller.NumberId);
                     await Task.Delay(500);
@@ -470,8 +474,8 @@ namespace DirectXInput
         {
             try
             {
-                WinUsbDevice X360Device = new WinUsbDevice("{F679F562-3164-42CE-A4DB-E7DDBE723909}");
-                if (X360Device.OpenDeviceClass(false))
+                WinUsbDevice X360Device = new WinUsbDevice(GuidClassXboxBus, string.Empty, false, false);
+                if (X360Device.Connected)
                 {
                     Debug.WriteLine("Xbox drivers are installed.");
                     X360Device.UnplugAll();

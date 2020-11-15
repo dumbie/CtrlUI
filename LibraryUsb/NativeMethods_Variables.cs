@@ -1,9 +1,25 @@
-﻿namespace LibraryUsb
+﻿using System;
+
+namespace LibraryUsb
 {
-    public class NativeMethods_Flags
+    public class NativeMethods_Variables
     {
-        public const int OPEN_EXISTING = 3;
+        public static Guid GuidClassHidDevice = new Guid("4D1E55B2-F16F-11CF-88CB-001111000030");
+        public static Guid GuidClassHidClass = new Guid("745A17A0-74D3-11D0-B6FE-00A0C90F57DA");
+        public static Guid GuidClassSystem = new Guid("4D36E97D-E325-11CE-BFC1-08002BE10318");
+        public static Guid GuidClassXboxBus = new Guid("F679F562-3164-42CE-A4DB-E7DDBE723909");
+        public static Guid GuidClassDS3ScpDriver = new Guid("E2824A09-DBAA-4407-85CA-C8E8FF5F6FFA");
+
         public const int INVALID_HANDLE_VALUE = -1;
+
+        public enum CREATION_FLAG : uint
+        {
+            CREATE_NEW = 1,
+            CREATE_ALWAYS = 2,
+            OPEN_EXISTING = 3,
+            OPEN_ALWAYS = 4,
+            TRUNCATE_EXISTING = 5
+        }
 
         public enum GENERIC_MODE : uint
         {

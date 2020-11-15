@@ -47,7 +47,7 @@ namespace DirectXInput
                     //Check which controller is connected
                     if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
                     {
-                        ////Bluetooth Output - DualSense 5
+                        //Bluetooth Output - DualSense 5
                         //byte[] OutputReport = new byte[Controller.OutputReport.Length];
 
                         //If battery is low turn on microphone led
@@ -57,7 +57,7 @@ namespace DirectXInput
                         }
 
                         //Send data to the controller
-                        //NativeMethods_Hid.HidD_SetOutputReport(Controller.HidDevice.DeviceHandle, OutputReport, OutputReport.Length);
+                        //Controller.HidDevice.WriteBytesOutputReport(OutputReport);
                         Debug.WriteLine("BlueRumb DS5");
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && !Controller.Details.Wireless)
@@ -213,8 +213,7 @@ namespace DirectXInput
                         }
 
                         //Send data to the controller
-                        int Transferred = 0;
-                        Controller.WinUsbDevice.WriteControlTransfer(0x21, 0x09, 0x0201, OutputReport, ref Transferred);
+                        Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x0201, OutputReport);
                         Debug.WriteLine("UsbRumb DS3");
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualShock12")

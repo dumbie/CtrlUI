@@ -66,7 +66,7 @@ namespace DirectXInput
                 }
 
                 //Send XOutput device data
-                Controller.X360Device.WriteDeviceIO(Controller.XInputData, Controller.XOutputData);
+                Controller.X360Device.WriteBytesDeviceIO(Controller.XInputData, Controller.XOutputData);
 
                 //Send XInput device data
                 SendXRumbleData(Controller, false, false, false);

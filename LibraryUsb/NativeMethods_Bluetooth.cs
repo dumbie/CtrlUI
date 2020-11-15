@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace LibraryUsb
 {
-    public static class NativeMethods_Bluetooth
+    public class NativeMethods_Bluetooth
     {
         public const int BLUETOOTH_MAX_NAME_SIZE = 248;
         public const int BLUETOOTH_SERVICE_DISABLE = 0;

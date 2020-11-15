@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using static DriverInstaller.AppVariables;
-using static DriverInstaller.DeviceManager;
-using static LibraryUsb.NativeMethods_SetupApi;
+using static LibraryUsb.DeviceManager;
+using static LibraryUsb.NativeMethods_DeviceManager;
+using static LibraryUsb.NativeMethods_Variables;
 
 namespace DriverInstaller
 {
@@ -72,12 +73,12 @@ namespace DriverInstaller
         {
             try
             {
-                if (Create("System", vClassGuid_System, @"Root\ScpVBus"))
+                if (DeviceCreate("System", GuidClassSystem, @"Root\ScpVBus"))
                 {
                     TextBoxAppend("Virtual Bus Driver created.");
                 }
 
-                if (Install(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstall(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("Virtual Bus Driver installed.");
                 }
@@ -93,7 +94,7 @@ namespace DriverInstaller
         {
             try
             {
-                if (Install(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstall(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("DS3 USB Driver installed.");
                 }
@@ -109,12 +110,12 @@ namespace DriverInstaller
         {
             try
             {
-                if (Create("System", vClassGuid_System, @"Root\HidGuardian"))
+                if (DeviceCreate("System", GuidClassSystem, @"Root\HidGuardian"))
                 {
                     TextBoxAppend("HidGuardian Driver created.");
                 }
 
-                if (Install(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstall(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("HidGuardian Driver installed.");
                 }
@@ -134,7 +135,7 @@ namespace DriverInstaller
             {
                 using (RegistryKey registryKeyLocalMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
                 {
-                    using (RegistryKey openSubKey = registryKeyLocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{" + vClassGuid_Hid.ToString() + "}", true))
+                    using (RegistryKey openSubKey = registryKeyLocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{" + GuidClassHidClass.ToString() + "}", true))
                     {
                         string[] stringArray = openSubKey.GetValue("UpperFilters") as string[];
                         List<string> stringList = (stringArray != null) ? new List<string>(stringArray) : new List<string>();

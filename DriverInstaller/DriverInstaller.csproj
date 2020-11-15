@@ -103,7 +103,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DeviceManager.cs" />
     <Compile Include="AppVariables.cs" />
     <Compile Include="DriverUninstall.cs" />
     <Compile Include="DriverInstall.cs" />

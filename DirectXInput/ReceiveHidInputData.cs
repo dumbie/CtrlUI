@@ -20,7 +20,7 @@ namespace DirectXInput
                 SendXRumbleData(Controller, true, false, false);
 
                 //Receive input from the selected controller
-                while (!Controller.InputTask.TaskStopRequest && Controller.HidDevice != null)
+                while (!Controller.InputTask.TaskStopRequest && Controller.HidDevice != null && Controller.HidDevice.Connected)
                 {
                     try
                     {
