@@ -6,8 +6,12 @@ namespace LibraryUsb
     public class NativeMethods_Bluetooth
     {
         public const int BLUETOOTH_MAX_NAME_SIZE = 248;
-        public const int BLUETOOTH_SERVICE_DISABLE = 0;
-        public const int BLUETOOTH_SERVICE_ENABLE = 1;
+
+        public enum SERVICE_FLAGS : uint
+        {
+            BLUETOOTH_SERVICE_DISABLE = 0x00,
+            BLUETOOTH_SERVICE_ENABLE = 0x01
+        }
 
         [StructLayout(LayoutKind.Sequential)]
         public struct SYSTEMTIME
@@ -88,12 +92,9 @@ namespace LibraryUsb
         public static extern bool BluetoothFindDeviceClose(IntPtr hFind);
 
         [DllImport("bthprops.cpl")]
-        public static extern uint BluetoothSetServiceState(IntPtr hRadio, ref BLUETOOTH_DEVICE_INFO DeviceInfo, ref Guid guid, int ServiceFlags);
+        public static extern uint BluetoothSetServiceState(IntPtr hRadio, ref BLUETOOTH_DEVICE_INFO DeviceInfo, ref Guid guid, SERVICE_FLAGS ServiceFlags);
 
         [DllImport("bthprops.cpl")]
         public static extern uint BluetoothRemoveDevice(ref BLUETOOTH_ADDRESS Address);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        public static extern bool CloseHandle(IntPtr hObject);
     }
 }

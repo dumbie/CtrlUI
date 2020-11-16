@@ -8,7 +8,7 @@ using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
-using static LibraryUsb.NativeMethods_Variables;
+using static LibraryUsb.NativeMethods_Guid;
 
 namespace DirectXInput
 {
@@ -310,7 +310,7 @@ namespace DirectXInput
                     {
                         if (Controller.Details.Wireless)
                         {
-                            Controller.HidDevice.DisconnectBluetooth();
+                            Controller.HidDevice.BluetoothDisconnect();
                         }
                     }
                     catch
@@ -452,7 +452,7 @@ namespace DirectXInput
         {
             try
             {
-                Controller.X360Device = new WinUsbDevice(GuidClassXboxBus, string.Empty, false, false);
+                Controller.X360Device = new WinUsbDevice(GuidClassScpXbox360Bus, string.Empty, false, false);
                 if (Controller.X360Device.Connected)
                 {
                     Controller.X360Device.Unplug(Controller.NumberId);
@@ -474,7 +474,7 @@ namespace DirectXInput
         {
             try
             {
-                WinUsbDevice X360Device = new WinUsbDevice(GuidClassXboxBus, string.Empty, false, false);
+                WinUsbDevice X360Device = new WinUsbDevice(GuidClassScpXbox360Bus, string.Empty, false, false);
                 if (X360Device.Connected)
                 {
                     Debug.WriteLine("Xbox drivers are installed.");

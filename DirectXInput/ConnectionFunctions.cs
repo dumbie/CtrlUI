@@ -96,7 +96,6 @@ namespace DirectXInput
                     RawPackets += "(OffHd" + activeController.InputHeaderOffsetByte + ")";
                     RawPackets += "(OffBt" + activeController.InputButtonOffsetByte + ")";
                     RawPackets += "(ProductId" + activeController.Details.Profile.ProductID + "/VendorId" + activeController.Details.Profile.VendorID + ")";
-
                     for (int Packet = 0; Packet < activeController.InputReport.Length; Packet++) { RawPackets = RawPackets + " " + activeController.InputReport[Packet]; }
                     return RawPackets;
                 }

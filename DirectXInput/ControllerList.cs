@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryUsb.Enumerate;
-using static LibraryUsb.NativeMethods_Variables;
+using static LibraryUsb.NativeMethods_Guid;
 
 namespace DirectXInput
 {
@@ -20,7 +20,7 @@ namespace DirectXInput
             try
             {
                 //Add Win Usb Devices
-                IEnumerable<EnumerateInfo> SelectedWinDevice = EnumerateDevices(GuidClassDS3ScpDriver);
+                IEnumerable<EnumerateInfo> SelectedWinDevice = EnumerateDevices(GuidClassScpDS3Driver);
                 foreach (EnumerateInfo EnumDevice in SelectedWinDevice)
                 {
                     try

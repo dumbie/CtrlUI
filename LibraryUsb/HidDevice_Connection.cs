@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using static LibraryUsb.DeviceManager;
-using static LibraryUsb.NativeMethods_DeviceManager;
+using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace LibraryUsb
 {
@@ -11,7 +11,7 @@ namespace LibraryUsb
         {
             try
             {
-                return ChangePropertyDevice(DevicePath, DICS_DISABLE);
+                return ChangePropertyDevice(DevicePath, DiChangeState.DICS_DISABLE);
             }
             catch (Exception ex)
             {
@@ -24,11 +24,24 @@ namespace LibraryUsb
         {
             try
             {
-                return ChangePropertyDevice(DevicePath, DICS_ENABLE);
+                return ChangePropertyDevice(DevicePath, DiChangeState.DICS_ENABLE);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to enable the device: " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool BluetoothDisconnect()
+        {
+            try
+            {
+                return Bluetooth.BluetoothDisconnect(Attributes.SerialNumber);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed disconnecting bluetooth: " + ex.Message);
                 return false;
             }
         }

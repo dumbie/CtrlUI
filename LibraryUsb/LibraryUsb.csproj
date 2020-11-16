@@ -47,16 +47,18 @@
     <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="NativeMethods_IoControl.cs" />
+    <Compile Include="NativeMethods_Guid.cs" />
     <Compile Include="UsbLibrary_DeviceManager.cs" />
     <Compile Include="HidDevice.cs" />
     <Compile Include="HidDevice_Connection.cs" />
     <Compile Include="HidDevice_ReadWrite.cs" />
-    <Compile Include="HidDevice_Bluetooth.cs" />
+    <Compile Include="UsbLibrary_Bluetooth.cs" />
     <Compile Include="HidDevice_DeviceAttributes.cs" />
     <Compile Include="HidDevice_DeviceCapabilities.cs" />
     <Compile Include="NativeMethods_Bluetooth.cs" />
-    <Compile Include="NativeMethods_DeviceManager.cs" />
-    <Compile Include="NativeMethods_Variables.cs" />
+    <Compile Include="NativeMethods_SetupApi.cs" />
+    <Compile Include="NativeMethods_File.cs" />
     <Compile Include="NativeMethods_Hid.cs" />
     <Compile Include="NativeMethods_WinUsb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

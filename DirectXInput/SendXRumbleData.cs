@@ -48,17 +48,18 @@ namespace DirectXInput
                     if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
                     {
                         //Bluetooth Output - DualSense 5
-                        //byte[] OutputReport = new byte[Controller.OutputReport.Length];
+                        byte[] OutputReport = new byte[Controller.OutputReport.Length];
+                        OutputReport[0] = 0x31;
 
-                        //If battery is low turn on microphone led
+                        //If battery is low turn on mute led
                         if (Controller.BatteryPercentageCurrent <= 20 && Controller.BatteryPercentageCurrent >= 0)
                         {
-                            //OutputReport[?] = 0x01; //Microphone led
+                            //OutputReport[?] = 0x01; //Mute led
                         }
 
                         //Send data to the controller
-                        //Controller.HidDevice.WriteBytesOutputReport(OutputReport);
-                        Debug.WriteLine("BlueRumb DS5");
+                        bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(OutputReport);
+                        Debug.WriteLine("BlueRumb DS5: " + bytesWritten);
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && !Controller.Details.Wireless)
                     {
@@ -69,7 +70,7 @@ namespace DirectXInput
                         OutputReport[2] = 0x17;
                         OutputReport[3] = LightMotor;
                         OutputReport[4] = HeavyMotor;
-                        OutputReport[9] = 0x00; //Microphone led
+                        OutputReport[9] = 0x00; //Mute led
 
                         //Set the controller led color
                         double ControllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
@@ -99,8 +100,8 @@ namespace DirectXInput
                         }
 
                         //Send data to the controller
-                        Controller.HidDevice.WriteBytesFile(OutputReport);
-                        Debug.WriteLine("UsbRumb DS5");
+                        bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReport);
+                        Debug.WriteLine("UsbRumb DS5: " + bytesWritten);
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && Controller.Details.Wireless)
                     {
@@ -111,8 +112,18 @@ namespace DirectXInput
                         OutputReport[3] = 0xFF;
                         OutputReport[6] = LightMotor;
                         OutputReport[7] = HeavyMotor;
-                        OutputReport[11] = 255; //Led On Duration
-                        OutputReport[12] = 0; //Led Off Duration
+
+                        //If battery is low flash the led
+                        if (Controller.BatteryPercentageCurrent <= 20 && Controller.BatteryPercentageCurrent >= 0)
+                        {
+                            OutputReport[11] = 128; //Led On Duration
+                            OutputReport[12] = 128; //Led Off Duration
+                        }
+                        else
+                        {
+                            OutputReport[11] = 255; //Led On Duration
+                            OutputReport[12] = 0; //Led Off Duration
+                        }
 
                         //Set the controller led color
                         double ControllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
@@ -142,8 +153,8 @@ namespace DirectXInput
                         }
 
                         //Send data to the controller
-                        Controller.HidDevice.WriteBytesOutputReport(OutputReport);
-                        Debug.WriteLine("BlueRumb DS4");
+                        bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(OutputReport);
+                        Debug.WriteLine("BlueRumb DS4: " + bytesWritten);
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && !Controller.Details.Wireless)
                     {
@@ -184,8 +195,8 @@ namespace DirectXInput
                         }
 
                         //Send data to the controller
-                        Controller.HidDevice.WriteBytesFile(OutputReport);
-                        Debug.WriteLine("UsbRumb DS4");
+                        bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReport);
+                        Debug.WriteLine("UsbRumb DS4: " + bytesWritten);
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualShock3")
                     {
@@ -213,8 +224,8 @@ namespace DirectXInput
                         }
 
                         //Send data to the controller
-                        Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x0201, OutputReport);
-                        Debug.WriteLine("UsbRumb DS3");
+                        bool bytesWritten = Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x0201, OutputReport);
+                        Debug.WriteLine("UsbRumb DS3: " + bytesWritten);
                     }
                     else if (Controller.SupportedCurrent.CodeName == "SonyDualShock12")
                     {
@@ -226,8 +237,8 @@ namespace DirectXInput
                         OutputReport[4] = (byte)(LightMotor > 0 ? 0x01 : 0x00); //On or Off
 
                         //Send data to the controller
-                        Controller.HidDevice.WriteBytesFile(OutputReport);
-                        Debug.WriteLine("UsbRumb DS1 and 2");
+                        bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReport);
+                        Debug.WriteLine("UsbRumb DS1 and 2: " + bytesWritten);
                     }
                 }
             }

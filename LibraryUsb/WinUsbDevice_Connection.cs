@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using static LibraryUsb.NativeMethods_DeviceManager;
+using static LibraryUsb.NativeMethods_IoControl;
 
 namespace LibraryUsb
 {
@@ -23,9 +23,9 @@ namespace LibraryUsb
                 outputBuffer[7] = (byte)((number >> 24) & 0xFF);
                 return DeviceIoControl(FileHandle, IoControlCodes.IOCTL_DEVICE_CONNECT, outputBuffer, outputBuffer.Length, null, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
             }
-            catch
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed to plugin device.");
+                Debug.WriteLine("Failed to plugin device: " + ex.Message);
                 return false;
             }
         }
@@ -47,9 +47,9 @@ namespace LibraryUsb
                 outputBuffer[7] = (byte)((number >> 24) & 0xFF);
                 return DeviceIoControl(FileHandle, IoControlCodes.IOCTL_DEVICE_DISCONNECT, outputBuffer, outputBuffer.Length, null, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
             }
-            catch
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed to unplug single device.");
+                Debug.WriteLine("Failed to unplug device: " + ex.Message);
                 return false;
             }
         }
@@ -66,9 +66,9 @@ namespace LibraryUsb
                 outputBuffer[3] = 0x00;
                 return DeviceIoControl(FileHandle, IoControlCodes.IOCTL_DEVICE_DISCONNECT, outputBuffer, outputBuffer.Length, null, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
             }
-            catch
+            catch (Exception ex)
             {
-                Debug.WriteLine("Failed to unplug all devices.");
+                Debug.WriteLine("Failed to unplug all devices: " + ex.Message);
                 return false;
             }
         }

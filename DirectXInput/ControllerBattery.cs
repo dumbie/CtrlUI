@@ -64,6 +64,11 @@ namespace DirectXInput
                     //Wired USB - DualShock 4
                     Controller.BatteryPercentageCurrent = -2;
                 }
+                else if (Controller.SupportedCurrent.CodeName == "SonyDualShock3" && !Controller.Details.Wireless)
+                {
+                    //Wired USB - DualShock 3
+                    Controller.BatteryPercentageCurrent = -2;
+                }
                 else
                 {
                     //Incompatible controllers

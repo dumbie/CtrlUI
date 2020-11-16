@@ -2,14 +2,14 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static LibraryUsb.NativeMethods_Bluetooth;
-using static LibraryUsb.NativeMethods_DeviceManager;
+using static LibraryUsb.NativeMethods_File;
+using static LibraryUsb.NativeMethods_IoControl;
 
 namespace LibraryUsb
 {
-    public partial class HidDevice
+    public partial class Bluetooth
     {
-        //Disconnect the device from bluetooth
-        public bool DisconnectBluetooth()
+        public static bool BluetoothDisconnect(string serialNumber)
         {
             IntPtr radioHandle = IntPtr.Zero;
             IntPtr bluetoothHandle = IntPtr.Zero;
@@ -18,15 +18,14 @@ namespace LibraryUsb
                 Debug.WriteLine("Attempting to disconnect bluetooth device.");
 
                 //Get and parse the mac address
-                string macAddressRaw = Attributes.SerialNumber;
                 byte[] macAddressBytes = new byte[8];
-                string[] macAddressSplit = { $"{macAddressRaw[0]}{macAddressRaw[1]}", $"{macAddressRaw[2]}{macAddressRaw[3]}", $"{macAddressRaw[4]}{macAddressRaw[5]}", $"{macAddressRaw[6]}{macAddressRaw[7]}", $"{macAddressRaw[8]}{macAddressRaw[9]}", $"{macAddressRaw[10]}{macAddressRaw[11]}" };
+                string[] macAddressSplit = { $"{serialNumber[0]}{serialNumber[1]}", $"{serialNumber[2]}{serialNumber[3]}", $"{serialNumber[4]}{serialNumber[5]}", $"{serialNumber[6]}{serialNumber[7]}", $"{serialNumber[8]}{serialNumber[9]}", $"{serialNumber[10]}{serialNumber[11]}" };
                 for (int i = 0; i < 6; i++)
                 {
                     macAddressBytes[5 - i] = Convert.ToByte(macAddressSplit[i], 16);
                 }
 
-                Debug.WriteLine("Disconnecting bluetooth device: " + macAddressRaw);
+                Debug.WriteLine("Disconnecting bluetooth device: " + serialNumber);
 
                 //Disconnect the device from bluetooth
                 BLUETOOTH_FIND_RADIO_PARAMS radioFindParams = new BLUETOOTH_FIND_RADIO_PARAMS();

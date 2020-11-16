@@ -1,27 +1,13 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace LibraryUsb
 {
-    public class NativeMethods_Variables
+    public class NativeMethods_File
     {
-        public static Guid GuidClassHidDevice = new Guid("4D1E55B2-F16F-11CF-88CB-001111000030");
-        public static Guid GuidClassHidClass = new Guid("745A17A0-74D3-11D0-B6FE-00A0C90F57DA");
-        public static Guid GuidClassSystem = new Guid("4D36E97D-E325-11CE-BFC1-08002BE10318");
-        public static Guid GuidClassXboxBus = new Guid("F679F562-3164-42CE-A4DB-E7DDBE723909");
-        public static Guid GuidClassDS3ScpDriver = new Guid("E2824A09-DBAA-4407-85CA-C8E8FF5F6FFA");
+        public static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
 
-        public const int INVALID_HANDLE_VALUE = -1;
-
-        public enum CREATION_FLAG : uint
-        {
-            CREATE_NEW = 1,
-            CREATE_ALWAYS = 2,
-            OPEN_EXISTING = 3,
-            OPEN_ALWAYS = 4,
-            TRUNCATE_EXISTING = 5
-        }
-
-        public enum GENERIC_MODE : uint
+        public enum FileDesiredAccess : uint
         {
             GENERIC_READ = 0x80000000,
             GENERIC_WRITE = 0x40000000,
@@ -29,7 +15,7 @@ namespace LibraryUsb
             GENERIC_ALL = 0x10000000
         }
 
-        public enum FILE_SHARE : uint
+        public enum FileShareMode : uint
         {
             FILE_SHARE_NONE = 0x00000000,
             FILE_SHARE_READ = 0x00000001,
@@ -39,7 +25,16 @@ namespace LibraryUsb
             FILE_SHARE_VALID_FLAGS = 0x00000007
         }
 
-        public enum FILE_ATTRIBUTE : uint
+        public enum FileCreationDisposition : uint
+        {
+            CREATE_NEW = 1,
+            CREATE_ALWAYS = 2,
+            OPEN_EXISTING = 3,
+            OPEN_ALWAYS = 4,
+            TRUNCATE_EXISTING = 5
+        }
+
+        public enum FileFlagsAndAttributes : uint
         {
             FILE_ATTRIBUTE_READONLY = 0x00000001,
             FILE_ATTRIBUTE_HIDDEN = 0x00000002,
@@ -59,11 +54,7 @@ namespace LibraryUsb
             FILE_ATTRIBUTE_VIRTUAL = 0x00010000,
             FILE_ATTRIBUTE_NO_SCRUB_DATA = 0x00020000,
             FILE_ATTRIBUTE_RECALL_ON_OPEN = 0x00040000,
-            FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS = 0x00400000
-        }
-
-        public enum FILE_FLAG : uint
-        {
+            FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS = 0x00400000,
             FILE_FLAG_NORMAL = 0x00000000,
             FILE_FLAG_OPEN_REQUIRING_OPLOCK = 0x00040000,
             FILE_FLAG_FIRST_PIPE_INSTANCE = 0x00080000,
@@ -79,5 +70,17 @@ namespace LibraryUsb
             FILE_FLAG_OVERLAPPED = 0x40000000,
             FILE_FLAG_WRITE_THROUGH = 0x80000000
         }
+
+        [DllImport("kernel32.dll")]
+        public static extern bool ReadFile(IntPtr hFile, byte[] lpBuffer, int nNumberOfBytesToRead, out int lpNumberOfBytesReaded, IntPtr lpOverlapped);
+
+        [DllImport("kernel32.dll")]
+        public static extern bool WriteFile(IntPtr hFile, byte[] lpBuffer, int nNumberOfBytesToWrite, out int lpNumberOfBytesWritten, IntPtr lpOverlapped);
+
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr CreateFile(string lpFileName, FileDesiredAccess dwDesiredAccess, FileShareMode dwShareMode, IntPtr lpSecurityAttributes, FileCreationDisposition dwCreationDisposition, FileFlagsAndAttributes dwFlagsAndAttributes, uint hTemplateFile);
+
+        [DllImport("kernel32.dll")]
+        public static extern bool CloseHandle(IntPtr hObject);
     }
 }

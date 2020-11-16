@@ -19,9 +19,9 @@ namespace DirectXInput
                 //Wake up USB controllers
                 if (Controller.SupportedCurrent.CodeName == "SonyDualShock3" || Controller.SupportedCurrent.CodeName == "SonyMoveNavigation3")
                 {
-                    Debug.WriteLine("Waking up USB controller: SonyDualShock3 or SonyMoveNavigation3");
                     byte[] enableBytes = { 0x42, 0x0C, 0x00, 0x00 };
-                    Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x3F4, enableBytes);
+                    bool bytesWritten = Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x3F4, enableBytes);
+                    Debug.WriteLine("Woke up USB controller: SonyDualShock3 or SonyMoveNavigation3: " + bytesWritten);
                 }
 
                 //Send output to activate controller

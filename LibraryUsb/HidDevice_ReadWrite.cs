@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static LibraryUsb.NativeMethods_File;
 using static LibraryUsb.NativeMethods_Hid;
 
 namespace LibraryUsb

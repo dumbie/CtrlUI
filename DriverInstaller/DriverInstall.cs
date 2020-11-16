@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using static DriverInstaller.AppVariables;
 using static LibraryUsb.DeviceManager;
-using static LibraryUsb.NativeMethods_DeviceManager;
-using static LibraryUsb.NativeMethods_Variables;
+using static LibraryUsb.NativeMethods_Guid;
+using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace DriverInstaller
 {

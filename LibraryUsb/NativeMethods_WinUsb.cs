@@ -1,17 +1,42 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using static LibraryUsb.NativeMethods_Variables;
 
 namespace LibraryUsb
 {
     public class NativeMethods_WinUsb
     {
-        public enum USBD_PIPE_TYPE
+        public enum USBD_PIPE_TYPE : int
         {
-            UsbdPipeTypeControl = 0,
-            UsbdPipeTypeIsochronous = 1,
-            UsbdPipeTypeBulk = 2,
-            UsbdPipeTypeInterrupt = 3
+            Control = 0,
+            Isochronous = 1,
+            Bulk = 2,
+            Interrupt = 3
+        }
+
+        public enum DESCRIPTOR_TYPE : byte
+        {
+            USB_DEVICE_DESCRIPTOR_TYPE = 0x01,
+            USB_CONFIGURATION_DESCRIPTOR_TYPE = 0x02,
+            USB_STRING_DESCRIPTOR_TYPE = 0x03
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct USB_DEVICE_DESCRIPTOR
+        {
+            public byte bLength;
+            public byte bDescriptorType;
+            public ushort bcdUSB;
+            public byte bDeviceClass;
+            public byte bDeviceSubClass;
+            public byte bDeviceProtocol;
+            public byte bMaxPacketSize0;
+            public ushort idVendor;
+            public ushort idProduct;
+            public ushort bcdDevice;
+            public byte iManufacturer;
+            public byte iProduct;
+            public byte iSerialNumber;
+            public byte bNumConfigurations;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -51,6 +76,9 @@ namespace LibraryUsb
         public static extern bool WinUsb_Initialize(IntPtr deviceHandle, ref IntPtr interfaceHandle);
 
         [DllImport("winusb.dll")]
+        public static extern bool WinUsb_GetDescriptor(IntPtr InterfaceHandle, DESCRIPTOR_TYPE DescriptorType, byte Index, ushort LanguageID, ref USB_DEVICE_DESCRIPTOR deviceDesc, int BufferLength, out int LengthTransfered);
+
+        [DllImport("winusb.dll")]
         public static extern bool WinUsb_QueryInterfaceSettings(IntPtr interfaceHandle, byte alternateInterfaceNumber, ref USB_INTERFACE_DESCRIPTOR usbAltInterfaceDescriptor);
 
         [DllImport("winusb.dll")]
@@ -73,11 +101,5 @@ namespace LibraryUsb
 
         [DllImport("winusb.dll")]
         public static extern bool WinUsb_Free(IntPtr interfaceHandle);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr CreateFile(string lpFileName, uint dwDesiredAccess, uint dwShareMode, IntPtr lpSecurityAttributes, CREATION_FLAG dwCreationDisposition, uint dwFlagsAndAttributes, uint hTemplateFile);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        public static extern bool CloseHandle(IntPtr hObject);
     }
 }

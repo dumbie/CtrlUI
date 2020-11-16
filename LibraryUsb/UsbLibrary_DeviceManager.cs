@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static LibraryUsb.Enumerate;
-using static LibraryUsb.NativeMethods_DeviceManager;
-using static LibraryUsb.NativeMethods_Variables;
+using static LibraryUsb.NativeMethods_Guid;
+using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace LibraryUsb
 {
@@ -13,7 +13,7 @@ namespace LibraryUsb
         {
             try
             {
-                return DiInstallDriver(IntPtr.Zero, driverPackageInfPath, (uint)flag, ref rebootRequired);
+                return DiInstallDriver(IntPtr.Zero, driverPackageInfPath, flag, ref rebootRequired);
             }
             catch (Exception ex)
             {
@@ -26,7 +26,7 @@ namespace LibraryUsb
         {
             try
             {
-                return DiUninstallDriver(IntPtr.Zero, driverPackageInfPath, (uint)flag, ref rebootRequired);
+                return DiUninstallDriver(IntPtr.Zero, driverPackageInfPath, flag, ref rebootRequired);
             }
             catch (Exception ex)
             {
@@ -48,17 +48,17 @@ namespace LibraryUsb
                     return false;
                 }
 
-                if (!SetupDiCreateDeviceInfo(deviceInfoSet, className, ref classGuid, null, IntPtr.Zero, DICD_GENERATE_ID, ref deviceInfoData))
+                if (!SetupDiCreateDeviceInfo(deviceInfoSet, className, ref classGuid, null, IntPtr.Zero, DiCreateDevice.DICD_GENERATE_ID, ref deviceInfoData))
                 {
                     return false;
                 }
 
-                if (!SetupDiSetDeviceRegistryProperty(deviceInfoSet, ref deviceInfoData, SPDRP_HARDWAREID, node, node.Length * 2))
+                if (!SetupDiSetDeviceRegistryProperty(deviceInfoSet, ref deviceInfoData, DiDeviceRegistryProperty.SPDRP_HARDWAREID, node, node.Length * 2))
                 {
                     return false;
                 }
 
-                if (!SetupDiCallClassInstaller(DIF_REGISTERDEVICE, deviceInfoSet, ref deviceInfoData))
+                if (!SetupDiCallClassInstaller(DiFunction.DIF_REGISTERDEVICE, deviceInfoSet, ref deviceInfoData))
                 {
                     return false;
                 }
@@ -90,7 +90,7 @@ namespace LibraryUsb
                 deviceInterfaceData.cbSize = Marshal.SizeOf(deviceInterfaceData);
                 SP_DEVICE_INTERFACE_DATA deviceInterfaceDataDetail = new SP_DEVICE_INTERFACE_DATA();
                 deviceInterfaceDataDetail.cbSize = Marshal.SizeOf(deviceInterfaceDataDetail);
-                deviceInfoSet = SetupDiGetClassDevs(ref deviceGuid, IntPtr.Zero, IntPtr.Zero, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
+                deviceInfoSet = SetupDiGetClassDevs(ref deviceGuid, string.Empty, IntPtr.Zero, DiGetClassFlag.DIGCF_PRESENT | DiGetClassFlag.DIGCF_DEVICEINTERFACE);
 
                 while (SetupDiEnumDeviceInterfaces(deviceInfoSet, IntPtr.Zero, ref deviceGuid, memberIndex, ref deviceInterfaceData))
                 {
@@ -127,20 +127,20 @@ namespace LibraryUsb
             {
                 SP_DEVINFO_DATA deviceInterfaceData = new SP_DEVINFO_DATA();
                 deviceInterfaceData.cbSize = Marshal.SizeOf(deviceInterfaceData);
-                deviceInfoSet = SetupDiGetClassDevs(ref classGuid, IntPtr.Zero, IntPtr.Zero, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
+                deviceInfoSet = SetupDiGetClassDevs(ref classGuid, string.Empty, IntPtr.Zero, DiGetClassFlag.DIGCF_PRESENT | DiGetClassFlag.DIGCF_DEVICEINTERFACE);
 
                 if (SetupDiOpenDeviceInfo(deviceInfoSet, instanceId, IntPtr.Zero, 0, ref deviceInterfaceData))
                 {
                     SP_REMOVEDEVICE_PARAMS props = new SP_REMOVEDEVICE_PARAMS();
-                    props.ClassInstallHeader = new SP_CLASSINSTALL_HEADER();
-                    props.ClassInstallHeader.cbSize = Marshal.SizeOf(props.ClassInstallHeader);
-                    props.ClassInstallHeader.installFunction = DIF_REMOVE;
-                    props.Scope = DI_REMOVEDEVICE_GLOBAL;
-                    props.HwProfile = 0x00;
+                    props.classInstallHeader = new SP_CLASSINSTALL_HEADER();
+                    props.classInstallHeader.cbSize = Marshal.SizeOf(props.classInstallHeader);
+                    props.classInstallHeader.installFunction = DiFunction.DIF_REMOVE;
+                    props.removeDevice = DiRemoveDevice.DI_REMOVEDEVICE_GLOBAL;
+                    props.hwProfile = 0x00;
 
                     if (SetupDiSetClassInstallParams(deviceInfoSet, ref deviceInterfaceData, ref props, Marshal.SizeOf(props)))
                     {
-                        return SetupDiCallClassInstaller(DIF_REMOVE, deviceInfoSet, ref deviceInterfaceData);
+                        return SetupDiCallClassInstaller(DiFunction.DIF_REMOVE, deviceInfoSet, ref deviceInterfaceData);
                     }
                 }
                 return false;
@@ -159,13 +159,13 @@ namespace LibraryUsb
             }
         }
 
-        public static bool ChangePropertyDevice(string devicePath, int targetProperty)
+        public static bool ChangePropertyDevice(string devicePath, DiChangeState changeState)
         {
             IntPtr deviceInfoSet = IntPtr.Zero;
             try
             {
                 string instanceId = ConvertPathToInstanceId(devicePath);
-                deviceInfoSet = SetupDiGetClassDevs(ref GuidClassHidDevice, instanceId, 0, DIGCF_DEVICEINTERFACE);
+                deviceInfoSet = SetupDiGetClassDevs(ref GuidClassHidDevice, instanceId, IntPtr.Zero, DiGetClassFlag.DIGCF_DEVICEINTERFACE);
                 SP_DEVINFO_DATA deviceInfoData = new SP_DEVINFO_DATA();
                 deviceInfoData.cbSize = Marshal.SizeOf(deviceInfoData);
 
@@ -179,9 +179,9 @@ namespace LibraryUsb
                 //Set property change param
                 SP_PROPCHANGE_PARAMS propertyParams = new SP_PROPCHANGE_PARAMS();
                 propertyParams.classInstallHeader.cbSize = Marshal.SizeOf(propertyParams.classInstallHeader);
-                propertyParams.classInstallHeader.installFunction = DIF_PROPERTYCHANGE;
-                propertyParams.Scope = DICS_FLAG_GLOBAL;
-                propertyParams.stateChange = targetProperty;
+                propertyParams.classInstallHeader.installFunction = DiFunction.DIF_PROPERTYCHANGE;
+                propertyParams.changeStateFlag = DiChangeStateFlag.DICS_FLAG_GLOBAL;
+                propertyParams.stateChange = changeState;
 
                 //Prepare the device
                 if (!SetupDiSetClassInstallParams(deviceInfoSet, ref deviceInfoData, ref propertyParams, Marshal.SizeOf(propertyParams)))
@@ -191,7 +191,7 @@ namespace LibraryUsb
                 }
 
                 //Change the property
-                if (!SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, deviceInfoSet, ref deviceInfoData))
+                if (!SetupDiCallClassInstaller(DiFunction.DIF_PROPERTYCHANGE, deviceInfoSet, ref deviceInfoData))
                 {
                     Debug.WriteLine("SetupDi: Failed to change property.");
                     return false;

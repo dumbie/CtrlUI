@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using static LibraryUsb.NativeMethods_DeviceManager;
-using static LibraryUsb.NativeMethods_Variables;
+using static LibraryUsb.NativeMethods_File;
+using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace LibraryUsb
 {
@@ -22,8 +22,8 @@ namespace LibraryUsb
             List<EnumerateInfo> enumeratedInfo = new List<EnumerateInfo>();
             try
             {
-                deviceInfoSet = SetupDiGetClassDevs(ref enumerateGuid, null, 0, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
-                if (deviceInfoSet != (IntPtr)INVALID_HANDLE_VALUE)
+                deviceInfoSet = SetupDiGetClassDevs(ref enumerateGuid, null, IntPtr.Zero, DiGetClassFlag.DIGCF_PRESENT | DiGetClassFlag.DIGCF_DEVICEINTERFACE);
+                if (deviceInfoSet != INVALID_HANDLE_VALUE)
                 {
                     int deviceIndex = 0;
                     SP_DEVINFO_DATA deviceInfoData = new SP_DEVINFO_DATA();
@@ -31,23 +31,31 @@ namespace LibraryUsb
 
                     while (SetupDiEnumDeviceInfo(deviceInfoSet, deviceIndex, ref deviceInfoData))
                     {
-                        deviceIndex++;
-                        int deviceInterfaceIndex = 0;
-                        SP_DEVICE_INTERFACE_DATA deviceInterfaceData = new SP_DEVICE_INTERFACE_DATA();
-                        deviceInterfaceData.cbSize = Marshal.SizeOf(deviceInterfaceData);
-
-                        while (SetupDiEnumDeviceInterfaces(deviceInfoSet, ref deviceInfoData, ref enumerateGuid, deviceInterfaceIndex, ref deviceInterfaceData))
+                        try
                         {
-                            deviceInterfaceIndex++;
-                            string devicePath = GetDevicePath(deviceInfoSet, deviceInterfaceData);
-                            string description = GetBusReportedDeviceDescription(deviceInfoSet, ref deviceInfoData);
-                            if (string.IsNullOrWhiteSpace(description))
+                            deviceIndex++;
+                            int deviceInterfaceIndex = 0;
+                            SP_DEVICE_INTERFACE_DATA deviceInterfaceData = new SP_DEVICE_INTERFACE_DATA();
+                            deviceInterfaceData.cbSize = Marshal.SizeOf(deviceInterfaceData);
+
+                            while (SetupDiEnumDeviceInterfaces(deviceInfoSet, ref deviceInfoData, ref enumerateGuid, deviceInterfaceIndex, ref deviceInterfaceData))
                             {
-                                description = GetDeviceDescription(deviceInfoSet, ref deviceInfoData);
+                                try
+                                {
+                                    deviceInterfaceIndex++;
+                                    string devicePath = GetDevicePath(deviceInfoSet, deviceInterfaceData);
+                                    string description = GetBusReportedDeviceDescription(deviceInfoSet, ref deviceInfoData);
+                                    if (string.IsNullOrWhiteSpace(description))
+                                    {
+                                        description = GetDeviceDescription(deviceInfoSet, ref deviceInfoData);
+                                    }
+                                    string hardwareId = GetDeviceHardwareId(deviceInfoSet, ref deviceInfoData);
+                                    enumeratedInfo.Add(new EnumerateInfo { DevicePath = devicePath, Description = description, HardwareId = hardwareId });
+                                }
+                                catch { }
                             }
-                            string hardwareId = GetDeviceHardwareId(deviceInfoSet, ref deviceInfoData);
-                            enumeratedInfo.Add(new EnumerateInfo { DevicePath = devicePath, Description = description, HardwareId = hardwareId });
                         }
+                        catch { }
                     }
                 }
             }
@@ -77,10 +85,21 @@ namespace LibraryUsb
 
                 SetupDiGetDeviceInterfaceDetailBuffer(deviceInfoSet, ref deviceInterfaceData, IntPtr.Zero, 0, ref bufferSize, IntPtr.Zero);
                 bool success = SetupDiGetDeviceInterfaceDetail(deviceInfoSet, ref deviceInterfaceData, ref interfaceDetail, bufferSize, ref bufferSize, IntPtr.Zero);
-                if (success) { return interfaceDetail.DevicePath; }
+                if (success)
+                {
+                    return interfaceDetail.DevicePath;
+                }
+                else
+                {
+                    Debug.WriteLine("Failed to get device path.");
+                    return string.Empty;
+                }
             }
-            catch { }
-            return string.Empty;
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to get device path: " + ex.Message);
+                return string.Empty;
+            }
         }
 
         public static string GetDeviceDescription(IntPtr deviceInfoSet, ref SP_DEVINFO_DATA devinfoData)
@@ -91,11 +110,21 @@ namespace LibraryUsb
                 int propertyType = 0;
                 int requiredSize = 0;
 
-                bool success = SetupDiGetDeviceRegistryProperty(deviceInfoSet, ref devinfoData, SPDRP_DEVICEDESC, ref propertyType, descriptionBuffer, descriptionBuffer.Length, ref requiredSize);
-                if (success) { return descriptionBuffer.ToUTF8String(); }
+                bool success = SetupDiGetDeviceRegistryProperty(deviceInfoSet, ref devinfoData, DiDeviceRegistryProperty.SPDRP_DEVICEDESC, ref propertyType, descriptionBuffer, descriptionBuffer.Length, ref requiredSize);
+                if (success)
+                {
+                    return descriptionBuffer.ToUTF8String();
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
-            catch { }
-            return string.Empty;
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to get device description: " + ex.Message);
+                return string.Empty;
+            }
         }
 
         public static string GetBusReportedDeviceDescription(IntPtr deviceInfoSet, ref SP_DEVINFO_DATA devinfoData)
@@ -107,10 +136,20 @@ namespace LibraryUsb
                 int requiredSize = 0;
 
                 bool success = SetupDiGetDeviceProperty(deviceInfoSet, ref devinfoData, ref DEVPKEY_Device_BusReportedDeviceDesc, ref propertyType, descriptionBuffer, descriptionBuffer.Length, ref requiredSize, 0);
-                if (success) { return descriptionBuffer.ToUTF16String(); }
+                if (success)
+                {
+                    return descriptionBuffer.ToUTF16String();
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
-            catch { }
-            return string.Empty;
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to get bus device description: " + ex.Message);
+                return string.Empty;
+            }
         }
 
         public static string GetDeviceHardwareId(IntPtr deviceInfoSet, ref SP_DEVINFO_DATA devinfoData)
@@ -121,11 +160,22 @@ namespace LibraryUsb
                 int propertyType = 0;
                 int requiredSize = 0;
 
-                bool success = SetupDiGetDeviceRegistryProperty(deviceInfoSet, ref devinfoData, SPDRP_HARDWAREID, ref propertyType, hardwareBuffer, hardwareBuffer.Length, ref requiredSize);
-                if (success) { return hardwareBuffer.ToUTF8String(); }
+                bool success = SetupDiGetDeviceRegistryProperty(deviceInfoSet, ref devinfoData, DiDeviceRegistryProperty.SPDRP_HARDWAREID, ref propertyType, hardwareBuffer, hardwareBuffer.Length, ref requiredSize);
+                if (success)
+                {
+                    return hardwareBuffer.ToUTF8String();
+                }
+                else
+                {
+                    Debug.WriteLine("Failed to get hardware id.");
+                    return string.Empty;
+                }
             }
-            catch { }
-            return string.Empty;
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to get hardware id: " + ex.Message);
+                return string.Empty;
+            }
         }
     }
 }

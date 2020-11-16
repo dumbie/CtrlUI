@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static LibraryUsb.HidDeviceAttributes;
 using static LibraryUsb.HidDeviceCapabilities;
+using static LibraryUsb.NativeMethods_File;
 using static LibraryUsb.NativeMethods_Hid;
-using static LibraryUsb.NativeMethods_Variables;
 
 namespace LibraryUsb
 {
@@ -34,7 +34,7 @@ namespace LibraryUsb
                 {
                     GetDeviceAttributes();
                     GetDeviceCapabilities();
-                    GetFeature();
+                    GetFeature(HID_USAGE_GENERIC.HID_USAGE_GENERIC_GAMEPAD);
                     GetProductName();
                     GetVendorName();
                     GetSerialNumber();
@@ -54,12 +54,14 @@ namespace LibraryUsb
         {
             try
             {
-                uint shareMode = (uint)FILE_SHARE.FILE_SHARE_READ | (uint)FILE_SHARE.FILE_SHARE_WRITE;
-                uint desiredAccess = (uint)GENERIC_MODE.GENERIC_READ | (uint)GENERIC_MODE.GENERIC_WRITE;
-                uint fileAttributes = (uint)FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL | (uint)FILE_FLAG.FILE_FLAG_NORMAL;
-                FileHandle = CreateFile(DevicePath, desiredAccess, shareMode, IntPtr.Zero, CREATION_FLAG.OPEN_EXISTING, fileAttributes, 0);
-                if (FileHandle == IntPtr.Zero || FileHandle == (IntPtr)INVALID_HANDLE_VALUE)
+                FileShareMode shareMode = FileShareMode.FILE_SHARE_READ | FileShareMode.FILE_SHARE_WRITE;
+                FileDesiredAccess desiredAccess = FileDesiredAccess.GENERIC_READ | FileDesiredAccess.GENERIC_WRITE;
+                FileCreationDisposition creationDisposition = FileCreationDisposition.OPEN_EXISTING;
+                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL;
+                FileHandle = CreateFile(DevicePath, desiredAccess, shareMode, IntPtr.Zero, creationDisposition, flagsAttributes, 0);
+                if (FileHandle == IntPtr.Zero || FileHandle == INVALID_HANDLE_VALUE)
                 {
+                    Debug.WriteLine("Failed to open hid device.");
                     Connected = false;
                     return false;
                 }
@@ -96,15 +98,14 @@ namespace LibraryUsb
             }
         }
 
-        private bool GetFeature()
+        private bool GetFeature(HID_USAGE_GENERIC usageGeneric)
         {
             try
             {
                 int featureLength = Capabilities.FeatureReportByteLength;
                 if (featureLength <= 0) { featureLength = 64; }
-
                 byte[] data = new byte[featureLength];
-                data[0] = 0x05;
+                data[0] = (byte)usageGeneric;
                 return HidD_GetFeature(FileHandle, data, data.Length);
             }
             catch (Exception ex)
@@ -120,9 +121,16 @@ namespace LibraryUsb
             {
                 HIDD_ATTRIBUTES hiddDeviceAttributes = new HIDD_ATTRIBUTES();
                 hiddDeviceAttributes.Size = Marshal.SizeOf(hiddDeviceAttributes);
-                HidD_GetAttributes(FileHandle, ref hiddDeviceAttributes);
-                Attributes = new HidDeviceAttributes(hiddDeviceAttributes);
-                return true;
+                if (HidD_GetAttributes(FileHandle, ref hiddDeviceAttributes))
+                {
+                    Attributes = new HidDeviceAttributes(hiddDeviceAttributes);
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine("Failed to get device attributes.");
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -136,13 +144,18 @@ namespace LibraryUsb
             IntPtr preparsedDataPointer = IntPtr.Zero;
             try
             {
-                HIDP_CAPS deviceCapabilities = new HIDP_CAPS();
                 if (HidD_GetPreparsedData(FileHandle, ref preparsedDataPointer))
                 {
+                    HIDP_CAPS deviceCapabilities = new HIDP_CAPS();
                     HidP_GetCaps(preparsedDataPointer, ref deviceCapabilities);
+                    Capabilities = new HidDeviceCapabilities(deviceCapabilities);
+                    return true;
                 }
-                Capabilities = new HidDeviceCapabilities(deviceCapabilities);
-                return true;
+                else
+                {
+                    Debug.WriteLine("Failed to get device capabilities.");
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -168,12 +181,13 @@ namespace LibraryUsb
                 if (!string.IsNullOrWhiteSpace(productNameString))
                 {
                     Attributes.ProductName = productNameString;
+                    return true;
                 }
                 else
                 {
                     Attributes.ProductName = Attributes.ProductHexId + " Unknown";
+                    return false;
                 }
-                return true;
             }
             catch (Exception ex)
             {
@@ -193,12 +207,13 @@ namespace LibraryUsb
                 if (!string.IsNullOrWhiteSpace(vendorNameString))
                 {
                     Attributes.VendorName = vendorNameString;
+                    return true;
                 }
                 else
                 {
                     Attributes.VendorName = Attributes.VendorHexId + " Unknown";
+                    return false;
                 }
-                return true;
             }
             catch (Exception ex)
             {
@@ -218,8 +233,13 @@ namespace LibraryUsb
                 if (!string.IsNullOrWhiteSpace(serialNumberString))
                 {
                     Attributes.SerialNumber = serialNumberString;
+                    return true;
                 }
-                return true;
+                else
+                {
+                    Attributes.SerialNumber = string.Empty;
+                    return false;
+                }
             }
             catch (Exception ex)
             {
