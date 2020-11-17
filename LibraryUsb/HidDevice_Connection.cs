@@ -11,7 +11,7 @@ namespace LibraryUsb
         {
             try
             {
-                return ChangePropertyDevice(DevicePath, DiChangeState.DICS_DISABLE);
+                return ChangePropertyDevice(DeviceInstanceId, DiChangeState.DICS_DISABLE);
             }
             catch (Exception ex)
             {
@@ -24,7 +24,7 @@ namespace LibraryUsb
         {
             try
             {
-                return ChangePropertyDevice(DevicePath, DiChangeState.DICS_ENABLE);
+                return ChangePropertyDevice(DeviceInstanceId, DiChangeState.DICS_ENABLE);
             }
             catch (Exception ex)
             {

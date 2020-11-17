@@ -502,16 +502,31 @@ namespace LibraryShared
                 }
             }
 
-            //Controller Rumble
-            private int PrivRumbleStrength = 75;
-            public int RumbleStrength
+            //Trigger Rumble
+            private int PrivTriggerRumbleStrength = 40;
+            public int TriggerRumbleStrength
             {
-                get { return this.PrivRumbleStrength; }
+                get { return this.PrivTriggerRumbleStrength; }
                 set
                 {
-                    if (this.PrivRumbleStrength != value)
+                    if (this.PrivTriggerRumbleStrength != value)
                     {
-                        this.PrivRumbleStrength = value;
+                        this.PrivTriggerRumbleStrength = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            //Controller Rumble
+            private int PrivControllerRumbleStrength = 80;
+            public int ControllerRumbleStrength
+            {
+                get { return this.PrivControllerRumbleStrength; }
+                set
+                {
+                    if (this.PrivControllerRumbleStrength != value)
+                    {
+                        this.PrivControllerRumbleStrength = value;
                         NotifyPropertyChanged();
                     }
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static LibraryUsb.DeviceManager;
 using static LibraryUsb.HidDeviceAttributes;
 using static LibraryUsb.HidDeviceCapabilities;
 using static LibraryUsb.NativeMethods_File;
@@ -12,6 +13,7 @@ namespace LibraryUsb
     {
         public bool Connected;
         public string DevicePath;
+        public string DeviceInstanceId;
         public string HardwareId;
         private IntPtr FileHandle;
         public HidDeviceAttributes Attributes;
@@ -21,8 +23,9 @@ namespace LibraryUsb
         {
             try
             {
-                DevicePath = devicePath;
                 HardwareId = hardwareId;
+                DevicePath = devicePath.ToLower();
+                DeviceInstanceId = ConvertPathToInstanceId(DevicePath);
 
                 if (initialize)
                 {

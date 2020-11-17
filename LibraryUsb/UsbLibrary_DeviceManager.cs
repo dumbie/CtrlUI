@@ -40,7 +40,7 @@ namespace LibraryUsb
             IntPtr deviceInfoSet = IntPtr.Zero;
             try
             {
-                SP_DEVINFO_DATA deviceInfoData = new SP_DEVINFO_DATA();
+                SP_DEVICE_INFO_DATA deviceInfoData = new SP_DEVICE_INFO_DATA();
                 deviceInfoData.cbSize = Marshal.SizeOf(deviceInfoData);
                 deviceInfoSet = SetupDiCreateDeviceInfoList(ref classGuid, IntPtr.Zero);
                 if (deviceInfoSet == IntPtr.Zero)
@@ -81,28 +81,26 @@ namespace LibraryUsb
 
         public static bool DeviceFind(Guid deviceGuid, ref string devicePath, int instance)
         {
-            IntPtr deviceInfoSet = IntPtr.Zero;
+            IntPtr deviceInfoList = IntPtr.Zero;
             try
             {
-                int bufferSize = 0;
                 int memberIndex = 0;
                 SP_DEVICE_INTERFACE_DATA deviceInterfaceData = new SP_DEVICE_INTERFACE_DATA();
                 deviceInterfaceData.cbSize = Marshal.SizeOf(deviceInterfaceData);
-                SP_DEVICE_INTERFACE_DATA deviceInterfaceDataDetail = new SP_DEVICE_INTERFACE_DATA();
-                deviceInterfaceDataDetail.cbSize = Marshal.SizeOf(deviceInterfaceDataDetail);
-                deviceInfoSet = SetupDiGetClassDevs(ref deviceGuid, string.Empty, IntPtr.Zero, DiGetClassFlag.DIGCF_PRESENT | DiGetClassFlag.DIGCF_DEVICEINTERFACE);
 
-                while (SetupDiEnumDeviceInterfaces(deviceInfoSet, IntPtr.Zero, ref deviceGuid, memberIndex, ref deviceInterfaceData))
+                deviceInfoList = SetupDiGetClassDevs(ref deviceGuid, string.Empty, IntPtr.Zero, DiGetClassFlag.DIGCF_PRESENT | DiGetClassFlag.DIGCF_DEVICEINTERFACE);
+                while (SetupDiEnumDeviceInterfaces(deviceInfoList, IntPtr.Zero, ref deviceGuid, memberIndex, ref deviceInterfaceData))
                 {
-                    SetupDiGetDeviceInterfaceDetail(deviceInfoSet, ref deviceInterfaceData, IntPtr.Zero, 0, ref bufferSize, ref deviceInterfaceDataDetail);
+                    try
                     {
                         if (memberIndex == instance)
                         {
-                            devicePath = GetDevicePath(deviceInfoSet, deviceInterfaceData);
+                            devicePath = GetDevicePath(deviceInfoList, deviceInterfaceData);
                             return true;
                         }
+                        memberIndex++;
                     }
-                    memberIndex++;
+                    catch { }
                 }
                 return false;
             }
@@ -113,23 +111,23 @@ namespace LibraryUsb
             }
             finally
             {
-                if (deviceInfoSet != IntPtr.Zero)
+                if (deviceInfoList != IntPtr.Zero)
                 {
-                    SetupDiDestroyDeviceInfoList(deviceInfoSet);
+                    SetupDiDestroyDeviceInfoList(deviceInfoList);
                 }
             }
         }
 
         public static bool DeviceRemove(Guid classGuid, string instanceId)
         {
-            IntPtr deviceInfoSet = IntPtr.Zero;
+            IntPtr deviceInfoList = IntPtr.Zero;
             try
             {
-                SP_DEVINFO_DATA deviceInterfaceData = new SP_DEVINFO_DATA();
+                SP_DEVICE_INFO_DATA deviceInterfaceData = new SP_DEVICE_INFO_DATA();
                 deviceInterfaceData.cbSize = Marshal.SizeOf(deviceInterfaceData);
-                deviceInfoSet = SetupDiGetClassDevs(ref classGuid, string.Empty, IntPtr.Zero, DiGetClassFlag.DIGCF_PRESENT | DiGetClassFlag.DIGCF_DEVICEINTERFACE);
 
-                if (SetupDiOpenDeviceInfo(deviceInfoSet, instanceId, IntPtr.Zero, 0, ref deviceInterfaceData))
+                deviceInfoList = SetupDiGetClassDevs(ref classGuid, string.Empty, IntPtr.Zero, DiGetClassFlag.DIGCF_PRESENT | DiGetClassFlag.DIGCF_DEVICEINTERFACE);
+                if (SetupDiOpenDeviceInfo(deviceInfoList, instanceId, IntPtr.Zero, 0, ref deviceInterfaceData))
                 {
                     SP_REMOVEDEVICE_PARAMS props = new SP_REMOVEDEVICE_PARAMS();
                     props.classInstallHeader = new SP_CLASSINSTALL_HEADER();
@@ -138,9 +136,9 @@ namespace LibraryUsb
                     props.removeDevice = DiRemoveDevice.DI_REMOVEDEVICE_GLOBAL;
                     props.hwProfile = 0x00;
 
-                    if (SetupDiSetClassInstallParams(deviceInfoSet, ref deviceInterfaceData, ref props, Marshal.SizeOf(props)))
+                    if (SetupDiSetClassInstallParams(deviceInfoList, ref deviceInterfaceData, ref props, Marshal.SizeOf(props)))
                     {
-                        return SetupDiCallClassInstaller(DiFunction.DIF_REMOVE, deviceInfoSet, ref deviceInterfaceData);
+                        return SetupDiCallClassInstaller(DiFunction.DIF_REMOVE, deviceInfoList, ref deviceInterfaceData);
                     }
                 }
                 return false;
@@ -152,25 +150,24 @@ namespace LibraryUsb
             }
             finally
             {
-                if (deviceInfoSet != IntPtr.Zero)
+                if (deviceInfoList != IntPtr.Zero)
                 {
-                    SetupDiDestroyDeviceInfoList(deviceInfoSet);
+                    SetupDiDestroyDeviceInfoList(deviceInfoList);
                 }
             }
         }
 
-        public static bool ChangePropertyDevice(string devicePath, DiChangeState changeState)
+        public static bool ChangePropertyDevice(string deviceInstanceId, DiChangeState changeState)
         {
-            IntPtr deviceInfoSet = IntPtr.Zero;
+            IntPtr deviceInfoList = IntPtr.Zero;
             try
             {
-                string instanceId = ConvertPathToInstanceId(devicePath);
-                deviceInfoSet = SetupDiGetClassDevs(ref GuidClassHidDevice, instanceId, IntPtr.Zero, DiGetClassFlag.DIGCF_DEVICEINTERFACE);
-                SP_DEVINFO_DATA deviceInfoData = new SP_DEVINFO_DATA();
+                SP_DEVICE_INFO_DATA deviceInfoData = new SP_DEVICE_INFO_DATA();
                 deviceInfoData.cbSize = Marshal.SizeOf(deviceInfoData);
 
                 //Get device information
-                if (!SetupDiEnumDeviceInfo(deviceInfoSet, 0, ref deviceInfoData))
+                deviceInfoList = SetupDiGetClassDevs(ref GuidClassHidDevice, deviceInstanceId, IntPtr.Zero, DiGetClassFlag.DIGCF_DEVICEINTERFACE);
+                if (!SetupDiEnumDeviceInfo(deviceInfoList, 0, ref deviceInfoData))
                 {
                     Debug.WriteLine("SetupDi: Failed getting device info.");
                     return false;
@@ -184,14 +181,14 @@ namespace LibraryUsb
                 propertyParams.stateChange = changeState;
 
                 //Prepare the device
-                if (!SetupDiSetClassInstallParams(deviceInfoSet, ref deviceInfoData, ref propertyParams, Marshal.SizeOf(propertyParams)))
+                if (!SetupDiSetClassInstallParams(deviceInfoList, ref deviceInfoData, ref propertyParams, Marshal.SizeOf(propertyParams)))
                 {
                     Debug.WriteLine("SetupDi: Failed to set install params.");
                     return false;
                 }
 
                 //Change the property
-                if (!SetupDiCallClassInstaller(DiFunction.DIF_PROPERTYCHANGE, deviceInfoSet, ref deviceInfoData))
+                if (!SetupDiCallClassInstaller(DiFunction.DIF_PROPERTYCHANGE, deviceInfoList, ref deviceInfoData))
                 {
                     Debug.WriteLine("SetupDi: Failed to change property.");
                     return false;
@@ -206,9 +203,9 @@ namespace LibraryUsb
             }
             finally
             {
-                if (deviceInfoSet != IntPtr.Zero)
+                if (deviceInfoList != IntPtr.Zero)
                 {
-                    SetupDiDestroyDeviceInfoList(deviceInfoSet);
+                    SetupDiDestroyDeviceInfoList(deviceInfoList);
                 }
             }
         }

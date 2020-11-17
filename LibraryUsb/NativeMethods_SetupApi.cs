@@ -146,6 +146,15 @@ namespace LibraryUsb
         }
 
         [StructLayout(LayoutKind.Sequential)]
+        public struct SP_DEVICE_INFO_DATA
+        {
+            public int cbSize;
+            public Guid ClassGuid;
+            public int DevInst;
+            public IntPtr Reserved;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
         public struct SP_DEVICE_INTERFACE_DATA
         {
             public int cbSize;
@@ -154,13 +163,12 @@ namespace LibraryUsb
             public IntPtr Reserved;
         }
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct SP_DEVINFO_DATA
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public struct SP_DEVICE_INTERFACE_DETAIL_DATA
         {
-            public int cbSize;
-            public Guid ClassGuid;
-            public int DevInst;
-            public IntPtr Reserved;
+            public int Size;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+            public string DevicePath;
         }
 
         public static DEVPROPKEY DEVPKEY_Device_BusReportedDeviceDesc = new DEVPROPKEY { fmtId = new Guid("540B947E-8B40-45BC-A8A2-6A0B894CBDA2"), pId = 4 };
@@ -169,14 +177,6 @@ namespace LibraryUsb
         {
             public Guid fmtId;
             public uint pId;
-        }
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        public struct SP_DEVICE_INTERFACE_DETAIL_DATA
-        {
-            public int Size;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
-            public string DevicePath;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -188,55 +188,52 @@ namespace LibraryUsb
         }
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
-        public static extern bool SetupDiSetClassInstallParams(IntPtr deviceInfoSet, ref SP_DEVINFO_DATA deviceInfoData, ref SP_PROPCHANGE_PARAMS classInstallParams, int classInstallParamsSize);
+        public static extern bool SetupDiSetClassInstallParams(IntPtr deviceInfoSet, ref SP_DEVICE_INFO_DATA deviceInfoData, ref SP_PROPCHANGE_PARAMS classInstallParams, int classInstallParamsSize);
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
-        public static extern bool SetupDiCallClassInstaller(DiFunction installFunction, IntPtr deviceInfoSet, ref SP_DEVINFO_DATA deviceInfoData);
-
-        [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
-        public static extern bool SetupDiEnumDeviceInterfaces(IntPtr deviceInfoSet, IntPtr deviceInfoData, ref Guid interfaceClassGuid, int memberIndex, ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData);
+        public static extern bool SetupDiCallClassInstaller(DiFunction installFunction, IntPtr deviceInfoSet, ref SP_DEVICE_INFO_DATA deviceInfoData);
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr SetupDiGetClassDevs(ref Guid classGuid, string enumerator, IntPtr hWndParent, DiGetClassFlag diFlags);
 
         [DllImport("setupapi.dll", EntryPoint = "SetupDiGetDeviceRegistryProperty")]
-        public static extern bool SetupDiGetDeviceRegistryProperty(IntPtr deviceInfoSet, ref SP_DEVINFO_DATA deviceInfoData, DiDeviceRegistryProperty propertyVal, ref int propertyRegDataType, byte[] propertyBuffer, int propertyBufferSize, ref int requiredSize);
+        public static extern bool SetupDiGetDeviceRegistryProperty(IntPtr deviceInfoSet, ref SP_DEVICE_INFO_DATA deviceInfoData, DiDeviceRegistryProperty propertyVal, ref int propertyRegDataType, byte[] propertyBuffer, int propertyBufferSize, ref int requiredSize);
 
         [DllImport("setupapi.dll", EntryPoint = "SetupDiGetDevicePropertyW")]
-        public static extern bool SetupDiGetDeviceProperty(IntPtr deviceInfo, ref SP_DEVINFO_DATA deviceInfoData, ref DEVPROPKEY propKey, ref ulong propertyDataType, byte[] propertyBuffer, int propertyBufferSize, ref int requiredSize, uint flags);
+        public static extern bool SetupDiGetDeviceProperty(IntPtr deviceInfo, ref SP_DEVICE_INFO_DATA deviceInfoData, ref DEVPROPKEY propKey, ref ulong propertyDataType, byte[] propertyBuffer, int propertyBufferSize, ref int requiredSize, uint flags);
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
-        public static extern bool SetupDiEnumDeviceInfo(IntPtr deviceInfoSet, int memberIndex, ref SP_DEVINFO_DATA deviceInfoData);
+        public static extern bool SetupDiEnumDeviceInfo(IntPtr deviceInfoSet, int memberIndex, ref SP_DEVICE_INFO_DATA deviceInfoData);
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
         public static extern int SetupDiDestroyDeviceInfoList(IntPtr deviceInfoSet);
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
-        public static extern bool SetupDiEnumDeviceInterfaces(IntPtr deviceInfoSet, ref SP_DEVINFO_DATA deviceInfoData, ref Guid interfaceClassGuid, int memberIndex, ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData);
+        public static extern bool SetupDiEnumDeviceInterfaces(IntPtr deviceInfoSet, IntPtr deviceInfoData, ref Guid interfaceClassGuid, int memberIndex, ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData);
 
-        [DllImport("setupapi.dll", CharSet = CharSet.Auto, EntryPoint = "SetupDiGetDeviceInterfaceDetail")]
-        public static extern bool SetupDiGetDeviceInterfaceDetailBuffer(IntPtr deviceInfoSet, ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData, IntPtr deviceInterfaceDetailData, int deviceInterfaceDetailDataSize, ref int requiredSize, IntPtr deviceInfoData);
+        [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
+        public static extern bool SetupDiEnumDeviceInterfaces(IntPtr deviceInfoSet, SP_DEVICE_INFO_DATA deviceInfoData, ref Guid interfaceClassGuid, int memberIndex, ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData);
+
+        [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
+        public static extern bool SetupDiGetDeviceInterfaceDetail(IntPtr deviceInfoSet, ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData, IntPtr deviceInterfaceDetailData, int deviceInterfaceDetailDataSize, ref int requiredSize, IntPtr deviceInfoData);
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
         public static extern bool SetupDiGetDeviceInterfaceDetail(IntPtr deviceInfoSet, ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData, ref SP_DEVICE_INTERFACE_DETAIL_DATA deviceInterfaceDetailData, int deviceInterfaceDetailDataSize, ref int requiredSize, IntPtr deviceInfoData);
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
-        public static extern bool SetupDiGetDeviceInterfaceDetail(IntPtr deviceInfoSet, ref SP_DEVICE_INTERFACE_DATA deviceInterfaceData, IntPtr deviceInterfaceDetailData, int deviceInterfaceDetailDataSize, ref int requiredSize, ref SP_DEVICE_INTERFACE_DATA deviceInfoData);
+        public static extern bool SetupDiOpenDeviceInfo(IntPtr DeviceInfoSet, string DeviceInstanceId, IntPtr hWndParent, DiOpenDevice flags, ref SP_DEVICE_INFO_DATA deviceInfoData);
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
-        public static extern bool SetupDiOpenDeviceInfo(IntPtr DeviceInfoSet, string DeviceInstanceId, IntPtr hWndParent, DiOpenDevice flags, ref SP_DEVINFO_DATA deviceInfoData);
-
-        [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
-        public static extern bool SetupDiSetClassInstallParams(IntPtr DeviceInfoSet, ref SP_DEVINFO_DATA DeviceInterfaceData, ref SP_REMOVEDEVICE_PARAMS ClassInstallParams, int ClassInstallParamsSize);
+        public static extern bool SetupDiSetClassInstallParams(IntPtr DeviceInfoSet, ref SP_DEVICE_INFO_DATA DeviceInterfaceData, ref SP_REMOVEDEVICE_PARAMS ClassInstallParams, int ClassInstallParamsSize);
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr SetupDiCreateDeviceInfoList(ref Guid ClassGuid, IntPtr hWndParent);
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
-        public static extern bool SetupDiCreateDeviceInfo(IntPtr DeviceInfoSet, string DeviceName, ref Guid ClassGuid, string DeviceDescription, IntPtr hWndParent, DiCreateDevice flags, ref SP_DEVINFO_DATA deviceInfoData);
+        public static extern bool SetupDiCreateDeviceInfo(IntPtr DeviceInfoSet, string DeviceName, ref Guid ClassGuid, string DeviceDescription, IntPtr hWndParent, DiCreateDevice flags, ref SP_DEVICE_INFO_DATA deviceInfoData);
 
         [DllImport("setupapi.dll", CharSet = CharSet.Auto)]
-        public static extern bool SetupDiSetDeviceRegistryProperty(IntPtr DeviceInfoSet, ref SP_DEVINFO_DATA DeviceInfoData, DiDeviceRegistryProperty Property, [MarshalAs(UnmanagedType.LPWStr)] string PropertyBuffer, int PropertyBufferSize);
+        public static extern bool SetupDiSetDeviceRegistryProperty(IntPtr DeviceInfoSet, ref SP_DEVICE_INFO_DATA DeviceInfoData, DiDeviceRegistryProperty Property, [MarshalAs(UnmanagedType.LPWStr)] string PropertyBuffer, int PropertyBufferSize);
 
         [DllImport("newdev.dll", CharSet = CharSet.Auto)]
         public static extern bool DiInstallDriver(IntPtr hWndParent, string DriverPackageInfPath, DIIRFLAG Flags, ref bool RebootRequired);

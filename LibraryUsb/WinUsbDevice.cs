@@ -10,6 +10,7 @@ namespace LibraryUsb
     {
         public bool Connected;
         public string DevicePath;
+        public string DeviceInstanceId;
         public Guid DeviceGuid;
         private IntPtr FileHandle;
         private IntPtr WinUsbHandle = INVALID_HANDLE_VALUE;
@@ -32,6 +33,8 @@ namespace LibraryUsb
                         return;
                     }
                 }
+                DevicePath = DevicePath.ToLower();
+                DeviceInstanceId = ConvertPathToInstanceId(DevicePath);
 
                 if (OpenDevice())
                 {
