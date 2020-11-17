@@ -9,6 +9,7 @@ using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryUsb.NativeMethods_Guid;
+using static LibraryUsb.NativeMethods_Hid;
 
 namespace DirectXInput
 {
@@ -158,8 +159,11 @@ namespace DirectXInput
                     textblock_ControllerSensitivityThumb.Text = textblock_ControllerSensitivityThumb.Tag.ToString() + Controller.Details.Profile.SensitivityThumb.ToString("0.00");
                     slider_ControllerSensitivityThumb.Value = Controller.Details.Profile.SensitivityThumb;
 
-                    textblock_ControllerRumbleStrength.Text = textblock_ControllerRumbleStrength.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.RumbleStrength) + "%";
-                    slider_ControllerRumbleStrength.Value = Controller.Details.Profile.RumbleStrength;
+                    textblock_ControllerRumbleStrength.Text = textblock_ControllerRumbleStrength.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.ControllerRumbleStrength) + "%";
+                    slider_ControllerRumbleStrength.Value = Controller.Details.Profile.ControllerRumbleStrength;
+                    textblock_TriggerRumbleStrength.Text = textblock_TriggerRumbleStrength.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.TriggerRumbleStrength) + "%";
+                    slider_TriggerRumbleStrength.Value = Controller.Details.Profile.TriggerRumbleStrength;
+
                     textblock_ControllerLedBrightness.Text = textblock_ControllerLedBrightness.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.LedBrightness) + "%";
                     slider_ControllerLedBrightness.Value = Controller.Details.Profile.LedBrightness;
                 });
@@ -390,6 +394,7 @@ namespace DirectXInput
                     }
                     else
                     {
+                        //Set default controller variables
                         Controller.InputHeaderOffsetByte = 0;
                         Controller.InputButtonOffsetByte = 0;
                         Controller.InputReport = new byte[Controller.WinUsbDevice.IntIn];
@@ -412,6 +417,10 @@ namespace DirectXInput
                     }
                     else
                     {
+                        //Get feature to make sure correct data is read
+                        Controller.HidDevice.GetFeature(HID_USAGE_GENERIC.HID_USAGE_GENERIC_GAMEPAD);
+
+                        //Set default controller variables
                         Controller.InputHeaderOffsetByte = 0;
                         Controller.InputButtonOffsetByte = 0;
                         Controller.InputReport = new byte[Controller.HidDevice.Capabilities.InputReportByteLength];

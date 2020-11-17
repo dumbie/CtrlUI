@@ -90,6 +90,7 @@ namespace DirectXInput
 
         //Controller Variables
         public static bool vControllerBusy = false;
+        public static bool vControllerMuteLed = false;
         public static int vControllerOffsetSmall = 2500;
         public static int vControllerOffsetMedium = 7500;
         public static int vControllerOffsetNormal = 15000;

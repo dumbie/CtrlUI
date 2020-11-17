@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVAudioDevice;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -13,7 +14,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Monitor connected controllers
-        async Task ControllerMonitor()
+        async Task MonitorController()
         {
             try
             {
@@ -30,6 +31,29 @@ namespace DirectXInput
 
                 //Check if there is an active controller
                 ControllerCheckActivated();
+            }
+            catch { }
+        }
+
+        //Monitor volume mute status
+        void MonitorVolumeMute()
+        {
+            try
+            {
+                bool systemMuted = AudioMuteGetStatus();
+                if (systemMuted != vControllerMuteLed)
+                {
+                    //Update the controller led
+                    vControllerMuteLed = systemMuted;
+                    SendXRumbleData(vController0, true, false, false);
+                    SendXRumbleData(vController1, true, false, false);
+                    SendXRumbleData(vController2, true, false, false);
+                    SendXRumbleData(vController3, true, false, false);
+                }
+                else
+                {
+                    vControllerMuteLed = systemMuted;
+                }
             }
             catch { }
         }

@@ -218,7 +218,18 @@ namespace DirectXInput
                     if (activeController != null)
                     {
                         textblock_ControllerRumbleStrength.Text = textblock_ControllerRumbleStrength.Tag.ToString() + Convert.ToInt32(slider_ControllerRumbleStrength.Value) + "%";
-                        activeController.Details.Profile.RumbleStrength = Convert.ToInt32(slider_ControllerRumbleStrength.Value);
+                        activeController.Details.Profile.ControllerRumbleStrength = Convert.ToInt32(slider_ControllerRumbleStrength.Value);
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    }
+                };
+
+                slider_TriggerRumbleStrength.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = GetActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_TriggerRumbleStrength.Text = textblock_TriggerRumbleStrength.Tag.ToString() + Convert.ToInt32(slider_TriggerRumbleStrength.Value) + "%";
+                        activeController.Details.Profile.TriggerRumbleStrength = Convert.ToInt32(slider_TriggerRumbleStrength.Value);
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 };
