@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static LibraryUsb.Enumerate;
-using static LibraryUsb.NativeMethods_Guid;
 using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace LibraryUsb
@@ -157,7 +156,7 @@ namespace LibraryUsb
             }
         }
 
-        public static bool ChangePropertyDevice(string deviceInstanceId, DiChangeState changeState)
+        public static bool ChangePropertyDevice(Guid guidClass, string deviceInstanceId, DiChangeState changeState)
         {
             IntPtr deviceInfoList = IntPtr.Zero;
             try
@@ -166,7 +165,7 @@ namespace LibraryUsb
                 deviceInfoData.cbSize = Marshal.SizeOf(deviceInfoData);
 
                 //Get device information
-                deviceInfoList = SetupDiGetClassDevs(ref GuidClassHidDevice, deviceInstanceId, IntPtr.Zero, DiGetClassFlag.DIGCF_DEVICEINTERFACE);
+                deviceInfoList = SetupDiGetClassDevs(ref guidClass, deviceInstanceId, IntPtr.Zero, DiGetClassFlag.DIGCF_DEVICEINTERFACE);
                 if (!SetupDiEnumDeviceInfo(deviceInfoList, 0, ref deviceInfoData))
                 {
                     Debug.WriteLine("SetupDi: Failed getting device info.");

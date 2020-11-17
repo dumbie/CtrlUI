@@ -13,7 +13,7 @@ namespace LibraryUsb
         public string DeviceInstanceId;
         public Guid DeviceGuid;
         private IntPtr FileHandle;
-        private IntPtr WinUsbHandle = INVALID_HANDLE_VALUE;
+        private IntPtr WinUsbHandle;
         public byte IntIn = 0xFF;
         public byte IntOut = 0xFF;
         public byte BulkIn = 0xFF;
@@ -87,14 +87,14 @@ namespace LibraryUsb
         {
             try
             {
-                if (WinUsbHandle != INVALID_HANDLE_VALUE)
+                if (WinUsbHandle != IntPtr.Zero)
                 {
                     WinUsb_AbortPipe(WinUsbHandle, IntIn);
                     WinUsb_AbortPipe(WinUsbHandle, IntOut);
                     WinUsb_AbortPipe(WinUsbHandle, BulkIn);
                     WinUsb_AbortPipe(WinUsbHandle, BulkOut);
                     WinUsb_Free(WinUsbHandle);
-                    WinUsbHandle = INVALID_HANDLE_VALUE;
+                    WinUsbHandle = IntPtr.Zero;
                 }
                 if (FileHandle != IntPtr.Zero)
                 {

@@ -44,6 +44,9 @@ namespace LibraryUsb
         public static extern bool HidD_GetFeature(IntPtr hidDeviceObject, byte[] lpReportBuffer, int reportBufferLength);
 
         [DllImport("hid.dll")]
+        public static extern bool HidD_SetFeature(IntPtr hidDeviceObject, byte[] lpReportBuffer, int reportBufferLength);
+
+        [DllImport("hid.dll")]
         public static extern int HidP_GetCaps(IntPtr preparsedData, ref HIDP_CAPS capabilities);
 
         [DllImport("hid.dll", CharSet = CharSet.Unicode)]

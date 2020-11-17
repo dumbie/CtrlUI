@@ -37,7 +37,6 @@ namespace LibraryUsb
                 {
                     GetDeviceAttributes();
                     GetDeviceCapabilities();
-                    GetFeature(HID_USAGE_GENERIC.HID_USAGE_GENERIC_GAMEPAD);
                     GetProductName();
                     GetVendorName();
                     GetSerialNumber();
@@ -97,23 +96,6 @@ namespace LibraryUsb
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to close hid device: " + ex.Message);
-                return false;
-            }
-        }
-
-        private bool GetFeature(HID_USAGE_GENERIC usageGeneric)
-        {
-            try
-            {
-                int featureLength = Capabilities.FeatureReportByteLength;
-                if (featureLength <= 0) { featureLength = 64; }
-                byte[] data = new byte[featureLength];
-                data[0] = (byte)usageGeneric;
-                return HidD_GetFeature(FileHandle, data, data.Length);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to get feature: " + ex.Message);
                 return false;
             }
         }

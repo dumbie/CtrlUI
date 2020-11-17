@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using static LibraryUsb.DeviceManager;
+using static LibraryUsb.NativeMethods_Guid;
 using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace LibraryUsb
@@ -11,7 +12,7 @@ namespace LibraryUsb
         {
             try
             {
-                return ChangePropertyDevice(DeviceInstanceId, DiChangeState.DICS_DISABLE);
+                return ChangePropertyDevice(GuidClassHidDevice, DeviceInstanceId, DiChangeState.DICS_DISABLE);
             }
             catch (Exception ex)
             {
@@ -24,7 +25,7 @@ namespace LibraryUsb
         {
             try
             {
-                return ChangePropertyDevice(DeviceInstanceId, DiChangeState.DICS_ENABLE);
+                return ChangePropertyDevice(GuidClassHidDevice, DeviceInstanceId, DiChangeState.DICS_ENABLE);
             }
             catch (Exception ex)
             {

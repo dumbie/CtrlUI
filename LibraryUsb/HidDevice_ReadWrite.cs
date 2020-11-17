@@ -77,5 +77,39 @@ namespace LibraryUsb
                 return false;
             }
         }
+
+        public bool GetFeature(HID_USAGE_GENERIC usageGeneric)
+        {
+            try
+            {
+                int featureLength = Capabilities.FeatureReportByteLength;
+                if (featureLength <= 0) { featureLength = 64; }
+                byte[] data = new byte[featureLength];
+                data[0] = (byte)usageGeneric;
+                return HidD_GetFeature(FileHandle, data, data.Length);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to get feature: " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool SetFeature(HID_USAGE_GENERIC usageGeneric)
+        {
+            try
+            {
+                int featureLength = Capabilities.FeatureReportByteLength;
+                if (featureLength <= 0) { featureLength = 64; }
+                byte[] data = new byte[featureLength];
+                data[0] = (byte)usageGeneric;
+                return HidD_GetFeature(FileHandle, data, data.Length);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to set feature: " + ex.Message);
+                return false;
+            }
+        }
     }
 }
