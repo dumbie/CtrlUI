@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryUsb.NativeMethods_Hid;
 
 namespace DirectXInput
 {
@@ -293,6 +294,15 @@ namespace DirectXInput
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReport);
                     Debug.WriteLine("UsbRumb DS1 and 2: " + bytesWritten);
+                }
+                else if (testHeavy || testLight)
+                {
+                    //Show unsupported controller notification
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "Controller";
+                    notificationDetails.Text = "Unsupported rumble controller";
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    Debug.WriteLine("Unsupported rumble controller.");
                 }
             }
             catch { }

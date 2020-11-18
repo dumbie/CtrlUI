@@ -70,5 +70,8 @@
   },
   {
     "String1": "VirtualController"
+  },
+  {
+    "String1": "JoyShockMapper"
   }
 ]

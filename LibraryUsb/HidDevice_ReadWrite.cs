@@ -103,7 +103,7 @@ namespace LibraryUsb
                 if (featureLength <= 0) { featureLength = 64; }
                 byte[] data = new byte[featureLength];
                 data[0] = (byte)usageGeneric;
-                return HidD_GetFeature(FileHandle, data, data.Length);
+                return HidD_SetFeature(FileHandle, data, data.Length);
             }
             catch (Exception ex)
             {
