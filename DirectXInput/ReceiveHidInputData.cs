@@ -9,6 +9,64 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
+        //Adjust controller header offset
+        bool HidAdjustHeaderOffset(ControllerStatus controllerStatus)
+        {
+            try
+            {
+                //Fix detect header offset by matching usage 0x30 etc
+                if (!controllerStatus.InputHeaderOffsetFinished)
+                {
+                    byte currentHeader = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte];
+                    if (currentHeader != 49)
+                    {
+                        if (currentHeader > 4)
+                        {
+                            controllerStatus.InputHeaderOffsetByte++;
+                            Debug.WriteLine("Adjusted the controller header offset to: " + controllerStatus.InputHeaderOffsetByte);
+                            return true;
+                        }
+                    }
+
+                    controllerStatus.InputHeaderOffsetFinished = true;
+                    Debug.WriteLine("Finished adjusting controller header offset to: " + controllerStatus.InputHeaderOffsetByte);
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to adjust header offset: " + ex.Message);
+                return false;
+            }
+        }
+
+        //Adjust controller button offset
+        bool HidAdjustButtonOffset(ControllerStatus controllerStatus, int offsetButtonsGroup1)
+        {
+            try
+            {
+                if (!controllerStatus.InputButtonOffsetFinished)
+                {
+                    if (controllerStatus.InputReport[offsetButtonsGroup1] == 255)
+                    {
+                        controllerStatus.InputButtonOffsetByte++;
+                        Debug.WriteLine("Adjusted the controller button offset to: " + controllerStatus.InputButtonOffsetByte);
+                        return true;
+                    }
+
+                    controllerStatus.InputButtonOffsetFinished = true;
+                    Debug.WriteLine("Finished adjusting controller button offset to: " + controllerStatus.InputButtonOffsetByte);
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to adjust button offset: " + ex.Message);
+                return false;
+            }
+        }
+
+
         //Receive and Translate DirectInput Controller
         async Task LoopReceiveHidInputData(ControllerStatus Controller)
         {
@@ -36,24 +94,7 @@ namespace DirectXInput
                         Controller.LastReadTicks = Stopwatch.GetTimestamp();
 
                         //Detect and adjust controller header offset
-                        if (!Controller.InputHeaderOffsetFinished)
-                        {
-                            byte currentHeader = Controller.InputReport[Controller.InputHeaderOffsetByte];
-                            if (currentHeader != 49)
-                            {
-                                if (currentHeader > 4)
-                                {
-                                    Controller.InputHeaderOffsetByte++;
-                                    Debug.WriteLine("Adjusted the controller header offset to: " + Controller.InputHeaderOffsetByte);
-                                    continue;
-                                }
-                            }
-                            else
-                            {
-                                Controller.InputHeaderOffsetFinished = true;
-                                Debug.WriteLine("Finished adjusting controller header offset to: " + Controller.InputHeaderOffsetByte);
-                            }
-                        }
+                        if (HidAdjustHeaderOffset(Controller)) { continue; }
 
                         //Set controller read offfsets
                         int OffsetThumbLeftX = Controller.InputHeaderOffsetByte;
@@ -91,20 +132,7 @@ namespace DirectXInput
                         }
 
                         //Detect and adjust controller button offset
-                        if (!Controller.InputButtonOffsetFinished)
-                        {
-                            if (Controller.InputReport[OffsetButtonsGroup1] == 255)
-                            {
-                                Controller.InputButtonOffsetByte++;
-                                Debug.WriteLine("Adjusted the controller button offset to: " + Controller.InputButtonOffsetByte);
-                                continue;
-                            }
-                            else
-                            {
-                                Controller.InputButtonOffsetFinished = true;
-                                Debug.WriteLine("Finished adjusting controller button offset to: " + Controller.InputButtonOffsetByte);
-                            }
-                        }
+                        if (HidAdjustButtonOffset(Controller, OffsetButtonsGroup1)) { continue; }
 
                         //Calculate left thumbs
                         int ThumbLeftX = Controller.InputReport[OffsetThumbLeftX];
