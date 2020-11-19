@@ -352,6 +352,12 @@ namespace DirectXInput
                             if (Controller.Details.Profile.ButtonGuide == null) { Controller.InputCurrent.ButtonGuide.PressedRaw = Controller.InputCurrent.RawBytes[40]; }
                             else if (Controller.Details.Profile.ButtonGuide != -1) { Controller.InputCurrent.ButtonGuide.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonGuide.Value]; }
 
+                            if (Controller.Details.Profile.ButtonTouchpad == null) { Controller.InputCurrent.ButtonTouchpad.PressedRaw = Controller.InputCurrent.RawBytes[41]; }
+                            else if (Controller.Details.Profile.ButtonTouchpad != -1) { Controller.InputCurrent.ButtonTouchpad.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonTouchpad.Value]; }
+
+                            if (Controller.Details.Profile.ButtonMedia == null) { Controller.InputCurrent.ButtonMedia.PressedRaw = Controller.InputCurrent.RawBytes[42]; }
+                            else if (Controller.Details.Profile.ButtonMedia != -1) { Controller.InputCurrent.ButtonMedia.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonMedia.Value]; }
+
                             if (Controller.Details.Profile.ButtonTriggerLeft == null) { Controller.InputCurrent.ButtonTriggerLeft.PressedRaw = Controller.InputCurrent.RawBytes[22]; }
                             else if (Controller.Details.Profile.ButtonTriggerLeft != -1) { Controller.InputCurrent.ButtonTriggerLeft.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonTriggerLeft.Value]; }
 

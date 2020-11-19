@@ -74,6 +74,9 @@ namespace DirectXInput
                             if (Controller.InputCurrent.ButtonStart.PressedRaw) { img_ControllerPreview_ButtonStart.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonStart.Visibility = Visibility.Collapsed; }
                             if (Controller.InputCurrent.ButtonGuide.PressedRaw) { img_ControllerPreview_ButtonGuide.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonGuide.Visibility = Visibility.Collapsed; }
 
+                            if (Controller.InputCurrent.ButtonTouchpad.PressedRaw) { img_ControllerPreview_ButtonTouchpad.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonTouchpad.Visibility = Visibility.Collapsed; }
+                            if (Controller.InputCurrent.ButtonMedia.PressedRaw) { img_ControllerPreview_ButtonMedia.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonMedia.Visibility = Visibility.Collapsed; }
+
                             if (Controller.InputCurrent.ButtonShoulderLeft.PressedRaw) { img_ControllerPreview_ButtonShoulderLeft.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonShoulderLeft.Visibility = Visibility.Collapsed; }
                             if (Controller.InputCurrent.ButtonShoulderRight.PressedRaw) { img_ControllerPreview_ButtonShoulderRight.Visibility = Visibility.Visible; } else { img_ControllerPreview_ButtonShoulderRight.Visibility = Visibility.Collapsed; }
 

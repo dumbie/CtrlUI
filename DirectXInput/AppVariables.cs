@@ -102,6 +102,7 @@ namespace DirectXInput
         public static int vControllerDelayLongerTicks = 750;
         public static int vControllerDelay_Keypad = Environment.TickCount;
         public static int vControllerDelay_Keyboard = Environment.TickCount;
+        public static int vControllerDelay_Media = Environment.TickCount;
         public static int vControllerDelay_Mouse = Environment.TickCount;
         public static bool vControllerRumbleTest = false;
         public static DateTime vControllerLastDisconnect = new DateTime();

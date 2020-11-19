@@ -47,10 +47,8 @@ namespace CtrlUI
                 if (Setting_Load(vConfigurationCtrlUI, "InterfaceClockStyleName") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceClockStyleName", "Cortana"); }
                 if (Setting_Load(vConfigurationCtrlUI, "InterfaceFontStyleName") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceFontStyleName", "Segoe UI"); }
 
-                if (Setting_Load(vConfigurationCtrlUI, "CloseMediaScreen") == null) { Setting_Save(vConfigurationCtrlUI, "CloseMediaScreen", "False"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ShowMediaMain") == null) { Setting_Save(vConfigurationCtrlUI, "ShowMediaMain", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow") == null) { Setting_Save(vConfigurationCtrlUI, "MinimizeAppOnShow", "False"); }
-                if (Setting_Load(vConfigurationCtrlUI, "ShortcutVolume") == null) { Setting_Save(vConfigurationCtrlUI, "ShortcutVolume", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "LaunchFpsOverlayer") == null) { Setting_Save(vConfigurationCtrlUI, "LaunchFpsOverlayer", "False"); }
 
                 //Background settings

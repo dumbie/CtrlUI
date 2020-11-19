@@ -56,7 +56,7 @@ namespace CtrlUI
                     else if (selectedItemString == "menuButtonSwitchMonitor") { await SwitchDisplayMonitor(); }
                     else if (selectedItemString == "menuButtonWindowsStart") { await ShowWindowStartMenu(); }
                     else if (selectedItemString == "menuButtonSorting") { await SortAppLists(false); }
-                    else if (selectedItemString == "menuButtonMediaControl") { await Popup_Show(grid_Popup_Media, grid_Popup_Media_PlayPause); }
+                    else if (selectedItemString == "menuButtonMediaControl") { await MediaControllerHideShow(true); }
                     else if (selectedItemString == "menuButtonAudioDevice") { await SwitchAudioDevice(); }
                     else if (selectedItemString == "menuButtonRunExe") { await RunExecutableFile(); }
                     else if (selectedItemString == "menuButtonRunStore") { await RunStoreApplication(); }
@@ -123,7 +123,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonMediaControl = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Media.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MediaPlayPause.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Control playing media and volume",
                     Data1 = "menuButtonMediaControl"
                 };

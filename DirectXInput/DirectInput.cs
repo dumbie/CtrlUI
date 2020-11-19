@@ -419,6 +419,7 @@ namespace DirectXInput
                     {
                         //Get feature to make sure correct data is read
                         Controller.HidDevice.GetFeature(HID_USAGE_GENERIC.HID_USAGE_GENERIC_GAMEPAD);
+                        //Controller.HidDevice.SetFeature(HID_USAGE_GENERIC.HID_USAGE_GENERIC_GAMEPAD);
 
                         //Set default controller variables
                         Controller.InputHeaderOffsetByte = 0;

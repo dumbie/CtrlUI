@@ -9,7 +9,6 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -25,7 +24,7 @@ namespace CtrlUI
                     await Controller_DPadPress(ControllerInput);
                     await Controller_StickMovement(ControllerInput);
                     await Controller_ButtonPress(ControllerInput);
-                    await Controller_TriggerPress(ControllerInput);
+                    Controller_TriggerPress(ControllerInput);
                 }
             }
             catch { }
@@ -285,7 +284,7 @@ namespace CtrlUI
         }
 
         //Process XInput controller triggers
-        async Task<bool> Controller_TriggerPress(ControllerInput ControllerInput)
+        bool Controller_TriggerPress(ControllerInput ControllerInput)
         {
             bool ControllerUsed = false;
             bool ControllerDelayShort = false;
@@ -294,36 +293,6 @@ namespace CtrlUI
             {
                 if (Environment.TickCount >= vControllerDelay_Trigger)
                 {
-                    //Check if the media popup is opened
-                    bool MediaPopupOpen = false;
-                    await AVActions.ActionDispatcherInvokeAsync(delegate { MediaPopupOpen = grid_Popup_Media.Visibility == Visibility.Visible; });
-
-                    //Control the volume with controller triggers
-                    if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShortcutVolume")) || MediaPopupOpen)
-                    {
-                        if (ControllerInput.TriggerLeft > 0 && ControllerInput.TriggerRight > 0)
-                        {
-                            await KeyPressSingleAuto(KeysVirtual.VolumeMute);
-
-                            ControllerUsed = true;
-                            ControllerDelayLonger = true;
-                        }
-                        else if (ControllerInput.TriggerLeft > 0)
-                        {
-                            await KeyPressSingleAuto(KeysVirtual.VolumeDown);
-
-                            ControllerUsed = true;
-                            ControllerDelayShort = true;
-                        }
-                        else if (ControllerInput.TriggerRight > 0)
-                        {
-                            await KeyPressSingleAuto(KeysVirtual.VolumeUp);
-
-                            ControllerUsed = true;
-                            ControllerDelayShort = true;
-                        }
-                    }
-
                     if (ControllerDelayShort)
                     {
                         vControllerDelay_Trigger = Environment.TickCount + vControllerDelayShortTicks;

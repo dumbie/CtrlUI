@@ -44,7 +44,6 @@ namespace CtrlUI
                     //Check if there is any controller connected
                     if (!vControllerAnyConnected())
                     {
-                        grid_Popup_Media_Volume_Help.Visibility = Visibility.Collapsed;
                         sp_ControllerHelp.Visibility = Visibility.Collapsed;
                         return;
                     }
@@ -52,23 +51,11 @@ namespace CtrlUI
                     //Check if the help setting is enabled or disabled
                     if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideControllerHelp")))
                     {
-                        grid_Popup_Media_Volume_Help.Visibility = Visibility.Collapsed;
                         sp_ControllerHelp.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
-                        grid_Popup_Media_Volume_Help.Visibility = Visibility.Visible;
                         sp_ControllerHelp.Visibility = Visibility.Visible;
-                    }
-
-                    //Check CtrlUI settings
-                    if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShortcutVolume")))
-                    {
-                        sp_ControllerHelpVolume.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        sp_ControllerHelpVolume.Visibility = Visibility.Collapsed;
                     }
 
                     //Check DirectXInput settings

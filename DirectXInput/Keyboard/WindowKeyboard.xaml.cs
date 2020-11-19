@@ -54,8 +54,8 @@ namespace DirectXInput.KeyboardCode
                 //Check mouse cursor position
                 CheckMousePosition();
 
-                //Focus on keyboard button
-                await FocusKeyboardButton(true, key_h);
+                //Focus on popup button
+                await FocusPopupButton(true, key_h);
 
                 //Make window able to drag from border
                 this.MouseDown += WindowKeyboard_MouseDown;
@@ -82,10 +82,10 @@ namespace DirectXInput.KeyboardCode
                     //Play window close sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                    //Update the keyboard opacity
+                    //Update the popup opacity
                     this.Opacity = 0;
 
-                    //Update the keyboard visibility
+                    //Update the popup visibility
                     this.Title = "DirectXInput Keyboard (Hidden)";
                     vWindowVisible = false;
                     Debug.WriteLine("Hiding the keyboard window.");
@@ -99,6 +99,10 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
+                //Close other popups
+                await App.vWindowMedia.Hide();
+                await App.vWindowKeypad.Hide();
+
                 //Delay keyboard input
                 vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMediumTicks;
 
@@ -112,13 +116,13 @@ namespace DirectXInput.KeyboardCode
                 CheckMousePosition();
 
                 //Focus on keyboard button
-                await FocusKeyboardButton(false, key_h);
+                await FocusPopupButton(false, key_h);
 
                 //Update the window style (focus workaround)
                 UpdateWindowStyle();
 
-                //Update the keyboard opacity
-                UpdateKeyboardOpacity(true);
+                //Update the popup opacity
+                UpdatePopupOpacity(true);
 
                 //Update the window position
                 if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition")))
@@ -135,8 +139,8 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Update keyboard opacity
-        public void UpdateKeyboardOpacity(bool forceUpdate)
+        //Update popup opacity
+        public void UpdatePopupOpacity(bool forceUpdate)
         {
             try
             {
@@ -235,8 +239,8 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Focus on keyboard button
-        async Task FocusKeyboardButton(bool forceFocus, Button targetButton)
+        //Focus on popup button
+        async Task FocusPopupButton(bool forceFocus, Button targetButton)
         {
             try
             {
@@ -627,11 +631,11 @@ namespace DirectXInput.KeyboardCode
                     //Focus on keyboard button
                     if (vEmojiFocusedButtonOpen == null)
                     {
-                        await FocusKeyboardButton(true, key_Emoji1);
+                        await FocusPopupButton(true, key_Emoji1);
                     }
                     else
                     {
-                        await FocusKeyboardButton(true, vEmojiFocusedButtonOpen);
+                        await FocusPopupButton(true, vEmojiFocusedButtonOpen);
                     }
                 }
                 else
@@ -651,11 +655,11 @@ namespace DirectXInput.KeyboardCode
                     //Focus on keyboard button
                     if (vEmojiFocusedButtonClose == null)
                     {
-                        await FocusKeyboardButton(true, key_Space);
+                        await FocusPopupButton(true, key_Space);
                     }
                     else
                     {
-                        await FocusKeyboardButton(true, vEmojiFocusedButtonClose);
+                        await FocusPopupButton(true, vEmojiFocusedButtonClose);
                     }
                 }
             }

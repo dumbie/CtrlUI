@@ -10,12 +10,27 @@ namespace DirectXInput.OverlayCode
     public partial class WindowOverlay : Window
     {
         //Show the notification overlay
+        public void Notification_Show_Status(string icon, string text)
+        {
+            try
+            {
+                NotificationDetails notificationDetails = new NotificationDetails();
+                notificationDetails.Icon = icon;
+                notificationDetails.Text = text;
+                Notification_Show_Status(notificationDetails);
+            }
+            catch { }
+        }
+
+        //Show the notification overlay
         public void Notification_Show_Status(NotificationDetails notificationDetails)
         {
             try
             {
-                //Show the notification
+                //Update notification position
                 UpdateNotificationPosition();
+
+                //Show the notification
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     try

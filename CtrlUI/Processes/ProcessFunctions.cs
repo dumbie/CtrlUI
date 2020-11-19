@@ -478,7 +478,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("Fps", "Closing Fps Overlayer");
+                await Notification_Send_Status("Fps", "Hiding Fps Overlayer");
                 Debug.WriteLine("Closing Fps Overlayer");
 
                 //Check if socket server is running
@@ -540,6 +540,41 @@ namespace CtrlUI
                 else
                 {
                     socketSend.Object = "KeyboardHideShow";
+                }
+
+                //Request controller status
+                byte[] SerializedData = SerializeObjectToBytes(socketSend);
+
+                //Send socket data
+                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 1, vArnoldVinkSockets.vTcpClientTimeout);
+                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
+            }
+            catch { }
+        }
+
+        //Hide or show the media controller
+        async Task MediaControllerHideShow(bool forceShow)
+        {
+            try
+            {
+                //Check if socket server is running
+                if (vArnoldVinkSockets == null)
+                {
+                    Debug.WriteLine("The socket server is not running.");
+                    return;
+                }
+
+                //Prepare socket data
+                SocketSendContainer socketSend = new SocketSendContainer();
+                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
+                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
+                if (forceShow)
+                {
+                    socketSend.Object = "MediaShow";
+                }
+                else
+                {
+                    socketSend.Object = "MediaHideShow";
                 }
 
                 //Request controller status

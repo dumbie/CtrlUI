@@ -28,6 +28,11 @@ namespace DirectXInput
                     return false;
                 }
 
+                if (controllerStatus.InputCurrent.ButtonTouchpad.PressedRaw || controllerStatus.InputCurrent.ButtonMedia.PressedRaw)
+                {
+                    return false;
+                }
+
                 if (controllerStatus.InputCurrent.ButtonShoulderLeft.PressedRaw || controllerStatus.InputCurrent.ButtonShoulderRight.PressedRaw)
                 {
                     return false;

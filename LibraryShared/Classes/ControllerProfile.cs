@@ -246,6 +246,34 @@ namespace LibraryShared
                 }
             }
 
+            private int? PrivButtonTouchpad;
+            public int? ButtonTouchpad
+            {
+                get { return this.PrivButtonTouchpad; }
+                set
+                {
+                    if (this.PrivButtonTouchpad != value)
+                    {
+                        this.PrivButtonTouchpad = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private int? PrivButtonMedia;
+            public int? ButtonMedia
+            {
+                get { return this.PrivButtonMedia; }
+                set
+                {
+                    if (this.PrivButtonMedia != value)
+                    {
+                        this.PrivButtonMedia = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private int? PrivButtonShoulderLeft;
             public int? ButtonShoulderLeft
             {
@@ -503,7 +531,7 @@ namespace LibraryShared
             }
 
             //Trigger Rumble
-            private int PrivTriggerRumbleStrength = 40;
+            private int PrivTriggerRumbleStrength = 50;
             public int TriggerRumbleStrength
             {
                 get { return this.PrivTriggerRumbleStrength; }
@@ -518,7 +546,7 @@ namespace LibraryShared
             }
 
             //Controller Rumble
-            private int PrivControllerRumbleStrength = 80;
+            private int PrivControllerRumbleStrength = 75;
             public int ControllerRumbleStrength
             {
                 get { return this.PrivControllerRumbleStrength; }

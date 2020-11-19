@@ -185,11 +185,6 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/StartOff.png" Height="25" Opacity="0.80"/>
                         <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Alt+Enter"/>
                     </StackPanel>
-                    <StackPanel Name="sp_ControllerHelpVolume" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LtOff.png" Height="25" Opacity="0.80"/>
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RtOff.png" Height="25" Margin="5,0,0,0" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Volume"/>
-                    </StackPanel>
                 </StackPanel>
             </styles:ScrollViewerLoopHorizontal>
         </Grid>
@@ -372,79 +367,6 @@
             <!-- Shortcuts -->
             <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
                 <Button Name="grid_Popup_Welcome_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-        </Grid>
-
-        <!-- Popup - Media -->
-        <Grid Name="grid_Popup_Media" Visibility="Collapsed">
-            <Grid Margin="150,35,150,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <StackPanel Grid.Row="0">
-                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Media Control"/>
-                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
-                </StackPanel>
-
-                <StackPanel Name="grid_Popup_Media_Information" Visibility="Collapsed" Grid.Row="1" Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
-                    <Image Name="grid_Popup_Media_Information_Thumbnail" Margin="0,0,15,0" Height="140" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <StackPanel VerticalAlignment="Center" MaxWidth="600">
-                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
-                            <TextBlock Name="grid_Popup_Media_Information_Artist" Style="{StaticResource TextBlockAccent}" FontSize="{DynamicResource TextSizeLarge}" Text="Artist"/>
-                        </styles:ScrollViewerLoopHorizontal>
-                        <ProgressBar MinWidth="200" Name="grid_Popup_Media_Information_Progress" Margin="0,5,0,0" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch"/>
-                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
-                            <TextBlock Name="grid_Popup_Media_Information_Title" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}" Text="Title"/>
-                        </styles:ScrollViewerLoopHorizontal>
-                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
-                            <TextBlock Name="grid_Popup_Media_Information_Album" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeLarge}" Text="Album"/>
-                        </styles:ScrollViewerLoopHorizontal>
-                        <TextBlock Name="grid_Popup_Media_Information_Track" Margin="0,2,0,0" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Text="Track"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <StackPanel Grid.Row="2" Margin="0,25,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
-                    <Button Name="grid_Popup_Media_Previous" Width="100" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Previous.png"/>
-                    </Button>
-                    <Button Name="grid_Popup_Media_PlayPause" Margin="50,0,0,0" Width="110" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                        <Image Name="grid_Popup_Media_PlayPause_Image" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Media.png"/>
-                    </Button>
-                    <Button Name="grid_Popup_Media_Next" Margin="50,0,0,0" Width="100" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Next.png"/>
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Grid.Row="3" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
-                    <Button Name="grid_Popup_Media_VolumeMute" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png"/>
-                    </Button>
-                    <Button Name="grid_Popup_Media_VolumeDown" Margin="50,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeDown.png"/>
-                    </Button>
-                    <Button Name="grid_Popup_Media_VolumeUp" Margin="50,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeUp.png"/>
-                    </Button>
-                </StackPanel>
-
-                <TextBlock Name="grid_Popup_Media_Volume_Level" Grid.Row="4" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}"/>
-                <TextBlock Name="grid_Popup_Media_Volume_Help" Grid.Row="5" Margin="0,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeLarge}" TextAlignment="Center" TextWrapping="Wrap" Text="You can control the volume with the left and right triggers."/>
-            </Grid>
-
-            <!-- Shortcuts -->
-            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
-                <Button Name="grid_Popup_Media_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
@@ -676,10 +598,7 @@
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelInterface" Visibility="Collapsed">
-                            <CheckBox Name="cb_SettingsCloseMediaScreen" Content="Close media screen after media change" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                            <TextBlock Text="Enabling this will close the media control screen after changing the playing media on the screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                            <CheckBox Name="cb_SettingsShowMediaMain" Content="Show media information on main screen"  Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <CheckBox Name="cb_SettingsShowMediaMain" Content="Show media information on main screen" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will show your currently playing media information on top of the main screen." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                             <CheckBox Name="cb_SettingsMinimizeAppOnShow" Content="Minimize when showing application" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
@@ -778,10 +697,7 @@
                         </StackPanel>
 
                         <StackPanel Name="settingsStackpanelSound" Visibility="Collapsed">
-                            <CheckBox Name="cb_SettingsShortcutVolume" Content="Control the volume with your controller (In app)" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                            <TextBlock Text="Enabling this will allow you to change the volume with the controller triggers." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                            <CheckBox Name="cb_SettingsInterfaceSound" Content="Enable the user interface sounds" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <CheckBox Name="cb_SettingsInterfaceSound" Content="Enable the user interface sounds" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will play user interface sounds on certain actions." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                             <TextBlock Name="textblock_SettingsSoundVolume" Text="User interface sound volume" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>

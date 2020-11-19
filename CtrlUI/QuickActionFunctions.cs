@@ -52,15 +52,15 @@ namespace CtrlUI
                 AnswerFileManager.Name = "Show file browser and manager";
                 Answers.Add(AnswerFileManager);
 
-                DataBindString AnswerControlMedia = new DataBindString();
-                AnswerControlMedia.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Media.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerControlMedia.Name = "Control playing media and volume";
-                Answers.Add(AnswerControlMedia);
-
                 DataBindString AnswerStartMenu = new DataBindString();
                 AnswerStartMenu.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Windows.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerStartMenu.Name = "Show the Windows start menu";
                 Answers.Add(AnswerStartMenu);
+
+                DataBindString AnswerControlMedia = new DataBindString();
+                AnswerControlMedia.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MediaPlayPause.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerControlMedia.Name = "Control playing media and volume";
+                Answers.Add(AnswerControlMedia);
 
                 DataBindString AnswerFpsOverlayer = new DataBindString();
                 AnswerFpsOverlayer.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Fps.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -96,7 +96,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerControlMedia)
                     {
-                        await Popup_Show(grid_Popup_Media, grid_Popup_Media_PlayPause);
+                        await MediaControllerHideShow(true);
                     }
                     else if (messageResult == AnswerFpsOverlayer)
                     {

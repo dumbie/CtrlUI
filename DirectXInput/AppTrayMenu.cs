@@ -22,7 +22,6 @@ namespace DirectXInput
                 Debug.WriteLine("Creating application tray menu.");
 
                 //Create a context menu for systray.
-                TrayContextMenu.MenuItems.Add("Hide Keyboard/pad", NotifyIcon_HideKeyboard);
                 TrayContextMenu.MenuItems.Add("Open Settings", NotifyIcon_Settings);
                 TrayContextMenu.MenuItems.Add("Website", NotifyIcon_Website);
                 TrayContextMenu.MenuItems.Add("Exit", NotifyIcon_Exit);
@@ -85,16 +84,6 @@ namespace DirectXInput
             try
             {
                 await Application_ShowHideWindow();
-            }
-            catch { }
-        }
-
-        async void NotifyIcon_HideKeyboard(object sender, EventArgs args)
-        {
-            try
-            {
-                App.vWindowKeyboard.Hide();
-                await App.vWindowKeypad.Hide();
             }
             catch { }
         }

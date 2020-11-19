@@ -1,5 +1,6 @@
 ﻿using DirectXInput.KeyboardCode;
 using DirectXInput.KeypadCode;
+using DirectXInput.MediaCode;
 using DirectXInput.OverlayCode;
 using System.Diagnostics;
 using System.Reflection;
@@ -16,6 +17,7 @@ namespace DirectXInput
         public static WindowOverlay vWindowOverlay = new WindowOverlay();
         public static WindowKeyboard vWindowKeyboard = new WindowKeyboard();
         public static WindowKeypad vWindowKeypad = new WindowKeypad();
+        public static WindowMedia vWindowMedia = new WindowMedia();
 
         //Application Startup
         protected override async void OnStartup(StartupEventArgs e)

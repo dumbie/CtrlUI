@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DirectXInput"
         xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
-        mc:Ignorable="d"
         RenderOptions.BitmapScalingMode="HighQuality"
+        mc:Ignorable="d"
         Title="DirectXInput"
         ShowInTaskbar="False"
         Background="{DynamicResource ApplicationBlackBrush}"
@@ -117,6 +117,7 @@
                                 <Button Margin="0,20,0,0" Name="btn_RemoveController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Remove the active controller profile"/>
                                 <Button Margin="0,10,0,0" Name="Btn_IgnoreController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Ignore and disconnect active controller"/>
                                 <Button Margin="0,10,0,0" Name="Btn_AllowIgnoredControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Allow previously ignored controllers"/>
+                                <!--<Button Margin="0,20,0,0" Name="btn_BluetoothPair" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Pair active controller with Bluetooth"/>-->
                                 <Button Margin="0,20,0,0" Name="btn_DisconnectController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect active controller"/>
                                 <Button Margin="0,10,0,0" Name="btn_DisconnectControllerAll" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Re/disconnect all controllers"/>
                             </StackPanel>
@@ -157,11 +158,14 @@
                                     <Image Name="img_ControllerPreview_ButtonA" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,109,105,121"/>
                                     <Image Name="img_ControllerPreview_ButtonB" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="394,85,81,145"/>
                                     <Image Name="img_ControllerPreview_ButtonX" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="346,85,130,145"/>
-                                    <Image Name="img_ControllerPreview_ButtonY" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,60,105,170"/>
+                                    <Image Name="img_ControllerPreview_ButtonY" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,60,105,168"/>
 
                                     <Image Name="img_ControllerPreview_ButtonBack" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="197,57,278,173"/>
                                     <Image Name="img_ControllerPreview_ButtonStart" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="278,57,196,173"/>
                                     <Image Name="img_ControllerPreview_ButtonGuide" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,56,235,169"/>
+
+                                    <Image Name="img_ControllerPreview_ButtonTouchpad" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,0,235,195"/>
+                                    <Image Name="img_ControllerPreview_ButtonMedia" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,0,235,35"/>
 
                                     <Image Name="img_ControllerPreview_ButtonThumbLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="42" Height="42" Margin="178,117,280,96"/>
                                     <Image Name="img_ControllerPreview_ButtonThumbRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="42" Height="42" Margin="282,117,176,96"/>

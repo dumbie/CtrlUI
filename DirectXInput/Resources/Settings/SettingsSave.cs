@@ -118,7 +118,7 @@ namespace DirectXInput
                 {
                     textblock_KeyboardOpacity.Text = textblock_KeyboardOpacity.Tag + ": " + slider_KeyboardOpacity.Value.ToString("0.00") + "%";
                     Setting_Save(vConfigurationDirectXInput, "KeyboardOpacity", slider_KeyboardOpacity.Value.ToString("0.00"));
-                    App.vWindowKeyboard.UpdateKeyboardOpacity(false);
+                    App.vWindowKeyboard.UpdatePopupOpacity(false);
                 };
 
                 cb_SettingsKeyboardCloseNoController.Click += (sender, e) =>

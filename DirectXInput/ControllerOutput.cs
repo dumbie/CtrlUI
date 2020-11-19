@@ -18,7 +18,7 @@ namespace DirectXInput
             {
                 if (Controller.Activated && !Controller.BlockOutput)
                 {
-                    //Check if keyboard is visible
+                    //Check if a popup is visible
                     if (App.vWindowKeyboard.vWindowVisible)
                     {
                         await App.vWindowKeyboard.ControllerInteractionMouse(Controller.InputCurrent);
@@ -28,6 +28,11 @@ namespace DirectXInput
                     else if (App.vWindowKeypad.vWindowVisible)
                     {
                         await App.vWindowKeypad.ControllerInteractionKeyboard(Controller.InputCurrent);
+                        return true;
+                    }
+                    else if (App.vWindowMedia.vWindowVisible)
+                    {
+                        await App.vWindowMedia.ControllerInteraction(Controller.InputCurrent);
                         return true;
                     }
                     else if (vProcessCtrlUI != null && vProcessCtrlUIActivated)

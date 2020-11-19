@@ -81,6 +81,14 @@ namespace DirectXInput
                         ControllerUsed = true;
                         ControllerDelayLonger = true;
                     }
+                    //Show or hide the media controller
+                    else if (Controller.InputCurrent.ButtonMedia.PressedRaw)
+                    {
+                        await MediaControllerHideShow(false);
+
+                        ControllerUsed = true;
+                        ControllerDelayLonger = true;
+                    }
                     //Press Alt+Enter
                     else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderRight.PressedRaw)
                     {
@@ -244,6 +252,27 @@ namespace DirectXInput
                 {
                     App.vWindowKeyboard.Hide();
                     await App.vWindowKeypad.Hide();
+                });
+            }
+            catch { }
+        }
+
+        //Hide or show the media controller
+        async Task MediaControllerHideShow(bool forceShow)
+        {
+            try
+            {
+                Debug.WriteLine("Shortcut media has been pressed.");
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                {
+                    if (!App.vWindowMedia.vWindowVisible)
+                    {
+                        await App.vWindowMedia.Show();
+                    }
+                    else if (!forceShow)
+                    {
+                        await App.vWindowMedia.Hide();
+                    }
                 });
             }
             catch { }

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryUsb.NativeMethods_Hid;
 
 namespace DirectXInput
 {
@@ -98,15 +97,15 @@ namespace DirectXInput
                     OutputReport[4] = controllerRumbleHeavy;
 
                     //Trigger rumble
-                    if (triggerRumbleHighest > 0)
+                    if (triggerRumbleHighest > 10)
                     {
+                        byte triggerRumbleBegin = (byte)(255 - triggerRumbleHighest);
+                        if (triggerRumbleBegin > 200) { triggerRumbleBegin = 200; }
                         OutputReport[11] = 0x01; //Right trigger
-                        //OutputReport[12] = 0x00; //Begin;
-                        OutputReport[12] = (byte)(255 - triggerRumbleHighest); //Begin;
+                        OutputReport[12] = triggerRumbleBegin; //Begin;
                         OutputReport[13] = 0xFF; //Force
                         OutputReport[22] = 0x01; //Left trigger
-                        //OutputReport[23] = 0x00; //Begin;
-                        OutputReport[23] = (byte)(255 - triggerRumbleHighest); //Begin;
+                        OutputReport[23] = triggerRumbleBegin; //Begin;
                         OutputReport[24] = 0xFF; //Force
                     }
                     else

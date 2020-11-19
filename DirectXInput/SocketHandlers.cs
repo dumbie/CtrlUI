@@ -85,6 +85,14 @@ namespace DirectXInput
                     {
                         await KeyboardControllerHideShow(true);
                     }
+                    else if (receivedString == "MediaHideShow")
+                    {
+                        await MediaControllerHideShow(false);
+                    }
+                    else if (receivedString == "MediaShow")
+                    {
+                        await MediaControllerHideShow(true);
+                    }
                 }
             }
             catch { }

@@ -37,17 +37,10 @@ namespace CtrlUI
                     }
                 };
 
-                cb_SettingsCloseMediaScreen.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "CloseMediaScreen", cb_SettingsCloseMediaScreen.IsChecked.ToString()); };
                 cb_SettingsShowMediaMain.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "ShowMediaMain", cb_SettingsShowMediaMain.IsChecked.ToString()); };
                 cb_SettingsMinimizeAppOnShow.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "MinimizeAppOnShow", cb_SettingsMinimizeAppOnShow.IsChecked.ToString()); };
 
                 cb_SettingsLaunchFpsOverlayer.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "LaunchFpsOverlayer", cb_SettingsLaunchFpsOverlayer.IsChecked.ToString()); };
-
-                cb_SettingsShortcutVolume.Click += (sender, e) =>
-                {
-                    Setting_Save(vConfigurationCtrlUI, "ShortcutVolume", cb_SettingsShortcutVolume.IsChecked.ToString());
-                    UpdateControllerHelp();
-                };
 
                 cb_SettingsShowOtherShortcuts.Click += (sender, e) =>
                 {

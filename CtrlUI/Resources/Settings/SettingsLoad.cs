@@ -38,10 +38,8 @@ namespace CtrlUI
                 cb_SettingsShowHiddenFilesFolders.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders"));
                 cb_SettingsHideNetworkDrives.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideNetworkDrives"));
                 cb_SettingsInterfaceSound.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "InterfaceSound"));
-                cb_SettingsCloseMediaScreen.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "CloseMediaScreen"));
                 cb_SettingsShowMediaMain.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowMediaMain"));
                 cb_SettingsMinimizeAppOnShow.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow"));
-                cb_SettingsShortcutVolume.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShortcutVolume"));
                 cb_SettingsLaunchFpsOverlayer.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFpsOverlayer"));
 
                 //Load the socket used ports
