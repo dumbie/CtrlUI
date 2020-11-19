@@ -11,7 +11,6 @@ namespace DirectXInput.MediaCode
 {
     partial class WindowMedia
     {
-
         //Launch or close the Fps Overlayer
         async Task LaunchCloseFpsOverlayer()
         {

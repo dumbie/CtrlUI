@@ -215,10 +215,13 @@ namespace DirectXInput.MediaCode
                 //Get the current mouse position
                 GetCursorPos(out PointWin previousCursorPosition);
 
-                //Check if mouse cursor is in keyboard
-                if ((displayMonitorSettings.HeightNative - previousCursorPosition.Y) <= this.Height)
+                //Check if mouse cursor is in window
+                int windowHeight = (int)this.Height;
+                int displayCenterTop = (int)(displayMonitorSettings.BoundsTop + (displayMonitorSettings.HeightNative - windowHeight) / 2);
+                int displayCenterBottom = displayCenterTop + windowHeight;
+                if (AVFunctions.BetweenNumbers(previousCursorPosition.Y, displayCenterTop, displayCenterBottom, true))
                 {
-                    previousCursorPosition.Y = Convert.ToInt32(displayMonitorSettings.HeightNative - this.Height - 20);
+                    previousCursorPosition.Y = displayCenterTop - 20;
                     SetCursorPos(previousCursorPosition.X, previousCursorPosition.Y);
                 }
             }

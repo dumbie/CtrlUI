@@ -16,7 +16,7 @@
             SizeToContent="WidthAndHeight"
             Background="Transparent"
             SnapsToDevicePixels="True"
-            Opacity="1">
+            Opacity="0">
 
     <!-- Grid Application -->
     <Grid Name="grid_Application">
@@ -123,10 +123,10 @@
 
                     <StackPanel Grid.Row="3" Margin="0,15,0,0" HorizontalAlignment="Center">
                         <TextBlock Name="button_Volume_Level" Text="System volume" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeLarge}"/>
-                        <Button Name="button_ShowOrHideFpsOverlayer" Margin="0,15,0,0" Style="{StaticResource ButtonAccentWhite}" Click="button_ShowOrHideFpsOverlayer_Click">
+                        <Button Name="button_ShowOrHideFpsOverlayer" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentWhite}" Click="button_ShowOrHideFpsOverlayer_Click">
                             <TextBlock Text="Show or hide the Fps Overlayer" Height="30"/>
                         </Button>
-                        <Button Name="button_Close" Margin="0,15,0,0" Style="{StaticResource ButtonAccentWhite}" Click="button_Close_Click">
+                        <Button Name="button_Close" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentWhite}" Click="button_Close_Click">
                             <TextBlock Text="Close media popup" Height="30"/>
                         </Button>
                     </StackPanel>

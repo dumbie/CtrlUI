@@ -20,8 +20,34 @@ namespace DirectXInput.MediaCode
             {
                 if (Environment.TickCount >= vControllerDelay_Media)
                 {
+                    //Left stick movement
+                    if (ControllerInput.ThumbLeftX < -10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
+                    {
+                        await KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
+
+                        ControllerDelayShort = true;
+                    }
+                    else if (ControllerInput.ThumbLeftY > 10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
+                    {
+                        await KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
+
+                        ControllerDelayShort = true;
+                    }
+                    else if (ControllerInput.ThumbLeftX > 10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
+                    {
+                        await KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
+
+                        ControllerDelayShort = true;
+                    }
+                    else if (ControllerInput.ThumbLeftY < -10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
+                    {
+                        await KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
+
+                        ControllerDelayShort = true;
+                    }
+
                     //Send internal arrow left key
-                    if (ControllerInput.DPadLeft.PressedRaw)
+                    else if (ControllerInput.DPadLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         await KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);

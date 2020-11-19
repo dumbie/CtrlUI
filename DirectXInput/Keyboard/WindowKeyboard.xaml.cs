@@ -229,7 +229,7 @@ namespace DirectXInput.KeyboardCode
                 //Get the current mouse position
                 GetCursorPos(out PointWin previousCursorPosition);
 
-                //Check if mouse cursor is in keyboard
+                //Check if mouse cursor is in window
                 if ((displayMonitorSettings.HeightNative - previousCursorPosition.Y) <= this.Height)
                 {
                     previousCursorPosition.Y = Convert.ToInt32(displayMonitorSettings.HeightNative - this.Height - 20);

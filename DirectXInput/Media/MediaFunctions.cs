@@ -26,7 +26,7 @@ namespace DirectXInput.MediaCode
             catch { }
         }
 
-        //Handle close button
+        //Close the media control window
         async void button_Close_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -115,7 +115,7 @@ namespace DirectXInput.MediaCode
                 int currentVolumeInt = AudioVolumeGet();
                 if (currentVolumeInt >= 0)
                 {
-                    currentVolumeString = "Volume " + currentVolumeInt + "%";
+                    currentVolumeString = "System volume " + currentVolumeInt + "%";
                     if (currentVolumeMuted)
                     {
                         currentVolumeString += " (Muted)";
