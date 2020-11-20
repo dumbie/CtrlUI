@@ -1,6 +1,8 @@
 ﻿using ArnoldVinkCode;
+using LibraryShared;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -77,22 +79,38 @@ namespace DirectXInput
                 if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - DualSense 5
-                    //byte[] OutputReport = new byte[Controller.OutputReport.Length];
-                    //OutputReport[0] = 0x31;
-                    //OutputReport[1] = 0x02;
-                    //OutputReport[3] = 0x03;
-                    //OutputReport[4] = 0x16;
-                    //OutputReport[5] = 0x16;
-                    ////OutputReport[47] = 0x00;
-                    ////OutputReport[48] = 0x40;
-                    //OutputReport[74] = 0x16;
-                    //OutputReport[75] = 0xab;
-                    //OutputReport[76] = 0x2b;
-                    //OutputReport[77] = 0xea;
+                    //byte[] OutputReportChecksum = new byte[Controller.HidDevice.Capabilities.OutputReportByteLength];
+                    //OutputReportChecksum[0] = 0x35;
+
+                    byte[] OutputReportData = new byte[75];
+                    OutputReportData[0] = 0xa2;
+                    OutputReportData[1] = 0x31;
+                    OutputReportData[2] = 0x02;
+                    OutputReportData[3] = 0x03;
+                    OutputReportData[5] = 0x27;
+                    OutputReportData[6] = 0x27;
+
+                    //Calculate CRC32
+                    byte[] checksum;
+                    using (Crc32 crc32Hasher = new Crc32())
+                    {
+                        checksum = crc32Hasher.ComputeHash(OutputReportData, 0, OutputReportData.Length).Reverse().ToArray();
+                    }
+
+                    byte[] OutputReportCRC32 = new byte[78];
+                    OutputReportCRC32[0] = 0x31;
+                    OutputReportCRC32[1] = 0x02;
+                    OutputReportCRC32[2] = 0x03;
+                    OutputReportCRC32[3] = 0x27;
+                    OutputReportCRC32[4] = 0x27;
+                    OutputReportCRC32[74] = checksum[0];
+                    OutputReportCRC32[75] = checksum[1];
+                    OutputReportCRC32[76] = checksum[2];
+                    OutputReportCRC32[77] = checksum[3];
 
                     //Send data to the controller
-                    //bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(OutputReport);
-                    //Debug.WriteLine("BlueRumb DS5: " + bytesWritten);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(OutputReportCRC32);
+                    Debug.WriteLine("BlueRumb DS5: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && !Controller.Details.Wireless)
                 {
