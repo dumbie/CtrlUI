@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using static LibraryUsb.NativeMethods_Bluetooth;
+using static LibraryUsb.NativeMethods_Bth;
 using static LibraryUsb.NativeMethods_File;
 using static LibraryUsb.NativeMethods_IoControl;
 
 namespace LibraryUsb
 {
-    public partial class Bluetooth
+    public partial class BthDevice
     {
         public static bool BluetoothDisconnect(string serialNumber)
         {

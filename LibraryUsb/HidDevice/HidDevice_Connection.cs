@@ -38,7 +38,7 @@ namespace LibraryUsb
         {
             try
             {
-                return Bluetooth.BluetoothDisconnect(Attributes.SerialNumber);
+                return BthDevice.BluetoothDisconnect(Attributes.SerialNumber);
             }
             catch (Exception ex)
             {

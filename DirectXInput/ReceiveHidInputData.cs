@@ -287,7 +287,7 @@ namespace DirectXInput
 
                         //Raw Buttons (Group 3)
                         int ButtonIdGroup3 = 0;
-                        for (int ButtonByte = 40; ButtonByte < 45; ButtonByte++)
+                        for (int ButtonByte = 40; ButtonByte < 42; ButtonByte++)
                         {
                             Controller.InputCurrent.RawBytes[ButtonByte] = ((byte)Controller.InputReport[OffsetButtonsGroup3] & (1 << ButtonIdGroup3)) != 0;
                             ButtonIdGroup3++;

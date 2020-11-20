@@ -50,13 +50,13 @@
     <Compile Include="NativeMethods_IoControl.cs" />
     <Compile Include="NativeMethods_Guid.cs" />
     <Compile Include="UsbLibrary_DeviceManager.cs" />
-    <Compile Include="HidDevice.cs" />
-    <Compile Include="HidDevice_Connection.cs" />
-    <Compile Include="HidDevice_ReadWrite.cs" />
-    <Compile Include="UsbLibrary_Bluetooth.cs" />
-    <Compile Include="HidDevice_DeviceAttributes.cs" />
-    <Compile Include="HidDevice_DeviceCapabilities.cs" />
-    <Compile Include="NativeMethods_Bluetooth.cs" />
+    <Compile Include="HidDevice\HidDevice.cs" />
+    <Compile Include="HidDevice\HidDevice_Connection.cs" />
+    <Compile Include="HidDevice\HidDevice_ReadWrite.cs" />
+    <Compile Include="BthDevice\BthDevice_Connection.cs" />
+    <Compile Include="HidDevice\HidDevice_DeviceAttributes.cs" />
+    <Compile Include="HidDevice\HidDevice_DeviceCapabilities.cs" />
+    <Compile Include="NativeMethods_Bth.cs" />
     <Compile Include="NativeMethods_SetupApi.cs" />
     <Compile Include="NativeMethods_File.cs" />
     <Compile Include="NativeMethods_Hid.cs" />
@@ -64,9 +64,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsbLibrary_Enumerate.cs" />
     <Compile Include="UsbLibrary_Extensions.cs" />
-    <Compile Include="WinUsbDevice_Connection.cs" />
-    <Compile Include="WinUsbDevice_ReadWrite.cs" />
-    <Compile Include="WinUsbDevice.cs" />
+    <Compile Include="WinUsbDevice\WinUsbDevice_Connection.cs" />
+    <Compile Include="WinUsbDevice\WinUsbDevice_ReadWrite.cs" />
+    <Compile Include="WinUsbDevice\WinUsbDevice.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

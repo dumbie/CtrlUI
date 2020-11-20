@@ -79,6 +79,16 @@ namespace DirectXInput
                     //Bluetooth Output - DualSense 5
                     //byte[] OutputReport = new byte[Controller.OutputReport.Length];
                     //OutputReport[0] = 0x31;
+                    //OutputReport[1] = 0x02;
+                    //OutputReport[3] = 0x03;
+                    //OutputReport[4] = 0x16;
+                    //OutputReport[5] = 0x16;
+                    ////OutputReport[47] = 0x00;
+                    ////OutputReport[48] = 0x40;
+                    //OutputReport[74] = 0x16;
+                    //OutputReport[75] = 0xab;
+                    //OutputReport[76] = 0x2b;
+                    //OutputReport[77] = 0xea;
 
                     //Send data to the controller
                     //bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(OutputReport);
@@ -256,18 +266,20 @@ namespace DirectXInput
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualShock3")
                 {
                     //Wired USB Output - DualShock 3
-                    byte[] OutputReport =
-                    {
-                        0x00, 0xFF, 0x00, 0xFF, 0x00,
-                        0x00, 0x00, 0x00, 0x00, 0x00,
-                        0xFF, 0x27, 0x10, 0x00, 0x32,
-                        0xFF, 0x27, 0x10, 0x00, 0x32,
-                        0xFF, 0x27, 0x10, 0x00, 0x32,
-                        0xFF, 0x27, 0x10, 0x00, 0x32
-                    };
-
+                    byte[] OutputReport = new byte[21];
+                    OutputReport[1] = 0xFF;
                     OutputReport[2] = (byte)(controllerRumbleLight > 0 ? 0x01 : 0x00); //On or Off
+                    OutputReport[3] = 0xFF;
                     OutputReport[4] = controllerRumbleHeavy;
+                    OutputReport[10] = 0xFF;
+                    OutputReport[11] = 0x27;
+                    OutputReport[12] = 0x10;
+                    OutputReport[14] = 0x32;
+                    OutputReport[15] = 0xFF;
+                    OutputReport[16] = 0x27;
+                    OutputReport[17] = 0x10;
+                    OutputReport[19] = 0x32;
+                    OutputReport[20] = 0xFF;
 
                     //Led Position 0x02, 0x04, 0x08, 0x10
                     switch (Controller.NumberId)

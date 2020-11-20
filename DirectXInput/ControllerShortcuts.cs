@@ -82,9 +82,19 @@ namespace DirectXInput
                         ControllerDelayLonger = true;
                     }
                     //Show or hide the media controller
-                    else if (Controller.InputCurrent.ButtonMedia.PressedRaw)
+                    else if (Controller.InputCurrent.ButtonTouchpad.PressedRaw)
                     {
                         await MediaControllerHideShow(false);
+
+                        ControllerUsed = true;
+                        ControllerDelayLonger = true;
+                    }
+                    //Mute or unmute the system volume
+                    else if (Controller.InputCurrent.ButtonMedia.PressedRaw)
+                    {
+                        //Fix also mute default microphone
+                        App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Mute or unmuting volume");
+                        await KeyPressSingleAuto(KeysVirtual.VolumeMute);
 
                         ControllerUsed = true;
                         ControllerDelayLonger = true;
