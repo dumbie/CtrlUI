@@ -79,16 +79,15 @@ namespace DirectXInput
                 if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - DualSense 5
-                    //byte[] OutputReportChecksum = new byte[Controller.HidDevice.Capabilities.OutputReportByteLength];
-                    //OutputReportChecksum[0] = 0x35;
-
                     byte[] OutputReportData = new byte[75];
                     OutputReportData[0] = 0xa2;
                     OutputReportData[1] = 0x31;
                     OutputReportData[2] = 0x02;
                     OutputReportData[3] = 0x03;
-                    OutputReportData[5] = 0x27;
-                    OutputReportData[6] = 0x27;
+
+                    //Controller rumble
+                    OutputReportData[5] = controllerRumbleLight;
+                    OutputReportData[6] = controllerRumbleHeavy;
 
                     //Calculate CRC32
                     byte[] checksum;
@@ -101,15 +100,18 @@ namespace DirectXInput
                     OutputReportCRC32[0] = 0x31;
                     OutputReportCRC32[1] = 0x02;
                     OutputReportCRC32[2] = 0x03;
-                    OutputReportCRC32[3] = 0x27;
-                    OutputReportCRC32[4] = 0x27;
+
+                    //Controller rumble
+                    OutputReportCRC32[4] = controllerRumbleLight;
+                    OutputReportCRC32[5] = controllerRumbleHeavy;
+
                     OutputReportCRC32[74] = checksum[0];
                     OutputReportCRC32[75] = checksum[1];
                     OutputReportCRC32[76] = checksum[2];
                     OutputReportCRC32[77] = checksum[3];
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(OutputReportCRC32);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReportCRC32);
                     Debug.WriteLine("BlueRumb DS5: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && !Controller.Details.Wireless)
