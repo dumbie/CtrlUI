@@ -16,13 +16,8 @@ namespace DirectXInput
             {
                 Debug.WriteLine("Receive and Translate Win DirectInput for: " + Controller.Details.DisplayName);
 
-                //Wake up USB controllers
-                if (Controller.SupportedCurrent.CodeName == "SonyDualShock3" || Controller.SupportedCurrent.CodeName == "SonyMoveNavigation3")
-                {
-                    byte[] enableBytes = { 0x42, 0x0C, 0x00, 0x00 };
-                    bool bytesWritten = Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x3F4, enableBytes);
-                    Debug.WriteLine("Woke up USB controller: SonyDualShock3 or SonyMoveNavigation3: " + bytesWritten);
-                }
+                //Initialize PlayStation 3 controllers
+                InitializePlayStation3(Controller);
 
                 //Send output to activate controller
                 SendXRumbleData(Controller, true, false, false);

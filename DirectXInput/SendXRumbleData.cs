@@ -11,6 +11,58 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
+        //Initialize PlayStation 3 controllers
+        static void InitializePlayStation3(ControllerStatus Controller)
+        {
+            try
+            {
+                if (Controller.SupportedCurrent.CodeName == "SonyDualShock3" || Controller.SupportedCurrent.CodeName == "SonyMoveNavigation3")
+                {
+                    byte[] enableBytes = { 0x42, 0x0C, 0x00, 0x00 };
+                    bool bytesWritten = Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x3F4, enableBytes);
+                    Debug.WriteLine("Initialized USB controller: SonyDualShock3 or SonyMoveNavigation3: " + bytesWritten);
+                }
+            }
+            catch { }
+        }
+
+        //Initialize PlayStation 5 controllers
+        static void InitializePlayStation5(ControllerStatus Controller)
+        {
+            try
+            {
+                if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
+                {
+                    //Bluetooth Output - DualSense 5
+                    byte[] OutputReportData = new byte[75];
+                    OutputReportData[0] = 0xA2;
+                    OutputReportData[1] = 0x31;
+                    OutputReportData[2] = 0x02;
+                    OutputReportData[3] = 0xFF;
+                    OutputReportData[4] = 0x08;
+
+                    //Calculate CRC32
+                    byte[] checksum;
+                    using (Crc32 crc32Hasher = new Crc32())
+                    {
+                        checksum = crc32Hasher.ComputeHash(OutputReportData, 0, OutputReportData.Length).Reverse().ToArray();
+                    }
+
+                    byte[] OutputReportCRC32 = new byte[Controller.OutputReport.Length];
+                    Array.Copy(OutputReportData, 1, OutputReportCRC32, 0, OutputReportData.Length - 1);
+                    OutputReportCRC32[74] = checksum[0];
+                    OutputReportCRC32[75] = checksum[1];
+                    OutputReportCRC32[76] = checksum[2];
+                    OutputReportCRC32[77] = checksum[3];
+
+                    //Send data to the controller
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReportCRC32);
+                    Debug.WriteLine("Initialized Bluetooth controller: DualSense 5: " + bytesWritten);
+                }
+            }
+            catch { }
+        }
+
         //Receive rumble byte data
         public void SendXRumbleData(ControllerStatus Controller, bool forceUpdate, bool testLight, bool testHeavy)
         {
@@ -80,14 +132,80 @@ namespace DirectXInput
                 {
                     //Bluetooth Output - DualSense 5
                     byte[] OutputReportData = new byte[75];
-                    OutputReportData[0] = 0xa2;
+                    OutputReportData[0] = 0xA2;
                     OutputReportData[1] = 0x31;
                     OutputReportData[2] = 0x02;
-                    OutputReportData[3] = 0x03;
+                    OutputReportData[3] = 0xFF;
+                    OutputReportData[4] = 0xF7;
 
                     //Controller rumble
                     OutputReportData[5] = controllerRumbleLight;
                     OutputReportData[6] = controllerRumbleHeavy;
+
+                    //Trigger rumble
+                    if (triggerRumbleHighest > 10)
+                    {
+                        byte triggerRumbleBegin = (byte)(255 - triggerRumbleHighest);
+                        if (triggerRumbleBegin > 200) { triggerRumbleBegin = 200; }
+                        OutputReportData[13] = 0x01; //Right trigger
+                        OutputReportData[14] = triggerRumbleBegin; //Begin;
+                        OutputReportData[15] = 0xFF; //Force
+                        OutputReportData[24] = 0x01; //Left trigger
+                        OutputReportData[25] = triggerRumbleBegin; //Begin;
+                        OutputReportData[26] = 0xFF; //Force
+                    }
+                    else
+                    {
+                        OutputReportData[13] = 0x00; //Right trigger
+                        OutputReportData[24] = 0x00; //Left trigger
+                    }
+
+                    //If volume is muted turn on mute led
+                    if (vControllerMuteLed)
+                    {
+                        OutputReportData[11] = 0x01;
+                    }
+                    else
+                    {
+                        OutputReportData[11] = 0x00;
+                    }
+
+                    //If battery is low turn on player led
+                    if (Controller.BatteryPercentageCurrent <= 20 && Controller.BatteryPercentageCurrent >= 0)
+                    {
+                        OutputReportData[46] = 0x04;
+                    }
+                    else
+                    {
+                        OutputReportData[46] = 0x00;
+                    }
+
+                    //Set the controller led color
+                    double ControllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
+                    if (Controller.NumberId == 0)
+                    {
+                        OutputReportData[47] = Convert.ToByte(10 * ControllerLedBrightness); //Red
+                        OutputReportData[48] = Convert.ToByte(190 * ControllerLedBrightness); //Green
+                        OutputReportData[49] = Convert.ToByte(240 * ControllerLedBrightness); //Blue
+                    }
+                    else if (Controller.NumberId == 1)
+                    {
+                        OutputReportData[47] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                        OutputReportData[48] = Convert.ToByte(20 * ControllerLedBrightness); //Green
+                        OutputReportData[49] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                    }
+                    else if (Controller.NumberId == 2)
+                    {
+                        OutputReportData[47] = Convert.ToByte(20 * ControllerLedBrightness); //Red
+                        OutputReportData[48] = Convert.ToByte(240 * ControllerLedBrightness); //Green
+                        OutputReportData[49] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                    }
+                    else
+                    {
+                        OutputReportData[47] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                        OutputReportData[48] = Convert.ToByte(210 * ControllerLedBrightness); //Green
+                        OutputReportData[49] = Convert.ToByte(5 * ControllerLedBrightness); //Blue
+                    }
 
                     //Calculate CRC32
                     byte[] checksum;
@@ -96,15 +214,8 @@ namespace DirectXInput
                         checksum = crc32Hasher.ComputeHash(OutputReportData, 0, OutputReportData.Length).Reverse().ToArray();
                     }
 
-                    byte[] OutputReportCRC32 = new byte[78];
-                    OutputReportCRC32[0] = 0x31;
-                    OutputReportCRC32[1] = 0x02;
-                    OutputReportCRC32[2] = 0x03;
-
-                    //Controller rumble
-                    OutputReportCRC32[4] = controllerRumbleLight;
-                    OutputReportCRC32[5] = controllerRumbleHeavy;
-
+                    byte[] OutputReportCRC32 = new byte[Controller.OutputReport.Length];
+                    Array.Copy(OutputReportData, 1, OutputReportCRC32, 0, OutputReportData.Length - 1);
                     OutputReportCRC32[74] = checksum[0];
                     OutputReportCRC32[75] = checksum[1];
                     OutputReportCRC32[76] = checksum[2];

@@ -81,7 +81,7 @@
                     <Grid Name="button_Information" Grid.Row="0" Width="700">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Image Name="button_Information_Thumbnail" Margin="0,0,15,0" Width="150" Height="150" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <StackPanel>
+                            <StackPanel MaxWidth="500">
                                 <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
                                     <TextBlock Name="button_Information_Artist" Style="{StaticResource TextBlockAccent}" FontSize="{DynamicResource TextSizeLarge}" Text="Artist"/>
                                 </styles:ScrollViewerLoopHorizontal>

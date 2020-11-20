@@ -74,6 +74,9 @@ namespace DirectXInput
             {
                 Debug.WriteLine("Receive and Translate Hid DirectInput for: " + Controller.Details.DisplayName);
 
+                //Initialize PlayStation 5 controllers
+                InitializePlayStation5(Controller);
+
                 //Send output to activate controller
                 SendXRumbleData(Controller, true, false, false);
 
