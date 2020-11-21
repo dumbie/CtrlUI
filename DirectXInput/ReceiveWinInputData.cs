@@ -16,10 +16,10 @@ namespace DirectXInput
             {
                 Debug.WriteLine("Receive and Translate Win DirectInput for: " + Controller.Details.DisplayName);
 
-                //Initialize PlayStation 3 controllers
-                InitializePlayStation3(Controller);
+                //Initialize game controller
+                InitializeGameController(Controller);
 
-                //Send output to activate controller
+                //Send default output to controller
                 SendXRumbleData(Controller, true, false, false);
 
                 //Receive input from the selected controller

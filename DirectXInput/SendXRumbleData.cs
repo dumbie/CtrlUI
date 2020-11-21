@@ -11,8 +11,8 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Initialize PlayStation 3 controllers
-        static void InitializePlayStation3(ControllerStatus Controller)
+        //Initialize game controller
+        private void InitializeGameController(ControllerStatus Controller)
         {
             try
             {
@@ -22,16 +22,7 @@ namespace DirectXInput
                     bool bytesWritten = Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x3F4, enableBytes);
                     Debug.WriteLine("Initialized USB controller: SonyDualShock3 or SonyMoveNavigation3: " + bytesWritten);
                 }
-            }
-            catch { }
-        }
-
-        //Initialize PlayStation 5 controllers
-        static void InitializePlayStation5(ControllerStatus Controller)
-        {
-            try
-            {
-                if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
+                else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - DualSense 5
                     byte[] OutputReportData = new byte[75];
@@ -41,26 +32,46 @@ namespace DirectXInput
                     OutputReportData[3] = 0xFF;
                     OutputReportData[4] = 0x08;
 
-                    //Calculate CRC32
-                    byte[] checksum;
-                    using (Crc32 crc32Hasher = new Crc32())
-                    {
-                        checksum = crc32Hasher.ComputeHash(OutputReportData, 0, OutputReportData.Length).Reverse().ToArray();
-                    }
-
-                    byte[] OutputReportCRC32 = new byte[Controller.OutputReport.Length];
-                    Array.Copy(OutputReportData, 1, OutputReportCRC32, 0, OutputReportData.Length - 1);
-                    OutputReportCRC32[74] = checksum[0];
-                    OutputReportCRC32[75] = checksum[1];
-                    OutputReportCRC32[76] = checksum[2];
-                    OutputReportCRC32[77] = checksum[3];
+                    //Add CRC32 to bytes array
+                    byte[] OutputReportCRC32 = ByteArrayAddCRC32(Controller, OutputReportData);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReportCRC32);
-                    Debug.WriteLine("Initialized Bluetooth controller: DualSense 5: " + bytesWritten);
+                    Debug.WriteLine("Initialized Bluetooth controller: SonyDualSense5: " + bytesWritten);
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to initialize game controller: " + ex.Message);
+            }
+        }
+
+        //Add CRC32 hash to bytes array
+        private byte[] ByteArrayAddCRC32(ControllerStatus Controller, byte[] OutputReportData)
+        {
+            try
+            {
+                //Calculate CRC32 hash
+                byte[] checksum;
+                using (Crc32 crc32Hasher = new Crc32())
+                {
+                    checksum = crc32Hasher.ComputeHash(OutputReportData, 0, OutputReportData.Length).Reverse().ToArray();
+                }
+
+                //Add CRC32 hash bytes
+                byte[] OutputReportCRC32 = new byte[OutputReportData.Length + 4];
+                Array.Copy(OutputReportData, 1, OutputReportCRC32, 0, OutputReportData.Length - 1);
+                OutputReportCRC32[74] = checksum[0];
+                OutputReportCRC32[75] = checksum[1];
+                OutputReportCRC32[76] = checksum[2];
+                OutputReportCRC32[77] = checksum[3];
+                return OutputReportCRC32;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to add CRC32 bytes to the array: " + ex.Message);
+                return null;
+            }
         }
 
         //Receive rumble byte data
@@ -207,19 +218,8 @@ namespace DirectXInput
                         OutputReportData[49] = Convert.ToByte(5 * ControllerLedBrightness); //Blue
                     }
 
-                    //Calculate CRC32
-                    byte[] checksum;
-                    using (Crc32 crc32Hasher = new Crc32())
-                    {
-                        checksum = crc32Hasher.ComputeHash(OutputReportData, 0, OutputReportData.Length).Reverse().ToArray();
-                    }
-
-                    byte[] OutputReportCRC32 = new byte[Controller.OutputReport.Length];
-                    Array.Copy(OutputReportData, 1, OutputReportCRC32, 0, OutputReportData.Length - 1);
-                    OutputReportCRC32[74] = checksum[0];
-                    OutputReportCRC32[75] = checksum[1];
-                    OutputReportCRC32[76] = checksum[2];
-                    OutputReportCRC32[77] = checksum[3];
+                    //Add CRC32 to bytes array
+                    byte[] OutputReportCRC32 = ByteArrayAddCRC32(Controller, OutputReportData);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReportCRC32);

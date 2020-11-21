@@ -63,7 +63,7 @@ namespace LibraryUsb
                 FileHandle = CreateFile(DevicePath, desiredAccess, shareMode, IntPtr.Zero, creationDisposition, flagsAttributes, 0);
                 if (FileHandle == IntPtr.Zero || FileHandle == INVALID_HANDLE_VALUE)
                 {
-                    Debug.WriteLine("Failed to open hid device.");
+                    //Debug.WriteLine("Failed to open hid device: " + DevicePath);
                     Connected = false;
                     return false;
                 }

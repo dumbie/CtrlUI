@@ -9,6 +9,7 @@ using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_Guid;
+using static LibraryUsb.NativeMethods_Hid;
 
 namespace DirectXInput
 {
@@ -82,11 +83,11 @@ namespace DirectXInput
                 {
                     try
                     {
-                        //Check if the device is a game controller
-                        if (!EnumDevice.Description.EndsWith("game controller")) { continue; }
-
                         //Read information from the controller
                         HidDevice foundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.HardwareId, false, true);
+
+                        //Check if device is a gamepad or joystick
+                        if (foundHidDevice.Capabilities.UsagePage != (short)HID_USAGE_PAGE.HID_USAGE_PAGE_GAME) { continue; }
 
                         //Get vendor and product hex id
                         string VendorHexId = foundHidDevice.Attributes.VendorHexId.ToLower();
