@@ -92,6 +92,14 @@ namespace DriverInstaller
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    if (Indeterminate)
+                    {
+                        gif_Progress_Status.Hide();
+                    }
+                    else
+                    {
+                        gif_Progress_Status.Show();
+                    }
                     progressbar_Status.IsIndeterminate = Indeterminate;
                     progressbar_Status.Value = Progress;
                 });
@@ -158,7 +166,6 @@ namespace DriverInstaller
                 Debug.WriteLine("Exiting application.");
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    this.Opacity = 0.80;
                     this.IsEnabled = false;
                 });
 
@@ -179,7 +186,7 @@ namespace DriverInstaller
                 ProgressBarUpdate(100, false);
 
                 //Close the application after x seconds
-                await Task.Delay(2000);
+                await Task.Delay(3000);
                 Environment.Exit(0);
             }
             catch { }

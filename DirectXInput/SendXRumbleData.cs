@@ -70,7 +70,7 @@ namespace DirectXInput
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to add CRC32 bytes to the array: " + ex.Message);
-                return null;
+                return OutputReportData;
             }
         }
 
@@ -167,8 +167,12 @@ namespace DirectXInput
                     }
                     else
                     {
-                        OutputReportData[13] = 0x00; //Right trigger
-                        OutputReportData[24] = 0x00; //Left trigger
+                        OutputReportData[13] = 0x01; //Right trigger
+                        OutputReportData[14] = 0xFF; //Begin;
+                        OutputReportData[15] = 0x00; //Force
+                        OutputReportData[24] = 0x01; //Left trigger
+                        OutputReportData[25] = 0xFF; //Begin;
+                        OutputReportData[26] = 0x00; //Force
                     }
 
                     //If volume is muted turn on mute led
@@ -251,8 +255,12 @@ namespace DirectXInput
                     }
                     else
                     {
-                        OutputReport[11] = 0x00; //Right trigger
-                        OutputReport[22] = 0x00; //Left trigger
+                        OutputReport[11] = 0x01; //Right trigger
+                        OutputReport[12] = 0xFF; //Begin;
+                        OutputReport[13] = 0x00; //Force
+                        OutputReport[22] = 0x01; //Left trigger
+                        OutputReport[23] = 0xFF; //Begin;
+                        OutputReport[24] = 0x00; //Force
                     }
 
                     //If volume is muted turn on mute led

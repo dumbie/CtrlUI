@@ -342,6 +342,10 @@
       <Link>Assets\Default\Icons\Keypad.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Music.png">
+      <Link>Assets\Default\Icons\Music.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\CtrlUI\Assets\Default\Icons\Settings.png">
       <Link>Assets\Default\Icons\Settings.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

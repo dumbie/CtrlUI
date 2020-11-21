@@ -242,7 +242,14 @@ namespace DirectXInput.MediaCode
                     button_Information_Album.Text = mediaAlbum;
                     button_Information_Track.Text = mediaTrack;
                     button_Information_Progress.Value = mediaProgress;
-                    button_Information_Thumbnail.Source = thumbnailBitmap;
+                    if (thumbnailBitmap != null)
+                    {
+                        button_Information_Thumbnail.Source = thumbnailBitmap;
+                    }
+                    else
+                    {
+                        button_Information_Thumbnail.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    }
                     button_Information.Visibility = Visibility.Visible;
 
                     if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)

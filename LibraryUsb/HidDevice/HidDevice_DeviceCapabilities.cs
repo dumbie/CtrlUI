@@ -7,8 +7,8 @@ namespace LibraryUsb
         [StructLayout(LayoutKind.Sequential)]
         public struct HIDP_CAPS
         {
-            internal short UsagePage;
             internal short UsageGeneric;
+            internal short UsagePage;
             internal short InputReportByteLength;
             internal short OutputReportByteLength;
             internal short FeatureReportByteLength;
@@ -28,8 +28,8 @@ namespace LibraryUsb
 
         public HidDeviceCapabilities(HIDP_CAPS capabilities)
         {
-            UsagePage = capabilities.UsagePage;
             UsageGeneric = capabilities.UsageGeneric;
+            UsagePage = capabilities.UsagePage;
             InputReportByteLength = capabilities.InputReportByteLength;
             OutputReportByteLength = capabilities.OutputReportByteLength;
             FeatureReportByteLength = capabilities.FeatureReportByteLength;
@@ -46,8 +46,8 @@ namespace LibraryUsb
             NumberFeatureDataIndices = capabilities.NumberFeatureDataIndices;
         }
 
-        public short UsagePage { get; set; }
         public short UsageGeneric { get; set; }
+        public short UsagePage { get; set; }
         public short InputReportByteLength { get; set; }
         public short OutputReportByteLength { get; set; }
         public short FeatureReportByteLength { get; set; }

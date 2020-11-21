@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriverInstaller"
+        xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
         mc:Ignorable="d"
         Title="Driver Installer"
         Height="450"
@@ -24,8 +25,15 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Driver Installer"/>
+                <StackPanel Grid.Column="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Driver Installer"/>
+                        <styles:AVGifPlayer Grid.Column="1" Name="gif_Progress_Status" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/LoadingDark.gif" Height="30" Width="30" SpeedRatio="5" HorizontalAlignment="Right"/>
+                    </Grid>
                     <ProgressBar Name="progressbar_Status" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch" IsIndeterminate="True"/>
 
                     <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
