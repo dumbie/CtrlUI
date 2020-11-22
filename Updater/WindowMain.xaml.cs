@@ -23,7 +23,7 @@ namespace Updater
             try
             {
                 //Check if previous update files are in the way
-                File_Delete("UpdaterNew.exe");
+                File_Delete("Resources/UpdaterReplace.exe");
                 File_Delete("AppUpdate.zip");
 
                 //Check if CtrlUI is running and close it
@@ -137,7 +137,7 @@ namespace Updater
                                     if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Updater.exe".ToLower()))
                                     {
                                         Debug.WriteLine("Renaming: Updater.exe");
-                                        ExtractPath = ExtractPath.Replace("Updater.exe", "UpdaterNew.exe");
+                                        ExtractPath = ExtractPath.Replace("Updater.exe", "Resources/UpdaterReplace.exe");
                                     }
 
                                     ZipFile.ExtractToFile(ExtractPath, true);

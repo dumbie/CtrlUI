@@ -38,7 +38,7 @@ namespace LibraryShared
                 Directory_Move("Assets/Roms", "Assets/User/Games", true);
 
                 //Check - If updater has been updated
-                File_Move("UpdaterNew.exe", "Updater.exe", true);
+                File_Move("Resources/UpdaterReplace.exe", "Updater.exe", true);
 
                 //Check - If updater failed to cleanup
                 File_Delete("AppUpdate.zip");

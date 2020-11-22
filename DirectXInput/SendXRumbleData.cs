@@ -33,7 +33,7 @@ namespace DirectXInput
                     OutputReportData[4] = 0x08;
 
                     //Add CRC32 to bytes array
-                    byte[] OutputReportCRC32 = ByteArrayAddCRC32(Controller, OutputReportData);
+                    byte[] OutputReportCRC32 = ByteArrayAddCRC32(OutputReportData);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReportCRC32);
@@ -47,7 +47,7 @@ namespace DirectXInput
         }
 
         //Add CRC32 hash to bytes array
-        private byte[] ByteArrayAddCRC32(ControllerStatus Controller, byte[] OutputReportData)
+        private byte[] ByteArrayAddCRC32(byte[] OutputReportData)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace DirectXInput
             {
                 if (!Controller.Connected)
                 {
-                    Debug.WriteLine("Rumble send controller is not connected.");
+                    //Debug.WriteLine("Rumble send controller is not connected.");
                     return;
                 }
                 if (!forceUpdate && Controller.XOutputData[1] != 0x08)
@@ -91,12 +91,10 @@ namespace DirectXInput
                 }
 
                 //Read the rumble strength
-                byte triggerRumbleHighest = 0; //0-255
-                byte controllerRumbleHeavy = 0; //0-255
-                byte controllerRumbleLight = 0; //0-255
+                byte controllerRumbleHeavy = 0;
+                byte controllerRumbleLight = 0;
                 if (testHeavy)
                 {
-                    triggerRumbleHighest = 255;
                     controllerRumbleHeavy = 255;
                 }
                 else
@@ -105,22 +103,25 @@ namespace DirectXInput
                 }
                 if (testLight)
                 {
-                    triggerRumbleHighest = 255;
                     controllerRumbleLight = 255;
                 }
                 else
                 {
                     controllerRumbleLight = Controller.XOutputData[4];
                 }
-                triggerRumbleHighest = Math.Max(controllerRumbleLight, controllerRumbleHeavy);
 
-                //Adjust the rumble strength
+                //Adjust the trigger rumble strength
+                byte triggerRumbleMinimum = 240;
+                double triggerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrength) / 100;
+                byte triggerRumbleHighest = Math.Max(controllerRumbleLight, controllerRumbleHeavy);
+                triggerRumbleHighest = Convert.ToByte(255 - (triggerRumbleHighest * triggerRumbleStrength));
+                Debug.WriteLine("Trigger rumble Highest: " + triggerRumbleHighest + " / Minimum: " + triggerRumbleMinimum);
+
+                //Adjust the controller rumble strength
                 double controllerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.ControllerRumbleStrength) / 100;
                 controllerRumbleHeavy = Convert.ToByte(controllerRumbleHeavy * controllerRumbleStrength);
                 controllerRumbleLight = Convert.ToByte(controllerRumbleLight * controllerRumbleStrength);
-                double triggerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrength) / 100;
-                triggerRumbleHighest = Convert.ToByte(triggerRumbleHighest * triggerRumbleStrength);
-                Debug.WriteLine("Controller rumble Heavy: " + controllerRumbleHeavy + " / Light: " + controllerRumbleLight + " | Trigger rumble: " + triggerRumbleHighest);
+                Debug.WriteLine("Controller rumble Heavy: " + controllerRumbleHeavy + " / Light: " + controllerRumbleLight);
 
                 //Update controller interface preview
                 if (vAppActivated && !vAppMinimized)
@@ -154,15 +155,14 @@ namespace DirectXInput
                     OutputReportData[6] = controllerRumbleHeavy;
 
                     //Trigger rumble
-                    if (triggerRumbleHighest > 10)
+                    if (triggerRumbleHighest <= triggerRumbleMinimum)
                     {
-                        byte triggerRumbleBegin = (byte)(255 - triggerRumbleHighest);
-                        if (triggerRumbleBegin > 200) { triggerRumbleBegin = 200; }
+                        if (triggerRumbleHighest > 180) { triggerRumbleHighest = 180; }
                         OutputReportData[13] = 0x01; //Right trigger
-                        OutputReportData[14] = triggerRumbleBegin; //Begin;
+                        OutputReportData[14] = triggerRumbleHighest; //Begin;
                         OutputReportData[15] = 0xFF; //Force
                         OutputReportData[24] = 0x01; //Left trigger
-                        OutputReportData[25] = triggerRumbleBegin; //Begin;
+                        OutputReportData[25] = triggerRumbleHighest; //Begin;
                         OutputReportData[26] = 0xFF; //Force
                     }
                     else
@@ -223,7 +223,7 @@ namespace DirectXInput
                     }
 
                     //Add CRC32 to bytes array
-                    byte[] OutputReportCRC32 = ByteArrayAddCRC32(Controller, OutputReportData);
+                    byte[] OutputReportCRC32 = ByteArrayAddCRC32(OutputReportData);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReportCRC32);
@@ -242,15 +242,14 @@ namespace DirectXInput
                     OutputReport[4] = controllerRumbleHeavy;
 
                     //Trigger rumble
-                    if (triggerRumbleHighest > 10)
+                    if (triggerRumbleHighest <= triggerRumbleMinimum)
                     {
-                        byte triggerRumbleBegin = (byte)(255 - triggerRumbleHighest);
-                        if (triggerRumbleBegin > 200) { triggerRumbleBegin = 200; }
+                        if (triggerRumbleHighest > 180) { triggerRumbleHighest = 180; }
                         OutputReport[11] = 0x01; //Right trigger
-                        OutputReport[12] = triggerRumbleBegin; //Begin;
+                        OutputReport[12] = triggerRumbleHighest; //Begin;
                         OutputReport[13] = 0xFF; //Force
                         OutputReport[22] = 0x01; //Left trigger
-                        OutputReport[23] = triggerRumbleBegin; //Begin;
+                        OutputReport[23] = triggerRumbleHighest; //Begin;
                         OutputReport[24] = 0xFF; //Force
                     }
                     else

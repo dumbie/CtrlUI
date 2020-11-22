@@ -126,7 +126,7 @@ namespace DirectXInput
                 //Check controller battery level overlay
                 if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowIconLow")) && Controller.BatteryPercentageCurrent <= 20 && Controller.BatteryPercentageCurrent >= 0)
                 {
-                    Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level, showing overlay.");
+                    //Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level, showing overlay.");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         App.vWindowOverlay.UpdateBatteryPosition();
