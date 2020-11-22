@@ -162,7 +162,7 @@ namespace DirectXInput
         {
             try
             {
-                await StopAllControllers();
+                await StopAllControllers(false);
 
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Controller";

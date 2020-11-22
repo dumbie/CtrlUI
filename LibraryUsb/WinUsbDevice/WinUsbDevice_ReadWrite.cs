@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using static LibraryUsb.NativeMethods_IoControl;
 using static LibraryUsb.NativeMethods_WinUsb;
 
 namespace LibraryUsb
@@ -51,20 +50,6 @@ namespace LibraryUsb
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to write transfer bytes: " + ex.Message);
-                return false;
-            }
-        }
-
-        public bool WriteBytesDeviceIO(byte[] inputBuffer, byte[] outputBuffer)
-        {
-            try
-            {
-                if (!Connected) { return false; }
-                return DeviceIoControl(FileHandle, IoControlCodes.IOCTL_DEVICE_SENDDATA, inputBuffer, inputBuffer.Length, outputBuffer, outputBuffer.Length, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to write deviceio bytes: " + ex.Message);
                 return false;
             }
         }

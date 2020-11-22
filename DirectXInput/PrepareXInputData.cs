@@ -11,16 +11,16 @@ namespace DirectXInput
         byte TranslateByte_0x10(int RawOffset, int RawJoyState) { return Convert.ToByte((RawJoyState >> RawOffset) & 0x10); }
 
         //Update and prepare XInput byte data
-        void PrepareXInputData(ControllerStatus Controller, bool Empty)
+        void PrepareXInputData(ControllerStatus Controller, bool emptyInput)
         {
             try
             {
                 //Set the package header
+                Controller.XInputData = new byte[28];
                 Controller.XInputData[0] = 0x1C;
                 Controller.XInputData[4] = (byte)(Controller.NumberId + 1);
                 Controller.XInputData[9] = 0x14;
-                for (int i = 10; i < Controller.XInputData.Length; i++) { Controller.XInputData[i] = 0x00; }
-                if (Empty) { return; }
+                if (emptyInput) { return; }
 
                 //Thumb Left
                 Controller.XInputData[14] = TranslateByte_0xFF(0, Controller.InputCurrent.ThumbLeftX);

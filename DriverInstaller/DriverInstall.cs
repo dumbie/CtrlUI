@@ -38,6 +38,7 @@ namespace DriverInstaller
                 ElementEnableDisable(button_Driver_Install, false);
                 ElementEnableDisable(button_Driver_Uninstall, false);
                 ElementEnableDisable(button_Driver_Close, false);
+                ProgressBarUpdate(5, false);
 
                 //Close running controller tools
                 await CloseControllerTools();
@@ -56,12 +57,16 @@ namespace DriverInstaller
                 InstallHidGuardian();
 
                 //Install DS3 USB Driver
-                ProgressBarUpdate(80, false);
+                ProgressBarUpdate(75, false);
                 InstallDualShock3();
+
+                //Uninstall Xbox Controllers
+                ProgressBarUpdate(90, false);
+                UninstallXboxControllers();
 
                 TextBoxAppend("Driver installation completed.");
                 TextBoxAppend("--- System reboot may be required ---");
-                ProgressBarUpdate(90, false);
+                ProgressBarUpdate(100, false);
 
                 //Close the application
                 await Application_Exit("Closing the driver installer in a bit.", true);
@@ -78,7 +83,7 @@ namespace DriverInstaller
                     TextBoxAppend("Virtual Bus Driver created.");
                 }
 
-                if (DriverInstall(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstallInf(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("Virtual Bus Driver installed.");
                 }
@@ -94,7 +99,7 @@ namespace DriverInstaller
         {
             try
             {
-                if (DriverInstall(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstallInf(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("DS3 USB Driver installed.");
                 }
@@ -115,7 +120,7 @@ namespace DriverInstaller
                     TextBoxAppend("HidGuardian Driver created.");
                 }
 
-                if (DriverInstall(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstallInf(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("HidGuardian Driver installed.");
                 }

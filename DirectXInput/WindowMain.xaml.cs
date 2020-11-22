@@ -65,8 +65,8 @@ namespace DirectXInput
                     await Application_ShowHideWindow();
                 }
 
-                //Check xbox bus driver status
-                if (!await CheckXboxBusDriverStatus())
+                //Open and check virtual bus driver
+                if (!await OpenVirtualBusDriver())
                 {
                     if (!ShowInTaskbar) { await Application_ShowHideWindow(); }
                     await Message_InstallDrivers();
@@ -225,7 +225,7 @@ namespace DirectXInput
                 await TasksBackgroundStop();
 
                 //Disconnect all the controllers
-                await StopAllControllers();
+                await StopAllControllers(true);
 
                 //Reset HidGuardian to defaults
                 HidGuardianResetDefaults();

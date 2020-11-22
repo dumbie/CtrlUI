@@ -103,7 +103,7 @@ namespace DirectXInput
             {
                 if (args.Button == MouseButtons.Middle)
                 {
-                    await StopAllControllers();
+                    await StopAllControllers(false);
                 }
             }
             catch { }

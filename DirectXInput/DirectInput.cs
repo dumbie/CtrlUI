@@ -47,23 +47,10 @@ namespace DirectXInput
                         return false;
                     }
 
-                    //Open Xbox bus driver
-                    if (!await OpenXboxBusDriver(Controller))
-                    {
-                        Debug.WriteLine("Failed to open Xbox bus driver for: " + Controller.Details.DisplayName);
-
-                        NotificationDetails notificationDetailsDrivers = new NotificationDetails();
-                        notificationDetailsDrivers.Icon = "Controller";
-                        notificationDetailsDrivers.Text = "Install drivers";
-                        App.vWindowOverlay.Notification_Show_Status(notificationDetailsDrivers);
-
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            txt_Controller_Information.Text = "Please make sure that you have installed the required drivers.";
-                        });
-
-                        return false;
-                    }
+                    //Unplug and plugin the virtual device
+                    vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
+                    await Task.Delay(500);
+                    vVirtualBusDevice.VirtualPlugin(Controller.NumberId);
 
                     //Set controller interface information
                     string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
@@ -172,7 +159,7 @@ namespace DirectXInput
         }
 
         //Stop the desired controller in task
-        void StopControllerTask(ControllerStatus Controller, bool removeAll360Bus, string disconnectTag)
+        void StopControllerTask(ControllerStatus Controller, bool stopAll, string disconnectTag)
         {
             try
             {
@@ -181,7 +168,7 @@ namespace DirectXInput
                 {
                     try
                     {
-                        await StopControllerAsync(Controller, removeAll360Bus, disconnectTag);
+                        await StopControllerAsync(Controller, stopAll, disconnectTag);
                     }
                     catch { }
                 }
@@ -191,7 +178,7 @@ namespace DirectXInput
         }
 
         //Stop the desired controller as async
-        async Task<bool> StopControllerAsync(ControllerStatus Controller, bool removeAll360Bus, string disconnectTag)
+        async Task<bool> StopControllerAsync(ControllerStatus Controller, bool stopAll, string disconnectTag)
         {
             try
             {
@@ -265,28 +252,26 @@ namespace DirectXInput
                 //Reset the controller status
                 Controller.ResetControllerStatus();
 
-                //Disconnect Emulated Controllers
-                if (Controller.X360Device != null)
+                //Disconnect virtual controller
+                if (vVirtualBusDevice != null)
                 {
-                    //Prepare empty XOutput device data
+                    //Prepare empty device data
                     PrepareXInputData(Controller, true);
 
-                    //Send XOutput device data
-                    Controller.X360Device.WriteBytesDeviceIO(Controller.XInputData, Controller.XOutputData);
+                    //Send empty device data
+                    vVirtualBusDevice.VirtualReadWrite(Controller.XInputData, Controller.XOutputData);
                     await Task.Delay(500);
 
-                    //Stop and disconnect the x360 device
-                    if (removeAll360Bus)
+                    //Disconnect the virtual controller
+                    if (stopAll)
                     {
-                        Controller.X360Device.UnplugAll();
+                        vVirtualBusDevice.VirtualUnplugAll();
                     }
                     else
                     {
-                        Controller.X360Device.Unplug(Controller.NumberId);
+                        vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
                     }
                     await Task.Delay(500);
-                    Controller.X360Device.CloseDevice();
-                    Controller.X360Device = null;
 
                     //Reset the input and output report
                     Controller.XInputData = new byte[28];
@@ -356,7 +341,7 @@ namespace DirectXInput
         }
 
         //Stop all the controllers
-        async Task StopAllControllers()
+        async Task StopAllControllers(bool disconnectVirtualBus)
         {
             try
             {
@@ -364,6 +349,12 @@ namespace DirectXInput
                 await StopControllerAsync(vController1, true, "all");
                 await StopControllerAsync(vController2, true, "all");
                 await StopControllerAsync(vController3, true, "all");
+
+                if (disconnectVirtualBus)
+                {
+                    vVirtualBusDevice.CloseDevice();
+                    vVirtualBusDevice = null;
+                }
 
                 Debug.WriteLine("Stopped all the controllers direct input.");
                 AVActions.ActionDispatcherInvoke(delegate
@@ -456,41 +447,17 @@ namespace DirectXInput
             return false;
         }
 
-        //Open Xbox bus driver
-        async Task<bool> OpenXboxBusDriver(ControllerStatus Controller)
+        //Open virtual bus driver
+        async Task<bool> OpenVirtualBusDriver()
         {
             try
             {
-                Controller.X360Device = new WinUsbDevice(GuidClassScpXbox360Bus, string.Empty, false, false);
-                if (Controller.X360Device.Connected)
-                {
-                    Controller.X360Device.Unplug(Controller.NumberId);
-                    await Task.Delay(500);
-                    Controller.X360Device.Plugin(Controller.NumberId);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch { }
-            return false;
-        }
-
-        //Check Xbox bus driver status
-        async Task<bool> CheckXboxBusDriverStatus()
-        {
-            try
-            {
-                WinUsbDevice X360Device = new WinUsbDevice(GuidClassScpXbox360Bus, string.Empty, false, false);
-                if (X360Device.Connected)
+                vVirtualBusDevice = new WinUsbDevice(GuidClassScpVirtualBus, string.Empty, false, false);
+                if (vVirtualBusDevice.Connected)
                 {
                     Debug.WriteLine("Xbox drivers are installed.");
-                    X360Device.UnplugAll();
+                    vVirtualBusDevice.VirtualUnplugAll();
                     await Task.Delay(500);
-                    X360Device.CloseDevice();
-                    X360Device = null;
                     return true;
                 }
                 else
@@ -500,6 +467,7 @@ namespace DirectXInput
                 }
             }
             catch { }
+            Debug.WriteLine("Xbox drivers not installed.");
             return false;
         }
     }

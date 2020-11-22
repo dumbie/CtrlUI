@@ -63,10 +63,6 @@ namespace DirectXInput
         {
             try
             {
-                //Check for invalid or unknown controllers by id
-                if (productHexId == "0x0000" && vendorHexId == "0x0000") { return false; } //Unknown
-                if (productHexId == "0x028e" && vendorHexId == "0x045e") { return false; } //Xbox 360
-
                 //Check if the controller is in temp block list
                 if (vControllerTempBlockPaths.Contains(controllerPath))
                 {
@@ -74,14 +70,14 @@ namespace DirectXInput
                     return false;
                 }
 
-                //Check if the controller is in ignore list
+                //Check if the controller is on ignore list
                 foreach (ControllerSupported ignoreCheck in vDirectControllersIgnored)
                 {
                     string filterVendor = ignoreCheck.VendorID.ToLower();
                     string[] filterProducts = ignoreCheck.ProductIDs.Select(x => x.ToLower()).ToArray();
                     if (filterVendor == vendorHexId.ToLower() && filterProducts.Any(productHexId.ToLower().Contains))
                     {
-                        Debug.WriteLine("Controller is on ignore list: " + controllerPath);
+                        //Debug.WriteLine("Controller is on ignore list: " + controllerPath);
                         return false;
                     }
                 }

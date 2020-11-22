@@ -8,7 +8,7 @@ namespace LibraryUsb
 {
     public class DeviceManager
     {
-        public static bool DriverInstall(string driverPackageInfPath, DIIRFLAG flag, ref bool rebootRequired)
+        public static bool DriverInstallInf(string driverPackageInfPath, DIIRFLAG flag, ref bool rebootRequired)
         {
             try
             {
@@ -16,12 +16,12 @@ namespace LibraryUsb
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to install driver: " + ex.Message);
+                Debug.WriteLine("Failed to install inf driver: " + ex.Message);
                 return false;
             }
         }
 
-        public static bool DriverUninstall(string driverPackageInfPath, DIIRFLAG flag, ref bool rebootRequired)
+        public static bool DriverUninstallInf(string driverPackageInfPath, DIIRFLAG flag, ref bool rebootRequired)
         {
             try
             {
@@ -29,12 +29,12 @@ namespace LibraryUsb
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to uninstall driver: " + ex.Message);
+                Debug.WriteLine("Failed to uninstall inf driver: " + ex.Message);
                 return false;
             }
         }
 
-        public static bool DeviceCreate(string className, Guid classGuid, string node)
+        public static bool DeviceCreate(string className, Guid classGuid, string propertyNode)
         {
             IntPtr deviceInfoSet = IntPtr.Zero;
             try
@@ -52,7 +52,7 @@ namespace LibraryUsb
                     return false;
                 }
 
-                if (!SetupDiSetDeviceRegistryProperty(deviceInfoSet, ref deviceInfoData, DiDeviceRegistryProperty.SPDRP_HARDWAREID, node, node.Length * 2))
+                if (!SetupDiSetDeviceRegistryProperty(deviceInfoSet, ref deviceInfoData, DiDeviceRegistryProperty.SPDRP_HARDWAREID, propertyNode, propertyNode.Length * 2))
                 {
                     return false;
                 }

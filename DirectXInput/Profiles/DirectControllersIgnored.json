@@ -1,5 +1,15 @@
 [
   {
+    "CodeName": "Unknown",
+    "ProductIDs": [ "0x0000" ],
+    "VendorID": "0x0000"
+  },
+  {
+    "CodeName": "MicrosoftXbox",
+    "ProductIDs": [ "0x028E" ],
+    "VendorID": "0x045E"
+  },
+  {
     "CodeName": "LogitechWheels",
     "ProductIDs": [ "0xC294", "0xC295", "0xC298", "0xC299", "0xC29A", "0xC29B", "0xC260", "0xC24F", "0xC262" ],
     "VendorID": "0x046D"

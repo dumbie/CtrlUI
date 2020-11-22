@@ -32,9 +32,6 @@ namespace LibraryShared
             //WinUsb Device Variables
             public WinUsbDevice WinUsbDevice = null;
 
-            //X360 Device Variables
-            public WinUsbDevice X360Device = null;
-
             //Hid Device Variables
             public HidDevice HidDevice = null;
 

@@ -65,7 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsbLibrary_Enumerate.cs" />
     <Compile Include="UsbLibrary_Extensions.cs" />
-    <Compile Include="WinUsbDevice\WinUsbDevice_Connection.cs" />
+    <Compile Include="WinUsbDevice\WinUsbDevice_VirtualBus.cs" />
     <Compile Include="WinUsbDevice\WinUsbDevice_Information.cs" />
     <Compile Include="WinUsbDevice\WinUsbDevice_ReadWrite.cs" />
     <Compile Include="WinUsbDevice\WinUsbDevice.cs" />

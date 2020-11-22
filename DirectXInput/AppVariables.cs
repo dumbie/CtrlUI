@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using LibraryUsb;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -89,6 +90,7 @@ namespace DirectXInput
         public static string vKeypadPreviousProcessTitle = string.Empty;
 
         //Controller Variables
+        public static WinUsbDevice vVirtualBusDevice = null;
         public static bool vControllerBusy = false;
         public static bool vControllerMuteLed = false;
         public static int vControllerOffsetSmall = 2500;

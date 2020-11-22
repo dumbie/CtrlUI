@@ -38,6 +38,7 @@ namespace DriverInstaller
                 ElementEnableDisable(button_Driver_Install, false);
                 ElementEnableDisable(button_Driver_Uninstall, false);
                 ElementEnableDisable(button_Driver_Close, false);
+                ProgressBarUpdate(5, false);
 
                 //Close running controller tools
                 await CloseControllerTools();
@@ -56,12 +57,16 @@ namespace DriverInstaller
                 UninstallHidGuardian();
 
                 //Uninstall DS3 USB Driver
-                ProgressBarUpdate(80, false);
+                ProgressBarUpdate(75, false);
                 UninstallDualShock3();
+
+                //Uninstall Xbox Controllers
+                ProgressBarUpdate(90, false);
+                UninstallXboxControllers();
 
                 TextBoxAppend("Driver uninstallation completed.");
                 TextBoxAppend("--- System reboot may be required ---");
-                ProgressBarUpdate(90, false);
+                ProgressBarUpdate(100, false);
 
                 //Close the application
                 await Application_Exit("Closing the driver installer in a bit.", false);
@@ -73,7 +78,7 @@ namespace DriverInstaller
         {
             try
             {
-                if (DriverUninstall(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverUninstallInf(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("Virtual Bus Driver uninstalled.");
                 }
@@ -89,7 +94,7 @@ namespace DriverInstaller
         {
             try
             {
-                if (DriverUninstall(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverUninstallInf(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("DS3 USB Driver uninstalled.");
                 }
@@ -101,11 +106,27 @@ namespace DriverInstaller
             catch { }
         }
 
+        void UninstallXboxControllers()
+        {
+            try
+            {
+                //if ()
+                //{
+                //    TextBoxAppend("Xbox controllers uninstalled.");
+                //}
+                //else
+                //{
+                //    TextBoxAppend("Xbox controllers not uninstalled.");
+                //}
+            }
+            catch { }
+        }
+
         void UninstallHidGuardian()
         {
             try
             {
-                if (DriverUninstall(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverUninstallInf(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("HidGuardian Driver uninstalled.");
                 }
