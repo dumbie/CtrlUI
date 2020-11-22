@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Runtime.InteropServices;
 using static LibraryUsb.HidDeviceAttributes;
 using static LibraryUsb.HidDeviceCapabilities;
@@ -38,33 +39,33 @@ namespace LibraryUsb
         }
 
         [DllImport("hid.dll")]
-        public static extern bool HidD_GetAttributes(IntPtr hidDeviceObject, ref HIDD_ATTRIBUTES attributes);
+        public static extern bool HidD_GetAttributes(SafeFileHandle hidDeviceObject, ref HIDD_ATTRIBUTES attributes);
 
         [DllImport("hid.dll")]
-        public static extern bool HidD_GetFeature(IntPtr hidDeviceObject, byte[] lpReportBuffer, int reportBufferLength);
+        public static extern bool HidD_GetFeature(SafeFileHandle hidDeviceObject, byte[] lpReportBuffer, int reportBufferLength);
 
         [DllImport("hid.dll")]
-        public static extern bool HidD_SetFeature(IntPtr hidDeviceObject, byte[] lpReportBuffer, int reportBufferLength);
+        public static extern bool HidD_SetFeature(SafeFileHandle hidDeviceObject, byte[] lpReportBuffer, int reportBufferLength);
 
         [DllImport("hid.dll")]
         public static extern int HidP_GetCaps(IntPtr preparsedData, ref HIDP_CAPS capabilities);
 
         [DllImport("hid.dll", CharSet = CharSet.Unicode)]
-        public static extern bool HidD_GetProductString(IntPtr hidDeviceObject, ref byte lpReportBuffer, int ReportBufferLength);
+        public static extern bool HidD_GetProductString(SafeFileHandle hidDeviceObject, ref byte lpReportBuffer, int ReportBufferLength);
 
         [DllImport("hid.dll", CharSet = CharSet.Unicode)]
-        public static extern bool HidD_GetManufacturerString(IntPtr hidDeviceObject, ref byte lpReportBuffer, int ReportBufferLength);
+        public static extern bool HidD_GetManufacturerString(SafeFileHandle hidDeviceObject, ref byte lpReportBuffer, int ReportBufferLength);
 
         [DllImport("hid.dll", CharSet = CharSet.Unicode)]
-        public static extern bool HidD_GetSerialNumberString(IntPtr hidDeviceObject, ref byte lpReportBuffer, int reportBufferLength);
+        public static extern bool HidD_GetSerialNumberString(SafeFileHandle hidDeviceObject, ref byte lpReportBuffer, int reportBufferLength);
 
         [DllImport("hid.dll")]
-        public static extern bool HidD_GetPreparsedData(IntPtr hidDeviceObject, ref IntPtr preparsedData);
+        public static extern bool HidD_GetPreparsedData(SafeFileHandle hidDeviceObject, ref IntPtr preparsedData);
 
         [DllImport("hid.dll")]
         public static extern bool HidD_FreePreparsedData(IntPtr preparsedData);
 
         [DllImport("hid.dll")]
-        public static extern bool HidD_SetOutputReport(IntPtr hidDeviceObject, byte[] lpReportBuffer, int reportBufferLength);
+        public static extern bool HidD_SetOutputReport(SafeFileHandle hidDeviceObject, byte[] lpReportBuffer, int reportBufferLength);
     }
 }

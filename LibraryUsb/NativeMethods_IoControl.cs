@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Runtime.InteropServices;
 
 namespace LibraryUsb
@@ -19,5 +20,8 @@ namespace LibraryUsb
 
         [DllImport("kernel32.dll")]
         public static extern bool DeviceIoControl(IntPtr hDevice, IoControlCodes dwIoControlCode, byte[] lpInBuffer, int nInBufferSize, byte[] lpOutBuffer, int nOutBufferSize, out int lpBytesReturned, IntPtr lpOverlapped);
+
+        [DllImport("kernel32.dll")]
+        public static extern bool DeviceIoControl(SafeFileHandle hDevice, IoControlCodes dwIoControlCode, byte[] lpInBuffer, int nInBufferSize, byte[] lpOutBuffer, int nOutBufferSize, out int lpBytesReturned, IntPtr lpOverlapped);
     }
 }

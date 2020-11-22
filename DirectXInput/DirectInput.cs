@@ -29,7 +29,7 @@ namespace DirectXInput
                     await Task.Delay(500);
 
                     //Open the selected controller
-                    if (!await OpenController(Controller))
+                    if (!OpenController(Controller))
                     {
                         Debug.WriteLine("Failed to initialize direct input for: " + Controller.Details.DisplayName);
 
@@ -378,7 +378,7 @@ namespace DirectXInput
         }
 
         //Open the desired controller
-        async Task<bool> OpenController(ControllerStatus Controller)
+        bool OpenController(ControllerStatus Controller)
         {
             try
             {
@@ -427,7 +427,7 @@ namespace DirectXInput
                         Controller.OutputReport = new byte[Controller.HidDevice.Capabilities.OutputReportByteLength];
 
                         //Read data from the controller
-                        bool Readed = await Controller.HidDevice.ReadBytesFileTimeout(Controller.InputReport, Controller.MilliSecondsAllowReadWrite);
+                        bool Readed = Controller.HidDevice.ReadBytesFile(Controller.InputReport);
                         if (!Readed)
                         {
                             Debug.WriteLine("Invalid hid read device, blocking: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + Readed);

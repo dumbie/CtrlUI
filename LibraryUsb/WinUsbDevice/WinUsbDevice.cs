@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Diagnostics;
 using static LibraryUsb.DeviceManager;
 using static LibraryUsb.NativeMethods_File;
@@ -9,10 +10,11 @@ namespace LibraryUsb
     public partial class WinUsbDevice
     {
         public bool Connected;
+        private bool IsInitialized;
         public string DevicePath;
         public string DeviceInstanceId;
         public Guid DeviceGuid;
-        private IntPtr FileHandle;
+        private SafeFileHandle FileHandle;
         private IntPtr WinUsbHandle;
         public byte IntIn = 0xFF;
         public byte IntOut = 0xFF;
@@ -58,12 +60,16 @@ namespace LibraryUsb
         {
             try
             {
-                FileShareMode shareMode = FileShareMode.FILE_SHARE_READ | FileShareMode.FILE_SHARE_WRITE;
+                FileShareMode shareModeNormal = FileShareMode.FILE_SHARE_READ | FileShareMode.FILE_SHARE_WRITE;
                 FileDesiredAccess desiredAccess = FileDesiredAccess.GENERIC_READ | FileDesiredAccess.GENERIC_WRITE;
                 FileCreationDisposition creationDisposition = FileCreationDisposition.OPEN_EXISTING;
-                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_ATTRIBUTE_NORMAL | FileFlagsAndAttributes.FILE_FLAG_OVERLAPPED;
-                FileHandle = CreateFile(DevicePath, desiredAccess, shareMode, IntPtr.Zero, creationDisposition, flagsAttributes, 0);
-                if (FileHandle == IntPtr.Zero || FileHandle == INVALID_HANDLE_VALUE)
+                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_FLAG_OVERLAPPED;
+
+                //Try to open the device normally
+                FileHandle = CreateFile(DevicePath, desiredAccess, shareModeNormal, IntPtr.Zero, creationDisposition, flagsAttributes, 0);
+
+                //Check if the device is opened
+                if (FileHandle == null || FileHandle.IsInvalid || FileHandle.IsClosed)
                 {
                     //Debug.WriteLine("Failed to open winusb device: " + DevicePath);
                     Connected = false;
@@ -71,6 +77,7 @@ namespace LibraryUsb
                 }
                 else
                 {
+                    //Debug.WriteLine("Opened winusb device: " + DevicePath);
                     Connected = true;
                     return true;
                 }
@@ -79,6 +86,63 @@ namespace LibraryUsb
             {
                 Debug.WriteLine("Failed to open winusb device: " + ex.Message);
                 Connected = false;
+                return false;
+            }
+        }
+
+        private bool InitializeDevice()
+        {
+            try
+            {
+                //Try to initialize the device
+                if (!WinUsb_Initialize(FileHandle, out WinUsbHandle))
+                {
+                    Debug.WriteLine("Failed to initialize winusb device: " + DevicePath);
+                    IsInitialized = false;
+                    return false;
+                }
+
+                WINUSB_PIPE_INFORMATION pipeInformation = new WINUSB_PIPE_INFORMATION();
+                USB_INTERFACE_DESCRIPTOR interfaceDescriptor = new USB_INTERFACE_DESCRIPTOR();
+
+                if (WinUsb_QueryInterfaceSettings(WinUsbHandle, 0, ref interfaceDescriptor))
+                {
+                    for (byte i = 0; i < interfaceDescriptor.bNumEndpoints; i++)
+                    {
+                        WinUsb_QueryPipe(WinUsbHandle, 0, i, ref pipeInformation);
+                        if (pipeInformation.PipeType == USBD_PIPE_TYPE.Bulk && UsbEndpointDirectionIn(pipeInformation.PipeId))
+                        {
+                            BulkIn = pipeInformation.PipeId;
+                            WinUsb_FlushPipe(WinUsbHandle, BulkIn);
+                        }
+                        else if (pipeInformation.PipeType == USBD_PIPE_TYPE.Bulk && UsbEndpointDirectionOut(pipeInformation.PipeId))
+                        {
+                            BulkOut = pipeInformation.PipeId;
+                            WinUsb_FlushPipe(WinUsbHandle, BulkOut);
+                        }
+                        else if (pipeInformation.PipeType == USBD_PIPE_TYPE.Interrupt && UsbEndpointDirectionIn(pipeInformation.PipeId))
+                        {
+                            IntIn = pipeInformation.PipeId;
+                            WinUsb_FlushPipe(WinUsbHandle, IntIn);
+                        }
+                        else if (pipeInformation.PipeType == USBD_PIPE_TYPE.Interrupt && UsbEndpointDirectionOut(pipeInformation.PipeId))
+                        {
+                            IntOut = pipeInformation.PipeId;
+                            WinUsb_FlushPipe(WinUsbHandle, IntOut);
+                        }
+                    }
+                    //Debug.WriteLine("Initialized winusb device: " + DevicePath);
+                    IsInitialized = true;
+                    return true;
+                }
+                //Debug.WriteLine("Failed to initialize winusb device: " + DevicePath);
+                IsInitialized = false;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to initialize winusb device: " + ex.Message);
+                IsInitialized = false;
                 return false;
             }
         }
@@ -96,10 +160,10 @@ namespace LibraryUsb
                     WinUsb_Free(WinUsbHandle);
                     WinUsbHandle = IntPtr.Zero;
                 }
-                if (FileHandle != IntPtr.Zero)
+                if (FileHandle != null)
                 {
-                    CloseHandle(FileHandle);
-                    FileHandle = IntPtr.Zero;
+                    FileHandle.Dispose();
+                    FileHandle = null;
                 }
                 Connected = false;
                 return true;
@@ -109,66 +173,6 @@ namespace LibraryUsb
                 Debug.WriteLine("Failed to close winusb device: " + ex.Message);
                 return false;
             }
-        }
-
-        private bool InitializeDevice()
-        {
-            try
-            {
-                if (!WinUsb_Initialize(FileHandle, ref WinUsbHandle))
-                {
-                    Debug.WriteLine("Failed to initialize winusb device.");
-                    return false;
-                }
-
-                WINUSB_PIPE_INFORMATION pipeInfo = new WINUSB_PIPE_INFORMATION();
-                USB_INTERFACE_DESCRIPTOR interfaceDescriptor = new USB_INTERFACE_DESCRIPTOR();
-
-                if (WinUsb_QueryInterfaceSettings(WinUsbHandle, 0, ref interfaceDescriptor))
-                {
-                    for (byte i = 0; i < interfaceDescriptor.bNumEndpoints; i++)
-                    {
-                        WinUsb_QueryPipe(WinUsbHandle, 0, i, ref pipeInfo);
-                        if (pipeInfo.PipeType == USBD_PIPE_TYPE.Bulk && UsbEndpointDirectionIn(pipeInfo.PipeId))
-                        {
-                            BulkIn = pipeInfo.PipeId;
-                            WinUsb_FlushPipe(WinUsbHandle, BulkIn);
-                        }
-                        else if (pipeInfo.PipeType == USBD_PIPE_TYPE.Bulk && UsbEndpointDirectionOut(pipeInfo.PipeId))
-                        {
-                            BulkOut = pipeInfo.PipeId;
-                            WinUsb_FlushPipe(WinUsbHandle, BulkOut);
-                        }
-                        else if (pipeInfo.PipeType == USBD_PIPE_TYPE.Interrupt && UsbEndpointDirectionIn(pipeInfo.PipeId))
-                        {
-                            IntIn = pipeInfo.PipeId;
-                            WinUsb_FlushPipe(WinUsbHandle, IntIn);
-                        }
-                        else if (pipeInfo.PipeType == USBD_PIPE_TYPE.Interrupt && UsbEndpointDirectionOut(pipeInfo.PipeId))
-                        {
-                            IntOut = pipeInfo.PipeId;
-                            WinUsb_FlushPipe(WinUsbHandle, IntOut);
-                        }
-                    }
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to initialize winusb device: " + ex.Message);
-                return false;
-            }
-        }
-
-        private bool UsbEndpointDirectionIn(int addr)
-        {
-            return (addr & 0x80) == 0x80;
-        }
-
-        private bool UsbEndpointDirectionOut(int addr)
-        {
-            return (addr & 0x80) == 0x00;
         }
     }
 }

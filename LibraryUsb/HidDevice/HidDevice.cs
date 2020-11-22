@@ -1,21 +1,21 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
+using System.IO;
 using static LibraryUsb.DeviceManager;
-using static LibraryUsb.HidDeviceAttributes;
-using static LibraryUsb.HidDeviceCapabilities;
 using static LibraryUsb.NativeMethods_File;
-using static LibraryUsb.NativeMethods_Hid;
 
 namespace LibraryUsb
 {
     public partial class HidDevice
     {
         public bool Connected;
+        private bool IsExclusive;
         public string DevicePath;
         public string DeviceInstanceId;
         public string HardwareId;
-        private IntPtr FileHandle;
+        private SafeFileHandle FileHandle;
+        private FileStream FileStream;
         public HidDeviceAttributes Attributes;
         public HidDeviceCapabilities Capabilities;
 
@@ -35,6 +35,10 @@ namespace LibraryUsb
 
                 if (OpenDevice())
                 {
+                    if (initialize)
+                    {
+                        OpenFileStream();
+                    }
                     GetDeviceAttributes();
                     GetDeviceCapabilities();
                     GetProductName();
@@ -56,12 +60,26 @@ namespace LibraryUsb
         {
             try
             {
-                FileShareMode shareMode = FileShareMode.FILE_SHARE_READ | FileShareMode.FILE_SHARE_WRITE;
+                FileShareMode shareModeExclusive = FileShareMode.FILE_SHARE_NONE;
+                FileShareMode shareModeNormal = FileShareMode.FILE_SHARE_READ | FileShareMode.FILE_SHARE_WRITE;
                 FileDesiredAccess desiredAccess = FileDesiredAccess.GENERIC_READ | FileDesiredAccess.GENERIC_WRITE;
                 FileCreationDisposition creationDisposition = FileCreationDisposition.OPEN_EXISTING;
-                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL;
-                FileHandle = CreateFile(DevicePath, desiredAccess, shareMode, IntPtr.Zero, creationDisposition, flagsAttributes, 0);
-                if (FileHandle == IntPtr.Zero || FileHandle == INVALID_HANDLE_VALUE)
+                FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_FLAG_OVERLAPPED;
+
+                //Try to open the device exclusively
+                FileHandle = CreateFile(DevicePath, desiredAccess, shareModeExclusive, IntPtr.Zero, creationDisposition, flagsAttributes, 0);
+                IsExclusive = true;
+
+                //Try to open the device normally
+                if (FileHandle == null || FileHandle.IsInvalid || FileHandle.IsClosed)
+                {
+                    //Debug.WriteLine("Failed to open device exclusively, opening normally.");
+                    FileHandle = CreateFile(DevicePath, desiredAccess, shareModeNormal, IntPtr.Zero, creationDisposition, flagsAttributes, 0);
+                    IsExclusive = false;
+                }
+
+                //Check if the device is opened
+                if (FileHandle == null || FileHandle.IsInvalid || FileHandle.IsClosed)
                 {
                     //Debug.WriteLine("Failed to open hid device: " + DevicePath);
                     Connected = false;
@@ -69,6 +87,7 @@ namespace LibraryUsb
                 }
                 else
                 {
+                    //Debug.WriteLine("Opened hid device: " + DevicePath + ", exclusively: " + IsExclusive);
                     Connected = true;
                     return true;
                 }
@@ -81,14 +100,38 @@ namespace LibraryUsb
             }
         }
 
+        public bool OpenFileStream()
+        {
+            try
+            {
+                FileStream = new FileStream(FileHandle, FileAccess.ReadWrite, 1, true);
+                if (FileStream.CanTimeout)
+                {
+                    FileStream.ReadTimeout = 2000;
+                    FileStream.WriteTimeout = 2000;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to open hid file stream: " + ex.Message);
+                return false;
+            }
+        }
+
         public bool CloseDevice()
         {
             try
             {
-                if (FileHandle != IntPtr.Zero)
+                if (FileStream != null)
                 {
-                    CloseHandle(FileHandle);
-                    FileHandle = IntPtr.Zero;
+                    FileStream.Dispose();
+                    FileStream = null;
+                }
+                if (FileHandle != null)
+                {
+                    FileHandle.Dispose();
+                    FileHandle = null;
                 }
                 Connected = false;
                 return true;
@@ -96,139 +139,6 @@ namespace LibraryUsb
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to close hid device: " + ex.Message);
-                return false;
-            }
-        }
-
-        private bool GetDeviceAttributes()
-        {
-            try
-            {
-                HIDD_ATTRIBUTES hiddDeviceAttributes = new HIDD_ATTRIBUTES();
-                hiddDeviceAttributes.Size = Marshal.SizeOf(hiddDeviceAttributes);
-                if (HidD_GetAttributes(FileHandle, ref hiddDeviceAttributes))
-                {
-                    Attributes = new HidDeviceAttributes(hiddDeviceAttributes);
-                    return true;
-                }
-                else
-                {
-                    Debug.WriteLine("Failed to get device attributes.");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to get device attributes: " + ex.Message);
-                return false;
-            }
-        }
-
-        private bool GetDeviceCapabilities()
-        {
-            IntPtr preparsedDataPointer = IntPtr.Zero;
-            try
-            {
-                if (HidD_GetPreparsedData(FileHandle, ref preparsedDataPointer))
-                {
-                    HIDP_CAPS deviceCapabilities = new HIDP_CAPS();
-                    HidP_GetCaps(preparsedDataPointer, ref deviceCapabilities);
-                    Capabilities = new HidDeviceCapabilities(deviceCapabilities);
-                    return true;
-                }
-                else
-                {
-                    Debug.WriteLine("Failed to get device capabilities.");
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to get device capabilities: " + ex.Message);
-                return false;
-            }
-            finally
-            {
-                if (preparsedDataPointer != IntPtr.Zero)
-                {
-                    HidD_FreePreparsedData(preparsedDataPointer);
-                }
-            }
-        }
-
-        private bool GetProductName()
-        {
-            try
-            {
-                byte[] data = new byte[254];
-                HidD_GetProductString(FileHandle, ref data[0], data.Length);
-                string productNameString = data.ToUTF16String().Replace("\0", string.Empty);
-                if (!string.IsNullOrWhiteSpace(productNameString))
-                {
-                    Attributes.ProductName = productNameString;
-                    return true;
-                }
-                else
-                {
-                    Attributes.ProductName = Attributes.ProductHexId + " Unknown";
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Attributes.ProductName = Attributes.ProductHexId + " Unknown";
-                Debug.WriteLine("Failed to get product name: " + ex.Message);
-                return false;
-            }
-        }
-
-        public bool GetVendorName()
-        {
-            try
-            {
-                byte[] data = new byte[254];
-                HidD_GetManufacturerString(FileHandle, ref data[0], data.Length);
-                string vendorNameString = data.ToUTF16String().Replace("\0", string.Empty);
-                if (!string.IsNullOrWhiteSpace(vendorNameString))
-                {
-                    Attributes.VendorName = vendorNameString;
-                    return true;
-                }
-                else
-                {
-                    Attributes.VendorName = Attributes.VendorHexId + " Unknown";
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Attributes.VendorName = Attributes.VendorHexId + " Unknown";
-                Debug.WriteLine("Failed to get vendor name: " + ex.Message);
-                return false;
-            }
-        }
-
-        public bool GetSerialNumber()
-        {
-            try
-            {
-                byte[] data = new byte[254];
-                HidD_GetSerialNumberString(FileHandle, ref data[0], data.Length);
-                string serialNumberString = data.ToUTF16String().Replace("\0", "");
-                if (!string.IsNullOrWhiteSpace(serialNumberString))
-                {
-                    Attributes.SerialNumber = serialNumberString;
-                    return true;
-                }
-                else
-                {
-                    Attributes.SerialNumber = string.Empty;
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to get serial number: " + ex.Message);
                 return false;
             }
         }

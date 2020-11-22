@@ -111,7 +111,7 @@ namespace DirectXInput
                 }
 
                 //Adjust the trigger rumble strength
-                byte triggerRumbleMinimum = 240;
+                byte triggerRumbleMinimum = 242;
                 double triggerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrength) / 100;
                 byte triggerRumbleHighest = Math.Max(controllerRumbleLight, controllerRumbleHeavy);
                 triggerRumbleHighest = Convert.ToByte(255 - (triggerRumbleHighest * triggerRumbleStrength));
@@ -404,7 +404,7 @@ namespace DirectXInput
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualShock3")
                 {
                     //Wired USB Output - DualShock 3
-                    byte[] OutputReport = new byte[21];
+                    byte[] OutputReport = new byte[30];
                     OutputReport[1] = 0xFF;
                     OutputReport[2] = (byte)(controllerRumbleLight > 0 ? 0x01 : 0x00); //On or Off
                     OutputReport[3] = 0xFF;
@@ -418,6 +418,13 @@ namespace DirectXInput
                     OutputReport[17] = 0x10;
                     OutputReport[19] = 0x32;
                     OutputReport[20] = 0xFF;
+                    OutputReport[21] = 0x27;
+                    OutputReport[22] = 0x10;
+                    OutputReport[24] = 0x32;
+                    OutputReport[25] = 0xFF;
+                    OutputReport[26] = 0x27;
+                    OutputReport[27] = 0x10;
+                    OutputReport[29] = 0x32;
 
                     //Led Position 0x02, 0x04, 0x08, 0x10
                     switch (Controller.NumberId)
@@ -441,7 +448,7 @@ namespace DirectXInput
                     OutputReport[4] = (byte)(controllerRumbleLight > 0 ? 0x01 : 0x00); //On or Off
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReport);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(OutputReport);
                     Debug.WriteLine("UsbRumb DS1 and 2: " + bytesWritten);
                 }
                 else if (testHeavy || testLight)

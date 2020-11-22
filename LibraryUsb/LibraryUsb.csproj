@@ -47,6 +47,7 @@
     <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="HidDevice\HidDevice_Information.cs" />
     <Compile Include="NativeMethods_IoControl.cs" />
     <Compile Include="NativeMethods_Guid.cs" />
     <Compile Include="UsbLibrary_DeviceManager.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="UsbLibrary_Enumerate.cs" />
     <Compile Include="UsbLibrary_Extensions.cs" />
     <Compile Include="WinUsbDevice\WinUsbDevice_Connection.cs" />
+    <Compile Include="WinUsbDevice\WinUsbDevice_Information.cs" />
     <Compile Include="WinUsbDevice\WinUsbDevice_ReadWrite.cs" />
     <Compile Include="WinUsbDevice\WinUsbDevice.cs" />
   </ItemGroup>

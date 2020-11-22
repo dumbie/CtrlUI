@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Runtime.InteropServices;
 
 namespace LibraryUsb
@@ -73,10 +74,10 @@ namespace LibraryUsb
         }
 
         [DllImport("winusb.dll")]
-        public static extern bool WinUsb_Initialize(IntPtr deviceHandle, ref IntPtr interfaceHandle);
+        public static extern bool WinUsb_Initialize(SafeFileHandle deviceHandle, out IntPtr interfaceHandle);
 
         [DllImport("winusb.dll")]
-        public static extern bool WinUsb_GetDescriptor(IntPtr InterfaceHandle, DESCRIPTOR_TYPE DescriptorType, byte Index, ushort LanguageID, ref USB_DEVICE_DESCRIPTOR deviceDesc, int BufferLength, out int LengthTransfered);
+        public static extern bool WinUsb_GetDescriptor(IntPtr interfaceHandle, DESCRIPTOR_TYPE DescriptorType, byte Index, ushort LanguageID, ref USB_DEVICE_DESCRIPTOR deviceDesc, int BufferLength, out int LengthTransfered);
 
         [DllImport("winusb.dll")]
         public static extern bool WinUsb_QueryInterfaceSettings(IntPtr interfaceHandle, byte alternateInterfaceNumber, ref USB_INTERFACE_DESCRIPTOR usbAltInterfaceDescriptor);
