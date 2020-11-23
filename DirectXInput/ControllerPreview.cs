@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 
 namespace DirectXInput
@@ -32,17 +33,17 @@ namespace DirectXInput
                             txt_ActiveControllerLatency.Text = "Latency " + latencyMs + "ms";
 
                             //Update battery
-                            if (Controller.BatteryPercentageCurrent == -2)
+                            if (Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Charging)
                             {
                                 txt_ActiveControllerBattery.Text = "Battery charging";
                             }
-                            else if (Controller.BatteryPercentageCurrent >= 0)
+                            else if (Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Unknown)
                             {
-                                txt_ActiveControllerBattery.Text = "Battery is at " + Controller.BatteryPercentageCurrent + "%";
+                                txt_ActiveControllerBattery.Text = "Battery unknown";
                             }
                             else
                             {
-                                txt_ActiveControllerBattery.Text = "Battery unknown";
+                                txt_ActiveControllerBattery.Text = "Battery is at " + Controller.BatteryCurrent.BatteryPercentage + "%";
                             }
 
                             //Update debug information

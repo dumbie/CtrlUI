@@ -229,6 +229,7 @@
     <Compile Include="AppUpdateCheck.cs" />
     <Compile Include="AppLaunchCheck.cs" />
     <Compile Include="Classes\ApiTwitch.cs" />
+    <Compile Include="Classes\ControllerBattery.cs" />
     <Compile Include="Classes\LauncherGoG.cs" />
     <Compile Include="Classes\LauncherEpic.cs" />
     <Compile Include="Classes\KeypadStatus.cs" />
@@ -237,6 +238,8 @@
     <Compile Include="Classes\LauncherBattleNet.cs" />
     <Compile Include="Cryptography\CRC32.cs" />
     <Compile Include="Enums\AppLauncher.cs" />
+    <Compile Include="Enums\OverlayPosition.cs" />
+    <Compile Include="Enums\BatteryStatus.cs" />
     <Compile Include="Enums\MappingStatus.cs" />
     <Compile Include="Classes\NotificationDetails.cs" />
     <Compile Include="Classes\ControllerButtonDetails.cs" />

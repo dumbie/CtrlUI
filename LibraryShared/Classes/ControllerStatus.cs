@@ -14,13 +14,12 @@ namespace LibraryShared
             public bool Activated = false;
 
             //Battery Status
-            public int BatteryPercentageCurrent = -1; //-1 Unknown, -2 Charging
-            public int BatteryPercentagePrevious = -1; //-1 Unknown, -2 Charging
+            public ControllerBattery BatteryCurrent = new ControllerBattery() { BatteryPercentage = -1 };
+            public ControllerBattery BatteryPrevious = new ControllerBattery() { BatteryPercentage = -2 };
 
             //Controller Details
             public long LastReadTicks = 0;
             public int LastActiveTicks = 0;
-            public int MilliSecondsAllowReadWrite = 2000;
             public int MilliSecondsTimeout = 4000;
             public ControllerDetails Details = null;
             public bool Connected { get { return Details != null; } }
@@ -68,8 +67,8 @@ namespace LibraryShared
                     Activated = false;
 
                     //Battery Status
-                    BatteryPercentageCurrent = -1; //-1 Unknown, -2 Charging
-                    BatteryPercentagePrevious = -1; //-1 Unknown, -2 Charging
+                    BatteryCurrent = new ControllerBattery() { BatteryPercentage = -1 };
+                    BatteryPrevious = new ControllerBattery() { BatteryPercentage = -2 };
 
                     //Controller Details
                     LastReadTicks = 0;

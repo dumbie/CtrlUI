@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
@@ -13,7 +14,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Read controller battery level
-        void ControllerUpdateBatteryLevel(ControllerStatus Controller)
+        void ControllerReadBatteryLevel(ControllerStatus Controller)
         {
             try
             {
@@ -21,63 +22,68 @@ namespace DirectXInput
                 if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
                 {
                     //Bluetooth - DualSense 5
-                    int BatteryOffset = 54 + Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
-                    byte BatteryReport = Controller.InputReport[BatteryOffset];
+                    int batteryLevelOffset = 54 + Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
+                    byte batteryLevelReport = Controller.InputReport[batteryLevelOffset];
+                    int batteryStatusOffset = 55 + Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
+                    byte batteryStatusReport = Controller.InputReport[batteryStatusOffset];
 
-                    bool BatteryCharging = TranslateByte_0x10(0, BatteryReport) != 0;
-                    if (BatteryCharging)
+                    bool batteryCharging = batteryStatusReport != 0;
+                    if (batteryCharging)
                     {
-                        Controller.BatteryPercentageCurrent = -2;
+                        Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Charging;
                     }
                     else
                     {
-                        int RawBattery = TranslateByte_0x0F(0, BatteryReport) * 10 + 10;
-                        if (RawBattery > 100) { RawBattery = 100; }
-                        Controller.BatteryPercentageCurrent = RawBattery;
+                        int batteryPercentage = TranslateByte_0x0F(0, batteryLevelReport) * 10 + 10;
+                        if (batteryPercentage > 100) { batteryPercentage = 100; }
+                        Controller.BatteryCurrent.BatteryPercentage = batteryPercentage;
+                        Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Normal;
                     }
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && !Controller.Details.Wireless)
                 {
                     //Wired USB - DualSense 5
-                    Controller.BatteryPercentageCurrent = -2;
+                    Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Charging;
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && Controller.Details.Wireless)
                 {
                     //Bluetooth - DualShock 4
-                    int BatteryOffset = 30 + Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
-                    byte BatteryReport = Controller.InputReport[BatteryOffset];
+                    int batteryOffset = 30 + Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
+                    byte batteryReport = Controller.InputReport[batteryOffset];
 
-                    bool BatteryCharging = TranslateByte_0x10(0, BatteryReport) != 0;
-                    if (BatteryCharging)
+                    bool batteryCharging = TranslateByte_0x10(0, batteryReport) != 0;
+                    if (batteryCharging)
                     {
-                        Controller.BatteryPercentageCurrent = -2;
+                        Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Charging;
                     }
                     else
                     {
-                        int RawBattery = TranslateByte_0x0F(0, BatteryReport) * 10 + 10;
-                        if (RawBattery > 100) { RawBattery = 100; }
-                        Controller.BatteryPercentageCurrent = RawBattery;
+                        int batteryPercentage = TranslateByte_0x0F(0, batteryReport) * 10 + 10;
+                        if (batteryPercentage > 100) { batteryPercentage = 100; }
+                        Controller.BatteryCurrent.BatteryPercentage = batteryPercentage;
+                        Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Normal;
                     }
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && !Controller.Details.Wireless)
                 {
                     //Wired USB - DualShock 4
-                    Controller.BatteryPercentageCurrent = -2;
+                    Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Charging;
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualShock3" && !Controller.Details.Wireless)
                 {
                     //Wired USB - DualShock 3
-                    Controller.BatteryPercentageCurrent = -2;
+                    Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Charging;
                 }
                 else
                 {
-                    //Incompatible controllers
-                    Controller.BatteryPercentageCurrent = -1;
+                    //Unknown controller
+                    Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Unknown;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                Controller.BatteryPercentageCurrent = -1;
+                Debug.WriteLine("Failed to read the battery level: " + ex.Message);
+                Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Unknown;
             }
         }
 
@@ -113,8 +119,8 @@ namespace DirectXInput
                     targetControllerStackpanel = App.vWindowOverlay.stackpanel_Battery_Warning_Controller4;
                 }
 
-                //Check if controller is connected
-                if (!Controller.Connected && Controller.InputReport == null)
+                //Check if the controller is connected
+                if (Controller == null || !Controller.Connected)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -123,16 +129,25 @@ namespace DirectXInput
                     return;
                 }
 
-                //Check controller battery level overlay
-                if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowIconLow")) && Controller.BatteryPercentageCurrent <= 20 && Controller.BatteryPercentageCurrent >= 0)
+                //Check the current battery level
+                bool batteryShowIconLow = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowIconLow"));
+                bool BatteryShowPercentageLow = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowPercentageLow"));
+                bool batteryLevelChanged = Controller.BatteryCurrent.BatteryPercentage != Controller.BatteryPrevious.BatteryPercentage;
+                bool batteryLevelLow = Controller.BatteryCurrent.BatteryPercentage <= 20 && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal;
+
+                Debug.WriteLine(Controller.BatteryCurrent.BatteryPercentage);
+                Debug.WriteLine(Controller.BatteryPrevious.BatteryPercentage);
+
+                //Show or hide battery level overlay
+                if (batteryLevelLow && batteryShowIconLow)
                 {
                     //Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level, showing overlay.");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         App.vWindowOverlay.UpdateBatteryPosition();
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowPercentageLow")))
+                        if (BatteryShowPercentageLow)
                         {
-                            targetControllerTextblock.Text = Controller.BatteryPercentageCurrent + "%";
+                            targetControllerTextblock.Text = Controller.BatteryCurrent.BatteryPercentage + "%";
                             targetControllerTextblock.Visibility = Visibility.Visible;
                         }
                         else
@@ -150,44 +165,37 @@ namespace DirectXInput
                     });
                 }
 
-                //Check controller battery level sound and notification
-                if (Controller.BatteryPercentageCurrent > 0)
+                //Update controller battery led
+                if (batteryLevelLow && batteryLevelChanged)
                 {
-                    if (Controller.BatteryPercentageCurrent <= 10 && (Controller.BatteryPercentagePrevious > 10 || Controller.BatteryPercentagePrevious == -1))
-                    {
-                        Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level 10%");
-
-                        NotificationDetails notificationDetails = new NotificationDetails();
-                        notificationDetails.Icon = "Battery/BatteryVerDis10";
-                        notificationDetails.Text = "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%";
-                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryPlaySoundLow")))
-                        {
-                            PlayInterfaceSound(vConfigurationCtrlUI, "BatteryLow", true);
-                        }
-                    }
-                    else if (Controller.BatteryPercentageCurrent <= 20 && (Controller.BatteryPercentagePrevious > 20 || Controller.BatteryPercentagePrevious == -1))
-                    {
-                        Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level 20%");
-
-                        NotificationDetails notificationDetails = new NotificationDetails();
-                        notificationDetails.Icon = "Battery/BatteryVerDis20";
-                        notificationDetails.Text = "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryPercentageCurrent + "%";
-                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryPlaySoundLow")))
-                        {
-                            PlayInterfaceSound(vConfigurationCtrlUI, "BatteryLow", true);
-                        }
-                    }
-
-                    Controller.BatteryPercentagePrevious = Controller.BatteryPercentageCurrent;
+                    Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level, updating led.");
+                    SendXRumbleData(vController0, true, false, false);
+                    SendXRumbleData(vController1, true, false, false);
+                    SendXRumbleData(vController2, true, false, false);
+                    SendXRumbleData(vController3, true, false, false);
                 }
+
+                //Battery level sound and notification
+                if (batteryLevelLow && batteryLevelChanged)
+                {
+                    Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level, showing notification.");
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "Battery/BatteryVerDis20";
+                    notificationDetails.Text = "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryCurrent.BatteryPercentage + "%";
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
+                    if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryPlaySoundLow")))
+                    {
+                        PlayInterfaceSound(vConfigurationCtrlUI, "BatteryLow", true);
+                    }
+                }
+
+                //Update the previous battery level
+                Controller.BatteryPrevious = Controller.BatteryCurrent;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed checking for low battery level: " + ex.Message);
+                Debug.WriteLine("Failed checking low battery level: " + ex.Message);
             }
         }
 

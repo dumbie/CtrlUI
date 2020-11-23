@@ -298,7 +298,7 @@ namespace DirectXInput
                             }
 
                             //Update the controller battery level
-                            ControllerUpdateBatteryLevel(Controller);
+                            ControllerReadBatteryLevel(Controller);
 
                             //Send the prepared controller data
                             await SendControllerData(Controller);

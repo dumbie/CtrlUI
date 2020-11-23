@@ -10,7 +10,7 @@ namespace LibraryShared
             public int NumberId { get; set; } = -1;
             public bool Activated { get; set; } = false;
             public bool Connected { get; set; } = false;
-            public int BatteryPercentageCurrent { get; set; } = -1;
+            public ControllerBattery BatteryCurrent { get; set; } = new ControllerBattery();
 
             //Set used controller number
             public ControllerStatusDetails(int numberId)

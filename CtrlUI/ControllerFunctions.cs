@@ -11,6 +11,7 @@ using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 
 namespace CtrlUI
@@ -115,7 +116,7 @@ namespace CtrlUI
                     //Update the battery icons and level
                     if (controllerStatusNew.Activated)
                     {
-                        UpdateBatteryStatus(controllerStatusNew.BatteryPercentageCurrent);
+                        UpdateBatteryStatus(controllerStatusNew.BatteryCurrent);
                     }
 
                     //Update the controller status for comparison
@@ -193,16 +194,16 @@ namespace CtrlUI
         }
 
         //Update the battery icons and level
-        void UpdateBatteryStatus(int batteryPercentageCurrent)
+        void UpdateBatteryStatus(ControllerBattery controllerBattery)
         {
             try
             {
                 //Check if the battery setting is enabled
                 if (HideBatteryStatus(false)) { return; }
-                //Debug.WriteLine("Updating battery level of controller: " + ControllerId);
+                //Debug.WriteLine("Updating battery level of controller.");
 
                 //Check if battery level is available
-                if (batteryPercentageCurrent == -1)
+                if (controllerBattery.BatteryStatus == BatteryStatus.Unknown)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -214,7 +215,7 @@ namespace CtrlUI
                 }
 
                 //Check if battery is charging
-                if (batteryPercentageCurrent == -2)
+                if (controllerBattery.BatteryStatus == BatteryStatus.Charging)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -228,21 +229,21 @@ namespace CtrlUI
 
                 //Check the battery percentage
                 string percentageNumber = "100";
-                if (batteryPercentageCurrent <= 10) { percentageNumber = "10"; }
-                else if (batteryPercentageCurrent <= 20) { percentageNumber = "20"; }
-                else if (batteryPercentageCurrent <= 30) { percentageNumber = "30"; }
-                else if (batteryPercentageCurrent <= 40) { percentageNumber = "40"; }
-                else if (batteryPercentageCurrent <= 50) { percentageNumber = "50"; }
-                else if (batteryPercentageCurrent <= 60) { percentageNumber = "60"; }
-                else if (batteryPercentageCurrent <= 70) { percentageNumber = "70"; }
-                else if (batteryPercentageCurrent <= 80) { percentageNumber = "80"; }
-                else if (batteryPercentageCurrent <= 90) { percentageNumber = "90"; }
+                if (controllerBattery.BatteryPercentage <= 10) { percentageNumber = "10"; }
+                else if (controllerBattery.BatteryPercentage <= 20) { percentageNumber = "20"; }
+                else if (controllerBattery.BatteryPercentage <= 30) { percentageNumber = "30"; }
+                else if (controllerBattery.BatteryPercentage <= 40) { percentageNumber = "40"; }
+                else if (controllerBattery.BatteryPercentage <= 50) { percentageNumber = "50"; }
+                else if (controllerBattery.BatteryPercentage <= 60) { percentageNumber = "60"; }
+                else if (controllerBattery.BatteryPercentage <= 70) { percentageNumber = "70"; }
+                else if (controllerBattery.BatteryPercentage <= 80) { percentageNumber = "80"; }
+                else if (controllerBattery.BatteryPercentage <= 90) { percentageNumber = "90"; }
 
                 //Set the battery percentage
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     //Set the used battery percentage text
-                    txt_Main_Battery.Text = Convert.ToString(batteryPercentageCurrent) + "%";
+                    txt_Main_Battery.Text = Convert.ToString(controllerBattery.BatteryPercentage) + "%";
 
                     //Set the used battery status icon
                     string currentImage = img_Main_Battery.Source.ToString();

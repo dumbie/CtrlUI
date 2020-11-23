@@ -7,6 +7,7 @@ using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.CRC32;
+using static LibraryShared.Enums;
 
 namespace DirectXInput
 {
@@ -76,7 +77,8 @@ namespace DirectXInput
         {
             try
             {
-                if (!Controller.Connected)
+                //Check if the controller is connected
+                if (Controller == null || !Controller.Connected)
                 {
                     //Debug.WriteLine("Rumble send controller is not connected.");
                     return;
@@ -183,7 +185,7 @@ namespace DirectXInput
                     }
 
                     //If battery is low turn on player led
-                    if (Controller.BatteryPercentageCurrent <= 20 && Controller.BatteryPercentageCurrent >= 0)
+                    if (Controller.BatteryCurrent.BatteryPercentage <= 20 && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal)
                     {
                         OutputReportData[46] = 0x04;
                     }
@@ -314,7 +316,7 @@ namespace DirectXInput
                     OutputReport[7] = controllerRumbleHeavy;
 
                     //If battery is low flash the led
-                    if (Controller.BatteryPercentageCurrent <= 20 && Controller.BatteryPercentageCurrent >= 0)
+                    if (Controller.BatteryCurrent.BatteryPercentage <= 20 && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal)
                     {
                         OutputReport[11] = 128; //Led On Duration
                         OutputReport[12] = 128; //Led Off Duration
