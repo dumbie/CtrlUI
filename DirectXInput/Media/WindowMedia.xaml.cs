@@ -95,6 +95,9 @@ namespace DirectXInput.MediaCode
                 App.vWindowKeyboard.Hide();
                 await App.vWindowKeypad.Hide();
 
+                //Delay media input
+                vControllerDelay_Media = Environment.TickCount + vControllerDelayMediumTicks;
+
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 

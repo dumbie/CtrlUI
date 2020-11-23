@@ -15,34 +15,7 @@
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="MinHeight" Value="45"/>
         <Setter Property="MinWidth" Value="47"/>
-        <Setter Property="Template" Value="{DynamicResource ButtonTemplateKeyboard}"/>
+        <Setter Property="Template" Value="{DynamicResource ButtonTemplateWhite}"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
     </Style>
-
-    <!--Button Template Keyboard-->
-    <ControlTemplate x:Key="ButtonTemplateKeyboard" TargetType="{x:Type Button}">
-        <Border x:Name="border" CornerRadius="2" BorderThickness="2" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ApplicationWhiteBrush}"/>
-                <Setter Property="Background" TargetName="border" Value="{DynamicResource ApplicationAccentDarkBrush}"/>
-            </Trigger>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ApplicationWhiteBrush}"/>
-                <Setter Property="Background" TargetName="border" Value="{DynamicResource ApplicationAccentDarkBrush}"/>
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ApplicationWhiteBrush}"/>
-                <Setter Property="Background" TargetName="border" Value="{DynamicResource ApplicationAccentDimBrush}"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Opacity" Value="0.50"/>
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
 </ResourceDictionary>

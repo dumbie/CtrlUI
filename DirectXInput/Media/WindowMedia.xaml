@@ -47,6 +47,10 @@
                         <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Change volume"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/StartOff.png" Height="26" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Un/mute"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="26" Opacity="0.80"/>
                         <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Previous"/>
                     </StackPanel>
@@ -101,10 +105,10 @@
                         <Button Name="button_Previous" Width="100" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Previous_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MediaPrevious.png"/>
                         </Button>
-                        <Button Name="button_PlayPause" Margin="50,0,0,0" Width="110" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_PlayPause_Click">
+                        <Button Name="button_PlayPause" Margin="50,0,50,0" Width="110" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_PlayPause_Click">
                             <Image Name="button_PlayPause_Image" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MediaPlayPause.png"/>
                         </Button>
-                        <Button Name="button_Next" Margin="50,0,0,0" Width="100" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Next_Click">
+                        <Button Name="button_Next" Width="100" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Next_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MediaNext.png"/>
                         </Button>
                     </StackPanel>
@@ -113,22 +117,18 @@
                         <Button Name="button_VolumeMute" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeMute_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png"/>
                         </Button>
-                        <Button Name="button_VolumeDown" Margin="50,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeDown_Click">
+                        <Button Name="button_VolumeDown" Margin="45,0,45,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeDown_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeDown.png"/>
                         </Button>
-                        <Button Name="button_VolumeUp" Margin="50,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeUp_Click">
+                        <Button Name="button_VolumeUp" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeUp_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeUp.png"/>
                         </Button>
                     </StackPanel>
 
                     <StackPanel Grid.Row="3" Margin="0,15,0,0" HorizontalAlignment="Center">
                         <TextBlock Name="button_Volume_Level" Text="System volume" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeLarge}"/>
-                        <Button Name="button_ShowOrHideFpsOverlayer" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentWhite}" Click="button_ShowOrHideFpsOverlayer_Click">
-                            <TextBlock Text="Show or hide the Fps Overlayer" Height="30"/>
-                        </Button>
-                        <Button Name="button_Close" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentWhite}" Click="button_Close_Click">
-                            <TextBlock Text="Close media popup" Height="30"/>
-                        </Button>
+                        <Button Name="button_ShowOrHideFpsOverlayer" Content="Show or hide the Fps Overlayer" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentWhite}" Click="button_ShowOrHideFpsOverlayer_Click"/>
+                        <Button Name="button_Close" Content="Close media popup" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentWhite}" Click="button_Close_Click"/>
                     </StackPanel>
                 </Grid>
             </Grid>

@@ -82,12 +82,13 @@ namespace DirectXInput.MediaCode
                     //Send internal space key
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
                     //Send external media next key
-                    else if (ControllerInput.ButtonB.PressedRaw)
+                    else if (ControllerInput.ButtonB.PressedRaw || ControllerInput.ButtonShoulderRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
@@ -105,7 +106,7 @@ namespace DirectXInput.MediaCode
                         ControllerDelayShort = true;
                     }
                     //Send external media previous key
-                    else if (ControllerInput.ButtonX.PressedRaw)
+                    else if (ControllerInput.ButtonX.PressedRaw || ControllerInput.ButtonShoulderLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
@@ -121,6 +122,13 @@ namespace DirectXInput.MediaCode
                         await KeyPressSingleAuto(KeysVirtual.VolumeMute);
 
                         ControllerDelayLonger = true;
+                    }
+                    else if (ControllerInput.ButtonStart.PressedRaw)
+                    {
+                        App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling mute");
+                        await KeyPressSingleAuto(KeysVirtual.VolumeMute);
+
+                        ControllerDelayMedium = true;
                     }
                     else if (ControllerInput.TriggerLeft > 0)
                     {

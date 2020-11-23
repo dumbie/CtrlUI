@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.CRC32;
 
 namespace DirectXInput
 {
@@ -51,12 +52,8 @@ namespace DirectXInput
         {
             try
             {
-                //Calculate CRC32 hash
-                byte[] checksum;
-                using (Crc32 crc32Hasher = new Crc32())
-                {
-                    checksum = crc32Hasher.ComputeHash(OutputReportData, 0, OutputReportData.Length).Reverse().ToArray();
-                }
+                //Compute CRC32 hash
+                byte[] checksum = ComputeHashCRC32(OutputReportData, false);
 
                 //Add CRC32 hash bytes
                 byte[] OutputReportCRC32 = new byte[OutputReportData.Length + 4];
