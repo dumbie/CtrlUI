@@ -1,8 +1,6 @@
 ﻿using ArnoldVinkCode;
-using LibraryShared;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;

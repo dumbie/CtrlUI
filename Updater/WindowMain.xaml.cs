@@ -24,7 +24,7 @@ namespace Updater
             {
                 //Check if previous update files are in the way
                 File_Delete("Resources/UpdaterReplace.exe");
-                File_Delete("AppUpdate.zip");
+                File_Delete("Resources/AppUpdate.zip");
 
                 //Check if CtrlUI is running and close it
                 bool CtrlUIRunning = false;
@@ -85,7 +85,7 @@ namespace Updater
                         ProgressBarUpdate(Args.ProgressPercentage, false);
                         TextBlockUpdate("Downloading update file: " + Args.ProgressPercentage + "%");
                     };
-                    await WebClient.DownloadFileTaskAsync(new Uri("https://download.arnoldvink.com/?dl=CtrlUI.zip"), "AppUpdate.zip");
+                    await WebClient.DownloadFileTaskAsync(new Uri("https://download.arnoldvink.com/?dl=CtrlUI.zip"), "Resources/AppUpdate.zip");
                     Debug.WriteLine("Update file has been downloaded");
                 }
                 catch
@@ -101,7 +101,7 @@ namespace Updater
                 try
                 {
                     TextBlockUpdate("Updating the application to the latest version.");
-                    using (ZipArchive ZipArchive = ZipFile.OpenRead("AppUpdate.zip"))
+                    using (ZipArchive ZipArchive = ZipFile.OpenRead("Resources/AppUpdate.zip"))
                     {
                         foreach (ZipArchiveEntry ZipFile in ZipArchive.Entries)
                         {
@@ -154,7 +154,7 @@ namespace Updater
 
                 //Delete the update installation zip file
                 TextBlockUpdate("Cleaning up the update installation files.");
-                File_Delete("AppUpdate.zip");
+                File_Delete("Resources/AppUpdate.zip");
 
                 //Start CtrlUI after the update has completed.
                 if (CtrlUIRunning)
@@ -234,7 +234,7 @@ namespace Updater
                 });
 
                 //Delete the update installation zip file
-                File_Delete("AppUpdate.zip");
+                File_Delete("Resources/AppUpdate.zip");
 
                 //Set the exit reason text message
                 TextBlockUpdate(ExitMessage);

@@ -31,7 +31,7 @@ namespace DirectXInput
                         string ProductHexId = "0x" + AVFunctions.StringShowAfter(EnumDevice.DevicePath, "pid_", 4).ToLower();
 
                         //Validate the connected controller
-                        if (!ControllerValidate(VendorHexId, ProductHexId, EnumDevice.DevicePath)) { continue; }
+                        if (!ControllerValidate(VendorHexId, ProductHexId, EnumDevice.DevicePath, string.Empty)) { continue; }
 
                         //Create new Json controller profile if it doesnt exist
                         IEnumerable<ControllerProfile> profileList = vDirectControllersProfile.Where(x => x.ProductID.ToLower() == ProductHexId && x.VendorID.ToLower() == VendorHexId);
@@ -96,7 +96,7 @@ namespace DirectXInput
                         string ProductHexId = foundHidDevice.Attributes.ProductHexId.ToLower();
 
                         //Validate the connected controller
-                        if (!ControllerValidate(VendorHexId, ProductHexId, EnumDevice.DevicePath)) { continue; }
+                        if (!ControllerValidate(VendorHexId, ProductHexId, EnumDevice.DevicePath, foundHidDevice.Attributes.SerialNumber)) { continue; }
 
                         //Get controller product information
                         string ProductNameString = foundHidDevice.Attributes.ProductName;

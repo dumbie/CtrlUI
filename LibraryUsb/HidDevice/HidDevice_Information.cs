@@ -9,20 +9,28 @@ namespace LibraryUsb
 {
     public partial class HidDevice
     {
-        public bool GetFeature(HID_USAGE_GENERIC usageGeneric)
+        public byte[] GetFeature(byte featureByte)
         {
             try
             {
                 int featureLength = Capabilities.FeatureReportByteLength;
                 if (featureLength <= 0) { featureLength = 64; }
-                byte[] data = new byte[featureLength];
-                data[0] = (byte)usageGeneric;
-                return HidD_GetFeature(FileHandle, data, data.Length);
+                byte[] featureData = new byte[featureLength];
+                featureData[0] = featureByte;
+
+                if (HidD_GetFeature(FileHandle, featureData, featureData.Length))
+                {
+                    return featureData;
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to get feature: " + ex.Message);
-                return false;
+                return null;
             }
         }
 
@@ -140,7 +148,7 @@ namespace LibraryUsb
             {
                 byte[] data = new byte[254];
                 HidD_GetSerialNumberString(FileHandle, ref data[0], data.Length);
-                string serialNumberString = data.ToUTF16String().Replace("\0", "");
+                string serialNumberString = data.ToUTF16String().Replace("\0", string.Empty);
                 if (!string.IsNullOrWhiteSpace(serialNumberString))
                 {
                     Attributes.SerialNumber = serialNumberString;

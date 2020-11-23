@@ -59,7 +59,7 @@ namespace DirectXInput
         }
 
         //Validate the controller
-        bool ControllerValidate(string vendorHexId, string productHexId, string controllerPath)
+        bool ControllerValidate(string vendorHexId, string productHexId, string controllerPath, string serialNumber)
         {
             try
             {
@@ -80,6 +80,12 @@ namespace DirectXInput
                         //Debug.WriteLine("Controller is on ignore list: " + controllerPath);
                         return false;
                     }
+                }
+
+                //Check if controller is already connected by serialnumber
+                if (!string.IsNullOrWhiteSpace(serialNumber))
+                {
+                    //Fix add code that reads serial number from devices
                 }
             }
             catch { }

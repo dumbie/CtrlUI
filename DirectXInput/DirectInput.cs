@@ -9,7 +9,6 @@ using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryUsb.NativeMethods_Guid;
-using static LibraryUsb.NativeMethods_Hid;
 
 namespace DirectXInput
 {
@@ -409,7 +408,7 @@ namespace DirectXInput
                     else
                     {
                         //Get feature to make sure correct data is read
-                        Controller.HidDevice.GetFeature(HID_USAGE_GENERIC.HID_USAGE_GENERIC_GAMEPAD);
+                        Controller.HidDevice.GetFeature(0x05);
 
                         //Set default controller variables
                         Controller.InputHeaderOffsetByte = 0;

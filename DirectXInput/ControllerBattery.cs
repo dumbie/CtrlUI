@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVClassConverters;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -30,6 +31,7 @@ namespace DirectXInput
                     bool batteryCharging = batteryStatusReport != 0;
                     if (batteryCharging)
                     {
+                        Controller.BatteryCurrent.BatteryPercentage = -1;
                         Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Charging;
                     }
                     else
@@ -54,6 +56,7 @@ namespace DirectXInput
                     bool batteryCharging = TranslateByte_0x10(0, batteryReport) != 0;
                     if (batteryCharging)
                     {
+                        Controller.BatteryCurrent.BatteryPercentage = -1;
                         Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Charging;
                     }
                     else
@@ -132,11 +135,18 @@ namespace DirectXInput
                 //Check the current battery level
                 bool batteryShowIconLow = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowIconLow"));
                 bool BatteryShowPercentageLow = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowPercentageLow"));
-                bool batteryLevelChanged = Controller.BatteryCurrent.BatteryPercentage != Controller.BatteryPrevious.BatteryPercentage;
+                bool batteryLevelChanged = Controller.BatteryCurrent.BatteryPercentage != Controller.BatteryPrevious.BatteryPercentage || Controller.BatteryCurrent.BatteryStatus != Controller.BatteryPrevious.BatteryStatus;
                 bool batteryLevelLow = Controller.BatteryCurrent.BatteryPercentage <= 20 && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal;
 
-                Debug.WriteLine(Controller.BatteryCurrent.BatteryPercentage);
-                Debug.WriteLine(Controller.BatteryPrevious.BatteryPercentage);
+                //Update controller battery led
+                if (batteryLevelChanged)
+                {
+                    Debug.WriteLine("Controller " + Controller.NumberId + " battery level changed, updating led.");
+                    SendXRumbleData(vController0, true, false, false);
+                    SendXRumbleData(vController1, true, false, false);
+                    SendXRumbleData(vController2, true, false, false);
+                    SendXRumbleData(vController3, true, false, false);
+                }
 
                 //Show or hide battery level overlay
                 if (batteryLevelLow && batteryShowIconLow)
@@ -165,16 +175,6 @@ namespace DirectXInput
                     });
                 }
 
-                //Update controller battery led
-                if (batteryLevelLow && batteryLevelChanged)
-                {
-                    Debug.WriteLine("Controller " + Controller.NumberId + " has a low battery level, updating led.");
-                    SendXRumbleData(vController0, true, false, false);
-                    SendXRumbleData(vController1, true, false, false);
-                    SendXRumbleData(vController2, true, false, false);
-                    SendXRumbleData(vController3, true, false, false);
-                }
-
                 //Battery level sound and notification
                 if (batteryLevelLow && batteryLevelChanged)
                 {
@@ -191,7 +191,7 @@ namespace DirectXInput
                 }
 
                 //Update the previous battery level
-                Controller.BatteryPrevious = Controller.BatteryCurrent;
+                Controller.BatteryPrevious = CloneClassObject(Controller.BatteryCurrent);
             }
             catch (Exception ex)
             {
