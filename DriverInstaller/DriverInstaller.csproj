@@ -104,6 +104,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppVariables.cs" />
+    <Compile Include="WindowsTasks.cs" />
+    <Compile Include="WindowsCertificate.cs" />
     <Compile Include="DriverUninstall.cs" />
     <Compile Include="DriverInstall.cs" />
     <Compile Include="JsonFunctions.cs" />

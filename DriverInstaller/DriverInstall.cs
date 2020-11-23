@@ -60,9 +60,9 @@ namespace DriverInstaller
                 ProgressBarUpdate(75, false);
                 InstallDualShock3();
 
-                //Uninstall Xbox Controllers
+                //Remove Xbox Controllers
                 ProgressBarUpdate(90, false);
-                UninstallXboxControllers();
+                RemoveXboxControllers();
 
                 TextBoxAppend("Driver installation completed.");
                 TextBoxAppend("--- System reboot may be required ---");

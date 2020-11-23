@@ -21,7 +21,7 @@ namespace DirectXInput
             try
             {
                 //Add Win Usb Devices
-                IEnumerable<EnumerateInfo> SelectedWinDevice = EnumerateDevices(GuidClassScpDS3Driver);
+                IEnumerable<EnumerateInfo> SelectedWinDevice = EnumerateDevices(GuidClassScpDS3Driver, true);
                 foreach (EnumerateInfo EnumDevice in SelectedWinDevice)
                 {
                     try
@@ -78,7 +78,7 @@ namespace DirectXInput
                 }
 
                 //Add Hib Usb Devices
-                IEnumerable<EnumerateInfo> SelectedHidDevice = EnumerateDevices(GuidClassHidDevice);
+                IEnumerable<EnumerateInfo> SelectedHidDevice = EnumerateDevices(GuidClassHidDevice, true);
                 foreach (EnumerateInfo EnumDevice in SelectedHidDevice)
                 {
                     try
@@ -87,10 +87,9 @@ namespace DirectXInput
                         HidDevice foundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.HardwareId, false, true);
 
                         //Check if device is a gamepad or joystick
-                        bool pageGameDevice = foundHidDevice.Capabilities.UsagePage == (short)HID_USAGE_PAGE.HID_USAGE_PAGE_GAME;
                         bool genericGamePad = foundHidDevice.Capabilities.UsageGeneric == (short)HID_USAGE_GENERIC.HID_USAGE_GENERIC_GAMEPAD;
                         bool genericJoystick = foundHidDevice.Capabilities.UsageGeneric == (short)HID_USAGE_GENERIC.HID_USAGE_GENERIC_JOYSTICK;
-                        if (!pageGameDevice && !genericGamePad && !genericJoystick) { continue; }
+                        if (!genericGamePad && !genericJoystick) { continue; }
 
                         //Get vendor and product hex id
                         string VendorHexId = foundHidDevice.Attributes.VendorHexId.ToLower();

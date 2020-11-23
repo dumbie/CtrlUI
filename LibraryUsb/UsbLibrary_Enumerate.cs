@@ -15,31 +15,40 @@ namespace LibraryUsb
             public string HardwareId { get; set; }
         }
 
-        public static List<EnumerateInfo> EnumerateDevices(Guid enumerateGuid)
+        public static List<EnumerateInfo> EnumerateDevices(Guid enumerateGuid, bool isPresent)
         {
             IntPtr deviceInfoList = IntPtr.Zero;
-            List<EnumerateInfo> enumeratedInfo = new List<EnumerateInfo>();
+            List<EnumerateInfo> enumeratedInfoList = new List<EnumerateInfo>();
             try
             {
-                int deviceIndex = 0;
+                int deviceIndexInfo = 0;
                 SP_DEVICE_INFO_DATA deviceInfoData = new SP_DEVICE_INFO_DATA();
                 deviceInfoData.cbSize = Marshal.SizeOf(deviceInfoData);
 
-                deviceInfoList = SetupDiGetClassDevs(ref enumerateGuid, null, IntPtr.Zero, DiGetClassFlag.DIGCF_PRESENT | DiGetClassFlag.DIGCF_DEVICEINTERFACE);
-                while (SetupDiEnumDeviceInfo(deviceInfoList, deviceIndex, ref deviceInfoData))
+                //Get device information
+                if (isPresent)
+                {
+                    deviceInfoList = SetupDiGetClassDevs(enumerateGuid, null, IntPtr.Zero, DiGetClassFlag.DIGCF_PRESENT | DiGetClassFlag.DIGCF_DEVICEINTERFACE);
+                }
+                else
+                {
+                    deviceInfoList = SetupDiGetClassDevs(enumerateGuid, null, IntPtr.Zero, DiGetClassFlag.DIGCF_DEVICEINTERFACE);
+                }
+
+                while (SetupDiEnumDeviceInfo(deviceInfoList, deviceIndexInfo, ref deviceInfoData))
                 {
                     try
                     {
-                        deviceIndex++;
-                        int deviceMemberIndex = 0;
+                        deviceIndexInfo++;
+                        int deviceIndexInterfaces = 0;
                         SP_DEVICE_INTERFACE_DATA deviceInterfaceData = new SP_DEVICE_INTERFACE_DATA();
                         deviceInterfaceData.cbSize = Marshal.SizeOf(deviceInterfaceData);
 
-                        while (SetupDiEnumDeviceInterfaces(deviceInfoList, deviceInfoData, ref enumerateGuid, deviceMemberIndex, ref deviceInterfaceData))
+                        while (SetupDiEnumDeviceInterfaces(deviceInfoList, deviceInfoData, enumerateGuid, deviceIndexInterfaces, ref deviceInterfaceData))
                         {
                             try
                             {
-                                deviceMemberIndex++;
+                                deviceIndexInterfaces++;
                                 string devicePath = GetDevicePath(deviceInfoList, deviceInterfaceData);
                                 string description = GetBusReportedDeviceDescription(deviceInfoList, ref deviceInfoData);
                                 if (string.IsNullOrWhiteSpace(description))
@@ -47,7 +56,7 @@ namespace LibraryUsb
                                     description = GetDeviceDescription(deviceInfoList, ref deviceInfoData);
                                 }
                                 string hardwareId = GetDeviceHardwareId(deviceInfoList, ref deviceInfoData);
-                                enumeratedInfo.Add(new EnumerateInfo { DevicePath = devicePath, Description = description, HardwareId = hardwareId });
+                                enumeratedInfoList.Add(new EnumerateInfo { DevicePath = devicePath, Description = description, HardwareId = hardwareId });
                             }
                             catch { }
                         }
@@ -66,23 +75,23 @@ namespace LibraryUsb
                     SetupDiDestroyDeviceInfoList(deviceInfoList);
                 }
             }
-            return enumeratedInfo;
+            return enumeratedInfoList;
         }
 
-        public static string GetDevicePath(IntPtr deviceInfoSet, SP_DEVICE_INTERFACE_DATA deviceInterfaceData)
+        public static string GetDevicePath(IntPtr deviceInfoList, SP_DEVICE_INTERFACE_DATA deviceInterfaceData)
         {
             try
             {
                 //Get the buffer size
                 int bufferSize = 0;
-                SetupDiGetDeviceInterfaceDetail(deviceInfoSet, ref deviceInterfaceData, IntPtr.Zero, 0, ref bufferSize, IntPtr.Zero);
+                SetupDiGetDeviceInterfaceDetail(deviceInfoList, ref deviceInterfaceData, IntPtr.Zero, 0, ref bufferSize, IntPtr.Zero);
                 SP_DEVICE_INTERFACE_DETAIL_DATA interfaceDetail = new SP_DEVICE_INTERFACE_DETAIL_DATA
                 {
                     Size = IntPtr.Size == 4 ? 4 + Marshal.SystemDefaultCharSize : 8
                 };
 
                 //Read device details
-                if (SetupDiGetDeviceInterfaceDetail(deviceInfoSet, ref deviceInterfaceData, ref interfaceDetail, bufferSize, ref bufferSize, IntPtr.Zero))
+                if (SetupDiGetDeviceInterfaceDetail(deviceInfoList, ref deviceInterfaceData, ref interfaceDetail, bufferSize, ref bufferSize, IntPtr.Zero))
                 {
                     if (!string.IsNullOrWhiteSpace(interfaceDetail.DevicePath))
                     {
@@ -107,7 +116,7 @@ namespace LibraryUsb
             }
         }
 
-        public static string GetDeviceDescription(IntPtr deviceInfoSet, ref SP_DEVICE_INFO_DATA devinfoData)
+        public static string GetDeviceDescription(IntPtr deviceInfoList, ref SP_DEVICE_INFO_DATA devinfoData)
         {
             try
             {
@@ -115,7 +124,7 @@ namespace LibraryUsb
                 int propertyType = 0;
                 int requiredSize = 0;
 
-                if (SetupDiGetDeviceRegistryProperty(deviceInfoSet, ref devinfoData, DiDeviceRegistryProperty.SPDRP_DEVICEDESC, ref propertyType, descriptionBuffer, descriptionBuffer.Length, ref requiredSize))
+                if (SetupDiGetDeviceRegistryProperty(deviceInfoList, ref devinfoData, DiDeviceRegistryProperty.SPDRP_DEVICEDESC, ref propertyType, descriptionBuffer, descriptionBuffer.Length, ref requiredSize))
                 {
                     return descriptionBuffer.ToUTF8String();
                 }
@@ -131,7 +140,7 @@ namespace LibraryUsb
             }
         }
 
-        public static string GetBusReportedDeviceDescription(IntPtr deviceInfoSet, ref SP_DEVICE_INFO_DATA devinfoData)
+        public static string GetBusReportedDeviceDescription(IntPtr deviceInfoList, ref SP_DEVICE_INFO_DATA devinfoData)
         {
             try
             {
@@ -139,7 +148,7 @@ namespace LibraryUsb
                 ulong propertyType = 0;
                 int requiredSize = 0;
 
-                if (SetupDiGetDeviceProperty(deviceInfoSet, ref devinfoData, ref DEVPKEY_Device_BusReportedDeviceDesc, ref propertyType, descriptionBuffer, descriptionBuffer.Length, ref requiredSize, 0))
+                if (SetupDiGetDeviceProperty(deviceInfoList, ref devinfoData, ref DEVPKEY_Device_BusReportedDeviceDesc, ref propertyType, descriptionBuffer, descriptionBuffer.Length, ref requiredSize, 0))
                 {
                     return descriptionBuffer.ToUTF16String();
                 }
@@ -155,7 +164,7 @@ namespace LibraryUsb
             }
         }
 
-        public static string GetDeviceHardwareId(IntPtr deviceInfoSet, ref SP_DEVICE_INFO_DATA devinfoData)
+        public static string GetDeviceHardwareId(IntPtr deviceInfoList, ref SP_DEVICE_INFO_DATA devinfoData)
         {
             try
             {
@@ -163,7 +172,7 @@ namespace LibraryUsb
                 int propertyType = 0;
                 int requiredSize = 0;
 
-                if (SetupDiGetDeviceRegistryProperty(deviceInfoSet, ref devinfoData, DiDeviceRegistryProperty.SPDRP_HARDWAREID, ref propertyType, hardwareBuffer, hardwareBuffer.Length, ref requiredSize))
+                if (SetupDiGetDeviceRegistryProperty(deviceInfoList, ref devinfoData, DiDeviceRegistryProperty.SPDRP_HARDWAREID, ref propertyType, hardwareBuffer, hardwareBuffer.Length, ref requiredSize))
                 {
                     return hardwareBuffer.ToUTF8String();
                 }

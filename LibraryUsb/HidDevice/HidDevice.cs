@@ -10,7 +10,7 @@ namespace LibraryUsb
     public partial class HidDevice
     {
         public bool Connected;
-        private bool IsExclusive;
+        public bool IsExclusive;
         public string DevicePath;
         public string DeviceInstanceId;
         public string HardwareId;

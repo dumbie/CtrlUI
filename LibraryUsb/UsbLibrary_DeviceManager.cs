@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_SetupApi;
 
 namespace LibraryUsb
@@ -36,28 +35,28 @@ namespace LibraryUsb
 
         public static bool DeviceCreate(string className, Guid classGuid, string propertyNode)
         {
-            IntPtr deviceInfoSet = IntPtr.Zero;
+            IntPtr deviceInfoList = IntPtr.Zero;
             try
             {
                 SP_DEVICE_INFO_DATA deviceInfoData = new SP_DEVICE_INFO_DATA();
                 deviceInfoData.cbSize = Marshal.SizeOf(deviceInfoData);
-                deviceInfoSet = SetupDiCreateDeviceInfoList(ref classGuid, IntPtr.Zero);
-                if (deviceInfoSet == IntPtr.Zero)
+                deviceInfoList = SetupDiCreateDeviceInfoList(ref classGuid, IntPtr.Zero);
+                if (deviceInfoList == IntPtr.Zero)
                 {
                     return false;
                 }
 
-                if (!SetupDiCreateDeviceInfo(deviceInfoSet, className, ref classGuid, null, IntPtr.Zero, DiCreateDevice.DICD_GENERATE_ID, ref deviceInfoData))
+                if (!SetupDiCreateDeviceInfo(deviceInfoList, className, ref classGuid, null, IntPtr.Zero, DiCreateDevice.DICD_GENERATE_ID, ref deviceInfoData))
                 {
                     return false;
                 }
 
-                if (!SetupDiSetDeviceRegistryProperty(deviceInfoSet, ref deviceInfoData, DiDeviceRegistryProperty.SPDRP_HARDWAREID, propertyNode, propertyNode.Length * 2))
+                if (!SetupDiSetDeviceRegistryProperty(deviceInfoList, ref deviceInfoData, DiDeviceRegistryProperty.SPDRP_HARDWAREID, propertyNode, propertyNode.Length * 2))
                 {
                     return false;
                 }
 
-                if (!SetupDiCallClassInstaller(DiFunction.DIF_REGISTERDEVICE, deviceInfoSet, ref deviceInfoData))
+                if (!SetupDiCallClassInstaller(DiFunction.DIF_REGISTERDEVICE, deviceInfoList, ref deviceInfoData))
                 {
                     return false;
                 }
@@ -67,45 +66,6 @@ namespace LibraryUsb
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to create device: " + ex.Message);
-                return false;
-            }
-            finally
-            {
-                if (deviceInfoSet != IntPtr.Zero)
-                {
-                    SetupDiDestroyDeviceInfoList(deviceInfoSet);
-                }
-            }
-        }
-
-        public static bool DeviceFind(Guid deviceGuid, ref string devicePath, int instance)
-        {
-            IntPtr deviceInfoList = IntPtr.Zero;
-            try
-            {
-                int memberIndex = 0;
-                SP_DEVICE_INTERFACE_DATA deviceInterfaceData = new SP_DEVICE_INTERFACE_DATA();
-                deviceInterfaceData.cbSize = Marshal.SizeOf(deviceInterfaceData);
-
-                deviceInfoList = SetupDiGetClassDevs(ref deviceGuid, string.Empty, IntPtr.Zero, DiGetClassFlag.DIGCF_PRESENT | DiGetClassFlag.DIGCF_DEVICEINTERFACE);
-                while (SetupDiEnumDeviceInterfaces(deviceInfoList, IntPtr.Zero, ref deviceGuid, memberIndex, ref deviceInterfaceData))
-                {
-                    try
-                    {
-                        if (memberIndex == instance)
-                        {
-                            devicePath = GetDevicePath(deviceInfoList, deviceInterfaceData);
-                            return true;
-                        }
-                        memberIndex++;
-                    }
-                    catch { }
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to find device: " + ex.Message);
                 return false;
             }
             finally
@@ -122,24 +82,28 @@ namespace LibraryUsb
             IntPtr deviceInfoList = IntPtr.Zero;
             try
             {
-                SP_DEVICE_INFO_DATA deviceInterfaceData = new SP_DEVICE_INFO_DATA();
-                deviceInterfaceData.cbSize = Marshal.SizeOf(deviceInterfaceData);
+                SP_DEVICE_INFO_DATA deviceInfoData = new SP_DEVICE_INFO_DATA();
+                deviceInfoData.cbSize = Marshal.SizeOf(deviceInfoData);
 
-                deviceInfoList = SetupDiGetClassDevs(ref classGuid, string.Empty, IntPtr.Zero, DiGetClassFlag.DIGCF_PRESENT | DiGetClassFlag.DIGCF_DEVICEINTERFACE);
-                if (SetupDiOpenDeviceInfo(deviceInfoList, instanceId, IntPtr.Zero, 0, ref deviceInterfaceData))
+                //Get device information
+                deviceInfoList = SetupDiGetClassDevs(classGuid, null, IntPtr.Zero, DiGetClassFlag.DIGCF_DEVICEINTERFACE);
+                if (!SetupDiOpenDeviceInfo(deviceInfoList, instanceId, IntPtr.Zero, 0, ref deviceInfoData))
                 {
-                    SP_REMOVEDEVICE_PARAMS props = new SP_REMOVEDEVICE_PARAMS();
-                    props.classInstallHeader = new SP_CLASSINSTALL_HEADER();
-                    props.classInstallHeader.cbSize = Marshal.SizeOf(props.classInstallHeader);
-                    props.classInstallHeader.installFunction = DiFunction.DIF_REMOVE;
-                    props.removeDevice = DiRemoveDevice.DI_REMOVEDEVICE_GLOBAL;
-                    props.hwProfile = 0x00;
-
-                    if (SetupDiSetClassInstallParams(deviceInfoList, ref deviceInterfaceData, ref props, Marshal.SizeOf(props)))
-                    {
-                        return SetupDiCallClassInstaller(DiFunction.DIF_REMOVE, deviceInfoList, ref deviceInterfaceData);
-                    }
+                    Debug.WriteLine("SetupDi: Failed getting device info.");
+                    return false;
                 }
+
+                SP_REMOVEDEVICE_PARAMS removeParams = new SP_REMOVEDEVICE_PARAMS();
+                removeParams.classInstallHeader = new SP_CLASSINSTALL_HEADER();
+                removeParams.classInstallHeader.cbSize = Marshal.SizeOf(removeParams.classInstallHeader);
+                removeParams.classInstallHeader.installFunction = DiFunction.DIF_REMOVE;
+                removeParams.removeDevice = DiRemoveDevice.DI_REMOVEDEVICE_GLOBAL;
+
+                if (SetupDiSetClassInstallParams(deviceInfoList, ref deviceInfoData, ref removeParams, Marshal.SizeOf(removeParams)))
+                {
+                    return SetupDiCallClassInstaller(DiFunction.DIF_REMOVE, deviceInfoList, ref deviceInfoData);
+                }
+
                 return false;
             }
             catch (Exception ex)
@@ -165,7 +129,7 @@ namespace LibraryUsb
                 deviceInfoData.cbSize = Marshal.SizeOf(deviceInfoData);
 
                 //Get device information
-                deviceInfoList = SetupDiGetClassDevs(ref guidClass, deviceInstanceId, IntPtr.Zero, DiGetClassFlag.DIGCF_DEVICEINTERFACE);
+                deviceInfoList = SetupDiGetClassDevs(guidClass, deviceInstanceId, IntPtr.Zero, DiGetClassFlag.DIGCF_DEVICEINTERFACE);
                 if (!SetupDiEnumDeviceInfo(deviceInfoList, 0, ref deviceInfoData))
                 {
                     Debug.WriteLine("SetupDi: Failed getting device info.");

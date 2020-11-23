@@ -66,7 +66,6 @@ namespace DirectXInput
             }
         }
 
-
         //Receive and Translate DirectInput Controller
         async Task LoopReceiveHidInputData(ControllerStatus Controller)
         {

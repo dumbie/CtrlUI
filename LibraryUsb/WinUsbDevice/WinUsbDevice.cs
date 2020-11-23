@@ -1,7 +1,10 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using static LibraryUsb.DeviceManager;
+using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_File;
 using static LibraryUsb.NativeMethods_WinUsb;
 
@@ -29,7 +32,12 @@ namespace LibraryUsb
                 DevicePath = devicePath;
                 if (DeviceGuid != Guid.Empty && string.IsNullOrWhiteSpace(DevicePath))
                 {
-                    if (!DeviceFind(DeviceGuid, ref DevicePath, 0))
+                    List<EnumerateInfo> enumerateInfoList = EnumerateDevices(DeviceGuid, true);
+                    if (enumerateInfoList.Any())
+                    {
+                        DevicePath = enumerateInfoList.FirstOrDefault().DevicePath;
+                    }
+                    else
                     {
                         Debug.WriteLine("Create winusb device not found.");
                         return;

@@ -1,10 +1,13 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static DriverInstaller.AppVariables;
 using static LibraryUsb.DeviceManager;
+using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_Guid;
 using static LibraryUsb.NativeMethods_SetupApi;
 
@@ -60,9 +63,9 @@ namespace DriverInstaller
                 ProgressBarUpdate(75, false);
                 UninstallDualShock3();
 
-                //Uninstall Xbox Controllers
+                //Remove Xbox Controllers
                 ProgressBarUpdate(90, false);
-                UninstallXboxControllers();
+                RemoveXboxControllers();
 
                 TextBoxAppend("Driver uninstallation completed.");
                 TextBoxAppend("--- System reboot may be required ---");
@@ -106,18 +109,29 @@ namespace DriverInstaller
             catch { }
         }
 
-        void UninstallXboxControllers()
+        void RemoveXboxControllers()
         {
             try
             {
-                //if ()
-                //{
-                //    TextBoxAppend("Xbox controllers uninstalled.");
-                //}
-                //else
-                //{
-                //    TextBoxAppend("Xbox controllers not uninstalled.");
-                //}
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevices(GuidClassX360Controller, false);
+                if (enumerateInfoList.Any())
+                {
+                    foreach (EnumerateInfo device in enumerateInfoList)
+                    {
+                        try
+                        {
+                            string DeviceInstanceId = ConvertPathToInstanceId(device.DevicePath);
+                            DeviceRemove(GuidClassX360Controller, DeviceInstanceId);
+                        }
+                        catch { }
+                    }
+                    TextBoxAppend(enumerateInfoList.Count + " ghost Xbox controller(s) removed.");
+                }
+                else
+                {
+                    Debug.WriteLine("No ghost Xbox controllers found.");
+                    TextBoxAppend("No ghost Xbox controllers found.");
+                }
             }
             catch { }
         }

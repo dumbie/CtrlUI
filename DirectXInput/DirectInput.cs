@@ -433,7 +433,7 @@ namespace DirectXInput
                         }
                         else
                         {
-                            Debug.WriteLine("Opened the hid controller: " + Controller.Details.DisplayName);
+                            Debug.WriteLine("Opened the hid controller: " + Controller.Details.DisplayName + ", exclusive: " + Controller.HidDevice.IsExclusive);
                             vControllerTempBlockPaths.Remove(Controller.Details.Path);
                             return true;
                         }
