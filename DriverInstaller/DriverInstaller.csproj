@@ -104,6 +104,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppVariables.cs" />
+    <Compile Include="DeviceRemove.cs" />
+    <Compile Include="WindowsFirewall.cs" />
     <Compile Include="WindowsTasks.cs" />
     <Compile Include="WindowsCertificate.cs" />
     <Compile Include="DriverUninstall.cs" />

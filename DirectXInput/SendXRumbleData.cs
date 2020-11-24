@@ -108,11 +108,12 @@ namespace DirectXInput
                 }
 
                 //Adjust the trigger rumble strength
-                byte triggerRumbleMinimum = 242;
+                byte triggerRumbleLimit = 150;
+                byte triggerRumbleMinimum = 10;
                 double triggerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrength) / 100;
-                byte triggerRumbleHighest = Math.Max(controllerRumbleLight, controllerRumbleHeavy);
-                triggerRumbleHighest = Convert.ToByte(255 - (triggerRumbleHighest * triggerRumbleStrength));
-                Debug.WriteLine("Trigger rumble Highest: " + triggerRumbleHighest + " / Minimum: " + triggerRumbleMinimum);
+                byte triggerRumbleHighest = Convert.ToByte(Math.Max(controllerRumbleLight, controllerRumbleHeavy) * triggerRumbleStrength);
+                if (triggerRumbleHighest > triggerRumbleLimit) { triggerRumbleHighest = triggerRumbleLimit; }
+                Debug.WriteLine("Trigger rumble Highest: " + triggerRumbleHighest + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
 
                 //Adjust the controller rumble strength
                 double controllerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.ControllerRumbleStrength) / 100;
@@ -152,15 +153,14 @@ namespace DirectXInput
                     OutputReportData[6] = controllerRumbleHeavy;
 
                     //Trigger rumble
-                    if (triggerRumbleHighest <= triggerRumbleMinimum)
+                    if (triggerRumbleHighest >= triggerRumbleMinimum)
                     {
-                        if (triggerRumbleHighest > 180) { triggerRumbleHighest = 180; }
                         OutputReportData[13] = 0x01; //Right trigger
-                        OutputReportData[14] = triggerRumbleHighest; //Begin;
-                        OutputReportData[15] = 0xFF; //Force
+                        OutputReportData[14] = 0x00; //Begin;
+                        OutputReportData[15] = triggerRumbleHighest; //Force
                         OutputReportData[24] = 0x01; //Left trigger
-                        OutputReportData[25] = triggerRumbleHighest; //Begin;
-                        OutputReportData[26] = 0xFF; //Force
+                        OutputReportData[25] = 0x00; //Begin;
+                        OutputReportData[26] = triggerRumbleHighest; //Force
                     }
                     else
                     {
@@ -239,15 +239,14 @@ namespace DirectXInput
                     OutputReport[4] = controllerRumbleHeavy;
 
                     //Trigger rumble
-                    if (triggerRumbleHighest <= triggerRumbleMinimum)
+                    if (triggerRumbleHighest >= triggerRumbleMinimum)
                     {
-                        if (triggerRumbleHighest > 180) { triggerRumbleHighest = 180; }
                         OutputReport[11] = 0x01; //Right trigger
-                        OutputReport[12] = triggerRumbleHighest; //Begin;
-                        OutputReport[13] = 0xFF; //Force
+                        OutputReport[12] = 0x00; //Begin;
+                        OutputReport[13] = triggerRumbleHighest; //Force
                         OutputReport[22] = 0x01; //Left trigger
-                        OutputReport[23] = triggerRumbleHighest; //Begin;
-                        OutputReport[24] = 0xFF; //Force
+                        OutputReport[23] = 0x00; //Begin;
+                        OutputReport[24] = triggerRumbleHighest; //Force
                     }
                     else
                     {

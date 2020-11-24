@@ -11,7 +11,8 @@
             BottomRight = 4,
             BottomCenter = 5,
             BottomLeft = 6,
-            MiddleLeft = 7
+            MiddleLeft = 7,
+            Hidden = 8
         }
     }
 }

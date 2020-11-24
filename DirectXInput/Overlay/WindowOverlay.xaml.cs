@@ -9,6 +9,7 @@ using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 
 namespace DirectXInput.OverlayCode
@@ -103,22 +104,22 @@ namespace DirectXInput.OverlayCode
             try
             {
                 //Check current fps overlay position
-                int fpsTextPosition = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition"));
+                OverlayPosition fpsTextPosition = (OverlayPosition)Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition"));
                 //Debug.WriteLine("Fps overlayer text position: " + fpsTextPosition);
 
                 //Move the notification position
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    if (vProcessFpsOverlayer == null || (vProcessFpsOverlayer != null && fpsTextPosition != 0))
+                    if (vProcessFpsOverlayer == null || (vProcessFpsOverlayer != null && fpsTextPosition != OverlayPosition.TopLeft))
                     {
-                        grid_Message_Status.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                        grid_Message_Status.HorizontalAlignment = HorizontalAlignment.Left;
                         grid_Message_Status_Grid.SetValue(Grid.ColumnProperty, 0);
                         grid_Message_Status_Border.SetValue(Grid.ColumnProperty, 1);
                         grid_Message_Status_Border.SetValue(Border.CornerRadiusProperty, new CornerRadius(0, 2, 2, 0));
                     }
                     else
                     {
-                        grid_Message_Status.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+                        grid_Message_Status.HorizontalAlignment = HorizontalAlignment.Right;
                         grid_Message_Status_Grid.SetValue(Grid.ColumnProperty, 1);
                         grid_Message_Status_Border.SetValue(Grid.ColumnProperty, 0);
                         grid_Message_Status_Border.SetValue(Border.CornerRadiusProperty, new CornerRadius(2, 0, 0, 2));
@@ -134,13 +135,13 @@ namespace DirectXInput.OverlayCode
             try
             {
                 //Check current fps overlay position
-                int fpsTextPosition = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition"));
+                OverlayPosition fpsTextPosition = (OverlayPosition)Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition"));
                 //Debug.WriteLine("Fps overlayer text position: " + fpsTextPosition);
 
                 //Move the battery status position
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    if (vProcessFpsOverlayer == null || (vProcessFpsOverlayer != null && fpsTextPosition != 6))
+                    if (vProcessFpsOverlayer == null || (vProcessFpsOverlayer != null && fpsTextPosition != OverlayPosition.BottomLeft))
                     {
                         stackpanel_Battery_Warning.VerticalAlignment = VerticalAlignment.Bottom;
                     }

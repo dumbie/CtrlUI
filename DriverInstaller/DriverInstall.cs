@@ -48,6 +48,13 @@ namespace DriverInstaller
                 TextBoxAppend("Starting the driver installation.");
                 ProgressBarUpdate(20, false);
 
+                //Remove older ghost devices
+                TextBoxAppend("Removing older ghost devices.");
+                ProgressBarUpdate(30, false);
+                RemoveGhostScpVirtualBus();
+                //RemoveGhostHidGuardian();
+                RemoveGhostXboxControllers();
+
                 //Install Virtual Bus Driver
                 ProgressBarUpdate(40, false);
                 InstallVirtualBus();
@@ -57,12 +64,8 @@ namespace DriverInstaller
                 InstallHidGuardian();
 
                 //Install DS3 USB Driver
-                ProgressBarUpdate(75, false);
+                ProgressBarUpdate(80, false);
                 InstallDualShock3();
-
-                //Remove Xbox Controllers
-                ProgressBarUpdate(90, false);
-                RemoveXboxControllers();
 
                 TextBoxAppend("Driver installation completed.");
                 TextBoxAppend("--- System reboot may be required ---");

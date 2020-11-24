@@ -1,13 +1,10 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static DriverInstaller.AppVariables;
 using static LibraryUsb.DeviceManager;
-using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_Guid;
 using static LibraryUsb.NativeMethods_SetupApi;
 
@@ -51,6 +48,13 @@ namespace DriverInstaller
                 TextBoxAppend("Starting the driver uninstallation.");
                 ProgressBarUpdate(20, false);
 
+                //Remove older ghost devices
+                TextBoxAppend("Removing older ghost devices.");
+                ProgressBarUpdate(30, false);
+                RemoveGhostScpVirtualBus();
+                //RemoveGhostHidGuardian();
+                RemoveGhostXboxControllers();
+
                 //Uninstall Virtual Bus Driver
                 ProgressBarUpdate(40, false);
                 UninstallVirtualBus();
@@ -60,12 +64,8 @@ namespace DriverInstaller
                 UninstallHidGuardian();
 
                 //Uninstall DS3 USB Driver
-                ProgressBarUpdate(75, false);
+                ProgressBarUpdate(80, false);
                 UninstallDualShock3();
-
-                //Remove Xbox Controllers
-                ProgressBarUpdate(90, false);
-                RemoveXboxControllers();
 
                 TextBoxAppend("Driver uninstallation completed.");
                 TextBoxAppend("--- System reboot may be required ---");
@@ -104,33 +104,6 @@ namespace DriverInstaller
                 else
                 {
                     TextBoxAppend("DS3 USB Driver not uninstalled.");
-                }
-            }
-            catch { }
-        }
-
-        void RemoveXboxControllers()
-        {
-            try
-            {
-                List<EnumerateInfo> enumerateInfoList = EnumerateDevices(GuidClassX360Controller, false);
-                if (enumerateInfoList.Any())
-                {
-                    foreach (EnumerateInfo device in enumerateInfoList)
-                    {
-                        try
-                        {
-                            string DeviceInstanceId = ConvertPathToInstanceId(device.DevicePath);
-                            DeviceRemove(GuidClassX360Controller, DeviceInstanceId);
-                        }
-                        catch { }
-                    }
-                    TextBoxAppend(enumerateInfoList.Count + " ghost Xbox controller(s) removed.");
-                }
-                else
-                {
-                    Debug.WriteLine("No ghost Xbox controllers found.");
-                    TextBoxAppend("No ghost Xbox controllers found.");
                 }
             }
             catch { }

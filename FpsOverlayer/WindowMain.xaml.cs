@@ -18,6 +18,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 
 namespace FpsOverlayer
@@ -196,19 +197,19 @@ namespace FpsOverlayer
             try
             {
                 //Load the text position
-                int targetTextPosition = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition"));
+                OverlayPosition targetTextPosition = (OverlayPosition)Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition"));
                 if (!string.IsNullOrWhiteSpace(processName))
                 {
                     ProfileShared FpsPositionProcessName = vFpsPositionProcessName.Where(x => x.String1.ToLower() == processName.ToLower()).FirstOrDefault();
                     if (FpsPositionProcessName != null)
                     {
                         Debug.WriteLine("Found fps position for: " + FpsPositionProcessName.String1 + " / " + FpsPositionProcessName.Int1);
-                        targetTextPosition = (int)FpsPositionProcessName.Int1;
+                        targetTextPosition = (OverlayPosition)FpsPositionProcessName.Int1;
                     }
                 }
 
                 //Hide or show the fps overlayer
-                if (targetTextPosition == 8) //Hidden
+                if (targetTextPosition == OverlayPosition.Hidden)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -225,7 +226,7 @@ namespace FpsOverlayer
                 }
 
                 //Move fps to set position
-                if (targetTextPosition == 0) //Top left
+                if (targetTextPosition == OverlayPosition.TopLeft)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -244,7 +245,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Left;
                     });
                 }
-                else if (targetTextPosition == 1) //Top center
+                else if (targetTextPosition == OverlayPosition.TopCenter)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -263,7 +264,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Center;
                     });
                 }
-                else if (targetTextPosition == 2) //Top right
+                else if (targetTextPosition == OverlayPosition.TopRight)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -282,7 +283,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
-                else if (targetTextPosition == 3) //Middle right
+                else if (targetTextPosition == OverlayPosition.MiddleRight)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -301,7 +302,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
-                else if (targetTextPosition == 4) //Bottom right
+                else if (targetTextPosition == OverlayPosition.BottomRight)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -321,7 +322,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Right;
                     });
                 }
-                else if (targetTextPosition == 5) //Bottom center
+                else if (targetTextPosition == OverlayPosition.BottomCenter)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -341,7 +342,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Center;
                     });
                 }
-                else if (targetTextPosition == 6) //Bottom left
+                else if (targetTextPosition == OverlayPosition.BottomLeft)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -361,7 +362,7 @@ namespace FpsOverlayer
                         stackpanel_CurrentMon.HorizontalAlignment = HorizontalAlignment.Left;
                     });
                 }
-                else if (targetTextPosition == 7) //Middle left
+                else if (targetTextPosition == OverlayPosition.MiddleLeft)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
