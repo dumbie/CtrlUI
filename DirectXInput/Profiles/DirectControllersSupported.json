@@ -10,6 +10,11 @@
     "VendorID": "0x054c"
   },
   {
+    "CodeName": "SonyMoveMotion3",
+    "ProductIDs": [ "0x03d5" ],
+    "VendorID": "0x054c"
+  },
+  {
     "CodeName": "SonyMoveNavigation3",
     "ProductIDs": [ "0x042f" ],
     "VendorID": "0x054c"
@@ -25,20 +30,20 @@
     "VendorID": "0x054c",
     "OffsetUsb": 
     {
-        "ButtonsGroup1": 8,
-        "ButtonsGroup2": 9,
-        "ButtonsGroup3": 10,
-        "TriggerLeft": 5,
-        "TriggerRight": 6
+      "ButtonsGroup1": 8,
+      "ButtonsGroup2": 9,
+      "ButtonsGroup3": 10,
+      "TriggerLeft": 5,
+      "TriggerRight": 6
     },
     "OffsetWireless": 
     {
-        "BeginOffset": 1,
-        "ButtonsGroup1": 8,
-        "ButtonsGroup2": 9,
-        "ButtonsGroup3": 10,
-        "TriggerLeft": 5,
-        "TriggerRight": 6
+      "BeginOffset": 1,
+      "ButtonsGroup1": 8,
+      "ButtonsGroup2": 9,
+      "ButtonsGroup3": 10,
+      "TriggerLeft": 5,
+      "TriggerRight": 6
     }
   }
 ]

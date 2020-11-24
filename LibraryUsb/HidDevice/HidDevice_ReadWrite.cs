@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using static LibraryUsb.NativeMethods_Hid;
 
 namespace LibraryUsb
@@ -46,6 +48,36 @@ namespace LibraryUsb
             {
                 Debug.WriteLine("Failed to read file bytes: " + ex.Message);
                 return false;
+            }
+        }
+
+        public async Task<bool> ReadBytesFileTimeOut(byte[] inputBuffer, int readTimeOut)
+        {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            try
+            {
+                if (!Connected) { return false; }
+
+                Task<int> readTask = FileStream.ReadAsync(inputBuffer, 0, inputBuffer.Length, cancellationTokenSource.Token);
+                Task delayTask = Task.Delay(readTimeOut);
+                Task timeoutTask = await Task.WhenAny(readTask, delayTask);
+                if (timeoutTask == readTask)
+                {
+                    return readTask.Result > 0;
+                }
+
+                Debug.WriteLine("Failed to read file bytes, timeout.");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to read file bytes: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                if (cancellationTokenSource.Token.CanBeCanceled) { cancellationTokenSource.Cancel(); }
+                cancellationTokenSource.Dispose();
             }
         }
     }

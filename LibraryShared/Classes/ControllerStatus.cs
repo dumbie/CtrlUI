@@ -21,6 +21,7 @@ namespace LibraryShared
             public long LastReadTicks = 0;
             public int LastActiveTicks = 0;
             public int MilliSecondsTimeout = 4000;
+            public int MilliSecondsAllowReadWrite = 2000;
             public ControllerDetails Details = null;
             public bool Connected { get { return Details != null; } }
             public bool BlockOutput = false;
