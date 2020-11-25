@@ -39,7 +39,7 @@ namespace LibraryShared
             public ControllerButtonDetails ButtonThumbRight = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonTriggerLeft = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonTriggerRight = new ControllerButtonDetails();
-            public bool[] ButtonPressStatus = new bool[384];
+            public bool[] ButtonPressStatus = new bool[300];
         }
     }
 }

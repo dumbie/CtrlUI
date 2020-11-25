@@ -36,8 +36,12 @@ namespace LibraryShared
             public HidDevice HidDevice = null;
 
             //Device In and Output
+            public int InputButtonCountLoop1 = 0;
+            public int InputButtonCountTotal1 = 80;
+            public int InputButtonCountLoop2 = 0;
+            public int InputButtonCountTotal2 = 80;
             public int InputButtonCountLoop3 = 0;
-            public int InputButtonCountTotal3 = 128;
+            public int InputButtonCountTotal3 = 80;
             public bool InputHeaderOffsetFinished = false;
             public int InputHeaderOffsetByte = 0;
             public bool InputButtonOffsetFinished = false;
@@ -82,8 +86,12 @@ namespace LibraryShared
                     InputTask = new AVTaskDetails();
 
                     //Device In and Output
+                    InputButtonCountLoop1 = 0;
+                    InputButtonCountTotal1 = 80;
+                    InputButtonCountLoop2 = 0;
+                    InputButtonCountTotal2 = 80;
                     InputButtonCountLoop3 = 0;
-                    InputButtonCountTotal3 = 128;
+                    InputButtonCountTotal3 = 80;
                     InputHeaderOffsetFinished = false;
                     InputHeaderOffsetByte = 0;
                     InputButtonOffsetFinished = false;
