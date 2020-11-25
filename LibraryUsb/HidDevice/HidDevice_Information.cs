@@ -34,6 +34,19 @@ namespace LibraryUsb
             }
         }
 
+        public bool SetFeature(byte[] featureByte)
+        {
+            try
+            {
+                return HidD_SetFeature(FileHandle, featureByte, featureByte.Length);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to set feature: " + ex.Message);
+                return false;
+            }
+        }
+
         private bool GetDeviceAttributes()
         {
             try

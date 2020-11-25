@@ -122,7 +122,7 @@ namespace DirectXInput
                 if (vMappingControllerStatus == MappingStatus.Mapping)
                 {
                     //Store new button mapping in Json controller
-                    int buttonMapId = Array.FindIndex(Controller.InputCurrent.RawBytes, ButtonPressed => ButtonPressed);
+                    int buttonMapId = Array.FindIndex(Controller.InputCurrent.ButtonPressStatus, ButtonPressed => ButtonPressed);
                     if (buttonMapId != -1)
                     {
                         AVActions.ActionDispatcherInvoke(delegate

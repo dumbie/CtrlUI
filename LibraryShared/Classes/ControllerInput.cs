@@ -28,23 +28,18 @@ namespace LibraryShared
             public ControllerButtonDetails ButtonB = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonX = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonY = new ControllerButtonDetails();
-
             public ControllerButtonDetails ButtonBack = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonStart = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonGuide = new ControllerButtonDetails();
-
             public ControllerButtonDetails ButtonTouchpad = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonMedia = new ControllerButtonDetails();
-
             public ControllerButtonDetails ButtonShoulderLeft = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonShoulderRight = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonThumbLeft = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonThumbRight = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonTriggerLeft = new ControllerButtonDetails();
             public ControllerButtonDetails ButtonTriggerRight = new ControllerButtonDetails();
-
-            //Raw Bytes
-            public bool[] RawBytes = new bool[128];
+            public bool[] ButtonPressStatus = new bool[384];
         }
     }
 }

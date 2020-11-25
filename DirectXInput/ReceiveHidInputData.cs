@@ -66,6 +66,45 @@ namespace DirectXInput
             }
         }
 
+        //Count available controller buttons in arrays
+        bool HidCountButtonArray(byte[] inputReport, int offsetBegin, int offsetGroup, ref int countLoop, ref int countTotal)
+        {
+            try
+            {
+                //Fix detect exact button count by reading button caps
+                //The current code only works when user does not press any buttons
+                if (countLoop < 20)
+                {
+                    int countCurrent = 0;
+                    for (int buttonByte = offsetBegin; buttonByte < 128; buttonByte++)
+                    {
+                        try
+                        {
+                            if ((inputReport[offsetGroup] & (1 << buttonByte)) == 0)
+                            {
+                                countCurrent++;
+                            }
+                            else
+                            {
+                                if (countCurrent < countTotal) { countTotal = countCurrent; }
+                                Debug.WriteLine("Counted buttons, offset: " + offsetGroup + ", begin: " + offsetBegin + ", total: " + countTotal + ", current: " + countCurrent);
+                                break;
+                            }
+                        }
+                        catch { }
+                    }
+                    countLoop++;
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to count buttons in arrays: " + ex.Message);
+                return false;
+            }
+        }
+
         //Receive and Translate DirectInput Controller
         async Task LoopReceiveHidInputData(ControllerStatus Controller)
         {
@@ -98,7 +137,7 @@ namespace DirectXInput
                         //Detect and adjust controller header offset
                         if (HidAdjustHeaderOffset(Controller)) { continue; }
 
-                        //Set controller read offfsets
+                        //Set controller read offsets
                         int OffsetThumbLeftX = Controller.InputHeaderOffsetByte;
                         int OffsetThumbLeftY = Controller.InputHeaderOffsetByte;
                         int OffsetThumbRightX = Controller.InputHeaderOffsetByte;
@@ -135,6 +174,9 @@ namespace DirectXInput
 
                         //Detect and adjust controller button offset
                         if (HidAdjustButtonOffset(Controller, OffsetButtonsGroup1)) { continue; }
+
+                        //Count available controller buttons in arrays
+                        if (HidCountButtonArray(Controller.InputReport, 0, OffsetButtonsGroup3, ref Controller.InputButtonCountLoop3, ref Controller.InputButtonCountTotal3)) { continue; }
 
                         //Calculate left thumbs
                         int ThumbLeftX = Controller.InputReport[OffsetThumbLeftX];
@@ -272,27 +314,30 @@ namespace DirectXInput
                         }
 
                         //Raw Buttons (Group 1)
-                        int ButtonIdGroup1 = 4;
-                        for (int ButtonByte = 0; ButtonByte < 20; ButtonByte++)
+                        int ButtonOffset1 = 4;
+                        int ButtonTotal1 = 20;
+                        for (int ButtonByte = 0; ButtonByte < ButtonTotal1; ButtonByte++)
                         {
-                            Controller.InputCurrent.RawBytes[ButtonByte] = ((byte)Controller.InputReport[OffsetButtonsGroup1] & (1 << ButtonIdGroup1)) != 0;
-                            ButtonIdGroup1++;
+                            Controller.InputCurrent.ButtonPressStatus[ButtonByte] = ((byte)Controller.InputReport[OffsetButtonsGroup1] & (1 << ButtonOffset1)) != 0;
+                            ButtonOffset1++;
                         }
 
                         //Raw Buttons (Group 2)
-                        int ButtonIdGroup2 = 0;
-                        for (int ButtonByte = 20; ButtonByte < 40; ButtonByte++)
+                        int ButtonOffset2 = 0;
+                        int ButtonTotal2 = 40;
+                        for (int ButtonByte = 20; ButtonByte < ButtonTotal2; ButtonByte++)
                         {
-                            Controller.InputCurrent.RawBytes[ButtonByte] = ((byte)Controller.InputReport[OffsetButtonsGroup2] & (1 << ButtonIdGroup2)) != 0;
-                            ButtonIdGroup2++;
+                            Controller.InputCurrent.ButtonPressStatus[ButtonByte] = ((byte)Controller.InputReport[OffsetButtonsGroup2] & (1 << ButtonOffset2)) != 0;
+                            ButtonOffset2++;
                         }
 
                         //Raw Buttons (Group 3)
-                        int ButtonIdGroup3 = 0;
-                        for (int ButtonByte = 40; ButtonByte < 42; ButtonByte++)
+                        int ButtonOffset3 = 0;
+                        int ButtonTotal3 = 40 + Controller.InputButtonCountTotal3;
+                        for (int ButtonByte = 40; ButtonByte < ButtonTotal3; ButtonByte++)
                         {
-                            Controller.InputCurrent.RawBytes[ButtonByte] = ((byte)Controller.InputReport[OffsetButtonsGroup3] & (1 << ButtonIdGroup3)) != 0;
-                            ButtonIdGroup3++;
+                            Controller.InputCurrent.ButtonPressStatus[ButtonByte] = ((byte)Controller.InputReport[OffsetButtonsGroup3] & (1 << ButtonOffset3)) != 0;
+                            ButtonOffset3++;
                         }
 
                         //Raw DPad (Group 1)
@@ -333,50 +378,50 @@ namespace DirectXInput
                         if (!controllerMapping)
                         {
                             //Set button mapping input data
-                            if (Controller.Details.Profile.ButtonA == null) { Controller.InputCurrent.ButtonA.PressedRaw = Controller.InputCurrent.RawBytes[1]; }
-                            else if (Controller.Details.Profile.ButtonA != -1) { Controller.InputCurrent.ButtonA.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonA.Value]; }
+                            if (Controller.Details.Profile.ButtonA == null) { Controller.InputCurrent.ButtonA.PressedRaw = Controller.InputCurrent.ButtonPressStatus[1]; }
+                            else if (Controller.Details.Profile.ButtonA != -1) { Controller.InputCurrent.ButtonA.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonA.Value]; }
 
-                            if (Controller.Details.Profile.ButtonB == null) { Controller.InputCurrent.ButtonB.PressedRaw = Controller.InputCurrent.RawBytes[2]; }
-                            else if (Controller.Details.Profile.ButtonB != -1) { Controller.InputCurrent.ButtonB.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonB.Value]; }
+                            if (Controller.Details.Profile.ButtonB == null) { Controller.InputCurrent.ButtonB.PressedRaw = Controller.InputCurrent.ButtonPressStatus[2]; }
+                            else if (Controller.Details.Profile.ButtonB != -1) { Controller.InputCurrent.ButtonB.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonB.Value]; }
 
-                            if (Controller.Details.Profile.ButtonX == null) { Controller.InputCurrent.ButtonX.PressedRaw = Controller.InputCurrent.RawBytes[0]; }
-                            else if (Controller.Details.Profile.ButtonX != -1) { Controller.InputCurrent.ButtonX.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonX.Value]; }
+                            if (Controller.Details.Profile.ButtonX == null) { Controller.InputCurrent.ButtonX.PressedRaw = Controller.InputCurrent.ButtonPressStatus[0]; }
+                            else if (Controller.Details.Profile.ButtonX != -1) { Controller.InputCurrent.ButtonX.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonX.Value]; }
 
-                            if (Controller.Details.Profile.ButtonY == null) { Controller.InputCurrent.ButtonY.PressedRaw = Controller.InputCurrent.RawBytes[3]; }
-                            else if (Controller.Details.Profile.ButtonY != -1) { Controller.InputCurrent.ButtonY.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonY.Value]; }
+                            if (Controller.Details.Profile.ButtonY == null) { Controller.InputCurrent.ButtonY.PressedRaw = Controller.InputCurrent.ButtonPressStatus[3]; }
+                            else if (Controller.Details.Profile.ButtonY != -1) { Controller.InputCurrent.ButtonY.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonY.Value]; }
 
-                            if (Controller.Details.Profile.ButtonBack == null) { Controller.InputCurrent.ButtonBack.PressedRaw = Controller.InputCurrent.RawBytes[24]; }
-                            else if (Controller.Details.Profile.ButtonBack != -1) { Controller.InputCurrent.ButtonBack.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonBack.Value]; }
+                            if (Controller.Details.Profile.ButtonBack == null) { Controller.InputCurrent.ButtonBack.PressedRaw = Controller.InputCurrent.ButtonPressStatus[24]; }
+                            else if (Controller.Details.Profile.ButtonBack != -1) { Controller.InputCurrent.ButtonBack.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonBack.Value]; }
 
-                            if (Controller.Details.Profile.ButtonStart == null) { Controller.InputCurrent.ButtonStart.PressedRaw = Controller.InputCurrent.RawBytes[25]; }
-                            else if (Controller.Details.Profile.ButtonStart != -1) { Controller.InputCurrent.ButtonStart.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonStart.Value]; }
+                            if (Controller.Details.Profile.ButtonStart == null) { Controller.InputCurrent.ButtonStart.PressedRaw = Controller.InputCurrent.ButtonPressStatus[25]; }
+                            else if (Controller.Details.Profile.ButtonStart != -1) { Controller.InputCurrent.ButtonStart.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonStart.Value]; }
 
-                            if (Controller.Details.Profile.ButtonGuide == null) { Controller.InputCurrent.ButtonGuide.PressedRaw = Controller.InputCurrent.RawBytes[40]; }
-                            else if (Controller.Details.Profile.ButtonGuide != -1) { Controller.InputCurrent.ButtonGuide.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonGuide.Value]; }
+                            if (Controller.Details.Profile.ButtonGuide == null) { Controller.InputCurrent.ButtonGuide.PressedRaw = Controller.InputCurrent.ButtonPressStatus[40]; }
+                            else if (Controller.Details.Profile.ButtonGuide != -1) { Controller.InputCurrent.ButtonGuide.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonGuide.Value]; }
 
-                            if (Controller.Details.Profile.ButtonTouchpad == null) { Controller.InputCurrent.ButtonTouchpad.PressedRaw = Controller.InputCurrent.RawBytes[41]; }
-                            else if (Controller.Details.Profile.ButtonTouchpad != -1) { Controller.InputCurrent.ButtonTouchpad.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonTouchpad.Value]; }
+                            if (Controller.Details.Profile.ButtonTouchpad == null) { Controller.InputCurrent.ButtonTouchpad.PressedRaw = Controller.InputCurrent.ButtonPressStatus[41]; }
+                            else if (Controller.Details.Profile.ButtonTouchpad != -1) { Controller.InputCurrent.ButtonTouchpad.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonTouchpad.Value]; }
 
-                            if (Controller.Details.Profile.ButtonMedia == null) { Controller.InputCurrent.ButtonMedia.PressedRaw = Controller.InputCurrent.RawBytes[42]; }
-                            else if (Controller.Details.Profile.ButtonMedia != -1) { Controller.InputCurrent.ButtonMedia.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonMedia.Value]; }
+                            if (Controller.Details.Profile.ButtonMedia == null) { Controller.InputCurrent.ButtonMedia.PressedRaw = Controller.InputCurrent.ButtonPressStatus[42]; }
+                            else if (Controller.Details.Profile.ButtonMedia != -1) { Controller.InputCurrent.ButtonMedia.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonMedia.Value]; }
 
-                            if (Controller.Details.Profile.ButtonTriggerLeft == null) { Controller.InputCurrent.ButtonTriggerLeft.PressedRaw = Controller.InputCurrent.RawBytes[22]; }
-                            else if (Controller.Details.Profile.ButtonTriggerLeft != -1) { Controller.InputCurrent.ButtonTriggerLeft.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonTriggerLeft.Value]; }
+                            if (Controller.Details.Profile.ButtonTriggerLeft == null) { Controller.InputCurrent.ButtonTriggerLeft.PressedRaw = Controller.InputCurrent.ButtonPressStatus[22]; }
+                            else if (Controller.Details.Profile.ButtonTriggerLeft != -1) { Controller.InputCurrent.ButtonTriggerLeft.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonTriggerLeft.Value]; }
 
-                            if (Controller.Details.Profile.ButtonTriggerRight == null) { Controller.InputCurrent.ButtonTriggerRight.PressedRaw = Controller.InputCurrent.RawBytes[23]; }
-                            else if (Controller.Details.Profile.ButtonTriggerRight != -1) { Controller.InputCurrent.ButtonTriggerRight.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonTriggerRight.Value]; }
+                            if (Controller.Details.Profile.ButtonTriggerRight == null) { Controller.InputCurrent.ButtonTriggerRight.PressedRaw = Controller.InputCurrent.ButtonPressStatus[23]; }
+                            else if (Controller.Details.Profile.ButtonTriggerRight != -1) { Controller.InputCurrent.ButtonTriggerRight.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonTriggerRight.Value]; }
 
-                            if (Controller.Details.Profile.ButtonShoulderLeft == null) { Controller.InputCurrent.ButtonShoulderLeft.PressedRaw = Controller.InputCurrent.RawBytes[20]; }
-                            else if (Controller.Details.Profile.ButtonShoulderLeft != -1) { Controller.InputCurrent.ButtonShoulderLeft.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonShoulderLeft.Value]; }
+                            if (Controller.Details.Profile.ButtonShoulderLeft == null) { Controller.InputCurrent.ButtonShoulderLeft.PressedRaw = Controller.InputCurrent.ButtonPressStatus[20]; }
+                            else if (Controller.Details.Profile.ButtonShoulderLeft != -1) { Controller.InputCurrent.ButtonShoulderLeft.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonShoulderLeft.Value]; }
 
-                            if (Controller.Details.Profile.ButtonShoulderRight == null) { Controller.InputCurrent.ButtonShoulderRight.PressedRaw = Controller.InputCurrent.RawBytes[21]; }
-                            else if (Controller.Details.Profile.ButtonShoulderRight != -1) { Controller.InputCurrent.ButtonShoulderRight.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonShoulderRight.Value]; }
+                            if (Controller.Details.Profile.ButtonShoulderRight == null) { Controller.InputCurrent.ButtonShoulderRight.PressedRaw = Controller.InputCurrent.ButtonPressStatus[21]; }
+                            else if (Controller.Details.Profile.ButtonShoulderRight != -1) { Controller.InputCurrent.ButtonShoulderRight.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonShoulderRight.Value]; }
 
-                            if (Controller.Details.Profile.ButtonThumbLeft == null) { Controller.InputCurrent.ButtonThumbLeft.PressedRaw = Controller.InputCurrent.RawBytes[26]; }
-                            else if (Controller.Details.Profile.ButtonThumbLeft != -1) { Controller.InputCurrent.ButtonThumbLeft.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonThumbLeft.Value]; }
+                            if (Controller.Details.Profile.ButtonThumbLeft == null) { Controller.InputCurrent.ButtonThumbLeft.PressedRaw = Controller.InputCurrent.ButtonPressStatus[26]; }
+                            else if (Controller.Details.Profile.ButtonThumbLeft != -1) { Controller.InputCurrent.ButtonThumbLeft.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonThumbLeft.Value]; }
 
-                            if (Controller.Details.Profile.ButtonThumbRight == null) { Controller.InputCurrent.ButtonThumbRight.PressedRaw = Controller.InputCurrent.RawBytes[27]; }
-                            else if (Controller.Details.Profile.ButtonThumbRight != -1) { Controller.InputCurrent.ButtonThumbRight.PressedRaw = Controller.InputCurrent.RawBytes[Controller.Details.Profile.ButtonThumbRight.Value]; }
+                            if (Controller.Details.Profile.ButtonThumbRight == null) { Controller.InputCurrent.ButtonThumbRight.PressedRaw = Controller.InputCurrent.ButtonPressStatus[27]; }
+                            else if (Controller.Details.Profile.ButtonThumbRight != -1) { Controller.InputCurrent.ButtonThumbRight.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonThumbRight.Value]; }
 
                             //Fake Guide button press with Start and Back
                             if (Controller.Details.Profile.FakeGuideButton && Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonBack.PressedRaw)

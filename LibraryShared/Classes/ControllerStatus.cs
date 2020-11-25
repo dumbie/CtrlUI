@@ -14,8 +14,8 @@ namespace LibraryShared
             public bool Activated = false;
 
             //Battery Status
-            public ControllerBattery BatteryCurrent = new ControllerBattery() { BatteryPercentage = -1 };
-            public ControllerBattery BatteryPrevious = new ControllerBattery() { BatteryPercentage = -2 };
+            public ControllerBattery BatteryCurrent = new ControllerBattery();
+            public ControllerBattery BatteryPrevious = new ControllerBattery();
 
             //Controller Details
             public long LastReadTicks = 0;
@@ -36,6 +36,8 @@ namespace LibraryShared
             public HidDevice HidDevice = null;
 
             //Device In and Output
+            public int InputButtonCountLoop3 = 0;
+            public int InputButtonCountTotal3 = 128;
             public bool InputHeaderOffsetFinished = false;
             public int InputHeaderOffsetByte = 0;
             public bool InputButtonOffsetFinished = false;
@@ -68,8 +70,8 @@ namespace LibraryShared
                     Activated = false;
 
                     //Battery Status
-                    BatteryCurrent = new ControllerBattery() { BatteryPercentage = -1 };
-                    BatteryPrevious = new ControllerBattery() { BatteryPercentage = -2 };
+                    BatteryCurrent = new ControllerBattery();
+                    BatteryPrevious = new ControllerBattery();
 
                     //Controller Details
                     LastReadTicks = 0;
@@ -80,6 +82,8 @@ namespace LibraryShared
                     InputTask = new AVTaskDetails();
 
                     //Device In and Output
+                    InputButtonCountLoop3 = 0;
+                    InputButtonCountTotal3 = 128;
                     InputHeaderOffsetFinished = false;
                     InputHeaderOffsetByte = 0;
                     InputButtonOffsetFinished = false;

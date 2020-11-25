@@ -18,25 +18,29 @@ namespace DirectXInput
             {
                 if (Controller.SupportedCurrent.CodeName == "SonyDualShock3" || Controller.SupportedCurrent.CodeName == "SonyMoveNavigation3")
                 {
-                    byte[] enableBytes = { 0x42, 0x0C, 0x00, 0x00 };
-                    bool bytesWritten = Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x3F4, enableBytes);
+                    //Wired USB Output - DualShock 3 or Move Navigation 3
+                    byte[] outputReport = new byte[2];
+                    outputReport[0] = 0x42;
+                    outputReport[1] = 0x0C;
+
+                    bool bytesWritten = Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x3F4, outputReport);
                     Debug.WriteLine("Initialized USB controller: SonyDualShock3 or SonyMoveNavigation3: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - DualSense 5
-                    byte[] OutputReportData = new byte[75];
-                    OutputReportData[0] = 0xA2;
-                    OutputReportData[1] = 0x31;
-                    OutputReportData[2] = 0x02;
-                    OutputReportData[3] = 0xFF;
-                    OutputReportData[4] = 0x08;
+                    byte[] outputReport = new byte[75];
+                    outputReport[0] = 0xA2;
+                    outputReport[1] = 0x31;
+                    outputReport[2] = 0x02;
+                    outputReport[3] = 0xFF;
+                    outputReport[4] = 0x08;
 
                     //Add CRC32 to bytes array
-                    byte[] OutputReportCRC32 = ByteArrayAddCRC32(OutputReportData);
+                    byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport);
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReportCRC32);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReportCRC32);
                     Debug.WriteLine("Initialized Bluetooth controller: SonyDualSense5: " + bytesWritten);
                 }
             }
@@ -47,26 +51,26 @@ namespace DirectXInput
         }
 
         //Add CRC32 hash to bytes array
-        private byte[] ByteArrayAddCRC32(byte[] OutputReportData)
+        private byte[] ByteArrayAddCRC32(byte[] outputReport)
         {
             try
             {
                 //Compute CRC32 hash
-                byte[] checksum = ComputeHashCRC32(OutputReportData, false);
+                byte[] checksum = ComputeHashCRC32(outputReport, false);
 
                 //Add CRC32 hash bytes
-                byte[] OutputReportCRC32 = new byte[OutputReportData.Length + 4];
-                Array.Copy(OutputReportData, 1, OutputReportCRC32, 0, OutputReportData.Length - 1);
-                OutputReportCRC32[74] = checksum[0];
-                OutputReportCRC32[75] = checksum[1];
-                OutputReportCRC32[76] = checksum[2];
-                OutputReportCRC32[77] = checksum[3];
-                return OutputReportCRC32;
+                byte[] outputReportCRC32 = new byte[outputReport.Length + 4];
+                Array.Copy(outputReport, 1, outputReportCRC32, 0, outputReport.Length - 1);
+                outputReportCRC32[74] = checksum[0];
+                outputReportCRC32[75] = checksum[1];
+                outputReportCRC32[76] = checksum[2];
+                outputReportCRC32[77] = checksum[3];
+                return outputReportCRC32;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to add CRC32 bytes to the array: " + ex.Message);
-                return OutputReportData;
+                return outputReport;
             }
         }
 
@@ -141,310 +145,310 @@ namespace DirectXInput
                 if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - DualSense 5
-                    byte[] OutputReportData = new byte[75];
-                    OutputReportData[0] = 0xA2;
-                    OutputReportData[1] = 0x31;
-                    OutputReportData[2] = 0x02;
-                    OutputReportData[3] = 0xFF;
-                    OutputReportData[4] = 0xF7;
+                    byte[] outputReport = new byte[75];
+                    outputReport[0] = 0xA2;
+                    outputReport[1] = 0x31;
+                    outputReport[2] = 0x02;
+                    outputReport[3] = 0xFF;
+                    outputReport[4] = 0xF7;
 
                     //Controller rumble
-                    OutputReportData[5] = controllerRumbleLight;
-                    OutputReportData[6] = controllerRumbleHeavy;
+                    outputReport[5] = controllerRumbleLight;
+                    outputReport[6] = controllerRumbleHeavy;
 
                     //Trigger rumble
                     if (triggerRumbleHighest >= triggerRumbleMinimum)
                     {
-                        OutputReportData[13] = 0x01; //Right trigger
-                        OutputReportData[14] = 0x00; //Begin;
-                        OutputReportData[15] = triggerRumbleHighest; //Force
-                        OutputReportData[24] = 0x01; //Left trigger
-                        OutputReportData[25] = 0x00; //Begin;
-                        OutputReportData[26] = triggerRumbleHighest; //Force
+                        outputReport[13] = 0x01; //Right trigger
+                        outputReport[14] = 0x00; //Begin;
+                        outputReport[15] = triggerRumbleHighest; //Force
+                        outputReport[24] = 0x01; //Left trigger
+                        outputReport[25] = 0x00; //Begin;
+                        outputReport[26] = triggerRumbleHighest; //Force
                     }
                     else
                     {
-                        OutputReportData[13] = 0x01; //Right trigger
-                        OutputReportData[14] = 0xFF; //Begin;
-                        OutputReportData[15] = 0x00; //Force
-                        OutputReportData[24] = 0x01; //Left trigger
-                        OutputReportData[25] = 0xFF; //Begin;
-                        OutputReportData[26] = 0x00; //Force
+                        outputReport[13] = 0x01; //Right trigger
+                        outputReport[14] = 0xFF; //Begin;
+                        outputReport[15] = 0x00; //Force
+                        outputReport[24] = 0x01; //Left trigger
+                        outputReport[25] = 0xFF; //Begin;
+                        outputReport[26] = 0x00; //Force
                     }
 
                     //If volume is muted turn on mute led
                     if (vControllerMuteLed)
                     {
-                        OutputReportData[11] = 0x01;
+                        outputReport[11] = 0x01;
                     }
                     else
                     {
-                        OutputReportData[11] = 0x00;
+                        outputReport[11] = 0x00;
                     }
 
                     //If battery is low turn on player led
                     if (Controller.BatteryCurrent.BatteryPercentage <= 20 && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal)
                     {
-                        OutputReportData[46] = 0x04;
+                        outputReport[46] = 0x04;
                     }
                     else
                     {
-                        OutputReportData[46] = 0x00;
+                        outputReport[46] = 0x00;
                     }
 
                     //Set the controller led color
                     double ControllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
                     if (Controller.NumberId == 0)
                     {
-                        OutputReportData[47] = Convert.ToByte(10 * ControllerLedBrightness); //Red
-                        OutputReportData[48] = Convert.ToByte(190 * ControllerLedBrightness); //Green
-                        OutputReportData[49] = Convert.ToByte(240 * ControllerLedBrightness); //Blue
+                        outputReport[47] = Convert.ToByte(10 * ControllerLedBrightness); //Red
+                        outputReport[48] = Convert.ToByte(190 * ControllerLedBrightness); //Green
+                        outputReport[49] = Convert.ToByte(240 * ControllerLedBrightness); //Blue
                     }
                     else if (Controller.NumberId == 1)
                     {
-                        OutputReportData[47] = Convert.ToByte(240 * ControllerLedBrightness); //Red
-                        OutputReportData[48] = Convert.ToByte(20 * ControllerLedBrightness); //Green
-                        OutputReportData[49] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                        outputReport[47] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                        outputReport[48] = Convert.ToByte(20 * ControllerLedBrightness); //Green
+                        outputReport[49] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
                     }
                     else if (Controller.NumberId == 2)
                     {
-                        OutputReportData[47] = Convert.ToByte(20 * ControllerLedBrightness); //Red
-                        OutputReportData[48] = Convert.ToByte(240 * ControllerLedBrightness); //Green
-                        OutputReportData[49] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                        outputReport[47] = Convert.ToByte(20 * ControllerLedBrightness); //Red
+                        outputReport[48] = Convert.ToByte(240 * ControllerLedBrightness); //Green
+                        outputReport[49] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
                     }
                     else
                     {
-                        OutputReportData[47] = Convert.ToByte(240 * ControllerLedBrightness); //Red
-                        OutputReportData[48] = Convert.ToByte(210 * ControllerLedBrightness); //Green
-                        OutputReportData[49] = Convert.ToByte(5 * ControllerLedBrightness); //Blue
+                        outputReport[47] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                        outputReport[48] = Convert.ToByte(210 * ControllerLedBrightness); //Green
+                        outputReport[49] = Convert.ToByte(5 * ControllerLedBrightness); //Blue
                     }
 
                     //Add CRC32 to bytes array
-                    byte[] OutputReportCRC32 = ByteArrayAddCRC32(OutputReportData);
+                    byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport);
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReportCRC32);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReportCRC32);
                     Debug.WriteLine("BlueRumb DS5: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && !Controller.Details.Wireless)
                 {
                     //Wired USB Output - DualSense 5
-                    byte[] OutputReport = new byte[Controller.OutputReport.Length];
-                    OutputReport[0] = 0x02;
-                    OutputReport[1] = 0xFF;
-                    OutputReport[2] = 0xF7;
+                    byte[] outputReport = new byte[Controller.OutputReport.Length];
+                    outputReport[0] = 0x02;
+                    outputReport[1] = 0xFF;
+                    outputReport[2] = 0xF7;
 
                     //Controller rumble
-                    OutputReport[3] = controllerRumbleLight;
-                    OutputReport[4] = controllerRumbleHeavy;
+                    outputReport[3] = controllerRumbleLight;
+                    outputReport[4] = controllerRumbleHeavy;
 
                     //Trigger rumble
                     if (triggerRumbleHighest >= triggerRumbleMinimum)
                     {
-                        OutputReport[11] = 0x01; //Right trigger
-                        OutputReport[12] = 0x00; //Begin;
-                        OutputReport[13] = triggerRumbleHighest; //Force
-                        OutputReport[22] = 0x01; //Left trigger
-                        OutputReport[23] = 0x00; //Begin;
-                        OutputReport[24] = triggerRumbleHighest; //Force
+                        outputReport[11] = 0x01; //Right trigger
+                        outputReport[12] = 0x00; //Begin;
+                        outputReport[13] = triggerRumbleHighest; //Force
+                        outputReport[22] = 0x01; //Left trigger
+                        outputReport[23] = 0x00; //Begin;
+                        outputReport[24] = triggerRumbleHighest; //Force
                     }
                     else
                     {
-                        OutputReport[11] = 0x01; //Right trigger
-                        OutputReport[12] = 0xFF; //Begin;
-                        OutputReport[13] = 0x00; //Force
-                        OutputReport[22] = 0x01; //Left trigger
-                        OutputReport[23] = 0xFF; //Begin;
-                        OutputReport[24] = 0x00; //Force
+                        outputReport[11] = 0x01; //Right trigger
+                        outputReport[12] = 0xFF; //Begin;
+                        outputReport[13] = 0x00; //Force
+                        outputReport[22] = 0x01; //Left trigger
+                        outputReport[23] = 0xFF; //Begin;
+                        outputReport[24] = 0x00; //Force
                     }
 
                     //If volume is muted turn on mute led
                     if (vControllerMuteLed)
                     {
-                        OutputReport[9] = 0x01;
+                        outputReport[9] = 0x01;
                     }
                     else
                     {
-                        OutputReport[9] = 0x00;
+                        outputReport[9] = 0x00;
                     }
 
                     //Turn off player led
-                    OutputReport[44] = 0x00;
+                    outputReport[44] = 0x00;
 
                     //Set the controller led color
                     double ControllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
                     if (Controller.NumberId == 0)
                     {
-                        OutputReport[45] = Convert.ToByte(10 * ControllerLedBrightness); //Red
-                        OutputReport[46] = Convert.ToByte(190 * ControllerLedBrightness); //Green
-                        OutputReport[47] = Convert.ToByte(240 * ControllerLedBrightness); //Blue
+                        outputReport[45] = Convert.ToByte(10 * ControllerLedBrightness); //Red
+                        outputReport[46] = Convert.ToByte(190 * ControllerLedBrightness); //Green
+                        outputReport[47] = Convert.ToByte(240 * ControllerLedBrightness); //Blue
                     }
                     else if (Controller.NumberId == 1)
                     {
-                        OutputReport[45] = Convert.ToByte(240 * ControllerLedBrightness); //Red
-                        OutputReport[46] = Convert.ToByte(20 * ControllerLedBrightness); //Green
-                        OutputReport[47] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                        outputReport[45] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                        outputReport[46] = Convert.ToByte(20 * ControllerLedBrightness); //Green
+                        outputReport[47] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
                     }
                     else if (Controller.NumberId == 2)
                     {
-                        OutputReport[45] = Convert.ToByte(20 * ControllerLedBrightness); //Red
-                        OutputReport[46] = Convert.ToByte(240 * ControllerLedBrightness); //Green
-                        OutputReport[47] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                        outputReport[45] = Convert.ToByte(20 * ControllerLedBrightness); //Red
+                        outputReport[46] = Convert.ToByte(240 * ControllerLedBrightness); //Green
+                        outputReport[47] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
                     }
                     else
                     {
-                        OutputReport[45] = Convert.ToByte(240 * ControllerLedBrightness); //Red
-                        OutputReport[46] = Convert.ToByte(210 * ControllerLedBrightness); //Green
-                        OutputReport[47] = Convert.ToByte(5 * ControllerLedBrightness); //Blue
+                        outputReport[45] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                        outputReport[46] = Convert.ToByte(210 * ControllerLedBrightness); //Green
+                        outputReport[47] = Convert.ToByte(5 * ControllerLedBrightness); //Blue
                     }
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReport);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
                     Debug.WriteLine("UsbRumb DS5: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - DualShock 4
-                    byte[] OutputReport = new byte[Controller.OutputReport.Length];
-                    OutputReport[0] = 0x11;
-                    OutputReport[1] = 0x80;
-                    OutputReport[3] = 0xFF;
-                    OutputReport[6] = controllerRumbleLight;
-                    OutputReport[7] = controllerRumbleHeavy;
+                    byte[] outputReport = new byte[Controller.OutputReport.Length];
+                    outputReport[0] = 0x11;
+                    outputReport[1] = 0x80;
+                    outputReport[3] = 0xFF;
+                    outputReport[6] = controllerRumbleLight;
+                    outputReport[7] = controllerRumbleHeavy;
 
                     //If battery is low flash the led
                     if (Controller.BatteryCurrent.BatteryPercentage <= 20 && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal)
                     {
-                        OutputReport[11] = 128; //Led On Duration
-                        OutputReport[12] = 128; //Led Off Duration
+                        outputReport[11] = 128; //Led On Duration
+                        outputReport[12] = 128; //Led Off Duration
                     }
                     else
                     {
-                        OutputReport[11] = 255; //Led On Duration
-                        OutputReport[12] = 0; //Led Off Duration
+                        outputReport[11] = 255; //Led On Duration
+                        outputReport[12] = 0; //Led Off Duration
                     }
 
                     //Set the controller led color
                     double ControllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
                     if (Controller.NumberId == 0)
                     {
-                        OutputReport[8] = Convert.ToByte(10 * ControllerLedBrightness); //Red
-                        OutputReport[9] = Convert.ToByte(190 * ControllerLedBrightness); //Green
-                        OutputReport[10] = Convert.ToByte(240 * ControllerLedBrightness); //Blue
+                        outputReport[8] = Convert.ToByte(10 * ControllerLedBrightness); //Red
+                        outputReport[9] = Convert.ToByte(190 * ControllerLedBrightness); //Green
+                        outputReport[10] = Convert.ToByte(240 * ControllerLedBrightness); //Blue
                     }
                     else if (Controller.NumberId == 1)
                     {
-                        OutputReport[8] = Convert.ToByte(240 * ControllerLedBrightness); //Red
-                        OutputReport[9] = Convert.ToByte(20 * ControllerLedBrightness); //Green
-                        OutputReport[10] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                        outputReport[8] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                        outputReport[9] = Convert.ToByte(20 * ControllerLedBrightness); //Green
+                        outputReport[10] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
                     }
                     else if (Controller.NumberId == 2)
                     {
-                        OutputReport[8] = Convert.ToByte(20 * ControllerLedBrightness); //Red
-                        OutputReport[9] = Convert.ToByte(240 * ControllerLedBrightness); //Green
-                        OutputReport[10] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                        outputReport[8] = Convert.ToByte(20 * ControllerLedBrightness); //Red
+                        outputReport[9] = Convert.ToByte(240 * ControllerLedBrightness); //Green
+                        outputReport[10] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
                     }
                     else
                     {
-                        OutputReport[8] = Convert.ToByte(240 * ControllerLedBrightness); //Red
-                        OutputReport[9] = Convert.ToByte(210 * ControllerLedBrightness); //Green
-                        OutputReport[10] = Convert.ToByte(5 * ControllerLedBrightness); //Blue
+                        outputReport[8] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                        outputReport[9] = Convert.ToByte(210 * ControllerLedBrightness); //Green
+                        outputReport[10] = Convert.ToByte(5 * ControllerLedBrightness); //Blue
                     }
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(OutputReport);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(outputReport);
                     Debug.WriteLine("BlueRumb DS4: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && !Controller.Details.Wireless)
                 {
                     //Wired USB Output - DualShock 4
-                    byte[] OutputReport = new byte[Controller.OutputReport.Length];
-                    OutputReport[0] = 0x05;
-                    OutputReport[1] = 0xFF;
-                    OutputReport[4] = controllerRumbleLight;
-                    OutputReport[5] = controllerRumbleHeavy;
-                    OutputReport[9] = 255; //Led On Duration
-                    OutputReport[10] = 0; //Led Off Duration
+                    byte[] outputReport = new byte[Controller.OutputReport.Length];
+                    outputReport[0] = 0x05;
+                    outputReport[1] = 0xFF;
+                    outputReport[4] = controllerRumbleLight;
+                    outputReport[5] = controllerRumbleHeavy;
+                    outputReport[9] = 255; //Led On Duration
+                    outputReport[10] = 0; //Led Off Duration
 
                     //Set the controller led color
                     double ControllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
                     if (Controller.NumberId == 0)
                     {
-                        OutputReport[6] = Convert.ToByte(10 * ControllerLedBrightness); //Red
-                        OutputReport[7] = Convert.ToByte(190 * ControllerLedBrightness); //Green
-                        OutputReport[8] = Convert.ToByte(240 * ControllerLedBrightness); //Blue
+                        outputReport[6] = Convert.ToByte(10 * ControllerLedBrightness); //Red
+                        outputReport[7] = Convert.ToByte(190 * ControllerLedBrightness); //Green
+                        outputReport[8] = Convert.ToByte(240 * ControllerLedBrightness); //Blue
                     }
                     else if (Controller.NumberId == 1)
                     {
-                        OutputReport[6] = Convert.ToByte(240 * ControllerLedBrightness); //Red
-                        OutputReport[7] = Convert.ToByte(20 * ControllerLedBrightness); //Green
-                        OutputReport[8] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                        outputReport[6] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                        outputReport[7] = Convert.ToByte(20 * ControllerLedBrightness); //Green
+                        outputReport[8] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
                     }
                     else if (Controller.NumberId == 2)
                     {
-                        OutputReport[6] = Convert.ToByte(20 * ControllerLedBrightness); //Red
-                        OutputReport[7] = Convert.ToByte(240 * ControllerLedBrightness); //Green
-                        OutputReport[8] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
+                        outputReport[6] = Convert.ToByte(20 * ControllerLedBrightness); //Red
+                        outputReport[7] = Convert.ToByte(240 * ControllerLedBrightness); //Green
+                        outputReport[8] = Convert.ToByte(10 * ControllerLedBrightness); //Blue
                     }
                     else
                     {
-                        OutputReport[6] = Convert.ToByte(240 * ControllerLedBrightness); //Red
-                        OutputReport[7] = Convert.ToByte(210 * ControllerLedBrightness); //Green
-                        OutputReport[8] = Convert.ToByte(5 * ControllerLedBrightness); //Blue
+                        outputReport[6] = Convert.ToByte(240 * ControllerLedBrightness); //Red
+                        outputReport[7] = Convert.ToByte(210 * ControllerLedBrightness); //Green
+                        outputReport[8] = Convert.ToByte(5 * ControllerLedBrightness); //Blue
                     }
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(OutputReport);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
                     Debug.WriteLine("UsbRumb DS4: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualShock3")
                 {
                     //Wired USB Output - DualShock 3
-                    byte[] OutputReport = new byte[30];
-                    OutputReport[1] = 0xFF;
-                    OutputReport[2] = (byte)(controllerRumbleLight > 0 ? 0x01 : 0x00); //On or Off
-                    OutputReport[3] = 0xFF;
-                    OutputReport[4] = controllerRumbleHeavy;
-                    OutputReport[10] = 0xFF;
-                    OutputReport[11] = 0x27;
-                    OutputReport[12] = 0x10;
-                    OutputReport[14] = 0x32;
-                    OutputReport[15] = 0xFF;
-                    OutputReport[16] = 0x27;
-                    OutputReport[17] = 0x10;
-                    OutputReport[19] = 0x32;
-                    OutputReport[20] = 0xFF;
-                    OutputReport[21] = 0x27;
-                    OutputReport[22] = 0x10;
-                    OutputReport[24] = 0x32;
-                    OutputReport[25] = 0xFF;
-                    OutputReport[26] = 0x27;
-                    OutputReport[27] = 0x10;
-                    OutputReport[29] = 0x32;
+                    byte[] outputReport = new byte[30];
+                    outputReport[1] = 0xFF;
+                    outputReport[2] = (byte)(controllerRumbleLight > 0 ? 0x01 : 0x00); //On or Off
+                    outputReport[3] = 0xFF;
+                    outputReport[4] = controllerRumbleHeavy;
+                    outputReport[10] = 0xFF;
+                    outputReport[11] = 0x27;
+                    outputReport[12] = 0x10;
+                    outputReport[14] = 0x32;
+                    outputReport[15] = 0xFF;
+                    outputReport[16] = 0x27;
+                    outputReport[17] = 0x10;
+                    outputReport[19] = 0x32;
+                    outputReport[20] = 0xFF;
+                    outputReport[21] = 0x27;
+                    outputReport[22] = 0x10;
+                    outputReport[24] = 0x32;
+                    outputReport[25] = 0xFF;
+                    outputReport[26] = 0x27;
+                    outputReport[27] = 0x10;
+                    outputReport[29] = 0x32;
 
                     //Led Position 0x02, 0x04, 0x08, 0x10
                     switch (Controller.NumberId)
                     {
-                        case 0: { OutputReport[9] = 0x02; break; }
-                        case 1: { OutputReport[9] = 0x04; break; }
-                        case 2: { OutputReport[9] = 0x08; break; }
-                        case 3: { OutputReport[9] = 0x10; break; }
+                        case 0: { outputReport[9] = 0x02; break; }
+                        case 1: { outputReport[9] = 0x04; break; }
+                        case 2: { outputReport[9] = 0x08; break; }
+                        case 3: { outputReport[9] = 0x10; break; }
                     }
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x0201, OutputReport);
+                    bool bytesWritten = Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x0201, outputReport);
                     Debug.WriteLine("UsbRumb DS3: " + bytesWritten);
                 }
                 else if (Controller.SupportedCurrent.CodeName == "SonyDualShock12")
                 {
                     //Wired USB Output - DualShock 1 and 2
-                    byte[] OutputReport = new byte[Controller.OutputReport.Length];
-                    OutputReport[0] = 0x01;
-                    OutputReport[3] = (byte)(controllerRumbleHeavy / 2); //Between 0 and 127.5
-                    OutputReport[4] = (byte)(controllerRumbleLight > 0 ? 0x01 : 0x00); //On or Off
+                    byte[] outputReport = new byte[Controller.OutputReport.Length];
+                    outputReport[0] = 0x01;
+                    outputReport[3] = (byte)(controllerRumbleHeavy / 2); //Between 0 and 127.5
+                    outputReport[4] = (byte)(controllerRumbleLight > 0 ? 0x01 : 0x00); //On or Off
 
                     //Send data to the controller
-                    bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(OutputReport);
+                    bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(outputReport);
                     Debug.WriteLine("UsbRumb DS1 and 2: " + bytesWritten);
                 }
                 else if (testHeavy || testLight)
