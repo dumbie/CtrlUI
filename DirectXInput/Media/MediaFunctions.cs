@@ -108,15 +108,26 @@ namespace DirectXInput.MediaCode
             try
             {
                 //Check if volume is currently muted
-                bool currentVolumeMuted = AudioMuteGetStatus();
+                bool currentOutputVolumeMuted = AudioMuteGetStatus(false);
+                bool currentInputVolumeMuted = AudioMuteGetStatus(true);
+
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Update the current time
+                    txt_Main_Time.Text = DateTime.Now.ToShortTimeString();
+
+                    //Check if volume is currently muted
+                    img_Main_VolumeMute.Visibility = currentOutputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;
+                    img_Main_MicrophoneMute.Visibility = currentInputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;
+                });
 
                 //Get the current audio volume and mute status
                 string currentVolumeString = string.Empty;
-                int currentVolumeInt = AudioVolumeGet();
+                int currentVolumeInt = AudioVolumeGet(false);
                 if (currentVolumeInt >= 0)
                 {
                     currentVolumeString = "System volume " + currentVolumeInt + "%";
-                    if (currentVolumeMuted)
+                    if (currentOutputVolumeMuted)
                     {
                         currentVolumeString += " (Muted)";
                     }

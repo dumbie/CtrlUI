@@ -218,8 +218,8 @@
                                     <TextBlock Name="textblock_Thumb_Right_X_Right" Text="0" Width="50" TextAlignment="Left" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,20,0,0"/>
                                 </Grid>
 
-                                <TextBlock Name="textblock_LiveDebugInformation" HorizontalAlignment="Center" Style="{StaticResource TextBlockBlack}" Text="Live controller debug information" TextWrapping="Wrap" Width="570" Height="105"/>
-                                <Button Name="btn_CopyDebugInformation" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource ButtonAccentBlack}" Content="Copy controller debug information"/>
+                                <TextBlock Name="textblock_LiveDebugInformation" HorizontalAlignment="Center" Style="{StaticResource TextBlockBlack}" Text="Live controller debug information" TextWrapping="Wrap" Width="570" Height="105" Visibility="Collapsed"/>
+                                <Button Name="btn_CopyDebugInformation" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource ButtonAccentBlack}" Content="Copy controller debug information" Visibility="Collapsed"/>
 
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
                                     <Button Name="btn_RumbleTestLight" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Light"/>

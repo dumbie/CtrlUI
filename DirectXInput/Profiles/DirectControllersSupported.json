@@ -10,11 +10,6 @@
     "VendorID": "0x054c"
   },
   {
-    "CodeName": "SonyMoveMotion3",
-    "ProductIDs": [ "0x03d5" ],
-    "VendorID": "0x054c"
-  },
-  {
     "CodeName": "SonyMoveNavigation3",
     "ProductIDs": [ "0x042f" ],
     "VendorID": "0x054c"

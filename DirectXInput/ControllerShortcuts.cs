@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
+using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -92,9 +93,8 @@ namespace DirectXInput
                     //Mute or unmute the system volume
                     else if (Controller.InputCurrent.ButtonMedia.PressedRaw)
                     {
-                        //Fix also mute default microphone
-                        App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Mute or unmuting volume");
-                        await KeyPressSingleAuto(KeysVirtual.VolumeMute);
+                        App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling input mute");
+                        AudioMuteSwitch(true);
 
                         ControllerUsed = true;
                         ControllerDelayLonger = true;

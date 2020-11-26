@@ -64,6 +64,9 @@
     <ApplicationManifest>Properties\App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -107,53 +110,62 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\ApiGitHub\ApiGitHub.cs">
+      <Link>ArnoldVinkCode\Api\ApiGitHub\ApiGitHub.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\ApiGitHub\Classes.cs">
+      <Link>ArnoldVinkCode\Api\ApiGitHub\Classes.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\AVActions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkActions\AVActions.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkActions\AVActions.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\Classes\AVTaskDetails.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkActions\Classes\AVTaskDetails.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkActions\Classes\AVTaskDetails.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputClass.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputClass.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputClass.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputKeyboard.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputKeyboard.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputKeyboard.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputMouse.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputMouse.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputMouse.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ClassAppxDetails.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ClassAppxDetails.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ClassAppxDetails.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ClassAppxFactory.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ClassAppxFactory.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ClassAppxFactory.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessClasses.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessClasses.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessClasses.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessFunctions.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessFunctions.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessNtQueryInformation.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessNtQueryInformation.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessNtQueryInformation.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessUwpFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessUwpFunctions.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessUwpFunctions.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDownloader.cs">
+      <Link>LibraryShared\ArnoldVinkCode\Functions\AVDownloader.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFiles.cs">
-      <Link>ArnoldVinkCode\Functions\AVFiles.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\AVFiles.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\AVFunctions.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Functions\AVFunctions.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
-      <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropDll.cs">
-      <Link>ArnoldVinkCode\Interop\AVInteropDll.cs</Link>
+      <Link>LibraryShared\ArnoldVinkCode\Interop\AVInteropDll.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml.cs">
       <Link>Styles\MainStyles.xaml.cs</Link>
@@ -179,6 +191,7 @@
     <EmbeddedResource Include="Assets\AppIcon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Properties\App.config" />
     <None Include="Properties\App.manifest" />
   </ItemGroup>

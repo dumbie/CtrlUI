@@ -17,7 +17,7 @@ namespace CtrlUI
             try
             {
                 //Check if volume is currently muted
-                bool currentVolumeMuted = AudioMuteGetStatus();
+                bool currentVolumeMuted = AudioMuteGetStatus(false);
                 await AVActions.ActionDispatcherInvokeAsync(delegate
                 {
                     if (currentVolumeMuted)

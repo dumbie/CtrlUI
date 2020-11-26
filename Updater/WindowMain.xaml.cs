@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.ApiGitHub;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.ProcessWin32Functions;
 
@@ -85,7 +86,9 @@ namespace Updater
                         ProgressBarUpdate(Args.ProgressPercentage, false);
                         TextBlockUpdate("Downloading update file: " + Args.ProgressPercentage + "%");
                     };
-                    await WebClient.DownloadFileTaskAsync(new Uri("https://download.arnoldvink.com/?dl=CtrlUI.zip"), "Resources/AppUpdate.zip");
+
+                    Uri downloadUri = new Uri(ApiGitHub_GetDownloadPath("dumbie", "ctrlui", "CtrlUI.zip"));
+                    await WebClient.DownloadFileTaskAsync(downloadUri, "Resources/AppUpdate.zip");
                     Debug.WriteLine("Update file has been downloaded");
                 }
                 catch

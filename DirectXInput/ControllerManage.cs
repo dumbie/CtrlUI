@@ -40,11 +40,11 @@ namespace DirectXInput
         {
             try
             {
-                bool systemMuted = AudioMuteGetStatus();
-                if (systemMuted != vControllerMuteLed)
+                bool inputMuted = AudioMuteGetStatus(true);
+                if (inputMuted != vControllerMuteLed)
                 {
                     //Update the controller led
-                    vControllerMuteLed = systemMuted;
+                    vControllerMuteLed = inputMuted;
                     SendXRumbleData(vController0, true, false, false);
                     SendXRumbleData(vController1, true, false, false);
                     SendXRumbleData(vController2, true, false, false);
@@ -52,7 +52,7 @@ namespace DirectXInput
                 }
                 else
                 {
-                    vControllerMuteLed = systemMuted;
+                    vControllerMuteLed = inputMuted;
                 }
             }
             catch { }

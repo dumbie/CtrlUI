@@ -1,9 +1,9 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.ApiGitHub;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
@@ -29,8 +29,9 @@ namespace CtrlUI
                 //Update the updating status
                 vBusyCheckingForUpdate = true;
 
-                string currentVersion = await AVDownloader.DownloadStringAsync(5000, "CtrlUI", null, new Uri("https://download.arnoldvink.com/CtrlUI.zip-version.txt" + "?nc=" + Environment.TickCount));
-                if (!string.IsNullOrWhiteSpace(currentVersion) && currentVersion != Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0])
+                string onlineVersion = await ApiGitHub_GetLatestVersion("dumbie", "ctrlui");
+                string currentVersion = "v" + Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0];
+                if (!string.IsNullOrWhiteSpace(onlineVersion) && onlineVersion != currentVersion)
                 {
                     //Update status variable
                     updateAvailable = true;
@@ -51,7 +52,7 @@ namespace CtrlUI
                         Answer1.Name = "Update and restart CtrlUI";
                         Answers.Add(Answer1);
 
-                        DataBindString messageResult = await Popup_Show_MessageBox("A newer version has been found: v" + currentVersion, "", "Do you want to update the application to the newest version now?", Answers);
+                        DataBindString messageResult = await Popup_Show_MessageBox("A newer version has been found: " + onlineVersion, "", "Do you want to update the application to the newest version now?", Answers);
                         if (messageResult != null && messageResult == Answer1)
                         {
                             await AppUpdateRestart();

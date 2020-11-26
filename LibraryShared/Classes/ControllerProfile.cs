@@ -531,7 +531,7 @@ namespace LibraryShared
             }
 
             //Trigger Rumble
-            private int PrivTriggerRumbleStrength = 20;
+            private int PrivTriggerRumbleStrength = 10;
             public int TriggerRumbleStrength
             {
                 get { return this.PrivTriggerRumbleStrength; }

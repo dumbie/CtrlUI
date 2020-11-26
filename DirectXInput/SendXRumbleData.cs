@@ -113,7 +113,7 @@ namespace DirectXInput
 
                 //Adjust the trigger rumble strength
                 byte triggerRumbleLimit = 150;
-                byte triggerRumbleMinimum = 10;
+                byte triggerRumbleMinimum = 5;
                 double triggerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrength) / 100;
                 byte triggerRumbleHighest = Convert.ToByte(Math.Max(controllerRumbleLight, controllerRumbleHeavy) * triggerRumbleStrength);
                 if (triggerRumbleHighest > triggerRumbleLimit) { triggerRumbleHighest = triggerRumbleLimit; }
