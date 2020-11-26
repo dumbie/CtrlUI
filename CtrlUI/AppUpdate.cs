@@ -29,7 +29,7 @@ namespace CtrlUI
                 //Update the updating status
                 vBusyCheckingForUpdate = true;
 
-                string onlineVersion = await ApiGitHub_GetLatestVersion("dumbie", "ctrlui");
+                string onlineVersion = await ApiGitHub_GetLatestVersion("dumbie", "CtrlUI");
                 string currentVersion = "v" + Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0];
                 if (!string.IsNullOrWhiteSpace(onlineVersion) && onlineVersion != currentVersion)
                 {

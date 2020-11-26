@@ -93,7 +93,7 @@ namespace DirectXInput
                     //Mute or unmute the system volume
                     else if (Controller.InputCurrent.ButtonMedia.PressedRaw)
                     {
-                        App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling input mute");
+                        App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Toggling input mute");
                         AudioMuteSwitch(true);
 
                         ControllerUsed = true;

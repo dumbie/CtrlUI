@@ -85,11 +85,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\ApiGitHub\ApiGitHub.cs">
-      <Link>ArnoldVinkCode\Api\ApiGitHub\ApiGitHub.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\GitHub\Classes.cs">
+      <Link>ArnoldVinkCode\Api\GitHub\Classes.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\ApiGitHub\Classes.cs">
-      <Link>ArnoldVinkCode\Api\ApiGitHub\Classes.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\GitHub\GitHub_Paths.cs">
+      <Link>ArnoldVinkCode\Api\GitHub\GitHub_Paths.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\GitHub\GitHub_Version.cs">
+      <Link>ArnoldVinkCode\Api\GitHub\GitHub_Version.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Forms\AVMessageBox.xaml.cs">
       <Link>ArnoldVinkCode\Forms\AVMessageBox.xaml.cs</Link>

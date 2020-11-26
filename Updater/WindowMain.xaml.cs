@@ -23,7 +23,7 @@ namespace Updater
         {
             try
             {
-                //Check if previous update files are in the way
+                //Check if previous update files exist
                 File_Delete("Resources/UpdaterReplace.exe");
                 File_Delete("Resources/AppUpdate.zip");
 
@@ -79,6 +79,7 @@ namespace Updater
                 //Download application update from the website
                 try
                 {
+                    ServicePointManager.SecurityProtocol |= SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
                     WebClient WebClient = new WebClient();
                     WebClient.Headers[HttpRequestHeader.UserAgent] = "Application Updater";
                     WebClient.DownloadProgressChanged += (object Object, DownloadProgressChangedEventArgs Args) =>
@@ -87,7 +88,7 @@ namespace Updater
                         TextBlockUpdate("Downloading update file: " + Args.ProgressPercentage + "%");
                     };
 
-                    Uri downloadUri = new Uri(ApiGitHub_GetDownloadPath("dumbie", "ctrlui", "CtrlUI.zip"));
+                    Uri downloadUri = new Uri(ApiGitHub_GetDownloadPath("dumbie", "CtrlUI", "CtrlUI.zip"));
                     await WebClient.DownloadFileTaskAsync(downloadUri, "Resources/AppUpdate.zip");
                     Debug.WriteLine("Update file has been downloaded");
                 }
@@ -155,10 +156,6 @@ namespace Updater
                     return;
                 }
 
-                //Delete the update installation zip file
-                TextBlockUpdate("Cleaning up the update installation files.");
-                File_Delete("Resources/AppUpdate.zip");
-
                 //Start CtrlUI after the update has completed.
                 if (CtrlUIRunning)
                 {
@@ -212,7 +209,6 @@ namespace Updater
             }
             catch { }
         }
-
 
         //Application Close Handler
         protected override void OnClosing(CancelEventArgs e)

@@ -64,9 +64,6 @@
     <ApplicationManifest>Properties\App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -110,11 +107,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\ApiGitHub\ApiGitHub.cs">
-      <Link>ArnoldVinkCode\Api\ApiGitHub\ApiGitHub.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\GitHub\Classes.cs">
+      <Link>LibraryShared\ArnoldVinkCode\Api\GitHub\Classes.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\ApiGitHub\Classes.cs">
-      <Link>ArnoldVinkCode\Api\ApiGitHub\Classes.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\GitHub\GitHub_Paths.cs">
+      <Link>LibraryShared\ArnoldVinkCode\Api\GitHub\GitHub_Paths.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\AVActions.cs">
       <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkActions\AVActions.cs</Link>
@@ -191,7 +188,6 @@
     <EmbeddedResource Include="Assets\AppIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Properties\App.config" />
     <None Include="Properties\App.manifest" />
   </ItemGroup>
