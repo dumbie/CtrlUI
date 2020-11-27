@@ -531,6 +531,20 @@ namespace LibraryShared
             }
 
             //Trigger Rumble
+            private bool PrivTriggerRumbleEnabled = true;
+            public bool TriggerRumbleEnabled
+            {
+                get { return this.PrivTriggerRumbleEnabled; }
+                set
+                {
+                    if (this.PrivTriggerRumbleEnabled != value)
+                    {
+                        this.PrivTriggerRumbleEnabled = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private int PrivTriggerRumbleStrength = 10;
             public int TriggerRumbleStrength
             {
@@ -546,6 +560,20 @@ namespace LibraryShared
             }
 
             //Controller Rumble
+            private bool PrivControllerRumbleEnabled = true;
+            public bool ControllerRumbleEnabled
+            {
+                get { return this.PrivControllerRumbleEnabled; }
+                set
+                {
+                    if (this.PrivControllerRumbleEnabled != value)
+                    {
+                        this.PrivControllerRumbleEnabled = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private int PrivControllerRumbleStrength = 80;
             public int ControllerRumbleStrength
             {

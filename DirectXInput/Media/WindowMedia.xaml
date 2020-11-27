@@ -137,6 +137,7 @@
 
                     <StackPanel Grid.Row="3" HorizontalAlignment="Center">
                         <TextBlock Name="button_Volume_Level" Text="System volume" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeLarge}"/>
+                        <Button Name="button_EnableDisableTriggerRumble" Content="Enable or disable trigger rumble" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentWhite}" Click="button_EnableDisableTriggerRumble_Click"/>
                         <Button Name="button_ShowOrHideFpsOverlayer" Content="Show or hide the Fps Overlayer" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentWhite}" Click="button_ShowOrHideFpsOverlayer_Click"/>
                         <Button Name="button_Close" Content="Close media popup" Margin="0,15,0,0" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentWhite}" Click="button_Close_Click"/>
                     </StackPanel>

@@ -18,6 +18,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 
 namespace CtrlUI

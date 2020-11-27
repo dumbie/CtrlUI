@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_Guid;
 using static LibraryUsb.NativeMethods_Hid;

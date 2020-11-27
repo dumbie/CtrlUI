@@ -11,11 +11,38 @@ using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput.MediaCode
 {
     partial class WindowMedia
     {
+        //Enable or disable trigger rumble
+        void button_EnableDisableTriggerRumble_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ControllerStatus activeController = vActiveController();
+                if (activeController != null)
+                {
+                    if (activeController.Details.Profile.TriggerRumbleEnabled)
+                    {
+                        App.vWindowOverlay.Notification_Show_Status("Rumble", "Disabled trigger rumble");
+                        activeController.Details.Profile.TriggerRumbleEnabled = false;
+                    }
+                    else
+                    {
+                        App.vWindowOverlay.Notification_Show_Status("Rumble", "Enabled trigger rumble");
+                        activeController.Details.Profile.TriggerRumbleEnabled = true;
+                    }
+                    JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    App.vWindowMain.ControllerUpdateSettingsInterface(activeController);
+                }
+            }
+            catch { }
+        }
+
         //Show or hide the fps overlayer
         async void button_ShowOrHideFpsOverlayer_Click(object sender, RoutedEventArgs e)
         {

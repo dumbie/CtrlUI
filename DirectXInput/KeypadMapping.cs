@@ -8,6 +8,7 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
 {

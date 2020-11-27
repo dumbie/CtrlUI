@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
 using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 
 namespace DirectXInput

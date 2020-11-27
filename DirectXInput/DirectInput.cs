@@ -115,7 +115,7 @@ namespace DirectXInput
         }
 
         //Update the controller interface settings
-        void ControllerUpdateSettingsInterface(ControllerStatus Controller)
+        public void ControllerUpdateSettingsInterface(ControllerStatus Controller)
         {
             try
             {
@@ -145,8 +145,27 @@ namespace DirectXInput
                     textblock_ControllerSensitivityThumb.Text = textblock_ControllerSensitivityThumb.Tag.ToString() + Controller.Details.Profile.SensitivityThumb.ToString("0.00");
                     slider_ControllerSensitivityThumb.Value = Controller.Details.Profile.SensitivityThumb;
 
+                    cb_ControllerRumbleEnabled.IsChecked = Controller.Details.Profile.ControllerRumbleEnabled;
+                    if (Controller.Details.Profile.ControllerRumbleEnabled)
+                    {
+                        slider_ControllerRumbleStrength.IsEnabled = true;
+                    }
+                    else
+                    {
+                        slider_ControllerRumbleStrength.IsEnabled = false;
+                    }
                     textblock_ControllerRumbleStrength.Text = textblock_ControllerRumbleStrength.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.ControllerRumbleStrength) + "%";
                     slider_ControllerRumbleStrength.Value = Controller.Details.Profile.ControllerRumbleStrength;
+
+                    cb_TriggerRumbleEnabled.IsChecked = Controller.Details.Profile.TriggerRumbleEnabled;
+                    if (Controller.Details.Profile.TriggerRumbleEnabled)
+                    {
+                        slider_TriggerRumbleStrength.IsEnabled = true;
+                    }
+                    else
+                    {
+                        slider_TriggerRumbleStrength.IsEnabled = false;
+                    }
                     textblock_TriggerRumbleStrength.Text = textblock_TriggerRumbleStrength.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.TriggerRumbleStrength) + "%";
                     slider_TriggerRumbleStrength.Value = Controller.Details.Profile.TriggerRumbleStrength;
 

@@ -9,6 +9,7 @@ using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
 {
@@ -65,7 +66,7 @@ namespace DirectXInput
                 //Save controller settings
                 cb_ControllerFakeGuideButton.Click += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         activeController.Details.Profile.FakeGuideButton = cb_ControllerFakeGuideButton.IsChecked.Value;
@@ -76,7 +77,7 @@ namespace DirectXInput
                 //Controller Trigger
                 cb_ControllerUseButtonTriggers.Click += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         activeController.Details.Profile.UseButtonTriggers = cb_ControllerUseButtonTriggers.IsChecked.Value;
@@ -86,7 +87,7 @@ namespace DirectXInput
 
                 slider_ControllerDeadzoneTriggerLeft.ValueChanged += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         textblock_ControllerDeadzoneTriggerLeft.Text = textblock_ControllerDeadzoneTriggerLeft.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneTriggerLeft.Value) + "%";
@@ -97,7 +98,7 @@ namespace DirectXInput
 
                 slider_ControllerDeadzoneTriggerRight.ValueChanged += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         textblock_ControllerDeadzoneTriggerRight.Text = textblock_ControllerDeadzoneTriggerRight.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneTriggerRight.Value) + "%";
@@ -108,7 +109,7 @@ namespace DirectXInput
 
                 slider_ControllerSensitivityTrigger.ValueChanged += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         textblock_ControllerSensitivityTrigger.Text = textblock_ControllerSensitivityTrigger.Tag.ToString() + slider_ControllerSensitivityTrigger.Value.ToString("0.00");
@@ -120,7 +121,7 @@ namespace DirectXInput
                 //Controller D-Pad
                 cb_ControllerDPadFourWayMovement.Click += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         activeController.Details.Profile.DPadFourWayMovement = cb_ControllerDPadFourWayMovement.IsChecked.Value;
@@ -131,7 +132,7 @@ namespace DirectXInput
                 //Controller Thumb Stick
                 cb_ControllerThumbFlipMovement.Click += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         activeController.Details.Profile.ThumbFlipMovement = cb_ControllerThumbFlipMovement.IsChecked.Value;
@@ -141,7 +142,7 @@ namespace DirectXInput
 
                 cb_ControllerThumbFlipAxesLeft.Click += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         activeController.Details.Profile.ThumbFlipAxesLeft = cb_ControllerThumbFlipAxesLeft.IsChecked.Value;
@@ -151,7 +152,7 @@ namespace DirectXInput
 
                 cb_ControllerThumbFlipAxesRight.Click += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         activeController.Details.Profile.ThumbFlipAxesRight = cb_ControllerThumbFlipAxesRight.IsChecked.Value;
@@ -161,7 +162,7 @@ namespace DirectXInput
 
                 cb_ControllerThumbReverseAxesLeft.Click += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         activeController.Details.Profile.ThumbReverseAxesLeft = cb_ControllerThumbReverseAxesLeft.IsChecked.Value;
@@ -171,7 +172,7 @@ namespace DirectXInput
 
                 cb_ControllerThumbReverseAxesRight.Click += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         activeController.Details.Profile.ThumbReverseAxesRight = cb_ControllerThumbReverseAxesRight.IsChecked.Value;
@@ -181,7 +182,7 @@ namespace DirectXInput
 
                 slider_ControllerDeadzoneThumbLeft.ValueChanged += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         textblock_ControllerDeadzoneThumbLeft.Text = textblock_ControllerDeadzoneThumbLeft.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneThumbLeft.Value) + "%";
@@ -192,7 +193,7 @@ namespace DirectXInput
 
                 slider_ControllerDeadzoneThumbRight.ValueChanged += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         textblock_ControllerDeadzoneThumbRight.Text = textblock_ControllerDeadzoneThumbRight.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneThumbRight.Value) + "%";
@@ -203,7 +204,7 @@ namespace DirectXInput
 
                 slider_ControllerSensitivityThumb.ValueChanged += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         textblock_ControllerSensitivityThumb.Text = textblock_ControllerSensitivityThumb.Tag.ToString() + slider_ControllerSensitivityThumb.Value.ToString("0.00");
@@ -212,9 +213,27 @@ namespace DirectXInput
                     }
                 };
 
+                cb_ControllerRumbleEnabled.Click += (sender, e) =>
+                {
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
+                    {
+                        activeController.Details.Profile.ControllerRumbleEnabled = cb_ControllerRumbleEnabled.IsChecked.Value;
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                        if (activeController.Details.Profile.ControllerRumbleEnabled)
+                        {
+                            slider_ControllerRumbleStrength.IsEnabled = true;
+                        }
+                        else
+                        {
+                            slider_ControllerRumbleStrength.IsEnabled = false;
+                        }
+                    }
+                };
+
                 slider_ControllerRumbleStrength.ValueChanged += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         textblock_ControllerRumbleStrength.Text = textblock_ControllerRumbleStrength.Tag.ToString() + Convert.ToInt32(slider_ControllerRumbleStrength.Value) + "%";
@@ -223,9 +242,27 @@ namespace DirectXInput
                     }
                 };
 
+                cb_TriggerRumbleEnabled.Click += (sender, e) =>
+                {
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
+                    {
+                        activeController.Details.Profile.TriggerRumbleEnabled = cb_TriggerRumbleEnabled.IsChecked.Value;
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                        if (activeController.Details.Profile.TriggerRumbleEnabled)
+                        {
+                            slider_TriggerRumbleStrength.IsEnabled = true;
+                        }
+                        else
+                        {
+                            slider_TriggerRumbleStrength.IsEnabled = false;
+                        }
+                    }
+                };
+
                 slider_TriggerRumbleStrength.ValueChanged += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         textblock_TriggerRumbleStrength.Text = textblock_TriggerRumbleStrength.Tag.ToString() + Convert.ToInt32(slider_TriggerRumbleStrength.Value) + "%";
@@ -236,7 +273,7 @@ namespace DirectXInput
 
                 slider_ControllerLedBrightness.ValueChanged += (sender, e) =>
                 {
-                    ControllerStatus activeController = GetActiveController();
+                    ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         textblock_ControllerLedBrightness.Text = textblock_ControllerLedBrightness.Tag.ToString() + Convert.ToInt32(slider_ControllerLedBrightness.Value) + "%";

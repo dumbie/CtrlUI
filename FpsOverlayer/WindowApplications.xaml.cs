@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 
 namespace FpsOverlayer
 {
@@ -109,7 +110,7 @@ namespace FpsOverlayer
                 FpsPositionProcessName.Int1 = 0;
 
                 AppVariables.vFpsPositionProcessName.Add(FpsPositionProcessName);
-                JsonFunctions.JsonSaveObject(AppVariables.vFpsPositionProcessName, "FpsPositionProcessName");
+                JsonSaveObject(AppVariables.vFpsPositionProcessName, "FpsPositionProcessName");
 
                 textbox_AddApp.BorderBrush = BrushValid;
             }

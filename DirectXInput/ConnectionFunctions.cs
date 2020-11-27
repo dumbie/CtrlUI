@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
 {
@@ -31,7 +32,7 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus activeController = GetActiveController();
+                ControllerStatus activeController = vActiveController();
                 if (activeController != null)
                 {
                     int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to ignore this controller?", "This will prevent the controller from been converted to XInput.", "Ignore the controller", "Cancel", "", "");
@@ -89,7 +90,7 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus activeController = GetActiveController();
+                ControllerStatus activeController = vActiveController();
                 if (activeController != null && activeController.InputReport != null)
                 {
                     string RawPackets = "(Out" + activeController.OutputReport.Length + "/In" + activeController.InputReport.Length + ")";
@@ -113,7 +114,7 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus activeController = GetActiveController();
+                ControllerStatus activeController = vActiveController();
                 if (activeController != null && activeController.InputReport != null)
                 {
                     Clipboard.SetText(GenerateControllerDebugInformation());
@@ -141,7 +142,7 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus activeController = GetActiveController();
+                ControllerStatus activeController = vActiveController();
                 if (activeController != null)
                 {
                     await StopControllerAsync(activeController, false, "manually");
@@ -177,7 +178,7 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus activeController = GetActiveController();
+                ControllerStatus activeController = vActiveController();
                 if (activeController != null)
                 {
                     int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to remove this controller?", "This will reset the active controller to it's defaults and disconnect it.", "Remove controller profile", "Cancel", "", "");

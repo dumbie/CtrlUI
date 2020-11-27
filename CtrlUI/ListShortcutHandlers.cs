@@ -9,6 +9,7 @@ using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 
 namespace CtrlUI
 {

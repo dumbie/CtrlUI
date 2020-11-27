@@ -272,6 +272,7 @@
     <Compile Include="Classes\ControllerSupported.cs" />
     <Compile Include="Classes\DataBindApp.cs" />
     <Compile Include="Classes\DataBindFile.cs" />
+    <Compile Include="JsonFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\SettingsSave.cs" />
     <Compile Include="Settings\SettingsLoad.cs" />

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
 {

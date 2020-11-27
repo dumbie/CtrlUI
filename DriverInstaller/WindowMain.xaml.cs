@@ -10,6 +10,7 @@ using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static DriverInstaller.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 
 namespace DriverInstaller
 {

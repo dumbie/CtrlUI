@@ -123,7 +123,6 @@
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppTrayMenu.cs" />
     <Compile Include="AppVariables.cs" />
-    <Compile Include="JsonFunctions.cs" />
     <Compile Include="Resources\Settings\SettingsCheck.cs" />
     <Compile Include="Resources\Settings\SettingsLoad.cs" />
     <Compile Include="Resources\Settings\SettingsNotify.cs" />

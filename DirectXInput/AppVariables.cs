@@ -113,9 +113,25 @@ namespace DirectXInput
         public static ControllerStatus vController1 = new ControllerStatus(1);
         public static ControllerStatus vController2 = new ControllerStatus(2);
         public static ControllerStatus vController3 = new ControllerStatus(3);
+
+        //Returns if a controller is connected
         public static bool vControllerAnyConnected()
         {
             return vController0.Connected || vController1.Connected || vController2.Connected || vController3.Connected;
+        }
+
+        //Returns the active controllerstatus
+        public static ControllerStatus vActiveController()
+        {
+            try
+            {
+                if (vController0.Activated) { return vController0; }
+                else if (vController1.Activated) { return vController1; }
+                else if (vController2.Activated) { return vController2; }
+                else if (vController3.Activated) { return vController3; }
+            }
+            catch { }
+            return null;
         }
 
         //Sockets Variables

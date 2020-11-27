@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
 {
@@ -17,7 +18,7 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus activeController = GetActiveController();
+                ControllerStatus activeController = vActiveController();
                 if (activeController != null)
                 {
                     Button sendButton = sender as Button;
@@ -52,7 +53,7 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus activeController = GetActiveController();
+                ControllerStatus activeController = vActiveController();
                 if (activeController != null)
                 {
                     //Set button to map

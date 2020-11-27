@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 
 namespace CtrlUI
 {

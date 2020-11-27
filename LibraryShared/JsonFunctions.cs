@@ -2,10 +2,11 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 
-namespace FpsOverlayer
+namespace LibraryShared
 {
-    partial class JsonFunctions
+    public class JsonFunctions
     {
         //Read Json from profile (Deserialize)
         public static void JsonLoadProfile<T>(ref T deserializeTarget, string profileName)
@@ -19,6 +20,30 @@ namespace FpsOverlayer
             catch (Exception ex)
             {
                 Debug.WriteLine("Reading Json file failed: " + profileName + "/" + ex.Message);
+            }
+        }
+
+        //Read Json from embedded file (Deserialize)
+        public static void JsonLoadEmbedded<T>(ref T deserializeTarget, string resourcePath)
+        {
+            try
+            {
+                string jsonFile = string.Empty;
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                using (Stream stream = assembly.GetManifestResourceStream(resourcePath))
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        jsonFile = reader.ReadToEnd();
+                    }
+                }
+
+                deserializeTarget = JsonConvert.DeserializeObject<T>(jsonFile);
+                Debug.WriteLine("Reading Json resource completed: " + resourcePath);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Reading Json resource failed: " + resourcePath + "/" + ex.Message);
             }
         }
 

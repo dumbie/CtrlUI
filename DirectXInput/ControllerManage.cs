@@ -174,11 +174,12 @@ namespace DirectXInput
             try
             {
                 //Debug.WriteLine("There is currently no actived controller.");
-                if (vController0.Connected && GetActiveController() == null) { ControllerActivate(vController0); }
-                else if (vController1.Connected && GetActiveController() == null) { ControllerActivate(vController1); }
-                else if (vController2.Connected && GetActiveController() == null) { ControllerActivate(vController2); }
-                else if (vController3.Connected && GetActiveController() == null) { ControllerActivate(vController3); }
-                else if (GetActiveController() == null)
+                ControllerStatus activeController = vActiveController();
+                if (vController0.Connected && activeController == null) { ControllerActivate(vController0); }
+                else if (vController1.Connected && activeController == null) { ControllerActivate(vController1); }
+                else if (vController2.Connected && activeController == null) { ControllerActivate(vController2); }
+                else if (vController3.Connected && activeController == null) { ControllerActivate(vController3); }
+                else if (activeController == null)
                 {
                     //Clear the current controller information
                     AVActions.ActionDispatcherInvoke(delegate
@@ -202,10 +203,11 @@ namespace DirectXInput
                 {
                     Debug.WriteLine("Activating controller: " + Controller.NumberId);
 
-                    if (GetActiveController() != null)
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
                     {
                         //Deactivate previous controller
-                        GetActiveController().Activated = false;
+                        activeController.Activated = false;
 
                         //Show controller activated notification
                         string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
@@ -273,20 +275,6 @@ namespace DirectXInput
                 vPrevComboboxIndex = SelectedComboBox.SelectedIndex;
             }
             catch { }
-        }
-
-        //Returns the active controller status
-        ControllerStatus GetActiveController()
-        {
-            try
-            {
-                if (vController0.Activated) { return vController0; }
-                else if (vController1.Activated) { return vController1; }
-                else if (vController2.Activated) { return vController2; }
-                else if (vController3.Activated) { return vController3; }
-            }
-            catch { }
-            return null;
         }
     }
 }

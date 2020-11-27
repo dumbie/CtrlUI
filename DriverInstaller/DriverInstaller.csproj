@@ -110,7 +110,6 @@
     <Compile Include="WindowsCertificate.cs" />
     <Compile Include="DriverUninstall.cs" />
     <Compile Include="DriverInstall.cs" />
-    <Compile Include="JsonFunctions.cs" />
     <Compile Include="WindowMain.xaml.cs" />
   </ItemGroup>
   <ItemGroup>

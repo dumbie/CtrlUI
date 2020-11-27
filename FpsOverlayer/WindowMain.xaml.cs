@@ -19,6 +19,7 @@ using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 
 namespace FpsOverlayer
@@ -55,7 +56,7 @@ namespace FpsOverlayer
                 Application_CreateTrayMenu();
 
                 //Load Json profiles
-                JsonFunctions.JsonLoadProfile(ref vFpsPositionProcessName, "FpsPositionProcessName");
+                JsonLoadProfile(ref vFpsPositionProcessName, "FpsPositionProcessName");
 
                 //Start process monitoring
                 StartMonitorProcess();

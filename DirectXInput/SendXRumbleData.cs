@@ -114,16 +114,32 @@ namespace DirectXInput
                 //Adjust the trigger rumble strength
                 byte triggerRumbleLimit = 150;
                 byte triggerRumbleMinimum = 5;
-                double triggerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrength) / 100;
-                byte triggerRumbleHighest = Convert.ToByte(Math.Max(controllerRumbleLight, controllerRumbleHeavy) * triggerRumbleStrength);
-                if (triggerRumbleHighest > triggerRumbleLimit) { triggerRumbleHighest = triggerRumbleLimit; }
-                Debug.WriteLine("Trigger rumble Highest: " + triggerRumbleHighest + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
+                byte triggerRumbleHighest = 0;
+                if (Controller.Details.Profile.TriggerRumbleEnabled)
+                {
+                    double triggerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrength) / 100;
+                    triggerRumbleHighest = Convert.ToByte(Math.Max(controllerRumbleLight, controllerRumbleHeavy) * triggerRumbleStrength);
+                    if (triggerRumbleHighest > triggerRumbleLimit) { triggerRumbleHighest = triggerRumbleLimit; }
+                    Debug.WriteLine("Trigger rumble Highest: " + triggerRumbleHighest + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
+                }
+                else
+                {
+                    triggerRumbleHighest = 0;
+                }
 
                 //Adjust the controller rumble strength
-                double controllerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.ControllerRumbleStrength) / 100;
-                controllerRumbleHeavy = Convert.ToByte(controllerRumbleHeavy * controllerRumbleStrength);
-                controllerRumbleLight = Convert.ToByte(controllerRumbleLight * controllerRumbleStrength);
-                Debug.WriteLine("Controller rumble Heavy: " + controllerRumbleHeavy + " / Light: " + controllerRumbleLight);
+                if (Controller.Details.Profile.ControllerRumbleEnabled)
+                {
+                    double controllerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.ControllerRumbleStrength) / 100;
+                    controllerRumbleHeavy = Convert.ToByte(controllerRumbleHeavy * controllerRumbleStrength);
+                    controllerRumbleLight = Convert.ToByte(controllerRumbleLight * controllerRumbleStrength);
+                    Debug.WriteLine("Controller rumble Heavy: " + controllerRumbleHeavy + " / Light: " + controllerRumbleLight);
+                }
+                else
+                {
+                    controllerRumbleHeavy = 0;
+                    controllerRumbleLight = 0;
+                }
 
                 //Update controller interface preview
                 if (vAppActivated && !vAppMinimized)

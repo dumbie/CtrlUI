@@ -10,6 +10,7 @@ using System.Windows.Interop;
 using static ArnoldVinkCode.ProcessFunctions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 
 namespace DirectXInput
@@ -135,7 +136,7 @@ namespace DirectXInput
         {
             try
             {
-                ControllerStatus activeController = GetActiveController();
+                ControllerStatus activeController = vActiveController();
                 if (activeController != null && !vControllerRumbleTest)
                 {
                     vControllerRumbleTest = true;
