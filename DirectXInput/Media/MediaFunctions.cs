@@ -69,13 +69,24 @@ namespace DirectXInput.MediaCode
             catch { }
         }
 
-        //Volume Mute
-        async void button_VolumeMute_Click(object sender, RoutedEventArgs e)
+        //Volume Output Mute
+        async void button_OutputMute_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling mute");
+                App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
                 await KeyPressSingleAuto(KeysVirtual.VolumeMute);
+            }
+            catch { }
+        }
+
+        //Volume Input Mute
+        void button_InputMute_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Toggling input mute");
+                AudioMuteSwitch(true);
             }
             catch { }
         }

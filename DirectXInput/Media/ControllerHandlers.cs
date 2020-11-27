@@ -85,7 +85,7 @@ namespace DirectXInput.MediaCode
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
 
-                        ControllerDelayShort = true;
+                        ControllerDelayMedium = true;
                     }
                     //Send external media next key
                     else if (ControllerInput.ButtonB.PressedRaw || ControllerInput.ButtonShoulderRight.PressedRaw)
@@ -94,7 +94,7 @@ namespace DirectXInput.MediaCode
                         App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
                         await KeyPressSingleAuto(KeysVirtual.MediaNextTrack);
 
-                        ControllerDelayShort = true;
+                        ControllerDelayMedium = true;
                     }
                     //Send external media playpause key
                     else if (ControllerInput.ButtonY.PressedRaw)
@@ -103,7 +103,7 @@ namespace DirectXInput.MediaCode
                         App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
                         await KeyPressSingleAuto(KeysVirtual.MediaPlayPause);
 
-                        ControllerDelayShort = true;
+                        ControllerDelayMedium = true;
                     }
                     //Send external media previous key
                     else if (ControllerInput.ButtonX.PressedRaw || ControllerInput.ButtonShoulderLeft.PressedRaw)
@@ -112,20 +112,20 @@ namespace DirectXInput.MediaCode
                         App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
                         await KeyPressSingleAuto(KeysVirtual.MediaPreviousTrack);
 
-                        ControllerDelayShort = true;
+                        ControllerDelayMedium = true;
                     }
 
                     //Change the system volume
                     else if (ControllerInput.TriggerLeft > 0 && ControllerInput.TriggerRight > 0)
                     {
-                        App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling mute");
+                        App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
                         await KeyPressSingleAuto(KeysVirtual.VolumeMute);
 
                         ControllerDelayLonger = true;
                     }
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
-                        App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling mute");
+                        App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
                         await KeyPressSingleAuto(KeysVirtual.VolumeMute);
 
                         ControllerDelayMedium = true;

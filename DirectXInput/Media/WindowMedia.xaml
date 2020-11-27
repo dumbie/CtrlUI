@@ -121,13 +121,16 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="2" Margin="0,0,0,15" HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button Name="button_VolumeMute" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeMute_Click">
+                        <Button Name="button_InputMute" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_InputMute_Click">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png"/>
+                        </Button>
+                        <Button Name="button_OutputMute" Margin="45,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_OutputMute_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png"/>
                         </Button>
-                        <Button Name="button_VolumeDown" Margin="45,0,45,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeDown_Click">
+                        <Button Name="button_VolumeDown" Margin="45,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeDown_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeDown.png"/>
                         </Button>
-                        <Button Name="button_VolumeUp" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeUp_Click">
+                        <Button Name="button_VolumeUp" Margin="45,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeUp_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeUp.png"/>
                         </Button>
                     </StackPanel>

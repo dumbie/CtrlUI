@@ -41,8 +41,21 @@ namespace DirectXInput
                         if (controllerActivated) { return ControllerUsed; }
                     }
 
+                    //Hide the keyboard, keypad or media controller controller
+                    if (Controller.InputCurrent.ButtonGuide.PressedShort && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible || App.vWindowMedia.vWindowVisible))
+                    {
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
+                        {
+                            App.vWindowKeyboard.Hide();
+                            await App.vWindowKeypad.Hide();
+                            await App.vWindowMedia.Hide();
+                        });
+
+                        ControllerUsed = true;
+                        ControllerDelayLonger = true;
+                    }
                     //Show CtrlUI application
-                    if (Controller.InputCurrent.ButtonGuide.PressedShort && !App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible && vProcessCtrlUI != null)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessCtrlUI != null)
                     {
                         Debug.WriteLine("Guide short press showing CtrlUI.");
                         await ShowCtrlUI();
@@ -51,17 +64,9 @@ namespace DirectXInput
                         ControllerDelayLonger = true;
                     }
                     //Launch CtrlUI application
-                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && !App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible && vProcessCtrlUI == null)
+                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessCtrlUI == null)
                     {
                         await LaunchCtrlUI();
-
-                        ControllerUsed = true;
-                        ControllerDelayLonger = true;
-                    }
-                    //Hide the keyboard controller
-                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible))
-                    {
-                        await KeyboardControllerHideShow(false);
 
                         ControllerUsed = true;
                         ControllerDelayLonger = true;
@@ -90,7 +95,7 @@ namespace DirectXInput
                         ControllerUsed = true;
                         ControllerDelayLonger = true;
                     }
-                    //Mute or unmute the system volume
+                    //Mute or unmute the input/microphone
                     else if (Controller.InputCurrent.ButtonMedia.PressedRaw)
                     {
                         App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Toggling input mute");
