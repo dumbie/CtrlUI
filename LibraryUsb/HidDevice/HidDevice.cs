@@ -41,6 +41,8 @@ namespace LibraryUsb
                     }
                     GetDeviceAttributes();
                     GetDeviceCapabilities();
+                    //GetDeviceButtonStatus();
+                    //GetDeviceValueStatus();
                     GetProductName();
                     GetVendorName();
                     GetSerialNumber();

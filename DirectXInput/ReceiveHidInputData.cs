@@ -94,7 +94,7 @@ namespace DirectXInput
                     }
                     countLoop++;
                     if (countCurrent < countTotal) { countTotal = countCurrent; }
-                    Debug.WriteLine("Counted buttons, offset: " + offsetGroup + ", begin: " + offsetBegin + ", total: " + countTotal + ", current: " + countCurrent);
+                    //Debug.WriteLine("Counted buttons, offset: " + offsetGroup + ", begin: " + offsetBegin + ", total: " + countTotal + ", current: " + countCurrent);
                     return true;
                 }
                 return false;

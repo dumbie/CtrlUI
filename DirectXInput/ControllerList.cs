@@ -88,8 +88,8 @@ namespace DirectXInput
                         HidDevice foundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.HardwareId, false, true);
 
                         //Check if device is a gamepad or joystick
-                        bool genericGamePad = foundHidDevice.Capabilities.UsageGeneric == (short)HID_USAGE_GENERIC.HID_USAGE_GENERIC_GAMEPAD;
-                        bool genericJoystick = foundHidDevice.Capabilities.UsageGeneric == (short)HID_USAGE_GENERIC.HID_USAGE_GENERIC_JOYSTICK;
+                        bool genericGamePad = foundHidDevice.Capabilities.UsageGeneric == (short)HID_USAGE_GENERIC_DESKTOP_PAGE.HID_USAGE_GENERIC_GAMEPAD;
+                        bool genericJoystick = foundHidDevice.Capabilities.UsageGeneric == (short)HID_USAGE_GENERIC_DESKTOP_PAGE.HID_USAGE_GENERIC_JOYSTICK;
                         if (!genericGamePad && !genericJoystick) { continue; }
 
                         //Get vendor and product hex id

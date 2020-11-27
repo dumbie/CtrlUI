@@ -47,6 +47,7 @@
     <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="HidDevice\HidDevice_DeviceButtonValues.cs" />
     <Compile Include="HidDevice\HidDevice_Information.cs" />
     <Compile Include="NativeMethods_IoControl.cs" />
     <Compile Include="NativeMethods_Guid.cs" />
