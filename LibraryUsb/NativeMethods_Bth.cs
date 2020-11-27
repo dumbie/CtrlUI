@@ -43,7 +43,7 @@ namespace LibraryUsb
         public struct BLUETOOTH_DEVICE_INFO
         {
             public int dwSize;
-            public BLUETOOTH_ADDRESS Address;
+            public BLUETOOTH_ADDRESS address;
             public uint ulClassofDevice;
             public bool fConnected;
             public bool fRemembered;
@@ -52,6 +52,18 @@ namespace LibraryUsb
             public SYSTEMTIME stLastUsed;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = BLUETOOTH_MAX_NAME_SIZE)]
             public string szName;
+        }
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        public struct BLUETOOTH_RADIO_INFO
+        {
+            public int dwSize;
+            public BLUETOOTH_ADDRESS address;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = BLUETOOTH_MAX_NAME_SIZE)]
+            public string szName;
+            public uint ulClassOfDevice;
+            public ushort lmpSubversion;
+            public ushort manufacturer;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -72,6 +84,9 @@ namespace LibraryUsb
         {
             public int dwSize;
         }
+
+        [DllImport("bthprops.cpl")]
+        public static extern bool BluetoothGetRadioInfo(IntPtr hRadio, ref BLUETOOTH_RADIO_INFO pRadioInfo);
 
         [DllImport("bthprops.cpl")]
         public static extern IntPtr BluetoothFindFirstRadio(ref BLUETOOTH_FIND_RADIO_PARAMS pBtRadioParam, ref IntPtr phRadio);
