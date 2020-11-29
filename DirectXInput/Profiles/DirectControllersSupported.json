@@ -23,22 +23,21 @@
     "CodeName": "SonyDualSense5",
     "ProductIDs": [ "0x0ce6" ],
     "VendorID": "0x054c",
-    "OffsetUsb": 
+    "OffsetUsb":
     {
-      "ButtonsGroup1": 8,
-      "ButtonsGroup2": 9,
-      "ButtonsGroup3": 10,
-      "TriggerLeft": 5,
-      "TriggerRight": 6
+      "ButtonsGroup1": 7,
+      "ButtonsGroup2": 8,
+      "ButtonsGroup3": 9,
+      "TriggerLeft": 4,
+      "TriggerRight": 5
     },
-    "OffsetWireless": 
+    "OffsetWireless":
     {
-      "BeginOffset": 1,
-      "ButtonsGroup1": 8,
-      "ButtonsGroup2": 9,
-      "ButtonsGroup3": 10,
-      "TriggerLeft": 5,
-      "TriggerRight": 6
+      "ButtonsGroup1": 7,
+      "ButtonsGroup2": 8,
+      "ButtonsGroup3": 9,
+      "TriggerLeft": 4,
+      "TriggerRight": 5
     }
   }
 ]

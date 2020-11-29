@@ -131,6 +131,7 @@
                 <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -141,165 +142,165 @@
                         </StackPanel>
                     </Grid>
 
-                    <Grid Grid.Row="1">
-                        <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
-                            <StackPanel>
-                                <TextBlock Name="txt_ControllerMap_Status" Text="Click on a button below that you want to change on the controller." Style="{StaticResource TextBlockGray}"/>
-                                <TextBlock Text="* You can unmap a button by right clicking on the button." Style="{StaticResource TextBlockGray}"/>
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Name="txt_ControllerMap_Status" Text="Click on a button below that you want to change on the controller." Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Text="* You can unmap a button by right clicking on the button." Style="{StaticResource TextBlockGray}"/>
 
-                                <Grid Name="grid_ControllerPreview" HorizontalAlignment="Center" Width="500" Height="255" Margin="0,10,0,0">
-                                    <Grid.Background>
-                                        <ImageBrush ImageSource="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerPreview.png"/>
-                                    </Grid.Background>
+                        <Grid Name="grid_ControllerPreview" HorizontalAlignment="Center" Width="500" Height="255" Margin="0,10,0,0">
+                            <Grid.Background>
+                                <ImageBrush ImageSource="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerPreview.png"/>
+                            </Grid.Background>
 
-                                    <!-- Preview -->
-                                    <Image Name="img_ControllerPreview_Rumble" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerRumble.png" Visibility="Collapsed"/>
+                            <!-- Preview -->
+                            <Image Name="img_ControllerPreview_Rumble" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerRumble.png" Visibility="Collapsed"/>
 
-                                    <Image Name="img_ControllerPreview_ButtonA" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,109,105,121"/>
-                                    <Image Name="img_ControllerPreview_ButtonB" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="394,85,81,145"/>
-                                    <Image Name="img_ControllerPreview_ButtonX" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="346,85,130,145"/>
-                                    <Image Name="img_ControllerPreview_ButtonY" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,60,105,168"/>
+                            <Image Name="img_ControllerPreview_ButtonA" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,109,105,121"/>
+                            <Image Name="img_ControllerPreview_ButtonB" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="394,85,81,145"/>
+                            <Image Name="img_ControllerPreview_ButtonX" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="346,85,130,145"/>
+                            <Image Name="img_ControllerPreview_ButtonY" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,60,105,168"/>
 
-                                    <Image Name="img_ControllerPreview_ButtonBack" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="197,57,278,173"/>
-                                    <Image Name="img_ControllerPreview_ButtonStart" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="278,57,196,173"/>
-                                    <Image Name="img_ControllerPreview_ButtonGuide" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,56,235,169"/>
+                            <Image Name="img_ControllerPreview_ButtonBack" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="197,57,278,173"/>
+                            <Image Name="img_ControllerPreview_ButtonStart" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="278,57,196,173"/>
+                            <Image Name="img_ControllerPreview_ButtonGuide" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,56,235,169"/>
 
-                                    <Image Name="img_ControllerPreview_ButtonTouchpad" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,0,235,195"/>
-                                    <Image Name="img_ControllerPreview_ButtonMedia" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,0,235,35"/>
+                            <Image Name="img_ControllerPreview_ButtonTouchpad" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,0,235,195"/>
+                            <Image Name="img_ControllerPreview_ButtonMedia" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="30" Height="30" Margin="236,0,235,35"/>
 
-                                    <Image Name="img_ControllerPreview_ButtonThumbLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="42" Height="42" Margin="178,117,280,96"/>
-                                    <Image Name="img_ControllerPreview_ButtonThumbRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="42" Height="42" Margin="282,117,176,96"/>
+                            <Image Name="img_ControllerPreview_ButtonThumbLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="42" Height="42" Margin="178,117,280,96"/>
+                            <Image Name="img_ControllerPreview_ButtonThumbRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="42" Height="42" Margin="282,117,176,96"/>
 
-                                    <StackPanel Margin="282,117,176,96" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <Image Name="img_ControllerPreview_RightAxe" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerAxe.png" Width="25" Height="25"/>
-                                    </StackPanel>
-                                    <StackPanel Margin="178,117,280,96" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <Image Name="img_ControllerPreview_LeftAxe" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerAxe.png" Width="25" Height="25"/>
-                                    </StackPanel>
-
-                                    <Image Name="img_ControllerPreview_DPadLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="65,85,410,145"/>
-                                    <Image Name="img_ControllerPreview_DPadUp" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="106,45,369,185"/>
-                                    <Image Name="img_ControllerPreview_DPadRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="147,85,328,145"/>
-                                    <Image Name="img_ControllerPreview_DPadDown" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="106,123,369,107"/>
-
-                                    <Image Name="img_ControllerPreview_ButtonShoulderLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="16,7,459,223"/>
-                                    <Image Name="img_ControllerPreview_TriggerLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="11,47,464,183"/>
-                                    <Image Name="img_ControllerPreview_ButtonShoulderRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="460,7,15,223"/>
-                                    <Image Name="img_ControllerPreview_TriggerRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="465,47,10,183"/>
-
-                                    <!-- Mapping -->
-                                    <Button Name="btn_SetA" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="24" Width="24" Margin="371,109,105,122" ToolTipService.ToolTip="Button A"/>
-                                    <Button Name="btn_SetB" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="24" Width="24" Margin="395,85,81,146" ToolTipService.ToolTip="Button B"/>
-                                    <Button Name="btn_SetX" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="24" Width="24" Margin="347,85,129,146" ToolTipService.ToolTip="Button X"/>
-                                    <Button Name="btn_SetY" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="24" Width="24" Margin="371,61,105,170" ToolTipService.ToolTip="Button Y"/>
-
-                                    <Button Name="btn_SetShoulderLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,445,220" Height="35" Width="55" ToolTipService.ToolTip="Left Shoulder"/>
-                                    <Button Name="btn_SetShoulderRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="445,0,0,220" Height="35" Width="55" ToolTipService.ToolTip="Right Shoulder"/>
-
-                                    <Button Name="btn_SetThumbLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="179,118,281,97" Height="40" Width="40" ToolTipService.ToolTip="Left Thumb Button"/>
-                                    <Button Name="btn_SetThumbRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="282,118,178,97" Height="40" Width="40" ToolTipService.ToolTip="Right Thumb Button"/>
-
-                                    <Button Name="btn_SetTriggerLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="3,39,457,176" Height="40" Width="40" ToolTipService.ToolTip="Left Trigger"/>
-                                    <Button Name="btn_SetTriggerRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="457,39,3,176" Height="40" Width="40" ToolTipService.ToolTip="Right Trigger"/>
-
-                                    <Button Name="btn_SetBack" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="195,60,275,175" Width="30" Height="20" ToolTipService.ToolTip="Button Back"/>
-                                    <Button Name="btn_SetGuide" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="235,55,235,170" Height="30" Width="30" ToolTipService.ToolTip="Button Guide"/>
-                                    <Button Name="btn_SetStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="275,60,195,175" Width="30" Height="20" ToolTipService.ToolTip="Button Start"/>
-
-                                    <!-- Thumb Axes -->
-                                    <TextBlock Name="textblock_Thumb_Left_Y_Up" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-100,-38,0,0"/>
-                                    <TextBlock Name="textblock_Thumb_Left_Y_Down" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-100,75,0,0"/>
-                                    <TextBlock Name="textblock_Thumb_Left_X_Left" Text="0" Width="50" TextAlignment="Right" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-200,20,0,0"/>
-                                    <TextBlock Name="textblock_Thumb_Left_X_Right" Text="0" Width="50" TextAlignment="Left" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-8,20,0,0"/>
-
-                                    <TextBlock Name="textblock_Thumb_Right_Y_Up" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-38,-110,0"/>
-                                    <TextBlock Name="textblock_Thumb_Right_Y_Down" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,75,-110,0"/>
-                                    <TextBlock Name="textblock_Thumb_Right_X_Left" Text="0" Width="50" TextAlignment="Right" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,20,0,0"/>
-                                    <TextBlock Name="textblock_Thumb_Right_X_Right" Text="0" Width="50" TextAlignment="Left" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,20,0,0"/>
-                                </Grid>
-
-                                <TextBlock Name="textblock_LiveDebugInformation" HorizontalAlignment="Center" Style="{StaticResource TextBlockBlack}" Text="Live controller debug information" TextWrapping="Wrap" Width="570" Height="105" Visibility="Collapsed"/>
-                                <Button Name="btn_CopyDebugInformation" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource ButtonAccentBlack}" Content="Copy controller debug information" Visibility="Collapsed"/>
-
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
-                                    <Button Name="btn_RumbleTestLight" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Light"/>
-                                    <Button Name="btn_RumbleTestHeavy" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Heavy" Margin="5,0,0,0"/>
-                                </StackPanel>
-
-                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Button Settings"/>
-                                <CheckBox Name="cb_ControllerFakeGuideButton" Style="{StaticResource CheckBoxBlack}" Content="Fake Start and Back combined press as the Guide button"/>
-                                <TextBlock Text="Enabling this will fake the Start and Back button combined as the Guide button on a controller without the Guide button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Trigger Settings"/>
-                                <CheckBox Name="cb_ControllerUseButtonTriggers" Style="{StaticResource CheckBoxBlack}" Content="Change the controller triggers to press buttons"/>
-                                <TextBlock Text="Enabling this will change your triggers into buttons." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneTriggerLeft" Style="{StaticResource TextBlockBlack}" Text="Deadzone range left trigger" Tag="Deadzone range left trigger: "/>
-                                <TextBlock Text="Changes the range when left trigger starts to register press." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_ControllerDeadzoneTriggerLeft" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-
-                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneTriggerRight" Style="{StaticResource TextBlockBlack}" Text="Deadzone range right trigger" Tag="Deadzone range right trigger: "/>
-                                <TextBlock Text="Changes the range when right trigger starts to register press." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_ControllerDeadzoneTriggerRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-
-                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityTrigger" Style="{StaticResource TextBlockBlack}" Text="Triggers sensitivity" Tag="Triggers sensitivity: "/>
-                                <TextBlock Text="Changes the press sensitivity on both triggers." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_ControllerSensitivityTrigger" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="D-Pad Settings"/>
-                                <CheckBox Name="cb_ControllerDPadFourWayMovement" Content="Change your D-Pad into four way only presses" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will disable the half way D-Pad button press directions." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Thumb Stick Settings"/>
-                                <CheckBox Name="cb_ControllerThumbFlipMovement" Content="Flip the left and right thumb sticks movement" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will flip the left and right thumb sticks." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <CheckBox Name="cb_ControllerThumbFlipAxesLeft" Content="Flip the axes movement on left thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will flip the axes on the left thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <CheckBox Name="cb_ControllerThumbFlipAxesRight" Content="Flip the axes movement on right thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will flip the axes on the right thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <CheckBox Name="cb_ControllerThumbReverseAxesLeft" Content="Reverse the axes movement on left thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will reverse the axes on the left thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <CheckBox Name="cb_ControllerThumbReverseAxesRight" Content="Reverse the axes movement on right thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will reverse the axes on the right thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneThumbLeft" Style="{StaticResource TextBlockBlack}" Text="Deadzone range left stick" Tag="Deadzone range left stick: "/>
-                                <TextBlock Text="Changes the range when left thumb stick starts to move from the inside." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_ControllerDeadzoneThumbLeft" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-
-                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneThumbRight" Style="{StaticResource TextBlockBlack}" Text="Deadzone range right stick" Tag="Deadzone range right stick: "/>
-                                <TextBlock Text="Changes the range when right thumb stick starts to move from the inside." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_ControllerDeadzoneThumbRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-
-                                <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityThumb" Style="{StaticResource TextBlockBlack}" Text="Thumb sticks sensitivity" Tag="Thumb sticks sensitivity: "/>
-                                <TextBlock Text="Changes the movement sensitivity on both thumb sticks." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_ControllerSensitivityThumb" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Rumble Settings"/>
-                                <TextBlock Name="textblock_ControllerRumbleStrength" Style="{StaticResource TextBlockBlack}" Text="Controller rumble strength" Tag="Controller rumble strength: "/>
-                                <TextBlock Text="Changes the controller rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <CheckBox Name="cb_ControllerRumbleEnabled" Margin="0,0,5,0" Style="{StaticResource CheckBoxBlack}"/>
-                                    <Slider Name="slider_ControllerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-                                </StackPanel>
-
-                                <TextBlock Margin="0,10,0,0" Name="textblock_TriggerRumbleStrength" Style="{StaticResource TextBlockBlack}" Text="Trigger rumble strength" Tag="Trigger rumble strength: "/>
-                                <TextBlock Text="Changes the trigger rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <CheckBox Name="cb_TriggerRumbleEnabled" Margin="0,0,5,0" Style="{StaticResource CheckBoxBlack}"/>
-                                    <Slider Name="slider_TriggerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-                                </StackPanel>
-
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Led Settings"/>
-                                <TextBlock Name="textblock_ControllerLedBrightness" Style="{StaticResource TextBlockBlack}" Text="Led brightness" Tag="Led brightness: "/>
-                                <TextBlock Text="Changes the controller led brightness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_ControllerLedBrightness" Minimum="1" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <StackPanel Margin="282,117,176,96" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Image Name="img_ControllerPreview_RightAxe" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerAxe.png" Width="25" Height="25"/>
                             </StackPanel>
-                        </ScrollViewer>
-                    </Grid>
+                            <StackPanel Margin="178,117,280,96" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Image Name="img_ControllerPreview_LeftAxe" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerAxe.png" Width="25" Height="25"/>
+                            </StackPanel>
+
+                            <Image Name="img_ControllerPreview_DPadLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="65,85,410,145"/>
+                            <Image Name="img_ControllerPreview_DPadUp" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="106,45,369,185"/>
+                            <Image Name="img_ControllerPreview_DPadRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="147,85,328,145"/>
+                            <Image Name="img_ControllerPreview_DPadDown" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="106,123,369,107"/>
+
+                            <Image Name="img_ControllerPreview_ButtonShoulderLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="16,7,459,223"/>
+                            <Image Name="img_ControllerPreview_TriggerLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="11,47,464,183"/>
+                            <Image Name="img_ControllerPreview_ButtonShoulderRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="460,7,15,223"/>
+                            <Image Name="img_ControllerPreview_TriggerRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="465,47,10,183"/>
+
+                            <!-- Mapping -->
+                            <Button Name="btn_SetA" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="24" Width="24" Margin="371,109,105,122" ToolTipService.ToolTip="Button A"/>
+                            <Button Name="btn_SetB" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="24" Width="24" Margin="395,85,81,146" ToolTipService.ToolTip="Button B"/>
+                            <Button Name="btn_SetX" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="24" Width="24" Margin="347,85,129,146" ToolTipService.ToolTip="Button X"/>
+                            <Button Name="btn_SetY" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="24" Width="24" Margin="371,61,105,170" ToolTipService.ToolTip="Button Y"/>
+
+                            <Button Name="btn_SetShoulderLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,445,220" Height="35" Width="55" ToolTipService.ToolTip="Left Shoulder"/>
+                            <Button Name="btn_SetShoulderRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="445,0,0,220" Height="35" Width="55" ToolTipService.ToolTip="Right Shoulder"/>
+
+                            <Button Name="btn_SetThumbLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="179,118,281,97" Height="40" Width="40" ToolTipService.ToolTip="Left Thumb Button"/>
+                            <Button Name="btn_SetThumbRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="282,118,178,97" Height="40" Width="40" ToolTipService.ToolTip="Right Thumb Button"/>
+
+                            <Button Name="btn_SetTriggerLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="3,39,457,176" Height="40" Width="40" ToolTipService.ToolTip="Left Trigger"/>
+                            <Button Name="btn_SetTriggerRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="457,39,3,176" Height="40" Width="40" ToolTipService.ToolTip="Right Trigger"/>
+
+                            <Button Name="btn_SetBack" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="195,60,275,175" Width="30" Height="20" ToolTipService.ToolTip="Button Back"/>
+                            <Button Name="btn_SetGuide" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="235,55,235,170" Height="30" Width="30" ToolTipService.ToolTip="Button Guide"/>
+                            <Button Name="btn_SetStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="275,60,195,175" Width="30" Height="20" ToolTipService.ToolTip="Button Start"/>
+
+                            <!-- Thumb Axes -->
+                            <TextBlock Name="textblock_Thumb_Left_Y_Up" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-100,-38,0,0"/>
+                            <TextBlock Name="textblock_Thumb_Left_Y_Down" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-100,75,0,0"/>
+                            <TextBlock Name="textblock_Thumb_Left_X_Left" Text="0" Width="50" TextAlignment="Right" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-200,20,0,0"/>
+                            <TextBlock Name="textblock_Thumb_Left_X_Right" Text="0" Width="50" TextAlignment="Left" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-8,20,0,0"/>
+
+                            <TextBlock Name="textblock_Thumb_Right_Y_Up" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-38,-110,0"/>
+                            <TextBlock Name="textblock_Thumb_Right_Y_Down" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,75,-110,0"/>
+                            <TextBlock Name="textblock_Thumb_Right_X_Left" Text="0" Width="50" TextAlignment="Right" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,20,0,0"/>
+                            <TextBlock Name="textblock_Thumb_Right_X_Right" Text="0" Width="50" TextAlignment="Left" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,20,0,0"/>
+                        </Grid>
+
+                        <TextBlock Name="textblock_LiveDebugInformation" HorizontalAlignment="Center" Style="{StaticResource TextBlockBlack}" Text="Live controller debug information" TextWrapping="Wrap" Width="570" Height="105" Visibility="Collapsed"/>
+                        <Button Name="btn_CopyDebugInformation" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource ButtonAccentBlack}" Content="Copy controller debug information" Visibility="Collapsed"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <Button Name="btn_RumbleTestLight" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Light"/>
+                            <Button Name="btn_RumbleTestHeavy" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Heavy" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="2" Style="{StaticResource ScrollViewerVertical}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Button Settings"/>
+                            <CheckBox Name="cb_ControllerFakeGuideButton" Style="{StaticResource CheckBoxBlack}" Content="Fake Start and Back combined press as the Guide button"/>
+                            <TextBlock Text="Enabling this will fake the Start and Back button combined as the Guide button on a controller without the Guide button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Trigger Settings"/>
+                            <CheckBox Name="cb_ControllerUseButtonTriggers" Style="{StaticResource CheckBoxBlack}" Content="Change the controller triggers to press buttons"/>
+                            <TextBlock Text="Enabling this will change your triggers into buttons." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneTriggerLeft" Style="{StaticResource TextBlockBlack}" Text="Deadzone range left trigger" Tag="Deadzone range left trigger: "/>
+                            <TextBlock Text="Changes the range when left trigger starts to register press." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerDeadzoneTriggerLeft" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneTriggerRight" Style="{StaticResource TextBlockBlack}" Text="Deadzone range right trigger" Tag="Deadzone range right trigger: "/>
+                            <TextBlock Text="Changes the range when right trigger starts to register press." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerDeadzoneTriggerRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityTrigger" Style="{StaticResource TextBlockBlack}" Text="Triggers sensitivity" Tag="Triggers sensitivity: "/>
+                            <TextBlock Text="Changes the press sensitivity on both triggers." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerSensitivityTrigger" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="D-Pad Settings"/>
+                            <CheckBox Name="cb_ControllerDPadFourWayMovement" Content="Change your D-Pad into four way only presses" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will disable the half way D-Pad button press directions." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Thumb Stick Settings"/>
+                            <CheckBox Name="cb_ControllerThumbFlipMovement" Content="Flip the left and right thumb sticks movement" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will flip the left and right thumb sticks." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <CheckBox Name="cb_ControllerThumbFlipAxesLeft" Content="Flip the axes movement on left thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will flip the axes on the left thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <CheckBox Name="cb_ControllerThumbFlipAxesRight" Content="Flip the axes movement on right thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will flip the axes on the right thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <CheckBox Name="cb_ControllerThumbReverseAxesLeft" Content="Reverse the axes movement on left thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will reverse the axes on the left thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <CheckBox Name="cb_ControllerThumbReverseAxesRight" Content="Reverse the axes movement on right thumb stick" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will reverse the axes on the right thumb stick." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneThumbLeft" Style="{StaticResource TextBlockBlack}" Text="Deadzone range left stick" Tag="Deadzone range left stick: "/>
+                            <TextBlock Text="Changes the range when left thumb stick starts to move from the inside." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerDeadzoneThumbLeft" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerDeadzoneThumbRight" Style="{StaticResource TextBlockBlack}" Text="Deadzone range right stick" Tag="Deadzone range right stick: "/>
+                            <TextBlock Text="Changes the range when right thumb stick starts to move from the inside." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerDeadzoneThumbRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityThumb" Style="{StaticResource TextBlockBlack}" Text="Thumb sticks sensitivity" Tag="Thumb sticks sensitivity: "/>
+                            <TextBlock Text="Changes the movement sensitivity on both thumb sticks." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerSensitivityThumb" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Rumble Settings"/>
+                            <TextBlock Name="textblock_ControllerRumbleStrength" Style="{StaticResource TextBlockBlack}" Text="Controller rumble strength" Tag="Controller rumble strength: "/>
+                            <TextBlock Text="Changes the controller rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox Name="cb_ControllerRumbleEnabled" Margin="0,0,5,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <Slider Name="slider_ControllerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            </StackPanel>
+
+                            <TextBlock Margin="0,10,0,0" Name="textblock_TriggerRumbleStrength" Style="{StaticResource TextBlockBlack}" Text="Trigger rumble strength" Tag="Trigger rumble strength: "/>
+                            <TextBlock Text="Changes the trigger rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox Name="cb_TriggerRumbleEnabled" Margin="0,0,5,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <Slider Name="slider_TriggerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            </StackPanel>
+
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Led Settings"/>
+                            <TextBlock Name="textblock_ControllerLedBrightness" Style="{StaticResource TextBlockBlack}" Text="Led brightness" Tag="Led brightness: "/>
+                            <TextBlock Text="Changes the controller led brightness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerLedBrightness" Minimum="1" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
             </Grid>
 

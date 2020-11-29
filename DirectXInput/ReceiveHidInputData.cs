@@ -15,22 +15,43 @@ namespace DirectXInput
         {
             try
             {
-                //Fix detect header offset by matching usage 0x30 etc
+                //Fix detect exact offset count by reading value caps
+                //The current code only works when user does not move thumb sticks
                 if (!controllerStatus.InputHeaderOffsetFinished)
                 {
-                    byte currentHeader = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte];
-                    if (currentHeader != 49)
+                    byte currentHeader0 = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte];
+                    byte currentHeader1 = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte + 1];
+                    byte currentHeader2 = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte + 2];
+                    byte currentHeader3 = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte + 3];
+                    byte currentHeader4 = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte + 4];
+                    byte currentHeader5 = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte + 5];
+                    byte currentHeader6 = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte + 6];
+                    bool thumbInput0 = AVFunctions.BetweenNumbers(currentHeader0, 78, 178, true); //true
+                    bool thumbInput1 = AVFunctions.BetweenNumbers(currentHeader1, 78, 178, true); //true
+                    bool thumbInput2 = AVFunctions.BetweenNumbers(currentHeader2, 78, 178, true); //true
+                    bool thumbInput3 = AVFunctions.BetweenNumbers(currentHeader3, 78, 178, true); //true
+                    bool thumbInput4 = AVFunctions.BetweenNumbers(currentHeader4, 78, 178, true); //false
+                    bool thumbInput5 = AVFunctions.BetweenNumbers(currentHeader5, 78, 178, true); //false
+                    bool thumbInput6 = AVFunctions.BetweenNumbers(currentHeader6, 78, 178, true); //false
+                    if (thumbInput0 && thumbInput1 && thumbInput2 && thumbInput3 && !thumbInput4 && !thumbInput5 && !thumbInput6)
                     {
-                        if (currentHeader > 4)
-                        {
-                            controllerStatus.InputHeaderOffsetByte++;
-                            Debug.WriteLine("Adjusted the controller header offset to: " + controllerStatus.InputHeaderOffsetByte);
-                            return true;
-                        }
+                        controllerStatus.InputHeaderOffsetFinished = true;
+                        Debug.WriteLine("Finished adjusting controller header offset to: " + controllerStatus.InputHeaderOffsetByte);
                     }
+                    else
+                    {
+                        controllerStatus.InputHeaderOffsetByte++;
+                        int exceedByteLength = controllerStatus.InputHeaderOffsetByte + 7;
+                        int controllerInputLength = controllerStatus.InputReport.Length;
+                        if (exceedByteLength > controllerInputLength || controllerStatus.InputHeaderOffsetByte > 10)
+                        {
+                            Debug.WriteLine("Controller header offset exceeded bytes length, resetting.");
+                            controllerStatus.InputHeaderOffsetByte = 0;
+                        }
 
-                    controllerStatus.InputHeaderOffsetFinished = true;
-                    Debug.WriteLine("Finished adjusting controller header offset to: " + controllerStatus.InputHeaderOffsetByte);
+                        Debug.WriteLine("Adjusted the controller header offset to: " + controllerStatus.InputHeaderOffsetByte);
+                        return true;
+                    }
                 }
                 return false;
             }

@@ -344,8 +344,8 @@ namespace DirectXInput
                 //Check if any controller is connected
                 if (!vControllerAnyConnected() && Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardCloseNoController")))
                 {
-                    Debug.WriteLine("No controller connected closing keyboard.");
-                    await KeyboardControllerHide();
+                    Debug.WriteLine("No controller connected closing open popups.");
+                    await HideOpenPopups();
                 }
 
                 Debug.WriteLine("Succesfully stopped the direct input controller.");

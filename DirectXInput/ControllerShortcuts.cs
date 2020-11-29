@@ -44,12 +44,7 @@ namespace DirectXInput
                     //Hide the keyboard, keypad or media controller controller
                     if (Controller.InputCurrent.ButtonGuide.PressedShort && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible || App.vWindowMedia.vWindowVisible))
                     {
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate
-                        {
-                            App.vWindowKeyboard.Hide();
-                            await App.vWindowKeypad.Hide();
-                            await App.vWindowMedia.Hide();
-                        });
+                        await HideOpenPopups();
 
                         ControllerUsed = true;
                         ControllerDelayLonger = true;
@@ -258,8 +253,8 @@ namespace DirectXInput
             catch { }
         }
 
-        //Hide the keyboard controller
-        async Task KeyboardControllerHide()
+        //Hide all opened popups
+        async Task HideOpenPopups()
         {
             try
             {
@@ -267,6 +262,7 @@ namespace DirectXInput
                 {
                     App.vWindowKeyboard.Hide();
                     await App.vWindowKeypad.Hide();
+                    await App.vWindowMedia.Hide();
                 });
             }
             catch { }
