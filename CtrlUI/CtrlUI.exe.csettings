@@ -5,5 +5,6 @@
     <add key="DisplayMonitor" value="1"/>
     <add key="ColorAccentLight" value="#00C7FF"/>
     <add key="InterfaceSoundPackName" value="Default"/>
+    <add key="InterfaceClockStyleName" value="Cortana"/>
   </appSettings>
 </configuration>
