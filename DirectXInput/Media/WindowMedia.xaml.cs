@@ -51,6 +51,9 @@ namespace DirectXInput.MediaCode
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
+                //Update the user interface clock style
+                UpdateClockStyle();
             }
             catch { }
         }
@@ -62,8 +65,8 @@ namespace DirectXInput.MediaCode
             {
                 if (vWindowVisible)
                 {
-                    //Stop the media update task
-                    await AVActions.TaskStopLoop(vTask_UpdateMediaInformation);
+                    //Stop the update tasks
+                    await TasksBackgroundStop();
 
                     //Delay CtrlUI output
                     vController0.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayMediumTicks;
@@ -101,8 +104,8 @@ namespace DirectXInput.MediaCode
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
-                //Start the media update task
-                AVActions.TaskStartLoop(vTaskLoop_UpdateMediaInformation, vTask_UpdateMediaInformation);
+                //Start the update tasks
+                TasksBackgroundStart();
 
                 //Check mouse cursor position
                 CheckMousePosition();

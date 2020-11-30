@@ -60,6 +60,11 @@ namespace DirectXInput
                     {
                         vConfigurationCtrlUI = Settings_Load_CtrlUI();
                     }
+                    else if (receivedString == "SettingChangedInterfaceClockStyleName")
+                    {
+                        vConfigurationCtrlUI = Settings_Load_CtrlUI();
+                        App.vWindowMedia.UpdateClockStyle();
+                    }
                     else if (receivedString == "SettingChangedDisplayMonitor")
                     {
                         vConfigurationCtrlUI = Settings_Load_CtrlUI();

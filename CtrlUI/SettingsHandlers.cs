@@ -371,6 +371,9 @@ namespace CtrlUI
 
                     //Update the clock style
                     UpdateClockStyle();
+
+                    //Notify applications setting changed
+                    await NotifyDirectXInputSettingChanged("InterfaceClockStyleName");
                 }
             }
             catch { }

@@ -1102,6 +1102,7 @@
 
         <!-- Status - Clock and Battery -->
         <StackPanel Name="grid_ClockBattery" Orientation="Horizontal" MinHeight="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,20,0">
+            <Image Name="img_Main_MicrophoneMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png" Height="38"/>
             <Image Name="img_Main_VolumeMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png" Height="38"/>
             <Image Name="img_Main_Battery" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerDis100.png" Height="38"/>
             <TextBlock Name="txt_Main_Battery" Visibility="Collapsed" Margin="0,0,5,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="0%"/>

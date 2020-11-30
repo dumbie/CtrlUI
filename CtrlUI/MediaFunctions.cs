@@ -17,17 +17,12 @@ namespace CtrlUI
             try
             {
                 //Check if volume is currently muted
-                bool currentVolumeMuted = AudioMuteGetStatus(false);
+                bool currentOutputVolumeMuted = AudioMuteGetStatus(false);
+                bool currentInputVolumeMuted = AudioMuteGetStatus(true);
                 await AVActions.ActionDispatcherInvokeAsync(delegate
                 {
-                    if (currentVolumeMuted)
-                    {
-                        img_Main_VolumeMute.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        img_Main_VolumeMute.Visibility = Visibility.Collapsed;
-                    }
+                    img_Main_VolumeMute.Visibility = currentOutputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;
+                    img_Main_MicrophoneMute.Visibility = currentInputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;
                 });
 
                 //Check if the application window is activated

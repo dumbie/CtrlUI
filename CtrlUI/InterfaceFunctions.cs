@@ -258,7 +258,6 @@ namespace CtrlUI
         {
             try
             {
-                //Update the time and image
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     //Rotate the clock images

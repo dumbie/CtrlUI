@@ -124,6 +124,7 @@
     <Compile Include="ControllerButton.cs" />
     <Compile Include="ControllerMapping.cs" />
     <Compile Include="Media\ControllerHandlers.cs" />
+    <Compile Include="Media\InterfaceFunctions.cs" />
     <Compile Include="Media\ProcessFunctions.cs" />
     <Compile Include="Media\MediaTasks.cs" />
     <Compile Include="Media\MediaFunctions.cs" />
@@ -246,6 +247,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerCharge.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerCharge.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerController1.png">
       <Link>Assets\Default\Icons\Battery\BatteryVerController1.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -260,6 +265,50 @@
     </Content>
     <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerController4.png">
       <Link>Assets\Default\Icons\Battery\BatteryVerController4.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerDis10.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerDis10.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerDis100.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerDis100.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerDis20.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerDis20.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerDis30.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerDis30.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerDis40.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerDis40.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerDis50.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerDis50.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerDis60.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerDis60.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerDis70.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerDis70.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerDis80.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerDis80.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerDis90.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerDis90.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerNoBattery.png">
+      <Link>Assets\Default\Icons\Battery\BatteryVerNoBattery.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\CtrlUI\Assets\Default\Icons\Close.png">
@@ -342,6 +391,10 @@
       <Link>Assets\Default\Icons\Keypad.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\MicrophoneMute.png">
+      <Link>Assets\Default\Icons\MicrophoneMute.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\CtrlUI\Assets\Default\Icons\Music.png">
       <Link>Assets\Default\Icons\Music.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -379,9 +432,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Icons\MediaPrevious.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Default\Icons\MicrophoneMute.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Icons\Rumble.png">
