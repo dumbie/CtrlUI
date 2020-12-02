@@ -144,14 +144,14 @@ namespace DirectXInput
 
                     if (SendButton.Name == "btn_RumbleTestLight")
                     {
-                        SendXRumbleData(activeController, true, true, false);
+                        ControllerOutput(activeController, true, true, false);
                     }
                     else
                     {
-                        SendXRumbleData(activeController, true, false, true);
+                        ControllerOutput(activeController, true, false, true);
                     }
                     await Task.Delay(1000);
-                    SendXRumbleData(activeController, true, false, false);
+                    ControllerOutput(activeController, true, false, false);
 
                     vControllerRumbleTest = false;
                 }

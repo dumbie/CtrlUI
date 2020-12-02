@@ -45,10 +45,10 @@ namespace DirectXInput
                 {
                     //Update the controller led
                     vControllerMuteLed = inputMuted;
-                    SendXRumbleData(vController0, true, false, false);
-                    SendXRumbleData(vController1, true, false, false);
-                    SendXRumbleData(vController2, true, false, false);
-                    SendXRumbleData(vController3, true, false, false);
+                    ControllerOutput(vController0, true, false, false);
+                    ControllerOutput(vController1, true, false, false);
+                    ControllerOutput(vController2, true, false, false);
+                    ControllerOutput(vController3, true, false, false);
                 }
                 else
                 {

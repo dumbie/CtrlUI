@@ -142,10 +142,10 @@ namespace DirectXInput
                 if (batteryLevelChanged)
                 {
                     Debug.WriteLine("Controller " + Controller.NumberId + " battery level changed, updating led.");
-                    SendXRumbleData(vController0, true, false, false);
-                    SendXRumbleData(vController1, true, false, false);
-                    SendXRumbleData(vController2, true, false, false);
-                    SendXRumbleData(vController3, true, false, false);
+                    ControllerOutput(vController0, true, false, false);
+                    ControllerOutput(vController1, true, false, false);
+                    ControllerOutput(vController2, true, false, false);
+                    ControllerOutput(vController3, true, false, false);
                 }
 
                 //Show or hide battery level overlay

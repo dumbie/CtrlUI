@@ -10,18 +10,18 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Receive and Translate DirectInput Controller
-        async Task LoopReceiveWinInputData(ControllerStatus Controller)
+        //Receive and translate DirectInput
+        async Task LoopInputWinUsb(ControllerStatus Controller)
         {
             try
             {
                 Debug.WriteLine("Receive and Translate Win DirectInput for: " + Controller.Details.DisplayName);
 
                 //Initialize game controller
-                InitializeGameController(Controller);
+                ControllerInitialize(Controller);
 
                 //Send default output to controller
-                SendXRumbleData(Controller, true, false, false);
+                ControllerOutput(Controller, true, false, false);
 
                 //Receive input from the selected controller
                 while (!Controller.InputTask.TaskStopRequest && Controller.WinUsbDevice != null && Controller.WinUsbDevice.Connected)
@@ -303,8 +303,11 @@ namespace DirectXInput
                             //Update the controller battery level
                             ControllerReadBatteryLevel(Controller);
 
-                            //Send the prepared controller data
-                            await SendControllerData(Controller);
+                            //Send input to the virtual bus driver
+                            await VirtualBusInput(Controller);
+
+                            //Receive output from the virtual bus driver
+                            VirtualBusOutput(Controller);
                         }
                     }
                     catch

@@ -9,8 +9,8 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Send the prepared controller data
-        async Task SendControllerData(ControllerStatus Controller)
+        //Send input to the virtual bus
+        async Task VirtualBusInput(ControllerStatus Controller)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace DirectXInput
                 bool blockOutputShortcut = await ControllerShortcut(Controller);
 
                 //Check if controller output needs to be forwarded
-                bool blockOutputApplication = await ControllerOutput(Controller);
+                bool blockOutputApplication = await ControllerForwardOutput(Controller);
 
                 //Check if output or guide button needs to be blocked
                 if (blockOutputApplication || blockOutputShortcut || Controller.BlockOutput)
@@ -65,11 +65,8 @@ namespace DirectXInput
                     PrepareXInputData(Controller, false);
                 }
 
-                //Send XOutput device data
-                vVirtualBusDevice.VirtualReadWrite(Controller.XInputData, Controller.XOutputData);
-
-                //Send XInput device data
-                SendXRumbleData(Controller, false, false, false);
+                //Send input to the virtual bus driver
+                vVirtualBusDevice.VirtualInput(Controller.XInputData);
             }
             catch { }
         }

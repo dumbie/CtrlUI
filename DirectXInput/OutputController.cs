@@ -12,7 +12,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Initialize game controller
-        private void InitializeGameController(ControllerStatus Controller)
+        private void ControllerInitialize(ControllerStatus Controller)
         {
             try
             {
@@ -74,8 +74,8 @@ namespace DirectXInput
             }
         }
 
-        //Receive rumble byte data
-        public void SendXRumbleData(ControllerStatus Controller, bool forceUpdate, bool testLight, bool testHeavy)
+        //Send output to controller
+        public void ControllerOutput(ControllerStatus Controller, bool forceUpdate, bool testLight, bool testHeavy)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace DirectXInput
                     //Debug.WriteLine("Rumble send controller is not connected.");
                     return;
                 }
-                if (!forceUpdate && Controller.XOutputData[1] != 0x08)
+                if (!forceUpdate && Controller.XOutputData.SmallMotor == 0 && Controller.XOutputData.LargeMotor == 0)
                 {
                     //Debug.WriteLine("No controller rumble update needed.");
                     return;
@@ -100,7 +100,7 @@ namespace DirectXInput
                 }
                 else
                 {
-                    controllerRumbleHeavy = Controller.XOutputData[3];
+                    controllerRumbleHeavy = Controller.XOutputData.LargeMotor;
                 }
                 if (testLight)
                 {
@@ -108,7 +108,7 @@ namespace DirectXInput
                 }
                 else
                 {
-                    controllerRumbleLight = Controller.XOutputData[4];
+                    controllerRumbleLight = Controller.XOutputData.SmallMotor;
                 }
 
                 //Adjust the trigger rumble strength

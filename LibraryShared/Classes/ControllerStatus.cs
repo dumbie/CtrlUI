@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using static ArnoldVinkCode.AVActions;
+using static LibraryUsb.WinUsbDevice;
 
 namespace LibraryShared
 {
@@ -48,8 +49,8 @@ namespace LibraryShared
             public int InputButtonOffsetByte = 0;
             public byte[] InputReport = null;
             public byte[] OutputReport = null;
-            public byte[] XInputData = new byte[28];
-            public byte[] XOutputData = new byte[8];
+            public XUSB_INPUT_REPORT XInputData = new XUSB_INPUT_REPORT();
+            public XUSB_OUTPUT_REPORT XOutputData = new XUSB_OUTPUT_REPORT();
 
             //Controller Input
             public int Delay_CtrlUIOutput = Environment.TickCount;

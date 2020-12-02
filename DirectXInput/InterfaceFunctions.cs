@@ -281,7 +281,7 @@ namespace DirectXInput
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
 
                         //Update the controller led
-                        SendXRumbleData(activeController, true, false, false);
+                        ControllerOutput(activeController, true, false, false);
                     }
                 };
 

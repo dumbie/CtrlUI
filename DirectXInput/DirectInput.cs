@@ -9,6 +9,7 @@ using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryUsb.NativeMethods_Guid;
+using static LibraryUsb.WinUsbDevice;
 
 namespace DirectXInput
 {
@@ -81,14 +82,14 @@ namespace DirectXInput
                         Controller.SupportedCurrent = new ControllerSupported();
                     }
 
-                    //Start Translating DirectInput Controller Threads
+                    //Start receiving and translating DirectInput
                     if (Controller.Details.Type == "Win")
                     {
                         async Task TaskAction()
                         {
                             try
                             {
-                                await LoopReceiveWinInputData(Controller);
+                                await LoopInputWinUsb(Controller);
                             }
                             catch { }
                         }
@@ -100,7 +101,7 @@ namespace DirectXInput
                         {
                             try
                             {
-                                await LoopReceiveHidInputData(Controller);
+                                await LoopInputHidDevice(Controller);
                             }
                             catch { }
                         }
@@ -277,7 +278,7 @@ namespace DirectXInput
                     PrepareXInputData(Controller, true);
 
                     //Send empty device data
-                    vVirtualBusDevice.VirtualReadWrite(Controller.XInputData, Controller.XOutputData);
+                    vVirtualBusDevice.VirtualInput(Controller.XInputData);
                     await Task.Delay(500);
 
                     //Disconnect the virtual controller
@@ -292,8 +293,8 @@ namespace DirectXInput
                     await Task.Delay(500);
 
                     //Reset the input and output report
-                    Controller.XInputData = new byte[28];
-                    Controller.XOutputData = new byte[8];
+                    Controller.XInputData = new XUSB_INPUT_REPORT();
+                    Controller.XOutputData = new XUSB_OUTPUT_REPORT();
                 }
 
                 //Stop and Close the Win Usb Device
@@ -470,7 +471,7 @@ namespace DirectXInput
         {
             try
             {
-                vVirtualBusDevice = new WinUsbDevice(GuidClassScpVirtualBus, string.Empty, false, false);
+                vVirtualBusDevice = new WinUsbDevice(GuidClassVigemVirtualBus, string.Empty, false, false);
                 if (vVirtualBusDevice.Connected)
                 {
                     Debug.WriteLine("Xbox drivers are installed.");
