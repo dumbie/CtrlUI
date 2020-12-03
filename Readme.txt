@@ -28,10 +28,8 @@ Keyboard Controller is an on screen keyboard which can be used by your controlle
 4) Enjoy using your new controller friendly based user interface.
 
 | Uninstallation Instructions
-1) Run the Driver Installer and click on "Uninstall drivers"
-2) Remove the created shortcuts from your startup folder.
-3) Remove the created tasks in Windows task scheduler.
-4) Remove the extracted CtrlUI directory.
+1) Run the Driver Installer and click on "Uninstall drivers" and "Cleanup"
+2) Remove the extracted CtrlUI directory.
 
 | Tips and tricks
 - Let CtrlUI automatically launch on Windows startup for easier alltime usage.

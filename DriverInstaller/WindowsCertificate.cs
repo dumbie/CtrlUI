@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
@@ -17,9 +18,12 @@ namespace DriverInstaller
                 certificateStore.Add(certificateFile);
                 certificateStore.Close();
 
-                Debug.WriteLine("Registered certificate to store root.");
+                Debug.WriteLine("Installed certificate to store root.");
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to install certificate: " + ex.Message);
+            }
         }
 
         void UninstallCertificate(string issuedTo)
@@ -29,14 +33,26 @@ namespace DriverInstaller
                 X509Store certificateStore = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
 
                 certificateStore.Open(OpenFlags.ReadWrite);
-                foreach (X509Certificate2 cert in certificateStore.Certificates.Cast<X509Certificate2>().Where(x => x.Issuer == issuedTo))
+                foreach (X509Certificate2 cert in certificateStore.Certificates.Cast<X509Certificate2>())
                 {
-                    certificateStore.Remove(cert);
-                    Debug.WriteLine("Removed certificate from the store root.");
+                    try
+                    {
+                        string certIssuedTo = cert.GetNameInfo(X509NameType.SimpleName, false);
+                        if (certIssuedTo == issuedTo)
+                        {
+                            certificateStore.Remove(cert);
+                            Debug.WriteLine("Removed certificate from the store root: " + issuedTo);
+                        }
+                    }
+                    catch { }
                 }
+
                 certificateStore.Close();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to uninstall certificate: " + ex.Message);
+            }
         }
     }
 }

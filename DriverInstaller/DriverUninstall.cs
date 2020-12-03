@@ -36,18 +36,19 @@ namespace DriverInstaller
             try
             {
                 //Disable the buttons
+                ProgressBarUpdate(5, false);
                 ElementEnableDisable(button_Driver_Install, false);
                 ElementEnableDisable(button_Driver_Uninstall, false);
+                ElementEnableDisable(button_Driver_Cleanup, false);
                 ElementEnableDisable(button_Driver_Close, false);
-                ProgressBarUpdate(5, false);
 
                 //Close running controller tools
-                await CloseControllerTools();
                 ProgressBarUpdate(10, false);
+                await CloseControllerTools();
 
                 //Start the driver uninstallation
-                TextBoxAppend("Starting the driver uninstallation.");
                 ProgressBarUpdate(20, false);
+                TextBoxAppend("Starting the driver uninstallation.");
 
                 //Remove older unused devices
                 ProgressBarUpdate(30, false);
@@ -68,9 +69,9 @@ namespace DriverInstaller
                 ProgressBarUpdate(80, false);
                 UninstallDualShock3();
 
+                ProgressBarUpdate(100, false);
                 TextBoxAppend("Driver uninstallation completed.");
                 TextBoxAppend("--- System reboot may be required ---");
-                ProgressBarUpdate(100, false);
 
                 //Close the application
                 await Application_Exit("Closing the driver installer in a bit.", false);

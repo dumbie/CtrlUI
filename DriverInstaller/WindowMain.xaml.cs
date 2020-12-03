@@ -173,6 +173,7 @@ namespace DriverInstaller
                 //Disable the buttons
                 ElementEnableDisable(button_Driver_Install, false);
                 ElementEnableDisable(button_Driver_Uninstall, false);
+                ElementEnableDisable(button_Driver_Cleanup, false);
                 ElementEnableDisable(button_Driver_Close, false);
 
                 //Run DirectXInput after the drivers installed
