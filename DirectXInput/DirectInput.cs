@@ -8,7 +8,6 @@ using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
-using static LibraryUsb.NativeMethods_Guid;
 using static LibraryUsb.WinUsbDevice;
 
 namespace DirectXInput
@@ -471,7 +470,7 @@ namespace DirectXInput
                         }
                         else
                         {
-                            Debug.WriteLine("Opened the hid controller: " + Controller.Details.DisplayName + ", exclusive: " + Controller.HidDevice.IsExclusive);
+                            Debug.WriteLine("Opened the hid controller: " + Controller.Details.DisplayName + ", exclusive: " + Controller.HidDevice.Exclusive);
                             vControllerTempBlockPaths.Remove(Controller.Details.Path);
                             return true;
                         }
@@ -482,30 +481,6 @@ namespace DirectXInput
             {
                 Debug.WriteLine("Failed opening controller: " + ex.Message);
             }
-            return false;
-        }
-
-        //Open virtual bus driver
-        async Task<bool> OpenVirtualBusDriver()
-        {
-            try
-            {
-                vVirtualBusDevice = new WinUsbDevice(GuidClassVigemVirtualBus, string.Empty, false, false);
-                if (vVirtualBusDevice.Connected)
-                {
-                    Debug.WriteLine("Xbox drivers are installed.");
-                    vVirtualBusDevice.VirtualUnplugAll();
-                    await Task.Delay(500);
-                    return true;
-                }
-                else
-                {
-                    Debug.WriteLine("Xbox drivers not installed.");
-                    return false;
-                }
-            }
-            catch { }
-            Debug.WriteLine("Xbox drivers not installed.");
             return false;
         }
     }

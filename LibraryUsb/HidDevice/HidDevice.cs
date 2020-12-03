@@ -10,7 +10,8 @@ namespace LibraryUsb
     public partial class HidDevice
     {
         public bool Connected;
-        public bool IsExclusive;
+        public bool Installed;
+        public bool Exclusive;
         public string DevicePath;
         public string DeviceInstanceId;
         public string HardwareId;
@@ -70,14 +71,14 @@ namespace LibraryUsb
 
                 //Try to open the device exclusively
                 FileHandle = CreateFile(DevicePath, desiredAccess, shareModeExclusive, IntPtr.Zero, creationDisposition, flagsAttributes, 0);
-                IsExclusive = true;
+                Exclusive = true;
 
                 //Try to open the device normally
                 if (FileHandle == null || FileHandle.IsInvalid || FileHandle.IsClosed)
                 {
                     //Debug.WriteLine("Failed to open device exclusively, opening normally.");
                     FileHandle = CreateFile(DevicePath, desiredAccess, shareModeNormal, IntPtr.Zero, creationDisposition, flagsAttributes, 0);
-                    IsExclusive = false;
+                    Exclusive = false;
                 }
 
                 //Check if the device is opened
@@ -85,12 +86,14 @@ namespace LibraryUsb
                 {
                     //Debug.WriteLine("Failed to open hid device: " + DevicePath);
                     Connected = false;
+                    Installed = false;
                     return false;
                 }
                 else
                 {
                     //Debug.WriteLine("Opened hid device: " + DevicePath + ", exclusively: " + IsExclusive);
                     Connected = true;
+                    Installed = true;
                     return true;
                 }
             }
@@ -98,6 +101,7 @@ namespace LibraryUsb
             {
                 Debug.WriteLine("Failed to open hid device: " + ex.Message);
                 Connected = false;
+                Installed = false;
                 return false;
             }
         }
@@ -136,6 +140,7 @@ namespace LibraryUsb
                     FileHandle = null;
                 }
                 Connected = false;
+                Exclusive = false;
                 return true;
             }
             catch (Exception ex)

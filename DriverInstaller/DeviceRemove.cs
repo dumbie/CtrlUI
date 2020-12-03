@@ -9,11 +9,11 @@ namespace DriverInstaller
 {
     public partial class WindowMain
     {
-        void RemoveGhostScpVirtualBus()
+        void RemoveUnusedScpVirtualBus()
         {
             try
             {
-                List<EnumerateInfo> enumerateInfoList = EnumerateDevices(GuidClassScpVirtualBus, false);
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(GuidClassScpVirtualBus, false);
                 if (enumerateInfoList.Any())
                 {
                     foreach (EnumerateInfo device in enumerateInfoList)
@@ -25,22 +25,21 @@ namespace DriverInstaller
                         }
                         catch { }
                     }
-                    TextBoxAppend(enumerateInfoList.Count + "x ghost ScpVirtualBus removed.");
+                    TextBoxAppend(enumerateInfoList.Count + "x unused ScpVirtualBus removed.");
                 }
                 else
                 {
-                    Debug.WriteLine("No ghost ScpVirtualBus found.");
-                    TextBoxAppend("No ghost ScpVirtualBus found.");
+                    Debug.WriteLine("No unused ScpVirtualBus found.");
                 }
             }
             catch { }
         }
 
-        void RemoveGhostHidGuardian()
+        void RemoveUnusedVigemVirtualBus()
         {
             try
             {
-                List<EnumerateInfo> enumerateInfoList = EnumerateDevices(GuidClassHidGuardian, false);
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(GuidClassVigemVirtualBus, false);
                 if (enumerateInfoList.Any())
                 {
                     foreach (EnumerateInfo device in enumerateInfoList)
@@ -48,26 +47,25 @@ namespace DriverInstaller
                         try
                         {
                             string DeviceInstanceId = ConvertPathToInstanceId(device.DevicePath);
-                            DeviceRemove(GuidClassHidGuardian, DeviceInstanceId);
+                            DeviceRemove(GuidClassVigemVirtualBus, DeviceInstanceId);
                         }
                         catch { }
                     }
-                    TextBoxAppend(enumerateInfoList.Count + "x ghost HidGuardian found.");
+                    TextBoxAppend(enumerateInfoList.Count + "x unused VigemVirtualBus removed.");
                 }
                 else
                 {
-                    Debug.WriteLine("No ghost HidGuardian found.");
-                    TextBoxAppend("No ghost HidGuardian found.");
+                    Debug.WriteLine("No unused VigemVirtualBus found.");
                 }
             }
             catch { }
         }
 
-        void RemoveGhostXboxControllers()
+        void RemoveUnusedXboxControllers()
         {
             try
             {
-                List<EnumerateInfo> enumerateInfoList = EnumerateDevices(GuidClassX360Controller, false);
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(GuidClassX360Controller, false);
                 if (enumerateInfoList.Any())
                 {
                     foreach (EnumerateInfo device in enumerateInfoList)
@@ -79,12 +77,37 @@ namespace DriverInstaller
                         }
                         catch { }
                     }
-                    TextBoxAppend(enumerateInfoList.Count + "x ghost Xbox controller removed.");
+                    TextBoxAppend(enumerateInfoList.Count + "x unused Xbox controller removed.");
                 }
                 else
                 {
-                    Debug.WriteLine("No ghost Xbox controllers found.");
-                    TextBoxAppend("No ghost Xbox controllers found.");
+                    Debug.WriteLine("No unused Xbox controllers found.");
+                }
+            }
+            catch { }
+        }
+
+        void RemoveUnusedDS3Controllers()
+        {
+            try
+            {
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(GuidClassScpDS3Driver, false);
+                if (enumerateInfoList.Any())
+                {
+                    foreach (EnumerateInfo device in enumerateInfoList)
+                    {
+                        try
+                        {
+                            string DeviceInstanceId = ConvertPathToInstanceId(device.DevicePath);
+                            DeviceRemove(GuidClassScpDS3Driver, DeviceInstanceId);
+                        }
+                        catch { }
+                    }
+                    TextBoxAppend(enumerateInfoList.Count + "x unused DualShock 3 controller removed.");
+                }
+                else
+                {
+                    Debug.WriteLine("No unused DualShock 3 controllers found.");
                 }
             }
             catch { }

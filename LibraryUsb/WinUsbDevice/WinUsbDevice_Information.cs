@@ -22,7 +22,7 @@ namespace LibraryUsb
             try
             {
                 //Check if device is initialized
-                if (!IsInitialized)
+                if (!Initialized)
                 {
                     Debug.WriteLine("Device needs to be initialized to read the descriptor.");
                     return null;

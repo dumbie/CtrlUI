@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
@@ -48,12 +49,12 @@ namespace DriverInstaller
                 TextBoxAppend("Starting the driver uninstallation.");
                 ProgressBarUpdate(20, false);
 
-                //Remove older ghost devices
-                TextBoxAppend("Removing older ghost devices.");
+                //Remove older unused devices
                 ProgressBarUpdate(30, false);
-                RemoveGhostScpVirtualBus();
-                //RemoveGhostHidGuardian();
-                RemoveGhostXboxControllers();
+                RemoveUnusedVigemVirtualBus();
+                RemoveUnusedScpVirtualBus();
+                RemoveUnusedXboxControllers();
+                RemoveUnusedDS3Controllers();
 
                 //Uninstall Virtual Bus Driver
                 ProgressBarUpdate(40, false);
@@ -81,7 +82,7 @@ namespace DriverInstaller
         {
             try
             {
-                if (DriverUninstallInf(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverUninstallInf(@"Resources\Drivers\ViGEmBus\ViGEmBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("Virtual Bus Driver uninstalled.");
                 }
@@ -99,11 +100,11 @@ namespace DriverInstaller
             {
                 if (DriverUninstallInf(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
-                    TextBoxAppend("DS3 USB Driver uninstalled.");
+                    TextBoxAppend("DualShock 3 USB Driver uninstalled.");
                 }
                 else
                 {
-                    TextBoxAppend("DS3 USB Driver not uninstalled.");
+                    TextBoxAppend("DualShock 3 USB Driver not uninstalled.");
                 }
             }
             catch { }
@@ -113,7 +114,8 @@ namespace DriverInstaller
         {
             try
             {
-                if (DriverUninstallInf(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                string osSystem = Environment.Is64BitOperatingSystem ? "x64" : "x86";
+                if (DriverUninstallInf(@"Resources\Drivers\HidGuardian\" + osSystem + @"\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("HidGuardian Driver uninstalled.");
                 }

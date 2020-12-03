@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
@@ -48,12 +49,12 @@ namespace DriverInstaller
                 TextBoxAppend("Starting the driver installation.");
                 ProgressBarUpdate(20, false);
 
-                //Remove older ghost devices
-                TextBoxAppend("Removing older ghost devices.");
+                //Remove older unused devices
                 ProgressBarUpdate(30, false);
-                RemoveGhostScpVirtualBus();
-                //RemoveGhostHidGuardian();
-                RemoveGhostXboxControllers();
+                RemoveUnusedVigemVirtualBus();
+                RemoveUnusedScpVirtualBus();
+                RemoveUnusedXboxControllers();
+                RemoveUnusedDS3Controllers();
 
                 //Install Virtual Bus Driver
                 ProgressBarUpdate(40, false);
@@ -81,12 +82,12 @@ namespace DriverInstaller
         {
             try
             {
-                if (DeviceCreate("System", GuidClassSystem, @"Root\ScpVBus"))
+                if (DeviceCreateNode("System", GuidClassSystem, @"Nefarius\ViGEmBus\Gen1"))
                 {
                     TextBoxAppend("Virtual Bus Driver created.");
                 }
 
-                if (DriverInstallInf(@"Resources\Drivers\ScpVBus\ScpVBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstallInf(@"Resources\Drivers\ViGEmBus\ViGEmBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("Virtual Bus Driver installed.");
                 }
@@ -104,11 +105,11 @@ namespace DriverInstaller
             {
                 if (DriverInstallInf(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
-                    TextBoxAppend("DS3 USB Driver installed.");
+                    TextBoxAppend("DualShock 3 USB Driver installed.");
                 }
                 else
                 {
-                    TextBoxAppend("DS3 USB Driver not installed.");
+                    TextBoxAppend("DualShock 3 USB Driver not installed.");
                 }
             }
             catch { }
@@ -118,12 +119,13 @@ namespace DriverInstaller
         {
             try
             {
-                if (DeviceCreate("System", GuidClassSystem, @"Root\HidGuardian"))
+                if (DeviceCreateNode("System", GuidClassSystem, @"Root\HidGuardian"))
                 {
                     TextBoxAppend("HidGuardian Driver created.");
                 }
 
-                if (DriverInstallInf(@"Resources\Drivers\HidGuardian\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                string osSystem = Environment.Is64BitOperatingSystem ? "x64" : "x86";
+                if (DriverInstallInf(@"Resources\Drivers\HidGuardian\" + osSystem + @"\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("HidGuardian Driver installed.");
                 }

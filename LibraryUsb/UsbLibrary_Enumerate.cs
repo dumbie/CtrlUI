@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Management;
 using System.Runtime.InteropServices;
 using static LibraryUsb.NativeMethods_SetupApi;
 
@@ -15,7 +18,52 @@ namespace LibraryUsb
             public string HardwareId { get; set; }
         }
 
-        public static List<EnumerateInfo> EnumerateDevices(Guid enumerateGuid, bool isPresent)
+        public static bool CheckDevicesStore(string infFileName)
+        {
+            try
+            {
+                string windowsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+                string driverStoreFileRepository = Path.Combine(windowsFolderPath, @"System32\DriverStore\FileRepository");
+                DirectoryInfo driverStoreDirectory = new DirectoryInfo(driverStoreFileRepository);
+                FileInfo[] driverStoreFiles = driverStoreDirectory.GetFiles("*.inf", SearchOption.AllDirectories);
+                return driverStoreFiles.Any(x => x.Name.ToLower() == infFileName.ToLower());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed checking devices store: " + ex.Message);
+                return false;
+            }
+        }
+
+        public static List<EnumerateInfo> EnumerateDevicesWmi()
+        {
+            List<EnumerateInfo> enumeratedInfoList = new List<EnumerateInfo>();
+            try
+            {
+                using (ManagementObjectSearcher objSearcher = new ManagementObjectSearcher("Select * from Win32_PnPSignedDriver"))
+                {
+                    using (ManagementObjectCollection objCollection = objSearcher.Get())
+                    {
+                        foreach (ManagementObject objDriver in objCollection)
+                        {
+                            try
+                            {
+                                EnumerateInfo foundDevice = new EnumerateInfo();
+                                enumeratedInfoList.Add(foundDevice);
+                            }
+                            catch { }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed enumerating devices wmi: " + ex.Message);
+            }
+            return enumeratedInfoList;
+        }
+
+        public static List<EnumerateInfo> EnumerateDevicesDi(Guid enumerateGuid, bool isPresent)
         {
             IntPtr deviceInfoList = IntPtr.Zero;
             List<EnumerateInfo> enumeratedInfoList = new List<EnumerateInfo>();
@@ -56,7 +104,12 @@ namespace LibraryUsb
                                     description = GetDeviceDescription(deviceInfoList, ref deviceInfoData);
                                 }
                                 string hardwareId = GetDeviceHardwareId(deviceInfoList, ref deviceInfoData);
-                                enumeratedInfoList.Add(new EnumerateInfo { DevicePath = devicePath, Description = description, HardwareId = hardwareId });
+
+                                EnumerateInfo foundDevice = new EnumerateInfo();
+                                foundDevice.DevicePath = devicePath;
+                                foundDevice.Description = description;
+                                foundDevice.HardwareId = hardwareId;
+                                enumeratedInfoList.Add(foundDevice);
                             }
                             catch { }
                         }
@@ -66,7 +119,7 @@ namespace LibraryUsb
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed enumerating devices: " + ex.Message);
+                Debug.WriteLine("Failed enumerating devices di: " + ex.Message);
             }
             finally
             {
@@ -78,7 +131,7 @@ namespace LibraryUsb
             return enumeratedInfoList;
         }
 
-        public static string GetDevicePath(IntPtr deviceInfoList, SP_DEVICE_INTERFACE_DATA deviceInterfaceData)
+        private static string GetDevicePath(IntPtr deviceInfoList, SP_DEVICE_INTERFACE_DATA deviceInterfaceData)
         {
             try
             {
@@ -116,7 +169,7 @@ namespace LibraryUsb
             }
         }
 
-        public static string GetDeviceDescription(IntPtr deviceInfoList, ref SP_DEVICE_INFO_DATA devinfoData)
+        private static string GetDeviceDescription(IntPtr deviceInfoList, ref SP_DEVICE_INFO_DATA devinfoData)
         {
             try
             {
@@ -140,7 +193,7 @@ namespace LibraryUsb
             }
         }
 
-        public static string GetBusReportedDeviceDescription(IntPtr deviceInfoList, ref SP_DEVICE_INFO_DATA devinfoData)
+        private static string GetBusReportedDeviceDescription(IntPtr deviceInfoList, ref SP_DEVICE_INFO_DATA devinfoData)
         {
             try
             {
@@ -164,7 +217,7 @@ namespace LibraryUsb
             }
         }
 
-        public static string GetDeviceHardwareId(IntPtr deviceInfoList, ref SP_DEVICE_INFO_DATA devinfoData)
+        private static string GetDeviceHardwareId(IntPtr deviceInfoList, ref SP_DEVICE_INFO_DATA devinfoData)
         {
             try
             {

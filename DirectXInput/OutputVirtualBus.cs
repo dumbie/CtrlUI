@@ -22,12 +22,15 @@ namespace DirectXInput
                 ControllerOutput(Controller, true, false, false);
 
                 //Receive output from the virtual bus
-                bool hidDeviceConnected = Controller.HidDevice != null && Controller.HidDevice.Connected;
-                bool winUsbConnected = Controller.WinUsbDevice != null && Controller.WinUsbDevice.Connected;
-                while (!Controller.OutputTask.TaskStopRequest && (hidDeviceConnected || winUsbConnected))
+                while (!Controller.OutputTask.TaskStopRequest)
                 {
                     try
                     {
+                        //Check if controller is connected
+                        if (Controller.HidDevice != null && !Controller.HidDevice.Connected) { break; }
+                        if (Controller.WinUsbDevice != null && !Controller.WinUsbDevice.Connected) { break; }
+                        if (!Controller.Connected) { break; }
+
                         //Set receive structure
                         Controller.XOutputData = new XUSB_OUTPUT_REPORT();
                         Controller.XOutputData.Size = Marshal.SizeOf(Controller.XOutputData);

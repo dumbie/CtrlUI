@@ -33,7 +33,7 @@ namespace LibraryUsb
             }
         }
 
-        public static bool DeviceCreate(string className, Guid classGuid, string propertyNode)
+        public static bool DeviceCreateNode(string className, Guid classGuid, string propertyNode)
         {
             IntPtr deviceInfoList = IntPtr.Zero;
             try
@@ -65,7 +65,7 @@ namespace LibraryUsb
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to create device: " + ex.Message);
+                Debug.WriteLine("Failed to create device node: " + ex.Message);
                 return false;
             }
             finally

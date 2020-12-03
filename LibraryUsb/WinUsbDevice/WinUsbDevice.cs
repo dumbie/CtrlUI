@@ -13,7 +13,8 @@ namespace LibraryUsb
     public partial class WinUsbDevice
     {
         public bool Connected;
-        private bool IsInitialized;
+        public bool Installed;
+        public bool Initialized;
         public string DevicePath;
         public string DeviceInstanceId;
         public Guid DeviceGuid;
@@ -32,7 +33,7 @@ namespace LibraryUsb
                 DevicePath = devicePath;
                 if (DeviceGuid != Guid.Empty && string.IsNullOrWhiteSpace(DevicePath))
                 {
-                    List<EnumerateInfo> enumerateInfoList = EnumerateDevices(DeviceGuid, true);
+                    List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(DeviceGuid, true);
                     if (enumerateInfoList.Any())
                     {
                         DevicePath = enumerateInfoList.FirstOrDefault().DevicePath;
@@ -81,12 +82,14 @@ namespace LibraryUsb
                 {
                     //Debug.WriteLine("Failed to open winusb device: " + DevicePath);
                     Connected = false;
+                    Installed = false;
                     return false;
                 }
                 else
                 {
                     //Debug.WriteLine("Opened winusb device: " + DevicePath);
                     Connected = true;
+                    Installed = true;
                     return true;
                 }
             }
@@ -94,6 +97,7 @@ namespace LibraryUsb
             {
                 Debug.WriteLine("Failed to open winusb device: " + ex.Message);
                 Connected = false;
+                Installed = false;
                 return false;
             }
         }
@@ -106,7 +110,7 @@ namespace LibraryUsb
                 if (!WinUsb_Initialize(FileHandle, out WinUsbHandle))
                 {
                     Debug.WriteLine("Failed to initialize winusb device: " + DevicePath);
-                    IsInitialized = false;
+                    Initialized = false;
                     return false;
                 }
 
@@ -140,17 +144,17 @@ namespace LibraryUsb
                         }
                     }
                     //Debug.WriteLine("Initialized winusb device: " + DevicePath);
-                    IsInitialized = true;
+                    Initialized = true;
                     return true;
                 }
                 //Debug.WriteLine("Failed to initialize winusb device: " + DevicePath);
-                IsInitialized = false;
+                Initialized = false;
                 return false;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to initialize winusb device: " + ex.Message);
-                IsInitialized = false;
+                Initialized = false;
                 return false;
             }
         }
@@ -174,6 +178,7 @@ namespace LibraryUsb
                     FileHandle = null;
                 }
                 Connected = false;
+                Initialized = false;
                 return true;
             }
             catch (Exception ex)

@@ -66,7 +66,15 @@ namespace DirectXInput
                     await Application_ShowHideWindow();
                 }
 
-                //Open and check virtual bus driver
+                //Check if drivers are installed
+                if (!CheckInstalledDrivers())
+                {
+                    if (!ShowInTaskbar) { await Application_ShowHideWindow(); }
+                    await Message_InstallDrivers();
+                    return;
+                }
+
+                //Open the virtual bus driver
                 if (!await OpenVirtualBusDriver())
                 {
                     if (!ShowInTaskbar) { await Application_ShowHideWindow(); }
