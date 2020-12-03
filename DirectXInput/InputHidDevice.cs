@@ -132,13 +132,7 @@ namespace DirectXInput
         {
             try
             {
-                Debug.WriteLine("Receive and Translate Hid DirectInput for: " + Controller.Details.DisplayName);
-
-                //Initialize game controller
-                ControllerInitialize(Controller);
-
-                //Send default output to controller
-                ControllerOutput(Controller, true, false, false);
+                Debug.WriteLine("Receive and translate Hid DirectInput for: " + Controller.Details.DisplayName);
 
                 //Receive input from the selected controller
                 while (!Controller.InputTask.TaskStopRequest && Controller.HidDevice != null && Controller.HidDevice.Connected)
@@ -457,11 +451,8 @@ namespace DirectXInput
                             //Update the controller battery level
                             ControllerReadBatteryLevel(Controller);
 
-                            //Send input to the virtual bus driver
+                            //Send input to the virtual bus
                             await VirtualBusInput(Controller);
-
-                            //Receive output from the virtual bus driver
-                            VirtualBusOutput(Controller);
                         }
                     }
                     catch

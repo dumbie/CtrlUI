@@ -85,7 +85,7 @@ namespace DirectXInput
                     //Start receiving and translating DirectInput
                     if (Controller.Details.Type == "Win")
                     {
-                        async Task TaskAction()
+                        async Task TaskActionInput()
                         {
                             try
                             {
@@ -93,11 +93,20 @@ namespace DirectXInput
                             }
                             catch { }
                         }
-                        AVActions.TaskStartLoop(TaskAction, Controller.InputTask);
+                        async Task TaskActionOutput()
+                        {
+                            try
+                            {
+                                LoopOutput(Controller);
+                            }
+                            catch { }
+                        }
+                        AVActions.TaskStartLoop(TaskActionInput, Controller.InputTask);
+                        AVActions.TaskStartLoop(TaskActionOutput, Controller.OutputTask);
                     }
                     else
                     {
-                        async Task TaskAction()
+                        async Task TaskActionInput()
                         {
                             try
                             {
@@ -105,7 +114,16 @@ namespace DirectXInput
                             }
                             catch { }
                         }
-                        AVActions.TaskStartLoop(TaskAction, Controller.InputTask);
+                        async Task TaskActionOutput()
+                        {
+                            try
+                            {
+                                LoopOutput(Controller);
+                            }
+                            catch { }
+                        }
+                        AVActions.TaskStartLoop(TaskActionInput, Controller.InputTask);
+                        AVActions.TaskStartLoop(TaskActionOutput, Controller.OutputTask);
                     }
 
                     return true;
@@ -267,6 +285,7 @@ namespace DirectXInput
 
                 //Stop the controller loop task
                 await TaskStopLoop(Controller.InputTask);
+                await TaskStopLoop(Controller.OutputTask);
 
                 //Reset the controller status
                 Controller.ResetControllerStatus();

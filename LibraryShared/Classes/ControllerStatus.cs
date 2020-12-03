@@ -29,6 +29,7 @@ namespace LibraryShared
 
             //Controller Task
             public AVTaskDetails InputTask = new AVTaskDetails();
+            public AVTaskDetails OutputTask = new AVTaskDetails();
 
             //WinUsb Device Variables
             public WinUsbDevice WinUsbDevice = null;
@@ -85,6 +86,7 @@ namespace LibraryShared
 
                     //Controller Task
                     InputTask = new AVTaskDetails();
+                    OutputTask = new AVTaskDetails();
 
                     //Device In and Output
                     InputButtonCountLoop1 = 0;

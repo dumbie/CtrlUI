@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading;
 using static LibraryUsb.NativeMethods_IoControl;
 
 namespace LibraryUsb
@@ -111,7 +112,6 @@ namespace LibraryUsb
 
         public bool VirtualPlugin(int controllerNumber)
         {
-            IntPtr overlappedIntPtr = IntPtr.Zero;
             IntPtr controlIntPtr = IntPtr.Zero;
             try
             {
@@ -131,9 +131,7 @@ namespace LibraryUsb
                 uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_BUSENUM_PLUGIN_HARDWARE, IO_METHOD.METHOD_BUFFERED);
 
                 //Send marshal structure
-                bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, busenumPlugin.Size, IntPtr.Zero, 0, out int bytesWritten, overlappedIntPtr) && bytesWritten > 0;
-                bool overlapped = GetOverlappedResult(FileHandle, ref overlappedIntPtr, out int bytesTransferred, true);
-                return iocontrol && overlapped;
+                return DeviceIoControl(FileHandle, controlCode, controlIntPtr, busenumPlugin.Size, IntPtr.Zero, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
             }
             catch (Exception ex)
             {
@@ -142,10 +140,6 @@ namespace LibraryUsb
             }
             finally
             {
-                if (overlappedIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(overlappedIntPtr);
-                }
                 if (controlIntPtr != IntPtr.Zero)
                 {
                     Marshal.FreeHGlobal(controlIntPtr);
@@ -155,7 +149,6 @@ namespace LibraryUsb
 
         public bool VirtualUnplug(int controllerNumber)
         {
-            IntPtr overlappedIntPtr = IntPtr.Zero;
             IntPtr controlIntPtr = IntPtr.Zero;
             try
             {
@@ -174,9 +167,7 @@ namespace LibraryUsb
                 uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_BUSENUM_UNPLUG_HARDWARE, IO_METHOD.METHOD_BUFFERED);
 
                 //Send marshal structure
-                bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, busenumUnplug.Size, IntPtr.Zero, 0, out int bytesWritten, overlappedIntPtr) && bytesWritten > 0;
-                bool overlapped = GetOverlappedResult(FileHandle, ref overlappedIntPtr, out int bytesTransferred, true);
-                return iocontrol && overlapped;
+                return DeviceIoControl(FileHandle, controlCode, controlIntPtr, busenumUnplug.Size, IntPtr.Zero, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
             }
             catch (Exception ex)
             {
@@ -185,10 +176,6 @@ namespace LibraryUsb
             }
             finally
             {
-                if (overlappedIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(overlappedIntPtr);
-                }
                 if (controlIntPtr != IntPtr.Zero)
                 {
                     Marshal.FreeHGlobal(controlIntPtr);
@@ -215,23 +202,30 @@ namespace LibraryUsb
 
         public bool VirtualInput(XUSB_INPUT_REPORT inputBuffer)
         {
-            IntPtr overlappedIntPtr = IntPtr.Zero;
             IntPtr controlIntPtr = IntPtr.Zero;
             try
             {
                 if (!Connected) { return false; }
+                using (ManualResetEvent manualResetEvent = new ManualResetEvent(false))
+                {
+                    NativeOverlapped nativeOverlapped = new NativeOverlapped();
+                    nativeOverlapped.EventHandle = manualResetEvent.SafeWaitHandle.DangerousGetHandle();
 
-                //Prepare marshal structure
-                controlIntPtr = Marshal.AllocHGlobal(inputBuffer.Size);
-                Marshal.StructureToPtr(inputBuffer, controlIntPtr, false);
+                    //Prepare marshal structure
+                    controlIntPtr = Marshal.AllocHGlobal(inputBuffer.Size);
+                    Marshal.StructureToPtr(inputBuffer, controlIntPtr, false);
 
-                //Get device control code
-                uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_XUSB_SUBMIT_REPORT, IO_METHOD.METHOD_BUFFERED);
+                    //Get device control code
+                    uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_XUSB_SUBMIT_REPORT, IO_METHOD.METHOD_BUFFERED);
 
-                //Send marshal structure
-                bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, inputBuffer.Size, IntPtr.Zero, 0, out int bytesWritten, overlappedIntPtr) && bytesWritten > 0;
-                bool overlapped = GetOverlappedResult(FileHandle, ref overlappedIntPtr, out int bytesTransferred, true);
-                return iocontrol && overlapped;
+                    //Send marshal structure
+                    bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, inputBuffer.Size, controlIntPtr, inputBuffer.Size, out int bytesWritten, nativeOverlapped) && bytesWritten > 0;
+
+                    //Get overlapped result
+                    manualResetEvent.WaitOne();
+                    bool overlapped = GetOverlappedResult(FileHandle, ref nativeOverlapped, out int bytesTransferred, true);
+                    return iocontrol && overlapped;
+                }
             }
             catch (Exception ex)
             {
@@ -240,10 +234,6 @@ namespace LibraryUsb
             }
             finally
             {
-                if (overlappedIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(overlappedIntPtr);
-                }
                 if (controlIntPtr != IntPtr.Zero)
                 {
                     Marshal.FreeHGlobal(controlIntPtr);
@@ -253,26 +243,33 @@ namespace LibraryUsb
 
         public bool VirtualOutput(ref XUSB_OUTPUT_REPORT outputBuffer)
         {
-            IntPtr overlappedIntPtr = IntPtr.Zero;
             IntPtr controlIntPtr = IntPtr.Zero;
             try
             {
                 if (!Connected) { return false; }
+                using (ManualResetEvent manualResetEvent = new ManualResetEvent(false))
+                {
+                    NativeOverlapped nativeOverlapped = new NativeOverlapped();
+                    nativeOverlapped.EventHandle = manualResetEvent.SafeWaitHandle.DangerousGetHandle();
 
-                //Prepare marshal structure
-                controlIntPtr = Marshal.AllocHGlobal(outputBuffer.Size);
-                Marshal.StructureToPtr(outputBuffer, controlIntPtr, false);
+                    //Prepare marshal structure
+                    controlIntPtr = Marshal.AllocHGlobal(outputBuffer.Size);
+                    Marshal.StructureToPtr(outputBuffer, controlIntPtr, false);
 
-                //Get device control code
-                uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_READ_DATA | FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_XUSB_REQUEST_NOTIFICATION, IO_METHOD.METHOD_BUFFERED);
+                    //Get device control code
+                    uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_READ_DATA | FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_XUSB_REQUEST_NOTIFICATION, IO_METHOD.METHOD_BUFFERED);
 
-                //Send marshal structure
-                bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, outputBuffer.Size, controlIntPtr, outputBuffer.Size, out int bytesWritten, overlappedIntPtr) && bytesWritten > 0;
-                bool overlapped = GetOverlappedResult(FileHandle, ref overlappedIntPtr, out int bytesTransferred, true);
+                    //Send marshal structure
+                    bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, outputBuffer.Size, controlIntPtr, outputBuffer.Size, out int bytesWritten, nativeOverlapped) && bytesWritten > 0;
 
-                //Update marshal structure
-                outputBuffer = Marshal.PtrToStructure<XUSB_OUTPUT_REPORT>(controlIntPtr);
-                return iocontrol && overlapped;
+                    //Get overlapped result
+                    manualResetEvent.WaitOne();
+                    bool overlapped = GetOverlappedResult(FileHandle, ref nativeOverlapped, out int bytesTransferred, true);
+
+                    //Set marshal structure
+                    outputBuffer = Marshal.PtrToStructure<XUSB_OUTPUT_REPORT>(controlIntPtr);
+                    return iocontrol && overlapped;
+                }
             }
             catch (Exception ex)
             {
@@ -281,10 +278,6 @@ namespace LibraryUsb
             }
             finally
             {
-                if (overlappedIntPtr != IntPtr.Zero)
-                {
-                    Marshal.FreeHGlobal(overlappedIntPtr);
-                }
                 if (controlIntPtr != IntPtr.Zero)
                 {
                     Marshal.FreeHGlobal(controlIntPtr);

@@ -65,7 +65,7 @@ namespace DirectXInput
                     PrepareXInputData(Controller, false);
                 }
 
-                //Send input to the virtual bus driver
+                //Send input to the virtual bus
                 vVirtualBusDevice.VirtualInput(Controller.XInputData);
             }
             catch { }

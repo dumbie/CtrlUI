@@ -11,7 +11,7 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Initialize game controller
+        //Initialize controller
         private void ControllerInitialize(ControllerStatus Controller)
         {
             try
@@ -83,11 +83,6 @@ namespace DirectXInput
                 if (Controller == null || !Controller.Connected)
                 {
                     //Debug.WriteLine("Rumble send controller is not connected.");
-                    return;
-                }
-                if (!forceUpdate && Controller.XOutputData.SmallMotor == 0 && Controller.XOutputData.LargeMotor == 0)
-                {
-                    //Debug.WriteLine("No controller rumble update needed.");
                     return;
                 }
 
