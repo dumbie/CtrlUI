@@ -1,6 +1,7 @@
 ﻿using LibraryUsb;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
 using static LibraryUsb.Enumerate;
@@ -15,9 +16,9 @@ namespace DirectXInput
         {
             try
             {
-                bool virtualBusDriver = CheckDevicesStore("ViGEmBus.inf");
-                bool hidGuardianDriver = CheckDevicesStore("HidGuardian.inf");
-                bool ds3ControllerDriver = CheckDevicesStore("Ds3Controller.inf");
+                bool virtualBusDriver = EnumerateDevicesStore("ViGEmBus.inf").Any();
+                bool hidGuardianDriver = EnumerateDevicesStore("HidGuardian.inf").Any();
+                bool ds3ControllerDriver = EnumerateDevicesStore("Ds3Controller.inf").Any();
                 return virtualBusDriver && hidGuardianDriver && ds3ControllerDriver;
             }
             catch

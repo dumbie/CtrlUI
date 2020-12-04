@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
 using static LibraryUsb.NativeMethods_SetupApi;
@@ -18,20 +17,32 @@ namespace LibraryUsb
             public string HardwareId { get; set; }
         }
 
-        public static bool CheckDevicesStore(string infFileName)
+        public static List<string> EnumerateDevicesStore(string infFileName)
         {
+            List<string> infPaths = new List<string>();
             try
             {
                 string windowsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
                 string driverStoreFileRepository = Path.Combine(windowsFolderPath, @"System32\DriverStore\FileRepository");
                 DirectoryInfo driverStoreDirectory = new DirectoryInfo(driverStoreFileRepository);
                 FileInfo[] driverStoreFiles = driverStoreDirectory.GetFiles("*.inf", SearchOption.AllDirectories);
-                return driverStoreFiles.Any(x => x.Name.ToLower() == infFileName.ToLower());
+                foreach (FileInfo fileInfo in driverStoreFiles)
+                {
+                    try
+                    {
+                        if (fileInfo.Name.ToLower() == infFileName.ToLower())
+                        {
+                            infPaths.Add(fileInfo.FullName);
+                        }
+                    }
+                    catch { }
+                }
+                return infPaths;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed checking devices store: " + ex.Message);
-                return false;
+                Debug.WriteLine("Failed enumerating devices store: " + ex.Message);
+                return infPaths;
             }
         }
 

@@ -1,11 +1,11 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using static DriverInstaller.AppVariables;
 using static LibraryUsb.DeviceManager;
+using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_Guid;
 using static LibraryUsb.NativeMethods_SetupApi;
 
@@ -83,13 +83,38 @@ namespace DriverInstaller
         {
             try
             {
-                if (DriverUninstallInf(@"Resources\Drivers\ViGEmBus\ViGEmBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                List<string> infPaths = EnumerateDevicesStore("ViGEmBus.inf");
+                foreach (string infPath in infPaths)
                 {
-                    TextBoxAppend("Virtual Bus Driver uninstalled.");
+                    try
+                    {
+                        if (DriverUninstallInf(infPath, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        {
+                            TextBoxAppend("Virtual ViGEm Bus Driver uninstalled.");
+                        }
+                        else
+                        {
+                            TextBoxAppend("Virtual ViGEm Bus Driver not uninstalled.");
+                        }
+                    }
+                    catch { }
                 }
-                else
+
+                infPaths = EnumerateDevicesStore("ScpVBus.inf");
+                foreach (string infPath in infPaths)
                 {
-                    TextBoxAppend("Virtual Bus Driver not uninstalled.");
+                    try
+                    {
+                        if (DriverUninstallInf(infPath, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        {
+                            TextBoxAppend("Virtual ScpVBus Bus Driver uninstalled.");
+                        }
+                        else
+                        {
+                            TextBoxAppend("Virtual ScpVBus Bus Driver not uninstalled.");
+                        }
+                    }
+                    catch { }
                 }
             }
             catch { }
@@ -99,13 +124,21 @@ namespace DriverInstaller
         {
             try
             {
-                if (DriverUninstallInf(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                List<string> infPaths = EnumerateDevicesStore("Ds3Controller.inf");
+                foreach (string infPath in infPaths)
                 {
-                    TextBoxAppend("DualShock 3 USB Driver uninstalled.");
-                }
-                else
-                {
-                    TextBoxAppend("DualShock 3 USB Driver not uninstalled.");
+                    try
+                    {
+                        if (DriverUninstallInf(infPath, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        {
+                            TextBoxAppend("DualShock 3 USB Driver uninstalled.");
+                        }
+                        else
+                        {
+                            TextBoxAppend("DualShock 3 USB Driver not uninstalled.");
+                        }
+                    }
+                    catch { }
                 }
             }
             catch { }
@@ -115,14 +148,21 @@ namespace DriverInstaller
         {
             try
             {
-                string osSystem = Environment.Is64BitOperatingSystem ? "x64" : "x86";
-                if (DriverUninstallInf(@"Resources\Drivers\HidGuardian\" + osSystem + @"\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                List<string> infPaths = EnumerateDevicesStore("HidGuardian.inf");
+                foreach (string infPath in infPaths)
                 {
-                    TextBoxAppend("HidGuardian Driver uninstalled.");
-                }
-                else
-                {
-                    TextBoxAppend("HidGuardian Driver not uninstalled.");
+                    try
+                    {
+                        if (DriverUninstallInf(infPath, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        {
+                            TextBoxAppend("HidGuardian Driver uninstalled.");
+                        }
+                        else
+                        {
+                            TextBoxAppend("HidGuardian Driver not uninstalled.");
+                        }
+                    }
+                    catch { }
                 }
 
                 RemoveUpperFilter("HidGuardian");

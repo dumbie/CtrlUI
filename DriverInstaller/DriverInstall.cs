@@ -85,7 +85,7 @@ namespace DriverInstaller
             {
                 if (DeviceCreateNode("System", GuidClassSystem, @"Nefarius\ViGEmBus\Gen1"))
                 {
-                    TextBoxAppend("Virtual Bus Driver created.");
+                    TextBoxAppend("Virtual Bus Node created.");
                 }
 
                 if (DriverInstallInf(@"Resources\Drivers\ViGEmBus\ViGEmBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
@@ -122,7 +122,7 @@ namespace DriverInstaller
             {
                 if (DeviceCreateNode("System", GuidClassSystem, @"Root\HidGuardian"))
                 {
-                    TextBoxAppend("HidGuardian Driver created.");
+                    TextBoxAppend("HidGuardian Node created.");
                 }
 
                 string osSystem = Environment.Is64BitOperatingSystem ? "x64" : "x86";
