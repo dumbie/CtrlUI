@@ -28,7 +28,7 @@ namespace DirectXInput
                         {
                             Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTimeMs + "/" + targetTimeMs + "ms");
                             Controller.LastActiveTicks = Environment.TickCount;
-                            StopControllerTask(Controller, false, "idle");
+                            StopControllerTask(Controller, "idle");
                             return;
                         }
                     }
@@ -66,7 +66,7 @@ namespace DirectXInput
                 }
 
                 //Send input to the virtual bus
-                vVirtualBusDevice.VirtualInput(Controller.XInputData);
+                vVirtualBusDevice.VirtualInput(Controller.ManualResetEventInput, Controller.XInputData);
             }
             catch { }
         }

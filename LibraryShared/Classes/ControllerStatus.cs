@@ -1,6 +1,7 @@
 ﻿using LibraryUsb;
 using System;
 using System.Diagnostics;
+using System.Threading;
 using static ArnoldVinkCode.AVActions;
 using static LibraryUsb.WinUsbDevice;
 
@@ -29,7 +30,9 @@ namespace LibraryShared
 
             //Controller Task
             public AVTaskDetails InputTask = new AVTaskDetails();
+            public ManualResetEvent ManualResetEventInput = new ManualResetEvent(false);
             public AVTaskDetails OutputTask = new AVTaskDetails();
+            public ManualResetEvent ManualResetEventOutput = new ManualResetEvent(false);
 
             //WinUsb Device Variables
             public WinUsbDevice WinUsbDevice = null;
@@ -86,7 +89,9 @@ namespace LibraryShared
 
                     //Controller Task
                     InputTask = new AVTaskDetails();
+                    ManualResetEventInput = new ManualResetEvent(false);
                     OutputTask = new AVTaskDetails();
+                    ManualResetEventOutput = new ManualResetEvent(false);
 
                     //Device In and Output
                     InputButtonCountLoop1 = 0;

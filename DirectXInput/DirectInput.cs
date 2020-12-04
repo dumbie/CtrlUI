@@ -42,7 +42,7 @@ namespace DirectXInput
                             txt_Controller_Information.Text = "The controller is no longer connected or supported.";
                         });
 
-                        await StopControllerAsync(Controller, false, "unsupported");
+                        await StopControllerAsync(Controller, "unsupported");
                         return false;
                     }
 
@@ -195,7 +195,7 @@ namespace DirectXInput
         }
 
         //Stop the desired controller in task
-        void StopControllerTask(ControllerStatus Controller, bool stopAll, string disconnectTag)
+        void StopControllerTask(ControllerStatus Controller, string disconnectTag)
         {
             try
             {
@@ -204,7 +204,7 @@ namespace DirectXInput
                 {
                     try
                     {
-                        await StopControllerAsync(Controller, stopAll, disconnectTag);
+                        await StopControllerAsync(Controller, disconnectTag);
                     }
                     catch { }
                 }
@@ -214,14 +214,14 @@ namespace DirectXInput
         }
 
         //Stop the desired controller as async
-        async Task<bool> StopControllerAsync(ControllerStatus Controller, bool stopAll, string disconnectTag)
+        async Task<bool> StopControllerAsync(ControllerStatus Controller, string disconnectTag)
         {
             try
             {
                 //Check if the controller is connected
                 if (Controller == null || !Controller.Connected)
                 {
-                    Debug.WriteLine("Controller is already disconnected.");
+                    Debug.WriteLine("Controller " + Controller.NumberId + " is already disconnected.");
                     return false;
                 }
 
@@ -283,6 +283,10 @@ namespace DirectXInput
                 });
 
                 //Stop the controller loop task
+                Controller.ManualResetEventInput.Set();
+                Controller.ManualResetEventInput.Dispose();
+                Controller.ManualResetEventOutput.Set();
+                Controller.ManualResetEventOutput.Dispose();
                 await TaskStopLoop(Controller.InputTask);
                 await TaskStopLoop(Controller.OutputTask);
 
@@ -296,18 +300,11 @@ namespace DirectXInput
                     PrepareXInputData(Controller, true);
 
                     //Send empty device data
-                    vVirtualBusDevice.VirtualInput(Controller.XInputData);
+                    vVirtualBusDevice.VirtualInput(Controller.ManualResetEventInput, Controller.XInputData);
                     await Task.Delay(500);
 
                     //Disconnect the virtual controller
-                    if (stopAll)
-                    {
-                        vVirtualBusDevice.VirtualUnplugAll();
-                    }
-                    else
-                    {
-                        vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
-                    }
+                    vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
                     await Task.Delay(500);
 
                     //Reset the input and output report
@@ -382,10 +379,10 @@ namespace DirectXInput
         {
             try
             {
-                await StopControllerAsync(vController0, true, "all");
-                await StopControllerAsync(vController1, true, "all");
-                await StopControllerAsync(vController2, true, "all");
-                await StopControllerAsync(vController3, true, "all");
+                await StopControllerAsync(vController0, "all");
+                await StopControllerAsync(vController1, "all");
+                await StopControllerAsync(vController2, "all");
+                await StopControllerAsync(vController3, "all");
 
                 if (disconnectVirtualBus)
                 {

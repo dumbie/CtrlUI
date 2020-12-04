@@ -46,7 +46,7 @@ namespace DirectXInput
                         HidGuardianReleaseController(activeController.Details);
 
                         //Disconnect the controller
-                        await StopControllerAsync(activeController, false, "ignored");
+                        await StopControllerAsync(activeController, "ignored");
 
                         Debug.Write("Ignored active controller.");
                     }
@@ -145,7 +145,7 @@ namespace DirectXInput
                 ControllerStatus activeController = vActiveController();
                 if (activeController != null)
                 {
-                    await StopControllerAsync(activeController, false, "manually");
+                    await StopControllerAsync(activeController, "manually");
                 }
                 else
                 {
@@ -197,7 +197,7 @@ namespace DirectXInput
                         });
 
                         vDirectControllersProfile.Remove(activeController.Details.Profile);
-                        await StopControllerAsync(activeController, false, "removed");
+                        await StopControllerAsync(activeController, "removed");
 
                         //Save changes to Json file
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
