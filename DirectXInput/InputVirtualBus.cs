@@ -50,7 +50,7 @@ namespace DirectXInput
                 //Check if output or guide button needs to be blocked
                 if (blockOutputApplication || blockOutputShortcut || Controller.BlockOutput)
                 {
-                    //Prepare empty XOutput device data
+                    //Prepare empty xinput data
                     PrepareXInputData(Controller, true);
                 }
                 else
@@ -61,12 +61,12 @@ namespace DirectXInput
                         Controller.InputCurrent.ButtonGuide.PressedRaw = false;
                     }
 
-                    //Prepare current XOutput device data
+                    //Prepare current xinput data
                     PrepareXInputData(Controller, false);
                 }
 
                 //Send input to the virtual bus
-                vVirtualBusDevice.VirtualInput(Controller.ManualResetEventInput, Controller.XInputData);
+                vVirtualBusDevice.VirtualInput(Controller.InputOverlapped, Controller.XInputData);
             }
             catch { }
         }

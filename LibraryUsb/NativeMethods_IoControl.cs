@@ -7,6 +7,8 @@ namespace LibraryUsb
 {
     public class NativeMethods_IoControl
     {
+        public const uint INFINITE = 0xFFFFFFFF;
+
         public enum IoControlCodes : uint
         {
             IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808,
@@ -17,7 +19,7 @@ namespace LibraryUsb
         }
 
         [DllImport("kernel32.dll")]
-        public static extern bool DeviceIoControl(IntPtr hDevice, IoControlCodes dwIoControlCode, byte[] lpInBuffer, int nInBufferSize, byte[] lpOutBuffer, int nOutBufferSize, out int lpBytesReturned, IntPtr lpOverlapped);
+        public static extern bool DeviceIoControl(SafeFileHandle hDevice, IoControlCodes dwIoControlCode, byte[] lpInBuffer, int nInBufferSize, byte[] lpOutBuffer, int nOutBufferSize, out int lpBytesReturned, IntPtr lpOverlapped);
 
         [DllImport("kernel32.dll")]
         public static extern bool DeviceIoControl(SafeFileHandle hDevice, uint dwIoControlCode, IntPtr lpInBuffer, int nInBufferSize, IntPtr lpOutBuffer, int nOutBufferSize, out int lpBytesReturned, NativeOverlapped lpOverlapped);
@@ -27,5 +29,14 @@ namespace LibraryUsb
 
         [DllImport("kernel32.dll")]
         public static extern bool GetOverlappedResult(SafeFileHandle hFile, ref NativeOverlapped lpOverlapped, out int lpBytesTransferred, bool bWait);
+
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr CreateEvent(IntPtr lpEventAttributes, bool bManualReset, bool bInitialState, string lpName);
+
+        [DllImport("kernel32.dll")]
+        public static extern bool SetEvent(IntPtr hEvent);
+
+        [DllImport("kernel32.dll")]
+        public static extern uint WaitForSingleObject(IntPtr hEvent, uint dwMilliseconds);
     }
 }

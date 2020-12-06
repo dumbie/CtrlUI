@@ -67,6 +67,7 @@
     <Compile Include="NativeMethods_WinUsb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsbLibrary_Enumerate.cs" />
+    <Compile Include="UsbLibrary_Events.cs" />
     <Compile Include="UsbLibrary_Extensions.cs" />
     <Compile Include="WinUsbDevice\WinUsbDevice_VirtualBus.cs" />
     <Compile Include="WinUsbDevice\WinUsbDevice_Information.cs" />

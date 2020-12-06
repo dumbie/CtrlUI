@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static LibraryUsb.NativeMethods_Bth;
-using static LibraryUsb.NativeMethods_File;
 using static LibraryUsb.NativeMethods_IoControl;
 
 namespace LibraryUsb
@@ -12,7 +12,7 @@ namespace LibraryUsb
         public static bool BluetoothDisconnect(string serialNumber)
         {
             IntPtr radioHandle = IntPtr.Zero;
-            IntPtr bluetoothHandle = IntPtr.Zero;
+            SafeFileHandle bluetoothHandle = null;
             try
             {
                 Debug.WriteLine("Attempting to disconnect bluetooth device.");
@@ -30,7 +30,7 @@ namespace LibraryUsb
                 //Disconnect the device from bluetooth
                 BLUETOOTH_FIND_RADIO_PARAMS radioFindParams = new BLUETOOTH_FIND_RADIO_PARAMS();
                 radioFindParams.dwSize = Marshal.SizeOf(radioFindParams);
-                radioHandle = BluetoothFindFirstRadio(ref radioFindParams, ref bluetoothHandle);
+                radioHandle = BluetoothFindFirstRadio(ref radioFindParams, out bluetoothHandle);
 
                 bool bluetoothDisconnected = false;
                 while (!bluetoothDisconnected)
@@ -38,7 +38,7 @@ namespace LibraryUsb
                     bluetoothDisconnected = DeviceIoControl(bluetoothHandle, IoControlCodes.IOCTL_BTH_DISCONNECT_DEVICE, macAddressBytes, macAddressBytes.Length, null, 0, out int bytesWritten, IntPtr.Zero) && bytesWritten > 0;
                     if (!bluetoothDisconnected)
                     {
-                        if (!BluetoothFindNextRadio(radioHandle, ref bluetoothHandle))
+                        if (!BluetoothFindNextRadio(radioHandle, out bluetoothHandle))
                         {
                             bluetoothDisconnected = true;
                         }
@@ -59,9 +59,9 @@ namespace LibraryUsb
                 {
                     BluetoothFindRadioClose(radioHandle);
                 }
-                if (bluetoothHandle != IntPtr.Zero)
+                if (bluetoothHandle != null)
                 {
-                    CloseHandle(bluetoothHandle);
+                    bluetoothHandle.Dispose();
                 }
             }
         }

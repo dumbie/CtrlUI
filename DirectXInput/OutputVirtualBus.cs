@@ -37,7 +37,7 @@ namespace DirectXInput
                         Controller.XOutputData.SerialNo = Controller.NumberId + 1;
 
                         //Receive output from the virtual bus
-                        vVirtualBusDevice.VirtualOutput(Controller.ManualResetEventOutput, ref Controller.XOutputData);
+                        vVirtualBusDevice.VirtualOutput(Controller.OutputOverlapped, ref Controller.XOutputData);
 
                         //Send output to the controller
                         ControllerOutput(Controller, false, false, false);

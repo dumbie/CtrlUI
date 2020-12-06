@@ -26,13 +26,13 @@ namespace DirectXInput
                     byte currentHeader4 = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte + 4];
                     byte currentHeader5 = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte + 5];
                     byte currentHeader6 = controllerStatus.InputReport[controllerStatus.InputHeaderOffsetByte + 6];
-                    bool thumbInput0 = AVFunctions.BetweenNumbers(currentHeader0, 78, 178, true); //true
-                    bool thumbInput1 = AVFunctions.BetweenNumbers(currentHeader1, 78, 178, true); //true
-                    bool thumbInput2 = AVFunctions.BetweenNumbers(currentHeader2, 78, 178, true); //true
-                    bool thumbInput3 = AVFunctions.BetweenNumbers(currentHeader3, 78, 178, true); //true
-                    bool thumbInput4 = AVFunctions.BetweenNumbers(currentHeader4, 78, 178, true); //false
-                    bool thumbInput5 = AVFunctions.BetweenNumbers(currentHeader5, 78, 178, true); //false
-                    bool thumbInput6 = AVFunctions.BetweenNumbers(currentHeader6, 78, 178, true); //false
+                    bool thumbInput0 = AVFunctions.BetweenNumbers(currentHeader0, 90, 170, true); //true
+                    bool thumbInput1 = AVFunctions.BetweenNumbers(currentHeader1, 90, 170, true); //true
+                    bool thumbInput2 = AVFunctions.BetweenNumbers(currentHeader2, 90, 170, true); //true
+                    bool thumbInput3 = AVFunctions.BetweenNumbers(currentHeader3, 90, 170, true); //true
+                    bool thumbInput4 = AVFunctions.BetweenNumbers(currentHeader4, 90, 170, true); //false
+                    bool thumbInput5 = AVFunctions.BetweenNumbers(currentHeader5, 90, 170, true); //false
+                    bool thumbInput6 = AVFunctions.BetweenNumbers(currentHeader6, 90, 170, true); //false
                     if (thumbInput0 && thumbInput1 && thumbInput2 && thumbInput3 && !thumbInput4 && !thumbInput5 && !thumbInput6)
                     {
                         controllerStatus.InputHeaderOffsetFinished = true;

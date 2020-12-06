@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using static ArnoldVinkCode.AVActions;
+using static LibraryUsb.NativeMethods_IoControl;
 using static LibraryUsb.WinUsbDevice;
 
 namespace LibraryShared
@@ -25,14 +26,14 @@ namespace LibraryShared
             public int MilliSecondsTimeout = 4000;
             public int MilliSecondsAllowReadWrite = 2000;
             public ControllerDetails Details = null;
-            public bool Connected { get { return Details != null; } }
             public bool BlockOutput = false;
+            public bool Connected { get { return Details != null; } }
 
             //Controller Task
             public AVTaskDetails InputTask = new AVTaskDetails();
-            public ManualResetEvent ManualResetEventInput = new ManualResetEvent(false);
+            public NativeOverlapped InputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
             public AVTaskDetails OutputTask = new AVTaskDetails();
-            public ManualResetEvent ManualResetEventOutput = new ManualResetEvent(false);
+            public NativeOverlapped OutputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
 
             //WinUsb Device Variables
             public WinUsbDevice WinUsbDevice = null;
@@ -85,13 +86,20 @@ namespace LibraryShared
                     //Controller Details
                     LastReadTicks = 0;
                     LastActiveTicks = 0;
+                    Details = null;
                     BlockOutput = false;
 
                     //Controller Task
                     InputTask = new AVTaskDetails();
-                    ManualResetEventInput = new ManualResetEvent(false);
+                    InputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
                     OutputTask = new AVTaskDetails();
-                    ManualResetEventOutput = new ManualResetEvent(false);
+                    OutputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
+
+                    //WinUsb Device Variables
+                    WinUsbDevice = null;
+
+                    //Hid Device Variables
+                    HidDevice = null;
 
                     //Device In and Output
                     InputButtonCountLoop1 = 0;
@@ -106,6 +114,8 @@ namespace LibraryShared
                     InputButtonOffsetByte = 0;
                     InputReport = null;
                     OutputReport = null;
+                    XInputData = new XUSB_INPUT_REPORT();
+                    XOutputData = new XUSB_OUTPUT_REPORT();
 
                     //Controller Input
                     InputCurrent = new ControllerInput();

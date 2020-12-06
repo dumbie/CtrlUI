@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static LibraryUsb.NativeMethods_Bth;
-using static LibraryUsb.NativeMethods_File;
 
 namespace LibraryUsb
 {
@@ -11,12 +11,12 @@ namespace LibraryUsb
         public static BLUETOOTH_ADDRESS? GetLocalBluetoothMacAddress()
         {
             IntPtr radioHandle = IntPtr.Zero;
-            IntPtr bluetoothHandle = IntPtr.Zero;
+            SafeFileHandle bluetoothHandle = null;
             try
             {
                 BLUETOOTH_FIND_RADIO_PARAMS radioFindParams = new BLUETOOTH_FIND_RADIO_PARAMS();
                 radioFindParams.dwSize = Marshal.SizeOf(radioFindParams);
-                radioHandle = BluetoothFindFirstRadio(ref radioFindParams, ref bluetoothHandle);
+                radioHandle = BluetoothFindFirstRadio(ref radioFindParams, out bluetoothHandle);
                 if (radioHandle == IntPtr.Zero)
                 {
                     Debug.WriteLine("No bluetooth radio found to get mac address for.");
@@ -46,9 +46,9 @@ namespace LibraryUsb
                 {
                     BluetoothFindRadioClose(radioHandle);
                 }
-                if (bluetoothHandle != IntPtr.Zero)
+                if (bluetoothHandle != null)
                 {
-                    CloseHandle(bluetoothHandle);
+                    bluetoothHandle.Dispose();
                 }
             }
         }

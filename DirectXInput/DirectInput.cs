@@ -8,7 +8,7 @@ using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
-using static LibraryUsb.WinUsbDevice;
+using static LibraryUsb.Events;
 
 namespace DirectXInput
 {
@@ -92,7 +92,7 @@ namespace DirectXInput
                             }
                             catch { }
                         }
-                        async Task TaskActionOutput()
+                        void TaskActionOutput()
                         {
                             try
                             {
@@ -113,7 +113,7 @@ namespace DirectXInput
                             }
                             catch { }
                         }
-                        async Task TaskActionOutput()
+                        void TaskActionOutput()
                         {
                             try
                             {
@@ -282,34 +282,26 @@ namespace DirectXInput
                     }
                 });
 
-                //Stop the controller loop task
-                Controller.ManualResetEventInput.Set();
-                Controller.ManualResetEventInput.Dispose();
-                Controller.ManualResetEventOutput.Set();
-                Controller.ManualResetEventOutput.Dispose();
-                await TaskStopLoop(Controller.InputTask);
-                await TaskStopLoop(Controller.OutputTask);
-
-                //Reset the controller status
-                Controller.ResetControllerStatus();
-
                 //Disconnect virtual controller
                 if (vVirtualBusDevice != null)
                 {
-                    //Prepare empty device data
+                    //Stop the controller output loop tasks
+                    SetAndCloseEvent(Controller.OutputOverlapped.EventHandle);
+                    await TaskStopLoop(Controller.OutputTask);
+
+                    //Prepare empty xinput data
                     PrepareXInputData(Controller, true);
 
-                    //Send empty device data
-                    vVirtualBusDevice.VirtualInput(Controller.ManualResetEventInput, Controller.XInputData);
-                    await Task.Delay(500);
+                    //Send empty input to the virtual bus
+                    vVirtualBusDevice.VirtualInput(Controller.InputOverlapped, Controller.XInputData);
+
+                    //Stop the controller input loop tasks
+                    SetAndCloseEvent(Controller.InputOverlapped.EventHandle);
+                    await TaskStopLoop(Controller.InputTask);
 
                     //Disconnect the virtual controller
                     vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
                     await Task.Delay(500);
-
-                    //Reset the input and output report
-                    Controller.XInputData = new XUSB_INPUT_REPORT();
-                    Controller.XOutputData = new XUSB_OUTPUT_REPORT();
                 }
 
                 //Stop and Close the Win Usb Device
@@ -321,8 +313,6 @@ namespace DirectXInput
                         Controller.WinUsbDevice.CloseDevice();
                     }
                     catch { }
-
-                    Controller.WinUsbDevice = null;
                 }
 
                 //Close and dispose the Hid Usb Device
@@ -350,12 +340,10 @@ namespace DirectXInput
                     {
                         Debug.WriteLine("Failed disposing and stopping the controller.");
                     }
-
-                    Controller.HidDevice = null;
                 }
 
-                //Dispose the connected controller
-                Controller.Details = null;
+                //Reset the controller status
+                Controller.ResetControllerStatus();
 
                 //Check if any controller is connected
                 if (!vControllerAnyConnected() && Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardCloseNoController")))
@@ -364,12 +352,12 @@ namespace DirectXInput
                     await HideOpenPopups();
                 }
 
-                Debug.WriteLine("Succesfully stopped the direct input controller.");
+                Debug.WriteLine("Succesfully stopped direct input controller " + Controller.NumberId);
                 return true;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed stopping the controller direct input: " + ex.Message);
+                Debug.WriteLine("Failed stopping the controller direct input " + Controller.NumberId + ": " + ex.Message);
                 return false;
             }
         }
