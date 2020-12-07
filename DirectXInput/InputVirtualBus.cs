@@ -66,7 +66,7 @@ namespace DirectXInput
                 }
 
                 //Send input to the virtual bus
-                vVirtualBusDevice.VirtualInput(Controller.InputOverlapped, Controller.XInputData);
+                vVirtualBusDevice.VirtualInput(ref Controller);
             }
             catch { }
         }

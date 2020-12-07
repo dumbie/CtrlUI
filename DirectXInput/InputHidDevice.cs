@@ -135,14 +135,10 @@ namespace DirectXInput
                 Debug.WriteLine("Receive and translate Hid DirectInput for: " + Controller.Details.DisplayName);
 
                 //Receive input from the selected controller
-                while (!Controller.InputTask.TaskStopRequest)
+                while (!Controller.InputTask.TaskStopRequest && Controller.Connected())
                 {
                     try
                     {
-                        //Check if controller is connected
-                        if (Controller.HidDevice != null && !Controller.HidDevice.Connected) { break; }
-                        if (!Controller.Connected) { break; }
-
                         //Read data from the controller
                         if (!Controller.HidDevice.ReadBytesFile(Controller.InputReport))
                         {

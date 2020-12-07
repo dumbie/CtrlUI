@@ -120,25 +120,25 @@ namespace DirectXInput
                 //Gather controller status
                 ControllerStatusDetails controllerStatus0 = new ControllerStatusDetails(vController0.NumberId);
                 controllerStatus0.Activated = vController0.Activated;
-                controllerStatus0.Connected = vController0.Connected;
+                controllerStatus0.Connected = vController0.Connected();
                 controllerStatus0.BatteryCurrent = vController0.BatteryCurrent;
                 controllerStatusDetailsList.Add(controllerStatus0);
 
                 ControllerStatusDetails controllerStatus1 = new ControllerStatusDetails(vController1.NumberId);
                 controllerStatus1.Activated = vController1.Activated;
-                controllerStatus1.Connected = vController1.Connected;
+                controllerStatus1.Connected = vController1.Connected();
                 controllerStatus1.BatteryCurrent = vController1.BatteryCurrent;
                 controllerStatusDetailsList.Add(controllerStatus1);
 
                 ControllerStatusDetails controllerStatus2 = new ControllerStatusDetails(vController2.NumberId);
                 controllerStatus2.Activated = vController2.Activated;
-                controllerStatus2.Connected = vController2.Connected;
+                controllerStatus2.Connected = vController2.Connected();
                 controllerStatus2.BatteryCurrent = vController2.BatteryCurrent;
                 controllerStatusDetailsList.Add(controllerStatus2);
 
                 ControllerStatusDetails controllerStatus3 = new ControllerStatusDetails(vController3.NumberId);
                 controllerStatus3.Activated = vController3.Activated;
-                controllerStatus3.Connected = vController3.Connected;
+                controllerStatus3.Connected = vController3.Connected();
                 controllerStatus3.BatteryCurrent = vController3.BatteryCurrent;
                 controllerStatusDetailsList.Add(controllerStatus3);
 

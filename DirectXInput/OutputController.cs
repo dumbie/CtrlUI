@@ -80,7 +80,7 @@ namespace DirectXInput
             try
             {
                 //Check if the controller is connected
-                if (Controller == null || !Controller.Connected)
+                if (Controller == null || !Controller.Connected())
                 {
                     //Debug.WriteLine("Rumble send controller is not connected.");
                     return;

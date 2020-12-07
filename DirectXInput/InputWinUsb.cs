@@ -18,14 +18,10 @@ namespace DirectXInput
                 Debug.WriteLine("Receive and translate Win DirectInput for: " + Controller.Details.DisplayName);
 
                 //Receive input from the selected controller
-                while (!Controller.InputTask.TaskStopRequest)
+                while (!Controller.InputTask.TaskStopRequest && Controller.Connected())
                 {
                     try
                     {
-                        //Check if controller is connected
-                        if (Controller.WinUsbDevice != null && !Controller.WinUsbDevice.Connected) { break; }
-                        if (!Controller.Connected) { break; }
-
                         //Read data from the controller
                         if (!Controller.WinUsbDevice.ReadBytesIntPipe(Controller.InputReport))
                         {

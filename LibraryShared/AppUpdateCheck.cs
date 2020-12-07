@@ -12,6 +12,7 @@ namespace LibraryShared
                 Debug.WriteLine("Checking application update.");
 
                 //Remove old unused files
+                File_Delete("Resources/LibraryUsb.dll");
                 File_Delete("Profiles/AppsBlacklistProcess.json");
                 File_Delete("Profiles/AppsBlacklistShortcut.json");
                 File_Delete("Profiles/AppsBlacklistShortcutUri.json");

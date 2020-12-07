@@ -27,7 +27,17 @@ namespace LibraryShared
             public int MilliSecondsAllowReadWrite = 2000;
             public ControllerDetails Details = null;
             public bool BlockOutput = false;
-            public bool Connected { get { return Details != null; } }
+            public bool Connected()
+            {
+                try
+                {
+                    if (HidDevice != null && !HidDevice.Connected) { return false; }
+                    else if (WinUsbDevice != null && !WinUsbDevice.Connected) { return false; }
+                    else if (Details == null) { return false; }
+                }
+                catch { }
+                return true;
+            }
 
             //Controller Task
             public AVTaskDetails InputTask = new AVTaskDetails();

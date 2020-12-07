@@ -99,16 +99,16 @@ namespace DirectXInput
             {
                 //Check if the controller is already in use
                 bool ControllerInuse = false;
-                if (vController0.Connected && vController0.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController1.Connected && vController1.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController2.Connected && vController2.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
-                if (vController3.Connected && vController3.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController0.Connected() && vController0.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController1.Connected() && vController1.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController2.Connected() && vController2.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
+                if (vController3.Connected() && vController3.Details.Path == ConnectedController.Path) { ControllerInuse = true; }
                 if (ControllerInuse) { return; }
 
                 Debug.WriteLine("Found a connected " + ConnectedController.Type + " controller to use: " + ConnectedController.DisplayName);
 
                 //Connect the controller to available slot
-                if (!vController0.Connected)
+                if (!vController0.Connected())
                 {
                     vController0.Details = ConnectedController;
                     bool controllerStarted = await StartControllerDirectInput(vController0);
@@ -122,7 +122,7 @@ namespace DirectXInput
                         });
                     }
                 }
-                else if (!vController1.Connected)
+                else if (!vController1.Connected())
                 {
                     vController1.Details = ConnectedController;
                     bool controllerStarted = await StartControllerDirectInput(vController1);
@@ -136,7 +136,7 @@ namespace DirectXInput
                         });
                     }
                 }
-                else if (!vController2.Connected)
+                else if (!vController2.Connected())
                 {
                     vController2.Details = ConnectedController;
                     bool controllerStarted = await StartControllerDirectInput(vController2);
@@ -150,7 +150,7 @@ namespace DirectXInput
                         });
                     }
                 }
-                else if (!vController3.Connected)
+                else if (!vController3.Connected())
                 {
                     vController3.Details = ConnectedController;
                     bool controllerStarted = await StartControllerDirectInput(vController3);
@@ -175,10 +175,10 @@ namespace DirectXInput
             {
                 //Debug.WriteLine("There is currently no actived controller.");
                 ControllerStatus activeController = vActiveController();
-                if (vController0.Connected && activeController == null) { ControllerActivate(vController0); }
-                else if (vController1.Connected && activeController == null) { ControllerActivate(vController1); }
-                else if (vController2.Connected && activeController == null) { ControllerActivate(vController2); }
-                else if (vController3.Connected && activeController == null) { ControllerActivate(vController3); }
+                if (vController0.Connected() && activeController == null) { ControllerActivate(vController0); }
+                else if (vController1.Connected() && activeController == null) { ControllerActivate(vController1); }
+                else if (vController2.Connected() && activeController == null) { ControllerActivate(vController2); }
+                else if (vController3.Connected() && activeController == null) { ControllerActivate(vController3); }
                 else if (activeController == null)
                 {
                     //Clear the current controller information
@@ -199,7 +199,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected && !Controller.Activated)
+                if (Controller.Connected() && !Controller.Activated)
                 {
                     Debug.WriteLine("Activating controller: " + Controller.NumberId);
 

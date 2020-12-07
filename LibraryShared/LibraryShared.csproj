@@ -56,6 +56,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -96,6 +97,7 @@
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Forms\AVMessageBox.xaml.cs">
       <Link>ArnoldVinkCode\Forms\AVMessageBox.xaml.cs</Link>
+      <DependentUpon>AVMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\AVActions.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkActions\AVActions.cs</Link>
@@ -103,71 +105,13 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\Classes\AVTaskDetails.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkActions\Classes\AVTaskDetails.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorPicker.xaml.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorPicker.xaml.cs</Link>
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClean.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClean.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs">
-      <Link>ArnoldVinkCode\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\AVAudioDeviceVolume.cs">
-      <Link>ArnoldVinkCode\Functions\AVAudioDevice\AVAudioDeviceVolume.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\Classes\AudioDeviceSummary.cs">
-      <Link>ArnoldVinkCode\Functions\AVAudioDevice\Classes\AudioDeviceSummary.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\IMMDevice\IMMDevice.cs">
-      <Link>ArnoldVinkCode\Functions\AVAudioDevice\IMMDevice\IMMDevice.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\IMMDevice\PolicyConfig.cs">
-      <Link>ArnoldVinkCode\Functions\AVAudioDevice\IMMDevice\PolicyConfig.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\AVDisplayMonitorSettings.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\AVDisplayMonitorSettings.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\AVDisplayMonitorSwitch.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\AVDisplayMonitorSwitch.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Classes\DisplayMonitorSettings.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Classes\DisplayMonitorSettings.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Classes\DisplayMonitorSwitch.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Classes\DisplayMonitorSwitch.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Interop\InteropSettings.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Interop\InteropSettings.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Interop\InteropSwitch.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Interop\InteropSwitch.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFiles.cs">
-      <Link>ArnoldVinkCode\Functions\AVFiles.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFirewall.cs">
-      <Link>ArnoldVinkCode\Functions\AVFirewall.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\AVImage.cs">
-      <Link>ArnoldVinkCode\Functions\AVImage\AVImage.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Classes\ImageSourceFolders.cs">
-      <Link>ArnoldVinkCode\Functions\AVImage\Classes\ImageSourceFolders.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromExeFile.cs">
-      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromExeFile.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromIcoFile.cs">
-      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromIcoFile.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromWindow.cs">
-      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromWindow.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
-      <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropDll.cs">
-      <Link>ArnoldVinkCode\Interop\AVInteropDll.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.xaml.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.xaml.cs</Link>
+      <DependentUpon>ColorSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputClass.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputClass.cs</Link>
@@ -199,8 +143,14 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClass.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClean.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClean.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClient.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClient.cs</Link>
@@ -211,20 +161,94 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketVariables.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketVariables.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkTimePicker\TimePicker.xaml.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkTimePicker\TimePicker.xaml.cs</Link>
+      <DependentUpon>TimePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAnimations.cs">
+      <Link>ArnoldVinkCode\Functions\AVAnimations.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\AVAudioDeviceVolume.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\AVAudioDeviceVolume.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\Classes\AudioDeviceSummary.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\Classes\AudioDeviceSummary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\IMMDevice\IMMDevice.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\IMMDevice\IMMDevice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\IMMDevice\PolicyConfig.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\IMMDevice\PolicyConfig.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVClassConverters.cs">
       <Link>ArnoldVinkCode\Functions\AVClassConverters.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\AVDisplayMonitorSettings.cs">
+      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\AVDisplayMonitorSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\AVDisplayMonitorSwitch.cs">
+      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\AVDisplayMonitorSwitch.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Classes\DisplayMonitorSettings.cs">
+      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Classes\DisplayMonitorSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Classes\DisplayMonitorSwitch.cs">
+      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Classes\DisplayMonitorSwitch.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Interop\InteropSettings.cs">
+      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Interop\InteropSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Interop\InteropSwitch.cs">
+      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Interop\InteropSwitch.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDownloader.cs">
       <Link>ArnoldVinkCode\Functions\AVDownloader.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFiles.cs">
+      <Link>ArnoldVinkCode\Functions\AVFiles.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFirewall.cs">
+      <Link>ArnoldVinkCode\Functions\AVFirewall.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFunctions.cs">
       <Link>ArnoldVinkCode\Functions\AVFunctions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\AVImage.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\AVImage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Classes\ImageSourceFolders.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\Classes\ImageSourceFolders.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromExeFile.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromExeFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromIcoFile.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromIcoFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromWindow.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromWindow.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVInterface.cs">
       <Link>ArnoldVinkCode\Functions\AVInterface.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
+      <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropDll.cs">
+      <Link>ArnoldVinkCode\Interop\AVInteropDll.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\AVGifPlayer.cs">
       <Link>ArnoldVinkCode\Styles\AVGifPlayer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\ImageCustomCode.cs">
+      <Link>ArnoldVinkCode\Styles\ImageCustomCode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml.cs">
+      <Link>ArnoldVinkCode\Styles\MainStyles.xaml.cs</Link>
+      <DependentUpon>MainStyles.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\ScrollViewerLoopCode.cs">
       <Link>ArnoldVinkCode\Styles\ScrollViewerLoopCode.cs</Link>
@@ -240,38 +264,38 @@
     </Compile>
     <Compile Include="AppUpdateCheck.cs" />
     <Compile Include="AppLaunchCheck.cs" />
+    <Compile Include="Classes\ApiIGDB.cs" />
     <Compile Include="Classes\ApiTwitch.cs" />
     <Compile Include="Classes\ControllerBattery.cs" />
-    <Compile Include="Classes\LauncherGoG.cs" />
-    <Compile Include="Classes\LauncherEpic.cs" />
-    <Compile Include="Classes\KeypadStatus.cs" />
-    <Compile Include="Classes\KeypadMapping.cs" />
-    <Compile Include="Classes\KeypadSize.cs" />
-    <Compile Include="Classes\LauncherBattleNet.cs" />
-    <Compile Include="Cryptography\CRC32.cs" />
-    <Compile Include="Enums\AppLauncher.cs" />
-    <Compile Include="Enums\OverlayPosition.cs" />
-    <Compile Include="Enums\BatteryStatus.cs" />
-    <Compile Include="Enums\MappingStatus.cs" />
-    <Compile Include="Classes\NotificationDetails.cs" />
     <Compile Include="Classes\ControllerButtonDetails.cs" />
-    <Compile Include="Enums\ClipboardType.cs" />
-    <Compile Include="Enums\FileType.cs" />
-    <Compile Include="Enums\AppCategory.cs" />
-    <Compile Include="Classes\ApiIGDB.cs" />
-    <Compile Include="Classes\FrameworkElementFocus.cs" />
-    <Compile Include="Classes\ControllerStatusDetails.cs" />
-    <Compile Include="Classes\RomInformation.cs" />
-    <Compile Include="Classes\ShortcutDetails.cs" />
-    <Compile Include="Classes\ProfileShared.cs" />
-    <Compile Include="Classes\DataBindString.cs" />
     <Compile Include="Classes\ControllerDetails.cs" />
     <Compile Include="Classes\ControllerInput.cs" />
     <Compile Include="Classes\ControllerProfile.cs" />
     <Compile Include="Classes\ControllerStatus.cs" />
+    <Compile Include="Classes\ControllerStatusDetails.cs" />
     <Compile Include="Classes\ControllerSupported.cs" />
     <Compile Include="Classes\DataBindApp.cs" />
     <Compile Include="Classes\DataBindFile.cs" />
+    <Compile Include="Classes\DataBindString.cs" />
+    <Compile Include="Classes\FrameworkElementFocus.cs" />
+    <Compile Include="Classes\KeypadMapping.cs" />
+    <Compile Include="Classes\KeypadSize.cs" />
+    <Compile Include="Classes\KeypadStatus.cs" />
+    <Compile Include="Classes\LauncherBattleNet.cs" />
+    <Compile Include="Classes\LauncherEpic.cs" />
+    <Compile Include="Classes\LauncherGoG.cs" />
+    <Compile Include="Classes\NotificationDetails.cs" />
+    <Compile Include="Classes\ProfileShared.cs" />
+    <Compile Include="Classes\RomInformation.cs" />
+    <Compile Include="Classes\ShortcutDetails.cs" />
+    <Compile Include="Cryptography\CRC32.cs" />
+    <Compile Include="Enums\AppCategory.cs" />
+    <Compile Include="Enums\AppLauncher.cs" />
+    <Compile Include="Enums\BatteryStatus.cs" />
+    <Compile Include="Enums\ClipboardType.cs" />
+    <Compile Include="Enums\FileType.cs" />
+    <Compile Include="Enums\MappingStatus.cs" />
+    <Compile Include="Enums\OverlayPosition.cs" />
     <Compile Include="JsonFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\SettingsSave.cs" />
@@ -279,13 +303,30 @@
     <Compile Include="SoundPlayer.cs" />
     <Compile Include="SteamKit2\Types\KeyValue.cs" />
     <Compile Include="SteamKit2\Util\StreamHelpers.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LibraryUsb\LibraryUsb.csproj">
-      <Project>{a9092d5a-1b08-4ea8-b684-0e2ac4d1af1a}</Project>
-      <Name>LibraryUsb</Name>
-      <Private>False</Private>
-    </ProjectReference>
+    <Compile Include="UsbCode\BthDevice\BthDevice_Connection.cs" />
+    <Compile Include="UsbCode\BthDevice\BthDevice_Information.cs" />
+    <Compile Include="UsbCode\HidDevice\HidDevice.cs" />
+    <Compile Include="UsbCode\HidDevice\HidDevice_Connection.cs" />
+    <Compile Include="UsbCode\HidDevice\HidDevice_DeviceAttributes.cs" />
+    <Compile Include="UsbCode\HidDevice\HidDevice_DeviceButtonValues.cs" />
+    <Compile Include="UsbCode\HidDevice\HidDevice_DeviceCapabilities.cs" />
+    <Compile Include="UsbCode\HidDevice\HidDevice_Information.cs" />
+    <Compile Include="UsbCode\HidDevice\HidDevice_ReadWrite.cs" />
+    <Compile Include="UsbCode\NativeMethods_Bth.cs" />
+    <Compile Include="UsbCode\NativeMethods_File.cs" />
+    <Compile Include="UsbCode\NativeMethods_Guid.cs" />
+    <Compile Include="UsbCode\NativeMethods_Hid.cs" />
+    <Compile Include="UsbCode\NativeMethods_IoControl.cs" />
+    <Compile Include="UsbCode\NativeMethods_SetupApi.cs" />
+    <Compile Include="UsbCode\NativeMethods_WinUsb.cs" />
+    <Compile Include="UsbCode\UsbLibrary_DeviceManager.cs" />
+    <Compile Include="UsbCode\UsbLibrary_Enumerate.cs" />
+    <Compile Include="UsbCode\UsbLibrary_Events.cs" />
+    <Compile Include="UsbCode\UsbLibrary_Extensions.cs" />
+    <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice.cs" />
+    <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_Information.cs" />
+    <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_ReadWrite.cs" />
+    <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_VirtualBus.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="NetFwTypeLib">
@@ -299,15 +340,83 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Include="..\..\ArnoldVinkCode\Desktop\Forms\AVMessageBox.xaml">
       <Link>ArnoldVinkCode\Forms\AVMessageBox.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorPicker.xaml">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorPicker.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.xaml">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkTimePicker\TimePicker.xaml">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkTimePicker\TimePicker.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Button.xaml">
+      <Link>ArnoldVinkCode\Styles\ControlTemplates\Button.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\CheckBox.xaml">
+      <Link>ArnoldVinkCode\Styles\ControlTemplates\CheckBox.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\ComboBox.xaml">
+      <Link>ArnoldVinkCode\Styles\ControlTemplates\ComboBox.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\ListBox.xaml">
+      <Link>ArnoldVinkCode\Styles\ControlTemplates\ListBox.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Scrollbar.xaml">
+      <Link>ArnoldVinkCode\Styles\ControlTemplates\Scrollbar.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Slider.xaml">
+      <Link>ArnoldVinkCode\Styles\ControlTemplates\Slider.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\TextBox.xaml">
+      <Link>ArnoldVinkCode\Styles\ControlTemplates\TextBox.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\MainColors.xaml">
+      <Link>ArnoldVinkCode\Styles\MainColors.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml">
+      <Link>ArnoldVinkCode\Styles\MainStyles.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
+    <Content Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.png">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.png</Link>
+    </Content>
+    <Content Include="..\..\ArnoldVinkCode\Desktop\Styles\Readme.txt">
+      <Link>ArnoldVinkCode\Styles\Readme.txt</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

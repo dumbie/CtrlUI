@@ -117,7 +117,7 @@ namespace DirectXInput
         //Returns if a controller is connected
         public static bool vControllerAnyConnected()
         {
-            return vController0.Connected || vController1.Connected || vController2.Connected || vController3.Connected;
+            return vController0.Connected() || vController1.Connected() || vController2.Connected() || vController3.Connected();
         }
 
         //Returns the active controllerstatus

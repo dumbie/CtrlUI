@@ -19,7 +19,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected)
+                if (Controller.Connected())
                 {
                     Debug.WriteLine("Initializing direct input for: " + Controller.Details.DisplayName);
 
@@ -219,7 +219,7 @@ namespace DirectXInput
             try
             {
                 //Check if the controller is connected
-                if (Controller == null || !Controller.Connected)
+                if (Controller == null || !Controller.Connected())
                 {
                     Debug.WriteLine("Controller " + Controller.NumberId + " is already disconnected.");
                     return false;
@@ -293,7 +293,7 @@ namespace DirectXInput
                     PrepareXInputData(Controller, true);
 
                     //Send empty input to the virtual bus
-                    vVirtualBusDevice.VirtualInput(Controller.InputOverlapped, Controller.XInputData);
+                    vVirtualBusDevice.VirtualInput(ref Controller);
 
                     //Stop the controller input loop tasks
                     SetAndCloseEvent(Controller.InputOverlapped.EventHandle);

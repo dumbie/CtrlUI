@@ -12,7 +12,7 @@ namespace DirectXInput
             try
             {
                 //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has timed out for " + Controller.TimeoutSeconds + " seconds.");
-                if (Controller.Connected && Controller.InputReport != null && Controller.LastReadTicks != 0)
+                if (Controller.Connected() && Controller.InputReport != null && Controller.LastReadTicks != 0)
                 {
                     long latencyTicks = Stopwatch.GetTimestamp() - Controller.LastReadTicks;
                     double latencyMs = (latencyTicks * 1000.0) / Stopwatch.Frequency;

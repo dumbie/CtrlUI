@@ -2,7 +2,7 @@
 
 namespace LibraryShared
 {
-    partial class Classes
+    public partial class Classes
     {
         public class EpicInstalledManifest
         {
