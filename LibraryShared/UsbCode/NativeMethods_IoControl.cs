@@ -9,6 +9,15 @@ namespace LibraryUsb
     {
         public const uint INFINITE = 0xFFFFFFFF;
 
+        public enum IoErrorCodes : int
+        {
+            ERROR_UNKNOWN = -1,
+            ERROR_OPERATION_ABORTED = 995,
+            ERROR_IO_INCOMPLETE = 996,
+            ERROR_IO_PENDING = 997,
+            ERROR_NOACCESS = 998
+        }
+
         public enum IoControlCodes : uint
         {
             IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808,
@@ -18,13 +27,13 @@ namespace LibraryUsb
             IOCTL_HID_DEACTIVATE_DEVICE = 0xB0023
         }
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool DeviceIoControl(SafeFileHandle hDevice, IoControlCodes dwIoControlCode, byte[] lpInBuffer, int nInBufferSize, byte[] lpOutBuffer, int nOutBufferSize, out int lpBytesReturned, IntPtr lpOverlapped);
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool DeviceIoControl(SafeFileHandle hDevice, uint dwIoControlCode, IntPtr lpInBuffer, int nInBufferSize, IntPtr lpOutBuffer, int nOutBufferSize, out int lpBytesReturned, NativeOverlapped lpOverlapped);
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool DeviceIoControl(SafeFileHandle hDevice, uint dwIoControlCode, IntPtr lpInBuffer, int nInBufferSize, IntPtr lpOutBuffer, int nOutBufferSize, out int lpBytesReturned, IntPtr lpOverlapped);
 
         [DllImport("kernel32.dll")]
