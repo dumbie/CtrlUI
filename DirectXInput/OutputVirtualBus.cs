@@ -8,36 +8,22 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Receive and send rumble
-        void LoopOutput(ControllerStatus Controller)
+        //Receive rumble
+        void LoopOutputVirtual(ControllerStatus Controller)
         {
             try
             {
-                Debug.WriteLine("Receive and send rumble for: " + Controller.Details.DisplayName);
+                Debug.WriteLine("Receive rumble for: " + Controller.Details.DisplayName);
 
-                //Initialize controller
-                ControllerInitialize(Controller);
-
-                //Send default output to controller
-                ControllerOutput(Controller, true, false, false);
+                //Set receive structure
+                Controller.XOutputData = new XUSB_OUTPUT_REPORT();
+                Controller.XOutputData.Size = Marshal.SizeOf(Controller.XOutputData);
+                Controller.XOutputData.SerialNo = Controller.NumberId + 1;
 
                 //Receive output from the virtual bus
-                while (!Controller.OutputTask.TaskStopRequest && Controller.Connected())
+                while (!Controller.OutputVirtualTask.TaskStopRequest && Controller.Connected())
                 {
-                    try
-                    {
-                        //Set receive structure
-                        Controller.XOutputData = new XUSB_OUTPUT_REPORT();
-                        Controller.XOutputData.Size = Marshal.SizeOf(Controller.XOutputData);
-                        Controller.XOutputData.SerialNo = Controller.NumberId + 1;
-
-                        //Receive output from the virtual bus
-                        vVirtualBusDevice.VirtualOutput(ref Controller);
-
-                        //Send output to the controller
-                        ControllerOutput(Controller, false, false, false);
-                    }
-                    catch { }
+                    vVirtualBusDevice.VirtualOutput(ref Controller);
                 }
             }
             catch { }

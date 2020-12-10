@@ -35,15 +35,15 @@ namespace FpsOverlayer
             try
             {
                 //Deserialize the received bytes
-                SocketSendContainer DeserializedBytes = DeserializeBytesToClass<SocketSendContainer>(receivedBytes);
+                if (!DeserializeBytesToObject(receivedBytes, out SocketSendContainer deserializedBytes)) { return; }
 
                 //Get the source server ip and port
                 //Debug.WriteLine("Received socket from: " + DeserializedBytes.SourceIp + ":" + DeserializedBytes.SourcePort);
 
                 //Check what kind of object was received
-                if (DeserializedBytes.Object is string)
+                if (deserializedBytes.Object is string)
                 {
-                    string receivedString = (string)DeserializedBytes.Object;
+                    string receivedString = (string)deserializedBytes.Object;
                     Debug.WriteLine("Received string: " + receivedString);
                     if (receivedString == "ApplicationExit")
                     {
@@ -55,9 +55,9 @@ namespace FpsOverlayer
                         UpdateWindowPosition();
                     }
                 }
-                else if (DeserializedBytes.Object is KeypadSize)
+                else if (deserializedBytes.Object is KeypadSize)
                 {
-                    KeypadSize receivedKeypadSize = (KeypadSize)DeserializedBytes.Object;
+                    KeypadSize receivedKeypadSize = (KeypadSize)deserializedBytes.Object;
 
                     //Set the window keypad margin
                     vKeypadBottomMargin = receivedKeypadSize.Height;

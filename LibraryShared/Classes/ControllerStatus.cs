@@ -42,7 +42,8 @@ namespace LibraryShared
             //Controller Task
             public AVTaskDetails InputTask = new AVTaskDetails();
             public NativeOverlapped InputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
-            public AVTaskDetails OutputTask = new AVTaskDetails();
+            public AVTaskDetails OutputVirtualTask = new AVTaskDetails();
+            public AVTaskDetails OutputControllerTask = new AVTaskDetails();
             public NativeOverlapped OutputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
 
             //WinUsb Device Variables
@@ -102,7 +103,8 @@ namespace LibraryShared
                     //Controller Task
                     InputTask = new AVTaskDetails();
                     InputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
-                    OutputTask = new AVTaskDetails();
+                    OutputVirtualTask = new AVTaskDetails();
+                    OutputControllerTask = new AVTaskDetails();
                     OutputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
 
                     //WinUsb Device Variables

@@ -35,32 +35,32 @@ namespace CtrlUI
             try
             {
                 //Deserialize the received bytes
-                SocketSendContainer DeserializedBytes = DeserializeBytesToClass<SocketSendContainer>(receivedBytes);
+                if (!DeserializeBytesToObject(receivedBytes, out SocketSendContainer deserializedBytes)) { return; }
 
                 //Get the source server ip and port
                 //Debug.WriteLine("Received socket from (C): " + DeserializedBytes.SourceIp + ":" + DeserializedBytes.SourcePort + "/" + DeserializedBytes.Object);
 
                 //Check what kind of object was received
-                if (DeserializedBytes.Object is ControllerInput)
+                if (deserializedBytes.Object is ControllerInput)
                 {
                     if (!vControllerBusy)
                     {
                         vControllerBusy = true;
 
-                        ControllerInput receivedControllerInput = (ControllerInput)DeserializedBytes.Object;
+                        ControllerInput receivedControllerInput = (ControllerInput)deserializedBytes.Object;
                         await ControllerInteraction(receivedControllerInput);
 
                         vControllerBusy = false;
                     }
                 }
-                else if (DeserializedBytes.Object is List<ControllerStatusDetails>)
+                else if (deserializedBytes.Object is List<ControllerStatusDetails>)
                 {
-                    List<ControllerStatusDetails> controllerStatusSummaryList = (List<ControllerStatusDetails>)DeserializedBytes.Object;
+                    List<ControllerStatusDetails> controllerStatusSummaryList = (List<ControllerStatusDetails>)deserializedBytes.Object;
                     await UpdateControllerStatus(controllerStatusSummaryList);
                 }
-                else if (DeserializedBytes.Object is string)
+                else if (deserializedBytes.Object is string)
                 {
-                    string receivedString = (string)DeserializedBytes.Object;
+                    string receivedString = (string)deserializedBytes.Object;
                     //Debug.WriteLine("Received string: " + receivedString);
                     if (receivedString == "SettingChangedShortcut")
                     {

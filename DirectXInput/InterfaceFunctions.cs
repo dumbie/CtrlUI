@@ -281,7 +281,7 @@ namespace DirectXInput
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
 
                         //Update the controller led
-                        ControllerOutput(activeController, true, false, false);
+                        ControllerOutput(activeController, false, false);
                     }
                 };
 

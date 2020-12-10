@@ -92,16 +92,7 @@ namespace DirectXInput
                             }
                             catch { }
                         }
-                        void TaskActionOutput()
-                        {
-                            try
-                            {
-                                LoopOutput(Controller);
-                            }
-                            catch { }
-                        }
                         AVActions.TaskStartLoop(TaskActionInput, Controller.InputTask);
-                        AVActions.TaskStartLoop(TaskActionOutput, Controller.OutputTask);
                     }
                     else
                     {
@@ -113,18 +104,27 @@ namespace DirectXInput
                             }
                             catch { }
                         }
-                        void TaskActionOutput()
-                        {
-                            try
-                            {
-                                LoopOutput(Controller);
-                            }
-                            catch { }
-                        }
                         AVActions.TaskStartLoop(TaskActionInput, Controller.InputTask);
-                        AVActions.TaskStartLoop(TaskActionOutput, Controller.OutputTask);
                     }
 
+                    void TaskActionOutputVirtual()
+                    {
+                        try
+                        {
+                            LoopOutputVirtual(Controller);
+                        }
+                        catch { }
+                    }
+                    AVActions.TaskStartLoop(TaskActionOutputVirtual, Controller.OutputVirtualTask);
+                    void TaskActionOutputController()
+                    {
+                        try
+                        {
+                            LoopOutputController(Controller);
+                        }
+                        catch { }
+                    }
+                    AVActions.TaskStartLoop(TaskActionOutputController, Controller.OutputControllerTask);
                     return true;
                 }
             }
@@ -287,7 +287,8 @@ namespace DirectXInput
                 {
                     //Stop the controller output loop tasks
                     SetAndCloseEvent(Controller.OutputOverlapped.EventHandle);
-                    await TaskStopLoop(Controller.OutputTask);
+                    await TaskStopLoop(Controller.OutputVirtualTask);
+                    await TaskStopLoop(Controller.OutputControllerTask);
 
                     //Prepare empty xinput data
                     PrepareXInputData(Controller, true);

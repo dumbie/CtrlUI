@@ -11,6 +11,33 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
+        //Send rumble
+        void LoopOutputController(ControllerStatus Controller)
+        {
+            try
+            {
+                Debug.WriteLine("Send rumble for: " + Controller.Details.DisplayName);
+
+                //Initialize controller
+                ControllerInitialize(Controller);
+
+                //Send default output to controller
+                ControllerOutput(Controller, false, false);
+
+                //Receive output from the virtual bus
+                while (!Controller.OutputControllerTask.TaskStopRequest && Controller.Connected())
+                {
+                    try
+                    {
+                        //Send received output to controller
+                        ControllerOutput(Controller, false, false);
+                    }
+                    catch { }
+                }
+            }
+            catch { }
+        }
+
         //Initialize controller
         private void ControllerInitialize(ControllerStatus Controller)
         {
@@ -75,7 +102,7 @@ namespace DirectXInput
         }
 
         //Send output to controller
-        public void ControllerOutput(ControllerStatus Controller, bool forceUpdate, bool testLight, bool testHeavy)
+        public void ControllerOutput(ControllerStatus Controller, bool testLight, bool testHeavy)
         {
             try
             {
@@ -95,7 +122,7 @@ namespace DirectXInput
                 }
                 else
                 {
-                    controllerRumbleHeavy = Controller.XOutputData.LargeMotor;
+                    controllerRumbleHeavy = Controller.XOutputData.RumbleHeavy;
                 }
                 if (testLight)
                 {
@@ -103,7 +130,7 @@ namespace DirectXInput
                 }
                 else
                 {
-                    controllerRumbleLight = Controller.XOutputData.SmallMotor;
+                    controllerRumbleLight = Controller.XOutputData.RumbleLight;
                 }
 
                 //Adjust the trigger rumble strength

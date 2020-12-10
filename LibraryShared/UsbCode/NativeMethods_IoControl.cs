@@ -12,6 +12,8 @@ namespace LibraryUsb
         public enum IoErrorCodes : int
         {
             ERROR_UNKNOWN = -1,
+            ERROR_ACCESS_DENIED = 5,
+            ERROR_INVALID_PARAMETER = 87,
             ERROR_OPERATION_ABORTED = 995,
             ERROR_IO_INCOMPLETE = 996,
             ERROR_IO_PENDING = 997,

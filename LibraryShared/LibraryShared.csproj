@@ -105,14 +105,6 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\Classes\AVTaskDetails.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkActions\Classes\AVTaskDetails.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorPicker.xaml.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorPicker.xaml.cs</Link>
-      <DependentUpon>ColorPicker.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.xaml.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.xaml.cs</Link>
-      <DependentUpon>ColorSelector.xaml</DependentUpon>
-    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputClass.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputClass.cs</Link>
     </Compile>
@@ -349,16 +341,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorPicker.xaml">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorPicker.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.xaml">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkTimePicker\TimePicker.xaml">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkTimePicker\TimePicker.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -411,9 +393,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.png">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.png</Link>
-    </Content>
     <Content Include="..\..\ArnoldVinkCode\Desktop\Styles\Readme.txt">
       <Link>ArnoldVinkCode\Styles\Readme.txt</Link>
     </Content>

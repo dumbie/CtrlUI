@@ -36,7 +36,7 @@ namespace DirectXInput
             try
             {
                 //Deserialize the received bytes
-                SocketSendContainer deserializedBytes = DeserializeBytesToClass<SocketSendContainer>(receivedBytes);
+                if (!DeserializeBytesToObject(receivedBytes, out SocketSendContainer deserializedBytes)) { return; }
 
                 //Get the source server ip and port
                 //Debug.WriteLine("Received socket from: " + DeserializedBytes.SourceIp + ":" + DeserializedBytes.SourcePort);

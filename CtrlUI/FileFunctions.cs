@@ -298,7 +298,7 @@ namespace CtrlUI
                         }
 
                         //Update file name in new clipboard
-                        DataBindFile updatedClipboard = CloneClassObject(clipboardFile);
+                        if (!CloneObjectShallow(clipboardFile, out DataBindFile updatedClipboard)) { return; }
                         updatedClipboard.Name = newFileName + newFileExtension;
                         updatedClipboard.PathFile = newFilePath;
                         updatedClipboard.ClipboardType = ClipboardType.None;
@@ -371,7 +371,7 @@ namespace CtrlUI
                         }
 
                         //Update file name in new clipboard
-                        DataBindFile updatedClipboard = CloneClassObject(clipboardFile);
+                        if (!CloneObjectShallow(clipboardFile, out DataBindFile updatedClipboard)) { return; }
                         updatedClipboard.Name = newFileName + newFileExtension;
                         updatedClipboard.PathFile = newFilePath;
                         updatedClipboard.ClipboardType = ClipboardType.None;

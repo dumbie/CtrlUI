@@ -142,10 +142,10 @@ namespace DirectXInput
                 if (batteryLevelChanged)
                 {
                     Debug.WriteLine("Controller " + Controller.NumberId + " battery level changed, updating led.");
-                    ControllerOutput(vController0, true, false, false);
-                    ControllerOutput(vController1, true, false, false);
-                    ControllerOutput(vController2, true, false, false);
-                    ControllerOutput(vController3, true, false, false);
+                    ControllerOutput(vController0, false, false);
+                    ControllerOutput(vController1, false, false);
+                    ControllerOutput(vController2, false, false);
+                    ControllerOutput(vController3, false, false);
                 }
 
                 //Show or hide battery level overlay
@@ -191,7 +191,7 @@ namespace DirectXInput
                 }
 
                 //Update the previous battery level
-                Controller.BatteryPrevious = CloneClassObject(Controller.BatteryCurrent);
+                CloneObjectShallow(Controller.BatteryCurrent, out Controller.BatteryPrevious);
             }
             catch (Exception ex)
             {

@@ -45,10 +45,10 @@ namespace DirectXInput
                 {
                     //Update the controller led
                     vControllerMuteLed = inputMuted;
-                    ControllerOutput(vController0, true, false, false);
-                    ControllerOutput(vController1, true, false, false);
-                    ControllerOutput(vController2, true, false, false);
-                    ControllerOutput(vController3, true, false, false);
+                    ControllerOutput(vController0, false, false);
+                    ControllerOutput(vController1, false, false);
+                    ControllerOutput(vController2, false, false);
+                    ControllerOutput(vController3, false, false);
                 }
                 else
                 {
