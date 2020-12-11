@@ -11,8 +11,32 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Update interface controller preview
-        void UpdateControllerPreview(ControllerStatus Controller)
+        //Update interface controller rumble preview
+        void UpdateControllerPreviewRumble(ControllerStatus Controller, int controllerRumbleHeavy, int controllerRumbleLight)
+        {
+            try
+            {
+                //Update the interface when window is active
+                if (vAppActivated && !vAppMinimized && Controller.Activated)
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        if (controllerRumbleHeavy > 0 || controllerRumbleLight > 0)
+                        {
+                            img_ControllerPreview_Rumble.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            img_ControllerPreview_Rumble.Visibility = Visibility.Collapsed;
+                        }
+                    });
+                }
+            }
+            catch { }
+        }
+
+        //Update interface controller buttons preview
+        void UpdateControllerPreviewButtons(ControllerStatus Controller)
         {
             try
             {

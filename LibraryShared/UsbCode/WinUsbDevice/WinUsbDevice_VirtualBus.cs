@@ -264,6 +264,8 @@ namespace LibraryUsb
                     {
                         //Set marshal structure
                         controller.XOutputData = Marshal.PtrToStructure<XUSB_OUTPUT_REPORT>(controlIntPtr);
+                        controller.XOutputCurrentRumbleHeavy = controller.XOutputData.RumbleHeavy;
+                        controller.XOutputCurrentRumbleLight = controller.XOutputData.RumbleLight;
                         return true;
                     }
                 }

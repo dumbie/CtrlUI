@@ -67,6 +67,10 @@ namespace LibraryShared
             public byte[] OutputReport = null;
             public XUSB_INPUT_REPORT XInputData = new XUSB_INPUT_REPORT();
             public XUSB_OUTPUT_REPORT XOutputData = new XUSB_OUTPUT_REPORT();
+            public byte XOutputCurrentRumbleHeavy = 0;
+            public byte XOutputCurrentRumbleLight = 0;
+            public byte XOutputPreviousRumbleHeavy = 0;
+            public byte XOutputPreviousRumbleLight = 0;
 
             //Controller Input
             public int Delay_CtrlUIOutput = Environment.TickCount;
@@ -128,6 +132,10 @@ namespace LibraryShared
                     OutputReport = null;
                     XInputData = new XUSB_INPUT_REPORT();
                     XOutputData = new XUSB_OUTPUT_REPORT();
+                    XOutputCurrentRumbleHeavy = 0;
+                    XOutputCurrentRumbleLight = 0;
+                    XOutputPreviousRumbleHeavy = 0;
+                    XOutputPreviousRumbleLight = 0;
 
                     //Controller Input
                     InputCurrent = new ControllerInput();

@@ -1,7 +1,9 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.CRC32;
@@ -12,7 +14,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Send rumble
-        void LoopOutputController(ControllerStatus Controller)
+        async Task LoopOutputController(ControllerStatus Controller)
         {
             try
             {
@@ -29,6 +31,20 @@ namespace DirectXInput
                 {
                     try
                     {
+                        //Check if the rumble value has changed
+                        bool heavyRumbleChanged = Controller.XOutputCurrentRumbleHeavy == 0 && Controller.XOutputPreviousRumbleHeavy == 0;
+                        bool lightRumbleChanged = Controller.XOutputCurrentRumbleLight == 0 && Controller.XOutputPreviousRumbleLight == 0;
+                        if (heavyRumbleChanged && lightRumbleChanged)
+                        {
+                            //Delay task to prevent high cpu usage
+                            await Task.Delay(1);
+                            continue;
+                        }
+
+                        //Update the previous rumble value
+                        Controller.XOutputPreviousRumbleHeavy = Controller.XOutputCurrentRumbleHeavy;
+                        Controller.XOutputPreviousRumbleLight = Controller.XOutputCurrentRumbleLight;
+
                         //Send received output to controller
                         ControllerOutput(Controller, false, false);
                     }
@@ -120,17 +136,14 @@ namespace DirectXInput
                 {
                     controllerRumbleHeavy = 255;
                 }
-                else
-                {
-                    controllerRumbleHeavy = Controller.XOutputData.RumbleHeavy;
-                }
-                if (testLight)
+                else if (testLight)
                 {
                     controllerRumbleLight = 255;
                 }
                 else
                 {
-                    controllerRumbleLight = Controller.XOutputData.RumbleLight;
+                    controllerRumbleHeavy = Controller.XOutputCurrentRumbleHeavy;
+                    controllerRumbleLight = Controller.XOutputCurrentRumbleLight;
                 }
 
                 //Adjust the trigger rumble strength
@@ -163,21 +176,8 @@ namespace DirectXInput
                     controllerRumbleLight = 0;
                 }
 
-                //Update controller interface preview
-                if (vAppActivated && !vAppMinimized)
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        if (controllerRumbleHeavy > 0 || controllerRumbleLight > 0)
-                        {
-                            img_ControllerPreview_Rumble.Visibility = Visibility.Visible;
-                        }
-                        else
-                        {
-                            img_ControllerPreview_Rumble.Visibility = Visibility.Collapsed;
-                        }
-                    });
-                }
+                //Update interface controller rumble preview
+                UpdateControllerPreviewRumble(Controller, controllerRumbleHeavy, controllerRumbleLight);
 
                 //Check which controller is connected
                 if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
