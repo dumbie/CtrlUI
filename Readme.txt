@@ -54,9 +54,12 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
 | Changelog
+v1.34.0.0 (12-December-2020)
+- Switched virtual Xbox controller driver to ViGEmBus.
+* Miscellaneous application improvements and fixes.
+
 v1.33.0.0 (12-November-2020)
 - Added Sony PlayStation 5 DualSense controller support.
-* Miscellaneous application improvements and fixes.
 
 v1.31.0.0 (16-October-2020)
 - Added emoji's menu to the on screen keyboard.

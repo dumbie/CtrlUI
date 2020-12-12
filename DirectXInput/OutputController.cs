@@ -1,9 +1,6 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
-using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.CRC32;
@@ -177,7 +174,7 @@ namespace DirectXInput
                 }
 
                 //Update interface controller rumble preview
-                UpdateControllerPreviewRumble(Controller, controllerRumbleHeavy, controllerRumbleLight);
+                UpdateControllerPreviewRumble(Controller, controllerRumbleHeavy, controllerRumbleLight, triggerRumbleHighest, triggerRumbleHighest);
 
                 //Check which controller is connected
                 if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)

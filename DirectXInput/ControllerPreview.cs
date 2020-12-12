@@ -12,7 +12,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Update interface controller rumble preview
-        void UpdateControllerPreviewRumble(ControllerStatus Controller, int controllerRumbleHeavy, int controllerRumbleLight)
+        void UpdateControllerPreviewRumble(ControllerStatus Controller, int controllerRumbleHeavy, int controllerRumbleLight, int triggerRumbleLeft, int triggerRumbleRight)
         {
             try
             {
@@ -23,11 +23,27 @@ namespace DirectXInput
                     {
                         if (controllerRumbleHeavy > 0 || controllerRumbleLight > 0)
                         {
-                            img_ControllerPreview_Rumble.Visibility = Visibility.Visible;
+                            img_ControllerPreview_ControllerRumble.Visibility = Visibility.Visible;
                         }
                         else
                         {
-                            img_ControllerPreview_Rumble.Visibility = Visibility.Collapsed;
+                            img_ControllerPreview_ControllerRumble.Visibility = Visibility.Collapsed;
+                        }
+                        if (triggerRumbleLeft > 0)
+                        {
+                            img_ControllerPreview_TriggerRumbleLeft.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            img_ControllerPreview_TriggerRumbleLeft.Visibility = Visibility.Collapsed;
+                        }
+                        if (triggerRumbleRight > 0)
+                        {
+                            img_ControllerPreview_TriggerRumbleRight.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            img_ControllerPreview_TriggerRumbleRight.Visibility = Visibility.Collapsed;
                         }
                     });
                 }

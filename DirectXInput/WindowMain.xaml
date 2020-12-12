@@ -152,7 +152,9 @@
                             </Grid.Background>
 
                             <!-- Preview -->
-                            <Image Name="img_ControllerPreview_Rumble" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerRumble.png" Visibility="Collapsed"/>
+                            <Image Name="img_ControllerPreview_ControllerRumble" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerRumble.png" Visibility="Collapsed"/>
+                            <Image Name="img_ControllerPreview_TriggerRumbleLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/TriggerRumbleLeft.png" Visibility="Collapsed"/>
+                            <Image Name="img_ControllerPreview_TriggerRumbleRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/TriggerRumbleRight.png" Visibility="Collapsed"/>
 
                             <Image Name="img_ControllerPreview_ButtonA" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,109,105,121"/>
                             <Image Name="img_ControllerPreview_ButtonB" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="394,85,81,145"/>
