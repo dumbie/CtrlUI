@@ -41,6 +41,7 @@ namespace CtrlUI
                 cb_SettingsMinimizeAppOnShow.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "MinimizeAppOnShow", cb_SettingsMinimizeAppOnShow.IsChecked.ToString()); };
 
                 cb_SettingsLaunchFpsOverlayer.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "LaunchFpsOverlayer", cb_SettingsLaunchFpsOverlayer.IsChecked.ToString()); };
+                cb_SettingsLaunchDirectXInput.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "LaunchDirectXInput", cb_SettingsLaunchDirectXInput.IsChecked.ToString()); };
 
                 cb_SettingsShowOtherShortcuts.Click += (sender, e) =>
                 {

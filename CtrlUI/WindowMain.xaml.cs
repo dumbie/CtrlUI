@@ -139,8 +139,11 @@ namespace CtrlUI
                 //Enable the socket server
                 EnableSocketServer();
 
-                //Launch DirectXInput application
-                await LaunchDirectXInput(true);
+                //Check settings if DirectXInput launches on start
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchDirectXInput")))
+                {
+                    await LaunchDirectXInput(true);
+                }
 
                 //Check settings if Fps Overlayer launches on start
                 if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFpsOverlayer")))

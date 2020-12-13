@@ -50,6 +50,7 @@ namespace CtrlUI
                 if (Setting_Load(vConfigurationCtrlUI, "ShowMediaMain") == null) { Setting_Save(vConfigurationCtrlUI, "ShowMediaMain", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow") == null) { Setting_Save(vConfigurationCtrlUI, "MinimizeAppOnShow", "False"); }
                 if (Setting_Load(vConfigurationCtrlUI, "LaunchFpsOverlayer") == null) { Setting_Save(vConfigurationCtrlUI, "LaunchFpsOverlayer", "False"); }
+                if (Setting_Load(vConfigurationCtrlUI, "LaunchDirectXInput") == null) { Setting_Save(vConfigurationCtrlUI, "LaunchDirectXInput", "True"); }
 
                 //Background settings
                 if (Setting_Load(vConfigurationCtrlUI, "VideoBackground") == null) { Setting_Save(vConfigurationCtrlUI, "VideoBackground", "True"); }
