@@ -18,7 +18,7 @@
     "websites": [
       1
     ],
-    "checksum": "51b13de3-9c50-25eb-de47-5414bc877fb0"
+    "checksum": "b810fb9c-65f7-b297-3658-da9c4d52bf11"
   },
   {
     "id": 4,
@@ -40,7 +40,7 @@
     "websites": [
       35
     ],
-    "checksum": "4b7137c3-d1e7-6b17-c349-24a74c02fd8a"
+    "checksum": "647c6004-3c75-3b8d-8259-79bd3d5e5a28"
   },
   {
     "id": 5,
@@ -59,7 +59,7 @@
       72,
       283
     ],
-    "checksum": "065bc05e-5f2b-1ff5-a6cd-c006f36b2711"
+    "checksum": "a588baba-4edb-7649-8516-c2946f410812"
   },
   {
     "id": 6,
@@ -82,7 +82,7 @@
     "websites": [
       2
     ],
-    "checksum": "ec4bee36-3fd4-fa32-1780-54ca570298c2"
+    "checksum": "5aae54d0-390e-a4ec-a9ee-4ad4cc346992"
   },
   {
     "id": 7,
@@ -99,7 +99,7 @@
     "versions": [
       57
     ],
-    "checksum": "dc891484-b965-6da4-0dfa-8e8b16849cf2"
+    "checksum": "ff70e8cc-2bd3-9b66-886f-06f32a061b3d"
   },
   {
     "id": 8,
@@ -118,7 +118,7 @@
       58,
       114
     ],
-    "checksum": "7b7b6f82-c557-942f-4da0-e818a00e5580"
+    "checksum": "be3e025c-d4ed-b795-443c-a8cb55fbfe17"
   },
   {
     "id": 9,
@@ -140,7 +140,7 @@
     "websites": [
       3
     ],
-    "checksum": "1891a74d-d721-aba2-b0ec-5242d0e2eb63"
+    "checksum": "d516c27e-955e-2ff7-c31b-7d65305b2617"
   },
   {
     "id": 11,
@@ -157,7 +157,7 @@
     "versions": [
       77
     ],
-    "checksum": "5f8c11ce-8b65-91da-ab70-5ff52ed35472"
+    "checksum": "226780a3-83ed-dcf9-6757-77091acc172d"
   },
   {
     "id": 12,
@@ -181,7 +181,7 @@
     "websites": [
       4
     ],
-    "checksum": "786137ed-04b0-991c-a3b2-b45e2a70931d"
+    "checksum": "8e1d2b32-0aaf-0992-eaf7-bff2c0ad2863"
   },
   {
     "id": 13,
@@ -196,7 +196,7 @@
     "versions": [
       56
     ],
-    "checksum": "0b219be1-80b6-b382-ec1a-a3bc36ced535"
+    "checksum": "b2f74f34-7e3d-78b5-1639-bc038cb99679"
   },
   {
     "id": 14,
@@ -226,7 +226,7 @@
     "websites": [
       5
     ],
-    "checksum": "d83efdd9-85db-bf2f-e8a4-cfec9eabfcfe"
+    "checksum": "19c9dcae-80a2-e137-50ff-11b823738827"
   },
   {
     "id": 15,
@@ -241,7 +241,7 @@
     "versions": [
       36
     ],
-    "checksum": "7c6c554b-49da-cd22-3f56-24cacc07008c"
+    "checksum": "90d35a92-186e-98b5-7688-514c36c23da7"
   },
   {
     "id": 16,
@@ -260,7 +260,7 @@
       112,
       113
     ],
-    "checksum": "d53cd915-ee8f-5da3-7b34-35706b438417"
+    "checksum": "5f67821e-ed83-7d0a-5870-5b2233de8e9a"
   },
   {
     "id": 18,
@@ -279,7 +279,7 @@
       53,
       175
     ],
-    "checksum": "896e7391-0704-aab5-f7de-55d48c150494"
+    "checksum": "c046c748-bea6-8418-904c-7e787a652a08"
   },
   {
     "id": 19,
@@ -305,7 +305,7 @@
     "websites": [
       209
     ],
-    "checksum": "f3ea6068-db22-f7e2-1df2-c45c232b5796"
+    "checksum": "abefad85-f090-9223-53c2-127cadfaa3f1"
   },
   {
     "id": 20,
@@ -326,7 +326,7 @@
       191,
       192
     ],
-    "checksum": "d397729c-588e-6df5-b65d-e0aade9cb536"
+    "checksum": "75523597-5342-d7b4-c365-68315bd5932b"
   },
   {
     "id": 21,
@@ -345,7 +345,7 @@
       121,
       125
     ],
-    "checksum": "7155a0bc-b037-6e67-3107-e46e821cfb70"
+    "checksum": "f5e41a21-04c5-610e-f6ef-0254008461c7"
   },
   {
     "id": 22,
@@ -362,7 +362,7 @@
     "versions": [
       41
     ],
-    "checksum": "46db3e5e-2347-0bbc-4266-b297732f469f"
+    "checksum": "332ae991-5092-56f0-ac02-39de64097f27"
   },
   {
     "id": 23,
@@ -378,7 +378,7 @@
     "versions": [
       16
     ],
-    "checksum": "848c297b-b27b-5687-cafd-76084cc33c08"
+    "checksum": "586e0e57-9a37-fbde-c59d-4726c8d229a6"
   },
   {
     "id": 24,
@@ -398,7 +398,7 @@
       193,
       194
     ],
-    "checksum": "bf4d7235-d559-241e-37a1-06dc966ba2cf"
+    "checksum": "2741e85f-e65d-4668-6cdb-36fca54e5dd4"
   },
   {
     "id": 25,
@@ -414,7 +414,7 @@
     "versions": [
       20
     ],
-    "checksum": "34075e84-79d4-5788-0565-324a627b2e9a"
+    "checksum": "98553ead-7abe-3404-745d-cf7c17010f01"
   },
   {
     "id": 26,
@@ -429,7 +429,7 @@
     "versions": [
       79
     ],
-    "checksum": "29af4031-6212-3484-d804-efd5411fb32c"
+    "checksum": "f73944f5-3aee-6709-e02f-ed9b896a85cc"
   },
   {
     "id": 27,
@@ -444,7 +444,7 @@
     "versions": [
       47
     ],
-    "checksum": "9c85ec79-8d1a-6952-26a0-465ac1058086"
+    "checksum": "7954204a-0502-4940-48c1-d525148f76fd"
   },
   {
     "id": 29,
@@ -462,7 +462,7 @@
     "versions": [
       64
     ],
-    "checksum": "6e001f26-3835-c59a-04d1-adfca716323d"
+    "checksum": "2b0bf08d-bdb2-5d1b-ce0c-0056ef3b35d7"
   },
   {
     "id": 30,
@@ -479,7 +479,7 @@
     "versions": [
       61
     ],
-    "checksum": "6486c6d8-24da-2aea-b282-c371d82148cb"
+    "checksum": "d47b5ebe-fc4e-7719-a5d9-ad5eeebc6ede"
   },
   {
     "id": 32,
@@ -500,7 +500,7 @@
     "websites": [
       6
     ],
-    "checksum": "d74b258a-556e-2d87-b02c-2e5f57d8076b"
+    "checksum": "f4fddc54-c402-d538-ac88-e3d711bf3bb2"
   },
   {
     "id": 33,
@@ -519,7 +519,7 @@
       181,
       182
     ],
-    "checksum": "ed165686-9b89-e9a5-14ac-84fcd646344a"
+    "checksum": "d9a54cf1-7327-083d-7176-ab6143f4c78f"
   },
   {
     "id": 34,
@@ -548,7 +548,7 @@
     "websites": [
       7
     ],
-    "checksum": "dff18420-239b-0cd8-738b-576c0bc6e5e2"
+    "checksum": "fe27cf28-ec61-df1a-e378-ae233b2eea73"
   },
   {
     "id": 35,
@@ -565,7 +565,7 @@
     "versions": [
       62
     ],
-    "checksum": "ed1a799d-1037-889f-c0ba-bcc9d345fe33"
+    "checksum": "22dce350-99d3-3eb0-65a0-7e41ff3d1425"
   },
   {
     "id": 36,
@@ -584,7 +584,7 @@
     "websites": [
       8
     ],
-    "checksum": "fd8b53d1-e8ac-f62e-5443-adebfe050171"
+    "checksum": "751be340-d180-7a2d-c46a-07b150d07265"
   },
   {
     "id": 37,
@@ -605,7 +605,7 @@
     "websites": [
       9
     ],
-    "checksum": "3e35c953-90db-ac4c-8912-5cb4800a33e1"
+    "checksum": "acee0d28-d3b8-b891-fc1c-768782c775a4"
   },
   {
     "id": 38,
@@ -627,7 +627,7 @@
       278,
       279
     ],
-    "checksum": "a16584b9-9b43-46d7-3739-45dbe459cfc8"
+    "checksum": "f2350669-a77c-261f-d54e-d3bf715cd835"
   },
   {
     "id": 39,
@@ -642,7 +642,7 @@
     "versions": [
       43
     ],
-    "checksum": "1258cc37-255a-9b9a-dc72-39c3ab8f071e"
+    "checksum": "fefe4a2b-7c90-0e89-e811-902ea1cf2b58"
   },
   {
     "id": 41,
@@ -662,7 +662,7 @@
     "websites": [
       10
     ],
-    "checksum": "2889bb5a-f08b-c80a-2ea2-2556bc88d125"
+    "checksum": "13712d1c-3c5d-44d8-2d54-b2adc47f5416"
   },
   {
     "id": 42,
@@ -679,7 +679,7 @@
       49,
       118
     ],
-    "checksum": "2cf7984c-1bfa-5213-ca9f-77295d071969"
+    "checksum": "83080796-a527-e31c-e7ac-7a75a8ff9299"
   },
   {
     "id": 44,
@@ -694,7 +694,7 @@
     "versions": [
       69
     ],
-    "checksum": "48447687-dea6-73f9-2563-08811cc4d333"
+    "checksum": "7916e6bf-353a-6f27-a8de-a429204d17d9"
   },
   {
     "id": 45,
@@ -711,7 +711,7 @@
     "versions": [
       32
     ],
-    "checksum": "703a08c1-dbe4-7f95-b6c3-00c5af929284"
+    "checksum": "7cbd1c11-bc49-3efd-fbc1-382a6479e11e"
   },
   {
     "id": 46,
@@ -734,7 +734,7 @@
     "websites": [
       34
     ],
-    "checksum": "75a49c2c-46cd-1855-d8a4-563f4ffadf11"
+    "checksum": "7185535c-37aa-02e0-1764-b81181c990cb"
   },
   {
     "id": 47,
@@ -750,7 +750,7 @@
     "versions": [
       71
     ],
-    "checksum": "f538986e-683a-2a53-2a8f-15ccce6aca7d"
+    "checksum": "856ee409-588c-ad7b-e793-5e49821c88fc"
   },
   {
     "id": 48,
@@ -774,7 +774,7 @@
     "websites": [
       11
     ],
-    "checksum": "7fa91e63-fce5-3cc9-4ec8-94283d3185c3"
+    "checksum": "1dfa9b83-5f1d-56ce-01a1-06fcdfbb5bc0"
   },
   {
     "id": 49,
@@ -799,7 +799,7 @@
     "websites": [
       12
     ],
-    "checksum": "b27211d6-201b-967e-dbb9-03c1875adc42"
+    "checksum": "d2560055-3c6f-d1f6-c5a4-483d9a15498a"
   },
   {
     "id": 50,
@@ -815,7 +815,7 @@
     "versions": [
       18
     ],
-    "checksum": "70353a61-3572-de71-f8fb-efb06e6937f1"
+    "checksum": "08a54368-0ef0-5578-3166-cb9642f254cf"
   },
   {
     "id": 51,
@@ -833,7 +833,7 @@
     "versions": [
       38
     ],
-    "checksum": "6dcc8e86-a43e-79a7-e384-94cbfd455823"
+    "checksum": "b8e85b13-7900-937b-67e7-f3b7c71cb75c"
   },
   {
     "id": 52,
@@ -846,7 +846,7 @@
     "versions": [
       22
     ],
-    "checksum": "2a751e8d-b1a5-86da-5a70-d3d381ea3583"
+    "checksum": "60b83ee0-5185-3f09-c6ea-f773857bd11b"
   },
   {
     "id": 53,
@@ -861,7 +861,7 @@
     "versions": [
       48
     ],
-    "checksum": "be5a4712-d7c1-b211-10be-cfa9b0c6b098"
+    "checksum": "d6f6cc07-f15c-1fab-6372-734d874684c8"
   },
   {
     "id": 55,
@@ -874,7 +874,7 @@
     "versions": [
       46
     ],
-    "checksum": "1cc159eb-bd4b-c758-989c-b0d026ef1c1d"
+    "checksum": "e91716cf-1c47-cbdf-f20a-357079f3f4ab"
   },
   {
     "id": 56,
@@ -887,7 +887,7 @@
     "versions": [
       74
     ],
-    "checksum": "598d64db-b308-7fca-013f-9e160fe89f65"
+    "checksum": "5be5f9c4-60e2-53b0-eff4-fd4b7788f18a"
   },
   {
     "id": 57,
@@ -905,7 +905,7 @@
       84,
       117
     ],
-    "checksum": "791c330e-d830-6530-5f1a-3024a81072f4"
+    "checksum": "9020bab8-6b12-4070-5463-58e57497c4f9"
   },
   {
     "id": 58,
@@ -924,7 +924,7 @@
       67,
       98
     ],
-    "checksum": "3e7eac42-b9ea-ea87-981b-5ced3a8f5d6f"
+    "checksum": "98c18388-67d3-e46a-77bc-49287d3da1e9"
   },
   {
     "id": 59,
@@ -940,7 +940,7 @@
     "versions": [
       24
     ],
-    "checksum": "95ab69b9-f5c1-b35d-422a-f334d8709c02"
+    "checksum": "cd1b72f5-0b7c-669f-a50e-2729293c3703"
   },
   {
     "id": 60,
@@ -957,7 +957,7 @@
     "versions": [
       26
     ],
-    "checksum": "5ff4efb6-c1d3-1587-5424-b2b5dd05a5d9"
+    "checksum": "75e3ee56-5254-ea30-b5be-131e33ff2004"
   },
   {
     "id": 61,
@@ -974,7 +974,7 @@
       29,
       189
     ],
-    "checksum": "53d0425f-2c30-a3e2-9f26-9260910a5e06"
+    "checksum": "28a85ec7-a1de-6e5b-9373-e0bbd3bafa13"
   },
   {
     "id": 62,
@@ -990,7 +990,7 @@
     "versions": [
       28
     ],
-    "checksum": "9d7677d5-d297-9223-16f7-30775fa11ec5"
+    "checksum": "70557c0a-1cac-d093-d287-67d8e5a201b0"
   },
   {
     "id": 63,
@@ -1005,7 +1005,7 @@
     "versions": [
       30
     ],
-    "checksum": "13104f70-5fc3-a7ac-5b5e-2c5db7d61554"
+    "checksum": "34e7481c-c27b-bef7-d2cf-f2e48ffcb5d7"
   },
   {
     "id": 64,
@@ -1023,7 +1023,7 @@
     "versions": [
       63
     ],
-    "checksum": "a1c8001c-d522-ad5e-48b0-8a87d964247e"
+    "checksum": "627a8cab-1069-7514-5d7d-f63dfb09446e"
   },
   {
     "id": 65,
@@ -1039,7 +1039,7 @@
       27,
       104
     ],
-    "checksum": "1e1ea0be-070d-39a0-8227-1d575fb8d088"
+    "checksum": "37adef88-b15f-3963-a417-687e5e0a6260"
   },
   {
     "id": 66,
@@ -1057,7 +1057,7 @@
     "versions": [
       25
     ],
-    "checksum": "13273bf7-63ca-8a0f-2b70-0891d4284e2e"
+    "checksum": "b5e86dec-98fe-d680-de33-8fef3dae5435"
   },
   {
     "id": 67,
@@ -1073,7 +1073,7 @@
     "versions": [
       42
     ],
-    "checksum": "3001bbd0-5934-4df7-a5b0-603cf97d58df"
+    "checksum": "84a4defd-0a29-ca54-0a07-67b61a4ddc98"
   },
   {
     "id": 68,
@@ -1089,7 +1089,7 @@
     "versions": [
       35
     ],
-    "checksum": "a2a5ed5e-5461-bf65-d6c9-97ae4373e581"
+    "checksum": "85231b96-19bb-f7cb-608b-736c5120b70f"
   },
   {
     "id": 69,
@@ -1104,7 +1104,7 @@
     "versions": [
       33
     ],
-    "checksum": "219b23b3-7f66-ebdb-198b-89f5073cdf94"
+    "checksum": "eb595073-1be1-9246-0e2e-570cc7c05a87"
   },
   {
     "id": 70,
@@ -1120,7 +1120,7 @@
     "versions": [
       70
     ],
-    "checksum": "59ef39be-4d13-4441-2a74-32b04d624c04"
+    "checksum": "5140484a-7fd8-2a13-2542-a9207d7c9fd4"
   },
   {
     "id": 71,
@@ -1135,7 +1135,7 @@
     "versions": [
       37
     ],
-    "checksum": "d3f210d9-ee74-5eba-61cf-32f1ccaad5b8"
+    "checksum": "3e43a9f4-b55b-69e8-7222-64487c29bd47"
   },
   {
     "id": 72,
@@ -1155,7 +1155,7 @@
     "websites": [
       13
     ],
-    "checksum": "93c8dab8-b4fb-26eb-f1f5-cfd53f3e2259"
+    "checksum": "ec1994ca-3247-830f-8452-b664a411ade3"
   },
   {
     "id": 73,
@@ -1170,7 +1170,7 @@
     "versions": [
       34
     ],
-    "checksum": "ea0b8dab-a6fe-237c-41c7-98f1de2b0e38"
+    "checksum": "6fdda0e4-4884-2e33-fd1a-de3521c9b804"
   },
   {
     "id": 74,
@@ -1189,7 +1189,7 @@
       226,
       227
     ],
-    "checksum": "e66a3d3e-9543-1bf7-f54d-e405e9cc40c8"
+    "checksum": "007cbe18-41ed-e3d5-8292-4e9ad3b684ef"
   },
   {
     "id": 75,
@@ -1206,7 +1206,7 @@
     "versions": [
       21
     ],
-    "checksum": "7763b4f5-b8d1-7df7-ffe4-5f10c6891e9b"
+    "checksum": "c54c78dd-0a6b-0c3e-9948-931ac9dd0845"
   },
   {
     "id": 77,
@@ -1221,7 +1221,7 @@
     "versions": [
       66
     ],
-    "checksum": "c53b72a7-99ae-28fb-5d22-998889c0064d"
+    "checksum": "c3265f1f-9c3e-fc18-b8e9-cf288b499e95"
   },
   {
     "id": 78,
@@ -1239,7 +1239,7 @@
     "versions": [
       80
     ],
-    "checksum": "63add824-5fda-42aa-c0dc-920218aaac6d"
+    "checksum": "68c11f76-6ea3-f708-1c6e-f5a390d37c54"
   },
   {
     "id": 79,
@@ -1255,7 +1255,7 @@
     "versions": [
       81
     ],
-    "checksum": "b5f3e55e-ff69-6ec6-8dd0-7cac2013547f"
+    "checksum": "8e1fb3fd-a38a-28cc-f8a4-3404ddec3dec"
   },
   {
     "id": 80,
@@ -1272,7 +1272,7 @@
     "versions": [
       82
     ],
-    "checksum": "5cf0ac2d-9277-7530-942f-d476dfe763dc"
+    "checksum": "496c2bad-bcc8-ebda-a3c9-2756cffd7f1d"
   },
   {
     "id": 82,
@@ -1288,7 +1288,7 @@
     "versions": [
       86
     ],
-    "checksum": "28919cb8-13b2-99a2-feaf-a45f145ab9cb"
+    "checksum": "42d5444b-505c-d210-5992-c06b7010651a"
   },
   {
     "id": 84,
@@ -1307,7 +1307,7 @@
       91,
       92
     ],
-    "checksum": "d13ffb2f-20d3-8502-cee6-4c6fbf53a6ef"
+    "checksum": "74499c7d-f3b4-21f3-3d3e-5a3c836bb45d"
   },
   {
     "id": 85,
@@ -1321,7 +1321,7 @@
     "versions": [
       93
     ],
-    "checksum": "9148f9ba-cc04-c7a7-283d-864a1adab782"
+    "checksum": "c11154b6-9734-c8fa-a9d3-9b56ffb1e4d9"
   },
   {
     "id": 86,
@@ -1337,7 +1337,7 @@
     "versions": [
       99
     ],
-    "checksum": "ea67c456-d66f-d60f-8b92-46db8d3563c7"
+    "checksum": "a865ae03-6878-7704-642b-b2fa9e99389b"
   },
   {
     "id": 87,
@@ -1354,7 +1354,7 @@
     "versions": [
       100
     ],
-    "checksum": "9e835c09-29f2-6f6e-02ec-2aa40b994bee"
+    "checksum": "b962021c-d370-c3b0-32cd-7320a3628d46"
   },
   {
     "id": 88,
@@ -1378,7 +1378,7 @@
     "websites": [
       211
     ],
-    "checksum": "873faaf6-c7c7-5ac0-649f-0a27c51672e2"
+    "checksum": "26859452-7553-fa16-0833-3a62209ac679"
   },
   {
     "id": 89,
@@ -1394,7 +1394,7 @@
     "versions": [
       102
     ],
-    "checksum": "27927812-5e23-7719-f8e4-f29772b10893"
+    "checksum": "0d3ccf60-cdd5-5609-4f6b-fc6522e86a18"
   },
   {
     "id": 90,
@@ -1412,7 +1412,7 @@
     "websites": [
       216
     ],
-    "checksum": "1bdace52-216e-d1ab-c79b-bd73a6f2cbf0"
+    "checksum": "2fa2cd86-55c7-cfa7-9569-e8f0422c8d0b"
   },
   {
     "id": 91,
@@ -1425,25 +1425,7 @@
     "versions": [
       105
     ],
-    "checksum": "34f38ae6-9da7-dfa4-8ae6-bb34fe4995b7"
-  },
-  {
-    "id": 92,
-    "abbreviation": "steam",
-    "category": 4,
-    "created_at": 1413590400,
-    "name": "SteamOS",
-    "platform_logo": 234,
-    "slug": "steam--1",
-    "updated_at": 1413676800,
-    "url": "https://www.igdb.com/platforms/steam--1",
-    "versions": [
-      106
-    ],
-    "websites": [
-      14
-    ],
-    "checksum": "eec13537-9bb0-9630-dfe1-e2cb4cb91e76"
+    "checksum": "5880bf88-b946-090b-f88f-112fe310923d"
   },
   {
     "id": 93,
@@ -1461,7 +1443,7 @@
     "websites": [
       213
     ],
-    "checksum": "59b82d10-c204-5f55-1231-947066a56271"
+    "checksum": "20b27390-3144-d56a-1e32-dbe983708599"
   },
   {
     "id": 94,
@@ -1476,7 +1458,7 @@
     "versions": [
       108
     ],
-    "checksum": "ec038a39-297f-af07-f19c-f24f2be0d440"
+    "checksum": "ea138789-6bbe-bcca-dff5-7e20e762f65a"
   },
   {
     "id": 95,
@@ -1494,7 +1476,7 @@
     "websites": [
       212
     ],
-    "checksum": "5615d19e-4551-737b-b889-cd9561494e2f"
+    "checksum": "f5fdcfb5-aaaa-1af3-98d1-ffb5cb063a18"
   },
   {
     "id": 96,
@@ -1508,7 +1490,7 @@
     "versions": [
       116
     ],
-    "checksum": "3c92fbfa-0159-dfae-3fa5-a92432ee89f5"
+    "checksum": "aadf131a-55fe-8481-d377-8c6eefe18415"
   },
   {
     "id": 97,
@@ -1522,7 +1504,7 @@
     "versions": [
       119
     ],
-    "checksum": "0b5862e0-5479-59ae-5b1d-31be310be7bf"
+    "checksum": "eab6eb03-90f9-c8ea-fb65-a98533fb31b6"
   },
   {
     "id": 98,
@@ -1535,7 +1517,7 @@
     "versions": [
       120
     ],
-    "checksum": "5a31ffa7-c9c2-79f6-ed2e-ab02c7564b31"
+    "checksum": "479fe519-86c9-0bd1-0c72-311b125e7886"
   },
   {
     "id": 99,
@@ -1553,7 +1535,7 @@
     "versions": [
       123
     ],
-    "checksum": "4a2af3d7-7812-23fd-c23b-40f9258e69b1"
+    "checksum": "615074d5-3aee-23d6-fc3c-6059bdc62712"
   },
   {
     "id": 100,
@@ -1566,7 +1548,7 @@
     "versions": [
       126
     ],
-    "checksum": "4e21ac0b-0e30-e4f8-2673-d6f68b020586"
+    "checksum": "01951a13-ac9d-9f80-2b02-f9a818d83326"
   },
   {
     "id": 101,
@@ -1581,7 +1563,7 @@
     "versions": [
       127
     ],
-    "checksum": "4336485f-11ca-c57a-f401-5e5f08b30bfa"
+    "checksum": "9210f8a2-3f26-bea5-592a-dc573e2e8731"
   },
   {
     "id": 102,
@@ -1597,7 +1579,7 @@
     "versions": [
       128
     ],
-    "checksum": "bc507a86-f8d6-962c-cdd3-b355fedbdde7"
+    "checksum": "60d0cce1-2d5c-720a-da36-96be6f562d2d"
   },
   {
     "id": 103,
@@ -1610,7 +1592,7 @@
     "versions": [
       129
     ],
-    "checksum": "0ccebc53-27fe-8c97-74de-6eb1494801bc"
+    "checksum": "e828d5a4-68ad-b75c-dc50-f8ea7df31036"
   },
   {
     "id": 104,
@@ -1624,7 +1606,7 @@
     "versions": [
       130
     ],
-    "checksum": "504f6421-e3c8-6cf5-fc70-0b3669084edb"
+    "checksum": "17f8a2f3-c014-058a-2827-375e11bcb851"
   },
   {
     "id": 105,
@@ -1639,7 +1621,7 @@
     "versions": [
       131
     ],
-    "checksum": "e11c6a81-6985-565b-1eb8-07610bd607ec"
+    "checksum": "d4ac96e8-e4ba-b0dc-22ac-22b73d19ba83"
   },
   {
     "id": 106,
@@ -1653,7 +1635,7 @@
     "versions": [
       132
     ],
-    "checksum": "d011f14c-2b9b-a14f-d86c-dcd56dab19b9"
+    "checksum": "2b8bbf36-b6ff-0242-80f4-7d1c6a0423e0"
   },
   {
     "id": 107,
@@ -1667,7 +1649,7 @@
     "versions": [
       133
     ],
-    "checksum": "9b88c75c-bbdb-53e3-1e0a-1e23937f6eb7"
+    "checksum": "47311af8-783b-05f5-0d26-0848d099a399"
   },
   {
     "id": 108,
@@ -1681,7 +1663,7 @@
     "versions": [
       134
     ],
-    "checksum": "2aec662c-e6f0-2a59-84d7-f5b17395fa78"
+    "checksum": "ad20351c-ef97-5b68-3166-ebe599a36a0a"
   },
   {
     "id": 109,
@@ -1696,7 +1678,7 @@
     "versions": [
       135
     ],
-    "checksum": "4aa48eae-c695-8b47-8e20-f28c5363e22f"
+    "checksum": "30a78a03-7d24-5580-2167-22682ab2208c"
   },
   {
     "id": 110,
@@ -1712,7 +1694,7 @@
     "versions": [
       136
     ],
-    "checksum": "77692379-9222-4ad5-a740-5c6d3547c65b"
+    "checksum": "46476609-7e40-6759-25f6-daecc85fb708"
   },
   {
     "id": 111,
@@ -1725,7 +1707,7 @@
     "versions": [
       137
     ],
-    "checksum": "6a39f056-2209-74a3-6524-721fbdc5dfcc"
+    "checksum": "f6058e7f-0a66-beda-fe89-0c4f46a7864b"
   },
   {
     "id": 112,
@@ -1738,7 +1720,7 @@
     "versions": [
       138
     ],
-    "checksum": "c822b153-6f70-3ef8-0f91-7a329974d4ce"
+    "checksum": "49f7f77d-42a9-0cae-368f-6f9475275e1f"
   },
   {
     "id": 113,
@@ -1755,7 +1737,7 @@
     "websites": [
       15
     ],
-    "checksum": "4efc70ab-246e-84bf-9679-b4cc8f46c6b3"
+    "checksum": "1fc33df6-3737-8f0c-416b-fa128bd6e8b3"
   },
   {
     "id": 114,
@@ -1770,7 +1752,7 @@
     "versions": [
       152
     ],
-    "checksum": "13643339-789c-693b-13df-98bce1a4e0d6"
+    "checksum": "bd4ad4b9-f009-41cf-12e3-a10ce8ef69eb"
   },
   {
     "id": 115,
@@ -1784,7 +1766,7 @@
     "versions": [
       153
     ],
-    "checksum": "5dfa9f16-ea7e-645f-8e83-85d9f4e6aa19"
+    "checksum": "0b68ee2c-4b62-f6a4-8e27-8c1b55047bbe"
   },
   {
     "id": 116,
@@ -1801,7 +1783,7 @@
     "websites": [
       214
     ],
-    "checksum": "0f012902-03e4-8e64-cba1-d647c1ccc994"
+    "checksum": "1991c292-b1d6-8639-c74f-0b81cccc8845"
   },
   {
     "id": 117,
@@ -1815,7 +1797,7 @@
     "versions": [
       155
     ],
-    "checksum": "5dbc25de-1a32-262d-6b00-629cfc1a7e96"
+    "checksum": "bca1c0c7-303a-5342-2e3c-2c121b40b24a"
   },
   {
     "id": 118,
@@ -1829,7 +1811,7 @@
     "versions": [
       156
     ],
-    "checksum": "1048f3d0-927b-843d-3339-32f59c8961fc"
+    "checksum": "d52c2758-3294-d5e8-960c-e3efffbd99d1"
   },
   {
     "id": 119,
@@ -1844,7 +1826,7 @@
     "versions": [
       157
     ],
-    "checksum": "b58877d8-f198-5927-7a1b-c6c090193129"
+    "checksum": "6e94bca9-34ed-5b21-ae12-cdac79d5333b"
   },
   {
     "id": 120,
@@ -1859,7 +1841,7 @@
     "versions": [
       158
     ],
-    "checksum": "bf7f2bca-8c01-f6c8-6a95-c026a15f5f1b"
+    "checksum": "959ffbb9-21df-b836-9df4-259fcd34e244"
   },
   {
     "id": 121,
@@ -1873,7 +1855,7 @@
     "versions": [
       159
     ],
-    "checksum": "4c52ab8b-8e1f-0e0a-ad82-d9cc2eed2dca"
+    "checksum": "3a2f2fc9-7b6c-39f1-1a45-cca745eb8c09"
   },
   {
     "id": 122,
@@ -1890,7 +1872,7 @@
     "websites": [
       172
     ],
-    "checksum": "e8b58ad9-b362-bf47-bc6e-01344c7798b5"
+    "checksum": "bd7c0b27-2608-a3e7-8e11-23f6deebc71d"
   },
   {
     "id": 123,
@@ -1905,7 +1887,7 @@
     "versions": [
       161
     ],
-    "checksum": "32fe518e-ef3a-1e11-084f-4563377c0188"
+    "checksum": "02c7af50-640e-3d96-6158-2ac84a8d397e"
   },
   {
     "id": 124,
@@ -1919,7 +1901,7 @@
     "versions": [
       162
     ],
-    "checksum": "56ee70c2-9cd0-303a-1624-0da168e3b5be"
+    "checksum": "9d836c39-3419-65f8-02ff-9fe73e6b6716"
   },
   {
     "id": 125,
@@ -1936,7 +1918,7 @@
     "websites": [
       217
     ],
-    "checksum": "c7c6cf75-2730-d63c-2c14-e536df80b95f"
+    "checksum": "797fd579-99d7-5f97-3a07-07dcda8cf60e"
   },
   {
     "id": 126,
@@ -1950,7 +1932,7 @@
     "versions": [
       164
     ],
-    "checksum": "fe342438-74b1-e0ad-09a3-eadb8ce48a5e"
+    "checksum": "fb10fc8e-0aeb-b55f-43a1-01b02aab3981"
   },
   {
     "id": 127,
@@ -1966,7 +1948,7 @@
       165,
       212
     ],
-    "checksum": "2152326e-2eb9-98bf-ae0a-8eea7cad5112"
+    "checksum": "cba12692-9a22-154e-879f-1e9ca57e8b4b"
   },
   {
     "id": 128,
@@ -1981,7 +1963,7 @@
     "versions": [
       166
     ],
-    "checksum": "dc5b4719-d5a4-9c51-f9d9-1ebf77a505fd"
+    "checksum": "bd228661-6787-7a75-a143-bba16c962d8b"
   },
   {
     "id": 129,
@@ -2001,7 +1983,7 @@
     "websites": [
       218
     ],
-    "checksum": "3b5ad298-0e91-8616-bc2d-63f703e9ea7d"
+    "checksum": "b941f047-24e3-0297-b162-ea548b94b6f9"
   },
   {
     "id": 130,
@@ -2023,7 +2005,7 @@
     "websites": [
       16
     ],
-    "checksum": "5e5c7456-a3db-3ed4-f9bc-e63b6227a8ac"
+    "checksum": "d28b6757-c24a-73c6-50e7-f8e6487c78af"
   },
   {
     "id": 131,
@@ -2043,7 +2025,7 @@
     "websites": [
       210
     ],
-    "checksum": "8fcff8bf-6a8c-f223-8831-da64ed710648"
+    "checksum": "f87b4f47-b252-5243-5b0c-604e45dbb9cf"
   },
   {
     "id": 132,
@@ -2057,7 +2039,7 @@
     "versions": [
       176
     ],
-    "checksum": "825c66e7-c478-31cf-f541-5c09e567850c"
+    "checksum": "db7a1f28-dc0d-68b1-c31e-94f43b9643b1"
   },
   {
     "id": 133,
@@ -2072,7 +2054,7 @@
     "versions": [
       183
     ],
-    "checksum": "5bd8435c-38ab-9acd-060a-a34ede43e603"
+    "checksum": "854e7971-1e3d-0534-ad7a-03ca8ca2cd69"
   },
   {
     "id": 134,
@@ -2086,7 +2068,7 @@
     "versions": [
       184
     ],
-    "checksum": "5c631281-4556-1ce9-1347-4db87baac5bc"
+    "checksum": "ec7fd022-fcf9-8bf8-a73b-09080d9d3515"
   },
   {
     "id": 135,
@@ -2100,7 +2082,7 @@
     "versions": [
       186
     ],
-    "checksum": "dacd3d85-62b5-ffae-5314-eefa15a4c97c"
+    "checksum": "fedca8ca-3a51-84db-1d6a-36a2536d3fe0"
   },
   {
     "id": 136,
@@ -2115,7 +2097,7 @@
     "versions": [
       187
     ],
-    "checksum": "ed24a451-ac29-c1c1-5e80-c958f4a49c4a"
+    "checksum": "3bd8bf69-4802-e911-1902-086e159e2ea4"
   },
   {
     "id": 137,
@@ -2135,7 +2117,7 @@
     "websites": [
       17
     ],
-    "checksum": "872beaad-0ebf-097b-fae2-6f42428234c9"
+    "checksum": "df7e06e4-3fce-4055-b28c-30703fba98bb"
   },
   {
     "id": 138,
@@ -2153,7 +2135,7 @@
     "websites": [
       18
     ],
-    "checksum": "304d1d3a-3afa-ced9-f4fd-34ee6a00e498"
+    "checksum": "cf5360d1-3a2e-8ee0-08bc-826a27bfe060"
   },
   {
     "id": 139,
@@ -2169,7 +2151,7 @@
       197,
       213
     ],
-    "checksum": "d90a393b-e79c-1233-be0d-6c87c394b423"
+    "checksum": "8433ae84-dbc7-122b-ec12-f1858bad1c5f"
   },
   {
     "id": 140,
@@ -2187,7 +2169,7 @@
       203,
       204
     ],
-    "checksum": "1fe50588-0b50-51e5-39e9-b84da206c1d3"
+    "checksum": "c28c6efe-d331-48a3-6980-d106f530dd5c"
   },
   {
     "id": 141,
@@ -2200,7 +2182,7 @@
     "versions": [
       199
     ],
-    "checksum": "6d0b9715-a902-7d38-3aea-8be05b392e3e"
+    "checksum": "d0a3d734-27aa-db05-4436-dc38739f7f9a"
   },
   {
     "id": 142,
@@ -2216,7 +2198,7 @@
       200,
       205
     ],
-    "checksum": "7bfe0248-757c-fa98-fb01-51cbb64d8ffc"
+    "checksum": "ea364197-612c-e075-99f9-b95970ed4c58"
   },
   {
     "id": 143,
@@ -2229,7 +2211,7 @@
     "versions": [
       206
     ],
-    "checksum": "04ea9d18-1fdd-3346-35c7-c297af862589"
+    "checksum": "69436aa6-6d7d-bb63-d775-444b6893301b"
   },
   {
     "id": 144,
@@ -2242,7 +2224,7 @@
     "versions": [
       207
     ],
-    "checksum": "4cf7840e-3a0c-d840-b136-9b91ef66ac5d"
+    "checksum": "5438ffcf-1f05-47e9-e082-15bafd1dc92f"
   },
   {
     "id": 145,
@@ -2255,7 +2237,7 @@
     "versions": [
       208
     ],
-    "checksum": "f0ee8469-c993-b61e-061f-1f2d52b9da1b"
+    "checksum": "0124f86d-b875-8d9e-8c78-95c7fc47de08"
   },
   {
     "id": 146,
@@ -2268,7 +2250,7 @@
     "versions": [
       209
     ],
-    "checksum": "f9ffc0b8-fb44-33d9-86f6-0d374237f0e1"
+    "checksum": "3c9b3a84-dc54-3c94-0ee0-5cb97809d2a5"
   },
   {
     "id": 147,
@@ -2281,7 +2263,7 @@
     "versions": [
       210
     ],
-    "checksum": "0e8d398b-b154-62f2-e1d0-3dc6cd529014"
+    "checksum": "49428df3-7b02-316e-2390-95a230795394"
   },
   {
     "id": 148,
@@ -2294,7 +2276,7 @@
     "versions": [
       211
     ],
-    "checksum": "4e63f3f7-331b-e70a-4be3-166d380fdad4"
+    "checksum": "b148a659-dc31-1245-8623-321ce9008d75"
   },
   {
     "id": 149,
@@ -2308,7 +2290,7 @@
     "versions": [
       214
     ],
-    "checksum": "e1bf4c02-ebce-87b0-a243-4bf1f21ba343"
+    "checksum": "da17ec85-249b-d4ca-f876-8376319ba319"
   },
   {
     "id": 150,
@@ -2322,7 +2304,7 @@
     "versions": [
       215
     ],
-    "checksum": "daa6978a-956e-1945-bfc8-66263e9c57a0"
+    "checksum": "109a66c1-a8f6-22d4-dcd8-993d3837bf8e"
   },
   {
     "id": 151,
@@ -2340,7 +2322,7 @@
     "websites": [
       19
     ],
-    "checksum": "e6a2defd-aa2a-34b0-96e2-afe5ed8d8494"
+    "checksum": "9bd8e911-be9c-a1ad-d8a9-fbf2888cf9ff"
   },
   {
     "id": 152,
@@ -2358,7 +2340,7 @@
     "websites": [
       20
     ],
-    "checksum": "462832e8-bb0c-918f-5ae8-775c97b4337b"
+    "checksum": "63b1a9d7-a511-8002-0575-4b57876ddb42"
   },
   {
     "id": 153,
@@ -2375,7 +2357,7 @@
     "websites": [
       21
     ],
-    "checksum": "67dc993d-494c-5217-49e7-08b981a73235"
+    "checksum": "d11981c1-fbb1-100c-d63f-92021aa7fb0f"
   },
   {
     "id": 154,
@@ -2392,7 +2374,7 @@
     "websites": [
       22
     ],
-    "checksum": "96bd4894-3859-e258-ca15-972adc007962"
+    "checksum": "af7ef1c3-c78b-1349-e129-0eafe14ba16f"
   },
   {
     "id": 155,
@@ -2409,7 +2391,7 @@
     "websites": [
       23
     ],
-    "checksum": "db3c2d19-b71f-c8c0-3e48-c29b1d55d027"
+    "checksum": "e7061776-b061-c4e7-b04e-cac5d68c38d1"
   },
   {
     "id": 156,
@@ -2426,7 +2408,7 @@
     "websites": [
       24
     ],
-    "checksum": "64ae150b-41b3-471b-2bde-5c2ca50dc998"
+    "checksum": "5f4cdd4c-4bc0-2a7d-9842-5d1c5350ab4f"
   },
   {
     "id": 157,
@@ -2443,7 +2425,7 @@
     "websites": [
       25
     ],
-    "checksum": "b398edbe-6bae-7e6e-e137-301777e600d0"
+    "checksum": "f781f28a-65e0-c00d-bf2d-3fdb80c54231"
   },
   {
     "id": 158,
@@ -2461,7 +2443,7 @@
     "websites": [
       26
     ],
-    "checksum": "a1afa229-7113-4bb3-d0a7-d07956823dd0"
+    "checksum": "5d48648e-283c-e2df-df7d-6d3cbc7e0a58"
   },
   {
     "id": 159,
@@ -2478,7 +2460,7 @@
       228,
       229
     ],
-    "checksum": "185a4fa9-3696-b733-815e-095ccab115bd"
+    "checksum": "3e006565-8164-029f-abd3-6a9c97a22441"
   },
   {
     "id": 160,
@@ -2495,7 +2477,7 @@
     "websites": [
       27
     ],
-    "checksum": "0fe77529-3721-251a-4452-ba96d87171aa"
+    "checksum": "1d34de6a-6ee6-7151-332f-e2815d06309f"
   },
   {
     "id": 161,
@@ -2511,7 +2493,7 @@
     "websites": [
       28
     ],
-    "checksum": "668b7a57-4440-fa10-07f5-3f6e272566b7"
+    "checksum": "3315a4c6-f926-c8db-48e5-0cd8381ff229"
   },
   {
     "id": 162,
@@ -2528,7 +2510,7 @@
     "websites": [
       29
     ],
-    "checksum": "d6909a8c-6095-0005-9512-49caaa864505"
+    "checksum": "057824a0-6272-5702-4a11-6e774def955e"
   },
   {
     "id": 163,
@@ -2545,7 +2527,7 @@
     "websites": [
       30
     ],
-    "checksum": "e5d18010-1abd-f00b-e397-3bd1bddaf6a8"
+    "checksum": "e2c8f5f7-2c50-5d2d-b9b9-1135281d38f4"
   },
   {
     "id": 164,
@@ -2561,7 +2543,7 @@
     "websites": [
       31
     ],
-    "checksum": "081a38c8-cd06-8b8c-5ea1-e29fc58749e6"
+    "checksum": "1f46c07d-381d-e92f-1b49-88d04abe2f19"
   },
   {
     "id": 165,
@@ -2578,7 +2560,7 @@
     "websites": [
       32
     ],
-    "checksum": "15a9e5bf-5702-3a87-2fb7-f22c75e877c0"
+    "checksum": "0bb54d08-658c-34d7-1a65-22cf35f8a8dd"
   },
   {
     "id": 166,
@@ -2596,10 +2578,11 @@
     "websites": [
       33
     ],
-    "checksum": "d401fd7a-a0dd-7584-9136-337d2787b845"
+    "checksum": "9ea7c3e7-d03a-b228-b380-5bb17ea9be9f"
   },
   {
     "id": 167,
+    "abbreviation": "PS5",
     "alternative_name": "PS5",
     "category": 1,
     "created_at": 1543449600,
@@ -2607,26 +2590,26 @@
     "name": "PlayStation 5",
     "platform_logo": 463,
     "platform_family": 1,
-    "slug": "playstation-5",
-    "updated_at": 1594598400,
-    "url": "https://www.igdb.com/platforms/playstation-5",
+    "slug": "ps5",
+    "updated_at": 1602028800,
+    "url": "https://www.igdb.com/platforms/ps5",
     "versions": [
       273
     ],
-    "checksum": "924e42c4-bb31-48e4-74f8-d9fc3c7e673f"
+    "checksum": "f4eea0c7-9561-26c2-962a-499c7d377903"
   },
   {
     "id": 169,
-    "alternative_name": "Project Scarlett",
+    "abbreviation": "Series X",
     "category": 1,
     "created_at": 1565222400,
     "generation": 9,
-    "name": "Xbox Series X",
+    "name": "Xbox Series",
     "platform_logo": 561,
     "platform_family": 2,
-    "slug": "xbox-series-x",
-    "updated_at": 1595808000,
-    "url": "https://www.igdb.com/platforms/xbox-series-x",
+    "slug": "series-x",
+    "updated_at": 1603238400,
+    "url": "https://www.igdb.com/platforms/series-x",
     "versions": [
       284
     ],
@@ -2635,7 +2618,7 @@
       105,
       238
     ],
-    "checksum": "ac56f849-3fb6-dc20-e35b-5626131291c9"
+    "checksum": "98496e66-2edc-77a1-7d7c-6f518c65f469"
   },
   {
     "id": 170,
@@ -2654,7 +2637,7 @@
     "websites": [
       37
     ],
-    "checksum": "3eec6d7a-97cd-9943-de6e-25abaeb7b570"
+    "checksum": "7538c37c-07ef-0ad1-a943-e5bf5f551670"
   },
   {
     "id": 203,
@@ -2671,7 +2654,7 @@
     "websites": [
       70
     ],
-    "checksum": "2014a9e9-fc9b-dd6e-6e9d-aee682a2ffcc"
+    "checksum": "f7f1f94a-7d2b-1176-f6f1-82877437b64d"
   },
   {
     "id": 236,
@@ -2687,7 +2670,7 @@
     "websites": [
       215
     ],
-    "checksum": "8a2c489f-2b8f-8ba9-c108-80ec1cff1368"
+    "checksum": "49bd449a-ff99-0083-8954-5812a35c1c5c"
   },
   {
     "id": 237,
@@ -2703,7 +2686,7 @@
     "websites": [
       219
     ],
-    "checksum": "3c23db39-97ec-452c-3b57-2ddb968537c1"
+    "checksum": "c608e02f-1a92-d010-b161-4a368220bdfe"
   },
   {
     "id": 238,
@@ -2721,7 +2704,7 @@
     "websites": [
       104
     ],
-    "checksum": "b1c50c3d-f49f-9a3b-285c-9bb73caef270"
+    "checksum": "5a8e8d2e-b79e-37a9-7368-e3acbd6407f7"
   },
   {
     "id": 239,
@@ -2738,7 +2721,7 @@
     "websites": [
       103
     ],
-    "checksum": "34066801-ba0c-b25f-03a6-023457a1a9b5"
+    "checksum": "57f6c9cb-871e-d913-c5e9-9204991a94e7"
   },
   {
     "id": 240,
@@ -2756,7 +2739,7 @@
     "websites": [
       106
     ],
-    "checksum": "8fdce413-cdc4-f06a-cc15-32577bfc247e"
+    "checksum": "d23d6c26-1eb4-4ff6-2e33-93bd082ec6d9"
   },
   {
     "id": 274,
@@ -2774,7 +2757,7 @@
     "websites": [
       139
     ],
-    "checksum": "c1cee676-2b08-250d-d567-0dce60376570"
+    "checksum": "a880243d-9f81-4fcf-fdf7-da0fe028be95"
   },
   {
     "id": 306,
@@ -2790,7 +2773,7 @@
     "websites": [
       205
     ],
-    "checksum": "24de976e-02f0-410a-4b87-cc8666721c79"
+    "checksum": "e8d12cc5-95c1-e390-8163-b1d79e697bc4"
   },
   {
     "id": 307,
@@ -2810,7 +2793,7 @@
     "websites": [
       206
     ],
-    "checksum": "53001ef4-5348-d916-3ba6-61d8d178cf67"
+    "checksum": "561c8bcc-6794-35cd-0c62-ae3ef538b072"
   },
   {
     "id": 308,
@@ -2828,7 +2811,7 @@
     "websites": [
       208
     ],
-    "checksum": "bde01101-4c60-3877-1265-243dfd2f912f"
+    "checksum": "3465b908-1432-e94c-dc31-72cb0099f969"
   },
   {
     "id": 309,
@@ -2846,7 +2829,7 @@
     "websites": [
       207
     ],
-    "checksum": "d27a5b95-da17-da55-1885-1adc7d338e3c"
+    "checksum": "12fbb7c4-acc5-fa90-2a02-6de3810375a7"
   },
   {
     "id": 339,
@@ -2862,6 +2845,49 @@
     "versions": [
       456
     ],
-    "checksum": "286e9489-824c-5d32-8ad8-dff1f297f2ed"
+    "checksum": "6e867a5b-a071-fc7b-945b-a0622f64a4bc"
+  },
+  {
+    "id": 372,
+    "category": 3,
+    "created_at": 1606521600,
+    "name": "OOParts",
+    "slug": "ooparts",
+    "updated_at": 1606521600,
+    "url": "https://www.igdb.com/platforms/ooparts",
+    "versions": [
+      490
+    ],
+    "websites": [
+      271
+    ],
+    "checksum": "f9404506-a3f2-b59b-238c-4707efe0d428"
+  },
+  {
+    "id": 373,
+    "alternative_name": "ZX81",
+    "category": 6,
+    "created_at": 1607024002,
+    "name": "Sinclair ZX81",
+    "slug": "sinclair-zx81",
+    "updated_at": 1607031405,
+    "url": "https://www.igdb.com/platforms/sinclair-zx81",
+    "versions": [
+      491
+    ],
+    "checksum": "d0da431e-930b-56d8-74fa-c4c6a2e10e07"
+  },
+  {
+    "id": 374,
+    "category": 6,
+    "created_at": 1607297122,
+    "name": "Sharp MZ-2200",
+    "slug": "sharp-mz-2200",
+    "updated_at": 1607330038,
+    "url": "https://www.igdb.com/platforms/sharp-mz-2200",
+    "versions": [
+      492
+    ],
+    "checksum": "318d54ca-5fd2-f9a2-51ac-b410927450b3"
   }
 ]

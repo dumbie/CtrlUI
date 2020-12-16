@@ -24,12 +24,11 @@ namespace LibraryShared
         }
 
         //Read Json from embedded file (Deserialize)
-        public static void JsonLoadEmbedded<T>(ref T deserializeTarget, string resourcePath)
+        public static void JsonLoadEmbedded<T>(Assembly assembly, ref T deserializeTarget, string resourcePath)
         {
             try
             {
                 string jsonFile = string.Empty;
-                Assembly assembly = Assembly.GetExecutingAssembly();
                 using (Stream stream = assembly.GetManifestResourceStream(resourcePath))
                 {
                     using (StreamReader reader = new StreamReader(stream))

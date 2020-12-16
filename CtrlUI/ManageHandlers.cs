@@ -162,7 +162,11 @@ namespace CtrlUI
                 AppCategory selectedCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
 
                 //Check if the application is UWP
-                bool uwpApplication = vEditAppDataBind.Type == ProcessType.UWP;
+                bool uwpApplication = false;
+                if (vEditAppDataBind != null)
+                {
+                    uwpApplication = vEditAppDataBind.Type == ProcessType.UWP;
+                }
 
                 if (uwpApplication || selectedCategory != AppCategory.Emulator)
                 {
@@ -182,7 +186,10 @@ namespace CtrlUI
                     checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to switch app category: " + ex.Message);
+            }
         }
 
         //Reset the application image

@@ -116,11 +116,11 @@ namespace DirectXInput
                         catch { }
                     }
                     AVActions.TaskStartLoop(TaskActionOutputVirtual, Controller.OutputVirtualTask);
-                    async Task TaskActionOutputController()
+                    void TaskActionOutputController()
                     {
                         try
                         {
-                            await LoopOutputController(Controller);
+                            LoopOutputController(Controller);
                         }
                         catch { }
                     }

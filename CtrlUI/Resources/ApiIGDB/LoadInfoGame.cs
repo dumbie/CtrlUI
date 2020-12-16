@@ -17,9 +17,7 @@ namespace CtrlUI
                 //Release date
                 if (infoGames.first_release_date != 0)
                 {
-                    string gameReleaseDate = string.Empty;
-                    string gameReleaseYear = string.Empty;
-                    ApiIGDB_ReleaseDateToString(infoGames, out gameReleaseDate, out gameReleaseYear);
+                    ApiIGDB_ReleaseDateToString(infoGames, out string gameReleaseDate, out string gameReleaseYear);
                     summaryString += "\nReleased: " + gameReleaseDate;
                 }
 
@@ -59,8 +57,8 @@ namespace CtrlUI
         //ApiIGDB ReleaseDate to string
         void ApiIGDB_ReleaseDateToString(ApiIGDBGames infoGames, out string gameReleaseDate, out string gameReleaseYear)
         {
-            gameReleaseDate = string.Empty;
-            gameReleaseYear = string.Empty;
+            gameReleaseDate = "Unknown";
+            gameReleaseYear = "N/A";
             try
             {
                 if (infoGames.first_release_date != 0)
@@ -68,10 +66,28 @@ namespace CtrlUI
                     DateTime epochDateTime = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(infoGames.first_release_date);
                     gameReleaseDate = epochDateTime.ToString("dd MMMM yyyy", vAppCultureInfo);
                     gameReleaseYear = epochDateTime.ToString("yyyy", vAppCultureInfo);
-                    return;
                 }
             }
             catch { }
+        }
+
+        //ApiIGDB Platforms to string
+        void ApiIGDB_PlatformsToString(ApiIGDBGames infoGames, out string gamePlatforms)
+        {
+            gamePlatforms = string.Empty;
+            try
+            {
+                foreach (int platformId in infoGames.platforms)
+                {
+                    ApiIGDBPlatforms apiIGDBPlatforms = vApiIGDBPlatforms.Where(x => x.id == platformId).FirstOrDefault();
+                    if (apiIGDBPlatforms != null)
+                    {
+                        gamePlatforms = AVFunctions.StringAdd(gamePlatforms, apiIGDBPlatforms.name, ",");
+                    }
+                }
+            }
+            catch { }
+            if (string.IsNullOrWhiteSpace(gamePlatforms)) { gamePlatforms = "Unknown"; }
         }
     }
 }

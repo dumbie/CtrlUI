@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Media;
@@ -25,6 +26,7 @@ namespace CtrlUI
         //Application Variables
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         public static CultureInfo vAppCultureInfo = new CultureInfo("en-US");
+        public static Assembly vAppAssembly = Assembly.GetExecutingAssembly();
         public static Configuration vConfigurationCtrlUI = Settings_Load_CtrlUI();
         public static Configuration vConfigurationDirectXInput = Settings_Load_DirectXInput();
 

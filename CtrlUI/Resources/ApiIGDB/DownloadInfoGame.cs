@@ -52,24 +52,14 @@ namespace CtrlUI
                 BitmapImage imageAnswer = FileToBitmapImage(new string[] { "Assets/Default/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 foreach (ApiIGDBGames infoGames in iGDBGames)
                 {
-                    //Check if information is available
+                    //Check if cover and summary is available
                     if (infoGames.cover == 0 && string.IsNullOrWhiteSpace(infoGames.summary)) { continue; }
 
                     //Release date
-                    string gameReleaseDate = string.Empty;
-                    string gameReleaseYear = string.Empty;
-                    ApiIGDB_ReleaseDateToString(infoGames, out gameReleaseDate, out gameReleaseYear);
+                    ApiIGDB_ReleaseDateToString(infoGames, out string gameReleaseDate, out string gameReleaseYear);
 
                     //Game platforms
-                    string gamePlatforms = string.Empty;
-                    if (infoGames.platforms != null)
-                    {
-                        foreach (int platformId in infoGames.platforms)
-                        {
-                            ApiIGDBPlatforms apiIGDBPlatforms = vApiIGDBPlatforms.Where(x => x.id == platformId).FirstOrDefault();
-                            gamePlatforms = AVFunctions.StringAdd(gamePlatforms, apiIGDBPlatforms.name, ",");
-                        }
-                    }
+                    ApiIGDB_PlatformsToString(infoGames, out string gamePlatforms);
 
                     DataBindString answerDownload = new DataBindString();
                     answerDownload.ImageBitmap = imageAnswer;
