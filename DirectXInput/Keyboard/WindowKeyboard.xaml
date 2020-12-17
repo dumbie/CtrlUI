@@ -7,6 +7,7 @@
             xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
             xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
             RenderOptions.BitmapScalingMode="HighQuality"
+            SnapsToDevicePixels="True"
             mc:Ignorable="d"
             Title="DirectXInput Keyboard"
             Topmost="True"
@@ -16,7 +17,6 @@
             ResizeMode="NoResize"
             SizeToContent="WidthAndHeight"
             Background="Transparent"
-            SnapsToDevicePixels="True"
             Opacity="0">
 
     <!-- Grid Application -->

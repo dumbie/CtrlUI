@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DirectXInput.OverlayCode"
         RenderOptions.BitmapScalingMode="HighQuality"
+        SnapsToDevicePixels="True"
         mc:Ignorable="d"
         Title="DirectXInput Overlay"
         Background="Transparent"
         WindowStyle="None"
         AllowsTransparency="True"
         ShowInTaskbar="False"
-        Topmost="True"
-        SnapsToDevicePixels="True">
+        Topmost="True">
 
     <Grid>
         <!-- Status - Battery Status -->

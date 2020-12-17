@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CtrlUI"
         xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
         RenderOptions.BitmapScalingMode="HighQuality"
+        SnapsToDevicePixels="True"
         mc:Ignorable="d"
         Title="CtrlUI"
         Width="1280"

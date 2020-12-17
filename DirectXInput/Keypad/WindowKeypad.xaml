@@ -6,14 +6,14 @@
             xmlns:local="clr-namespace:DirectXInput.KeypadCode"
             xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
             RenderOptions.BitmapScalingMode="HighQuality"
+            SnapsToDevicePixels="True"
             mc:Ignorable="d"
             Title="DirectXInput Keypad"
             Background="Transparent"
             WindowStyle="None"
             AllowsTransparency="True"
             ShowInTaskbar="False"
-            Topmost="True"
-            SnapsToDevicePixels="True">
+            Topmost="True">
 
     <!-- Grid Application -->
     <Grid Name="grid_Application">

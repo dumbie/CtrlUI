@@ -6,14 +6,15 @@
         xmlns:local="clr-namespace:FpsOverlayer"
         xmlns:ArnoldVinkColorPicker="clr-namespace:ArnoldVinkColorPicker"
         xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
+        RenderOptions.BitmapScalingMode="HighQuality"
+        SnapsToDevicePixels="True"
         mc:Ignorable="d"
         Title="Settings"
         MinHeight="620"
         Height="620"
         MinWidth="500"
         MaxWidth="500"
-        Background="{DynamicResource ApplicationWhiteBrush}"
-        RenderOptions.BitmapScalingMode="HighQuality">
+        Background="{DynamicResource ApplicationWhiteBrush}">
 
     <!-- Grid Settings -->
     <Grid Margin="10,0,0,0">

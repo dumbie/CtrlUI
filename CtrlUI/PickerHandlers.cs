@@ -223,12 +223,19 @@ namespace CtrlUI
                         Answers.Add(answerRename);
                     }
 
-                    DataBindString answerRemove = new DataBindString();
+                    DataBindString answerRemoveSingle = new DataBindString();
                     if (!preFile)
                     {
-                        answerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerRemove.Name = "Remove the file or folder";
-                        Answers.Add(answerRemove);
+                        answerRemoveSingle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerRemoveSingle.Name = "Remove the file or folder";
+                        Answers.Add(answerRemoveSingle);
+                    }
+                    DataBindString answerRemoveChecked = new DataBindString();
+                    if (checkedItems > 0)
+                    {
+                        answerRemoveChecked.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerRemoveChecked.Name = "Remove selected files and folders";
+                        Answers.Add(answerRemoveChecked);
                     }
 
                     DataBindString answerDownloadRomInfo = new DataBindString();
@@ -266,25 +273,23 @@ namespace CtrlUI
                         {
                             await FilePicker_SortFilesFolders(false);
                         }
-                        //Copy checked files or folders
-                        else if (messageResult == answerCopyChecked)
-                        {
-                            await FilePicker_FileCopy_Checked();
-                        }
-                        //Cut checked files or folders
-                        else if (messageResult == answerCutChecked)
-                        {
-                            await FilePicker_FileCut_Checked();
-                        }
                         //Copy file or folder
                         else if (messageResult == answerCopySingle)
                         {
                             await FilePicker_FileCopy_Single(selectedItem);
                         }
+                        else if (messageResult == answerCopyChecked)
+                        {
+                            await FilePicker_FileCopy_Checked();
+                        }
                         //Cut file or folder
                         else if (messageResult == answerCutSingle)
                         {
                             await FilePicker_FileCut_Single(selectedItem);
+                        }
+                        else if (messageResult == answerCutChecked)
+                        {
+                            await FilePicker_FileCut_Checked();
                         }
                         //Paste file or folder
                         else if (messageResult == answerPaste)
@@ -315,9 +320,13 @@ namespace CtrlUI
                             await FilePicker_CreateTextFile();
                         }
                         //Remove file or folder
-                        else if (messageResult == answerRemove)
+                        else if (messageResult == answerRemoveSingle)
                         {
-                            await FilePicker_FileRemove(selectedItem);
+                            await FilePicker_FileRemove_Single(selectedItem);
+                        }
+                        else if (messageResult == answerRemoveChecked)
+                        {
+                            await FilePicker_FileRemove_Checked();
                         }
                         //Download game information
                         else if (messageResult == answerDownloadRomInfo)

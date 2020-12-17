@@ -189,6 +189,14 @@
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="BackgroundFunctions.cs" />
+    <Compile Include="FilePicker\CreateTextFile.cs" />
+    <Compile Include="FilePicker\CreateFolder.cs" />
+    <Compile Include="FilePicker\EjectDrive.cs" />
+    <Compile Include="FilePicker\FileRemove.cs" />
+    <Compile Include="FilePicker\FileRename.cs" />
+    <Compile Include="FilePicker\FilePaste.cs" />
+    <Compile Include="FilePicker\FileCut.cs" />
+    <Compile Include="FilePicker\FileCopy.cs" />
     <Compile Include="Launchers\BattleNetListApps.cs" />
     <Compile Include="Launchers\UwpListApps.cs" />
     <Compile Include="Launchers\RockstarListApps.cs" />
@@ -223,7 +231,7 @@
     <Compile Include="ProfileHandlers.cs" />
     <Compile Include="ProfileFunctions.cs" />
     <Compile Include="ListBoxFunctions.cs" />
-    <Compile Include="FileFunctions.cs" />
+    <Compile Include="FilePicker\FileFunctions.cs" />
     <Compile Include="Processes\ProcessMultiCheck.cs" />
     <Compile Include="Processes\ProcessMultiSelect.cs" />
     <Compile Include="Processes\ProcessUwpRestart.cs" />
