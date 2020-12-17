@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using static ArnoldVinkCode.AVFunctions;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -33,6 +34,9 @@ namespace CtrlUI
             {
                 //Remove invalid characters
                 nameFile = FilterNameFile(nameFile);
+
+                //Remove ascii characters
+                nameFile = StringRemoveAscii(nameFile);
 
                 //Remove file extension
                 if (removeExtension)
