@@ -88,7 +88,8 @@ namespace DriverInstaller
                     TextBoxAppend("Virtual Bus Node created.");
                 }
 
-                if (DriverInstallInf(@"Resources\Drivers\ViGEmBus\ViGEmBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                string osSystem = Environment.Is64BitOperatingSystem ? "x64" : "x86";
+                if (DriverInstallInf(@"Resources\Drivers\ViGEmBus\" + osSystem + @"\ViGEmBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("Virtual Bus Driver installed.");
                 }
