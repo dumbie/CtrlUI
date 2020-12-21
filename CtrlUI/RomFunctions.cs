@@ -35,8 +35,8 @@ namespace CtrlUI
                 //Remove invalid characters
                 nameFile = FilterNameFile(nameFile);
 
-                //Remove ascii characters
-                nameFile = StringRemoveAscii(nameFile);
+                //Remove unicode characters
+                nameFile = StringRemoveUnicode(nameFile);
 
                 //Remove file extension
                 if (removeExtension)

@@ -81,10 +81,10 @@ namespace FpsOverlayer
         {
             try
             {
-                int SocketServerPort = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort")) + 3;
+                int SocketServerPort = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort")) + 2;
 
-                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
-                vArnoldVinkSockets.vTcpClientTimeout = 250;
+                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, true, false);
+                vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }

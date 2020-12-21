@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
@@ -14,7 +15,7 @@ namespace DirectXInput
     partial class WindowMain
     {
         //Handle received socket data
-        public async Task ReceivedSocketHandler(TcpClient tcpClient, byte[] receivedBytes)
+        public async Task ReceivedSocketHandler(TcpClient tcpClient, IPEndPoint endPoint, byte[] receivedBytes)
         {
             try
             {
@@ -22,7 +23,14 @@ namespace DirectXInput
                 {
                     try
                     {
-                        await ReceivedSocketHandlerThread(tcpClient, receivedBytes);
+                        if (tcpClient != null)
+                        {
+                            await ReceivedTcpSocketHandlerThread(tcpClient, receivedBytes);
+                        }
+                        else
+                        {
+                            ReceivedUdpSocketHandlerThread(endPoint, receivedBytes);
+                        }
                     }
                     catch { }
                 }
@@ -31,7 +39,7 @@ namespace DirectXInput
             catch { }
         }
 
-        async Task ReceivedSocketHandlerThread(TcpClient tcpClient, byte[] receivedBytes)
+        async Task ReceivedTcpSocketHandlerThread(TcpClient tcpClient, byte[] receivedBytes)
         {
             try
             {
@@ -39,7 +47,7 @@ namespace DirectXInput
                 if (!DeserializeBytesToObject(receivedBytes, out SocketSendContainer deserializedBytes)) { return; }
 
                 //Get the source server ip and port
-                //Debug.WriteLine("Received socket from: " + DeserializedBytes.SourceIp + ":" + DeserializedBytes.SourcePort);
+                //Debug.WriteLine("Received tcp socket from: " + DeserializedBytes.SourceIp + ":" + DeserializedBytes.SourcePort);
 
                 //Check what kind of object was received
                 if (deserializedBytes.Object is NotificationDetails)
@@ -103,6 +111,19 @@ namespace DirectXInput
             catch { }
         }
 
+        void ReceivedUdpSocketHandlerThread(IPEndPoint endPoint, byte[] receivedBytes)
+        {
+            try
+            {
+                //Get the source server ip and port
+                //Debug.WriteLine("Received udp socket from: " + endPoint.Address.ToString() + ":" + endPoint.Port);
+
+                //Check incoming gyro dsu bytes
+                if (GyroDsuClientHandler(endPoint, receivedBytes)) { return; }
+            }
+            catch { }
+        }
+
         async Task SendControllerStatusDetailsList(SocketSendContainer deserializedBytes)
         {
             try
@@ -144,14 +165,14 @@ namespace DirectXInput
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
-                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
-                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
+                socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
+                socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
                 socketSend.Object = controllerStatusDetailsList;
                 byte[] SendBytes = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                TcpClient socketClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(deserializedBytes.SourceIp, deserializedBytes.SourcePort, vArnoldVinkSockets.vTcpClientTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytes(socketClient, SendBytes, vArnoldVinkSockets.vTcpClientTimeout, false);
+                TcpClient socketClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(deserializedBytes.SourceIp, deserializedBytes.SourcePort, vArnoldVinkSockets.vSocketTimeout);
+                await vArnoldVinkSockets.TcpClientSendBytes(socketClient, SendBytes, vArnoldVinkSockets.vSocketTimeout, false);
             }
             catch { }
         }

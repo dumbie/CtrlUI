@@ -62,14 +62,14 @@ namespace DirectXInput
 
                     //Prepare socket data
                     SocketSendContainer socketSend = new SocketSendContainer();
-                    socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
-                    socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
+                    socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
+                    socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
                     socketSend.Object = Controller.InputCurrent;
                     byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                     //Send socket data
-                    TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort - 1, vArnoldVinkSockets.vTcpClientTimeout);
-                    await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
+                    TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vSocketServerIp, vArnoldVinkSockets.vSocketServerPort - 1, vArnoldVinkSockets.vSocketTimeout);
+                    await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vSocketTimeout, false);
 
                     //Update delay time
                     Controller.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayNanoTicks;

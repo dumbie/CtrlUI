@@ -52,6 +52,10 @@ namespace LibraryShared
             //Hid Device Variables
             public HidDevice HidDevice = null;
 
+            //Gyro Variables
+            public uint GyroPacketNumber = 0;
+            public int GyroLastUpdateTicks = 0;
+
             //Device In and Output
             public int InputButtonCountLoop1 = 0;
             public int InputButtonCountTotal1 = 80;
@@ -116,6 +120,10 @@ namespace LibraryShared
 
                     //Hid Device Variables
                     HidDevice = null;
+
+                    //Gyro Variables
+                    GyroPacketNumber = 0;
+                    GyroLastUpdateTicks = 0;
 
                     //Device In and Output
                     InputButtonCountLoop1 = 0;

@@ -132,8 +132,8 @@ namespace DirectXInput
             {
                 int SocketServerPort = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort")) + 1;
 
-                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
-                vArnoldVinkSockets.vTcpClientTimeout = 250;
+                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, true, true);
+                vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }

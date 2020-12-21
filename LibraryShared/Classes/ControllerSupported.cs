@@ -7,6 +7,8 @@
             public string CodeName { get; set; } = "Unsupported";
             public string[] ProductIDs { get; set; }
             public string VendorID { get; set; }
+            public bool HasTouchpad { get; set; }
+            public bool HasGyroscope { get; set; }
             public Offset OffsetUsb { get; set; } = new Offset();
             public Offset OffsetWireless { get; set; } = new Offset();
 
@@ -22,6 +24,8 @@
                 public int ButtonsGroup3 { get; set; } = 6;
                 public int TriggerLeft { get; set; } = 7;
                 public int TriggerRight { get; set; } = 8;
+                public int Gyroscope { get; set; } = 12;
+                public int Accelerometer { get; set; } = 18;
             }
         }
     }

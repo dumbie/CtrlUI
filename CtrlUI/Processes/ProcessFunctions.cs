@@ -490,14 +490,14 @@ namespace CtrlUI
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
-                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
-                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
+                socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
+                socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
                 socketSend.Object = "ApplicationExit";
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 3, vArnoldVinkSockets.vTcpClientTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
+                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vSocketServerIp, vArnoldVinkSockets.vSocketServerPort + 3, vArnoldVinkSockets.vSocketTimeout);
+                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vSocketTimeout, false);
             }
             catch { }
         }
@@ -531,8 +531,8 @@ namespace CtrlUI
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
-                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
-                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
+                socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
+                socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
                 if (forceShow)
                 {
                     socketSend.Object = "KeyboardShow";
@@ -546,8 +546,8 @@ namespace CtrlUI
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 1, vArnoldVinkSockets.vTcpClientTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
+                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vSocketServerIp, vArnoldVinkSockets.vSocketServerPort + 1, vArnoldVinkSockets.vSocketTimeout);
+                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vSocketTimeout, false);
             }
             catch { }
         }
@@ -566,8 +566,8 @@ namespace CtrlUI
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
-                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
-                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
+                socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
+                socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
                 if (forceShow)
                 {
                     socketSend.Object = "MediaShow";
@@ -581,8 +581,8 @@ namespace CtrlUI
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 1, vArnoldVinkSockets.vTcpClientTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
+                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vSocketServerIp, vArnoldVinkSockets.vSocketServerPort + 1, vArnoldVinkSockets.vSocketTimeout);
+                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vSocketTimeout, false);
             }
             catch { }
         }

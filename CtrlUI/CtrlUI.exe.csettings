@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <appSettings>
-    <add key="ServerPort" value="1010"/>
+    <add key="ServerPort" value="26759"/>
     <add key="DisplayMonitor" value="1"/>
     <add key="ColorAccentLight" value="#00C7FF"/>
     <add key="InterfaceSoundPackName" value="Default"/>

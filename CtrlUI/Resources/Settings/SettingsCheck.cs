@@ -17,7 +17,7 @@ namespace CtrlUI
 
                 if (Setting_Load(vConfigurationCtrlUI, "DisplayMonitor") == null) { Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", "1"); } //Shared
                 if (Setting_Load(vConfigurationCtrlUI, "ColorAccentLight") == null) { Setting_Save(vConfigurationCtrlUI, "ColorAccentLight", "#00C7FF"); } //Shared
-                if (Setting_Load(vConfigurationCtrlUI, "ServerPort") == null) { Setting_Save(vConfigurationCtrlUI, "ServerPort", "1010"); } //Shared
+                if (Setting_Load(vConfigurationCtrlUI, "ServerPort") == null) { Setting_Save(vConfigurationCtrlUI, "ServerPort", "26759"); } //Shared
 
                 if (Setting_Load(vConfigurationCtrlUI, "LaunchFullscreen") == null) { Setting_Save(vConfigurationCtrlUI, "LaunchFullscreen", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "LaunchMinimized") == null) { Setting_Save(vConfigurationCtrlUI, "LaunchMinimized", "False"); }

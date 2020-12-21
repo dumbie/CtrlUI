@@ -17,6 +17,16 @@ namespace LibraryShared
             public byte TriggerLeft = 0;
             public byte TriggerRight = 0;
 
+            //Raw Gyroscope
+            public float GyroPitch = 0;
+            public float GyroYaw = 0;
+            public float GyroRoll = 0;
+
+            //Raw Accelerometer
+            public float AccelX = 0;
+            public float AccelY = 0;
+            public float AccelZ = 0;
+
             //Raw D-Pad
             public ControllerButtonDetails DPadUp = new ControllerButtonDetails();
             public ControllerButtonDetails DPadDown = new ControllerButtonDetails();

@@ -141,14 +141,29 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClass.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClass.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClean.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClean.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketCleanTcp.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketCleanTcp.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClient.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClient.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClientTcp.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClientTcp.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketServer.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketServer.cs</Link>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClientUdp.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClientUdp.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketManage.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketManage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketReceiveTcp.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketReceiveTcp.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketReceiveUdp.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketReceiveUdp.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketServerTcp.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketServerTcp.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketServerUdp.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketServerUdp.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketVariables.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketVariables.cs</Link>

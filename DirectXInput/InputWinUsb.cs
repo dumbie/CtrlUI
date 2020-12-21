@@ -297,8 +297,8 @@ namespace DirectXInput
                             //Update the controller battery level
                             ControllerReadBatteryLevel(Controller);
 
-                            //Send input to the virtual bus
-                            await VirtualBusInput(Controller);
+                            //Send input to the virtual device
+                            await SendInputVirtual(Controller);
                         }
                     }
                     catch

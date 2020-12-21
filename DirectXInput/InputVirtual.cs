@@ -9,8 +9,8 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Send input to the virtual bus
-        async Task VirtualBusInput(ControllerStatus Controller)
+        //Send input to the virtual device
+        async Task SendInputVirtual(ControllerStatus Controller)
         {
             try
             {
@@ -67,6 +67,19 @@ namespace DirectXInput
 
                 //Send input to the virtual bus
                 vVirtualBusDevice.VirtualInput(ref Controller);
+
+                //Send gyro motion to the dsu client
+                if (vGyroDsuClientEndPoint != null)
+                {
+                    if (Environment.TickCount - Controller.GyroLastUpdateTicks >= 10)
+                    {
+                        //Send gyro motion to the dsu client
+                        await SendGyroMotion(vGyroDsuClientEndPoint, Controller);
+
+                        //Update the last gyro update time
+                        Controller.GyroLastUpdateTicks = Environment.TickCount;
+                    }
+                }
             }
             catch { }
         }

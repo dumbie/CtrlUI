@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Security.Principal;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -88,6 +89,9 @@ namespace DirectXInput
         public static KeypadStatus vKeypadDownStatus = new KeypadStatus();
         public static string vKeypadPreviousProcessName = string.Empty;
         public static string vKeypadPreviousProcessTitle = string.Empty;
+
+        //Gyro Variables
+        public static IPEndPoint vGyroDsuClientEndPoint = null;
 
         //Controller Variables
         public static WinUsbDevice vVirtualBusDevice = null;

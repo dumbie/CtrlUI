@@ -124,6 +124,8 @@
     <Compile Include="ControllerIdle.cs" />
     <Compile Include="ControllerButton.cs" />
     <Compile Include="ControllerMapping.cs" />
+    <Compile Include="GyroDsu\GyroDsuEnum.cs" />
+    <Compile Include="GyroDsu\GyroClientHandler.cs" />
     <Compile Include="Media\ControllerHandlers.cs" />
     <Compile Include="Media\InterfaceFunctions.cs" />
     <Compile Include="Media\ProcessFunctions.cs" />
@@ -138,6 +140,7 @@
     <Compile Include="Keyboard\KeyboardFunctions.cs" />
     <Compile Include="Keyboard\MouseFunctions.cs" />
     <Compile Include="Keyboard\WindowKeyboard.xaml.cs" />
+    <Compile Include="GyroDsu\GyroOutput.cs" />
     <Compile Include="Resources\InputOutput\InputKeyboard.cs" />
     <Compile Include="Resources\Settings\SettingsKeypad.cs" />
     <Compile Include="Resources\Settings\SettingsNotify.cs" />
@@ -159,8 +162,8 @@
     <Compile Include="Resources\Settings\SettingsLoad.cs" />
     <Compile Include="Resources\Settings\SettingsSave.cs" />
     <Compile Include="OutputApps.cs" />
-    <Compile Include="OutputVirtualBus.cs" />
-    <Compile Include="InputVirtualBus.cs" />
+    <Compile Include="OutputVirtual.cs" />
+    <Compile Include="InputVirtual.cs" />
     <Compile Include="OutputController.cs" />
     <Compile Include="InputController.cs" />
     <Compile Include="ConnectionFunctions.cs" />

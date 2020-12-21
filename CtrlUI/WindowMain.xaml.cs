@@ -189,8 +189,8 @@ namespace CtrlUI
             {
                 int SocketServerPort = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort"));
 
-                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort);
-                vArnoldVinkSockets.vTcpClientTimeout = 250;
+                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, true, false);
+                vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
             }
             catch { }

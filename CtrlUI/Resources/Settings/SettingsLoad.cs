@@ -45,7 +45,7 @@ namespace CtrlUI
 
                 //Load the socket used ports
                 txt_SettingsSocketClientPortStart.Text = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ServerPort"));
-                txt_SettingsSocketClientPortRange.Text = Convert.ToString(Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort")) + 3);
+                txt_SettingsSocketClientPortRange.Text = Convert.ToString(Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort")) + 2);
 
                 //Load the application font size
                 textblock_SettingsFontSize.Text = "Adjust the application font size: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "AppFontSize"));

@@ -47,14 +47,14 @@ namespace DirectXInput.MediaCode
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
-                socketSend.SourceIp = vArnoldVinkSockets.vTcpListenerIp;
-                socketSend.SourcePort = vArnoldVinkSockets.vTcpListenerPort;
+                socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
+                socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
                 socketSend.Object = "ApplicationExit";
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vTcpListenerIp, vArnoldVinkSockets.vTcpListenerPort + 2, vArnoldVinkSockets.vTcpClientTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vTcpClientTimeout, false);
+                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vSocketServerIp, vArnoldVinkSockets.vSocketServerPort + 2, vArnoldVinkSockets.vSocketTimeout);
+                await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vSocketTimeout, false);
             }
             catch { }
         }

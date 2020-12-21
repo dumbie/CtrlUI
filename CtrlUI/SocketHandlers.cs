@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
@@ -13,7 +14,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Handle received socket data
-        public async Task ReceivedSocketHandler(TcpClient tcpClient, byte[] receivedBytes)
+        public async Task ReceivedSocketHandler(TcpClient tcpClient, IPEndPoint endPoint, byte[] receivedBytes)
         {
             try
             {
