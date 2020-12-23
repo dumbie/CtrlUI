@@ -34,7 +34,7 @@ namespace DirectXInput
                         if (heavyRumbleChanged && lightRumbleChanged)
                         {
                             //Delay task to prevent high cpu usage
-                            TaskDelayNano(1);
+                            TaskDelayMs(1);
                             continue;
                         }
 

@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
@@ -18,7 +19,7 @@ namespace DirectXInput
                 Debug.WriteLine("Receive and translate Win DirectInput for: " + Controller.Details.DisplayName);
 
                 //Receive input from the selected controller
-                while (!Controller.InputTask.TaskStopRequest && Controller.Connected())
+                while (!Controller.InputControllerTask.TaskStopRequest && Controller.Connected())
                 {
                     try
                     {
@@ -29,8 +30,8 @@ namespace DirectXInput
                             continue;
                         }
 
-                        //Update the controller last read time
-                        Controller.LastReadTicks = Stopwatch.GetTimestamp();
+                        //Update the controller last input time
+                        Controller.LastInputTicks = GetSystemTicksMs();
 
                         //Offsets for thumb sticks
                         int OffsetThumbLeftX = 6;

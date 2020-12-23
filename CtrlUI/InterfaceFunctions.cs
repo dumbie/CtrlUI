@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
@@ -544,7 +545,7 @@ namespace CtrlUI
             try
             {
                 //Update the last mouse interaction time
-                vMouseLastInteraction = Environment.TickCount;
+                vMouseLastInteraction = GetSystemTicksMs();
 
                 //Set the mouse cursor when not visible
                 AVActions.ActionDispatcherInvoke(delegate
@@ -564,7 +565,7 @@ namespace CtrlUI
             try
             {
                 //Update the last mouse interaction time
-                vMouseLastInteraction = Environment.TickCount;
+                vMouseLastInteraction = GetSystemTicksMs();
 
                 //Check if mouse hide setting is enabled
                 if (!Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideMouseCursor")))
@@ -611,7 +612,7 @@ namespace CtrlUI
                 GetCursorPos(out PointWin MouseCurrentPosition);
 
                 //Check if the mouse has moved since the last time
-                bool LastInteraction = Environment.TickCount - vMouseLastInteraction > 5000;
+                bool LastInteraction = (GetSystemTicksMs() - vMouseLastInteraction) >= 5000;
                 bool LastMovement = MouseCurrentPosition.X == vMousePreviousPosition.X && MouseCurrentPosition.Y == vMousePreviousPosition.Y;
                 if (LastInteraction && LastMovement)
                 {

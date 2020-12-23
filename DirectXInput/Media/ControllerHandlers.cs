@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
@@ -18,7 +19,7 @@ namespace DirectXInput.MediaCode
             bool ControllerDelayLonger = false;
             try
             {
-                if (Environment.TickCount >= vControllerDelay_Media)
+                if (GetSystemTicksMs() >= vControllerDelay_Media)
                 {
                     //Left stick movement
                     if (ControllerInput.ThumbLeftX < -10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
@@ -147,15 +148,15 @@ namespace DirectXInput.MediaCode
 
                     if (ControllerDelayShort)
                     {
-                        vControllerDelay_Media = Environment.TickCount + vControllerDelayShortTicks;
+                        vControllerDelay_Media = GetSystemTicksMs() + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayMedium)
                     {
-                        vControllerDelay_Media = Environment.TickCount + vControllerDelayMediumTicks;
+                        vControllerDelay_Media = GetSystemTicksMs() + vControllerDelayMediumTicks;
                     }
                     else if (ControllerDelayLonger)
                     {
-                        vControllerDelay_Media = Environment.TickCount + vControllerDelayLongerTicks;
+                        vControllerDelay_Media = GetSystemTicksMs() + vControllerDelayLongerTicks;
                     }
                 }
             }

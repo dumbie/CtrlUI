@@ -1,4 +1,4 @@
-﻿using System;
+﻿using static ArnoldVinkCode.AVActions;
 using static LibraryShared.Classes;
 
 namespace DirectXInput
@@ -16,7 +16,7 @@ namespace DirectXInput
                     if (buttonDetails.PressTimeCurrent == 0)
                     {
                         //Debug.WriteLine("Starting button press.");
-                        buttonDetails.PressTimeCurrent = Environment.TickCount;
+                        buttonDetails.PressTimeCurrent = GetSystemTicksMs();
                     }
                 }
                 else
@@ -27,7 +27,7 @@ namespace DirectXInput
                     }
                     else if (buttonDetails.PressTimeCurrent > 0)
                     {
-                        buttonDetails.PressTimePrevious = Environment.TickCount - buttonDetails.PressTimeCurrent;
+                        buttonDetails.PressTimePrevious = GetSystemTicksMs() - buttonDetails.PressTimeCurrent;
                     }
 
                     buttonDetails.PressTimeDone = false;
@@ -50,7 +50,7 @@ namespace DirectXInput
 
                     if (buttonDetails.PressTimeCurrent > 0)
                     {
-                        int pressTimeCurrentMs = Environment.TickCount - buttonDetails.PressTimeCurrent;
+                        long pressTimeCurrentMs = GetSystemTicksMs() - buttonDetails.PressTimeCurrent;
                         if (pressTimeCurrentMs >= 800)
                         {
                             buttonDetails.PressedLong = true;

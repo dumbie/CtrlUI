@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using static DirectXInput.AppVariables;
 
 namespace DirectXInput
@@ -17,8 +18,23 @@ namespace DirectXInput
                 }
 
                 //Update gyro dsu client endpoint
+                //Fix some clients seem to open 4 separate udp endpoints / check timeout / check ports
                 //Debug.WriteLine("Gyro dsu client connected: " + endPoint.Address + ":" + endPoint.Port);
-                vGyroDsuClientEndPoint = endPoint;
+                if (vController0.GyroDsuClientEndPoint == null)
+                {
+                    vController0.GyroDsuClientEndPoint = endPoint;
+                    vController1.GyroDsuClientEndPoint = endPoint;
+                    vController2.GyroDsuClientEndPoint = endPoint;
+                    vController3.GyroDsuClientEndPoint = endPoint;
+                }
+                else if (endPoint.Port < vController0.GyroDsuClientEndPoint.Port)
+                {
+                    Debug.WriteLine("Overwriting gyro dsu client endpoint: " + vController0.GyroDsuClientEndPoint.Port + " with " + endPoint.Port);
+                    vController0.GyroDsuClientEndPoint = endPoint;
+                    vController1.GyroDsuClientEndPoint = endPoint;
+                    vController2.GyroDsuClientEndPoint = endPoint;
+                    vController3.GyroDsuClientEndPoint = endPoint;
+                }
                 return true;
             }
             catch { }

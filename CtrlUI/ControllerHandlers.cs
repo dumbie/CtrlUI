@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
@@ -24,7 +25,7 @@ namespace CtrlUI
                     await Controller_DPadPress(ControllerInput);
                     await Controller_StickMovement(ControllerInput);
                     await Controller_ButtonPress(ControllerInput);
-                    Controller_TriggerPress(ControllerInput);
+                    //Controller_TriggerPress(ControllerInput);
                 }
             }
             catch { }
@@ -39,7 +40,7 @@ namespace CtrlUI
             bool ControllerDelayLonger = false;
             try
             {
-                if (Environment.TickCount >= vControllerDelay_Button)
+                if (GetSystemTicksMs() >= vControllerDelay_Button)
                 {
                     if (ControllerInput.ButtonA.PressedRaw)
                     {
@@ -206,15 +207,15 @@ namespace CtrlUI
 
                     if (ControllerDelayShort)
                     {
-                        vControllerDelay_Button = Environment.TickCount + vControllerDelayShortTicks;
+                        vControllerDelay_Button = GetSystemTicksMs() + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayMedium)
                     {
-                        vControllerDelay_Button = Environment.TickCount + vControllerDelayMediumTicks;
+                        vControllerDelay_Button = GetSystemTicksMs() + vControllerDelayMediumTicks;
                     }
                     else if (ControllerDelayLonger)
                     {
-                        vControllerDelay_Button = Environment.TickCount + vControllerDelayLongerTicks;
+                        vControllerDelay_Button = GetSystemTicksMs() + vControllerDelayLongerTicks;
                     }
                 }
             }
@@ -230,7 +231,7 @@ namespace CtrlUI
             bool ControllerDelayLonger = false;
             try
             {
-                if (Environment.TickCount >= vControllerDelay_DPad)
+                if (GetSystemTicksMs() >= vControllerDelay_DPad)
                 {
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
@@ -271,11 +272,11 @@ namespace CtrlUI
 
                     if (ControllerDelayShort)
                     {
-                        vControllerDelay_DPad = Environment.TickCount + vControllerDelayShortTicks;
+                        vControllerDelay_DPad = GetSystemTicksMs() + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayLonger)
                     {
-                        vControllerDelay_DPad = Environment.TickCount + vControllerDelayLongerTicks;
+                        vControllerDelay_DPad = GetSystemTicksMs() + vControllerDelayLongerTicks;
                     }
                 }
             }
@@ -291,15 +292,15 @@ namespace CtrlUI
             bool ControllerDelayLonger = false;
             try
             {
-                if (Environment.TickCount >= vControllerDelay_Trigger)
+                if (GetSystemTicksMs() >= vControllerDelay_Trigger)
                 {
                     if (ControllerDelayShort)
                     {
-                        vControllerDelay_Trigger = Environment.TickCount + vControllerDelayShortTicks;
+                        vControllerDelay_Trigger = GetSystemTicksMs() + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayLonger)
                     {
-                        vControllerDelay_Trigger = Environment.TickCount + vControllerDelayLongerTicks;
+                        vControllerDelay_Trigger = GetSystemTicksMs() + vControllerDelayLongerTicks;
                     }
                 }
             }
@@ -315,7 +316,7 @@ namespace CtrlUI
             bool ControllerDelayLonger = false;
             try
             {
-                if (Environment.TickCount >= vControllerDelay_Stick)
+                if (GetSystemTicksMs() >= vControllerDelay_Stick)
                 {
                     //Left stick movement
                     if (ControllerInput.ThumbLeftX < -10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
@@ -379,11 +380,11 @@ namespace CtrlUI
 
                     if (ControllerDelayShort)
                     {
-                        vControllerDelay_Stick = Environment.TickCount + vControllerDelayShortTicks;
+                        vControllerDelay_Stick = GetSystemTicksMs() + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayLonger)
                     {
-                        vControllerDelay_Stick = Environment.TickCount + vControllerDelayLongerTicks;
+                        vControllerDelay_Stick = GetSystemTicksMs() + vControllerDelayLongerTicks;
                     }
                 }
             }

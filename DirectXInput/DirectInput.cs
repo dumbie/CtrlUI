@@ -68,10 +68,10 @@ namespace DirectXInput
                     ControllerUpdateSettingsInterface(Controller);
 
                     //Update the controller last read time
-                    Controller.LastReadTicks = Stopwatch.GetTimestamp();
+                    Controller.LastInputTicks = GetSystemTicksMs();
 
                     //Update the controller last active time
-                    Controller.LastActiveTicks = Environment.TickCount;
+                    Controller.LastActiveTicks = GetSystemTicksMs();
 
                     //Set the controller supported profile
                     Controller.SupportedCurrent = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower())).FirstOrDefault();
@@ -92,7 +92,7 @@ namespace DirectXInput
                             }
                             catch { }
                         }
-                        AVActions.TaskStartLoop(TaskActionInput, Controller.InputTask);
+                        AVActions.TaskStartLoop(TaskActionInput, Controller.InputControllerTask);
                     }
                     else
                     {
@@ -104,7 +104,7 @@ namespace DirectXInput
                             }
                             catch { }
                         }
-                        AVActions.TaskStartLoop(TaskActionInput, Controller.InputTask);
+                        AVActions.TaskStartLoop(TaskActionInput, Controller.InputControllerTask);
                     }
 
                     void TaskActionOutputVirtual()
@@ -125,6 +125,15 @@ namespace DirectXInput
                         catch { }
                     }
                     AVActions.TaskStartLoop(TaskActionOutputController, Controller.OutputControllerTask);
+                    async Task TaskActionOutputGyro()
+                    {
+                        try
+                        {
+                            await LoopOutputGyro(Controller);
+                        }
+                        catch { }
+                    }
+                    AVActions.TaskStartLoop(TaskActionOutputGyro, Controller.OutputGyroTask);
                     return true;
                 }
             }
@@ -285,20 +294,13 @@ namespace DirectXInput
                 //Disconnect virtual controller
                 if (vVirtualBusDevice != null)
                 {
-                    //Stop the controller output loop tasks
-                    SetAndCloseEvent(Controller.OutputOverlapped.EventHandle);
-                    await TaskStopLoop(Controller.OutputVirtualTask);
+                    //Stop the controller loop tasks
+                    SetAndCloseEvent(Controller.InputVirtualOverlapped.EventHandle);
+                    SetAndCloseEvent(Controller.OutputVirtualOverlapped.EventHandle);
+                    await TaskStopLoop(Controller.InputControllerTask);
                     await TaskStopLoop(Controller.OutputControllerTask);
-
-                    //Prepare empty xinput data
-                    PrepareXInputData(Controller, true);
-
-                    //Send empty input to the virtual bus
-                    vVirtualBusDevice.VirtualInput(ref Controller);
-
-                    //Stop the controller input loop tasks
-                    SetAndCloseEvent(Controller.InputOverlapped.EventHandle);
-                    await TaskStopLoop(Controller.InputTask);
+                    await TaskStopLoop(Controller.OutputVirtualTask);
+                    await TaskStopLoop(Controller.OutputGyroTask);
 
                     //Disconnect the virtual controller
                     vVirtualBusDevice.VirtualUnplug(Controller.NumberId);

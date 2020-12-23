@@ -51,7 +51,7 @@ namespace FpsOverlayer
                     {
                         //Check the total available frames and last added frame time
                         int TotalFrameTimes = vListFrameTime.Count;
-                        bool SkipCurrentFrames = (Environment.TickCount - vLastFrameTimeAdded) >= 1000;
+                        bool SkipCurrentFrames = (GetSystemTicksMs() - vLastFrameTimeAdded) >= 1000;
                         if (SkipCurrentFrames || TotalFrameTimes <= 0)
                         {
                             AVActions.ActionDispatcherInvoke(delegate
@@ -133,7 +133,7 @@ namespace FpsOverlayer
                 //Calculate new frame time
                 double TimeElapsed = traceEvent.TimeStampRelativeMSec;
                 double TimeBetween = TimeElapsed - vLastFrameTimeStamp;
-                vLastFrameTimeAdded = Environment.TickCount;
+                vLastFrameTimeAdded = GetSystemTicksMs();
                 vLastFrameTimeStamp = TimeElapsed;
 
                 //Add frame time to the list

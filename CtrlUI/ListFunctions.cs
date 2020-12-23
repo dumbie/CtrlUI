@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVActions;
 using static CtrlUI.AppBusyWait;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -186,11 +187,11 @@ namespace CtrlUI
                 {
                     try
                     {
-                        if (dataBindApp.StatusRunning == Visibility.Visible && (Environment.TickCount - dataBindApp.RunningTimeLastUpdate) >= 60000)
+                        if (dataBindApp.StatusRunning == Visibility.Visible && (GetSystemTicksMs() - dataBindApp.RunningTimeLastUpdate) >= 60000)
                         {
                             ApplicationUpdated = true;
                             dataBindApp.RunningTime++;
-                            dataBindApp.RunningTimeLastUpdate = Environment.TickCount;
+                            dataBindApp.RunningTimeLastUpdate = GetSystemTicksMs();
                             //Debug.WriteLine(UpdateApp.Name + " has been running for one minute, total: " + UpdateApp.RunningTime);
                         }
                     }

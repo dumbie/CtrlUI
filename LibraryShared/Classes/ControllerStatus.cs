@@ -1,6 +1,7 @@
 ﻿using LibraryUsb;
 using System;
 using System.Diagnostics;
+using System.Net;
 using System.Threading;
 using static ArnoldVinkCode.AVActions;
 using static LibraryUsb.NativeMethods_IoControl;
@@ -20,11 +21,13 @@ namespace LibraryShared
             public ControllerBattery BatteryCurrent = new ControllerBattery();
             public ControllerBattery BatteryPrevious = new ControllerBattery();
 
-            //Controller Details
-            public long LastReadTicks = 0;
-            public int LastActiveTicks = 0;
+            //Time Variables
+            public long LastInputTicks = 0;
+            public long LastActiveTicks = 0;
             public int MilliSecondsTimeout = 4000;
             public int MilliSecondsAllowReadWrite = 2000;
+
+            //Controller Details
             public ControllerDetails Details = null;
             public bool BlockOutput = false;
             public bool Connected()
@@ -39,12 +42,13 @@ namespace LibraryShared
                 return true;
             }
 
-            //Controller Task
-            public AVTaskDetails InputTask = new AVTaskDetails();
-            public NativeOverlapped InputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
-            public AVTaskDetails OutputVirtualTask = new AVTaskDetails();
+            //Controller Tasks
+            public NativeOverlapped InputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
+            public NativeOverlapped OutputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
+            public AVTaskDetails InputControllerTask = new AVTaskDetails();
             public AVTaskDetails OutputControllerTask = new AVTaskDetails();
-            public NativeOverlapped OutputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
+            public AVTaskDetails OutputVirtualTask = new AVTaskDetails();
+            public AVTaskDetails OutputGyroTask = new AVTaskDetails();
 
             //WinUsb Device Variables
             public WinUsbDevice WinUsbDevice = null;
@@ -54,7 +58,7 @@ namespace LibraryShared
 
             //Gyro Variables
             public uint GyroPacketNumber = 0;
-            public int GyroLastUpdateTicks = 0;
+            public IPEndPoint GyroDsuClientEndPoint = null;
 
             //Device In and Output
             public int InputButtonCountLoop1 = 0;
@@ -77,8 +81,8 @@ namespace LibraryShared
             public byte XOutputPreviousRumbleLight = 0;
 
             //Controller Input
-            public int Delay_CtrlUIOutput = Environment.TickCount;
-            public int Delay_ControllerShortcut = Environment.TickCount;
+            public long Delay_CtrlUIOutput = GetSystemTicksMs();
+            public long Delay_ControllerShortcut = GetSystemTicksMs();
             public ControllerInput InputCurrent = new ControllerInput();
             public ControllerSupported SupportedCurrent = new ControllerSupported();
 
@@ -102,18 +106,21 @@ namespace LibraryShared
                     BatteryCurrent = new ControllerBattery();
                     BatteryPrevious = new ControllerBattery();
 
-                    //Controller Details
-                    LastReadTicks = 0;
+                    //Time Variables
+                    LastInputTicks = 0;
                     LastActiveTicks = 0;
+
+                    //Controller Details
                     Details = null;
                     BlockOutput = false;
 
-                    //Controller Task
-                    InputTask = new AVTaskDetails();
-                    InputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
-                    OutputVirtualTask = new AVTaskDetails();
+                    //Controller Tasks
+                    InputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
+                    OutputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
+                    InputControllerTask = new AVTaskDetails();
                     OutputControllerTask = new AVTaskDetails();
-                    OutputOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
+                    OutputVirtualTask = new AVTaskDetails();
+                    OutputGyroTask = new AVTaskDetails();
 
                     //WinUsb Device Variables
                     WinUsbDevice = null;
@@ -123,7 +130,7 @@ namespace LibraryShared
 
                     //Gyro Variables
                     GyroPacketNumber = 0;
-                    GyroLastUpdateTicks = 0;
+                    GyroDsuClientEndPoint = null;
 
                     //Device In and Output
                     InputButtonCountLoop1 = 0;

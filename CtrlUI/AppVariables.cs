@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
@@ -37,7 +38,7 @@ namespace CtrlUI
         public static DateTime? vApiIGDBTokenExpire = null;
 
         //Interaction Variables
-        public static int vMouseLastInteraction = Environment.TickCount;
+        public static long vMouseLastInteraction = GetSystemTicksMs();
         public static PointWin vMousePreviousPosition = new PointWin();
         public static bool vSingleTappedEvent = true;
         public static bool vMousePressDownLeftClick = false;
@@ -168,11 +169,11 @@ namespace CtrlUI
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 500;
         public static int vControllerDelayLongerTicks = 750;
-        public static int vControllerDelay_DPad = Environment.TickCount;
-        public static int vControllerDelay_Stick = Environment.TickCount;
-        public static int vControllerDelay_Trigger = Environment.TickCount;
-        public static int vControllerDelay_Button = Environment.TickCount;
-        public static int vControllerDelay_Activate = Environment.TickCount;
+        public static long vControllerDelay_DPad = GetSystemTicksMs();
+        public static long vControllerDelay_Stick = GetSystemTicksMs();
+        public static long vControllerDelay_Trigger = GetSystemTicksMs();
+        public static long vControllerDelay_Button = GetSystemTicksMs();
+        public static long vControllerDelay_Activate = GetSystemTicksMs();
 
         //Sockets Variables
         public static ArnoldVinkSockets vArnoldVinkSockets = null;

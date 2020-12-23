@@ -27,7 +27,7 @@ namespace FpsOverlayer
         public static int vKeypadBottomMargin = 0;
 
         //Frames per second
-        public static int vLastFrameTimeAdded = 0;
+        public static long vLastFrameTimeAdded = 0;
         public static double vLastFrameTimeStamp = 0;
         public static List<double> vListFrameTime = new List<double>();
 

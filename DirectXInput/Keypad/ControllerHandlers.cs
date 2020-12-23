@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
@@ -16,7 +17,7 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                if (Environment.TickCount >= vControllerDelay_Keypad)
+                if (GetSystemTicksMs() >= vControllerDelay_Keypad)
                 {
                     //Update interface controller preview
                     UpdateKeypadPreview();
@@ -49,7 +50,7 @@ namespace DirectXInput.KeypadCode
                         await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(keypadHeight));
                     }
 
-                    vControllerDelay_Keypad = Environment.TickCount + vControllerDelayMicroTicks;
+                    vControllerDelay_Keypad = GetSystemTicksMs() + vControllerDelayMicroTicks;
                 }
 
                 //Press dpad left
@@ -142,10 +143,10 @@ namespace DirectXInput.KeypadCode
             {
                 if (buttonPressed)
                 {
-                    if (!keypadDownStatus.Pressed || (buttonRepeatIntervalMs > 0 && Environment.TickCount >= keypadDownStatus.LastPress + buttonRepeatIntervalMs))
+                    if (!keypadDownStatus.Pressed || (buttonRepeatIntervalMs > 0 && GetSystemTicksMs() >= keypadDownStatus.LastPressMs + buttonRepeatIntervalMs))
                     {
                         keypadDownStatus.Pressed = true;
-                        keypadDownStatus.LastPress = Environment.TickCount;
+                        keypadDownStatus.LastPressMs = GetSystemTicksMs();
                         if (modifierKey != null)
                         {
                             KeyToggleComboAuto((KeysVirtual)modifierKey, (KeysVirtual)virtualKey, true);

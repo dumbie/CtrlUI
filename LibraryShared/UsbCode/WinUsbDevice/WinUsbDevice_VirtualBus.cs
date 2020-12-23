@@ -215,13 +215,13 @@ namespace LibraryUsb
                 uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_XUSB_SUBMIT_REPORT, IO_METHOD.METHOD_BUFFERED);
 
                 //Send marshal structure
-                bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, controller.XInputData.Size, controlIntPtr, controller.XInputData.Size, out int bytesWritten, controller.InputOverlapped);
+                bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, controller.XInputData.Size, controlIntPtr, controller.XInputData.Size, out int bytesWritten, controller.InputVirtualOverlapped);
 
                 //Get overlapped result
                 if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
                 {
-                    WaitForSingleObject(controller.InputOverlapped.EventHandle, INFINITE);
-                    return GetOverlappedResult(FileHandle, ref controller.InputOverlapped, out int bytesTransferred, false);
+                    WaitForSingleObject(controller.InputVirtualOverlapped.EventHandle, INFINITE);
+                    return GetOverlappedResult(FileHandle, ref controller.InputVirtualOverlapped, out int bytesTransferred, false);
                 }
                 return false;
             }
@@ -254,13 +254,13 @@ namespace LibraryUsb
                 uint controlCode = CTL_CODE(FILE_DEVICE_TYPE.FILE_DEVICE_BUS_EXTENDER, FILE_ACCESS_DATA.FILE_READ_DATA | FILE_ACCESS_DATA.FILE_WRITE_DATA, IO_FUNCTION.IOCTL_XUSB_REQUEST_NOTIFICATION, IO_METHOD.METHOD_BUFFERED);
 
                 //Send marshal structure
-                bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, controller.XOutputData.Size, controlIntPtr, controller.XOutputData.Size, out int bytesWritten, controller.OutputOverlapped);
+                bool iocontrol = DeviceIoControl(FileHandle, controlCode, controlIntPtr, controller.XOutputData.Size, controlIntPtr, controller.XOutputData.Size, out int bytesWritten, controller.OutputVirtualOverlapped);
 
                 //Get overlapped result
                 if (!iocontrol && Marshal.GetLastWin32Error() == (int)IoErrorCodes.ERROR_IO_PENDING)
                 {
-                    WaitForSingleObject(controller.OutputOverlapped.EventHandle, INFINITE);
-                    if (GetOverlappedResult(FileHandle, ref controller.OutputOverlapped, out int bytesTransferred, false))
+                    WaitForSingleObject(controller.OutputVirtualOverlapped.EventHandle, INFINITE);
+                    if (GetOverlappedResult(FileHandle, ref controller.OutputVirtualOverlapped, out int bytesTransferred, false))
                     {
                         //Set marshal structure
                         controller.XOutputData = Marshal.PtrToStructure<XUSB_OUTPUT_REPORT>(controlIntPtr);

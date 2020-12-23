@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
@@ -22,19 +23,19 @@ namespace DirectXInput
                 {
                     if (CheckControllerIdle(Controller))
                     {
-                        int idleTimeMs = Environment.TickCount - Controller.LastActiveTicks;
+                        long idleTimeMs = GetSystemTicksMs() - Controller.LastActiveTicks;
                         int targetTimeMs = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin")) * 60000;
                         if (targetTimeMs > 0 && idleTimeMs > targetTimeMs)
                         {
                             Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTimeMs + "/" + targetTimeMs + "ms");
-                            Controller.LastActiveTicks = Environment.TickCount;
+                            Controller.LastActiveTicks = GetSystemTicksMs();
                             StopControllerTask(Controller, "idle");
                             return;
                         }
                     }
                     else
                     {
-                        Controller.LastActiveTicks = Environment.TickCount;
+                        Controller.LastActiveTicks = GetSystemTicksMs();
                     }
                 }
 
@@ -67,19 +68,6 @@ namespace DirectXInput
 
                 //Send input to the virtual bus
                 vVirtualBusDevice.VirtualInput(ref Controller);
-
-                //Send gyro motion to the dsu client
-                if (vGyroDsuClientEndPoint != null)
-                {
-                    if (Environment.TickCount - Controller.GyroLastUpdateTicks >= 10)
-                    {
-                        //Send gyro motion to the dsu client
-                        await SendGyroMotion(vGyroDsuClientEndPoint, Controller);
-
-                        //Update the last gyro update time
-                        Controller.GyroLastUpdateTicks = Environment.TickCount;
-                    }
-                }
             }
             catch { }
         }

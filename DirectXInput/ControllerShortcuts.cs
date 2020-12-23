@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVInputOutputClass;
@@ -27,7 +28,7 @@ namespace DirectXInput
             bool ControllerDelayLonger = false;
             try
             {
-                if (Environment.TickCount >= Controller.Delay_ControllerShortcut)
+                if (GetSystemTicksMs() >= Controller.Delay_ControllerShortcut)
                 {
                     //Activate the controller
                     if (Controller.InputCurrent.ButtonGuide.PressedShort)
@@ -196,11 +197,11 @@ namespace DirectXInput
 
                     if (ControllerDelayShort)
                     {
-                        Controller.Delay_ControllerShortcut = Environment.TickCount + vControllerDelayShortTicks;
+                        Controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayLonger)
                     {
-                        Controller.Delay_ControllerShortcut = Environment.TickCount + vControllerDelayLongerTicks;
+                        Controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayLongerTicks;
                     }
                 }
             }

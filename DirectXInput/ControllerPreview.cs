@@ -1,7 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Diagnostics;
 using System.Windows;
+using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -68,8 +68,7 @@ namespace DirectXInput
                             txt_ActiveControllerName.Text = Controller.Details.DisplayName;
 
                             //Update latency
-                            long latencyTicks = Stopwatch.GetTimestamp() - Controller.LastReadTicks;
-                            string latencyMs = ((latencyTicks * 1000.0) / Stopwatch.Frequency).ToString("0.00");
+                            long latencyMs = (GetSystemTicksMs() - Controller.LastInputTicks) + 1;
                             txt_ActiveControllerLatency.Text = "Latency " + latencyMs + "ms";
 
                             //Update battery

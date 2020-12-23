@@ -6,11 +6,11 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Security.Principal;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
@@ -90,9 +90,6 @@ namespace DirectXInput
         public static string vKeypadPreviousProcessName = string.Empty;
         public static string vKeypadPreviousProcessTitle = string.Empty;
 
-        //Gyro Variables
-        public static IPEndPoint vGyroDsuClientEndPoint = null;
-
         //Controller Variables
         public static WinUsbDevice vVirtualBusDevice = null;
         public static bool vControllerBusy = false;
@@ -106,10 +103,10 @@ namespace DirectXInput
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 500;
         public static int vControllerDelayLongerTicks = 750;
-        public static int vControllerDelay_Keypad = Environment.TickCount;
-        public static int vControllerDelay_Keyboard = Environment.TickCount;
-        public static int vControllerDelay_Media = Environment.TickCount;
-        public static int vControllerDelay_Mouse = Environment.TickCount;
+        public static long vControllerDelay_Keypad = GetSystemTicksMs();
+        public static long vControllerDelay_Keyboard = GetSystemTicksMs();
+        public static long vControllerDelay_Media = GetSystemTicksMs();
+        public static long vControllerDelay_Mouse = GetSystemTicksMs();
         public static bool vControllerRumbleTest = false;
         public static DateTime vControllerLastDisconnect = new DateTime();
         public static List<string> vControllerTempBlockPaths = new List<string>();

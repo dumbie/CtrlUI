@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -165,7 +166,7 @@ namespace CtrlUI
                                 existingCombinedApp.StatusSuspended = processStatusSuspended;
 
                                 //Update the application last runtime
-                                existingCombinedApp.RunningTimeLastUpdate = Environment.TickCount;
+                                existingCombinedApp.RunningTimeLastUpdate = GetSystemTicksMs();
 
                                 //Add the new process multi application
                                 if (!existingCombinedApp.ProcessMulti.Any(x => x.WindowHandle == processWindowHandle))

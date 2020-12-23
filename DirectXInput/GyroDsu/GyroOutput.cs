@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Net;
 using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -10,11 +9,14 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        private async Task SendGyroMotion(IPEndPoint endPoint, ControllerStatus controller)
+        private async Task SendGyroMotion(ControllerStatus controller)
         {
             try
             {
-                //Debug.WriteLine("Sending gyro data to dsu client.");
+                //Debug.WriteLine("Sending gyro motion to dsu client.");
+
+                //Check if client endpoint is set
+                if (controller.GyroDsuClientEndPoint == null) { return; }
 
                 //Set message header
                 byte[] sendBytes = new byte[100];
@@ -56,7 +58,6 @@ namespace DirectXInput
 
                 //Set battery status
                 sendBytes[30] = (byte)DsuBattery.None;
-                sendBytes[31] = (byte)1;
 
                 //Set packet number
                 byte[] packetNumberBytes = BitConverter.GetBytes(controller.GyroPacketNumber);
@@ -74,7 +75,7 @@ namespace DirectXInput
                 }
 
                 //Set time stamp
-                byte[] timeStampBytes = BitConverter.GetBytes(Environment.TickCount * 1000);
+                byte[] timeStampBytes = BitConverter.GetBytes(Stopwatch.GetTimestamp() / 10);
                 sendBytes[68] = timeStampBytes[0];
                 sendBytes[69] = timeStampBytes[1];
                 sendBytes[70] = timeStampBytes[2];
@@ -126,10 +127,10 @@ namespace DirectXInput
                 sendBytes[11] = checksum[3];
 
                 //Send bytes to dsu client
-                if (!await vArnoldVinkSockets.UdpClientSendBytes(endPoint, sendBytes, 1000))
+                if (!await vArnoldVinkSockets.UdpClientSendBytes(controller.GyroDsuClientEndPoint, sendBytes, 1000))
                 {
-                    Debug.WriteLine("Failed to send bytes to dsu client, closing connection.");
-                    vGyroDsuClientEndPoint = null;
+                    Debug.WriteLine("Failed to send bytes to dsu client, resetting endpoint.");
+                    controller.GyroDsuClientEndPoint = null;
                 }
             }
             catch { }

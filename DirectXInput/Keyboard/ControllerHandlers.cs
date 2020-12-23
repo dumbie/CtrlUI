@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInputOutputMouse;
@@ -21,7 +22,7 @@ namespace DirectXInput.KeyboardCode
             bool ControllerDelayShort = false;
             try
             {
-                if (Environment.TickCount >= vControllerDelay_Mouse)
+                if (GetSystemTicksMs() >= vControllerDelay_Mouse)
                 {
                     //Get the mouse move amount
                     int moveSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MouseMoveSensitivity"));
@@ -77,15 +78,15 @@ namespace DirectXInput.KeyboardCode
 
                     if (ControllerDelayMicro)
                     {
-                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayMicroTicks;
+                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayMicroTicks;
                     }
                     else if (ControllerDelayShort)
                     {
-                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayShortTicks;
+                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayShortTicks;
                     }
                     else
                     {
-                        vControllerDelay_Mouse = Environment.TickCount + vControllerDelayNanoTicks;
+                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayNanoTicks;
                     }
                 }
             }
@@ -99,7 +100,7 @@ namespace DirectXInput.KeyboardCode
             bool ControllerDelayMedium = false;
             try
             {
-                if (Environment.TickCount >= vControllerDelay_Keyboard)
+                if (GetSystemTicksMs() >= vControllerDelay_Keyboard)
                 {
                     //Send internal arrow left key
                     if (ControllerInput.DPadLeft.PressedRaw)
@@ -231,11 +232,11 @@ namespace DirectXInput.KeyboardCode
 
                     if (ControllerDelayShort)
                     {
-                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayShortTicks;
+                        vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayShortTicks;
                     }
                     else if (ControllerDelayMedium)
                     {
-                        vControllerDelay_Keyboard = Environment.TickCount + vControllerDelayMediumTicks;
+                        vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayMediumTicks;
                     }
                 }
             }

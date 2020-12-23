@@ -252,8 +252,8 @@ namespace LibraryShared
                 }
             }
 
-            private int PrivRunningTimeLastUpdate = 0;
-            public int RunningTimeLastUpdate
+            private long PrivRunningTimeLastUpdate = 0;
+            public long RunningTimeLastUpdate
             {
                 get { return this.PrivRunningTimeLastUpdate; }
                 set

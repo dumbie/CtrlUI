@@ -1,8 +1,8 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVClassConverters;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -51,7 +51,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Environment.TickCount >= Controller.Delay_CtrlUIOutput)
+                if (GetSystemTicksMs() >= Controller.Delay_CtrlUIOutput)
                 {
                     //Check if socket server is running
                     if (vArnoldVinkSockets == null)
@@ -72,7 +72,7 @@ namespace DirectXInput
                     await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vSocketTimeout, false);
 
                     //Update delay time
-                    Controller.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayNanoTicks;
+                    Controller.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayNanoTicks;
                 }
             }
             catch { }

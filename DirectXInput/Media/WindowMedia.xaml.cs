@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInterface;
@@ -69,10 +70,10 @@ namespace DirectXInput.MediaCode
                     await TasksBackgroundStop();
 
                     //Delay CtrlUI output
-                    vController0.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayMediumTicks;
-                    vController1.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayMediumTicks;
-                    vController2.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayMediumTicks;
-                    vController3.Delay_CtrlUIOutput = Environment.TickCount + vControllerDelayMediumTicks;
+                    vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
 
                     //Play window close sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
@@ -99,7 +100,7 @@ namespace DirectXInput.MediaCode
                 await App.vWindowKeypad.Hide();
 
                 //Delay media input
-                vControllerDelay_Media = Environment.TickCount + vControllerDelayMediumTicks;
+                vControllerDelay_Media = GetSystemTicksMs() + vControllerDelayMediumTicks;
 
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);

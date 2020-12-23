@@ -45,7 +45,7 @@
         public class KeypadDownStatus
         {
             public bool Pressed { get; set; } = false;
-            public int LastPress { get; set; } = 0;
+            public long LastPressMs { get; set; } = 0;
         }
     }
 }
