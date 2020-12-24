@@ -144,6 +144,9 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketCleanTcp.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketCleanTcp.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketCleanUdp.cs">
+      <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketCleanUdp.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketClientTcp.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketClientTcp.cs</Link>
     </Compile>

@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
@@ -15,7 +14,7 @@ namespace DirectXInput
     partial class WindowMain
     {
         //Handle received socket data
-        public async Task ReceivedSocketHandler(TcpClient tcpClient, IPEndPoint endPoint, byte[] receivedBytes)
+        public async Task ReceivedSocketHandler(TcpClient tcpClient, UdpEndPointDetails endPoint, byte[] receivedBytes)
         {
             try
             {
@@ -111,12 +110,12 @@ namespace DirectXInput
             catch { }
         }
 
-        void ReceivedUdpSocketHandlerThread(IPEndPoint endPoint, byte[] receivedBytes)
+        void ReceivedUdpSocketHandlerThread(UdpEndPointDetails endPoint, byte[] receivedBytes)
         {
             try
             {
                 //Get the source server ip and port
-                //Debug.WriteLine("Received udp socket from: " + endPoint.Address.ToString() + ":" + endPoint.Port);
+                //Debug.WriteLine("Received udp socket from: " + endPoint.IPEndPoint.Address.ToString() + ":" + endPoint.IPEndPoint.Port);
 
                 //Check incoming gyro dsu bytes
                 if (GyroDsuClientHandler(endPoint, receivedBytes)) { return; }

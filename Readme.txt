@@ -54,9 +54,12 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
 | Changelog
+v1.50.0.0 (25-December-2020)
+- Added controller motion gyroscope DSU client support.
+* Miscellaneous application improvements and fixes.
+
 v1.34.0.0 (12-December-2020)
 - Switched virtual Xbox controller driver to ViGEmBus.
-* Miscellaneous application improvements and fixes.
 
 v1.33.0.0 (12-November-2020)
 - Added Sony PlayStation 5 DualSense controller support.

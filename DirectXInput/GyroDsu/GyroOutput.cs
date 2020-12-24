@@ -13,10 +13,9 @@ namespace DirectXInput
         {
             try
             {
-                //Debug.WriteLine("Sending gyro motion to dsu client.");
-
                 //Check if client endpoint is set
-                if (controller.GyroDsuClientEndPoint == null) { return; }
+                if (controller.GyroDsuClientEndPoint == null || !controller.GyroDsuClientEndPoint.Active) { return; }
+                //Debug.WriteLine("Sending gyro motion to dsu client.");
 
                 //Set message header
                 byte[] sendBytes = new byte[100];
@@ -127,10 +126,9 @@ namespace DirectXInput
                 sendBytes[11] = checksum[3];
 
                 //Send bytes to dsu client
-                if (!await vArnoldVinkSockets.UdpClientSendBytes(controller.GyroDsuClientEndPoint, sendBytes, 1000))
+                if (!await vArnoldVinkSockets.UdpClientSendBytes(controller.GyroDsuClientEndPoint.IPEndPoint, sendBytes, 1000))
                 {
-                    Debug.WriteLine("Failed to send bytes to dsu client, resetting endpoint.");
-                    controller.GyroDsuClientEndPoint = null;
+                    Debug.WriteLine("Failed to send bytes to dsu client.");
                 }
             }
             catch { }

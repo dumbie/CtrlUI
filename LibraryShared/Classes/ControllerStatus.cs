@@ -1,8 +1,8 @@
 ﻿using LibraryUsb;
 using System;
 using System.Diagnostics;
-using System.Net;
 using System.Threading;
+using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVActions;
 using static LibraryUsb.NativeMethods_IoControl;
 using static LibraryUsb.WinUsbDevice;
@@ -58,7 +58,7 @@ namespace LibraryShared
 
             //Gyro Variables
             public uint GyroPacketNumber = 0;
-            public IPEndPoint GyroDsuClientEndPoint = null;
+            public UdpEndPointDetails GyroDsuClientEndPoint = null;
 
             //Device In and Output
             public int InputButtonCountLoop1 = 0;

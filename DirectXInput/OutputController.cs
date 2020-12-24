@@ -28,15 +28,13 @@ namespace DirectXInput
                 {
                     try
                     {
+                        //Delay task to prevent high cpu usage
+                        TaskDelayMs(1);
+
                         //Check if the rumble value has changed
                         bool heavyRumbleChanged = Controller.XOutputCurrentRumbleHeavy == Controller.XOutputPreviousRumbleHeavy;
                         bool lightRumbleChanged = Controller.XOutputCurrentRumbleLight == Controller.XOutputPreviousRumbleLight;
-                        if (heavyRumbleChanged && lightRumbleChanged)
-                        {
-                            //Delay task to prevent high cpu usage
-                            TaskDelayMs(1);
-                            continue;
-                        }
+                        if (heavyRumbleChanged && lightRumbleChanged) { continue; }
 
                         //Update the previous rumble value
                         Controller.XOutputPreviousRumbleHeavy = Controller.XOutputCurrentRumbleHeavy;
