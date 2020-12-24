@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.ArnoldVinkSockets;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.CRC32;
@@ -9,13 +10,78 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        private async Task SendGyroMotion(ControllerStatus controller)
+        async Task SendGyroInformation(UdpEndPointDetails endPoint, int numberId, bool connected)
+        {
+            try
+            {
+                //Check if client endpoint is set
+                if (endPoint == null || !endPoint.Active) { return; }
+                //Debug.WriteLine("Sending controller " + numberId + " information to dsu client.");
+
+                //Set message header
+                byte[] sendBytes = new byte[32];
+                sendBytes[0] = (byte)'D';
+                sendBytes[1] = (byte)'S';
+                sendBytes[2] = (byte)'U';
+                sendBytes[3] = (byte)'S';
+
+                //Set message protocol
+                byte[] protocolBytes = BitConverter.GetBytes(1001);
+                sendBytes[4] = protocolBytes[0];
+                sendBytes[5] = protocolBytes[1];
+
+                //Set message length
+                byte[] lengthBytes = BitConverter.GetBytes(sendBytes.Length - 16);
+                sendBytes[6] = lengthBytes[0];
+                sendBytes[7] = lengthBytes[1];
+
+                //Set message type
+                byte[] typeBytes = BitConverter.GetBytes((uint)DsuMessageType.DSUS_PortInfo);
+                sendBytes[16] = typeBytes[0];
+                sendBytes[17] = typeBytes[1];
+                sendBytes[18] = typeBytes[2];
+                sendBytes[19] = typeBytes[3];
+
+                //Set controller status
+                sendBytes[20] = (byte)numberId;
+                sendBytes[21] = connected ? (byte)DsuState.Connected : (byte)DsuState.Disconnected;
+                sendBytes[22] = (byte)DsuModel.DualShock4;
+                sendBytes[23] = (byte)DsuConnectionType.None;
+
+                //Set mac address
+                sendBytes[24] = 0;
+                sendBytes[25] = 0;
+                sendBytes[26] = 0;
+                sendBytes[27] = 0;
+                sendBytes[28] = 0;
+                sendBytes[29] = (byte)numberId;
+
+                //Set battery status
+                sendBytes[30] = (byte)DsuBattery.None;
+
+                //Compute and set CRC32 hash
+                byte[] checksum = ComputeHashCRC32(sendBytes, false);
+                sendBytes[8] = checksum[0];
+                sendBytes[9] = checksum[1];
+                sendBytes[10] = checksum[2];
+                sendBytes[11] = checksum[3];
+
+                //Send bytes to dsu client
+                if (!await vArnoldVinkSockets.UdpClientSendBytes(endPoint.IPEndPoint, sendBytes, vArnoldVinkSockets.vSocketTimeout))
+                {
+                    Debug.WriteLine("Failed to send information bytes to dsu client.");
+                }
+            }
+            catch { }
+        }
+
+        async Task SendGyroMotion(ControllerStatus controller)
         {
             try
             {
                 //Check if client endpoint is set
                 if (controller.GyroDsuClientEndPoint == null || !controller.GyroDsuClientEndPoint.Active) { return; }
-                //Debug.WriteLine("Sending gyro motion to dsu client.");
+                //Debug.WriteLine("Sending gyro motion " + controller.NumberId + " to dsu client.");
 
                 //Set message header
                 byte[] sendBytes = new byte[100];
@@ -73,7 +139,7 @@ namespace DirectXInput
                     controller.GyroPacketNumber++;
                 }
 
-                //Set time stamp
+                //Set timestamp
                 byte[] timeStampBytes = BitConverter.GetBytes(Stopwatch.GetTimestamp() / 10);
                 sendBytes[68] = timeStampBytes[0];
                 sendBytes[69] = timeStampBytes[1];
@@ -126,9 +192,9 @@ namespace DirectXInput
                 sendBytes[11] = checksum[3];
 
                 //Send bytes to dsu client
-                if (!await vArnoldVinkSockets.UdpClientSendBytes(controller.GyroDsuClientEndPoint.IPEndPoint, sendBytes, 1000))
+                if (!await vArnoldVinkSockets.UdpClientSendBytes(controller.GyroDsuClientEndPoint.IPEndPoint, sendBytes, vArnoldVinkSockets.vSocketTimeout))
                 {
-                    Debug.WriteLine("Failed to send bytes to dsu client.");
+                    Debug.WriteLine("Failed to send motion bytes to dsu client.");
                 }
             }
             catch { }

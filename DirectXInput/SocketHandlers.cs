@@ -28,7 +28,7 @@ namespace DirectXInput
                         }
                         else
                         {
-                            ReceivedUdpSocketHandlerThread(endPoint, receivedBytes);
+                            await ReceivedUdpSocketHandlerThread(endPoint, receivedBytes);
                         }
                     }
                     catch { }
@@ -110,7 +110,7 @@ namespace DirectXInput
             catch { }
         }
 
-        void ReceivedUdpSocketHandlerThread(UdpEndPointDetails endPoint, byte[] receivedBytes)
+        async Task ReceivedUdpSocketHandlerThread(UdpEndPointDetails endPoint, byte[] receivedBytes)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace DirectXInput
                 //Debug.WriteLine("Received udp socket from: " + endPoint.IPEndPoint.Address.ToString() + ":" + endPoint.IPEndPoint.Port);
 
                 //Check incoming gyro dsu bytes
-                if (GyroDsuClientHandler(endPoint, receivedBytes)) { return; }
+                if (await GyroDsuClientHandler(endPoint, receivedBytes)) { return; }
             }
             catch { }
         }
