@@ -7,5 +7,6 @@
     <add key="ShortcutAltTab" value="True"/>
     <add key="ShortcutWinTab" value="False"/>
     <add key="ShortcutScreenshot" value="True"/>
+    <add key="ShortcutMediaPopup" value="True"/>
   </appSettings>
 </configuration>

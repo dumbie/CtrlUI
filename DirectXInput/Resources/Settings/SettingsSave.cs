@@ -114,6 +114,12 @@ namespace DirectXInput
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
+                cb_SettingsShortcutMediaPopup.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutMediaPopup", cb_SettingsShortcutMediaPopup.IsChecked.ToString());
+                    await NotifyCtrlUISettingChanged("Shortcut");
+                };
+
                 //Keyboard settings
                 slider_KeyboardOpacity.ValueChanged += (sender, e) =>
                 {

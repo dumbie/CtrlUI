@@ -86,10 +86,13 @@ namespace DirectXInput
                     //Show or hide the media controller
                     else if (Controller.InputCurrent.ButtonTouchpad.PressedRaw)
                     {
-                        await MediaControllerHideShow(false);
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup")))
+                        {
+                            await MediaControllerHideShow(false);
 
-                        ControllerUsed = true;
-                        ControllerDelayLonger = true;
+                            ControllerUsed = true;
+                            ControllerDelayLonger = true;
+                        }
                     }
                     //Mute or unmute the input/microphone
                     else if (Controller.InputCurrent.ButtonMedia.PressedRaw)

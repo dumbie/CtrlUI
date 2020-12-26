@@ -79,6 +79,16 @@ namespace CtrlUI
                         sp_ControllerHelpScreenshot.Visibility = Visibility.Collapsed;
                     }
 
+                    bool ShortcutMediaPopup = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup"));
+                    if (processDirectXInputRunning && ShortcutMediaPopup)
+                    {
+                        sp_ControllerHelpTouchpad.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        sp_ControllerHelpTouchpad.Visibility = Visibility.Collapsed;
+                    }
+
                     bool ShortcutAltEnter = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter"));
                     if (processDirectXInputRunning && ShortcutAltEnter)
                     {

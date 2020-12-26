@@ -325,33 +325,36 @@
                     <Grid Grid.Row="1">
                         <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
                             <StackPanel>
-                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Connection Settings"/>
+                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Connection Shortcuts"/>
                                 <CheckBox Name="cb_SettingsShortcutDisconnectBluetooth" Content="Disconnect the controller by pressing Guide and Start combined" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will unplug the Xbox controller and disconnect your controller from Bluetooth when the Guide and Start buttons are pressed together." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <TextBlock Text="Enabling this will allow you to unplug the virtual Xbox controller and disconnect your controller from bluetooth with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Settings"/>
-                                <CheckBox Name="cb_SettingsShortcutLaunchCtrlUI" Content="Open or launch CtrlUI by pressing the Guide button shortly" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will launch CtrlUI when the Guide button is shortly pressed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Shortcuts"/>
+                                <CheckBox Name="cb_SettingsShortcutLaunchCtrlUI" Content="Show or launch CtrlUI by pressing the Guide button" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will allow you to show or launch CtrlUI with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                                <CheckBox Name="cb_SettingsShortcutLaunchKeyboardController" Margin="0,10,0,0" Content="Open keyboard by holding the Guide button" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will show the keyboard when the Guide button is hold down." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <CheckBox Name="cb_SettingsShortcutLaunchKeyboardController" Margin="0,10,0,0" Content="Show keyboard popup by holding the Guide button" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will allow you to show the keyboard popup with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Windows Settings"/>
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Windows Shortcuts"/>
                                 <CheckBox Name="cb_SettingsShortcutAltEnter" Content="Press Alt and Enter by pressing RB and Start combined" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will allow you to use Alt and Enter when you press RB and Start on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <TextBlock Text="Enabling this will allow you to press Alt and Enter with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <CheckBox Name="cb_SettingsShortcutAltTab" Content="Press Alt and Tab by pressing RB and Back combined" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will allow you to use Alt and Tab when you press RB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <TextBlock Text="Enabling this will allow you to press Alt and Tab with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <CheckBox Name="cb_SettingsShortcutWinTab" Content="Press Win and Tab by pressing RB and Back combined" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will allow you to use Win and Tab when you press RB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <TextBlock Text="Enabling this will allow you to press Win and Tab with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <CheckBox Name="cb_SettingsShortcutAltF4" Content="Press Alt and F4 by pressing LB and Start combined" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will allow you to use Alt and F4 when you press LB and Start on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <TextBlock Text="Enabling this will allow you to press Alt and F4 with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Screenshot Settings"/>
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Other Shortcuts"/>
                                 <CheckBox Name="cb_SettingsShortcutScreenshot" Content="Create screenshot by pressing LB and Back combined*" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will allow you to take a screenshot when you press LB and Back on your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <TextBlock Text="Enabling this will allow you to take a screenshot with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Name="cb_SettingsShortcutMediaPopup" Content="Show media control popup by pressing the touchpad" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will allow you to show the media control popup with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Text="* Screenshots will be saved in your 'Pictures\Screenshots' directory." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>
