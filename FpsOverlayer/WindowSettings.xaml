@@ -17,10 +17,14 @@
         Background="{DynamicResource ApplicationWhiteBrush}">
 
     <!-- Grid Settings -->
-    <Grid Margin="10,0,0,0">
+    <Grid Margin="10">
         <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
-            <StackPanel Margin="0,0,0,5">
-                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Display Settings"/>
+            <StackPanel>
+                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Launch Settings"/>
+                <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will launch Fps Overlayer when you start Windows automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Display Settings"/>
                 <CheckBox Name="checkbox_DisplayBackground" Content="Display background behind text" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will display a background behind the stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
@@ -130,7 +134,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Name="checkbox_GpuShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_GpuCategoryTitle" MaxLength="20"  Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                    <TextBox Name="textbox_GpuCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                 </StackPanel>
                 <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
@@ -168,7 +172,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Name="checkbox_CpuShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_CpuCategoryTitle" MaxLength="20"  Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                    <TextBox Name="textbox_CpuCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                 </StackPanel>
                 <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
@@ -200,7 +204,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Name="checkbox_MemShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_MemCategoryTitle" MaxLength="20"  Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                    <TextBox Name="textbox_MemCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                 </StackPanel>
                 <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
@@ -229,7 +233,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Name="checkbox_NetShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_NetCategoryTitle" MaxLength="20"  Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                    <TextBox Name="textbox_NetCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                 </StackPanel>
                 <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
@@ -249,7 +253,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Name="checkbox_FpsShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_FpsCategoryTitle" MaxLength="20"  Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                    <TextBox Name="textbox_FpsCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
                 </StackPanel>
                 <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Windows.Media;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Settings;
@@ -119,6 +121,16 @@ namespace FpsOverlayer
 
                 //Update stats position text
                 UpdateStatsPositionText();
+
+                //Set the application name to string to check shortcuts
+                string targetName = Assembly.GetEntryAssembly().GetName().Name;
+
+                //Check if application is set to launch on Windows startup
+                string targetFileStartup = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), targetName + ".url");
+                if (File.Exists(targetFileStartup))
+                {
+                    cb_SettingsWindowsStartup.IsChecked = true;
+                }
 
                 return true;
             }

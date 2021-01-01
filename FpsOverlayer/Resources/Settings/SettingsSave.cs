@@ -14,6 +14,8 @@ namespace FpsOverlayer
         {
             try
             {
+                cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };
+
                 checkbox_DisplayBackground.Click += (sender, e) =>
                 {
                     Setting_Save(vConfigurationFpsOverlayer, "DisplayBackground", checkbox_DisplayBackground.IsChecked.ToString());
