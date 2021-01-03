@@ -17,6 +17,12 @@ namespace LibraryShared
             public byte TriggerLeft = 0;
             public byte TriggerRight = 0;
 
+            //Raw Touchpad
+            public byte TouchpadActive = 0;
+            public byte TouchpadId = 0;
+            public int TouchpadX = 0;
+            public int TouchpadY = 0;
+
             //Raw Gyroscope
             public float GyroPitch = 0;
             public float GyroYaw = 0;

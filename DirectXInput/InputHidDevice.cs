@@ -163,6 +163,7 @@ namespace DirectXInput
                         int OffsetButtonsGroup3 = Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte; //Guide, Touchpad, Mute
                         int OffsetTriggerLeft = Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
                         int OffsetTriggerRight = Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
+                        int OffsetTouchpad = Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
                         int OffsetGyroscope = Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
                         int OffsetAccelerometer = Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
                         if (Controller.Details.Wireless)
@@ -176,6 +177,7 @@ namespace DirectXInput
                             OffsetButtonsGroup3 += Controller.SupportedCurrent.OffsetWireless.ButtonsGroup3 + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
                             OffsetTriggerLeft += Controller.SupportedCurrent.OffsetWireless.TriggerLeft + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
                             OffsetTriggerRight += Controller.SupportedCurrent.OffsetWireless.TriggerRight + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
+                            OffsetTouchpad += Controller.SupportedCurrent.OffsetWireless.Touchpad + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
                             OffsetGyroscope += Controller.SupportedCurrent.OffsetWireless.Gyroscope + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
                             OffsetAccelerometer += Controller.SupportedCurrent.OffsetWireless.Accelerometer + Controller.SupportedCurrent.OffsetWireless.BeginOffset;
                         }
@@ -190,6 +192,7 @@ namespace DirectXInput
                             OffsetButtonsGroup3 += Controller.SupportedCurrent.OffsetUsb.ButtonsGroup3 + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
                             OffsetTriggerLeft += Controller.SupportedCurrent.OffsetUsb.TriggerLeft + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
                             OffsetTriggerRight += Controller.SupportedCurrent.OffsetUsb.TriggerRight + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
+                            OffsetTouchpad += Controller.SupportedCurrent.OffsetUsb.Touchpad + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
                             OffsetGyroscope += Controller.SupportedCurrent.OffsetUsb.Gyroscope + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
                             OffsetAccelerometer += Controller.SupportedCurrent.OffsetUsb.Accelerometer + Controller.SupportedCurrent.OffsetUsb.BeginOffset;
                         }
@@ -398,9 +401,30 @@ namespace DirectXInput
                             }
                         }
 
+                        //Raw Touchpad
+                        if (Controller.SupportedCurrent.HasTouchpad)
+                        {
+                            byte touchByte0 = Controller.InputReport[OffsetTouchpad];
+                            byte touchByte1 = Controller.InputReport[OffsetTouchpad + 1];
+                            byte touchByte2 = Controller.InputReport[OffsetTouchpad + 2];
+                            byte touchByte3 = Controller.InputReport[OffsetTouchpad + 3];
+
+                            if ((touchByte0 & 0x80) == 0)
+                            {
+                                Controller.InputCurrent.TouchpadActive = 1;
+                            }
+                            else
+                            {
+                                Controller.InputCurrent.TouchpadActive = 0;
+                            }
+                            Controller.InputCurrent.TouchpadId = (byte)(touchByte0 & 0x7F);
+                            Controller.InputCurrent.TouchpadX = ((ushort)(touchByte2 & 0x0F) << 8) | touchByte1;
+                            Controller.InputCurrent.TouchpadY = (touchByte3 << 4) | ((ushort)(touchByte2 & 0xF0) >> 4);
+                        }
+
+                        //Raw Gyroscope
                         if (Controller.SupportedCurrent.HasGyroscope)
                         {
-                            //Raw Gyroscope
                             byte gyroByte0 = Controller.InputReport[OffsetGyroscope];
                             byte gyroByte1 = Controller.InputReport[OffsetGyroscope + 1];
                             byte gyroByte2 = Controller.InputReport[OffsetGyroscope + 2];
@@ -415,8 +439,11 @@ namespace DirectXInput
                             Controller.InputCurrent.GyroPitch = gyroPitch / (float)16;
                             Controller.InputCurrent.GyroYaw = -gyroYaw / (float)16;
                             Controller.InputCurrent.GyroRoll = -gyroRoll / (float)16;
+                        }
 
-                            //Raw Accelerometer
+                        //Raw Accelerometer
+                        if (Controller.SupportedCurrent.HasAccelerometer)
+                        {
                             byte accelByte0 = Controller.InputReport[OffsetAccelerometer];
                             byte accelByte1 = Controller.InputReport[OffsetAccelerometer + 1];
                             byte accelByte2 = Controller.InputReport[OffsetAccelerometer + 2];

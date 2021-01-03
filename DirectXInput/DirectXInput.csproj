@@ -168,7 +168,7 @@
     <Compile Include="OutputController.cs" />
     <Compile Include="InputController.cs" />
     <Compile Include="ConnectionFunctions.cs" />
-    <Compile Include="SettingsFunctions.cs" />
+    <Compile Include="Resources\Settings\SettingsFunctions.cs" />
     <Compile Include="SocketHandlers.cs" />
     <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Button.xaml">
       <Link>Styles\ControlTemplates\Button.xaml</Link>

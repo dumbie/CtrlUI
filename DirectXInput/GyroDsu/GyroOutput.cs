@@ -125,19 +125,29 @@ namespace DirectXInput
                 sendBytes[30] = (byte)DsuBattery.None;
 
                 //Set packet number
-                byte[] packetNumberBytes = BitConverter.GetBytes(controller.GyroPacketNumber);
+                byte[] packetNumberBytes = BitConverter.GetBytes(controller.GyroDsuClientPacketNumber);
                 sendBytes[32] = packetNumberBytes[0];
                 sendBytes[33] = packetNumberBytes[1];
                 sendBytes[34] = packetNumberBytes[2];
                 sendBytes[35] = packetNumberBytes[3];
-                if (controller.GyroPacketNumber >= 100000)
+                if (controller.GyroDsuClientPacketNumber >= 100000)
                 {
-                    controller.GyroPacketNumber = 0;
+                    controller.GyroDsuClientPacketNumber = 0;
                 }
                 else
                 {
-                    controller.GyroPacketNumber++;
+                    controller.GyroDsuClientPacketNumber++;
                 }
+
+                //Set touchpad
+                byte[] touchXBytes = BitConverter.GetBytes(controller.InputCurrent.TouchpadX);
+                byte[] touchYBytes = BitConverter.GetBytes(controller.InputCurrent.TouchpadY);
+                sendBytes[56] = controller.InputCurrent.TouchpadActive;
+                sendBytes[57] = controller.InputCurrent.TouchpadId;
+                sendBytes[58] = touchXBytes[0];
+                sendBytes[59] = touchXBytes[1];
+                sendBytes[60] = touchYBytes[0];
+                sendBytes[61] = touchYBytes[1];
 
                 //Set timestamp
                 byte[] timeStampBytes = BitConverter.GetBytes(Stopwatch.GetTimestamp() / 10);

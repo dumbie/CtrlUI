@@ -56,8 +56,8 @@ namespace LibraryShared
             //Hid Device Variables
             public HidDevice HidDevice = null;
 
-            //Gyro Variables
-            public uint GyroPacketNumber = 0;
+            //Gyro Dsu Client Variables
+            public uint GyroDsuClientPacketNumber = 0;
             public UdpEndPointDetails GyroDsuClientEndPoint = null;
 
             //Device In and Output
@@ -128,8 +128,8 @@ namespace LibraryShared
                     //Hid Device Variables
                     HidDevice = null;
 
-                    //Gyro Variables
-                    GyroPacketNumber = 0;
+                    //Gyro Dsu Client Variables
+                    GyroDsuClientPacketNumber = 0;
                     GyroDsuClientEndPoint = null;
 
                     //Device In and Output
