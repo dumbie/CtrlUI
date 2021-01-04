@@ -35,6 +35,7 @@
       "ButtonsGroup3": 9,
       "TriggerLeft": 4,
       "TriggerRight": 5,
+      "Touchpad": 32,
       "Gyroscope": 15,
       "Accelerometer": 21
     },
@@ -44,6 +45,7 @@
       "ButtonsGroup3": 9,
       "TriggerLeft": 4,
       "TriggerRight": 5,
+      "Touchpad": 32,
       "Gyroscope": 15,
       "Accelerometer": 21
     }
