@@ -71,11 +71,18 @@ namespace CtrlUI
                     cb_SettingsWindowsStartup.IsChecked = true;
                 }
 
-                //Check if application is added to GeForce Experience
-                string targetFileGeforce = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/", targetName + ".url");
-                if (File.Exists(targetFileGeforce))
+                //Check if ctrlui is added to GeForce Experience
+                string targetFileGeforceCtrlUI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/", targetName + ".url");
+                if (File.Exists(targetFileGeforceCtrlUI))
                 {
                     btn_Settings_AddGeforceExperience_TextBlock.Text = "Remove CtrlUI from GeForce Experience";
+                }
+
+                //Check if remote desktop is added to GeForce Experience
+                string targetFileGeforceRemote = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/", "Remote Desktop.url");
+                if (File.Exists(targetFileGeforceRemote))
+                {
+                    btn_Settings_AddRemoteDesktop_TextBlock.Text = "Remove Remote Desktop from GeForce Experience";
                 }
 
                 //Background settings

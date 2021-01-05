@@ -15,7 +15,7 @@ namespace DirectXInput
             try
             {
                 //Set application shortcut paths
-                string targetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
+                string targetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe").Replace("file:///", string.Empty);
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;
                 string targetFileShortcut = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), targetName + ".url");
 
@@ -27,7 +27,7 @@ namespace DirectXInput
                     {
                         StreamWriter.WriteLine("[InternetShortcut]");
                         StreamWriter.WriteLine("URL=" + targetFilePath);
-                        StreamWriter.WriteLine("IconFile=" + targetFilePath.Replace("file:///", ""));
+                        StreamWriter.WriteLine("IconFile=" + targetFilePath);
                         StreamWriter.WriteLine("IconIndex=0");
                         StreamWriter.Flush();
                     }

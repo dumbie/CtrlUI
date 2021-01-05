@@ -453,13 +453,13 @@ namespace CtrlUI
             catch { }
         }
 
-        //Create geforce experience shortcut
+        //Create ctrlui geforce experience shortcut
         async void Button_Settings_AddGeforceExperience_Click(object sender, RoutedEventArgs args)
         {
             try
             {
                 //Set application shortcut paths
-                string TargetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe");
+                string TargetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe").Replace("file:///", string.Empty);
                 string TargetName = Assembly.GetEntryAssembly().GetName().Name;
                 string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/" + TargetName + ".url";
                 string TargetFileBoxArtFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/Default/" + TargetName + "/box-art.png";
@@ -479,7 +479,7 @@ namespace CtrlUI
                     {
                         StreamWriter.WriteLine("[InternetShortcut]");
                         StreamWriter.WriteLine("URL=" + TargetFilePath);
-                        StreamWriter.WriteLine("IconFile=" + TargetFilePath.Replace("file:///", ""));
+                        StreamWriter.WriteLine("IconFile=" + TargetFilePath);
                         StreamWriter.WriteLine("IconIndex=0");
                         StreamWriter.Flush();
                     }
@@ -525,6 +525,81 @@ namespace CtrlUI
 
                 Debug.WriteLine("Failed add GeForce Experience: " + ex.Message);
                 await Popup_Show_MessageBox("Failed to add CtrlUI to GeForce Experience", "", "Please make sure that GeForce experience is installed.", Answers);
+            }
+        }
+
+        //Create remote desktop geforce experience shortcut
+        async void Button_Settings_AddRemoteDesktop_Click(object sender, RoutedEventArgs args)
+        {
+            try
+            {
+                //Set application shortcut paths
+                string TargetFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\System32\mstsc.exe";
+                string TargetName = "Remote Desktop";
+                string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/" + TargetName + ".url";
+                string TargetFileBoxArtFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/Default/" + TargetName + "/box-art.png";
+                string TargetFileBoxArtDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/Default/" + TargetName;
+                string TargetDirectoryStreamingAssets = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets";
+
+                //Check if the Streaming Assets folder exists
+                Directory_Create(TargetDirectoryStreamingAssets, false);
+                Directory_Create(TargetFileBoxArtDirectory, false);
+
+                //Check if the shortcut already exists
+                if (!File.Exists(TargetFileShortcut))
+                {
+                    Debug.WriteLine("Adding application to GeForce Experience");
+
+                    using (StreamWriter StreamWriter = new StreamWriter(TargetFileShortcut))
+                    {
+                        StreamWriter.WriteLine("[InternetShortcut]");
+                        StreamWriter.WriteLine("URL=" + TargetFilePath);
+                        StreamWriter.WriteLine("IconFile=" + TargetFilePath);
+                        StreamWriter.WriteLine("IconIndex=0");
+                        StreamWriter.Flush();
+                    }
+
+                    //Copy art box to the Streaming Assets directory
+                    File_Copy("Assets/BoxArt-RemoteDesktop.png", TargetFileBoxArtFile, true);
+
+                    btn_Settings_AddRemoteDesktop_TextBlock.Text = "Remove Remote Desktop from GeForce Experience";
+
+                    List<DataBindString> Answers = new List<DataBindString>();
+                    DataBindString Answer1 = new DataBindString();
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.Name = "Ok";
+                    Answers.Add(Answer1);
+
+                    await Popup_Show_MessageBox("Remote Desktop has been added to GeForce Experience", "", "You can now remotely launch Remote Desktop from your devices.", Answers);
+                }
+                else
+                {
+                    Debug.WriteLine("Removing application from GeForce Experience");
+
+                    File_Delete(TargetFileShortcut);
+                    Directory_Delete(TargetFileBoxArtDirectory);
+
+                    btn_Settings_AddRemoteDesktop_TextBlock.Text = "Add Remote Desktop to GeForce Experience";
+
+                    List<DataBindString> Answers = new List<DataBindString>();
+                    DataBindString Answer1 = new DataBindString();
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.Name = "Ok";
+                    Answers.Add(Answer1);
+
+                    await Popup_Show_MessageBox("Remote Desktop has been removed from GeForce Experience", "", "", Answers);
+                }
+            }
+            catch (Exception ex)
+            {
+                List<DataBindString> Answers = new List<DataBindString>();
+                DataBindString Answer1 = new DataBindString();
+                Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                Answer1.Name = "Ok";
+                Answers.Add(Answer1);
+
+                Debug.WriteLine("Failed add GeForce Experience: " + ex.Message);
+                await Popup_Show_MessageBox("Failed to add Remote Desktop to GeForce Experience", "", "Please make sure that GeForce experience is installed.", Answers);
             }
         }
     }

@@ -176,6 +176,7 @@ namespace CtrlUI
                 btn_Settings_CheckControllers.Click += Button_Settings_CheckControllers_Click;
                 btn_Settings_CheckForUpdate.Click += Button_Settings_CheckForUpdate_Click;
                 btn_Settings_AddGeforceExperience.Click += Button_Settings_AddGeforceExperience_Click;
+                btn_Settings_AddRemoteDesktop.Click += Button_Settings_AddRemoteDesktop_Click;
                 btn_Settings_ColorPickerAccent.Click += Button_Settings_ColorPickerAccent;
                 btn_Settings_ChangeBackgroundImage.Click += Button_Settings_ChangeBackgroundImage_Click;
                 btn_Settings_ChangeBackgroundVideo.Click += Button_Settings_ChangeBackgroundVideo_Click;
