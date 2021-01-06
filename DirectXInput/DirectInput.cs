@@ -295,12 +295,20 @@ namespace DirectXInput
                 if (vVirtualBusDevice != null)
                 {
                     //Stop the controller loop tasks
-                    SetAndCloseEvent(Controller.InputVirtualOverlapped.EventHandle);
-                    SetAndCloseEvent(Controller.OutputVirtualOverlapped.EventHandle);
                     await TaskStopLoop(Controller.InputControllerTask);
                     await TaskStopLoop(Controller.OutputControllerTask);
                     await TaskStopLoop(Controller.OutputVirtualTask);
                     await TaskStopLoop(Controller.OutputGyroTask);
+
+                    //Prepare empty xinput data
+                    PrepareXInputDataEmpty(Controller);
+
+                    //Send empty input to the virtual bus
+                    vVirtualBusDevice.VirtualInput(ref Controller);
+
+                    //Close the controller virtual event
+                    SetAndCloseEvent(Controller.InputVirtualOverlapped.EventHandle);
+                    SetAndCloseEvent(Controller.OutputVirtualOverlapped.EventHandle);
 
                     //Disconnect the virtual controller
                     vVirtualBusDevice.VirtualUnplug(Controller.NumberId);

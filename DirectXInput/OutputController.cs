@@ -152,10 +152,6 @@ namespace DirectXInput
                     if (triggerRumbleHighest > triggerRumbleLimit) { triggerRumbleHighest = triggerRumbleLimit; }
                     Debug.WriteLine("Trigger rumble Highest: " + triggerRumbleHighest + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
                 }
-                else
-                {
-                    triggerRumbleHighest = 0;
-                }
 
                 //Adjust the controller rumble strength
                 if (Controller.Details.Profile.ControllerRumbleEnabled)

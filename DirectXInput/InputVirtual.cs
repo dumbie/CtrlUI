@@ -52,7 +52,7 @@ namespace DirectXInput
                 if (blockOutputApplication || blockOutputShortcut || Controller.BlockOutput)
                 {
                     //Prepare empty xinput data
-                    PrepareXInputData(Controller, true);
+                    PrepareXInputDataEmpty(Controller);
                 }
                 else
                 {
@@ -63,7 +63,7 @@ namespace DirectXInput
                     }
 
                     //Prepare current xinput data
-                    PrepareXInputData(Controller, false);
+                    PrepareXInputDataCurrent(Controller);
                 }
 
                 //Send input to the virtual bus
