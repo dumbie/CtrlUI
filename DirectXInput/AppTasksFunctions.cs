@@ -65,5 +65,20 @@ namespace DirectXInput
             }
             catch { }
         }
+
+        async Task vTaskLoop_ControllerPreview()
+        {
+            try
+            {
+                while (!vTask_ControllerPreview.TaskStopRequest)
+                {
+                    UpdateControllerPreview();
+
+                    //Delay the loop task
+                    await TaskDelayLoop(100, vTask_ControllerPreview);
+                }
+            }
+            catch { }
+        }
     }
 }

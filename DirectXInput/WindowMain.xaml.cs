@@ -150,6 +150,7 @@ namespace DirectXInput
                     vControllerRumbleTest = true;
                     Button SendButton = sender as Button;
 
+                    UpdateControllerPreviewRumble(true);
                     if (SendButton.Name == "btn_RumbleTestLight")
                     {
                         ControllerOutput(activeController, true, false);
@@ -159,6 +160,7 @@ namespace DirectXInput
                         ControllerOutput(activeController, false, true);
                     }
                     await Task.Delay(1000);
+                    UpdateControllerPreviewRumble(false);
                     ControllerOutput(activeController, false, false);
 
                     vControllerRumbleTest = false;

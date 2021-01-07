@@ -153,10 +153,6 @@
                                 </Grid.Background>
 
                                 <!-- Preview -->
-                                <Image Name="img_ControllerPreview_ControllerRumble" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ControllerRumble.png" Visibility="Collapsed"/>
-                                <Image Name="img_ControllerPreview_TriggerRumbleLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/TriggerRumbleLeft.png" Visibility="Collapsed"/>
-                                <Image Name="img_ControllerPreview_TriggerRumbleRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/TriggerRumbleRight.png" Visibility="Collapsed"/>
-
                                 <Image Name="img_ControllerPreview_ButtonA" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="370,109,105,121"/>
                                 <Image Name="img_ControllerPreview_ButtonB" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="394,85,81,145"/>
                                 <Image Name="img_ControllerPreview_ButtonX" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="346,85,130,145"/>
@@ -293,6 +289,7 @@
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                 <Button Name="btn_RumbleTestLight" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Light"/>
                                 <Button Name="btn_RumbleTestHeavy" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Heavy" Margin="5,0,0,0"/>
+                                <Image Name="img_ControllerPreview_ControllerRumble" Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Rumble-Dark.png" Margin="5,0,0,0" Visibility="Collapsed"/>
                             </StackPanel>
 
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Led Settings"/>

@@ -167,9 +167,6 @@ namespace DirectXInput
                     controllerRumbleLight = 0;
                 }
 
-                //Update interface controller rumble preview
-                UpdateControllerPreviewRumble(Controller, controllerRumbleHeavy, controllerRumbleLight, triggerRumbleHighest, triggerRumbleHighest);
-
                 //Check which controller is connected
                 if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
                 {

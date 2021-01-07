@@ -39,9 +39,6 @@ namespace DirectXInput
                     }
                 }
 
-                //Update interface controller preview
-                UpdateControllerPreviewButtons(Controller);
-
                 //Check if controller shortcut is pressed
                 bool blockOutputShortcut = await ControllerShortcut(Controller);
 
