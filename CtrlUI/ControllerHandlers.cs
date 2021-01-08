@@ -25,7 +25,7 @@ namespace CtrlUI
                     await Controller_DPadPress(ControllerInput);
                     await Controller_StickMovement(ControllerInput);
                     await Controller_ButtonPress(ControllerInput);
-                    //Controller_TriggerPress(ControllerInput);
+                    await Controller_TriggerPress(ControllerInput);
                 }
             }
             catch { }
@@ -285,7 +285,7 @@ namespace CtrlUI
         }
 
         //Process XInput controller triggers
-        bool Controller_TriggerPress(ControllerInput ControllerInput)
+        async Task<bool> Controller_TriggerPress(ControllerInput ControllerInput)
         {
             bool ControllerUsed = false;
             bool ControllerDelayShort = false;
@@ -294,6 +294,21 @@ namespace CtrlUI
             {
                 if (GetSystemTicksMs() >= vControllerDelay_Trigger)
                 {
+                    if (ControllerInput.TriggerLeft > 0)
+                    {
+                        await ListBoxSelectNearCharacter(false);
+
+                        ControllerUsed = true;
+                        ControllerDelayShort = true;
+                    }
+                    else if (ControllerInput.TriggerRight > 0)
+                    {
+                        await ListBoxSelectNearCharacter(true);
+
+                        ControllerUsed = true;
+                        ControllerDelayShort = true;
+                    }
+
                     if (ControllerDelayShort)
                     {
                         vControllerDelay_Trigger = GetSystemTicksMs() + vControllerDelayShortTicks;
@@ -351,7 +366,7 @@ namespace CtrlUI
                     //Right stick movement
                     if (ControllerInput.ThumbRightX < -10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
                     {
-                        await ListBoxSelectNearCharacter(false);
+                        await KeySendSingle(KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -365,7 +380,7 @@ namespace CtrlUI
                     }
                     else if (ControllerInput.ThumbRightX > 10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
                     {
-                        await ListBoxSelectNearCharacter(true);
+                        await KeySendSingle(KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
