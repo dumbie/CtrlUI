@@ -4,7 +4,7 @@
     {
         public enum FileType
         {
-            GoUp,
+            GoUpPre,
             UwpApp,
             FolderPre,
             FolderDisc,

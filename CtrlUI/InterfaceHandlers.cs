@@ -31,7 +31,7 @@ namespace CtrlUI
         {
             try
             {
-                await SortAppLists(false);
+                await SortAppListsSwitch(false);
             }
             catch { }
         }

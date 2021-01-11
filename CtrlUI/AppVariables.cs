@@ -44,7 +44,7 @@ namespace CtrlUI
         public static bool vMousePressDownLeftClick = false;
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
-        public static string[] vSelectTargetLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes" };
+        public static string[] vSelectTargetLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_FilePicker" };
         public static string[] vTabTargetLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Manage_AddAppCategory" };
         public static string[] vTabTargetButtons = { "grid_Popup_TextInput_button_ConfirmText" };
 
@@ -112,7 +112,7 @@ namespace CtrlUI
         public static FrameworkElementFocus vMainMenuElementFocus = new FrameworkElementFocus();
 
         //Sort Variables
-        public static string vSortType = "Number"; //Number or Name
+        public static SortingType vSortType = SortingType.Number;
 
         //MessageBox Variables
         public static bool vMessageBoxOpen = false;
@@ -137,7 +137,7 @@ namespace CtrlUI
         public static bool vFilePickerShowRoms = false;
         public static bool vFilePickerShowFiles = true;
         public static bool vFilePickerShowDirectories = true;
-        public static bool vFilePickerSortByName = true;
+        public static SortingType vFilePickerSortType = SortingType.Name;
 
         //Profile Manager Variables
         public static string vProfileManagerName = "CtrlIgnoreProcessName";

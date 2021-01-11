@@ -306,13 +306,13 @@ namespace CtrlUI
                     if (Path.GetPathRoot(targetPath) != targetPath)
                     {
                         BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Default/Icons/Up.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        DataBindFile dataBindFileGoUp = new DataBindFile() { FileType = FileType.GoUp, Name = "Go up", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = Path.GetDirectoryName(targetPath) };
+                        DataBindFile dataBindFileGoUp = new DataBindFile() { FileType = FileType.GoUpPre, Name = "Go up", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = Path.GetDirectoryName(targetPath) };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
                     else
                     {
                         BitmapImage imageBack = FileToBitmapImage(new string[] { "Assets/Default/Icons/Up.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        DataBindFile dataBindFileGoUp = new DataBindFile() { FileType = FileType.GoUp, Name = "Go up", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = "PC" };
+                        DataBindFile dataBindFileGoUp = new DataBindFile() { FileType = FileType.GoUpPre, Name = "Go up", Description = "Go up to the previous folder.", ImageBitmap = imageBack, PathFile = "PC" };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileGoUp, false, false);
                     }
 
@@ -355,7 +355,7 @@ namespace CtrlUI
                     DirectoryInfo directoryInfo = new DirectoryInfo(targetPath);
                     DirectoryInfo[] directoryFolders = null;
                     FileInfo[] directoryFiles = null;
-                    if (vFilePickerSortByName)
+                    if (vFilePickerSortType == SortingType.Name)
                     {
                         directoryFolders = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
                         directoryFiles = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
@@ -578,7 +578,7 @@ namespace CtrlUI
                 DataBindFile dataBindFile = (DataBindFile)lb_FilePicker.SelectedItem;
 
                 //Check the file or folder
-                if (vFilePickerCurrentPath == "PC" || dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUp)
+                if (vFilePickerCurrentPath == "PC" || dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUpPre)
                 {
                     Debug.WriteLine("Invalid file type, cannot be selected.");
                     return;

@@ -15,7 +15,7 @@ namespace CtrlUI
             try
             {
                 //Check the file or folder
-                if (dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUp)
+                if (dataBindFile.FileType == FileType.FolderPre || dataBindFile.FileType == FileType.FilePre || dataBindFile.FileType == FileType.GoUpPre)
                 {
                     await Notification_Send_Status("Close", "Invalid file or folder");
                     Debug.WriteLine("Invalid file or folder: " + dataBindFile.Name + " path: " + dataBindFile.PathFile);

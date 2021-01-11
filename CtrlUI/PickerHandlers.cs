@@ -137,14 +137,14 @@ namespace CtrlUI
                     List<DataBindString> Answers = new List<DataBindString>();
 
                     //Check the file type
-                    bool preFile = selectedItem.FileType == FileType.FolderPre || selectedItem.FileType == FileType.FilePre || selectedItem.FileType == FileType.GoUp;
+                    bool preFile = selectedItem.FileType == FileType.FolderPre || selectedItem.FileType == FileType.FilePre || selectedItem.FileType == FileType.GoUpPre;
 
                     //Count checked items
                     int checkedItems = List_FilePicker.Count(x => x.Checked == Visibility.Visible);
 
                     //Check the sorting type
                     string sortType = string.Empty;
-                    if (vFilePickerSortByName)
+                    if (vFilePickerSortType == SortingType.Name)
                     {
                         sortType = "Sort files and folders by date";
                     }
@@ -271,7 +271,7 @@ namespace CtrlUI
                         //Sort files and folders
                         if (messageResult == answerSort)
                         {
-                            await FilePicker_SortFilesFolders(false);
+                            await FilePicker_SortFilesFoldersSwitch(false);
                         }
                         //Copy file or folder
                         else if (messageResult == answerCopySingle)
@@ -361,32 +361,50 @@ namespace CtrlUI
         }
 
         //Sort files and folders in picker
-        async Task FilePicker_SortFilesFolders(bool silent)
+        async Task FilePicker_SortFilesFoldersSwitch(bool silent)
         {
             try
             {
-                if (vFilePickerSortByName)
+                if (vFilePickerSortType == SortingType.Name)
                 {
-                    if (!silent)
-                    {
-                        Debug.WriteLine("Sorting files and folders by date");
-                        await Notification_Send_Status("Sorting", "Sorting by date");
-                    }
-
-                    vFilePickerSortByName = false;
-                    await Popup_Show_FilePicker(vFilePickerCurrentPath, lb_FilePicker.SelectedIndex, false, null);
+                    await FilePicker_SortFilesFoldersByDate(silent);
                 }
                 else
                 {
-                    if (!silent)
-                    {
-                        Debug.WriteLine("Sorting files and folders by name");
-                        await Notification_Send_Status("Sorting", "Sorting by name");
-                    }
-
-                    vFilePickerSortByName = true;
-                    await Popup_Show_FilePicker(vFilePickerCurrentPath, lb_FilePicker.SelectedIndex, false, null);
+                    await FilePicker_SortFilesFoldersByName(silent);
                 }
+            }
+            catch { }
+        }
+
+        async Task FilePicker_SortFilesFoldersByName(bool silent)
+        {
+            try
+            {
+                if (!silent)
+                {
+                    Debug.WriteLine("Sorting files and folders by name");
+                    await Notification_Send_Status("Sorting", "Sorting by name");
+                }
+
+                vFilePickerSortType = SortingType.Name;
+                SortObservableCollection(lb_FilePicker, List_FilePicker, x => x.Name, x => x.FileType != FileType.FolderPre && x.FileType != FileType.FilePre && x.FileType != FileType.GoUpPre, true);
+            }
+            catch { }
+        }
+
+        async Task FilePicker_SortFilesFoldersByDate(bool silent)
+        {
+            try
+            {
+                if (!silent)
+                {
+                    Debug.WriteLine("Sorting files and folders by date");
+                    await Notification_Send_Status("Sorting", "Sorting by date");
+                }
+
+                vFilePickerSortType = SortingType.Date;
+                SortObservableCollection(lb_FilePicker, List_FilePicker, x => x.DateModified, x => x.FileType != FileType.FolderPre && x.FileType != FileType.FilePre && x.FileType != FileType.GoUpPre, true);
             }
             catch { }
         }
@@ -412,7 +430,7 @@ namespace CtrlUI
 
                     //Read the root path
                     DataBindFile dataBindFile = List_FilePicker.FirstOrDefault();
-                    if (dataBindFile.FileType == FileType.GoUp)
+                    if (dataBindFile.FileType == FileType.GoUpPre)
                     {
                         Debug.WriteLine("Folder up: " + dataBindFile.PathFile + " / " + navigateIndex);
                         await Popup_Show_FilePicker(dataBindFile.PathFile, navigateIndex, false, null);
@@ -545,7 +563,7 @@ namespace CtrlUI
                     {
                         await Popup_Show_FilePicker(SelectedItem.PathFile, -1, false, null);
                     }
-                    else if (SelectedItem.FileType == FileType.GoUp)
+                    else if (SelectedItem.FileType == FileType.GoUpPre)
                     {
                         await FilePicker_GoFolderUp();
                     }

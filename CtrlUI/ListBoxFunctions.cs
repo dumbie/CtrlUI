@@ -104,57 +104,14 @@ namespace CtrlUI
                         ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
                         if (vSelectTargetLists.Contains(parentListbox.Name))
                         {
-                            //Make sure the list is sorted by name
-                            await SortAppListsByName(true);
-
-                            //Get the current character
-                            DataBindApp dataBindApp = (DataBindApp)parentListbox.SelectedItem;
-                            ObservableCollection<DataBindApp> dataBindApplist = (ObservableCollection<DataBindApp>)parentListbox.ItemsSource;
-                            char currentCharacter = dataBindApp.Name.ToUpper()[0];
-
-                            //Get the target application
-                            DataBindApp selectAppCurrent = null;
-                            if (selectNextCharacter)
+                            if (parentListbox.Name == "lb_FilePicker")
                             {
-                                int currentIndex = parentListbox.SelectedIndex;
-                                selectAppCurrent = dataBindApplist.Skip(currentIndex).Where(x => x.Name.ToUpper()[0] != currentCharacter).FirstOrDefault();
+                                await SelectNearCharacterFiles(selectNextCharacter, parentListbox);
                             }
                             else
                             {
-                                int currentIndex = dataBindApplist.Count() - parentListbox.SelectedIndex;
-                                selectAppCurrent = dataBindApplist.Reverse().Skip(currentIndex).Where(x => x.Name.ToUpper()[0] != currentCharacter).FirstOrDefault();
-                                if (selectAppCurrent != null)
-                                {
-                                    currentCharacter = selectAppCurrent.Name.ToUpper()[0];
-                                    selectAppCurrent = dataBindApplist.Where(x => x.Name.ToUpper()[0] == currentCharacter).FirstOrDefault();
-                                }
+                                await SelectNearCharacterApps(selectNextCharacter, parentListbox);
                             }
-
-                            //Select the target application
-                            if (selectAppCurrent != null)
-                            {
-                                char selectCharacterCurrent = selectAppCurrent.Name.ToUpper()[0];
-                                char selectCharacterNext1 = (char)(selectCharacterCurrent + 1);
-                                char selectCharacterNext2 = (char)(selectCharacterCurrent + 2);
-                                char selectCharacterNext3 = (char)(selectCharacterCurrent + 3);
-                                char selectCharacterPrev1 = (char)(selectCharacterCurrent - 1);
-                                char selectCharacterPrev2 = (char)(selectCharacterCurrent - 2);
-                                char selectCharacterPrev3 = (char)(selectCharacterCurrent - 3);
-                                string selectStringCurrent = selectCharacterCurrent.ToString();
-                                string selectStringNext = selectCharacterNext1.ToString() + selectCharacterNext2.ToString() + selectCharacterNext3.ToString();
-                                string selectStringPrev = selectCharacterPrev3.ToString() + selectCharacterPrev2.ToString() + selectCharacterPrev1.ToString();
-
-                                //Show character overlay
-                                ShowCharacterOverlay(selectStringCurrent, selectStringNext, selectStringPrev);
-
-                                //Listbox focus and select the item
-                                await ListBoxFocusItem(parentListbox, selectAppCurrent);
-
-                                Debug.WriteLine("Selected list character: " + selectCharacterCurrent + "/" + selectAppCurrent.Name);
-                            }
-
-                            //Play interface sound
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         }
                         else
                         {
@@ -169,6 +126,124 @@ namespace CtrlUI
                         }
                     }
                 });
+            }
+            catch { }
+        }
+
+        async Task SelectNearCharacterFiles(bool selectNextCharacter, ListBox parentListbox)
+        {
+            try
+            {
+                //Make sure the list is sorted by name
+                await FilePicker_SortFilesFoldersByName(true);
+
+                //Get the current character
+                DataBindFile dataBindApp = (DataBindFile)parentListbox.SelectedItem;
+                ObservableCollection<DataBindFile> dataBindApplist = (ObservableCollection<DataBindFile>)parentListbox.ItemsSource;
+                char currentCharacter = dataBindApp.Name.ToUpper()[0];
+
+                //Get the target application
+                DataBindFile selectAppCurrent = null;
+                if (selectNextCharacter)
+                {
+                    int currentIndex = parentListbox.SelectedIndex;
+                    selectAppCurrent = dataBindApplist.Skip(currentIndex).Where(x => x.Name.ToUpper()[0] != currentCharacter).FirstOrDefault();
+                }
+                else
+                {
+                    int currentIndex = dataBindApplist.Count() - parentListbox.SelectedIndex;
+                    selectAppCurrent = dataBindApplist.Reverse().Skip(currentIndex).Where(x => x.Name.ToUpper()[0] != currentCharacter).FirstOrDefault();
+                    if (selectAppCurrent != null)
+                    {
+                        currentCharacter = selectAppCurrent.Name.ToUpper()[0];
+                        selectAppCurrent = dataBindApplist.Where(x => x.Name.ToUpper()[0] == currentCharacter).FirstOrDefault();
+                    }
+                }
+
+                //Select the target application
+                if (selectAppCurrent != null)
+                {
+                    char selectCharacterCurrent = selectAppCurrent.Name.ToUpper()[0];
+                    char selectCharacterNext1 = (char)(selectCharacterCurrent + 1);
+                    char selectCharacterNext2 = (char)(selectCharacterCurrent + 2);
+                    char selectCharacterNext3 = (char)(selectCharacterCurrent + 3);
+                    char selectCharacterPrev1 = (char)(selectCharacterCurrent - 1);
+                    char selectCharacterPrev2 = (char)(selectCharacterCurrent - 2);
+                    char selectCharacterPrev3 = (char)(selectCharacterCurrent - 3);
+                    string selectStringCurrent = selectCharacterCurrent.ToString();
+                    string selectStringNext = selectCharacterNext1.ToString() + selectCharacterNext2.ToString() + selectCharacterNext3.ToString();
+                    string selectStringPrev = selectCharacterPrev3.ToString() + selectCharacterPrev2.ToString() + selectCharacterPrev1.ToString();
+
+                    //Show character overlay
+                    ShowCharacterOverlay(selectStringCurrent, selectStringNext, selectStringPrev);
+
+                    //Listbox focus and select the item
+                    await ListBoxFocusItem(parentListbox, selectAppCurrent);
+
+                    Debug.WriteLine("Selected list character: " + selectCharacterCurrent + "/" + selectAppCurrent.Name);
+                }
+
+                //Play interface sound
+                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+            }
+            catch { }
+        }
+
+        async Task SelectNearCharacterApps(bool selectNextCharacter, ListBox parentListbox)
+        {
+            try
+            {
+                //Make sure the list is sorted by name
+                await SortAppListsByName(true);
+
+                //Get the current character
+                DataBindApp dataBindApp = (DataBindApp)parentListbox.SelectedItem;
+                ObservableCollection<DataBindApp> dataBindApplist = (ObservableCollection<DataBindApp>)parentListbox.ItemsSource;
+                char currentCharacter = dataBindApp.Name.ToUpper()[0];
+
+                //Get the target application
+                DataBindApp selectAppCurrent = null;
+                if (selectNextCharacter)
+                {
+                    int currentIndex = parentListbox.SelectedIndex;
+                    selectAppCurrent = dataBindApplist.Skip(currentIndex).Where(x => x.Name.ToUpper()[0] != currentCharacter).FirstOrDefault();
+                }
+                else
+                {
+                    int currentIndex = dataBindApplist.Count() - parentListbox.SelectedIndex;
+                    selectAppCurrent = dataBindApplist.Reverse().Skip(currentIndex).Where(x => x.Name.ToUpper()[0] != currentCharacter).FirstOrDefault();
+                    if (selectAppCurrent != null)
+                    {
+                        currentCharacter = selectAppCurrent.Name.ToUpper()[0];
+                        selectAppCurrent = dataBindApplist.Where(x => x.Name.ToUpper()[0] == currentCharacter).FirstOrDefault();
+                    }
+                }
+
+                //Select the target application
+                if (selectAppCurrent != null)
+                {
+                    char selectCharacterCurrent = selectAppCurrent.Name.ToUpper()[0];
+                    char selectCharacterNext1 = (char)(selectCharacterCurrent + 1);
+                    char selectCharacterNext2 = (char)(selectCharacterCurrent + 2);
+                    char selectCharacterNext3 = (char)(selectCharacterCurrent + 3);
+                    char selectCharacterPrev1 = (char)(selectCharacterCurrent - 1);
+                    char selectCharacterPrev2 = (char)(selectCharacterCurrent - 2);
+                    char selectCharacterPrev3 = (char)(selectCharacterCurrent - 3);
+                    string selectStringCurrent = selectCharacterCurrent.ToString();
+                    string selectStringNext = selectCharacterNext1.ToString() + selectCharacterNext2.ToString() + selectCharacterNext3.ToString();
+                    string selectStringPrev = selectCharacterPrev3.ToString() + selectCharacterPrev2.ToString() + selectCharacterPrev1.ToString();
+
+                    //Show character overlay
+                    ShowCharacterOverlay(selectStringCurrent, selectStringNext, selectStringPrev);
+
+                    //Listbox focus and select the item
+                    await ListBoxFocusItem(parentListbox, selectAppCurrent);
+
+                    Debug.WriteLine("Selected list character: " + selectCharacterCurrent + "/" + selectAppCurrent.Name);
+                }
+
+                //Play interface sound
+                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
             }
             catch { }
         }

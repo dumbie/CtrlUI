@@ -303,6 +303,7 @@
     <Compile Include="Enums\AppLauncher.cs" />
     <Compile Include="Enums\BatteryStatus.cs" />
     <Compile Include="Enums\ClipboardType.cs" />
+    <Compile Include="Enums\SortingType.cs" />
     <Compile Include="Enums\FileType.cs" />
     <Compile Include="Enums\MappingStatus.cs" />
     <Compile Include="Enums\OverlayPosition.cs" />

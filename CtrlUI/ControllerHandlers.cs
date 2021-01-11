@@ -77,7 +77,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            await SortAppLists(false);
+                            await SortAppListsSwitch(false);
                         }
 
                         ControllerUsed = true;

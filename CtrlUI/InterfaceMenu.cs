@@ -55,7 +55,7 @@ namespace CtrlUI
                     else if (selectedItemString == "menuButtonMoveMonitor") { await AppMoveMonitor(); }
                     else if (selectedItemString == "menuButtonSwitchMonitor") { await SwitchDisplayMonitor(); }
                     else if (selectedItemString == "menuButtonWindowsStart") { await ShowWindowStartMenu(); }
-                    else if (selectedItemString == "menuButtonSorting") { await SortAppLists(false); }
+                    else if (selectedItemString == "menuButtonSorting") { await SortAppListsSwitch(false); }
                     else if (selectedItemString == "menuButtonMediaControl") { await MediaControllerHideShow(true); }
                     else if (selectedItemString == "menuButtonAudioDevice") { await SwitchAudioDevice(); }
                     else if (selectedItemString == "menuButtonRunExe") { await RunExecutableFile(); }

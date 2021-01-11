@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 
 namespace CtrlUI
 {
@@ -80,11 +81,11 @@ namespace CtrlUI
         }
 
         //Sort the application lists
-        async Task SortAppLists(bool silentSort)
+        async Task SortAppListsSwitch(bool silentSort)
         {
             try
             {
-                if (vSortType == "Number")
+                if (vSortType == SortingType.Number)
                 {
                     await SortAppListsByName(silentSort);
                 }
@@ -102,7 +103,7 @@ namespace CtrlUI
             try
             {
                 if (!silentSort) { await Notification_Send_Status("Sorting", "Sorting by number or date"); }
-                vSortType = "Number";
+                vSortType = SortingType.Number;
 
                 SortObservableCollection(lb_Games, List_Games, x => x.Number, null, true);
                 SortObservableCollection(lb_Apps, List_Apps, x => x.Number, null, true);
@@ -129,7 +130,7 @@ namespace CtrlUI
             try
             {
                 if (!silentSort) { await Notification_Send_Status("Sorting", "Sorting by name"); }
-                vSortType = "Name";
+                vSortType = SortingType.Name;
 
                 SortObservableCollection(lb_Games, List_Games, x => x.Name, null, true);
                 SortObservableCollection(lb_Apps, List_Apps, x => x.Name, null, true);

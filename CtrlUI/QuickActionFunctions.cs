@@ -76,7 +76,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerSortApps)
                     {
-                        await SortAppLists(false);
+                        await SortAppListsSwitch(false);
                     }
                     else if (messageResult == AnswerLaunchExe)
                     {
