@@ -306,7 +306,13 @@ namespace CtrlUI
                 }
 
                 //Sort the application list by name
-                SortObservableCollection(lb_FilePicker, List_FilePicker, x => x.Name, null, true);
+                SortFunction<DataBindFile> sortFuncName = new SortFunction<DataBindFile>();
+                sortFuncName.function = x => x.Name;
+
+                List<SortFunction<DataBindFile>> orderListPicker = new List<SortFunction<DataBindFile>>();
+                orderListPicker.Add(sortFuncName);
+
+                SortObservableCollection(lb_FilePicker, List_FilePicker, orderListPicker, null);
             }
             catch { }
         }

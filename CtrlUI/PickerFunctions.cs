@@ -176,12 +176,12 @@ namespace CtrlUI
                     }
                     catch { }
 
+                    DataBindFile dataBindFileMusic = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Music", ImageBitmap = imageFolderMusic, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileMusic, false, false);
                     DataBindFile dataBindFilePictures = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Pictures", ImageBitmap = imageFolderPictures, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
                     DataBindFile dataBindFileVideos = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Videos", ImageBitmap = imageFolderVideos, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileVideos, false, false);
-                    DataBindFile dataBindFileMusic = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Music", ImageBitmap = imageFolderMusic, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileMusic, false, false);
 
                     //Add all disk drives that are connected
                     DriveInfo[] diskDrives = DriveInfo.GetDrives();

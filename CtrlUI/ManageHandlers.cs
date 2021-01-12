@@ -277,7 +277,7 @@ namespace CtrlUI
                 }
 
                 //Check if the application paths exist for Win32 apps
-                if (vEditAppDataBind != null && vEditAppDataBind.Type == ProcessType.Win32)
+                if (vEditAppDataBind == null || (vEditAppDataBind != null && vEditAppDataBind.Type == ProcessType.Win32))
                 {
                     //Validate the launch target
                     if (!File.Exists(tb_AddAppExePath.Text))

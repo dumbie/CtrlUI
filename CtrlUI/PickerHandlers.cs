@@ -381,6 +381,12 @@ namespace CtrlUI
         {
             try
             {
+                if (vFilePickerCurrentPath == "PC")
+                {
+                    Debug.WriteLine("Invalid sorting path, returning.");
+                    return;
+                }
+
                 if (!silent)
                 {
                     Debug.WriteLine("Sorting files and folders by name");
@@ -388,7 +394,18 @@ namespace CtrlUI
                 }
 
                 vFilePickerSortType = SortingType.Name;
-                SortObservableCollection(lb_FilePicker, List_FilePicker, x => x.Name, x => x.FileType != FileType.FolderPre && x.FileType != FileType.FilePre && x.FileType != FileType.GoUpPre, true);
+
+                SortFunction<DataBindFile> sortFuncFileType = new SortFunction<DataBindFile>();
+                sortFuncFileType.function = x => x.FileType;
+
+                SortFunction<DataBindFile> sortFuncName = new SortFunction<DataBindFile>();
+                sortFuncName.function = x => x.Name;
+
+                List<SortFunction<DataBindFile>> orderList = new List<SortFunction<DataBindFile>>();
+                orderList.Add(sortFuncFileType);
+                orderList.Add(sortFuncName);
+
+                SortObservableCollection(lb_FilePicker, List_FilePicker, orderList, null);
             }
             catch { }
         }
@@ -397,6 +414,12 @@ namespace CtrlUI
         {
             try
             {
+                if (vFilePickerCurrentPath == "PC")
+                {
+                    Debug.WriteLine("Invalid sorting path, returning.");
+                    return;
+                }
+
                 if (!silent)
                 {
                     Debug.WriteLine("Sorting files and folders by date");
@@ -404,7 +427,19 @@ namespace CtrlUI
                 }
 
                 vFilePickerSortType = SortingType.Date;
-                SortObservableCollection(lb_FilePicker, List_FilePicker, x => x.DateModified, x => x.FileType != FileType.FolderPre && x.FileType != FileType.FilePre && x.FileType != FileType.GoUpPre, true);
+
+                SortFunction<DataBindFile> sortFuncFileType = new SortFunction<DataBindFile>();
+                sortFuncFileType.function = x => x.FileType;
+
+                SortFunction<DataBindFile> sortFuncDateModified = new SortFunction<DataBindFile>();
+                sortFuncDateModified.function = x => x.DateModified;
+                sortFuncDateModified.ascending = false;
+
+                List<SortFunction<DataBindFile>> orderList = new List<SortFunction<DataBindFile>>();
+                orderList.Add(sortFuncFileType);
+                orderList.Add(sortFuncDateModified);
+
+                SortObservableCollection(lb_FilePicker, List_FilePicker, orderList, null);
             }
             catch { }
         }
@@ -429,15 +464,15 @@ namespace CtrlUI
                     }
 
                     //Read the root path
-                    DataBindFile dataBindFile = List_FilePicker.FirstOrDefault();
-                    if (dataBindFile.FileType == FileType.GoUpPre)
+                    DataBindFile dataBindFile = List_FilePicker.Where(x => x.FileType == FileType.GoUpPre).FirstOrDefault();
+                    if (dataBindFile != null)
                     {
                         Debug.WriteLine("Folder up: " + dataBindFile.PathFile + " / " + navigateIndex);
                         await Popup_Show_FilePicker(dataBindFile.PathFile, navigateIndex, false, null);
                     }
                     else
                     {
-                        Debug.WriteLine("No folder to navigate go up / not up.");
+                        Debug.WriteLine("No folder to navigate go up / no up.");
                         await Notification_Send_Status("Up", "No folder to go up");
                     }
                 }
@@ -574,9 +609,14 @@ namespace CtrlUI
                         {
                             await Popup_Show_FilePicker(shortcutDetails.TargetPath, -1, false, null);
                         }
-                        else
+                        else if (File.Exists(shortcutDetails.TargetPath))
                         {
                             await Popup_Close_FilePicker(true, false);
+                        }
+                        else
+                        {
+                            await Notification_Send_Status("Close", "Link target does not exist");
+                            Debug.WriteLine("Link target does not exist");
                         }
                     }
                     else

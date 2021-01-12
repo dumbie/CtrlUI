@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -100,7 +101,14 @@ namespace CtrlUI
                 //Sort applications and select first item
                 if (sortByName)
                 {
-                    SortObservableCollection(lb_Launchers, List_Launchers, x => x.Name, null, true);
+                    SortFunction<DataBindApp> sortFuncName = new SortFunction<DataBindApp>();
+                    sortFuncName.function = x => x.Name;
+
+                    List<SortFunction<DataBindApp>> orderListLaunchers = new List<SortFunction<DataBindApp>>();
+                    orderListLaunchers.Add(sortFuncName);
+
+                    SortObservableCollection(lb_Launchers, List_Launchers, orderListLaunchers, null);
+
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         lb_Launchers.SelectedIndex = 0;

@@ -33,7 +33,7 @@ namespace CtrlUI
             return NewNumber;
         }
 
-        public void SortObservableCollection<TSource, TKey>(ListBox targetListBox, ObservableCollection<TSource> targetSource, Func<TSource, TKey> key, Func<TSource, bool> where, bool ascending)
+        public void SortObservableCollection<TSource>(ListBox targetListBox, ObservableCollection<TSource> targetSource, List<SortFunction<TSource>> orderBy, Func<TSource, bool> where)
         {
             try
             {
@@ -42,33 +42,50 @@ namespace CtrlUI
                     //Get the current selected item
                     object selectedItem = targetListBox.SelectedItem;
 
+                    //Filter list
                     int skipCount = 0;
-                    List<TSource> sortedList = null;
+                    IEnumerable<TSource> whereEnumerable = null;
                     if (where != null)
                     {
-                        skipCount = targetSource.Count() - targetSource.Where(where).Count();
-                        if (ascending)
-                        {
-                            sortedList = targetSource.Where(where).OrderBy(key).ToList();
-                        }
-                        else
-                        {
-                            sortedList = targetSource.Where(where).OrderByDescending(key).ToList();
-                        }
+                        whereEnumerable = targetSource.Where(where);
+                        skipCount = targetSource.Count() - whereEnumerable.Count();
                     }
                     else
                     {
-                        if (ascending)
+                        whereEnumerable = targetSource;
+                    }
+
+                    //Sort list
+                    IOrderedEnumerable<TSource> sortEnumerable = null;
+                    foreach (SortFunction<TSource> orderFunc in orderBy)
+                    {
+                        if (sortEnumerable == null)
                         {
-                            sortedList = targetSource.OrderBy(key).ToList();
+                            if (orderFunc.ascending)
+                            {
+                                sortEnumerable = whereEnumerable.OrderBy(orderFunc.function);
+                            }
+                            else
+                            {
+                                sortEnumerable = whereEnumerable.OrderByDescending(orderFunc.function);
+                            }
                         }
                         else
                         {
-                            sortedList = targetSource.OrderByDescending(key).ToList();
+                            if (orderFunc.ascending)
+                            {
+                                sortEnumerable = sortEnumerable.ThenBy(orderFunc.function);
+                            }
+                            else
+                            {
+                                sortEnumerable = sortEnumerable.ThenByDescending(orderFunc.function);
+                            }
                         }
                     }
 
-                    for (int i = skipCount; i < sortedList.Count; i++)
+                    //Move items
+                    List<TSource> sortedList = sortEnumerable.ToList();
+                    for (int i = skipCount; i < sortedList.Count(); i++)
                     {
                         targetSource.Move(targetSource.IndexOf(sortedList[i]), i);
                     }
@@ -105,12 +122,42 @@ namespace CtrlUI
                 if (!silentSort) { await Notification_Send_Status("Sorting", "Sorting by number or date"); }
                 vSortType = SortingType.Number;
 
-                SortObservableCollection(lb_Games, List_Games, x => x.Number, null, true);
-                SortObservableCollection(lb_Apps, List_Apps, x => x.Number, null, true);
-                SortObservableCollection(lb_Emulators, List_Emulators, x => x.Number, null, true);
-                SortObservableCollection(lb_Launchers, List_Launchers, x => x.Launcher, null, true);
-                SortObservableCollection(lb_Shortcuts, List_Shortcuts, x => x.TimeCreation, null, false);
-                SortObservableCollection(lb_Processes, List_Processes, x => x.RunningTime, null, true);
+                SortFunction<DataBindApp> sortFuncNumber = new SortFunction<DataBindApp>();
+                sortFuncNumber.function = x => x.Number;
+
+                SortFunction<DataBindApp> sortFuncLauncher = new SortFunction<DataBindApp>();
+                sortFuncLauncher.function = x => x.Launcher;
+
+                SortFunction<DataBindApp> sortFuncTimeCreation = new SortFunction<DataBindApp>();
+                sortFuncTimeCreation.function = x => x.TimeCreation;
+                sortFuncTimeCreation.ascending = false;
+
+                SortFunction<DataBindApp> sortFuncRunningTime = new SortFunction<DataBindApp>();
+                sortFuncRunningTime.function = x => x.RunningTime;
+
+                List<SortFunction<DataBindApp>> orderListGames = new List<SortFunction<DataBindApp>>();
+                orderListGames.Add(sortFuncNumber);
+                SortObservableCollection(lb_Games, List_Games, orderListGames, null);
+
+                List<SortFunction<DataBindApp>> orderListApps = new List<SortFunction<DataBindApp>>();
+                orderListApps.Add(sortFuncNumber);
+                SortObservableCollection(lb_Apps, List_Apps, orderListApps, null);
+
+                List<SortFunction<DataBindApp>> orderListEmulators = new List<SortFunction<DataBindApp>>();
+                orderListEmulators.Add(sortFuncNumber);
+                SortObservableCollection(lb_Emulators, List_Emulators, orderListEmulators, null);
+
+                List<SortFunction<DataBindApp>> orderListLaunchers = new List<SortFunction<DataBindApp>>();
+                orderListLaunchers.Add(sortFuncLauncher);
+                SortObservableCollection(lb_Launchers, List_Launchers, orderListLaunchers, null);
+
+                List<SortFunction<DataBindApp>> orderListShortcuts = new List<SortFunction<DataBindApp>>();
+                orderListShortcuts.Add(sortFuncTimeCreation);
+                SortObservableCollection(lb_Shortcuts, List_Shortcuts, orderListShortcuts, null);
+
+                List<SortFunction<DataBindApp>> orderListProcesses = new List<SortFunction<DataBindApp>>();
+                orderListProcesses.Add(sortFuncRunningTime);
+                SortObservableCollection(lb_Processes, List_Processes, orderListProcesses, null);
 
                 DataBindString menuSortItem = List_MainMenu.Where(x => x.Data1.ToString() == "menuButtonSorting").FirstOrDefault();
                 if (menuSortItem != null)
@@ -132,12 +179,32 @@ namespace CtrlUI
                 if (!silentSort) { await Notification_Send_Status("Sorting", "Sorting by name"); }
                 vSortType = SortingType.Name;
 
-                SortObservableCollection(lb_Games, List_Games, x => x.Name, null, true);
-                SortObservableCollection(lb_Apps, List_Apps, x => x.Name, null, true);
-                SortObservableCollection(lb_Emulators, List_Emulators, x => x.Name, null, true);
-                SortObservableCollection(lb_Launchers, List_Launchers, x => x.Name, null, true);
-                SortObservableCollection(lb_Shortcuts, List_Shortcuts, x => x.Name, null, true);
-                SortObservableCollection(lb_Processes, List_Processes, x => x.Name, null, true);
+                SortFunction<DataBindApp> sortFuncName = new SortFunction<DataBindApp>();
+                sortFuncName.function = x => x.Name;
+
+                List<SortFunction<DataBindApp>> orderListGames = new List<SortFunction<DataBindApp>>();
+                orderListGames.Add(sortFuncName);
+                SortObservableCollection(lb_Games, List_Games, orderListGames, null);
+
+                List<SortFunction<DataBindApp>> orderListApps = new List<SortFunction<DataBindApp>>();
+                orderListApps.Add(sortFuncName);
+                SortObservableCollection(lb_Apps, List_Apps, orderListApps, null);
+
+                List<SortFunction<DataBindApp>> orderListEmulators = new List<SortFunction<DataBindApp>>();
+                orderListEmulators.Add(sortFuncName);
+                SortObservableCollection(lb_Emulators, List_Emulators, orderListEmulators, null);
+
+                List<SortFunction<DataBindApp>> orderListLaunchers = new List<SortFunction<DataBindApp>>();
+                orderListLaunchers.Add(sortFuncName);
+                SortObservableCollection(lb_Launchers, List_Launchers, orderListLaunchers, null);
+
+                List<SortFunction<DataBindApp>> orderListShortcuts = new List<SortFunction<DataBindApp>>();
+                orderListShortcuts.Add(sortFuncName);
+                SortObservableCollection(lb_Shortcuts, List_Shortcuts, orderListShortcuts, null);
+
+                List<SortFunction<DataBindApp>> orderListProcesses = new List<SortFunction<DataBindApp>>();
+                orderListProcesses.Add(sortFuncName);
+                SortObservableCollection(lb_Processes, List_Processes, orderListProcesses, null);
 
                 DataBindString menuSortItem = List_MainMenu.Where(x => x.Data1.ToString() == "menuButtonSorting").FirstOrDefault();
                 if (menuSortItem != null)
