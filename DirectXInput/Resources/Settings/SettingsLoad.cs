@@ -28,20 +28,24 @@ namespace DirectXInput
                 slider_ControllerIdleDisconnectMin.Value = controllerIdleDisconnectMinInt;
 
                 string ControllerColor0 = Setting_Load(vConfigurationDirectXInput, "ControllerColor0").ToString();
-                vControllerColor0 = new BrushConverter().ConvertFrom(ControllerColor0) as SolidColorBrush;
-                colorpicker_Controller0.Background = vControllerColor0;
+                SolidColorBrush ControllerColor0Brush = new BrushConverter().ConvertFrom(ControllerColor0) as SolidColorBrush;
+                colorpicker_Controller0.Background = ControllerColor0Brush;
+                App.vWindowOverlay.stackpanel_Battery_Warning_Controller1_Color.Background = ControllerColor0Brush;
 
                 string ControllerColor1 = Setting_Load(vConfigurationDirectXInput, "ControllerColor1").ToString();
-                vControllerColor1 = new BrushConverter().ConvertFrom(ControllerColor1) as SolidColorBrush;
-                colorpicker_Controller1.Background = vControllerColor1;
+                SolidColorBrush ControllerColor1Brush = new BrushConverter().ConvertFrom(ControllerColor1) as SolidColorBrush;
+                colorpicker_Controller1.Background = ControllerColor1Brush;
+                App.vWindowOverlay.stackpanel_Battery_Warning_Controller2_Color.Background = ControllerColor1Brush;
 
                 string ControllerColor2 = Setting_Load(vConfigurationDirectXInput, "ControllerColor2").ToString();
-                vControllerColor2 = new BrushConverter().ConvertFrom(ControllerColor2) as SolidColorBrush;
-                colorpicker_Controller2.Background = vControllerColor2;
+                SolidColorBrush ControllerColor2Brush = new BrushConverter().ConvertFrom(ControllerColor2) as SolidColorBrush;
+                colorpicker_Controller2.Background = ControllerColor2Brush;
+                App.vWindowOverlay.stackpanel_Battery_Warning_Controller3_Color.Background = ControllerColor2Brush;
 
                 string ControllerColor3 = Setting_Load(vConfigurationDirectXInput, "ControllerColor3").ToString();
-                vControllerColor3 = new BrushConverter().ConvertFrom(ControllerColor3) as SolidColorBrush;
-                colorpicker_Controller3.Background = vControllerColor3;
+                SolidColorBrush ControllerColor3Brush = new BrushConverter().ConvertFrom(ControllerColor3) as SolidColorBrush;
+                colorpicker_Controller3.Background = ControllerColor3Brush;
+                App.vWindowOverlay.stackpanel_Battery_Warning_Controller4_Color.Background = ControllerColor3Brush;
 
                 cb_ControllerShowDebugInformation.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShowDebugInformation"));
 

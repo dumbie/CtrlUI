@@ -206,19 +206,19 @@
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <StackPanel Name="stackpanel_Menu_Controller0" Opacity="0.40">
                             <Image Name="img_Menu_Controller0" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Accent.png"/>
-                            <Border CornerRadius="2" HorizontalAlignment="Center" Background="#0ABEF0" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                            <Border Name="border_Menu_Controller0" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
                         </StackPanel>
                         <StackPanel Name="stackpanel_Menu_Controller1" Opacity="0.40">
                             <Image Name="img_Menu_Controller1" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
-                            <Border CornerRadius="2" HorizontalAlignment="Center" Background="#F0140A" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                            <Border Name="border_Menu_Controller1" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
                         </StackPanel>
                         <StackPanel Name="stackpanel_Menu_Controller2" Opacity="0.40">
                             <Image Name="img_Menu_Controller2" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
-                            <Border CornerRadius="2" HorizontalAlignment="Center" Background="#14F00A" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                            <Border Name="border_Menu_Controller2" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
                         </StackPanel>
                         <StackPanel Name="stackpanel_Menu_Controller3" Opacity="0.40">
                             <Image Name="img_Menu_Controller3" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
-                            <Border CornerRadius="2" HorizontalAlignment="Center" Background="#F0D205" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                            <Border Name="border_Menu_Controller3" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
                         </StackPanel>
 
                         <Image Name="img_Menu_SteamStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>

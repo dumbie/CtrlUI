@@ -59,32 +59,36 @@ namespace DirectXInput
                     textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinString + " minutes";
                 };
 
-                colorpicker_Controller0.SelectedColorChanged += (Color color) =>
+                colorpicker_Controller0.SelectedColorChanged += async (Color color) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "ControllerColor0", color.ToString());
-                    vControllerColor0 = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
                     ControllerOutput(vController0, false, false);
+                    App.vWindowOverlay.stackpanel_Battery_Warning_Controller1_Color.Background = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
+                    await NotifyCtrlUISettingChanged("ControllerColor");
                 };
 
-                colorpicker_Controller1.SelectedColorChanged += (Color color) =>
+                colorpicker_Controller1.SelectedColorChanged += async (Color color) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "ControllerColor1", color.ToString());
-                    vControllerColor1 = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
                     ControllerOutput(vController1, false, false);
+                    App.vWindowOverlay.stackpanel_Battery_Warning_Controller2_Color.Background = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
+                    await NotifyCtrlUISettingChanged("ControllerColor");
                 };
 
-                colorpicker_Controller2.SelectedColorChanged += (Color color) =>
+                colorpicker_Controller2.SelectedColorChanged += async (Color color) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "ControllerColor2", color.ToString());
-                    vControllerColor2 = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
                     ControllerOutput(vController2, false, false);
+                    App.vWindowOverlay.stackpanel_Battery_Warning_Controller3_Color.Background = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
+                    await NotifyCtrlUISettingChanged("ControllerColor");
                 };
 
-                colorpicker_Controller3.SelectedColorChanged += (Color color) =>
+                colorpicker_Controller3.SelectedColorChanged += async (Color color) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "ControllerColor3", color.ToString());
-                    vControllerColor3 = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
                     ControllerOutput(vController3, false, false);
+                    App.vWindowOverlay.stackpanel_Battery_Warning_Controller4_Color.Background = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
+                    await NotifyCtrlUISettingChanged("ControllerColor");
                 };
 
                 cb_ControllerShowDebugInformation.Click += (sender, e) =>

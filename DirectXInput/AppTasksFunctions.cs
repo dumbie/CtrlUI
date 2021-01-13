@@ -75,7 +75,7 @@ namespace DirectXInput
                     UpdateControllerPreview();
 
                     //Delay the loop task
-                    await TaskDelayLoop(100, vTask_ControllerPreview);
+                    await TaskDelayLoop(50, vTask_ControllerPreview);
                 }
             }
             catch { }

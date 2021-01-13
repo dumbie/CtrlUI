@@ -226,30 +226,11 @@ namespace DirectXInput
 
                     //Set the controller led color
                     double controllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
-                    if (Controller.NumberId == 0)
-                    {
-                        outputReport[47] = Convert.ToByte(vControllerColor0.Color.R * controllerLedBrightness); //Red
-                        outputReport[48] = Convert.ToByte(vControllerColor0.Color.G * controllerLedBrightness); //Green
-                        outputReport[49] = Convert.ToByte(vControllerColor0.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else if (Controller.NumberId == 1)
-                    {
-                        outputReport[47] = Convert.ToByte(vControllerColor1.Color.R * controllerLedBrightness); //Red
-                        outputReport[48] = Convert.ToByte(vControllerColor1.Color.G * controllerLedBrightness); //Green
-                        outputReport[49] = Convert.ToByte(vControllerColor1.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else if (Controller.NumberId == 2)
-                    {
-                        outputReport[47] = Convert.ToByte(vControllerColor2.Color.R * controllerLedBrightness); //Red
-                        outputReport[48] = Convert.ToByte(vControllerColor2.Color.G * controllerLedBrightness); //Green
-                        outputReport[49] = Convert.ToByte(vControllerColor2.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else
-                    {
-                        outputReport[47] = Convert.ToByte(vControllerColor3.Color.R * controllerLedBrightness); //Red
-                        outputReport[48] = Convert.ToByte(vControllerColor3.Color.G * controllerLedBrightness); //Green
-                        outputReport[49] = Convert.ToByte(vControllerColor3.Color.B * controllerLedBrightness); //Blue
-                    }
+                    string controllerColorString = Setting_Load(vConfigurationDirectXInput, "ControllerColor" + Controller.NumberId).ToString();
+                    SolidColorBrush controllerColorBrush = new BrushConverter().ConvertFrom(controllerColorString) as SolidColorBrush;
+                    outputReport[47] = Convert.ToByte(controllerColorBrush.Color.R * controllerLedBrightness);
+                    outputReport[48] = Convert.ToByte(controllerColorBrush.Color.G * controllerLedBrightness);
+                    outputReport[49] = Convert.ToByte(controllerColorBrush.Color.B * controllerLedBrightness);
 
                     //Add CRC32 to bytes array
                     byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport);
@@ -305,30 +286,11 @@ namespace DirectXInput
 
                     //Set the controller led color
                     double controllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
-                    if (Controller.NumberId == 0)
-                    {
-                        outputReport[45] = Convert.ToByte(vControllerColor0.Color.R * controllerLedBrightness); //Red
-                        outputReport[46] = Convert.ToByte(vControllerColor0.Color.G * controllerLedBrightness); //Green
-                        outputReport[47] = Convert.ToByte(vControllerColor0.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else if (Controller.NumberId == 1)
-                    {
-                        outputReport[45] = Convert.ToByte(vControllerColor1.Color.R * controllerLedBrightness); //Red
-                        outputReport[46] = Convert.ToByte(vControllerColor1.Color.G * controllerLedBrightness); //Green
-                        outputReport[47] = Convert.ToByte(vControllerColor1.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else if (Controller.NumberId == 2)
-                    {
-                        outputReport[45] = Convert.ToByte(vControllerColor2.Color.R * controllerLedBrightness); //Red
-                        outputReport[46] = Convert.ToByte(vControllerColor2.Color.G * controllerLedBrightness); //Green
-                        outputReport[47] = Convert.ToByte(vControllerColor2.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else
-                    {
-                        outputReport[45] = Convert.ToByte(vControllerColor3.Color.R * controllerLedBrightness); //Red
-                        outputReport[46] = Convert.ToByte(vControllerColor3.Color.G * controllerLedBrightness); //Green
-                        outputReport[47] = Convert.ToByte(vControllerColor3.Color.B * controllerLedBrightness); //Blue
-                    }
+                    string controllerColorString = Setting_Load(vConfigurationDirectXInput, "ControllerColor" + Controller.NumberId).ToString();
+                    SolidColorBrush controllerColorBrush = new BrushConverter().ConvertFrom(controllerColorString) as SolidColorBrush;
+                    outputReport[45] = Convert.ToByte(controllerColorBrush.Color.R * controllerLedBrightness);
+                    outputReport[46] = Convert.ToByte(controllerColorBrush.Color.G * controllerLedBrightness);
+                    outputReport[47] = Convert.ToByte(controllerColorBrush.Color.B * controllerLedBrightness);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
@@ -358,30 +320,11 @@ namespace DirectXInput
 
                     //Set the controller led color
                     double controllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
-                    if (Controller.NumberId == 0)
-                    {
-                        outputReport[8] = Convert.ToByte(vControllerColor0.Color.R * controllerLedBrightness); //Red
-                        outputReport[9] = Convert.ToByte(vControllerColor0.Color.G * controllerLedBrightness); //Green
-                        outputReport[10] = Convert.ToByte(vControllerColor0.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else if (Controller.NumberId == 1)
-                    {
-                        outputReport[8] = Convert.ToByte(vControllerColor1.Color.R * controllerLedBrightness); //Red
-                        outputReport[9] = Convert.ToByte(vControllerColor1.Color.G * controllerLedBrightness); //Green
-                        outputReport[10] = Convert.ToByte(vControllerColor1.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else if (Controller.NumberId == 2)
-                    {
-                        outputReport[8] = Convert.ToByte(vControllerColor2.Color.R * controllerLedBrightness); //Red
-                        outputReport[9] = Convert.ToByte(vControllerColor2.Color.G * controllerLedBrightness); //Green
-                        outputReport[10] = Convert.ToByte(vControllerColor2.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else
-                    {
-                        outputReport[8] = Convert.ToByte(vControllerColor3.Color.R * controllerLedBrightness); //Red
-                        outputReport[9] = Convert.ToByte(vControllerColor3.Color.G * controllerLedBrightness); //Green
-                        outputReport[10] = Convert.ToByte(vControllerColor3.Color.B * controllerLedBrightness); //Blue
-                    }
+                    string controllerColorString = Setting_Load(vConfigurationDirectXInput, "ControllerColor" + Controller.NumberId).ToString();
+                    SolidColorBrush controllerColorBrush = new BrushConverter().ConvertFrom(controllerColorString) as SolidColorBrush;
+                    outputReport[8] = Convert.ToByte(controllerColorBrush.Color.R * controllerLedBrightness);
+                    outputReport[9] = Convert.ToByte(controllerColorBrush.Color.G * controllerLedBrightness);
+                    outputReport[10] = Convert.ToByte(controllerColorBrush.Color.B * controllerLedBrightness);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(outputReport);
@@ -400,30 +343,11 @@ namespace DirectXInput
 
                     //Set the controller led color
                     double controllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
-                    if (Controller.NumberId == 0)
-                    {
-                        outputReport[6] = Convert.ToByte(vControllerColor0.Color.R * controllerLedBrightness); //Red
-                        outputReport[7] = Convert.ToByte(vControllerColor0.Color.G * controllerLedBrightness); //Green
-                        outputReport[8] = Convert.ToByte(vControllerColor0.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else if (Controller.NumberId == 1)
-                    {
-                        outputReport[6] = Convert.ToByte(vControllerColor1.Color.R * controllerLedBrightness); //Red
-                        outputReport[7] = Convert.ToByte(vControllerColor1.Color.G * controllerLedBrightness); //Green
-                        outputReport[8] = Convert.ToByte(vControllerColor1.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else if (Controller.NumberId == 2)
-                    {
-                        outputReport[6] = Convert.ToByte(vControllerColor2.Color.R * controllerLedBrightness); //Red
-                        outputReport[7] = Convert.ToByte(vControllerColor2.Color.G * controllerLedBrightness); //Green
-                        outputReport[8] = Convert.ToByte(vControllerColor2.Color.B * controllerLedBrightness); //Blue
-                    }
-                    else
-                    {
-                        outputReport[6] = Convert.ToByte(vControllerColor3.Color.R * controllerLedBrightness); //Red
-                        outputReport[7] = Convert.ToByte(vControllerColor3.Color.G * controllerLedBrightness); //Green
-                        outputReport[8] = Convert.ToByte(vControllerColor3.Color.B * controllerLedBrightness); //Blue
-                    }
+                    string controllerColorString = Setting_Load(vConfigurationDirectXInput, "ControllerColor" + Controller.NumberId).ToString();
+                    SolidColorBrush controllerColorBrush = new BrushConverter().ConvertFrom(controllerColorString) as SolidColorBrush;
+                    outputReport[6] = Convert.ToByte(controllerColorBrush.Color.R * controllerLedBrightness);
+                    outputReport[7] = Convert.ToByte(controllerColorBrush.Color.G * controllerLedBrightness);
+                    outputReport[8] = Convert.ToByte(controllerColorBrush.Color.B * controllerLedBrightness);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);

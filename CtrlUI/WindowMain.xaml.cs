@@ -176,6 +176,9 @@ namespace CtrlUI
                 //Update the controller connection status
                 await UpdateControllerConnected();
 
+                //Update the controller color
+                UpdateControllerColor();
+
                 //Check for available application update
                 await CheckForAppUpdate(true);
             }

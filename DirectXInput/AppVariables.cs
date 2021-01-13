@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Principal;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using static ArnoldVinkCode.AVActions;
@@ -115,10 +114,6 @@ namespace DirectXInput
         public static ControllerStatus vController1 = new ControllerStatus(1);
         public static ControllerStatus vController2 = new ControllerStatus(2);
         public static ControllerStatus vController3 = new ControllerStatus(3);
-        public static SolidColorBrush vControllerColor0 = null;
-        public static SolidColorBrush vControllerColor1 = null;
-        public static SolidColorBrush vControllerColor2 = null;
-        public static SolidColorBrush vControllerColor3 = null;
 
         //Returns if a controller is connected
         public static bool vControllerAnyConnected()

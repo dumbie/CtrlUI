@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVImage;
@@ -38,6 +39,33 @@ namespace CtrlUI
 
                 //Request controller status from DirectXInput
                 await RequestControllerStatus();
+            }
+            catch { }
+        }
+
+        //Update the controller color
+        void UpdateControllerColor()
+        {
+            try
+            {
+                string ControllerColor0 = Setting_Load(vConfigurationDirectXInput, "ControllerColor0").ToString();
+                string ControllerColor1 = Setting_Load(vConfigurationDirectXInput, "ControllerColor1").ToString();
+                string ControllerColor2 = Setting_Load(vConfigurationDirectXInput, "ControllerColor2").ToString();
+                string ControllerColor3 = Setting_Load(vConfigurationDirectXInput, "ControllerColor3").ToString();
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    SolidColorBrush ControllerColor0Brush = new BrushConverter().ConvertFrom(ControllerColor0) as SolidColorBrush;
+                    border_Menu_Controller0.Background = ControllerColor0Brush;
+
+                    SolidColorBrush ControllerColor1Brush = new BrushConverter().ConvertFrom(ControllerColor1) as SolidColorBrush;
+                    border_Menu_Controller1.Background = ControllerColor1Brush;
+
+                    SolidColorBrush ControllerColor2Brush = new BrushConverter().ConvertFrom(ControllerColor2) as SolidColorBrush;
+                    border_Menu_Controller2.Background = ControllerColor2Brush;
+
+                    SolidColorBrush ControllerColor3Brush = new BrushConverter().ConvertFrom(ControllerColor3) as SolidColorBrush;
+                    border_Menu_Controller3.Background = ControllerColor3Brush;
+                });
             }
             catch { }
         }

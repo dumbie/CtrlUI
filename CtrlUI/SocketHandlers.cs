@@ -67,6 +67,11 @@ namespace CtrlUI
                         vConfigurationDirectXInput = Settings_Load_DirectXInput();
                         UpdateControllerHelp();
                     }
+                    else if (receivedString == "SettingChangedControllerColor")
+                    {
+                        vConfigurationDirectXInput = Settings_Load_DirectXInput();
+                        UpdateControllerColor();
+                    }
                     else if (receivedString == "AppWindowHideShow")
                     {
                         await AVActions.ActionDispatcherInvokeAsync(async delegate { await AppWindow_HideShow(); });
