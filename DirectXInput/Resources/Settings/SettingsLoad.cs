@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Windows.Media;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
 
@@ -21,13 +22,30 @@ namespace DirectXInput
                 cb_SettingsBatteryShowIconLow.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowIconLow"));
                 cb_SettingsBatteryShowPercentageLow.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowPercentageLow"));
 
-                //Load controller idle
+                //Load controller settings
                 int controllerIdleDisconnectMinInt = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin"));
                 textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinInt + " minutes";
                 slider_ControllerIdleDisconnectMin.Value = controllerIdleDisconnectMinInt;
 
+                string ControllerColor0 = Setting_Load(vConfigurationDirectXInput, "ControllerColor0").ToString();
+                vControllerColor0 = new BrushConverter().ConvertFrom(ControllerColor0) as SolidColorBrush;
+                colorpicker_Controller0.Background = vControllerColor0;
+
+                string ControllerColor1 = Setting_Load(vConfigurationDirectXInput, "ControllerColor1").ToString();
+                vControllerColor1 = new BrushConverter().ConvertFrom(ControllerColor1) as SolidColorBrush;
+                colorpicker_Controller1.Background = vControllerColor1;
+
+                string ControllerColor2 = Setting_Load(vConfigurationDirectXInput, "ControllerColor2").ToString();
+                vControllerColor2 = new BrushConverter().ConvertFrom(ControllerColor2) as SolidColorBrush;
+                colorpicker_Controller2.Background = vControllerColor2;
+
+                string ControllerColor3 = Setting_Load(vConfigurationDirectXInput, "ControllerColor3").ToString();
+                vControllerColor3 = new BrushConverter().ConvertFrom(ControllerColor3) as SolidColorBrush;
+                colorpicker_Controller3.Background = vControllerColor3;
+
                 cb_ControllerShowDebugInformation.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShowDebugInformation"));
 
+                //Load shortcut settings
                 cb_SettingsShortcutLaunchCtrlUI.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI"));
                 cb_SettingsShortcutLaunchKeyboardController.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController"));
                 cb_SettingsShortcutAltEnter.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter"));

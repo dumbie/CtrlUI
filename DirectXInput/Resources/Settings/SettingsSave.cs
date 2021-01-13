@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Controls;
+using System.Windows.Media;
 using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
 using static LibraryShared.Classes;
@@ -50,11 +51,40 @@ namespace DirectXInput
                     Setting_Save(vConfigurationDirectXInput, "BatteryPlaySoundLow", cb_SettingsBatteryPlaySoundLow.IsChecked.ToString());
                 };
 
+                //Controller settings
                 slider_ControllerIdleDisconnectMin.ValueChanged += (sender, e) =>
                 {
                     string controllerIdleDisconnectMinString = slider_ControllerIdleDisconnectMin.Value.ToString();
                     Setting_Save(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", controllerIdleDisconnectMinString);
                     textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinString + " minutes";
+                };
+
+                colorpicker_Controller0.SelectedColorChanged += (Color color) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ControllerColor0", color.ToString());
+                    vControllerColor0 = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
+                    ControllerOutput(vController0, false, false);
+                };
+
+                colorpicker_Controller1.SelectedColorChanged += (Color color) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ControllerColor1", color.ToString());
+                    vControllerColor1 = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
+                    ControllerOutput(vController1, false, false);
+                };
+
+                colorpicker_Controller2.SelectedColorChanged += (Color color) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ControllerColor2", color.ToString());
+                    vControllerColor2 = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
+                    ControllerOutput(vController2, false, false);
+                };
+
+                colorpicker_Controller3.SelectedColorChanged += (Color color) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ControllerColor3", color.ToString());
+                    vControllerColor3 = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
+                    ControllerOutput(vController3, false, false);
                 };
 
                 cb_ControllerShowDebugInformation.Click += (sender, e) =>

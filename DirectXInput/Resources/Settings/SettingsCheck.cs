@@ -28,8 +28,14 @@ namespace DirectXInput
                 if (Setting_Load(vConfigurationDirectXInput, "BatteryShowIconLow") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryShowIconLow", "True"); }
                 if (Setting_Load(vConfigurationDirectXInput, "BatteryShowPercentageLow") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryShowPercentageLow", "False"); }
                 if (Setting_Load(vConfigurationDirectXInput, "BatteryPlaySoundLow") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryPlaySoundLow", "True"); }
-                if (Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", "10"); }
                 if (Setting_Load(vConfigurationDirectXInput, "ShowDebugInformation") == null) { Setting_Save(vConfigurationDirectXInput, "ShowDebugInformation", "False"); }
+
+                //Controller settings
+                if (Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", "10"); }
+                if (Setting_Load(vConfigurationDirectXInput, "ControllerColor0") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerColor0", "#00C7FF"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ControllerColor1") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerColor1", "#F0140A"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ControllerColor2") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerColor2", "#14F00A"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ControllerColor3") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerColor3", "#F0DC0A"); } //Shared
 
                 //Keyboard settings
                 if (Setting_Load(vConfigurationDirectXInput, "KeyboardLayout") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardLayout", "0"); }
