@@ -94,6 +94,13 @@ namespace LibraryShared
                         catch { }
                     }
                 }
+
+                //Check for missing user folders
+                AVFiles.Directory_Create(@"Assets\User\Apps", false);
+                AVFiles.Directory_Create(@"Assets\User\Clocks", false);
+                AVFiles.Directory_Create(@"Assets\User\Fonts", false);
+                AVFiles.Directory_Create(@"Assets\User\Games", false);
+                AVFiles.Directory_Create(@"Assets\User\Sounds", false);
             }
             catch { }
         }

@@ -64,8 +64,8 @@
     <ApplicationManifest>Properties\App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Emoji.Wpf, Version=0.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Emoji.Wpf.0.1.7\lib\net30\Emoji.Wpf.dll</HintPath>
+    <Reference Include="Emoji.Wpf, Version=0.1.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Emoji.Wpf.0.1.8\lib\net30\Emoji.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -86,10 +86,10 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="Typography.GlyphLayout, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Emoji.Wpf.0.1.7\lib\net30\Typography.GlyphLayout.dll</HintPath>
+      <HintPath>..\packages\Emoji.Wpf.0.1.8\lib\net30\Typography.GlyphLayout.dll</HintPath>
     </Reference>
     <Reference Include="Typography.OpenFont, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Emoji.Wpf.0.1.7\lib\net30\Typography.OpenFont.dll</HintPath>
+      <HintPath>..\packages\Emoji.Wpf.0.1.8\lib\net30\Typography.OpenFont.dll</HintPath>
     </Reference>
     <Reference Include="Windows">
       <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd</HintPath>
