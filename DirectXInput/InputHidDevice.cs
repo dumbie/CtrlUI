@@ -148,6 +148,7 @@ namespace DirectXInput
                         }
 
                         //Update the controller last input time
+                        Controller.PrevInputTicks = Controller.LastInputTicks;
                         Controller.LastInputTicks = GetSystemTicksMs();
 
                         //Detect and adjust controller header offset

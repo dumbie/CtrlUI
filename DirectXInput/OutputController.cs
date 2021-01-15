@@ -146,13 +146,19 @@ namespace DirectXInput
                 //Adjust the trigger rumble strength
                 byte triggerRumbleLimit = 150;
                 byte triggerRumbleMinimum = 5;
-                byte triggerRumbleHighest = 0;
+                byte triggerRumbleLeft = 0;
+                byte triggerRumbleRight = 0;
                 if (Controller.Details.Profile.TriggerRumbleEnabled)
                 {
-                    double triggerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrength) / 100;
-                    triggerRumbleHighest = Convert.ToByte(Math.Max(controllerRumbleLight, controllerRumbleHeavy) * triggerRumbleStrength);
-                    if (triggerRumbleHighest > triggerRumbleLimit) { triggerRumbleHighest = triggerRumbleLimit; }
-                    Debug.WriteLine("Trigger rumble Highest: " + triggerRumbleHighest + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
+                    double triggerRumbleStrengthLeft = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrengthLeft) / 100;
+                    triggerRumbleLeft = Convert.ToByte(Math.Max(controllerRumbleLight, controllerRumbleHeavy) * triggerRumbleStrengthLeft);
+                    if (triggerRumbleLeft > triggerRumbleLimit) { triggerRumbleLeft = triggerRumbleLimit; }
+                    Debug.WriteLine("Trigger rumble left: " + triggerRumbleLeft + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
+
+                    double triggerRumbleStrengthRight = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrengthRight) / 100;
+                    triggerRumbleRight = Convert.ToByte(Math.Max(controllerRumbleLight, controllerRumbleHeavy) * triggerRumbleStrengthRight);
+                    if (triggerRumbleRight > triggerRumbleLimit) { triggerRumbleRight = triggerRumbleLimit; }
+                    Debug.WriteLine("Trigger rumble right: " + triggerRumbleRight + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
                 }
 
                 //Adjust the controller rumble strength
@@ -185,20 +191,26 @@ namespace DirectXInput
                     outputReport[6] = controllerRumbleHeavy;
 
                     //Trigger rumble
-                    if (triggerRumbleHighest >= triggerRumbleMinimum)
+                    if (triggerRumbleRight >= triggerRumbleMinimum)
                     {
                         outputReport[13] = 0x01; //Right trigger
                         outputReport[14] = 0x00; //Begin;
-                        outputReport[15] = triggerRumbleHighest; //Force
-                        outputReport[24] = 0x01; //Left trigger
-                        outputReport[25] = 0x00; //Begin;
-                        outputReport[26] = triggerRumbleHighest; //Force
+                        outputReport[15] = triggerRumbleRight; //Force
                     }
                     else
                     {
                         outputReport[13] = 0x01; //Right trigger
                         outputReport[14] = 0xFF; //Begin;
                         outputReport[15] = 0x00; //Force
+                    }
+                    if (triggerRumbleLeft >= triggerRumbleMinimum)
+                    {
+                        outputReport[24] = 0x01; //Left trigger
+                        outputReport[25] = 0x00; //Begin;
+                        outputReport[26] = triggerRumbleLeft; //Force
+                    }
+                    else
+                    {
                         outputReport[24] = 0x01; //Left trigger
                         outputReport[25] = 0xFF; //Begin;
                         outputReport[26] = 0x00; //Force
@@ -252,20 +264,26 @@ namespace DirectXInput
                     outputReport[4] = controllerRumbleHeavy;
 
                     //Trigger rumble
-                    if (triggerRumbleHighest >= triggerRumbleMinimum)
+                    if (triggerRumbleRight >= triggerRumbleMinimum)
                     {
                         outputReport[11] = 0x01; //Right trigger
                         outputReport[12] = 0x00; //Begin;
-                        outputReport[13] = triggerRumbleHighest; //Force
-                        outputReport[22] = 0x01; //Left trigger
-                        outputReport[23] = 0x00; //Begin;
-                        outputReport[24] = triggerRumbleHighest; //Force
+                        outputReport[13] = triggerRumbleRight; //Force
                     }
                     else
                     {
                         outputReport[11] = 0x01; //Right trigger
                         outputReport[12] = 0xFF; //Begin;
                         outputReport[13] = 0x00; //Force
+                    }
+                    if (triggerRumbleLeft >= triggerRumbleMinimum)
+                    {
+                        outputReport[22] = 0x01; //Left trigger
+                        outputReport[23] = 0x00; //Begin;
+                        outputReport[24] = triggerRumbleLeft; //Force
+                    }
+                    else
+                    {
                         outputReport[22] = 0x01; //Left trigger
                         outputReport[23] = 0xFF; //Begin;
                         outputReport[24] = 0x00; //Force

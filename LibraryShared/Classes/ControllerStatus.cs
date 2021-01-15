@@ -22,6 +22,7 @@ namespace LibraryShared
             public ControllerBattery BatteryPrevious = new ControllerBattery();
 
             //Time Variables
+            public long PrevInputTicks = 0;
             public long LastInputTicks = 0;
             public long LastActiveTicks = 0;
             public int MilliSecondsTimeout = 4000;
@@ -107,6 +108,7 @@ namespace LibraryShared
                     BatteryPrevious = new ControllerBattery();
 
                     //Time Variables
+                    PrevInputTicks = 0;
                     LastInputTicks = 0;
                     LastActiveTicks = 0;
 

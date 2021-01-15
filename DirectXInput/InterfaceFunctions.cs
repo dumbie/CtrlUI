@@ -251,22 +251,35 @@ namespace DirectXInput
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                         if (activeController.Details.Profile.TriggerRumbleEnabled)
                         {
-                            slider_TriggerRumbleStrength.IsEnabled = true;
+                            slider_TriggerRumbleStrengthLeft.IsEnabled = true;
+                            slider_TriggerRumbleStrengthRight.IsEnabled = true;
                         }
                         else
                         {
-                            slider_TriggerRumbleStrength.IsEnabled = false;
+                            slider_TriggerRumbleStrengthLeft.IsEnabled = false;
+                            slider_TriggerRumbleStrengthRight.IsEnabled = false;
                         }
                     }
                 };
 
-                slider_TriggerRumbleStrength.ValueChanged += (sender, e) =>
+                slider_TriggerRumbleStrengthLeft.ValueChanged += (sender, e) =>
                 {
                     ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
-                        textblock_TriggerRumbleStrength.Text = textblock_TriggerRumbleStrength.Tag.ToString() + Convert.ToInt32(slider_TriggerRumbleStrength.Value) + "%";
-                        activeController.Details.Profile.TriggerRumbleStrength = Convert.ToInt32(slider_TriggerRumbleStrength.Value);
+                        textblock_TriggerRumbleStrengthLeft.Text = textblock_TriggerRumbleStrengthLeft.Tag.ToString() + Convert.ToInt32(slider_TriggerRumbleStrengthLeft.Value) + "%";
+                        activeController.Details.Profile.TriggerRumbleStrengthLeft = Convert.ToInt32(slider_TriggerRumbleStrengthLeft.Value);
+                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    }
+                };
+
+                slider_TriggerRumbleStrengthRight.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_TriggerRumbleStrengthRight.Text = textblock_TriggerRumbleStrengthRight.Tag.ToString() + Convert.ToInt32(slider_TriggerRumbleStrengthRight.Value) + "%";
+                        activeController.Details.Profile.TriggerRumbleStrengthRight = Convert.ToInt32(slider_TriggerRumbleStrengthRight.Value);
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
                     }
                 };

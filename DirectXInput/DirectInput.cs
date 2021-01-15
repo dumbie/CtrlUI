@@ -68,6 +68,7 @@ namespace DirectXInput
                     ControllerUpdateSettingsInterface(Controller);
 
                     //Update the controller last read time
+                    Controller.PrevInputTicks = Controller.LastInputTicks;
                     Controller.LastInputTicks = GetSystemTicksMs();
 
                     //Update the controller last active time
@@ -187,14 +188,19 @@ namespace DirectXInput
                     cb_TriggerRumbleEnabled.IsChecked = Controller.Details.Profile.TriggerRumbleEnabled;
                     if (Controller.Details.Profile.TriggerRumbleEnabled)
                     {
-                        slider_TriggerRumbleStrength.IsEnabled = true;
+                        slider_TriggerRumbleStrengthLeft.IsEnabled = true;
+                        slider_TriggerRumbleStrengthRight.IsEnabled = true;
                     }
                     else
                     {
-                        slider_TriggerRumbleStrength.IsEnabled = false;
+                        slider_TriggerRumbleStrengthLeft.IsEnabled = false;
+                        slider_TriggerRumbleStrengthRight.IsEnabled = false;
                     }
-                    textblock_TriggerRumbleStrength.Text = textblock_TriggerRumbleStrength.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.TriggerRumbleStrength) + "%";
-                    slider_TriggerRumbleStrength.Value = Controller.Details.Profile.TriggerRumbleStrength;
+                    textblock_TriggerRumbleStrengthLeft.Text = textblock_TriggerRumbleStrengthLeft.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.TriggerRumbleStrengthLeft) + "%";
+                    slider_TriggerRumbleStrengthLeft.Value = Controller.Details.Profile.TriggerRumbleStrengthLeft;
+
+                    textblock_TriggerRumbleStrengthRight.Text = textblock_TriggerRumbleStrengthRight.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.TriggerRumbleStrengthRight) + "%";
+                    slider_TriggerRumbleStrengthRight.Value = Controller.Details.Profile.TriggerRumbleStrengthRight;
 
                     textblock_ControllerLedBrightness.Text = textblock_ControllerLedBrightness.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.LedBrightness) + "%";
                     slider_ControllerLedBrightness.Value = Controller.Details.Profile.LedBrightness;

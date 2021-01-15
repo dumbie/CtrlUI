@@ -545,15 +545,29 @@ namespace LibraryShared
                 }
             }
 
-            private int PrivTriggerRumbleStrength = 10;
-            public int TriggerRumbleStrength
+            private int PrivTriggerRumbleStrengthLeft = 10;
+            public int TriggerRumbleStrengthLeft
             {
-                get { return this.PrivTriggerRumbleStrength; }
+                get { return this.PrivTriggerRumbleStrengthLeft; }
                 set
                 {
-                    if (this.PrivTriggerRumbleStrength != value)
+                    if (this.PrivTriggerRumbleStrengthLeft != value)
                     {
-                        this.PrivTriggerRumbleStrength = value;
+                        this.PrivTriggerRumbleStrengthLeft = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private int PrivTriggerRumbleStrengthRight = 10;
+            public int TriggerRumbleStrengthRight
+            {
+                get { return this.PrivTriggerRumbleStrengthRight; }
+                set
+                {
+                    if (this.PrivTriggerRumbleStrengthRight != value)
+                    {
+                        this.PrivTriggerRumbleStrengthRight = value;
                         NotifyPropertyChanged();
                     }
                 }

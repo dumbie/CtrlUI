@@ -31,6 +31,7 @@ namespace DirectXInput
                         }
 
                         //Update the controller last input time
+                        Controller.PrevInputTicks = Controller.LastInputTicks;
                         Controller.LastInputTicks = GetSystemTicksMs();
 
                         //Offsets for thumb sticks

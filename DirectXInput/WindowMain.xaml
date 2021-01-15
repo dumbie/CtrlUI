@@ -273,21 +273,32 @@
                             <Slider Name="slider_ControllerSensitivityThumb" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Rumble Settings"/>
-                            <TextBlock Name="textblock_ControllerRumbleStrength" Style="{StaticResource TextBlockBlack}" Text="Controller rumble strength" Tag="Controller rumble strength: "/>
-                            <TextBlock Text="Changes the controller rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox Name="cb_ControllerRumbleEnabled" Margin="0,0,5,0" Style="{StaticResource CheckBoxBlack}"/>
-                                <Slider Name="slider_ControllerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <TextBlock Text="Enable or disable controller rumble" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>
 
-                            <TextBlock Margin="0,10,0,0" Name="textblock_TriggerRumbleStrength" Style="{StaticResource TextBlockBlack}" Text="Trigger rumble strength" Tag="Trigger rumble strength: "/>
-                            <TextBlock Text="Changes the trigger rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox Name="cb_TriggerRumbleEnabled" Margin="0,0,5,0" Style="{StaticResource CheckBoxBlack}"/>
-                                <Slider Name="slider_TriggerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-                            </StackPanel>
+                            <TextBlock Name="textblock_ControllerRumbleStrength" Margin="0,5,0,0" Style="{StaticResource TextBlockBlack}" Text="Controller rumble strength" Tag="Controller rumble strength: "/>
+                            <TextBlock Text="Changes the controller rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <CheckBox Name="cb_TriggerRumbleEnabled" Margin="0,0,5,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enable or disable trigger rumble" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            </StackPanel>
+
+                            <TextBlock Margin="0,5,0,0" Style="{StaticResource TextBlockBlack}" Text="Trigger rumble strength"/>
+                            <TextBlock Text="Changes the trigger rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                <TextBlock Name="textblock_TriggerRumbleStrengthLeft" Text="Left" Tag="Left: " Width="90" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                <Slider Name="slider_TriggerRumbleStrengthLeft" Minimum="0" Maximum="100" Width="310" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                <TextBlock Name="textblock_TriggerRumbleStrengthRight" Text="Right" Tag="Right: " Width="90" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                <Slider Name="slider_TriggerRumbleStrengthRight" Minimum="0" Maximum="100" Width="310" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                                 <Button Name="btn_RumbleTestLight" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Light"/>
                                 <Button Name="btn_RumbleTestHeavy" Style="{StaticResource ButtonAccentBlack}" Content="Test Rumble Heavy" Margin="5,0,0,0"/>
                                 <Image Name="img_ControllerPreview_ControllerRumble" Height="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Rumble-Dark.png" Margin="5,0,0,0" Visibility="Collapsed"/>
