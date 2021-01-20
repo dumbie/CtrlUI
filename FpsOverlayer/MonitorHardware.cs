@@ -308,20 +308,16 @@ namespace FpsOverlayer
                                     GpuFrequency = " " + ((float)sensor.Value).ToString("0") + "MHz";
                                 }
                             }
-                            else if (showFanSpeed)
+                            else if (showFanSpeed && (sensor.SensorType == SensorType.Fan || sensor.SensorType == SensorType.Control))
                             {
-                                if (sensor.SensorType == SensorType.Fan)
+                                //Debug.WriteLine("GPU Fan: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
+                                if (string.IsNullOrWhiteSpace(GpuFanSpeed))
                                 {
-                                    //Debug.WriteLine("GPU Fan: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
                                     if (sensor.Identifier.ToString().EndsWith("fan/0"))
                                     {
                                         GpuFanSpeed = " " + sensor.Value.ToString() + "RPM";
                                     }
-                                }
-                                else if (sensor.SensorType == SensorType.Control)
-                                {
-                                    //Debug.WriteLine("GPU Fan Control: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
-                                    if (sensor.Name == "GPU Fan")
+                                    else if (sensor.Name == "GPU Fan")
                                     {
                                         GpuFanSpeed = " " + sensor.Value.ToString() + "%";
                                     }
