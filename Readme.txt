@@ -1,3 +1,8 @@
+![CtrlUI](Screenshots/CtrlUI-screenshot1.jpg)
+![DirectXInput](Screenshots/DirectXInput-screenshot1.jpg)
+![Keyboard](Screenshots/Keyboard-screenshot1.jpg)
+![Keypad](Screenshots/Keypad-screenshot1.jpg)
+
 CtrlUI (Controller User Interface) is a Windows application, game and emulator launcher for your game controller,
 this application allow you to run all your favorite applications from one location with lots of useful features.
 
