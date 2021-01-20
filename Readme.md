@@ -3,6 +3,7 @@
 ![Keyboard](Screenshots/Keyboard-screenshot1.jpg)
 ![Keypad](Screenshots/Keypad-screenshot1.jpg)
 
+## Application Description
 CtrlUI (Controller User Interface) is a Windows application, game and emulator launcher for your game controller,
 this application allow you to run all your favorite applications from one location with lots of useful features.
 
@@ -13,7 +14,7 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 
 Keyboard Controller is an on screen keyboard which can be used by your controller.
 
-| CtrlUI Application Features
+## CtrlUI Application Features
 - Set a quick launch application so you can easily run it.
 - Control your system volume with the controllers triggers.
 - Add Windows UWP Applications so you can open them remotely.
@@ -21,44 +22,44 @@ Keyboard Controller is an on screen keyboard which can be used by your controlle
 - Launch emulators with a rom selected from a rom directory.
 - Open a keyboard which you can control with the controller.
 
-| DirectXInput Application Features
+## DirectXInput Application Features
 - Easily customize the controller button layout.
 - Supported controllers: PlayStation 1, 2, 3, 4, 5 and more.
 - Unsupported controllers: Xbox and XInput controllers.
 
-| Installation Instructions
+## Installation Instructions
 1) Extract the CtrlUI folder to any directory you want on your computer.
 2) Make sure that you have installed all the requirements listed below.
 3) Launch CtrlUI Admin and setup a few basic apps in the welcome screen.
 4) Enjoy using your new controller friendly based user interface.
 
-| Uninstallation Instructions
+## Uninstallation Instructions
 1) Run the Driver Installer and click on "Uninstall drivers" and "Cleanup"
 2) Remove the extracted CtrlUI directory.
 
-| Tips and tricks
+## Tips and tricks
 - Let CtrlUI automatically launch on Windows startup for easier alltime usage.
 - Some users may need to run the application as administrator to let it work properly.
 - For more information and help open the "Help" window or tab in the application.
 
-| Known issues
+## Known issues
 - Keyboard Controller and Fps Overlayer might not show up when you are in a fullscreen app.
 - The Alt+Enter controller shortcut does not work for all Windows Store applications.
 
-| Requirements
+## Requirements
 - Windows operating system 10 64bit or higher is required.
 - A DirectInput game controller connected through DirectXInput.
 
-| Special thanks
+## Special thanks
 Nefarius, IGDB, SteamKit2 and LibreHardwareMonitor.
 
-| Support and bug reporting
+## Support and bug reporting
 When you are walking into any problems or a bug you can go to my help page at https://help.arnoldvink.com so I can try to help you out and get everything working.
 
-| Developer donation
+## Developer donation
 If you appreciate my project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
-| Changelog
+## Changelog
 v1.50.5.0 (15-January-2021)
 - You can now separately set left and right trigger rumble strength.
 * Miscellaneous application improvements and fixes.
