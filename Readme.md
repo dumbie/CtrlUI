@@ -1,31 +1,33 @@
 ![CtrlUI](Screenshots/CtrlUI-screenshot1.jpg)
-![DirectXInput](Screenshots/DirectXInput-screenshot1.jpg)
 ![Keyboard](Screenshots/Keyboard-screenshot1.jpg)
 ![Keypad](Screenshots/Keypad-screenshot1.jpg)
+![DirectXInput](Screenshots/DirectXInput-screenshot1.jpg)
 
 ## Application Description
 CtrlUI (Controller User Interface) is a Windows application, game and emulator launcher for your game controller,
 this application allow you to run all your favorite applications from one location with lots of useful features.
 
 DirectXInput converts your game controller like a DualShock 1, 2, 3, 4 and DualSense 5 to a Xbox (XInput) controller,
-so that it can be used with almost every game and application released that support Xbox controllers.
+so that it can be used with almost every game and application released that has support for Xbox controllers.
 
 Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and memory information.
 
-Keyboard Controller is an on screen keyboard which can be used by your controller.
-
 ## CtrlUI Application Features
-- Set a quick launch application so you can easily run it.
-- Control your system volume with the controllers triggers.
-- Add Windows UWP Applications so you can open them remotely.
-- Make and save a screen capture directly from your controller.
+- Add Windows UWP applications so you can easily launch them.
 - Launch emulators with a rom selected from a rom directory.
-- Open a keyboard which you can control with the controller.
+- Switch to other running processes with your controller.
 
 ## DirectXInput Application Features
 - Easily customize the controller button layout.
+- Make and save a screenshot directly from your controller.
+- Control your system volume and media with your controller.
+- Built-in on screen keyboard which can be used by your controller.
 - Supported controllers: PlayStation 1, 2, 3, 4, 5 and more.
 - Unsupported controllers: Xbox and XInput controllers.
+
+## Fps Overlayer Application Features
+- Show the current frame rate of a running application.
+- Show the current time on your screen while gaming.
 
 ## Installation Instructions
 1) Extract the CtrlUI folder to any directory you want on your computer.
