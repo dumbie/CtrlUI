@@ -229,8 +229,23 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\AVImage.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\AVImage.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Classes\IconPackage.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\Classes\IconPackage.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Classes\ImageSourceFolders.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\Classes\ImageSourceFolders.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Enums\IconResourceFlags.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\Enums\IconResourceFlags.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Enums\IconVersion.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\Enums\IconVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Enums\LoadLibraryFlags.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\Enums\LoadLibraryFlags.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Enums\ResourceTypes.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\Enums\ResourceTypes.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromExeFile.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromExeFile.cs</Link>
@@ -240,6 +255,9 @@
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromWindow.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\ExtractImage\GetIconMemoryStreamFromWindow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Interop\IconResource.cs">
+      <Link>ArnoldVinkCode\Functions\AVImage\Interop\IconResource.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVInterface.cs">
       <Link>ArnoldVinkCode\Functions\AVInterface.cs</Link>

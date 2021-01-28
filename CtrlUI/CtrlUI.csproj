@@ -1030,6 +1030,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)SignToolExe.exe</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Release ($(SolutionDir)SignToolExe.exe)</PostBuildEvent>
   </PropertyGroup>
 </Project>
