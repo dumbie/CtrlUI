@@ -13,6 +13,7 @@ using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -142,21 +143,25 @@ namespace CtrlUI
                 ObservableCollection<DataBindFile> dataBindApplist = (ObservableCollection<DataBindFile>)parentListbox.ItemsSource;
                 char currentCharacter = dataBindApp.Name.ToUpper()[0];
 
+                //Set the character filter
+                Func<DataBindFile, bool> filterCharacterNoMatch = x => x.Name.ToUpper()[0] != currentCharacter && x.FileType != FileType.FolderPre && x.FileType != FileType.FilePre && x.FileType != FileType.GoUpPre;
+                Func<DataBindFile, bool> filterCharacterMatch = x => x.Name.ToUpper()[0] == currentCharacter && x.FileType != FileType.FolderPre && x.FileType != FileType.FilePre && x.FileType != FileType.GoUpPre;
+
                 //Get the target application
                 DataBindFile selectAppCurrent = null;
                 if (selectNextCharacter)
                 {
                     int currentIndex = parentListbox.SelectedIndex;
-                    selectAppCurrent = dataBindApplist.Skip(currentIndex).Where(x => x.Name.ToUpper()[0] != currentCharacter).FirstOrDefault();
+                    selectAppCurrent = dataBindApplist.Skip(currentIndex).Where(filterCharacterNoMatch).FirstOrDefault();
                 }
                 else
                 {
                     int currentIndex = dataBindApplist.Count() - parentListbox.SelectedIndex;
-                    selectAppCurrent = dataBindApplist.Reverse().Skip(currentIndex).Where(x => x.Name.ToUpper()[0] != currentCharacter).FirstOrDefault();
+                    selectAppCurrent = dataBindApplist.Reverse().Skip(currentIndex).Where(filterCharacterNoMatch).FirstOrDefault();
                     if (selectAppCurrent != null)
                     {
                         currentCharacter = selectAppCurrent.Name.ToUpper()[0];
-                        selectAppCurrent = dataBindApplist.Where(x => x.Name.ToUpper()[0] == currentCharacter).FirstOrDefault();
+                        selectAppCurrent = dataBindApplist.Where(filterCharacterMatch).FirstOrDefault();
                     }
                 }
 
@@ -201,21 +206,25 @@ namespace CtrlUI
                 ObservableCollection<DataBindApp> dataBindApplist = (ObservableCollection<DataBindApp>)parentListbox.ItemsSource;
                 char currentCharacter = dataBindApp.Name.ToUpper()[0];
 
+                //Set the character filter
+                Func<DataBindApp, bool> filterCharacterNoMatch = x => x.Name.ToUpper()[0] != currentCharacter;
+                Func<DataBindApp, bool> filterCharacterMatch = x => x.Name.ToUpper()[0] == currentCharacter;
+
                 //Get the target application
                 DataBindApp selectAppCurrent = null;
                 if (selectNextCharacter)
                 {
                     int currentIndex = parentListbox.SelectedIndex;
-                    selectAppCurrent = dataBindApplist.Skip(currentIndex).Where(x => x.Name.ToUpper()[0] != currentCharacter).FirstOrDefault();
+                    selectAppCurrent = dataBindApplist.Skip(currentIndex).Where(filterCharacterNoMatch).FirstOrDefault();
                 }
                 else
                 {
                     int currentIndex = dataBindApplist.Count() - parentListbox.SelectedIndex;
-                    selectAppCurrent = dataBindApplist.Reverse().Skip(currentIndex).Where(x => x.Name.ToUpper()[0] != currentCharacter).FirstOrDefault();
+                    selectAppCurrent = dataBindApplist.Reverse().Skip(currentIndex).Where(filterCharacterNoMatch).FirstOrDefault();
                     if (selectAppCurrent != null)
                     {
                         currentCharacter = selectAppCurrent.Name.ToUpper()[0];
-                        selectAppCurrent = dataBindApplist.Where(x => x.Name.ToUpper()[0] == currentCharacter).FirstOrDefault();
+                        selectAppCurrent = dataBindApplist.Where(filterCharacterMatch).FirstOrDefault();
                     }
                 }
 
