@@ -1,0 +1,21 @@
+﻿<ResourceDictionary
+    x:Class="ArnoldVinkCode.Styles.DataTemplates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
+    xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf">
+
+    <!-- ListboxItemTextList -->
+    <DataTemplate x:Key="ListboxItemTextList">
+        <Border Cursor="Hand" CornerRadius="2" MinWidth="48" MinHeight="48">
+            <TextBlock Text="{Binding String1}" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+        </Border>
+    </DataTemplate>
+
+    <!-- ListboxItemEmojiList -->
+    <DataTemplate x:Key="ListboxItemEmojiList">
+        <Border Cursor="Hand" CornerRadius="2" MinWidth="48" MinHeight="48">
+            <emoji:TextBlock Text="{Binding String1}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeLarge}"/>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>

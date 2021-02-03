@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.JsonFunctions;
 
 namespace CtrlUI
@@ -112,7 +113,7 @@ namespace CtrlUI
                 }
 
                 //Select the first listbox item
-                await ListBoxFocusOrSelectIndex(lb_ProfileManager, true, false, 0);
+                await ListBoxFocusOrSelectIndex(lb_ProfileManager, true, false, 0, vProcessCurrent.MainWindowHandle);
             }
             catch { }
         }

@@ -10,6 +10,7 @@ using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
@@ -145,7 +146,7 @@ namespace CtrlUI
                         await RemoveAppFromList(dataBindApp, true, true, false);
 
                         //Select the previous index
-                        await ListboxFocusIndex(listboxSender, false, false, listboxSelectedIndex);
+                        await ListboxFocusIndex(listboxSender, false, false, listboxSelectedIndex, vProcessCurrent.MainWindowHandle);
                     }
                     else if (messageResult == AnswerMove)
                     {

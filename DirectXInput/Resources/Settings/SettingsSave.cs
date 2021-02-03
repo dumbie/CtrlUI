@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Windows.Controls;
 using System.Windows.Media;
 using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
@@ -188,26 +187,6 @@ namespace DirectXInput
                 {
                     textblock_SettingsMouseScrollSensitivity.Text = textblock_SettingsMouseScrollSensitivity.Tag.ToString() + Convert.ToInt32(slider_SettingsMouseScrollSensitivity.Value);
                     Setting_Save(vConfigurationDirectXInput, "MouseScrollSensitivity", Convert.ToInt32(slider_SettingsMouseScrollSensitivity.Value).ToString());
-                };
-
-                textbox_SettingsDomainExtensionDefault.TextChanged += (sender, e) =>
-                {
-                    TextBox senderTextBox = (TextBox)sender;
-                    if (!string.IsNullOrWhiteSpace(senderTextBox.Text))
-                    {
-                        Setting_Save(vConfigurationDirectXInput, "KeyboardDomainExtensionDefault", senderTextBox.Text);
-                        App.vWindowKeyboard.UpdateDomainExtension();
-                    }
-                };
-
-                textbox_SettingsDomainExtension.TextChanged += (sender, e) =>
-                {
-                    TextBox senderTextBox = (TextBox)sender;
-                    if (!string.IsNullOrWhiteSpace(senderTextBox.Text))
-                    {
-                        Setting_Save(vConfigurationDirectXInput, "KeyboardDomainExtension", senderTextBox.Text);
-                        App.vWindowKeyboard.UpdateDomainExtension();
-                    }
                 };
 
                 //Keypad settings

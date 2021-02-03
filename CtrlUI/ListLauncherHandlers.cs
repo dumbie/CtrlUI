@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.JsonFunctions;
 
 namespace CtrlUI
@@ -78,7 +79,7 @@ namespace CtrlUI
                 await RemoveAppFromList(dataBindApp, false, false, true);
 
                 //Select the previous index
-                await ListboxFocusIndex(listboxSender, false, false, listboxSelectedIndex);
+                await ListboxFocusIndex(listboxSender, false, false, listboxSelectedIndex, vProcessCurrent.MainWindowHandle);
             }
             catch (Exception ex)
             {

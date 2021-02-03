@@ -2,8 +2,8 @@
 using ArnoldVinkCode.Styles;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -38,7 +38,7 @@ namespace CtrlUI
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                 //Save the previous focus element
-                Popup_PreviousElementFocus_Save(vSearchElementFocus, null);
+                FrameworkElementFocusSave(vSearchElementFocus, null);
 
                 //Show the popup
                 Popup_Show_Element(grid_Popup_Search);
@@ -46,7 +46,7 @@ namespace CtrlUI
                 vSearchOpen = true;
 
                 //Force focus on element
-                await FocusOnElement(grid_Popup_Search_textbox, false, vProcessCurrent.MainWindowHandle);
+                await FrameworkElementFocus(grid_Popup_Search_textbox, false, vProcessCurrent.MainWindowHandle);
 
                 //Launch the keyboard controller
                 if (vAppActivated && vControllerAnyConnected())
@@ -74,7 +74,7 @@ namespace CtrlUI
                     grid_Popup_Search_textbox.Text = string.Empty;
 
                     //Force focus on element
-                    await FocusOnElement(grid_Popup_Search_textbox, false, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocus(grid_Popup_Search_textbox, false, vProcessCurrent.MainWindowHandle);
                 }
                 else
                 {
@@ -116,7 +116,7 @@ namespace CtrlUI
                     Popup_Hide_Element(grid_Popup_Search);
 
                     //Focus on the previous focus element
-                    await Popup_PreviousElementFocus_Focus(vSearchElementFocus);
+                    await FrameworkElementFocusFocus(vSearchElementFocus, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }

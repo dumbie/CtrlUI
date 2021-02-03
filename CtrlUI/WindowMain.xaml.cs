@@ -18,6 +18,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 
@@ -167,7 +168,7 @@ namespace CtrlUI
                 if (vMainMenuElementFocus.FocusElement == null || Keyboard.FocusedElement == null)
                 {
                     Debug.WriteLine("Focusing on the first available listbox.");
-                    await ListboxFocusIndex(TopVisibleListBoxWithItems(), true, false, -1);
+                    await ListboxFocusIndex(TopVisibleListBoxWithItems(), true, false, -1, vProcessCurrent.MainWindowHandle);
                 }
 
                 //Update the controller help

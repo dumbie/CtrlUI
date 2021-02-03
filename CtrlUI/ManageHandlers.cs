@@ -13,6 +13,7 @@ using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
@@ -361,15 +362,15 @@ namespace CtrlUI
                     //Focus on the application list
                     if (selectedAddCategory == AppCategory.Game)
                     {
-                        await ListboxFocusIndex(lb_Games, false, true, -1);
+                        await ListboxFocusIndex(lb_Games, false, true, -1, vProcessCurrent.MainWindowHandle);
                     }
                     else if (selectedAddCategory == AppCategory.App)
                     {
-                        await ListboxFocusIndex(lb_Apps, false, true, -1);
+                        await ListboxFocusIndex(lb_Apps, false, true, -1, vProcessCurrent.MainWindowHandle);
                     }
                     else if (selectedAddCategory == AppCategory.Emulator)
                     {
-                        await ListboxFocusIndex(lb_Emulators, false, true, -1);
+                        await ListboxFocusIndex(lb_Emulators, false, true, -1, vProcessCurrent.MainWindowHandle);
                     }
                 }
                 else
@@ -483,13 +484,22 @@ namespace CtrlUI
                         //Focus on the edited item listbox
                         if (vSearchOpen)
                         {
-                            await ListboxFocusIndex(lb_Search, false, false, -1);
+                            await ListboxFocusIndex(lb_Search, false, false, -1, vProcessCurrent.MainWindowHandle);
                         }
                         else
                         {
-                            if (vEditAppDataBind.Category == AppCategory.Game) { await ListboxFocusIndex(lb_Games, false, true, -1); }
-                            else if (vEditAppDataBind.Category == AppCategory.App) { await ListboxFocusIndex(lb_Apps, false, true, -1); }
-                            else if (vEditAppDataBind.Category == AppCategory.Emulator) { await ListboxFocusIndex(lb_Emulators, false, true, -1); }
+                            if (vEditAppDataBind.Category == AppCategory.Game)
+                            {
+                                await ListboxFocusIndex(lb_Games, false, true, -1, vProcessCurrent.MainWindowHandle);
+                            }
+                            else if (vEditAppDataBind.Category == AppCategory.App)
+                            {
+                                await ListboxFocusIndex(lb_Apps, false, true, -1, vProcessCurrent.MainWindowHandle);
+                            }
+                            else if (vEditAppDataBind.Category == AppCategory.Emulator)
+                            {
+                                await ListboxFocusIndex(lb_Emulators, false, true, -1, vProcessCurrent.MainWindowHandle);
+                            }
                         }
                     }
                     else
@@ -497,13 +507,22 @@ namespace CtrlUI
                         //Focus on the item listbox
                         if (vSearchOpen)
                         {
-                            await ListboxFocusIndex(lb_Search, false, false, -1);
+                            await ListboxFocusIndex(lb_Search, false, false, -1, vProcessCurrent.MainWindowHandle);
                         }
                         else
                         {
-                            if (vEditAppDataBind.Category == AppCategory.Game) { await ListboxFocusIndex(lb_Games, false, false, -1); }
-                            else if (vEditAppDataBind.Category == AppCategory.App) { await ListboxFocusIndex(lb_Apps, false, false, -1); }
-                            else if (vEditAppDataBind.Category == AppCategory.Emulator) { await ListboxFocusIndex(lb_Emulators, false, false, -1); }
+                            if (vEditAppDataBind.Category == AppCategory.Game)
+                            {
+                                await ListboxFocusIndex(lb_Games, false, false, -1, vProcessCurrent.MainWindowHandle);
+                            }
+                            else if (vEditAppDataBind.Category == AppCategory.App)
+                            {
+                                await ListboxFocusIndex(lb_Apps, false, false, -1, vProcessCurrent.MainWindowHandle);
+                            }
+                            else if (vEditAppDataBind.Category == AppCategory.Emulator)
+                            {
+                                await ListboxFocusIndex(lb_Emulators, false, false, -1, vProcessCurrent.MainWindowHandle);
+                            }
                         }
                     }
                 }

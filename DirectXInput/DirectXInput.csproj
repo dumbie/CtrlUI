@@ -132,6 +132,8 @@
     <Compile Include="ControllerMapping.cs" />
     <Compile Include="GyroDsu\GyroDsuEnum.cs" />
     <Compile Include="GyroDsu\GyroClientHandler.cs" />
+    <Compile Include="Keyboard\TextListFunctions.cs" />
+    <Compile Include="Keyboard\EmojiListFunctions.cs" />
     <Compile Include="Media\ControllerHandlers.cs" />
     <Compile Include="Media\InterfaceFunctions.cs" />
     <Compile Include="Media\ProcessFunctions.cs" />
@@ -240,6 +242,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Keyboard\WindowKeyboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\DataTemplates\DataTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -416,6 +422,10 @@
       <Link>Assets\Default\Icons\Keypad.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\List.png">
+      <Link>Assets\Default\Icons\List.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\CtrlUI\Assets\Default\Icons\MicrophoneMute.png">
       <Link>Assets\Default\Icons\MicrophoneMute.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -488,6 +498,33 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\DirectKeypadMapping.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\DirectKeyboardTextList.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\DirectKeyboardEmojiListSmiley.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\DirectKeyboardEmojiListPeople.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\DirectKeyboardEmojiListOther.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\DirectKeyboardEmojiListTravel.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\DirectKeyboardEmojiListSymbol.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\DirectKeyboardEmojiListFood.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\DirectKeyboardEmojiListNature.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\DirectKeyboardEmojiListActivity.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\App.manifest" />

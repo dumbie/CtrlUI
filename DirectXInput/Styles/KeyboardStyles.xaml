@@ -13,8 +13,22 @@
         <Setter Property="Padding" Value="0"/>
         <Setter Property="Margin" Value="4,0,0,0"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="MinHeight" Value="45"/>
-        <Setter Property="MinWidth" Value="47"/>
+        <Setter Property="MinHeight" Value="48"/>
+        <Setter Property="MinWidth" Value="48"/>
+        <Setter Property="Template" Value="{DynamicResource ButtonTemplateWhite}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
+    </Style>
+    <Style x:Key="ButtonEmoji" TargetType="Button">
+        <Setter Property="FontSize" Value="{DynamicResource TextSizeHuge}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ApplicationWhiteBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource ApplicationAccentLightBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ApplicationAccentLightBrush}"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="4,0,0,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="MinHeight" Value="48"/>
+        <Setter Property="MinWidth" Value="48"/>
         <Setter Property="Template" Value="{DynamicResource ButtonTemplateWhite}"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualStyleSolidWhite}"/>
     </Style>

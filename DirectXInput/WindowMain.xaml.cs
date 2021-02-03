@@ -88,11 +88,22 @@ namespace DirectXInput
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
 
-                //Load Json profiles
+                //Load application close tools
                 JsonLoadProfile(ref vDirectCloseTools, "DirectCloseTools");
 
                 //Close running controller tools
                 CloseControllerTools();
+
+                //Load keyboard emoji and text list
+                JsonLoadProfile(ref vDirectKeyboardEmojiListActivity, "DirectKeyboardEmojiListActivity");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListNature, "DirectKeyboardEmojiListNature");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListFood, "DirectKeyboardEmojiListFood");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListOther, "DirectKeyboardEmojiListOther");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListPeople, "DirectKeyboardEmojiListPeople");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListSmiley, "DirectKeyboardEmojiListSmiley");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListSymbol, "DirectKeyboardEmojiListSymbol");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListTravel, "DirectKeyboardEmojiListTravel");
+                JsonLoadProfile(ref vDirectKeyboardTextList, "DirectKeyboardTextList");
 
                 //Load controllers supported
                 JsonLoadProfile(ref vDirectControllersSupported, "DirectControllersSupported");
@@ -121,6 +132,8 @@ namespace DirectXInput
 
                 //Enable the socket server
                 EnableSocketServer();
+
+                await KeyboardControllerHideShow(true);
             }
             catch { }
         }

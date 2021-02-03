@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="Styles/ControlTemplates/Slider.xaml"/>
                 <ResourceDictionary Source="Styles/ControlTemplates/TextBox.xaml"/>
                 <ResourceDictionary Source="Styles/MainStyles.xaml"/>
+                <ResourceDictionary Source="Styles/DataTemplates/DataTemplates.xaml"/>
                 <ResourceDictionary Source="Styles/KeyboardStyles.xaml"/>
                 <ResourceDictionary Source="Styles/KeypadStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>

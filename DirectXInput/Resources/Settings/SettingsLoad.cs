@@ -66,10 +66,6 @@ namespace DirectXInput
                 cb_SettingsKeyboardResetPosition.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition"));
                 combobox_KeyboardLayout.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout"));
 
-                //Load keyboard domain extensions
-                textbox_SettingsDomainExtensionDefault.Text = Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtensionDefault").ToString();
-                textbox_SettingsDomainExtension.Text = Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtension").ToString();
-
                 //Load mouse sensitivity
                 textblock_SettingsMouseMoveSensitivity.Text = textblock_SettingsMouseMoveSensitivity.Tag.ToString() + Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MouseMoveSensitivity"));
                 slider_SettingsMouseMoveSensitivity.Value = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MouseMoveSensitivity"));

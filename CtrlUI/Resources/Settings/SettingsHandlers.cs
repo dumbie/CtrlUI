@@ -12,9 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.Settings;
 
 namespace CtrlUI
@@ -79,42 +79,42 @@ namespace CtrlUI
                     if (SelStackPanel.Name == "settingsButtonLaunch")
                     {
                         settingsStackpanelLaunch.Visibility = Visibility.Visible;
-                        await FocusOnElement(cb_SettingsLaunchFullscreen, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsLaunchFullscreen, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonApps")
                     {
                         settingsStackpanelApps.Visibility = Visibility.Visible;
-                        await FocusOnElement(cb_SettingsShowOtherShortcuts, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsShowOtherShortcuts, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonInterface")
                     {
                         settingsStackpanelInterface.Visibility = Visibility.Visible;
-                        await FocusOnElement(cb_SettingsShowMediaMain, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsShowMediaMain, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonBackground")
                     {
                         settingsStackpanelBackground.Visibility = Visibility.Visible;
-                        await FocusOnElement(cb_SettingsVideoBackground, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsVideoBackground, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonSound")
                     {
                         settingsStackpanelSound.Visibility = Visibility.Visible;
-                        await FocusOnElement(cb_SettingsInterfaceSound, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsInterfaceSound, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonBrowser")
                     {
                         settingsStackpanelBrowser.Visibility = Visibility.Visible;
-                        await FocusOnElement(cb_SettingsShowHiddenFilesFolders, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsShowHiddenFilesFolders, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonNetwork")
                     {
                         settingsStackpanelNetwork.Visibility = Visibility.Visible;
-                        await FocusOnElement(txt_SettingsSocketClientPortStart, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(txt_SettingsSocketClientPortStart, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonOther")
                     {
                         settingsStackpanelOther.Visibility = Visibility.Visible;
-                        await FocusOnElement(btn_Settings_AddGeforceExperience, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(btn_Settings_AddGeforceExperience, false, vProcessCurrent.MainWindowHandle);
                     }
                 }
             }

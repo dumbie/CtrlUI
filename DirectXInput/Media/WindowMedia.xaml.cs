@@ -10,9 +10,9 @@ using System.Windows.Interop;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
-using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
@@ -242,7 +242,7 @@ namespace DirectXInput.MediaCode
             {
                 if (forceFocus || Keyboard.FocusedElement == null)
                 {
-                    await FocusOnElement(targetButton, false, vInteropWindowHandle);
+                    await FrameworkElementFocus(targetButton, false, vInteropWindowHandle);
                 }
             }
             catch { }

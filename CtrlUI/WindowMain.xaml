@@ -281,7 +281,7 @@
                     <TextBlock Name="grid_Popup_Search_textblock_Result" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" HorizontalAlignment="Center"/>
                 </StackPanel>
 
-                <ListBox Grid.Row="1" Name="lb_Search" Focusable="False" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanel}"/>
+                <ListBox Grid.Row="1" Name="lb_Search" Focusable="False" SelectionMode="Single" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}"/>
             </Grid>
 
             <!-- Shortcuts -->
@@ -845,7 +845,7 @@
                     <TextBlock Name="grid_Popup_ColorPicker_txt_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Please select a new accent color:"/>
                 </StackPanel>
 
-                <ListBox Grid.Row="1" Name="lb_ColorPicker" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemColor}" Style="{StaticResource ListBoxWrapPanel}"/>
+                <ListBox Grid.Row="1" Name="lb_ColorPicker" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListboxItemColor}" Style="{StaticResource ListBoxWrapPanelVertical}"/>
             </Grid>
 
             <!-- Shortcuts -->

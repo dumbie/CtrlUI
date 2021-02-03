@@ -1,8 +1,8 @@
 ﻿using ArnoldVinkCode.Styles;
 using System.Threading.Tasks;
 using System.Windows;
-using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -53,7 +53,7 @@ namespace CtrlUI
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                 //Save the previous focus element
-                Popup_PreviousElementFocus_Save(vTextInputElementFocus, null);
+                FrameworkElementFocusSave(vTextInputElementFocus, null);
 
                 //Show the popup
                 Popup_Show_Element(grid_Popup_TextInput);
@@ -62,12 +62,12 @@ namespace CtrlUI
                 if (focusButton)
                 {
                     //Focus on the confirm button
-                    await FocusOnElement(grid_Popup_TextInput_button_ConfirmText, false, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocus(grid_Popup_TextInput_button_ConfirmText, false, vProcessCurrent.MainWindowHandle);
                 }
                 else
                 {
                     //Focus on the text input box
-                    await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocus(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
 
                     //Launch the keyboard controller
                     if (vAppActivated && vControllerAnyConnected())
@@ -100,7 +100,7 @@ namespace CtrlUI
                     grid_Popup_TextInput_textbox.SelectionStart = grid_Popup_TextInput_textbox.Text.Length;
 
                     //Force focus on element
-                    await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocus(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
                 }
                 else if (focusTextbox)
                 {
@@ -108,7 +108,7 @@ namespace CtrlUI
                     grid_Popup_TextInput_textbox.Text = string.Empty;
 
                     //Force focus on element
-                    await FocusOnElement(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocus(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
                 }
                 else
                 {
@@ -147,7 +147,7 @@ namespace CtrlUI
                     Popup_Hide_Element(grid_Popup_TextInput);
 
                     //Focus on the previous focus element
-                    await Popup_PreviousElementFocus_Focus(vTextInputElementFocus);
+                    await FrameworkElementFocusFocus(vTextInputElementFocus, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }

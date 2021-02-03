@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -23,7 +24,7 @@ namespace CtrlUI
                     PlayInterfaceSound(vConfigurationCtrlUI, "PromptOpen", false);
 
                     //Save the previous focus element
-                    Popup_PreviousElementFocus_Save(vMessageBoxElementFocus, null);
+                    FrameworkElementFocusSave(vMessageBoxElementFocus, null);
                 }
 
                 //Reset messagebox variables
@@ -74,7 +75,7 @@ namespace CtrlUI
                 Popup_Show_Element(grid_Popup_MessageBox);
 
                 //Focus on first listbox answer
-                await ListboxFocusIndex(lb_MessageBox, true, false, -1);
+                await ListboxFocusIndex(lb_MessageBox, true, false, -1, vProcessCurrent.MainWindowHandle);
 
                 //Wait for user messagebox input
                 while (vMessageBoxResult == null && !vMessageBoxCancelled) { await Task.Delay(500); }
@@ -107,7 +108,7 @@ namespace CtrlUI
                 Popup_Hide_Element(grid_Popup_MessageBox);
 
                 //Focus on the previous focus element
-                await Popup_PreviousElementFocus_Focus(vMessageBoxElementFocus);
+                await FrameworkElementFocusFocus(vMessageBoxElementFocus, vProcessCurrent.MainWindowHandle);
             }
             catch (Exception ex)
             {

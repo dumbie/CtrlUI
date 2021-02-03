@@ -9,6 +9,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
@@ -189,7 +190,7 @@ namespace CtrlUI
                 }
 
                 //Focus on the listbox item
-                await ListboxFocusIndex(lb_FilePicker, false, true, -1);
+                await ListboxFocusIndex(lb_FilePicker, false, true, -1, vProcessCurrent.MainWindowHandle);
 
                 if (resetClipboard)
                 {

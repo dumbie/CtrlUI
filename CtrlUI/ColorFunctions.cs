@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using static CtrlUI.AppVariables;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -53,7 +54,7 @@ namespace CtrlUI
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                 //Save the previous focus element
-                Popup_PreviousElementFocus_Save(vColorPickerElementFocus, null);
+                FrameworkElementFocusSave(vColorPickerElementFocus, null);
 
                 //Show the popup
                 Popup_Show_Element(grid_Popup_ColorPicker);
@@ -61,7 +62,7 @@ namespace CtrlUI
                 vColorPickerOpen = true;
 
                 //Focus on the file picker listbox
-                await ListboxFocusIndex(lb_ColorPicker, false, false, -1);
+                await ListboxFocusIndex(lb_ColorPicker, false, false, -1, vProcessCurrent.MainWindowHandle);
             }
             catch { }
         }
@@ -105,7 +106,7 @@ namespace CtrlUI
                     Popup_Hide_Element(grid_Popup_ColorPicker);
 
                     //Focus on the previous focus element
-                    await Popup_PreviousElementFocus_Focus(vColorPickerElementFocus);
+                    await FrameworkElementFocusFocus(vColorPickerElementFocus, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }

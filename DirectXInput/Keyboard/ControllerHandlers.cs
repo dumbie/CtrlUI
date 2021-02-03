@@ -210,13 +210,20 @@ namespace DirectXInput.KeyboardCode
                         ControllerDelayShort = true;
                     }
 
-                    //Show hide emoji menu
+                    //Show hide text emoji popup
                     else if (ControllerInput.ButtonBack.PressedRaw)
                     {
-                        Debug.WriteLine("Button: BackPressed / Show hide emoji menu");
+                        Debug.WriteLine("Button: BackPressed / Show hide text emoji popup");
                         await AVActions.ActionDispatcherInvokeAsync(async delegate
                         {
-                            await ShowHideEmojiMenu();
+                            if (vLastPopupListType == "Text")
+                            {
+                                await ShowHideTextListPopup();
+                            }
+                            else
+                            {
+                                await ShowHideEmojiListPopup();
+                            }
                         });
 
                         ControllerDelayMedium = true;

@@ -14,6 +14,7 @@ using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
@@ -51,7 +52,7 @@ namespace CtrlUI
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                     //Save the previous focus element
-                    Popup_PreviousElementFocus_Save(vFilePickerElementFocus, previousFocus);
+                    FrameworkElementFocusSave(vFilePickerElementFocus, previousFocus);
                 }
 
                 //Reset file picker variables
@@ -73,7 +74,7 @@ namespace CtrlUI
                     //Change the list picker item style
                     if (vFilePickerShowRoms)
                     {
-                        lb_FilePicker.Style = Application.Current.Resources["ListBoxWrapPanel"] as Style;
+                        lb_FilePicker.Style = Application.Current.Resources["ListBoxWrapPanelVertical"] as Style;
                         lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemRom"] as DataTemplate;
                         grid_Popup_Filepicker_Row1.HorizontalAlignment = HorizontalAlignment.Center;
                     }
@@ -550,7 +551,7 @@ namespace CtrlUI
                 });
 
                 //Focus on the file picker listbox
-                await ListboxFocusIndex(lb_FilePicker, false, false, targetIndex);
+                await ListboxFocusIndex(lb_FilePicker, false, false, targetIndex, vProcessCurrent.MainWindowHandle);
             }
             catch (Exception ex)
             {
@@ -743,7 +744,7 @@ namespace CtrlUI
                 Popup_Hide_Element(grid_Popup_FilePicker);
 
                 //Focus on the previous focus element
-                await Popup_PreviousElementFocus_Focus(vFilePickerElementFocus);
+                await FrameworkElementFocusFocus(vFilePickerElementFocus, vProcessCurrent.MainWindowHandle);
             }
             catch { }
         }

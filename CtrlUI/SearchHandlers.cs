@@ -7,9 +7,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
-using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
@@ -47,7 +47,7 @@ namespace CtrlUI
             try
             {
                 await KeyboardControllerHideShow(false);
-                await FocusOnElement(grid_Popup_Search_textbox, false, vProcessCurrent.MainWindowHandle);
+                await FrameworkElementFocus(grid_Popup_Search_textbox, false, vProcessCurrent.MainWindowHandle);
             }
             catch { }
         }

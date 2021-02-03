@@ -1,16 +1,9 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
-using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputKeyboard;
-using static ArnoldVinkCode.AVInterface;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Classes;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
@@ -161,7 +154,7 @@ namespace CtrlUI
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                 //Save the previous focus element
-                Popup_PreviousElementFocus_Save(vMainMenuElementFocus, null);
+                FrameworkElementFocusSave(vMainMenuElementFocus, null);
 
                 //Show the popup
                 Popup_Show_Element(grid_Popup_MainMenu);
@@ -169,7 +162,7 @@ namespace CtrlUI
                 vMainMenuOpen = true;
 
                 //Focus on the menu listbox
-                await ListboxFocusIndex(listbox_MainMenu, false, false, -1);
+                await ListboxFocusIndex(listbox_MainMenu, false, false, -1, vProcessCurrent.MainWindowHandle);
 
                 //Update the clock with date
                 UpdateClockTime();
@@ -199,7 +192,7 @@ namespace CtrlUI
                     UpdateClockTime();
 
                     //Focus on the previous focus element
-                    await Popup_PreviousElementFocus_Focus(vMainMenuElementFocus);
+                    await FrameworkElementFocusFocus(vMainMenuElementFocus, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }
@@ -218,7 +211,7 @@ namespace CtrlUI
                     vPopupElementTarget = ShowPopup;
 
                     //Save the previous focus element
-                    Popup_PreviousElementFocus_Save(vPopupElementFocus, null);
+                    FrameworkElementFocusSave(vPopupElementFocus, null);
 
                     //Show the popup
                     Popup_Show_Element(ShowPopup);
@@ -228,7 +221,7 @@ namespace CtrlUI
                     //Force focus on element
                     if (FocusElement != null)
                     {
-                        await FocusOnElement(FocusElement, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(FocusElement, false, vProcessCurrent.MainWindowHandle);
                     }
                 }
             }
@@ -251,7 +244,7 @@ namespace CtrlUI
                     Popup_Hide_Element(vPopupElementTarget);
 
                     //Focus on the previous focus element
-                    await Popup_PreviousElementFocus_Focus(vPopupElementFocus);
+                    await FrameworkElementFocusFocus(vPopupElementFocus, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }
@@ -301,83 +294,6 @@ namespace CtrlUI
             }
             catch { }
             return false;
-        }
-
-        //Save the previous focus element
-        static void Popup_PreviousElementFocus_Save(FrameworkElementFocus frameworkElementFocus, FrameworkElement previousFocus)
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    if (previousFocus != null)
-                    {
-                        Debug.WriteLine("Saved previous focus element: " + previousFocus);
-                        frameworkElementFocus.FocusElement = previousFocus;
-                        if (frameworkElementFocus.FocusElement != null && frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
-                        {
-                            frameworkElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElementFocus.FocusElement);
-                            frameworkElementFocus.FocusIndex = frameworkElementFocus.FocusListBox.SelectedIndex;
-                        }
-                    }
-                    else
-                    {
-                        //Get the currently focused element
-                        FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-
-                        //Check the currently focused element
-                        if (frameworkElement != null && frameworkElement != App.vWindowMain)
-                        {
-                            Debug.WriteLine("Saved previous focus keyboard: " + frameworkElement);
-                            frameworkElementFocus.FocusElement = frameworkElement;
-                            if (frameworkElementFocus.FocusElement != null && frameworkElementFocus.FocusElement.GetType() == typeof(ListBoxItem))
-                            {
-                                frameworkElementFocus.FocusListBox = AVFunctions.FindVisualParent<ListBox>(frameworkElementFocus.FocusElement);
-                                frameworkElementFocus.FocusIndex = frameworkElementFocus.FocusListBox.SelectedIndex;
-                            }
-                        }
-                    }
-                });
-            }
-            catch { }
-        }
-
-        //Focus on the previous focus element
-        async Task Popup_PreviousElementFocus_Focus(FrameworkElementFocus frameworkElementFocus)
-        {
-            try
-            {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                {
-                    //Check if focus element is disconnected
-                    bool disconnectedSource = false;
-                    if (frameworkElementFocus.FocusElement != null)
-                    {
-                        disconnectedSource = frameworkElementFocus.FocusElement.DataContext == BindingOperations.DisconnectedSource;
-                    }
-
-                    //Force focus on element
-                    if (frameworkElementFocus.FocusElement != null && !disconnectedSource)
-                    {
-                        Debug.WriteLine("Focusing on previous element: " + frameworkElementFocus.FocusElement);
-                        await FocusOnElement(frameworkElementFocus.FocusElement, false, vProcessCurrent.MainWindowHandle);
-                    }
-                    else if (frameworkElementFocus.FocusListBox != null)
-                    {
-                        Debug.WriteLine("Focusing on previous listbox: " + frameworkElementFocus.FocusListBox);
-                        await ListboxFocusIndex(frameworkElementFocus.FocusListBox, false, false, frameworkElementFocus.FocusIndex);
-                    }
-                    else
-                    {
-                        Debug.WriteLine("No previous focus element, pressing tab key.");
-                        await KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                    }
-
-                    //Reset the previous focus
-                    frameworkElementFocus.Reset();
-                });
-            }
-            catch { }
         }
     }
 }

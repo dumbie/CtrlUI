@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
@@ -50,24 +49,13 @@ namespace DirectXInput.KeyboardCode
                 string sendKeyName = sendButton.Tag.ToString();
                 if (sendKeyType == typeof(string))
                 {
-                    if (sendKeyName == "DotCom")
+                    if (sendKeyName == "EmojiPopup")
                     {
-                        if (vCapsEnabled)
-                        {
-                            KeyTypeStringSend(Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtension").ToString());
-                        }
-                        else
-                        {
-                            KeyTypeStringSend(Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtensionDefault").ToString());
-                        }
+                        await ShowHideEmojiListPopup();
                     }
-                    else if (sendKeyName == "Emoji")
+                    else if (sendKeyName == "TextListPopup")
                     {
-                        Emoji.Wpf.TextBlock emojiTextblock = FindVisualChild<Emoji.Wpf.TextBlock>(sendButton);
-                        if (emojiTextblock != null)
-                        {
-                            KeyTypeStringSend(emojiTextblock.Text);
-                        }
+                        await ShowHideTextListPopup();
                     }
                 }
                 else
@@ -89,10 +77,6 @@ namespace DirectXInput.KeyboardCode
                         else if (sendKeyVirtual == KeysVirtual.Alt)
                         {
                             await KeyPressComboAuto(KeysVirtual.Control, KeysVirtual.V);
-                        }
-                        else if (sendKeyVirtual == KeysVirtual.Space)
-                        {
-                            await ShowHideEmojiMenu();
                         }
                         else if (sendKeyVirtual == KeysVirtual.Enter)
                         {
@@ -231,27 +215,6 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 this.Hide();
-            }
-            catch { }
-        }
-
-        //Handle emoji close
-        async void ButtonCloseEmoji_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Space)
-                {
-                    await ShowHideEmojiMenu();
-                }
-            }
-            catch { }
-        }
-        async void ButtonCloseEmoji_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                await ShowHideEmojiMenu();
             }
             catch { }
         }

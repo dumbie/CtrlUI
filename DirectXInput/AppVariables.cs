@@ -46,9 +46,12 @@ namespace DirectXInput
         //Interaction Variables
         public static bool vSingleTappedEvent = true;
 
-        //Emoji Variables
+        //Emoji and text list Variables
+        public static string vLastPopupListType = "Emoji";
         public static Button vEmojiFocusedButtonOpen = null;
         public static Button vEmojiFocusedButtonClose = null;
+        public static Button vTextFocusedButtonOpen = null;
+        public static Button vTextFocusedButtonClose = null;
 
         //Dispatcher Timers
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
@@ -142,6 +145,15 @@ namespace DirectXInput
         public static List<ProfileShared> vDirectCloseTools = new List<ProfileShared>();
         public static List<ControllerSupported> vDirectControllersSupported = new List<ControllerSupported>();
         public static List<ControllerSupported> vDirectControllersIgnored = new List<ControllerSupported>();
+        public static List<ProfileShared> vDirectKeyboardEmojiListActivity = new List<ProfileShared>();
+        public static List<ProfileShared> vDirectKeyboardEmojiListNature = new List<ProfileShared>();
+        public static List<ProfileShared> vDirectKeyboardEmojiListFood = new List<ProfileShared>();
+        public static List<ProfileShared> vDirectKeyboardEmojiListOther = new List<ProfileShared>();
+        public static List<ProfileShared> vDirectKeyboardEmojiListPeople = new List<ProfileShared>();
+        public static List<ProfileShared> vDirectKeyboardEmojiListSmiley = new List<ProfileShared>();
+        public static List<ProfileShared> vDirectKeyboardEmojiListSymbol = new List<ProfileShared>();
+        public static List<ProfileShared> vDirectKeyboardEmojiListTravel = new List<ProfileShared>();
+        public static List<ProfileShared> vDirectKeyboardTextList = new List<ProfileShared>();
         public static ObservableCollection<KeypadMapping> vDirectKeypadMapping = new ObservableCollection<KeypadMapping>();
         public static ObservableCollection<ControllerProfile> vDirectControllersProfile = new ObservableCollection<ControllerProfile>();
     }

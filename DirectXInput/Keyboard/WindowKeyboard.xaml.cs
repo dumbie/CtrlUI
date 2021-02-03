@@ -12,9 +12,9 @@ using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
-using static ArnoldVinkCode.AVInterface;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
@@ -63,6 +63,20 @@ namespace DirectXInput.KeyboardCode
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
+                //Update the listbox sources
+                UpdateListBoxSources();
+            }
+            catch { }
+        }
+
+        //Update the listbox sources
+        void UpdateListBoxSources()
+        {
+            try
+            {
+                listbox_TextList.ItemsSource = vDirectKeyboardTextList;
+                listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
             }
             catch { }
         }
@@ -247,7 +261,7 @@ namespace DirectXInput.KeyboardCode
             {
                 if (forceFocus || Keyboard.FocusedElement == null)
                 {
-                    await FocusOnElement(targetButton, false, vInteropWindowHandle);
+                    await FrameworkElementFocus(targetButton, false, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -328,7 +342,7 @@ namespace DirectXInput.KeyboardCode
                 key_Plus_Normal.Text = "=";
                 key_Plus_Caps.Text = "+";
                 key_Plus.Tag = KeysVirtual.OEMPlus;
-                key_BackSpace.Content = "Backspc";
+                key_BackSpace.Content = "Backspace";
                 key_BackSpace.Tag = KeysVirtual.BackSpace;
 
                 //Key Row 2
@@ -360,8 +374,6 @@ namespace DirectXInput.KeyboardCode
                 key_CloseBracket_Normal.Text = "]";
                 key_CloseBracket_Caps.Text = "}";
                 key_CloseBracket.Tag = KeysVirtual.OEMCloseBracket;
-                key_DotCom.Content = ".com";
-                key_DotCom.Tag = "DotCom";
 
                 //Key Row 3
                 key_CapsLock.Content = "Caps";
@@ -436,7 +448,7 @@ namespace DirectXInput.KeyboardCode
                 key_Alt.Tag = KeysVirtual.Alt;
                 key_LeftWindows.Content = "Windows";
                 key_LeftWindows.Tag = KeysVirtual.LeftWindows;
-                key_SpaceText.Text = "Space";
+                key_Space.Content = "Space";
                 key_Space.Tag = KeysVirtual.Space;
                 key_Enter.Content = "Enter";
                 key_Enter.Tag = KeysVirtual.Enter;
@@ -444,110 +456,9 @@ namespace DirectXInput.KeyboardCode
                 key_Escape.Tag = KeysVirtual.Escape;
                 key_VolumeDown.Tag = KeysVirtual.VolumeDown;
                 key_VolumeUp.Tag = KeysVirtual.VolumeUp;
-
-                //Emoji Row 1
-                key_Emoji1Text.Text = "😀";
-                key_Emoji1.Tag = "Emoji";
-                key_Emoji2Text.Text = "🤣";
-                key_Emoji2.Tag = "Emoji";
-                key_Emoji3Text.Text = "😅";
-                key_Emoji3.Tag = "Emoji";
-                key_Emoji4Text.Text = "😊";
-                key_Emoji4.Tag = "Emoji";
-                key_Emoji5Text.Text = "😍";
-                key_Emoji5.Tag = "Emoji";
-                key_Emoji6Text.Text = "😗";
-                key_Emoji6.Tag = "Emoji";
-                key_Emoji7Text.Text = "☺";
-                key_Emoji7.Tag = "Emoji";
-                key_Emoji8Text.Text = "🤩";
-                key_Emoji8.Tag = "Emoji";
-                key_Emoji9Text.Text = "😐";
-                key_Emoji9.Tag = "Emoji";
-                key_Emoji10Text.Text = "🙄";
-                key_Emoji10.Tag = "Emoji";
-                key_Emoji11Text.Text = "😥";
-                key_Emoji11.Tag = "Emoji";
-                key_Emoji12Text.Text = "😇";
-                key_Emoji12.Tag = "Emoji";
-
-                //Emoji Row 2
-                key_Emoji13Text.Text = "😁";
-                key_Emoji13.Tag = "Emoji";
-                key_Emoji14Text.Text = "🤭";
-                key_Emoji14.Tag = "Emoji";
-                key_Emoji15Text.Text = "😆";
-                key_Emoji15.Tag = "Emoji";
-                key_Emoji16Text.Text = "😋";
-                key_Emoji16.Tag = "Emoji";
-                key_Emoji17Text.Text = "😘";
-                key_Emoji17.Tag = "Emoji";
-                key_Emoji18Text.Text = "😭";
-                key_Emoji18.Tag = "Emoji";
-                key_Emoji19Text.Text = "🙂";
-                key_Emoji19.Tag = "Emoji";
-                key_Emoji20Text.Text = "🤔";
-                key_Emoji20.Tag = "Emoji";
-                key_Emoji21Text.Text = "🤫";
-                key_Emoji21.Tag = "Emoji";
-                key_Emoji22Text.Text = "😏";
-                key_Emoji22.Tag = "Emoji";
-                key_Emoji23Text.Text = "😪";
-                key_Emoji23.Tag = "Emoji";
-                key_Emoji24Text.Text = "😮";
-                key_Emoji24.Tag = "Emoji";
-
-                //Emoji Row 3
-                key_Emoji25Text.Text = "😂";
-                key_Emoji25.Tag = "Emoji";
-                key_Emoji26Text.Text = "😄";
-                key_Emoji26.Tag = "Emoji";
-                key_Emoji27Text.Text = "😉";
-                key_Emoji27.Tag = "Emoji";
-                key_Emoji28Text.Text = "😤";
-                key_Emoji28.Tag = "Emoji";
-                key_Emoji29Text.Text = "😨";
-                key_Emoji29.Tag = "Emoji";
-                key_Emoji30Text.Text = "😎";
-                key_Emoji30.Tag = "Emoji";
-                key_Emoji31Text.Text = "😓";
-                key_Emoji31.Tag = "Emoji";
-                key_Emoji32Text.Text = "🤨";
-                key_Emoji32.Tag = "Emoji";
-                key_Emoji33Text.Text = "😴";
-                key_Emoji33.Tag = "Emoji";
-                key_Emoji34Text.Text = "😣";
-                key_Emoji34.Tag = "Emoji";
-                key_Emoji35Text.Text = "🤐";
-                key_Emoji35.Tag = "Emoji";
-                key_Emoji36Text.Text = "🤒";
-                key_Emoji36.Tag = "Emoji";
-
-                //Emoji Row 4
-                key_Emoji37Text.Text = "€";
-                key_Emoji37.Tag = "Emoji";
-                key_Emoji38Text.Text = "£";
-                key_Emoji38.Tag = "Emoji";
-                key_Emoji39Text.Text = "©";
-                key_Emoji39.Tag = "Emoji";
-                key_Emoji40Text.Text = "™";
-                key_Emoji40.Tag = "Emoji";
-                key_Emoji41Text.Text = ":)";
-                key_Emoji41.Tag = "Emoji";
-                key_Emoji42Text.Text = ":(";
-                key_Emoji42.Tag = "Emoji";
-                key_Emoji43Text.Text = ";)";
-                key_Emoji43.Tag = "Emoji";
-                key_Emoji44Text.Text = ";(";
-                key_Emoji44.Tag = "Emoji";
-                key_Emoji45Text.Text = ":D";
-                key_Emoji45.Tag = "Emoji";
-                key_Emoji46Text.Text = ":O";
-                key_Emoji46.Tag = "Emoji";
-                key_Emoji47Text.Text = ":P";
-                key_Emoji47.Tag = "Emoji";
-                key_Emoji48Text.Text = ":/";
-                key_Emoji48.Tag = "Emoji";
+                key_EmojiText.Text = "😄";
+                key_Emoji.Tag = "EmojiPopup";
+                key_TextList.Tag = "TextListPopup";
             }
             catch { }
         }
@@ -605,82 +516,6 @@ namespace DirectXInput.KeyboardCode
                     key_y.Tag = KeysVirtual.Y;
                     key_z.Content = "w";
                     key_z.Tag = KeysVirtual.W;
-                }
-            }
-            catch { }
-        }
-
-        //Show or hide the emoji menu
-        public async Task ShowHideEmojiMenu()
-        {
-            try
-            {
-                if (border_Emoji.Visibility == Visibility.Collapsed)
-                {
-                    //Show the emoji menu
-                    border_Emoji.Visibility = Visibility.Visible;
-                    grid_Keyboard.Opacity = 0.60;
-                    grid_Keyboard.IsEnabled = false;
-
-                    //Store close focus button
-                    FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                    if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
-                    {
-                        vEmojiFocusedButtonClose = (Button)frameworkElement;
-                    }
-
-                    //Focus on keyboard button
-                    if (vEmojiFocusedButtonOpen == null)
-                    {
-                        await FocusPopupButton(true, key_Emoji1);
-                    }
-                    else
-                    {
-                        await FocusPopupButton(true, vEmojiFocusedButtonOpen);
-                    }
-                }
-                else
-                {
-                    //Hide the emoji menu
-                    border_Emoji.Visibility = Visibility.Collapsed;
-                    grid_Keyboard.Opacity = 1;
-                    grid_Keyboard.IsEnabled = true;
-
-                    //Store open focus button
-                    FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                    if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
-                    {
-                        vEmojiFocusedButtonOpen = (Button)frameworkElement;
-                    }
-
-                    //Focus on keyboard button
-                    if (vEmojiFocusedButtonClose == null)
-                    {
-                        await FocusPopupButton(true, key_Space);
-                    }
-                    else
-                    {
-                        await FocusPopupButton(true, vEmojiFocusedButtonClose);
-                    }
-                }
-            }
-            catch { }
-        }
-
-        //Update the domain extension
-        public void UpdateDomainExtension()
-        {
-            try
-            {
-                if (vCapsEnabled)
-                {
-                    string extensionString = Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtension").ToString();
-                    key_DotCom.Content = AVFunctions.StringCut(extensionString, 4, string.Empty);
-                }
-                else
-                {
-                    string extensionString = Setting_Load(vConfigurationDirectXInput, "KeyboardDomainExtensionDefault").ToString();
-                    key_DotCom.Content = AVFunctions.StringCut(extensionString, 4, string.Empty);
                 }
             }
             catch { }
@@ -807,14 +642,10 @@ namespace DirectXInput.KeyboardCode
                         key_Control.Content = "Ctrl";
                         key_Alt.Content = "Alt";
                         key_LeftWindows.Content = "Windows";
-                        key_SpaceText.Text = "Space";
                         key_Enter.Content = "Enter";
 
                         key_Escape.Content = "Escape";
                         key_Escape.Tag = KeysVirtual.Escape;
-
-                        //Update the domain extension
-                        UpdateDomainExtension();
 
                         //Update the volume down button
                         key_VolumeDown.Tag = KeysVirtual.VolumeDown;
@@ -829,7 +660,7 @@ namespace DirectXInput.KeyboardCode
                         key_Delete.Content = "Insert";
                         key_Delete.Tag = KeysVirtual.Insert;
 
-                        key_End.Content = "Hme";
+                        key_End.Content = "Home";
                         key_End.Tag = KeysVirtual.Home;
 
                         key_Tilde_Normal.Text = "~";
@@ -930,14 +761,10 @@ namespace DirectXInput.KeyboardCode
                         key_Control.Content = "Copy";
                         key_Alt.Content = "Paste";
                         key_LeftWindows.Content = "Select all";
-                        key_SpaceText.Text = "😄😋😁";
                         key_Enter.Content = "Undo";
 
                         key_Escape.Content = "Menu";
                         key_Escape.Tag = KeysVirtual.ContextMenu;
-
-                        //Update the domain extension
-                        UpdateDomainExtension();
 
                         //Update the volume mute button
                         key_VolumeDown.Tag = KeysVirtual.VolumeMute;

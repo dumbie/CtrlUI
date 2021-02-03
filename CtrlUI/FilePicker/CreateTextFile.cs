@@ -8,6 +8,7 @@ using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
@@ -58,7 +59,7 @@ namespace CtrlUI
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
 
                     //Focus on the listbox item
-                    await ListboxFocusIndex(lb_FilePicker, false, true, -1);
+                    await ListboxFocusIndex(lb_FilePicker, false, true, -1, vProcessCurrent.MainWindowHandle);
 
                     //Check if there are files or folders
                     FilePicker_CheckFilesAndFoldersCount();
