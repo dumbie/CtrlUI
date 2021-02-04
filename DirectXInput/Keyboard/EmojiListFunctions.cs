@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using ArnoldVinkCode;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -93,6 +94,88 @@ namespace DirectXInput.KeyboardCode
                 {
                     await FocusPopupButton(true, vEmojiFocusedButtonClose);
                 }
+            }
+            catch { }
+        }
+
+        //Switch the emoji type list
+        void SwitchEmojiTypeList(bool previous)
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    if (!previous)
+                    {
+                        if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSmiley)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListActivity;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListActivity)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListFood;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListFood)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListNature;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListNature)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListOther;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListOther)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListPeople;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListPeople)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSymbol;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSymbol)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListTravel;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListTravel)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
+                        }
+                    }
+                    else
+                    {
+                        if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSmiley)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListTravel;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListTravel)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSymbol;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSymbol)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListPeople;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListPeople)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListOther;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListOther)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListNature;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListNature)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListFood;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListFood)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListActivity;
+                        }
+                        else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListActivity)
+                        {
+                            listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
+                        }
+                    }
+                });
             }
             catch { }
         }

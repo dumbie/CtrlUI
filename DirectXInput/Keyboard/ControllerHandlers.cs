@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -188,7 +189,16 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.TriggerLeft > 0)
                     {
                         Debug.WriteLine("Button: TriggerLeft / Caps lock");
-                        await SwitchCapsLock();
+
+                        if (border_EmojiListPopup.Visibility == Visibility.Visible)
+                        {
+                            SwitchEmojiTypeList(true);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        }
+                        else
+                        {
+                            await SwitchCapsLock();
+                        }
 
                         ControllerDelayMedium = true;
                     }
@@ -196,18 +206,24 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.TriggerRight > 0)
                     {
                         Debug.WriteLine("Button: TriggerRight / Press Tab");
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
 
                         if (vCapsEnabled)
                         {
                             await KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        }
+                        else if (border_EmojiListPopup.Visibility == Visibility.Visible)
+                        {
+                            SwitchEmojiTypeList(false);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         }
                         else
                         {
                             await KeyPressSingleAuto(KeysVirtual.Tab);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         }
 
-                        ControllerDelayShort = true;
+                        ControllerDelayMedium = true;
                     }
 
                     //Show hide text emoji popup
