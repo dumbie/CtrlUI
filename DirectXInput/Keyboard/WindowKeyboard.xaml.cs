@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Effects;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
@@ -77,6 +79,19 @@ namespace DirectXInput.KeyboardCode
             {
                 listbox_TextList.ItemsSource = vDirectKeyboardTextList;
                 listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
+
+                //Shadow effect variable
+                DropShadowEffect dropShadowEffect = new DropShadowEffect
+                {
+                    Color = new Color { A = 255, R = 0, G = 0, B = 0 },
+                    Direction = 360,
+                    ShadowDepth = 0,
+                    BlurRadius = 15,
+                    Opacity = 1
+                };
+
+                //Set shadow effect
+                key_EmojiSmileyText.Effect = dropShadowEffect;
             }
             catch { }
         }

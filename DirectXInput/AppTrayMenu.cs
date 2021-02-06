@@ -23,6 +23,7 @@ namespace DirectXInput
 
                 //Create a context menu for systray.
                 TrayContextMenu.MenuItems.Add("Open Settings", NotifyIcon_Settings);
+                TrayContextMenu.MenuItems.Add("Open Keyboard", NotifyIcon_Keyboard);
                 TrayContextMenu.MenuItems.Add("Website", NotifyIcon_Website);
                 TrayContextMenu.MenuItems.Add("Exit", NotifyIcon_Exit);
 
@@ -84,6 +85,15 @@ namespace DirectXInput
             try
             {
                 await Application_ShowHideWindow();
+            }
+            catch { }
+        }
+
+        async void NotifyIcon_Keyboard(object sender, EventArgs args)
+        {
+            try
+            {
+                await KeyboardControllerHideShow(true);
             }
             catch { }
         }

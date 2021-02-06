@@ -132,8 +132,6 @@ namespace DirectXInput
 
                 //Enable the socket server
                 EnableSocketServer();
-
-                await KeyboardControllerHideShow(true);
             }
             catch { }
         }

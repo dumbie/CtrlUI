@@ -316,7 +316,7 @@
                 <ListBox Name="listbox_TextList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="210" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemTextList}" Style="{StaticResource ListBoxVertical}" PreviewKeyUp="listbox_TextList_PreviewKeyUp" PreviewMouseUp="listbox_TextList_PreviewMouseUp"/>
 
                 <!-- Popup Close Button -->
-                <Button Name="key_TextListClose" Margin="4" HorizontalAlignment="Stretch" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseTextList_PreviewKeyUp" PreviewMouseUp="ButtonCloseTextList_PreviewMouseUp">
+                <Button Name="key_TextListClose" Margin="6,2,6,6" HorizontalAlignment="Stretch" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseTextList_PreviewKeyUp" PreviewMouseUp="ButtonCloseTextList_PreviewMouseUp">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Margin="10,0,0,0" Height="26"/>
@@ -332,15 +332,50 @@
             </Border.Background>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <!-- Emoji ListBox -->
-                <ListBox Name="listbox_EmojiList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="210" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemEmojiList}" Style="{StaticResource ListBoxWrapPanelHorizontal}" PreviewKeyUp="listbox_EmojiList_PreviewKeyUp" PreviewMouseUp="listbox_EmojiList_PreviewMouseUp"/>
+                <ListBox Name="listbox_EmojiList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="220" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemEmojiList}" Style="{StaticResource ListBoxWrapPanelHorizontal}" PreviewKeyUp="listbox_EmojiList_PreviewKeyUp" PreviewMouseUp="listbox_EmojiList_PreviewMouseUp"/>
 
-                <!-- Popup Close Button -->
-                <Button Name="key_EmojiClose" Margin="4" HorizontalAlignment="Stretch" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseEmoji_PreviewKeyUp" PreviewMouseUp="ButtonCloseEmoji_PreviewMouseUp">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Margin="10,0,0,0" Height="26"/>
+                <Grid Margin="2,4,4,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Emoji Switch Buttons -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Button Name="key_EmojiSmiley" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                            <emoji:TextBlock Name="key_EmojiSmileyText" Text="😀" FontSize="{StaticResource TextSizeLarge}"/>
+                        </Button>
+                        <Button Name="key_EmojiActivity" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                            <emoji:TextBlock Name="key_EmojiActivityText" Text="🏀" FontSize="{StaticResource TextSizeLarge}"/>
+                        </Button>
+                        <Button Name="key_EmojiFood" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                            <emoji:TextBlock Name="key_EmojiFoodText" Text="🍓" FontSize="{StaticResource TextSizeLarge}"/>
+                        </Button>
+                        <Button Name="key_EmojiNature" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                            <emoji:TextBlock Name="key_EmojiNatureText" Text="🐱" FontSize="{StaticResource TextSizeLarge}"/>
+                        </Button>
+                        <Button Name="key_EmojiOther" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                            <emoji:TextBlock Name="key_EmojiOtherText" Text="⏱" FontSize="{StaticResource TextSizeLarge}"/>
+                        </Button>
+                        <Button Name="key_EmojiPeople" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                            <emoji:TextBlock Name="key_EmojiPeopleText" Text="🧑" FontSize="{StaticResource TextSizeLarge}"/>
+                        </Button>
+                        <Button Name="key_EmojiSymbol" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                            <emoji:TextBlock Name="key_EmojiSymbolText" Text="❤️" FontSize="{StaticResource TextSizeLarge}"/>
+                        </Button>
+                        <Button Name="key_EmojiTravel" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                            <emoji:TextBlock Name="key_EmojiTravelText" Text="🚌" FontSize="{StaticResource TextSizeLarge}"/>
+                        </Button>
                     </StackPanel>
-                </Button>
+
+                    <!-- Popup Close Button -->
+                    <Button Grid.Column="1" Name="key_EmojiClose" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseEmoji_PreviewKeyUp" PreviewMouseUp="ButtonCloseEmoji_PreviewMouseUp">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Margin="10,0,0,0" Height="26"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
             </StackPanel>
         </Border>
     </Grid>
