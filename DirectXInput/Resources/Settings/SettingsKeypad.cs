@@ -97,26 +97,17 @@ namespace DirectXInput
         {
             try
             {
-                Load_Keypad_Profile();
+                JsonLoadList_KeypadProfile();
             }
             catch { }
         }
 
         //Load keypad profile
-        void Load_Keypad_Profile()
+        void JsonLoadList_KeypadProfile()
         {
             try
             {
                 Debug.WriteLine("Loading keypad profile.");
-
-                //Select the default profile
-                if (combobox_KeypadProcessProfile.SelectedIndex == -1)
-                {
-                    combobox_KeypadProcessProfile.ItemsSource = vDirectKeypadMapping;
-                    combobox_KeypadProcessProfile.DisplayMemberPath = "Name";
-                    combobox_KeypadProcessProfile.SelectedIndex = 0;
-                    return;
-                }
 
                 //Get current selected profile
                 KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;

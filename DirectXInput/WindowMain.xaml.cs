@@ -113,10 +113,13 @@ namespace DirectXInput
 
                 //Load keypad mapping
                 JsonLoadProfile(ref vDirectKeypadMapping, "DirectKeypadMapping");
-                Load_Keypad_Profile();
+                JsonLoadList_KeypadProfile();
 
                 //Load controllers profile
                 JsonLoadList_ControllerProfile();
+
+                //Bind all the lists to ListBox
+                ListBoxBindLists();
 
                 //Reset HidGuardian to defaults
                 HidGuardianResetDefaults();
@@ -132,6 +135,22 @@ namespace DirectXInput
 
                 //Enable the socket server
                 EnableSocketServer();
+            }
+            catch { }
+        }
+
+        //Bind the lists to the listbox elements
+        void ListBoxBindLists()
+        {
+            try
+            {
+                combobox_KeyboardTextString.ItemsSource = vDirectKeyboardTextList;
+                combobox_KeyboardTextString.DisplayMemberPath = "String1";
+                combobox_KeyboardTextString.SelectedIndex = 0;
+
+                combobox_KeypadProcessProfile.ItemsSource = vDirectKeypadMapping;
+                combobox_KeypadProcessProfile.DisplayMemberPath = "Name";
+                combobox_KeypadProcessProfile.SelectedIndex = 0;
             }
             catch { }
         }

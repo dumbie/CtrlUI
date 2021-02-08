@@ -153,7 +153,7 @@ namespace DirectXInput
         public static List<ProfileShared> vDirectKeyboardEmojiListSmiley = new List<ProfileShared>();
         public static List<ProfileShared> vDirectKeyboardEmojiListSymbol = new List<ProfileShared>();
         public static List<ProfileShared> vDirectKeyboardEmojiListTravel = new List<ProfileShared>();
-        public static List<ProfileShared> vDirectKeyboardTextList = new List<ProfileShared>();
+        public static ObservableCollection<ProfileShared> vDirectKeyboardTextList = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<KeypadMapping> vDirectKeypadMapping = new ObservableCollection<KeypadMapping>();
         public static ObservableCollection<ControllerProfile> vDirectControllersProfile = new ObservableCollection<ControllerProfile>();
     }
