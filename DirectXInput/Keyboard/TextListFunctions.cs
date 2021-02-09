@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput.KeyboardCode
@@ -42,20 +44,26 @@ namespace DirectXInput.KeyboardCode
                 grid_Keyboard.IsEnabled = false;
 
                 //Store close focus button
-                FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
-                {
-                    vTextFocusedButtonClose = (Button)frameworkElement;
-                }
+                FrameworkElementFocusSave(vTextFocusedButtonClose, null);
 
-                //Focus on keyboard button
+                //Focus on popup button
                 if (vTextFocusedButtonOpen == null)
                 {
-                    await FocusPopupButton(true, key_TextListClose);
+                    if (vDirectKeyboardTextList.Any())
+                    {
+                        FrameworkElementFocus focusListbox = new FrameworkElementFocus();
+                        focusListbox.FocusListBox = listbox_TextList;
+                        focusListbox.FocusIndex = 0;
+                        await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
+                    }
+                    else
+                    {
+                        await FrameworkElementFocus(key_TextListClose, false, vInteropWindowHandle);
+                    }
                 }
                 else
                 {
-                    await FocusPopupButton(true, vTextFocusedButtonOpen);
+                    await FrameworkElementFocusFocus(vTextFocusedButtonOpen, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }
@@ -76,20 +84,16 @@ namespace DirectXInput.KeyboardCode
                 vLastPopupListType = "Text";
 
                 //Store open focus button
-                FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
-                {
-                    vTextFocusedButtonOpen = (Button)frameworkElement;
-                }
+                FrameworkElementFocusSave(vTextFocusedButtonOpen, null);
 
                 //Focus on keyboard button
                 if (vTextFocusedButtonClose == null)
                 {
-                    await FocusPopupButton(true, key_TextList);
+                    await FrameworkElementFocus(key_TextList, false, vInteropWindowHandle);
                 }
                 else
                 {
-                    await FocusPopupButton(true, vTextFocusedButtonClose);
+                    await FrameworkElementFocusFocus(vTextFocusedButtonClose, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }

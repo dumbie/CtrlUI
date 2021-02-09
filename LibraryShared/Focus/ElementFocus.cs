@@ -128,10 +128,10 @@ namespace LibraryShared
                         Debug.WriteLine("Focusing on previous element: " + focusElement.FocusElement);
                         await FrameworkElementFocus(focusElement.FocusElement, false, windowHandle);
                     }
-                    else if (focusElement.FocusListBox != null)
+                    else if (focusElement.FocusListBox != null && !disconnectedSource)
                     {
                         Debug.WriteLine("Focusing on previous listbox: " + focusElement.FocusListBox);
-                        //await ListboxFocusIndex(frameworkElementFocus.FocusListBox, false, false, frameworkElementFocus.FocusIndex);
+                        await ListboxFocusIndex(focusElement.FocusListBox, false, false, focusElement.FocusIndex, windowHandle);
                     }
                     else
                     {

@@ -192,7 +192,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (border_EmojiListPopup.Visibility == Visibility.Visible)
                         {
-                            SwitchEmojiTypeListTrigger(true);
+                            await SwitchEmojiTypeListTrigger(true);
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         }
                         else
@@ -214,7 +214,7 @@ namespace DirectXInput.KeyboardCode
                         }
                         else if (border_EmojiListPopup.Visibility == Visibility.Visible)
                         {
-                            SwitchEmojiTypeListTrigger(false);
+                            await SwitchEmojiTypeListTrigger(false);
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         }
                         else

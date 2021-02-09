@@ -283,11 +283,11 @@
                         <Button Name="key_LeftWindows" Width="100" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_Space" Width="139" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_End" Width="70" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
-                        <Button Name="key_Emoji" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
-                            <emoji:TextBlock Name="key_EmojiText"/>
+                        <Button Name="key_EmojiList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                            <emoji:TextBlock Text="😄"/>
                         </Button>
                         <Button Name="key_TextList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
-                            <Image Name="image_TextList" Source="pack://siteoforigin:,,,/Assets/Default/Icons/List.png" Height="30"/>
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/List.png" Height="30"/>
                         </Button>
                         <Button Name="key_VolumeDown" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
                             <Image Name="image_VolumeDown" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeDown.png" Height="30"/>

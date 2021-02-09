@@ -1,11 +1,12 @@
 ﻿using ArnoldVinkCode;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Classes;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput.KeyboardCode
@@ -45,20 +46,19 @@ namespace DirectXInput.KeyboardCode
             textblock_RightTriggerOff.Text = "Switch emoji";
 
             //Store close focus button
-            FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-            if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
-            {
-                vEmojiFocusedButtonClose = (Button)frameworkElement;
-            }
+            FrameworkElementFocusSave(vEmojiFocusedButtonClose, null);
 
-            //Focus on keyboard button
+            //Focus on popup button
             if (vEmojiFocusedButtonOpen == null)
             {
-                await FocusPopupButton(true, key_EmojiClose);
+                FrameworkElementFocus focusListbox = new FrameworkElementFocus();
+                focusListbox.FocusListBox = listbox_EmojiList;
+                focusListbox.FocusIndex = 0;
+                await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
             }
             else
             {
-                await FocusPopupButton(true, vEmojiFocusedButtonOpen);
+                await FrameworkElementFocusFocus(vEmojiFocusedButtonOpen, vProcessCurrent.MainWindowHandle);
             }
         }
 
@@ -81,27 +81,23 @@ namespace DirectXInput.KeyboardCode
                 textblock_RightTriggerOff.Text = "Tab";
 
                 //Store open focus button
-                FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
-                {
-                    vEmojiFocusedButtonOpen = (Button)frameworkElement;
-                }
+                FrameworkElementFocusSave(vEmojiFocusedButtonOpen, null);
 
                 //Focus on keyboard button
                 if (vEmojiFocusedButtonClose == null)
                 {
-                    await FocusPopupButton(true, key_Space);
+                    await FrameworkElementFocus(key_EmojiList, false, vInteropWindowHandle);
                 }
                 else
                 {
-                    await FocusPopupButton(true, vEmojiFocusedButtonClose);
+                    await FrameworkElementFocusFocus(vEmojiFocusedButtonClose, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }
         }
 
         //Switch the emoji type list by button
-        void SwitchEmojiTypeListButton(object sender)
+        async void SwitchEmojiTypeListButton(object sender)
         {
             try
             {
@@ -125,6 +121,7 @@ namespace DirectXInput.KeyboardCode
                 key_EmojiSymbolText.Effect = null;
                 key_EmojiTravelText.Effect = null;
 
+                //Switch the emoji list
                 if (sender == key_EmojiSmiley)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
@@ -165,12 +162,18 @@ namespace DirectXInput.KeyboardCode
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListTravel;
                     key_EmojiTravelText.Effect = dropShadowEffect;
                 }
+
+                //Focus on the first emoji
+                FrameworkElementFocus focusListbox = new FrameworkElementFocus();
+                focusListbox.FocusListBox = listbox_EmojiList;
+                focusListbox.FocusIndex = 0;
+                await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
             }
             catch { }
         }
 
         //Switch the emoji type list by trigger
-        void SwitchEmojiTypeListTrigger(bool previous)
+        async Task SwitchEmojiTypeListTrigger(bool previous)
         {
             try
             {
@@ -196,6 +199,7 @@ namespace DirectXInput.KeyboardCode
                     key_EmojiSymbolText.Effect = null;
                     key_EmojiTravelText.Effect = null;
 
+                    //Switch the emoji list
                     if (!previous)
                     {
                         if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSmiley)
@@ -283,6 +287,12 @@ namespace DirectXInput.KeyboardCode
                         }
                     }
                 });
+
+                //Focus on the first emoji
+                FrameworkElementFocus focusListbox = new FrameworkElementFocus();
+                focusListbox.FocusListBox = listbox_EmojiList;
+                focusListbox.FocusIndex = 0;
+                await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
             }
             catch { }
         }

@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -58,7 +57,7 @@ namespace DirectXInput.KeyboardCode
                 CheckMousePosition();
 
                 //Focus on popup button
-                await FocusPopupButton(true, key_h);
+                await FrameworkElementFocus(key_h, false, vInteropWindowHandle);
 
                 //Make window able to drag from border
                 this.MouseDown += WindowKeyboard_MouseDown;
@@ -146,7 +145,7 @@ namespace DirectXInput.KeyboardCode
                 CheckMousePosition();
 
                 //Focus on keyboard button
-                await FocusPopupButton(false, key_h);
+                await FrameworkElementFocus(key_h, false, vInteropWindowHandle);
 
                 //Update the window style (focus workaround)
                 UpdateWindowStyle();
@@ -264,19 +263,6 @@ namespace DirectXInput.KeyboardCode
                 {
                     previousCursorPosition.Y = Convert.ToInt32(displayMonitorSettings.HeightNative - this.Height - 20);
                     SetCursorPos(previousCursorPosition.X, previousCursorPosition.Y);
-                }
-            }
-            catch { }
-        }
-
-        //Focus on popup button
-        async Task FocusPopupButton(bool forceFocus, Button targetButton)
-        {
-            try
-            {
-                if (forceFocus || Keyboard.FocusedElement == null)
-                {
-                    await FrameworkElementFocus(targetButton, false, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -471,8 +457,7 @@ namespace DirectXInput.KeyboardCode
                 key_Escape.Tag = KeysVirtual.Escape;
                 key_VolumeDown.Tag = KeysVirtual.VolumeDown;
                 key_VolumeUp.Tag = KeysVirtual.VolumeUp;
-                key_EmojiText.Text = "😄";
-                key_Emoji.Tag = "EmojiPopup";
+                key_EmojiList.Tag = "EmojiPopup";
                 key_TextList.Tag = "TextListPopup";
             }
             catch { }

@@ -48,10 +48,10 @@ namespace DirectXInput
 
         //Emoji and text list Variables
         public static string vLastPopupListType = "Emoji";
-        public static Button vEmojiFocusedButtonOpen = null;
-        public static Button vEmojiFocusedButtonClose = null;
-        public static Button vTextFocusedButtonOpen = null;
-        public static Button vTextFocusedButtonClose = null;
+        public static FrameworkElementFocus vEmojiFocusedButtonOpen = null;
+        public static FrameworkElementFocus vEmojiFocusedButtonClose = null;
+        public static FrameworkElementFocus vTextFocusedButtonOpen = null;
+        public static FrameworkElementFocus vTextFocusedButtonClose = null;
 
         //Dispatcher Timers
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
