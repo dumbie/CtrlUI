@@ -76,15 +76,22 @@ namespace LibraryShared
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    //Check if save element is null
+                    if (saveElement == null)
+                    {
+                        Debug.WriteLine("Save element is null creating new.");
+                        saveElement = new FrameworkElementFocus();
+                    }
+
                     if (focusedElement != null)
                     {
-                        Debug.WriteLine("Saved focused element: " + focusedElement);
                         saveElement.FocusElement = focusedElement;
                         if (saveElement.FocusElement != null && saveElement.FocusElement.GetType() == typeof(ListBoxItem))
                         {
                             saveElement.FocusListBox = AVFunctions.FindVisualParent<ListBox>(saveElement.FocusElement);
                             saveElement.FocusIndex = saveElement.FocusListBox.SelectedIndex;
                         }
+                        Debug.WriteLine("Saved focused element: " + focusedElement + " / index: " + saveElement.FocusIndex);
                     }
                     else
                     {
@@ -94,18 +101,21 @@ namespace LibraryShared
                         //Check the currently focused element
                         if (frameworkElement != null)
                         {
-                            Debug.WriteLine("Saved focused keyboard: " + frameworkElement);
                             saveElement.FocusElement = frameworkElement;
                             if (saveElement.FocusElement != null && saveElement.FocusElement.GetType() == typeof(ListBoxItem))
                             {
                                 saveElement.FocusListBox = AVFunctions.FindVisualParent<ListBox>(saveElement.FocusElement);
                                 saveElement.FocusIndex = saveElement.FocusListBox.SelectedIndex;
                             }
+                            Debug.WriteLine("Saved focused keyboard: " + frameworkElement + " / index: " + saveElement.FocusIndex);
                         }
                     }
                 });
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed saving element focus: " + ex.Message);
+            }
         }
 
         //Focus framework focus element

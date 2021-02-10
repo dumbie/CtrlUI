@@ -47,7 +47,7 @@ namespace DirectXInput.KeyboardCode
                 FrameworkElementFocusSave(vTextFocusedButtonClose, null);
 
                 //Focus on popup button
-                if (vTextFocusedButtonOpen == null)
+                if (vTextFocusedButtonOpen.FocusListBox == null)
                 {
                     if (vDirectKeyboardTextList.Any())
                     {
@@ -77,17 +77,17 @@ namespace DirectXInput.KeyboardCode
                 //Play window close sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
+                //Store open focus button
+                FrameworkElementFocusSave(vTextFocusedButtonOpen, null);
+
                 //Hide the textlist menu
                 border_TextListPopup.Visibility = Visibility.Collapsed;
                 grid_Keyboard.Opacity = 1;
                 grid_Keyboard.IsEnabled = true;
                 vLastPopupListType = "Text";
 
-                //Store open focus button
-                FrameworkElementFocusSave(vTextFocusedButtonOpen, null);
-
                 //Focus on keyboard button
-                if (vTextFocusedButtonClose == null)
+                if (vTextFocusedButtonClose.FocusListBox == null)
                 {
                     await FrameworkElementFocus(key_TextList, false, vInteropWindowHandle);
                 }

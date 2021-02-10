@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -78,6 +79,12 @@ namespace DirectXInput.KeyboardCode
             {
                 listbox_TextList.ItemsSource = vDirectKeyboardTextList;
                 listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
+
+                //Check if texts are set
+                if (!vDirectKeyboardTextList.Any())
+                {
+                    textblock_TextListNoTextSet.Visibility = Visibility.Visible;
+                }
 
                 //Shadow effect variable
                 DropShadowEffect dropShadowEffect = new DropShadowEffect

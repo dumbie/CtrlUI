@@ -312,6 +312,9 @@
                 <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
             </Border.Background>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <!-- No texts set -->
+                <TextBlock Name="textblock_TextListNoTextSet" Visibility="Collapsed" Margin="4" FontSize="{StaticResource TextSizeLarge}" Text="No texts are set, you can add texts in the DirectXInput settings." Style="{StaticResource TextBlockWhite}"/>
+
                 <!-- Text ListBox -->
                 <ListBox Name="listbox_TextList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="210" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemTextList}" Style="{StaticResource ListBoxVertical}" PreviewKeyUp="listbox_TextList_PreviewKeyUp" PreviewMouseUp="listbox_TextList_PreviewMouseUp"/>
 

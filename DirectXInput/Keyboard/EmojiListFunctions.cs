@@ -49,7 +49,7 @@ namespace DirectXInput.KeyboardCode
             FrameworkElementFocusSave(vEmojiFocusedButtonClose, null);
 
             //Focus on popup button
-            if (vEmojiFocusedButtonOpen == null)
+            if (vEmojiFocusedButtonOpen.FocusListBox == null)
             {
                 FrameworkElementFocus focusListbox = new FrameworkElementFocus();
                 focusListbox.FocusListBox = listbox_EmojiList;
@@ -70,6 +70,9 @@ namespace DirectXInput.KeyboardCode
                 //Play window close sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
+                //Store open focus button
+                FrameworkElementFocusSave(vEmojiFocusedButtonOpen, null);
+
                 //Hide the emoji menu
                 border_EmojiListPopup.Visibility = Visibility.Collapsed;
                 grid_Keyboard.Opacity = 1;
@@ -80,11 +83,8 @@ namespace DirectXInput.KeyboardCode
                 textblock_LeftTriggerOff.Text = "Caps";
                 textblock_RightTriggerOff.Text = "Tab";
 
-                //Store open focus button
-                FrameworkElementFocusSave(vEmojiFocusedButtonOpen, null);
-
                 //Focus on keyboard button
-                if (vEmojiFocusedButtonClose == null)
+                if (vEmojiFocusedButtonClose.FocusListBox == null)
                 {
                     await FrameworkElementFocus(key_EmojiList, false, vInteropWindowHandle);
                 }
@@ -121,53 +121,106 @@ namespace DirectXInput.KeyboardCode
                 key_EmojiSymbolText.Effect = null;
                 key_EmojiTravelText.Effect = null;
 
+                //Update the emoji selected index
+                UpdateSelectedIndexEmoji();
+
                 //Switch the emoji list
+                int selectIndex = 0;
                 if (sender == key_EmojiSmiley)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
                     key_EmojiSmileyText.Effect = dropShadowEffect;
+                    selectIndex = vDirectKeyboardEmojiIndexSmiley;
                 }
                 else if (sender == key_EmojiActivity)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListActivity;
                     key_EmojiActivityText.Effect = dropShadowEffect;
+                    selectIndex = vDirectKeyboardEmojiIndexActivity;
                 }
                 else if (sender == key_EmojiFood)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListFood;
                     key_EmojiFoodText.Effect = dropShadowEffect;
+                    selectIndex = vDirectKeyboardEmojiIndexFood;
                 }
                 else if (sender == key_EmojiNature)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListNature;
                     key_EmojiNatureText.Effect = dropShadowEffect;
+                    selectIndex = vDirectKeyboardEmojiIndexNature;
                 }
                 else if (sender == key_EmojiOther)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListOther;
                     key_EmojiOtherText.Effect = dropShadowEffect;
+                    selectIndex = vDirectKeyboardEmojiIndexOther;
                 }
                 else if (sender == key_EmojiPeople)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListPeople;
                     key_EmojiPeopleText.Effect = dropShadowEffect;
+                    selectIndex = vDirectKeyboardEmojiIndexPeople;
                 }
                 else if (sender == key_EmojiSymbol)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSymbol;
                     key_EmojiSymbolText.Effect = dropShadowEffect;
+                    selectIndex = vDirectKeyboardEmojiIndexSymbol;
                 }
                 else if (sender == key_EmojiTravel)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListTravel;
                     key_EmojiTravelText.Effect = dropShadowEffect;
+                    selectIndex = vDirectKeyboardEmojiIndexTravel;
                 }
 
-                //Focus on the first emoji
+                //Focus on the current emoji
                 FrameworkElementFocus focusListbox = new FrameworkElementFocus();
                 focusListbox.FocusListBox = listbox_EmojiList;
-                focusListbox.FocusIndex = 0;
+                focusListbox.FocusIndex = selectIndex;
                 await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
+            }
+            catch { }
+        }
+
+        //Update the emoji selected index
+        void UpdateSelectedIndexEmoji()
+        {
+            try
+            {
+                if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSmiley)
+                {
+                    vDirectKeyboardEmojiIndexSmiley = listbox_EmojiList.SelectedIndex;
+                }
+                else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListActivity)
+                {
+                    vDirectKeyboardEmojiIndexActivity = listbox_EmojiList.SelectedIndex;
+                }
+                else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListFood)
+                {
+                    vDirectKeyboardEmojiIndexFood = listbox_EmojiList.SelectedIndex;
+                }
+                else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListNature)
+                {
+                    vDirectKeyboardEmojiIndexNature = listbox_EmojiList.SelectedIndex;
+                }
+                else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListOther)
+                {
+                    vDirectKeyboardEmojiIndexOther = listbox_EmojiList.SelectedIndex;
+                }
+                else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListPeople)
+                {
+                    vDirectKeyboardEmojiIndexPeople = listbox_EmojiList.SelectedIndex;
+                }
+                else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSymbol)
+                {
+                    vDirectKeyboardEmojiIndexSymbol = listbox_EmojiList.SelectedIndex;
+                }
+                else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListTravel)
+                {
+                    vDirectKeyboardEmojiIndexTravel = listbox_EmojiList.SelectedIndex;
+                }
             }
             catch { }
         }
@@ -177,6 +230,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
+                int selectIndex = 0;
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     //Shadow effect variable
@@ -199,6 +253,9 @@ namespace DirectXInput.KeyboardCode
                     key_EmojiSymbolText.Effect = null;
                     key_EmojiTravelText.Effect = null;
 
+                    //Update the emoji selected index
+                    UpdateSelectedIndexEmoji();
+
                     //Switch the emoji list
                     if (!previous)
                     {
@@ -206,41 +263,49 @@ namespace DirectXInput.KeyboardCode
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListActivity;
                             key_EmojiActivityText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexActivity;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListActivity)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListFood;
                             key_EmojiFoodText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexFood;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListFood)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListNature;
                             key_EmojiNatureText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexNature;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListNature)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListOther;
                             key_EmojiOtherText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexOther;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListOther)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListPeople;
                             key_EmojiPeopleText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexPeople;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListPeople)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSymbol;
                             key_EmojiSymbolText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexSymbol;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSymbol)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListTravel;
                             key_EmojiTravelText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexTravel;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListTravel)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
                             key_EmojiSmileyText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexSmiley;
                         }
                     }
                     else
@@ -249,41 +314,49 @@ namespace DirectXInput.KeyboardCode
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListTravel;
                             key_EmojiTravelText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexTravel;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListTravel)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSymbol;
                             key_EmojiSymbolText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexSymbol;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSymbol)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListPeople;
                             key_EmojiPeopleText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexPeople;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListPeople)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListOther;
                             key_EmojiOtherText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexOther;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListOther)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListNature;
                             key_EmojiNatureText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexNature;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListNature)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListFood;
                             key_EmojiFoodText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexFood;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListFood)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListActivity;
                             key_EmojiActivityText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexActivity;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListActivity)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
                             key_EmojiSmileyText.Effect = dropShadowEffect;
+                            selectIndex = vDirectKeyboardEmojiIndexSmiley;
                         }
                     }
                 });
@@ -291,7 +364,7 @@ namespace DirectXInput.KeyboardCode
                 //Focus on the first emoji
                 FrameworkElementFocus focusListbox = new FrameworkElementFocus();
                 focusListbox.FocusListBox = listbox_EmojiList;
-                focusListbox.FocusIndex = 0;
+                focusListbox.FocusIndex = selectIndex;
                 await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
             }
             catch { }

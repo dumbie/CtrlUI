@@ -46,13 +46,6 @@ namespace DirectXInput
         //Interaction Variables
         public static bool vSingleTappedEvent = true;
 
-        //Emoji and text list Variables
-        public static string vLastPopupListType = "Emoji";
-        public static FrameworkElementFocus vEmojiFocusedButtonOpen = null;
-        public static FrameworkElementFocus vEmojiFocusedButtonClose = null;
-        public static FrameworkElementFocus vTextFocusedButtonOpen = null;
-        public static FrameworkElementFocus vTextFocusedButtonClose = null;
-
         //Dispatcher Timers
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
 
@@ -81,6 +74,21 @@ namespace DirectXInput
         public static bool vAppMinimized = false;
         public static bool vAppActivated = true;
         public static int vPrevComboboxIndex = -1;
+
+        //Emoji and text list Variables
+        public static string vLastPopupListType = "Emoji";
+        public static FrameworkElementFocus vEmojiFocusedButtonOpen = new FrameworkElementFocus();
+        public static FrameworkElementFocus vEmojiFocusedButtonClose = new FrameworkElementFocus();
+        public static FrameworkElementFocus vTextFocusedButtonOpen = new FrameworkElementFocus();
+        public static FrameworkElementFocus vTextFocusedButtonClose = new FrameworkElementFocus();
+        public static int vDirectKeyboardEmojiIndexActivity = 0;
+        public static int vDirectKeyboardEmojiIndexNature = 0;
+        public static int vDirectKeyboardEmojiIndexFood = 0;
+        public static int vDirectKeyboardEmojiIndexOther = 0;
+        public static int vDirectKeyboardEmojiIndexPeople = 0;
+        public static int vDirectKeyboardEmojiIndexSmiley = 0;
+        public static int vDirectKeyboardEmojiIndexSymbol = 0;
+        public static int vDirectKeyboardEmojiIndexTravel = 0;
 
         //Keyboard Variables
         public static bool vCapsEnabled = false;

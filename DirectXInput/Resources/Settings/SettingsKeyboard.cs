@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
 
@@ -41,7 +42,7 @@ namespace DirectXInput
                 }
 
                 //Check if text already exists
-                if (AppVariables.vDirectKeyboardTextList.Any(x => x.String1.ToLower() == textString.ToLower()))
+                if (vDirectKeyboardTextList.Any(x => x.String1.ToLower() == textString.ToLower()))
                 {
                     textbox_Settings_KeyboardTextString.BorderBrush = BrushInvalid;
                     Debug.WriteLine("Text string already exists.");
@@ -56,8 +57,11 @@ namespace DirectXInput
                 ProfileShared profileShared = new ProfileShared();
                 profileShared.String1 = textString;
 
-                AppVariables.vDirectKeyboardTextList.Add(profileShared);
-                JsonSaveObject(AppVariables.vDirectKeyboardTextList, "DirectKeyboardTextList");
+                vDirectKeyboardTextList.Add(profileShared);
+                JsonSaveObject(vDirectKeyboardTextList, "DirectKeyboardTextList");
+
+                //Hide keyboard no text set
+                App.vWindowKeyboard.textblock_TextListNoTextSet.Visibility = Visibility.Collapsed;
             }
             catch { }
         }
@@ -71,13 +75,19 @@ namespace DirectXInput
                 Debug.WriteLine("Removing text string: " + selectedProfile.String1);
 
                 //Remove mapping from list
-                AppVariables.vDirectKeyboardTextList.Remove(selectedProfile);
+                vDirectKeyboardTextList.Remove(selectedProfile);
 
                 //Save changes to Json file
-                JsonSaveObject(AppVariables.vDirectKeyboardTextList, "DirectKeyboardTextList");
+                JsonSaveObject(vDirectKeyboardTextList, "DirectKeyboardTextList");
 
                 //Select the default profile
                 combobox_KeyboardTextString.SelectedIndex = 0;
+
+                //Check if texts are set
+                if (!vDirectKeyboardTextList.Any())
+                {
+                    App.vWindowKeyboard.textblock_TextListNoTextSet.Visibility = Visibility.Visible;
+                }
             }
             catch { }
         }
