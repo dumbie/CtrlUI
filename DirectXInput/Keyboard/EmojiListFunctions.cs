@@ -84,7 +84,7 @@ namespace DirectXInput.KeyboardCode
                 textblock_RightTriggerOff.Text = "Tab";
 
                 //Focus on keyboard button
-                if (vEmojiFocusedButtonClose.FocusListBox == null)
+                if (vEmojiFocusedButtonClose.FocusElement == null)
                 {
                     await FrameworkElementFocus(key_EmojiList, false, vInteropWindowHandle);
                 }

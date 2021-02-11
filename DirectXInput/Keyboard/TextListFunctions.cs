@@ -87,7 +87,7 @@ namespace DirectXInput.KeyboardCode
                 vLastPopupListType = "Text";
 
                 //Focus on keyboard button
-                if (vTextFocusedButtonClose.FocusListBox == null)
+                if (vTextFocusedButtonClose.FocusElement == null)
                 {
                     await FrameworkElementFocus(key_TextList, false, vInteropWindowHandle);
                 }
