@@ -10,8 +10,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -562,21 +560,6 @@ namespace CtrlUI
                 else if (e.Key == Key.LeftCtrl)
                 {
                     FilePicker_CheckItem();
-                }
-            }
-            catch { }
-        }
-        async void ListBox_FilePicker_KeyPressDown(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Up && lb_FilePicker.SelectedIndex == 0)
-                {
-                    await KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
-                }
-                else if (e.Key == Key.Down && (lb_FilePicker.Items.Count - 1) == lb_FilePicker.SelectedIndex)
-                {
-                    await KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }

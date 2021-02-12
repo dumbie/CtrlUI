@@ -1,11 +1,14 @@
 ﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -17,7 +20,7 @@ namespace CtrlUI
         {
             try
             {
-                //Check the pressed keys
+                //Get the pressed keys
                 KeysVirtual usedVirtualKey = (KeysVirtual)windowMessage.wParam;
 
                 //Check pressed key modifier
@@ -35,6 +38,7 @@ namespace CtrlUI
                     focusedTextBox = true;
                 }
 
+                //Check the pressed key
                 if (usedVirtualKey == KeysVirtual.Tab && usedModifierKey == KeysVirtual.Shift)
                 {
                     PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
@@ -122,25 +126,48 @@ namespace CtrlUI
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vTabTargetLists.Contains(parentListbox.Name))
+                    if (vTabTargetListsSingleRow.Contains(parentListbox.Name))
                     {
-                        EventKeyboardPressSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         Handled = true;
                         return;
+                    }
+                    else if (vTabTargetListsFirstLastItem.Contains(parentListbox.Name))
+                    {
+                        int itemsCount = parentListbox.Items.Count;
+                        if ((parentListbox.SelectedIndex + 1) == itemsCount)
+                        {
+                            KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                            Handled = true;
+                            return;
+                        }
+                    }
+                    else if (vTabTargetListsFirstLastRow.Contains(parentListbox.Name))
+                    {
+                    }
+                    else if (vVerticalLoopTargetLists.Contains(parentListbox.Name))
+                    {
+                        int itemsCount = parentListbox.Items.Count;
+                        if ((parentListbox.SelectedIndex + 1) == itemsCount)
+                        {
+                            ListboxFocusIndex(parentListbox, false, false, 0, vProcessCurrent.MainWindowHandle);
+                            Handled = true;
+                            return;
+                        }
                     }
                 }
                 else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
                 {
                     if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
                     {
-                        EventKeyboardPressSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         Handled = true;
                         return;
                     }
                 }
                 else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider)))
                 {
-                    EventKeyboardPressSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                    KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                     Handled = true;
                     return;
                 }
@@ -157,25 +184,47 @@ namespace CtrlUI
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vTabTargetLists.Contains(parentListbox.Name))
+                    if (vTabTargetListsSingleRow.Contains(parentListbox.Name))
                     {
-                        EventKeyboardPressCombo(KeysVirtual.Shift, KeysVirtual.Tab);
+                        KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;
                         return;
+                    }
+                    else if (vTabTargetListsFirstLastItem.Contains(parentListbox.Name))
+                    {
+                        if (parentListbox.SelectedIndex == 0)
+                        {
+                            KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
+                            Handled = true;
+                            return;
+                        }
+                    }
+                    else if (vTabTargetListsFirstLastRow.Contains(parentListbox.Name))
+                    {
+                    }
+                    else if (vVerticalLoopTargetLists.Contains(parentListbox.Name))
+                    {
+                        if (parentListbox.SelectedIndex == 0)
+                        {
+                            int itemsCount = parentListbox.Items.Count;
+                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vProcessCurrent.MainWindowHandle);
+                            Handled = true;
+                            return;
+                        }
                     }
                 }
                 else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
                 {
                     if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
                     {
-                        EventKeyboardPressCombo(KeysVirtual.Shift, KeysVirtual.Tab);
+                        KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;
                         return;
                     }
                 }
                 else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider)))
                 {
-                    EventKeyboardPressCombo(KeysVirtual.Shift, KeysVirtual.Tab);
+                    KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
                     Handled = true;
                     return;
                 }

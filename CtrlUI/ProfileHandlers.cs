@@ -1,8 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System.Windows;
 using System.Windows.Input;
-using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
 
 namespace CtrlUI
@@ -50,21 +48,6 @@ namespace CtrlUI
                 if (e.Key == Key.Space)
                 {
                     await ProfileManager_DeleteProfile();
-                }
-            }
-            catch { }
-        }
-        async void ListBox_ProfileManager_KeyPressDown(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Up && lb_ProfileManager.SelectedIndex == 0)
-                {
-                    await KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
-                }
-                else if (e.Key == Key.Down && (lb_ProfileManager.Items.Count - 1) == lb_ProfileManager.SelectedIndex)
-                {
-                    await KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }

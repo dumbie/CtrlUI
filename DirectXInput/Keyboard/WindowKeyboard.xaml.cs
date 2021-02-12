@@ -39,6 +39,9 @@ namespace DirectXInput.KeyboardCode
                 //Get interop window handle
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
+                //Register Hotkeys and Filtermessage
+                ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
+
                 //Update the window style
                 UpdateWindowStyle();
 

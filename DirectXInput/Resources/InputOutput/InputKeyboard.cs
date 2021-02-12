@@ -11,7 +11,7 @@ namespace DirectXInput
         {
             try
             {
-                //Check the pressed keys
+                //Get the pressed keys
                 KeysVirtual usedVirtualKey = (KeysVirtual)windowMessage.wParam;
 
                 //Check pressed key modifier

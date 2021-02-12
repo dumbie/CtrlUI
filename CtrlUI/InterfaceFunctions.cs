@@ -117,7 +117,6 @@ namespace CtrlUI
                 grid_Popup_Welcome_button_Close.Click += Button_Popup_Close_Click;
 
                 //Search functions
-                lb_Search.PreviewKeyDown += ListBox_Search_KeyPressDown;
                 grid_Popup_Search_textbox.TextChanged += Grid_Popup_Search_textbox_TextChanged;
                 grid_Popup_Search_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Search_button_InteractItem.Click += Button_SearchInteractItem_Click;
@@ -133,7 +132,6 @@ namespace CtrlUI
 
                 //File Picker functions
                 lb_FilePicker.PreviewKeyUp += ListBox_FilePicker_KeyPressUp;
-                lb_FilePicker.PreviewKeyDown += ListBox_FilePicker_KeyPressDown;
                 lb_FilePicker.PreviewMouseUp += ListBox_FilePicker_MousePressUp;
                 lb_FilePicker.SelectionChanged += Lb_FilePicker_SelectionChanged;
                 grid_Popup_FilePicker_button_SelectFolder.Click += Grid_Popup_FilePicker_button_SelectFolder_Click;
@@ -145,7 +143,6 @@ namespace CtrlUI
                 grid_Popup_ProfileManager_textbox_ProfileString1.KeyDown += grid_Popup_ProfileManager_textbox_ProfileString_KeyDown;
                 grid_Popup_ProfileManager_textbox_ProfileString2.KeyDown += grid_Popup_ProfileManager_textbox_ProfileString_KeyDown;
                 lb_ProfileManager.PreviewKeyUp += ListBox_ProfileManager_KeyPressUp;
-                lb_ProfileManager.PreviewKeyDown += ListBox_ProfileManager_KeyPressDown;
                 lb_ProfileManager.PreviewMouseUp += ListBox_ProfileManager_MousePressUp;
 
                 //Color Picker functions

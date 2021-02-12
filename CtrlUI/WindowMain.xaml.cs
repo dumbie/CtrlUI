@@ -104,9 +104,6 @@ namespace CtrlUI
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
 
-                //Register application events
-                RegisterApplicationEvents();
-
                 //Bind all the lists to ListBox
                 ListBoxBindLists();
 

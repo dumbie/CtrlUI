@@ -15,22 +15,6 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async void ListBox_Search_KeyPressDown(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Up && lb_Search.SelectedIndex == 0)
-                {
-                    await KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
-                }
-                else if (e.Key == Key.Down && (lb_Search.Items.Count - 1) == lb_Search.SelectedIndex)
-                {
-                    await KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
-                }
-            }
-            catch { }
-        }
-
         //Reset the popup to defaults
         async void Grid_Popup_Search_button_Reset_Click(object sender, RoutedEventArgs e)
         {
