@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -126,7 +125,7 @@ namespace CtrlUI
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vTabTargetListsSingleRow.Contains(parentListbox.Name))
+                    if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
                     {
                         KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         Handled = true;
@@ -142,10 +141,16 @@ namespace CtrlUI
                             return;
                         }
                     }
-                    else if (vTabTargetListsFirstLastRow.Contains(parentListbox.Name))
+                    else if (vTabTargetListsFirstLastColumn.Contains(parentListbox.Name))
                     {
+                        if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, false))
+                        {
+                            KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                            Handled = true;
+                            return;
+                        }
                     }
-                    else if (vVerticalLoopTargetLists.Contains(parentListbox.Name))
+                    else if (vLoopTargetListsColumn.Contains(parentListbox.Name))
                     {
                         int itemsCount = parentListbox.Items.Count;
                         if ((parentListbox.SelectedIndex + 1) == itemsCount)
@@ -184,7 +189,7 @@ namespace CtrlUI
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vTabTargetListsSingleRow.Contains(parentListbox.Name))
+                    if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
                     {
                         KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;
@@ -199,10 +204,16 @@ namespace CtrlUI
                             return;
                         }
                     }
-                    else if (vTabTargetListsFirstLastRow.Contains(parentListbox.Name))
+                    else if (vTabTargetListsFirstLastColumn.Contains(parentListbox.Name))
                     {
+                        if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, true))
+                        {
+                            KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
+                            Handled = true;
+                            return;
+                        }
                     }
-                    else if (vVerticalLoopTargetLists.Contains(parentListbox.Name))
+                    else if (vLoopTargetListsColumn.Contains(parentListbox.Name))
                     {
                         if (parentListbox.SelectedIndex == 0)
                         {

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Effects;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.FocusFunctions;
@@ -101,77 +100,87 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                //Shadow effect variable
-                DropShadowEffect dropShadowEffect = new DropShadowEffect
-                {
-                    Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                    Direction = 360,
-                    ShadowDepth = 0,
-                    BlurRadius = 15,
-                    Opacity = 1
-                };
-
-                //Reset shadow effects
-                key_EmojiSmileyText.Effect = null;
-                key_EmojiActivityText.Effect = null;
-                key_EmojiFoodText.Effect = null;
-                key_EmojiNatureText.Effect = null;
-                key_EmojiOtherText.Effect = null;
-                key_EmojiPeopleText.Effect = null;
-                key_EmojiSymbolText.Effect = null;
-                key_EmojiTravelText.Effect = null;
-
                 //Update the emoji selected index
                 UpdateSelectedIndexEmoji();
+
+                //Background brush variable
+                SolidColorBrush selectedBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentDarkBrush"];
+                SolidColorBrush defaultBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
+
+                //Reset background brush
+                key_EmojiSmiley.Background = defaultBrush;
+                key_EmojiSmiley.BorderBrush = defaultBrush;
+                key_EmojiActivity.Background = defaultBrush;
+                key_EmojiActivity.BorderBrush = defaultBrush;
+                key_EmojiFood.Background = defaultBrush;
+                key_EmojiFood.BorderBrush = defaultBrush;
+                key_EmojiNature.Background = defaultBrush;
+                key_EmojiNature.BorderBrush = defaultBrush;
+                key_EmojiOther.Background = defaultBrush;
+                key_EmojiOther.BorderBrush = defaultBrush;
+                key_EmojiPeople.Background = defaultBrush;
+                key_EmojiPeople.BorderBrush = defaultBrush;
+                key_EmojiSymbol.Background = defaultBrush;
+                key_EmojiSymbol.BorderBrush = defaultBrush;
+                key_EmojiTravel.Background = defaultBrush;
+                key_EmojiTravel.BorderBrush = defaultBrush;
 
                 //Switch the emoji list
                 int selectIndex = 0;
                 if (sender == key_EmojiSmiley)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
-                    key_EmojiSmileyText.Effect = dropShadowEffect;
+                    key_EmojiSmiley.Background = selectedBrush;
+                    key_EmojiSmiley.BorderBrush = selectedBrush;
                     selectIndex = vDirectKeyboardEmojiIndexSmiley;
                 }
                 else if (sender == key_EmojiActivity)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListActivity;
-                    key_EmojiActivityText.Effect = dropShadowEffect;
+                    key_EmojiActivity.Background = selectedBrush;
+                    key_EmojiActivity.BorderBrush = selectedBrush;
                     selectIndex = vDirectKeyboardEmojiIndexActivity;
                 }
                 else if (sender == key_EmojiFood)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListFood;
-                    key_EmojiFoodText.Effect = dropShadowEffect;
+                    key_EmojiFood.Background = selectedBrush;
+                    key_EmojiFood.BorderBrush = selectedBrush;
                     selectIndex = vDirectKeyboardEmojiIndexFood;
                 }
                 else if (sender == key_EmojiNature)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListNature;
-                    key_EmojiNatureText.Effect = dropShadowEffect;
+                    key_EmojiNature.Background = selectedBrush;
+                    key_EmojiNature.BorderBrush = selectedBrush;
                     selectIndex = vDirectKeyboardEmojiIndexNature;
                 }
                 else if (sender == key_EmojiOther)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListOther;
-                    key_EmojiOtherText.Effect = dropShadowEffect;
+                    key_EmojiOther.Background = selectedBrush;
+                    key_EmojiOther.BorderBrush = selectedBrush;
                     selectIndex = vDirectKeyboardEmojiIndexOther;
                 }
                 else if (sender == key_EmojiPeople)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListPeople;
-                    key_EmojiPeopleText.Effect = dropShadowEffect;
+                    key_EmojiPeople.Background = selectedBrush;
+                    key_EmojiPeople.BorderBrush = selectedBrush;
                     selectIndex = vDirectKeyboardEmojiIndexPeople;
                 }
                 else if (sender == key_EmojiSymbol)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSymbol;
-                    key_EmojiSymbolText.Effect = dropShadowEffect;
+                    key_EmojiSymbol.Background = selectedBrush;
+                    key_EmojiSymbol.BorderBrush = selectedBrush;
                     selectIndex = vDirectKeyboardEmojiIndexSymbol;
                 }
                 else if (sender == key_EmojiTravel)
                 {
                     listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListTravel;
-                    key_EmojiTravelText.Effect = dropShadowEffect;
+                    key_EmojiTravel.Background = selectedBrush;
+                    key_EmojiTravel.BorderBrush = selectedBrush;
                     selectIndex = vDirectKeyboardEmojiIndexTravel;
                 }
 
@@ -233,28 +242,30 @@ namespace DirectXInput.KeyboardCode
                 int selectIndex = 0;
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    //Shadow effect variable
-                    DropShadowEffect dropShadowEffect = new DropShadowEffect
-                    {
-                        Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                        Direction = 360,
-                        ShadowDepth = 0,
-                        BlurRadius = 15,
-                        Opacity = 1
-                    };
-
-                    //Reset shadow effects
-                    key_EmojiSmileyText.Effect = null;
-                    key_EmojiActivityText.Effect = null;
-                    key_EmojiFoodText.Effect = null;
-                    key_EmojiNatureText.Effect = null;
-                    key_EmojiOtherText.Effect = null;
-                    key_EmojiPeopleText.Effect = null;
-                    key_EmojiSymbolText.Effect = null;
-                    key_EmojiTravelText.Effect = null;
-
                     //Update the emoji selected index
                     UpdateSelectedIndexEmoji();
+
+                    //Background brush variable
+                    SolidColorBrush selectedBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentDarkBrush"];
+                    SolidColorBrush defaultBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
+
+                    //Reset background brush
+                    key_EmojiSmiley.Background = defaultBrush;
+                    key_EmojiSmiley.BorderBrush = defaultBrush;
+                    key_EmojiActivity.Background = defaultBrush;
+                    key_EmojiActivity.BorderBrush = defaultBrush;
+                    key_EmojiFood.Background = defaultBrush;
+                    key_EmojiFood.BorderBrush = defaultBrush;
+                    key_EmojiNature.Background = defaultBrush;
+                    key_EmojiNature.BorderBrush = defaultBrush;
+                    key_EmojiOther.Background = defaultBrush;
+                    key_EmojiOther.BorderBrush = defaultBrush;
+                    key_EmojiPeople.Background = defaultBrush;
+                    key_EmojiPeople.BorderBrush = defaultBrush;
+                    key_EmojiSymbol.Background = defaultBrush;
+                    key_EmojiSymbol.BorderBrush = defaultBrush;
+                    key_EmojiTravel.Background = defaultBrush;
+                    key_EmojiTravel.BorderBrush = defaultBrush;
 
                     //Switch the emoji list
                     if (!previous)
@@ -262,49 +273,57 @@ namespace DirectXInput.KeyboardCode
                         if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSmiley)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListActivity;
-                            key_EmojiActivityText.Effect = dropShadowEffect;
+                            key_EmojiActivity.Background = selectedBrush;
+                            key_EmojiActivity.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexActivity;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListActivity)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListFood;
-                            key_EmojiFoodText.Effect = dropShadowEffect;
+                            key_EmojiFood.Background = selectedBrush;
+                            key_EmojiFood.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexFood;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListFood)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListNature;
-                            key_EmojiNatureText.Effect = dropShadowEffect;
+                            key_EmojiNature.Background = selectedBrush;
+                            key_EmojiNature.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexNature;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListNature)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListOther;
-                            key_EmojiOtherText.Effect = dropShadowEffect;
+                            key_EmojiOther.Background = selectedBrush;
+                            key_EmojiOther.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexOther;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListOther)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListPeople;
-                            key_EmojiPeopleText.Effect = dropShadowEffect;
+                            key_EmojiPeople.Background = selectedBrush;
+                            key_EmojiPeople.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexPeople;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListPeople)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSymbol;
-                            key_EmojiSymbolText.Effect = dropShadowEffect;
+                            key_EmojiSymbol.Background = selectedBrush;
+                            key_EmojiSymbol.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexSymbol;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSymbol)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListTravel;
-                            key_EmojiTravelText.Effect = dropShadowEffect;
+                            key_EmojiTravel.Background = selectedBrush;
+                            key_EmojiTravel.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexTravel;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListTravel)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
-                            key_EmojiSmileyText.Effect = dropShadowEffect;
+                            key_EmojiSmiley.Background = selectedBrush;
+                            key_EmojiSmiley.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexSmiley;
                         }
                     }
@@ -313,49 +332,57 @@ namespace DirectXInput.KeyboardCode
                         if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSmiley)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListTravel;
-                            key_EmojiTravelText.Effect = dropShadowEffect;
+                            key_EmojiTravel.Background = selectedBrush;
+                            key_EmojiTravel.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexTravel;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListTravel)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSymbol;
-                            key_EmojiSymbolText.Effect = dropShadowEffect;
+                            key_EmojiSymbol.Background = selectedBrush;
+                            key_EmojiSymbol.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexSymbol;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListSymbol)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListPeople;
-                            key_EmojiPeopleText.Effect = dropShadowEffect;
+                            key_EmojiPeople.Background = selectedBrush;
+                            key_EmojiPeople.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexPeople;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListPeople)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListOther;
-                            key_EmojiOtherText.Effect = dropShadowEffect;
+                            key_EmojiOther.Background = selectedBrush;
+                            key_EmojiOther.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexOther;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListOther)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListNature;
-                            key_EmojiNatureText.Effect = dropShadowEffect;
+                            key_EmojiNature.Background = selectedBrush;
+                            key_EmojiNature.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexNature;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListNature)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListFood;
-                            key_EmojiFoodText.Effect = dropShadowEffect;
+                            key_EmojiFood.Background = selectedBrush;
+                            key_EmojiFood.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexFood;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListFood)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListActivity;
-                            key_EmojiActivityText.Effect = dropShadowEffect;
+                            key_EmojiActivity.Background = selectedBrush;
+                            key_EmojiActivity.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexActivity;
                         }
                         else if (listbox_EmojiList.ItemsSource == vDirectKeyboardEmojiListActivity)
                         {
                             listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
-                            key_EmojiSmileyText.Effect = dropShadowEffect;
+                            key_EmojiSmiley.Background = selectedBrush;
+                            key_EmojiSmiley.BorderBrush = selectedBrush;
                             selectIndex = vDirectKeyboardEmojiIndexSmiley;
                         }
                     }

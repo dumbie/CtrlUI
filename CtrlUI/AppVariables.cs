@@ -44,10 +44,10 @@ namespace CtrlUI
         public static bool vMousePressDownLeftClick = false;
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
-        public static string[] vVerticalLoopTargetLists = { "listbox_MainMenu", "lb_MessageBox" };
+        public static string[] vLoopTargetListsColumn = { "listbox_MainMenu", "lb_MessageBox" };
         public static string[] vSelectTargetLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_FilePicker" };
-        public static string[] vTabTargetListsSingleRow = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Manage_AddAppCategory" };
-        public static string[] vTabTargetListsFirstLastRow = { "lb_Search" };
+        public static string[] vTabTargetListsSingleColumn = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Manage_AddAppCategory" };
+        public static string[] vTabTargetListsFirstLastColumn = { "lb_Search" };
         public static string[] vTabTargetListsFirstLastItem = { "lb_FilePicker", "lb_ProfileManager" };
         public static string[] vTabTargetButtons = { "grid_Popup_TextInput_button_ConfirmText" };
 

@@ -8,7 +8,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Effects;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
@@ -89,18 +88,12 @@ namespace DirectXInput.KeyboardCode
                     textblock_TextListNoTextSet.Visibility = Visibility.Visible;
                 }
 
-                //Shadow effect variable
-                DropShadowEffect dropShadowEffect = new DropShadowEffect
-                {
-                    Color = new Color { A = 255, R = 0, G = 0, B = 0 },
-                    Direction = 360,
-                    ShadowDepth = 0,
-                    BlurRadius = 15,
-                    Opacity = 1
-                };
+                //Background brush variable
+                SolidColorBrush selectedBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentDarkBrush"];
 
-                //Set shadow effect
-                key_EmojiSmileyText.Effect = dropShadowEffect;
+                //Set background brush
+                key_EmojiSmiley.Background = selectedBrush;
+                key_EmojiSmiley.BorderBrush = selectedBrush;
             }
             catch { }
         }

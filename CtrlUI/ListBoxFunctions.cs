@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Windows.UI.Xaml.Media;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
@@ -393,6 +392,112 @@ namespace CtrlUI
             catch
             {
                 Debug.WriteLine("Failed removing all from the listbox.");
+            }
+        }
+
+        //Check listbox item column position
+        bool ListBoxItemColumnPosition(ListBox targetListBox, ListBoxItem targetListBoxItem, bool firstColumn)
+        {
+            try
+            {
+                ListBoxCountColumns(targetListBox, out int totalCount, out List<double> offsetPoints);
+                double translatePoint = targetListBoxItem.TranslatePoint(new Point(), targetListBox).Y;
+                if (firstColumn)
+                {
+                    if (translatePoint == offsetPoints.FirstOrDefault())
+                    {
+                        //Debug.WriteLine("ListBoxItem is in first column.");
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (translatePoint == offsetPoints.LastOrDefault())
+                    {
+                        //Debug.WriteLine("ListBoxItem is in last column.");
+                        return true;
+                    }
+                }
+            }
+            catch { }
+            return false;
+        }
+
+        //Check listbox item row position
+        bool ListBoxItemRowPosition(ListBox targetListBox, ListBoxItem targetListBoxItem, bool firstRow)
+        {
+            try
+            {
+                ListBoxCountRows(targetListBox, out int totalCount, out List<double> offsetPoints);
+                double translatePoint = targetListBoxItem.TranslatePoint(new Point(), targetListBox).X;
+                if (firstRow)
+                {
+                    if (translatePoint == offsetPoints.FirstOrDefault())
+                    {
+                        //Debug.WriteLine("ListBoxItem is in first row.");
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (translatePoint == offsetPoints.LastOrDefault())
+                    {
+                        //Debug.WriteLine("ListBoxItem is in last row.");
+                        return true;
+                    }
+                }
+            }
+            catch { }
+            return false;
+        }
+
+        //Count columns in listbox
+        void ListBoxCountColumns(ListBox targetListBox, out int totalCount, out List<double> offsetPoints)
+        {
+            totalCount = 0;
+            offsetPoints = new List<double>();
+            try
+            {
+                foreach (object listItem in targetListBox.Items)
+                {
+                    FrameworkElement containerItem = (FrameworkElement)targetListBox.ItemContainerGenerator.ContainerFromItem(listItem);
+                    double translatePoint = containerItem.TranslatePoint(new Point(), targetListBox).Y;
+                    if (!offsetPoints.Any(x => x == translatePoint))
+                    {
+                        totalCount++;
+                        offsetPoints.Add(translatePoint);
+                    }
+                }
+                //Debug.WriteLine("Columns: " + totalCount);
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to count columns from the listbox.");
+            }
+        }
+
+        //Count rows in listbox
+        void ListBoxCountRows(ListBox targetListBox, out int totalCount, out List<double> offsetPoints)
+        {
+            totalCount = 0;
+            offsetPoints = new List<double>();
+            try
+            {
+                foreach (object listItem in targetListBox.Items)
+                {
+                    FrameworkElement containerItem = (FrameworkElement)targetListBox.ItemContainerGenerator.ContainerFromItem(listItem);
+                    double translatePoint = containerItem.TranslatePoint(new Point(), targetListBox).X;
+                    if (!offsetPoints.Any(x => x == translatePoint))
+                    {
+                        totalCount++;
+                        offsetPoints.Add(translatePoint);
+                    }
+                }
+                //Debug.WriteLine("Rows: " + totalCount);
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to count rows from the listbox.");
             }
         }
     }
