@@ -159,11 +159,18 @@ namespace DirectXInput.KeyboardCode
 
                         ControllerDelayShort = true;
                     }
-                    //Send external backspace key
+                    //Send external backspace or delete key
                     else if (ControllerInput.ButtonX.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeyPressSingleAuto(KeysVirtual.BackSpace);
+                        if (vCapsEnabled)
+                        {
+                            await KeyPressSingleAuto(KeysVirtual.Delete);
+                        }
+                        else
+                        {
+                            await KeyPressSingleAuto(KeysVirtual.BackSpace);
+                        }
 
                         ControllerDelayShort = true;
                     }

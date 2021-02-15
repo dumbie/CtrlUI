@@ -44,7 +44,7 @@
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="26" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Backspace"/>
+                        <TextBlock Name="textblock_ButtonLeft" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Backspace"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="26" Opacity="0.80"/>

@@ -541,6 +541,8 @@ namespace DirectXInput.KeyboardCode
                     vCapsEnabled = false;
                     AVActions.ActionDispatcherInvoke(delegate
                     {
+                        textblock_ButtonLeft.Text = "Backspace";
+
                         key_Delete.Content = "Delete";
                         key_Delete.Tag = KeysVirtual.Delete;
 
@@ -660,6 +662,8 @@ namespace DirectXInput.KeyboardCode
                     vCapsEnabled = true;
                     AVActions.ActionDispatcherInvoke(delegate
                     {
+                        textblock_ButtonLeft.Text = "Delete";
+
                         key_Delete.Content = "Insert";
                         key_Delete.Tag = KeysVirtual.Insert;
 
