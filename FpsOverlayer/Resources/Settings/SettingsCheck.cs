@@ -53,6 +53,7 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowTemperature", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerUsage") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPowerUsage", "True"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowFanSpeed", "False"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemId") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemId", "5"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemCategoryTitle", "MEM"); }

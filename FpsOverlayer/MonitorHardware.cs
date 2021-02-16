@@ -23,6 +23,7 @@ namespace FpsOverlayer
                 vHardwareComputer.IsGpuEnabled = true;
                 vHardwareComputer.IsMemoryEnabled = true;
                 vHardwareComputer.IsNetworkEnabled = true;
+                vHardwareComputer.IsMotherboardEnabled = true;
                 vHardwareComputer.Open();
 
                 AVActions.TaskStartLoop(LoopMonitorHardware, vTask_MonitorHardware);
@@ -47,12 +48,16 @@ namespace FpsOverlayer
                         float networkUpFloat = 0;
                         float networkDownFloat = 0;
 
+                        //Fan speed variables
+                        float cpuFanSpeedFloat = 0;
+
                         //Update the hardware information
                         foreach (IHardware hardwareItem in vHardwareComputer.Hardware)
                         {
                             try
                             {
-                                UpdateCpuInformation(hardwareItem);
+                                UpdateFanInformation(hardwareItem, ref cpuFanSpeedFloat);
+                                UpdateCpuInformation(hardwareItem, cpuFanSpeedFloat);
                                 UpdateGpuInformation(hardwareItem);
                                 UpdateMemoryInformation(hardwareItem);
                                 UpdateNetworkInformation(hardwareItem, ref networkUpFloat, ref networkDownFloat);
@@ -255,13 +260,10 @@ namespace FpsOverlayer
                     string GpuFanSpeed = string.Empty;
                     string GpuPower = string.Empty;
 
+                    //Set the gpu name
                     if (showName)
                     {
                         GpuName = hardwareItem.Name;
-                    }
-                    else
-                    {
-                        GpuName = string.Empty;
                     }
 
                     foreach (ISensor sensor in hardwareItem.Sensors)
@@ -371,8 +373,48 @@ namespace FpsOverlayer
             catch { }
         }
 
+        //Update the fan information
+        void UpdateFanInformation(IHardware hardwareItem, ref float cpuFanSpeedFloat)
+        {
+            try
+            {
+                //Check if the information is visible
+                bool showCpuShowFanSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed"));
+                if (!showCpuShowFanSpeed)
+                {
+                    return;
+                }
+
+                if (hardwareItem.HardwareType == HardwareType.Motherboard)
+                {
+                    hardwareItem.Update();
+                    foreach (IHardware subHardware in hardwareItem.SubHardware)
+                    {
+                        try
+                        {
+                            subHardware.Update();
+                            foreach (ISensor sensor in subHardware.Sensors)
+                            {
+                                try
+                                {
+                                    if (sensor.Identifier.ToString().EndsWith("fan/0"))
+                                    {
+                                        cpuFanSpeedFloat = (float)sensor.Value;
+                                        break;
+                                    }
+                                }
+                                catch { }
+                            }
+                        }
+                        catch { }
+                    }
+                }
+            }
+            catch { }
+        }
+
         //Update the cpu information
-        void UpdateCpuInformation(IHardware hardwareItem)
+        void UpdateCpuInformation(IHardware hardwareItem, float fanSpeedFloat)
         {
             try
             {
@@ -382,7 +424,8 @@ namespace FpsOverlayer
                 bool showTemperature = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature"));
                 bool showCoreFrequency = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency"));
                 bool showPowerUsage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerUsage"));
-                if (!showName && !showPercentage && !showTemperature && !showCoreFrequency && !showPowerUsage)
+                bool showFanSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed"));
+                if (!showName && !showPercentage && !showTemperature && !showCoreFrequency && !showPowerUsage && !showFanSpeed)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -399,14 +442,18 @@ namespace FpsOverlayer
                     string CpuTemperature = string.Empty;
                     string CpuFrequency = string.Empty;
                     string CpuPower = string.Empty;
+                    string CpuFanSpeed = string.Empty;
 
+                    //Set the cpu name
                     if (showName)
                     {
                         CpuName = hardwareItem.Name;
                     }
-                    else
+
+                    //Set the cpu fan speed
+                    if (showFanSpeed)
                     {
-                        CpuName = string.Empty;
+                        CpuFanSpeed = " " + Convert.ToInt32(fanSpeedFloat) + "RPM";
                     }
 
                     foreach (ISensor sensor in hardwareItem.Sensors)
@@ -458,10 +505,10 @@ namespace FpsOverlayer
                     }
 
                     bool cpuNameNullOrWhiteSpace = string.IsNullOrWhiteSpace(CpuName);
-                    if (!cpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(CpuPercentage) || !string.IsNullOrWhiteSpace(CpuTemperature) || !string.IsNullOrWhiteSpace(CpuFrequency) || !string.IsNullOrWhiteSpace(CpuPower))
+                    if (!cpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(CpuPercentage) || !string.IsNullOrWhiteSpace(CpuTemperature) || !string.IsNullOrWhiteSpace(CpuFrequency) || !string.IsNullOrWhiteSpace(CpuPower) || !string.IsNullOrWhiteSpace(CpuFanSpeed))
                     {
                         string stringDisplay = string.Empty;
-                        string stringStats = AVFunctions.StringRemoveStart(vTitleCPU + CpuPercentage + CpuTemperature + CpuFrequency + CpuPower, " ");
+                        string stringStats = AVFunctions.StringRemoveStart(vTitleCPU + CpuPercentage + CpuTemperature + CpuFrequency + CpuPower + CpuFanSpeed, " ");
                         if (string.IsNullOrWhiteSpace(stringStats))
                         {
                             stringDisplay = CpuName;

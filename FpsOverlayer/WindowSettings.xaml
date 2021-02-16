@@ -191,6 +191,9 @@
                 <CheckBox Name="checkbox_CpuShowPowerUsage" Content="Show the power usage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the processors current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
+                <CheckBox Name="checkbox_CpuShowFanSpeed" Content="Show the fan speed" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will show the processors current fan speed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Memory Settings"/>
                     <Button Name="button_MemUp" Margin="8,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
