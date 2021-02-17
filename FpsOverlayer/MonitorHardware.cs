@@ -508,7 +508,7 @@ namespace FpsOverlayer
                     if (!cpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(CpuPercentage) || !string.IsNullOrWhiteSpace(CpuTemperature) || !string.IsNullOrWhiteSpace(CpuFrequency) || !string.IsNullOrWhiteSpace(CpuPower) || !string.IsNullOrWhiteSpace(CpuFanSpeed))
                     {
                         string stringDisplay = string.Empty;
-                        string stringStats = AVFunctions.StringRemoveStart(vTitleCPU + CpuPercentage + CpuTemperature + CpuFrequency + CpuPower + CpuFanSpeed, " ");
+                        string stringStats = AVFunctions.StringRemoveStart(vTitleCPU + CpuPercentage + CpuTemperature + CpuFrequency + CpuFanSpeed + CpuPower, " ");
                         if (string.IsNullOrWhiteSpace(stringStats))
                         {
                             stringDisplay = CpuName;
