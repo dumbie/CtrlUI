@@ -1,8 +1,11 @@
 ﻿using ArnoldVinkCode;
 using ArnoldVinkCode.Styles;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using static CtrlUI.AppVariables;
+using static LibraryShared.Classes;
 using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
@@ -31,9 +34,6 @@ namespace CtrlUI
                     return;
                 }
 
-                //Reset the popup to defaults
-                await Popup_Reset_Search(false);
-
                 //Show the search popup
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
@@ -42,16 +42,24 @@ namespace CtrlUI
 
                 //Show the popup
                 Popup_Show_Element(grid_Popup_Search);
-
                 vSearchOpen = true;
 
-                //Force focus on element
-                await FrameworkElementFocus(grid_Popup_Search_textbox, false, vProcessCurrent.MainWindowHandle);
-
-                //Launch the keyboard controller
-                if (vAppActivated && vControllerAnyConnected())
+                //Check if search list has items
+                if (!List_Search.Any())
                 {
-                    await KeyboardControllerHideShow(true);
+                    //Force focus on searchbox
+                    await FrameworkElementFocus(grid_Popup_Search_textbox, false, vProcessCurrent.MainWindowHandle);
+
+                    //Launch the keyboard controller
+                    if (vAppActivated && vControllerAnyConnected())
+                    {
+                        await KeyboardControllerHideShow(true);
+                    }
+                }
+                else
+                {
+                    //Force focus on listbox
+                    await ListboxFocusIndex(lb_Search, false, false, lb_Search.SelectedIndex, vProcessCurrent.MainWindowHandle);
                 }
             }
             catch { }
@@ -109,15 +117,39 @@ namespace CtrlUI
                     //Reset popup variables
                     vSearchOpen = false;
 
-                    //Clear the current popup list
-                    List_Search.Clear();
-
                     //Hide the popup
                     Popup_Hide_Element(grid_Popup_Search);
 
                     //Focus on the previous focus element
                     await FrameworkElementFocusFocus(vSearchElementFocus, vProcessCurrent.MainWindowHandle);
                 }
+            }
+            catch { }
+        }
+
+        //Add process to the search list
+        async Task AddSearchProcess(DataBindApp dataBindApp)
+        {
+            try
+            {
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                {
+                    string searchString = grid_Popup_Search_textbox.Text;
+                    string placeholderString = (string)grid_Popup_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                    if (searchString != placeholderString)
+                    {
+                        if (dataBindApp.Name.ToLower().Contains(searchString.ToLower()))
+                        {
+                            //Add search process
+                            await ListBoxAddItem(lb_Search, List_Search, dataBindApp, false, false);
+
+                            //Update the search results count
+                            UpdateSearchResults();
+
+                            Debug.WriteLine("Added search process: " + searchString);
+                        }
+                    }
+                });
             }
             catch { }
         }

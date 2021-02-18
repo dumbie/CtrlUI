@@ -53,7 +53,7 @@ namespace CtrlUI
                     //Clear the current popup list
                     List_Search.Clear();
 
-                    //Search for applications
+                    //Search and add applications
                     IEnumerable<DataBindApp> searchResult = CombineAppLists(true, true, true).Where(x => x.Name.ToLower().Contains(searchString.ToLower()));
                     foreach (DataBindApp dataBindApp in searchResult)
                     {
@@ -70,7 +70,7 @@ namespace CtrlUI
                     //Select the first search index
                     lb_Search.SelectedIndex = 0;
 
-                    Debug.WriteLine("Search application: " + searchString);
+                    Debug.WriteLine("Added search application: " + searchString);
                 }
                 else
                 {

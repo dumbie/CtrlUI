@@ -228,9 +228,12 @@ namespace CtrlUI
                                 List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();
                                 listProcessMulti.Add(processMultiNew);
 
-                                //Add the process to the list
+                                //Add the process to the process list
                                 DataBindApp dataBindApp = new DataBindApp() { Type = processType, Category = AppCategory.Process, ProcessMulti = listProcessMulti, ImageBitmap = processImageBitmap, Name = processTitle, NameExe = processNameExe, PathExe = processPathExe, StatusStore = processStatusStore, StatusSuspended = processStatusSuspended, RunningTime = processRunningTime };
                                 await ListBoxAddItem(lb_Processes, List_Processes, dataBindApp, false, false);
+
+                                //Add the process to the search list
+                                await AddSearchProcess(dataBindApp);
                             }
                         }
                         catch (Exception ex)

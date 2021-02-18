@@ -135,10 +135,7 @@ namespace CtrlUI
                 }
 
                 //Remove application from search listbox
-                if (vSearchOpen)
-                {
-                    await ListBoxRemoveItem(lb_Search, List_Search, dataBindApp, true);
-                }
+                await ListBoxRemoveItem(lb_Search, List_Search, dataBindApp, true);
 
                 //Save changes to Json file
                 if (saveJson)
