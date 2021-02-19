@@ -136,18 +136,15 @@ namespace CtrlUI
                 {
                     string searchString = grid_Popup_Search_textbox.Text;
                     string placeholderString = (string)grid_Popup_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
-                    if (searchString != placeholderString)
+                    if (searchString != placeholderString && dataBindApp.Name.ToLower().Contains(searchString.ToLower()))
                     {
-                        if (dataBindApp.Name.ToLower().Contains(searchString.ToLower()))
-                        {
-                            //Add search process
-                            await ListBoxAddItem(lb_Search, List_Search, dataBindApp, false, false);
+                        //Add search process
+                        await ListBoxAddItem(lb_Search, List_Search, dataBindApp, false, false);
 
-                            //Update the search results count
-                            UpdateSearchResults();
+                        //Update the search results count
+                        UpdateSearchResults();
 
-                            Debug.WriteLine("Added search process: " + searchString);
-                        }
+                        Debug.WriteLine("Added search process: " + searchString);
                     }
                 });
             }

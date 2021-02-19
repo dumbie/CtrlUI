@@ -131,6 +131,7 @@ namespace CtrlUI
         public static FrameworkElementFocus vFilePickerElementFocus = new FrameworkElementFocus();
         public static List<int> vFilePickerNavigateIndexes = new List<int>();
         public static string vFilePickerCurrentPath = string.Empty;
+        public static int vFilePickerPreviousIndex = -1;
         public static string vFilePickerPreviousPath = string.Empty;
         public static List<string> vFilePickerFilterIn = new List<string>();
         public static List<string> vFilePickerFilterOut = new List<string>();

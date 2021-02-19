@@ -575,11 +575,11 @@ namespace CtrlUI
                     DataBindFile SelectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
                     if (SelectedItem.FileType == FileType.Folder || SelectedItem.FileType == FileType.FolderDisc)
                     {
-                        await Popup_Show_FilePicker(SelectedItem.PathFile, -1, true, null);
+                        await Popup_Show_FilePicker(SelectedItem.PathFile, SelectedItem.TargetIndex, true, null);
                     }
                     else if (SelectedItem.FileType == FileType.FolderPre)
                     {
-                        await Popup_Show_FilePicker(SelectedItem.PathFile, -1, false, null);
+                        await Popup_Show_FilePicker(SelectedItem.PathFile, SelectedItem.TargetIndex, false, null);
                     }
                     else if (SelectedItem.FileType == FileType.GoUpPre)
                     {

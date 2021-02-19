@@ -156,7 +156,7 @@ namespace CtrlUI
                     //Check and add the previous path
                     if (!string.IsNullOrWhiteSpace(vFilePickerPreviousPath))
                     {
-                        DataBindFile dataBindFilePreviousPath = new DataBindFile() { FileType = FileType.FolderPre, Name = "Previous", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolderPrevious, PathFile = vFilePickerPreviousPath };
+                        DataBindFile dataBindFilePreviousPath = new DataBindFile() { FileType = FileType.FolderPre, Name = "Previous", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolderPrevious, PathFile = vFilePickerPreviousPath, TargetIndex = vFilePickerPreviousIndex };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePreviousPath, false, false);
                     }
 
@@ -732,8 +732,9 @@ namespace CtrlUI
                 //Store the current picker path
                 if (vFilePickerCurrentPath.Contains(":"))
                 {
-                    Debug.WriteLine("Closed the picker on: " + vFilePickerCurrentPath);
+                    vFilePickerPreviousIndex = lb_FilePicker.SelectedIndex;
                     vFilePickerPreviousPath = vFilePickerCurrentPath;
+                    Debug.WriteLine("Closed the picker on: " + vFilePickerPreviousIndex + " / " + vFilePickerPreviousPath);
                 }
 
                 //Clear the current file picker list
