@@ -449,24 +449,12 @@ namespace CtrlUI
             {
                 if (grid_Popup_FilePicker_button_ControllerUp.Visibility == Visibility.Visible)
                 {
-                    //Set the navigate index
-                    int navigateIndex = -1;
-                    if (vFilePickerNavigateIndexes.Any())
-                    {
-                        //Read the last index
-                        navigateIndex = vFilePickerNavigateIndexes.LastOrDefault();
-
-                        //Remove the last index
-                        int navigateCount = vFilePickerNavigateIndexes.Count;
-                        vFilePickerNavigateIndexes.RemoveAt(navigateCount - 1);
-                    }
-
                     //Read the root path
                     DataBindFile dataBindFile = List_FilePicker.Where(x => x.FileType == FileType.GoUpPre).FirstOrDefault();
                     if (dataBindFile != null)
                     {
-                        Debug.WriteLine("Folder up: " + dataBindFile.PathFile + " / " + navigateIndex);
-                        await Popup_Show_FilePicker(dataBindFile.PathFile, navigateIndex, false, null);
+                        Debug.WriteLine("Folder up: " + dataBindFile.PathFile);
+                        await Popup_Show_FilePicker(dataBindFile.PathFile, -1, true, null);
                     }
                     else
                     {
@@ -573,13 +561,9 @@ namespace CtrlUI
                 if (lb_FilePicker.SelectedItems.Count > 0 && lb_FilePicker.SelectedIndex != -1)
                 {
                     DataBindFile SelectedItem = (DataBindFile)lb_FilePicker.SelectedItem;
-                    if (SelectedItem.FileType == FileType.Folder || SelectedItem.FileType == FileType.FolderDisc)
+                    if (SelectedItem.FileType == FileType.Folder || SelectedItem.FileType == FileType.FolderDisc || SelectedItem.FileType == FileType.FolderPre)
                     {
-                        await Popup_Show_FilePicker(SelectedItem.PathFile, SelectedItem.TargetIndex, true, null);
-                    }
-                    else if (SelectedItem.FileType == FileType.FolderPre)
-                    {
-                        await Popup_Show_FilePicker(SelectedItem.PathFile, SelectedItem.TargetIndex, false, null);
+                        await Popup_Show_FilePicker(SelectedItem.PathFile, -1, true, null);
                     }
                     else if (SelectedItem.FileType == FileType.GoUpPre)
                     {
@@ -590,7 +574,7 @@ namespace CtrlUI
                         ShortcutDetails shortcutDetails = ReadShortcutFile(SelectedItem.PathFile);
                         if (Directory.Exists(shortcutDetails.TargetPath))
                         {
-                            await Popup_Show_FilePicker(shortcutDetails.TargetPath, -1, false, null);
+                            await Popup_Show_FilePicker(shortcutDetails.TargetPath, -1, true, null);
                         }
                         else if (File.Exists(shortcutDetails.TargetPath))
                         {

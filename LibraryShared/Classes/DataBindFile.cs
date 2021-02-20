@@ -81,20 +81,6 @@ namespace LibraryShared
                 }
             }
 
-            private int PrivTargetIndex = -1;
-            public int TargetIndex
-            {
-                get { return this.PrivTargetIndex; }
-                set
-                {
-                    if (this.PrivTargetIndex != value)
-                    {
-                        this.PrivTargetIndex = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
             private string PrivPathFile;
             public string PathFile
             {

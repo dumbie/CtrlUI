@@ -84,27 +84,23 @@ namespace CtrlUI
                         lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemFile"] as DataTemplate;
                         grid_Popup_Filepicker_Row1.HorizontalAlignment = HorizontalAlignment.Stretch;
                     }
-                });
 
-                //Show the popup
-                Popup_Show_Element(grid_Popup_FilePicker);
-
-                //Update the current path
-                vFilePickerCurrentPath = targetPath;
-
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    //Update the current index
+                    //Update the navigation history index
                     if (storeIndex)
                     {
-                        int selectedIndex = lb_FilePicker.SelectedIndex;
-                        Debug.WriteLine("Adding navigation history index: " + selectedIndex);
-                        vFilePickerNavigateIndexes.Add(selectedIndex);
+                        FilePicker_NavigationHistoryAddUpdate(vFilePickerCurrentPath, lb_FilePicker.SelectedIndex);
                     }
 
                     //Clear the current file picker list
                     List_FilePicker.Clear();
                 });
+
+                //Show the popup
+                Popup_Show_Element(grid_Popup_FilePicker);
+
+                //Update the current picker path
+                vFilePickerSourcePath = vFilePickerCurrentPath;
+                vFilePickerCurrentPath = targetPath;
 
                 //Get and list all the disk drives
                 if (targetPath == "PC")
@@ -156,7 +152,7 @@ namespace CtrlUI
                     //Check and add the previous path
                     if (!string.IsNullOrWhiteSpace(vFilePickerPreviousPath))
                     {
-                        DataBindFile dataBindFilePreviousPath = new DataBindFile() { FileType = FileType.FolderPre, Name = "Previous", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolderPrevious, PathFile = vFilePickerPreviousPath, TargetIndex = vFilePickerPreviousIndex };
+                        DataBindFile dataBindFilePreviousPath = new DataBindFile() { FileType = FileType.FolderPre, Name = "Previous", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolderPrevious, PathFile = vFilePickerPreviousPath };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePreviousPath, false, false);
                     }
 
@@ -550,7 +546,27 @@ namespace CtrlUI
                     gif_FilePicker_Loading.Hide();
                 });
 
-                //Focus on the file picker listbox
+                //Get navigation history index
+                if (targetIndex == -1)
+                {
+                    targetIndex = FilePicker_NavigationHistoryGetIndex(targetPath);
+                }
+
+                //Check the navigation index
+                if (targetIndex == -1 && !string.IsNullOrWhiteSpace(vFilePickerSourcePath))
+                {
+                    DataBindFile sourceFileItem = List_FilePicker.Where(x => x.PathFile == vFilePickerSourcePath).FirstOrDefault();
+                    if (sourceFileItem != null)
+                    {
+                        Debug.WriteLine("Source file path found: " + vFilePickerSourcePath);
+
+                        //Focus on the file picker listbox item
+                        await ListBoxFocusItem(lb_FilePicker, sourceFileItem, vProcessCurrent.MainWindowHandle);
+                        return;
+                    }
+                }
+
+                //Focus on the file picker listbox index
                 await ListboxFocusIndex(lb_FilePicker, false, false, targetIndex, vProcessCurrent.MainWindowHandle);
             }
             catch (Exception ex)
@@ -596,6 +612,50 @@ namespace CtrlUI
                 }
             }
             catch { }
+        }
+
+        //File Picker add or update navigation history
+        public static void FilePicker_NavigationHistoryAddUpdate(string targetPath, int targetIndex)
+        {
+            try
+            {
+                PickerNavigation navigateHistory = vFilePickerNavigationHistory.Where(x => x.Path.ToLower() == targetPath.ToLower()).FirstOrDefault();
+                if (navigateHistory != null)
+                {
+                    //Update navigation history
+                    navigateHistory.Index = targetIndex;
+                    Debug.WriteLine("Updated picker history: " + targetIndex + " / " + targetPath);
+                }
+                else
+                {
+                    //Add navigation history
+                    PickerNavigation navigateHistoryNew = new PickerNavigation();
+                    navigateHistoryNew.Path = targetPath;
+                    navigateHistoryNew.Index = targetIndex;
+                    vFilePickerNavigationHistory.Add(navigateHistoryNew);
+                    Debug.WriteLine("Added picker history: " + targetIndex + " / " + targetPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to add or update picker history: " + ex.Message);
+            }
+        }
+
+        //File Picker get index from navigation history
+        public static int FilePicker_NavigationHistoryGetIndex(string targetPath)
+        {
+            try
+            {
+                Debug.WriteLine("Looking for navigation index: " + targetPath);
+                PickerNavigation navigateHistory = vFilePickerNavigationHistory.Where(x => x.Path.ToLower() == targetPath.ToLower()).FirstOrDefault();
+                if (navigateHistory != null)
+                {
+                    return navigateHistory.Index;
+                }
+            }
+            catch { }
+            return -1;
         }
 
         //Get rom details image and description
@@ -729,16 +789,16 @@ namespace CtrlUI
                     vFilePickerCancelled = true;
                 }
 
-                //Store the current picker path
-                if (vFilePickerCurrentPath.Contains(":"))
+                //Update the navigation history index
+                FilePicker_NavigationHistoryAddUpdate(vFilePickerCurrentPath, lb_FilePicker.SelectedIndex);
+
+                //Update the previous picker path
+                if (vFilePickerCurrentPath[1] == ':')
                 {
-                    vFilePickerPreviousIndex = lb_FilePicker.SelectedIndex;
                     vFilePickerPreviousPath = vFilePickerCurrentPath;
-                    Debug.WriteLine("Closed the picker on: " + vFilePickerPreviousIndex + " / " + vFilePickerPreviousPath);
                 }
 
                 //Clear the current file picker list
-                vFilePickerNavigateIndexes.Clear();
                 List_FilePicker.Clear();
 
                 //Hide the popup
