@@ -1,9 +1,11 @@
 ﻿using ArnoldVinkCode;
 using ArnoldVinkCode.Styles;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.FocusFunctions;
@@ -34,8 +36,14 @@ namespace CtrlUI
                     return;
                 }
 
+                //Check if keyboard is visible
+                IntPtr keyboardWindowHandle = FindWindowEx(IntPtr.Zero, IntPtr.Zero, null, "DirectXInput Keyboard (Visible)");
+
                 //Show the search popup
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
+                if (!vControllerAnyConnected() || (vControllerAnyConnected() && keyboardWindowHandle != IntPtr.Zero))
+                {
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
+                }
 
                 //Save the previous focus element
                 FrameworkElementFocusSave(vSearchElementFocus, null);
