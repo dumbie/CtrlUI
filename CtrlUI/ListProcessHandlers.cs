@@ -29,7 +29,7 @@ namespace CtrlUI
                 }
 
                 //Get process running time
-                string processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "process");
+                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "process");
                 if (string.IsNullOrWhiteSpace(processRunningTimeString))
                 {
                     processRunningTimeString = processDetails;

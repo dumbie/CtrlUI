@@ -121,14 +121,23 @@ namespace CtrlUI
                     processDetails += " (" + dataBindApp.NameExe + ")";
                 }
 
-                //Get process running time
-                string processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "application");
-                if (string.IsNullOrWhiteSpace(processRunningTimeString))
+                //Get process running time and last launch time
+                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "application");
+                string lastLaunchTimeString = ApplicationLastLaunchTimeString(dataBindApp.LastLaunch, "Application");
+
+                //Set the running time string
+                bool runningTimeEmpty = string.IsNullOrWhiteSpace(processRunningTimeString);
+                bool launchTimeEmpty = string.IsNullOrWhiteSpace(lastLaunchTimeString);
+                if (runningTimeEmpty && launchTimeEmpty)
                 {
                     processRunningTimeString = processDetails;
                 }
                 else
                 {
+                    if (!launchTimeEmpty)
+                    {
+                        processRunningTimeString += "\n" + lastLaunchTimeString;
+                    }
                     processRunningTimeString += "\n" + processDetails;
                 }
 
@@ -158,7 +167,7 @@ namespace CtrlUI
             catch { }
         }
 
-        string ApplicationRuntimeString(int runningTime, string appCategory)
+        string ApplicationRunningTimeString(int runningTime, string appCategory)
         {
             try
             {
@@ -180,6 +189,19 @@ namespace CtrlUI
             catch
             {
                 return "This " + appCategory + " has been running for an unknown duration.";
+            }
+        }
+
+        string ApplicationLastLaunchTimeString(string lastLaunch, string appCategory)
+        {
+            try
+            {
+                DateTime lastLaunchDateTime = DateTime.Parse(lastLaunch, vAppCultureInfo);
+                return appCategory + " last launched on " + lastLaunchDateTime.ToString("d MMMM yyyy", vAppCultureInfo) + " at " + lastLaunchDateTime.ToShortTimeString();
+            }
+            catch
+            {
+                return string.Empty;
             }
         }
 

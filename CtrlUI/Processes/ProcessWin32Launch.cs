@@ -17,6 +17,7 @@ namespace CtrlUI
         //Launch a Win32 application from databindapp
         async Task<bool> PrepareProcessLauncherWin32Async(DataBindApp dataBindApp, string launchArgument, bool silent, bool allowMinimize, bool runAsAdmin, bool createNoWindow, bool launchKeyboard)
         {
+            bool appLaunched = false;
             try
             {
                 //Set the app title
@@ -40,10 +41,19 @@ namespace CtrlUI
                     }
                 }
 
-                return await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, allowMinimize, runAsAdmin, createNoWindow, launchKeyboard, false);
+                //Launch the application
+                appLaunched = await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, allowMinimize, runAsAdmin, createNoWindow, launchKeyboard, false);
+
+                //Update last launch date
+                if (appLaunched)
+                {
+                    dataBindApp.LastLaunch = DateTime.Now.ToString(vAppCultureInfo);
+                    //Debug.WriteLine("Updated last launch date: " + dataBindApp.LastLaunch);
+                    JsonSaveApplications();
+                }
             }
             catch { }
-            return false;
+            return appLaunched;
         }
 
         //Launch a Win32 application manually

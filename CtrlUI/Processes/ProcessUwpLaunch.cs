@@ -13,12 +13,22 @@ namespace CtrlUI
         //Launch an UWP or Win32Store application from databindapp
         async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(DataBindApp dataBindApp, bool silent, bool allowMinimize, bool launchKeyboard)
         {
+            bool appLaunched = false;
             try
             {
-                return await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, silent, allowMinimize, launchKeyboard);
+                //Launch the application
+                appLaunched = await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, silent, allowMinimize, launchKeyboard);
+
+                //Update last launch date
+                if (appLaunched)
+                {
+                    dataBindApp.LastLaunch = DateTime.Now.ToString(vAppCultureInfo);
+                    //Debug.WriteLine("Updated last launch date: " + dataBindApp.LastLaunch);
+                    JsonSaveApplications();
+                }
             }
             catch { }
-            return false;
+            return appLaunched;
         }
 
         //Launch an UWP or Win32Store application manually

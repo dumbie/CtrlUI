@@ -209,6 +209,20 @@ namespace LibraryShared
                 }
             }
 
+            private string PrivLastLaunch = string.Empty;
+            public string LastLaunch
+            {
+                get { return this.PrivLastLaunch; }
+                set
+                {
+                    if (this.PrivLastLaunch != value)
+                    {
+                        this.PrivLastLaunch = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private int PrivRunningTime = -2;
             public int RunningTime
             {

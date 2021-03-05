@@ -64,7 +64,7 @@ namespace CtrlUI
                 if (infoGames.first_release_date != 0)
                 {
                     DateTime epochDateTime = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(infoGames.first_release_date);
-                    gameReleaseDate = epochDateTime.ToString("dd MMMM yyyy", vAppCultureInfo);
+                    gameReleaseDate = epochDateTime.ToString("d MMMM yyyy", vAppCultureInfo);
                     gameReleaseYear = epochDateTime.ToString("yyyy", vAppCultureInfo);
                 }
             }

@@ -65,22 +65,32 @@ namespace CtrlUI
                     processDetails += " (" + dataBindApp.NameExe + ")";
                 }
 
-                //Get process running time
+                //Get process running time and last launch time
                 string processRunningTimeString = string.Empty;
+                string lastLaunchTimeString = string.Empty;
                 if (dataBindApp.Category == AppCategory.Shortcut)
                 {
-                    processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "shortcut process");
+                    processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "shortcut process");
                 }
                 else
                 {
-                    processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "application");
+                    processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "application");
+                    lastLaunchTimeString = ApplicationLastLaunchTimeString(dataBindApp.LastLaunch, "Application");
                 }
-                if (string.IsNullOrWhiteSpace(processRunningTimeString))
+
+                //Set the running time string
+                bool runningTimeEmpty = string.IsNullOrWhiteSpace(processRunningTimeString);
+                bool launchTimeEmpty = string.IsNullOrWhiteSpace(lastLaunchTimeString);
+                if (runningTimeEmpty && launchTimeEmpty)
                 {
                     processRunningTimeString = processDetails;
                 }
                 else
                 {
+                    if (!launchTimeEmpty)
+                    {
+                        processRunningTimeString += "\n" + lastLaunchTimeString;
+                    }
                     processRunningTimeString += "\n" + processDetails;
                 }
 

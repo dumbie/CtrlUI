@@ -28,7 +28,7 @@ namespace CtrlUI
                 }
 
                 //Get process running time
-                string processRunningTimeString = ApplicationRuntimeString(dataBindApp.RunningTime, "shortcut process");
+                string processRunningTimeString = ApplicationRunningTimeString(dataBindApp.RunningTime, "shortcut process");
                 if (string.IsNullOrWhiteSpace(processRunningTimeString))
                 {
                     processRunningTimeString = processDetails;
