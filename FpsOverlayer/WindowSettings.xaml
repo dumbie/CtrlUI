@@ -156,7 +156,10 @@
                 <CheckBox Name="checkbox_GpuShowFanSpeed" Content="Show the fan speed" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the videocards current fan speed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                <CheckBox Name="checkbox_GpuShowPowerUsage" Content="Show the power usage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                <CheckBox Name="checkbox_GpuShowPowerWatt" Content="Show the power wattage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will show the videocards current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                <CheckBox Name="checkbox_GpuShowPowerVolt" Content="Show the power voltage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the videocards current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
@@ -188,7 +191,7 @@
                 <CheckBox Name="checkbox_CpuShowCoreFrequency" Content="Show the core frequency" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the processors current core frequency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                <CheckBox Name="checkbox_CpuShowPowerUsage" Content="Show the power usage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                <CheckBox Name="checkbox_CpuShowPowerUsage" Content="Show the power wattage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the processors current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <CheckBox Name="checkbox_CpuShowFanSpeed" Content="Show the fan speed" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>

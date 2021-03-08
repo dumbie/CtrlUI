@@ -43,7 +43,8 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowTemperature") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowTemperature", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowCoreFrequency") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowCoreFrequency", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowFanSpeed") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowFanSpeed", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerUsage") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowPowerUsage", "False"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerWatt") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowPowerWatt", "False"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerVolt") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowPowerVolt", "False"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuId") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuId", "3"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuCategoryTitle", "CPU"); }
