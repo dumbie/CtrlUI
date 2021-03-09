@@ -335,7 +335,15 @@ namespace FpsOverlayer
                             else if (showPowerVolt && sensor.SensorType == SensorType.Voltage)
                             {
                                 //Debug.WriteLine("GPU Voltage: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
-                                GpuPowerVoltage = " " + ((float)sensor.Value).ToString("0.000") + "V";
+                                float RawPowerVoltage = (float)sensor.Value;
+                                if (RawPowerVoltage <= 0)
+                                {
+                                    GpuPowerVoltage = " 0V";
+                                }
+                                else
+                                {
+                                    GpuPowerVoltage = " " + RawPowerVoltage.ToString("0.000") + "V";
+                                }
                             }
                         }
                         catch { }
