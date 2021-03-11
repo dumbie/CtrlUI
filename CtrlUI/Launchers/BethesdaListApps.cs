@@ -38,7 +38,7 @@ namespace CtrlUI
                                         {
                                             string appId = installDetails.GetValue("ProductID")?.ToString();
                                             string appName = installDetails.GetValue("DisplayName")?.ToString();
-                                            string appIcon = installDetails.GetValue("DisplayIcon")?.ToString();
+                                            string appIcon = installDetails.GetValue("DisplayIcon")?.ToString().Replace("\"", string.Empty);
                                             string installDir = installDetails.GetValue("Path")?.ToString().Replace("\"", string.Empty);
                                             await BethesdaAddApplication(appId, appName, appIcon, installDir);
                                         }
