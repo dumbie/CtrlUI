@@ -45,8 +45,9 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 - For more information and help open the "Help" window or tab in the application.
 
 ## Known issues
-- Keyboard Controller and Fps Overlayer might not show up when you are in a fullscreen app.
-- The Alt+Enter controller shortcut does not work for all Windows Store applications.
+- Overlays may not work properly when HDR is enabled in Windows.
+- Overlays may not show up when you are in a fullscreen application.
+- Alt+Enter controller shortcut may not work for all Windows Store applications.
 
 ## Requirements
 - Windows operating system 10 64bit or higher is required.
