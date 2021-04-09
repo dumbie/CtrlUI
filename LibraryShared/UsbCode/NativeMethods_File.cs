@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace LibraryUsb
 {
@@ -83,5 +84,8 @@ namespace LibraryUsb
 
         [DllImport("kernel32.dll")]
         public static extern bool CloseHandle(IntPtr hObject);
+
+        [DllImport("kernel32.dll")]
+        public static extern uint QueryDosDevice(string lpDeviceName, StringBuilder lpTargetPath, int ucchMax);
     }
 }

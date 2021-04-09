@@ -17,9 +17,9 @@ namespace DirectXInput
             try
             {
                 bool virtualBusDriver = EnumerateDevicesStore("ViGEmBus.inf").Any();
-                bool hidGuardianDriver = EnumerateDevicesStore("HidGuardian.inf").Any();
+                bool hidHideDriver = EnumerateDevicesStore("HidHide.inf").Any();
                 bool ds3ControllerDriver = EnumerateDevicesStore("Ds3Controller.inf").Any();
-                return virtualBusDriver && hidGuardianDriver && ds3ControllerDriver;
+                return virtualBusDriver && hidHideDriver && ds3ControllerDriver;
             }
             catch
             {
@@ -50,6 +50,30 @@ namespace DirectXInput
             catch
             {
                 Debug.WriteLine("Failed to open virtual bus driver.");
+                return false;
+            }
+        }
+
+        //Open the hid hide device
+        bool OpenHidHideDevice()
+        {
+            try
+            {
+                vHidHideDevice = new HidHideDevice();
+                if (vHidHideDevice.Connected)
+                {
+                    Debug.WriteLine("HidHide device is installed.");
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine("HidHide device not installed.");
+                    return false;
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to open HidHide device.");
                 return false;
             }
         }

@@ -85,7 +85,7 @@ namespace DirectXInput
                     try
                     {
                         //Read information from the controller
-                        HidDevice foundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.HardwareId, false, true);
+                        HidDevice foundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.ModelId, false, true);
 
                         //Check if device is a gamepad or joystick
                         bool genericGamePad = foundHidDevice.Capabilities.UsageGeneric == (short)HID_USAGE_GENERIC_DESKTOP_PAGE.HID_USAGE_GENERIC_GAMEPAD;
@@ -139,7 +139,7 @@ namespace DirectXInput
                             Type = "Hid",
                             Profile = profileController,
                             DisplayName = ProductNameString,
-                            HardwareId = foundHidDevice.HardwareId,
+                            ModelId = foundHidDevice.ModelId,
                             Path = foundHidDevice.DevicePath,
                             Wireless = ConnectedWireless
                         };

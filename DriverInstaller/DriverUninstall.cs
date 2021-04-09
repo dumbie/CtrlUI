@@ -50,20 +50,21 @@ namespace DriverInstaller
                 ProgressBarUpdate(20, false);
                 TextBoxAppend("Starting the driver uninstallation.");
 
-                //Remove older unused devices
+                //Remove unused devices and drivers
                 ProgressBarUpdate(30, false);
                 RemoveUnusedVigemVirtualBus();
                 RemoveUnusedScpVirtualBus();
                 RemoveUnusedXboxControllers();
                 RemoveUnusedDS3Controllers();
+                UninstallHidGuardian();
 
                 //Uninstall Virtual Bus Driver
                 ProgressBarUpdate(40, false);
                 UninstallVirtualBus();
 
-                //Uninstall HidGuardian Driver
+                //Uninstall HidHide Driver
                 ProgressBarUpdate(60, false);
-                UninstallHidGuardian();
+                UninstallHidHide();
 
                 //Uninstall DS3 USB Driver
                 ProgressBarUpdate(80, false);
@@ -166,6 +167,32 @@ namespace DriverInstaller
                 }
 
                 RemoveUpperFilter("HidGuardian");
+            }
+            catch { }
+        }
+
+        void UninstallHidHide()
+        {
+            try
+            {
+                List<string> infPaths = EnumerateDevicesStore("HidHide.inf");
+                foreach (string infPath in infPaths)
+                {
+                    try
+                    {
+                        if (DriverUninstallInf(infPath, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        {
+                            TextBoxAppend("HidHide Driver uninstalled.");
+                        }
+                        else
+                        {
+                            TextBoxAppend("HidHide Driver not uninstalled.");
+                        }
+                    }
+                    catch { }
+                }
+
+                RemoveUpperFilter("HidHide");
             }
             catch { }
         }

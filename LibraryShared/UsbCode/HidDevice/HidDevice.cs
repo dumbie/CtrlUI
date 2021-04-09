@@ -14,17 +14,17 @@ namespace LibraryUsb
         public bool Exclusive;
         public string DevicePath;
         public string DeviceInstanceId;
-        public string HardwareId;
+        public string ModelId;
         private SafeFileHandle FileHandle;
         private FileStream FileStream;
         public HidDeviceAttributes Attributes;
         public HidDeviceCapabilities Capabilities;
 
-        public HidDevice(string devicePath, string hardwareId, bool initialize, bool closeDevice)
+        public HidDevice(string devicePath, string modelId, bool initialize, bool closeDevice)
         {
             try
             {
-                HardwareId = hardwareId;
+                ModelId = modelId;
                 DevicePath = devicePath.ToLower();
                 DeviceInstanceId = ConvertPathToInstanceId(DevicePath);
 

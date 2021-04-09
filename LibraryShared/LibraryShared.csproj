@@ -37,13 +37,13 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="protobuf-net.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>..\packages\protobuf-net.Core.3.0.73\lib\net461\protobuf-net.Core.dll</HintPath>
+      <HintPath>..\packages\protobuf-net.Core.3.0.101\lib\net461\protobuf-net.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -80,7 +80,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="Windows">
-      <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd</HintPath>
+      <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="WindowsBase" />
@@ -342,6 +342,9 @@
     <Compile Include="UsbCode\HidDevice\HidDevice_DeviceCapabilities.cs" />
     <Compile Include="UsbCode\HidDevice\HidDevice_Information.cs" />
     <Compile Include="UsbCode\HidDevice\HidDevice_ReadWrite.cs" />
+    <Compile Include="UsbCode\HidHideDevice\HidHideDevice_String.cs" />
+    <Compile Include="UsbCode\HidHideDevice\HidHideDevice_Control.cs" />
+    <Compile Include="UsbCode\HidHideDevice\HidHideDevice.cs" />
     <Compile Include="UsbCode\NativeMethods_Bth.cs" />
     <Compile Include="UsbCode\NativeMethods_File.cs" />
     <Compile Include="UsbCode\NativeMethods_Guid.cs" />
@@ -353,10 +356,10 @@
     <Compile Include="UsbCode\UsbLibrary_Enumerate.cs" />
     <Compile Include="UsbCode\UsbLibrary_Events.cs" />
     <Compile Include="UsbCode\UsbLibrary_Extensions.cs" />
+    <Compile Include="UsbCode\VigemBusDevice\VigemBusDevice_Control.cs" />
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice.cs" />
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_Information.cs" />
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_ReadWrite.cs" />
-    <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_VirtualBus.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="NetFwTypeLib">

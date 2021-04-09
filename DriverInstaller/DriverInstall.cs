@@ -50,20 +50,21 @@ namespace DriverInstaller
                 ProgressBarUpdate(20, false);
                 TextBoxAppend("Starting the driver installation.");
 
-                //Remove older unused devices
+                //Remove unused devices and drivers
                 ProgressBarUpdate(30, false);
                 RemoveUnusedVigemVirtualBus();
                 RemoveUnusedScpVirtualBus();
                 RemoveUnusedXboxControllers();
                 RemoveUnusedDS3Controllers();
+                UninstallHidGuardian();
 
                 //Install Virtual Bus Driver
                 ProgressBarUpdate(40, false);
                 InstallVirtualBus();
 
-                //Install HidGuardian Driver
+                //Install HidHide Driver
                 ProgressBarUpdate(60, false);
-                InstallHidGuardian();
+                InstallHidHide();
 
                 //Install DS3 USB Driver
                 ProgressBarUpdate(80, false);
@@ -117,26 +118,25 @@ namespace DriverInstaller
             catch { }
         }
 
-        void InstallHidGuardian()
+        void InstallHidHide()
         {
             try
             {
-                if (DeviceCreateNode("System", GuidClassSystem, @"Root\HidGuardian"))
+                if (DeviceCreateNode("System", GuidClassSystem, @"Root\HidHide"))
                 {
-                    TextBoxAppend("HidGuardian Node created.");
+                    TextBoxAppend("HidHide Node created.");
                 }
 
-                string osSystem = Environment.Is64BitOperatingSystem ? "x64" : "x86";
-                if (DriverInstallInf(@"Resources\Drivers\HidGuardian\" + osSystem + @"\HidGuardian.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstallInf(@"Resources\Drivers\HidHide\x64\HidHide.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
-                    TextBoxAppend("HidGuardian Driver installed.");
+                    TextBoxAppend("HidHide Driver installed.");
                 }
                 else
                 {
-                    TextBoxAppend("HidGuardian Driver not installed.");
+                    TextBoxAppend("HidHide Driver not installed.");
                 }
 
-                AddUpperFilter("HidGuardian");
+                AddUpperFilter("HidHide");
             }
             catch { }
         }

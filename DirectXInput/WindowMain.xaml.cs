@@ -3,6 +3,7 @@ using AVForms;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -82,6 +83,14 @@ namespace DirectXInput
                     return;
                 }
 
+                //Open the hid hide device
+                if (!OpenHidHideDevice())
+                {
+                    if (!ShowInTaskbar) { await Application_ShowHideWindow(); }
+                    await Message_InstallDrivers();
+                    return;
+                }
+
                 //Load the help text
                 LoadHelp();
 
@@ -121,11 +130,16 @@ namespace DirectXInput
                 //Bind all the lists to ListBox
                 ListBoxBindLists();
 
-                //Reset HidGuardian to defaults
-                HidGuardianResetDefaults();
+                //Reset HidHide to defaults
+                vHidHideDevice.ListDeviceReset();
+                vHidHideDevice.ListApplicationReset();
 
-                //Allow DirectXInput process in HidGuardian
-                HidGuardianAllowProcess();
+                //Allow DirectXInput in HidHide
+                string appFilePath = Assembly.GetEntryAssembly().Location;
+                vHidHideDevice.ListApplicationAdd(appFilePath);
+
+                //Enable HidHide device
+                vHidHideDevice.DeviceHideToggle(true);
 
                 //Start the background tasks
                 TasksBackgroundStart();
@@ -268,8 +282,15 @@ namespace DirectXInput
                 //Disconnect all the controllers
                 await StopAllControllers(true);
 
-                //Reset HidGuardian to defaults
-                HidGuardianResetDefaults();
+                //Reset HidHide to defaults
+                vHidHideDevice.ListDeviceReset();
+                vHidHideDevice.ListApplicationReset();
+
+                //Disable HidHide device
+                vHidHideDevice.DeviceHideToggle(false);
+
+                //Close HidHide device
+                vHidHideDevice.CloseDevice();
 
                 //Disable the socket server
                 if (vArnoldVinkSockets != null)

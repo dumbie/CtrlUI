@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
 using static LibraryUsb.NativeMethods_SetupApi;
@@ -15,6 +16,7 @@ namespace LibraryUsb
             public string DevicePath { get; set; }
             public string Description { get; set; }
             public string HardwareId { get; set; }
+            public string ModelId { get; set; }
         }
 
         public static List<string> EnumerateDevicesStore(string infFileName)
@@ -115,11 +117,13 @@ namespace LibraryUsb
                                     description = GetDeviceDescription(deviceInfoList, ref deviceInfoData);
                                 }
                                 string hardwareId = GetDeviceHardwareId(deviceInfoList, ref deviceInfoData);
+                                string modelId = GetDeviceModelId(devicePath);
 
                                 EnumerateInfo foundDevice = new EnumerateInfo();
                                 foundDevice.DevicePath = devicePath;
                                 foundDevice.Description = description;
                                 foundDevice.HardwareId = hardwareId;
+                                foundDevice.ModelId = modelId;
                                 enumeratedInfoList.Add(foundDevice);
                             }
                             catch { }
@@ -249,6 +253,28 @@ namespace LibraryUsb
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to get hardware id: " + ex.Message);
+                return string.Empty;
+            }
+        }
+
+        private static string GetDeviceModelId(string devicePath)
+        {
+            try
+            {
+                string modelId = devicePath.Replace("#", @"\");
+                modelId = modelId.Replace(@"\\?\hid", @"hid");
+
+                int slashCount = modelId.Count(x => x == '\\');
+                if (slashCount > 2)
+                {
+                    modelId = modelId.Substring(0, modelId.LastIndexOf(@"\"));
+                }
+
+                return modelId;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to get model id: " + ex.Message);
                 return string.Empty;
             }
         }

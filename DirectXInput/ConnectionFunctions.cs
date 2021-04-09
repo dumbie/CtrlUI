@@ -42,9 +42,6 @@ namespace DirectXInput
                         activeController.Details.Profile.Ignore = true;
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
 
-                        //Release controller from hid guardian
-                        HidGuardianReleaseController(activeController.Details);
-
                         //Disconnect the controller
                         await StopControllerAsync(activeController, "ignored");
 

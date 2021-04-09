@@ -23,8 +23,8 @@ namespace DirectXInput
                 {
                     Debug.WriteLine("Initializing direct input for: " + Controller.Details.DisplayName);
 
-                    //Allow the controller in HidGuardian
-                    HidGuardianAllowController(Controller.Details);
+                    //Allow controller in HidHide
+                    vHidHideDevice.ListDeviceAdd(Controller.Details.ModelId);
                     await Task.Delay(500);
 
                     //Open the selected controller
@@ -438,7 +438,7 @@ namespace DirectXInput
                 //Find and connect to hid controller
                 else
                 {
-                    Controller.HidDevice = new HidDevice(Controller.Details.Path, Controller.Details.HardwareId, true, false);
+                    Controller.HidDevice = new HidDevice(Controller.Details.Path, Controller.Details.ModelId, true, false);
                     if (!Controller.HidDevice.Connected)
                     {
                         Debug.WriteLine("Invalid hid open device, blocking: " + Controller.Details.DisplayName);

@@ -64,17 +64,20 @@
     <ApplicationManifest>Properties\App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Emoji.Wpf, Version=0.2.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Emoji.Wpf.0.2.5\lib\net40\Emoji.Wpf.dll</HintPath>
+    <Reference Include="Emoji.Wpf, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Emoji.Wpf.0.3.0\lib\net40\Emoji.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -86,13 +89,13 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="Typography.GlyphLayout, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Emoji.Wpf.0.2.5\lib\net40\Typography.GlyphLayout.dll</HintPath>
+      <HintPath>..\packages\Emoji.Wpf.0.3.0\lib\net40\Typography.GlyphLayout.dll</HintPath>
     </Reference>
     <Reference Include="Typography.OpenFont, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Emoji.Wpf.0.2.5\lib\net40\Typography.OpenFont.dll</HintPath>
+      <HintPath>..\packages\Emoji.Wpf.0.3.0\lib\net40\Typography.OpenFont.dll</HintPath>
     </Reference>
     <Reference Include="Windows">
-      <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd</HintPath>
+      <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime.WindowsRuntime" />
@@ -158,7 +161,6 @@
     <Compile Include="Resources\Settings\SettingsNotify.cs" />
     <Compile Include="Overlay\NotificationFunctions.cs" />
     <Compile Include="Overlay\WindowOverlay.xaml.cs" />
-    <Compile Include="HidGuardian.cs" />
     <Compile Include="ControllerPreview.cs" />
     <Compile Include="ControllerShortcuts.cs" />
     <Compile Include="ControllerBattery.cs" />
@@ -455,10 +457,34 @@
     <Content Include="Assets\Default\Controller\KeypadPreview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Default\Icons\Buttons\KeypadThumb.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Default\Icons\Buttons\KeypadThumbDark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Default\Icons\Buttons\KeypadTriggers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Default\Icons\Buttons\KeypadTriggersDark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Default\Icons\Buttons\KeypadUpDownDPad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Default\Icons\Buttons\KeypadLeftRightDPad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Default\Icons\Buttons\KeyboardDark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Icons\Buttons\Keyboard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Default\Icons\Buttons\KeypadUpDownDPadDark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Default\Icons\Buttons\KeypadLeftRightDPadDark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Icons\KeyboardMove.png">
