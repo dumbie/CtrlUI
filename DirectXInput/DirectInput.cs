@@ -24,8 +24,7 @@ namespace DirectXInput
                     Debug.WriteLine("Initializing direct input for: " + Controller.Details.DisplayName);
 
                     //Allow controller in HidHide
-                    vHidHideDevice.ListDeviceAdd(Controller.Details.ModelId);
-                    await Task.Delay(500);
+                    await vHidHideDevice.ListDeviceAdd(Controller.Details.ModelId);
 
                     //Open the selected controller
                     if (!await OpenController(Controller))

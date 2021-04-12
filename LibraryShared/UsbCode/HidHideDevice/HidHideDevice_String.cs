@@ -12,16 +12,28 @@ namespace LibraryUsb
         {
             try
             {
-                //Temporary byte array
+                //Check string array
+                if (!stringArray.Any())
+                {
+                    //Return empty buffer pointer
+                    length = 0;
+                    return IntPtr.Zero;
+                }
+
+                //Temporary byte list
                 IEnumerable<byte> tempByteArray = new List<byte>();
+                byte[] minValue = Encoding.Unicode.GetBytes(new[] { char.MinValue });
 
                 //Convert each string into wide multi-byte and add NULL-terminator in between
-                tempByteArray = stringArray.Aggregate(tempByteArray, (current, entry) => current.Concat(Encoding.Unicode.GetBytes(entry)).Concat(Encoding.Unicode.GetBytes(new[] { char.MinValue })));
+                foreach (string stringEntry in stringArray)
+                {
+                    tempByteArray = tempByteArray.Concat(Encoding.Unicode.GetBytes(stringEntry)).Concat(minValue);
+                }
 
                 //Add another NULL-terminator to signal end of the list
-                tempByteArray = tempByteArray.Concat(Encoding.Unicode.GetBytes(new[] { char.MinValue }));
+                tempByteArray = tempByteArray.Concat(minValue);
 
-                //Convert expression to array
+                //Convert list to array
                 byte[] multiSzArray = tempByteArray.ToArray();
 
                 //Convert array to managed native buffer
@@ -35,7 +47,7 @@ namespace LibraryUsb
             catch
             {
                 //Return empty buffer pointer
-                length = -1;
+                length = 0;
                 return IntPtr.Zero;
             }
         }

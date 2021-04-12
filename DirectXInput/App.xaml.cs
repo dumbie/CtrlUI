@@ -25,7 +25,7 @@ namespace DirectXInput
             try
             {
                 //Check the application status
-                await Application_LaunchCheck("DirectXInput", ProcessPriorityClass.High, false, false);
+                await Application_LaunchCheck("DirectXInput", ProcessPriorityClass.RealTime, false, false);
 
                 //Check the application update
                 Application_UpdateCheck();
