@@ -30,7 +30,7 @@ namespace LibraryShared
 
             //Controller Details
             public ControllerDetails Details = null;
-            public bool BlockOutput = false;
+            public bool BlockInteraction = false;
             public bool Connected()
             {
                 try
@@ -114,7 +114,7 @@ namespace LibraryShared
 
                     //Controller Details
                     Details = null;
-                    BlockOutput = false;
+                    BlockInteraction = false;
 
                     //Controller Tasks
                     InputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
+using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
@@ -160,17 +161,27 @@ namespace DirectXInput.KeypadCode
                             }
                         }
 
-                        List<Image> allImages = AVFunctions.FindVisualChildren<Image>(grid_Application);
-                        foreach (Image image in allImages)
+                        if (vKeypadMappingProfile.KeypadDisplayStyle == 0)
                         {
-                            if (vKeypadMappingProfile.KeypadDisplayStyle == 0)
-                            {
-                                image.Style = (Style)Application.Current.Resources["KeypadImageLight"];
-                            }
-                            else
-                            {
-                                image.Style = (Style)Application.Current.Resources["KeypadImageDark"];
-                            }
+                            image_DPad.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadDpad.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_ThumbLeft.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadThumb.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_ThumbRight.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadThumb.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_TriggersLeft.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadTriggers.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_TriggersRight.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadTriggers.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_ButtonBack.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadButton.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_ButtonStart.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadButton.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_Action.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadAction.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        }
+                        else
+                        {
+                            image_DPad.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadDpadDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_ThumbLeft.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadThumbDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0); image_ThumbLeft.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadThumbDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_ThumbRight.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadThumbDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0); image_ThumbLeft.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadThumbDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_TriggersLeft.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadTriggersDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_TriggersRight.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadTriggersDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_ButtonBack.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadButtonDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_ButtonStart.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadButtonDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            image_Action.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadActionDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         }
                     }
                     catch { }
@@ -182,7 +193,7 @@ namespace DirectXInput.KeypadCode
         //Update the keypad size
         public double UpdateKeypadSize()
         {
-            double keypadHeight = 0;
+            double KeypadImageHeight = 0;
             try
             {
                 AVActions.ActionDispatcherInvoke(delegate
@@ -192,19 +203,21 @@ namespace DirectXInput.KeypadCode
                         int targetPercentage = vKeypadMappingProfile.KeypadDisplaySize;
                         Debug.WriteLine("Changing keypad size to: " + targetPercentage);
 
-                        double keypadTextSize = 25;
-                        double keypadImageSize = 75;
-                        double newImageSize = (keypadImageSize / 100) * targetPercentage;
-                        keypadHeight = newImageSize * 2;
+                        double keypadTextSize = ((double)30 / 100) * targetPercentage;
+                        KeypadImageHeight = ((double)240 / 100) * targetPercentage;
+                        double KeypadPaddingTwo = KeypadImageHeight / 2;
+                        double KeypadPaddingThree = KeypadImageHeight / 3;
 
-                        Application.Current.Resources["KeypadTextSize"] = (keypadTextSize / 100) * targetPercentage;
-                        Application.Current.Resources["KeypadImageSize"] = newImageSize;
+                        Application.Current.Resources["KeypadTextSize"] = keypadTextSize;
+                        Application.Current.Resources["KeypadImageHeight"] = KeypadImageHeight;
+                        Application.Current.Resources["KeypadPaddingTwo"] = KeypadPaddingTwo;
+                        Application.Current.Resources["KeypadPaddingThree"] = KeypadPaddingThree;
                     }
                     catch { }
                 });
             }
             catch { }
-            return keypadHeight;
+            return KeypadImageHeight;
         }
 
         //Set the keypad mapping profile
@@ -291,30 +304,30 @@ namespace DirectXInput.KeypadCode
                 {
                     try
                     {
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadLeftMod, vKeypadMappingProfile.DPadLeft, grid_DPadLeft, textblock_DPadLeft);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadUpMod, vKeypadMappingProfile.DPadUp, grid_DPadUp, textblock_DPadUp);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadRightMod, vKeypadMappingProfile.DPadRight, grid_DPadRight, textblock_DPadRight);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadDownMod, vKeypadMappingProfile.DPadDown, grid_DPadDown, textblock_DPadDown);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftLeftMod, vKeypadMappingProfile.ThumbLeftLeft, grid_ThumbLeftLeft, textblock_ThumbLeftLeft);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftUpMod, vKeypadMappingProfile.ThumbLeftUp, grid_ThumbLeftUp, textblock_ThumbLeftUp);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftRightMod, vKeypadMappingProfile.ThumbLeftRight, grid_ThumbLeftRight, textblock_ThumbLeftRight);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftDownMod, vKeypadMappingProfile.ThumbLeftDown, grid_ThumbLeftDown, textblock_ThumbLeftDown);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightLeftMod, vKeypadMappingProfile.ThumbRightLeft, grid_ThumbRightLeft, textblock_ThumbRightLeft);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightUpMod, vKeypadMappingProfile.ThumbRightUp, grid_ThumbRightUp, textblock_ThumbRightUp);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightRightMod, vKeypadMappingProfile.ThumbRightRight, grid_ThumbRightRight, textblock_ThumbRightRight);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightDownMod, vKeypadMappingProfile.ThumbRightDown, grid_ThumbRightDown, textblock_ThumbRightDown);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonBackMod, vKeypadMappingProfile.ButtonBack, grid_ButtonBack, textblock_ButtonBack);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonStartMod, vKeypadMappingProfile.ButtonStart, grid_ButtonStart, textblock_ButtonStart);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonXMod, vKeypadMappingProfile.ButtonX, grid_ButtonX, textblock_ButtonX);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonYMod, vKeypadMappingProfile.ButtonY, grid_ButtonY, textblock_ButtonY);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonAMod, vKeypadMappingProfile.ButtonA, grid_ButtonA, textblock_ButtonA);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonBMod, vKeypadMappingProfile.ButtonB, grid_ButtonB, textblock_ButtonB);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonShoulderLeftMod, vKeypadMappingProfile.ButtonShoulderLeft, grid_ButtonShoulderLeft, textblock_ButtonShoulderLeft);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonTriggerLeftMod, vKeypadMappingProfile.ButtonTriggerLeft, grid_ButtonTriggerLeft, textblock_ButtonTriggerLeft);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonThumbLeftMod, vKeypadMappingProfile.ButtonThumbLeft, grid_ButtonThumbLeft, textblock_ButtonThumbLeft);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonShoulderRightMod, vKeypadMappingProfile.ButtonShoulderRight, grid_ButtonShoulderRight, textblock_ButtonShoulderRight);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonTriggerRightMod, vKeypadMappingProfile.ButtonTriggerRight, grid_ButtonTriggerRight, textblock_ButtonTriggerRight);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonThumbRightMod, vKeypadMappingProfile.ButtonThumbRight, grid_ButtonThumbRight, textblock_ButtonThumbRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadLeftMod, vKeypadMappingProfile.DPadLeft, textblock_DPadLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadUpMod, vKeypadMappingProfile.DPadUp, textblock_DPadUp);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadRightMod, vKeypadMappingProfile.DPadRight, textblock_DPadRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadDownMod, vKeypadMappingProfile.DPadDown, textblock_DPadDown);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftLeftMod, vKeypadMappingProfile.ThumbLeftLeft, textblock_ThumbLeftLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftUpMod, vKeypadMappingProfile.ThumbLeftUp, textblock_ThumbLeftUp);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftRightMod, vKeypadMappingProfile.ThumbLeftRight, textblock_ThumbLeftRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftDownMod, vKeypadMappingProfile.ThumbLeftDown, textblock_ThumbLeftDown);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightLeftMod, vKeypadMappingProfile.ThumbRightLeft, textblock_ThumbRightLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightUpMod, vKeypadMappingProfile.ThumbRightUp, textblock_ThumbRightUp);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightRightMod, vKeypadMappingProfile.ThumbRightRight, textblock_ThumbRightRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightDownMod, vKeypadMappingProfile.ThumbRightDown, textblock_ThumbRightDown);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonBackMod, vKeypadMappingProfile.ButtonBack, textblock_ButtonBack);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonStartMod, vKeypadMappingProfile.ButtonStart, textblock_ButtonStart);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonXMod, vKeypadMappingProfile.ButtonX, textblock_ButtonX);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonYMod, vKeypadMappingProfile.ButtonY, textblock_ButtonY);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonAMod, vKeypadMappingProfile.ButtonA, textblock_ButtonA);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonBMod, vKeypadMappingProfile.ButtonB, textblock_ButtonB);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonShoulderLeftMod, vKeypadMappingProfile.ButtonShoulderLeft, textblock_ButtonShoulderLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonTriggerLeftMod, vKeypadMappingProfile.ButtonTriggerLeft, textblock_ButtonTriggerLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonThumbLeftMod, vKeypadMappingProfile.ButtonThumbLeft, textblock_ThumbLeftButton);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonShoulderRightMod, vKeypadMappingProfile.ButtonShoulderRight, textblock_ButtonShoulderRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonTriggerRightMod, vKeypadMappingProfile.ButtonTriggerRight, textblock_ButtonTriggerRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonThumbRightMod, vKeypadMappingProfile.ButtonThumbRight, textblock_ThumbRightButton);
                     }
                     catch { }
                 });
@@ -323,24 +336,24 @@ namespace DirectXInput.KeypadCode
         }
 
         //Update key details
-        void UpdateKeypadKeyDetails(KeysVirtual? modifierKey, KeysVirtual? virtualKey, Grid keyGrid, TextBlock keyTextBlock)
+        void UpdateKeypadKeyDetails(KeysVirtual? modifierKey, KeysVirtual? virtualKey, TextBlock keyTextLabel)
         {
             try
             {
                 if (modifierKey != null)
                 {
-                    keyTextBlock.Text = GetVirtualKeyName((KeysVirtual)modifierKey, true) + "\n" + GetVirtualKeyName((KeysVirtual)virtualKey, true);
-                    keyGrid.Opacity = 1;
+                    keyTextLabel.Text = GetVirtualKeyName((KeysVirtual)modifierKey, true) + "\n" + GetVirtualKeyName((KeysVirtual)virtualKey, true);
+                    keyTextLabel.Opacity = 1;
                 }
                 else if (virtualKey != null)
                 {
-                    keyTextBlock.Text = GetVirtualKeyName((KeysVirtual)virtualKey, true);
-                    keyGrid.Opacity = 1;
+                    keyTextLabel.Text = GetVirtualKeyName((KeysVirtual)virtualKey, true);
+                    keyTextLabel.Opacity = 1;
                 }
                 else
                 {
-                    keyTextBlock.Text = "?";
-                    keyGrid.Opacity = 0;
+                    keyTextLabel.Text = "?";
+                    keyTextLabel.Opacity = 0;
                 }
             }
             catch { }

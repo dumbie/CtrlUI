@@ -19,112 +19,124 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Connected())
+                //Check if controller is connected
+                if (!Controller.Connected())
                 {
-                    Debug.WriteLine("Initializing direct input for: " + Controller.Details.DisplayName);
+                    Debug.WriteLine("Direct input controller is not connected: " + Controller.Details.DisplayName);
+                    return false;
+                }
 
-                    //Allow controller in HidHide
-                    await vHidHideDevice.ListDeviceAdd(Controller.Details.ModelId);
+                Debug.WriteLine("Initializing direct input for: " + Controller.Details.DisplayName);
 
-                    //Open the selected controller
-                    if (!await OpenController(Controller))
-                    {
-                        Debug.WriteLine("Failed to initialize direct input for: " + Controller.Details.DisplayName);
+                //Allow controller in HidHide
+                await vHidHideDevice.ListDeviceAdd(Controller.Details.ModelId);
 
-                        NotificationDetails notificationDetailsDisconnected = new NotificationDetails();
-                        notificationDetailsDisconnected.Icon = "Controller";
-                        notificationDetailsDisconnected.Text = "Controller disconnected";
-                        App.vWindowOverlay.Notification_Show_Status(notificationDetailsDisconnected);
+                //Open the selected controller
+                if (!await OpenController(Controller))
+                {
+                    Debug.WriteLine("Failed to initialize direct input for: " + Controller.Details.DisplayName);
 
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            txt_Controller_Information.Text = "The controller is no longer connected or supported.";
-                        });
-
-                        await StopControllerAsync(Controller, "unsupported");
-                        return false;
-                    }
-
-                    //Unplug and plugin the virtual device
-                    vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
-                    await Task.Delay(500);
-                    vVirtualBusDevice.VirtualPlugin(Controller.NumberId);
-
-                    //Set controller interface information
-                    string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
-
-                    NotificationDetails notificationDetailsConnected = new NotificationDetails();
-                    notificationDetailsConnected.Icon = "Controller";
-                    notificationDetailsConnected.Text = "Connected (" + controllerNumberDisplay + ")";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetailsConnected);
+                    NotificationDetails notificationDetailsDisconnected = new NotificationDetails();
+                    notificationDetailsDisconnected.Icon = "Controller";
+                    notificationDetailsDisconnected.Text = "Controller disconnected";
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetailsDisconnected);
 
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        txt_Controller_Information.Text = "Connected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
+                        txt_Controller_Information.Text = "The controller is no longer connected or supported.";
                     });
 
-                    //Update the controller interface settings
-                    ControllerUpdateSettingsInterface(Controller);
+                    await StopControllerAsync(Controller, "unsupported");
+                    return false;
+                }
 
-                    //Update the controller last read time
-                    Controller.PrevInputTicks = Controller.LastInputTicks;
-                    Controller.LastInputTicks = GetSystemTicksMs();
+                //Unplug and plugin the virtual device
+                vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
+                await Task.Delay(500);
+                vVirtualBusDevice.VirtualPlugin(Controller.NumberId);
 
-                    //Update the controller last active time
-                    Controller.LastActiveTicks = GetSystemTicksMs();
+                //Set controller interface information
+                string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
 
-                    //Set the controller supported profile
-                    Controller.SupportedCurrent = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower())).FirstOrDefault();
-                    if (Controller.SupportedCurrent == null)
-                    {
-                        Debug.WriteLine("Unsupported controller detected, using default profile.");
-                        Controller.SupportedCurrent = new ControllerSupported();
-                    }
+                NotificationDetails notificationDetailsConnected = new NotificationDetails();
+                notificationDetailsConnected.Icon = "Controller";
+                notificationDetailsConnected.Text = "Connected (" + controllerNumberDisplay + ")";
+                App.vWindowOverlay.Notification_Show_Status(notificationDetailsConnected);
 
-                    //Start receiving and translating DirectInput
-                    if (Controller.Details.Type == "Win")
-                    {
-                        async Task TaskActionInput()
-                        {
-                            try
-                            {
-                                await LoopInputWinUsb(Controller);
-                            }
-                            catch { }
-                        }
-                        AVActions.TaskStartLoop(TaskActionInput, Controller.InputControllerTask);
-                    }
-                    else
-                    {
-                        async Task TaskActionInput()
-                        {
-                            try
-                            {
-                                await LoopInputHidDevice(Controller);
-                            }
-                            catch { }
-                        }
-                        AVActions.TaskStartLoop(TaskActionInput, Controller.InputControllerTask);
-                    }
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    txt_Controller_Information.Text = "Connected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
+                });
 
-                    void TaskActionOutputVirtual()
-                    {
-                        try
-                        {
-                            LoopOutputVirtual(Controller);
-                        }
-                        catch { }
-                    }
-                    AVActions.TaskStartLoop(TaskActionOutputVirtual, Controller.OutputVirtualTask);
-                    void TaskActionOutputController()
+                //Update the controller interface settings
+                ControllerUpdateSettingsInterface(Controller);
+
+                //Update the controller last read time
+                Controller.PrevInputTicks = Controller.LastInputTicks;
+                Controller.LastInputTicks = GetSystemTicksMs();
+
+                //Update the controller last active time
+                Controller.LastActiveTicks = GetSystemTicksMs();
+
+                //Set the controller supported profile
+                Controller.SupportedCurrent = vDirectControllersSupported.Where(x => x.ProductIDs.Any(z => z.ToLower() == Controller.Details.Profile.ProductID.ToLower() && x.VendorID.ToLower() == Controller.Details.Profile.VendorID.ToLower())).FirstOrDefault();
+                if (Controller.SupportedCurrent == null)
+                {
+                    Debug.WriteLine("Unsupported controller detected, using default profile.");
+                    Controller.SupportedCurrent = new ControllerSupported();
+                }
+
+                //Start controller input task loop
+                if (Controller.Details.Type == "Win")
+                {
+                    async Task TaskActionInput()
                     {
                         try
                         {
-                            LoopOutputController(Controller);
+                            await LoopInputWinUsb(Controller);
                         }
                         catch { }
                     }
-                    AVActions.TaskStartLoop(TaskActionOutputController, Controller.OutputControllerTask);
+                    AVActions.TaskStartLoop(TaskActionInput, Controller.InputControllerTask);
+                }
+                else
+                {
+                    async Task TaskActionInput()
+                    {
+                        try
+                        {
+                            await LoopInputHidDevice(Controller);
+                        }
+                        catch { }
+                    }
+                    AVActions.TaskStartLoop(TaskActionInput, Controller.InputControllerTask);
+                }
+
+                //Start virtual output task loop
+                void TaskActionOutputVirtual()
+                {
+                    try
+                    {
+                        LoopOutputVirtual(Controller);
+                    }
+                    catch { }
+                }
+                AVActions.TaskStartLoop(TaskActionOutputVirtual, Controller.OutputVirtualTask);
+
+                //Start controller output task loop
+                void TaskActionOutputController()
+                {
+                    try
+                    {
+                        LoopOutputController(Controller);
+                    }
+                    catch { }
+                }
+                AVActions.TaskStartLoop(TaskActionOutputController, Controller.OutputControllerTask);
+
+                //Start gyroscope task loop
+                if (Controller.SupportedCurrent.HasGyroscope)
+                {
                     async Task TaskActionOutputGyro()
                     {
                         try
@@ -134,11 +146,15 @@ namespace DirectXInput
                         catch { }
                     }
                     AVActions.TaskStartLoop(TaskActionOutputGyro, Controller.OutputGyroTask);
-                    return true;
                 }
+
+                return true;
             }
-            catch { }
-            return false;
+            catch
+            {
+                Debug.WriteLine("Failed initializing direct input for: " + Controller.Details.DisplayName);
+                return false;
+            }
         }
 
         //Update the controller interface settings
@@ -239,8 +255,15 @@ namespace DirectXInput
                     return false;
                 }
 
+                //Check if the controller is disconnecting
+                if (Controller.BlockInteraction)
+                {
+                    Debug.WriteLine("Controller " + Controller.NumberId + " is currently disconnecting.");
+                    return false;
+                }
+
                 //Update controller block status
-                Controller.BlockOutput = true;
+                Controller.BlockInteraction = true;
 
                 //Update last disconnect time
                 vControllerLastDisconnect = DateTime.Now;

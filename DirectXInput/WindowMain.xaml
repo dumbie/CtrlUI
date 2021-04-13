@@ -495,42 +495,42 @@
                                 <TextBlock Name="txt_KeypadMap_Status" Text="Click on a button below that you want to change on the keypad." Style="{StaticResource TextBlockGray}"/>
                                 <TextBlock Text="* You can unmap a key by right clicking on the key." Style="{StaticResource TextBlockGray}"/>
 
-                                <Grid Name="grid_KeypadPreview" HorizontalAlignment="Center" Width="556" Height="94" Margin="0,10,0,0">
+                                <Grid Name="grid_KeypadPreview" HorizontalAlignment="Center" Width="556" Height="94" Margin="-5,5,0,0">
                                     <Grid.Background>
                                         <ImageBrush ImageSource="pack://siteoforigin:,,,/Assets/Default/Controller/KeypadPreview.png" Stretch="Uniform"/>
                                     </Grid.Background>
 
                                     <!-- Mapping -->
                                     <Button Name="btn_SetPadDPadLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,524,0" Height="26" Width="26" Tag="DPad Left"/>
-                                    <Button Name="btn_SetPadDPadUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,460,62" Height="26" Width="26" Tag="DPad Up"/>
-                                    <Button Name="btn_SetPadDPadRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,398,0" Height="26" Width="26" Tag="DPad Right"/>
-                                    <Button Name="btn_SetPadDPadDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,58,460,0" Height="26" Width="26" Tag="DPad Down"/>
+                                    <Button Name="btn_SetPadDPadUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,462,62" Height="26" Width="26" Tag="DPad Up"/>
+                                    <Button Name="btn_SetPadDPadRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,400,0" Height="26" Width="26" Tag="DPad Right"/>
+                                    <Button Name="btn_SetPadDPadDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,62,462,0" Height="26" Width="26" Tag="DPad Down"/>
 
-                                    <Button Name="btn_SetPadThumbLeftLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,320,0" Height="26" Width="26" Tag="Left Thumb Left"/>
-                                    <Button Name="btn_SetPadThumbLeftUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,258,62" Height="26" Width="26" Tag="Left Thumb Up"/>
-                                    <Button Name="btn_SetPadThumbLeftRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,194,0" Height="26" Width="26" Tag="Left Thumb Right"/>
-                                    <Button Name="btn_SetPadThumbLeftDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,58,258,0" Height="26" Width="26" Tag="Left Thumb Down"/>
-                                    <Button Name="btn_SetPadThumbLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,258,0" Height="26" Width="26" Tag="Left Thumb Button"/>
+                                    <Button Name="btn_SetPadThumbLeftLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,340,0" Height="26" Width="26" Tag="Left Thumb Left"/>
+                                    <Button Name="btn_SetPadThumbLeftUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,275,62" Height="26" Width="26" Tag="Left Thumb Up"/>
+                                    <Button Name="btn_SetPadThumbLeftRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,215,0" Height="26" Width="26" Tag="Left Thumb Right"/>
+                                    <Button Name="btn_SetPadThumbLeftDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,58,275,0" Height="26" Width="26" Tag="Left Thumb Down"/>
+                                    <Button Name="btn_SetPadThumbLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,280,0" Height="26" Width="26" Tag="Left Thumb Button"/>
 
-                                    <Button Name="btn_SetPadShoulderLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,116,0" Height="26" Width="26" Tag="Left Shoulder"/>
-                                    <Button Name="btn_SetPadTriggerLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,58,116,0" Height="26" Width="26" Tag="Left Trigger"/>
+                                    <Button Name="btn_SetPadShoulderLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,140,45" Height="40" Width="40" Tag="Left Shoulder"/>
+                                    <Button Name="btn_SetPadTriggerLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,45,140,0" Height="40" Width="40" Tag="Left Trigger"/>
 
-                                    <Button Name="btn_SetPadBack" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,58,36,0" Height="26" Width="26" Tag="Button Back"/>
-                                    <Button Name="btn_SetPadStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="35,58,0,0" Height="26" Width="26" Tag="Button Start"/>
+                                    <Button Name="btn_SetPadBack" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,45,50,0" Height="40" Width="40" Tag="Button Back"/>
+                                    <Button Name="btn_SetPadStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="50,45,0,0" Height="40" Width="40" Tag="Button Start"/>
 
-                                    <Button Name="btn_SetPadShoulderRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="115,0,0,0" Height="26" Width="26" Tag="Right Shoulder"/>
-                                    <Button Name="btn_SetPadTriggerRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="115,58,0,0" Height="26" Width="26" Tag="Right Trigger"/>
+                                    <Button Name="btn_SetPadShoulderRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="140,0,0,45" Height="40" Width="40" Tag="Right Shoulder"/>
+                                    <Button Name="btn_SetPadTriggerRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="140,45,0,0" Height="40" Width="40" Tag="Right Trigger"/>
 
-                                    <Button Name="btn_SetPadThumbRightLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="192,0,0,0" Height="26" Width="26" Tag="Right Thumb Left"/>
-                                    <Button Name="btn_SetPadThumbRightUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="255,0,0,62" Height="26" Width="26" Tag="Right Thumb Up"/>
-                                    <Button Name="btn_SetPadThumbRightRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="318,0,0,0" Height="26" Width="26" Tag="Right Thumb Right"/>
-                                    <Button Name="btn_SetPadThumbRightDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="255,58,0,0" Height="26" Width="26" Tag="Right Thumb Down"/>
-                                    <Button Name="btn_SetPadThumbRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="255,0,0,0" Height="26" Width="26" Tag="Right Thumb Button"/>
+                                    <Button Name="btn_SetPadThumbRightLeft" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="220,0,0,0" Height="26" Width="26" Tag="Right Thumb Left"/>
+                                    <Button Name="btn_SetPadThumbRightUp" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="280,0,0,62" Height="26" Width="26" Tag="Right Thumb Up"/>
+                                    <Button Name="btn_SetPadThumbRightRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="340,0,0,0" Height="26" Width="26" Tag="Right Thumb Right"/>
+                                    <Button Name="btn_SetPadThumbRightDown" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="280,58,0,0" Height="26" Width="26" Tag="Right Thumb Down"/>
+                                    <Button Name="btn_SetPadThumbRight" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="280,0,0,0" Height="26" Width="26" Tag="Right Thumb Button"/>
 
-                                    <Button Name="btn_SetPadA" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="460,58,0,0" Tag="Button A"/>
-                                    <Button Name="btn_SetPadB" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="522,0,0,0" Tag="Button B"/>
-                                    <Button Name="btn_SetPadX" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="398,0,0,0" Tag="Button X"/>
-                                    <Button Name="btn_SetPadY" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="460,0,0,62" Tag="Button Y"/>
+                                    <Button Name="btn_SetPadA" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="465,60,0,0" Tag="Button A"/>
+                                    <Button Name="btn_SetPadB" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="525,0,0,0" Tag="Button B"/>
+                                    <Button Name="btn_SetPadX" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="405,0,0,0" Tag="Button X"/>
+                                    <Button Name="btn_SetPadY" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="465,0,0,60" Tag="Button Y"/>
                                 </Grid>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Display"/>

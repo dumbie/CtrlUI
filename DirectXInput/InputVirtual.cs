@@ -46,7 +46,7 @@ namespace DirectXInput
                 bool blockOutputApplication = await ControllerForwardOutput(Controller);
 
                 //Check if output or guide button needs to be blocked
-                if (blockOutputApplication || blockOutputShortcut || Controller.BlockOutput)
+                if (blockOutputApplication || blockOutputShortcut || Controller.BlockInteraction)
                 {
                     //Prepare empty xinput data
                     PrepareXInputDataEmpty(Controller);
