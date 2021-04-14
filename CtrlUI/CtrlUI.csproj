@@ -191,6 +191,9 @@
     <Content Include="Assets\Default\Icons\MicrophoneMute.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Default\Icons\RemoveCrossDark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\User\Assets in this folder will not get overwritten when updating">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

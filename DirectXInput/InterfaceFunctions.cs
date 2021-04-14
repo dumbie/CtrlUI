@@ -20,12 +20,25 @@ namespace DirectXInput
         {
             try
             {
+                if (elementTarget == grid_Debug)
+                {
+                    Debug.WriteLine("Enabling controller debug mode.");
+                    vShowDebugInformation = true;
+                }
+                else
+                {
+                    Debug.WriteLine("Disabling controller debug mode.");
+                    vShowDebugInformation = false;
+                }
+
                 grid_Connection.Visibility = Visibility.Collapsed;
                 grid_Controller.Visibility = Visibility.Collapsed;
+                grid_Ignore.Visibility = Visibility.Collapsed;
                 grid_Keyboard.Visibility = Visibility.Collapsed;
                 grid_Keypad.Visibility = Visibility.Collapsed;
                 grid_Settings.Visibility = Visibility.Collapsed;
                 grid_Shortcuts.Visibility = Visibility.Collapsed;
+                grid_Debug.Visibility = Visibility.Collapsed;
                 grid_Help.Visibility = Visibility.Collapsed;
                 elementTarget.Visibility = Visibility.Visible;
             }
@@ -50,8 +63,7 @@ namespace DirectXInput
                 button_Controller2.Click += Button_Controller2_Click;
                 button_Controller3.Click += Button_Controller3_Click;
                 btn_SearchNewControllers.Click += Btn_SearchNewControllers_Click;
-                Btn_IgnoreController.Click += Btn_IgnoreController_Click;
-                Btn_AllowIgnoredControllers.Click += Btn_AllowIgnoredControllers_Click;
+                btn_IgnoreController.Click += btn_IgnoreController_Click;
                 btn_DisconnectController.Click += Btn_DisconnectController_Click;
                 btn_DisconnectControllerAll.Click += Btn_DisconnectControllerAll_Click;
                 btn_RemoveController.Click += Btn_RemoveController_Click;

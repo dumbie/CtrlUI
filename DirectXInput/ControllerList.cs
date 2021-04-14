@@ -53,13 +53,6 @@ namespace DirectXInput
                         }
                         ControllerProfile profileController = profileList.FirstOrDefault();
 
-                        //Check if controller is ignored
-                        if (profileController.Ignore)
-                        {
-                            //Debug.WriteLine("Controller is ignored: " + ProductHexId + "/" + VendorHexId);
-                            continue;
-                        }
-
                         //Check if controller is wireless
                         bool ConnectedWireless = EnumDevice.DevicePath.ToLower().Contains("00805f9b34fb");
 
@@ -123,13 +116,6 @@ namespace DirectXInput
                             Debug.WriteLine("Added hid profile: " + ProductNameString + " (" + VendorNameString + ")");
                         }
                         ControllerProfile profileController = profileList.FirstOrDefault();
-
-                        //Check if controller is ignored
-                        if (profileController.Ignore)
-                        {
-                            //Debug.WriteLine("Controller is ignored: " + ProductHexId + "/" + VendorHexId);
-                            continue;
-                        }
 
                         //Check if controller is wireless
                         bool ConnectedWireless = foundHidDevice.DevicePath.ToLower().Contains("00805f9b34fb");

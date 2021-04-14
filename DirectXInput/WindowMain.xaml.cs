@@ -165,6 +165,8 @@ namespace DirectXInput
                 combobox_KeypadProcessProfile.ItemsSource = vDirectKeypadMapping;
                 combobox_KeypadProcessProfile.DisplayMemberPath = "Name";
                 combobox_KeypadProcessProfile.SelectedIndex = 0;
+
+                ListboxLoadIgnoredController();
             }
             catch { }
         }
@@ -189,25 +191,35 @@ namespace DirectXInput
             try
             {
                 ControllerStatus activeController = vActiveController();
-                if (activeController != null && !vControllerRumbleTest)
+                if (activeController != null)
                 {
-                    vControllerRumbleTest = true;
-                    Button SendButton = sender as Button;
-
-                    UpdateControllerPreviewRumble(true);
-                    if (SendButton.Name == "btn_RumbleTestLight")
+                    if (!vControllerRumbleTest)
                     {
-                        ControllerOutput(activeController, true, false);
-                    }
-                    else
-                    {
-                        ControllerOutput(activeController, false, true);
-                    }
-                    await Task.Delay(1000);
-                    UpdateControllerPreviewRumble(false);
-                    ControllerOutput(activeController, false, false);
+                        vControllerRumbleTest = true;
+                        Button SendButton = sender as Button;
 
-                    vControllerRumbleTest = false;
+                        UpdateControllerPreviewRumble(true);
+                        if (SendButton.Name == "btn_RumbleTestLight")
+                        {
+                            ControllerOutput(activeController, true, false);
+                        }
+                        else
+                        {
+                            ControllerOutput(activeController, false, true);
+                        }
+                        await Task.Delay(1000);
+                        UpdateControllerPreviewRumble(false);
+                        ControllerOutput(activeController, false, false);
+
+                        vControllerRumbleTest = false;
+                    }
+                }
+                else
+                {
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "Controller";
+                    notificationDetails.Text = "No controller connected";
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }

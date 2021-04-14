@@ -294,28 +294,28 @@ namespace DirectXInput
                         image_Controller0.Source = vImagePreloadIconControllerDark;
                         textblock_Controller0.Text = "No controller connected";
                         textblock_Controller0CodeName.Text = string.Empty;
-                        textblock_LiveDebugInformation.Text = "No controller connected to debug";
+                        textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
                     }
                     else if (Controller.NumberId == 1)
                     {
                         image_Controller1.Source = vImagePreloadIconControllerDark;
                         textblock_Controller1.Text = "No controller connected";
                         textblock_Controller1CodeName.Text = string.Empty;
-                        textblock_LiveDebugInformation.Text = "No controller connected to debug";
+                        textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
                     }
                     else if (Controller.NumberId == 2)
                     {
                         image_Controller2.Source = vImagePreloadIconControllerDark;
                         textblock_Controller2.Text = "No controller connected";
                         textblock_Controller2CodeName.Text = string.Empty;
-                        textblock_LiveDebugInformation.Text = "No controller connected to debug";
+                        textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
                     }
                     else if (Controller.NumberId == 3)
                     {
                         image_Controller3.Source = vImagePreloadIconControllerDark;
                         textblock_Controller3.Text = "No controller connected";
                         textblock_Controller3CodeName.Text = string.Empty;
-                        textblock_LiveDebugInformation.Text = "No controller connected to debug";
+                        textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
                     }
                 });
 

@@ -1,10 +1,8 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Windows;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -82,17 +80,7 @@ namespace DirectXInput
                         }
 
                         //Update debug information
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShowDebugInformation")))
-                        {
-                            textblock_LiveDebugInformation.Text = GenerateControllerDebugInformation();
-                            textblock_LiveDebugInformation.Visibility = Visibility.Visible;
-                            btn_CopyDebugInformation.Visibility = Visibility.Visible;
-                        }
-                        else
-                        {
-                            textblock_LiveDebugInformation.Visibility = Visibility.Collapsed;
-                            btn_CopyDebugInformation.Visibility = Visibility.Collapsed;
-                        }
+                        UpdateDebugInformation();
 
                         //D-Pad
                         if (Controller.InputCurrent.DPadLeft.PressedRaw) { img_ControllerPreview_DPadLeft.Visibility = Visibility.Visible; } else { img_ControllerPreview_DPadLeft.Visibility = Visibility.Collapsed; }

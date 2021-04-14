@@ -617,21 +617,6 @@ namespace LibraryShared
                 }
             }
 
-            //Controller Ignore
-            private bool PrivIgnore = false;
-            public bool Ignore
-            {
-                get { return this.PrivIgnore; }
-                set
-                {
-                    if (this.PrivIgnore != value)
-                    {
-                        this.PrivIgnore = value;
-                        NotifyPropertyChanged();
-                    }
-                }
-            }
-
             public event PropertyChangedEventHandler PropertyChanged;
             private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
             {

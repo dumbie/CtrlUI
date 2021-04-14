@@ -47,8 +47,6 @@ namespace DirectXInput
                 colorpicker_Controller3.Background = ControllerColor3Brush;
                 App.vWindowOverlay.stackpanel_Battery_Warning_Controller4_Color.Background = ControllerColor3Brush;
 
-                cb_ControllerShowDebugInformation.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShowDebugInformation"));
-
                 //Load shortcut settings
                 cb_SettingsShortcutLaunchCtrlUI.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI"));
                 cb_SettingsShortcutLaunchKeyboardController.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController"));

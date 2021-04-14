@@ -90,11 +90,6 @@ namespace DirectXInput
                     await NotifyCtrlUISettingChanged("ControllerColor");
                 };
 
-                cb_ControllerShowDebugInformation.Click += (sender, e) =>
-                {
-                    Setting_Save(vConfigurationDirectXInput, "ShowDebugInformation", cb_ControllerShowDebugInformation.IsChecked.ToString());
-                };
-
                 //Shortcut settings
                 cb_SettingsShortcutLaunchCtrlUI.Click += (sender, e) =>
                 {
