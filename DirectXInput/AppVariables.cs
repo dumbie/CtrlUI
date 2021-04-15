@@ -155,7 +155,8 @@ namespace DirectXInput
         //Application Lists
         public static List<ProfileShared> vDirectCloseTools = new List<ProfileShared>();
         public static List<ControllerSupported> vDirectControllersSupported = new List<ControllerSupported>();
-        public static List<ControllerSupported> vDirectControllersIgnored = new List<ControllerSupported>();
+        public static List<ControllerIgnored> vDirectControllersIgnoredUser = new List<ControllerIgnored>();
+        public static List<ControllerIgnored> vDirectControllersIgnoredDefault = new List<ControllerIgnored>();
         public static List<ProfileShared> vDirectKeyboardEmojiListActivity = new List<ProfileShared>();
         public static List<ProfileShared> vDirectKeyboardEmojiListNature = new List<ProfileShared>();
         public static List<ProfileShared> vDirectKeyboardEmojiListFood = new List<ProfileShared>();

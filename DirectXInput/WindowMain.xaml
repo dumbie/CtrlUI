@@ -352,6 +352,7 @@
                         </StackPanel>
                     </Grid>
 
+                    <TextBlock Grid.Row="1" Name="textblock_ControllerIgnore" Style="{StaticResource TextBlockBlack}" Text="No ignored controllers, you can ignore a controller from the connection tab."/>
                     <ListBox Grid.Row="1" Name="listbox_ControllerIgnore" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemBlack}" ItemTemplate="{StaticResource ListboxItemIgnore}" Style="{StaticResource ListBoxVertical}"/>
                 </Grid>
             </Grid>

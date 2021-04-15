@@ -10,12 +10,14 @@
         <Grid Margin="5" ToolTip="Allow ignored controller">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="{Binding String1}" VerticalAlignment="Center" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-            <TextBlock Grid.Column="1" Text="{Binding String2}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-            <Image Grid.Column="2" Source="pack://siteoforigin:,,,/Assets/Default/Icons/RemoveCrossDark.png" Height="40" Width="40"/>
+            <TextBlock Grid.Column="0" Text="{Binding String1}" VerticalAlignment="Center" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeLarge}"/>
+            <TextBlock Grid.Column="1" Text="{Binding String2}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeMedium}"/>
+            <TextBlock Grid.Column="2" Text="{Binding String3}" VerticalAlignment="Center" Margin="5,0,0,0" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeMedium}"/>
+            <Image Grid.Column="3" Source="pack://siteoforigin:,,,/Assets/Default/Icons/RemoveCrossDark.png" Height="40" Width="40"/>
         </Grid>
     </DataTemplate>
 

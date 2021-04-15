@@ -1,8 +1,11 @@
-﻿using AVForms;
+﻿using ArnoldVinkCode;
+using AVForms;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
@@ -19,14 +22,29 @@ namespace DirectXInput
                 //Clear current list items
                 listbox_ControllerIgnore.Items.Clear();
 
-                //Load ignored controllers
-                foreach (ControllerSupported controller in vDirectControllersIgnored)
+                //Check ignored controllers
+                if (vDirectControllersIgnoredUser.Any())
                 {
-                    foreach (string productId in controller.ProductIDs)
+                    listbox_ControllerIgnore.Visibility = Visibility.Visible;
+                    textblock_ControllerIgnore.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    listbox_ControllerIgnore.Visibility = Visibility.Collapsed;
+                    textblock_ControllerIgnore.Visibility = Visibility.Visible;
+                    return;
+                }
+
+                //Load ignored controllers
+                foreach (ControllerIgnored controllerIgnored in vDirectControllersIgnoredUser)
+                {
+                    foreach (string productId in controllerIgnored.ProductIDs)
                     {
                         ProfileShared profileShared = new ProfileShared();
-                        profileShared.String1 = controller.VendorID;
-                        profileShared.String2 = productId;
+                        profileShared.String1 = controllerIgnored.CodeName;
+                        profileShared.String2 = controllerIgnored.VendorID;
+                        profileShared.String3 = productId;
+                        profileShared.Object1 = controllerIgnored;
                         listbox_ControllerIgnore.Items.Add(profileShared);
                     }
                 }
@@ -51,7 +69,7 @@ namespace DirectXInput
                         string lowerProductId = activeController.Details.Profile.ProductID.ToLower();
 
                         //Update json profile
-                        ControllerSupported existingVendor = vDirectControllersIgnored.Where(x => x.VendorID.ToLower() == lowerVendorId).FirstOrDefault();
+                        ControllerIgnored existingVendor = vDirectControllersIgnoredUser.Where(x => x.VendorID.ToLower() == lowerVendorId).FirstOrDefault();
                         if (existingVendor != null)
                         {
                             List<string> existingProducts = existingVendor.ProductIDs.ToList();
@@ -62,16 +80,20 @@ namespace DirectXInput
                         }
                         else
                         {
-                            ControllerSupported newController = new ControllerSupported();
+                            ControllerIgnored newController = new ControllerIgnored();
+                            newController.CodeName = activeController.Details.DisplayName;
                             newController.VendorID = lowerVendorId;
                             newController.ProductIDs = new string[] { lowerProductId };
-                            vDirectControllersIgnored.Add(newController);
+                            vDirectControllersIgnoredUser.Add(newController);
 
                             Debug.WriteLine("Added new controller to ignore list: " + lowerVendorId + "/" + lowerProductId);
                         }
 
                         //Save json profile
-                        JsonSaveObject(vDirectControllersIgnored, "DirectControllersIgnored");
+                        JsonSaveObject(vDirectControllersIgnoredUser, "DirectControllersIgnoredUser");
+
+                        //Load ignored controllers to list
+                        ListboxLoadIgnoredController();
 
                         //Disconnect the controller
                         await StopControllerAsync(activeController, "ignored");
@@ -88,25 +110,68 @@ namespace DirectXInput
             catch { }
         }
 
-        //Allow all the ignored controllers
-        void Btn_AllowIgnoredControllers_Click(object sender, RoutedEventArgs e)
+        //Allow the ignored controller
+        void AllowIgnoredController()
         {
             try
             {
-                //Fix
-                ////Allow all the ignored controllers
-                //foreach (ControllerProfile profile in vDirectControllersProfile)
-                //{
-                //    profile.Ignore = false;
-                //}
+                ProfileShared selectedItem = (ProfileShared)listbox_ControllerIgnore.SelectedItem;
+                ControllerIgnored allowController = (ControllerIgnored)selectedItem.Object1;
+
+                //Update json profile
+                List<string> existingProducts = allowController.ProductIDs.ToList();
+                existingProducts.Remove(selectedItem.String3);
+
+                //Check empty vendor
+                if (existingProducts.Any())
+                {
+                    allowController.ProductIDs = existingProducts.ToArray();
+                }
+                else
+                {
+                    vDirectControllersIgnoredUser.Remove(allowController);
+                }
+
+                Debug.WriteLine("Allowed controller in ignore list: " + selectedItem.String2 + "/" + selectedItem.String3);
 
                 //Save json profile
-                JsonSaveObject(vDirectControllersIgnored, "DirectControllersIgnored");
+                JsonSaveObject(vDirectControllersIgnoredUser, "DirectControllersIgnoredUser");
 
-                NotificationDetails notificationDetails = new NotificationDetails();
-                notificationDetails.Icon = "Controller";
-                notificationDetails.Text = "Allowed the controller";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                //Load ignored controllers to list
+                ListboxLoadIgnoredController();
+
+                //Notify user controller is allowed
+                NotificationDetails notificationDetailsAllowed = new NotificationDetails();
+                notificationDetailsAllowed.Icon = "Controller";
+                notificationDetailsAllowed.Text = "Allowed the controller";
+                App.vWindowOverlay.Notification_Show_Status(notificationDetailsAllowed);
+            }
+            catch { }
+        }
+
+        async void Listbox_ControllerIgnore_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                //Check if an actual ListBoxItem is clicked
+                if (!AVFunctions.ListBoxItemClickCheck((DependencyObject)e.OriginalSource)) { return; }
+
+                //Check which mouse button is pressed
+                if (e.ClickCount == 1)
+                {
+                    vSingleTappedEvent = true;
+                    await Task.Delay(500);
+                    if (vSingleTappedEvent) { AllowIgnoredController(); }
+                }
+            }
+            catch { }
+        }
+
+        void Listbox_ControllerIgnore_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Space) { AllowIgnoredController(); }
             }
             catch { }
         }

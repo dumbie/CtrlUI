@@ -19,6 +19,7 @@ namespace LibraryShared
                 File_Delete("Profiles/AppsCloseLaunchers.json");
                 File_Delete("Profiles/AppsCloseTools.json");
                 File_Delete("Profiles/ControllersSupported.json");
+                File_Delete("Profiles/DirectControllersIgnored.json");
                 File_Delete("Profiles/FileLocations.json");
                 File_Delete("Profiles/FpsBlacklistProcess.json");
                 File_Delete("Profiles/FpsPositionProcess.json");

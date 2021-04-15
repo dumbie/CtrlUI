@@ -7,7 +7,6 @@
             public string CodeName { get; set; } = "Unsupported";
             public string[] ProductIDs { get; set; }
             public string VendorID { get; set; }
-            public bool Default { get; set; }
             public bool HasTouchpad { get; set; }
             public bool HasGyroscope { get; set; }
             public bool HasAccelerometer { get; set; }

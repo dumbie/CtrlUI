@@ -63,6 +63,9 @@ namespace DirectXInput
         {
             try
             {
+                string vendorHexIdLower = vendorHexId.ToLower();
+                string productHexIdLower = productHexId.ToLower();
+
                 //Check if the controller is in temp block list
                 if (vControllerTempBlockPaths.Contains(controllerPath))
                 {
@@ -70,23 +73,35 @@ namespace DirectXInput
                     return false;
                 }
 
-                //Check if the controller is on ignore list
-                foreach (ControllerSupported ignoreCheck in vDirectControllersIgnored)
+                //Check if the controller is on user ignore list
+                foreach (ControllerIgnored ignoreCheck in vDirectControllersIgnoredUser)
                 {
                     string filterVendor = ignoreCheck.VendorID.ToLower();
                     string[] filterProducts = ignoreCheck.ProductIDs.Select(x => x.ToLower()).ToArray();
-                    if (filterVendor == vendorHexId.ToLower() && filterProducts.Any(productHexId.ToLower().Contains))
+                    if (filterVendor == vendorHexIdLower && filterProducts.Any(productHexIdLower.Contains))
                     {
-                        //Debug.WriteLine("Controller is on ignore list: " + controllerPath);
+                        //Debug.WriteLine("Controller is on user ignore list: " + controllerPath);
+                        return false;
+                    }
+                }
+
+                //Check if the controller is on default ignore list
+                foreach (ControllerIgnored ignoreCheck in vDirectControllersIgnoredDefault)
+                {
+                    string filterVendor = ignoreCheck.VendorID.ToLower();
+                    string[] filterProducts = ignoreCheck.ProductIDs.Select(x => x.ToLower()).ToArray();
+                    if (filterVendor == vendorHexIdLower && filterProducts.Any(productHexIdLower.Contains))
+                    {
+                        //Debug.WriteLine("Controller is on default ignore list: " + controllerPath);
                         return false;
                     }
                 }
 
                 //Check if controller is already connected by serialnumber
-                if (!string.IsNullOrWhiteSpace(serialNumber))
-                {
-                    //Fix add code that reads serial number from devices
-                }
+                //if (!string.IsNullOrWhiteSpace(serialNumber))
+                //{
+                //    //Fix add code that reads serial number from devices
+                //}
             }
             catch { }
             return true;
