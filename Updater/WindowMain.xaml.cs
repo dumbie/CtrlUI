@@ -118,32 +118,34 @@ namespace Updater
                                 }
                                 else
                                 {
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlApplications.json".ToLower())) { Debug.WriteLine("Skipping: CtrlApplications.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlIgnoreProcessName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreProcessName.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlIgnoreLauncherName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreLauncherName.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlIgnoreShortcutName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreShortcutName.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlIgnoreShortcutUri.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreShortcutUri.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlKeyboardExtensionName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlKeyboardExtensionName.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlKeyboardProcessName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlKeyboardProcessName.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlLocationsFile.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsFile.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlLocationsShortcut.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsShortcut.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsPositionProcessName.json".ToLower())) { Debug.WriteLine("Skipping: FpsPositionProcessName.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectControllersIgnoredUser.json".ToLower())) { Debug.WriteLine("Skipping: DirectControllersIgnoredUser.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectControllersProfile.json".ToLower())) { Debug.WriteLine("Skipping: DirectControllersProfile.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectKeypadMapping.json".ToLower())) { Debug.WriteLine("Skipping: DirectKeypadMapping.json"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectKeyboardTextList.json".ToLower())) { Debug.WriteLine("Skipping: DirectKeyboardTextList.json"); continue; }
-
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Background.png".ToLower())) { Debug.WriteLine("Skipping: Background.png"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("BackgroundLive.mp4".ToLower())) { Debug.WriteLine("Skipping: BackgroundLive.mp4"); continue; }
-
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("CtrlUI.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: CtrlUI.exe.csettings"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("DirectXInput.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: DirectXInput.exe.csettings"); continue; }
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("FpsOverlayer.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: FpsOverlayer.exe.csettings"); continue; }
-
-                                    if (File.Exists(ExtractPath) && ExtractPath.ToLower().EndsWith("Updater.exe".ToLower()))
+                                    string extractPathLower = ExtractPath.ToLower();
+                                    //Debug.WriteLine("Extracting file: " + extractPathLower);
+                                    if (File.Exists(ExtractPath))
                                     {
-                                        Debug.WriteLine("Renaming: Updater.exe");
-                                        ExtractPath = ExtractPath.Replace("Updater.exe", "Resources/UpdaterReplace.exe");
+                                        if (extractPathLower.EndsWith("CtrlApplications.json".ToLower())) { Debug.WriteLine("Skipping: CtrlApplications.json"); continue; }
+                                        if (extractPathLower.EndsWith("CtrlIgnoreProcessName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreProcessName.json"); continue; }
+                                        if (extractPathLower.EndsWith("CtrlIgnoreLauncherName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreLauncherName.json"); continue; }
+                                        if (extractPathLower.EndsWith("CtrlIgnoreShortcutName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreShortcutName.json"); continue; }
+                                        if (extractPathLower.EndsWith("CtrlIgnoreShortcutUri.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreShortcutUri.json"); continue; }
+                                        if (extractPathLower.EndsWith("CtrlKeyboardExtensionName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlKeyboardExtensionName.json"); continue; }
+                                        if (extractPathLower.EndsWith("CtrlKeyboardProcessName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlKeyboardProcessName.json"); continue; }
+                                        if (extractPathLower.EndsWith("CtrlLocationsFile.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsFile.json"); continue; }
+                                        if (extractPathLower.EndsWith("CtrlLocationsShortcut.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsShortcut.json"); continue; }
+                                        if (extractPathLower.EndsWith("FpsPositionProcessName.json".ToLower())) { Debug.WriteLine("Skipping: FpsPositionProcessName.json"); continue; }
+                                        if (extractPathLower.EndsWith("DirectControllersProfile.json".ToLower())) { Debug.WriteLine("Skipping: DirectControllersProfile.json"); continue; }
+                                        if (extractPathLower.EndsWith("DirectKeypadMapping.json".ToLower())) { Debug.WriteLine("Skipping: DirectKeypadMapping.json"); continue; }
+                                        if (extractPathLower.EndsWith("DirectKeyboardTextList.json".ToLower())) { Debug.WriteLine("Skipping: DirectKeyboardTextList.json"); continue; }
+                                        if (extractPathLower.EndsWith("User/DirectControllersIgnored.json".ToLower())) { Debug.WriteLine("Skipping: User/DirectControllersIgnored.json"); continue; }
+
+                                        if (extractPathLower.EndsWith("CtrlUI.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: CtrlUI.exe.csettings"); continue; }
+                                        if (extractPathLower.EndsWith("DirectXInput.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: DirectXInput.exe.csettings"); continue; }
+                                        if (extractPathLower.EndsWith("FpsOverlayer.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: FpsOverlayer.exe.csettings"); continue; }
+
+                                        if (extractPathLower.EndsWith("Updater.exe".ToLower()))
+                                        {
+                                            Debug.WriteLine("Renaming: Updater.exe");
+                                            ExtractPath = ExtractPath.Replace("Updater.exe", "Resources/UpdaterReplace.exe");
+                                        }
                                     }
 
                                     ZipFile.ExtractToFile(ExtractPath, true);

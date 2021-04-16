@@ -917,6 +917,9 @@
     <Content Include="Profiles\CtrlIgnoreLauncherName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Profiles\User\Profiles in this folder will not get overwritten when updating">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\App.manifest" />
     <None Include="Properties\App.config" />
   </ItemGroup>
@@ -1030,6 +1033,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Release ($(SolutionDir)SignToolExe.exe)</PostBuildEvent>

@@ -63,9 +63,13 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v1.53.0.0 (15-April-2021)
+- DirectXInput: Changed HidGuardian to HidHide.
+- DirectXInput: Added Debug and Controller Ignore tab.
+* Miscellaneous application improvements and fixes.
+
 v1.50.5.0 (15-January-2021)
 - You can now separately set left and right trigger rumble strength.
-* Miscellaneous application improvements and fixes.
 
 v1.50.4.0 (13-January-2021)
 - Added controller custom led color support.

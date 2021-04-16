@@ -40,12 +40,16 @@ namespace DirectXInput
                 {
                     foreach (string productId in controllerIgnored.ProductIDs)
                     {
-                        ProfileShared profileShared = new ProfileShared();
-                        profileShared.String1 = controllerIgnored.CodeName;
-                        profileShared.String2 = controllerIgnored.VendorID;
-                        profileShared.String3 = productId;
-                        profileShared.Object1 = controllerIgnored;
-                        listbox_ControllerIgnore.Items.Add(profileShared);
+                        try
+                        {
+                            ProfileShared profileShared = new ProfileShared();
+                            profileShared.String1 = controllerIgnored.CodeName;
+                            profileShared.String2 = controllerIgnored.VendorID;
+                            profileShared.String3 = productId;
+                            profileShared.Object1 = controllerIgnored;
+                            listbox_ControllerIgnore.Items.Add(profileShared);
+                        }
+                        catch { }
                     }
                 }
 
@@ -62,7 +66,7 @@ namespace DirectXInput
                 ControllerStatus activeController = vActiveController();
                 if (activeController != null)
                 {
-                    int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to ignore this controller?", "This will prevent this controller model from been converted to XInput.", "Ignore the controller", "Cancel", "", "");
+                    int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to ignore this controller?", "This will prevent this controller model from been converted to XInput.", "Ignore this controller model", "Cancel", "", "");
                     if (messageResult == 1)
                     {
                         string lowerVendorId = activeController.Details.Profile.VendorID.ToLower();
@@ -90,7 +94,7 @@ namespace DirectXInput
                         }
 
                         //Save json profile
-                        JsonSaveObject(vDirectControllersIgnoredUser, "DirectControllersIgnoredUser");
+                        JsonSaveObject(vDirectControllersIgnoredUser, @"User\DirectControllersIgnored");
 
                         //Load ignored controllers to list
                         ListboxLoadIgnoredController();
@@ -135,7 +139,7 @@ namespace DirectXInput
                 Debug.WriteLine("Allowed controller in ignore list: " + selectedItem.String2 + "/" + selectedItem.String3);
 
                 //Save json profile
-                JsonSaveObject(vDirectControllersIgnoredUser, "DirectControllersIgnoredUser");
+                JsonSaveObject(vDirectControllersIgnoredUser, @"User\DirectControllersIgnored");
 
                 //Load ignored controllers to list
                 ListboxLoadIgnoredController();

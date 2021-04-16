@@ -118,8 +118,8 @@ namespace DirectXInput
                 JsonLoadProfile(ref vDirectControllersSupported, "DirectControllersSupported");
 
                 //Load controllers ignored
-                JsonLoadProfile(ref vDirectControllersIgnoredUser, "DirectControllersIgnoredUser");
-                JsonLoadProfile(ref vDirectControllersIgnoredDefault, "DirectControllersIgnoredDefault");
+                JsonLoadProfile(ref vDirectControllersIgnoredUser, @"User\DirectControllersIgnored");
+                JsonLoadProfile(ref vDirectControllersIgnoredDefault, @"Default\DirectControllersIgnored");
 
                 //Load keypad mapping
                 JsonLoadProfile(ref vDirectKeypadMapping, "DirectKeypadMapping");
@@ -295,15 +295,19 @@ namespace DirectXInput
                 //Disconnect all the controllers
                 await StopAllControllers(true);
 
-                //Reset HidHide to defaults
-                vHidHideDevice.ListDeviceReset();
-                vHidHideDevice.ListApplicationReset();
+                //Check if HidHide is connected
+                if (vHidHideDevice != null)
+                {
+                    //Reset HidHide to defaults
+                    vHidHideDevice.ListDeviceReset();
+                    vHidHideDevice.ListApplicationReset();
 
-                //Disable HidHide device
-                vHidHideDevice.DeviceHideToggle(false);
+                    //Disable HidHide device
+                    vHidHideDevice.DeviceHideToggle(false);
 
-                //Close HidHide device
-                vHidHideDevice.CloseDevice();
+                    //Close HidHide device
+                    vHidHideDevice.CloseDevice();
+                }
 
                 //Disable the socket server
                 if (vArnoldVinkSockets != null)
