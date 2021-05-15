@@ -1,6 +1,6 @@
 ﻿using ArnoldVinkCode;
-using AVForms;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -510,8 +510,12 @@ namespace DirectXInput
         {
             try
             {
-                int messageResult = await AVMessageBox.MessageBoxPopup(this, "Drivers not installed", "Welcome to DirectXInput, it seems like you have not yet installed the required drivers to use this application, please make sure that you have installed the required drivers.\n\nDirectXInput will be closed during the installation of the required drivers.\n\nIf you just installed the drivers and this message shows up restart your PC.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", "Install the drivers", "Close application", "", "");
-                if (messageResult == 1)
+                List<string> messageAnswers = new List<string>();
+                messageAnswers.Add("Install the drivers");
+                messageAnswers.Add("Close application");
+
+                string messageResult = await new AVMessageBox().Popup(this, "Drivers not installed", "Welcome to DirectXInput, it seems like you have not yet installed the required drivers to use this application, please make sure that you have installed the required drivers.\n\nDirectXInput will be closed during the installation of the required drivers.\n\nIf you just installed the drivers and this message shows up restart your PC.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", messageAnswers);
+                if (messageResult == "Install the drivers")
                 {
                     if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false))
                     {

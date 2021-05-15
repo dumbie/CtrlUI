@@ -1,6 +1,7 @@
-﻿using AVForms;
+﻿using ArnoldVinkCode;
 using Microsoft.Win32.TaskScheduler;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -69,8 +70,12 @@ namespace AdminLauncher
             {
                 if (!vAdministratorPermission)
                 {
-                    int messageResult = await AVMessageBox.MessageBoxPopup(null, SchTask_Description, "It seems like this is the first time you are using the helper or the application path has changed so you will have to accept the upcoming administrator prompt, after that you will be able to run this helper without the administrator prompt.", "Continue", "Cancel", "", "");
-                    if (messageResult == 1)
+                    List<string> messageAnswers = new List<string>();
+                    messageAnswers.Add("Continue");
+                    messageAnswers.Add("Cancel");
+
+                    string messageResult = await new AVMessageBox().Popup(null, SchTask_Description, "It seems like this is the first time you are using the helper or the application path has changed so you will have to accept the upcoming administrator prompt, after that you will be able to run this helper without the administrator prompt.", messageAnswers);
+                    if (messageResult == "Continue")
                     {
                         await ProcessLauncherWin32Async(Assembly.GetEntryAssembly().Location, Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "", true, false);
                         Environment.Exit(0);

@@ -8,11 +8,13 @@
         SnapsToDevicePixels="True"
         mc:Ignorable="d"
         Title="DirectXInput Overlay"
-        Background="Transparent"
-        WindowStyle="None"
+        Topmost="True"
+        WindowStyle="None" 
+        WindowState="Normal"
         AllowsTransparency="True"
         ShowInTaskbar="False"
-        Topmost="True">
+        ResizeMode="NoResize"
+        Background="Transparent">
 
     <Grid>
         <!-- Status - Battery Status -->
@@ -20,28 +22,28 @@
             <StackPanel Name="stackpanel_Battery_Warning_Controller1" Margin="0,0,8,0" Visibility="Collapsed">
                 <Grid>
                     <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerController1.png" HorizontalAlignment="Center"/>
-                    <Border x:Name="stackpanel_Battery_Warning_Controller1_Color" CornerRadius="2" Margin="0,0,0,6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                    <Border x:Name="stackpanel_Battery_Warning_Controller0_Color" CornerRadius="2" Margin="0,0,0,6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
                 </Grid>
                 <TextBlock Name="textblock_Battery_Warning_Controller1" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Name="stackpanel_Battery_Warning_Controller2" Margin="0,0,8,0" Visibility="Collapsed">
                 <Grid>
                     <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerController2.png" HorizontalAlignment="Center"/>
-                    <Border x:Name="stackpanel_Battery_Warning_Controller2_Color" CornerRadius="2" Margin="0,0,0,6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                    <Border x:Name="stackpanel_Battery_Warning_Controller1_Color" CornerRadius="2" Margin="0,0,0,6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
                 </Grid>
                 <TextBlock Name="textblock_Battery_Warning_Controller2" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Name="stackpanel_Battery_Warning_Controller3" Margin="0,0,8,0" Visibility="Collapsed">
                 <Grid>
                     <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerController3.png" HorizontalAlignment="Center"/>
-                    <Border x:Name="stackpanel_Battery_Warning_Controller3_Color" CornerRadius="2" Margin="0,0,0,6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                    <Border x:Name="stackpanel_Battery_Warning_Controller2_Color" CornerRadius="2" Margin="0,0,0,6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
                 </Grid>
                 <TextBlock Name="textblock_Battery_Warning_Controller3" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Name="stackpanel_Battery_Warning_Controller4" Margin="0,0,8,0" Visibility="Collapsed">
                 <Grid>
                     <Image Height="40" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerController4.png" HorizontalAlignment="Center"/>
-                    <Border x:Name="stackpanel_Battery_Warning_Controller4_Color" CornerRadius="2" Margin="0,0,0,6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                    <Border x:Name="stackpanel_Battery_Warning_Controller3_Color" CornerRadius="2" Margin="0,0,0,6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
                 </Grid>
                 <TextBlock Name="textblock_Battery_Warning_Controller4" Text="100%" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </StackPanel>

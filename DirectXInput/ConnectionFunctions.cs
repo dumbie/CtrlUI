@@ -1,5 +1,5 @@
 ﻿using ArnoldVinkCode;
-using AVForms;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using static DirectXInput.AppVariables;
@@ -71,8 +71,12 @@ namespace DirectXInput
                 ControllerStatus activeController = vActiveController();
                 if (activeController != null)
                 {
-                    int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to remove this controller?", "This will reset the active controller to it's defaults and disconnect it.", "Remove controller profile", "Cancel", "", "");
-                    if (messageResult == 1)
+                    List<string> messageAnswers = new List<string>();
+                    messageAnswers.Add("Remove controller profile");
+                    messageAnswers.Add("Cancel");
+
+                    string messageResult = await new AVMessageBox().Popup(this, "Do you really want to remove this controller?", "This will reset the active controller to it's defaults and disconnect it.", messageAnswers);
+                    if (messageResult == "Remove controller profile")
                     {
                         Debug.WriteLine("Removed the controller: " + activeController.Details.DisplayName);
 

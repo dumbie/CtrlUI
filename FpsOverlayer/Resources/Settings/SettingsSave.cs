@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -188,64 +189,124 @@ namespace FpsOverlayer
                 checkbox_FpsShowCurrentLatency.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "FpsShowCurrentLatency", checkbox_FpsShowCurrentLatency.IsChecked.ToString()); };
                 checkbox_FpsShowAverageFps.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "FpsShowAverageFps", checkbox_FpsShowAverageFps.IsChecked.ToString()); };
 
-                colorpicker_ColorSingle.SelectedColorChanged += (Color color) =>
+                colorpicker_ColorSingle.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationFpsOverlayer, "ColorSingle", color.ToString());
-                    App.vWindowMain.UpdateFpsOverlayStyle();
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorSingle.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorSingle", newColor.ToString());
+                        App.vWindowMain.UpdateFpsOverlayStyle();
+                    }
                 };
 
-                colorpicker_ColorBackground.SelectedColorChanged += (Color color) =>
+                colorpicker_ColorBackground.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationFpsOverlayer, "ColorBackground", color.ToString());
-                    App.vWindowMain.UpdateFpsOverlayStyle();
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorBackground.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorBackground", newColor.ToString());
+                        App.vWindowMain.UpdateFpsOverlayStyle();
+                    }
                 };
 
-                colorpicker_ColorGpu.SelectedColorChanged += (Color color) =>
+                colorpicker_ColorGpu.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationFpsOverlayer, "ColorGpu", color.ToString());
-                    App.vWindowMain.UpdateFpsOverlayStyle();
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorGpu.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorGpu", newColor.ToString());
+                        App.vWindowMain.UpdateFpsOverlayStyle();
+                    }
                 };
 
-                colorpicker_ColorCpu.SelectedColorChanged += (Color color) =>
+                colorpicker_ColorCpu.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationFpsOverlayer, "ColorCpu", color.ToString());
-                    App.vWindowMain.UpdateFpsOverlayStyle();
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorCpu.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorCpu", newColor.ToString());
+                        App.vWindowMain.UpdateFpsOverlayStyle();
+                    }
                 };
 
-                colorpicker_ColorMem.SelectedColorChanged += (Color color) =>
+                colorpicker_ColorMem.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationFpsOverlayer, "ColorMem", color.ToString());
-                    App.vWindowMain.UpdateFpsOverlayStyle();
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorMem.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorMem", newColor.ToString());
+                        App.vWindowMain.UpdateFpsOverlayStyle();
+                    }
                 };
 
-                colorpicker_ColorNet.SelectedColorChanged += (Color color) =>
+                colorpicker_ColorNet.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationFpsOverlayer, "ColorNet", color.ToString());
-                    App.vWindowMain.UpdateFpsOverlayStyle();
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorNet.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorNet", newColor.ToString());
+                        App.vWindowMain.UpdateFpsOverlayStyle();
+                    }
                 };
 
-                colorpicker_ColorApp.SelectedColorChanged += (Color color) =>
+                colorpicker_ColorApp.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationFpsOverlayer, "ColorApp", color.ToString());
-                    App.vWindowMain.UpdateFpsOverlayStyle();
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorApp.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorApp", newColor.ToString());
+                        App.vWindowMain.UpdateFpsOverlayStyle();
+                    }
                 };
 
-                colorpicker_ColorTime.SelectedColorChanged += (Color color) =>
+                colorpicker_ColorTime.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationFpsOverlayer, "ColorTime", color.ToString());
-                    App.vWindowMain.UpdateFpsOverlayStyle();
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorTime.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorTime", newColor.ToString());
+                        App.vWindowMain.UpdateFpsOverlayStyle();
+                    }
                 };
 
-                colorpicker_ColorMon.SelectedColorChanged += (Color color) =>
+                colorpicker_ColorMon.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationFpsOverlayer, "ColorMon", color.ToString());
-                    App.vWindowMain.UpdateFpsOverlayStyle();
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorMon.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorMon", newColor.ToString());
+                        App.vWindowMain.UpdateFpsOverlayStyle();
+                    }
                 };
 
-                colorpicker_ColorFps.SelectedColorChanged += (Color color) =>
+                colorpicker_ColorFps.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationFpsOverlayer, "ColorFps", color.ToString());
-                    App.vWindowMain.UpdateFpsOverlayStyle();
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorFps.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorFps", newColor.ToString());
+                        App.vWindowMain.UpdateFpsOverlayStyle();
+                    }
                 };
             }
             catch (Exception ex)

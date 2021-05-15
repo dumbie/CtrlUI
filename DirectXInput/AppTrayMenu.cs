@@ -123,7 +123,7 @@ namespace DirectXInput
         {
             try
             {
-                await Application_Exit();
+                await Application_Exit_Prompt();
             }
             catch { }
         }

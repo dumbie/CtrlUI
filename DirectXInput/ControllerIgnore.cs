@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using AVForms;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -66,8 +65,12 @@ namespace DirectXInput
                 ControllerStatus activeController = vActiveController();
                 if (activeController != null)
                 {
-                    int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to ignore this controller?", "This will prevent this controller model from been converted to XInput.", "Ignore this controller model", "Cancel", "", "");
-                    if (messageResult == 1)
+                    List<string> messageAnswers = new List<string>();
+                    messageAnswers.Add("Ignore this controller model");
+                    messageAnswers.Add("Cancel");
+
+                    string messageResult = await new AVMessageBox().Popup(this, "Do you really want to ignore this controller?", "This will prevent this controller model from been converted to XInput.", messageAnswers);
+                    if (messageResult == "Ignore this controller model")
                     {
                         string lowerVendorId = activeController.Details.Profile.VendorID.ToLower();
                         string lowerProductId = activeController.Details.Profile.ProductID.ToLower();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Windows.Media;
 using static DirectXInput.AppVariables;
@@ -58,36 +59,64 @@ namespace DirectXInput
                     textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinString + " minutes";
                 };
 
-                colorpicker_Controller0.SelectedColorChanged += async (Color color) =>
+                colorpicker_Controller0.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ControllerColor0", color.ToString());
-                    ControllerOutput(vController0, false, false);
-                    App.vWindowOverlay.stackpanel_Battery_Warning_Controller1_Color.Background = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
-                    await NotifyCtrlUISettingChanged("ControllerColor");
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        Setting_Save(vConfigurationDirectXInput, "ControllerColor0", newBrush.ToString());
+                        ControllerOutput(vController0, false, false);
+                        await NotifyCtrlUISettingChanged("ControllerColor");
+
+                        App.vWindowOverlay.stackpanel_Battery_Warning_Controller0_Color.Background = newBrush;
+                        colorpicker_Controller0.Background = newBrush;
+                    }
                 };
 
-                colorpicker_Controller1.SelectedColorChanged += async (Color color) =>
+                colorpicker_Controller1.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ControllerColor1", color.ToString());
-                    ControllerOutput(vController1, false, false);
-                    App.vWindowOverlay.stackpanel_Battery_Warning_Controller2_Color.Background = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
-                    await NotifyCtrlUISettingChanged("ControllerColor");
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        Setting_Save(vConfigurationDirectXInput, "ControllerColor1", newBrush.ToString());
+                        ControllerOutput(vController1, false, false);
+                        await NotifyCtrlUISettingChanged("ControllerColor");
+
+                        App.vWindowOverlay.stackpanel_Battery_Warning_Controller1_Color.Background = newBrush;
+                        colorpicker_Controller1.Background = newBrush;
+                    }
                 };
 
-                colorpicker_Controller2.SelectedColorChanged += async (Color color) =>
+                colorpicker_Controller2.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ControllerColor2", color.ToString());
-                    ControllerOutput(vController2, false, false);
-                    App.vWindowOverlay.stackpanel_Battery_Warning_Controller3_Color.Background = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
-                    await NotifyCtrlUISettingChanged("ControllerColor");
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        Setting_Save(vConfigurationDirectXInput, "ControllerColor2", newBrush.ToString());
+                        ControllerOutput(vController2, false, false);
+                        await NotifyCtrlUISettingChanged("ControllerColor");
+
+                        App.vWindowOverlay.stackpanel_Battery_Warning_Controller2_Color.Background = newBrush;
+                        colorpicker_Controller2.Background = newBrush;
+                    }
                 };
 
-                colorpicker_Controller3.SelectedColorChanged += async (Color color) =>
+                colorpicker_Controller3.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ControllerColor3", color.ToString());
-                    ControllerOutput(vController3, false, false);
-                    App.vWindowOverlay.stackpanel_Battery_Warning_Controller4_Color.Background = new BrushConverter().ConvertFrom(color.ToString()) as SolidColorBrush;
-                    await NotifyCtrlUISettingChanged("ControllerColor");
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        Setting_Save(vConfigurationDirectXInput, "ControllerColor3", newBrush.ToString());
+                        ControllerOutput(vController3, false, false);
+                        await NotifyCtrlUISettingChanged("ControllerColor");
+
+                        App.vWindowOverlay.stackpanel_Battery_Warning_Controller3_Color.Background = newBrush;
+                        colorpicker_Controller3.Background = newBrush;
+                    }
                 };
 
                 //Shortcut settings
@@ -153,7 +182,7 @@ namespace DirectXInput
                 {
                     textblock_KeyboardOpacity.Text = textblock_KeyboardOpacity.Tag + ": " + slider_KeyboardOpacity.Value.ToString("0.00") + "%";
                     Setting_Save(vConfigurationDirectXInput, "KeyboardOpacity", slider_KeyboardOpacity.Value.ToString("0.00"));
-                    App.vWindowKeyboard.UpdatePopupOpacity(false);
+                    App.vWindowKeyboard.UpdatePopupOpacity();
                 };
 
                 cb_SettingsKeyboardCloseNoController.Click += (sender, e) =>
@@ -194,7 +223,7 @@ namespace DirectXInput
                     JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
 
                     textblock_KeypadOpacity.Text = textblock_KeypadOpacity.Tag + ": " + slider_KeypadOpacity.Value.ToString("0.00") + "%";
-                    App.vWindowKeypad.UpdateKeypadOpacity();
+                    App.vWindowKeypad.UpdatePopupOpacity();
                 };
 
                 combobox_KeypadDisplayStyle.SelectionChanged += (sender, e) =>

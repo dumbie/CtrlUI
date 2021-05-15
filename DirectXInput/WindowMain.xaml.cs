@@ -1,6 +1,6 @@
 ﻿using ArnoldVinkCode;
-using AVForms;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
@@ -270,8 +270,12 @@ namespace DirectXInput
         {
             try
             {
-                int messageResult = await AVMessageBox.MessageBoxPopup(this, "Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", "Close application", "Cancel", "", "");
-                if (messageResult == 1)
+                List<string> messageAnswers = new List<string>();
+                messageAnswers.Add("Close application");
+                messageAnswers.Add("Cancel");
+
+                string messageResult = await new AVMessageBox().Popup(this, "Do you really want to close DirectXInput?", "This will disconnect all your currently connected controllers.", messageAnswers);
+                if (messageResult == "Close application")
                 {
                     await Application_Exit();
                 }

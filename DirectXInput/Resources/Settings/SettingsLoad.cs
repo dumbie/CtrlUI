@@ -30,22 +30,22 @@ namespace DirectXInput
                 string ControllerColor0 = Setting_Load(vConfigurationDirectXInput, "ControllerColor0").ToString();
                 SolidColorBrush ControllerColor0Brush = new BrushConverter().ConvertFrom(ControllerColor0) as SolidColorBrush;
                 colorpicker_Controller0.Background = ControllerColor0Brush;
-                App.vWindowOverlay.stackpanel_Battery_Warning_Controller1_Color.Background = ControllerColor0Brush;
+                App.vWindowOverlay.stackpanel_Battery_Warning_Controller0_Color.Background = ControllerColor0Brush;
 
                 string ControllerColor1 = Setting_Load(vConfigurationDirectXInput, "ControllerColor1").ToString();
                 SolidColorBrush ControllerColor1Brush = new BrushConverter().ConvertFrom(ControllerColor1) as SolidColorBrush;
                 colorpicker_Controller1.Background = ControllerColor1Brush;
-                App.vWindowOverlay.stackpanel_Battery_Warning_Controller2_Color.Background = ControllerColor1Brush;
+                App.vWindowOverlay.stackpanel_Battery_Warning_Controller1_Color.Background = ControllerColor1Brush;
 
                 string ControllerColor2 = Setting_Load(vConfigurationDirectXInput, "ControllerColor2").ToString();
                 SolidColorBrush ControllerColor2Brush = new BrushConverter().ConvertFrom(ControllerColor2) as SolidColorBrush;
                 colorpicker_Controller2.Background = ControllerColor2Brush;
-                App.vWindowOverlay.stackpanel_Battery_Warning_Controller3_Color.Background = ControllerColor2Brush;
+                App.vWindowOverlay.stackpanel_Battery_Warning_Controller2_Color.Background = ControllerColor2Brush;
 
                 string ControllerColor3 = Setting_Load(vConfigurationDirectXInput, "ControllerColor3").ToString();
                 SolidColorBrush ControllerColor3Brush = new BrushConverter().ConvertFrom(ControllerColor3) as SolidColorBrush;
                 colorpicker_Controller3.Background = ControllerColor3Brush;
-                App.vWindowOverlay.stackpanel_Battery_Warning_Controller4_Color.Background = ControllerColor3Brush;
+                App.vWindowOverlay.stackpanel_Battery_Warning_Controller3_Color.Background = ControllerColor3Brush;
 
                 //Load shortcut settings
                 cb_SettingsShortcutLaunchCtrlUI.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI"));

@@ -95,10 +95,6 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Api\GitHub\GitHub_Version.cs">
       <Link>ArnoldVinkCode\Api\GitHub\GitHub_Version.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Forms\AVMessageBox.xaml.cs">
-      <Link>ArnoldVinkCode\Forms\AVMessageBox.xaml.cs</Link>
-      <DependentUpon>AVMessageBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\AVActions.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkActions\AVActions.cs</Link>
     </Compile>
@@ -170,13 +166,6 @@
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkSockets\SocketVariables.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkSockets\SocketVariables.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkTimePicker\TimePicker.xaml.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkTimePicker\TimePicker.xaml.cs</Link>
-      <DependentUpon>TimePicker.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAnimations.cs">
-      <Link>ArnoldVinkCode\Functions\AVAnimations.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs">
       <Link>ArnoldVinkCode\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs</Link>
@@ -264,6 +253,12 @@
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropDll.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropDll.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\ArnoldVinkColorPickerPreset\ColorPicker.xaml.cs">
+      <Link>ArnoldVinkCode\Styles\ArnoldVinkColorPickerPreset\ColorPicker.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\ArnoldVinkMessageBox\MessageBox.xaml.cs">
+      <Link>ArnoldVinkCode\Styles\ArnoldVinkMessageBox\MessageBox.xaml.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\AVGifPlayer.cs">
       <Link>ArnoldVinkCode\Styles\AVGifPlayer.cs</Link>
@@ -378,13 +373,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Forms\AVMessageBox.xaml">
-      <Link>ArnoldVinkCode\Forms\AVMessageBox.xaml</Link>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ArnoldVinkColorPickerPreset\ColorPicker.xaml">
+      <Link>ArnoldVinkCode\Styles\ArnoldVinkColorPickerPreset\ColorPicker.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkTimePicker\TimePicker.xaml">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkTimePicker\TimePicker.xaml</Link>
+    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ArnoldVinkMessageBox\MessageBox.xaml">
+      <Link>ArnoldVinkCode\Styles\ArnoldVinkMessageBox\MessageBox.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

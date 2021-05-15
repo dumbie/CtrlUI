@@ -108,12 +108,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorPicker.xaml.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorPicker.xaml.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.xaml.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.xaml.cs</Link>
-    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml.cs">
       <Link>Styles\MainStyles.xaml.cs</Link>
       <DependentUpon>MainStyles.xaml</DependentUpon>
@@ -185,16 +179,6 @@
     <Compile Include="ConnectionFunctions.cs" />
     <Compile Include="Resources\Settings\SettingsFunctions.cs" />
     <Compile Include="SocketHandlers.cs" />
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorPicker.xaml">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorPicker.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.xaml">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Button.xaml">
       <Link>Styles\ControlTemplates\Button.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -282,9 +266,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkColorPicker\ColorSelector.png">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkColorPicker\ColorSelector.png</Link>
-    </Resource>
     <Content Include="..\CtrlUI\Assets\Default\Icons\Battery\BatteryVerCharge.png">
       <Link>Assets\Default\Icons\Battery\BatteryVerCharge.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

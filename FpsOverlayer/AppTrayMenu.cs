@@ -46,16 +46,16 @@ namespace FpsOverlayer
         {
             try
             {
-                if (grid_FpsOverlayer.Visibility == Visibility.Visible)
+                if (this.Visibility == Visibility.Visible)
                 {
                     Debug.WriteLine("Hiding application.");
-                    grid_FpsOverlayer.Visibility = Visibility.Collapsed;
+                    this.Visibility = Visibility.Collapsed;
                     vManualHidden = true;
                 }
                 else
                 {
                     Debug.WriteLine("Showing application.");
-                    grid_FpsOverlayer.Visibility = Visibility.Visible;
+                    this.Visibility = Visibility.Visible;
                     vManualHidden = false;
 
                     //Update the fps overlay style

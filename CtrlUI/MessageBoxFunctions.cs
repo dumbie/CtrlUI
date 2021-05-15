@@ -37,11 +37,13 @@ namespace CtrlUI
                 {
                     grid_MessageBox_Question.Text = Question;
                     grid_MessageBox_Question.Visibility = Visibility.Visible;
+                    grid_MessageBox_Border.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     grid_MessageBox_Question.Text = string.Empty;
                     grid_MessageBox_Question.Visibility = Visibility.Collapsed;
+                    grid_MessageBox_Border.Visibility = Visibility.Collapsed;
                 }
 
                 //Set messagebox subtitle
