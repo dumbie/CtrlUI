@@ -30,9 +30,9 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 - Show the current time on your screen while gaming.
 
 ## Installation Instructions
-1) Extract the CtrlUI folder to any directory you want on your computer.
+1) Extract the CtrlUI folder to any directory you want on your device.
 2) Make sure that you have installed all the requirements listed below.
-3) Launch CtrlUI Admin and setup a few basic apps in the welcome screen.
+3) Launch CtrlUI executable and setup a few basic apps in the welcome screen.
 4) Enjoy using your new controller friendly based user interface.
 
 ## Uninstallation Instructions
@@ -41,12 +41,13 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 
 ## Tips and tricks
 - Let CtrlUI automatically launch on Windows startup for easier alltime usage.
-- Some users may need to run the application as administrator to let it work properly.
+- Some users may need to run the application as administrator to let it work properly.*
 - For more information and help open the "Help" window or tab in the application.
+* You can run it as administrator by using the "CtrlUI-Admin" executable.
 
 ## Known issues
-- Overlays may not work properly when HDR is enabled in Windows.
-- Overlays may not show up when you are in a fullscreen application.
+- Visible overlays may cause washed out colors when HDR is enabled.
+- Overlays may not always show up when you are in a fullscreen application.
 - Alt+Enter controller shortcut may not work for all Windows Store applications.
 
 ## Requirements
