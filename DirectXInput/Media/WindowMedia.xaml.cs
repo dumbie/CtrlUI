@@ -27,40 +27,8 @@ namespace DirectXInput.MediaCode
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
 
-        //Window Initialized
-        protected override async void OnSourceInitialized(EventArgs e)
-        {
-            try
-            {
-                //Get interop window handle
-                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
-
-                //Update the window style
-                UpdateWindowStyle();
-
-                //Update the window position
-                UpdateWindowPosition();
-
-                //Check mouse cursor position
-                CheckMousePosition();
-
-                //Focus on popup button
-                await FocusPopupButton(true, button_PlayPause);
-
-                //Make window able to drag from border
-                this.MouseDown += WindowMedia_MouseDown;
-
-                //Check if resolution has changed
-                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-
-                //Update the user interface clock style
-                UpdateClockStyle();
-            }
-            catch { }
-        }
-
-        //Hide the keyboard window
-        async public new Task Hide()
+        //Hide the window
+        public new async Task Hide()
         {
             try
             {
@@ -78,23 +46,36 @@ namespace DirectXInput.MediaCode
                     //Play window close sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                    //Update the popup opacity
-                    this.Opacity = 0;
-
-                    //Update the popup visibility
-                    this.Title = "DirectXInput Media (Hidden)";
-                    vWindowVisible = false;
-                    Debug.WriteLine("Hiding the media window.");
+                    //Update window style
+                    UpdateWindowStyle(false);
                 }
             }
             catch { }
         }
 
-        //Show the keyboard window
+        //Show the window
         public new async Task Show()
         {
             try
             {
+                if (vInteropWindowHandle == IntPtr.Zero)
+                {
+                    //Get interop window handle
+                    vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+
+                    //Make window able to drag from border
+                    this.MouseDown += Window_MouseDown;
+
+                    //Check if resolution has changed
+                    SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
+                    //Show the window
+                    base.Show();
+
+                    //Update the user interface clock style
+                    UpdateClockStyle();
+                }
+
                 //Close other popups
                 App.vWindowKeyboard.Hide();
                 await App.vWindowKeypad.Hide();
@@ -112,41 +93,19 @@ namespace DirectXInput.MediaCode
                 CheckMousePosition();
 
                 //Focus on keyboard button
-                await FocusPopupButton(false, button_Close);
-
-                //Update the window style (focus workaround)
-                UpdateWindowStyle();
-
-                //Update the popup opacity
-                UpdatePopupOpacity(true);
+                await FocusPopupButton(false, button_PlayPause);
 
                 //Update the window position
                 UpdateWindowPosition();
 
-                //Update the keyboard visibility
-                this.Title = "DirectXInput Media (Visible)";
-                this.Visibility = Visibility.Visible;
-                vWindowVisible = true;
-                Debug.WriteLine("Showing the media window.");
-            }
-            catch { }
-        }
-
-        //Update popup opacity
-        public void UpdatePopupOpacity(bool forceUpdate)
-        {
-            try
-            {
-                if (forceUpdate || this.Opacity != 0)
-                {
-                    this.Opacity = 1;
-                }
+                //Update window style
+                UpdateWindowStyle(true);
             }
             catch { }
         }
 
         //Drag the window around
-        private void WindowMedia_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -159,23 +118,45 @@ namespace DirectXInput.MediaCode
         }
 
         //Update the window position on resolution change
-        public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
             try
             {
+                //Wait for change to complete
+                await Task.Delay(500);
+
+                //Check mouse cursor position
+                CheckMousePosition();
+
+                //Update the window position
                 UpdateWindowPosition();
             }
             catch { }
         }
 
         //Update the window style
-        void UpdateWindowStyle()
+        void UpdateWindowStyle(bool visible)
         {
             try
             {
                 //Set the window style
-                IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+                if (visible)
+                {
+                    IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+
+                    this.Title = "DirectXInput Media (Visible)";
+                    vWindowVisible = true;
+                    Debug.WriteLine("Showing the window.");
+                }
+                else
+                {
+                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, IntPtr.Zero);
+
+                    this.Title = "DirectXInput Media (Hidden)";
+                    vWindowVisible = false;
+                    Debug.WriteLine("Hiding the window.");
+                }
 
                 //Set the window style ex
                 IntPtr UpdatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
@@ -184,7 +165,7 @@ namespace DirectXInput.MediaCode
                 //Set the window as top most
                 SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
 
-                Debug.WriteLine("The window style has been updated.");
+                Debug.WriteLine("Window style has been updated.");
             }
             catch { }
         }
@@ -240,7 +221,7 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                if (forceFocus || Keyboard.FocusedElement == null)
+                if (forceFocus || Keyboard.FocusedElement == null || Keyboard.FocusedElement == this)
                 {
                     await FrameworkElementFocus(targetButton, false, vInteropWindowHandle);
                 }

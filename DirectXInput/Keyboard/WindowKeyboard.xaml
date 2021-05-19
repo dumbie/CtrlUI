@@ -14,10 +14,10 @@
             WindowStyle="None" 
             WindowState="Normal"
             AllowsTransparency="True"
+            ShowInTaskbar="False"
             ResizeMode="NoResize"
             SizeToContent="WidthAndHeight"
-            Background="Transparent"
-            Opacity="0">
+            Background="Transparent">
 
     <!-- Grid Application -->
     <Grid Name="grid_Application">

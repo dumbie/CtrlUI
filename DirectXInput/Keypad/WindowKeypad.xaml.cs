@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
@@ -32,57 +33,52 @@ namespace DirectXInput.KeypadCode
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
 
-        //Window Initialized
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            try
-            {
-                //Get interop window handle
-                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
-
-                //Update the window style
-                UpdateWindowStyle();
-
-                //Update the window position
-                UpdateWindowPosition();
-
-                //Update the key names
-                UpdateKeypadNames();
-
-                //Check if resolution has changed
-                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-            }
-            catch { }
-        }
-
-        //Hide the keypad window
+        //Hide the window
         public new async Task Hide()
         {
             try
             {
                 if (vWindowVisible)
                 {
+                    //Delay CtrlUI output
+                    vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+
                     //Play window close sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                    //Update the keypad visibility
-                    this.Title = "DirectXInput Keypad (Hidden)";
-                    this.Visibility = Visibility.Collapsed;
-                    vWindowVisible = false;
-                    Debug.WriteLine("Hiding the Keypad window.");
-
                     //Notify - Fps Overlayer keypad size changed
                     await NotifyFpsOverlayerKeypadSizeChanged(0);
+
+                    //Update window style
+                    UpdateWindowStyle(false);
                 }
             }
             catch { }
         }
 
-        //Show the keypad window
+        //Show the window
         public new async Task Show()
         {
             try
             {
+                if (vInteropWindowHandle == IntPtr.Zero)
+                {
+                    //Get interop window handle
+                    vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+
+                    //Check if resolution has changed
+                    SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
+                    //Show the window
+                    base.Show();
+
+                    //Update the window position
+                    UpdateWindowPosition();
+                }
+
                 //Close other popups
                 App.vWindowKeyboard.Hide();
                 await App.vWindowMedia.Hide();
@@ -100,7 +96,7 @@ namespace DirectXInput.KeypadCode
                 UpdateKeypadNames();
 
                 //Update the keypad opacity
-                UpdateKeypadOpacity();
+                UpdatePopupOpacity();
 
                 //Update the keypad style
                 UpdateKeypadStyle();
@@ -111,28 +107,8 @@ namespace DirectXInput.KeypadCode
                 //Notify - Fps Overlayer keypad size changed
                 await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(keypadHeight));
 
-                //Update the keypad visibility
-                this.Title = "DirectXInput Keypad (Visible)";
-                this.Visibility = Visibility.Visible;
-                vWindowVisible = true;
-                Debug.WriteLine("Showing the Keypad window.");
-            }
-            catch { }
-        }
-
-        //Update the keypad opacity
-        public void UpdateKeypadOpacity()
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    try
-                    {
-                        this.Opacity = vKeypadMappingProfile.KeypadOpacity;
-                    }
-                    catch { }
-                });
+                //Update window style
+                UpdateWindowStyle(true);
             }
             catch { }
         }
@@ -249,23 +225,42 @@ namespace DirectXInput.KeypadCode
         }
 
         //Update the window position on resolution change
-        public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
             try
             {
+                //Wait for change to complete
+                await Task.Delay(500);
+
+                //Update the window position
                 UpdateWindowPosition();
             }
             catch { }
         }
 
         //Update the window style
-        void UpdateWindowStyle()
+        void UpdateWindowStyle(bool visible)
         {
             try
             {
                 //Set the window style
-                IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+                if (visible)
+                {
+                    IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+
+                    this.Title = "DirectXInput Keypad (Visible)";
+                    vWindowVisible = true;
+                    Debug.WriteLine("Showing the window.");
+                }
+                else
+                {
+                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, IntPtr.Zero);
+
+                    this.Title = "DirectXInput Keypad (Hidden)";
+                    vWindowVisible = false;
+                    Debug.WriteLine("Hiding the window.");
+                }
 
                 //Set the window style ex
                 IntPtr UpdatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
@@ -274,7 +269,7 @@ namespace DirectXInput.KeypadCode
                 //Set the window as top most
                 SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
 
-                Debug.WriteLine("The window style has been updated.");
+                Debug.WriteLine("Window style has been updated.");
             }
             catch { }
         }
@@ -291,6 +286,23 @@ namespace DirectXInput.KeypadCode
                 //Move and resize the window
                 WindowMove(vInteropWindowHandle, displayMonitorSettings.BoundsLeft, displayMonitorSettings.BoundsTop);
                 WindowResize(vInteropWindowHandle, displayMonitorSettings.WidthNative, displayMonitorSettings.HeightNative);
+            }
+            catch { }
+        }
+
+        //Update the popup opacity
+        public void UpdatePopupOpacity()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    try
+                    {
+                        this.Opacity = vKeypadMappingProfile.KeypadOpacity;
+                    }
+                    catch { }
+                });
             }
             catch { }
         }

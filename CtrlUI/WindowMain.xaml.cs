@@ -162,7 +162,7 @@ namespace CtrlUI
                 }
 
                 //Focus on the first available listbox
-                if (vMainMenuElementFocus.FocusElement == null || Keyboard.FocusedElement == null)
+                if (vMainMenuElementFocus.FocusElement == null || Keyboard.FocusedElement == null || Keyboard.FocusedElement == this)
                 {
                     Debug.WriteLine("Focusing on the first available listbox.");
                     await ListboxFocusIndex(TopVisibleListBoxWithItems(), true, false, -1, vProcessCurrent.MainWindowHandle);

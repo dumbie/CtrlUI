@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -30,75 +31,7 @@ namespace DirectXInput.KeyboardCode
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
 
-        //Window Initialized
-        protected override async void OnSourceInitialized(EventArgs e)
-        {
-            try
-            {
-                //Get interop window handle
-                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
-
-                //Register Hotkeys and Filtermessage
-                ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
-
-                //Update the window style
-                UpdateWindowStyle();
-
-                //Update keyboard keys
-                UpdateKeyboardKeys();
-
-                //Update the keyboard layout
-                await UpdateKeyboardLayout();
-
-                //Update the keyboard mode
-                UpdateKeyboardMode();
-
-                //Update the window position
-                UpdateWindowPosition();
-
-                //Check mouse cursor position
-                CheckMousePosition();
-
-                //Focus on popup button
-                await FrameworkElementFocus(key_h, false, vInteropWindowHandle);
-
-                //Make window able to drag from border
-                this.MouseDown += WindowKeyboard_MouseDown;
-
-                //Check if resolution has changed
-                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-
-                //Update the listbox sources
-                UpdateListBoxSources();
-            }
-            catch { }
-        }
-
-        //Update the listbox sources
-        void UpdateListBoxSources()
-        {
-            try
-            {
-                listbox_TextList.ItemsSource = vDirectKeyboardTextList;
-                listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
-
-                //Check if texts are set
-                if (!vDirectKeyboardTextList.Any())
-                {
-                    textblock_TextListNoTextSet.Visibility = Visibility.Visible;
-                }
-
-                //Background brush variable
-                SolidColorBrush selectedBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentDarkBrush"];
-
-                //Set background brush
-                key_EmojiSmiley.Background = selectedBrush;
-                key_EmojiSmiley.BorderBrush = selectedBrush;
-            }
-            catch { }
-        }
-
-        //Hide the keyboard window
+        //Hide the window
         public new void Hide()
         {
             try
@@ -114,23 +47,51 @@ namespace DirectXInput.KeyboardCode
                     //Play window close sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                    //Update the popup opacity
-                    this.Opacity = 0;
-
-                    //Update the popup visibility
-                    this.Title = "DirectXInput Keyboard (Hidden)";
-                    vWindowVisible = false;
-                    Debug.WriteLine("Hiding the keyboard window.");
+                    //Update window style
+                    UpdateWindowStyle(false);
                 }
             }
             catch { }
         }
 
-        //Show the keyboard window
+        //Show the window
         public new async Task Show()
         {
             try
             {
+                if (vInteropWindowHandle == IntPtr.Zero)
+                {
+                    //Get interop window handle
+                    vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+
+                    //Make window able to drag from border
+                    this.MouseDown += Window_MouseDown;
+
+                    //Check if resolution has changed
+                    SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
+                    //Register Hotkeys and Filtermessage
+                    ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
+
+                    //Show the window
+                    base.Show();
+
+                    //Update the window position
+                    UpdateWindowPosition();
+
+                    //Update the listbox sources
+                    UpdateListBoxSources();
+
+                    //Update keyboard keys
+                    UpdateKeyboardKeys();
+
+                    //Update the keyboard layout
+                    await UpdateKeyboardLayout();
+
+                    //Update the keyboard mode
+                    UpdateKeyboardMode();
+                }
+
                 //Close other popups
                 await App.vWindowMedia.Hide();
                 await App.vWindowKeypad.Hide();
@@ -148,13 +109,10 @@ namespace DirectXInput.KeyboardCode
                 CheckMousePosition();
 
                 //Focus on keyboard button
-                await FrameworkElementFocus(key_h, false, vInteropWindowHandle);
-
-                //Update the window style (focus workaround)
-                UpdateWindowStyle();
+                await FocusPopupButton(false, key_h);
 
                 //Update the popup opacity
-                UpdatePopupOpacity(true);
+                UpdatePopupOpacity();
 
                 //Update the window position
                 if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition")))
@@ -162,30 +120,14 @@ namespace DirectXInput.KeyboardCode
                     UpdateWindowPosition();
                 }
 
-                //Update the keyboard visibility
-                this.Title = "DirectXInput Keyboard (Visible)";
-                this.Visibility = Visibility.Visible;
-                vWindowVisible = true;
-                Debug.WriteLine("Showing the keyboard window.");
-            }
-            catch { }
-        }
-
-        //Update popup opacity
-        public void UpdatePopupOpacity(bool forceUpdate)
-        {
-            try
-            {
-                if (forceUpdate || this.Opacity != 0)
-                {
-                    this.Opacity = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardOpacity"));
-                }
+                //Update window style
+                UpdateWindowStyle(true);
             }
             catch { }
         }
 
         //Drag the window around
-        private void WindowKeyboard_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -198,23 +140,45 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Update the window position on resolution change
-        public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
             try
             {
+                //Wait for change to complete
+                await Task.Delay(500);
+
+                //Check mouse cursor position
+                CheckMousePosition();
+
+                //Update the window position
                 UpdateWindowPosition();
             }
             catch { }
         }
 
         //Update the window style
-        void UpdateWindowStyle()
+        void UpdateWindowStyle(bool visible)
         {
             try
             {
                 //Set the window style
-                IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+                if (visible)
+                {
+                    IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+
+                    this.Title = "DirectXInput Keyboard (Visible)";
+                    vWindowVisible = true;
+                    Debug.WriteLine("Showing the window.");
+                }
+                else
+                {
+                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, IntPtr.Zero);
+
+                    this.Title = "DirectXInput Keyboard (Hidden)";
+                    vWindowVisible = false;
+                    Debug.WriteLine("Hiding the window.");
+                }
 
                 //Set the window style ex
                 IntPtr UpdatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
@@ -223,7 +187,7 @@ namespace DirectXInput.KeyboardCode
                 //Set the window as top most
                 SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
 
-                Debug.WriteLine("The window style has been updated.");
+                Debug.WriteLine("Window style has been updated.");
             }
             catch { }
         }
@@ -267,6 +231,60 @@ namespace DirectXInput.KeyboardCode
                     previousCursorPosition.Y = Convert.ToInt32(displayMonitorSettings.HeightNative - this.Height - 20);
                     SetCursorPos(previousCursorPosition.X, previousCursorPosition.Y);
                 }
+            }
+            catch { }
+        }
+
+        //Focus on popup button
+        async Task FocusPopupButton(bool forceFocus, Button targetButton)
+        {
+            try
+            {
+                if (forceFocus || Keyboard.FocusedElement == null || Keyboard.FocusedElement == this)
+                {
+                    await FrameworkElementFocus(targetButton, false, vInteropWindowHandle);
+                }
+            }
+            catch { }
+        }
+
+        //Update popup opacity
+        public void UpdatePopupOpacity()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    try
+                    {
+                        this.Opacity = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardOpacity"));
+                    }
+                    catch { }
+                });
+            }
+            catch { }
+        }
+
+        //Update the listbox sources
+        void UpdateListBoxSources()
+        {
+            try
+            {
+                listbox_TextList.ItemsSource = vDirectKeyboardTextList;
+                listbox_EmojiList.ItemsSource = vDirectKeyboardEmojiListSmiley;
+
+                //Check if texts are set
+                if (!vDirectKeyboardTextList.Any())
+                {
+                    textblock_TextListNoTextSet.Visibility = Visibility.Visible;
+                }
+
+                //Background brush variable
+                SolidColorBrush selectedBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentDarkBrush"];
+
+                //Set background brush
+                key_EmojiSmiley.Background = selectedBrush;
+                key_EmojiSmiley.BorderBrush = selectedBrush;
             }
             catch { }
         }

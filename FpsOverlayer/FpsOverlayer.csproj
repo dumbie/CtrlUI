@@ -105,10 +105,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml.cs">
-      <Link>Styles\MainStyles.xaml.cs</Link>
-      <DependentUpon>MainStyles.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -131,51 +127,6 @@
     <Compile Include="MonitorFps.cs" />
     <Compile Include="MonitorHardware.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Button.xaml">
-      <Link>Styles\ControlTemplates\Button.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\CheckBox.xaml">
-      <Link>Styles\ControlTemplates\CheckBox.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\ComboBox.xaml">
-      <Link>Styles\ControlTemplates\ComboBox.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\ListBox.xaml">
-      <Link>Styles\ControlTemplates\ListBox.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\MainColors.xaml">
-      <Link>Styles\MainColors.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml">
-      <Link>Styles\MainStyles.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Scrollbar.xaml">
-      <Link>Styles\ControlTemplates\Scrollbar.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Slider.xaml">
-      <Link>Styles\ControlTemplates\Slider.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\TextBox.xaml">
-      <Link>Styles\ControlTemplates\TextBox.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Styles\DataTemplates\ListBoxItemAppPosition.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>

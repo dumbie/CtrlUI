@@ -31,7 +31,7 @@ namespace AdminLauncher
                 SchTask_Author = "Arnold Vink";
                 SchTask_Name = "ArnoldVink_CtrlUI";
                 SchTask_Description = "CtrlUI Administrator Helper";
-                SchTask_FilePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/CtrlUI.exe";
+                SchTask_FilePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\CtrlUI.exe";
                 SchTask_WorkingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
                 //Check the application status

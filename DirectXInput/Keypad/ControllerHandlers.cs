@@ -38,7 +38,7 @@ namespace DirectXInput.KeypadCode
                         UpdateKeypadNames();
 
                         //Update the keypad opacity
-                        UpdateKeypadOpacity();
+                        UpdatePopupOpacity();
 
                         //Update the keypad style
                         UpdateKeypadStyle();

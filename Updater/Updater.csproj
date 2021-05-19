@@ -149,9 +149,6 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs">
       <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVDownloader.cs">
-      <Link>LibraryShared\ArnoldVinkCode\Functions\AVDownloader.cs</Link>
-    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVFiles.cs">
       <Link>LibraryShared\ArnoldVinkCode\Functions\AVFiles.cs</Link>
     </Compile>
@@ -168,11 +165,11 @@
       <Link>Styles\MainStyles.xaml.cs</Link>
       <DependentUpon>MainStyles.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
-      <Link>Properties\AssemblyVersion.cs</Link>
-    </Compile>
     <Compile Include="..\LibraryShared\AppLaunchCheck.cs">
       <Link>LibraryShared\AppLaunchCheck.cs</Link>
+    </Compile>
+    <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

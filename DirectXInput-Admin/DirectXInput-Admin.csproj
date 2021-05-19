@@ -76,10 +76,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml.cs">
-      <Link>Styles\MainStyles.xaml.cs</Link>
-      <DependentUpon>MainStyles.xaml</DependentUpon>
-    </Compile>
     <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
@@ -97,23 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\AppIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Button.xaml">
-      <Link>Styles\ControlTemplates\Button.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\MainColors.xaml">
-      <Link>Styles\MainColors.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml">
-      <Link>Styles\MainStyles.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibraryShared\LibraryShared.csproj">

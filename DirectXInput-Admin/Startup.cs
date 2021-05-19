@@ -31,7 +31,7 @@ namespace AdminLauncher
                 SchTask_Author = "Arnold Vink";
                 SchTask_Name = "ArnoldVink_DirectXInput";
                 SchTask_Description = "DirectXInput Administrator Helper";
-                SchTask_FilePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/DirectXInput-Launcher.exe";
+                SchTask_FilePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\DirectXInput-Launcher.exe";
                 SchTask_WorkingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
                 //Check the application status

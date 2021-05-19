@@ -9,11 +9,13 @@
             SnapsToDevicePixels="True"
             mc:Ignorable="d"
             Title="DirectXInput Keypad"
-            Background="Transparent"
-            WindowStyle="None"
+            Topmost="True"
+            WindowStyle="None" 
+            WindowState="Normal"
             AllowsTransparency="True"
             ShowInTaskbar="False"
-            Topmost="True">
+            ResizeMode="NoResize"
+            Background="Transparent">
 
     <!-- Grid Application -->
     <Grid Name="grid_Application">

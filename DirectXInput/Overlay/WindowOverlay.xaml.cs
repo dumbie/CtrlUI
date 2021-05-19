@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -30,6 +31,9 @@ namespace DirectXInput.OverlayCode
                 //Get interop window handle
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
+                //Check if resolution has changed
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
                 //Update the window style
                 UpdateWindowStyle();
 
@@ -41,18 +45,19 @@ namespace DirectXInput.OverlayCode
 
                 //Update the notification position
                 UpdateNotificationPosition();
-
-                //Check if resolution has changed
-                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             }
             catch { }
         }
 
         //Update the window position on resolution change
-        public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
             try
             {
+                //Wait for change to complete
+                await Task.Delay(500);
+
+                //Update the window position
                 UpdateWindowPosition();
             }
             catch { }
@@ -74,7 +79,7 @@ namespace DirectXInput.OverlayCode
                 //Set the window as top most
                 SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
 
-                Debug.WriteLine("The window style has been updated.");
+                Debug.WriteLine("Window style has been updated.");
             }
             catch { }
         }
