@@ -21,7 +21,7 @@ namespace DirectXInput.OverlayCode
         public WindowOverlay() { InitializeComponent(); }
 
         //Window Variables
-        public static IntPtr vInteropWindowHandle = IntPtr.Zero;
+        private IntPtr vInteropWindowHandle = IntPtr.Zero;
 
         //Window Initialized
         protected override void OnSourceInitialized(EventArgs e)
@@ -37,7 +37,7 @@ namespace DirectXInput.OverlayCode
                 //Update the window style
                 UpdateWindowStyle();
 
-                //Update the window and text position
+                //Update the window position
                 UpdateWindowPosition();
 
                 //Update the notification position
@@ -86,9 +86,6 @@ namespace DirectXInput.OverlayCode
         {
             try
             {
-                //Load current CtrlUI settings
-                vConfigurationCtrlUI = Settings_Load_CtrlUI();
-
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);

@@ -22,7 +22,7 @@ namespace DirectXInput
         public WindowMain() { InitializeComponent(); }
 
         //Window Variables
-        public static IntPtr vInteropWindowHandle = IntPtr.Zero;
+        private IntPtr vInteropWindowHandle = IntPtr.Zero;
 
         //Window Initialized
         protected override void OnSourceInitialized(EventArgs e)

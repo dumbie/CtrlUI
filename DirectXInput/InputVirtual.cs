@@ -29,7 +29,7 @@ namespace DirectXInput
                         {
                             Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTimeMs + "/" + targetTimeMs + "ms");
                             Controller.LastActiveTicks = GetSystemTicksMs();
-                            StopControllerTask(Controller, "idle");
+                            StopControllerTask(Controller, "idle", "Disconnected idle controller " + Controller.NumberId + ".");
                             return;
                         }
                     }

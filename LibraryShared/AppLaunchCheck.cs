@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -71,7 +72,11 @@ namespace LibraryShared
                 //Check - Windows version check
                 if (AVFunctions.DevOsVersion() < 10)
                 {
-                    MessageBox.Show(applicationName + " only supports Windows 10 or newer.", applicationName);
+                    List<string> messageAnswers = new List<string>();
+                    messageAnswers.Add("Ok");
+                    await new AVMessageBox().Popup(null, "Windows 10 required", applicationName + " only supports Windows 10 or newer.", messageAnswers);
+
+                    //Close the application
                     Environment.Exit(0);
                     return;
                 }
@@ -86,7 +91,11 @@ namespace LibraryShared
                         {
                             if (!File.Exists(checkFile))
                             {
-                                MessageBox.Show("File: " + checkFile + " could not be found, please check your installation.", applicationName);
+                                List<string> messageAnswers = new List<string>();
+                                messageAnswers.Add("Ok");
+                                await new AVMessageBox().Popup(null, "File not found", checkFile + " could not be found, please check your installation.", messageAnswers);
+
+                                //Close the application
                                 Environment.Exit(0);
                                 return;
                             }

@@ -33,6 +33,29 @@ namespace DirectXInput.KeypadCode
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
 
+        //Window Initialized
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            try
+            {
+                //Get interop window handle
+                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+
+                //Check if resolution has changed
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
+                //Update the window style
+                UpdateWindowStyle();
+
+                //Update the window position
+                UpdateWindowPosition();
+
+                //Update the key names
+                UpdateKeypadNames();
+            }
+            catch { }
+        }
+
         //Hide the window
         public new async Task Hide()
         {
@@ -49,11 +72,14 @@ namespace DirectXInput.KeypadCode
                     //Play window close sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
+                    //Update the keypad visibility
+                    this.Title = "DirectXInput Keypad (Hidden)";
+                    this.Visibility = Visibility.Collapsed;
+                    vWindowVisible = false;
+                    Debug.WriteLine("Hiding the Keypad window.");
+
                     //Notify - Fps Overlayer keypad size changed
                     await NotifyFpsOverlayerKeypadSizeChanged(0);
-
-                    //Update window style
-                    UpdateWindowStyle(false);
                 }
             }
             catch { }
@@ -64,21 +90,6 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                if (vInteropWindowHandle == IntPtr.Zero)
-                {
-                    //Get interop window handle
-                    vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
-
-                    //Check if resolution has changed
-                    SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-
-                    //Show the window
-                    base.Show();
-
-                    //Update the window position
-                    UpdateWindowPosition();
-                }
-
                 //Close other popups
                 App.vWindowKeyboard.Hide();
                 await App.vWindowMedia.Hide();
@@ -107,8 +118,11 @@ namespace DirectXInput.KeypadCode
                 //Notify - Fps Overlayer keypad size changed
                 await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(keypadHeight));
 
-                //Update window style
-                UpdateWindowStyle(true);
+                //Update the keypad visibility
+                this.Title = "DirectXInput Keypad (Visible)";
+                this.Visibility = Visibility.Visible;
+                vWindowVisible = true;
+                Debug.WriteLine("Showing the Keypad window.");
             }
             catch { }
         }
@@ -239,28 +253,13 @@ namespace DirectXInput.KeypadCode
         }
 
         //Update the window style
-        void UpdateWindowStyle(bool visible)
+        void UpdateWindowStyle()
         {
             try
             {
                 //Set the window style
-                if (visible)
-                {
-                    IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
-
-                    this.Title = "DirectXInput Keypad (Visible)";
-                    vWindowVisible = true;
-                    Debug.WriteLine("Showing the window.");
-                }
-                else
-                {
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, IntPtr.Zero);
-
-                    this.Title = "DirectXInput Keypad (Hidden)";
-                    vWindowVisible = false;
-                    Debug.WriteLine("Hiding the window.");
-                }
+                IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
 
                 //Set the window style ex
                 IntPtr UpdatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));

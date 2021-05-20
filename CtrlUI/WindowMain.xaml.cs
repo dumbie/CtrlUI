@@ -30,7 +30,7 @@ namespace CtrlUI
         public WindowMain() { InitializeComponent(); }
 
         //Window Variables
-        public static IntPtr vInteropWindowHandle = IntPtr.Zero;
+        private IntPtr vInteropWindowHandle = IntPtr.Zero;
 
         //Window Initialized
         protected override async void OnSourceInitialized(EventArgs e)

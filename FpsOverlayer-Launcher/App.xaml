@@ -2,4 +2,20 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:AdminLauncher">
+    <!--Application Resources-->
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/MainColors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/Button.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/CheckBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/ComboBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/ListBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/Scrollbar.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/Slider.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/TextBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/MainStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

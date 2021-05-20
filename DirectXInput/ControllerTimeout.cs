@@ -18,7 +18,7 @@ namespace DirectXInput
                     if (latencyMs > Controller.MilliSecondsTimeout)
                     {
                         Debug.WriteLine("Controller " + Controller.NumberId + " has timed out, stopping and removing the controller.");
-                        StopControllerTask(Controller, "timeout");
+                        StopControllerTask(Controller, "timeout", "Controller " + Controller.NumberId + " has timed out.");
                     }
                 }
             }

@@ -138,7 +138,7 @@ namespace CtrlUI
                     //Check if controller is active controller
                     if (controllerStatusNew.Activated && vControllerActiveId != controllerStatusNew.NumberId)
                     {
-                        await ActivateController(controllerStatusNew.NumberId);
+                        ActivateController(controllerStatusNew.NumberId);
                     }
 
                     //Update the battery icons and level
@@ -299,14 +299,13 @@ namespace CtrlUI
         }
 
         //Set a controller as the active controller
-        async Task ActivateController(int controllerId)
+        void ActivateController(int controllerId)
         {
             try
             {
                 if (controllerId == 0)
                 {
                     vControllerActiveId = controllerId;
-                    await Notification_Send_Status("Controller", "Activated (1)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -318,7 +317,6 @@ namespace CtrlUI
                 else if (controllerId == 1)
                 {
                     vControllerActiveId = controllerId;
-                    await Notification_Send_Status("Controller", "Activated (2)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -330,7 +328,6 @@ namespace CtrlUI
                 else if (controllerId == 2)
                 {
                     vControllerActiveId = controllerId;
-                    await Notification_Send_Status("Controller", "Activated (3)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -342,7 +339,6 @@ namespace CtrlUI
                 else if (controllerId == 3)
                 {
                     vControllerActiveId = controllerId;
-                    await Notification_Send_Status("Controller", "Activated (4)");
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         img_Menu_Controller0.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);

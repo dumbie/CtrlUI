@@ -38,19 +38,7 @@ namespace DirectXInput
                 if (!await OpenController(Controller))
                 {
                     Debug.WriteLine("Failed to initialize direct input for: " + Controller.Details.DisplayName);
-
-                    NotificationDetails notificationDetailsDisconnected = new NotificationDetails();
-                    notificationDetailsDisconnected.Icon = "Controller";
-                    notificationDetailsDisconnected.Text = "Disconnected (" + controllerNumberDisplay + ")";
-                    notificationDetailsDisconnected.Color = Controller.Color;
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetailsDisconnected);
-
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        txt_Controller_Information.Text = "The controller is no longer connected or supported.";
-                    });
-
-                    await StopControllerAsync(Controller, "unsupported");
+                    await StopControllerAsync(Controller, "unsupported", "Controller " + controllerNumberDisplay + " is no longer connected or supported.");
                     return false;
                 }
 
@@ -227,7 +215,7 @@ namespace DirectXInput
         }
 
         //Stop the desired controller in task
-        void StopControllerTask(ControllerStatus Controller, string disconnectTag)
+        void StopControllerTask(ControllerStatus Controller, string disconnectInfo, string controllerInfo)
         {
             try
             {
@@ -236,7 +224,7 @@ namespace DirectXInput
                 {
                     try
                     {
-                        await StopControllerAsync(Controller, disconnectTag);
+                        await StopControllerAsync(Controller, disconnectInfo, controllerInfo);
                     }
                     catch { }
                 }
@@ -246,7 +234,7 @@ namespace DirectXInput
         }
 
         //Stop the desired controller as async
-        async Task<bool> StopControllerAsync(ControllerStatus Controller, string disconnectTag)
+        async Task<bool> StopControllerAsync(ControllerStatus Controller, string disconnectInfo, string controllerInfo)
         {
             try
             {
@@ -277,13 +265,13 @@ namespace DirectXInput
                 //Show controller disconnect notification
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Controller";
-                if (string.IsNullOrWhiteSpace(disconnectTag))
+                if (string.IsNullOrWhiteSpace(disconnectInfo))
                 {
                     notificationDetails.Text = "Disconnected (" + controllerNumberDisplay + ")";
                 }
                 else
                 {
-                    notificationDetails.Text = "Disconnected " + disconnectTag + " (" + controllerNumberDisplay + ")";
+                    notificationDetails.Text = "Disconnected " + disconnectInfo + " (" + controllerNumberDisplay + ")";
                 }
                 notificationDetails.Color = Controller.Color;
                 App.vWindowOverlay.Notification_Show_Status(notificationDetails);
@@ -291,7 +279,15 @@ namespace DirectXInput
                 //Update user interface controller status
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    txt_Controller_Information.Text = "Disconnected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
+                    if (string.IsNullOrWhiteSpace(controllerInfo))
+                    {
+                        txt_Controller_Information.Text = "Disconnected controller " + controllerNumberDisplay + ": " + Controller.Details.DisplayName;
+                    }
+                    else
+                    {
+                        txt_Controller_Information.Text = controllerInfo;
+                    }
+
                     if (Controller.NumberId == 0)
                     {
                         image_Controller0.Source = vImagePreloadIconControllerDark;
@@ -409,10 +405,10 @@ namespace DirectXInput
         {
             try
             {
-                await StopControllerAsync(vController0, "all");
-                await StopControllerAsync(vController1, "all");
-                await StopControllerAsync(vController2, "all");
-                await StopControllerAsync(vController3, "all");
+                await StopControllerAsync(vController0, "all", "Disconnected all the connected controllers.");
+                await StopControllerAsync(vController1, "all", "Disconnected all the connected controllers.");
+                await StopControllerAsync(vController2, "all", "Disconnected all the connected controllers.");
+                await StopControllerAsync(vController3, "all", "Disconnected all the connected controllers.");
 
                 if (disconnectVirtualBus)
                 {
@@ -421,10 +417,6 @@ namespace DirectXInput
                 }
 
                 Debug.WriteLine("Stopped all the controllers direct input.");
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    txt_Controller_Information.Text = "Disconnected all the connected controllers.";
-                });
             }
             catch
             {

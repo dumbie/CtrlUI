@@ -35,7 +35,7 @@ namespace DirectXInput
                 ControllerStatus activeController = vActiveController();
                 if (activeController != null)
                 {
-                    await StopControllerAsync(activeController, "manually");
+                    await StopControllerAsync(activeController, "manually", string.Empty);
                 }
                 else
                 {
@@ -85,13 +85,8 @@ namespace DirectXInput
                         notificationDetails.Text = "Removed controller";
                         App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            txt_Controller_Information.Text = "Removed the controller: " + activeController.Details.DisplayName;
-                        });
-
                         vDirectControllersProfile.Remove(activeController.Details.Profile);
-                        await StopControllerAsync(activeController, "removed");
+                        await StopControllerAsync(activeController, "removed", "Controller " + activeController.Details.DisplayName + " removed and disconnected.");
 
                         //Save changes to Json file
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");

@@ -369,7 +369,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="Properties\App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -103,7 +103,7 @@ namespace DirectXInput
                         ListboxLoadIgnoredController();
 
                         //Disconnect the controller
-                        await StopControllerAsync(activeController, "ignored");
+                        await StopControllerAsync(activeController, "ignored", "Controller " + activeController.Details.DisplayName + " ignored and disconnected.");
                     }
                 }
                 else

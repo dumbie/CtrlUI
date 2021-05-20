@@ -1,5 +1,7 @@
-﻿using Microsoft.Win32;
+﻿using ArnoldVinkCode;
+using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -31,7 +33,10 @@ namespace AdminLauncher
                 Process launchProcess = await ProcessLauncherWin32Async("DirectXInput.exe", "", "", false, false);
                 if (launchProcess == null)
                 {
-                    MessageBox.Show("Failed launching the application.", "DirectXInput Launcher");
+                    List<string> messageAnswers = new List<string>();
+                    messageAnswers.Add("Ok");
+
+                    await new AVMessageBox().Popup(null, "Failed launching", "Failed launching DirectXInput, certificate error.", messageAnswers);
                 }
 
                 //Disable launch requirements

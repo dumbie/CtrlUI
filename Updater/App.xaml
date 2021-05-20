@@ -6,8 +6,15 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/MainColors.xaml"/>
-                <ResourceDictionary Source="Styles/MainStyles.xaml"/>
+                <ResourceDictionary Source="LibraryShared/ArnoldVinkCode/Styles/MainColors.xaml"/>
+                <ResourceDictionary Source="LibraryShared/ArnoldVinkCode/Styles/ControlTemplates/Button.xaml"/>
+                <ResourceDictionary Source="LibraryShared/ArnoldVinkCode/Styles/ControlTemplates/CheckBox.xaml"/>
+                <ResourceDictionary Source="LibraryShared/ArnoldVinkCode/Styles/ControlTemplates/ComboBox.xaml"/>
+                <ResourceDictionary Source="LibraryShared/ArnoldVinkCode/Styles/ControlTemplates/ListBox.xaml"/>
+                <ResourceDictionary Source="LibraryShared/ArnoldVinkCode/Styles/ControlTemplates/Scrollbar.xaml"/>
+                <ResourceDictionary Source="LibraryShared/ArnoldVinkCode/Styles/ControlTemplates/Slider.xaml"/>
+                <ResourceDictionary Source="LibraryShared/ArnoldVinkCode/Styles/ControlTemplates/TextBox.xaml"/>
+                <ResourceDictionary Source="LibraryShared/ArnoldVinkCode/Styles/MainStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
