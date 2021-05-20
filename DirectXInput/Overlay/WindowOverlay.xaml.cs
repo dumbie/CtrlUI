@@ -40,9 +40,6 @@ namespace DirectXInput.OverlayCode
                 //Update the window and text position
                 UpdateWindowPosition();
 
-                //Update the battery status position
-                UpdateBatteryPosition();
-
                 //Update the notification position
                 UpdateNotificationPosition();
             }
@@ -128,31 +125,6 @@ namespace DirectXInput.OverlayCode
                         grid_Message_Status_Grid.SetValue(Grid.ColumnProperty, 1);
                         grid_Message_Status_Border.SetValue(Grid.ColumnProperty, 0);
                         grid_Message_Status_Border.SetValue(Border.CornerRadiusProperty, new CornerRadius(2, 0, 0, 2));
-                    }
-                });
-            }
-            catch { }
-        }
-
-        //Update the battery status position
-        public void UpdateBatteryPosition()
-        {
-            try
-            {
-                //Check current fps overlay position
-                OverlayPosition fpsTextPosition = (OverlayPosition)Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "TextPosition"));
-                //Debug.WriteLine("Fps overlayer text position: " + fpsTextPosition);
-
-                //Move the battery status position
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    if (vProcessFpsOverlayer == null || (vProcessFpsOverlayer != null && fpsTextPosition != OverlayPosition.BottomLeft))
-                    {
-                        stackpanel_Battery_Warning.VerticalAlignment = VerticalAlignment.Bottom;
-                    }
-                    else
-                    {
-                        stackpanel_Battery_Warning.VerticalAlignment = VerticalAlignment.Top;
                     }
                 });
             }

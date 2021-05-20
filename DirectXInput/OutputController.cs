@@ -227,7 +227,7 @@ namespace DirectXInput
                     }
 
                     //If battery is low turn on player led
-                    if (Controller.BatteryCurrent.BatteryPercentage <= 20 && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal)
+                    if (Controller.BatteryCurrent.BatteryPercentage <= Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "BatteryLowLevel")) && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal)
                     {
                         outputReport[46] = 0x04;
                     }
@@ -237,12 +237,11 @@ namespace DirectXInput
                     }
 
                     //Set the controller led color
+                    Color controllerColor = (Color)Controller.Color;
                     double controllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
-                    string controllerColorString = Setting_Load(vConfigurationDirectXInput, "ControllerColor" + Controller.NumberId).ToString();
-                    SolidColorBrush controllerColorBrush = new BrushConverter().ConvertFrom(controllerColorString) as SolidColorBrush;
-                    outputReport[47] = Convert.ToByte(controllerColorBrush.Color.R * controllerLedBrightness);
-                    outputReport[48] = Convert.ToByte(controllerColorBrush.Color.G * controllerLedBrightness);
-                    outputReport[49] = Convert.ToByte(controllerColorBrush.Color.B * controllerLedBrightness);
+                    outputReport[47] = Convert.ToByte(controllerColor.R * controllerLedBrightness);
+                    outputReport[48] = Convert.ToByte(controllerColor.G * controllerLedBrightness);
+                    outputReport[49] = Convert.ToByte(controllerColor.B * controllerLedBrightness);
 
                     //Add CRC32 to bytes array
                     byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport);
@@ -303,12 +302,11 @@ namespace DirectXInput
                     outputReport[44] = 0x00;
 
                     //Set the controller led color
+                    Color controllerColor = (Color)Controller.Color;
                     double controllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
-                    string controllerColorString = Setting_Load(vConfigurationDirectXInput, "ControllerColor" + Controller.NumberId).ToString();
-                    SolidColorBrush controllerColorBrush = new BrushConverter().ConvertFrom(controllerColorString) as SolidColorBrush;
-                    outputReport[45] = Convert.ToByte(controllerColorBrush.Color.R * controllerLedBrightness);
-                    outputReport[46] = Convert.ToByte(controllerColorBrush.Color.G * controllerLedBrightness);
-                    outputReport[47] = Convert.ToByte(controllerColorBrush.Color.B * controllerLedBrightness);
+                    outputReport[45] = Convert.ToByte(controllerColor.R * controllerLedBrightness);
+                    outputReport[46] = Convert.ToByte(controllerColor.G * controllerLedBrightness);
+                    outputReport[47] = Convert.ToByte(controllerColor.B * controllerLedBrightness);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
@@ -325,7 +323,7 @@ namespace DirectXInput
                     outputReport[7] = controllerRumbleHeavy;
 
                     //If battery is low flash the led
-                    if (Controller.BatteryCurrent.BatteryPercentage <= 20 && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal)
+                    if (Controller.BatteryCurrent.BatteryPercentage <= Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "BatteryLowLevel")) && Controller.BatteryCurrent.BatteryStatus == BatteryStatus.Normal)
                     {
                         outputReport[11] = 128; //Led On Duration
                         outputReport[12] = 128; //Led Off Duration
@@ -337,12 +335,11 @@ namespace DirectXInput
                     }
 
                     //Set the controller led color
+                    Color controllerColor = (Color)Controller.Color;
                     double controllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
-                    string controllerColorString = Setting_Load(vConfigurationDirectXInput, "ControllerColor" + Controller.NumberId).ToString();
-                    SolidColorBrush controllerColorBrush = new BrushConverter().ConvertFrom(controllerColorString) as SolidColorBrush;
-                    outputReport[8] = Convert.ToByte(controllerColorBrush.Color.R * controllerLedBrightness);
-                    outputReport[9] = Convert.ToByte(controllerColorBrush.Color.G * controllerLedBrightness);
-                    outputReport[10] = Convert.ToByte(controllerColorBrush.Color.B * controllerLedBrightness);
+                    outputReport[8] = Convert.ToByte(controllerColor.R * controllerLedBrightness);
+                    outputReport[9] = Convert.ToByte(controllerColor.G * controllerLedBrightness);
+                    outputReport[10] = Convert.ToByte(controllerColor.B * controllerLedBrightness);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(outputReport);
@@ -360,12 +357,11 @@ namespace DirectXInput
                     outputReport[10] = 0; //Led Off Duration
 
                     //Set the controller led color
+                    Color controllerColor = (Color)Controller.Color;
                     double controllerLedBrightness = Convert.ToDouble(Controller.Details.Profile.LedBrightness) / 100;
-                    string controllerColorString = Setting_Load(vConfigurationDirectXInput, "ControllerColor" + Controller.NumberId).ToString();
-                    SolidColorBrush controllerColorBrush = new BrushConverter().ConvertFrom(controllerColorString) as SolidColorBrush;
-                    outputReport[6] = Convert.ToByte(controllerColorBrush.Color.R * controllerLedBrightness);
-                    outputReport[7] = Convert.ToByte(controllerColorBrush.Color.G * controllerLedBrightness);
-                    outputReport[8] = Convert.ToByte(controllerColorBrush.Color.B * controllerLedBrightness);
+                    outputReport[6] = Convert.ToByte(controllerColor.R * controllerLedBrightness);
+                    outputReport[7] = Convert.ToByte(controllerColor.G * controllerLedBrightness);
+                    outputReport[8] = Convert.ToByte(controllerColor.B * controllerLedBrightness);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
@@ -427,11 +423,15 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "Unsupported rumble controller";
+                    notificationDetails.Color = Controller.Color;
                     App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     Debug.WriteLine("Unsupported rumble controller.");
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to output rumble: " + ex.Message);
+            }
         }
     }
 }

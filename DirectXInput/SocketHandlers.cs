@@ -83,7 +83,6 @@ namespace DirectXInput
                     {
                         vConfigurationFpsOverlayer = Settings_Load_FpsOverlayer();
                         App.vWindowOverlay.UpdateNotificationPosition();
-                        App.vWindowOverlay.UpdateBatteryPosition();
                     }
                     else if (receivedString == "ControllerStatusSummaryList")
                     {

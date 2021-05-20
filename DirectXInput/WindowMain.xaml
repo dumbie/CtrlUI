@@ -27,7 +27,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Grid Menu -->
-            <Grid Name="grid_Menu" Grid.Column="0" Width="95" Background="{DynamicResource ApplicationBlackBrush}">
+            <Grid Name="grid_Menu" Grid.Column="0" Width="105" Background="{DynamicResource ApplicationBlackBrush}">
                 <ListBox Name="lb_Menu" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" Style="{StaticResource ListBoxVertical}">
                     <StackPanel Name="menuButtonConnection" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage controller connection">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Usb.png" Width="55" HorizontalAlignment="Center"/>
@@ -36,6 +36,10 @@
                     <StackPanel Name="menuButtonController" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage controller settings">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Controller" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="menuButtonBattery" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage battery settings">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerDis100.png" Margin="0,5,0,0" Height="50" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Battery" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Name="menuButtonIgnore" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage ignored controllers">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Hide.png" Width="55" HorizontalAlignment="Center"/>
@@ -227,6 +231,9 @@
                             <CheckBox Name="cb_ControllerFakeGuideButton" Style="{StaticResource CheckBoxBlack}" Content="Fake Start and Back combined press as the Guide button"/>
                             <TextBlock Text="Enabling this will fake the Start and Back button combined as the Guide button on a controller without the Guide button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
+                            <CheckBox Margin="0,10,0,0" Name="cb_SettingsExclusiveGuide" Content="Make the Guide button exclusive for CtrlUI apps usage" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will block the Guide button for all other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Trigger Settings"/>
                             <CheckBox Name="cb_ControllerUseButtonTriggers" Style="{StaticResource CheckBoxBlack}" Content="Change the controller triggers to press buttons"/>
                             <TextBlock Text="Enabling this will change your triggers into buttons." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
@@ -331,6 +338,41 @@
                                 <TextBlock Text="Fourth controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <Button Name="colorpicker_Controller3" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Set fourth controller led color"/>
                             </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+
+            <!-- Grid Battery -->
+            <Grid Name="grid_Battery" Grid.Column="1" Background="{DynamicResource ApplicationWhiteBrush}" Visibility="Collapsed">
+                <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Battery"/>
+                            <Border Margin="0,30,0,0" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
+                        <StackPanel>
+                            <CheckBox Name="cb_SettingsBatteryLowShowNotification" Content="Show warning notification when the battery level gets low" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will show a notification when the controllers battery gets low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <CheckBox Name="cb_SettingsBatteryLowPlaySound" Content="Play warning sound when the battery level gets low" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will play a sound when the controllers battery gets low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <TextBlock Name="textblock_BatteryLowLevel" Text="Battery low level" Tag="Battery low level" TextWrapping="Wrap" Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
+                            <TextBlock Text="Change the battery level that is considered to be low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_BatteryLowLevel" Height="18" Width="460" Minimum="5" Maximum="80" TickFrequency="5" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                            <TextBlock Name="textblock_ControllerIdleDisconnectMin" Text="Disconnect idle wireless controller after" Tag="Disconnect idle wireless controller after" TextWrapping="Wrap" Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
+                            <TextBlock Text="Change the minutes a wireless controller will automatically disconnect itself after it hasn't been used for a while to save the controllers battery life." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerIdleDisconnectMin" Height="18" Width="460" Minimum="3" Maximum="180" TickFrequency="1" SmallChange="1" LargeChange="1" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
@@ -597,24 +639,6 @@
                                 <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Launch Settings"/>
                                 <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will launch DirectXInput when you start Windows automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Button Settings"/>
-                                <CheckBox Name="cb_SettingsExclusiveGuide" Content="Make the Guide button exclusive for CtrlUI apps usage" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will block the Guide button for all other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Battery Settings"/>
-                                <CheckBox Name="cb_SettingsBatteryShowIconLow" Content="Show warning icon when the battery level gets low" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will show a warning icon on the screen when the controllers battery gets low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <CheckBox Name="cb_SettingsBatteryShowPercentageLow" Content="Show battery level in percentage under warning icon" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will show the battery level in percentage underneath the icon." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <CheckBox Name="cb_SettingsBatteryPlaySoundLow" Content="Play warning sound when the battery level gets low" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will play a warning sound when the controllers battery gets low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <TextBlock Name="textblock_ControllerIdleDisconnectMin" Text="Disconnect idle wireless controller after" Tag="Disconnect idle wireless controller after" TextWrapping="Wrap" Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
-                                <TextBlock Text="Change the minutes a wireless controller will automatically disconnect itself after it hasn't been used for a while to save the controllers battery life." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_ControllerIdleDisconnectMin" Height="18" Width="460" Minimum="3" Maximum="180" TickFrequency="1" SmallChange="1" LargeChange="1" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Other Settings"/>
                                 <Button Name="btn_Settings_InstallDrivers" Content="Install the required drivers" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>

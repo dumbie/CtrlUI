@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVActions;
 using static LibraryUsb.NativeMethods_IoControl;
@@ -16,6 +17,9 @@ namespace LibraryShared
             //Controller Status
             public int NumberId = -1;
             public bool Activated = false;
+
+            //Color Status
+            public Color? Color = null;
 
             //Battery Status
             public ControllerBattery BatteryCurrent = new ControllerBattery();

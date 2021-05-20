@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Windows;
+using System.Windows.Media;
 using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -37,7 +38,15 @@ namespace DirectXInput.OverlayCode
                     {
                         grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/" + notificationDetails.Icon + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         grid_Message_Status_Text.Text = notificationDetails.Text;
-                        grid_Message_Status.Visibility = Visibility.Visible;
+                        if (notificationDetails.Color != null)
+                        {
+                            grid_Message_Status_Border.Background = new SolidColorBrush((Color)notificationDetails.Color);
+                        }
+                        else
+                        {
+                            grid_Message_Status_Border.Background = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
+                        }
+                        this.Visibility = Visibility.Visible;
                     }
                     catch { }
                 });
@@ -49,7 +58,7 @@ namespace DirectXInput.OverlayCode
                     try
                     {
                         //Hide the notification
-                        grid_Message_Status.Visibility = Visibility.Collapsed;
+                        this.Visibility = Visibility.Collapsed;
                     }
                     catch { }
                 };

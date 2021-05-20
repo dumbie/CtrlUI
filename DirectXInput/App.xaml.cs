@@ -36,9 +36,6 @@ namespace DirectXInput
 
                 //Run application startup code
                 await vWindowMain.Startup();
-
-                //Show application overlay window
-                vWindowOverlay.Show();
             }
             catch { }
         }

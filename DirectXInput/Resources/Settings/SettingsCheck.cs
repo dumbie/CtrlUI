@@ -25,9 +25,11 @@ namespace DirectXInput
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshot", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutMediaPopup", "True"); } //Shared
 
-                if (Setting_Load(vConfigurationDirectXInput, "BatteryShowIconLow") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryShowIconLow", "True"); }
-                if (Setting_Load(vConfigurationDirectXInput, "BatteryShowPercentageLow") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryShowPercentageLow", "False"); }
-                if (Setting_Load(vConfigurationDirectXInput, "BatteryPlaySoundLow") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryPlaySoundLow", "True"); }
+                //Battery settings
+                if (Setting_Load(vConfigurationDirectXInput, "BatteryLowLevel") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryLowLevel", "20"); }
+                if (Setting_Load(vConfigurationDirectXInput, "BatteryLowBlinkLed") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryLowBlinkLed", "True"); }
+                if (Setting_Load(vConfigurationDirectXInput, "BatteryLowShowNotification") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryLowShowNotification", "True"); }
+                if (Setting_Load(vConfigurationDirectXInput, "BatteryLowPlaySound") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryLowPlaySound", "True"); }
 
                 //Controller settings
                 if (Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin") == null) { Setting_Save(vConfigurationDirectXInput, "ControllerIdleDisconnectMin", "10"); }

@@ -30,25 +30,30 @@ namespace DirectXInput
                 cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };
 
                 //Battery settings
-                cb_SettingsBatteryShowIconLow.Click += (sender, e) =>
+                slider_BatteryLowLevel.ValueChanged += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "BatteryShowIconLow", cb_SettingsBatteryShowIconLow.IsChecked.ToString());
+                    string batteryLevelLowString = slider_BatteryLowLevel.Value.ToString();
+                    Setting_Save(vConfigurationDirectXInput, "BatteryLowLevel", batteryLevelLowString);
+                    textblock_BatteryLowLevel.Text = textblock_BatteryLowLevel.Tag + ": " + batteryLevelLowString + "%";
 
                     //Check all controllers for low battery level
-                    CheckAllControllersLowBattery();
+                    CheckAllControllersLowBattery(true);
                 };
 
-                cb_SettingsBatteryShowPercentageLow.Click += (sender, e) =>
+                cb_SettingsBatteryLowShowNotification.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "BatteryShowPercentageLow", cb_SettingsBatteryShowPercentageLow.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "BatteryLowShowNotification", cb_SettingsBatteryLowShowNotification.IsChecked.ToString());
 
                     //Check all controllers for low battery level
-                    CheckAllControllersLowBattery();
+                    CheckAllControllersLowBattery(true);
                 };
 
-                cb_SettingsBatteryPlaySoundLow.Click += (sender, e) =>
+                cb_SettingsBatteryLowPlaySound.Click += (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "BatteryPlaySoundLow", cb_SettingsBatteryPlaySoundLow.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "BatteryLowPlaySound", cb_SettingsBatteryLowPlaySound.IsChecked.ToString());
+
+                    //Check all controllers for low battery level
+                    CheckAllControllersLowBattery(true);
                 };
 
                 //Controller settings
@@ -66,11 +71,11 @@ namespace DirectXInput
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         Setting_Save(vConfigurationDirectXInput, "ControllerColor0", newBrush.ToString());
+                        colorpicker_Controller0.Background = newBrush;
+                        vController0.Color = newBrush.Color;
+
                         ControllerOutput(vController0, false, false);
                         await NotifyCtrlUISettingChanged("ControllerColor");
-
-                        App.vWindowOverlay.stackpanel_Battery_Warning_Controller0_Color.Background = newBrush;
-                        colorpicker_Controller0.Background = newBrush;
                     }
                 };
 
@@ -81,11 +86,11 @@ namespace DirectXInput
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         Setting_Save(vConfigurationDirectXInput, "ControllerColor1", newBrush.ToString());
+                        colorpicker_Controller1.Background = newBrush;
+                        vController1.Color = newBrush.Color;
+
                         ControllerOutput(vController1, false, false);
                         await NotifyCtrlUISettingChanged("ControllerColor");
-
-                        App.vWindowOverlay.stackpanel_Battery_Warning_Controller1_Color.Background = newBrush;
-                        colorpicker_Controller1.Background = newBrush;
                     }
                 };
 
@@ -96,11 +101,11 @@ namespace DirectXInput
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         Setting_Save(vConfigurationDirectXInput, "ControllerColor2", newBrush.ToString());
+                        colorpicker_Controller2.Background = newBrush;
+                        vController2.Color = newBrush.Color;
+
                         ControllerOutput(vController2, false, false);
                         await NotifyCtrlUISettingChanged("ControllerColor");
-
-                        App.vWindowOverlay.stackpanel_Battery_Warning_Controller2_Color.Background = newBrush;
-                        colorpicker_Controller2.Background = newBrush;
                     }
                 };
 
@@ -111,11 +116,11 @@ namespace DirectXInput
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         Setting_Save(vConfigurationDirectXInput, "ControllerColor3", newBrush.ToString());
+                        colorpicker_Controller3.Background = newBrush;
+                        vController3.Color = newBrush.Color;
+
                         ControllerOutput(vController3, false, false);
                         await NotifyCtrlUISettingChanged("ControllerColor");
-
-                        App.vWindowOverlay.stackpanel_Battery_Warning_Controller3_Color.Background = newBrush;
-                        colorpicker_Controller3.Background = newBrush;
                     }
                 };
 

@@ -18,34 +18,38 @@ namespace DirectXInput
                 cb_SettingsShortcutDisconnectBluetooth.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth"));
                 cb_SettingsExclusiveGuide.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide"));
 
-                cb_SettingsBatteryPlaySoundLow.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryPlaySoundLow"));
-                cb_SettingsBatteryShowIconLow.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowIconLow"));
-                cb_SettingsBatteryShowPercentageLow.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryShowPercentageLow"));
+                //Load battery settings
+                int batteryLevelLowInt = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "BatteryLowLevel"));
+                textblock_BatteryLowLevel.Text = textblock_BatteryLowLevel.Tag + ": " + batteryLevelLowInt + "%";
+                slider_BatteryLowLevel.Value = batteryLevelLowInt;
+
+                cb_SettingsBatteryLowShowNotification.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowShowNotification"));
+                cb_SettingsBatteryLowPlaySound.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowPlaySound"));
 
                 //Load controller settings
                 int controllerIdleDisconnectMinInt = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin"));
-                textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + controllerIdleDisconnectMinInt + " minutes";
-                slider_ControllerIdleDisconnectMin.Value = controllerIdleDisconnectMinInt;
+                textblock_ControllerIdleDisconnectMin.Text = textblock_ControllerIdleDisconnectMin.Tag + ": " + batteryLevelLowInt + " minutes";
+                slider_ControllerIdleDisconnectMin.Value = batteryLevelLowInt;
 
                 string ControllerColor0 = Setting_Load(vConfigurationDirectXInput, "ControllerColor0").ToString();
                 SolidColorBrush ControllerColor0Brush = new BrushConverter().ConvertFrom(ControllerColor0) as SolidColorBrush;
                 colorpicker_Controller0.Background = ControllerColor0Brush;
-                App.vWindowOverlay.stackpanel_Battery_Warning_Controller0_Color.Background = ControllerColor0Brush;
+                vController0.Color = ControllerColor0Brush.Color;
 
                 string ControllerColor1 = Setting_Load(vConfigurationDirectXInput, "ControllerColor1").ToString();
                 SolidColorBrush ControllerColor1Brush = new BrushConverter().ConvertFrom(ControllerColor1) as SolidColorBrush;
                 colorpicker_Controller1.Background = ControllerColor1Brush;
-                App.vWindowOverlay.stackpanel_Battery_Warning_Controller1_Color.Background = ControllerColor1Brush;
+                vController1.Color = ControllerColor1Brush.Color;
 
                 string ControllerColor2 = Setting_Load(vConfigurationDirectXInput, "ControllerColor2").ToString();
                 SolidColorBrush ControllerColor2Brush = new BrushConverter().ConvertFrom(ControllerColor2) as SolidColorBrush;
                 colorpicker_Controller2.Background = ControllerColor2Brush;
-                App.vWindowOverlay.stackpanel_Battery_Warning_Controller2_Color.Background = ControllerColor2Brush;
+                vController2.Color = ControllerColor2Brush.Color;
 
                 string ControllerColor3 = Setting_Load(vConfigurationDirectXInput, "ControllerColor3").ToString();
                 SolidColorBrush ControllerColor3Brush = new BrushConverter().ConvertFrom(ControllerColor3) as SolidColorBrush;
                 colorpicker_Controller3.Background = ControllerColor3Brush;
-                App.vWindowOverlay.stackpanel_Battery_Warning_Controller3_Color.Background = ControllerColor3Brush;
+                vController3.Color = ControllerColor3Brush.Color;
 
                 //Load shortcut settings
                 cb_SettingsShortcutLaunchCtrlUI.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI"));

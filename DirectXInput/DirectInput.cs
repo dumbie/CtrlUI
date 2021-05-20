@@ -31,6 +31,9 @@ namespace DirectXInput
                 //Allow controller in HidHide
                 await vHidHideDevice.ListDeviceAdd(Controller.Details.ModelId);
 
+                //Set controller interface information
+                string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
+
                 //Open the selected controller
                 if (!await OpenController(Controller))
                 {
@@ -38,7 +41,8 @@ namespace DirectXInput
 
                     NotificationDetails notificationDetailsDisconnected = new NotificationDetails();
                     notificationDetailsDisconnected.Icon = "Controller";
-                    notificationDetailsDisconnected.Text = "Controller disconnected";
+                    notificationDetailsDisconnected.Text = "Disconnected (" + controllerNumberDisplay + ")";
+                    notificationDetailsDisconnected.Color = Controller.Color;
                     App.vWindowOverlay.Notification_Show_Status(notificationDetailsDisconnected);
 
                     AVActions.ActionDispatcherInvoke(delegate
@@ -55,12 +59,10 @@ namespace DirectXInput
                 await Task.Delay(500);
                 vVirtualBusDevice.VirtualPlugin(Controller.NumberId);
 
-                //Set controller interface information
-                string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
-
                 NotificationDetails notificationDetailsConnected = new NotificationDetails();
                 notificationDetailsConnected.Icon = "Controller";
                 notificationDetailsConnected.Text = "Connected (" + controllerNumberDisplay + ")";
+                notificationDetailsConnected.Color = Controller.Color;
                 App.vWindowOverlay.Notification_Show_Status(notificationDetailsConnected);
 
                 AVActions.ActionDispatcherInvoke(delegate
@@ -283,6 +285,7 @@ namespace DirectXInput
                 {
                     notificationDetails.Text = "Disconnected " + disconnectTag + " (" + controllerNumberDisplay + ")";
                 }
+                notificationDetails.Color = Controller.Color;
                 App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Update user interface controller status

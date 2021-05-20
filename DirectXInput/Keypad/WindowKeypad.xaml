@@ -15,7 +15,8 @@
             AllowsTransparency="True"
             ShowInTaskbar="False"
             ResizeMode="NoResize"
-            Background="Transparent">
+            Background="Transparent"
+            IsHitTestVisible="False">
 
     <!-- Grid Application -->
     <Grid Name="grid_Application">

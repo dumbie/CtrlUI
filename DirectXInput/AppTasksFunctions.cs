@@ -57,7 +57,7 @@ namespace DirectXInput
             {
                 while (!vTask_ControllerBattery.TaskStopRequest)
                 {
-                    CheckAllControllersLowBattery();
+                    CheckAllControllersLowBattery(false);
 
                     //Delay the loop task
                     await TaskDelayLoop(5000, vTask_ControllerBattery);
