@@ -27,6 +27,7 @@ namespace DirectXInput
                         if (!Controller.WinUsbDevice.ReadBytesIntPipe(Controller.InputReport))
                         {
                             Debug.WriteLine("Failed to read input data from win controller: " + Controller.NumberId);
+                            TaskDelayMs(1);
                             continue;
                         }
 

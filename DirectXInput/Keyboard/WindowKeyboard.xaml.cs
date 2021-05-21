@@ -47,8 +47,8 @@ namespace DirectXInput.KeyboardCode
                     //Play window close sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                    //Update window style
-                    UpdateWindowStyle(false);
+                    //Update the window visibility
+                    UpdateWindowVisibility(false);
                 }
             }
             catch { }
@@ -75,6 +75,9 @@ namespace DirectXInput.KeyboardCode
 
                     //Show the window
                     base.Show();
+
+                    //Update the window style
+                    UpdateWindowStyle();
 
                     //Update the window position
                     UpdateWindowPosition();
@@ -120,8 +123,8 @@ namespace DirectXInput.KeyboardCode
                     UpdateWindowPosition();
                 }
 
-                //Update window style
-                UpdateWindowStyle(true);
+                //Update the window visibility
+                UpdateWindowVisibility(true);
             }
             catch { }
         }
@@ -156,16 +159,15 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Update the window style
-        void UpdateWindowStyle(bool visible)
+        //Update the window visibility
+        void UpdateWindowVisibility(bool visible)
         {
             try
             {
-                //Set the window style
                 if (visible)
                 {
-                    IntPtr UpdatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, UpdatedStyle);
+                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
                     this.Title = "DirectXInput Keyboard (Visible)";
                     vWindowVisible = true;
@@ -173,16 +175,25 @@ namespace DirectXInput.KeyboardCode
                 }
                 else
                 {
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, IntPtr.Zero);
+                    IntPtr updatedStyle = IntPtr.Zero;
+                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
                     this.Title = "DirectXInput Keyboard (Hidden)";
                     vWindowVisible = false;
                     Debug.WriteLine("Hiding the window.");
                 }
+            }
+            catch { }
+        }
 
+        //Update the window style
+        public void UpdateWindowStyle()
+        {
+            try
+            {
                 //Set the window style ex
-                IntPtr UpdatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
-                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, UpdatedExStyle);
+                IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
+                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
 
                 //Set the window as top most
                 SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));

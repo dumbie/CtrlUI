@@ -31,7 +31,7 @@ namespace DirectXInput.OverlayCode
                 //Update notification position
                 UpdateNotificationPosition();
 
-                //Show the notification
+                //Update the notification
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     try
@@ -46,7 +46,9 @@ namespace DirectXInput.OverlayCode
                         {
                             grid_Message_Status_Border.Background = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
                         }
-                        this.Visibility = Visibility.Visible;
+
+                        //Show the notification
+                        this.Show();
                     }
                     catch { }
                 });
@@ -58,7 +60,7 @@ namespace DirectXInput.OverlayCode
                     try
                     {
                         //Hide the notification
-                        this.Visibility = Visibility.Collapsed;
+                        this.Hide();
                     }
                     catch { }
                 };

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -11,10 +12,10 @@ namespace DirectXInput
         {
             try
             {
-                //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has timed out for " + Controller.TimeoutSeconds + " seconds.");
+                //Debug.WriteLine("Checking if controller " + Controller.NumberId + " has timed out for " + Controller.MilliSecondsTimeout + " ms.");
                 if (Controller.Connected() && Controller.InputReport != null && Controller.LastInputTicks != 0 && Controller.PrevInputTicks != 0)
                 {
-                    long latencyMs = Controller.LastInputTicks - Controller.PrevInputTicks;
+                    long latencyMs = GetSystemTicksMs() - Controller.LastInputTicks;
                     if (latencyMs > Controller.MilliSecondsTimeout)
                     {
                         Debug.WriteLine("Controller " + Controller.NumberId + " has timed out, stopping and removing the controller.");
