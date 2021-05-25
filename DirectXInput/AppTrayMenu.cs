@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -45,7 +44,7 @@ namespace DirectXInput
         }
 
         //Show and hide the application window
-        async Task Application_ShowHideWindow()
+        void Application_ShowHideWindow()
         {
             try
             {
@@ -55,10 +54,6 @@ namespace DirectXInput
                     ShowInTaskbar = false;
                     Visibility = Visibility.Collapsed;
                     WindowState = WindowState.Normal;
-                    if (App.vWindowKeyboard.vWindowVisible)
-                    {
-                        await App.vWindowKeyboard.Show();
-                    }
                 }
                 else
                 {
@@ -71,20 +66,20 @@ namespace DirectXInput
             catch { }
         }
 
-        async void NotifyIcon_DoubleClick(object sender, EventArgs args)
+        void NotifyIcon_DoubleClick(object sender, EventArgs args)
         {
             try
             {
-                await Application_ShowHideWindow();
+                Application_ShowHideWindow();
             }
             catch { }
         }
 
-        async void NotifyIcon_Settings(object sender, EventArgs args)
+        void NotifyIcon_Settings(object sender, EventArgs args)
         {
             try
             {
-                await Application_ShowHideWindow();
+                Application_ShowHideWindow();
             }
             catch { }
         }

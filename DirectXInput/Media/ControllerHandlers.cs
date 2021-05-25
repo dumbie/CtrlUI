@@ -89,7 +89,7 @@ namespace DirectXInput.MediaCode
                         ControllerDelayMedium = true;
                     }
                     //Send external media next key
-                    else if (ControllerInput.ButtonB.PressedRaw || ControllerInput.ButtonShoulderRight.PressedRaw)
+                    else if (ControllerInput.ButtonB.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
@@ -107,11 +107,39 @@ namespace DirectXInput.MediaCode
                         ControllerDelayMedium = true;
                     }
                     //Send external media previous key
-                    else if (ControllerInput.ButtonX.PressedRaw || ControllerInput.ButtonShoulderLeft.PressedRaw)
+                    else if (ControllerInput.ButtonX.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
                         await KeyPressSingleAuto(KeysVirtual.MediaPreviousTrack);
+
+                        ControllerDelayMedium = true;
+                    }
+
+                    //Send external arrow keys
+                    else if (ControllerInput.ButtonShoulderLeft.PressedRaw)
+                    {
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
+                        await KeyPressSingleAuto(KeysVirtual.Left);
+
+                        ControllerDelayShort = true;
+                    }
+                    else if (ControllerInput.ButtonShoulderRight.PressedRaw)
+                    {
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
+                        await KeyPressSingleAuto(KeysVirtual.Right);
+
+                        ControllerDelayShort = true;
+                    }
+
+                    //Send external alt+enter keys
+                    else if (ControllerInput.ButtonBack.PressedRaw)
+                    {
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
+                        await KeyPressComboAuto(KeysVirtual.Alt, KeysVirtual.Enter);
 
                         ControllerDelayMedium = true;
                     }
@@ -146,6 +174,7 @@ namespace DirectXInput.MediaCode
                         ControllerDelayShort = true;
                     }
 
+                    //Delay input to prevent repeat
                     if (ControllerDelayShort)
                     {
                         vControllerDelay_Media = GetSystemTicksMs() + vControllerDelayShortTicks;
@@ -157,6 +186,12 @@ namespace DirectXInput.MediaCode
                     else if (ControllerDelayLonger)
                     {
                         vControllerDelay_Media = GetSystemTicksMs() + vControllerDelayLongerTicks;
+                    }
+
+                    //Update the window style (focus workaround)
+                    if (ControllerDelayShort || ControllerDelayMedium || ControllerDelayLonger)
+                    {
+                        UpdateWindowStyle();
                     }
                 }
             }

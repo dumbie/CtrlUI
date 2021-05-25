@@ -27,28 +27,57 @@ namespace DirectXInput.MediaCode
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
 
+        //Window Initialized
+        protected override async void OnSourceInitialized(EventArgs e)
+        {
+            try
+            {
+                //Get interop window handle
+                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+
+                //Update the window style
+                UpdateWindowStyle();
+
+                //Update the window position
+                UpdateWindowPosition();
+
+                //Check mouse cursor position
+                CheckMousePosition();
+
+                //Focus on popup button
+                await FocusPopupButton(true, button_PlayPause);
+
+                //Update the user interface clock style
+                UpdateClockStyle();
+
+                //Make window able to drag from border
+                this.MouseDown += Window_MouseDown;
+
+                //Check if resolution has changed
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+            }
+            catch { }
+        }
+
         //Hide the window
         public new async Task Hide()
         {
             try
             {
-                if (vWindowVisible)
-                {
-                    //Stop the update tasks
-                    await TasksBackgroundStop();
+                //Stop the update tasks
+                await TasksBackgroundStop();
 
-                    //Delay CtrlUI output
-                    vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                //Delay CtrlUI output
+                vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
 
-                    //Play window close sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                //Play window close sound
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                    //Update the window visibility
-                    UpdateWindowVisibility(false);
-                }
+                //Update the window visibility
+                UpdateWindowVisibility(false);
             }
             catch { }
         }
@@ -58,27 +87,6 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                if (vInteropWindowHandle == IntPtr.Zero)
-                {
-                    //Get interop window handle
-                    vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
-
-                    //Make window able to drag from border
-                    this.MouseDown += Window_MouseDown;
-
-                    //Check if resolution has changed
-                    SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-
-                    //Show the window
-                    base.Show();
-
-                    //Update the window style
-                    UpdateWindowStyle();
-
-                    //Update the user interface clock style
-                    UpdateClockStyle();
-                }
-
                 //Close other popups
                 App.vWindowKeyboard.Hide();
                 await App.vWindowKeypad.Hide();
@@ -144,8 +152,11 @@ namespace DirectXInput.MediaCode
             {
                 if (visible)
                 {
-                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                    //Create and show the window
+                    base.Show();
+
+                    //Update the window style (focus workaround)
+                    UpdateWindowStyle();
 
                     this.Title = "DirectXInput Media (Visible)";
                     vWindowVisible = true;
@@ -153,6 +164,7 @@ namespace DirectXInput.MediaCode
                 }
                 else
                 {
+                    //Update the window style
                     IntPtr updatedStyle = IntPtr.Zero;
                     SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
@@ -164,19 +176,24 @@ namespace DirectXInput.MediaCode
             catch { }
         }
 
-        //Update the window style
-        public void UpdateWindowStyle()
+        //Update the window style (focus workaround)
+        void UpdateWindowStyle()
         {
             try
             {
-                //Set the window style ex
-                IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
-                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Set the window style
+                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
-                //Set the window as top most
-                SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
+                    //Set the window style ex
+                    IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
+                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
 
-                Debug.WriteLine("Window style has been updated.");
+                    //Set the window as top most
+                    SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
+                });
             }
             catch { }
         }

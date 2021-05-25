@@ -283,6 +283,9 @@ namespace CtrlUI
                     {
                         //Hide the overlay
                         grid_SelectCharacter.Visibility = Visibility.Collapsed;
+
+                        //Renew the timer
+                        AVFunctions.TimerRenew(ref vDispatcherTimerOverlay);
                     }
                     catch { }
                 };

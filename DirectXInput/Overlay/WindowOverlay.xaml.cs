@@ -24,16 +24,36 @@ namespace DirectXInput.OverlayCode
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
 
+        //Window Initialized
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            try
+            {
+                //Get interop window handle
+                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+
+                //Update the window style
+                UpdateWindowStyle();
+
+                //Update the window and text position
+                UpdateWindowPosition();
+
+                //Update the notification position
+                UpdateNotificationPosition();
+
+                //Check if resolution has changed
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+            }
+            catch { }
+        }
+
         //Hide the window
         public new void Hide()
         {
             try
             {
-                if (vWindowVisible)
-                {
-                    //Update the window visibility
-                    UpdateWindowVisibility(false);
-                }
+                //Update the window visibility
+                UpdateWindowVisibility(false);
             }
             catch { }
         }
@@ -43,27 +63,6 @@ namespace DirectXInput.OverlayCode
         {
             try
             {
-                if (vInteropWindowHandle == IntPtr.Zero)
-                {
-                    //Get interop window handle
-                    vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
-
-                    //Check if resolution has changed
-                    SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-
-                    //Show the window
-                    base.Show();
-
-                    //Update the window style
-                    UpdateWindowStyle();
-
-                    //Update the window position
-                    UpdateWindowPosition();
-
-                    //Update notification position
-                    UpdateNotificationPosition();
-                }
-
                 //Update the window visibility
                 UpdateWindowVisibility(true);
             }
@@ -91,8 +90,11 @@ namespace DirectXInput.OverlayCode
             {
                 if (visible)
                 {
-                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                    //Create and show the window
+                    base.Show();
+
+                    //Update the window style (focus workaround)
+                    UpdateWindowStyle();
 
                     this.Title = "DirectXInput Overlay (Visible)";
                     vWindowVisible = true;
@@ -100,6 +102,7 @@ namespace DirectXInput.OverlayCode
                 }
                 else
                 {
+                    //Update the window style
                     IntPtr updatedStyle = IntPtr.Zero;
                     SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
@@ -111,19 +114,21 @@ namespace DirectXInput.OverlayCode
             catch { }
         }
 
-        //Update the window style
-        public void UpdateWindowStyle()
+        //Update the window style (focus workaround)
+        void UpdateWindowStyle()
         {
             try
             {
+                //Set the window style
+                IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+
                 //Set the window style ex
                 IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
                 SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
 
                 //Set the window as top most
                 SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
-
-                Debug.WriteLine("Window style has been updated.");
             }
             catch { }
         }

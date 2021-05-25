@@ -77,6 +77,7 @@ namespace DirectXInput.KeyboardCode
                         ControllerDelayShort = true;
                     }
 
+                    //Delay input to prevent repeat
                     if (ControllerDelayMicro)
                     {
                         vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayMicroTicks;
@@ -260,6 +261,7 @@ namespace DirectXInput.KeyboardCode
                         ControllerDelayMedium = true;
                     }
 
+                    //Delay input to prevent repeat
                     if (ControllerDelayShort)
                     {
                         vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayShortTicks;
@@ -267,6 +269,12 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerDelayMedium)
                     {
                         vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    }
+
+                    //Update the window style (focus workaround)
+                    if (ControllerDelayShort || ControllerDelayMedium)
+                    {
+                        UpdateWindowStyle();
                     }
                 }
             }

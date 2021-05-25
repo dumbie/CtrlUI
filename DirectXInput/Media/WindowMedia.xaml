@@ -40,11 +40,16 @@
                         <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.80"/>
                     </Border.Background>
                 </Border>
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <StackPanel Margin="5,0,5,0" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="26" Opacity="0.80"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Left/Right"/>
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LtOff.png" Height="26" Opacity="0.80"/>
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RtOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Change volume"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Volume"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/StartOff.png" Height="26" Opacity="0.80"/>
@@ -74,7 +79,7 @@
                     </Border.Background>
                 </Border>
 
-                <StackPanel Orientation="Horizontal" MinHeight="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,20,0">
+                <StackPanel Orientation="Horizontal" MinHeight="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,15,0">
                     <Image Name="img_Main_MicrophoneMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png" Height="38"/>
                     <Image Name="img_Main_VolumeMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png" Height="38"/>
                     <Image Name="img_Main_Battery" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerDis100.png" Height="38"/>
@@ -90,7 +95,7 @@
                     <TextBlock Name="txt_Main_Time" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
                 </StackPanel>
 
-                <Grid Margin="25,50,25,25">
+                <Grid Margin="25,55,25,25">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -118,35 +123,47 @@
                         </StackPanel>
                     </Grid>
 
-                    <StackPanel Grid.Row="1" Margin="0,0,0,15" HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button Name="button_Previous" Width="100" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Previous_Click">
+                    <StackPanel Grid.Row="1" Margin="0,0,0,10" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button Name="button_ArrowLeft" Width="70" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_ArrowLeft_Click">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/ArrowLeft.png"/>
+                        </Button>
+                        <Button Name="button_Fullscreen" Margin="30,0,30,0" Width="70" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Fullscreen_Click">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MediaFullscreen.png"/>
+                        </Button>
+                        <Button Name="button_ArrowRight" Width="70" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_ArrowRight_Click">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/ArrowRight.png"/>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Margin="0,0,0,10" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button Name="button_Previous" Width="70" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Previous_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MediaPrevious.png"/>
                         </Button>
-                        <Button Name="button_PlayPause" Margin="50,0,50,0" Width="110" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_PlayPause_Click">
+                        <Button Name="button_PlayPause" Margin="30,0,30,0" Width="70" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_PlayPause_Click">
                             <Image Name="button_PlayPause_Image" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MediaPlayPause.png"/>
                         </Button>
-                        <Button Name="button_Next" Width="100" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Next_Click">
+                        <Button Name="button_Next" Width="70" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Next_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MediaNext.png"/>
                         </Button>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="2" Margin="0,0,0,15" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <StackPanel Grid.Row="3" Margin="0,0,0,10" HorizontalAlignment="Center" Orientation="Horizontal">
                         <Button Name="button_InputMute" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_InputMute_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png"/>
                         </Button>
-                        <Button Name="button_OutputMute" Margin="45,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_OutputMute_Click">
+                        <Button Name="button_OutputMute" Margin="25,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_OutputMute_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png"/>
                         </Button>
-                        <Button Name="button_VolumeDown" Margin="45,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeDown_Click">
+                        <Button Name="button_VolumeDown" Margin="25,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeDown_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeDown.png"/>
                         </Button>
-                        <Button Name="button_VolumeUp" Margin="45,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeUp_Click">
+                        <Button Name="button_VolumeUp" Margin="25,0,0,0" Width="60" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_VolumeUp_Click">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeUp.png"/>
                         </Button>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="3" HorizontalAlignment="Center">
-                        <TextBlock Name="button_Volume_Level" Text="System volume" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeLarge}"/>
+                    <StackPanel Grid.Row="4" HorizontalAlignment="Center">
+                        <TextBlock Name="textblock_Volume_Level" Text="System volume" TextAlignment="Center" HorizontalAlignment="Stretch" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeLarge}"/>
                         <Button Name="button_EnableDisableTriggerRumble" Content="Enable or disable trigger rumble" Margin="0,15,0,0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_EnableDisableTriggerRumble_Click"/>
                         <Button Name="button_ShowOrHideFpsOverlayer" Content="Show or hide the Fps Overlayer" Margin="0,15,0,0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_ShowOrHideFpsOverlayer_Click"/>
                         <Button Name="button_Close" Content="Close media popup" Margin="0,15,0,0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_Close_Click"/>

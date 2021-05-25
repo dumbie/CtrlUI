@@ -64,13 +64,13 @@ namespace DirectXInput
                 if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "AppFirstLaunch")))
                 {
                     Debug.WriteLine("First launch showing the window.");
-                    await Application_ShowHideWindow();
+                    Application_ShowHideWindow();
                 }
 
                 //Check if drivers are installed
                 if (!CheckInstalledDrivers())
                 {
-                    if (!ShowInTaskbar) { await Application_ShowHideWindow(); }
+                    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
                     await Message_InstallDrivers();
                     return;
                 }
@@ -78,7 +78,7 @@ namespace DirectXInput
                 //Open the virtual bus driver
                 if (!await OpenVirtualBusDriver())
                 {
-                    if (!ShowInTaskbar) { await Application_ShowHideWindow(); }
+                    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
                     await Message_InstallDrivers();
                     return;
                 }
@@ -86,7 +86,7 @@ namespace DirectXInput
                 //Open the hid hide device
                 if (!OpenHidHideDevice())
                 {
-                    if (!ShowInTaskbar) { await Application_ShowHideWindow(); }
+                    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
                     await Message_InstallDrivers();
                     return;
                 }
@@ -149,7 +149,7 @@ namespace DirectXInput
                 Setting_Save(vConfigurationDirectXInput, "AppFirstLaunch", "False");
 
                 //Enable the socket server
-                EnableSocketServer();
+                await EnableSocketServer();
             }
             catch { }
         }
@@ -173,7 +173,7 @@ namespace DirectXInput
         }
 
         //Enable the socket server
-        private void EnableSocketServer()
+        private async Task EnableSocketServer()
         {
             try
             {
@@ -182,6 +182,7 @@ namespace DirectXInput
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, true, true);
                 vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
+                await vArnoldVinkSockets.SocketServerEnable();
             }
             catch { }
         }
@@ -245,11 +246,11 @@ namespace DirectXInput
         }
 
         //Make sure the correct window style is set
-        async void CheckWindowStateAndStyle(object sender, EventArgs e)
+        void CheckWindowStateAndStyle(object sender, EventArgs e)
         {
             try
             {
-                if (WindowState == WindowState.Minimized) { await Application_ShowHideWindow(); }
+                if (WindowState == WindowState.Minimized) { Application_ShowHideWindow(); }
             }
             catch { }
         }

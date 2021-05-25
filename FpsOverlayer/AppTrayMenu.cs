@@ -2,9 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
-using System.Windows;
 using System.Windows.Forms;
-using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
 {
@@ -41,30 +39,6 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Show and hide the fps overlay
-        void ShowHideFpsOverlayerManual()
-        {
-            try
-            {
-                if (this.Visibility == Visibility.Visible)
-                {
-                    Debug.WriteLine("Hiding application.");
-                    this.Visibility = Visibility.Collapsed;
-                    vManualHidden = true;
-                }
-                else
-                {
-                    Debug.WriteLine("Showing application.");
-                    this.Visibility = Visibility.Visible;
-                    vManualHidden = false;
-
-                    //Update the fps overlay style
-                    UpdateFpsOverlayStyle();
-                }
-            }
-            catch { }
-        }
-
         //Show and hide settings
         void Application_ShowHideSettings()
         {
@@ -91,7 +65,7 @@ namespace FpsOverlayer
             {
                 if (args.Button == MouseButtons.Left)
                 {
-                    ShowHideFpsOverlayerManual();
+                    SwitchWindowVisibilityManual();
                 }
                 else if (args.Button == MouseButtons.Middle)
                 {

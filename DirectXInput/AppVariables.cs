@@ -113,7 +113,7 @@ namespace DirectXInput
         public static int vControllerOffsetNormal = 15000;
         public static int vControllerDelayNanoTicks = 10;
         public static int vControllerDelayMicroTicks = 75;
-        public static int vControllerDelayShortTicks = 130;
+        public static int vControllerDelayShortTicks = 125;
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 500;
         public static int vControllerDelayLongerTicks = 750;

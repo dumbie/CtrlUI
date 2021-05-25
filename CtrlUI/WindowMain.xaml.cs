@@ -134,9 +134,6 @@ namespace CtrlUI
                 //Start the background tasks
                 TasksBackgroundStart();
 
-                //Enable the socket server
-                EnableSocketServer();
-
                 //Check settings if DirectXInput launches on start
                 if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchDirectXInput")))
                 {
@@ -177,6 +174,9 @@ namespace CtrlUI
                 //Update the controller color
                 UpdateControllerColor();
 
+                //Enable the socket server
+                await EnableSocketServer();
+
                 //Check for available application update
                 await CheckForAppUpdate(true);
             }
@@ -184,7 +184,7 @@ namespace CtrlUI
         }
 
         //Enable the socket server
-        private void EnableSocketServer()
+        private async Task EnableSocketServer()
         {
             try
             {
@@ -193,6 +193,7 @@ namespace CtrlUI
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, true, false);
                 vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
+                await vArnoldVinkSockets.SocketServerEnable();
             }
             catch { }
         }

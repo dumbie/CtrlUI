@@ -33,28 +33,45 @@ namespace DirectXInput.KeypadCode
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
 
+        //Window Initialized
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            try
+            {
+                //Get interop window handle
+                vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
+
+                //Update the window style
+                UpdateWindowStyle();
+
+                //Update the window position
+                UpdateWindowPosition();
+
+                //Check if resolution has changed
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+            }
+            catch { }
+        }
+
         //Hide the window
         public new async Task Hide()
         {
             try
             {
-                if (vWindowVisible)
-                {
-                    //Delay CtrlUI output
-                    vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                //Delay CtrlUI output
+                vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
 
-                    //Play window close sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                //Play window close sound
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                    //Update the window visibility
-                    UpdateWindowVisibility(false);
+                //Update the window visibility
+                UpdateWindowVisibility(false);
 
-                    //Notify - Fps Overlayer keypad size changed
-                    await NotifyFpsOverlayerKeypadSizeChanged(0);
-                }
+                //Notify - Fps Overlayer keypad size changed
+                await NotifyFpsOverlayerKeypadSizeChanged(0);
             }
             catch { }
         }
@@ -64,24 +81,6 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                if (vInteropWindowHandle == IntPtr.Zero)
-                {
-                    //Get interop window handle
-                    vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
-
-                    //Check if resolution has changed
-                    SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-
-                    //Show the window
-                    base.Show();
-
-                    //Update the window style
-                    UpdateWindowStyle();
-
-                    //Update the window position
-                    UpdateWindowPosition();
-                }
-
                 //Close other popups
                 App.vWindowKeyboard.Hide();
                 await App.vWindowMedia.Hide();
@@ -248,8 +247,11 @@ namespace DirectXInput.KeypadCode
             {
                 if (visible)
                 {
-                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                    //Create and show the window
+                    base.Show();
+
+                    //Update the window style (focus workaround)
+                    UpdateWindowStyle();
 
                     this.Title = "DirectXInput Keypad (Visible)";
                     vWindowVisible = true;
@@ -257,6 +259,7 @@ namespace DirectXInput.KeypadCode
                 }
                 else
                 {
+                    //Update the window style
                     IntPtr updatedStyle = IntPtr.Zero;
                     SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
@@ -268,19 +271,21 @@ namespace DirectXInput.KeypadCode
             catch { }
         }
 
-        //Update the window style
-        public void UpdateWindowStyle()
+        //Update the window style (focus workaround)
+        void UpdateWindowStyle()
         {
             try
             {
+                //Set the window style
+                IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+
                 //Set the window style ex
                 IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
                 SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
 
                 //Set the window as top most
                 SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
-
-                Debug.WriteLine("Window style has been updated.");
             }
             catch { }
         }

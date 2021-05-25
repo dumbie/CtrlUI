@@ -28,11 +28,11 @@ namespace LibraryUsb
                 DevicePath = devicePath.ToLower();
                 DeviceInstanceId = ConvertPathToInstanceId(DevicePath);
 
-                //if (initialize)
-                //{
-                //    DisableDevice();
-                //    EnableDevice();
-                //}
+                if (initialize)
+                {
+                    DisableDevice();
+                    EnableDevice();
+                }
 
                 if (OpenDevice())
                 {

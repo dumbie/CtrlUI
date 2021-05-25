@@ -140,6 +140,39 @@ namespace DirectXInput.MediaCode
             catch { }
         }
 
+        //Fullscreen media
+        async void button_Fullscreen_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
+                await KeyPressComboAuto(KeysVirtual.Alt, KeysVirtual.Enter);
+            }
+            catch { }
+        }
+
+        //Move left
+        async void button_ArrowLeft_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
+                await KeyPressSingleAuto(KeysVirtual.Left);
+            }
+            catch { }
+        }
+
+        //Move right
+        async void button_ArrowRight_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
+                await KeyPressSingleAuto(KeysVirtual.Right);
+            }
+            catch { }
+        }
+
         //Update the currently playing media
         async Task UpdateCurrentMediaInformation()
         {
@@ -169,7 +202,7 @@ namespace DirectXInput.MediaCode
                 //Update the media and volume information
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    button_Volume_Level.Text = currentVolumeString;
+                    textblock_Volume_Level.Text = currentVolumeString;
                 });
 
                 //Get the media session manager

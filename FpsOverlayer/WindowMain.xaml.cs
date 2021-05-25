@@ -31,17 +31,15 @@ namespace FpsOverlayer
 
         //Window Variables
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
+        public bool vWindowVisible = false;
 
         //Window Initialized
-        protected override void OnSourceInitialized(EventArgs e)
+        protected override async void OnSourceInitialized(EventArgs e)
         {
             try
             {
                 //Get interop window handle
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
-
-                //Check if resolution has changed
-                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
                 //Update the window style
                 UpdateWindowStyle();
@@ -71,13 +69,38 @@ namespace FpsOverlayer
                 StartMonitorHardware();
 
                 //Enable the socket server
-                EnableSocketServer();
+                await EnableSocketServer();
+
+                //Check if resolution has changed
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+            }
+            catch { }
+        }
+
+        //Hide the window
+        public new void Hide()
+        {
+            try
+            {
+                //Update the window visibility
+                UpdateWindowVisibility(false);
+            }
+            catch { }
+        }
+
+        //Show the window
+        public new void Show()
+        {
+            try
+            {
+                //Update the window visibility
+                UpdateWindowVisibility(true);
             }
             catch { }
         }
 
         //Enable the socket server
-        private void EnableSocketServer()
+        private async Task EnableSocketServer()
         {
             try
             {
@@ -86,6 +109,7 @@ namespace FpsOverlayer
                 vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, true, false);
                 vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
+                await vArnoldVinkSockets.SocketServerEnable();
             }
             catch { }
         }
@@ -104,19 +128,74 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update the window style
+        //Switch the window visibility
+        public void SwitchWindowVisibilityManual()
+        {
+            try
+            {
+                if (vWindowVisible)
+                {
+                    UpdateWindowVisibility(false);
+                    vManualHidden = true;
+                }
+                else
+                {
+                    UpdateWindowVisibility(true);
+                    vManualHidden = false;
+                }
+            }
+            catch { }
+        }
+
+        //Update the window visibility
+        public void UpdateWindowVisibility(bool visible)
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    if (visible)
+                    {
+                        //Create and show the window
+                        base.Show();
+
+                        //Update the window style (focus workaround)
+                        UpdateWindowStyle();
+
+                        this.Title = "Fps Overlayer (Visible)";
+                        vWindowVisible = true;
+                        Debug.WriteLine("Showing the window.");
+                    }
+                    else
+                    {
+                        //Update the window style
+                        IntPtr updatedStyle = IntPtr.Zero;
+                        SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+
+                        this.Title = "Fps Overlayer (Hidden)";
+                        vWindowVisible = false;
+                        Debug.WriteLine("Hiding the window.");
+                    }
+                });
+            }
+            catch { }
+        }
+
+        //Update the window style (focus workaround)
         void UpdateWindowStyle()
         {
             try
             {
+                //Set the window style
+                IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+
                 //Set the window style ex
                 IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
                 SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
 
                 //Set the window as top most
                 SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
-
-                Debug.WriteLine("Window style has been updated.");
             }
             catch { }
         }
@@ -212,18 +291,12 @@ namespace FpsOverlayer
                 //Hide or show the fps overlayer
                 if (targetTextPosition == OverlayPosition.Hidden)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        this.Visibility = Visibility.Collapsed;
-                    });
+                    UpdateWindowVisibility(false);
                     return;
                 }
                 else if (!vManualHidden)
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        this.Visibility = Visibility.Visible;
-                    });
+                    UpdateWindowVisibility(true);
                 }
 
                 //Move fps to set position
