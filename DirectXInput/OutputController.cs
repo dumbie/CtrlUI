@@ -4,7 +4,6 @@ using System.Windows.Media;
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.CRC32;
 using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 
@@ -77,7 +76,7 @@ namespace DirectXInput
                     outputReport[4] = 0x08;
 
                     //Add CRC32 to bytes array
-                    byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport);
+                    byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport, 74);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReportCRC32);
@@ -87,30 +86,6 @@ namespace DirectXInput
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to initialize game controller: " + ex.Message);
-            }
-        }
-
-        //Add CRC32 hash to bytes array
-        private byte[] ByteArrayAddCRC32(byte[] outputReport)
-        {
-            try
-            {
-                //Compute CRC32 hash
-                byte[] checksum = ComputeHashCRC32(outputReport, false);
-
-                //Add CRC32 hash bytes
-                byte[] outputReportCRC32 = new byte[outputReport.Length + 4];
-                Array.Copy(outputReport, 1, outputReportCRC32, 0, outputReport.Length - 1);
-                outputReportCRC32[74] = checksum[0];
-                outputReportCRC32[75] = checksum[1];
-                outputReportCRC32[76] = checksum[2];
-                outputReportCRC32[77] = checksum[3];
-                return outputReportCRC32;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to add CRC32 bytes to the array: " + ex.Message);
-                return outputReport;
             }
         }
 
@@ -244,7 +219,7 @@ namespace DirectXInput
                     outputReport[49] = Convert.ToByte(controllerColor.B * controllerLedBrightness);
 
                     //Add CRC32 to bytes array
-                    byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport);
+                    byte[] outputReportCRC32 = ByteArrayAddCRC32(outputReport, 74);
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReportCRC32);

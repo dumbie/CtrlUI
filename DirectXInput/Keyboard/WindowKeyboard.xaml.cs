@@ -54,9 +54,6 @@ namespace DirectXInput.KeyboardCode
                 //Update the window position
                 UpdateWindowPosition();
 
-                //Check mouse cursor position
-                CheckMousePosition();
-
                 //Focus on popup button
                 await FocusPopupButton(true, key_h);
 
@@ -83,17 +80,23 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                //Delay CtrlUI output
-                vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                if (vWindowVisible)
+                {
+                    //Play window close sound
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                //Play window close sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                    //Update the window visibility
+                    UpdateWindowVisibility(false);
 
-                //Update the window visibility
-                UpdateWindowVisibility(false);
+                    //Update last active status
+                    vKeyboardKeypadLastActive = "Keyboard";
+
+                    //Delay CtrlUI output
+                    vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                }
             }
             catch { }
         }
@@ -116,9 +119,6 @@ namespace DirectXInput.KeyboardCode
                 //Disable hardware capslock
                 await DisableHardwareCapsLock();
 
-                //Check mouse cursor position
-                CheckMousePosition();
-
                 //Focus on keyboard button
                 await FocusPopupButton(false, key_h);
 
@@ -130,6 +130,9 @@ namespace DirectXInput.KeyboardCode
 
                 //Update the window visibility
                 UpdateWindowVisibility(true);
+
+                //Move mouse cursor to target
+                MoveMousePosition();
             }
             catch { }
         }
@@ -154,9 +157,6 @@ namespace DirectXInput.KeyboardCode
             {
                 //Wait for change to complete
                 await Task.Delay(500);
-
-                //Check mouse cursor position
-                CheckMousePosition();
 
                 //Update the window position
                 UpdateWindowPosition();
@@ -238,8 +238,8 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Activate keyboard window
-        void CheckMousePosition()
+        //Move mouse cursor to target
+        void MoveMousePosition()
         {
             try
             {
@@ -247,15 +247,30 @@ namespace DirectXInput.KeyboardCode
                 int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
-                //Get the current mouse position
-                GetCursorPos(out PointWin previousCursorPosition);
+                //Calculate target mouse position
+                int windowTop = (int)(this.Top * displayMonitorSettings.DpiScaleVertical);
+                int windowLeft = (int)(this.Left * displayMonitorSettings.DpiScaleHorizontal);
+                int windowWidth = (int)(this.ActualWidth * displayMonitorSettings.DpiScaleHorizontal);
+                int windowHeight = (int)(this.ActualHeight * displayMonitorSettings.DpiScaleVertical);
+                int targetWidth = windowLeft + (windowWidth / 2);
+                int targetHeight = windowTop - 30;
 
-                //Check if mouse cursor is in window
-                if ((displayMonitorSettings.HeightNative - previousCursorPosition.Y) <= this.Height)
+                //Check if target is outside screen
+                if (targetHeight < 0)
                 {
-                    previousCursorPosition.Y = Convert.ToInt32(displayMonitorSettings.HeightNative - this.Height - 20);
-                    SetCursorPos(previousCursorPosition.X, previousCursorPosition.Y);
+                    targetHeight = windowTop + windowHeight + 30;
                 }
+                if (targetWidth < 0)
+                {
+                    targetWidth = 30;
+                }
+                else if (targetWidth > displayMonitorSettings.WidthNative)
+                {
+                    targetWidth = displayMonitorSettings.WidthNative - 30;
+                }
+
+                //Move mouse cursor to target
+                SetCursorPos(targetWidth, targetHeight);
             }
             catch { }
         }

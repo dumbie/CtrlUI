@@ -146,7 +146,9 @@
     <Compile Include="Keyboard\MouseFunctions.cs" />
     <Compile Include="Keyboard\WindowKeyboard.xaml.cs" />
     <Compile Include="GyroDsu\GyroOutput.cs" />
+    <Compile Include="OutputInitialize.cs" />
     <Compile Include="OutputGyro.cs" />
+    <Compile Include="OutputCRC32.cs" />
     <Compile Include="Resources\InputOutput\InputKeyboard.cs" />
     <Compile Include="Resources\Settings\SettingsKeyboard.cs" />
     <Compile Include="Resources\Settings\SettingsKeypad.cs" />

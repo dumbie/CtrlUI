@@ -90,19 +90,19 @@ namespace DirectXInput
                     }
                     else if (receivedString == "KeyboardHideShow")
                     {
-                        await KeyboardControllerHideShow(false);
+                        await KeyboardPopupHideShow(false);
                     }
                     else if (receivedString == "KeyboardShow")
                     {
-                        await KeyboardControllerHideShow(true);
+                        await KeyboardPopupHideShow(true);
                     }
                     else if (receivedString == "MediaHideShow")
                     {
-                        await MediaControllerHideShow(false);
+                        await MediaPopupHideShow(false);
                     }
                     else if (receivedString == "MediaShow")
                     {
-                        await MediaControllerHideShow(true);
+                        await MediaPopupHideShow(true);
                     }
                 }
             }

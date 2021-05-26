@@ -88,7 +88,7 @@ namespace DirectXInput
         {
             try
             {
-                await KeyboardControllerHideShow(true);
+                await KeyboardPopupHideShow(true);
             }
             catch { }
         }

@@ -24,24 +24,28 @@ namespace DirectXInput.MediaCode
                     //Left stick movement
                     if (ControllerInput.ThumbLeftX < -10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
                     {
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         await KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.ThumbLeftY > 10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
                     {
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         await KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.ThumbLeftX > 10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
                     {
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         await KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.ThumbLeftY < -10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
                     {
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         await KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
 
                         ControllerDelayShort = true;

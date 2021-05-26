@@ -93,6 +93,7 @@ namespace DirectXInput
         public static int vDirectKeyboardEmojiIndexTravel = 0;
 
         //Keyboard Variables
+        public static string vKeyboardKeypadLastActive = "Keyboard";
         public static bool vCapsEnabled = false;
         public static bool vKeysEnabled = true;
         public static bool vMouseDownStatus = false;

@@ -67,18 +67,24 @@ namespace DirectXInput
                         ControllerUsed = true;
                         ControllerDelayLonger = true;
                     }
-                    //Show the keyboard controller
-                    else if (Controller.InputCurrent.ButtonGuide.PressedLong && !App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
+                    //Show the keyboard or keypad
+                    else if (Controller.InputCurrent.ButtonGuide.PressedLong)
                     {
-                        await KeyboardControllerHideShow(true);
-
-                        ControllerUsed = true;
-                        ControllerDelayLonger = true;
-                    }
-                    //Switch between keyboard and Keypad
-                    else if (Controller.InputCurrent.ButtonGuide.PressedLong && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible))
-                    {
-                        await KeyboardKeypadSwitch();
+                        if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
+                        {
+                            if (vKeyboardKeypadLastActive == "Keyboard")
+                            {
+                                await KeyboardPopupHideShow(true);
+                            }
+                            else
+                            {
+                                await KeypadPopupHideShow(true);
+                            }
+                        }
+                        else
+                        {
+                            await KeyboardKeypadPopupSwitch();
+                        }
 
                         ControllerUsed = true;
                         ControllerDelayLonger = true;
@@ -88,7 +94,7 @@ namespace DirectXInput
                     {
                         if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup")))
                         {
-                            await MediaControllerHideShow(false);
+                            await MediaPopupHideShow(false);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -213,7 +219,7 @@ namespace DirectXInput
         }
 
         //Switch between keyboard and keypad
-        async Task KeyboardKeypadSwitch()
+        async Task KeyboardKeypadPopupSwitch()
         {
             try
             {
@@ -235,8 +241,30 @@ namespace DirectXInput
             catch { }
         }
 
-        //Hide or show the keyboard controller
-        async Task KeyboardControllerHideShow(bool forceShow)
+        //Hide or show the keypad
+        async Task KeypadPopupHideShow(bool forceShow)
+        {
+            try
+            {
+                Debug.WriteLine("Shortcut keypad has been pressed.");
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                {
+                    if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
+                    {
+                        await App.vWindowKeypad.Show();
+                    }
+                    else if (!forceShow)
+                    {
+                        App.vWindowKeyboard.Hide();
+                        await App.vWindowKeypad.Hide();
+                    }
+                });
+            }
+            catch { }
+        }
+
+        //Hide or show the keyboard
+        async Task KeyboardPopupHideShow(bool forceShow)
         {
             try
             {
@@ -273,7 +301,7 @@ namespace DirectXInput
         }
 
         //Hide or show the media controller
-        async Task MediaControllerHideShow(bool forceShow)
+        async Task MediaPopupHideShow(bool forceShow)
         {
             try
             {

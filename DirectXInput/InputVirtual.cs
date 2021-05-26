@@ -43,7 +43,7 @@ namespace DirectXInput
                 bool blockOutputShortcut = await ControllerShortcut(Controller);
 
                 //Check if controller output needs to be forwarded
-                bool blockOutputApplication = await ControllerForwardOutput(Controller);
+                bool blockOutputApplication = await ControllerOutputApps(Controller);
 
                 //Check if output or guide button needs to be blocked
                 if (blockOutputApplication || blockOutputShortcut || Controller.BlockInteraction)

@@ -41,9 +41,6 @@ namespace DirectXInput.MediaCode
                 //Update the window position
                 UpdateWindowPosition();
 
-                //Check mouse cursor position
-                CheckMousePosition();
-
                 //Focus on popup button
                 await FocusPopupButton(true, button_PlayPause);
 
@@ -64,20 +61,23 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                //Stop the update tasks
-                await TasksBackgroundStop();
+                if (vWindowVisible)
+                {
+                    //Play window close sound
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                //Delay CtrlUI output
-                vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    //Stop the update tasks
+                    await TasksBackgroundStop();
 
-                //Play window close sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                    //Update the window visibility
+                    UpdateWindowVisibility(false);
 
-                //Update the window visibility
-                UpdateWindowVisibility(false);
+                    //Delay CtrlUI output
+                    vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                }
             }
             catch { }
         }
@@ -100,17 +100,14 @@ namespace DirectXInput.MediaCode
                 //Start the update tasks
                 TasksBackgroundStart();
 
-                //Check mouse cursor position
-                CheckMousePosition();
-
                 //Focus on keyboard button
                 await FocusPopupButton(false, button_PlayPause);
 
-                //Update the window position
-                UpdateWindowPosition();
-
                 //Update the window visibility
                 UpdateWindowVisibility(true);
+
+                //Move mouse cursor to target
+                MoveMousePosition();
             }
             catch { }
         }
@@ -135,9 +132,6 @@ namespace DirectXInput.MediaCode
             {
                 //Wait for change to complete
                 await Task.Delay(500);
-
-                //Check mouse cursor position
-                CheckMousePosition();
 
                 //Update the window position
                 UpdateWindowPosition();
@@ -219,8 +213,8 @@ namespace DirectXInput.MediaCode
             catch { }
         }
 
-        //Activate keyboard window
-        void CheckMousePosition()
+        //Move mouse cursor to target
+        void MoveMousePosition()
         {
             try
             {
@@ -228,18 +222,30 @@ namespace DirectXInput.MediaCode
                 int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
 
-                //Get the current mouse position
-                GetCursorPos(out PointWin previousCursorPosition);
+                //Calculate target mouse position
+                int windowTop = (int)(this.Top * displayMonitorSettings.DpiScaleVertical);
+                int windowLeft = (int)(this.Left * displayMonitorSettings.DpiScaleHorizontal);
+                int windowWidth = (int)(this.ActualWidth * displayMonitorSettings.DpiScaleHorizontal);
+                int windowHeight = (int)(this.ActualHeight * displayMonitorSettings.DpiScaleVertical);
+                int targetWidth = windowLeft + (windowWidth / 2);
+                int targetHeight = windowTop - 30;
 
-                //Check if mouse cursor is in window
-                int windowHeight = (int)this.Height;
-                int displayCenterTop = (int)(displayMonitorSettings.BoundsTop + (displayMonitorSettings.HeightNative - windowHeight) / 2);
-                int displayCenterBottom = displayCenterTop + windowHeight;
-                if (AVFunctions.BetweenNumbers(previousCursorPosition.Y, displayCenterTop, displayCenterBottom, true))
+                //Check if target is outside screen
+                if (targetHeight < 0)
                 {
-                    previousCursorPosition.Y = displayCenterTop - 20;
-                    SetCursorPos(previousCursorPosition.X, previousCursorPosition.Y);
+                    targetHeight = windowTop + windowHeight + 30;
                 }
+                if (targetWidth < 0)
+                {
+                    targetWidth = 30;
+                }
+                else if (targetWidth > displayMonitorSettings.WidthNative)
+                {
+                    targetWidth = displayMonitorSettings.WidthNative - 30;
+                }
+
+                //Move mouse cursor to target
+                SetCursorPos(targetWidth, targetHeight);
             }
             catch { }
         }

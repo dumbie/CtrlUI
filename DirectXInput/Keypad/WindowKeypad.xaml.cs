@@ -58,20 +58,26 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                //Delay CtrlUI output
-                vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                if (vWindowVisible)
+                {
+                    //Play window close sound
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
-                //Play window close sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                    //Update the window visibility
+                    UpdateWindowVisibility(false);
 
-                //Update the window visibility
-                UpdateWindowVisibility(false);
+                    //Notify - Fps Overlayer keypad size changed
+                    await NotifyFpsOverlayerKeypadSizeChanged(0);
 
-                //Notify - Fps Overlayer keypad size changed
-                await NotifyFpsOverlayerKeypadSizeChanged(0);
+                    //Update last active status
+                    vKeyboardKeypadLastActive = "Keypad";
+
+                    //Delay CtrlUI output
+                    vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                }
             }
             catch { }
         }
