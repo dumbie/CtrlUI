@@ -142,5 +142,40 @@ namespace DirectXInput.MediaCode
                 });
             }
         }
+
+        //Update the trigger rumble button
+        void UpdateTriggerRumbleButton()
+        {
+            try
+            {
+                //Debug.WriteLine("Updating trigger rumble button.");
+                ControllerStatus activeController = AppVariables.vActiveController();
+                if (activeController == null)
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        button_EnableDisableTriggerRumble.Visibility = Visibility.Collapsed;
+                    });
+                    return;
+                }
+
+                //Check if controller supports trigger rumble
+                if (activeController.SupportedCurrent.HasRumbleTrigger)
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        button_EnableDisableTriggerRumble.Visibility = Visibility.Visible;
+                    });
+                }
+                else
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        button_EnableDisableTriggerRumble.Visibility = Visibility.Collapsed;
+                    });
+                }
+            }
+            catch { }
+        }
     }
 }

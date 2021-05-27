@@ -29,6 +29,7 @@
     "HasTouchpad": true,
     "HasGyroscope": true,
     "HasAccelerometer": true,
+    "HasRumbleTrigger": true,
     "OffsetUsb": {
       "ButtonsGroup1": 7,
       "ButtonsGroup2": 8,

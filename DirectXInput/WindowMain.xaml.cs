@@ -115,7 +115,7 @@ namespace DirectXInput
                 JsonLoadProfile(ref vDirectKeyboardTextList, "DirectKeyboardTextList");
 
                 //Load controllers supported
-                JsonLoadProfile(ref vDirectControllersSupported, "DirectControllersSupported");
+                JsonLoadProfile(ref vDirectControllersSupported, @"Default\DirectControllersSupported");
 
                 //Load controllers ignored
                 JsonLoadProfile(ref vDirectControllersIgnoredUser, @"User\DirectControllersIgnored");

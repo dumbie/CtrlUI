@@ -545,7 +545,7 @@
     <Content Include="Profiles\DirectControllersProfile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\DirectControllersSupported.json">
+    <Content Include="Profiles\Default\DirectControllersSupported.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\App.config" />

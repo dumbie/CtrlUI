@@ -18,9 +18,9 @@ namespace DirectXInput
                 byte[] outputReportCRC32 = new byte[outputReport.Length + 4];
                 Array.Copy(outputReport, 1, outputReportCRC32, 0, outputReport.Length - 1);
                 outputReportCRC32[crcStartIndex] = checksum[0];
-                outputReportCRC32[crcStartIndex++] = checksum[1];
-                outputReportCRC32[crcStartIndex++] = checksum[2];
-                outputReportCRC32[crcStartIndex++] = checksum[3];
+                outputReportCRC32[crcStartIndex + 1] = checksum[1];
+                outputReportCRC32[crcStartIndex + 2] = checksum[2];
+                outputReportCRC32[crcStartIndex + 3] = checksum[3];
                 return outputReportCRC32;
             }
             catch (Exception ex)

@@ -10,6 +10,7 @@
             public bool HasTouchpad { get; set; }
             public bool HasGyroscope { get; set; }
             public bool HasAccelerometer { get; set; }
+            public bool HasRumbleTrigger { get; set; }
             public Offset OffsetUsb { get; set; } = new Offset();
             public Offset OffsetWireless { get; set; } = new Offset();
 

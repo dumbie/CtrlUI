@@ -54,6 +54,7 @@ namespace DirectXInput.MediaCode
                 {
                     UpdateClockTime();
                     UpdateBatteryStatus();
+                    UpdateTriggerRumbleButton();
 
                     //Delay the loop task
                     await TaskDelayLoop(1000, vTask_UpdateTimeBatteryInformation);

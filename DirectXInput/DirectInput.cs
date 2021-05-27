@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -154,6 +155,16 @@ namespace DirectXInput
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    //Check if controller supports trigger rumble
+                    if (Controller.SupportedCurrent.HasRumbleTrigger)
+                    {
+                        stackpanel_TriggerRumbleSettings.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        stackpanel_TriggerRumbleSettings.Visibility = Visibility.Collapsed;
+                    }
+
                     cb_ControllerFakeGuideButton.IsChecked = Controller.Details.Profile.FakeGuideButton;
 
                     cb_ControllerUseButtonTriggers.IsChecked = Controller.Details.Profile.UseButtonTriggers;
