@@ -23,6 +23,7 @@ namespace DirectXInput
                 textblock_BatteryLowLevel.Text = textblock_BatteryLowLevel.Tag + ": " + batteryLevelLowInt + "%";
                 slider_BatteryLowLevel.Value = batteryLevelLowInt;
 
+                cb_SettingsBatteryLowBlinkLed.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowBlinkLed"));
                 cb_SettingsBatteryLowShowNotification.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowShowNotification"));
                 cb_SettingsBatteryLowPlaySound.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowPlaySound"));
 

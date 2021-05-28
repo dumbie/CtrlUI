@@ -20,6 +20,13 @@ namespace LibraryShared
 
             //Color Status
             public Color? Color = null;
+            public bool ColorLedBlink = false;
+            public byte ColorLedCurrentR = 0;
+            public byte ColorLedPreviousR = 0;
+            public byte ColorLedCurrentG = 0;
+            public byte ColorLedPreviousG = 0;
+            public byte ColorLedCurrentB = 0;
+            public byte ColorLedPreviousB = 0;
 
             //Battery Status
             public ControllerBattery BatteryCurrent = new ControllerBattery();

@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System.Windows;
+using System.Windows.Media;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -60,6 +61,7 @@ namespace DirectXInput
                         //Update name and type
                         txt_ActiveControllerType.Text = Controller.Details.Wireless ? "Wireless" : "Wired";
                         txt_ActiveControllerName.Text = Controller.Details.DisplayName;
+                        txt_ActiveControllerName.Foreground = new SolidColorBrush((Color)Controller.Color);
 
                         //Update latency
                         long latencyMs = Controller.LastInputTicks - Controller.PrevInputTicks;

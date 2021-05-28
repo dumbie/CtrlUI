@@ -119,6 +119,7 @@
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppTrayMenu.cs" />
     <Compile Include="AppVariables.cs" />
+    <Compile Include="ControllerLed.cs" />
     <Compile Include="ControllerDebug.cs" />
     <Compile Include="ControllerIgnore.cs" />
     <Compile Include="ControllerDriver.cs" />

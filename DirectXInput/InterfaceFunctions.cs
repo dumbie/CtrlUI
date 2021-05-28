@@ -310,8 +310,8 @@ namespace DirectXInput
                         activeController.Details.Profile.LedBrightness = Convert.ToInt32(slider_ControllerLedBrightness.Value);
                         JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
 
-                        //Update the controller led
-                        ControllerOutput(activeController, false, false);
+                        //Controller update led color
+                        ControllerLedColor(activeController);
                     }
                 };
 

@@ -110,12 +110,6 @@ namespace DirectXInput
                 {
                     Debug.WriteLine("Controller " + Controller.NumberId + " battery level changed.");
 
-                    //Update controller battery led
-                    ControllerOutput(vController0, false, false);
-                    ControllerOutput(vController1, false, false);
-                    ControllerOutput(vController2, false, false);
-                    ControllerOutput(vController3, false, false);
-
                     //Check if battery level is low
                     if (batteryLevelLow)
                     {

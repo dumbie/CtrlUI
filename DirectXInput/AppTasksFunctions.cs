@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
+using static DirectXInput.AppVariables;
 
 namespace DirectXInput
 {
@@ -46,6 +47,24 @@ namespace DirectXInput
 
                     //Delay the loop task
                     await TaskDelayLoop(1000, vTask_ControllerTimeout);
+                }
+            }
+            catch { }
+        }
+
+        async Task vTaskLoop_ControllerLedColor()
+        {
+            try
+            {
+                while (!vTask_ControllerLedColor.TaskStopRequest)
+                {
+                    ControllerLedColor(vController0);
+                    ControllerLedColor(vController1);
+                    ControllerLedColor(vController2);
+                    ControllerLedColor(vController3);
+
+                    //Delay the loop task
+                    await TaskDelayLoop(1000, vTask_ControllerLedColor);
                 }
             }
             catch { }

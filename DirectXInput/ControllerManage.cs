@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using static ArnoldVinkCode.AVAudioDevice;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -40,20 +41,7 @@ namespace DirectXInput
         {
             try
             {
-                bool inputMuted = AudioMuteGetStatus(true);
-                if (inputMuted != vControllerMuteLed)
-                {
-                    //Update the controller led
-                    vControllerMuteLed = inputMuted;
-                    ControllerOutput(vController0, false, false);
-                    ControllerOutput(vController1, false, false);
-                    ControllerOutput(vController2, false, false);
-                    ControllerOutput(vController3, false, false);
-                }
-                else
-                {
-                    vControllerMuteLed = inputMuted;
-                }
+                vControllerMuteLedCurrent = AudioMuteGetStatus(true);
             }
             catch { }
         }
@@ -203,6 +191,7 @@ namespace DirectXInput
                         txt_ActiveControllerLatency.Text = "Latency";
                         txt_ActiveControllerBattery.Text = "Battery";
                         txt_ActiveControllerName.Text = "No controller";
+                        txt_ActiveControllerName.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
                     });
                 }
             }

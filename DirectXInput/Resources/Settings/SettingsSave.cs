@@ -40,6 +40,14 @@ namespace DirectXInput
                     CheckAllControllersLowBattery(true);
                 };
 
+                cb_SettingsBatteryLowBlinkLed.Click += (sender, e) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "BatteryLowBlinkLed", cb_SettingsBatteryLowBlinkLed.IsChecked.ToString());
+
+                    //Check all controllers for low battery level
+                    CheckAllControllersLowBattery(true);
+                };
+
                 cb_SettingsBatteryLowShowNotification.Click += (sender, e) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "BatteryLowShowNotification", cb_SettingsBatteryLowShowNotification.IsChecked.ToString());
@@ -73,8 +81,13 @@ namespace DirectXInput
                         Setting_Save(vConfigurationDirectXInput, "ControllerColor0", newBrush.ToString());
                         colorpicker_Controller0.Background = newBrush;
                         vController0.Color = newBrush.Color;
+                        if (vController0 == vActiveController())
+                        {
+                            txt_ActiveControllerName.Foreground = newBrush;
+                        }
 
-                        ControllerOutput(vController0, false, false);
+                        //Controller update led color
+                        ControllerLedColor(vController0);
                         await NotifyCtrlUISettingChanged("ControllerColor");
                     }
                 };
@@ -88,8 +101,13 @@ namespace DirectXInput
                         Setting_Save(vConfigurationDirectXInput, "ControllerColor1", newBrush.ToString());
                         colorpicker_Controller1.Background = newBrush;
                         vController1.Color = newBrush.Color;
+                        if (vController1 == vActiveController())
+                        {
+                            txt_ActiveControllerName.Foreground = newBrush;
+                        }
 
-                        ControllerOutput(vController1, false, false);
+                        //Controller update led color
+                        ControllerLedColor(vController1);
                         await NotifyCtrlUISettingChanged("ControllerColor");
                     }
                 };
@@ -103,8 +121,13 @@ namespace DirectXInput
                         Setting_Save(vConfigurationDirectXInput, "ControllerColor2", newBrush.ToString());
                         colorpicker_Controller2.Background = newBrush;
                         vController2.Color = newBrush.Color;
+                        if (vController2 == vActiveController())
+                        {
+                            txt_ActiveControllerName.Foreground = newBrush;
+                        }
 
-                        ControllerOutput(vController2, false, false);
+                        //Controller update led color
+                        ControllerLedColor(vController2);
                         await NotifyCtrlUISettingChanged("ControllerColor");
                     }
                 };
@@ -118,8 +141,13 @@ namespace DirectXInput
                         Setting_Save(vConfigurationDirectXInput, "ControllerColor3", newBrush.ToString());
                         colorpicker_Controller3.Background = newBrush;
                         vController3.Color = newBrush.Color;
+                        if (vController3 == vActiveController())
+                        {
+                            txt_ActiveControllerName.Foreground = newBrush;
+                        }
 
-                        ControllerOutput(vController3, false, false);
+                        //Controller update led color
+                        ControllerLedColor(vController3);
                         await NotifyCtrlUISettingChanged("ControllerColor");
                     }
                 };

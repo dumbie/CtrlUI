@@ -362,6 +362,9 @@
 
                     <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
                         <StackPanel>
+                            <CheckBox Name="cb_SettingsBatteryLowBlinkLed" Content="Blink controller led when the battery level gets low" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will blink the led when the controllers battery gets low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                             <CheckBox Name="cb_SettingsBatteryLowShowNotification" Content="Show warning notification when the battery level gets low" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                             <TextBlock Text="Enabling this will show a notification when the controllers battery gets low." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
@@ -426,7 +429,7 @@
                                 <CheckBox Name="cb_SettingsShortcutLaunchCtrlUI" Content="Show or launch CtrlUI by pressing the Guide button" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to show or launch CtrlUI with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                                <CheckBox Name="cb_SettingsShortcutLaunchKeyboardController" Margin="0,10,0,0" Content="Show keyboard popup by holding the Guide button" Style="{StaticResource CheckBoxBlack}"/>
+                                <CheckBox Name="cb_SettingsShortcutLaunchKeyboardController" Margin="0,10,0,0" Content="Show keyboard or keypad popup by holding the Guide button" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to show the keyboard popup with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Windows Shortcuts"/>
