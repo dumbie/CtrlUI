@@ -452,6 +452,13 @@
                                 <CheckBox Name="cb_SettingsShortcutMediaPopup" Content="Show media control popup by pressing the touchpad" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to show the media control popup with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
+                                <TextBlock Text="Controller media button functionality" TextWrapping="Wrap" Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Text="Change the media button to mute input or output volume." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <ComboBox Name="combobox_ShortcutMuteFunction" HorizontalAlignment="Left" Width="400" Style="{StaticResource ComboBoxBlack}">
+                                    <ComboBoxItem>Toggle input mute</ComboBoxItem>
+                                    <ComboBoxItem>Toggle output mute</ComboBoxItem>
+                                </ComboBox>
+
                                 <TextBlock Margin="0,10,0,0" Text="* Screenshots will be saved in your 'Pictures\Screenshots' directory." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>
                         </ScrollViewer>

@@ -24,6 +24,7 @@ namespace DirectXInput
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutWinTab") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutWinTab", "False"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshot", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutMediaPopup", "True"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutMuteFunction", "0"); }
 
                 //Battery settings
                 if (Setting_Load(vConfigurationDirectXInput, "BatteryLowLevel") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryLowLevel", "20"); }

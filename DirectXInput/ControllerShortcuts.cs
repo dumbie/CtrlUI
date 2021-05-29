@@ -103,8 +103,17 @@ namespace DirectXInput
                     //Mute or unmute the input/microphone
                     else if (Controller.InputCurrent.ButtonMedia.PressedRaw)
                     {
-                        App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Toggling input mute");
-                        AudioMuteSwitch(true);
+                        int muteFunction = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction"));
+                        if (muteFunction == 0)
+                        {
+                            App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Toggling input mute");
+                            AudioMuteSwitch(true);
+                        }
+                        else
+                        {
+                            App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
+                            AudioMuteSwitch(false);
+                        }
 
                         ControllerUsed = true;
                         ControllerDelayLonger = true;

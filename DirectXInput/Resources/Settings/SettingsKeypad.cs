@@ -124,8 +124,8 @@ namespace DirectXInput
                 slider_KeypadDisplaySize.Value = selectedProfile.KeypadDisplaySize;
 
                 //Load keypad repeat interval
-                textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + selectedProfile.ButtonRepeatIntervalMs + "ms";
-                slider_KeypadRepeatIntervalMs.Value = selectedProfile.ButtonRepeatIntervalMs;
+                textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + selectedProfile.ButtonDelayRepeatMs + "ms";
+                slider_KeypadRepeatIntervalMs.Value = selectedProfile.ButtonDelayRepeatMs;
 
                 //Update all keypad key tool tips
                 UpdateKeypadToolTips();

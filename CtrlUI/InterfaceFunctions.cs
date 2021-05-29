@@ -856,8 +856,6 @@ namespace CtrlUI
                     Debug.WriteLine("Maximizing CtrlUI window.");
 
                     WindowState = WindowState.Maximized;
-                    await Task.Delay(100); //(VRR activate workaround)
-                    WindowStyle = WindowStyle.None;
 
                     ////Hide the Windows taskbar
                     //IntPtr hWnd = FindWindow("Shell_TrayWnd", string.Empty);
@@ -870,8 +868,6 @@ namespace CtrlUI
                     Debug.WriteLine("Restoring CtrlUI window.");
 
                     WindowState = WindowState.Normal;
-                    await Task.Delay(100); //(VRR activate workaround)
-                    WindowStyle = WindowStyle.SingleBorderWindow;
 
                     ////Show the Windows taskbar
                     //IntPtr hWnd = FindWindow("Shell_TrayWnd", string.Empty);

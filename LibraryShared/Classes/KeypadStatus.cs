@@ -45,7 +45,8 @@
         public class KeypadDownStatus
         {
             public bool Pressed { get; set; } = false;
-            public long LastPressMs { get; set; } = 0;
+            public int RepeatCount { get; set; } = 0;
+            public long DelayPressMs { get; set; } = 0;
         }
     }
 }

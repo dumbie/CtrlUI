@@ -9,6 +9,7 @@ using System.Windows.Media;
 using static ArnoldVinkCode.AVAudioDevice;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace DirectXInput
 {
@@ -41,7 +42,15 @@ namespace DirectXInput
         {
             try
             {
-                vControllerMuteLedCurrent = AudioMuteGetStatus(true);
+                int muteFunction = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction"));
+                if (muteFunction == 0)
+                {
+                    vControllerMuteLedCurrent = AudioMuteGetStatus(true);
+                }
+                else
+                {
+                    vControllerMuteLedCurrent = AudioMuteGetStatus(false);
+                }
             }
             catch { }
         }

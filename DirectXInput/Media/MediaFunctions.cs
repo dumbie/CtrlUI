@@ -97,12 +97,12 @@ namespace DirectXInput.MediaCode
         }
 
         //Volume Output Mute
-        async void button_OutputMute_Click(object sender, RoutedEventArgs e)
+        void button_OutputMute_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
-                await KeyPressSingleAuto(KeysVirtual.VolumeMute);
+                AudioMuteSwitch(false);
             }
             catch { }
         }

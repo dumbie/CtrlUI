@@ -210,6 +210,11 @@ namespace DirectXInput
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
+                combobox_ShortcutMuteFunction.SelectionChanged += (sender, e) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutMuteFunction", combobox_ShortcutMuteFunction.SelectedIndex.ToString());
+                };
+
                 //Keyboard settings
                 slider_KeyboardOpacity.ValueChanged += (sender, e) =>
                 {
@@ -290,12 +295,12 @@ namespace DirectXInput
                 slider_KeypadRepeatIntervalMs.ValueChanged += (sender, e) =>
                 {
                     KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
-                    selectedProfile.ButtonRepeatIntervalMs = Convert.ToInt32(slider_KeypadRepeatIntervalMs.Value);
+                    selectedProfile.ButtonDelayRepeatMs = Convert.ToInt32(slider_KeypadRepeatIntervalMs.Value);
 
                     //Save changes to Json file
                     JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
 
-                    textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + selectedProfile.ButtonRepeatIntervalMs + "ms";
+                    textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + selectedProfile.ButtonDelayRepeatMs + "ms";
                 };
             }
             catch (Exception ex)
