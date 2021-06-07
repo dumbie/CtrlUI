@@ -76,39 +76,42 @@ namespace LibraryShared
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    //Check if save element is null
-                    if (saveElement == null)
+                    //Get the currently focused element
+                    if (focusedElement == null)
                     {
-                        Debug.WriteLine("Save element is null creating new.");
-                        saveElement = new FrameworkElementFocus();
+                        focusedElement = (FrameworkElement)Keyboard.FocusedElement;
                     }
 
+                    //Check the currently focused element
                     if (focusedElement != null)
                     {
+                        //Get focus type
+                        Type focusType = focusedElement.GetType().BaseType;
+
+                        //Validate focus type
+                        if (focusType == typeof(Window))
+                        {
+                            Debug.WriteLine("Invalid element focus type: " + focusType);
+                            saveElement = null;
+                            return;
+                        }
+
+                        //Check if save element is null
+                        if (saveElement == null)
+                        {
+                            Debug.WriteLine("Save element is null creating new.");
+                            saveElement = new FrameworkElementFocus();
+                        }
+
+                        //Save focused element
                         saveElement.FocusElement = focusedElement;
-                        if (saveElement.FocusElement != null && saveElement.FocusElement.GetType() == typeof(ListBoxItem))
+                        if (focusType == typeof(ListBoxItem))
                         {
                             saveElement.FocusListBox = AVFunctions.FindVisualParent<ListBox>(saveElement.FocusElement);
                             saveElement.FocusIndex = saveElement.FocusListBox.SelectedIndex;
                         }
-                        Debug.WriteLine("Saved focused element: " + focusedElement + " / index: " + saveElement.FocusIndex);
-                    }
-                    else
-                    {
-                        //Get the currently focused element
-                        FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
 
-                        //Check the currently focused element
-                        if (frameworkElement != null)
-                        {
-                            saveElement.FocusElement = frameworkElement;
-                            if (saveElement.FocusElement != null && saveElement.FocusElement.GetType() == typeof(ListBoxItem))
-                            {
-                                saveElement.FocusListBox = AVFunctions.FindVisualParent<ListBox>(saveElement.FocusElement);
-                                saveElement.FocusIndex = saveElement.FocusListBox.SelectedIndex;
-                            }
-                            Debug.WriteLine("Saved focused keyboard: " + frameworkElement + " / index: " + saveElement.FocusIndex);
-                        }
+                        Debug.WriteLine("Saved element focus: " + focusedElement + " / index: " + saveElement.FocusIndex);
                     }
                 });
             }
