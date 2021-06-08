@@ -186,7 +186,7 @@ namespace LibraryShared
                         ListBoxItem focusListBoxItem = (ListBoxItem)focusListBox.ItemContainerGenerator.ContainerFromInd‌​ex(selectedIndex);
                         await FrameworkElementFocus(focusListBoxItem, false, windowHandle);
 
-                        Debug.WriteLine("Focusing on listbox item: " + selectedIndex);
+                        Debug.WriteLine("Focusing on listbox item index: " + selectedIndex);
                     }
                     else
                     {

@@ -515,7 +515,7 @@ namespace DirectXInput
                 messageAnswers.Add("Install the drivers");
                 messageAnswers.Add("Close application");
 
-                string messageResult = await new AVMessageBox().Popup(this, "Drivers not installed", "Welcome to DirectXInput, it seems like you have not yet installed the required drivers to use this application, please make sure that you have installed the required drivers.\n\nDirectXInput will be closed during the installation of the required drivers.\n\nIf you just installed the drivers and this message shows up restart your PC.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", messageAnswers);
+                string messageResult = await new AVMessageBox().Popup(this, "Install drivers", "Welcome to DirectXInput, it seems like you have not yet installed the required drivers to use this application, please make sure that you have installed the required drivers.\n\nDirectXInput will be closed during the installation of the required drivers.\n\nIf you just installed the drivers and this message shows up restart your PC.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", messageAnswers);
                 if (messageResult == "Install the drivers")
                 {
                     if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false))
@@ -527,6 +527,28 @@ namespace DirectXInput
                 else
                 {
                     await Application_Exit();
+                }
+            }
+            catch { }
+        }
+
+        //Update the required drivers message popup
+        async Task Message_UpdateDrivers()
+        {
+            try
+            {
+                List<string> messageAnswers = new List<string>();
+                messageAnswers.Add("Update the drivers");
+                messageAnswers.Add("Cancel");
+
+                string messageResult = await new AVMessageBox().Popup(this, "Update drivers", "DirectXInput will be closed during the installation of the required drivers.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", messageAnswers);
+                if (messageResult == "Update the drivers")
+                {
+                    if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false))
+                    {
+                        await ProcessLauncherWin32Async("DriverInstaller.exe", "", "", false, false);
+                        await Application_Exit();
+                    }
                 }
             }
             catch { }

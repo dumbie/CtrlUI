@@ -44,12 +44,12 @@ namespace DirectXInput
             }
         }
 
-        //Install drivers buttons
+        //Update drivers buttons
         async void btn_Settings_InstallDrivers_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await Message_InstallDrivers();
+                await Message_UpdateDrivers();
             }
             catch { }
         }

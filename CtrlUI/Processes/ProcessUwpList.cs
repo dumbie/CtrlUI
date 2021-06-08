@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
-using Windows.Management.Deployment;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
@@ -242,80 +238,6 @@ namespace CtrlUI
                         }
                     }
                 }
-            }
-            catch { }
-        }
-
-        //List all available uwp applications
-        async Task ListLoadAllUwpApplications(ListBox targetListBox, ObservableCollection<DataBindFile> targetList)
-        {
-            try
-            {
-                //Set uwp application filters
-                string[] whiteListFamilyName = { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe" };
-                string[] blackListFamilyNameId = { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!PdfReader" };
-
-                //Get all the installed uwp apps
-                PackageManager deployPackageManager = new PackageManager();
-                string currentUserIdentity = WindowsIdentity.GetCurrent().User.Value;
-                IEnumerable<Package> appPackages = deployPackageManager.FindPackagesForUser(currentUserIdentity);
-                foreach (Package appPackage in appPackages)
-                {
-                    try
-                    {
-                        //Get basic application information
-                        string appFamilyName = appPackage.Id.FamilyName;
-
-                        //Check if the application is in whitelist
-                        if (!whiteListFamilyName.Contains(appFamilyName))
-                        {
-                            //Filter out system apps and others
-                            if (appPackage.IsBundle) { continue; }
-                            if (appPackage.IsOptional) { continue; }
-                            if (appPackage.IsFramework) { continue; }
-                            if (appPackage.IsResourcePackage) { continue; }
-                            if (appPackage.SignatureKind != PackageSignatureKind.Store) { continue; }
-                        }
-
-                        //Get detailed application information
-                        AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
-
-                        //Check if executable name is valid
-                        if (string.IsNullOrWhiteSpace(appxDetails.ExecutableName))
-                        {
-                            continue;
-                        }
-
-                        //Check if application name is valid
-                        if (string.IsNullOrWhiteSpace(appxDetails.DisplayName) || appxDetails.DisplayName.StartsWith("ms-resource"))
-                        {
-                            continue;
-                        }
-
-                        //Check if the application is in blacklist
-                        if (blackListFamilyNameId.Contains(appxDetails.FamilyNameId))
-                        {
-                            continue;
-                        }
-
-                        //Load the application image
-                        BitmapImage uwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 50, 0);
-
-                        //Add the application to the list
-                        DataBindFile dataBindFile = new DataBindFile() { FileType = FileType.UwpApp, Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.FamilyNameId, PathFull = appxDetails.FullPackageName, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };
-                        await ListBoxAddItem(targetListBox, targetList, dataBindFile, false, false);
-                    }
-                    catch { }
-                }
-
-                //Sort the application list by name
-                SortFunction<DataBindFile> sortFuncName = new SortFunction<DataBindFile>();
-                sortFuncName.function = x => x.Name;
-
-                List<SortFunction<DataBindFile>> orderListPicker = new List<SortFunction<DataBindFile>>();
-                orderListPicker.Add(sortFuncName);
-
-                SortObservableCollection(lb_FilePicker, List_FilePicker, orderListPicker, null);
             }
             catch { }
         }

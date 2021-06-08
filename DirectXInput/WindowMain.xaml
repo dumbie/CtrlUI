@@ -653,7 +653,7 @@
                                 <TextBlock Text="Enabling this will launch DirectXInput when you start Windows automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Other Settings"/>
-                                <Button Name="btn_Settings_InstallDrivers" Content="Install the required drivers" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                <Button Name="btn_Settings_InstallDrivers" Content="Install or update the required drivers" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>

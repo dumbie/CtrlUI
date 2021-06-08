@@ -204,6 +204,9 @@
     <Compile Include="FilePicker\FilePaste.cs" />
     <Compile Include="FilePicker\FileCut.cs" />
     <Compile Include="FilePicker\FileCopy.cs" />
+    <Compile Include="FilePicker\PickerLoadFiles.cs" />
+    <Compile Include="FilePicker\PickerLoadPC.cs" />
+    <Compile Include="FilePicker\PickerLoadUwp.cs" />
     <Compile Include="Launchers\BattleNetListApps.cs" />
     <Compile Include="Launchers\UwpListApps.cs" />
     <Compile Include="Launchers\RockstarListApps.cs" />
@@ -282,8 +285,8 @@
     <Compile Include="ListFunctions.cs" />
     <Compile Include="ManageFunctions.cs" />
     <Compile Include="MediaFunctions.cs" />
-    <Compile Include="PickerFunctions.cs" />
-    <Compile Include="PickerHandlers.cs" />
+    <Compile Include="FilePicker\PickerFunctions.cs" />
+    <Compile Include="FilePicker\PickerHandlers.cs" />
     <Compile Include="PopupFunctions.cs" />
     <Compile Include="ShortcutFunctions.cs" />
     <Compile Include="Processes\ProcessFunctions.cs" />

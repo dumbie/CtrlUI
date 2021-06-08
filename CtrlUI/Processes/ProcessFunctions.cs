@@ -11,6 +11,7 @@ using static ArnoldVinkCode.AVClassConverters;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
@@ -24,7 +25,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Focus on a process window
-        async Task PrepareFocusProcessWindow(string processName, int processIdTarget, IntPtr windowHandleTarget, int windowStateCommand, bool setWindowState, bool setTempTopMost, bool silentFocus, bool launchKeyboard)
+        async Task PrepareFocusProcessWindow(string processName, int processIdTarget, IntPtr windowHandleTarget, WindowShowCommand windowShowCommand, bool setWindowState, bool setTempTopMost, bool silentFocus, bool launchKeyboard)
         {
             try
             {
@@ -61,7 +62,7 @@ namespace CtrlUI
                     Debug.WriteLine("Showing application window: " + processName);
 
                     //Focus on application window handle
-                    bool windowFocused = await FocusProcessWindow(processName, processIdTarget, windowHandleTarget, windowStateCommand, setWindowState, setTempTopMost);
+                    bool windowFocused = await FocusProcessWindow(processName, processIdTarget, windowHandleTarget, windowShowCommand, setWindowState, setTempTopMost);
                     if (!windowFocused)
                     {
                         await Notification_Send_Status("Close", "Failed showing the app");

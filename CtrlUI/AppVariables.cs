@@ -127,6 +127,8 @@ namespace CtrlUI
         public static bool vFilePickerOpen = false;
         public static bool vFilePickerCancelled = false;
         public static bool vFilePickerCompleted = false;
+        public static bool vFilePickerLoadBusy = false;
+        public static bool vFilePickerLoadCancel = false;
         public static DataBindFile vFilePickerResult = null;
         public static FrameworkElementFocus vFilePickerElementFocus = new FrameworkElementFocus();
         public static List<PickerNavigation> vFilePickerNavigationHistory = new List<PickerNavigation>();
