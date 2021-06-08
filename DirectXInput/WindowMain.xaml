@@ -515,13 +515,13 @@
                                 <TextBlock Text="Enabling this will close the keyboard automatically when there is no longer a controller connected." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Mouse Settings"/>
-                                <TextBlock Name="textblock_SettingsMouseMoveSensitivity" Text="Mouse movement sensitivity" Tag="Mouse movement sensitivity: " Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Name="textblock_SettingsKeyboardMouseMoveSensitivity" Text="Mouse movement sensitivity" Tag="Mouse movement sensitivity: " Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the used mouse movement sensitivity." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_SettingsMouseMoveSensitivity" Height="18" Width="400" Minimum="1" Maximum="50" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_SettingsKeyboardMouseMoveSensitivity" Height="18" Width="400" Minimum="1" Maximum="50" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
-                                <TextBlock Name="textblock_SettingsMouseScrollSensitivity" Text="Mouse scrollwheel sensitivity" Tag="Mouse scrollwheel sensitivity: " Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Name="textblock_SettingsKeyboardMouseScrollSensitivity" Text="Mouse scrollwheel sensitivity" Tag="Mouse scrollwheel sensitivity: " Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the used mouse scrollwheel sensitivity." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_SettingsMouseScrollSensitivity" Height="18" Width="400" Minimum="1" Maximum="50" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                <Slider Name="slider_SettingsKeyboardMouseScrollSensitivity" Height="18" Width="400" Minimum="1" Maximum="50" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                                 <TextBlock Margin="0,15,0,0" Text="* You can access the on screen keyboard by holding the guide button." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>
@@ -622,6 +622,14 @@
                                 <TextBlock Name="textblock_KeypadRepeatIntervalMs" Text="Key press repeat interval" Tag="Key press repeat interval" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the key press repeat interval in milliseconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_KeypadRepeatIntervalMs" Height="18" Width="460" Minimum="0" Maximum="200" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Mouse Settings"/>
+                                <CheckBox Name="cb_SettingsKeypadMouseMoveEnabled" Content="Move mouse with right thumb" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will allow you to move the mouse with the right thumb stick, so for example you can look around in first person shooters." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <TextBlock Margin="0,10,0,0" Name="textblock_SettingsKeypadMouseMoveSensitivity" Text="Mouse movement sensitivity" Tag="Mouse movement sensitivity" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Text="Change the used mouse movement sensitivity." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <Slider Name="slider_SettingsKeypadMouseMoveSensitivity" Height="18" Width="460" Minimum="1" Maximum="50" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                                 <TextBlock Margin="0,15,0,0" Text="* You can access the keypad by holding the guide button when the on screen keyboard is already open." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>

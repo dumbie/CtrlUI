@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVInputOutputMouse;
 using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
+using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
 
 namespace DirectXInput.KeypadCode
@@ -56,8 +58,35 @@ namespace DirectXInput.KeypadCode
             catch { }
         }
 
-        //Keypad press keyboard buttons
-        public void ControllerInteractionKeypadPress(ControllerInput controllerInput)
+        //Process controller input for mouse
+        public void ControllerInteractionMouse(ControllerInput controllerInput)
+        {
+            try
+            {
+                //Check if mouse movement is enabled
+                if (vKeypadMappingProfile.KeypadMouseMoveEnabled && GetSystemTicksMs() >= vControllerDelay_Mouse)
+                {
+                    //Get the mouse move amount
+                    GetMouseMovementAmountFromThumb(vKeypadMappingProfile.KeypadMouseMoveSensitivity, controllerInput.ThumbRightX, controllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
+
+                    //Update button press status
+                    vKeypadDownStatus.ThumbRightLeft.Pressed = controllerInput.ThumbRightX < -vControllerOffsetMedium;
+                    vKeypadDownStatus.ThumbRightRight.Pressed = controllerInput.ThumbRightX > vControllerOffsetMedium;
+                    vKeypadDownStatus.ThumbRightUp.Pressed = controllerInput.ThumbRightY > vControllerOffsetMedium;
+                    vKeypadDownStatus.ThumbRightDown.Pressed = controllerInput.ThumbRightY < -vControllerOffsetMedium;
+
+                    //Move the mouse cursor
+                    MouseMoveCursor(moveHorizontalRight, moveVerticalRight);
+
+                    //Delay input to prevent repeat
+                    vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayNanoTicks;
+                }
+            }
+            catch { }
+        }
+
+        //Process controller input for keyboard
+        public void ControllerInteractionKeyboard(ControllerInput controllerInput)
         {
             try
             {
@@ -89,21 +118,25 @@ namespace DirectXInput.KeypadCode
                 bool thumbLeftDown = controllerInput.ThumbLeftY < -vControllerOffsetMedium;
                 KeypadKeyPress(thumbLeftDown, vKeypadDownStatus.ThumbLeftDown, vKeypadMappingProfile.ThumbLeftDownMod, vKeypadMappingProfile.ThumbLeftDown, vKeypadMappingProfile);
 
-                //Press thumb right left
-                bool thumbRightLeft = controllerInput.ThumbRightX < -vControllerOffsetMedium;
-                KeypadKeyPress(thumbRightLeft, vKeypadDownStatus.ThumbRightLeft, vKeypadMappingProfile.ThumbRightLeftMod, vKeypadMappingProfile.ThumbRightLeft, vKeypadMappingProfile);
+                //Check if mouse movement is enabled
+                if (!vKeypadMappingProfile.KeypadMouseMoveEnabled)
+                {
+                    //Press thumb right left
+                    bool thumbRightLeft = controllerInput.ThumbRightX < -vControllerOffsetMedium;
+                    KeypadKeyPress(thumbRightLeft, vKeypadDownStatus.ThumbRightLeft, vKeypadMappingProfile.ThumbRightLeftMod, vKeypadMappingProfile.ThumbRightLeft, vKeypadMappingProfile);
 
-                //Press thumb right right
-                bool thumbRightRight = controllerInput.ThumbRightX > vControllerOffsetMedium;
-                KeypadKeyPress(thumbRightRight, vKeypadDownStatus.ThumbRightRight, vKeypadMappingProfile.ThumbRightRightMod, vKeypadMappingProfile.ThumbRightRight, vKeypadMappingProfile);
+                    //Press thumb right right
+                    bool thumbRightRight = controllerInput.ThumbRightX > vControllerOffsetMedium;
+                    KeypadKeyPress(thumbRightRight, vKeypadDownStatus.ThumbRightRight, vKeypadMappingProfile.ThumbRightRightMod, vKeypadMappingProfile.ThumbRightRight, vKeypadMappingProfile);
 
-                //Press thumb right up
-                bool thumbRightUp = controllerInput.ThumbRightY > vControllerOffsetMedium;
-                KeypadKeyPress(thumbRightUp, vKeypadDownStatus.ThumbRightUp, vKeypadMappingProfile.ThumbRightUpMod, vKeypadMappingProfile.ThumbRightUp, vKeypadMappingProfile);
+                    //Press thumb right up
+                    bool thumbRightUp = controllerInput.ThumbRightY > vControllerOffsetMedium;
+                    KeypadKeyPress(thumbRightUp, vKeypadDownStatus.ThumbRightUp, vKeypadMappingProfile.ThumbRightUpMod, vKeypadMappingProfile.ThumbRightUp, vKeypadMappingProfile);
 
-                //Press thumb right down
-                bool thumbRightDown = controllerInput.ThumbRightY < -vControllerOffsetMedium;
-                KeypadKeyPress(thumbRightDown, vKeypadDownStatus.ThumbRightDown, vKeypadMappingProfile.ThumbRightDownMod, vKeypadMappingProfile.ThumbRightDown, vKeypadMappingProfile);
+                    //Press thumb right down
+                    bool thumbRightDown = controllerInput.ThumbRightY < -vControllerOffsetMedium;
+                    KeypadKeyPress(thumbRightDown, vKeypadDownStatus.ThumbRightDown, vKeypadMappingProfile.ThumbRightDownMod, vKeypadMappingProfile.ThumbRightDown, vKeypadMappingProfile);
+                }
 
                 //Press button a key
                 KeypadKeyPress(controllerInput.ButtonA.PressedRaw, vKeypadDownStatus.ButtonA, vKeypadMappingProfile.ButtonAMod, vKeypadMappingProfile.ButtonA, vKeypadMappingProfile);

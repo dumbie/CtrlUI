@@ -32,6 +32,9 @@ namespace LibraryShared
                 File_Delete("KeyboardController.exe");
                 File_Delete("KeyboardController.exe.config");
 
+                //Move old profiles
+                File_Move("Profiles/DirectKeypadMapping.json", "Profiles/User/DirectKeypadMapping.json", true);
+
                 //Rename old file names
                 File_Move("Profiles/Apps.json", "Profiles/CtrlApplications.json", true);
                 File_Move("Profiles/Controllers.json", "Profiles/DirectControllersProfile.json", true);

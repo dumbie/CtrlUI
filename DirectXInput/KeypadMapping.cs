@@ -218,7 +218,7 @@ namespace DirectXInput
                 }
 
                 //Save changes to Json file
-                JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
+                JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
 
                 //Update the key names
                 App.vWindowKeypad.UpdateKeypadNames();
@@ -366,7 +366,7 @@ namespace DirectXInput
                     vMappingKeypadButton = null;
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
+                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
                     return true;
                 }
             }

@@ -14,7 +14,9 @@ namespace LibraryShared
             public int ButtonDelayRepeatMs { get; set; } = 30;
             public double KeypadOpacity { get; set; } = 0.70;
             public int KeypadDisplayStyle { get; set; } = 0;
-            public int KeypadDisplaySize { get; set; } = 100;
+            public int KeypadDisplaySize { get; set; } = 70;
+            public bool KeypadMouseMoveEnabled { get; set; } = false;
+            public int KeypadMouseMoveSensitivity { get; set; } = 8;
 
             //Raw Thumbs
             public KeysVirtual? ThumbLeftUpMod { get; set; } = null;

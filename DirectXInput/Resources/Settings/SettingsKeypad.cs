@@ -46,7 +46,7 @@ namespace DirectXInput
                 vDirectKeypadMapping.Add(newProfile);
 
                 //Save changes to Json file
-                JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
+                JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
 
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Plus";
@@ -69,7 +69,7 @@ namespace DirectXInput
                     vDirectKeypadMapping.Remove(selectedProfile);
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, "DirectKeypadMapping");
+                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
 
                     //Select the default profile
                     combobox_KeypadProcessProfile.SelectedIndex = 0;
@@ -126,6 +126,13 @@ namespace DirectXInput
                 //Load keypad repeat interval
                 textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + selectedProfile.ButtonDelayRepeatMs + "ms";
                 slider_KeypadRepeatIntervalMs.Value = selectedProfile.ButtonDelayRepeatMs;
+
+                //Load keypad mouse enabled
+                cb_SettingsKeypadMouseMoveEnabled.IsChecked = selectedProfile.KeypadMouseMoveEnabled;
+
+                //Load keypad mouse sensitivity
+                textblock_SettingsKeypadMouseMoveSensitivity.Text = textblock_SettingsKeypadMouseMoveSensitivity.Tag + ": " + selectedProfile.KeypadMouseMoveSensitivity;
+                slider_SettingsKeypadMouseMoveSensitivity.Value = selectedProfile.KeypadMouseMoveSensitivity;
 
                 //Update all keypad key tool tips
                 UpdateKeypadToolTips();

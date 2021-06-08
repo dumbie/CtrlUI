@@ -133,7 +133,7 @@ namespace Updater
                                         if (extractPathLower.EndsWith("CtrlLocationsShortcut.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsShortcut.json"); continue; }
                                         if (extractPathLower.EndsWith("FpsPositionProcessName.json".ToLower())) { Debug.WriteLine("Skipping: FpsPositionProcessName.json"); continue; }
                                         if (extractPathLower.EndsWith("DirectControllersProfile.json".ToLower())) { Debug.WriteLine("Skipping: DirectControllersProfile.json"); continue; }
-                                        if (extractPathLower.EndsWith("DirectKeypadMapping.json".ToLower())) { Debug.WriteLine("Skipping: DirectKeypadMapping.json"); continue; }
+                                        if (extractPathLower.EndsWith("User/DirectKeypadMapping.json".ToLower())) { Debug.WriteLine("Skipping: User/DirectKeypadMapping.json"); continue; }
                                         if (extractPathLower.EndsWith("DirectKeyboardTextList.json".ToLower())) { Debug.WriteLine("Skipping: DirectKeyboardTextList.json"); continue; }
                                         if (extractPathLower.EndsWith("User/DirectControllersIgnored.json".ToLower())) { Debug.WriteLine("Skipping: User/DirectControllersIgnored.json"); continue; }
 

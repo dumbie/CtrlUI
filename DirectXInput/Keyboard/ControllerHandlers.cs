@@ -8,6 +8,7 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInputOutputMouse;
 using static DirectXInput.AppVariables;
+using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
@@ -26,7 +27,7 @@ namespace DirectXInput.KeyboardCode
                 if (GetSystemTicksMs() >= vControllerDelay_Mouse)
                 {
                     //Get the mouse move amount
-                    int moveSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MouseMoveSensitivity"));
+                    int moveSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity"));
                     GetMouseMovementAmountFromThumb(moveSensitivity, ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY, true, out int moveHorizontalLeft, out int moveVerticalLeft);
 
                     //Move the mouse cursor
@@ -43,7 +44,7 @@ namespace DirectXInput.KeyboardCode
                     else
                     {
                         //Get the mouse scroll amount
-                        int scrollSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MouseScrollSensitivity"));
+                        int scrollSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity"));
                         GetMouseMovementAmountFromThumb(scrollSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, false, out int scrollHorizontalRight, out int scrollVerticalRight);
 
                         //Scroll the mouse wheel

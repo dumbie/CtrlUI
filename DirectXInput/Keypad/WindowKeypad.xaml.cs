@@ -349,10 +349,26 @@ namespace DirectXInput.KeypadCode
                         UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftUpMod, vKeypadMappingProfile.ThumbLeftUp, textblock_ThumbLeftUp);
                         UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftRightMod, vKeypadMappingProfile.ThumbLeftRight, textblock_ThumbLeftRight);
                         UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftDownMod, vKeypadMappingProfile.ThumbLeftDown, textblock_ThumbLeftDown);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightLeftMod, vKeypadMappingProfile.ThumbRightLeft, textblock_ThumbRightLeft);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightUpMod, vKeypadMappingProfile.ThumbRightUp, textblock_ThumbRightUp);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightRightMod, vKeypadMappingProfile.ThumbRightRight, textblock_ThumbRightRight);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightDownMod, vKeypadMappingProfile.ThumbRightDown, textblock_ThumbRightDown);
+
+                        if (vKeypadMappingProfile.KeypadMouseMoveEnabled)
+                        {
+                            textblock_ThumbRightLeft.Text = "🖱";
+                            textblock_ThumbRightLeft.Opacity = 1;
+                            textblock_ThumbRightUp.Text = "🖱";
+                            textblock_ThumbRightUp.Opacity = 1;
+                            textblock_ThumbRightRight.Text = "🖱";
+                            textblock_ThumbRightRight.Opacity = 1;
+                            textblock_ThumbRightDown.Text = "🖱";
+                            textblock_ThumbRightDown.Opacity = 1;
+                        }
+                        else
+                        {
+                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightLeftMod, vKeypadMappingProfile.ThumbRightLeft, textblock_ThumbRightLeft);
+                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightUpMod, vKeypadMappingProfile.ThumbRightUp, textblock_ThumbRightUp);
+                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightRightMod, vKeypadMappingProfile.ThumbRightRight, textblock_ThumbRightRight);
+                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightDownMod, vKeypadMappingProfile.ThumbRightDown, textblock_ThumbRightDown);
+                        }
+
                         UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonBackMod, vKeypadMappingProfile.ButtonBack, textblock_ButtonBack);
                         UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonStartMod, vKeypadMappingProfile.ButtonStart, textblock_ButtonStart);
                         UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonXMod, vKeypadMappingProfile.ButtonX, textblock_ButtonX);
