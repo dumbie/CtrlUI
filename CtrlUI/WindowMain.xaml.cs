@@ -317,8 +317,14 @@ namespace CtrlUI
         {
             try
             {
-                if (WindowState == WindowState.Maximized && WindowStyle != WindowStyle.None) { WindowStyle = WindowStyle.None; }
-                else if (WindowState == WindowState.Normal && WindowStyle != WindowStyle.SingleBorderWindow) { WindowStyle = WindowStyle.SingleBorderWindow; }
+                if (WindowState == WindowState.Maximized)
+                {
+                    WindowStyle = WindowStyle.None;
+                }
+                else if (WindowState == WindowState.Normal)
+                {
+                    WindowStyle = WindowStyle.SingleBorderWindow;
+                }
             }
             catch { }
         }

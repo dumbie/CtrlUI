@@ -77,16 +77,22 @@ namespace CtrlUI
                 lb_Search.PreviewMouseUp += ListBox_Apps_MousePressUp;
                 lb_Games.PreviewKeyUp += ListBox_Apps_KeyPressUp;
                 lb_Games.PreviewMouseUp += ListBox_Apps_MousePressUp;
+                lb_Games.GotFocus += ListBox_Apps_GotFocus;
                 lb_Apps.PreviewKeyUp += ListBox_Apps_KeyPressUp;
                 lb_Apps.PreviewMouseUp += ListBox_Apps_MousePressUp;
+                lb_Apps.GotFocus += ListBox_Apps_GotFocus;
                 lb_Emulators.PreviewKeyUp += ListBox_Apps_KeyPressUp;
                 lb_Emulators.PreviewMouseUp += ListBox_Apps_MousePressUp;
+                lb_Emulators.GotFocus += ListBox_Apps_GotFocus;
                 lb_Launchers.PreviewKeyUp += ListBox_Apps_KeyPressUp;
                 lb_Launchers.PreviewMouseUp += ListBox_Apps_MousePressUp;
+                lb_Launchers.GotFocus += ListBox_Apps_GotFocus;
                 lb_Shortcuts.PreviewKeyUp += ListBox_Apps_KeyPressUp;
                 lb_Shortcuts.PreviewMouseUp += ListBox_Apps_MousePressUp;
+                lb_Shortcuts.GotFocus += ListBox_Apps_GotFocus;
                 lb_Processes.PreviewKeyUp += ListBox_Apps_KeyPressUp;
                 lb_Processes.PreviewMouseUp += ListBox_Apps_MousePressUp;
+                lb_Processes.GotFocus += ListBox_Apps_GotFocus;
 
                 //MessageBox list functions
                 lb_MessageBox.PreviewKeyUp += ListBox_MessageBox_KeyPressUp;
@@ -196,6 +202,25 @@ namespace CtrlUI
                 this.PreviewKeyUp += WindowMain_KeyPressUp;
 
                 Debug.WriteLine("Registered all the interface handlers.");
+            }
+            catch { }
+        }
+
+        //Scroll to apps listbox header
+        void ListBox_Apps_GotFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Get listbox header position
+                Point listboxPoint = scrollviewer_AppLists.TranslatePoint(new Point(), (ListBox)sender);
+                double headerOffset = scrollviewer_AppLists.VerticalOffset - listboxPoint.Y - 50;
+
+                //Check if listbox header is in view
+                if (headerOffset < scrollviewer_AppLists.VerticalOffset)
+                {
+                    scrollviewer_AppLists.ScrollToVerticalOffset(headerOffset);
+                    //Debug.WriteLine("Scrolled to application listbox header.");
+                }
             }
             catch { }
         }

@@ -50,7 +50,7 @@
             </styles:ScrollViewerLoopHorizontal>
 
             <!-- Application Lists -->
-            <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
+            <ScrollViewer Name="scrollviewer_AppLists" Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
                 <StackPanel Margin="20,10,20,0">
                     <StackPanel Name="sp_Games">
                         <StackPanel Orientation="Horizontal">
@@ -117,11 +117,10 @@
 
             <!-- Controller Help -->
             <styles:ScrollViewerLoopHorizontal x:Name="sp_ControllerHelp" Grid.Row="2" VerticalAlignment="Bottom" Style="{StaticResource ScrollViewerHorizontal}">
+                <styles:ScrollViewerLoopHorizontal.Background>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.80"/>
+                </styles:ScrollViewerLoopHorizontal.Background>
                 <StackPanel Opacity="0.50" Orientation="Horizontal">
-                    <StackPanel.Background>
-                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.80"/>
-                    </StackPanel.Background>
-
                     <StackPanel Name="sp_ControllerHelpLeft" Orientation="Horizontal" Margin="5,5,10,5" Visibility="Collapsed">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="25" Opacity="0.80"/>
                         <TextBlock Name="txt_ControllerHelpLeft" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Left"/>
