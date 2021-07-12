@@ -111,6 +111,25 @@ namespace CtrlUI
                 //Check if databind paths are available
                 if (!await CheckDatabindPathAuto(dataBindApp)) { return; }
 
+                //Enable monitor HDR
+                string executableName = string.Empty;
+                string executableNameRaw = string.Empty;
+                if (string.IsNullOrWhiteSpace(dataBindApp.NameExe))
+                {
+                    executableName = Path.GetFileNameWithoutExtension(dataBindApp.PathExe).ToLower();
+                    executableNameRaw = dataBindApp.PathExe.ToLower();
+                }
+                else
+                {
+                    executableName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe).ToLower();
+                    executableNameRaw = dataBindApp.NameExe.ToLower();
+                }
+                bool enabledHDR = vCtrlHDRProcessName.Any(x => x.String1.ToLower() == executableName || x.String1.ToLower() == executableNameRaw);
+                if (enabledHDR)
+                {
+                    await EnableAllMonitorHDR();
+                }
+
                 //Launch the databind process
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {

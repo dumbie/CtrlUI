@@ -114,6 +114,7 @@ namespace CtrlUI
                 await JsonLoadList_Applications();
 
                 //Load Json profiles
+                JsonLoadProfile(ref vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
                 JsonLoadProfile(ref vCtrlCloseLaunchers, "CtrlCloseLaunchers");
                 JsonLoadProfile(ref vCtrlLocationsFile, "CtrlLocationsFile");
                 JsonLoadProfile(ref vCtrlLocationsShortcut, "CtrlLocationsShortcut");
@@ -269,7 +270,7 @@ namespace CtrlUI
 
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
-                DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
+                DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                 //Get the current window size
                 int windowWidth = (int)(this.ActualWidth * displayMonitorSettings.DpiScaleHorizontal);

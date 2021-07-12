@@ -27,7 +27,7 @@ namespace DirectXInput.KeyboardCode
 
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
-                DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
+                DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                 //Get the current window size
                 int windowWidth = (int)(this.ActualWidth * displayMonitorSettings.DpiScaleHorizontal);

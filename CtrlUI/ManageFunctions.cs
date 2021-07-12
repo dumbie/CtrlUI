@@ -217,6 +217,22 @@ namespace CtrlUI
                 checkbox_AddLaunchFilePicker.IsChecked = vEditAppDataBind.LaunchFilePicker;
                 checkbox_AddLaunchKeyboard.IsChecked = vEditAppDataBind.LaunchKeyboard;
 
+                //Enable monitor HDR
+                string executableName = string.Empty;
+                string executableNameRaw = string.Empty;
+                if (string.IsNullOrWhiteSpace(vEditAppDataBind.NameExe))
+                {
+                    executableName = Path.GetFileNameWithoutExtension(vEditAppDataBind.PathExe).ToLower();
+                    executableNameRaw = vEditAppDataBind.PathExe.ToLower();
+                }
+                else
+                {
+                    executableName = Path.GetFileNameWithoutExtension(vEditAppDataBind.NameExe).ToLower();
+                    executableNameRaw = vEditAppDataBind.NameExe.ToLower();
+                }
+                bool enabledHDR = vCtrlHDRProcessName.Any(x => x.String1.ToLower() == executableName || x.String1.ToLower() == executableNameRaw);
+                checkbox_AddLaunchEnableHDR.IsChecked = enabledHDR;
+
                 //Hide and show situation based settings
                 if (vEditAppDataBind.Type == ProcessType.UWP)
                 {

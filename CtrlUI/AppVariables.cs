@@ -189,6 +189,7 @@ namespace CtrlUI
         public static List<ApiIGDBPlatforms> vApiIGDBPlatforms = new List<ApiIGDBPlatforms>();
 
         //Application Lists
+        public static ObservableCollection<ProfileShared> vCtrlHDRProcessName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlIgnoreProcessName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlIgnoreLauncherName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutName = new ObservableCollection<ProfileShared>();

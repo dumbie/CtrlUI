@@ -38,7 +38,16 @@ namespace CtrlUI
                 Debug.WriteLine("Changing edit profile to: " + vProfileManagerName);
 
                 //Load the requested profile values
-                if (vProfileManagerName == "CtrlIgnoreProcessName")
+                if (vProfileManagerName == @"User\CtrlHDRProcessName")
+                {
+                    grid_Popup_ProfileManager_txt_Description.Text = "HDR enable process names";
+                    grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Process name";
+                    grid_Popup_ProfileManager_Value2.Visibility = Visibility.Collapsed;
+
+                    vProfileManagerListShared = vCtrlHDRProcessName;
+                    lb_ProfileManager.ItemsSource = vCtrlHDRProcessName;
+                }
+                else if (vProfileManagerName == "CtrlIgnoreProcessName")
                 {
                     grid_Popup_ProfileManager_txt_Description.Text = "Ignored process names";
                     grid_Popup_ProfileManager_textblock_ProfileString1.Text = "Process name";
@@ -248,6 +257,9 @@ namespace CtrlUI
 
                 DataBindString stringCtrlKeyboardProcessName = new DataBindString() { Name = "Keyboard open process names", Data1 = "CtrlKeyboardProcessName", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlKeyboardProcessName);
+
+                DataBindString stringCtrlHDRProcessName = new DataBindString() { Name = "Enable HDR process names", Data1 = @"User\CtrlHDRProcessName", ImageBitmap = imageProfile };
+                Answers.Add(stringCtrlHDRProcessName);
 
                 //Show the messagebox
                 DataBindString messageResult = await Popup_Show_MessageBox("Profile Category", "", "Please select the profile to manage:", Answers);

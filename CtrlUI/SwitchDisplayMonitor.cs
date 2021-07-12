@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
@@ -12,6 +13,29 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        async Task EnableAllMonitorHDR()
+        {
+            try
+            {
+                await Notification_Send_Status("MonitorHDR", "Enabling monitor HDR");
+
+                //Enable hdr for all monitors
+                int screenCount = Screen.AllScreens.Count();
+                for (int i = 0; i < screenCount; i++)
+                {
+                    SetMonitorHDR(i, true);
+                }
+
+                //Wait for hdr to have enabled
+                await Task.Delay(500);
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to enable monitor HDR.");
+                await Notification_Send_Status("MonitorHDR", "Failed enabling HDR");
+            }
+        }
+
         async Task SwitchDisplayMonitor()
         {
             try
@@ -21,10 +45,10 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 //Get all the connected display monitors
-                List<DisplayMonitorSwitch> monitorsList = ListDisplayMonitors();
+                List<DisplayMonitor> monitorsList = GetAllMonitorDisplayConfig();
 
                 //Add all display monitors to answers list
-                foreach (DisplayMonitorSwitch displayMonitor in monitorsList)
+                foreach (DisplayMonitor displayMonitor in monitorsList)
                 {
                     DataBindString AnswerMonitor = new DataBindString();
                     AnswerMonitor.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -78,11 +102,11 @@ namespace CtrlUI
                     }
                     else
                     {
-                        DisplayMonitorSwitch changeDevice = monitorsList.Where(x => x.Name.ToLower() == messageResult.Name.ToLower()).FirstOrDefault();
+                        DisplayMonitor changeDevice = monitorsList.Where(x => x.Name.ToLower() == messageResult.Name.ToLower()).FirstOrDefault();
                         if (changeDevice != null)
                         {
                             await Notification_Send_Status("MonitorSwitch", "Switching display monitor");
-                            if (!SwitchPrimaryMonitor(changeDevice.Identifier))
+                            if (!SetMonitorPrimary((uint)changeDevice.Identifier))
                             {
                                 await Notification_Send_Status("MonitorSwitch", "Failed switching monitor");
                             }

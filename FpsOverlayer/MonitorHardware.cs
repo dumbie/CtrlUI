@@ -581,7 +581,7 @@ namespace FpsOverlayer
                 int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
 
                 //Get the screen resolution
-                DisplayMonitorSettings displayMonitorSettings = GetScreenSettings(monitorNumber);
+                DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
                 string screenResolutionString = string.Empty;
                 if (showResolution)
                 {
