@@ -322,6 +322,10 @@ namespace CtrlUI
                     {
                         launcherImage = vImagePreloadEADesktop;
                     }
+                    else if (targetPathLower.Contains("link2ea://"))
+                    {
+                        launcherImage = vImagePreloadEADesktop;
+                    }
                 }
                 else if (!targetPathLower.Contains("/") && targetPathLower.Contains("!") && targetPathLower.Contains("_"))
                 {
