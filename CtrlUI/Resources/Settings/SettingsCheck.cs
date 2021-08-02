@@ -16,6 +16,7 @@ namespace CtrlUI
                 if (Setting_Load(vConfigurationCtrlUI, "AppFontSize") == null) { Setting_Save(vConfigurationCtrlUI, "AppFontSize", "0"); }
 
                 if (Setting_Load(vConfigurationCtrlUI, "DisplayMonitor") == null) { Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", "1"); } //Shared
+                if (Setting_Load(vConfigurationCtrlUI, "MonitorPreventSleep") == null) { Setting_Save(vConfigurationCtrlUI, "MonitorPreventSleep", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ColorAccentLight") == null) { Setting_Save(vConfigurationCtrlUI, "ColorAccentLight", "#00C7FF"); } //Shared
                 if (Setting_Load(vConfigurationCtrlUI, "ServerPort") == null) { Setting_Save(vConfigurationCtrlUI, "ServerPort", "26759"); } //Shared
 

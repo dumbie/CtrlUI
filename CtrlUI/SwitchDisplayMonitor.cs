@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -6,8 +7,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -119,6 +122,42 @@ namespace CtrlUI
                 Debug.WriteLine("Failed to load the display monitors: " + ex.Message);
                 await Notification_Send_Status("MonitorSwitch", "No display monitors");
             }
+        }
+
+        //Prevent or allow monitor sleep
+        void UpdateMonitorSleepAuto()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MonitorPreventSleep")))
+                    {
+                        Debug.WriteLine("Preventing monitor to sleep.");
+                        SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_DISPLAY_REQUIRED);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Allowing monitor to sleep.");
+                        SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);
+                    }
+                });
+            }
+            catch { }
+        }
+
+        //Allow monitor sleep
+        void UpdateMonitorSleepAllow()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    Debug.WriteLine("Allowing monitor to sleep.");
+                    SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);
+                });
+            }
+            catch { }
         }
     }
 }

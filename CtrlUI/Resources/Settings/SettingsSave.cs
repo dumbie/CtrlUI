@@ -170,6 +170,13 @@ namespace CtrlUI
                     await UpdateWindowPosition(true, false);
                 };
 
+                cb_SettingsMonitorPreventSleep.Click += (sender, e) =>
+                {
+                    Setting_Save(vConfigurationCtrlUI, "MonitorPreventSleep", cb_SettingsMonitorPreventSleep.IsChecked.ToString());
+                    //Prevent or allow monitor sleep
+                    UpdateMonitorSleepAuto();
+                };
+
                 slider_SettingsSoundVolume.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(slider_SettingsSoundVolume.Value) + "%";

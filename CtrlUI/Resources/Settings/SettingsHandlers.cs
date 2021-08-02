@@ -66,6 +66,7 @@ namespace CtrlUI
                 {
                     //Hide all the setting tabs
                     settingsStackpanelLaunch.Visibility = Visibility.Collapsed;
+                    settingsStackpanelDisplay.Visibility = Visibility.Collapsed;
                     settingsStackpanelApps.Visibility = Visibility.Collapsed;
                     settingsStackpanelInterface.Visibility = Visibility.Collapsed;
                     settingsStackpanelBackground.Visibility = Visibility.Collapsed;
@@ -79,6 +80,11 @@ namespace CtrlUI
                     if (SelStackPanel.Name == "settingsButtonLaunch")
                     {
                         settingsStackpanelLaunch.Visibility = Visibility.Visible;
+                        await FrameworkElementFocus(cb_SettingsWindowsStartup, false, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (SelStackPanel.Name == "settingsButtonDisplay")
+                    {
+                        settingsStackpanelDisplay.Visibility = Visibility.Visible;
                         await FrameworkElementFocus(cb_SettingsLaunchFullscreen, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonApps")

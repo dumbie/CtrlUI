@@ -150,7 +150,11 @@ namespace CtrlUI
                 //Force window focus on CtrlUI
                 if (!Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized")))
                 {
+                    //Focus on CtrlUI window
                     await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+
+                    //Prevent or allow monitor sleep
+                    UpdateMonitorSleepAuto();
                 }
 
                 //Check settings if this is the first application launch

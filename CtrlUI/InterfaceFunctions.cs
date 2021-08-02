@@ -358,6 +358,9 @@ namespace CtrlUI
 
                     //Resume ScrollViewerLoops
                     PauseResumeScrollviewerLoops(false);
+
+                    //Prevent monitor sleep
+                    UpdateMonitorSleepAuto();
                 }
             }
             catch { }
@@ -381,6 +384,9 @@ namespace CtrlUI
 
                     //Pause ScrollViewerLoops
                     PauseResumeScrollviewerLoops(true);
+
+                    //Allow monitor sleep
+                    UpdateMonitorSleepAllow();
                 }
             }
             catch { }
