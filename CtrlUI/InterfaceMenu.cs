@@ -54,6 +54,7 @@ namespace CtrlUI
                     else if (selectedItemString == "menuButtonFullScreen") { await AppSwitchScreenMode(false, false); }
                     else if (selectedItemString == "menuButtonMoveMonitor") { await AppMoveMonitor(); }
                     else if (selectedItemString == "menuButtonSwitchMonitor") { await SwitchDisplayMonitor(); }
+                    else if (selectedItemString == "menuButtonSwitchHDR") { await AllMonitorSwitchHDR(false); }
                     else if (selectedItemString == "menuButtonWindowsStart") { await ShowWindowStartMenu(); }
                     else if (selectedItemString == "menuButtonSorting") { await SortAppListsSwitch(false); }
                     else if (selectedItemString == "menuButtonMediaControl") { await MediaControllerHideShow(true); }
@@ -120,6 +121,14 @@ namespace CtrlUI
                     Data1 = "menuButtonSwitchMonitor"
                 };
                 List_MainMenu.Add(menuButtonSwitchMonitor);
+
+                DataBindString menuButtonSwitchHDR = new DataBindString
+                {
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorHDR.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    Name = "Turn off HDR for all display monitors",
+                    Data1 = "menuButtonSwitchHDR"
+                };
+                List_MainMenu.Add(menuButtonSwitchHDR);
 
                 DataBindString menuButtonMediaControl = new DataBindString
                 {

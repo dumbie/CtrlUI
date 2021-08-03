@@ -16,17 +16,24 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task EnableAllMonitorHDR()
+        async Task AllMonitorSwitchHDR(bool enableHDR)
         {
             try
             {
-                await Notification_Send_Status("MonitorHDR", "Enabling monitor HDR");
+                if (enableHDR)
+                {
+                    await Notification_Send_Status("MonitorHDR", "Enabling monitor HDR");
+                }
+                else
+                {
+                    await Notification_Send_Status("MonitorHDR", "Disabling monitor HDR");
+                }
 
-                //Enable hdr for all monitors
+                //Switch hdr for all monitors
                 int screenCount = Screen.AllScreens.Count();
                 for (int i = 0; i < screenCount; i++)
                 {
-                    SetMonitorHDR(i, true);
+                    SetMonitorHDR(i, enableHDR);
                 }
 
                 //Wait for hdr to have enabled
@@ -34,8 +41,8 @@ namespace CtrlUI
             }
             catch
             {
-                Debug.WriteLine("Failed to enable monitor HDR.");
-                await Notification_Send_Status("MonitorHDR", "Failed enabling HDR");
+                Debug.WriteLine("Failed to switch monitor HDR.");
+                await Notification_Send_Status("MonitorHDR", "Failed switching HDR");
             }
         }
 
