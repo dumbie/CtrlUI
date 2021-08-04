@@ -326,6 +326,10 @@ namespace CtrlUI
                     {
                         launcherImage = vImagePreloadEADesktop;
                     }
+                    else if (targetPathLower.Contains("amazon-games://"))
+                    {
+                        launcherImage = vImagePreloadAmazon;
+                    }
                 }
                 else if (!targetPathLower.Contains("/") && targetPathLower.Contains("!") && targetPathLower.Contains("_"))
                 {

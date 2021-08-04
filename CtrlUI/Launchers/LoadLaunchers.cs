@@ -87,6 +87,12 @@ namespace CtrlUI
                     await RockstarScanAddLibrary();
                 }
 
+                //Scan and add library from Amazon
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryAmazon")))
+                {
+                    await AmazonScanAddLibrary();
+                }
+
                 //Scan and add library from UWP games
                 if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUwp")))
                 {

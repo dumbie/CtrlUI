@@ -114,6 +114,13 @@ namespace CtrlUI
                     await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 };
 
+                cb_SettingsShowLibraryAmazon.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryAmazon", cb_SettingsShowLibraryAmazon.IsChecked.ToString());
+                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Amazon;
+                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
+                };
+
                 cb_SettingsShowLibraryUwp.Click += async (sender, e) =>
                 {
                     Setting_Save(vConfigurationCtrlUI, "ShowLibraryUwp", cb_SettingsShowLibraryUwp.IsChecked.ToString());

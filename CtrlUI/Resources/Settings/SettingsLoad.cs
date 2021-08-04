@@ -30,6 +30,7 @@ namespace CtrlUI
                 cb_SettingsShowLibraryBattleNet.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryBattleNet"));
                 cb_SettingsShowLibraryBethesda.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryBethesda"));
                 cb_SettingsShowLibraryRockstar.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryRockstar"));
+                cb_SettingsShowLibraryAmazon.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryAmazon"));
                 cb_SettingsShowLibraryUwp.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUwp"));
 
                 cb_SettingsHideBatteryLevel.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideBatteryLevel"));

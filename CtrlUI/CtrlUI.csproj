@@ -145,6 +145,9 @@
     <Content Include="Assets\BoxArt-RemoteDesktop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Default\Apps\Amazon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Default\Apps\Discord.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -214,6 +217,7 @@
     <Compile Include="FilePicker\PickerLoadPC.cs" />
     <Compile Include="FilePicker\PickerLoadUwp.cs" />
     <Compile Include="Launchers\BattleNetListApps.cs" />
+    <Compile Include="Launchers\AmazonListApps.cs" />
     <Compile Include="Launchers\UwpListApps.cs" />
     <Compile Include="Launchers\RockstarListApps.cs" />
     <Compile Include="Launchers\BethesdaListApps.cs" />

@@ -34,6 +34,7 @@ namespace CtrlUI
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryBattleNet") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryBattleNet", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryBethesda") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryBethesda", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryRockstar") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryRockstar", "True"); }
+                if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryAmazon") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryAmazon", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryUwp") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryUwp", "True"); }
 
                 if (Setting_Load(vConfigurationCtrlUI, "HideBatteryLevel") == null) { Setting_Save(vConfigurationCtrlUI, "HideBatteryLevel", "False"); }

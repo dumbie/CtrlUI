@@ -13,7 +13,8 @@
             Bethesda = 5,
             BattleNet = 6,
             Rockstar = 7,
-            UWP = 8
+            UWP = 8,
+            Amazon = 9
         }
     }
 }
