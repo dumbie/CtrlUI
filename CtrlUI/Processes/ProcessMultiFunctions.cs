@@ -127,7 +127,7 @@ namespace CtrlUI
                 bool enabledHDR = vCtrlHDRProcessName.Any(x => x.String1.ToLower() == executableName || x.String1.ToLower() == executableNameRaw);
                 if (enabledHDR)
                 {
-                    await AllMonitorSwitchHDR(true);
+                    await AllMonitorSwitchHDR(true, true);
                 }
 
                 //Launch the databind process

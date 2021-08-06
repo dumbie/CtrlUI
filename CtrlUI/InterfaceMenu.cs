@@ -52,9 +52,7 @@ namespace CtrlUI
                     string selectedItemString = selectedItem.Data1.ToString();
                     if (selectedItemString == "menuButtonUpdateRestart") { await AppUpdateRestart(); }
                     else if (selectedItemString == "menuButtonFullScreen") { await AppSwitchScreenMode(false, false); }
-                    else if (selectedItemString == "menuButtonMoveMonitor") { await AppMoveMonitor(); }
-                    else if (selectedItemString == "menuButtonSwitchMonitor") { await SwitchDisplayMonitor(); }
-                    else if (selectedItemString == "menuButtonSwitchHDR") { await AllMonitorSwitchHDR(false); }
+                    else if (selectedItemString == "menuButtonMonitor") { await Popup_Show(grid_Popup_Monitor, btn_Monitor_Switch_Primary); }
                     else if (selectedItemString == "menuButtonWindowsStart") { await ShowWindowStartMenu(); }
                     else if (selectedItemString == "menuButtonSorting") { await SortAppListsSwitch(false); }
                     else if (selectedItemString == "menuButtonMediaControl") { await MediaControllerHideShow(true); }
@@ -106,29 +104,13 @@ namespace CtrlUI
                 };
                 List_MainMenu.Add(menuButtonFullScreen);
 
-                DataBindString menuButtonMoveMonitor = new DataBindString
+                DataBindString menuButtonMonitor = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorNext.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Move CtrlUI to the next monitor",
-                    Data1 = "menuButtonMoveMonitor"
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Monitor.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    Name = "Change display monitor settings",
+                    Data1 = "menuButtonMonitor"
                 };
-                List_MainMenu.Add(menuButtonMoveMonitor);
-
-                DataBindString menuButtonSwitchMonitor = new DataBindString
-                {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Switch active display monitors",
-                    Data1 = "menuButtonSwitchMonitor"
-                };
-                List_MainMenu.Add(menuButtonSwitchMonitor);
-
-                DataBindString menuButtonSwitchHDR = new DataBindString
-                {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorHDR.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Turn off HDR for all display monitors",
-                    Data1 = "menuButtonSwitchHDR"
-                };
-                List_MainMenu.Add(menuButtonSwitchHDR);
+                List_MainMenu.Add(menuButtonMonitor);
 
                 DataBindString menuButtonMediaControl = new DataBindString
                 {
@@ -173,7 +155,7 @@ namespace CtrlUI
                 DataBindString menuButtonAddExe = new DataBindString
                 {
                     ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddExe.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Add desktop application to the list",
+                    Name = "Add an executable to the list",
                     Data1 = "menuButtonAddExe"
                 };
                 List_MainMenu.Add(menuButtonAddExe);

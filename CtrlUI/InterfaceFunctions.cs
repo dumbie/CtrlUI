@@ -118,6 +118,7 @@ namespace CtrlUI
                 grid_Popup_FilePicker_button_ControllerUp.Click += Button_FilePicker_button_ControllerUp_Click;
                 grid_Popup_FilePicker_button_ControllerStart.Click += Button_FilePicker_button_ControllerStart_Click;
                 grid_Popup_Manage_button_Close.Click += Button_Popup_Close_Click;
+                grid_Popup_Monitor_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Help_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_MoveApplication_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_MessageBox_button_Close.Click += Button_Popup_Close_Click;
@@ -188,6 +189,15 @@ namespace CtrlUI
                 btn_Settings_InterfaceSoundPackName.Click += Button_Settings_InterfaceSoundPackName;
                 btn_Settings_InterfaceClockStyleName.Click += Button_Settings_InterfaceClockStyleName;
                 btn_Settings_InterfaceFontStyleName.Click += Button_Settings_InterfaceFontStyleName;
+
+                //Monitor functions
+                btn_Monitor_Switch_Primary.Click += Btn_Monitor_Switch_Primary_Click;
+                btn_Monitor_Switch_Secondary.Click += Btn_Monitor_Switch_Secondary_Click;
+                btn_Monitor_Switch_Duplicate.Click += Btn_Monitor_Switch_Duplicate_Click;
+                btn_Monitor_Switch_Extend.Click += Btn_Monitor_Switch_Extend_Click;
+                btn_Monitor_Move_App.Click += Btn_Monitor_Move_App_Click;
+                btn_Monitor_HDR_Enable.Click += Btn_Monitor_HDR_Enable_Click;
+                btn_Monitor_HDR_Disable.Click += Btn_Monitor_HDR_Disable_Click;
 
                 //Help functions
                 btn_Help_ProjectWebsite.Click += Button_Help_ProjectWebsite_Click;

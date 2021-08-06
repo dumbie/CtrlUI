@@ -809,6 +809,45 @@
             </StackPanel>
         </Grid>
 
+        <!-- Popup - Monitor -->
+        <Grid Name="grid_Popup_Monitor" Visibility="Collapsed">
+            <Grid Margin="150,35,150,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Monitor Settings"/>
+                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
+                    <StackPanel>
+                        <Button Name="btn_Monitor_Switch_Primary" Content="Switch to primary monitor" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Monitor_Switch_Secondary" Margin="0,10,0,0" Content="Switch to secondary monitor" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Monitor_Switch_Duplicate" Margin="0,10,0,0" Content="Switch to duplicate mode" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Monitor_Switch_Extend" Margin="0,10,0,0" Content="Switch to extend mode" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <Button Name="btn_Monitor_Move_App" Margin="0,30,0,0" Content="Move CtrlUI to the next monitor" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                        <Button Name="btn_Monitor_HDR_Enable" Margin="0,30,0,0" Content="Enable monitor HDR in Windows" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                        <Button Name="btn_Monitor_HDR_Disable" Margin="0,10,0,0" Content="Disable monitor HDR in Windows" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Shortcuts -->
+            <StackPanel Margin="0,55,20,0" HorizontalAlignment="Right">
+                <Button Name="grid_Popup_Monitor_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35" Margin="0,0,-5,0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
         <!-- Popup - Help -->
         <Grid Name="grid_Popup_Help" Visibility="Collapsed">
             <Grid Margin="150,35,150,0">

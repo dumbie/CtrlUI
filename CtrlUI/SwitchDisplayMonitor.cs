@@ -1,22 +1,134 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using static ArnoldVinkCode.AVDisplayMonitor;
-using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
 using static CtrlUI.AppVariables;
-using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
-        async Task AllMonitorSwitchHDR(bool enableHDR)
+        private async void Btn_Monitor_HDR_Disable_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await AllMonitorSwitchHDR(false, false);
+            }
+            catch { }
+        }
+
+        private async void Btn_Monitor_HDR_Enable_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await AllMonitorSwitchHDR(true, false);
+            }
+            catch { }
+        }
+
+        //Move application to the next monitor
+        private async void Btn_Monitor_Move_App_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Check if there are multiple monitors
+                int totalScreenCount = Screen.AllScreens.Count();
+                if (totalScreenCount == 1)
+                {
+                    Debug.WriteLine("Only one monitor");
+                    await Notification_Send_Status("MonitorNext", "Only one monitor");
+
+                    //Save the new monitor number
+                    Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", "1");
+
+                    //Update the window position
+                    await UpdateWindowPosition(true, true);
+                    return;
+                }
+
+                //Check the next target monitor
+                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                if (monitorNumber >= totalScreenCount)
+                {
+                    monitorNumber = 1;
+                }
+                else
+                {
+                    monitorNumber++;
+                }
+
+                //Save the new monitor number
+                Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", monitorNumber.ToString());
+
+                //Update the window position
+                await UpdateWindowPosition(true, false);
+
+                //Focus on CtrlUI window
+                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+            }
+            catch { }
+        }
+
+        private async void Btn_Monitor_Switch_Extend_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await Notification_Send_Status("MonitorSwitch", "Extending display monitor");
+                EnableMonitorExtendMode();
+
+                //Focus on CtrlUI window
+                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+            }
+            catch { }
+        }
+
+        private async void Btn_Monitor_Switch_Duplicate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await Notification_Send_Status("MonitorSwitch", "Cloning display monitor");
+                EnableMonitorCloneMode();
+
+                //Focus on CtrlUI window
+                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+            }
+            catch { }
+        }
+
+        private async void Btn_Monitor_Switch_Secondary_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await Notification_Send_Status("MonitorSwitch", "Switching secondary monitor");
+                EnableMonitorSecond();
+
+                //Focus on CtrlUI window
+                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+            }
+            catch { }
+        }
+
+        private async void Btn_Monitor_Switch_Primary_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await Notification_Send_Status("MonitorSwitch", "Switching primary monitor");
+                EnableMonitorFirst();
+
+                //Focus on CtrlUI window
+                await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+            }
+            catch { }
+        }
+
+        //Enable or disable HDR
+        async Task AllMonitorSwitchHDR(bool enableHDR, bool waitHDR)
         {
             try
             {
@@ -37,97 +149,15 @@ namespace CtrlUI
                 }
 
                 //Wait for hdr to have enabled
-                await Task.Delay(500);
+                if (waitHDR)
+                {
+                    await Task.Delay(500);
+                }
             }
             catch
             {
                 Debug.WriteLine("Failed to switch monitor HDR.");
                 await Notification_Send_Status("MonitorHDR", "Failed switching HDR");
-            }
-        }
-
-        async Task SwitchDisplayMonitor()
-        {
-            try
-            {
-                Debug.WriteLine("Listing all the connected display monitors.");
-
-                List<DataBindString> Answers = new List<DataBindString>();
-
-                //Get all the connected display monitors
-                List<DisplayMonitor> monitorsList = GetAllMonitorDisplayConfig();
-
-                //Add all display monitors to answers list
-                foreach (DisplayMonitor displayMonitor in monitorsList)
-                {
-                    DataBindString AnswerMonitor = new DataBindString();
-                    AnswerMonitor.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    AnswerMonitor.Name = displayMonitor.Name;
-                    Answers.Add(AnswerMonitor);
-                }
-
-                DataBindString AnswerPrimary = new DataBindString();
-                AnswerPrimary.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerPrimary.Name = "Primary monitor";
-                Answers.Add(AnswerPrimary);
-
-                DataBindString AnswerSecondary = new DataBindString();
-                AnswerSecondary.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerSecondary.Name = "Secondary monitor";
-                Answers.Add(AnswerSecondary);
-
-                DataBindString AnswerDuplicate = new DataBindString();
-                AnswerDuplicate.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerDuplicate.Name = "Duplicate mode";
-                Answers.Add(AnswerDuplicate);
-
-                DataBindString AnswerExtend = new DataBindString();
-                AnswerExtend.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/MonitorSwitch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerExtend.Name = "Extend mode";
-                Answers.Add(AnswerExtend);
-
-                //Show the messagebox prompt
-                DataBindString messageResult = await Popup_Show_MessageBox("Switch display monitor", "", "Please select the display monitor you want to use.", Answers);
-                if (messageResult != null)
-                {
-                    if (messageResult == AnswerPrimary)
-                    {
-                        await Notification_Send_Status("MonitorSwitch", "Switching primary monitor");
-                        EnableMonitorFirst();
-                    }
-                    else if (messageResult == AnswerSecondary)
-                    {
-                        await Notification_Send_Status("MonitorSwitch", "Switching secondary monitor");
-                        EnableMonitorSecond();
-                    }
-                    else if (messageResult == AnswerDuplicate)
-                    {
-                        await Notification_Send_Status("MonitorSwitch", "Cloning display monitor");
-                        EnableMonitorCloneMode();
-                    }
-                    else if (messageResult == AnswerExtend)
-                    {
-                        await Notification_Send_Status("MonitorSwitch", "Extending display monitor");
-                        EnableMonitorExtendMode();
-                    }
-                    else
-                    {
-                        DisplayMonitor changeDevice = monitorsList.Where(x => x.Name.ToLower() == messageResult.Name.ToLower()).FirstOrDefault();
-                        if (changeDevice != null)
-                        {
-                            await Notification_Send_Status("MonitorSwitch", "Switching display monitor");
-                            if (!SetMonitorPrimary((uint)changeDevice.Identifier))
-                            {
-                                await Notification_Send_Status("MonitorSwitch", "Failed switching monitor");
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to load the display monitors: " + ex.Message);
-                await Notification_Send_Status("MonitorSwitch", "No display monitors");
             }
         }
 

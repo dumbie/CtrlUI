@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVDisplayMonitor;
@@ -216,46 +214,6 @@ namespace CtrlUI
                 {
                     await KeyboardControllerHideShow(true);
                 }
-            }
-            catch { }
-        }
-
-        //Move application to the next monitor
-        async Task AppMoveMonitor()
-        {
-            try
-            {
-                //Check if there are multiple monitors
-                int totalScreenCount = Screen.AllScreens.Count();
-                if (totalScreenCount == 1)
-                {
-                    Debug.WriteLine("Only one monitor");
-                    await Notification_Send_Status("MonitorNext", "Only one monitor");
-
-                    //Save the new monitor number
-                    Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", "1");
-
-                    //Update the window position
-                    await UpdateWindowPosition(true, true);
-                    return;
-                }
-
-                //Check the next target monitor
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
-                if (monitorNumber >= totalScreenCount)
-                {
-                    monitorNumber = 1;
-                }
-                else
-                {
-                    monitorNumber++;
-                }
-
-                //Save the new monitor number
-                Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", monitorNumber.ToString());
-
-                //Update the window position
-                await UpdateWindowPosition(true, false);
             }
             catch { }
         }
