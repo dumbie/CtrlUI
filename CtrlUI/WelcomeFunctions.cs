@@ -34,7 +34,7 @@ namespace CtrlUI
                         if (File.Exists(RegKeyExePath))
                         {
                             //Add application to the list
-                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Edge", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), LaunchKeyboard = true };
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.App, Name = "Edge", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), LaunchKeyboard = true, QuickLaunch = true };
                             await AddAppToList(dataBindApp, true, true);
 
                             //Disable the icon after selection
@@ -124,7 +124,7 @@ namespace CtrlUI
                         if (File.Exists(RegKeyExePath))
                         {
                             //Add application to the list
-                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Steam", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), Argument = "-bigpicture", QuickLaunch = true };
+                            DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = AppCategory.Game, Name = "Steam", PathExe = RegKeyExePath, PathLaunch = Path.GetDirectoryName(RegKeyExePath), Argument = "-bigpicture" };
                             await AddAppToList(dataBindApp, true, true);
 
                             //Disable the icon after selection

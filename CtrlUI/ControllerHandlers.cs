@@ -103,7 +103,7 @@ namespace CtrlUI
                         }
                         else
                         {
-                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await QuickActionPrompt(); });
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await QuickLaunchPrompt(); });
                         }
 
                         ControllerUsed = true;

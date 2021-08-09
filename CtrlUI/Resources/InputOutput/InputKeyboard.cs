@@ -277,7 +277,7 @@ namespace CtrlUI
                     //Debug.WriteLine("Key pressed: " + e.Key);
                     if (e.Key == Key.Escape) { await Popup_Close_Top(); }
                     else if (e.Key == Key.F1) { await Popup_Show(grid_Popup_Help, grid_Popup_Help_button_Close); }
-                    else if (e.Key == Key.F2) { await QuickActionPrompt(); }
+                    else if (e.Key == Key.F2) { await QuickLaunchPrompt(); }
                     else if (e.Key == Key.F3) { await Popup_ShowHide_Search(false); }
                     else if (e.Key == Key.F4) { await SortAppListsSwitch(false); }
                     else if (e.Key == Key.F6) { await Popup_ShowHide_MainMenu(false); }
