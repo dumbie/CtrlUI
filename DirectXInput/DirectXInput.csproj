@@ -490,7 +490,7 @@
     <Content Include="Assets\Default\Icons\VolumeUp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\DirectCloseTools.json">
+    <Content Include="Profiles\Default\DirectCloseTools.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DirectXInput.exe.csettings">
@@ -503,31 +503,31 @@
     <Content Include="Profiles\User\DirectKeypadMapping.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\DirectKeyboardTextList.json">
+    <Content Include="Profiles\User\DirectKeyboardTextList.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\DirectKeyboardEmojiListSmiley.json">
+    <Content Include="Profiles\Default\DirectKeyboardEmojiListSmiley.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\DirectKeyboardEmojiListPeople.json">
+    <Content Include="Profiles\Default\DirectKeyboardEmojiListPeople.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\DirectKeyboardEmojiListOther.json">
+    <Content Include="Profiles\Default\DirectKeyboardEmojiListOther.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\DirectKeyboardEmojiListTravel.json">
+    <Content Include="Profiles\Default\DirectKeyboardEmojiListTravel.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\DirectKeyboardEmojiListSymbol.json">
+    <Content Include="Profiles\Default\DirectKeyboardEmojiListSymbol.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\DirectKeyboardEmojiListFood.json">
+    <Content Include="Profiles\Default\DirectKeyboardEmojiListFood.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\DirectKeyboardEmojiListNature.json">
+    <Content Include="Profiles\Default\DirectKeyboardEmojiListNature.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\DirectKeyboardEmojiListActivity.json">
+    <Content Include="Profiles\Default\DirectKeyboardEmojiListActivity.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\Default\DirectControllersIgnored.json">
@@ -544,7 +544,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Assets\AppIcon.ico" />
-    <Content Include="Profiles\DirectControllersProfile.json">
+    <Content Include="Profiles\User\DirectControllersProfile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\Default\DirectControllersSupported.json">

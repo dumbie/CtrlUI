@@ -92,7 +92,7 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("MonitorSwitch", "Cloning display monitor");
+                await Notification_Send_Status("MonitorSwitch", "Duplicating display monitor");
                 EnableMonitorCloneMode();
 
                 //Focus on CtrlUI window

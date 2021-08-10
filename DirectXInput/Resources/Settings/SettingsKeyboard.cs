@@ -58,7 +58,7 @@ namespace DirectXInput
                 profileShared.String1 = textString;
 
                 vDirectKeyboardTextList.Add(profileShared);
-                JsonSaveObject(vDirectKeyboardTextList, "DirectKeyboardTextList");
+                JsonSaveObject(vDirectKeyboardTextList, @"User\DirectKeyboardTextList");
 
                 //Hide keyboard no text set
                 App.vWindowKeyboard.textblock_TextListNoTextSet.Visibility = Visibility.Collapsed;
@@ -78,7 +78,7 @@ namespace DirectXInput
                 vDirectKeyboardTextList.Remove(selectedProfile);
 
                 //Save changes to Json file
-                JsonSaveObject(vDirectKeyboardTextList, "DirectKeyboardTextList");
+                JsonSaveObject(vDirectKeyboardTextList, @"User\DirectKeyboardTextList");
 
                 //Select the default profile
                 combobox_KeyboardTextString.SelectedIndex = 0;

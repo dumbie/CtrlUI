@@ -1,10 +1,6 @@
-﻿/*
- * This file is subject to the terms and conditions defined in
- * file 'license.txt', which is part of this source code package.
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -603,9 +599,9 @@ namespace SteamKit2
 
             this.Children = new List<KeyValue>();
 
-            var _ = new KVTextReader(this, input);
+            using (var _ = new KVTextReader(this, input))
 
-            return true;
+                return true;
         }
 
         /// <summary>
@@ -730,7 +726,7 @@ namespace SteamKit2
             // Only supported types ATM:
             // 1. KeyValue with children (no value itself)
             // 2. String KeyValue
-            if (Children.Any())
+            if (Value == null)
             {
                 f.WriteByte((byte)Type.None);
                 f.WriteNullTermString(GetNameForSerialization(), Encoding.UTF8);
@@ -744,7 +740,7 @@ namespace SteamKit2
             {
                 f.WriteByte((byte)Type.String);
                 f.WriteNullTermString(GetNameForSerialization(), Encoding.UTF8);
-                f.WriteNullTermString(Value ?? string.Empty, Encoding.UTF8);
+                f.WriteNullTermString(Value, Encoding.UTF8);
             }
         }
 
@@ -852,6 +848,7 @@ namespace SteamKit2
 
                     case Type.WideString:
                         {
+                            Debug.WriteLine("KeyValue", "Encountered WideString type when parsing binary KeyValue, which is unsupported. Returning false.");
                             return false;
                         }
 

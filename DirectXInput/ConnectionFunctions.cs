@@ -89,7 +89,7 @@ namespace DirectXInput
                         await StopControllerAsync(activeController, "removed", "Controller " + activeController.Details.DisplayName + " removed and disconnected.");
 
                         //Save changes to Json file
-                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
                     }
                 }
                 else

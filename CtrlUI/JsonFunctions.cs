@@ -22,7 +22,7 @@ namespace CtrlUI
                 List_Emulators.Clear();
 
                 //Add all the apps to the list
-                string JsonFile = File.ReadAllText(@"Profiles\CtrlApplications.json");
+                string JsonFile = File.ReadAllText(@"Profiles\User\CtrlApplications.json");
                 DataBindApp[] JsonList = JsonConvert.DeserializeObject<DataBindApp[]>(JsonFile).OrderBy(x => x.Number).ToArray();
                 foreach (DataBindApp dataBindApp in JsonList)
                 {
@@ -57,7 +57,7 @@ namespace CtrlUI
                 string serializedList = JsonConvert.SerializeObject(JsonFilterList, jsonSettings);
 
                 //Save to file
-                File.WriteAllText(@"Profiles\CtrlApplications.json", serializedList);
+                File.WriteAllText(@"Profiles\User\CtrlApplications.json", serializedList);
                 Debug.WriteLine("Saving Json apps completed.");
             }
             catch (Exception ex)

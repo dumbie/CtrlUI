@@ -340,7 +340,7 @@ namespace DirectXInput
                             Controller.Details.Profile.UseButtonTriggers = true;
 
                             //Save changes to Json file
-                            JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                            JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
                         }
 
                         //Raw Buttons (Group 1)

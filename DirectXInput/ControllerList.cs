@@ -47,7 +47,7 @@ namespace DirectXInput
                             });
 
                             //Save changes to Json file
-                            JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                            JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
 
                             Debug.WriteLine("Added win profile: " + EnumDevice.Description);
                         }
@@ -111,7 +111,7 @@ namespace DirectXInput
                             vDirectControllersProfile.Add(NewController);
 
                             //Save changes to Json file
-                            JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                            JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
 
                             Debug.WriteLine("Added hid profile: " + ProductNameString + " (" + VendorNameString + ")");
                         }

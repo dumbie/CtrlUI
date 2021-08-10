@@ -98,21 +98,21 @@ namespace DirectXInput
                 RegisterInterfaceHandlers();
 
                 //Load application close tools
-                JsonLoadProfile(ref vDirectCloseTools, "DirectCloseTools");
+                JsonLoadProfile(ref vDirectCloseTools, @"Default\DirectCloseTools");
 
                 //Close running controller tools
                 CloseControllerTools();
 
                 //Load keyboard emoji and text list
-                JsonLoadProfile(ref vDirectKeyboardEmojiListActivity, "DirectKeyboardEmojiListActivity");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListNature, "DirectKeyboardEmojiListNature");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListFood, "DirectKeyboardEmojiListFood");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListOther, "DirectKeyboardEmojiListOther");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListPeople, "DirectKeyboardEmojiListPeople");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListSmiley, "DirectKeyboardEmojiListSmiley");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListSymbol, "DirectKeyboardEmojiListSymbol");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListTravel, "DirectKeyboardEmojiListTravel");
-                JsonLoadProfile(ref vDirectKeyboardTextList, "DirectKeyboardTextList");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListActivity, @"Default\DirectKeyboardEmojiListActivity");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListNature, @"Default\DirectKeyboardEmojiListNature");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListFood, @"Default\DirectKeyboardEmojiListFood");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListOther, @"Default\DirectKeyboardEmojiListOther");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListPeople, @"Default\DirectKeyboardEmojiListPeople");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListSmiley, @"Default\DirectKeyboardEmojiListSmiley");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListSymbol, @"Default\DirectKeyboardEmojiListSymbol");
+                JsonLoadProfile(ref vDirectKeyboardEmojiListTravel, @"Default\DirectKeyboardEmojiListTravel");
+                JsonLoadProfile(ref vDirectKeyboardTextList, @"User\DirectKeyboardTextList");
 
                 //Load controllers supported
                 JsonLoadProfile(ref vDirectControllersSupported, @"Default\DirectControllersSupported");

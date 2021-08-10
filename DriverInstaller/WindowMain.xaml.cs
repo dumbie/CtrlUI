@@ -34,7 +34,7 @@ namespace DriverInstaller
                 vDirectXInputRunning = Process.GetProcessesByName("DirectXInput").Any();
 
                 //Load Json profiles
-                JsonLoadProfile(ref vDirectCloseTools, "DirectCloseTools");
+                JsonLoadProfile(ref vDirectCloseTools, @"Default\DirectCloseTools");
             }
             catch { }
         }

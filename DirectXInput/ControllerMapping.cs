@@ -42,7 +42,7 @@ namespace DirectXInput
                     else if (sendButton == btn_SetTriggerRight) { activeController.Details.Profile.ButtonTriggerRight = -1; }
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
                 }
             }
             catch { }
@@ -154,7 +154,7 @@ namespace DirectXInput
                         vMappingControllerButton = null;
 
                         //Save changes to Json file
-                        JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
                     }
                     return true;
                 }

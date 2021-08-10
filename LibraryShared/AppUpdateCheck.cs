@@ -33,11 +33,10 @@ namespace LibraryShared
                 File_Delete("KeyboardController.exe.config");
 
                 //Move old profiles
-                File_Move("Profiles/DirectKeypadMapping.json", "Profiles/User/DirectKeypadMapping.json", true);
-
-                //Rename old file names
-                File_Move("Profiles/Apps.json", "Profiles/CtrlApplications.json", true);
-                File_Move("Profiles/Controllers.json", "Profiles/DirectControllersProfile.json", true);
+                File_Move("Profiles/CtrlApplications.json", "Profiles/User/CtrlApplications.json", true);
+                File_Move("Profiles/DirectControllersProfile.json", "Profiles/User/DirectControllersProfile.json", true);
+                File_Move("Profiles/DirectKeyboardTextList.json", "Profiles/User/DirectKeyboardTextList.json", true);
+                File_Move("Profiles/FpsPositionProcessName.json", "Profiles/User/FpsPositionProcessName.json", true);
 
                 //Rename old folder names
                 Directory_Move("Assets/Roms", "Assets/User/Games", true);

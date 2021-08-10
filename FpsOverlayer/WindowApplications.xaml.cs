@@ -110,7 +110,7 @@ namespace FpsOverlayer
                 FpsPositionProcessName.Int1 = 0;
 
                 AppVariables.vFpsPositionProcessName.Add(FpsPositionProcessName);
-                JsonSaveObject(AppVariables.vFpsPositionProcessName, "FpsPositionProcessName");
+                JsonSaveObject(AppVariables.vFpsPositionProcessName, @"User\FpsPositionProcessName");
 
                 textbox_AddApp.BorderBrush = BrushValid;
             }

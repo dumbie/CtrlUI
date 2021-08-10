@@ -36,7 +36,7 @@ namespace DirectXInput.MediaCode
                         App.vWindowOverlay.Notification_Show_Status("Rumble", "Enabled trigger rumble");
                         activeController.Details.Profile.TriggerRumbleEnabled = true;
                     }
-                    JsonSaveObject(vDirectControllersProfile, "DirectControllersProfile");
+                    JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
                     App.vWindowMain.ControllerUpdateSettingsInterface(activeController);
                 }
             }

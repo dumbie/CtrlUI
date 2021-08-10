@@ -27,7 +27,7 @@ namespace CtrlUI
                 AnswerLaunch.Name = "Launch application";
                 Answers.Add(AnswerLaunch);
 
-                DataBindString messageResult = await Popup_Show_MessageBox("Quick launch", "* You can change the quick launch application in the CtrlUI settings.", "Do you want to quick launch " + quickLaunchApp.Name + "?", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("Quick launch", "* You can change the quick launch application in the CtrlUI settings.", "Do you want to launch " + quickLaunchApp.Name + "?", Answers);
                 if (messageResult != null)
                 {
                     if (messageResult == AnswerLaunch)
@@ -36,7 +36,7 @@ namespace CtrlUI
                     }
                 }
             }
-            catch 
+            catch
             {
                 await Notification_Send_Status("AppLaunch", "Please set a quick launch app");
                 Debug.WriteLine("Please set a quick launch app");
