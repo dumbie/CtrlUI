@@ -61,10 +61,7 @@ namespace CtrlUI
 
                 //Parse steam library folder file
                 KeyValue keyValue = new KeyValue();
-                using (FileStream fileStream = new FileStream(steamAppsPath, FileMode.Open, FileAccess.Read))
-                {
-                    keyValue.ReadAsText(fileStream);
-                }
+                keyValue.ReadFileAsText(steamAppsPath);
 
                 //Add steam installation paths
                 libraryPaths.Add(steamInstallPath);
@@ -72,9 +69,16 @@ namespace CtrlUI
                 {
                     try
                     {
-                        if (child.Value.Contains("\\") && Directory.Exists(child.Value))
+                        foreach (KeyValue subChild in child.Children)
                         {
-                            libraryPaths.Add(child.Value);
+                            try
+                            {
+                                if (subChild.Name == "path" && Directory.Exists(subChild.Value))
+                                {
+                                    libraryPaths.Add(subChild.Value);
+                                }
+                            }
+                            catch { }
                         }
                     }
                     catch { }
