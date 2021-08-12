@@ -34,7 +34,8 @@ namespace DirectXInput
                     }
                     else if (App.vWindowMedia.vWindowVisible)
                     {
-                        await App.vWindowMedia.ControllerInteraction(Controller.InputCurrent);
+                        App.vWindowMedia.ControllerInteractionMouse(Controller.InputCurrent);
+                        await App.vWindowMedia.ControllerInteractionKeyboard(Controller.InputCurrent);
                         return true;
                     }
                     else if (vProcessCtrlUI != null && vProcessCtrlUIActivated)

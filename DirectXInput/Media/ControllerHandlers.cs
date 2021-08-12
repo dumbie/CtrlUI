@@ -4,15 +4,51 @@ using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
+using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
+using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput.MediaCode
 {
     partial class WindowMedia
     {
-        //Process controller input
-        public async Task ControllerInteraction(ControllerInput ControllerInput)
+        //Process controller input for mouse
+        public void ControllerInteractionMouse(ControllerInput ControllerInput)
+        {
+            bool ControllerDelayMicro = false;
+            bool ControllerDelayShort = false;
+            try
+            {
+                if (GetSystemTicksMs() >= vControllerDelay_Mouse)
+                {
+                    //Get the mouse move amount
+                    int moveSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity"));
+                    GetMouseMovementAmountFromThumb(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
+
+                    //Move the media window
+                    MoveMediaWindow(moveHorizontalRight, moveVerticalRight);
+
+                    //Delay input to prevent repeat
+                    if (ControllerDelayMicro)
+                    {
+                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayMicroTicks;
+                    }
+                    else if (ControllerDelayShort)
+                    {
+                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayShortTicks;
+                    }
+                    else
+                    {
+                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayNanoTicks;
+                    }
+                }
+            }
+            catch { }
+        }
+
+        //Process controller input for keyboard
+        public async Task ControllerInteractionKeyboard(ControllerInput ControllerInput)
         {
             bool ControllerDelayShort = false;
             bool ControllerDelayMedium = false;

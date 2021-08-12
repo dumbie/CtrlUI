@@ -134,6 +134,7 @@
     <Compile Include="Keyboard\EmojiListFunctions.cs" />
     <Compile Include="Media\ControllerHandlers.cs" />
     <Compile Include="Media\InterfaceFunctions.cs" />
+    <Compile Include="Media\MouseFunctions.cs" />
     <Compile Include="Media\ProcessFunctions.cs" />
     <Compile Include="Media\MediaTasks.cs" />
     <Compile Include="Media\MediaFunctions.cs" />
