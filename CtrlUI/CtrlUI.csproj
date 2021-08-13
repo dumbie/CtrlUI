@@ -849,23 +849,23 @@
     <Content Include="Profiles\User\CtrlApplications.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\CtrlIgnoreProcessName.json">
+    <Content Include="Profiles\User\CtrlIgnoreProcessName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\CtrlIgnoreShortcutName.json">
+    <Content Include="Profiles\User\CtrlIgnoreShortcutName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\..\ArnoldVinkCertificate\ArnoldVinkCertificate.cer">
       <Link>Resources\ArnoldVinkCertificate.cer</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Profiles\CtrlIgnoreShortcutUri.json">
+    <Content Include="Profiles\User\CtrlIgnoreShortcutUri.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\CtrlCloseLaunchers.json">
+    <Content Include="Profiles\Default\CtrlCloseLaunchers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\CtrlLocationsFile.json">
+    <Content Include="Profiles\User\CtrlLocationsFile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Fonts\HelveticaNeue.ttf">
@@ -878,19 +878,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
-    <Content Include="Profiles\CtrlLocationsShortcut.json">
+    <Content Include="Profiles\User\CtrlLocationsShortcut.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\CtrlKeyboardProcessName.json">
+    <Content Include="Profiles\User\CtrlKeyboardProcessName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\CtrlKeyboardExtensionName.json">
+    <Content Include="Profiles\User\CtrlKeyboardExtensionName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="CtrlUI.exe.csettings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\CtrlIgnoreLauncherName.json">
+    <Content Include="Profiles\User\CtrlIgnoreLauncherName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\User\Profiles in this folder will not get overwritten when updating">

@@ -10,6 +10,7 @@ namespace DriverInstaller
         public static bool vDirectXInputRunning = false;
 
         //Application Lists
+        public static List<ProfileShared> vCtrlCloseLaunchers = new List<ProfileShared>();
         public static List<ProfileShared> vDirectCloseTools = new List<ProfileShared>();
     }
 }

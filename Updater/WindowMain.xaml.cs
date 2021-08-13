@@ -122,22 +122,7 @@ namespace Updater
                                     //Debug.WriteLine("Extracting file: " + extractPathLower);
                                     if (File.Exists(ExtractPath))
                                     {
-                                        if (extractPathLower.EndsWith("CtrlApplications.json".ToLower())) { Debug.WriteLine("Skipping: CtrlApplications.json"); continue; }
-                                        if (extractPathLower.EndsWith("CtrlIgnoreProcessName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreProcessName.json"); continue; }
-                                        if (extractPathLower.EndsWith("CtrlIgnoreLauncherName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreLauncherName.json"); continue; }
-                                        if (extractPathLower.EndsWith("CtrlIgnoreShortcutName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreShortcutName.json"); continue; }
-                                        if (extractPathLower.EndsWith("CtrlIgnoreShortcutUri.json".ToLower())) { Debug.WriteLine("Skipping: CtrlIgnoreShortcutUri.json"); continue; }
-                                        if (extractPathLower.EndsWith("CtrlKeyboardExtensionName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlKeyboardExtensionName.json"); continue; }
-                                        if (extractPathLower.EndsWith("CtrlKeyboardProcessName.json".ToLower())) { Debug.WriteLine("Skipping: CtrlKeyboardProcessName.json"); continue; }
-                                        if (extractPathLower.EndsWith("CtrlLocationsFile.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsFile.json"); continue; }
-                                        if (extractPathLower.EndsWith("CtrlLocationsShortcut.json".ToLower())) { Debug.WriteLine("Skipping: CtrlLocationsShortcut.json"); continue; }
-                                        if (extractPathLower.EndsWith("FpsPositionProcessName.json".ToLower())) { Debug.WriteLine("Skipping: FpsPositionProcessName.json"); continue; }
-                                        if (extractPathLower.EndsWith("DirectControllersProfile.json".ToLower())) { Debug.WriteLine("Skipping: DirectControllersProfile.json"); continue; }
-                                        if (extractPathLower.EndsWith("DirectKeypadMapping.json".ToLower())) { Debug.WriteLine("Skipping: DirectKeypadMapping.json"); continue; }
-                                        if (extractPathLower.EndsWith("DirectKeyboardTextList.json".ToLower())) { Debug.WriteLine("Skipping: DirectKeyboardTextList.json"); continue; }
-                                        if (extractPathLower.EndsWith("DirectControllersIgnored.json".ToLower())) { Debug.WriteLine("Skipping: DirectControllersIgnored.json"); continue; }
-                                        if (extractPathLower.Contains("profiles/user".ToLower())) { Debug.WriteLine("Skipping: User profile."); continue; }
-
+                                        if (extractPathLower.Contains("Profiles/User".ToLower())) { Debug.WriteLine("Skipping: " + extractPathLower); continue; }
                                         if (extractPathLower.EndsWith("CtrlUI.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: CtrlUI.exe.csettings"); continue; }
                                         if (extractPathLower.EndsWith("DirectXInput.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: DirectXInput.exe.csettings"); continue; }
                                         if (extractPathLower.EndsWith("FpsOverlayer.exe.csettings".ToLower())) { Debug.WriteLine("Skipping: FpsOverlayer.exe.csettings"); continue; }

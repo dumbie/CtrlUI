@@ -139,7 +139,7 @@ namespace CtrlUI
                 await ListBoxRemoveItem(lb_ProfileManager, vProfileManagerListShared, selectedProfile, true);
 
                 //Save the updated json values
-                JsonSaveObject(vProfileManagerListShared, vProfileManagerName);
+                JsonSaveObject(vProfileManagerListShared, @"User\" + vProfileManagerName);
 
                 await Notification_Send_Status("Profile", "Removed profile value");
             }
@@ -214,7 +214,7 @@ namespace CtrlUI
                 await ListBoxAddItem(lb_ProfileManager, vProfileManagerListShared, profileShared, false, false);
 
                 //Save the updated json values
-                JsonSaveObject(vProfileManagerListShared, vProfileManagerName);
+                JsonSaveObject(vProfileManagerListShared, @"User\" + vProfileManagerName);
 
                 //Show profile added notification
                 await Notification_Send_Status("Profile", "New value added");

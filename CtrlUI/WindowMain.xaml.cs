@@ -113,15 +113,15 @@ namespace CtrlUI
 
                 //Load Json profiles
                 JsonLoadProfile(ref vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
-                JsonLoadProfile(ref vCtrlCloseLaunchers, "CtrlCloseLaunchers");
-                JsonLoadProfile(ref vCtrlLocationsFile, "CtrlLocationsFile");
-                JsonLoadProfile(ref vCtrlLocationsShortcut, "CtrlLocationsShortcut");
-                JsonLoadProfile(ref vCtrlIgnoreLauncherName, "CtrlIgnoreLauncherName");
-                JsonLoadProfile(ref vCtrlIgnoreShortcutName, "CtrlIgnoreShortcutName");
-                JsonLoadProfile(ref vCtrlIgnoreShortcutUri, "CtrlIgnoreShortcutUri");
-                JsonLoadProfile(ref vCtrlIgnoreProcessName, "CtrlIgnoreProcessName");
-                JsonLoadProfile(ref vCtrlKeyboardExtensionName, "CtrlKeyboardExtensionName");
-                JsonLoadProfile(ref vCtrlKeyboardProcessName, "CtrlKeyboardProcessName");
+                JsonLoadProfile(ref vCtrlCloseLaunchers, @"Default\CtrlCloseLaunchers");
+                JsonLoadProfile(ref vCtrlLocationsFile, @"User\CtrlLocationsFile");
+                JsonLoadProfile(ref vCtrlLocationsShortcut, @"User\CtrlLocationsShortcut");
+                JsonLoadProfile(ref vCtrlIgnoreLauncherName, @"User\CtrlIgnoreLauncherName");
+                JsonLoadProfile(ref vCtrlIgnoreShortcutName, @"User\CtrlIgnoreShortcutName");
+                JsonLoadProfile(ref vCtrlIgnoreShortcutUri, @"User\CtrlIgnoreShortcutUri");
+                JsonLoadProfile(ref vCtrlIgnoreProcessName, @"User\CtrlIgnoreProcessName");
+                JsonLoadProfile(ref vCtrlKeyboardExtensionName, @"User\CtrlKeyboardExtensionName");
+                JsonLoadProfile(ref vCtrlKeyboardProcessName, @"User\CtrlKeyboardProcessName");
 
                 //Load Json lists
                 JsonLoadEmbedded(vAppAssembly, ref vApiIGDBGenres, "CtrlUI.Resources.ApiIGDB.Genres.json");

@@ -111,7 +111,41 @@ namespace CtrlUI
                 //Check if databind paths are available
                 if (!await CheckDatabindPathAuto(dataBindApp)) { return; }
 
-                //Enable monitor HDR
+                //Launch the databind process
+                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
+                {
+                    await EnableHDRDatabindAuto(dataBindApp);
+                    await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp, false, true, keyboardLaunch);
+                }
+                else if (dataBindApp.LaunchFilePicker)
+                {
+                    string launchArgument = await GetLaunchArgumentFilePicker(dataBindApp);
+                    if (launchArgument == "Cancel") { return; }
+                    await EnableHDRDatabindAuto(dataBindApp);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, true, false, false, keyboardLaunch);
+                }
+                else if (dataBindApp.Category == AppCategory.Emulator)
+                {
+                    string launchArgument = await GetLaunchArgumentEmulator(dataBindApp);
+                    if (launchArgument == "Cancel") { return; }
+                    await EnableHDRDatabindAuto(dataBindApp);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, true, false, false, keyboardLaunch);
+                }
+                else
+                {
+                    await EnableHDRDatabindAuto(dataBindApp);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, string.Empty, false, true, false, false, keyboardLaunch);
+                }
+            }
+            catch { }
+        }
+
+        //Enable monitor HDR
+        async Task EnableHDRDatabindAuto(DataBindApp dataBindApp)
+        {
+            try
+            {
+                //Check executable name
                 string executableName = string.Empty;
                 string executableNameRaw = string.Empty;
                 if (string.IsNullOrWhiteSpace(dataBindApp.NameExe))
@@ -124,32 +158,12 @@ namespace CtrlUI
                     executableName = Path.GetFileNameWithoutExtension(dataBindApp.NameExe).ToLower();
                     executableNameRaw = dataBindApp.NameExe.ToLower();
                 }
+
+                //Enable monitor HDR
                 bool enabledHDR = vCtrlHDRProcessName.Any(x => x.String1.ToLower() == executableName || x.String1.ToLower() == executableNameRaw);
                 if (enabledHDR)
                 {
                     await AllMonitorSwitchHDR(true, true);
-                }
-
-                //Launch the databind process
-                if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
-                {
-                    await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp, false, true, keyboardLaunch);
-                }
-                else if (dataBindApp.LaunchFilePicker)
-                {
-                    string launchArgument = await GetLaunchArgumentFilePicker(dataBindApp);
-                    if (launchArgument == "Cancel") { return; }
-                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, true, false, false, keyboardLaunch);
-                }
-                else if (dataBindApp.Category == AppCategory.Emulator)
-                {
-                    string launchArgument = await GetLaunchArgumentEmulator(dataBindApp);
-                    if (launchArgument == "Cancel") { return; }
-                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, true, false, false, keyboardLaunch);
-                }
-                else
-                {
-                    await PrepareProcessLauncherWin32Async(dataBindApp, string.Empty, false, true, false, false, keyboardLaunch);
                 }
             }
             catch { }

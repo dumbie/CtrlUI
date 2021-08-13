@@ -104,7 +104,7 @@ namespace CtrlUI
 
                 //Add shortcut file to the ignore list
                 vCtrlIgnoreShortcutName.Add(profileShared);
-                JsonSaveObject(vCtrlIgnoreShortcutName, "CtrlIgnoreShortcutName");
+                JsonSaveObject(vCtrlIgnoreShortcutName, @"User\CtrlIgnoreShortcutName");
 
                 //Remove application from the list
                 await RemoveAppFromList(dataBindApp, false, false, true);

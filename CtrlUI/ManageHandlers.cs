@@ -1,5 +1,4 @@
-﻿using LibraryShared;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -15,6 +14,7 @@ using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.FocusFunctions;
+using static LibraryShared.JsonFunctions;
 
 namespace CtrlUI
 {
@@ -560,7 +560,7 @@ namespace CtrlUI
                         ProfileShared newProfile = new ProfileShared();
                         newProfile.String1 = executableNameRaw;
                         vCtrlHDRProcessName.Add(newProfile);
-                        JsonFunctions.JsonSaveObject(vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
+                        JsonSaveObject(vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
                     }
                     Debug.WriteLine("Enabled HDR profile for: " + executableNameRaw);
                 }
@@ -572,7 +572,7 @@ namespace CtrlUI
                         {
                             vCtrlHDRProcessName.Remove(removeProfile);
                         }
-                        JsonFunctions.JsonSaveObject(vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
+                        JsonSaveObject(vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
                     }
                     Debug.WriteLine("Disabled HDR profile for: " + executableNameRaw);
                 }
