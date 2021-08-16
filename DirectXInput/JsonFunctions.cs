@@ -17,7 +17,7 @@ namespace DirectXInput
                 //Remove all the current controllers
                 vDirectControllersProfile.Clear();
 
-                string JsonFile = File.ReadAllText(@"Profiles\DirectControllersProfile.json");
+                string JsonFile = File.ReadAllText(@"Profiles\User\DirectControllersProfile.json");
                 ControllerProfile[] JsonList = JsonConvert.DeserializeObject<ControllerProfile[]>(JsonFile);
                 foreach (ControllerProfile Controller in JsonList)
                 {

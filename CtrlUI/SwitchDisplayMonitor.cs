@@ -135,10 +135,12 @@ namespace CtrlUI
                 if (enableHDR)
                 {
                     await Notification_Send_Status("MonitorHDR", "Enabling monitor HDR");
+                    Debug.WriteLine("Enabling monitor HDR.");
                 }
                 else
                 {
                     await Notification_Send_Status("MonitorHDR", "Disabling monitor HDR");
+                    Debug.WriteLine("Disabling monitor HDR.");
                 }
 
                 //Switch hdr for all monitors
