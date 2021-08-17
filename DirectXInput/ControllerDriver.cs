@@ -1,6 +1,7 @@
 ﻿using LibraryUsb;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
@@ -25,6 +26,45 @@ namespace DirectXInput
             {
                 Debug.WriteLine("Failed to check installed drivers.");
                 return false;
+            }
+        }
+
+        //Check driver version
+        bool CheckDriversVersion()
+        {
+            try
+            {
+                foreach (FileInfo infNames in EnumerateDevicesStore("ViGEmBus.inf"))
+                {
+                    string availableVersion = File.ReadAllLines("Resources\\Drivers\\ViGEmBus\\x64\\ViGEmBus.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    //Debug.WriteLine("ViGEmBus: " + installedVersion + " / " + availableVersion);
+                    if (availableVersion != installedVersion) { return false; } else { break; }
+                }
+
+                foreach (FileInfo infNames in EnumerateDevicesStore("HidHide.inf"))
+                {
+                    string availableVersion = File.ReadAllLines("Resources\\Drivers\\HidHide\\x64\\HidHide.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    //Debug.WriteLine("HidHide: " + installedVersion + " / " + availableVersion);
+                    if (availableVersion != installedVersion) { return false; } else { break; }
+                }
+
+                foreach (FileInfo infNames in EnumerateDevicesStore("Ds3Controller.inf"))
+                {
+                    string availableVersion = File.ReadAllLines("Resources\\Drivers\\Ds3Controller\\Ds3Controller.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    //Debug.WriteLine("Ds3Controller: " + installedVersion + " / " + availableVersion);
+                    if (availableVersion != installedVersion) { return false; } else { break; }
+                }
+
+                Debug.WriteLine("Drivers seem to be up to date.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to check driver version: " + ex.Message);
+                return true;
             }
         }
 

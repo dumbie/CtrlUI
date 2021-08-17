@@ -19,32 +19,19 @@ namespace LibraryUsb
             public string ModelId { get; set; }
         }
 
-        public static List<string> EnumerateDevicesStore(string infFileName)
+        public static List<FileInfo> EnumerateDevicesStore(string infFileName)
         {
-            List<string> infPaths = new List<string>();
             try
             {
                 string windowsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
                 string driverStoreFileRepository = Path.Combine(windowsFolderPath, @"System32\DriverStore\FileRepository");
                 DirectoryInfo driverStoreDirectory = new DirectoryInfo(driverStoreFileRepository);
-                FileInfo[] driverStoreFiles = driverStoreDirectory.GetFiles("*.inf", SearchOption.AllDirectories);
-                foreach (FileInfo fileInfo in driverStoreFiles)
-                {
-                    try
-                    {
-                        if (fileInfo.Name.ToLower() == infFileName.ToLower())
-                        {
-                            infPaths.Add(fileInfo.FullName);
-                        }
-                    }
-                    catch { }
-                }
-                return infPaths;
+                return driverStoreDirectory.GetFiles("*.inf", SearchOption.AllDirectories).Where(x => x.Name.ToLower() == infFileName.ToLower()).OrderByDescending(x => x.CreationTime).ToList();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed enumerating devices store: " + ex.Message);
-                return infPaths;
+                return new List<FileInfo>();
             }
         }
 

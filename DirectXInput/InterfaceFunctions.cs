@@ -541,7 +541,7 @@ namespace DirectXInput
                 messageAnswers.Add("Update the drivers");
                 messageAnswers.Add("Cancel");
 
-                string messageResult = await new AVMessageBox().Popup(this, "Update drivers", "DirectXInput will be closed during the installation of the required drivers.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", messageAnswers);
+                string messageResult = await new AVMessageBox().Popup(this, "Update drivers", "There seem to be newer drivers available to install, DirectXInput will be closed during the installation of the required drivers.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", messageAnswers);
                 if (messageResult == "Update the drivers")
                 {
                     if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false))

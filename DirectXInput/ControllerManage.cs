@@ -231,7 +231,10 @@ namespace DirectXInput
                         App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     }
 
+                    //Activate current controller
                     Controller.Activated = true;
+
+                    //Update settings interface
                     ControllerUpdateSettingsInterface(Controller);
                     return true;
                 }

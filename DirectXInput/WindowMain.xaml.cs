@@ -75,6 +75,14 @@ namespace DirectXInput
                     return;
                 }
 
+                //Check installed driver versions
+                if (!CheckDriversVersion())
+                {
+                    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
+                    await Message_UpdateDrivers();
+                    return;
+                }
+
                 //Open the virtual bus driver
                 if (!await OpenVirtualBusDriver())
                 {
