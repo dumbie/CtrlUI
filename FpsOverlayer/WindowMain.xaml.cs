@@ -156,25 +156,31 @@ namespace FpsOverlayer
                 {
                     if (visible)
                     {
-                        //Create and show the window
-                        base.Show();
+                        if (!vWindowVisible)
+                        {
+                            //Create and show the window
+                            base.Show();
 
-                        //Update the window style (focus workaround)
-                        UpdateWindowStyle();
+                            //Update the window style (focus workaround)
+                            UpdateWindowStyle();
 
-                        this.Title = "Fps Overlayer (Visible)";
-                        vWindowVisible = true;
-                        Debug.WriteLine("Showing the window.");
+                            this.Title = "Fps Overlayer (Visible)";
+                            vWindowVisible = true;
+                            Debug.WriteLine("Showing the window.");
+                        }
                     }
                     else
                     {
-                        //Update the window style
-                        IntPtr updatedStyle = IntPtr.Zero;
-                        SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                        if (vWindowVisible)
+                        {
+                            //Update the window style
+                            IntPtr updatedStyle = IntPtr.Zero;
+                            SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
-                        this.Title = "Fps Overlayer (Hidden)";
-                        vWindowVisible = false;
-                        Debug.WriteLine("Hiding the window.");
+                            this.Title = "Fps Overlayer (Hidden)";
+                            vWindowVisible = false;
+                            Debug.WriteLine("Hiding the window.");
+                        }
                     }
                 });
             }
