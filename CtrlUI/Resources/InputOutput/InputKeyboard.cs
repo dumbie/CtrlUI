@@ -163,9 +163,15 @@ namespace CtrlUI
                 }
                 else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
                 {
-                    if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
+                    if (vTabTargetButtonsDown.Any(x => x == frameworkElement.Name))
                     {
                         KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                        Handled = true;
+                        return;
+                    }
+                    else if (vTabTargetButtonsUp.Any(x => x == frameworkElement.Name))
+                    {
+                        KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;
                         return;
                     }
@@ -226,7 +232,7 @@ namespace CtrlUI
                 }
                 else if (frameworkElement != null && frameworkElement.GetType() == typeof(Button))
                 {
-                    if (vTabTargetButtons.Any(x => x == frameworkElement.Name))
+                    if (vTabTargetButtonsDown.Any(x => x == frameworkElement.Name))
                     {
                         KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;

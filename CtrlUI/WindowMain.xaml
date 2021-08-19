@@ -394,45 +394,46 @@
 
                 <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
                     <StackPanel>
-                        <TextBlock HorizontalAlignment="Left" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application image:"/>
+                        <TextBlock HorizontalAlignment="Left" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application image:"/>
                         <Button Name="btn_AddAppLogo" Style="{StaticResource ButtonImageTransparentWhiteBorder}" BorderBrush="{DynamicResource ApplicationAccentLightBrush}" ToolTipService.ToolTip="Change application image">
                             <Image Name="img_AddAppLogo" Margin="0,5,0,5" MaxWidth="120" MaxHeight="120"/>
                         </Button>
                         <Button Name="btn_Manage_ResetAppLogo" Margin="0,5,0,0" Content="Reset the application image" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                         <StackPanel Margin="0,10,0,0" Name="sp_AddAppName">
-                            <TextBlock Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application name:"/>
+                            <TextBlock Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application name:"/>
                             <TextBox Name="tb_AddAppName" Text="Select application executable file first" VerticalContentAlignment="Center" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}"/>
                         </StackPanel>
 
-                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application category:"/>
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application category:"/>
                         <ListBox Name="lb_Manage_AddAppCategory" SelectionMode="Single" Height="90" Margin="0,5,0,0" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemAppCategory}" Style="{StaticResource ListBoxHorizontal}" Template="{StaticResource ListBoxHorizontalNoScrollTemplate}"/>
 
                         <StackPanel Name="sp_AddAppExePath">
-                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application launch executable:"/>
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application launch executable:"/>
                             <TextBox Name="tb_AddAppExePath" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Button Name="btn_AddAppExePath" Margin="0,5,0,0" Content="Select application launch executable" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
                         <StackPanel Name="sp_AddAppPathLaunch">
-                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application launch folder:"/>
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application launch folder:"/>
                             <TextBox Name="tb_AddAppPathLaunch" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Button Name="btn_AddAppPathLaunch" Margin="0,5,0,0" Content="Select application launch folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
                         <StackPanel Name="sp_AddAppPathRoms" Visibility="Collapsed">
-                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Emulator rom folder:"/>
-                            <TextBox Name="tb_AddAppPathRoms" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Emulator rom folder:"/>
+                            <CheckBox Name="checkbox_AddLaunchSkipRom" Content="Launch emulator without picking a rom" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource CheckBoxWhite}"/>
+                            <TextBox Name="tb_AddAppPathRoms" Margin="0,5,0,0" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Button Name="btn_AddAppPathRoms" Margin="0,5,0,0" Content="Select emulator rom folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
                         <StackPanel Name="sp_AddAppArgument">
-                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Application launch argument:"/>
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application launch argument:"/>
                             <TextBox Name="tb_AddAppArgument" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 
                         <StackPanel Name="sp_AddAppNameExe">
-                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" Text="Process executable name:"/>
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Process executable name:"/>
                             <TextBox Name="tb_AddAppNameExe" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 

@@ -107,6 +107,7 @@ namespace CtrlUI
                 btn_AddAppPathLaunch.Click += Button_AddAppPathLaunch_Click;
                 btn_AddAppPathRoms.Click += Button_AddAppPathRoms_Click;
                 checkbox_AddLaunchEnableHDR.Click += Checkbox_AddLaunchEnableHDR_Click;
+                checkbox_AddLaunchSkipRom.Click += Checkbox_AddLaunchSkipRom_Click;
 
                 //Move app functions
                 btn_MoveAppLeft.Click += Btn_MoveAppLeft_Click;

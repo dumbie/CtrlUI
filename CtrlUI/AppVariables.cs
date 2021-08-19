@@ -49,7 +49,8 @@ namespace CtrlUI
         public static string[] vTabTargetListsSingleColumn = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Manage_AddAppCategory" };
         public static string[] vTabTargetListsFirstLastColumn = { "lb_Search" };
         public static string[] vTabTargetListsFirstLastItem = { "lb_FilePicker", "lb_ProfileManager" };
-        public static string[] vTabTargetButtons = { "grid_Popup_TextInput_button_ConfirmText" };
+        public static string[] vTabTargetButtonsDown = { "btn_Monitor_Switch_Primary", "grid_Popup_TextInput_button_ConfirmText" };
+        public static string[] vTabTargetButtonsUp = { };
 
         //Dispatcher Timers
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();

@@ -59,7 +59,7 @@ namespace CtrlUI
                         return false;
                     }
                 }
-                else if (dataBindApp.Category == AppCategory.Emulator)
+                else if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
                 {
                     //Check if the rom folder exists
                     if (!Directory.Exists(dataBindApp.PathRoms))
@@ -124,7 +124,7 @@ namespace CtrlUI
                     await EnableHDRDatabindAuto(dataBindApp);
                     await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, true, false, false, keyboardLaunch);
                 }
-                else if (dataBindApp.Category == AppCategory.Emulator)
+                else if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
                 {
                     string launchArgument = await GetLaunchArgumentEmulator(dataBindApp);
                     if (launchArgument == "Cancel") { return; }

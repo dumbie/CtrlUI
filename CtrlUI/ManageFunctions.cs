@@ -216,6 +216,7 @@ namespace CtrlUI
                 tb_AddAppNameExe.Text = vEditAppDataBind.NameExe;
                 checkbox_AddLaunchFilePicker.IsChecked = vEditAppDataBind.LaunchFilePicker;
                 checkbox_AddLaunchKeyboard.IsChecked = vEditAppDataBind.LaunchKeyboard;
+                checkbox_AddLaunchSkipRom.IsChecked = vEditAppDataBind.LaunchSkipRom;
 
                 //Enable monitor HDR
                 string executableName = string.Empty;
@@ -247,6 +248,17 @@ namespace CtrlUI
                     if (vEditAppDataBind.Category == AppCategory.Emulator) { sp_AddAppPathRoms.Visibility = Visibility.Visible; } else { sp_AddAppPathRoms.Visibility = Visibility.Collapsed; }
                     if (vEditAppDataBind.Category == AppCategory.App) { checkbox_AddLaunchFilePicker.Visibility = Visibility.Visible; } else { checkbox_AddLaunchFilePicker.Visibility = Visibility.Collapsed; }
                     sp_AddAppArgument.Visibility = Visibility.Visible;
+                }
+
+                if (vEditAppDataBind.LaunchSkipRom)
+                {
+                    tb_AddAppPathRoms.IsEnabled = false;
+                    btn_AddAppPathRoms.IsEnabled = false;
+                }
+                else
+                {
+                    tb_AddAppPathRoms.IsEnabled = true;
+                    btn_AddAppPathRoms.IsEnabled = true;
                 }
 
                 //Show the manage popup
@@ -308,6 +320,7 @@ namespace CtrlUI
                 tb_AddAppNameExe.Text = string.Empty;
                 checkbox_AddLaunchFilePicker.IsChecked = false;
                 checkbox_AddLaunchKeyboard.IsChecked = false;
+                checkbox_AddLaunchSkipRom.IsChecked = false;
 
                 //Hide and show situation based settings
                 sp_AddAppPathLaunch.Visibility = Visibility.Visible;
