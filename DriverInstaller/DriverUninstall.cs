@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using static DriverInstaller.AppVariables;
@@ -84,12 +85,12 @@ namespace DriverInstaller
         {
             try
             {
-                List<string> infPaths = EnumerateDevicesStore("ViGEmBus.inf");
-                foreach (string infPath in infPaths)
+                List<FileInfo> infPaths = EnumerateDevicesStore("ViGEmBus.inf");
+                foreach (FileInfo infPath in infPaths)
                 {
                     try
                     {
-                        if (DriverUninstallInf(infPath, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                         {
                             TextBoxAppend("Virtual ViGEm Bus Driver uninstalled.");
                         }
@@ -102,11 +103,11 @@ namespace DriverInstaller
                 }
 
                 infPaths = EnumerateDevicesStore("ScpVBus.inf");
-                foreach (string infPath in infPaths)
+                foreach (FileInfo infPath in infPaths)
                 {
                     try
                     {
-                        if (DriverUninstallInf(infPath, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                         {
                             TextBoxAppend("Virtual ScpVBus Bus Driver uninstalled.");
                         }
@@ -125,12 +126,12 @@ namespace DriverInstaller
         {
             try
             {
-                List<string> infPaths = EnumerateDevicesStore("Ds3Controller.inf");
-                foreach (string infPath in infPaths)
+                List<FileInfo> infPaths = EnumerateDevicesStore("Ds3Controller.inf");
+                foreach (FileInfo infPath in infPaths)
                 {
                     try
                     {
-                        if (DriverUninstallInf(infPath, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                         {
                             TextBoxAppend("DualShock 3 USB Driver uninstalled.");
                         }
@@ -149,12 +150,12 @@ namespace DriverInstaller
         {
             try
             {
-                List<string> infPaths = EnumerateDevicesStore("HidGuardian.inf");
-                foreach (string infPath in infPaths)
+                List<FileInfo> infPaths = EnumerateDevicesStore("HidGuardian.inf");
+                foreach (FileInfo infPath in infPaths)
                 {
                     try
                     {
-                        if (DriverUninstallInf(infPath, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                         {
                             TextBoxAppend("HidGuardian Driver uninstalled.");
                         }
@@ -175,12 +176,12 @@ namespace DriverInstaller
         {
             try
             {
-                List<string> infPaths = EnumerateDevicesStore("HidHide.inf");
-                foreach (string infPath in infPaths)
+                List<FileInfo> infPaths = EnumerateDevicesStore("HidHide.inf");
+                foreach (FileInfo infPath in infPaths)
                 {
                     try
                     {
-                        if (DriverUninstallInf(infPath, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                         {
                             TextBoxAppend("HidHide Driver uninstalled.");
                         }

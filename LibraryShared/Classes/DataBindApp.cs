@@ -181,6 +181,20 @@ namespace LibraryShared
                 }
             }
 
+            private bool PrivLaunchSkipRom = false;
+            public bool LaunchSkipRom
+            {
+                get { return this.PrivLaunchSkipRom; }
+                set
+                {
+                    if (this.PrivLaunchSkipRom != value)
+                    {
+                        this.PrivLaunchSkipRom = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private bool PrivLaunchKeyboard = false;
             public bool LaunchKeyboard
             {
