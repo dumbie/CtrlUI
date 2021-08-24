@@ -275,7 +275,7 @@ namespace DirectXInput.KeyboardCode
                     //Update the window style (focus workaround)
                     if (ControllerDelayShort || ControllerDelayMedium)
                     {
-                        UpdateWindowStyle();
+                        UpdateWindowStyleVisible();
                     }
                 }
             }

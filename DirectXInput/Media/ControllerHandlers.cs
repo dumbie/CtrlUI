@@ -231,7 +231,7 @@ namespace DirectXInput.MediaCode
                     //Update the window style (focus workaround)
                     if (ControllerDelayShort || ControllerDelayMedium || ControllerDelayLonger)
                     {
-                        UpdateWindowStyle();
+                        UpdateWindowStyleVisible();
                     }
                 }
             }

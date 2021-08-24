@@ -30,6 +30,7 @@ namespace DirectXInput.KeyboardCode
         //Window Variables
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
+        public bool vHideAdded = false;
 
         //Window Initialized
         protected override async void OnSourceInitialized(EventArgs e)
@@ -40,7 +41,7 @@ namespace DirectXInput.KeyboardCode
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
                 //Update the window style
-                UpdateWindowStyle();
+                UpdateWindowStyleVisible();
 
                 //Update keyboard keys
                 UpdateKeyboardKeys();
@@ -174,8 +175,8 @@ namespace DirectXInput.KeyboardCode
                     //Create and show the window
                     base.Show();
 
-                    //Update the window style (focus workaround)
-                    UpdateWindowStyle();
+                    //Update the window style
+                    UpdateWindowStyleVisible();
 
                     this.Title = "DirectXInput Keyboard (Visible)";
                     vWindowVisible = true;
@@ -184,8 +185,7 @@ namespace DirectXInput.KeyboardCode
                 else
                 {
                     //Update the window style
-                    IntPtr updatedStyle = IntPtr.Zero;
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                    UpdateWindowStyleHidden();
 
                     this.Title = "DirectXInput Keyboard (Hidden)";
                     vWindowVisible = false;
@@ -195,8 +195,8 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Update the window style (focus workaround)
-        void UpdateWindowStyle()
+        //Update the window style
+        void UpdateWindowStyleVisible()
         {
             try
             {
@@ -210,8 +210,37 @@ namespace DirectXInput.KeyboardCode
                     IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
                     SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
 
-                    //Set the window as top most
+                    //Set the window as top most (focus workaround)
                     SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE | WindowSWP.FRAMECHANGED | WindowSWP.NOCOPYBITS));
+                });
+            }
+            catch { }
+        }
+
+        //Update the window style
+        void UpdateWindowStyleHidden()
+        {
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    //Set the window style
+                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_NONE);
+                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+
+                    //Move window to force style
+                    WindowRectangle positionRect = new WindowRectangle();
+                    GetWindowRect(vInteropWindowHandle, ref positionRect);
+                    if (vHideAdded)
+                    {
+                        WindowMove(vInteropWindowHandle, positionRect.Left + 1, positionRect.Top + 1);
+                        vHideAdded = false;
+                    }
+                    else
+                    {
+                        WindowMove(vInteropWindowHandle, positionRect.Left - 1, positionRect.Top - 1);
+                        vHideAdded = true;
+                    }
                 });
             }
             catch { }
