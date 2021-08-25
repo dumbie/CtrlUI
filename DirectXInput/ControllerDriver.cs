@@ -117,5 +117,29 @@ namespace DirectXInput
                 return false;
             }
         }
+
+        //Open the virtual hid device
+        bool OpenVirtualHidDevice()
+        {
+            try
+            {
+                vVirtualHidDevice = new VirtualHidDevice();
+                if (vHidHideDevice.Connected)
+                {
+                    Debug.WriteLine("Virtual hid device is installed.");
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine("Virtual hid device not installed.");
+                    return false;
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to open virtual hid device.");
+                return false;
+            }
+        }
     }
 }

@@ -99,6 +99,14 @@ namespace DirectXInput
                     return;
                 }
 
+                //Open the virtual hid device
+                if (!OpenVirtualHidDevice())
+                {
+                    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
+                    await Message_InstallDrivers();
+                    return;
+                }
+
                 //Load the help text
                 LoadHelp();
 

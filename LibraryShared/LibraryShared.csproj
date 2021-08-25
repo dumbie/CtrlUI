@@ -356,6 +356,7 @@
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice.cs" />
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_Information.cs" />
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_ReadWrite.cs" />
+    <Compile Include="UsbCode\VirtualHidDevice\VirtualHidDevice.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="NetFwTypeLib">

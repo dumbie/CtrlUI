@@ -12,6 +12,7 @@ using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
+using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput.KeyboardCode
 {
@@ -31,7 +32,7 @@ namespace DirectXInput.KeyboardCode
                     GetMouseMovementAmountFromThumb(moveSensitivity, ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY, true, out int moveHorizontalLeft, out int moveVerticalLeft);
 
                     //Move the mouse cursor
-                    MouseMoveCursor(moveHorizontalLeft, moveVerticalLeft);
+                    vVirtualHidDevice.movRel(moveHorizontalLeft, moveVerticalLeft);
 
                     if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode")) == 0)
                     {
@@ -57,7 +58,7 @@ namespace DirectXInput.KeyboardCode
                         if (!vMouseDownStatus)
                         {
                             vMouseDownStatus = true;
-                            MouseToggle(false, true);
+                            vVirtualHidDevice.btn(1); //Press left button
 
                             ControllerDelayMicro = true;
                         }
@@ -65,7 +66,7 @@ namespace DirectXInput.KeyboardCode
                     else if (vMouseDownStatus)
                     {
                         vMouseDownStatus = false;
-                        MouseToggle(false, false);
+                        vVirtualHidDevice.btn(2); //Release left button
 
                         ControllerDelayMicro = true;
                     }
@@ -73,7 +74,8 @@ namespace DirectXInput.KeyboardCode
                     //Emulate mouse click right
                     if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
-                        await MousePress(true);
+                        vVirtualHidDevice.btn(4); //Press right button
+                        vVirtualHidDevice.btn(8); //Release right button
 
                         ControllerDelayShort = true;
                     }

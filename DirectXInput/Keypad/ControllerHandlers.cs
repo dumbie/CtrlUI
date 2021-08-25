@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
-using static ArnoldVinkCode.AVInputOutputMouse;
 using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
 using static DirectXInput.WindowMain;
@@ -76,7 +75,7 @@ namespace DirectXInput.KeypadCode
                     vKeypadDownStatus.ThumbRightDown.Pressed = controllerInput.ThumbRightY < -vControllerOffsetMedium;
 
                     //Move the mouse cursor
-                    MouseMoveCursor(moveHorizontalRight, moveVerticalRight);
+                    vVirtualHidDevice.movRel(moveHorizontalRight, moveVerticalRight);
 
                     //Delay input to prevent repeat
                     vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayNanoTicks;
