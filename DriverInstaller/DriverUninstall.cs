@@ -59,16 +59,20 @@ namespace DriverInstaller
                 RemoveUnusedDS3Controllers();
                 UninstallHidGuardian();
 
-                //Uninstall Virtual Bus Driver
+                //Uninstall Virtual Hid Driver
                 ProgressBarUpdate(40, false);
+                UninstallVirtualHid();
+
+                //Uninstall Virtual Bus Driver
+                ProgressBarUpdate(55, false);
                 UninstallVirtualBus();
 
                 //Uninstall HidHide Driver
-                ProgressBarUpdate(60, false);
+                ProgressBarUpdate(70, false);
                 UninstallHidHide();
 
                 //Uninstall DS3 USB Driver
-                ProgressBarUpdate(80, false);
+                ProgressBarUpdate(85, false);
                 UninstallDualShock3();
 
                 ProgressBarUpdate(100, false);
@@ -77,6 +81,47 @@ namespace DriverInstaller
 
                 //Close the application
                 await Application_Exit("Closing the driver installer in a bit.", false);
+            }
+            catch { }
+        }
+
+        void UninstallVirtualHid()
+        {
+            try
+            {
+                List<FileInfo> infPathsMouse = EnumerateDevicesStore("dd.mou.94396.inf");
+                foreach (FileInfo infPath in infPathsMouse)
+                {
+                    try
+                    {
+                        if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        {
+                            TextBoxAppend("Virtual Hid Mouse Driver uninstalled.");
+                        }
+                        else
+                        {
+                            TextBoxAppend("Virtual Hid Mouse Driver not uninstalled.");
+                        }
+                    }
+                    catch { }
+                }
+
+                List<FileInfo> infPathsKeyboard = EnumerateDevicesStore("dd.key.94396.inf");
+                foreach (FileInfo infPath in infPathsKeyboard)
+                {
+                    try
+                    {
+                        if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                        {
+                            TextBoxAppend("Virtual Hid Keyboard Driver uninstalled.");
+                        }
+                        else
+                        {
+                            TextBoxAppend("Virtual Hid Keyboard Driver not uninstalled.");
+                        }
+                    }
+                    catch { }
+                }
             }
             catch { }
         }

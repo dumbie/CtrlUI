@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInteropDll;
 
 namespace LibraryUsb
@@ -14,7 +15,7 @@ namespace LibraryUsb
         //DD delegates
         public delegate int pDD_btn(int btn);
         public delegate int pDD_whl(int whl);
-        public delegate int pDD_key(int ddcode, KeyStatusFlag flag);
+        public delegate int pDD_key(KeysDDCode ddcode, KeyStatusFlag flag);
         public delegate int pDD_mov(int x, int y);
         public delegate int pDD_movR(int dx, int dy);
         public delegate int pDD_str(string str);
@@ -58,7 +59,7 @@ namespace LibraryUsb
         {
             try
             {
-                VirtualHidInstance = LoadLibrary("Resources\\Drivers\\HidVirtual\\DD94687.64.dll");
+                VirtualHidInstance = LoadLibrary("Resources\\Drivers\\VirtualHid\\DD64.dll");
                 if (VirtualHidInstance == IntPtr.Zero)
                 {
                     Connected = false;

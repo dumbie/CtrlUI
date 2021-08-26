@@ -12,7 +12,6 @@ using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
-using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput.KeyboardCode
 {

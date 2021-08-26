@@ -13,6 +13,6 @@ namespace LibraryUsb
         public static Guid GuidClassVigemVirtualBus = new Guid("96E42B22-F5E9-42F8-B043-ED0F932F014F");
         public static Guid GuidClassScpVirtualBus = new Guid("F679F562-3164-42CE-A4DB-E7DDBE723909");
         public static Guid GuidClassScpDS3Driver = new Guid("E2824A09-DBAA-4407-85CA-C8E8FF5F6FFA");
-        public static Guid GuidClassHidGuardian = new Guid("0C320FF7-BD9B-42B6-BDAF-49FEB9C91649");
+        public static Guid GuidClassHidHideGuardian = new Guid("0C320FF7-BD9B-42B6-BDAF-49FEB9C91649");
     }
 }

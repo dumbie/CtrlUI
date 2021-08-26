@@ -58,16 +58,20 @@ namespace DriverInstaller
                 RemoveUnusedDS3Controllers();
                 UninstallHidGuardian();
 
-                //Install Virtual Bus Driver
+                //Install Virtual Hid Driver
                 ProgressBarUpdate(40, false);
+                InstallVirtualHid();
+
+                //Install Virtual Bus Driver
+                ProgressBarUpdate(55, false);
                 InstallVirtualBus();
 
                 //Install HidHide Driver
-                ProgressBarUpdate(60, false);
+                ProgressBarUpdate(70, false);
                 InstallHidHide();
 
                 //Install DS3 USB Driver
-                ProgressBarUpdate(80, false);
+                ProgressBarUpdate(85, false);
                 InstallDualShock3();
 
                 ProgressBarUpdate(100, false);
@@ -76,6 +80,39 @@ namespace DriverInstaller
 
                 //Close the application
                 await Application_Exit("Closing the driver installer in a bit.", true);
+            }
+            catch { }
+        }
+
+        void InstallVirtualHid()
+        {
+            try
+            {
+                if (DeviceCreateNode("System", GuidClassSystem, "dd.mou.94396"))
+                {
+                    TextBoxAppend("Virtual Hid Mouse Node created.");
+                }
+                if (DriverInstallInf(@"Resources\Drivers\VirtualHid\dd.mou.94396.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                {
+                    TextBoxAppend("Virtual Hid Mouse installed.");
+                }
+                else
+                {
+                    TextBoxAppend("Virtual Hid Mouse not installed.");
+                }
+
+                if (DeviceCreateNode("System", GuidClassSystem, "dd.key.94396"))
+                {
+                    TextBoxAppend("Virtual Hid Keyboard Node created.");
+                }
+                if (DriverInstallInf(@"Resources\Drivers\VirtualHid\dd.key.94396.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                {
+                    TextBoxAppend("Virtual Hid Keyboard Driver installed.");
+                }
+                else
+                {
+                    TextBoxAppend("Virtual Hid Keyboard Driver not installed.");
+                }
             }
             catch { }
         }
