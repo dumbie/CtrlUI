@@ -21,7 +21,7 @@ namespace DirectXInput
                     //Check if a popup is visible
                     if (App.vWindowKeyboard.vWindowVisible)
                     {
-                        await App.vWindowKeyboard.ControllerInteractionMouse(Controller.InputCurrent);
+                        App.vWindowKeyboard.ControllerInteractionMouse(Controller.InputCurrent);
                         await App.vWindowKeyboard.ControllerInteractionKeyboard(Controller.InputCurrent);
                         return true;
                     }

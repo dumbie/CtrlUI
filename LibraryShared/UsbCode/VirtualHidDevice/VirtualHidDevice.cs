@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInteropDll;
 
 namespace LibraryUsb
@@ -15,14 +14,14 @@ namespace LibraryUsb
         //DD delegates
         public delegate int pDD_btn(int btn);
         public delegate int pDD_whl(int whl);
-        public delegate int pDD_key(KeysDDCode ddcode, KeyStatusFlag flag);
+        public delegate int pDD_key(KeysDDCode ddcode, KeysStatusFlag flag);
         public delegate int pDD_mov(int x, int y);
         public delegate int pDD_movR(int dx, int dy);
         public delegate int pDD_str(string str);
-        public delegate int pDD_todc(byte vkcode);
+        public delegate KeysDDCode pDD_todc(byte vkcode);
 
         //Key status flag
-        public enum KeyStatusFlag : int
+        public enum KeysStatusFlag : int
         {
             Press = 1,
             Release = 2

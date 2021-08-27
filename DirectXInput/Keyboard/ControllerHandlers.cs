@@ -18,7 +18,7 @@ namespace DirectXInput.KeyboardCode
     partial class WindowKeyboard
     {
         //Process controller input for mouse
-        public async Task ControllerInteractionMouse(ControllerInput ControllerInput)
+        public void ControllerInteractionMouse(ControllerInput ControllerInput)
         {
             bool ControllerDelayMicro = false;
             bool ControllerDelayShort = false;

@@ -19,6 +19,7 @@ using static DirectXInput.AppVariables;
 using static LibraryShared.FocusFunctions;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
+using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput.KeyboardCode
 {
@@ -365,186 +366,186 @@ namespace DirectXInput.KeyboardCode
             {
                 //Key Row 0
                 key_F1.Content = "F1";
-                key_F1.Tag = KeysVirtual.F1;
+                key_F1.Tag = KeysDDCode.F1;
                 key_F2.Content = "F2";
-                key_F2.Tag = KeysVirtual.F2;
+                key_F2.Tag = KeysDDCode.F2;
                 key_F3.Content = "F3";
-                key_F3.Tag = KeysVirtual.F3;
+                key_F3.Tag = KeysDDCode.F3;
                 key_F4.Content = "F4";
-                key_F4.Tag = KeysVirtual.F4;
+                key_F4.Tag = KeysDDCode.F4;
                 key_F5.Content = "F5";
-                key_F5.Tag = KeysVirtual.F5;
+                key_F5.Tag = KeysDDCode.F5;
                 key_F6.Content = "F6";
-                key_F6.Tag = KeysVirtual.F6;
+                key_F6.Tag = KeysDDCode.F6;
                 key_F7.Content = "F7";
-                key_F7.Tag = KeysVirtual.F7;
+                key_F7.Tag = KeysDDCode.F7;
                 key_F8.Content = "F8";
-                key_F8.Tag = KeysVirtual.F8;
+                key_F8.Tag = KeysDDCode.F8;
                 key_F9.Content = "F9";
-                key_F9.Tag = KeysVirtual.F9;
+                key_F9.Tag = KeysDDCode.F9;
                 key_F10.Content = "F10";
-                key_F10.Tag = KeysVirtual.F10;
+                key_F10.Tag = KeysDDCode.F10;
                 key_F11.Content = "F11";
-                key_F11.Tag = KeysVirtual.F11;
+                key_F11.Tag = KeysDDCode.F11;
                 key_F12.Content = "F12";
-                key_F12.Tag = KeysVirtual.F12;
+                key_F12.Tag = KeysDDCode.F12;
                 key_Delete.Content = "Delete";
-                key_Delete.Tag = KeysVirtual.Delete;
+                key_Delete.Tag = KeysDDCode.Delete;
                 key_End.Content = "End";
-                key_End.Tag = KeysVirtual.End;
+                key_End.Tag = KeysDDCode.End;
 
                 //Key Row 1
                 key_Tilde_Normal.Text = "`";
                 key_Tilde_Caps.Text = "~";
-                key_Tilde.Tag = KeysVirtual.OEMTilde;
+                key_Tilde.Tag = KeysDDCode.OEMTilde;
                 key_1_Normal.Text = "1";
                 key_1_Caps.Text = "!";
-                key_1.Tag = KeysVirtual.Digit1;
+                key_1.Tag = KeysDDCode.Digit1;
                 key_2_Normal.Text = "2";
                 key_2_Caps.Text = "@";
-                key_2.Tag = KeysVirtual.Digit2;
+                key_2.Tag = KeysDDCode.Digit2;
                 key_3_Normal.Text = "3";
                 key_3_Caps.Text = "#";
-                key_3.Tag = KeysVirtual.Digit3;
+                key_3.Tag = KeysDDCode.Digit3;
                 key_4_Normal.Text = "4";
                 key_4_Caps.Text = "$";
-                key_4.Tag = KeysVirtual.Digit4;
+                key_4.Tag = KeysDDCode.Digit4;
                 key_5_Normal.Text = "5";
                 key_5_Caps.Text = "%";
-                key_5.Tag = KeysVirtual.Digit5;
+                key_5.Tag = KeysDDCode.Digit5;
                 key_6_Normal.Text = "6";
                 key_6_Caps.Text = "^";
-                key_6.Tag = KeysVirtual.Digit6;
+                key_6.Tag = KeysDDCode.Digit6;
                 key_7_Normal.Text = "7";
                 key_7_Caps.Text = "&";
-                key_7.Tag = KeysVirtual.Digit7;
+                key_7.Tag = KeysDDCode.Digit7;
                 key_8_Normal.Text = "8";
                 key_8_Caps.Text = "*";
-                key_8.Tag = KeysVirtual.Digit8;
+                key_8.Tag = KeysDDCode.Digit8;
                 key_9_Normal.Text = "9";
                 key_9_Caps.Text = "(";
-                key_9.Tag = KeysVirtual.Digit9;
+                key_9.Tag = KeysDDCode.Digit9;
                 key_0_Normal.Text = "0";
                 key_0_Caps.Text = ")";
-                key_0.Tag = KeysVirtual.Digit0;
+                key_0.Tag = KeysDDCode.Digit0;
                 key_Minus_Normal.Text = "-";
                 key_Minus_Caps.Text = "_";
-                key_Minus.Tag = KeysVirtual.OEMMinus;
+                key_Minus.Tag = KeysDDCode.OEMMinus;
                 key_Plus_Normal.Text = "=";
                 key_Plus_Caps.Text = "+";
-                key_Plus.Tag = KeysVirtual.OEMPlus;
+                key_Plus.Tag = KeysDDCode.OEMPlus;
                 key_BackSpace.Content = "Backspace";
-                key_BackSpace.Tag = KeysVirtual.BackSpace;
+                key_BackSpace.Tag = KeysDDCode.BackSpace;
 
                 //Key Row 2
                 key_Tab.Content = "Tab>";
-                key_Tab.Tag = KeysVirtual.Tab;
+                key_Tab.Tag = KeysDDCode.Tab;
                 key_q.Content = "q";
-                key_q.Tag = KeysVirtual.Q;
+                key_q.Tag = KeysDDCode.Q;
                 key_w.Content = "w";
-                key_w.Tag = KeysVirtual.W;
+                key_w.Tag = KeysDDCode.W;
                 key_e.Content = "e";
-                key_e.Tag = KeysVirtual.E;
+                key_e.Tag = KeysDDCode.E;
                 key_r.Content = "r";
-                key_r.Tag = KeysVirtual.R;
+                key_r.Tag = KeysDDCode.R;
                 key_t.Content = "t";
-                key_t.Tag = KeysVirtual.T;
+                key_t.Tag = KeysDDCode.T;
                 key_y.Content = "y";
-                key_y.Tag = KeysVirtual.Y;
+                key_y.Tag = KeysDDCode.Y;
                 key_u.Content = "u";
-                key_u.Tag = KeysVirtual.U;
+                key_u.Tag = KeysDDCode.U;
                 key_i.Content = "i";
-                key_i.Tag = KeysVirtual.I;
+                key_i.Tag = KeysDDCode.I;
                 key_o.Content = "o";
-                key_o.Tag = KeysVirtual.O;
+                key_o.Tag = KeysDDCode.O;
                 key_p.Content = "p";
-                key_p.Tag = KeysVirtual.P;
+                key_p.Tag = KeysDDCode.P;
                 key_OpenBracket_Normal.Text = "[";
                 key_OpenBracket_Caps.Text = "{";
-                key_OpenBracket.Tag = KeysVirtual.OEMOpenBracket;
+                key_OpenBracket.Tag = KeysDDCode.OEMOpenBracket;
                 key_CloseBracket_Normal.Text = "]";
                 key_CloseBracket_Caps.Text = "}";
-                key_CloseBracket.Tag = KeysVirtual.OEMCloseBracket;
+                key_CloseBracket.Tag = KeysDDCode.OEMCloseBracket;
 
                 //Key Row 3
                 key_CapsLock.Content = "Caps";
-                key_CapsLock.Tag = KeysVirtual.CapsLock;
+                key_CapsLock.Tag = KeysDDCode.CapsLock;
                 key_a.Content = "a";
-                key_a.Tag = KeysVirtual.A;
+                key_a.Tag = KeysDDCode.A;
                 key_s.Content = "s";
-                key_s.Tag = KeysVirtual.S;
+                key_s.Tag = KeysDDCode.S;
                 key_d.Content = "d";
-                key_d.Tag = KeysVirtual.D;
+                key_d.Tag = KeysDDCode.D;
                 key_f.Content = "f";
-                key_f.Tag = KeysVirtual.F;
+                key_f.Tag = KeysDDCode.F;
                 key_g.Content = "g";
-                key_g.Tag = KeysVirtual.G;
+                key_g.Tag = KeysDDCode.G;
                 key_h.Content = "h";
-                key_h.Tag = KeysVirtual.H;
+                key_h.Tag = KeysDDCode.H;
                 key_j.Content = "j";
-                key_j.Tag = KeysVirtual.J;
+                key_j.Tag = KeysDDCode.J;
                 key_k.Content = "k";
-                key_k.Tag = KeysVirtual.K;
+                key_k.Tag = KeysDDCode.K;
                 key_l.Content = "l";
-                key_l.Tag = KeysVirtual.L;
+                key_l.Tag = KeysDDCode.L;
                 key_Semicolon_Normal.Text = ";";
                 key_Semicolon_Caps.Text = ":";
-                key_Semicolon.Tag = KeysVirtual.OEMSemicolon;
+                key_Semicolon.Tag = KeysDDCode.OEMSemicolon;
                 key_Quote_Normal.Text = "'";
                 key_Quote_Caps.Text = "\"";
-                key_Quote.Tag = KeysVirtual.OEMQuote;
+                key_Quote.Tag = KeysDDCode.OEMQuote;
                 key_Up.Content = "⯅";
-                key_Up.Tag = KeysVirtual.Up;
+                key_Up.Tag = KeysDDCode.Up;
                 key_Pipe_Normal.Text = "\\";
                 key_Pipe_Caps.Text = "|";
-                key_Pipe.Tag = KeysVirtual.OEMPipe;
+                key_Pipe.Tag = KeysDDCode.OEMBackslash;
 
                 //Key Row 4
                 key_Shift.Content = "Shift";
-                key_Shift.Tag = KeysVirtual.Shift;
+                key_Shift.Tag = KeysDDCode.ShiftLeft;
                 key_z.Content = "z";
-                key_z.Tag = KeysVirtual.Z;
+                key_z.Tag = KeysDDCode.Z;
                 key_x.Content = "x";
-                key_x.Tag = KeysVirtual.X;
+                key_x.Tag = KeysDDCode.X;
                 key_c.Content = "c";
-                key_c.Tag = KeysVirtual.C;
+                key_c.Tag = KeysDDCode.C;
                 key_v.Content = "v";
-                key_v.Tag = KeysVirtual.V;
+                key_v.Tag = KeysDDCode.V;
                 key_b.Content = "b";
-                key_b.Tag = KeysVirtual.B;
+                key_b.Tag = KeysDDCode.B;
                 key_n.Content = "n";
-                key_n.Tag = KeysVirtual.N;
+                key_n.Tag = KeysDDCode.N;
                 key_m.Content = "m";
-                key_m.Tag = KeysVirtual.M;
+                key_m.Tag = KeysDDCode.M;
                 key_Comma_Normal.Text = ",";
                 key_Comma_Caps.Text = "<";
-                key_Comma.Tag = KeysVirtual.OEMComma;
+                key_Comma.Tag = KeysDDCode.OEMComma;
                 key_Period_Normal.Text = ".";
                 key_Period_Caps.Text = ">";
-                key_Period.Tag = KeysVirtual.OEMPeriod;
+                key_Period.Tag = KeysDDCode.OEMPeriod;
                 key_Question_Normal.Text = "/";
                 key_Question_Caps.Text = "?";
-                key_Question.Tag = KeysVirtual.OEMQuestion;
+                key_Question.Tag = KeysDDCode.OEMQuestion;
                 key_Left.Content = "⯇";
-                key_Left.Tag = KeysVirtual.Left;
+                key_Left.Tag = KeysDDCode.Left;
                 key_Down.Content = "⯆";
-                key_Down.Tag = KeysVirtual.Down;
+                key_Down.Tag = KeysDDCode.Down;
                 key_Right.Content = "⯈";
-                key_Right.Tag = KeysVirtual.Right;
+                key_Right.Tag = KeysDDCode.Right;
 
                 //Key Row 5
                 key_Control.Content = "Ctrl";
-                key_Control.Tag = KeysVirtual.Control;
+                key_Control.Tag = KeysDDCode.ControlLeft;
                 key_Alt.Content = "Alt";
-                key_Alt.Tag = KeysVirtual.Alt;
+                key_Alt.Tag = KeysDDCode.AltLeft;
                 key_LeftWindows.Content = "Windows";
-                key_LeftWindows.Tag = KeysVirtual.LeftWindows;
+                key_LeftWindows.Tag = KeysDDCode.LeftWindows;
                 key_Space.Content = "Space";
-                key_Space.Tag = KeysVirtual.Space;
+                key_Space.Tag = KeysDDCode.Space;
                 key_Enter.Content = "Enter";
-                key_Enter.Tag = KeysVirtual.Enter;
+                key_Enter.Tag = KeysDDCode.Enter;
                 key_Escape.Content = "Escape";
-                key_Escape.Tag = KeysVirtual.Escape;
+                key_Escape.Tag = KeysDDCode.Escape;
                 key_VolumeDown.Tag = KeysVirtual.VolumeDown;
                 key_VolumeUp.Tag = KeysVirtual.VolumeUp;
                 key_EmojiList.Tag = "EmojiPopup";
@@ -569,43 +570,43 @@ namespace DirectXInput.KeyboardCode
                 {
                     Debug.WriteLine("Switching keyboard layout: QWERTY");
                     key_a.Content = "a";
-                    key_a.Tag = KeysVirtual.A;
+                    key_a.Tag = KeysDDCode.A;
                     key_q.Content = "q";
-                    key_q.Tag = KeysVirtual.Q;
+                    key_q.Tag = KeysDDCode.Q;
                     key_w.Content = "w";
-                    key_w.Tag = KeysVirtual.W;
+                    key_w.Tag = KeysDDCode.W;
                     key_y.Content = "y";
-                    key_y.Tag = KeysVirtual.Y;
+                    key_y.Tag = KeysDDCode.Y;
                     key_z.Content = "z";
-                    key_z.Tag = KeysVirtual.Z;
+                    key_z.Tag = KeysDDCode.Z;
                 }
                 else if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout")) == 1) //QWERTZ
                 {
                     Debug.WriteLine("Switching keyboard layout: QWERTZ");
                     key_a.Content = "a";
-                    key_a.Tag = KeysVirtual.A;
+                    key_a.Tag = KeysDDCode.A;
                     key_q.Content = "q";
-                    key_q.Tag = KeysVirtual.Q;
+                    key_q.Tag = KeysDDCode.Q;
                     key_w.Content = "w";
-                    key_w.Tag = KeysVirtual.W;
+                    key_w.Tag = KeysDDCode.W;
                     key_y.Content = "z";
-                    key_y.Tag = KeysVirtual.Z;
+                    key_y.Tag = KeysDDCode.Z;
                     key_z.Content = "y";
-                    key_z.Tag = KeysVirtual.Y;
+                    key_z.Tag = KeysDDCode.Y;
                 }
                 else if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout")) == 2) //AZERTY
                 {
                     Debug.WriteLine("Switching keyboard layout: AZERTY");
                     key_a.Content = "q";
-                    key_a.Tag = KeysVirtual.Q;
+                    key_a.Tag = KeysDDCode.Q;
                     key_q.Content = "a";
-                    key_q.Tag = KeysVirtual.A;
+                    key_q.Tag = KeysDDCode.A;
                     key_w.Content = "z";
-                    key_w.Tag = KeysVirtual.Z;
+                    key_w.Tag = KeysDDCode.Z;
                     key_y.Content = "y";
-                    key_y.Tag = KeysVirtual.Y;
+                    key_y.Tag = KeysDDCode.Y;
                     key_z.Content = "w";
-                    key_z.Tag = KeysVirtual.W;
+                    key_z.Tag = KeysDDCode.W;
                 }
             }
             catch { }
@@ -631,10 +632,10 @@ namespace DirectXInput.KeyboardCode
                         textblock_ButtonLeft.Text = "Backspace";
 
                         key_Delete.Content = "Delete";
-                        key_Delete.Tag = KeysVirtual.Delete;
+                        key_Delete.Tag = KeysDDCode.Delete;
 
                         key_End.Content = "End";
-                        key_End.Tag = KeysVirtual.End;
+                        key_End.Tag = KeysDDCode.End;
 
                         key_Tilde_Normal.Text = "`";
                         key_Tilde_Caps.Text = "~";
@@ -737,7 +738,7 @@ namespace DirectXInput.KeyboardCode
                         key_Enter.Content = "Enter";
 
                         key_Escape.Content = "Escape";
-                        key_Escape.Tag = KeysVirtual.Escape;
+                        key_Escape.Tag = KeysDDCode.Escape;
 
                         //Update the volume down button
                         key_VolumeDown.Tag = KeysVirtual.VolumeDown;
@@ -752,10 +753,10 @@ namespace DirectXInput.KeyboardCode
                         textblock_ButtonLeft.Text = "Delete";
 
                         key_Delete.Content = "Insert";
-                        key_Delete.Tag = KeysVirtual.Insert;
+                        key_Delete.Tag = KeysDDCode.Insert;
 
                         key_End.Content = "Home";
-                        key_End.Tag = KeysVirtual.Home;
+                        key_End.Tag = KeysDDCode.Home;
 
                         key_Tilde_Normal.Text = "~";
                         key_Tilde_Caps.Text = "`";
@@ -858,7 +859,7 @@ namespace DirectXInput.KeyboardCode
                         key_Enter.Content = "Undo";
 
                         key_Escape.Content = "Menu";
-                        key_Escape.Tag = KeysVirtual.ContextMenu;
+                        key_Escape.Tag = KeysDDCode.ContextMenu;
 
                         //Update the volume mute button
                         key_VolumeDown.Tag = KeysVirtual.VolumeMute;
