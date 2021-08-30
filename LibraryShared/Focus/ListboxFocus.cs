@@ -72,14 +72,14 @@ namespace LibraryShared
                     else
                     {
                         Debug.WriteLine("Listbox cannot be focused on, pressing tab key.");
-                        await KeySendSingle(KeysVirtual.Tab, windowHandle);
+                        KeySendSingle(KeysVirtual.Tab, windowHandle);
                     }
                 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed focusing on the listbox, pressing tab key: " + ex.Message);
-                await KeySendSingle(KeysVirtual.Tab, windowHandle);
+                KeySendSingle(KeysVirtual.Tab, windowHandle);
             }
         }
 
@@ -191,14 +191,14 @@ namespace LibraryShared
                     else
                     {
                         Debug.WriteLine("Listbox cannot be focused on, pressing tab key.");
-                        await KeySendSingle(KeysVirtual.Tab, windowHandle);
+                        KeySendSingle(KeysVirtual.Tab, windowHandle);
                     }
                 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed focusing on the listbox, pressing tab key: " + ex.Message);
-                await KeySendSingle(KeysVirtual.Tab, windowHandle);
+                KeySendSingle(KeysVirtual.Tab, windowHandle);
             }
         }
 

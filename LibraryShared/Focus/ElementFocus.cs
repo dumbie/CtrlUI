@@ -45,7 +45,7 @@ namespace LibraryShared
                             if (Keyboard.FocusedElement == null)
                             {
                                 Debug.WriteLine("Failed focusing on the element after " + whileLoopCount + " times, pressing tab key.");
-                                await KeySendSingle(KeysVirtual.Tab, windowHandle);
+                                KeySendSingle(KeysVirtual.Tab, windowHandle);
                             }
                             return;
                         }
@@ -59,13 +59,13 @@ namespace LibraryShared
                 else
                 {
                     Debug.WriteLine("Focus element cannot be focused on, pressing tab key.");
-                    await KeySendSingle(KeysVirtual.Tab, windowHandle);
+                    KeySendSingle(KeysVirtual.Tab, windowHandle);
                 }
             }
             catch
             {
                 Debug.WriteLine("Failed focusing on the element, pressing tab key.");
-                await KeySendSingle(KeysVirtual.Tab, windowHandle);
+                KeySendSingle(KeysVirtual.Tab, windowHandle);
             }
         }
 
@@ -149,7 +149,7 @@ namespace LibraryShared
                     else
                     {
                         Debug.WriteLine("No previous focus element, pressing tab key.");
-                        await KeySendSingle(KeysVirtual.Tab, windowHandle);
+                        KeySendSingle(KeysVirtual.Tab, windowHandle);
                     }
 
                     //Reset the previous focus

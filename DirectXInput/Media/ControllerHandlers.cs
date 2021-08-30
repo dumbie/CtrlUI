@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -24,10 +23,52 @@ namespace DirectXInput.MediaCode
                 {
                     //Get the mouse move amount
                     int moveSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity"));
+                    GetMouseMovementAmountFromThumb(moveSensitivity, ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY, true, out int moveHorizontalLeft, out int moveVerticalLeft);
                     GetMouseMovementAmountFromThumb(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
+
+                    //Move the mouse cursor
+                    vVirtualHidDevice.movRel(moveHorizontalLeft, moveVerticalLeft);
 
                     //Move the media window
                     MoveMediaWindow(moveHorizontalRight, moveVerticalRight);
+
+                    //Emulate mouse click left
+                    if (ControllerInput.ButtonShoulderLeft.PressedRaw)
+                    {
+                        if (!vMouseLeftDownStatus)
+                        {
+                            vMouseLeftDownStatus = true;
+                            vVirtualHidDevice.btn(1); //Press left button
+
+                            ControllerDelayMicro = true;
+                        }
+                    }
+                    else if (vMouseLeftDownStatus)
+                    {
+                        vMouseLeftDownStatus = false;
+                        vVirtualHidDevice.btn(2); //Release left button
+
+                        ControllerDelayMicro = true;
+                    }
+
+                    //Emulate mouse click right
+                    if (ControllerInput.ButtonShoulderRight.PressedRaw)
+                    {
+                        if (!vMouseRightDownStatus)
+                        {
+                            vMouseRightDownStatus = true;
+                            vVirtualHidDevice.btn(4); //Press right button
+
+                            ControllerDelayMicro = true;
+                        }
+                    }
+                    else if (vMouseRightDownStatus)
+                    {
+                        vMouseRightDownStatus = false;
+                        vVirtualHidDevice.btn(8); //Release right button
+
+                        ControllerDelayMicro = true;
+                    }
 
                     //Delay input to prevent repeat
                     if (ControllerDelayMicro)
@@ -48,7 +89,7 @@ namespace DirectXInput.MediaCode
         }
 
         //Process controller input for keyboard
-        public async Task ControllerInteractionKeyboard(ControllerInput ControllerInput)
+        public void ControllerInteractionKeyboard(ControllerInput ControllerInput)
         {
             bool ControllerDelayShort = false;
             bool ControllerDelayMedium = false;
@@ -57,41 +98,11 @@ namespace DirectXInput.MediaCode
             {
                 if (GetSystemTicksMs() >= vControllerDelay_Media)
                 {
-                    //Left stick movement
-                    if (ControllerInput.ThumbLeftX < -10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
-                    {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
-
-                        ControllerDelayShort = true;
-                    }
-                    else if (ControllerInput.ThumbLeftY > 10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
-                    {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
-
-                        ControllerDelayShort = true;
-                    }
-                    else if (ControllerInput.ThumbLeftX > 10000 && Math.Abs(ControllerInput.ThumbLeftY) < 13000)
-                    {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
-
-                        ControllerDelayShort = true;
-                    }
-                    else if (ControllerInput.ThumbLeftY < -10000 && Math.Abs(ControllerInput.ThumbLeftX) < 13000)
-                    {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
-
-                        ControllerDelayShort = true;
-                    }
-
                     //Send internal arrow left key
-                    else if (ControllerInput.DPadLeft.PressedRaw)
+                    if (ControllerInput.DPadLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
+                        KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
@@ -99,7 +110,7 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
+                        KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
@@ -107,7 +118,7 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
+                        KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
@@ -115,7 +126,7 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
-                        await KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
+                        KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
 
                         ControllerDelayShort = true;
                     }
@@ -124,7 +135,7 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        await KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
+                        KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
 
                         ControllerDelayMedium = true;
                     }
@@ -133,7 +144,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
-                        await KeyPressSingleAuto(KeysVirtual.MediaNextTrack);
+                        KeyPressSingleAuto(KeysVirtual.MediaNextTrack);
 
                         ControllerDelayMedium = true;
                     }
@@ -142,7 +153,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
-                        await KeyPressSingleAuto(KeysVirtual.MediaPlayPause);
+                        KeyPressSingleAuto(KeysVirtual.MediaPlayPause);
 
                         ControllerDelayMedium = true;
                     }
@@ -151,25 +162,25 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
-                        await KeyPressSingleAuto(KeysVirtual.MediaPreviousTrack);
+                        KeyPressSingleAuto(KeysVirtual.MediaPreviousTrack);
 
                         ControllerDelayMedium = true;
                     }
 
                     //Send external arrow keys
-                    else if (ControllerInput.ButtonShoulderLeft.PressedRaw)
+                    else if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
-                        await KeyPressSingleAuto(KeysVirtual.Left);
+                        KeyPressSingleAuto(KeysVirtual.Left);
 
                         ControllerDelayShort = true;
                     }
-                    else if (ControllerInput.ButtonShoulderRight.PressedRaw)
+                    else if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
-                        await KeyPressSingleAuto(KeysVirtual.Right);
+                        KeyPressSingleAuto(KeysVirtual.Right);
 
                         ControllerDelayShort = true;
                     }
@@ -179,7 +190,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
-                        await KeyPressComboAuto(KeysVirtual.Alt, KeysVirtual.Enter);
+                        KeyPressComboAuto(KeysVirtual.Alt, KeysVirtual.Enter);
 
                         ControllerDelayMedium = true;
                     }
@@ -188,28 +199,28 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.TriggerLeft > 0 && ControllerInput.TriggerRight > 0)
                     {
                         App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
-                        await KeyPressSingleAuto(KeysVirtual.VolumeMute);
+                        KeyPressSingleAuto(KeysVirtual.VolumeMute);
 
                         ControllerDelayLonger = true;
                     }
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
                         App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
-                        await KeyPressSingleAuto(KeysVirtual.VolumeMute);
+                        KeyPressSingleAuto(KeysVirtual.VolumeMute);
 
                         ControllerDelayMedium = true;
                     }
                     else if (ControllerInput.TriggerLeft > 0)
                     {
                         App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreasing volume");
-                        await KeyPressSingleAuto(KeysVirtual.VolumeDown);
+                        KeyPressSingleAuto(KeysVirtual.VolumeDown);
 
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.TriggerRight > 0)
                     {
                         App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increasing volume");
-                        await KeyPressSingleAuto(KeysVirtual.VolumeUp);
+                        KeyPressSingleAuto(KeysVirtual.VolumeUp);
 
                         ControllerDelayShort = true;
                     }

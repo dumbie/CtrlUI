@@ -20,7 +20,9 @@ namespace DirectXInput
                 bool virtualBusDriver = EnumerateDevicesStore("ViGEmBus.inf").Any();
                 bool hidHideDriver = EnumerateDevicesStore("HidHide.inf").Any();
                 bool ds3ControllerDriver = EnumerateDevicesStore("Ds3Controller.inf").Any();
-                return virtualBusDriver && hidHideDriver && ds3ControllerDriver;
+                bool virtualKeyboardDriver = EnumerateDevicesStore("dd.key.94396.inf").Any();
+                bool virtualMouseDriver = EnumerateDevicesStore("dd.mou.94396.inf").Any();
+                return virtualBusDriver && hidHideDriver && ds3ControllerDriver && virtualKeyboardDriver && virtualMouseDriver;
             }
             catch
             {
@@ -55,6 +57,22 @@ namespace DirectXInput
                     string availableVersion = File.ReadAllLines("Resources\\Drivers\\Ds3Controller\\Ds3Controller.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
                     string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
                     //Debug.WriteLine("Ds3Controller: " + installedVersion + " / " + availableVersion);
+                    if (availableVersion != installedVersion) { return false; } else { break; }
+                }
+
+                foreach (FileInfo infNames in EnumerateDevicesStore("dd.key.94396.inf"))
+                {
+                    string availableVersion = File.ReadAllLines("Resources\\Drivers\\VirtualHid\\x64\\dd.key.94396.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    //Debug.WriteLine("VirtualKeyboard: " + installedVersion + " / " + availableVersion);
+                    if (availableVersion != installedVersion) { return false; } else { break; }
+                }
+
+                foreach (FileInfo infNames in EnumerateDevicesStore("dd.mou.94396.inf"))
+                {
+                    string availableVersion = File.ReadAllLines("Resources\\Drivers\\VirtualHid\\x64\\dd.mou.94396.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    //Debug.WriteLine("VirtualMouse: " + installedVersion + " / " + availableVersion);
                     if (availableVersion != installedVersion) { return false; } else { break; }
                 }
 

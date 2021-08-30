@@ -328,6 +328,15 @@ namespace DirectXInput
 
                     //Close HidHide device
                     vHidHideDevice.CloseDevice();
+                    vHidHideDevice = null;
+                }
+
+                //Check if Virtual Hid is connected
+                if (vVirtualHidDevice != null)
+                {
+                    //Close Virtual Hid device
+                    vVirtualHidDevice.CloseDevice();
+                    vVirtualHidDevice = null;
                 }
 
                 //Disable the socket server

@@ -286,6 +286,14 @@
       <Link>Assets\Default\Icons\Battery\BatteryVerNoBattery.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\ThumbLeftClickOff.png">
+      <Link>Assets\Default\Icons\Buttons\ThumbLeftClickOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\ThumbRightClickOff.png">
+      <Link>Assets\Default\Icons\Buttons\ThumbRightClickOff.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\CtrlUI\Assets\Default\Icons\Check.png">
       <Link>Assets\Default\Icons\Check.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

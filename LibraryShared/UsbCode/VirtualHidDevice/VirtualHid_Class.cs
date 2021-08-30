@@ -80,6 +80,7 @@ namespace LibraryUsb
             Numpad7 = 807,
             Numpad8 = 808,
             Numpad9 = 809,
+            NumpadEnter = 815,
             Multiply = 812,
             Add = 814,
             Subtract = 813,
@@ -107,8 +108,8 @@ namespace LibraryUsb
             OEMQuestion = 510,
             OEMTilde = 200,
             OEMOpenBracket = 311,
-            OEMBackslash = 213,
             OEMCloseBracket = 312,
+            OEMBackslash = 213,
             OEMQuote = 411
         }
 
@@ -269,6 +270,7 @@ namespace LibraryUsb
                     case KeysDDCode.Escape:
                         if (shortName) { return "Esc"; } else { return "Escape"; }
                     case KeysDDCode.Enter:
+                    case KeysDDCode.NumpadEnter:
                         return "Enter";
                     case KeysDDCode.ShiftLeft:
                         if (shortName) { return "LShift"; } else { return "Shift (Left)"; }

@@ -41,41 +41,48 @@
                         <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.80"/>
                     </Border.Background>
                 </Border>
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="26" Opacity="0.80"/>
-                        <TextBlock Name="textblock_ButtonLeft" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Backspace"/>
+                <styles:ScrollViewerLoopHorizontal Width="790" ScrollLoopSpeed="100" Style="{StaticResource ScrollViewerHidden}">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="26" Opacity="0.80"/>
+                            <TextBlock Name="textblock_ButtonLeft" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Backspace"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="26" Opacity="0.80"/>
+                            <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Space"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="26" Opacity="0.80"/>
+                            <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Enter"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="26" Opacity="0.80"/>
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
+                            <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Left/Right Mouse"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LtOff.png" Height="26" Opacity="0.80"/>
+                            <TextBlock Name="textblock_LeftTriggerOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Caps"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RtOff.png" Height="26" Opacity="0.80"/>
+                            <TextBlock Name="textblock_RightTriggerOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Tab"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbLeftClickOff.png" Height="26" Opacity="0.80"/>
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbRightClickOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
+                            <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Left/Right Arrow"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbLeftOff.png" Height="26" Opacity="0.80"/>
+                            <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Mouse"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbRightOff.png" Height="26" Opacity="0.80"/>
+                            <TextBlock Name="textblock_ThumbRightOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Move"/>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="26" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Space"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="26" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Enter"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="26" Opacity="0.80"/>
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Left/Right"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LtOff.png" Height="26" Opacity="0.80"/>
-                        <TextBlock Name="textblock_LeftTriggerOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Caps"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RtOff.png" Height="26" Opacity="0.80"/>
-                        <TextBlock Name="textblock_RightTriggerOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Tab"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbLeftOff.png" Height="26" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Mouse"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbRightOff.png" Height="26" Opacity="0.80"/>
-                        <TextBlock Name="textblock_ThumbRightOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Move"/>
-                    </StackPanel>
-                </StackPanel>
+                </styles:ScrollViewerLoopHorizontal>
             </Grid>
 
             <!-- Keyboard -->

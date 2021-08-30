@@ -99,7 +99,7 @@ namespace DirectXInput.KeypadCode
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                 //Disable hardware capslock
-                await DisableHardwareCapsLock();
+                DisableHardwareCapsLock();
 
                 //Set the keypad mapping profile
                 SetKeypadMappingProfile();
@@ -442,15 +442,15 @@ namespace DirectXInput.KeypadCode
         }
 
         //Disable hardware capslock
-        public async Task DisableHardwareCapsLock()
+        public void DisableHardwareCapsLock()
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                AVActions.ActionDispatcherInvoke(delegate
                 {
                     if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
-                        await KeyPressSingleAuto(KeysVirtual.CapsLock);
+                        KeyPressSingleAuto(KeysVirtual.CapsLock);
                     }
                 });
             }

@@ -48,7 +48,7 @@ namespace DirectXInput.KeyboardCode
                 UpdateKeyboardKeys();
 
                 //Update the keyboard layout
-                await UpdateKeyboardLayout();
+                UpdateKeyboardLayout();
 
                 //Update the keyboard mode
                 UpdateKeyboardMode();
@@ -119,7 +119,7 @@ namespace DirectXInput.KeyboardCode
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
                 //Disable hardware capslock
-                await DisableHardwareCapsLock();
+                DisableHardwareCapsLock();
 
                 //Focus on keyboard button
                 await FocusPopupButton(false, key_h);
@@ -555,14 +555,14 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Switch keyboard layout
-        public async Task UpdateKeyboardLayout()
+        public void UpdateKeyboardLayout()
         {
             try
             {
                 //Disable caps lock
                 if (vCapsEnabled)
                 {
-                    await SwitchCapsLock();
+                    SwitchCapsLock();
                 }
 
                 //Change the keyboard layout
@@ -613,7 +613,7 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Switch capslock on and off
-        public async Task SwitchCapsLock()
+        public void SwitchCapsLock()
         {
             try
             {
@@ -621,7 +621,7 @@ namespace DirectXInput.KeyboardCode
                 Debug.WriteLine("Switching caps lock.");
 
                 //Disable hardware capslock
-                await DisableHardwareCapsLock();
+                DisableHardwareCapsLock();
 
                 //Enable or disable software capslock
                 if (vCapsEnabled)
@@ -871,15 +871,15 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Disable hardware capslock
-        public async Task DisableHardwareCapsLock()
+        public void DisableHardwareCapsLock()
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                AVActions.ActionDispatcherInvoke(delegate
                 {
                     if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
-                        await KeyPressSingleAuto(KeysVirtual.CapsLock);
+                        KeyPressSingleAuto(KeysVirtual.CapsLock);
                     }
                 });
             }

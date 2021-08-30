@@ -64,34 +64,34 @@ namespace DirectXInput.MediaCode
         }
 
         //Play or pause the media
-        async void button_PlayPause_Click(object sender, RoutedEventArgs e)
+        void button_PlayPause_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
-                await KeyPressSingleAuto(KeysVirtual.MediaPlayPause);
+                KeyPressSingleAuto(KeysVirtual.MediaPlayPause);
             }
             catch { }
         }
 
         //Next item the media
-        async void button_Next_Click(object sender, RoutedEventArgs e)
+        void button_Next_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
-                await KeyPressSingleAuto(KeysVirtual.MediaNextTrack);
+                KeyPressSingleAuto(KeysVirtual.MediaNextTrack);
             }
             catch { }
         }
 
         //Previous item the media
-        async void button_Previous_Click(object sender, RoutedEventArgs e)
+        void button_Previous_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
-                await KeyPressSingleAuto(KeysVirtual.MediaPreviousTrack);
+                KeyPressSingleAuto(KeysVirtual.MediaPreviousTrack);
             }
             catch { }
         }
@@ -119,56 +119,56 @@ namespace DirectXInput.MediaCode
         }
 
         //Volume Down
-        async void button_VolumeDown_Click(object sender, RoutedEventArgs e)
+        void button_VolumeDown_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreasing volume");
-                await KeyPressSingleAuto(KeysVirtual.VolumeDown);
+                KeyPressSingleAuto(KeysVirtual.VolumeDown);
             }
             catch { }
         }
 
         //Volume Up
-        async void button_VolumeUp_Click(object sender, RoutedEventArgs e)
+        void button_VolumeUp_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increasing volume");
-                await KeyPressSingleAuto(KeysVirtual.VolumeUp);
+                KeyPressSingleAuto(KeysVirtual.VolumeUp);
             }
             catch { }
         }
 
         //Fullscreen media
-        async void button_Fullscreen_Click(object sender, RoutedEventArgs e)
+        void button_Fullscreen_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
-                await KeyPressComboAuto(KeysVirtual.Alt, KeysVirtual.Enter);
+                KeyPressComboAuto(KeysVirtual.Alt, KeysVirtual.Enter);
             }
             catch { }
         }
 
         //Move left
-        async void button_ArrowLeft_Click(object sender, RoutedEventArgs e)
+        void button_ArrowLeft_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
-                await KeyPressSingleAuto(KeysVirtual.Left);
+                KeyPressSingleAuto(KeysVirtual.Left);
             }
             catch { }
         }
 
         //Move right
-        async void button_ArrowRight_Click(object sender, RoutedEventArgs e)
+        void button_ArrowRight_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
-                await KeyPressSingleAuto(KeysVirtual.Right);
+                KeyPressSingleAuto(KeysVirtual.Right);
             }
             catch { }
         }

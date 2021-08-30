@@ -52,7 +52,7 @@ namespace DirectXInput.KeyboardCode
             {
                 FrameworkElementFocus focusListbox = new FrameworkElementFocus();
                 focusListbox.FocusListBox = listbox_EmojiList;
-                focusListbox.FocusIndex = 0;
+                focusListbox.FocusIndex = vLastPopupListEmojiIndex;
                 await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
             }
             else
@@ -77,6 +77,7 @@ namespace DirectXInput.KeyboardCode
                 grid_Keyboard.Opacity = 1;
                 grid_Keyboard.IsEnabled = true;
                 vLastPopupListType = "Emoji";
+                vLastPopupListEmojiIndex = listbox_EmojiList.SelectedIndex;
 
                 //Update the help bar
                 textblock_LeftTriggerOff.Text = "Caps";

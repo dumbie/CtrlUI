@@ -233,10 +233,10 @@ namespace DirectXInput
                     Setting_Save(vConfigurationDirectXInput, "KeyboardResetPosition", cb_SettingsKeyboardResetPosition.IsChecked.ToString());
                 };
 
-                combobox_KeyboardLayout.SelectionChanged += async (sender, e) =>
+                combobox_KeyboardLayout.SelectionChanged += (sender, e) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "KeyboardLayout", combobox_KeyboardLayout.SelectedIndex.ToString());
-                    await App.vWindowKeyboard.UpdateKeyboardLayout();
+                    App.vWindowKeyboard.UpdateKeyboardLayout();
                 };
 
                 slider_SettingsKeyboardMouseMoveSensitivity.ValueChanged += (sender, e) =>

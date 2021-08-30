@@ -11,7 +11,7 @@ namespace LibraryUsb
         private IntPtr VirtualHidInstance = IntPtr.Zero;
         public bool Connected = false;
 
-        //DD delegates
+        //Device delegates
         public delegate int pDD_btn(int btn);
         public delegate int pDD_whl(int whl);
         public delegate int pDD_key(KeysDDCode ddcode, KeysStatusFlag flag);
@@ -61,17 +61,19 @@ namespace LibraryUsb
                 VirtualHidInstance = LoadLibrary("Resources\\Drivers\\VirtualHid\\DD64.dll");
                 if (VirtualHidInstance == IntPtr.Zero)
                 {
+                    //Debug.WriteLine("Failed to open virtual hid device.");
                     Connected = false;
                 }
                 else
                 {
-                    Connected = true;
-
                     //Get virtual addresses
                     GetVirtualAddresses(VirtualHidInstance);
 
                     //Initialize virtual hid
                     btn(0);
+
+                    //Debug.WriteLine("Opened virtual hid device.");
+                    Connected = true;
                 }
             }
             catch (Exception ex)

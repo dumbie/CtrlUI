@@ -78,6 +78,8 @@ namespace DirectXInput
         public static int vPrevComboboxIndex = -1;
 
         //Emoji and text list Variables
+        public static int vLastPopupListTextIndex = 0;
+        public static int vLastPopupListEmojiIndex = 0;
         public static string vLastPopupListType = "Emoji";
         public static FrameworkElementFocus vEmojiFocusedButtonOpen = new FrameworkElementFocus();
         public static FrameworkElementFocus vEmojiFocusedButtonClose = new FrameworkElementFocus();
@@ -96,7 +98,8 @@ namespace DirectXInput
         public static string vKeyboardKeypadLastActive = "Keyboard";
         public static bool vCapsEnabled = false;
         public static bool vKeysEnabled = true;
-        public static bool vMouseDownStatus = false;
+        public static bool vMouseLeftDownStatus = false;
+        public static bool vMouseRightDownStatus = false;
 
         //Keypad Variables
         public static KeypadMapping vKeypadMappingProfile = new KeypadMapping();

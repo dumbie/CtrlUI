@@ -88,24 +88,16 @@ namespace DriverInstaller
         {
             try
             {
-                if (DeviceCreateNode("System", GuidClassSystem, "dd.mou.94396"))
+                if (DriverInstallInf(@"Resources\Drivers\VirtualHid\x64\dd.mou.94396.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
-                    TextBoxAppend("Virtual Hid Mouse Node created.");
-                }
-                if (DriverInstallInf(@"Resources\Drivers\VirtualHid\dd.mou.94396.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
-                {
-                    TextBoxAppend("Virtual Hid Mouse installed.");
+                    TextBoxAppend("Virtual Hid Mouse Driver installed.");
                 }
                 else
                 {
-                    TextBoxAppend("Virtual Hid Mouse not installed.");
+                    TextBoxAppend("Virtual Hid Mouse Driver not installed.");
                 }
 
-                if (DeviceCreateNode("System", GuidClassSystem, "dd.key.94396"))
-                {
-                    TextBoxAppend("Virtual Hid Keyboard Node created.");
-                }
-                if (DriverInstallInf(@"Resources\Drivers\VirtualHid\dd.key.94396.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstallInf(@"Resources\Drivers\VirtualHid\x64\dd.key.94396.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("Virtual Hid Keyboard Driver installed.");
                 }

@@ -53,7 +53,7 @@ namespace DirectXInput.KeyboardCode
                     {
                         FrameworkElementFocus focusListbox = new FrameworkElementFocus();
                         focusListbox.FocusListBox = listbox_TextList;
-                        focusListbox.FocusIndex = 0;
+                        focusListbox.FocusIndex = vLastPopupListTextIndex;
                         await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
                     }
                     else
@@ -85,6 +85,7 @@ namespace DirectXInput.KeyboardCode
                 grid_Keyboard.Opacity = 1;
                 grid_Keyboard.IsEnabled = true;
                 vLastPopupListType = "Text";
+                vLastPopupListTextIndex = listbox_TextList.SelectedIndex;
 
                 //Focus on keyboard button
                 if (vTextFocusedButtonClose.FocusElement == null)

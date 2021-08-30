@@ -118,11 +118,11 @@ namespace CtrlUI
                         {
                             if (selectNextCharacter)
                             {
-                                await KeySendSingle(KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
+                                KeySendSingle(KeysVirtual.Next, vProcessCurrent.MainWindowHandle);
                             }
                             else
                             {
-                                await KeySendSingle(KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
+                                KeySendSingle(KeysVirtual.Prior, vProcessCurrent.MainWindowHandle);
                             }
                         }
                     }
