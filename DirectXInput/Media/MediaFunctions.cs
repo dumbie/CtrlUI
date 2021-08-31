@@ -13,6 +13,7 @@ using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
+using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput.MediaCode
 {
@@ -69,7 +70,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
-                KeyPressSingleAuto(KeysVirtual.MediaPlayPause);
+                KeyPressReleaseSingle(KeysVirtual.MediaPlayPause);
             }
             catch { }
         }
@@ -80,7 +81,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
-                KeyPressSingleAuto(KeysVirtual.MediaNextTrack);
+                KeyPressReleaseSingle(KeysVirtual.MediaNextTrack);
             }
             catch { }
         }
@@ -91,7 +92,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
-                KeyPressSingleAuto(KeysVirtual.MediaPreviousTrack);
+                KeyPressReleaseSingle(KeysVirtual.MediaPreviousTrack);
             }
             catch { }
         }
@@ -124,7 +125,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreasing volume");
-                KeyPressSingleAuto(KeysVirtual.VolumeDown);
+                KeyPressReleaseSingle(KeysVirtual.VolumeDown);
             }
             catch { }
         }
@@ -135,7 +136,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increasing volume");
-                KeyPressSingleAuto(KeysVirtual.VolumeUp);
+                KeyPressReleaseSingle(KeysVirtual.VolumeUp);
             }
             catch { }
         }
@@ -146,7 +147,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
-                KeyPressComboAuto(KeysVirtual.Alt, KeysVirtual.Enter);
+                KeyPressReleaseCombo(KeysVirtual.Alt, KeysVirtual.Enter);
             }
             catch { }
         }
@@ -157,7 +158,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
-                KeyPressSingleAuto(KeysVirtual.Left);
+                vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Left);
             }
             catch { }
         }
@@ -168,7 +169,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
-                KeyPressSingleAuto(KeysVirtual.Right);
+                vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Right);
             }
             catch { }
         }

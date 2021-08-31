@@ -13,7 +13,6 @@ using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static LibraryShared.FocusFunctions;
@@ -879,7 +878,7 @@ namespace DirectXInput.KeyboardCode
                 {
                     if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
-                        KeyPressSingleAuto(KeysVirtual.CapsLock);
+                        vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.CapsLock);
                     }
                 });
             }

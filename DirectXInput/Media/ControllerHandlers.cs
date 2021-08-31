@@ -7,6 +7,7 @@ using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
+using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput.MediaCode
 {
@@ -144,7 +145,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
-                        KeyPressSingleAuto(KeysVirtual.MediaNextTrack);
+                        KeyPressReleaseSingle(KeysVirtual.MediaNextTrack);
 
                         ControllerDelayMedium = true;
                     }
@@ -153,7 +154,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
-                        KeyPressSingleAuto(KeysVirtual.MediaPlayPause);
+                        KeyPressReleaseSingle(KeysVirtual.MediaPlayPause);
 
                         ControllerDelayMedium = true;
                     }
@@ -162,7 +163,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
-                        KeyPressSingleAuto(KeysVirtual.MediaPreviousTrack);
+                        KeyPressReleaseSingle(KeysVirtual.MediaPreviousTrack);
 
                         ControllerDelayMedium = true;
                     }
@@ -172,7 +173,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
-                        KeyPressSingleAuto(KeysVirtual.Left);
+                        vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Left);
 
                         ControllerDelayShort = true;
                     }
@@ -180,7 +181,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
-                        KeyPressSingleAuto(KeysVirtual.Right);
+                        vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Right);
 
                         ControllerDelayShort = true;
                     }
@@ -190,7 +191,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
-                        KeyPressComboAuto(KeysVirtual.Alt, KeysVirtual.Enter);
+                        KeyPressReleaseCombo(KeysVirtual.Alt, KeysVirtual.Enter);
 
                         ControllerDelayMedium = true;
                     }
@@ -199,28 +200,28 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.TriggerLeft > 0 && ControllerInput.TriggerRight > 0)
                     {
                         App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
-                        KeyPressSingleAuto(KeysVirtual.VolumeMute);
+                        KeyPressReleaseSingle(KeysVirtual.VolumeMute);
 
                         ControllerDelayLonger = true;
                     }
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
                         App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
-                        KeyPressSingleAuto(KeysVirtual.VolumeMute);
+                        KeyPressReleaseSingle(KeysVirtual.VolumeMute);
 
                         ControllerDelayMedium = true;
                     }
                     else if (ControllerInput.TriggerLeft > 0)
                     {
                         App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreasing volume");
-                        KeyPressSingleAuto(KeysVirtual.VolumeDown);
+                        KeyPressReleaseSingle(KeysVirtual.VolumeDown);
 
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.TriggerRight > 0)
                     {
                         App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increasing volume");
-                        KeyPressSingleAuto(KeysVirtual.VolumeUp);
+                        KeyPressReleaseSingle(KeysVirtual.VolumeUp);
 
                         ControllerDelayShort = true;
                     }

@@ -273,17 +273,14 @@ namespace LibraryUsb
                     case KeysDDCode.NumpadEnter:
                         return "Enter";
                     case KeysDDCode.ShiftLeft:
-                        if (shortName) { return "LShift"; } else { return "Shift (Left)"; }
                     case KeysDDCode.ShiftRight:
-                        if (shortName) { return "RShift"; } else { return "Shift (Right)"; }
+                        if (shortName) { return "Shift"; } else { return "Shift"; }
                     case KeysDDCode.ControlLeft:
-                        if (shortName) { return "LCtrl"; } else { return "Control (Left)"; }
                     case KeysDDCode.ControlRight:
-                        if (shortName) { return "RCtrl"; } else { return "Control (Right)"; }
+                        if (shortName) { return "Ctrl"; } else { return "Control"; }
                     case KeysDDCode.AltLeft:
-                        if (shortName) { return "LAlt"; } else { return "Alt (Left)"; }
                     case KeysDDCode.AltRight:
-                        if (shortName) { return "RAlt"; } else { return "Alt (Right)"; }
+                        if (shortName) { return "Alt"; } else { return "Alt"; }
                     case KeysDDCode.Pause:
                         return "Pause";
                     case KeysDDCode.CapsLock:
@@ -295,9 +292,8 @@ namespace LibraryUsb
                     case KeysDDCode.PrintScreen:
                         if (shortName) { return "PrtSc"; } else { return "Print Screen"; }
                     case KeysDDCode.LeftWindows:
-                        if (shortName) { return "LWin"; } else { return "Windows (Left)"; }
                     case KeysDDCode.RightWindows:
-                        if (shortName) { return "RWin"; } else { return "Windows (Right)"; }
+                        if (shortName) { return "Win"; } else { return "Windows"; }
                     case KeysDDCode.Insert:
                         return "Insert";
                     case KeysDDCode.Delete:

@@ -138,7 +138,7 @@ namespace DirectXInput
                 JsonLoadProfile(ref vDirectControllersIgnoredDefault, @"Default\DirectControllersIgnored");
 
                 //Load keypad mapping
-                JsonLoadProfile(ref vDirectKeypadMapping, @"User\DirectKeypadMapping");
+                JsonLoadProfile(ref vDirectKeypadMapping, @"User\DirectKeypadMapping2");
                 JsonLoadList_KeypadProfile();
 
                 //Load controllers profile

@@ -130,7 +130,7 @@ namespace CtrlUI
                              }
                              else
                              {
-                                 KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
+                                 KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                              }
                          });
 

@@ -171,7 +171,7 @@ namespace CtrlUI
                     }
                     else if (vTabTargetButtonsUp.Any(x => x == frameworkElement.Name))
                     {
-                        KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
+                        KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;
                         return;
                     }
@@ -197,7 +197,7 @@ namespace CtrlUI
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
                     if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
                     {
-                        KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
+                        KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;
                         return;
                     }
@@ -205,7 +205,7 @@ namespace CtrlUI
                     {
                         if (parentListbox.SelectedIndex == 0)
                         {
-                            KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
+                            KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                             Handled = true;
                             return;
                         }
@@ -214,7 +214,7 @@ namespace CtrlUI
                     {
                         if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, true))
                         {
-                            KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
+                            KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                             Handled = true;
                             return;
                         }
@@ -234,14 +234,14 @@ namespace CtrlUI
                 {
                     if (vTabTargetButtonsDown.Any(x => x == frameworkElement.Name))
                     {
-                        KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
+                        KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;
                         return;
                     }
                 }
                 else if (frameworkElement != null && (frameworkElement.GetType() == typeof(TextBox) || frameworkElement.GetType() == typeof(Slider)))
                 {
-                    KeyPressComboAuto(KeysVirtual.Shift, KeysVirtual.Tab);
+                    KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                     Handled = true;
                     return;
                 }

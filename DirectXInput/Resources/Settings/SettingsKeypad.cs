@@ -3,10 +3,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using static ArnoldVinkCode.AVInputOutputClass;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
+using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput
 {
@@ -46,7 +46,7 @@ namespace DirectXInput
                 vDirectKeypadMapping.Add(newProfile);
 
                 //Save changes to Json file
-                JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
+                JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping2");
 
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Plus";
@@ -69,7 +69,7 @@ namespace DirectXInput
                     vDirectKeypadMapping.Remove(selectedProfile);
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
+                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping2");
 
                     //Select the default profile
                     combobox_KeypadProcessProfile.SelectedIndex = 0;
@@ -183,17 +183,17 @@ namespace DirectXInput
         }
 
         //Generate keypad tool tip
-        string GenerateKeypadKeyToolTip(KeysVirtual? modifierKey, KeysVirtual? virtualKey, string keyName)
+        string GenerateKeypadKeyToolTip(KeysDDCode? modifierKey, KeysDDCode? virtualKey, string keyName)
         {
             try
             {
                 if (modifierKey != null)
                 {
-                    return keyName + " is mapped to " + GetVirtualKeyName((KeysVirtual)modifierKey, false) + " / " + GetVirtualKeyName((KeysVirtual)virtualKey, false);
+                    return keyName + " is mapped to " + GetDDCodeKeyName((KeysDDCode)modifierKey, false) + " / " + GetDDCodeKeyName((KeysDDCode)virtualKey, false);
                 }
                 else if (virtualKey != null)
                 {
-                    return keyName + " is mapped to " + GetVirtualKeyName((KeysVirtual)virtualKey, false);
+                    return keyName + " is mapped to " + GetDDCodeKeyName((KeysDDCode)virtualKey, false);
                 }
             }
             catch { }

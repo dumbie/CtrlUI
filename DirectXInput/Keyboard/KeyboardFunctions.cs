@@ -82,7 +82,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                KeyPressSingleAuto(sendKeyVirtual);
+                KeyPressReleaseSingle(sendKeyVirtual);
             }
             catch { }
         }
@@ -96,36 +96,36 @@ namespace DirectXInput.KeyboardCode
                 {
                     if (sendKeyDDCode == KeysDDCode.ShiftLeft || sendKeyDDCode == KeysDDCode.ShiftRight)
                     {
-                        vVirtualHidDevice.KeyPressCombo(KeysDDCode.ControlLeft, KeysDDCode.X);
+                        vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.ControlLeft, KeysDDCode.X);
                     }
                     else if (sendKeyDDCode == KeysDDCode.ControlLeft || sendKeyDDCode == KeysDDCode.ControlRight)
                     {
-                        vVirtualHidDevice.KeyPressCombo(KeysDDCode.ControlLeft, KeysDDCode.C);
+                        vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.ControlLeft, KeysDDCode.C);
                     }
                     else if (sendKeyDDCode == KeysDDCode.AltLeft || sendKeyDDCode == KeysDDCode.AltRight)
                     {
-                        vVirtualHidDevice.KeyPressCombo(KeysDDCode.ControlLeft, KeysDDCode.V);
+                        vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.ControlLeft, KeysDDCode.V);
                     }
                     else if (sendKeyDDCode == KeysDDCode.Enter)
                     {
-                        vVirtualHidDevice.KeyPressCombo(KeysDDCode.ControlLeft, KeysDDCode.Z);
+                        vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.ControlLeft, KeysDDCode.Z);
                     }
                     else if (sendKeyDDCode == KeysDDCode.LeftWindows)
                     {
-                        vVirtualHidDevice.KeyPressCombo(KeysDDCode.ControlLeft, KeysDDCode.A);
+                        vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.ControlLeft, KeysDDCode.A);
                     }
                     else if (sendKeyDDCode == KeysDDCode.Home)
                     {
-                        vVirtualHidDevice.KeyPressSingle(KeysDDCode.Home);
+                        vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Home);
                     }
                     else
                     {
-                        vVirtualHidDevice.KeyPressCombo(KeysDDCode.ShiftLeft, sendKeyDDCode);
+                        vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.ShiftLeft, sendKeyDDCode);
                     }
                 }
                 else
                 {
-                    vVirtualHidDevice.KeyPressSingle(sendKeyDDCode);
+                    vVirtualHidDevice.KeyPressReleaseSingle(sendKeyDDCode);
                 }
             }
             catch { }

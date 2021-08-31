@@ -41,7 +41,7 @@
                         <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.80"/>
                     </Border.Background>
                 </Border>
-                <styles:ScrollViewerLoopHorizontal Width="790" ScrollLoopSpeed="100" Style="{StaticResource ScrollViewerHidden}">
+                <styles:ScrollViewerLoopHorizontal MaxWidth="787" ScrollLoopSpeed="100" Style="{StaticResource ScrollViewerHidden}">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="26" Opacity="0.80"/>
