@@ -131,7 +131,7 @@ namespace DirectXInput
                 cb_SettingsKeypadMouseMoveEnabled.IsChecked = selectedProfile.KeypadMouseMoveEnabled;
 
                 //Load keypad mouse sensitivity
-                textblock_SettingsKeypadMouseMoveSensitivity.Text = textblock_SettingsKeypadMouseMoveSensitivity.Tag + ": " + selectedProfile.KeypadMouseMoveSensitivity;
+                textblock_SettingsKeypadMouseMoveSensitivity.Text = textblock_SettingsKeypadMouseMoveSensitivity.Tag + ": " + selectedProfile.KeypadMouseMoveSensitivity.ToString("0.00");
                 slider_SettingsKeypadMouseMoveSensitivity.Value = selectedProfile.KeypadMouseMoveSensitivity;
 
                 //Update all keypad key tool tips

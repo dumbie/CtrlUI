@@ -241,8 +241,8 @@ namespace DirectXInput
 
                 slider_SettingsKeyboardMouseMoveSensitivity.ValueChanged += (sender, e) =>
                 {
-                    textblock_SettingsKeyboardMouseMoveSensitivity.Text = textblock_SettingsKeyboardMouseMoveSensitivity.Tag.ToString() + Convert.ToInt32(slider_SettingsKeyboardMouseMoveSensitivity.Value);
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", Convert.ToInt32(slider_SettingsKeyboardMouseMoveSensitivity.Value).ToString());
+                    textblock_SettingsKeyboardMouseMoveSensitivity.Text = textblock_SettingsKeyboardMouseMoveSensitivity.Tag.ToString() + slider_SettingsKeyboardMouseMoveSensitivity.Value.ToString("0.00");
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", slider_SettingsKeyboardMouseMoveSensitivity.Value.ToString("0.00"));
                 };
 
                 //Keypad settings
@@ -312,12 +312,12 @@ namespace DirectXInput
                 slider_SettingsKeypadMouseMoveSensitivity.ValueChanged += (sender, e) =>
                 {
                     KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
-                    selectedProfile.KeypadMouseMoveSensitivity = Convert.ToInt32(slider_SettingsKeypadMouseMoveSensitivity.Value);
+                    selectedProfile.KeypadMouseMoveSensitivity = slider_SettingsKeypadMouseMoveSensitivity.Value;
 
                     //Save changes to Json file
                     JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping2");
 
-                    textblock_SettingsKeypadMouseMoveSensitivity.Text = textblock_SettingsKeypadMouseMoveSensitivity.Tag + ": " + selectedProfile.KeypadMouseMoveSensitivity;
+                    textblock_SettingsKeypadMouseMoveSensitivity.Text = textblock_SettingsKeypadMouseMoveSensitivity.Tag + ": " + selectedProfile.KeypadMouseMoveSensitivity.ToString("0.00");
                 };
             }
             catch (Exception ex)
