@@ -65,7 +65,7 @@ namespace DirectXInput.KeypadCode
                 if (vKeypadMappingProfile.KeypadMouseMoveEnabled && GetSystemTicksMs() >= vControllerDelay_Mouse)
                 {
                     //Get the mouse move amount
-                    GetMouseMovementAmountFromThumb(vKeypadMappingProfile.KeypadMouseMoveSensitivity, controllerInput.ThumbRightX, controllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
+                    GetMouseMovementAmountFromThumbGame(vKeypadMappingProfile.KeypadMouseMoveSensitivity, controllerInput.ThumbRightX, controllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
 
                     //Update button press status
                     vKeypadDownStatus.ThumbRightLeft.Pressed = controllerInput.ThumbRightX < -vControllerOffsetMedium;
