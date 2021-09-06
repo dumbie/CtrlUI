@@ -11,7 +11,7 @@ namespace LibraryUsb
             try
             {
                 key(ddKey, KeysStatusFlag.Press);
-                AVActions.TaskDelayMs(10);
+                AVActions.TaskDelayMs(40);
                 key(ddKey, KeysStatusFlag.Release);
                 return true;
             }
@@ -51,7 +51,7 @@ namespace LibraryUsb
             {
                 key(modifierKey, KeysStatusFlag.Press);
                 key(ddKey, KeysStatusFlag.Press);
-                AVActions.TaskDelayMs(10);
+                AVActions.TaskDelayMs(40);
                 key(ddKey, KeysStatusFlag.Release);
                 key(modifierKey, KeysStatusFlag.Release);
                 return true;

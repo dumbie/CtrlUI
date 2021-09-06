@@ -25,7 +25,7 @@ namespace DirectXInput
                 }
                 else if (absHorizontal > vControllerOffsetSmall || absVertical > vControllerOffsetSmall)
                 {
-                    double mouseSensitivity = thumbSensitivity / (double)30000;
+                    double mouseSensitivity = thumbSensitivity / (double)25000;
                     mouseHorizontal = Convert.ToInt32(thumbHorizontal * mouseSensitivity);
                     mouseVertical = Convert.ToInt32(thumbVertical * mouseSensitivity);
                 }

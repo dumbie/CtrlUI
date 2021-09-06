@@ -883,6 +883,9 @@
     <Content Include="Assets\Default\Games\Nintendo 64.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Default\Assets in this folder will get overwritten when updating">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <Content Include="Profiles\User\CtrlLocationsShortcut.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

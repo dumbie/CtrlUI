@@ -142,7 +142,7 @@ namespace DirectXInput
             try
             {
                 vVirtualHidDevice = new VirtualHidDevice();
-                if (vHidHideDevice.Connected)
+                if (vVirtualHidDevice.Connected)
                 {
                     Debug.WriteLine("Virtual hid device is installed.");
                     return true;
