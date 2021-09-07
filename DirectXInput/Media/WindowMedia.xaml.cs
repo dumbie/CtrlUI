@@ -37,7 +37,7 @@ namespace DirectXInput.MediaCode
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
                 //Update the window style
-                UpdateWindowStyleVisible();
+                await UpdateWindowStyleVisible();
 
                 //Update the window position
                 UpdateWindowPosition();
@@ -71,7 +71,7 @@ namespace DirectXInput.MediaCode
                     await TasksBackgroundStop();
 
                     //Update the window visibility
-                    UpdateWindowVisibility(false);
+                    await UpdateWindowVisibility(false);
 
                     //Delay CtrlUI output
                     vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
@@ -89,7 +89,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 //Close other popups
-                App.vWindowKeyboard.Hide();
+                await App.vWindowKeyboard.Hide();
                 await App.vWindowKeypad.Hide();
 
                 //Delay media input
@@ -105,7 +105,7 @@ namespace DirectXInput.MediaCode
                 await FocusPopupButton(false, button_PlayPause);
 
                 //Update the window visibility
-                UpdateWindowVisibility(true);
+                await UpdateWindowVisibility(true);
 
                 //Move mouse cursor to target
                 MoveMousePosition();
@@ -141,7 +141,7 @@ namespace DirectXInput.MediaCode
         }
 
         //Update the window visibility
-        void UpdateWindowVisibility(bool visible)
+        async Task UpdateWindowVisibility(bool visible)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace DirectXInput.MediaCode
                     base.Show();
 
                     //Update the window style
-                    UpdateWindowStyleVisible();
+                    await UpdateWindowStyleVisible();
 
                     this.Title = "DirectXInput Media (Visible)";
                     vWindowVisible = true;
@@ -160,7 +160,7 @@ namespace DirectXInput.MediaCode
                 else
                 {
                     //Update the window style
-                    UpdateWindowStyleHidden();
+                    await UpdateWindowStyleHidden();
 
                     this.Title = "DirectXInput Media (Hidden)";
                     vWindowVisible = false;
@@ -171,19 +171,19 @@ namespace DirectXInput.MediaCode
         }
 
         //Update the window style
-        void UpdateWindowStyleVisible()
+        async Task UpdateWindowStyleVisible()
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
                     //Set the window style
                     IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
                     //Set the window style ex
                     IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
 
                     //Set the window as top most (focus workaround)
                     SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE | WindowSWP.FRAMECHANGED | WindowSWP.NOCOPYBITS));
@@ -193,15 +193,15 @@ namespace DirectXInput.MediaCode
         }
 
         //Update the window style
-        void UpdateWindowStyleHidden()
+        async Task UpdateWindowStyleHidden()
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
                     //Set the window style
                     IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_NONE);
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
                     //Move window to force style
                     WindowRectangle positionRect = new WindowRectangle();

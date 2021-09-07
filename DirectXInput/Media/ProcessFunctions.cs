@@ -35,7 +35,7 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("Fps", "Hiding Fps Overlayer");
+                await App.vWindowOverlay.Notification_Show_Status("Fps", "Hiding Fps Overlayer");
                 Debug.WriteLine("Closing Fps Overlayer");
 
                 //Check if socket server is running
@@ -66,7 +66,7 @@ namespace DirectXInput.MediaCode
             {
                 if (forceLaunch || !CheckRunningProcessByNameOrTitle("FpsOverlayer", false))
                 {
-                    App.vWindowOverlay.Notification_Show_Status("Fps", "Showing Fps Overlayer");
+                    await App.vWindowOverlay.Notification_Show_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");
                     await ProcessLauncherWin32Async("FpsOverlayer-Admin.exe", "", "", true, false);
                 }

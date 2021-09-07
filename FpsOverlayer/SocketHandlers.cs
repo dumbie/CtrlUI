@@ -63,7 +63,7 @@ namespace FpsOverlayer
                     vKeypadBottomMargin = receivedKeypadSize.Height;
 
                     //Update the fps overlay position
-                    UpdateFpsOverlayPosition(vTargetProcess.Name);
+                    await UpdateFpsOverlayPosition(vTargetProcess.Name);
                 }
             }
             catch { }

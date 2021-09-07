@@ -20,7 +20,7 @@ namespace DirectXInput.MediaCode
     partial class WindowMedia
     {
         //Enable or disable trigger rumble
-        void button_EnableDisableTriggerRumble_Click(object sender, RoutedEventArgs e)
+        async void button_EnableDisableTriggerRumble_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -29,12 +29,12 @@ namespace DirectXInput.MediaCode
                 {
                     if (activeController.Details.Profile.TriggerRumbleEnabled)
                     {
-                        App.vWindowOverlay.Notification_Show_Status("Rumble", "Disabled trigger rumble");
+                        await App.vWindowOverlay.Notification_Show_Status("Rumble", "Disabled trigger rumble");
                         activeController.Details.Profile.TriggerRumbleEnabled = false;
                     }
                     else
                     {
-                        App.vWindowOverlay.Notification_Show_Status("Rumble", "Enabled trigger rumble");
+                        await App.vWindowOverlay.Notification_Show_Status("Rumble", "Enabled trigger rumble");
                         activeController.Details.Profile.TriggerRumbleEnabled = true;
                     }
                     JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
@@ -65,110 +65,110 @@ namespace DirectXInput.MediaCode
         }
 
         //Play or pause the media
-        void button_PlayPause_Click(object sender, RoutedEventArgs e)
+        async void button_PlayPause_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
+                await App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
                 KeyPressReleaseSingle(KeysVirtual.MediaPlayPause);
             }
             catch { }
         }
 
         //Next item the media
-        void button_Next_Click(object sender, RoutedEventArgs e)
+        async void button_Next_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
+                await App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
                 KeyPressReleaseSingle(KeysVirtual.MediaNextTrack);
             }
             catch { }
         }
 
         //Previous item the media
-        void button_Previous_Click(object sender, RoutedEventArgs e)
+        async void button_Previous_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
+                await App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
                 KeyPressReleaseSingle(KeysVirtual.MediaPreviousTrack);
             }
             catch { }
         }
 
         //Volume Output Mute
-        void button_OutputMute_Click(object sender, RoutedEventArgs e)
+        async void button_OutputMute_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
+                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
                 AudioMuteSwitch(false);
             }
             catch { }
         }
 
         //Volume Input Mute
-        void button_InputMute_Click(object sender, RoutedEventArgs e)
+        async void button_InputMute_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Toggling input mute");
+                await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Toggling input mute");
                 AudioMuteSwitch(true);
             }
             catch { }
         }
 
         //Volume Down
-        void button_VolumeDown_Click(object sender, RoutedEventArgs e)
+        async void button_VolumeDown_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreasing volume");
+                await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreasing volume");
                 KeyPressReleaseSingle(KeysVirtual.VolumeDown);
             }
             catch { }
         }
 
         //Volume Up
-        void button_VolumeUp_Click(object sender, RoutedEventArgs e)
+        async void button_VolumeUp_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increasing volume");
+                await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increasing volume");
                 KeyPressReleaseSingle(KeysVirtual.VolumeUp);
             }
             catch { }
         }
 
         //Fullscreen media
-        void button_Fullscreen_Click(object sender, RoutedEventArgs e)
+        async void button_Fullscreen_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
+                await App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
                 KeyPressReleaseCombo(KeysVirtual.Alt, KeysVirtual.Enter);
             }
             catch { }
         }
 
         //Move left
-        void button_ArrowLeft_Click(object sender, RoutedEventArgs e)
+        async void button_ArrowLeft_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
+                await App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
                 vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Left);
             }
             catch { }
         }
 
         //Move right
-        void button_ArrowRight_Click(object sender, RoutedEventArgs e)
+        async void button_ArrowRight_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
+                await App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
                 vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Right);
             }
             catch { }

@@ -33,7 +33,7 @@ namespace DirectXInput
                     if (Controller.InputCurrent.ButtonGuide.PressedShort)
                     {
                         Debug.WriteLine("Shortcut activate controller has been pressed.");
-                        bool controllerActivated = ControllerActivate(Controller);
+                        bool controllerActivated = await ControllerActivate(Controller);
 
                         ControllerUsed = true;
                         ControllerDelayShort = true;
@@ -105,12 +105,12 @@ namespace DirectXInput
                         int muteFunction = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction"));
                         if (muteFunction == 0)
                         {
-                            App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Toggling input mute");
+                            await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Toggling input mute");
                             AudioMuteSwitch(true);
                         }
                         else
                         {
-                            App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
+                            await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
                             AudioMuteSwitch(false);
                         }
 
@@ -127,7 +127,7 @@ namespace DirectXInput
                             NotificationDetails notificationDetails = new NotificationDetails();
                             notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Pressing Alt+Enter";
-                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                             vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.AltLeft, KeysDDCode.Enter);
 
@@ -145,7 +145,7 @@ namespace DirectXInput
                             NotificationDetails notificationDetails = new NotificationDetails();
                             notificationDetails.Icon = "AppClose";
                             notificationDetails.Text = "Pressing Alt+F4";
-                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                             vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.AltLeft, KeysDDCode.F4);
 
@@ -163,7 +163,7 @@ namespace DirectXInput
                             NotificationDetails notificationDetails = new NotificationDetails();
                             notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Pressing Win+Tab";
-                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                             vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.LeftWindows, KeysDDCode.Tab);
 
@@ -177,7 +177,7 @@ namespace DirectXInput
                             NotificationDetails notificationDetails = new NotificationDetails();
                             notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Pressing Alt+Tab";
-                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                             vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.AltLeft, KeysDDCode.Tab);
 
@@ -236,7 +236,7 @@ namespace DirectXInput
                 {
                     if (App.vWindowKeyboard.vWindowVisible)
                     {
-                        App.vWindowKeyboard.Hide();
+                        await App.vWindowKeyboard.Hide();
                         await App.vWindowKeypad.Show();
                     }
                     else
@@ -263,7 +263,7 @@ namespace DirectXInput
                     }
                     else if (!forceShow)
                     {
-                        App.vWindowKeyboard.Hide();
+                        await App.vWindowKeyboard.Hide();
                         await App.vWindowKeypad.Hide();
                     }
                 });
@@ -285,7 +285,7 @@ namespace DirectXInput
                     }
                     else if (!forceShow)
                     {
-                        App.vWindowKeyboard.Hide();
+                        await App.vWindowKeyboard.Hide();
                         await App.vWindowKeypad.Hide();
                     }
                 });
@@ -300,7 +300,7 @@ namespace DirectXInput
             {
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    App.vWindowKeyboard.Hide();
+                    await App.vWindowKeyboard.Hide();
                     await App.vWindowKeypad.Hide();
                     await App.vWindowMedia.Hide();
                 });
@@ -341,7 +341,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "AppLaunch";
                     notificationDetails.Text = "Launching CtrlUI";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     if (!CheckRunningProcessByNameOrTitle("CtrlUI", false))
                     {

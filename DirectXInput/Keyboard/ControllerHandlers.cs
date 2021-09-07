@@ -290,12 +290,6 @@ namespace DirectXInput.KeyboardCode
                     {
                         vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayMediumTicks;
                     }
-
-                    //Update the window style (focus workaround)
-                    if (ControllerDelayShort || ControllerDelayMedium)
-                    {
-                        UpdateWindowStyleVisible();
-                    }
                 }
             }
             catch { }

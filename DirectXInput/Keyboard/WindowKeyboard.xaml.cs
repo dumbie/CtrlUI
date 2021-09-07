@@ -41,7 +41,7 @@ namespace DirectXInput.KeyboardCode
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
                 //Update the window style
-                UpdateWindowStyleVisible();
+                await UpdateWindowStyleVisible();
 
                 //Update keyboard keys
                 UpdateKeyboardKeys();
@@ -77,7 +77,7 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Hide the window
-        public new void Hide()
+        public new async Task Hide()
         {
             try
             {
@@ -86,8 +86,11 @@ namespace DirectXInput.KeyboardCode
                     //Play window close sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
+                    //Stop the update tasks
+                    await TasksBackgroundStop();
+
                     //Update the window visibility
-                    UpdateWindowVisibility(false);
+                    await UpdateWindowVisibility(false);
 
                     //Update last active status
                     vKeyboardKeypadLastActive = "Keyboard";
@@ -117,6 +120,9 @@ namespace DirectXInput.KeyboardCode
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
+                //Start the update tasks
+                TasksBackgroundStart();
+
                 //Disable hardware capslock
                 DisableHardwareCapsLock();
 
@@ -130,7 +136,7 @@ namespace DirectXInput.KeyboardCode
                 }
 
                 //Update the window visibility
-                UpdateWindowVisibility(true);
+                await UpdateWindowVisibility(true);
 
                 //Move mouse cursor to target
                 MoveMousePosition();
@@ -166,7 +172,7 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Update the window visibility
-        void UpdateWindowVisibility(bool visible)
+        async Task UpdateWindowVisibility(bool visible)
         {
             try
             {
@@ -176,7 +182,7 @@ namespace DirectXInput.KeyboardCode
                     base.Show();
 
                     //Update the window style
-                    UpdateWindowStyleVisible();
+                    await UpdateWindowStyleVisible();
 
                     this.Title = "DirectXInput Keyboard (Visible)";
                     vWindowVisible = true;
@@ -185,7 +191,7 @@ namespace DirectXInput.KeyboardCode
                 else
                 {
                     //Update the window style
-                    UpdateWindowStyleHidden();
+                    await UpdateWindowStyleHidden();
 
                     this.Title = "DirectXInput Keyboard (Hidden)";
                     vWindowVisible = false;
@@ -196,19 +202,19 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Update the window style
-        void UpdateWindowStyleVisible()
+        async Task UpdateWindowStyleVisible()
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
                     //Set the window style
                     IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
                     //Set the window style ex
                     IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
 
                     //Set the window as top most (focus workaround)
                     SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE | WindowSWP.FRAMECHANGED | WindowSWP.NOCOPYBITS));
@@ -218,15 +224,15 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Update the window style
-        void UpdateWindowStyleHidden()
+        async Task UpdateWindowStyleHidden()
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
                     //Set the window style
                     IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_NONE);
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
                     //Move window to force style
                     WindowRectangle positionRect = new WindowRectangle();

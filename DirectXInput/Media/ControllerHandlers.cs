@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
@@ -90,7 +91,7 @@ namespace DirectXInput.MediaCode
         }
 
         //Process controller input for keyboard
-        public void ControllerInteractionKeyboard(ControllerInput ControllerInput)
+        public async Task ControllerInteractionKeyboard(ControllerInput ControllerInput)
         {
             bool ControllerDelayShort = false;
             bool ControllerDelayMedium = false;
@@ -144,7 +145,7 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.ButtonB.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
+                        await App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
                         KeyPressReleaseSingle(KeysVirtual.MediaNextTrack);
 
                         ControllerDelayMedium = true;
@@ -153,7 +154,7 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.ButtonY.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
+                        await App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
                         KeyPressReleaseSingle(KeysVirtual.MediaPlayPause);
 
                         ControllerDelayMedium = true;
@@ -162,7 +163,7 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.ButtonX.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
+                        await App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
                         KeyPressReleaseSingle(KeysVirtual.MediaPreviousTrack);
 
                         ControllerDelayMedium = true;
@@ -172,7 +173,7 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
+                        await App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
                         vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Left);
 
                         ControllerDelayShort = true;
@@ -180,7 +181,7 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
+                        await App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
                         vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Right);
 
                         ControllerDelayShort = true;
@@ -190,7 +191,7 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.ButtonBack.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
+                        await App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
                         KeyPressReleaseCombo(KeysVirtual.Alt, KeysVirtual.Enter);
 
                         ControllerDelayMedium = true;
@@ -199,28 +200,28 @@ namespace DirectXInput.MediaCode
                     //Change the system volume
                     else if (ControllerInput.TriggerLeft > 0 && ControllerInput.TriggerRight > 0)
                     {
-                        App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
+                        await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
                         KeyPressReleaseSingle(KeysVirtual.VolumeMute);
 
                         ControllerDelayLonger = true;
                     }
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
-                        App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
+                        await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
                         KeyPressReleaseSingle(KeysVirtual.VolumeMute);
 
                         ControllerDelayMedium = true;
                     }
                     else if (ControllerInput.TriggerLeft > 0)
                     {
-                        App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreasing volume");
+                        await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreasing volume");
                         KeyPressReleaseSingle(KeysVirtual.VolumeDown);
 
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.TriggerRight > 0)
                     {
-                        App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increasing volume");
+                        await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increasing volume");
                         KeyPressReleaseSingle(KeysVirtual.VolumeUp);
 
                         ControllerDelayShort = true;
@@ -238,12 +239,6 @@ namespace DirectXInput.MediaCode
                     else if (ControllerDelayLonger)
                     {
                         vControllerDelay_Media = GetSystemTicksMs() + vControllerDelayLongerTicks;
-                    }
-
-                    //Update the window style (focus workaround)
-                    if (ControllerDelayShort || ControllerDelayMedium || ControllerDelayLonger)
-                    {
-                        UpdateWindowStyleVisible();
                     }
                 }
             }

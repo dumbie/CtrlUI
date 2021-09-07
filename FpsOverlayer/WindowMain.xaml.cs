@@ -43,7 +43,7 @@ namespace FpsOverlayer
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
                 //Update the window style
-                UpdateWindowStyleVisible();
+                await UpdateWindowStyleVisible();
 
                 //Check application settings
                 App.vWindowSettings.Settings_Check();
@@ -52,7 +52,7 @@ namespace FpsOverlayer
                 UpdateWindowPosition();
 
                 //Update the fps overlay style
-                UpdateFpsOverlayStyle();
+                await UpdateFpsOverlayStyle();
 
                 //Create tray icon
                 Application_CreateTrayMenu();
@@ -79,23 +79,23 @@ namespace FpsOverlayer
         }
 
         //Hide the window
-        public new void Hide()
+        public new async Task Hide()
         {
             try
             {
                 //Update the window visibility
-                UpdateWindowVisibility(false);
+                await UpdateWindowVisibility(false);
             }
             catch { }
         }
 
         //Show the window
-        public new void Show()
+        public new async Task Show()
         {
             try
             {
                 //Update the window visibility
-                UpdateWindowVisibility(true);
+                await UpdateWindowVisibility(true);
             }
             catch { }
         }
@@ -130,18 +130,18 @@ namespace FpsOverlayer
         }
 
         //Switch the window visibility
-        public void SwitchWindowVisibilityManual()
+        public async Task SwitchWindowVisibilityManual()
         {
             try
             {
                 if (vWindowVisible)
                 {
-                    UpdateWindowVisibility(false);
+                    await UpdateWindowVisibility(false);
                     vManualHidden = true;
                 }
                 else
                 {
-                    UpdateWindowVisibility(true);
+                    await UpdateWindowVisibility(true);
                     vManualHidden = false;
                 }
             }
@@ -149,11 +149,11 @@ namespace FpsOverlayer
         }
 
         //Update the window visibility
-        public void UpdateWindowVisibility(bool visible)
+        public async Task UpdateWindowVisibility(bool visible)
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
                     if (visible)
                     {
@@ -163,7 +163,7 @@ namespace FpsOverlayer
                             base.Show();
 
                             //Update the window style
-                            UpdateWindowStyleVisible();
+                            await UpdateWindowStyleVisible();
 
                             this.Title = "Fps Overlayer (Visible)";
                             vWindowVisible = true;
@@ -175,7 +175,7 @@ namespace FpsOverlayer
                         if (vWindowVisible)
                         {
                             //Update the window style
-                            UpdateWindowStyleHidden();
+                            await UpdateWindowStyleHidden();
 
                             this.Title = "Fps Overlayer (Hidden)";
                             vWindowVisible = false;
@@ -188,34 +188,37 @@ namespace FpsOverlayer
         }
 
         //Update the window style
-        void UpdateWindowStyleVisible()
+        async Task UpdateWindowStyleVisible()
         {
             try
             {
-                //Set the window style
-                IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                {
+                    //Set the window style
+                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
-                //Set the window style ex
-                IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
-                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
+                    //Set the window style ex
+                    IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
 
-                //Set the window as top most (focus workaround)
-                SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE | WindowSWP.FRAMECHANGED | WindowSWP.NOCOPYBITS));
+                    //Set the window as top most (focus workaround)
+                    SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE | WindowSWP.FRAMECHANGED | WindowSWP.NOCOPYBITS));
+                });
             }
             catch { }
         }
 
         //Update the window style
-        void UpdateWindowStyleHidden()
+        async Task UpdateWindowStyleHidden()
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
                     //Set the window style
                     IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_NONE);
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
                     //Move window to force style
                     WindowRectangle positionRect = new WindowRectangle();
@@ -255,7 +258,7 @@ namespace FpsOverlayer
         }
 
         //Change the font size up or down
-        public void ChangeFontSize(bool sizeUp)
+        public async Task ChangeFontSize(bool sizeUp)
         {
             try
             {
@@ -269,7 +272,7 @@ namespace FpsOverlayer
 
                     Debug.WriteLine("Changing text size to: " + textSize);
                     Setting_Save(vConfigurationFpsOverlayer, "TextSize", textSize.ToString());
-                    UpdateFpsOverlayStyle();
+                    await UpdateFpsOverlayStyle();
                 }
                 else
                 {
@@ -281,7 +284,7 @@ namespace FpsOverlayer
 
                     Debug.WriteLine("Changing text size to: " + textSize);
                     Setting_Save(vConfigurationFpsOverlayer, "TextSize", textSize.ToString());
-                    UpdateFpsOverlayStyle();
+                    await UpdateFpsOverlayStyle();
                 }
             }
             catch { }
@@ -300,14 +303,14 @@ namespace FpsOverlayer
 
                 Debug.WriteLine("Changing text postion to: " + nextPosition);
                 Setting_Save(vConfigurationFpsOverlayer, "TextPosition", nextPosition.ToString());
-                UpdateFpsOverlayStyle();
+                await UpdateFpsOverlayStyle();
                 await App.vWindowSettings.NotifyDirectXInputSettingChanged("TextPosition");
             }
             catch { }
         }
 
         //Update the window position
-        public void UpdateFpsOverlayPosition(string processName)
+        public async Task UpdateFpsOverlayPosition(string processName)
         {
             try
             {
@@ -326,12 +329,12 @@ namespace FpsOverlayer
                 //Hide or show the fps overlayer
                 if (targetTextPosition == OverlayPosition.Hidden)
                 {
-                    UpdateWindowVisibility(false);
+                    await UpdateWindowVisibility(false);
                     return;
                 }
                 else if (!vManualHidden)
                 {
-                    UpdateWindowVisibility(true);
+                    await UpdateWindowVisibility(true);
                 }
 
                 //Move fps to set position
@@ -495,7 +498,7 @@ namespace FpsOverlayer
         }
 
         //Update the fps overlay style
-        public void UpdateFpsOverlayStyle()
+        public async Task UpdateFpsOverlayStyle()
         {
             try
             {
@@ -709,7 +712,7 @@ namespace FpsOverlayer
                 }
 
                 //Update the fps overlay position
-                UpdateFpsOverlayPosition(vTargetProcess.Name);
+                await UpdateFpsOverlayPosition(vTargetProcess.Name);
             }
             catch { }
         }

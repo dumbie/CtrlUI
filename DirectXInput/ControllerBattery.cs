@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using static ArnoldVinkCode.AVClassConverters;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -88,7 +89,7 @@ namespace DirectXInput
         }
 
         //Check controller for low battery level
-        void ControllerLowBattery(ControllerStatus Controller, bool forceUpdate)
+        async Task ControllerLowBattery(ControllerStatus Controller, bool forceUpdate)
         {
             try
             {
@@ -122,7 +123,7 @@ namespace DirectXInput
                             notificationDetails.Icon = "Battery/BatteryVerDis20";
                             notificationDetails.Text = "Controller (" + controllerNumberDisplay + ") battery " + Controller.BatteryCurrent.BatteryPercentage + "%";
                             notificationDetails.Color = Controller.Color;
-                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                         }
 
                         //Battery level sound
@@ -143,14 +144,14 @@ namespace DirectXInput
         }
 
         //Check all controllers for low battery level
-        void CheckAllControllersLowBattery(bool forceUpdate)
+        async Task CheckAllControllersLowBattery(bool forceUpdate)
         {
             try
             {
-                ControllerLowBattery(vController0, forceUpdate);
-                ControllerLowBattery(vController1, forceUpdate);
-                ControllerLowBattery(vController2, forceUpdate);
-                ControllerLowBattery(vController3, forceUpdate);
+                await ControllerLowBattery(vController0, forceUpdate);
+                await ControllerLowBattery(vController1, forceUpdate);
+                await ControllerLowBattery(vController2, forceUpdate);
+                await ControllerLowBattery(vController3, forceUpdate);
             }
             catch { }
         }

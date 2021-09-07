@@ -65,7 +65,7 @@ namespace FpsOverlayer
             {
                 if (args.Button == MouseButtons.Left)
                 {
-                    SwitchWindowVisibilityManual();
+                    await SwitchWindowVisibilityManual();
                 }
                 else if (args.Button == MouseButtons.Middle)
                 {

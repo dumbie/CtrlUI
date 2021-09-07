@@ -222,22 +222,22 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Handle close
-        void ButtonClose_PreviewKeyUp(object sender, KeyEventArgs e)
+        async void ButtonClose_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             try
             {
                 if (e.Key == Key.Space)
                 {
-                    this.Hide();
+                    await this.Hide();
                 }
             }
             catch { }
         }
-        void ButtonClose_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        async void ButtonClose_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                this.Hide();
+                await this.Hide();
             }
             catch { }
         }

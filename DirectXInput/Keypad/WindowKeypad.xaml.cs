@@ -34,7 +34,7 @@ namespace DirectXInput.KeypadCode
         public bool vHideAdded = false;
 
         //Window Initialized
-        protected override void OnSourceInitialized(EventArgs e)
+        protected override async void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace DirectXInput.KeypadCode
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
                 //Update the window style
-                UpdateWindowStyleVisible();
+                await UpdateWindowStyleVisible();
 
                 //Update the window position
                 UpdateWindowPosition();
@@ -64,7 +64,7 @@ namespace DirectXInput.KeypadCode
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
                     //Update the window visibility
-                    UpdateWindowVisibility(false);
+                    await UpdateWindowVisibility(false);
 
                     //Notify - Fps Overlayer keypad size changed
                     await NotifyFpsOverlayerKeypadSizeChanged(0);
@@ -91,7 +91,7 @@ namespace DirectXInput.KeypadCode
             try
             {
                 //Close other popups
-                App.vWindowKeyboard.Hide();
+                await App.vWindowKeyboard.Hide();
                 await App.vWindowMedia.Hide();
 
                 //Play window open sound
@@ -101,7 +101,7 @@ namespace DirectXInput.KeypadCode
                 DisableHardwareCapsLock();
 
                 //Set the keypad mapping profile
-                SetKeypadMappingProfile();
+                await SetKeypadMappingProfile();
 
                 //Update the key names
                 UpdateKeypadNames();
@@ -119,7 +119,7 @@ namespace DirectXInput.KeypadCode
                 await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(keypadHeight));
 
                 //Update the window visibility
-                UpdateWindowVisibility(true);
+                await UpdateWindowVisibility(true);
             }
             catch { }
         }
@@ -208,7 +208,7 @@ namespace DirectXInput.KeypadCode
         }
 
         //Set the keypad mapping profile
-        void SetKeypadMappingProfile()
+        async Task SetKeypadMappingProfile()
         {
             try
             {
@@ -226,7 +226,7 @@ namespace DirectXInput.KeypadCode
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Keypad";
                     notificationDetails.Text = "Profile set to " + directKeypadMappingProfile.Name;
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
 
                 //Update the keypad mapping profile
@@ -250,7 +250,7 @@ namespace DirectXInput.KeypadCode
         }
 
         //Update the window visibility
-        void UpdateWindowVisibility(bool visible)
+        async Task UpdateWindowVisibility(bool visible)
         {
             try
             {
@@ -260,7 +260,7 @@ namespace DirectXInput.KeypadCode
                     base.Show();
 
                     //Update the window style
-                    UpdateWindowStyleVisible();
+                    await UpdateWindowStyleVisible();
 
                     this.Title = "DirectXInput Keypad (Visible)";
                     vWindowVisible = true;
@@ -269,7 +269,7 @@ namespace DirectXInput.KeypadCode
                 else
                 {
                     //Update the window style
-                    UpdateWindowStyleHidden();
+                    await UpdateWindowStyleHidden();
 
                     this.Title = "DirectXInput Keypad (Hidden)";
                     vWindowVisible = false;
@@ -280,34 +280,37 @@ namespace DirectXInput.KeypadCode
         }
 
         //Update the window style
-        void UpdateWindowStyleVisible()
+        async Task UpdateWindowStyleVisible()
         {
             try
             {
-                //Set the window style
-                IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                {
+                    //Set the window style
+                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
-                //Set the window style ex
-                IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
-                SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
+                    //Set the window style ex
+                    IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
 
-                //Set the window as top most (focus workaround)
-                SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE | WindowSWP.FRAMECHANGED | WindowSWP.NOCOPYBITS));
+                    //Set the window as top most (focus workaround)
+                    SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE | WindowSWP.FRAMECHANGED | WindowSWP.NOCOPYBITS));
+                });
             }
             catch { }
         }
 
         //Update the window style
-        void UpdateWindowStyleHidden()
+        async Task UpdateWindowStyleHidden()
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
                     //Set the window style
                     IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_NONE);
-                    SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
 
                     //Move window to force style
                     WindowRectangle positionRect = new WindowRectangle();

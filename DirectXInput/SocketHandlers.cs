@@ -52,7 +52,7 @@ namespace DirectXInput
                 if (deserializedBytes.Object is NotificationDetails)
                 {
                     NotificationDetails receivedNotificationDetails = (NotificationDetails)deserializedBytes.Object;
-                    App.vWindowOverlay.Notification_Show_Status(receivedNotificationDetails);
+                    await App.vWindowOverlay.Notification_Show_Status(receivedNotificationDetails);
                 }
                 else if (deserializedBytes.Object is string)
                 {

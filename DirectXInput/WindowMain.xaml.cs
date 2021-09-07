@@ -219,15 +219,15 @@ namespace DirectXInput
                         UpdateControllerPreviewRumble(true);
                         if (SendButton.Name == "btn_RumbleTestLight")
                         {
-                            ControllerOutput(activeController, true, false);
+                            await ControllerOutput(activeController, true, false);
                         }
                         else
                         {
-                            ControllerOutput(activeController, false, true);
+                            await ControllerOutput(activeController, false, true);
                         }
                         await Task.Delay(1000);
                         UpdateControllerPreviewRumble(false);
-                        ControllerOutput(activeController, false, false);
+                        await ControllerOutput(activeController, false, false);
 
                         vControllerRumbleTest = false;
                     }
@@ -237,7 +237,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "No controller connected";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }

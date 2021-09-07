@@ -21,7 +21,7 @@ namespace DirectXInput
         }
 
         //Copy controller debug information
-        void Btn_CopyDebugInformation_Click(object sender, RoutedEventArgs args)
+        async void Btn_CopyDebugInformation_Click(object sender, RoutedEventArgs args)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Paste";
                     notificationDetails.Text = "Debug information copied";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
                 else
                 {
@@ -42,7 +42,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "No controller connected";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -9,7 +10,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Send rumble
-        void LoopOutputController(ControllerStatus Controller)
+        async Task LoopOutputController(ControllerStatus Controller)
         {
             try
             {
@@ -22,7 +23,7 @@ namespace DirectXInput
                 ControllerLedColor(Controller);
 
                 //Send default output to controller
-                ControllerOutput(Controller, false, false);
+                await ControllerOutput(Controller, false, false);
 
                 //Receive output from the virtual bus
                 while (!Controller.OutputControllerTask.TaskStopRequest && Controller.Connected())
@@ -50,7 +51,7 @@ namespace DirectXInput
                         Controller.XOutputPreviousRumbleLight = Controller.XOutputCurrentRumbleLight;
 
                         //Send received output to controller
-                        ControllerOutput(Controller, false, false);
+                        await ControllerOutput(Controller, false, false);
                     }
                     catch { }
                 }
@@ -59,7 +60,7 @@ namespace DirectXInput
         }
 
         //Send output to controller
-        public void ControllerOutput(ControllerStatus Controller, bool testLight, bool testHeavy)
+        public async Task ControllerOutput(ControllerStatus Controller, bool testLight, bool testHeavy)
         {
             try
             {
@@ -333,7 +334,7 @@ namespace DirectXInput
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "Unsupported rumble controller";
                     notificationDetails.Color = Controller.Color;
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     Debug.WriteLine("Unsupported rumble controller.");
                 }
             }

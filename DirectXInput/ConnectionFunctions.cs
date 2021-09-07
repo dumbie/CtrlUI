@@ -11,7 +11,7 @@ namespace DirectXInput
     partial class WindowMain
     {
         //Reset temp blocked controller path list
-        void Btn_SearchNewControllers_Click(object sender, RoutedEventArgs e)
+        async void Btn_SearchNewControllers_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -21,7 +21,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Controller";
                 notificationDetails.Text = "Searching for controllers";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 Debug.WriteLine("Reset temp blocked controller path list.");
             }
             catch { }
@@ -42,7 +42,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "No controller connected";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }
@@ -58,7 +58,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Controller";
                 notificationDetails.Text = "Disconnected all controllers";
-                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
             }
             catch { }
         }
@@ -83,7 +83,7 @@ namespace DirectXInput
                         NotificationDetails notificationDetails = new NotificationDetails();
                         notificationDetails.Icon = "Controller";
                         notificationDetails.Text = "Removed controller";
-                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                        await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                         vDirectControllersProfile.Remove(activeController.Details.Profile);
                         await StopControllerAsync(activeController, "removed", "Controller " + activeController.Details.DisplayName + " removed and disconnected.");
@@ -97,7 +97,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "No controller connected";
-                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }
