@@ -13,7 +13,6 @@ using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
-using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput.MediaCode
 {
@@ -158,7 +157,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 await App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
-                vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Left);
+                KeyPressReleaseSingle(KeysVirtual.Left);
             }
             catch { }
         }
@@ -169,7 +168,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 await App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
-                vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Right);
+                KeyPressReleaseSingle(KeysVirtual.Right);
             }
             catch { }
         }

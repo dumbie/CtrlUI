@@ -13,13 +13,14 @@ using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
-using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput.KeypadCode
 {
@@ -420,18 +421,18 @@ namespace DirectXInput.KeypadCode
         }
 
         //Update key details
-        void UpdateKeypadKeyDetails(KeysDDCode? modifierKey, KeysDDCode? virtualKey, TextBlock keyTextLabel)
+        void UpdateKeypadKeyDetails(KeysVirtual? modifierKey, KeysVirtual? virtualKey, TextBlock keyTextLabel)
         {
             try
             {
                 if (modifierKey != null)
                 {
-                    keyTextLabel.Text = GetDDCodeKeyName((KeysDDCode)modifierKey, true) + "\n" + GetDDCodeKeyName((KeysDDCode)virtualKey, true);
+                    keyTextLabel.Text = GetVirtualKeyName((KeysVirtual)modifierKey, true) + "\n" + GetVirtualKeyName((KeysVirtual)virtualKey, true);
                     keyTextLabel.Opacity = 1;
                 }
                 else if (virtualKey != null)
                 {
-                    keyTextLabel.Text = GetDDCodeKeyName((KeysDDCode)virtualKey, true);
+                    keyTextLabel.Text = GetVirtualKeyName((KeysVirtual)virtualKey, true);
                     keyTextLabel.Opacity = 1;
                 }
                 else
@@ -452,7 +453,7 @@ namespace DirectXInput.KeypadCode
                 {
                     if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
-                        vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.CapsLock);
+                        KeyPressReleaseSingle(KeysVirtual.CapsLock);
                     }
                 });
             }

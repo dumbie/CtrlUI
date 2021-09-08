@@ -6,12 +6,12 @@ using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVInputOutputMouse;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
-using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput.KeyboardCode
 {
@@ -31,7 +31,7 @@ namespace DirectXInput.KeyboardCode
                     GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY, true, out int moveHorizontalLeft, out int moveVerticalLeft);
 
                     //Move the mouse cursor
-                    vVirtualHidDevice.movRel(moveHorizontalLeft, moveVerticalLeft);
+                    MouseMoveCursor(moveHorizontalLeft, moveVerticalLeft);
 
                     //Check the keyboard mode
                     if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode")) == 0)
@@ -44,19 +44,12 @@ namespace DirectXInput.KeyboardCode
                     }
                     else
                     {
-                        //Check right thumb stick
-                        bool thumbRightUp = ControllerInput.ThumbRightY > vControllerOffsetMedium;
-                        bool thumbRightDown = ControllerInput.ThumbRightY < -vControllerOffsetMedium;
+                        //Get the mouse scroll amount
+                        double scrollSensitivity = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity"));
+                        GetMouseMovementAmountFromThumbDesktop(scrollSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, false, out int scrollHorizontalRight, out int scrollVerticalRight);
 
                         //Scroll the mouse wheel
-                        if (thumbRightUp)
-                        {
-                            vVirtualHidDevice.whl(1);
-                        }
-                        else if (thumbRightDown)
-                        {
-                            vVirtualHidDevice.whl(2);
-                        }
+                        MouseScrollWheel(scrollHorizontalRight, scrollVerticalRight);
                     }
 
                     //Emulate mouse click left
@@ -65,7 +58,7 @@ namespace DirectXInput.KeyboardCode
                         if (!vMouseLeftDownStatus)
                         {
                             vMouseLeftDownStatus = true;
-                            vVirtualHidDevice.btn(1); //Press left button
+                            MouseToggle(false, true);
 
                             ControllerDelayMicro = true;
                         }
@@ -73,7 +66,7 @@ namespace DirectXInput.KeyboardCode
                     else if (vMouseLeftDownStatus)
                     {
                         vMouseLeftDownStatus = false;
-                        vVirtualHidDevice.btn(2); //Release left button
+                        MouseToggle(false, false);
 
                         ControllerDelayMicro = true;
                     }
@@ -84,7 +77,7 @@ namespace DirectXInput.KeyboardCode
                         if (!vMouseRightDownStatus)
                         {
                             vMouseRightDownStatus = true;
-                            vVirtualHidDevice.btn(4); //Press right button
+                            MouseToggle(true, true);
 
                             ControllerDelayMicro = true;
                         }
@@ -92,7 +85,7 @@ namespace DirectXInput.KeyboardCode
                     else if (vMouseRightDownStatus)
                     {
                         vMouseRightDownStatus = false;
-                        vVirtualHidDevice.btn(8); //Release right button
+                        MouseToggle(true, false);
 
                         ControllerDelayMicro = true;
                     }
@@ -168,7 +161,7 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonB.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Enter);
+                        KeyPressReleaseSingle(KeysVirtual.Enter);
 
                         ControllerDelayShort = true;
                     }
@@ -176,7 +169,7 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonY.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Space);
+                        KeyPressReleaseSingle(KeysVirtual.Space);
 
                         ControllerDelayShort = true;
                     }
@@ -186,11 +179,11 @@ namespace DirectXInput.KeyboardCode
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         if (vCapsEnabled)
                         {
-                            vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Delete);
+                            KeyPressReleaseSingle(KeysVirtual.Delete);
                         }
                         else
                         {
-                            vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.BackSpace);
+                            KeyPressReleaseSingle(KeysVirtual.BackSpace);
                         }
 
                         ControllerDelayShort = true;
@@ -200,7 +193,7 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Left);
+                        KeyPressReleaseSingle(KeysVirtual.Left);
 
                         ControllerDelayShort = true;
                     }
@@ -208,7 +201,7 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
-                        vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Right);
+                        KeyPressReleaseSingle(KeysVirtual.Right);
 
                         ControllerDelayShort = true;
                     }
@@ -237,7 +230,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (vCapsEnabled)
                         {
-                            vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.ShiftLeft, KeysDDCode.Tab);
+                            KeyPressReleaseCombo(KeysVirtual.ShiftLeft, KeysVirtual.Tab);
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         }
                         else if (border_EmojiListPopup.Visibility == Visibility.Visible)
@@ -247,7 +240,7 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Tab);
+                            KeyPressReleaseSingle(KeysVirtual.Tab);
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         }
 

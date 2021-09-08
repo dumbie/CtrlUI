@@ -245,6 +245,12 @@ namespace DirectXInput
                     Setting_Save(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", slider_SettingsKeyboardMouseMoveSensitivity.Value.ToString("0.00"));
                 };
 
+                slider_SettingsKeyboardMouseScrollSensitivity.ValueChanged += (sender, e) =>
+                {
+                    textblock_SettingsKeyboardMouseScrollSensitivity.Text = textblock_SettingsKeyboardMouseScrollSensitivity.Tag.ToString() + slider_SettingsKeyboardMouseScrollSensitivity.Value.ToString("0.00");
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity", slider_SettingsKeyboardMouseScrollSensitivity.Value.ToString("0.00"));
+                };
+
                 //Keypad settings
                 slider_KeypadOpacity.ValueChanged += (sender, e) =>
                 {
@@ -252,7 +258,7 @@ namespace DirectXInput
                     selectedProfile.KeypadOpacity = slider_KeypadOpacity.Value;
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping2");
+                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
 
                     textblock_KeypadOpacity.Text = textblock_KeypadOpacity.Tag + ": " + slider_KeypadOpacity.Value.ToString("0.00") + "%";
                     App.vWindowKeypad.UpdatePopupOpacity();
@@ -264,7 +270,7 @@ namespace DirectXInput
                     selectedProfile.KeypadDisplayStyle = combobox_KeypadDisplayStyle.SelectedIndex;
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping2");
+                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
 
                     App.vWindowKeypad.UpdateKeypadStyle();
                 };
@@ -275,7 +281,7 @@ namespace DirectXInput
                     selectedProfile.KeypadDisplaySize = Convert.ToInt32(slider_KeypadDisplaySize.Value);
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping2");
+                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
 
                     textblock_KeypadDisplaySize.Text = textblock_KeypadDisplaySize.Tag + ": " + selectedProfile.KeypadDisplaySize + "%";
 
@@ -292,7 +298,7 @@ namespace DirectXInput
                     selectedProfile.ButtonDelayRepeatMs = Convert.ToInt32(slider_KeypadRepeatIntervalMs.Value);
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping2");
+                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
 
                     textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + selectedProfile.ButtonDelayRepeatMs + "ms";
                 };
@@ -303,7 +309,7 @@ namespace DirectXInput
                     selectedProfile.KeypadMouseMoveEnabled = (bool)cb_SettingsKeypadMouseMoveEnabled.IsChecked;
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping2");
+                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
 
                     //Update all keypad key names
                     App.vWindowKeypad.UpdateKeypadNames();
@@ -315,7 +321,7 @@ namespace DirectXInput
                     selectedProfile.KeypadMouseMoveSensitivity = slider_SettingsKeypadMouseMoveSensitivity.Value;
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping2");
+                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
 
                     textblock_SettingsKeypadMouseMoveSensitivity.Text = textblock_SettingsKeypadMouseMoveSensitivity.Tag + ": " + selectedProfile.KeypadMouseMoveSensitivity.ToString("0.00");
                 };

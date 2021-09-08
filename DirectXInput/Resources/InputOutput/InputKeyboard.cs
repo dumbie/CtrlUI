@@ -1,8 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInputOutputClass;
-using static DirectXInput.AppVariables;
-using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput
 {
@@ -24,13 +22,7 @@ namespace DirectXInput
                 else if (keysData.HasFlag(Keys.Shift)) { usedModifierKey = KeysVirtual.Shift; }
 
                 //Save keypad button mapping
-                KeysDDCode usedVirtualKeyDD = vVirtualHidDevice.todc((byte)usedVirtualKey);
-                KeysDDCode? usedModifierKeyDD = null;
-                if (usedModifierKey != null)
-                {
-                    usedModifierKeyDD = vVirtualHidDevice.todc((byte)usedModifierKey);
-                }
-                messageHandled = KeypadSaveMapping(usedVirtualKeyDD, usedModifierKeyDD);
+                messageHandled = KeypadSaveMapping(usedVirtualKey, usedModifierKey);
             }
             catch { }
         }

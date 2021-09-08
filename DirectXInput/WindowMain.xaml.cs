@@ -99,13 +99,13 @@ namespace DirectXInput
                     return;
                 }
 
-                //Open the virtual hid device
-                if (!OpenVirtualHidDevice())
-                {
-                    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
-                    await Message_InstallDrivers();
-                    return;
-                }
+                ////Open the virtual hid device
+                //if (!OpenVirtualHidDevice())
+                //{
+                //    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
+                //    await Message_InstallDrivers();
+                //    return;
+                //}
 
                 //Load the help text
                 LoadHelp();
@@ -138,7 +138,7 @@ namespace DirectXInput
                 JsonLoadProfile(ref vDirectControllersIgnoredDefault, @"Default\DirectControllersIgnored");
 
                 //Load keypad mapping
-                JsonLoadProfile(ref vDirectKeypadMapping, @"User\DirectKeypadMapping2");
+                JsonLoadProfile(ref vDirectKeypadMapping, @"User\DirectKeypadMapping");
                 JsonLoadList_KeypadProfile();
 
                 //Load controllers profile
@@ -331,13 +331,13 @@ namespace DirectXInput
                     vHidHideDevice = null;
                 }
 
-                //Check if Virtual Hid is connected
-                if (vVirtualHidDevice != null)
-                {
-                    //Close Virtual Hid device
-                    vVirtualHidDevice.CloseDevice();
-                    vVirtualHidDevice = null;
-                }
+                ////Check if Virtual Hid is connected
+                //if (vVirtualHidDevice != null)
+                //{
+                //    //Close Virtual Hid device
+                //    vVirtualHidDevice.CloseDevice();
+                //    vVirtualHidDevice = null;
+                //}
 
                 //Disable the socket server
                 if (vArnoldVinkSockets != null)

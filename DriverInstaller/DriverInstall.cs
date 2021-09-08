@@ -59,8 +59,8 @@ namespace DriverInstaller
                 UninstallHidGuardian();
 
                 //Install Virtual Hid Driver
-                ProgressBarUpdate(40, false);
-                InstallVirtualHid();
+                //ProgressBarUpdate(40, false);
+                //InstallVirtualHid();
 
                 //Install Virtual Bus Driver
                 ProgressBarUpdate(55, false);

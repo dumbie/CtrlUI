@@ -353,12 +353,9 @@
     <Compile Include="UsbCode\UsbLibrary_Events.cs" />
     <Compile Include="UsbCode\UsbLibrary_Extensions.cs" />
     <Compile Include="UsbCode\VigemBusDevice\VigemBusDevice_Control.cs" />
-    <Compile Include="UsbCode\VirtualHidDevice\VirtualHid_Class.cs" />
-    <Compile Include="UsbCode\VirtualHidDevice\VirtualHid_Control.cs" />
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice.cs" />
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_Information.cs" />
     <Compile Include="UsbCode\WinUsbDevice\WinUsbDevice_ReadWrite.cs" />
-    <Compile Include="UsbCode\VirtualHidDevice\VirtualHidDevice.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="NetFwTypeLib">

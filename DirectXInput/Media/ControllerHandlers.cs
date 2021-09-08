@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVInputOutputMouse;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
-using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput.MediaCode
 {
@@ -29,7 +29,7 @@ namespace DirectXInput.MediaCode
                     GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
 
                     //Move the mouse cursor
-                    vVirtualHidDevice.movRel(moveHorizontalLeft, moveVerticalLeft);
+                    MouseMoveCursor(moveHorizontalLeft, moveVerticalLeft);
 
                     //Move the media window
                     MoveMediaWindow(moveHorizontalRight, moveVerticalRight);
@@ -40,7 +40,7 @@ namespace DirectXInput.MediaCode
                         if (!vMouseLeftDownStatus)
                         {
                             vMouseLeftDownStatus = true;
-                            vVirtualHidDevice.btn(1); //Press left button
+                            MouseToggle(false, true);
 
                             ControllerDelayMicro = true;
                         }
@@ -48,7 +48,7 @@ namespace DirectXInput.MediaCode
                     else if (vMouseLeftDownStatus)
                     {
                         vMouseLeftDownStatus = false;
-                        vVirtualHidDevice.btn(2); //Release left button
+                        MouseToggle(false, false);
 
                         ControllerDelayMicro = true;
                     }
@@ -59,7 +59,7 @@ namespace DirectXInput.MediaCode
                         if (!vMouseRightDownStatus)
                         {
                             vMouseRightDownStatus = true;
-                            vVirtualHidDevice.btn(4); //Press right button
+                            MouseToggle(true, true);
 
                             ControllerDelayMicro = true;
                         }
@@ -67,7 +67,7 @@ namespace DirectXInput.MediaCode
                     else if (vMouseRightDownStatus)
                     {
                         vMouseRightDownStatus = false;
-                        vVirtualHidDevice.btn(8); //Release right button
+                        MouseToggle(true, false);
 
                         ControllerDelayMicro = true;
                     }
@@ -174,7 +174,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
-                        vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Left);
+                        KeyPressReleaseSingle(KeysVirtual.Left);
 
                         ControllerDelayShort = true;
                     }
@@ -182,7 +182,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
-                        vVirtualHidDevice.KeyPressReleaseSingle(KeysDDCode.Right);
+                        KeyPressReleaseSingle(KeysVirtual.Right);
 
                         ControllerDelayShort = true;
                     }

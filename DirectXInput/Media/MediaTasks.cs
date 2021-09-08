@@ -80,7 +80,7 @@ namespace DirectXInput.MediaCode
                     }
 
                     //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_UpdateWindowStyle);
+                    await TaskDelayLoop(100, vTask_UpdateWindowStyle);
                 }
             }
             catch { }

@@ -2,11 +2,13 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVInputOutputMouse;
 using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
 using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
-using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput.KeypadCode
 {
@@ -74,7 +76,7 @@ namespace DirectXInput.KeypadCode
                     vKeypadDownStatus.ThumbRightDown.Pressed = controllerInput.ThumbRightY < -vControllerOffsetMedium;
 
                     //Move the mouse cursor
-                    vVirtualHidDevice.movRel(moveHorizontalRight, moveVerticalRight);
+                    MouseMoveCursor(moveHorizontalRight, moveVerticalRight);
 
                     //Delay input to prevent repeat
                     vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayNanoTicks;
@@ -256,7 +258,7 @@ namespace DirectXInput.KeypadCode
         }
 
         //Check keyboard key binded to keypad
-        void KeypadKeyCheck(bool buttonPressed, KeypadDownStatus keypadDownStatus, KeysDDCode? modifierKey, KeysDDCode? virtualKey, KeypadMapping keypadMapping)
+        void KeypadKeyCheck(bool buttonPressed, KeypadDownStatus keypadDownStatus, KeysVirtual? modifierKey, KeysVirtual? virtualKey, KeypadMapping keypadMapping)
         {
             try
             {
@@ -273,7 +275,7 @@ namespace DirectXInput.KeypadCode
         }
 
         //Press keyboard key binded to keypad
-        void KeypadKeyPress(KeypadDownStatus keypadDownStatus, KeysDDCode? modifierKey, KeysDDCode? virtualKey, KeypadMapping keypadMapping)
+        void KeypadKeyPress(KeypadDownStatus keypadDownStatus, KeysVirtual? modifierKey, KeysVirtual? virtualKey, KeypadMapping keypadMapping)
         {
             try
             {
@@ -292,11 +294,11 @@ namespace DirectXInput.KeypadCode
                     keypadDownStatus.RepeatCount++;
                     if (modifierKey != null)
                     {
-                        vVirtualHidDevice.KeyToggleCombo((KeysDDCode)modifierKey, (KeysDDCode)virtualKey, true);
+                        KeyToggleCombo((KeysVirtual)modifierKey, (KeysVirtual)virtualKey, true);
                     }
                     else
                     {
-                        vVirtualHidDevice.KeyToggleSingle((KeysDDCode)virtualKey, true);
+                        KeyToggleSingle((KeysVirtual)virtualKey, true);
                     }
                 }
             }
@@ -304,7 +306,7 @@ namespace DirectXInput.KeypadCode
         }
 
         //Release keyboard key binded to keypad
-        void KeypadKeyRelease(KeypadDownStatus keypadDownStatus, KeysDDCode? modifierKey, KeysDDCode? virtualKey)
+        void KeypadKeyRelease(KeypadDownStatus keypadDownStatus, KeysVirtual? modifierKey, KeysVirtual? virtualKey)
         {
             try
             {
@@ -312,11 +314,11 @@ namespace DirectXInput.KeypadCode
                 keypadDownStatus.Pressed = false;
                 if (modifierKey != null)
                 {
-                    vVirtualHidDevice.KeyToggleCombo((KeysDDCode)modifierKey, (KeysDDCode)virtualKey, false);
+                    KeyToggleCombo((KeysVirtual)modifierKey, (KeysVirtual)virtualKey, false);
                 }
                 else
                 {
-                    vVirtualHidDevice.KeyToggleSingle((KeysDDCode)virtualKey, false);
+                    KeyToggleSingle((KeysVirtual)virtualKey, false);
                 }
             }
             catch { }

@@ -207,7 +207,7 @@ namespace CtrlUI
             try
             {
                 await Notification_Send_Status("Windows", "Showing start menu");
-                KeyPressReleaseSingle(KeysVirtual.LeftWindows);
+                KeyPressReleaseSingle(KeysVirtual.WindowsLeft);
 
                 //Launch the keyboard controller
                 if (vAppActivated && vControllerAnyConnected())

@@ -7,13 +7,14 @@ using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVClassConverters;
+using static ArnoldVinkCode.AVInputOutputClass;
+using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
-using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput
 {
@@ -129,7 +130,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+Enter";
                             await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.AltLeft, KeysDDCode.Enter);
+                            KeyPressReleaseCombo(KeysVirtual.Alt, KeysVirtual.Enter);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -147,7 +148,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+F4";
                             await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.AltLeft, KeysDDCode.F4);
+                            KeyPressReleaseCombo(KeysVirtual.Alt, KeysVirtual.F4);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -165,7 +166,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Win+Tab";
                             await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.LeftWindows, KeysDDCode.Tab);
+                            KeyPressReleaseCombo(KeysVirtual.WindowsLeft, KeysVirtual.Tab);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -179,7 +180,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+Tab";
                             await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.AltLeft, KeysDDCode.Tab);
+                            KeyPressReleaseCombo(KeysVirtual.Alt, KeysVirtual.Tab);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -193,7 +194,7 @@ namespace DirectXInput
                             Debug.WriteLine("Button Global - Screenshot");
                             PlayInterfaceSound(vConfigurationCtrlUI, "Screenshot", true);
 
-                            vVirtualHidDevice.KeyPressReleaseCombo(KeysDDCode.LeftWindows, KeysDDCode.PrintScreen);
+                            KeyPressReleaseCombo(KeysVirtual.WindowsLeft, KeysVirtual.PrintScreen);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;

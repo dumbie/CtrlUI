@@ -4,11 +4,11 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.JsonFunctions;
-using static LibraryUsb.VirtualHidDevice;
 
 namespace DirectXInput
 {
@@ -218,7 +218,7 @@ namespace DirectXInput
                 }
 
                 //Save changes to Json file
-                JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping2");
+                JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
 
                 //Update the key names
                 App.vWindowKeypad.UpdateKeypadNames();
@@ -227,7 +227,7 @@ namespace DirectXInput
         }
 
         //Save keypad button mapping
-        bool KeypadSaveMapping(KeysDDCode usedVirtualKey, KeysDDCode? usedModifierKey)
+        bool KeypadSaveMapping(KeysVirtual usedVirtualKey, KeysVirtual? usedModifierKey)
         {
             try
             {
@@ -366,7 +366,7 @@ namespace DirectXInput
                     vMappingKeypadButton = null;
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping2");
+                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
                     return true;
                 }
             }
