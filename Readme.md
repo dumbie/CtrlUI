@@ -55,7 +55,7 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 - A DirectInput game controller connected through DirectXInput.
 
 ## Special thanks
-Nefarius, IGDB, SteamKit2 and LibreHardwareMonitor.
+Nefarius, RyoTravis, IGDB, SteamKit2 and LibreHardwareMonitor.
 
 ## Support and bug reporting
 When you are walking into any problems or a bug you can go to my help page at https://help.arnoldvink.com so I can try to help you out and get everything working.

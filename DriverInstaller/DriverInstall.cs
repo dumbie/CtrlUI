@@ -56,11 +56,12 @@ namespace DriverInstaller
                 RemoveUnusedScpVirtualBus();
                 RemoveUnusedXboxControllers();
                 RemoveUnusedDS3Controllers();
+                RemoveUnusedFakerInputDevices();
                 UninstallHidGuardian();
 
-                //Install Virtual Hid Driver
-                //ProgressBarUpdate(40, false);
-                //InstallVirtualHid();
+                //Install FakerInput Driver
+                ProgressBarUpdate(40, false);
+                InstallFakerInput();
 
                 //Install Virtual Bus Driver
                 ProgressBarUpdate(55, false);
@@ -84,34 +85,22 @@ namespace DriverInstaller
             catch { }
         }
 
-        void InstallVirtualHid()
+        void InstallFakerInput()
         {
             try
             {
-                if (DeviceCreateNode("System", GuidClassSystem, "dd.mou.94396"))
+                if (DeviceCreateNode("System", GuidClassSystem, @"Root\FakerInput"))
                 {
-                    TextBoxAppend("Virtual Hid Mouse Node created.");
-                }
-                if (DriverInstallInf(@"Resources\Drivers\VirtualHid\x64\dd.mou.94396.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
-                {
-                    TextBoxAppend("Virtual Hid Mouse Driver installed.");
-                }
-                else
-                {
-                    TextBoxAppend("Virtual Hid Mouse Driver not installed.");
+                    TextBoxAppend("FakerInput Node created.");
                 }
 
-                if (DeviceCreateNode("System", GuidClassSystem, "dd.key.94396"))
+                if (DriverInstallInf(@"Resources\Drivers\FakerInput\x64\FakerInput.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
-                    TextBoxAppend("Virtual Hid Keyboard Node created.");
-                }
-                if (DriverInstallInf(@"Resources\Drivers\VirtualHid\x64\dd.key.94396.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
-                {
-                    TextBoxAppend("Virtual Hid Keyboard Driver installed.");
+                    TextBoxAppend("FakerInput Driver installed.");
                 }
                 else
                 {
-                    TextBoxAppend("Virtual Hid Keyboard Driver not installed.");
+                    TextBoxAppend("FakerInput Driver not installed.");
                 }
             }
             catch { }

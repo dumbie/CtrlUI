@@ -14,7 +14,8 @@ namespace LibraryUsb
             GENERIC_READ = 0x80000000,
             GENERIC_WRITE = 0x40000000,
             GENERIC_EXECUTE = 0x20000000,
-            GENERIC_ALL = 0x10000000
+            GENERIC_ALL = 0x10000000,
+            GENERIC_NONE = 0x00000000
         }
 
         public enum FileShareMode : uint
@@ -80,7 +81,7 @@ namespace LibraryUsb
         public static extern bool WriteFile(SafeFileHandle hFile, byte[] lpBuffer, int nNumberOfBytesToWrite, out int lpNumberOfBytesWritten, IntPtr lpOverlapped);
 
         [DllImport("kernel32.dll")]
-        public static extern SafeFileHandle CreateFile(string lpFileName, FileDesiredAccess dwDesiredAccess, FileShareMode dwShareMode, IntPtr lpSecurityAttributes, FileCreationDisposition dwCreationDisposition, FileFlagsAndAttributes dwFlagsAndAttributes, uint hTemplateFile);
+        public static extern SafeFileHandle CreateFile(string lpFileName, FileDesiredAccess dwDesiredAccess, FileShareMode dwShareMode, IntPtr lpSecurityAttributes, FileCreationDisposition dwCreationDisposition, FileFlagsAndAttributes dwFlagsAndAttributes, IntPtr hTemplateFile);
 
         [DllImport("kernel32.dll")]
         public static extern bool CloseHandle(IntPtr hObject);

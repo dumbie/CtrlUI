@@ -10,7 +10,7 @@ namespace LibraryUsb
             internal int Size;
             internal ushort VendorID;
             internal ushort ProductID;
-            internal short VersionNumber;
+            internal ushort VersionNumber;
         }
 
         public HidDeviceAttributes(HIDD_ATTRIBUTES attributes)

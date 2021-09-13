@@ -153,15 +153,15 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/GuideHoldOff.png" Height="25" Opacity="0.80"/>
                         <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Keyboard"/>
                     </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpTouchpad" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/TouchpadOff.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Name="txt_ControllerHelpTouchpad" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Media"/>
+                    </StackPanel>
                     <StackPanel Name="sp_ControllerHelpScreenshot" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="25" Opacity="0.80"/>
                         <TextBlock VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="+"/>
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Height="25" Opacity="0.80"/>
                         <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Screenshot"/>
-                    </StackPanel>
-                    <StackPanel Name="sp_ControllerHelpTouchpad" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/TouchpadOff.png" Height="25" Opacity="0.80"/>
-                        <TextBlock Name="txt_ControllerHelpTouchpad" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Media"/>
                     </StackPanel>
                     <StackPanel Name="sp_ControllerHelpLb" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="25" Opacity="0.80"/>

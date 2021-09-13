@@ -35,14 +35,14 @@ namespace LibraryUsb
                 FileFlagsAndAttributes flagsAttributes = FileFlagsAndAttributes.FILE_FLAG_NORMAL | FileFlagsAndAttributes.FILE_FLAG_OVERLAPPED | FileFlagsAndAttributes.FILE_FLAG_NO_BUFFERING;
 
                 //Try to open the device exclusively
-                FileHandle = CreateFile("\\\\.\\HidHide", desiredAccess, shareModeExclusive, IntPtr.Zero, creationDisposition, flagsAttributes, 0);
+                FileHandle = CreateFile("\\\\.\\HidHide", desiredAccess, shareModeExclusive, IntPtr.Zero, creationDisposition, flagsAttributes, IntPtr.Zero);
                 Exclusive = true;
 
                 //Try to open the device normally
                 if (FileHandle == null || FileHandle.IsInvalid || FileHandle.IsClosed)
                 {
                     //Debug.WriteLine("Failed to open device exclusively, opening normally.");
-                    FileHandle = CreateFile("\\\\.\\HidHide", desiredAccess, shareModeNormal, IntPtr.Zero, creationDisposition, flagsAttributes, 0);
+                    FileHandle = CreateFile("\\\\.\\HidHide", desiredAccess, shareModeNormal, IntPtr.Zero, creationDisposition, flagsAttributes, IntPtr.Zero);
                     Exclusive = false;
                 }
 
@@ -56,7 +56,7 @@ namespace LibraryUsb
                 }
                 else
                 {
-                    //Debug.WriteLine("Opened hid hide device: " + DevicePath + ", exclusively: " + IsExclusive);
+                    //Debug.WriteLine("Opened hid hide device: " + DevicePath + ", exclusively: " + Exclusive);
                     Connected = true;
                     Installed = true;
                     return true;

@@ -331,6 +331,8 @@
     <Compile Include="SteamKit2\Util\StreamHelpers.cs" />
     <Compile Include="UsbCode\BthDevice\BthDevice_Connection.cs" />
     <Compile Include="UsbCode\BthDevice\BthDevice_Information.cs" />
+    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice_Multimedia.cs" />
+    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice_ReadWrite.cs" />
     <Compile Include="UsbCode\HidDevice\HidDevice.cs" />
     <Compile Include="UsbCode\HidDevice\HidDevice_Connection.cs" />
     <Compile Include="UsbCode\HidDevice\HidDevice_DeviceAttributes.cs" />
@@ -348,6 +350,10 @@
     <Compile Include="UsbCode\NativeMethods_IoControl.cs" />
     <Compile Include="UsbCode\NativeMethods_SetupApi.cs" />
     <Compile Include="UsbCode\NativeMethods_WinUsb.cs" />
+    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice.cs" />
+    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice_Class.cs" />
+    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice_Keyboard.cs" />
+    <Compile Include="UsbCode\FakerInputDevice\FakerInputDevice_Mouse.cs" />
     <Compile Include="UsbCode\UsbLibrary_DeviceManager.cs" />
     <Compile Include="UsbCode\UsbLibrary_Enumerate.cs" />
     <Compile Include="UsbCode\UsbLibrary_Events.cs" />

@@ -107,6 +107,9 @@ namespace DirectXInput
         public static string vKeypadPreviousProcessName = string.Empty;
         public static string vKeypadPreviousProcessTitle = string.Empty;
 
+        //Virtual Variables
+        public static FakerInputDevice vFakerInputDevice = null;
+
         //Controller Variables
         public static HidHideDevice vHidHideDevice = null;
         public static WinUsbDevice vVirtualBusDevice = null;

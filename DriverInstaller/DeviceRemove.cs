@@ -112,5 +112,31 @@ namespace DriverInstaller
             }
             catch { }
         }
+
+        void RemoveUnusedFakerInputDevices()
+        {
+            try
+            {
+                List<EnumerateInfo> enumerateInfoList = EnumerateDevicesDi(GuidClassFakerInputDevice, false);
+                if (enumerateInfoList.Any())
+                {
+                    foreach (EnumerateInfo device in enumerateInfoList)
+                    {
+                        try
+                        {
+                            string DeviceInstanceId = ConvertPathToInstanceId(device.DevicePath);
+                            DeviceRemove(GuidClassFakerInputDevice, DeviceInstanceId);
+                        }
+                        catch { }
+                    }
+                    TextBoxAppend(enumerateInfoList.Count + "x unused FakerInput devices removed.");
+                }
+                else
+                {
+                    Debug.WriteLine("No unused FakerInput devices found.");
+                }
+            }
+            catch { }
+        }
     }
 }

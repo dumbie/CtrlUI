@@ -57,11 +57,12 @@ namespace DriverInstaller
                 RemoveUnusedScpVirtualBus();
                 RemoveUnusedXboxControllers();
                 RemoveUnusedDS3Controllers();
+                RemoveUnusedFakerInputDevices();
                 UninstallHidGuardian();
 
-                //Uninstall Virtual Hid Driver
+                //Uninstall FakerInput Driver
                 ProgressBarUpdate(40, false);
-                UninstallVirtualHid();
+                UninstallFakerInput();
 
                 //Uninstall Virtual Bus Driver
                 ProgressBarUpdate(55, false);
@@ -85,39 +86,22 @@ namespace DriverInstaller
             catch { }
         }
 
-        void UninstallVirtualHid()
+        void UninstallFakerInput()
         {
             try
             {
-                List<FileInfo> infPathsMouse = EnumerateDevicesStore("dd.mou.94396.inf");
-                foreach (FileInfo infPath in infPathsMouse)
+                List<FileInfo> infPaths = EnumerateDevicesStore("FakerInput.inf");
+                foreach (FileInfo infPath in infPaths)
                 {
                     try
                     {
                         if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                         {
-                            TextBoxAppend("Virtual Hid Mouse Driver uninstalled.");
+                            TextBoxAppend("FakerInput Driver uninstalled.");
                         }
                         else
                         {
-                            TextBoxAppend("Virtual Hid Mouse Driver not uninstalled.");
-                        }
-                    }
-                    catch { }
-                }
-
-                List<FileInfo> infPathsKeyboard = EnumerateDevicesStore("dd.key.94396.inf");
-                foreach (FileInfo infPath in infPathsKeyboard)
-                {
-                    try
-                    {
-                        if (DriverUninstallInf(infPath.FullName, DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
-                        {
-                            TextBoxAppend("Virtual Hid Keyboard Driver uninstalled.");
-                        }
-                        else
-                        {
-                            TextBoxAppend("Virtual Hid Keyboard Driver not uninstalled.");
+                            TextBoxAppend("FakerInput Driver not uninstalled.");
                         }
                     }
                     catch { }

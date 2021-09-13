@@ -20,9 +20,8 @@ namespace DirectXInput
                 bool virtualBusDriver = EnumerateDevicesStore("ViGEmBus.inf").Any();
                 bool hidHideDriver = EnumerateDevicesStore("HidHide.inf").Any();
                 bool ds3ControllerDriver = EnumerateDevicesStore("Ds3Controller.inf").Any();
-                //bool virtualKeyboardDriver = EnumerateDevicesStore("dd.key.94396.inf").Any();
-                //bool virtualMouseDriver = EnumerateDevicesStore("dd.mou.94396.inf").Any();
-                return virtualBusDriver && hidHideDriver && ds3ControllerDriver; //&& virtualKeyboardDriver && virtualMouseDriver;
+                bool fakerInputDriver = EnumerateDevicesStore("FakerInput.inf").Any();
+                return virtualBusDriver && hidHideDriver && ds3ControllerDriver && fakerInputDriver;
             }
             catch
             {
@@ -60,21 +59,13 @@ namespace DirectXInput
                     if (availableVersion != installedVersion) { return false; } else { break; }
                 }
 
-                //foreach (FileInfo infNames in EnumerateDevicesStore("dd.key.94396.inf"))
-                //{
-                //    string availableVersion = File.ReadAllLines("Resources\\Drivers\\VirtualHid\\x64\\dd.key.94396.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
-                //    string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
-                //    //Debug.WriteLine("VirtualKeyboard: " + installedVersion + " / " + availableVersion);
-                //    if (availableVersion != installedVersion) { return false; } else { break; }
-                //}
-
-                //foreach (FileInfo infNames in EnumerateDevicesStore("dd.mou.94396.inf"))
-                //{
-                //    string availableVersion = File.ReadAllLines("Resources\\Drivers\\VirtualHid\\x64\\dd.mou.94396.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
-                //    string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
-                //    //Debug.WriteLine("VirtualMouse: " + installedVersion + " / " + availableVersion);
-                //    if (availableVersion != installedVersion) { return false; } else { break; }
-                //}
+                foreach (FileInfo infNames in EnumerateDevicesStore("FakerInput.inf"))
+                {
+                    string availableVersion = File.ReadAllLines("Resources\\Drivers\\FakerInput\\x64\\FakerInput.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    //Debug.WriteLine("FakerInput: " + installedVersion + " / " + availableVersion);
+                    if (availableVersion != installedVersion) { return false; } else { break; }
+                }
 
                 Debug.WriteLine("Drivers seem to be up to date.");
                 return true;
@@ -136,28 +127,28 @@ namespace DirectXInput
             }
         }
 
-        ////Open the virtual hid device
-        //bool OpenVirtualHidDevice()
-        //{
-        //    try
-        //    {
-        //        vVirtualHidDevice = new VirtualHidDevice();
-        //        if (Connected)
-        //        {
-        //            Debug.WriteLine("Virtual hid device is installed.");
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            Debug.WriteLine("Virtual hid device not installed.");
-        //            return false;
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        Debug.WriteLine("Failed to open virtual hid device.");
-        //        return false;
-        //    }
-        //}
+        //Open the FakerInput device
+        bool OpenFakerInputDevice()
+        {
+            try
+            {
+                vFakerInputDevice = new FakerInputDevice();
+                if (vFakerInputDevice.Connected)
+                {
+                    Debug.WriteLine("FakerInput device is installed.");
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine("FakerInput device not installed.");
+                    return false;
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to open FakerInput device.");
+                return false;
+            }
+        }
     }
 }

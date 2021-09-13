@@ -7,23 +7,23 @@ namespace LibraryUsb
         [StructLayout(LayoutKind.Sequential)]
         public struct HIDP_CAPS
         {
-            internal short UsageGeneric;
-            internal short UsagePage;
-            internal short InputReportByteLength;
-            internal short OutputReportByteLength;
-            internal short FeatureReportByteLength;
+            internal ushort UsageGeneric;
+            internal ushort UsagePage;
+            internal ushort InputReportByteLength;
+            internal ushort OutputReportByteLength;
+            internal ushort FeatureReportByteLength;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 17)]
-            internal short[] Reserved;
-            internal short NumberLinkCollectionNodes;
-            internal short NumberInputButtonCaps;
-            internal short NumberInputValueCaps;
-            internal short NumberInputDataIndices;
-            internal short NumberOutputButtonCaps;
-            internal short NumberOutputValueCaps;
-            internal short NumberOutputDataIndices;
-            internal short NumberFeatureButtonCaps;
-            internal short NumberFeatureValueCaps;
-            internal short NumberFeatureDataIndices;
+            internal ushort[] Reserved;
+            internal ushort NumberLinkCollectionNodes;
+            internal ushort NumberInputButtonCaps;
+            internal ushort NumberInputValueCaps;
+            internal ushort NumberInputDataIndices;
+            internal ushort NumberOutputButtonCaps;
+            internal ushort NumberOutputValueCaps;
+            internal ushort NumberOutputDataIndices;
+            internal ushort NumberFeatureButtonCaps;
+            internal ushort NumberFeatureValueCaps;
+            internal ushort NumberFeatureDataIndices;
         }
 
         public HidDeviceCapabilities(HIDP_CAPS capabilities)
@@ -46,21 +46,21 @@ namespace LibraryUsb
             NumberFeatureDataIndices = capabilities.NumberFeatureDataIndices;
         }
 
-        public short UsageGeneric { get; set; }
-        public short UsagePage { get; set; }
-        public short InputReportByteLength { get; set; }
-        public short OutputReportByteLength { get; set; }
-        public short FeatureReportByteLength { get; set; }
-        public short[] Reserved { get; set; }
-        public short NumberLinkCollectionNodes { get; set; }
-        public short NumberInputButtonCaps { get; set; }
-        public short NumberInputValueCaps { get; set; }
-        public short NumberInputDataIndices { get; set; }
-        public short NumberOutputButtonCaps { get; set; }
-        public short NumberOutputValueCaps { get; set; }
-        public short NumberOutputDataIndices { get; set; }
-        public short NumberFeatureButtonCaps { get; set; }
-        public short NumberFeatureValueCaps { get; set; }
-        public short NumberFeatureDataIndices { get; set; }
+        public ushort UsageGeneric { get; set; }
+        public ushort UsagePage { get; set; }
+        public ushort InputReportByteLength { get; set; }
+        public ushort OutputReportByteLength { get; set; }
+        public ushort FeatureReportByteLength { get; set; }
+        public ushort[] Reserved { get; set; }
+        public ushort NumberLinkCollectionNodes { get; set; }
+        public ushort NumberInputButtonCaps { get; set; }
+        public ushort NumberInputValueCaps { get; set; }
+        public ushort NumberInputDataIndices { get; set; }
+        public ushort NumberOutputButtonCaps { get; set; }
+        public ushort NumberOutputValueCaps { get; set; }
+        public ushort NumberOutputDataIndices { get; set; }
+        public ushort NumberFeatureButtonCaps { get; set; }
+        public ushort NumberFeatureValueCaps { get; set; }
+        public ushort NumberFeatureDataIndices { get; set; }
     }
 }

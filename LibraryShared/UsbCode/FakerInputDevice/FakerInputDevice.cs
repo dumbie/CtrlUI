@@ -1,61 +1,71 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using static LibraryUsb.DeviceManager;
+using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_File;
+using static LibraryUsb.NativeMethods_Guid;
 
 namespace LibraryUsb
 {
-    public partial class HidDevice
+    public partial class FakerInputDevice
     {
         public bool Connected;
         public bool Installed;
         public bool Exclusive;
         public string DevicePath;
-        public string DeviceInstanceId;
-        public string ModelId;
         private SafeFileHandle FileHandle;
         private FileStream FileStream;
-        public HidDeviceAttributes Attributes;
-        public HidDeviceCapabilities Capabilities;
 
-        public HidDevice(string devicePath, string modelId, bool initialize, bool closeDevice)
+        private const byte KBD_KEY_CODES = 6;
+        private const int CONTROL_REPORT_SIZE = 65;
+        private string FAKER_VENDOR_HEXID = "0xFE0F";
+        private string FAKER_PRODUCT_HEXID = "0x00FF";
+
+        public FakerInputDevice()
         {
             try
             {
-                ModelId = modelId;
-                DevicePath = devicePath.ToLower();
-                DeviceInstanceId = ConvertPathToInstanceId(DevicePath);
+                FindDevice();
+                OpenDevice();
+                OpenFileStream();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to create FakerInput device: " + ex.Message);
+            }
+        }
 
-                if (initialize)
+        private void FindDevice()
+        {
+            try
+            {
+                //Find the device path
+                IEnumerable<EnumerateInfo> SelectedHidDevice = EnumerateDevicesDi(GuidClassHidDevice, true);
+                foreach (EnumerateInfo EnumDevice in SelectedHidDevice)
                 {
-                    DisableDevice();
-                    EnableDevice();
-                }
+                    try
+                    {
+                        //Read information from the device
+                        HidDevice foundHidDevice = new HidDevice(EnumDevice.DevicePath, EnumDevice.ModelId, false, true);
 
-                if (OpenDevice())
-                {
-                    if (initialize)
-                    {
-                        OpenFileStream();
+                        //Check if device is FakerInput
+                        if (foundHidDevice.Attributes.ProductHexId == FAKER_PRODUCT_HEXID && foundHidDevice.Attributes.VendorHexId == FAKER_VENDOR_HEXID)
+                        {
+                            if (foundHidDevice.Capabilities.UsagePage == 65280 && foundHidDevice.Capabilities.UsageGeneric == 1)
+                            {
+                                DevicePath = EnumDevice.DevicePath;
+                                break;
+                            }
+                        }
                     }
-                    GetDeviceAttributes();
-                    GetDeviceCapabilities();
-                    //GetDeviceButtonStatus();
-                    //GetDeviceValueStatus();
-                    GetProductName();
-                    GetVendorName();
-                    GetSerialNumber();
-                    if (closeDevice)
-                    {
-                        CloseDevice();
-                    }
+                    catch { }
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to create hid device: " + ex.Message);
+                Debug.WriteLine("Failed to find FakerInput device: " + ex.Message);
             }
         }
 
@@ -76,7 +86,7 @@ namespace LibraryUsb
                 //Try to open the device normally
                 if (FileHandle == null || FileHandle.IsInvalid || FileHandle.IsClosed)
                 {
-                    //Debug.WriteLine("Failed to open device exclusively, opening normally.");
+                    //Debug.WriteLine("Failed to open FakerInput device exclusively, opening normally.");
                     FileHandle = CreateFile(DevicePath, desiredAccess, shareModeNormal, IntPtr.Zero, creationDisposition, flagsAttributes, IntPtr.Zero);
                     Exclusive = false;
                 }
@@ -84,14 +94,14 @@ namespace LibraryUsb
                 //Check if the device is opened
                 if (FileHandle == null || FileHandle.IsInvalid || FileHandle.IsClosed)
                 {
-                    //Debug.WriteLine("Failed to open hid device: " + DevicePath);
+                    //Debug.WriteLine("Failed to open FakerInput device: " + DevicePath);
                     Connected = false;
                     Installed = false;
                     return false;
                 }
                 else
                 {
-                    //Debug.WriteLine("Opened hid device: " + DevicePath + ", exclusively: " + Exclusive);
+                    //Debug.WriteLine("Opened FakerInput device: " + DevicePath + ", exclusively: " + Exclusive);
                     Connected = true;
                     Installed = true;
                     return true;
@@ -99,7 +109,7 @@ namespace LibraryUsb
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to open hid device: " + ex.Message);
+                Debug.WriteLine("Failed to open FakerInput device: " + ex.Message);
                 Connected = false;
                 Installed = false;
                 return false;
@@ -120,7 +130,7 @@ namespace LibraryUsb
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to open hid file stream: " + ex.Message);
+                Debug.WriteLine("Failed to open FakerInput file stream: " + ex.Message);
                 return false;
             }
         }
@@ -145,7 +155,7 @@ namespace LibraryUsb
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to close hid device: " + ex.Message);
+                Debug.WriteLine("Failed to close FakerInput device: " + ex.Message);
                 return false;
             }
         }

@@ -99,13 +99,13 @@ namespace DirectXInput
                     return;
                 }
 
-                ////Open the virtual hid device
-                //if (!OpenVirtualHidDevice())
-                //{
-                //    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
-                //    await Message_InstallDrivers();
-                //    return;
-                //}
+                //Open the FakerInput device
+                if (!OpenFakerInputDevice())
+                {
+                    if (!ShowInTaskbar) { Application_ShowHideWindow(); }
+                    await Message_InstallDrivers();
+                    return;
+                }
 
                 //Load the help text
                 LoadHelp();
@@ -331,13 +331,13 @@ namespace DirectXInput
                     vHidHideDevice = null;
                 }
 
-                ////Check if Virtual Hid is connected
-                //if (vVirtualHidDevice != null)
-                //{
-                //    //Close Virtual Hid device
-                //    vVirtualHidDevice.CloseDevice();
-                //    vVirtualHidDevice = null;
-                //}
+                //Check if FakerInput is connected
+                if (vFakerInputDevice != null)
+                {
+                    //Close FakerInput device
+                    vFakerInputDevice.CloseDevice();
+                    vFakerInputDevice = null;
+                }
 
                 //Disable the socket server
                 if (vArnoldVinkSockets != null)
