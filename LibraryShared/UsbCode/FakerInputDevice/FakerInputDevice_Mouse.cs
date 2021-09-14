@@ -1,11 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace LibraryUsb
 {
     public partial class FakerInputDevice
     {
-        public bool MousePress(MouseButtons mouseButton)
+        public bool MouseRelative(int moveHorizontal, int moveVertical, int scrollHorizontal, int scrollVertical, MouseButtons mouseButton)
         {
             try
             {
@@ -16,55 +17,11 @@ namespace LibraryUsb
 
                 FAKERINPUT_RELATIVE_MOUSE_REPORT structInput = new FAKERINPUT_RELATIVE_MOUSE_REPORT();
                 structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_RELATIVE_MOUSE;
+                structInput.XValue = (short)moveHorizontal;
+                structInput.YValue = (short)moveVertical;
+                structInput.VWheelPosition = (byte)scrollVertical;
+                structInput.HWheelPosition = (byte)scrollHorizontal;
                 structInput.Button = (byte)mouseButton;
-                byte[] inputArray = ConvertToByteArray(structInput);
-
-                return WriteBytesFile(MergeHeaderInputByteArray(CONTROL_REPORT_SIZE, headerArray, inputArray));
-            }
-            catch
-            {
-                Debug.WriteLine("Failed to set press mouse button.");
-                return false;
-            }
-        }
-
-        public bool MouseScroll(int verticalScroll, int horizontalScroll)
-        {
-            try
-            {
-                FAKERINPUT_CONTROL_REPORT_HEADER structHeader = new FAKERINPUT_CONTROL_REPORT_HEADER();
-                structHeader.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_CONTROL;
-                structHeader.ReportLength = (byte)Marshal.SizeOf(typeof(FAKERINPUT_RELATIVE_MOUSE_REPORT));
-                byte[] headerArray = ConvertToByteArray(structHeader);
-
-                FAKERINPUT_RELATIVE_MOUSE_REPORT structInput = new FAKERINPUT_RELATIVE_MOUSE_REPORT();
-                structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_RELATIVE_MOUSE;
-                structInput.VWheelPosition = (byte)verticalScroll;
-                structInput.HWheelPosition = (byte)horizontalScroll;
-                byte[] inputArray = ConvertToByteArray(structInput);
-
-                return WriteBytesFile(MergeHeaderInputByteArray(CONTROL_REPORT_SIZE, headerArray, inputArray));
-            }
-            catch
-            {
-                Debug.WriteLine("Failed to press mouse button.");
-                return false;
-            }
-        }
-
-        public bool MouseMoveRelative(short moveX, short moveY)
-        {
-            try
-            {
-                FAKERINPUT_CONTROL_REPORT_HEADER structHeader = new FAKERINPUT_CONTROL_REPORT_HEADER();
-                structHeader.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_CONTROL;
-                structHeader.ReportLength = (byte)Marshal.SizeOf(typeof(FAKERINPUT_RELATIVE_MOUSE_REPORT));
-                byte[] headerArray = ConvertToByteArray(structHeader);
-
-                FAKERINPUT_RELATIVE_MOUSE_REPORT structInput = new FAKERINPUT_RELATIVE_MOUSE_REPORT();
-                structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_RELATIVE_MOUSE;
-                structInput.XValue = moveX;
-                structInput.YValue = moveY;
                 byte[] inputArray = ConvertToByteArray(structInput);
 
                 return WriteBytesFile(MergeHeaderInputByteArray(CONTROL_REPORT_SIZE, headerArray, inputArray));
@@ -76,13 +33,20 @@ namespace LibraryUsb
             }
         }
 
-        public bool MouseMoveAbsolute(double moveX, double moveY)
+        public bool MouseAbsolute(int moveHorizontal, int moveVertical, int scrollHorizontal, int scrollVertical, MouseButtons mouseButton)
         {
             try
             {
-                //Screen screen = Screen.FromPoint(Cursor.Position);
-                //int screenWidth = screen.Bounds.Width;
-                //int screenHeight = screen.Bounds.Height;
+                Screen screen = Screen.FromPoint(Cursor.Position);
+                double maxValue = 32767.5;
+
+                double targetWidth = (double)moveHorizontal / screen.Bounds.Width;
+                targetWidth *= maxValue;
+                if (targetWidth > maxValue) { targetWidth = maxValue; }
+
+                double targetHeight = (double)moveVertical / screen.Bounds.Height;
+                targetHeight *= maxValue;
+                if (targetHeight > maxValue) { targetHeight = maxValue; }
 
                 FAKERINPUT_CONTROL_REPORT_HEADER structHeader = new FAKERINPUT_CONTROL_REPORT_HEADER();
                 structHeader.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_CONTROL;
@@ -91,15 +55,18 @@ namespace LibraryUsb
 
                 FAKERINPUT_ABSOLUTE_MOUSE_REPORT structInput = new FAKERINPUT_ABSOLUTE_MOUSE_REPORT();
                 structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_ABSOLUTE_MOUSE;
-                structInput.XValue = (ushort)(moveX * 32767.5); //0.0 to 1.0
-                structInput.YValue = (ushort)(moveY * 32767.5); //0.0 to 1.0
+                structInput.XValue = (ushort)targetWidth;
+                structInput.YValue = (ushort)targetHeight;
+                structInput.VWheelPosition = (byte)scrollVertical;
+                structInput.HWheelPosition = (byte)scrollHorizontal;
+                structInput.Button = (byte)mouseButton;
                 byte[] inputArray = ConvertToByteArray(structInput);
 
                 return WriteBytesFile(MergeHeaderInputByteArray(CONTROL_REPORT_SIZE, headerArray, inputArray));
             }
             catch
             {
-                Debug.WriteLine("Failed to set relative mouse input.");
+                Debug.WriteLine("Failed to set absolute mouse input.");
                 return false;
             }
         }
