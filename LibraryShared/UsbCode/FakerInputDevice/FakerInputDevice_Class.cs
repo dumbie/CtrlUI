@@ -72,7 +72,7 @@ namespace LibraryUsb
             XButton2 = 0x10
         }
 
-        public enum MultimediaKeys : byte
+        public enum KeyboardMultimedia : byte
         {
             None = 0,
             Next = 1,
@@ -194,7 +194,8 @@ namespace LibraryUsb
             Numpad8 = 96,
             Numpad9 = 97,
             Numpad0 = 98,
-            NumpadPeriod = 99
+            NumpadPeriod = 99,
+            Menu = 101,
         }
 
         public string GetMouseButtonsName(MouseButtons mouseButton, bool shortName)
@@ -219,30 +220,30 @@ namespace LibraryUsb
             return Enum.GetName(typeof(MouseButtons), mouseButton);
         }
 
-        public string GetMultimediaKeysName(MultimediaKeys multimediaKey, bool shortName)
+        public string GetKeyboardMultimediaName(KeyboardMultimedia multimediaKey, bool shortName)
         {
             try
             {
                 switch (multimediaKey)
                 {
-                    case MultimediaKeys.Next:
+                    case KeyboardMultimedia.Next:
                         if (shortName) { return "Next"; } else { return "Media Next"; }
-                    case MultimediaKeys.Previous:
+                    case KeyboardMultimedia.Previous:
                         if (shortName) { return "Prev"; } else { return "Media Previous"; }
-                    case MultimediaKeys.Stop:
+                    case KeyboardMultimedia.Stop:
                         if (shortName) { return "Stop"; } else { return "Media Stop"; }
-                    case MultimediaKeys.PlayPause:
+                    case KeyboardMultimedia.PlayPause:
                         if (shortName) { return "Play"; } else { return "Media Play/Pause"; }
-                    case MultimediaKeys.VolumeMute:
+                    case KeyboardMultimedia.VolumeMute:
                         if (shortName) { return "Mute"; } else { return "Volume Mute"; }
-                    case MultimediaKeys.VolumeDown:
+                    case KeyboardMultimedia.VolumeDown:
                         if (shortName) { return "VolDn"; } else { return "Volume Down"; }
-                    case MultimediaKeys.VolumeUp:
+                    case KeyboardMultimedia.VolumeUp:
                         if (shortName) { return "VolUp"; } else { return "Volume Up"; }
                 }
             }
             catch { }
-            return Enum.GetName(typeof(MultimediaKeys), multimediaKey);
+            return Enum.GetName(typeof(KeyboardMultimedia), multimediaKey);
         }
 
         public string GetKeyboardModifiersName(KeyboardModifiers keyboardModifier, bool shortName)

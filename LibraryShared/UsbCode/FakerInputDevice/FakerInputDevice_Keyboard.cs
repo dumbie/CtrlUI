@@ -1,31 +1,26 @@
-﻿using System.Diagnostics;
+﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace LibraryUsb
 {
     public partial class FakerInputDevice
     {
-        //public void KeyPressSingle(KeyboardKeys keyPress)
-        //{
-        //    try
-        //    {
-        //        KeysPress(0, (byte)keyPress, 0, 0, 0, 0, 0);
-        //        Thread.Sleep(50);
-        //        KeysRelease();
-        //    }
-        //    catch { }
-        //}
-
-        //public void KeyPressCombo(KeyboardModifier keyMod, KeyboardKeys keyPress)
-        //{
-        //    try
-        //    {
-        //        KeysPress((byte)keyMod, (byte)keyPress, 0, 0, 0, 0, 0);
-        //        Thread.Sleep(50);
-        //        KeysRelease();
-        //    }
-        //    catch { }
-        //}
+        public bool KeyboardPressRelease(KeyboardModifiers keyModifier, KeyboardKeys key0, KeyboardKeys key1, KeyboardKeys key2, KeyboardKeys key3, KeyboardKeys key4, KeyboardKeys key5)
+        {
+            try
+            {
+                KeyboardPress(keyModifier, key0, key1, key2, key3, key4, key5);
+                AVActions.TaskDelayMs(50);
+                KeyboardReset();
+                return true;
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to press and release keyboard keys.");
+                return false;
+            }
+        }
 
         public bool KeyboardPress(KeyboardModifiers keyModifier, KeyboardKeys key0, KeyboardKeys key1, KeyboardKeys key2, KeyboardKeys key3, KeyboardKeys key4, KeyboardKeys key5)
         {

@@ -20,6 +20,11 @@
     "VendorID": "0x5588"
   },
   {
+    "CodeName": "TetherscriptVirtual",
+    "ProductIDs": [ "0x0001", "0x0002", "0x0003", "0x0004" ],
+    "VendorID": "0xF00F"
+  },
+  {
     "CodeName": "LogitechWheels",
     "ProductIDs": [ "0xC294", "0xC295", "0xC298", "0xC299", "0xC29A", "0xC29B", "0xC260", "0xC24F", "0xC262", "0xC26E", "0xC266" ],
     "VendorID": "0x046D"

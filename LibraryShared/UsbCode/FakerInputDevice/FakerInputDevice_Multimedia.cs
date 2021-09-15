@@ -1,11 +1,28 @@
-﻿using System.Diagnostics;
+﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace LibraryUsb
 {
     public partial class FakerInputDevice
     {
-        public bool MultimediaPress(MultimediaKeys keyMultimedia)
+        public bool MultimediaPressRelease(KeyboardMultimedia keyMultimedia)
+        {
+            try
+            {
+                MultimediaPress(keyMultimedia);
+                AVActions.TaskDelayMs(50);
+                MultimediaReset();
+                return true;
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to press and release multimedia key.");
+                return false;
+            }
+        }
+
+        private bool MultimediaPress(KeyboardMultimedia keyMultimedia)
         {
             try
             {
@@ -28,7 +45,7 @@ namespace LibraryUsb
             }
         }
 
-        public bool MultimediaReset()
+        private bool MultimediaReset()
         {
             try
             {

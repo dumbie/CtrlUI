@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
-using static ArnoldVinkCode.AVInputOutputMouse;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
+using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput.MediaCode
 {
@@ -17,69 +17,49 @@ namespace DirectXInput.MediaCode
         //Process controller input for mouse
         public void ControllerInteractionMouse(ControllerInput ControllerInput)
         {
-            bool ControllerDelayMicro = false;
-            bool ControllerDelayShort = false;
+            bool ControllerDelayLong = false;
             try
             {
                 if (GetSystemTicksMs() >= vControllerDelay_Mouse)
                 {
+                    int scrollHorizontalRight = 0;
+                    int scrollVerticalRight = 0;
+                    MouseButtons buttonPress = MouseButtons.None;
+
                     //Get the mouse move amount
                     double moveSensitivity = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity"));
                     GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY, true, out int moveHorizontalLeft, out int moveVerticalLeft);
                     GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
 
-                    //Move the mouse cursor
-                    MouseMoveCursor(moveHorizontalLeft, moveVerticalLeft);
-
-                    //Move the media window
+                    //Move the keyboard window
                     MoveMediaWindow(moveHorizontalRight, moveVerticalRight);
 
-                    //Emulate mouse click left
-                    if (ControllerInput.ButtonShoulderLeft.PressedRaw)
+                    //Emulate mouse button press
+                    if (ControllerInput.ButtonShoulderLeft.PressedRaw && ControllerInput.ButtonShoulderRight.PressedRaw)
                     {
-                        if (!vMouseLeftDownStatus)
-                        {
-                            vMouseLeftDownStatus = true;
-                            MouseToggle(false, true);
-
-                            ControllerDelayMicro = true;
-                        }
+                        buttonPress = MouseButtons.MiddleButton;
+                        ControllerDelayLong = true;
                     }
-                    else if (vMouseLeftDownStatus)
+                    else if (ControllerInput.ButtonShoulderLeft.PressedRaw)
                     {
-                        vMouseLeftDownStatus = false;
-                        MouseToggle(false, false);
-
-                        ControllerDelayMicro = true;
+                        buttonPress = MouseButtons.LeftButton;
                     }
-
-                    //Emulate mouse click right
-                    if (ControllerInput.ButtonShoulderRight.PressedRaw)
+                    else if (ControllerInput.ButtonShoulderRight.PressedRaw)
                     {
-                        if (!vMouseRightDownStatus)
-                        {
-                            vMouseRightDownStatus = true;
-                            MouseToggle(true, true);
-
-                            ControllerDelayMicro = true;
-                        }
+                        buttonPress = MouseButtons.RightButton;
                     }
-                    else if (vMouseRightDownStatus)
+                    else
                     {
-                        vMouseRightDownStatus = false;
-                        MouseToggle(true, false);
-
-                        ControllerDelayMicro = true;
+                        buttonPress = MouseButtons.None;
                     }
+
+                    //Update current mouse input
+                    vFakerInputDevice.MouseRelative(moveHorizontalLeft, moveVerticalLeft, scrollHorizontalRight, scrollVerticalRight, buttonPress);
 
                     //Delay input to prevent repeat
-                    if (ControllerDelayMicro)
+                    if (ControllerDelayLong)
                     {
-                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayMicroTicks;
-                    }
-                    else if (ControllerDelayShort)
-                    {
-                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayShortTicks;
+                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayLongTicks;
                     }
                     else
                     {
@@ -146,7 +126,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
-                        KeyPressReleaseSingle(KeysVirtual.MediaNextTrack);
+                        vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.Next);
 
                         ControllerDelayMedium = true;
                     }
@@ -155,7 +135,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
-                        KeyPressReleaseSingle(KeysVirtual.MediaPlayPause);
+                        vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.PlayPause);
 
                         ControllerDelayMedium = true;
                     }
@@ -164,7 +144,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
-                        KeyPressReleaseSingle(KeysVirtual.MediaPreviousTrack);
+                        vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.Previous);
 
                         ControllerDelayMedium = true;
                     }
@@ -174,7 +154,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
-                        KeyPressReleaseSingle(KeysVirtual.Left);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                         ControllerDelayShort = true;
                     }
@@ -182,7 +162,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
-                        KeyPressReleaseSingle(KeysVirtual.Right);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                         ControllerDelayShort = true;
                     }
@@ -192,7 +172,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
-                        KeyPressReleaseCombo(KeysVirtual.Alt, KeysVirtual.Enter);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                         ControllerDelayMedium = true;
                     }
@@ -201,28 +181,28 @@ namespace DirectXInput.MediaCode
                     else if (ControllerInput.TriggerLeft > 0 && ControllerInput.TriggerRight > 0)
                     {
                         await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
-                        KeyPressReleaseSingle(KeysVirtual.VolumeMute);
+                        vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.VolumeMute);
 
                         ControllerDelayLonger = true;
                     }
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
                         await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
-                        KeyPressReleaseSingle(KeysVirtual.VolumeMute);
+                        vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.VolumeMute);
 
                         ControllerDelayMedium = true;
                     }
                     else if (ControllerInput.TriggerLeft > 0)
                     {
                         await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreasing volume");
-                        KeyPressReleaseSingle(KeysVirtual.VolumeDown);
+                        vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.VolumeDown);
 
                         ControllerDelayShort = true;
                     }
                     else if (ControllerInput.TriggerRight > 0)
                     {
                         await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increasing volume");
-                        KeyPressReleaseSingle(KeysVirtual.VolumeUp);
+                        vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.VolumeUp);
 
                         ControllerDelayShort = true;
                     }

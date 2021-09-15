@@ -14,13 +14,13 @@ using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
+using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput.KeypadCode
 {
@@ -453,7 +453,7 @@ namespace DirectXInput.KeypadCode
                 {
                     if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
-                        KeyPressReleaseSingle(KeysVirtual.CapsLock);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardKeys.CapsLock, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                 });
             }

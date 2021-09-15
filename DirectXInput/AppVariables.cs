@@ -125,6 +125,7 @@ namespace DirectXInput
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 500;
         public static int vControllerDelayLongerTicks = 750;
+        public static int vControllerDelayLongestTicks = 1000;
         public static long vControllerDelay_Keypad = GetSystemTicksMs();
         public static long vControllerDelay_Keyboard = GetSystemTicksMs();
         public static long vControllerDelay_Media = GetSystemTicksMs();

@@ -177,6 +177,7 @@ namespace CtrlUI
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 500;
         public static int vControllerDelayLongerTicks = 750;
+        public static int vControllerDelayLongestTicks = 1000;
         public static long vControllerDelay_DPad = GetSystemTicksMs();
         public static long vControllerDelay_Stick = GetSystemTicksMs();
         public static long vControllerDelay_Trigger = GetSystemTicksMs();
