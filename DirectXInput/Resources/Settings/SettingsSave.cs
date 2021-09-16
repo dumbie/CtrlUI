@@ -245,10 +245,10 @@ namespace DirectXInput
                     Setting_Save(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", slider_SettingsKeyboardMouseMoveSensitivity.Value.ToString("0.00"));
                 };
 
-                slider_SettingsKeyboardMouseScrollSensitivity.ValueChanged += (sender, e) =>
+                slider_SettingsKeyboardMouseScrollSensitivity2.ValueChanged += (sender, e) =>
                 {
-                    textblock_SettingsKeyboardMouseScrollSensitivity.Text = textblock_SettingsKeyboardMouseScrollSensitivity.Tag.ToString() + slider_SettingsKeyboardMouseScrollSensitivity.Value.ToString("0.00");
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity", slider_SettingsKeyboardMouseScrollSensitivity.Value.ToString("0.00"));
+                    textblock_SettingsKeyboardMouseScrollSensitivity2.Text = textblock_SettingsKeyboardMouseScrollSensitivity2.Tag.ToString() + slider_SettingsKeyboardMouseScrollSensitivity2.Value.ToString();
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", slider_SettingsKeyboardMouseScrollSensitivity2.Value.ToString());
                 };
 
                 //Keypad settings

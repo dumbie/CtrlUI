@@ -21,6 +21,7 @@ namespace DirectXInput.KeyboardCode
         public void ControllerInteractionMouse(ControllerInput ControllerInput)
         {
             bool ControllerDelayLong = false;
+            bool ControllerDelayShort = false;
             try
             {
                 if (GetSystemTicksMs() >= vControllerDelay_Mouse)
@@ -45,8 +46,12 @@ namespace DirectXInput.KeyboardCode
                     else
                     {
                         //Get the mouse scroll amount
-                        double scrollSensitivity = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity"));
+                        int scrollSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2"));
                         GetMouseMovementAmountFromThumbScroll(scrollSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, false, out scrollHorizontalRight, out scrollVerticalRight);
+                        if (scrollHorizontalRight != 0 || scrollVerticalRight != 0)
+                        {
+                            ControllerDelayShort = true;
+                        }
                     }
 
                     //Emulate mouse button press
@@ -75,6 +80,10 @@ namespace DirectXInput.KeyboardCode
                     if (ControllerDelayLong)
                     {
                         vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayLongTicks;
+                    }
+                    else if (ControllerDelayShort)
+                    {
+                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayShortTicks;
                     }
                     else
                     {

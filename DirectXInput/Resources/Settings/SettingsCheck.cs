@@ -46,7 +46,7 @@ namespace DirectXInput
                 if (Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardResetPosition", "False"); }
                 if (Setting_Load(vConfigurationDirectXInput, "KeyboardCloseNoController") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardCloseNoController", "True"); }
                 if (Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", "8,00"); }
-                if (Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity", "10,00"); }
+                if (Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", "2"); }
             }
             catch (Exception ex)
             {

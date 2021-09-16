@@ -73,8 +73,8 @@ namespace DirectXInput
                 //Load mouse sensitivity
                 textblock_SettingsKeyboardMouseMoveSensitivity.Text = textblock_SettingsKeyboardMouseMoveSensitivity.Tag.ToString() + Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity").ToString();
                 slider_SettingsKeyboardMouseMoveSensitivity.Value = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity"));
-                textblock_SettingsKeyboardMouseScrollSensitivity.Text = textblock_SettingsKeyboardMouseScrollSensitivity.Tag.ToString() + Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity").ToString();
-                slider_SettingsKeyboardMouseScrollSensitivity.Value = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity"));
+                textblock_SettingsKeyboardMouseScrollSensitivity2.Text = textblock_SettingsKeyboardMouseScrollSensitivity2.Tag.ToString() + Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2").ToString();
+                slider_SettingsKeyboardMouseScrollSensitivity2.Value = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2"));
 
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;

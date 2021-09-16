@@ -53,7 +53,7 @@ namespace DirectXInput
         }
 
         //Get the mouse scroll amount based on thumb movement (Scroll)
-        public static void GetMouseMovementAmountFromThumbScroll(double thumbSensitivity, int thumbHorizontal, int thumbVertical, bool flipVertical, out int scrollHorizontal, out int scrollVertical)
+        public static void GetMouseMovementAmountFromThumbScroll(int thumbSensitivity, int thumbHorizontal, int thumbVertical, bool flipVertical, out int scrollHorizontal, out int scrollVertical)
         {
             scrollHorizontal = 0;
             scrollVertical = 0;
@@ -61,14 +61,23 @@ namespace DirectXInput
             {
                 //Check the thumb movement
                 if (flipVertical) { thumbVertical = -thumbVertical; }
-                int absHorizontal = Math.Abs(thumbHorizontal);
-                int absVertical = Math.Abs(thumbVertical);
 
-                if (absHorizontal > vControllerOffsetNormal || absVertical > vControllerOffsetNormal)
+                if (thumbHorizontal > vControllerOffsetNormal)
                 {
-                    double mouseSensitivity = thumbSensitivity / (double)15000;
-                    scrollHorizontal = Convert.ToInt32(thumbHorizontal * mouseSensitivity);
-                    scrollVertical = Convert.ToInt32(thumbVertical * mouseSensitivity);
+                    scrollHorizontal = thumbSensitivity;
+                }
+                if (thumbVertical > vControllerOffsetNormal)
+                {
+                    scrollVertical = thumbSensitivity;
+                }
+
+                if (thumbHorizontal < -vControllerOffsetNormal)
+                {
+                    scrollHorizontal = -thumbSensitivity;
+                }
+                if (thumbVertical < -vControllerOffsetNormal)
+                {
+                    scrollVertical = -thumbSensitivity;
                 }
             }
             catch { }
