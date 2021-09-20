@@ -2,13 +2,12 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
-using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInputOutputMouse;
 using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
 using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
+using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput.KeypadCode
 {
@@ -258,7 +257,7 @@ namespace DirectXInput.KeypadCode
         }
 
         //Check keyboard key binded to keypad
-        void KeypadKeyCheck(bool buttonPressed, KeypadDownStatus keypadDownStatus, KeysVirtual? modifierKey, KeysVirtual? virtualKey, KeypadMapping keypadMapping)
+        void KeypadKeyCheck(bool buttonPressed, KeypadDownStatus keypadDownStatus, KeyboardModifiers? modifierKey, KeyboardKeys? virtualKey, KeypadMapping keypadMapping)
         {
             try
             {
@@ -275,7 +274,7 @@ namespace DirectXInput.KeypadCode
         }
 
         //Press keyboard key binded to keypad
-        void KeypadKeyPress(KeypadDownStatus keypadDownStatus, KeysVirtual? modifierKey, KeysVirtual? virtualKey, KeypadMapping keypadMapping)
+        void KeypadKeyPress(KeypadDownStatus keypadDownStatus, KeyboardModifiers? modifierKey, KeyboardKeys? virtualKey, KeypadMapping keypadMapping)
         {
             try
             {
@@ -294,11 +293,11 @@ namespace DirectXInput.KeypadCode
                     keypadDownStatus.RepeatCount++;
                     if (modifierKey != null)
                     {
-                        KeyToggleCombo((KeysVirtual)modifierKey, (KeysVirtual)virtualKey, true);
+                        vFakerInputDevice.KeyboardPress((KeyboardModifiers)modifierKey, (KeyboardKeys)virtualKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                     else
                     {
-                        KeyToggleSingle((KeysVirtual)virtualKey, true);
+                        vFakerInputDevice.KeyboardPress(KeyboardModifiers.None, (KeyboardKeys)virtualKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                 }
             }
@@ -306,7 +305,7 @@ namespace DirectXInput.KeypadCode
         }
 
         //Release keyboard key binded to keypad
-        void KeypadKeyRelease(KeypadDownStatus keypadDownStatus, KeysVirtual? modifierKey, KeysVirtual? virtualKey)
+        void KeypadKeyRelease(KeypadDownStatus keypadDownStatus, KeyboardModifiers? modifierKey, KeyboardKeys? virtualKey)
         {
             try
             {
@@ -314,11 +313,11 @@ namespace DirectXInput.KeypadCode
                 keypadDownStatus.Pressed = false;
                 if (modifierKey != null)
                 {
-                    KeyToggleCombo((KeysVirtual)modifierKey, (KeysVirtual)virtualKey, false);
+                    vFakerInputDevice.KeyboardReset();
                 }
                 else
                 {
-                    KeyToggleSingle((KeysVirtual)virtualKey, false);
+                    vFakerInputDevice.KeyboardReset();
                 }
             }
             catch { }

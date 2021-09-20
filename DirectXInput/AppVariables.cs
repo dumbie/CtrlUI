@@ -55,8 +55,6 @@ namespace DirectXInput
         public static DispatcherTimer vMappingControllerTimer = new DispatcherTimer();
         public static MappingStatus vMappingControllerStatus = MappingStatus.Done;
         public static Button vMappingControllerButton = null;
-        public static DispatcherTimer vMappingKeypadTimer = new DispatcherTimer();
-        public static MappingStatus vMappingKeypadStatus = MappingStatus.Done;
         public static Button vMappingKeypadButton = null;
 
         //MessageBox Variables
@@ -75,7 +73,8 @@ namespace DirectXInput
         public static bool vAppMaximized = false;
         public static bool vAppMinimized = false;
         public static bool vAppActivated = true;
-        public static int vPrevComboboxIndex = -1;
+        public static bool vComboboxSaveEnabled = true;
+        public static int vComboboxIndexPrev = -1;
 
         //Emoji and text list Variables
         public static int vLastPopupListTextIndex = 0;

@@ -14,6 +14,7 @@ using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
+using static DirectXInput.WindowMain;
 using static LibraryShared.FocusFunctions;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
@@ -124,6 +125,9 @@ namespace DirectXInput.KeyboardCode
 
                 //Disable hardware capslock
                 DisableHardwareCapsLock();
+
+                //Enable hardware numlock
+                EnableHardwareNumLock();
 
                 //Focus on keyboard button
                 await FocusPopupButton(false, key_h);
@@ -627,6 +631,9 @@ namespace DirectXInput.KeyboardCode
                 //Disable hardware capslock
                 DisableHardwareCapsLock();
 
+                //Enable hardware numlock
+                EnableHardwareNumLock();
+
                 //Enable or disable software capslock
                 if (vCapsEnabled)
                 {
@@ -870,22 +877,6 @@ namespace DirectXInput.KeyboardCode
                         image_VolumeDown.Source = vImagePreloadIconVolumeMute;
                     });
                 }
-            }
-            catch { }
-        }
-
-        //Disable hardware capslock
-        public void DisableHardwareCapsLock()
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
-                    {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardKeys.CapsLock, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                    }
-                });
             }
             catch { }
         }

@@ -31,9 +31,6 @@ namespace DirectXInput
             {
                 //Get interop window handle
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
-
-                //Register Hotkeys and Filtermessage
-                ComponentDispatcher.ThreadFilterMessage += ReceivedFilterMessage;
             }
             catch { }
         }
@@ -113,6 +110,9 @@ namespace DirectXInput
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
 
+                //Load combobox values
+                ComboBox_MapKeypad_Load();
+
                 //Load application close tools
                 JsonLoadProfile(ref vDirectCloseTools, @"Default\DirectCloseTools");
 
@@ -138,7 +138,7 @@ namespace DirectXInput
                 JsonLoadProfile(ref vDirectControllersIgnoredDefault, @"Default\DirectControllersIgnored");
 
                 //Load keypad mapping
-                JsonLoadProfile(ref vDirectKeypadMapping, @"User\DirectKeypadMapping");
+                JsonLoadProfile(ref vDirectKeypadMapping, @"User\DirectKeypadMapping3");
                 JsonLoadList_KeypadProfile();
 
                 //Load controllers profile

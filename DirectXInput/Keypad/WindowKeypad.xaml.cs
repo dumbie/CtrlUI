@@ -7,16 +7,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static DirectXInput.SettingsNotify;
+using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
@@ -100,6 +99,9 @@ namespace DirectXInput.KeypadCode
 
                 //Disable hardware capslock
                 DisableHardwareCapsLock();
+
+                //Enable hardware numlock
+                EnableHardwareNumLock();
 
                 //Set the keypad mapping profile
                 await SetKeypadMappingProfile();
@@ -215,23 +217,23 @@ namespace DirectXInput.KeypadCode
             {
                 string processNameLower = vProcessForeground.Name.ToLower();
                 string processTitleLower = vProcessForeground.Title.ToLower();
-                KeypadMapping directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == processNameLower || processTitleLower.Contains(x.Name.ToLower())).FirstOrDefault();
-                if (directKeypadMappingProfile == null)
+                KeypadMapping keypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == processNameLower || processTitleLower.Contains(x.Name.ToLower())).FirstOrDefault();
+                if (keypadMappingProfile == null)
                 {
-                    directKeypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();
+                    keypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();
                 }
 
                 //Show keypad mapping profile notification
-                if (vKeypadMappingProfile != directKeypadMappingProfile)
+                if (vKeypadMappingProfile != keypadMappingProfile)
                 {
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Keypad";
-                    notificationDetails.Text = "Profile set to " + directKeypadMappingProfile.Name;
+                    notificationDetails.Text = "Profile set to " + keypadMappingProfile.Name;
                     await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
 
                 //Update the keypad mapping profile
-                vKeypadMappingProfile = directKeypadMappingProfile;
+                vKeypadMappingProfile = keypadMappingProfile;
             }
             catch { }
         }
@@ -421,18 +423,23 @@ namespace DirectXInput.KeypadCode
         }
 
         //Update key details
-        void UpdateKeypadKeyDetails(KeysVirtual? modifierKey, KeysVirtual? virtualKey, TextBlock keyTextLabel)
+        void UpdateKeypadKeyDetails(KeyboardModifiers? modifierKey, KeyboardKeys? virtualKey, TextBlock keyTextLabel)
         {
             try
             {
-                if (modifierKey != null)
+                if (modifierKey != KeyboardModifiers.None && virtualKey != KeyboardKeys.None)
                 {
-                    keyTextLabel.Text = GetVirtualKeyName((KeysVirtual)modifierKey, true) + "\n" + GetVirtualKeyName((KeysVirtual)virtualKey, true);
+                    keyTextLabel.Text = vFakerInputDevice.GetKeyboardModifiersName((KeyboardModifiers)modifierKey, true) + "\n" + vFakerInputDevice.GetKeyboardKeysName((KeyboardKeys)virtualKey, true);
                     keyTextLabel.Opacity = 1;
                 }
-                else if (virtualKey != null)
+                else if (modifierKey != KeyboardModifiers.None)
                 {
-                    keyTextLabel.Text = GetVirtualKeyName((KeysVirtual)virtualKey, true);
+                    keyTextLabel.Text = vFakerInputDevice.GetKeyboardModifiersName((KeyboardModifiers)modifierKey, true);
+                    keyTextLabel.Opacity = 1;
+                }
+                else if (virtualKey != KeyboardKeys.None)
+                {
+                    keyTextLabel.Text = vFakerInputDevice.GetKeyboardKeysName((KeyboardKeys)virtualKey, true);
                     keyTextLabel.Opacity = 1;
                 }
                 else
@@ -440,22 +447,6 @@ namespace DirectXInput.KeypadCode
                     keyTextLabel.Text = "?";
                     keyTextLabel.Opacity = 0;
                 }
-            }
-            catch { }
-        }
-
-        //Disable hardware capslock
-        public void DisableHardwareCapsLock()
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
-                    {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardKeys.CapsLock, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                    }
-                });
             }
             catch { }
         }

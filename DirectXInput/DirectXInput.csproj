@@ -114,7 +114,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AppMessageFilter.cs" />
     <Compile Include="AppTasksFunctions.cs" />
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppTrayMenu.cs" />
@@ -152,8 +151,8 @@
     <Compile Include="OutputInitialize.cs" />
     <Compile Include="OutputGyro.cs" />
     <Compile Include="OutputCRC32.cs" />
+    <Compile Include="Resources\InputOutput\OutputKeyboard.cs" />
     <Compile Include="Resources\InputOutput\OutputMouse.cs" />
-    <Compile Include="Resources\InputOutput\InputKeyboard.cs" />
     <Compile Include="Resources\Settings\SettingsKeyboard.cs" />
     <Compile Include="Resources\Settings\SettingsKeypad.cs" />
     <Compile Include="Resources\Settings\SettingsNotify.cs" />
@@ -540,7 +539,7 @@
     <Content Include="Profiles\Default\DirectControllersIgnored.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\User\DirectKeypadMapping.json">
+    <Content Include="Profiles\User\DirectKeypadMapping3.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\App.manifest" />

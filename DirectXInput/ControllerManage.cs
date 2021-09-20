@@ -289,7 +289,7 @@ namespace DirectXInput
             try
             {
                 ComboBox SelectedComboBox = (ComboBox)sender;
-                vPrevComboboxIndex = SelectedComboBox.SelectedIndex;
+                vComboboxIndexPrev = SelectedComboBox.SelectedIndex;
             }
             catch { }
         }

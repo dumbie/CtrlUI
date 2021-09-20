@@ -562,7 +562,6 @@
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Mapping"/>
                                 <TextBlock Name="txt_KeypadMap_Status" Text="Click on a button below that you want to change on the keypad." Style="{StaticResource TextBlockGray}"/>
-                                <TextBlock Text="* You can unmap a key by right clicking on the key." Style="{StaticResource TextBlockGray}"/>
 
                                 <Grid Name="grid_KeypadPreview" HorizontalAlignment="Center" Width="556" Height="94" Margin="-5,5,0,0">
                                     <Grid.Background>
@@ -602,7 +601,14 @@
                                     <Button Name="btn_SetPadY" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="465,0,0,60" Tag="Button Y"/>
                                 </Grid>
 
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Display"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                    <ComboBox Name="combobox_SetPad_Modifier" Width="140" Style="{StaticResource ComboBoxBlack}"/>
+                                    <ComboBox Name="combobox_SetPad_Keyboard" Width="140" Margin="10,0,0,0" Style="{StaticResource ComboBoxBlack}"/>
+                                    <Button Name="button_SetPad_Unmap" Margin="10,0,0,0" Content="Unmap" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                    <TextBlock Name="textblock_SetPad_Name" Text="Select a button" Margin="10,0,0,0" Style="{StaticResource TextBlockBlackLight}" FontSize="{StaticResource TextSizeLarge}"/>
+                                </StackPanel>
+
+                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Display"/>
                                 <TextBlock Text="Keypad display style mode" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Select the displayed keypad style mode." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <ComboBox Name="combobox_KeypadDisplayStyle" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="460" Style="{StaticResource ComboBoxBlack}">

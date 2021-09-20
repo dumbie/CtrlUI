@@ -14,7 +14,7 @@ namespace DirectXInput
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    if (System.Windows.Input.Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
+                    if (Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled)
                     {
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardKeys.CapsLock, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
@@ -30,7 +30,7 @@ namespace DirectXInput
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    if (System.Windows.Input.Keyboard.GetKeyStates(Key.NumLock) != KeyStates.Toggled)
+                    if (Keyboard.GetKeyStates(Key.NumLock) != KeyStates.Toggled)
                     {
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardKeys.NumLock, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }

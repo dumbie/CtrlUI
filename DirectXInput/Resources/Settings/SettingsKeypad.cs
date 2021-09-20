@@ -3,10 +3,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using static ArnoldVinkCode.AVInputOutputClass;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
+using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput
 {
@@ -46,7 +46,7 @@ namespace DirectXInput
                 vDirectKeypadMapping.Add(newProfile);
 
                 //Save changes to Json file
-                JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
+                JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping3");
 
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Plus";
@@ -69,7 +69,7 @@ namespace DirectXInput
                     vDirectKeypadMapping.Remove(selectedProfile);
 
                     //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping");
+                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping3");
 
                     //Select the default profile
                     combobox_KeypadProcessProfile.SelectedIndex = 0;
@@ -183,17 +183,21 @@ namespace DirectXInput
         }
 
         //Generate keypad tool tip
-        string GenerateKeypadKeyToolTip(KeysVirtual? modifierKey, KeysVirtual? virtualKey, string keyName)
+        string GenerateKeypadKeyToolTip(KeyboardModifiers? modifierKey, KeyboardKeys? virtualKey, string keyName)
         {
             try
             {
-                if (modifierKey != null)
+                if (modifierKey != KeyboardModifiers.None && virtualKey != KeyboardKeys.None)
                 {
-                    return keyName + " is mapped to " + GetVirtualKeyName((KeysVirtual)modifierKey, false) + " / " + GetVirtualKeyName((KeysVirtual)virtualKey, false);
+                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardModifiersName((KeyboardModifiers)modifierKey, false) + " / " + vFakerInputDevice.GetKeyboardKeysName((KeyboardKeys)virtualKey, false);
                 }
-                else if (virtualKey != null)
+                else if (modifierKey != KeyboardModifiers.None)
                 {
-                    return keyName + " is mapped to " + GetVirtualKeyName((KeysVirtual)virtualKey, false);
+                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardModifiersName((KeyboardModifiers)modifierKey, false);
+                }
+                else if (virtualKey != KeyboardKeys.None)
+                {
+                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardKeysName((KeyboardKeys)virtualKey, false);
                 }
             }
             catch { }
