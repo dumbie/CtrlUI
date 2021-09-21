@@ -29,8 +29,7 @@ namespace DirectXInput
                 textblock_SetPad_Name.Text = mapNameString;
 
                 //Disable combobox event
-                combobox_SetPad_Modifier.SelectionChanged -= ComboBox_MapKeypad_Save;
-                combobox_SetPad_Keyboard.SelectionChanged -= ComboBox_MapKeypad_Save;
+                vComboboxSaveEnabled = false;
 
                 //Select combobox index
                 if (vMappingKeypadButton == btn_SetPadDPadLeft)
@@ -155,8 +154,7 @@ namespace DirectXInput
                 }
 
                 //Enable combobox event
-                combobox_SetPad_Modifier.SelectionChanged += ComboBox_MapKeypad_Save;
-                combobox_SetPad_Keyboard.SelectionChanged += ComboBox_MapKeypad_Save;
+                vComboboxSaveEnabled = true;
             }
             catch { }
         }

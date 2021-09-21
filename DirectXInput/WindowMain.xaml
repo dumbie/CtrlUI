@@ -156,7 +156,12 @@
                     <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
                         <StackPanel>
                             <TextBlock Name="txt_ControllerMap_Status" Text="Click on a button below that you want to change on the controller." Style="{StaticResource TextBlockGray}"/>
-                            <TextBlock Text="* You can unmap a button by right clicking on the button." Style="{StaticResource TextBlockGray}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <Button Name="button_SetController_Map" Content="Map" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                <Button Name="button_SetController_Unmap" Margin="10,0,0,0" Content="Unmap" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                <Button Name="button_SetController_Cancel" Margin="10,0,0,0" Content="Cancel" IsEnabled="False" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                <TextBlock Name="textblock_SetController_Name" Text="Select a button" Margin="10,0,0,0" Style="{StaticResource TextBlockBlackLight}" FontSize="{StaticResource TextSizeLarge}"/>
+                            </StackPanel>
 
                             <Grid Name="grid_ControllerPreview" HorizontalAlignment="Center" Width="500" Height="255" Margin="0,10,0,0">
                                 <Grid.Background>
@@ -214,6 +219,9 @@
                                 <Button Name="btn_SetBack" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="195,60,275,175" Width="30" Height="20" ToolTipService.ToolTip="Button Back"/>
                                 <Button Name="btn_SetGuide" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="235,55,235,170" Height="30" Width="30" ToolTipService.ToolTip="Button Guide"/>
                                 <Button Name="btn_SetStart" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="275,60,195,175" Width="30" Height="20" ToolTipService.ToolTip="Button Start"/>
+
+                                <Button Name="btn_SetTouchpad" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,0,200" Width="120" Height="20" ToolTipService.ToolTip="Button Touchpad"/>
+                                <Button Name="btn_SetMedia" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="230,0,230,30" Height="20" Width="40" ToolTipService.ToolTip="Button Media"/>
 
                                 <!-- Thumb Axes -->
                                 <TextBlock Name="textblock_Thumb_Left_Y_Up" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-100,-38,0,0"/>
@@ -562,6 +570,12 @@
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Mapping"/>
                                 <TextBlock Name="txt_KeypadMap_Status" Text="Click on a button below that you want to change on the keypad." Style="{StaticResource TextBlockGray}"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                    <ComboBox Name="combobox_SetPad_Modifier" Width="140" Style="{StaticResource ComboBoxBlack}"/>
+                                    <ComboBox Name="combobox_SetPad_Keyboard" Width="140" Margin="10,0,0,0" Style="{StaticResource ComboBoxBlack}"/>
+                                    <Button Name="button_SetPad_Unmap" Margin="10,0,0,0" Content="Unmap" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                    <TextBlock Name="textblock_SetPad_Name" Text="Select a button" Margin="10,0,0,0" Style="{StaticResource TextBlockBlackLight}" FontSize="{StaticResource TextSizeLarge}"/>
+                                </StackPanel>
 
                                 <Grid Name="grid_KeypadPreview" HorizontalAlignment="Center" Width="556" Height="94" Margin="-5,5,0,0">
                                     <Grid.Background>
@@ -600,13 +614,6 @@
                                     <Button Name="btn_SetPadX" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="405,0,0,0" Tag="Button X"/>
                                     <Button Name="btn_SetPadY" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="26" Width="26" Margin="465,0,0,60" Tag="Button Y"/>
                                 </Grid>
-
-                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                    <ComboBox Name="combobox_SetPad_Modifier" Width="140" Style="{StaticResource ComboBoxBlack}"/>
-                                    <ComboBox Name="combobox_SetPad_Keyboard" Width="140" Margin="10,0,0,0" Style="{StaticResource ComboBoxBlack}"/>
-                                    <Button Name="button_SetPad_Unmap" Margin="10,0,0,0" Content="Unmap" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
-                                    <TextBlock Name="textblock_SetPad_Name" Text="Select a button" Margin="10,0,0,0" Style="{StaticResource TextBlockBlackLight}" FontSize="{StaticResource TextSizeLarge}"/>
-                                </StackPanel>
 
                                 <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Display"/>
                                 <TextBlock Text="Keypad display style mode" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>

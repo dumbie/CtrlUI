@@ -316,32 +316,24 @@ namespace DirectXInput
                 };
 
                 //Controller button mapping functions
-                btn_SetA.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetA.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetB.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetB.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetX.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetX.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetY.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetY.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetShoulderLeft.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetShoulderLeft.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetShoulderRight.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetShoulderRight.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetThumbLeft.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetThumbLeft.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetThumbRight.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetThumbRight.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetBack.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetBack.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetGuide.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetGuide.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetStart.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetStart.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetTriggerLeft.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetTriggerLeft.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
-                btn_SetTriggerRight.PreviewMouseLeftButtonUp += Btn_MapController_MouseLeft;
-                btn_SetTriggerRight.PreviewMouseRightButtonUp += Btn_MapController_MouseRight;
+                btn_SetA.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetB.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetX.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetY.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetShoulderLeft.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetShoulderRight.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetThumbLeft.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetThumbRight.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetBack.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetGuide.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetStart.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetTriggerLeft.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetTriggerRight.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetTouchpad.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                btn_SetMedia.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Set;
+                button_SetController_Map.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Map;
+                button_SetController_Unmap.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Unmap;
+                button_SetController_Cancel.PreviewMouseLeftButtonUp += Btn_MapController_Mouse_Cancel;
 
                 //Keypad button mapping functions
                 btn_SetPadDPadLeft.PreviewMouseLeftButtonUp += Btn_MapKeypad_Mouse_Set;
