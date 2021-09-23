@@ -6,11 +6,11 @@ namespace LibraryUsb
 {
     public partial class FakerInputDevice
     {
-        public bool KeyboardPressRelease(KeyboardModifiers keyModifier, KeyboardKeys key0, KeyboardKeys key1, KeyboardKeys key2, KeyboardKeys key3, KeyboardKeys key4, KeyboardKeys key5)
+        public bool KeyboardPressRelease(KeyboardModifiers keyModifier0, KeyboardModifiers keyModifier1, KeyboardKeys key0, KeyboardKeys key1, KeyboardKeys key2, KeyboardKeys key3, KeyboardKeys key4, KeyboardKeys key5)
         {
             try
             {
-                KeyboardPress(keyModifier, key0, key1, key2, key3, key4, key5);
+                KeyboardPress(keyModifier0, keyModifier1, key0, key1, key2, key3, key4, key5);
                 AVActions.TaskDelayMs(50);
                 KeyboardReset();
                 return true;
@@ -22,7 +22,7 @@ namespace LibraryUsb
             }
         }
 
-        public bool KeyboardPress(KeyboardModifiers keyModifier, KeyboardKeys key0, KeyboardKeys key1, KeyboardKeys key2, KeyboardKeys key3, KeyboardKeys key4, KeyboardKeys key5)
+        public bool KeyboardPress(KeyboardModifiers keyModifier0, KeyboardModifiers keyModifier1, KeyboardKeys key0, KeyboardKeys key1, KeyboardKeys key2, KeyboardKeys key3, KeyboardKeys key4, KeyboardKeys key5)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace LibraryUsb
 
                 FAKERINPUT_KEYBOARD_REPORT structInput = new FAKERINPUT_KEYBOARD_REPORT();
                 structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_KEYBOARD;
-                structInput.ModifierCode = (byte)keyModifier;
+                structInput.ModifierCodes = (byte)(keyModifier0 | keyModifier1);
                 structInput.KeyCodes = new byte[] { (byte)key0, (byte)key1, (byte)key2, (byte)key3, (byte)key4, (byte)key5 };
                 byte[] inputArray = ConvertToByteArray(structInput);
 

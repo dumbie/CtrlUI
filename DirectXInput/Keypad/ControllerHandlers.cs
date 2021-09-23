@@ -90,88 +90,88 @@ namespace DirectXInput.KeypadCode
             try
             {
                 //Press dpad left
-                KeypadKeyCheck(controllerInput.DPadLeft.PressedRaw, vKeypadDownStatus.DPadLeft, vKeypadMappingProfile.DPadLeftMod, vKeypadMappingProfile.DPadLeft, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.DPadLeft.PressedRaw, vKeypadDownStatus.DPadLeft, vKeypadMappingProfile.DPadLeftMod0, vKeypadMappingProfile.DPadLeft, vKeypadMappingProfile);
 
                 //Press dpad right
-                KeypadKeyCheck(controllerInput.DPadRight.PressedRaw, vKeypadDownStatus.DPadRight, vKeypadMappingProfile.DPadRightMod, vKeypadMappingProfile.DPadRight, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.DPadRight.PressedRaw, vKeypadDownStatus.DPadRight, vKeypadMappingProfile.DPadRightMod0, vKeypadMappingProfile.DPadRight, vKeypadMappingProfile);
 
                 //Press dpad up
-                KeypadKeyCheck(controllerInput.DPadUp.PressedRaw, vKeypadDownStatus.DPadUp, vKeypadMappingProfile.DPadUpMod, vKeypadMappingProfile.DPadUp, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.DPadUp.PressedRaw, vKeypadDownStatus.DPadUp, vKeypadMappingProfile.DPadUpMod0, vKeypadMappingProfile.DPadUp, vKeypadMappingProfile);
 
                 //Press dpad down
-                KeypadKeyCheck(controllerInput.DPadDown.PressedRaw, vKeypadDownStatus.DPadDown, vKeypadMappingProfile.DPadDownMod, vKeypadMappingProfile.DPadDown, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.DPadDown.PressedRaw, vKeypadDownStatus.DPadDown, vKeypadMappingProfile.DPadDownMod0, vKeypadMappingProfile.DPadDown, vKeypadMappingProfile);
 
                 //Press thumb left left
                 bool thumbLeftLeft = controllerInput.ThumbLeftX < -vControllerOffsetMedium;
-                KeypadKeyCheck(thumbLeftLeft, vKeypadDownStatus.ThumbLeftLeft, vKeypadMappingProfile.ThumbLeftLeftMod, vKeypadMappingProfile.ThumbLeftLeft, vKeypadMappingProfile);
+                KeypadKeyCheck(thumbLeftLeft, vKeypadDownStatus.ThumbLeftLeft, vKeypadMappingProfile.ThumbLeftLeftMod0, vKeypadMappingProfile.ThumbLeftLeft, vKeypadMappingProfile);
 
                 //Press thumb left right
                 bool thumbLeftRight = controllerInput.ThumbLeftX > vControllerOffsetMedium;
-                KeypadKeyCheck(thumbLeftRight, vKeypadDownStatus.ThumbLeftRight, vKeypadMappingProfile.ThumbLeftRightMod, vKeypadMappingProfile.ThumbLeftRight, vKeypadMappingProfile);
+                KeypadKeyCheck(thumbLeftRight, vKeypadDownStatus.ThumbLeftRight, vKeypadMappingProfile.ThumbLeftRightMod0, vKeypadMappingProfile.ThumbLeftRight, vKeypadMappingProfile);
 
                 //Press thumb left up
                 bool thumbLeftUp = controllerInput.ThumbLeftY > vControllerOffsetMedium;
-                KeypadKeyCheck(thumbLeftUp, vKeypadDownStatus.ThumbLeftUp, vKeypadMappingProfile.ThumbLeftUpMod, vKeypadMappingProfile.ThumbLeftUp, vKeypadMappingProfile);
+                KeypadKeyCheck(thumbLeftUp, vKeypadDownStatus.ThumbLeftUp, vKeypadMappingProfile.ThumbLeftUpMod0, vKeypadMappingProfile.ThumbLeftUp, vKeypadMappingProfile);
 
                 //Press thumb left down
                 bool thumbLeftDown = controllerInput.ThumbLeftY < -vControllerOffsetMedium;
-                KeypadKeyCheck(thumbLeftDown, vKeypadDownStatus.ThumbLeftDown, vKeypadMappingProfile.ThumbLeftDownMod, vKeypadMappingProfile.ThumbLeftDown, vKeypadMappingProfile);
+                KeypadKeyCheck(thumbLeftDown, vKeypadDownStatus.ThumbLeftDown, vKeypadMappingProfile.ThumbLeftDownMod0, vKeypadMappingProfile.ThumbLeftDown, vKeypadMappingProfile);
 
                 //Check if mouse movement is enabled
                 if (!vKeypadMappingProfile.KeypadMouseMoveEnabled)
                 {
                     //Press thumb right left
                     bool thumbRightLeft = controllerInput.ThumbRightX < -vControllerOffsetMedium;
-                    KeypadKeyCheck(thumbRightLeft, vKeypadDownStatus.ThumbRightLeft, vKeypadMappingProfile.ThumbRightLeftMod, vKeypadMappingProfile.ThumbRightLeft, vKeypadMappingProfile);
+                    KeypadKeyCheck(thumbRightLeft, vKeypadDownStatus.ThumbRightLeft, vKeypadMappingProfile.ThumbRightLeftMod0, vKeypadMappingProfile.ThumbRightLeft, vKeypadMappingProfile);
 
                     //Press thumb right right
                     bool thumbRightRight = controllerInput.ThumbRightX > vControllerOffsetMedium;
-                    KeypadKeyCheck(thumbRightRight, vKeypadDownStatus.ThumbRightRight, vKeypadMappingProfile.ThumbRightRightMod, vKeypadMappingProfile.ThumbRightRight, vKeypadMappingProfile);
+                    KeypadKeyCheck(thumbRightRight, vKeypadDownStatus.ThumbRightRight, vKeypadMappingProfile.ThumbRightRightMod0, vKeypadMappingProfile.ThumbRightRight, vKeypadMappingProfile);
 
                     //Press thumb right up
                     bool thumbRightUp = controllerInput.ThumbRightY > vControllerOffsetMedium;
-                    KeypadKeyCheck(thumbRightUp, vKeypadDownStatus.ThumbRightUp, vKeypadMappingProfile.ThumbRightUpMod, vKeypadMappingProfile.ThumbRightUp, vKeypadMappingProfile);
+                    KeypadKeyCheck(thumbRightUp, vKeypadDownStatus.ThumbRightUp, vKeypadMappingProfile.ThumbRightUpMod0, vKeypadMappingProfile.ThumbRightUp, vKeypadMappingProfile);
 
                     //Press thumb right down
                     bool thumbRightDown = controllerInput.ThumbRightY < -vControllerOffsetMedium;
-                    KeypadKeyCheck(thumbRightDown, vKeypadDownStatus.ThumbRightDown, vKeypadMappingProfile.ThumbRightDownMod, vKeypadMappingProfile.ThumbRightDown, vKeypadMappingProfile);
+                    KeypadKeyCheck(thumbRightDown, vKeypadDownStatus.ThumbRightDown, vKeypadMappingProfile.ThumbRightDownMod0, vKeypadMappingProfile.ThumbRightDown, vKeypadMappingProfile);
                 }
 
                 //Press button a key
-                KeypadKeyCheck(controllerInput.ButtonA.PressedRaw, vKeypadDownStatus.ButtonA, vKeypadMappingProfile.ButtonAMod, vKeypadMappingProfile.ButtonA, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonA.PressedRaw, vKeypadDownStatus.ButtonA, vKeypadMappingProfile.ButtonAMod0, vKeypadMappingProfile.ButtonA, vKeypadMappingProfile);
 
                 //Press button b key
-                KeypadKeyCheck(controllerInput.ButtonB.PressedRaw, vKeypadDownStatus.ButtonB, vKeypadMappingProfile.ButtonBMod, vKeypadMappingProfile.ButtonB, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonB.PressedRaw, vKeypadDownStatus.ButtonB, vKeypadMappingProfile.ButtonBMod0, vKeypadMappingProfile.ButtonB, vKeypadMappingProfile);
 
                 //Press button x key
-                KeypadKeyCheck(controllerInput.ButtonX.PressedRaw, vKeypadDownStatus.ButtonX, vKeypadMappingProfile.ButtonXMod, vKeypadMappingProfile.ButtonX, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonX.PressedRaw, vKeypadDownStatus.ButtonX, vKeypadMappingProfile.ButtonXMod0, vKeypadMappingProfile.ButtonX, vKeypadMappingProfile);
 
                 //Press button y key
-                KeypadKeyCheck(controllerInput.ButtonY.PressedRaw, vKeypadDownStatus.ButtonY, vKeypadMappingProfile.ButtonYMod, vKeypadMappingProfile.ButtonY, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonY.PressedRaw, vKeypadDownStatus.ButtonY, vKeypadMappingProfile.ButtonYMod0, vKeypadMappingProfile.ButtonY, vKeypadMappingProfile);
 
                 //Press button back key
-                KeypadKeyCheck(controllerInput.ButtonBack.PressedRaw, vKeypadDownStatus.ButtonBack, vKeypadMappingProfile.ButtonBackMod, vKeypadMappingProfile.ButtonBack, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonBack.PressedRaw, vKeypadDownStatus.ButtonBack, vKeypadMappingProfile.ButtonBackMod0, vKeypadMappingProfile.ButtonBack, vKeypadMappingProfile);
 
                 //Press button start key
-                KeypadKeyCheck(controllerInput.ButtonStart.PressedRaw, vKeypadDownStatus.ButtonStart, vKeypadMappingProfile.ButtonStartMod, vKeypadMappingProfile.ButtonStart, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonStart.PressedRaw, vKeypadDownStatus.ButtonStart, vKeypadMappingProfile.ButtonStartMod0, vKeypadMappingProfile.ButtonStart, vKeypadMappingProfile);
 
                 //Press button shoulder left key
-                KeypadKeyCheck(controllerInput.ButtonShoulderLeft.PressedRaw, vKeypadDownStatus.ButtonShoulderLeft, vKeypadMappingProfile.ButtonShoulderLeftMod, vKeypadMappingProfile.ButtonShoulderLeft, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonShoulderLeft.PressedRaw, vKeypadDownStatus.ButtonShoulderLeft, vKeypadMappingProfile.ButtonShoulderLeftMod0, vKeypadMappingProfile.ButtonShoulderLeft, vKeypadMappingProfile);
 
                 //Press button trigger left key
-                KeypadKeyCheck(controllerInput.ButtonTriggerLeft.PressedRaw, vKeypadDownStatus.ButtonTriggerLeft, vKeypadMappingProfile.ButtonTriggerLeftMod, vKeypadMappingProfile.ButtonTriggerLeft, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonTriggerLeft.PressedRaw, vKeypadDownStatus.ButtonTriggerLeft, vKeypadMappingProfile.ButtonTriggerLeftMod0, vKeypadMappingProfile.ButtonTriggerLeft, vKeypadMappingProfile);
 
                 //Press button thumb left key
-                KeypadKeyCheck(controllerInput.ButtonThumbLeft.PressedRaw, vKeypadDownStatus.ButtonThumbLeft, vKeypadMappingProfile.ButtonThumbLeftMod, vKeypadMappingProfile.ButtonThumbLeft, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonThumbLeft.PressedRaw, vKeypadDownStatus.ButtonThumbLeft, vKeypadMappingProfile.ButtonThumbLeftMod0, vKeypadMappingProfile.ButtonThumbLeft, vKeypadMappingProfile);
 
                 //Press button shoulder right key
-                KeypadKeyCheck(controllerInput.ButtonShoulderRight.PressedRaw, vKeypadDownStatus.ButtonShoulderRight, vKeypadMappingProfile.ButtonShoulderRightMod, vKeypadMappingProfile.ButtonShoulderRight, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonShoulderRight.PressedRaw, vKeypadDownStatus.ButtonShoulderRight, vKeypadMappingProfile.ButtonShoulderRightMod0, vKeypadMappingProfile.ButtonShoulderRight, vKeypadMappingProfile);
 
                 //Press button trigger right key
-                KeypadKeyCheck(controllerInput.ButtonTriggerRight.PressedRaw, vKeypadDownStatus.ButtonTriggerRight, vKeypadMappingProfile.ButtonTriggerRightMod, vKeypadMappingProfile.ButtonTriggerRight, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonTriggerRight.PressedRaw, vKeypadDownStatus.ButtonTriggerRight, vKeypadMappingProfile.ButtonTriggerRightMod0, vKeypadMappingProfile.ButtonTriggerRight, vKeypadMappingProfile);
 
                 //Press button thumb right key
-                KeypadKeyCheck(controllerInput.ButtonThumbRight.PressedRaw, vKeypadDownStatus.ButtonThumbRight, vKeypadMappingProfile.ButtonThumbRightMod, vKeypadMappingProfile.ButtonThumbRight, vKeypadMappingProfile);
+                KeypadKeyCheck(controllerInput.ButtonThumbRight.PressedRaw, vKeypadDownStatus.ButtonThumbRight, vKeypadMappingProfile.ButtonThumbRightMod0, vKeypadMappingProfile.ButtonThumbRight, vKeypadMappingProfile);
             }
             catch { }
         }
@@ -182,76 +182,76 @@ namespace DirectXInput.KeypadCode
             try
             {
                 //Release dpad left
-                KeypadKeyRelease(vKeypadDownStatus.DPadLeft, vKeypadMappingProfile.DPadLeftMod, vKeypadMappingProfile.DPadLeft);
+                KeypadKeyRelease(vKeypadDownStatus.DPadLeft, vKeypadMappingProfile.DPadLeftMod0, vKeypadMappingProfile.DPadLeft);
 
                 //Release dpad right
-                KeypadKeyRelease(vKeypadDownStatus.DPadRight, vKeypadMappingProfile.DPadRightMod, vKeypadMappingProfile.DPadRight);
+                KeypadKeyRelease(vKeypadDownStatus.DPadRight, vKeypadMappingProfile.DPadRightMod0, vKeypadMappingProfile.DPadRight);
 
                 //Release dpad up
-                KeypadKeyRelease(vKeypadDownStatus.DPadUp, vKeypadMappingProfile.DPadUpMod, vKeypadMappingProfile.DPadUp);
+                KeypadKeyRelease(vKeypadDownStatus.DPadUp, vKeypadMappingProfile.DPadUpMod0, vKeypadMappingProfile.DPadUp);
 
                 //Release dpad down
-                KeypadKeyRelease(vKeypadDownStatus.DPadDown, vKeypadMappingProfile.DPadDownMod, vKeypadMappingProfile.DPadDown);
+                KeypadKeyRelease(vKeypadDownStatus.DPadDown, vKeypadMappingProfile.DPadDownMod0, vKeypadMappingProfile.DPadDown);
 
                 //Release thumb left left
-                KeypadKeyRelease(vKeypadDownStatus.ThumbLeftLeft, vKeypadMappingProfile.ThumbLeftLeftMod, vKeypadMappingProfile.ThumbLeftLeft);
+                KeypadKeyRelease(vKeypadDownStatus.ThumbLeftLeft, vKeypadMappingProfile.ThumbLeftLeftMod0, vKeypadMappingProfile.ThumbLeftLeft);
 
                 //Release thumb left right
-                KeypadKeyRelease(vKeypadDownStatus.ThumbLeftRight, vKeypadMappingProfile.ThumbLeftRightMod, vKeypadMappingProfile.ThumbLeftRight);
+                KeypadKeyRelease(vKeypadDownStatus.ThumbLeftRight, vKeypadMappingProfile.ThumbLeftRightMod0, vKeypadMappingProfile.ThumbLeftRight);
 
                 //Release thumb left up
-                KeypadKeyRelease(vKeypadDownStatus.ThumbLeftUp, vKeypadMappingProfile.ThumbLeftUpMod, vKeypadMappingProfile.ThumbLeftUp);
+                KeypadKeyRelease(vKeypadDownStatus.ThumbLeftUp, vKeypadMappingProfile.ThumbLeftUpMod0, vKeypadMappingProfile.ThumbLeftUp);
 
                 //Release thumb left down
-                KeypadKeyRelease(vKeypadDownStatus.ThumbLeftDown, vKeypadMappingProfile.ThumbLeftDownMod, vKeypadMappingProfile.ThumbLeftDown);
+                KeypadKeyRelease(vKeypadDownStatus.ThumbLeftDown, vKeypadMappingProfile.ThumbLeftDownMod0, vKeypadMappingProfile.ThumbLeftDown);
 
                 //Release thumb right left
-                KeypadKeyRelease(vKeypadDownStatus.ThumbRightLeft, vKeypadMappingProfile.ThumbRightLeftMod, vKeypadMappingProfile.ThumbRightLeft);
+                KeypadKeyRelease(vKeypadDownStatus.ThumbRightLeft, vKeypadMappingProfile.ThumbRightLeftMod0, vKeypadMappingProfile.ThumbRightLeft);
 
                 //Release thumb right right
-                KeypadKeyRelease(vKeypadDownStatus.ThumbRightRight, vKeypadMappingProfile.ThumbRightRightMod, vKeypadMappingProfile.ThumbRightRight);
+                KeypadKeyRelease(vKeypadDownStatus.ThumbRightRight, vKeypadMappingProfile.ThumbRightRightMod0, vKeypadMappingProfile.ThumbRightRight);
 
                 //Release thumb right up
-                KeypadKeyRelease(vKeypadDownStatus.ThumbRightUp, vKeypadMappingProfile.ThumbRightUpMod, vKeypadMappingProfile.ThumbRightUp);
+                KeypadKeyRelease(vKeypadDownStatus.ThumbRightUp, vKeypadMappingProfile.ThumbRightUpMod0, vKeypadMappingProfile.ThumbRightUp);
 
                 //Release thumb right down
-                KeypadKeyRelease(vKeypadDownStatus.ThumbRightDown, vKeypadMappingProfile.ThumbRightDownMod, vKeypadMappingProfile.ThumbRightDown);
+                KeypadKeyRelease(vKeypadDownStatus.ThumbRightDown, vKeypadMappingProfile.ThumbRightDownMod0, vKeypadMappingProfile.ThumbRightDown);
 
                 //Release button a key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonA, vKeypadMappingProfile.ButtonAMod, vKeypadMappingProfile.ButtonA);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonA, vKeypadMappingProfile.ButtonAMod0, vKeypadMappingProfile.ButtonA);
 
                 //Release button b key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonB, vKeypadMappingProfile.ButtonBMod, vKeypadMappingProfile.ButtonB);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonB, vKeypadMappingProfile.ButtonBMod0, vKeypadMappingProfile.ButtonB);
 
                 //Release button x key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonX, vKeypadMappingProfile.ButtonXMod, vKeypadMappingProfile.ButtonX);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonX, vKeypadMappingProfile.ButtonXMod0, vKeypadMappingProfile.ButtonX);
 
                 //Release button y key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonY, vKeypadMappingProfile.ButtonYMod, vKeypadMappingProfile.ButtonY);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonY, vKeypadMappingProfile.ButtonYMod0, vKeypadMappingProfile.ButtonY);
 
                 //Release button back key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonBack, vKeypadMappingProfile.ButtonBackMod, vKeypadMappingProfile.ButtonBack);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonBack, vKeypadMappingProfile.ButtonBackMod0, vKeypadMappingProfile.ButtonBack);
 
                 //Release button start key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonStart, vKeypadMappingProfile.ButtonStartMod, vKeypadMappingProfile.ButtonStart);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonStart, vKeypadMappingProfile.ButtonStartMod0, vKeypadMappingProfile.ButtonStart);
 
                 //Release button shoulder left key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonShoulderLeft, vKeypadMappingProfile.ButtonShoulderLeftMod, vKeypadMappingProfile.ButtonShoulderLeft);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonShoulderLeft, vKeypadMappingProfile.ButtonShoulderLeftMod0, vKeypadMappingProfile.ButtonShoulderLeft);
 
                 //Release button trigger left key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonTriggerLeft, vKeypadMappingProfile.ButtonTriggerLeftMod, vKeypadMappingProfile.ButtonTriggerLeft);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonTriggerLeft, vKeypadMappingProfile.ButtonTriggerLeftMod0, vKeypadMappingProfile.ButtonTriggerLeft);
 
                 //Release button thumb left key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonThumbLeft, vKeypadMappingProfile.ButtonThumbLeftMod, vKeypadMappingProfile.ButtonThumbLeft);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonThumbLeft, vKeypadMappingProfile.ButtonThumbLeftMod0, vKeypadMappingProfile.ButtonThumbLeft);
 
                 //Release button shoulder right key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonShoulderRight, vKeypadMappingProfile.ButtonShoulderRightMod, vKeypadMappingProfile.ButtonShoulderRight);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonShoulderRight, vKeypadMappingProfile.ButtonShoulderRightMod0, vKeypadMappingProfile.ButtonShoulderRight);
 
                 //Release button trigger right key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonTriggerRight, vKeypadMappingProfile.ButtonTriggerRightMod, vKeypadMappingProfile.ButtonTriggerRight);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonTriggerRight, vKeypadMappingProfile.ButtonTriggerRightMod0, vKeypadMappingProfile.ButtonTriggerRight);
 
                 //Release button thumb right key
-                KeypadKeyRelease(vKeypadDownStatus.ButtonThumbRight, vKeypadMappingProfile.ButtonThumbRightMod, vKeypadMappingProfile.ButtonThumbRight);
+                KeypadKeyRelease(vKeypadDownStatus.ButtonThumbRight, vKeypadMappingProfile.ButtonThumbRightMod0, vKeypadMappingProfile.ButtonThumbRight);
             }
             catch { }
         }
@@ -293,11 +293,12 @@ namespace DirectXInput.KeypadCode
                     keypadDownStatus.RepeatCount++;
                     if (modifierKey != null)
                     {
-                        vFakerInputDevice.KeyboardPress((KeyboardModifiers)modifierKey, (KeyboardKeys)virtualKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        //Fix add support for multiple modifiers
+                        vFakerInputDevice.KeyboardPress((KeyboardModifiers)modifierKey, KeyboardModifiers.None, (KeyboardKeys)virtualKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                     else
                     {
-                        vFakerInputDevice.KeyboardPress(KeyboardModifiers.None, (KeyboardKeys)virtualKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPress(KeyboardModifiers.None, KeyboardModifiers.None, (KeyboardKeys)virtualKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                 }
             }

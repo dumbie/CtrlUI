@@ -154,7 +154,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                         ControllerDelayShort = true;
                     }
@@ -162,7 +162,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                         ControllerDelayShort = true;
                     }
@@ -172,7 +172,7 @@ namespace DirectXInput.MediaCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         await App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                         ControllerDelayMedium = true;
                     }

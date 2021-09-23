@@ -16,7 +16,7 @@ namespace LibraryUsb
         public struct FAKERINPUT_KEYBOARD_REPORT
         {
             public byte ReportID;
-            public byte ModifierCode;
+            public byte ModifierCodes;
             public byte Reserved;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = KBD_KEY_CODES)]
             public byte[] KeyCodes;

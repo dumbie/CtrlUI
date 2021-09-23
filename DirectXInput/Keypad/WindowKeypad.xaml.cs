@@ -375,14 +375,14 @@ namespace DirectXInput.KeypadCode
                 {
                     try
                     {
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadLeftMod, vKeypadMappingProfile.DPadLeft, textblock_DPadLeft);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadUpMod, vKeypadMappingProfile.DPadUp, textblock_DPadUp);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadRightMod, vKeypadMappingProfile.DPadRight, textblock_DPadRight);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadDownMod, vKeypadMappingProfile.DPadDown, textblock_DPadDown);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftLeftMod, vKeypadMappingProfile.ThumbLeftLeft, textblock_ThumbLeftLeft);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftUpMod, vKeypadMappingProfile.ThumbLeftUp, textblock_ThumbLeftUp);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftRightMod, vKeypadMappingProfile.ThumbLeftRight, textblock_ThumbLeftRight);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftDownMod, vKeypadMappingProfile.ThumbLeftDown, textblock_ThumbLeftDown);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadLeftMod0, vKeypadMappingProfile.DPadLeft, textblock_DPadLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadUpMod0, vKeypadMappingProfile.DPadUp, textblock_DPadUp);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadRightMod0, vKeypadMappingProfile.DPadRight, textblock_DPadRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.DPadDownMod0, vKeypadMappingProfile.DPadDown, textblock_DPadDown);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftLeftMod0, vKeypadMappingProfile.ThumbLeftLeft, textblock_ThumbLeftLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftUpMod0, vKeypadMappingProfile.ThumbLeftUp, textblock_ThumbLeftUp);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftRightMod0, vKeypadMappingProfile.ThumbLeftRight, textblock_ThumbLeftRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbLeftDownMod0, vKeypadMappingProfile.ThumbLeftDown, textblock_ThumbLeftDown);
 
                         if (vKeypadMappingProfile.KeypadMouseMoveEnabled)
                         {
@@ -397,24 +397,24 @@ namespace DirectXInput.KeypadCode
                         }
                         else
                         {
-                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightLeftMod, vKeypadMappingProfile.ThumbRightLeft, textblock_ThumbRightLeft);
-                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightUpMod, vKeypadMappingProfile.ThumbRightUp, textblock_ThumbRightUp);
-                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightRightMod, vKeypadMappingProfile.ThumbRightRight, textblock_ThumbRightRight);
-                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightDownMod, vKeypadMappingProfile.ThumbRightDown, textblock_ThumbRightDown);
+                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightLeftMod0, vKeypadMappingProfile.ThumbRightLeft, textblock_ThumbRightLeft);
+                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightUpMod0, vKeypadMappingProfile.ThumbRightUp, textblock_ThumbRightUp);
+                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightRightMod0, vKeypadMappingProfile.ThumbRightRight, textblock_ThumbRightRight);
+                            UpdateKeypadKeyDetails(vKeypadMappingProfile.ThumbRightDownMod0, vKeypadMappingProfile.ThumbRightDown, textblock_ThumbRightDown);
                         }
 
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonBackMod, vKeypadMappingProfile.ButtonBack, textblock_ButtonBack);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonStartMod, vKeypadMappingProfile.ButtonStart, textblock_ButtonStart);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonXMod, vKeypadMappingProfile.ButtonX, textblock_ButtonX);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonYMod, vKeypadMappingProfile.ButtonY, textblock_ButtonY);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonAMod, vKeypadMappingProfile.ButtonA, textblock_ButtonA);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonBMod, vKeypadMappingProfile.ButtonB, textblock_ButtonB);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonShoulderLeftMod, vKeypadMappingProfile.ButtonShoulderLeft, textblock_ButtonShoulderLeft);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonTriggerLeftMod, vKeypadMappingProfile.ButtonTriggerLeft, textblock_ButtonTriggerLeft);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonThumbLeftMod, vKeypadMappingProfile.ButtonThumbLeft, textblock_ThumbLeftButton);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonShoulderRightMod, vKeypadMappingProfile.ButtonShoulderRight, textblock_ButtonShoulderRight);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonTriggerRightMod, vKeypadMappingProfile.ButtonTriggerRight, textblock_ButtonTriggerRight);
-                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonThumbRightMod, vKeypadMappingProfile.ButtonThumbRight, textblock_ThumbRightButton);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonBackMod0, vKeypadMappingProfile.ButtonBack, textblock_ButtonBack);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonStartMod0, vKeypadMappingProfile.ButtonStart, textblock_ButtonStart);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonXMod0, vKeypadMappingProfile.ButtonX, textblock_ButtonX);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonYMod0, vKeypadMappingProfile.ButtonY, textblock_ButtonY);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonAMod0, vKeypadMappingProfile.ButtonA, textblock_ButtonA);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonBMod0, vKeypadMappingProfile.ButtonB, textblock_ButtonB);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonShoulderLeftMod0, vKeypadMappingProfile.ButtonShoulderLeft, textblock_ButtonShoulderLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonTriggerLeftMod0, vKeypadMappingProfile.ButtonTriggerLeft, textblock_ButtonTriggerLeft);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonThumbLeftMod0, vKeypadMappingProfile.ButtonThumbLeft, textblock_ThumbLeftButton);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonShoulderRightMod0, vKeypadMappingProfile.ButtonShoulderRight, textblock_ButtonShoulderRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonTriggerRightMod0, vKeypadMappingProfile.ButtonTriggerRight, textblock_ButtonTriggerRight);
+                        UpdateKeypadKeyDetails(vKeypadMappingProfile.ButtonThumbRightMod0, vKeypadMappingProfile.ButtonThumbRight, textblock_ThumbRightButton);
                     }
                     catch { }
                 });

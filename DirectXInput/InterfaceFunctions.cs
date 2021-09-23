@@ -361,7 +361,8 @@ namespace DirectXInput
                 btn_SetPadBack.PreviewMouseLeftButtonUp += Btn_MapKeypad_Mouse_Set;
                 btn_SetPadStart.PreviewMouseLeftButtonUp += Btn_MapKeypad_Mouse_Set;
                 button_SetPad_Unmap.PreviewMouseLeftButtonUp += Btn_MapKeypad_Mouse_Unmap;
-                combobox_SetPad_Modifier.SelectionChanged += ComboBox_MapKeypad_Save;
+                combobox_SetPad_Modifier0.SelectionChanged += ComboBox_MapKeypad_Save;
+                combobox_SetPad_Modifier1.SelectionChanged += ComboBox_MapKeypad_Save;
                 combobox_SetPad_Keyboard.SelectionChanged += ComboBox_MapKeypad_Save;
                 btn_Settings_KeyboardTextString_Add.Click += Btn_Settings_KeyboardTextString_Add_Click;
                 btn_Settings_KeyboardTextString_Remove.Click += Btn_Settings_KeyboardTextString_Remove_Click;

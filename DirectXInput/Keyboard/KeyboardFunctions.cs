@@ -91,24 +91,24 @@ namespace DirectXInput.KeyboardCode
                 {
                     if (sendKey == KeyboardKeys.Enter)
                     {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardKeys.Z, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.None, KeyboardKeys.Z, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                     else if (sendKey == KeyboardKeys.Home)
                     {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardKeys.Home, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Home, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                     else if (sendKey == KeyboardKeys.End)
                     {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardKeys.End, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.End, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                     else
                     {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ShiftLeft, sendKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ShiftLeft, KeyboardModifiers.None, sendKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                 }
                 else
                 {
-                    vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, sendKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                    vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, sendKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                 }
             }
             catch { }
@@ -123,24 +123,24 @@ namespace DirectXInput.KeyboardCode
                 {
                     if (sendKey == KeyboardModifiers.ShiftLeft || sendKey == KeyboardModifiers.ShiftRight)
                     {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardKeys.X, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.None, KeyboardKeys.X, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                     else if (sendKey == KeyboardModifiers.ControlLeft || sendKey == KeyboardModifiers.ControlRight)
                     {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardKeys.C, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.None, KeyboardKeys.C, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                     else if (sendKey == KeyboardModifiers.AltLeft || sendKey == KeyboardModifiers.AltRight)
                     {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardKeys.V, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.None, KeyboardKeys.V, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                     else if (sendKey == KeyboardModifiers.WindowsLeft || sendKey == KeyboardModifiers.WindowsRight)
                     {
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardKeys.A, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.None, KeyboardKeys.A, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                     }
                 }
                 else
                 {
-                    vFakerInputDevice.KeyboardPressRelease(sendKey, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                    vFakerInputDevice.KeyboardPressRelease(sendKey, KeyboardModifiers.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                 }
             }
             catch { }

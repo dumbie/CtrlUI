@@ -129,7 +129,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+Enter";
                             await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -147,7 +147,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+F4";
                             await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardKeys.F4, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.F4, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -165,7 +165,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Win+Tab";
                             await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.WindowsLeft, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.WindowsLeft, KeyboardModifiers.None, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -179,7 +179,7 @@ namespace DirectXInput
                             notificationDetails.Text = "Pressing Alt+Tab";
                             await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
@@ -193,7 +193,7 @@ namespace DirectXInput
                             Debug.WriteLine("Button Global - Screenshot");
                             PlayInterfaceSound(vConfigurationCtrlUI, "Screenshot", true);
 
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.WindowsLeft, KeyboardKeys.PrintScreen, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.WindowsLeft, KeyboardModifiers.None, KeyboardKeys.PrintScreen, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                             ControllerUsed = true;
                             ControllerDelayLonger = true;
