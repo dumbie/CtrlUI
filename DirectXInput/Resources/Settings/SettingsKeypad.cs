@@ -149,55 +149,71 @@ namespace DirectXInput
                 KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
 
                 //Update the keypad tool tips
-                btn_SetPadDPadLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.DPadLeftMod0, selectedProfile.DPadLeft, btn_SetPadDPadLeft.Tag.ToString()) };
-                btn_SetPadDPadUp.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.DPadUpMod0, selectedProfile.DPadUp, btn_SetPadDPadUp.Tag.ToString()) };
-                btn_SetPadDPadRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.DPadRightMod0, selectedProfile.DPadRight, btn_SetPadDPadRight.Tag.ToString()) };
-                btn_SetPadDPadDown.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.DPadDownMod0, selectedProfile.DPadDown, btn_SetPadDPadDown.Tag.ToString()) };
+                btn_SetPadDPadLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.DPadLeftMod0, selectedProfile.DPadLeftMod1, selectedProfile.DPadLeft, btn_SetPadDPadLeft.Tag.ToString()) };
+                btn_SetPadDPadUp.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.DPadUpMod0, selectedProfile.DPadUpMod1, selectedProfile.DPadUp, btn_SetPadDPadUp.Tag.ToString()) };
+                btn_SetPadDPadRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.DPadRightMod0, selectedProfile.DPadRightMod1, selectedProfile.DPadRight, btn_SetPadDPadRight.Tag.ToString()) };
+                btn_SetPadDPadDown.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.DPadDownMod0, selectedProfile.DPadDownMod1, selectedProfile.DPadDown, btn_SetPadDPadDown.Tag.ToString()) };
 
-                btn_SetPadThumbLeftLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbLeftLeftMod0, selectedProfile.ThumbLeftLeft, btn_SetPadThumbLeftLeft.Tag.ToString()) };
-                btn_SetPadThumbLeftUp.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbLeftUpMod0, selectedProfile.ThumbLeftUp, btn_SetPadThumbLeftUp.Tag.ToString()) };
-                btn_SetPadThumbLeftRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbLeftRightMod0, selectedProfile.ThumbLeftRight, btn_SetPadThumbLeftRight.Tag.ToString()) };
-                btn_SetPadThumbLeftDown.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbLeftDownMod0, selectedProfile.ThumbLeftDown, btn_SetPadThumbLeftDown.Tag.ToString()) };
-                btn_SetPadThumbLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonThumbLeftMod0, selectedProfile.ButtonThumbLeft, btn_SetPadThumbLeft.Tag.ToString()) };
+                btn_SetPadThumbLeftLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbLeftLeftMod0, selectedProfile.ThumbLeftLeftMod1, selectedProfile.ThumbLeftLeft, btn_SetPadThumbLeftLeft.Tag.ToString()) };
+                btn_SetPadThumbLeftUp.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbLeftUpMod0, selectedProfile.ThumbLeftUpMod1, selectedProfile.ThumbLeftUp, btn_SetPadThumbLeftUp.Tag.ToString()) };
+                btn_SetPadThumbLeftRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbLeftRightMod0, selectedProfile.ThumbLeftRightMod1, selectedProfile.ThumbLeftRight, btn_SetPadThumbLeftRight.Tag.ToString()) };
+                btn_SetPadThumbLeftDown.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbLeftDownMod0, selectedProfile.ThumbLeftDownMod1, selectedProfile.ThumbLeftDown, btn_SetPadThumbLeftDown.Tag.ToString()) };
+                btn_SetPadThumbLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonThumbLeftMod0, selectedProfile.ButtonThumbLeftMod1, selectedProfile.ButtonThumbLeft, btn_SetPadThumbLeft.Tag.ToString()) };
 
-                btn_SetPadThumbRightLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbRightLeftMod0, selectedProfile.ThumbRightLeft, btn_SetPadThumbRightLeft.Tag.ToString()) };
-                btn_SetPadThumbRightUp.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbRightUpMod0, selectedProfile.ThumbRightUp, btn_SetPadThumbRightUp.Tag.ToString()) };
-                btn_SetPadThumbRightRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbRightRightMod0, selectedProfile.ThumbRightRight, btn_SetPadThumbRightRight.Tag.ToString()) };
-                btn_SetPadThumbRightDown.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbRightDownMod0, selectedProfile.ThumbRightDown, btn_SetPadThumbRightDown.Tag.ToString()) };
-                btn_SetPadThumbRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonThumbRightMod0, selectedProfile.ButtonThumbRight, btn_SetPadThumbRight.Tag.ToString()) };
+                btn_SetPadThumbRightLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbRightLeftMod0, selectedProfile.ThumbRightLeftMod1, selectedProfile.ThumbRightLeft, btn_SetPadThumbRightLeft.Tag.ToString()) };
+                btn_SetPadThumbRightUp.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbRightUpMod0, selectedProfile.ThumbRightUpMod1, selectedProfile.ThumbRightUp, btn_SetPadThumbRightUp.Tag.ToString()) };
+                btn_SetPadThumbRightRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbRightRightMod0, selectedProfile.ThumbRightRightMod1, selectedProfile.ThumbRightRight, btn_SetPadThumbRightRight.Tag.ToString()) };
+                btn_SetPadThumbRightDown.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ThumbRightDownMod0, selectedProfile.ThumbRightDownMod1, selectedProfile.ThumbRightDown, btn_SetPadThumbRightDown.Tag.ToString()) };
+                btn_SetPadThumbRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonThumbRightMod0, selectedProfile.ButtonThumbRightMod1, selectedProfile.ButtonThumbRight, btn_SetPadThumbRight.Tag.ToString()) };
 
-                btn_SetPadBack.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonBackMod0, selectedProfile.ButtonBack, btn_SetPadBack.Tag.ToString()) };
-                btn_SetPadStart.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonStartMod0, selectedProfile.ButtonStart, btn_SetPadStart.Tag.ToString()) };
+                btn_SetPadBack.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonBackMod0, selectedProfile.ButtonBackMod1, selectedProfile.ButtonBack, btn_SetPadBack.Tag.ToString()) };
+                btn_SetPadStart.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonStartMod0, selectedProfile.ButtonStartMod1, selectedProfile.ButtonStart, btn_SetPadStart.Tag.ToString()) };
 
-                btn_SetPadX.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonXMod0, selectedProfile.ButtonX, btn_SetPadX.Tag.ToString()) };
-                btn_SetPadY.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonYMod0, selectedProfile.ButtonY, btn_SetPadY.Tag.ToString()) };
-                btn_SetPadA.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonAMod0, selectedProfile.ButtonA, btn_SetPadA.Tag.ToString()) };
-                btn_SetPadB.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonBMod0, selectedProfile.ButtonB, btn_SetPadB.Tag.ToString()) };
+                btn_SetPadX.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonXMod0, selectedProfile.ButtonXMod1, selectedProfile.ButtonX, btn_SetPadX.Tag.ToString()) };
+                btn_SetPadY.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonYMod0, selectedProfile.ButtonYMod1, selectedProfile.ButtonY, btn_SetPadY.Tag.ToString()) };
+                btn_SetPadA.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonAMod0, selectedProfile.ButtonAMod1, selectedProfile.ButtonA, btn_SetPadA.Tag.ToString()) };
+                btn_SetPadB.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonBMod0, selectedProfile.ButtonBMod1, selectedProfile.ButtonB, btn_SetPadB.Tag.ToString()) };
 
-                btn_SetPadShoulderLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonShoulderLeftMod0, selectedProfile.ButtonShoulderLeft, btn_SetPadShoulderLeft.Tag.ToString()) };
-                btn_SetPadTriggerLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonTriggerLeftMod0, selectedProfile.ButtonTriggerLeft, btn_SetPadTriggerLeft.Tag.ToString()) };
-                btn_SetPadShoulderRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonShoulderRightMod0, selectedProfile.ButtonShoulderRight, btn_SetPadShoulderRight.Tag.ToString()) };
-                btn_SetPadTriggerRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonTriggerRightMod0, selectedProfile.ButtonTriggerRight, btn_SetPadTriggerRight.Tag.ToString()) };
+                btn_SetPadShoulderLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonShoulderLeftMod0, selectedProfile.ButtonShoulderLeftMod1, selectedProfile.ButtonShoulderLeft, btn_SetPadShoulderLeft.Tag.ToString()) };
+                btn_SetPadTriggerLeft.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonTriggerLeftMod0, selectedProfile.ButtonTriggerLeftMod1, selectedProfile.ButtonTriggerLeft, btn_SetPadTriggerLeft.Tag.ToString()) };
+                btn_SetPadShoulderRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonShoulderRightMod0, selectedProfile.ButtonShoulderRightMod1, selectedProfile.ButtonShoulderRight, btn_SetPadShoulderRight.Tag.ToString()) };
+                btn_SetPadTriggerRight.ToolTip = new ToolTip() { Content = GenerateKeypadKeyToolTip(selectedProfile.ButtonTriggerRightMod0, selectedProfile.ButtonTriggerRightMod1, selectedProfile.ButtonTriggerRight, btn_SetPadTriggerRight.Tag.ToString()) };
             }
             catch { }
         }
 
         //Generate keypad tool tip
-        string GenerateKeypadKeyToolTip(KeyboardModifiers? modifierKey, KeyboardKeys? virtualKey, string keyName)
+        string GenerateKeypadKeyToolTip(KeyboardModifiers modifierKey0, KeyboardModifiers modifierKey1, KeyboardKeys virtualKey, string keyName)
         {
             try
             {
-                if (modifierKey != KeyboardModifiers.None && virtualKey != KeyboardKeys.None)
+                if (modifierKey0 != KeyboardModifiers.None && modifierKey1 != KeyboardModifiers.None && virtualKey != KeyboardKeys.None)
                 {
-                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardModifiersName((KeyboardModifiers)modifierKey, false) + " / " + vFakerInputDevice.GetKeyboardKeysName((KeyboardKeys)virtualKey, false);
+                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardModifiersName(modifierKey0, false) + " / " + vFakerInputDevice.GetKeyboardModifiersName(modifierKey1, false) + " / " + vFakerInputDevice.GetKeyboardKeysName(virtualKey, false);
                 }
-                else if (modifierKey != KeyboardModifiers.None)
+                else if (modifierKey0 != KeyboardModifiers.None && modifierKey1 != KeyboardModifiers.None)
                 {
-                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardModifiersName((KeyboardModifiers)modifierKey, false);
+                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardModifiersName(modifierKey0, false) + " / " + vFakerInputDevice.GetKeyboardModifiersName(modifierKey1, false);
+                }
+                else if (modifierKey0 != KeyboardModifiers.None && virtualKey != KeyboardKeys.None)
+                {
+                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardModifiersName(modifierKey0, false) + " / " + vFakerInputDevice.GetKeyboardKeysName(virtualKey, false);
+                }
+                else if (modifierKey1 != KeyboardModifiers.None && virtualKey != KeyboardKeys.None)
+                {
+                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardModifiersName(modifierKey1, false) + " / " + vFakerInputDevice.GetKeyboardKeysName(virtualKey, false);
+                }
+                else if (modifierKey0 != KeyboardModifiers.None)
+                {
+                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardModifiersName(modifierKey0, false);
+                }
+                else if (modifierKey1 != KeyboardModifiers.None)
+                {
+                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardModifiersName(modifierKey1, false);
                 }
                 else if (virtualKey != KeyboardKeys.None)
                 {
-                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardKeysName((KeyboardKeys)virtualKey, false);
+                    return keyName + " is mapped to " + vFakerInputDevice.GetKeyboardKeysName(virtualKey, false);
                 }
             }
             catch { }

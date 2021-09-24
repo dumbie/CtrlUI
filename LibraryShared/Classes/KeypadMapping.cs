@@ -78,9 +78,6 @@ namespace LibraryShared
             public KeyboardModifiers ButtonStartMod0 { get; set; } = KeyboardModifiers.None;
             public KeyboardModifiers ButtonStartMod1 { get; set; } = KeyboardModifiers.None;
             public KeyboardKeys ButtonStart { get; set; } = KeyboardKeys.None;
-            public KeyboardModifiers ButtonGuideMod0 { get; set; } = KeyboardModifiers.None;
-            public KeyboardModifiers ButtonGuideMod1 { get; set; } = KeyboardModifiers.None;
-            public KeyboardKeys ButtonGuide { get; set; } = KeyboardKeys.None;
 
             public KeyboardModifiers ButtonShoulderLeftMod0 { get; set; } = KeyboardModifiers.None;
             public KeyboardModifiers ButtonShoulderLeftMod1 { get; set; } = KeyboardModifiers.None;
