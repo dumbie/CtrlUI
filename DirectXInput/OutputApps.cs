@@ -27,7 +27,8 @@ namespace DirectXInput
                     }
                     else if (App.vWindowKeypad.vWindowVisible)
                     {
-                        await App.vWindowKeypad.ControllerInteractionKeypadUpdate();
+                        await App.vWindowKeypad.ControllerInteractionKeypadProfile();
+                        App.vWindowKeypad.ControllerInteractionKeypadPreview(Controller.InputCurrent);
                         App.vWindowKeypad.ControllerInteractionMouse(Controller.InputCurrent);
                         App.vWindowKeypad.ControllerInteractionKeyboard(Controller.InputCurrent);
                         return true;

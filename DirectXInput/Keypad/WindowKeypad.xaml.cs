@@ -72,8 +72,8 @@ namespace DirectXInput.KeypadCode
                     //Update last active status
                     vKeyboardKeypadLastActive = "Keypad";
 
-                    //Keypad release keyboard buttons
-                    ControllerInteractionKeypadRelease();
+                    //Release keyboard buttons
+                    vFakerInputDevice.KeyboardReset();
 
                     //Delay CtrlUI output
                     vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;

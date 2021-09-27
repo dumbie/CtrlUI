@@ -102,7 +102,6 @@ namespace DirectXInput
 
         //Keypad Variables
         public static KeypadMapping vKeypadMappingProfile = new KeypadMapping();
-        public static KeypadStatus vKeypadDownStatus = new KeypadStatus();
         public static string vKeypadPreviousProcessName = string.Empty;
         public static string vKeypadPreviousProcessTitle = string.Empty;
 
@@ -120,12 +119,14 @@ namespace DirectXInput
         public static int vControllerOffsetNormal = 15000;
         public static int vControllerDelayNanoTicks = 10;
         public static int vControllerDelayMicroTicks = 75;
-        public static int vControllerDelayShortTicks = 125;
+        public static int vControllerDelayMacroTicks = 100;
+        public static int vControllerDelayShortTicks = 120;
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 500;
         public static int vControllerDelayLongerTicks = 750;
         public static int vControllerDelayLongestTicks = 1000;
-        public static long vControllerDelay_Keypad = GetSystemTicksMs();
+        public static long vControllerDelay_KeypadProfile = GetSystemTicksMs();
+        public static long vControllerDelay_KeypadPreview = GetSystemTicksMs();
         public static long vControllerDelay_Keyboard = GetSystemTicksMs();
         public static long vControllerDelay_Media = GetSystemTicksMs();
         public static long vControllerDelay_Mouse = GetSystemTicksMs();

@@ -46,6 +46,30 @@ namespace LibraryUsb
             }
         }
 
+        public bool KeyboardPressByte(byte byteModifiers, byte[] byteKeys)
+        {
+            try
+            {
+                FAKERINPUT_CONTROL_REPORT_HEADER structHeader = new FAKERINPUT_CONTROL_REPORT_HEADER();
+                structHeader.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_CONTROL;
+                structHeader.ReportLength = (byte)Marshal.SizeOf(typeof(FAKERINPUT_KEYBOARD_REPORT));
+                byte[] headerArray = ConvertToByteArray(structHeader);
+
+                FAKERINPUT_KEYBOARD_REPORT structInput = new FAKERINPUT_KEYBOARD_REPORT();
+                structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_KEYBOARD;
+                structInput.ModifierCodes = byteModifiers;
+                structInput.KeyCodes = byteKeys;
+                byte[] inputArray = ConvertToByteArray(structInput);
+
+                return WriteBytesFile(MergeHeaderInputByteArray(CONTROL_REPORT_SIZE, headerArray, inputArray));
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to press keyboard key.");
+                return false;
+            }
+        }
+
         public bool KeyboardReset()
         {
             try

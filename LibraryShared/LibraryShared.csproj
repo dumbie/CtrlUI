@@ -303,7 +303,6 @@
     <Compile Include="Classes\FrameworkElementFocus.cs" />
     <Compile Include="Classes\KeypadMapping.cs" />
     <Compile Include="Classes\KeypadSize.cs" />
-    <Compile Include="Classes\KeypadStatus.cs" />
     <Compile Include="Classes\LauncherBattleNet.cs" />
     <Compile Include="Classes\LauncherEpic.cs" />
     <Compile Include="Classes\LauncherGoG.cs" />
