@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
 using static DirectXInput.AppVariables;
@@ -62,6 +64,7 @@ namespace DirectXInput
                     {
                         vConfigurationCtrlUI = Settings_Load_CtrlUI();
                         Settings_Load_AccentColor(vConfigurationCtrlUI);
+                        vApplicationAccentLightBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
                     }
                     else if (receivedString == "SettingChangedInterfaceSoundPackName")
                     {

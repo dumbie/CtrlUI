@@ -40,18 +40,10 @@ namespace DirectXInput
                 }
 
                 //Check if controller shortcut is pressed
-                bool blockOutputShortcut = false;
-                if (!vAppActivated)
-                {
-                    blockOutputShortcut = await ControllerShortcut(Controller);
-                }
+                bool blockOutputShortcut = await ControllerShortcut(Controller);
 
                 //Check if controller output needs to be forwarded
-                bool blockOutputApplication = false;
-                if (!vAppActivated)
-                {
-                    blockOutputShortcut = await ControllerOutputApps(Controller);
-                }
+                bool blockOutputApplication = await ControllerOutputApps(Controller);
 
                 //Check if output or guide button needs to be blocked
                 if (blockOutputApplication || blockOutputShortcut || Controller.BlockInteraction)

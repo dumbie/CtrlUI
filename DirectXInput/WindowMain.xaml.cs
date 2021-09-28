@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using System.Windows.Media;
 using static ArnoldVinkCode.ProcessFunctions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -47,6 +48,7 @@ namespace DirectXInput
 
                 //Change application accent color
                 Settings_Load_AccentColor(vConfigurationCtrlUI);
+                vApplicationAccentLightBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
 
                 //Create the tray menu
                 Application_CreateTrayMenu();

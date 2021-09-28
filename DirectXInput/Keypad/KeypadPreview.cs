@@ -1,6 +1,4 @@
 ﻿using ArnoldVinkCode;
-using System.Windows;
-using System.Windows.Media;
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -20,54 +18,43 @@ namespace DirectXInput.KeypadCode
                     {
                         try
                         {
-                            SolidColorBrush targetSolidColorBrushDarkLight = null;
-                            SolidColorBrush targetSolidColorBrushAccent = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
-                            if (vKeypadMappingProfile.KeypadDisplayStyle == 0)
-                            {
-                                targetSolidColorBrushDarkLight = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFF");
-                            }
-                            else
-                            {
-                                targetSolidColorBrushDarkLight = (SolidColorBrush)new BrushConverter().ConvertFrom("#000000");
-                            }
-
                             //DPad
-                            if (controllerInput.DPadLeft.PressedRaw) { textblock_DPadLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_DPadLeft.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.DPadUp.PressedRaw) { textblock_DPadUp.Foreground = targetSolidColorBrushAccent; } else { textblock_DPadUp.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.DPadRight.PressedRaw) { textblock_DPadRight.Foreground = targetSolidColorBrushAccent; } else { textblock_DPadRight.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.DPadDown.PressedRaw) { textblock_DPadDown.Foreground = targetSolidColorBrushAccent; } else { textblock_DPadDown.Foreground = targetSolidColorBrushDarkLight; }
+                            if (controllerInput.DPadLeft.PressedRaw) { textblock_DPadLeft.Foreground = vApplicationAccentLightBrush; } else { textblock_DPadLeft.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.DPadUp.PressedRaw) { textblock_DPadUp.Foreground = vApplicationAccentLightBrush; } else { textblock_DPadUp.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.DPadRight.PressedRaw) { textblock_DPadRight.Foreground = vApplicationAccentLightBrush; } else { textblock_DPadRight.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.DPadDown.PressedRaw) { textblock_DPadDown.Foreground = vApplicationAccentLightBrush; } else { textblock_DPadDown.Foreground = vKeypadNormalBrush; }
 
                             //Thumb Left
-                            if (controllerInput.ThumbLeftX < -vControllerOffsetMedium) { textblock_ThumbLeftLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbLeftLeft.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ThumbLeftY > vControllerOffsetMedium) { textblock_ThumbLeftUp.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbLeftUp.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ThumbLeftX > vControllerOffsetMedium) { textblock_ThumbLeftRight.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbLeftRight.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ThumbLeftY < -vControllerOffsetMedium) { textblock_ThumbLeftDown.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbLeftDown.Foreground = targetSolidColorBrushDarkLight; }
+                            if (controllerInput.ThumbLeftX < -vControllerOffsetMedium) { textblock_ThumbLeftLeft.Foreground = vApplicationAccentLightBrush; } else { textblock_ThumbLeftLeft.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ThumbLeftY > vControllerOffsetMedium) { textblock_ThumbLeftUp.Foreground = vApplicationAccentLightBrush; } else { textblock_ThumbLeftUp.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ThumbLeftX > vControllerOffsetMedium) { textblock_ThumbLeftRight.Foreground = vApplicationAccentLightBrush; } else { textblock_ThumbLeftRight.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ThumbLeftY < -vControllerOffsetMedium) { textblock_ThumbLeftDown.Foreground = vApplicationAccentLightBrush; } else { textblock_ThumbLeftDown.Foreground = vKeypadNormalBrush; }
 
                             //Thumb Right
-                            if (controllerInput.ThumbRightX < -vControllerOffsetMedium) { textblock_ThumbRightLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbRightLeft.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ThumbRightY > vControllerOffsetMedium) { textblock_ThumbRightUp.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbRightUp.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ThumbRightX > vControllerOffsetMedium) { textblock_ThumbRightRight.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbRightRight.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ThumbRightY < -vControllerOffsetMedium) { textblock_ThumbRightDown.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbRightDown.Foreground = targetSolidColorBrushDarkLight; }
+                            if (controllerInput.ThumbRightX < -vControllerOffsetMedium) { textblock_ThumbRightLeft.Foreground = vApplicationAccentLightBrush; } else { textblock_ThumbRightLeft.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ThumbRightY > vControllerOffsetMedium) { textblock_ThumbRightUp.Foreground = vApplicationAccentLightBrush; } else { textblock_ThumbRightUp.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ThumbRightX > vControllerOffsetMedium) { textblock_ThumbRightRight.Foreground = vApplicationAccentLightBrush; } else { textblock_ThumbRightRight.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ThumbRightY < -vControllerOffsetMedium) { textblock_ThumbRightDown.Foreground = vApplicationAccentLightBrush; } else { textblock_ThumbRightDown.Foreground = vKeypadNormalBrush; }
 
                             //Buttons
-                            if (controllerInput.ButtonA.PressedRaw) { textblock_ButtonA.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonA.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ButtonB.PressedRaw) { textblock_ButtonB.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonB.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ButtonX.PressedRaw) { textblock_ButtonX.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonX.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ButtonY.PressedRaw) { textblock_ButtonY.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonY.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ButtonBack.PressedRaw) { textblock_ButtonBack.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonBack.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ButtonStart.PressedRaw) { textblock_ButtonStart.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonStart.Foreground = targetSolidColorBrushDarkLight; }
+                            if (controllerInput.ButtonA.PressedRaw) { textblock_ButtonA.Foreground = vApplicationAccentLightBrush; } else { textblock_ButtonA.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ButtonB.PressedRaw) { textblock_ButtonB.Foreground = vApplicationAccentLightBrush; } else { textblock_ButtonB.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ButtonX.PressedRaw) { textblock_ButtonX.Foreground = vApplicationAccentLightBrush; } else { textblock_ButtonX.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ButtonY.PressedRaw) { textblock_ButtonY.Foreground = vApplicationAccentLightBrush; } else { textblock_ButtonY.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ButtonBack.PressedRaw) { textblock_ButtonBack.Foreground = vApplicationAccentLightBrush; } else { textblock_ButtonBack.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ButtonStart.PressedRaw) { textblock_ButtonStart.Foreground = vApplicationAccentLightBrush; } else { textblock_ButtonStart.Foreground = vKeypadNormalBrush; }
 
                             //Shoulder
-                            if (controllerInput.ButtonShoulderLeft.PressedRaw) { textblock_ButtonShoulderLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonShoulderLeft.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ButtonShoulderRight.PressedRaw) { textblock_ButtonShoulderRight.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonShoulderRight.Foreground = targetSolidColorBrushDarkLight; }
+                            if (controllerInput.ButtonShoulderLeft.PressedRaw) { textblock_ButtonShoulderLeft.Foreground = vApplicationAccentLightBrush; } else { textblock_ButtonShoulderLeft.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ButtonShoulderRight.PressedRaw) { textblock_ButtonShoulderRight.Foreground = vApplicationAccentLightBrush; } else { textblock_ButtonShoulderRight.Foreground = vKeypadNormalBrush; }
 
                             //Trigger
-                            if (controllerInput.ButtonTriggerLeft.PressedRaw) { textblock_ButtonTriggerLeft.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonTriggerLeft.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ButtonTriggerRight.PressedRaw) { textblock_ButtonTriggerRight.Foreground = targetSolidColorBrushAccent; } else { textblock_ButtonTriggerRight.Foreground = targetSolidColorBrushDarkLight; }
+                            if (controllerInput.ButtonTriggerLeft.PressedRaw) { textblock_ButtonTriggerLeft.Foreground = vApplicationAccentLightBrush; } else { textblock_ButtonTriggerLeft.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ButtonTriggerRight.PressedRaw) { textblock_ButtonTriggerRight.Foreground = vApplicationAccentLightBrush; } else { textblock_ButtonTriggerRight.Foreground = vKeypadNormalBrush; }
 
                             //Thumb
-                            if (controllerInput.ButtonThumbLeft.PressedRaw) { textblock_ThumbLeftButton.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbLeftButton.Foreground = targetSolidColorBrushDarkLight; }
-                            if (controllerInput.ButtonThumbRight.PressedRaw) { textblock_ThumbRightButton.Foreground = targetSolidColorBrushAccent; } else { textblock_ThumbRightButton.Foreground = targetSolidColorBrushDarkLight; }
+                            if (controllerInput.ButtonThumbLeft.PressedRaw) { textblock_ThumbLeftButton.Foreground = vApplicationAccentLightBrush; } else { textblock_ThumbLeftButton.Foreground = vKeypadNormalBrush; }
+                            if (controllerInput.ButtonThumbRight.PressedRaw) { textblock_ThumbRightButton.Foreground = vApplicationAccentLightBrush; } else { textblock_ThumbRightButton.Foreground = vKeypadNormalBrush; }
                         }
                         catch { }
                     });

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using System.Windows.Media;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
@@ -161,6 +162,7 @@ namespace DirectXInput.KeypadCode
                             image_ButtonBack.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadButton.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                             image_ButtonStart.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadButton.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                             image_Action.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadAction.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            vKeypadNormalBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFF");
                         }
                         else
                         {
@@ -172,6 +174,7 @@ namespace DirectXInput.KeypadCode
                             image_ButtonBack.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadButtonDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                             image_ButtonStart.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadButtonDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                             image_Action.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Buttons/KeypadActionDark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            vKeypadNormalBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#000000");
                         }
                     }
                     catch { }
