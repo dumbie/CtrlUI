@@ -174,7 +174,7 @@ namespace CtrlUI
         public static int vControllerDelayNanoTicks = 10;
         public static int vControllerDelayMicroTicks = 75;
         public static int vControllerDelayMacroTicks = 100;
-        public static int vControllerDelayShortTicks = 120;
+        public static int vControllerDelayShortTicks = 125;
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 500;
         public static int vControllerDelayLongerTicks = 750;

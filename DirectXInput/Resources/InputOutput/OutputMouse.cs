@@ -17,13 +17,13 @@ namespace DirectXInput
                 int absHorizontal = Math.Abs(thumbHorizontal);
                 int absVertical = Math.Abs(thumbVertical);
 
-                if (absHorizontal > vControllerOffsetNormal || absVertical > vControllerOffsetNormal)
+                if (absHorizontal > vControllerThumbOffsetLarge || absVertical > vControllerThumbOffsetLarge)
                 {
                     double mouseSensitivity = thumbSensitivity / (double)15000;
                     mouseHorizontal = Convert.ToInt32(thumbHorizontal * mouseSensitivity);
                     mouseVertical = Convert.ToInt32(thumbVertical * mouseSensitivity);
                 }
-                else if (absHorizontal > vControllerOffsetSmall || absVertical > vControllerOffsetSmall)
+                else if (absHorizontal > vControllerThumbOffsetSmall || absVertical > vControllerThumbOffsetSmall)
                 {
                     double mouseSensitivity = thumbSensitivity / (double)25000;
                     mouseHorizontal = Convert.ToInt32(thumbHorizontal * mouseSensitivity);
@@ -62,20 +62,20 @@ namespace DirectXInput
                 //Check the thumb movement
                 if (flipVertical) { thumbVertical = -thumbVertical; }
 
-                if (thumbHorizontal > vControllerOffsetNormal)
+                if (thumbHorizontal > vControllerThumbOffsetNormal)
                 {
                     scrollHorizontal = thumbSensitivity;
                 }
-                if (thumbVertical > vControllerOffsetNormal)
+                if (thumbVertical > vControllerThumbOffsetNormal)
                 {
                     scrollVertical = thumbSensitivity;
                 }
 
-                if (thumbHorizontal < -vControllerOffsetNormal)
+                if (thumbHorizontal < -vControllerThumbOffsetNormal)
                 {
                     scrollHorizontal = -thumbSensitivity;
                 }
-                if (thumbVertical < -vControllerOffsetNormal)
+                if (thumbVertical < -vControllerThumbOffsetNormal)
                 {
                     scrollVertical = -thumbSensitivity;
                 }

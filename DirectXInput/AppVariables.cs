@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Principal;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using static ArnoldVinkCode.AVActions;
@@ -93,6 +94,10 @@ namespace DirectXInput
         public static int vDirectKeyboardEmojiIndexSymbol = 0;
         public static int vDirectKeyboardEmojiIndexTravel = 0;
 
+        //Color Variables
+        public static SolidColorBrush vKeypadNormalBrush = null;
+        public static SolidColorBrush vApplicationAccentLightBrush = null;
+
         //Keyboard Variables
         public static string vKeyboardKeypadLastActive = "Keyboard";
         public static bool vCapsEnabled = false;
@@ -114,13 +119,14 @@ namespace DirectXInput
         public static bool vControllerBusy = false;
         public static bool vControllerMuteLedCurrent = false;
         public static bool vControllerMuteLedPrevious = false;
-        public static int vControllerOffsetSmall = 2500;
-        public static int vControllerOffsetMedium = 7500;
-        public static int vControllerOffsetNormal = 15000;
+        public static int vControllerThumbOffsetSmall = 2500;
+        public static int vControllerThumbOffsetMedium = 7500;
+        public static int vControllerThumbOffsetNormal = 10000;
+        public static int vControllerThumbOffsetLarge = 15000;
         public static int vControllerDelayNanoTicks = 10;
         public static int vControllerDelayMicroTicks = 75;
         public static int vControllerDelayMacroTicks = 100;
-        public static int vControllerDelayShortTicks = 120;
+        public static int vControllerDelayShortTicks = 125;
         public static int vControllerDelayMediumTicks = 250;
         public static int vControllerDelayLongTicks = 500;
         public static int vControllerDelayLongerTicks = 750;
