@@ -33,6 +33,28 @@ namespace LibraryUsb
             }
         }
 
+        public bool MouseResetRelative()
+        {
+            try
+            {
+                FAKERINPUT_CONTROL_REPORT_HEADER structHeader = new FAKERINPUT_CONTROL_REPORT_HEADER();
+                structHeader.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_CONTROL;
+                structHeader.ReportLength = (byte)Marshal.SizeOf(typeof(FAKERINPUT_RELATIVE_MOUSE_REPORT));
+                byte[] headerArray = ConvertToByteArray(structHeader);
+
+                FAKERINPUT_RELATIVE_MOUSE_REPORT structInput = new FAKERINPUT_RELATIVE_MOUSE_REPORT();
+                structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_RELATIVE_MOUSE;
+                byte[] inputArray = ConvertToByteArray(structInput);
+
+                return WriteBytesFile(MergeHeaderInputByteArray(CONTROL_REPORT_SIZE, headerArray, inputArray));
+            }
+            catch
+            {
+                Debug.WriteLine("Failed to reset relative mouse input.");
+                return false;
+            }
+        }
+
         public bool MouseAbsolute(int moveHorizontal, int moveVertical, int scrollHorizontal, int scrollVertical, MouseButtons mouseButton)
         {
             try
@@ -71,24 +93,24 @@ namespace LibraryUsb
             }
         }
 
-        public bool MouseReset()
+        public bool MouseResetAbsolute()
         {
             try
             {
                 FAKERINPUT_CONTROL_REPORT_HEADER structHeader = new FAKERINPUT_CONTROL_REPORT_HEADER();
                 structHeader.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_CONTROL;
-                structHeader.ReportLength = (byte)Marshal.SizeOf(typeof(FAKERINPUT_RELATIVE_MOUSE_REPORT));
+                structHeader.ReportLength = (byte)Marshal.SizeOf(typeof(FAKERINPUT_ABSOLUTE_MOUSE_REPORT));
                 byte[] headerArray = ConvertToByteArray(structHeader);
 
-                FAKERINPUT_RELATIVE_MOUSE_REPORT structInput = new FAKERINPUT_RELATIVE_MOUSE_REPORT();
-                structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_RELATIVE_MOUSE;
+                FAKERINPUT_ABSOLUTE_MOUSE_REPORT structInput = new FAKERINPUT_ABSOLUTE_MOUSE_REPORT();
+                structInput.ReportID = (byte)FAKERINPUT_REPORT_ID.REPORTID_ABSOLUTE_MOUSE;
                 byte[] inputArray = ConvertToByteArray(structInput);
 
                 return WriteBytesFile(MergeHeaderInputByteArray(CONTROL_REPORT_SIZE, headerArray, inputArray));
             }
             catch
             {
-                Debug.WriteLine("Failed to reset mouse input.");
+                Debug.WriteLine("Failed to reset absolute mouse input.");
                 return false;
             }
         }

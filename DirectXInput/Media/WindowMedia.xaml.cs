@@ -73,6 +73,11 @@ namespace DirectXInput.MediaCode
                     //Update the window visibility
                     await UpdateWindowVisibility(false);
 
+                    //Release keyboard and mouse
+                    vFakerInputDevice.KeyboardReset();
+                    vFakerInputDevice.MouseResetAbsolute();
+                    vFakerInputDevice.MouseResetRelative();
+
                     //Delay CtrlUI output
                     vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
                     vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
