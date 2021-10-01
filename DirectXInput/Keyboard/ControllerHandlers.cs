@@ -20,8 +20,8 @@ namespace DirectXInput.KeyboardCode
         //Process controller input for mouse
         public void ControllerInteractionMouse(ControllerInput ControllerInput)
         {
-            bool ControllerDelayLong = false;
-            bool ControllerDelayShort = false;
+            bool ControllerDelay125 = false;
+            bool ControllerDelay500 = false;
             try
             {
                 if (GetSystemTicksMs() >= vControllerDelay_Mouse)
@@ -50,7 +50,7 @@ namespace DirectXInput.KeyboardCode
                         GetMouseMovementAmountFromThumbScroll(scrollSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, false, out scrollHorizontalRight, out scrollVerticalRight);
                         if (scrollHorizontalRight != 0 || scrollVerticalRight != 0)
                         {
-                            ControllerDelayShort = true;
+                            ControllerDelay125 = true;
                         }
                     }
 
@@ -58,7 +58,7 @@ namespace DirectXInput.KeyboardCode
                     if (ControllerInput.ButtonShoulderLeft.PressedRaw && ControllerInput.ButtonShoulderRight.PressedRaw)
                     {
                         buttonPress = MouseButtons.MiddleButton;
-                        ControllerDelayLong = true;
+                        ControllerDelay500 = true;
                     }
                     else if (ControllerInput.ButtonShoulderLeft.PressedRaw)
                     {
@@ -77,17 +77,17 @@ namespace DirectXInput.KeyboardCode
                     vFakerInputDevice.MouseRelative(moveHorizontalLeft, moveVerticalLeft, scrollHorizontalRight, scrollVerticalRight, buttonPress);
 
                     //Delay input to prevent repeat
-                    if (ControllerDelayLong)
+                    if (ControllerDelay125)
                     {
-                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayLongTicks;
+                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayTicks125;
                     }
-                    else if (ControllerDelayShort)
+                    else if (ControllerDelay500)
                     {
-                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayShortTicks;
+                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayTicks500;
                     }
                     else
                     {
-                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayNanoTicks;
+                        vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayTicks10;
                     }
                 }
             }
@@ -97,8 +97,8 @@ namespace DirectXInput.KeyboardCode
         //Process controller input for keyboard
         public async Task ControllerInteractionKeyboard(ControllerInput ControllerInput)
         {
-            bool ControllerDelayShort = false;
-            bool ControllerDelayMedium = false;
+            bool ControllerDelay125 = false;
+            bool ControllerDelay250 = false;
             try
             {
                 if (GetSystemTicksMs() >= vControllerDelay_Keyboard)
@@ -109,7 +109,7 @@ namespace DirectXInput.KeyboardCode
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
 
-                        ControllerDelayShort = true;
+                        ControllerDelay125 = true;
                     }
                     //Send internal arrow right key
                     else if (ControllerInput.DPadRight.PressedRaw)
@@ -117,7 +117,7 @@ namespace DirectXInput.KeyboardCode
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
 
-                        ControllerDelayShort = true;
+                        ControllerDelay125 = true;
                     }
                     //Send internal arrow up key
                     else if (ControllerInput.DPadUp.PressedRaw)
@@ -125,7 +125,7 @@ namespace DirectXInput.KeyboardCode
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
 
-                        ControllerDelayShort = true;
+                        ControllerDelay125 = true;
                     }
                     //Send internal arrow down key
                     else if (ControllerInput.DPadDown.PressedRaw)
@@ -133,7 +133,7 @@ namespace DirectXInput.KeyboardCode
                         PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
                         KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
 
-                        ControllerDelayShort = true;
+                        ControllerDelay125 = true;
                     }
 
                     //Send internal space key
@@ -141,7 +141,7 @@ namespace DirectXInput.KeyboardCode
                     {
                         KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
 
-                        ControllerDelayShort = true;
+                        ControllerDelay125 = true;
                     }
                     //Send external enter key
                     else if (ControllerInput.ButtonB.PressedRaw)
@@ -149,7 +149,7 @@ namespace DirectXInput.KeyboardCode
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
-                        ControllerDelayShort = true;
+                        ControllerDelay125 = true;
                     }
                     //Send external space key
                     else if (ControllerInput.ButtonY.PressedRaw)
@@ -157,7 +157,7 @@ namespace DirectXInput.KeyboardCode
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Space, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
-                        ControllerDelayShort = true;
+                        ControllerDelay125 = true;
                     }
                     //Send external backspace or delete key
                     else if (ControllerInput.ButtonX.PressedRaw)
@@ -172,7 +172,7 @@ namespace DirectXInput.KeyboardCode
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Backspace, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                         }
 
-                        ControllerDelayShort = true;
+                        ControllerDelay125 = true;
                     }
 
                     //Send external arrow left key
@@ -181,7 +181,7 @@ namespace DirectXInput.KeyboardCode
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
-                        ControllerDelayShort = true;
+                        ControllerDelay125 = true;
                     }
                     //Send external arrow right key
                     else if (ControllerInput.ButtonThumbRight.PressedRaw)
@@ -189,7 +189,7 @@ namespace DirectXInput.KeyboardCode
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
-                        ControllerDelayShort = true;
+                        ControllerDelay125 = true;
                     }
 
                     //Switch caps lock
@@ -207,7 +207,7 @@ namespace DirectXInput.KeyboardCode
                             SwitchCapsLock();
                         }
 
-                        ControllerDelayMedium = true;
+                        ControllerDelay250 = true;
                     }
                     //Send external tab
                     else if (ControllerInput.TriggerRight > 0)
@@ -230,7 +230,7 @@ namespace DirectXInput.KeyboardCode
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
                         }
 
-                        ControllerDelayMedium = true;
+                        ControllerDelay250 = true;
                     }
 
                     //Show hide text emoji popup
@@ -249,7 +249,7 @@ namespace DirectXInput.KeyboardCode
                             }
                         });
 
-                        ControllerDelayMedium = true;
+                        ControllerDelay250 = true;
                     }
                     //Switch scroll and move
                     else if (ControllerInput.ButtonStart.PressedRaw)
@@ -257,17 +257,17 @@ namespace DirectXInput.KeyboardCode
                         Debug.WriteLine("Button: StartPressed / Scroll and Move");
                         SwitchKeyboardMode();
 
-                        ControllerDelayMedium = true;
+                        ControllerDelay250 = true;
                     }
 
                     //Delay input to prevent repeat
-                    if (ControllerDelayShort)
+                    if (ControllerDelay125)
                     {
-                        vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayShortTicks;
+                        vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayTicks125;
                     }
-                    else if (ControllerDelayMedium)
+                    else if (ControllerDelay250)
                     {
-                        vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                        vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayTicks250;
                     }
                 }
             }

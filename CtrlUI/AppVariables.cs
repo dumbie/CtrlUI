@@ -171,19 +171,17 @@ namespace CtrlUI
         }
 
         public static bool vControllerBusy = false;
-        public static int vControllerDelayNanoTicks = 10;
-        public static int vControllerDelayMicroTicks = 75;
-        public static int vControllerDelayMacroTicks = 100;
-        public static int vControllerDelayShortTicks = 125;
-        public static int vControllerDelayMediumTicks = 250;
-        public static int vControllerDelayLongTicks = 500;
-        public static int vControllerDelayLongerTicks = 750;
-        public static int vControllerDelayLongestTicks = 1000;
-        public static long vControllerDelay_DPad = GetSystemTicksMs();
-        public static long vControllerDelay_Stick = GetSystemTicksMs();
-        public static long vControllerDelay_Trigger = GetSystemTicksMs();
-        public static long vControllerDelay_Button = GetSystemTicksMs();
-        public static long vControllerDelay_Activate = GetSystemTicksMs();
+        public static int vControllerDelayTicks10 = 10;
+        public static int vControllerDelayTicks125 = 125;
+        public static int vControllerDelayTicks250 = 250;
+        public static int vControllerDelayTicks500 = 500;
+        public static int vControllerDelayTicks750 = 750;
+        public static int vControllerDelayTicks1000 = 1000;
+        public static long vControllerDelay_DPad = 0;
+        public static long vControllerDelay_Stick = 0;
+        public static long vControllerDelay_Trigger = 0;
+        public static long vControllerDelay_Button = 0;
+        public static long vControllerDelay_Activate = 0;
 
         //Sockets Variables
         public static ArnoldVinkSockets vArnoldVinkSockets = null;

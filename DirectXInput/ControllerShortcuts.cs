@@ -23,8 +23,8 @@ namespace DirectXInput
         async Task<bool> ControllerShortcut(ControllerStatus Controller)
         {
             bool ControllerUsed = false;
-            bool ControllerDelayShort = false;
-            bool ControllerDelayLonger = false;
+            bool ControllerDelay125 = false;
+            bool ControllerDelay750 = false;
             try
             {
                 if (GetSystemTicksMs() >= Controller.Delay_ControllerShortcut)
@@ -36,7 +36,7 @@ namespace DirectXInput
                         bool controllerActivated = await ControllerActivate(Controller);
 
                         ControllerUsed = true;
-                        ControllerDelayShort = true;
+                        ControllerDelay125 = true;
 
                         if (controllerActivated) { return ControllerUsed; }
                     }
@@ -47,7 +47,7 @@ namespace DirectXInput
                         await HideOpenPopups();
 
                         ControllerUsed = true;
-                        ControllerDelayLonger = true;
+                        ControllerDelay750 = true;
                     }
                     //Show CtrlUI application
                     else if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessCtrlUI != null)
@@ -56,7 +56,7 @@ namespace DirectXInput
                         await ShowCtrlUI();
 
                         ControllerUsed = true;
-                        ControllerDelayLonger = true;
+                        ControllerDelay750 = true;
                     }
                     //Launch CtrlUI application
                     else if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessCtrlUI == null)
@@ -64,7 +64,7 @@ namespace DirectXInput
                         await LaunchCtrlUI();
 
                         ControllerUsed = true;
-                        ControllerDelayLonger = true;
+                        ControllerDelay750 = true;
                     }
                     //Show the keyboard or keypad
                     else if (Controller.InputCurrent.ButtonGuide.PressedLong)
@@ -86,7 +86,7 @@ namespace DirectXInput
                         }
 
                         ControllerUsed = true;
-                        ControllerDelayLonger = true;
+                        ControllerDelay750 = true;
                     }
                     //Show or hide the media controller
                     else if (Controller.InputCurrent.ButtonTouchpad.PressedRaw)
@@ -96,7 +96,7 @@ namespace DirectXInput
                             await MediaPopupHideShow(false);
 
                             ControllerUsed = true;
-                            ControllerDelayLonger = true;
+                            ControllerDelay750 = true;
                         }
                     }
                     //Mute or unmute the input/microphone
@@ -115,7 +115,7 @@ namespace DirectXInput
                         }
 
                         ControllerUsed = true;
-                        ControllerDelayLonger = true;
+                        ControllerDelay750 = true;
                     }
                     //Press Alt+Enter
                     else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderRight.PressedRaw)
@@ -132,7 +132,7 @@ namespace DirectXInput
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                             ControllerUsed = true;
-                            ControllerDelayLonger = true;
+                            ControllerDelay750 = true;
                         }
                     }
                     //Press Alt+F4
@@ -150,7 +150,7 @@ namespace DirectXInput
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.F4, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                             ControllerUsed = true;
-                            ControllerDelayLonger = true;
+                            ControllerDelay750 = true;
                         }
                     }
                     //Press Alt+Tab or Win+Tab
@@ -168,7 +168,7 @@ namespace DirectXInput
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.WindowsLeft, KeyboardModifiers.None, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                             ControllerUsed = true;
-                            ControllerDelayLonger = true;
+                            ControllerDelay750 = true;
                         }
                         else if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab")))
                         {
@@ -182,7 +182,7 @@ namespace DirectXInput
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                             ControllerUsed = true;
-                            ControllerDelayLonger = true;
+                            ControllerDelay750 = true;
                         }
                     }
                     //Make screenshot
@@ -196,7 +196,7 @@ namespace DirectXInput
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.WindowsLeft, KeyboardModifiers.None, KeyboardKeys.PrintScreen, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                             ControllerUsed = true;
-                            ControllerDelayLonger = true;
+                            ControllerDelay750 = true;
                         }
                     }
                     //Disconnect controller from Bluetooth
@@ -208,17 +208,17 @@ namespace DirectXInput
                             StopControllerTask(Controller, "manually", string.Empty);
 
                             ControllerUsed = true;
-                            ControllerDelayLonger = true;
+                            ControllerDelay750 = true;
                         }
                     }
 
-                    if (ControllerDelayShort)
+                    if (ControllerDelay125)
                     {
-                        Controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayShortTicks;
+                        Controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayTicks125;
                     }
-                    else if (ControllerDelayLonger)
+                    else if (ControllerDelay750)
                     {
-                        Controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayLongerTicks;
+                        Controller.Delay_ControllerShortcut = GetSystemTicksMs() + vControllerDelayTicks750;
                     }
                 }
             }

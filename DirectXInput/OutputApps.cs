@@ -27,7 +27,6 @@ namespace DirectXInput
                     }
                     else if (App.vWindowKeypad.vWindowVisible)
                     {
-                        await App.vWindowKeypad.ControllerInteractionKeypadProfile();
                         App.vWindowKeypad.ControllerInteractionKeypadPreview(Controller.InputCurrent);
                         App.vWindowKeypad.ControllerInteractionMouse(Controller.InputCurrent);
                         App.vWindowKeypad.ControllerInteractionKeyboard(Controller.InputCurrent);
@@ -76,7 +75,7 @@ namespace DirectXInput
                     await vArnoldVinkSockets.TcpClientSendBytes(tcpClient, SerializedData, vArnoldVinkSockets.vSocketTimeout, false);
 
                     //Update delay time
-                    Controller.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayNanoTicks;
+                    Controller.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayTicks10;
                 }
             }
             catch { }

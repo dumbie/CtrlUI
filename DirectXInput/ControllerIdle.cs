@@ -60,13 +60,13 @@ namespace DirectXInput
                 }
 
                 //Left stick movement
-                if (Math.Abs(controllerStatus.InputCurrent.ThumbLeftY) > vControllerThumbOffsetSmall || Math.Abs(controllerStatus.InputCurrent.ThumbLeftX) > vControllerThumbOffsetSmall)
+                if (Math.Abs(controllerStatus.InputCurrent.ThumbLeftY) > vControllerThumbOffset2500 || Math.Abs(controllerStatus.InputCurrent.ThumbLeftX) > vControllerThumbOffset2500)
                 {
                     return false;
                 }
 
                 //Right stick movement
-                if (Math.Abs(controllerStatus.InputCurrent.ThumbRightY) > vControllerThumbOffsetSmall || Math.Abs(controllerStatus.InputCurrent.ThumbRightX) > vControllerThumbOffsetSmall)
+                if (Math.Abs(controllerStatus.InputCurrent.ThumbRightY) > vControllerThumbOffset2500 || Math.Abs(controllerStatus.InputCurrent.ThumbRightX) > vControllerThumbOffset2500)
                 {
                     return false;
                 }

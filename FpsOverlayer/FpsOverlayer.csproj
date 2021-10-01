@@ -159,9 +159,6 @@
     <Content Include="FpsOverlayer.exe.csettings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\NvAPIWrapper.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
     <Content Include="Profiles\User\FpsPositionProcessName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

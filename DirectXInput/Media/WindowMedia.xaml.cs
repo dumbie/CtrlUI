@@ -79,10 +79,10 @@ namespace DirectXInput.MediaCode
                     vFakerInputDevice.MouseResetRelative();
 
                     //Delay CtrlUI output
-                    vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayTicks250;
+                    vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayTicks250;
+                    vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayTicks250;
+                    vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayTicks250;
                 }
             }
             catch { }
@@ -98,7 +98,7 @@ namespace DirectXInput.MediaCode
                 await App.vWindowKeypad.Hide();
 
                 //Delay media input
-                vControllerDelay_Media = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                vControllerDelay_Media = GetSystemTicksMs() + vControllerDelayTicks250;
 
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);

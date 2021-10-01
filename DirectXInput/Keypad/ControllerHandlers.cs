@@ -24,7 +24,7 @@ namespace DirectXInput.KeypadCode
                     MouseMoveCursor(moveHorizontalRight, moveVerticalRight);
 
                     //Delay input to prevent repeat
-                    vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayNanoTicks;
+                    vControllerDelay_Mouse = GetSystemTicksMs() + vControllerDelayTicks10;
                 }
             }
             catch { }
@@ -35,7 +35,7 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                if (GetSystemTicksMs() >= vControllerDelay_Keyboard)
+                if (GetSystemTicksMs() >= vControllerDelay_KeypadControl)
                 {
                     KeyboardModifiers pressedModifiers = KeyboardModifiers.None;
                     byte[] pressedKeys = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -68,25 +68,25 @@ namespace DirectXInput.KeypadCode
                     }
 
                     //Thumb Left
-                    if (controllerInput.ThumbLeftX < -vControllerThumbOffsetMedium)
+                    if (controllerInput.ThumbLeftX < -vControllerThumbOffset7500)
                     {
                         if (vKeypadMappingProfile.ThumbLeftLeftMod0 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftLeftMod0; }
                         if (vKeypadMappingProfile.ThumbLeftLeftMod1 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftLeftMod1; }
                         if (vKeypadMappingProfile.ThumbLeftLeft != KeyboardKeys.None) { UpdateKeyPressByteArray(ref pressedKeys, ref keyIndex, vKeypadMappingProfile.ThumbLeftLeft); }
                     }
-                    if (controllerInput.ThumbLeftY > vControllerThumbOffsetMedium)
+                    if (controllerInput.ThumbLeftY > vControllerThumbOffset7500)
                     {
                         if (vKeypadMappingProfile.ThumbLeftUpMod0 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftUpMod0; }
                         if (vKeypadMappingProfile.ThumbLeftUpMod1 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftUpMod1; }
                         if (vKeypadMappingProfile.ThumbLeftUp != KeyboardKeys.None) { UpdateKeyPressByteArray(ref pressedKeys, ref keyIndex, vKeypadMappingProfile.ThumbLeftUp); }
                     }
-                    if (controllerInput.ThumbLeftX > vControllerThumbOffsetMedium)
+                    if (controllerInput.ThumbLeftX > vControllerThumbOffset7500)
                     {
                         if (vKeypadMappingProfile.ThumbLeftRightMod0 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftRightMod0; }
                         if (vKeypadMappingProfile.ThumbLeftRightMod1 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftRightMod1; }
                         if (vKeypadMappingProfile.ThumbLeftRight != KeyboardKeys.None) { UpdateKeyPressByteArray(ref pressedKeys, ref keyIndex, vKeypadMappingProfile.ThumbLeftRight); }
                     }
-                    if (controllerInput.ThumbLeftY < -vControllerThumbOffsetMedium)
+                    if (controllerInput.ThumbLeftY < -vControllerThumbOffset7500)
                     {
                         if (vKeypadMappingProfile.ThumbLeftDownMod0 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftDownMod0; }
                         if (vKeypadMappingProfile.ThumbLeftDownMod1 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbLeftDownMod1; }
@@ -96,25 +96,25 @@ namespace DirectXInput.KeypadCode
                     //Thumb Right
                     if (!vKeypadMappingProfile.KeypadMouseMoveEnabled)
                     {
-                        if (controllerInput.ThumbRightX < -vControllerThumbOffsetMedium)
+                        if (controllerInput.ThumbRightX < -vControllerThumbOffset7500)
                         {
                             if (vKeypadMappingProfile.ThumbRightLeftMod0 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightLeftMod0; }
                             if (vKeypadMappingProfile.ThumbRightLeftMod1 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightLeftMod1; }
                             if (vKeypadMappingProfile.ThumbRightLeft != KeyboardKeys.None) { UpdateKeyPressByteArray(ref pressedKeys, ref keyIndex, vKeypadMappingProfile.ThumbRightLeft); }
                         }
-                        if (controllerInput.ThumbRightX > vControllerThumbOffsetMedium)
+                        if (controllerInput.ThumbRightX > vControllerThumbOffset7500)
                         {
                             if (vKeypadMappingProfile.ThumbRightRightMod0 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightRightMod0; }
                             if (vKeypadMappingProfile.ThumbRightRightMod1 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightRightMod1; }
                             if (vKeypadMappingProfile.ThumbRightRight != KeyboardKeys.None) { UpdateKeyPressByteArray(ref pressedKeys, ref keyIndex, vKeypadMappingProfile.ThumbRightRight); }
                         }
-                        if (controllerInput.ThumbRightY > vControllerThumbOffsetMedium)
+                        if (controllerInput.ThumbRightY > vControllerThumbOffset7500)
                         {
                             if (vKeypadMappingProfile.ThumbRightUpMod0 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightUpMod0; }
                             if (vKeypadMappingProfile.ThumbRightUpMod1 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightUpMod1; }
                             if (vKeypadMappingProfile.ThumbRightUp != KeyboardKeys.None) { UpdateKeyPressByteArray(ref pressedKeys, ref keyIndex, vKeypadMappingProfile.ThumbRightUp); }
                         }
-                        if (controllerInput.ThumbRightY < -vControllerThumbOffsetMedium)
+                        if (controllerInput.ThumbRightY < -vControllerThumbOffset7500)
                         {
                             if (vKeypadMappingProfile.ThumbRightDownMod0 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightDownMod0; }
                             if (vKeypadMappingProfile.ThumbRightDownMod1 != KeyboardModifiers.None) { pressedModifiers |= vKeypadMappingProfile.ThumbRightDownMod1; }
@@ -206,7 +206,7 @@ namespace DirectXInput.KeypadCode
                     vFakerInputDevice.KeyboardPressByte((byte)pressedModifiers, pressedKeys);
 
                     //Delay input to prevent repeat
-                    vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayNanoTicks;
+                    vControllerDelay_KeypadControl = GetSystemTicksMs() + vControllerDelayTicks10;
                 }
             }
             catch { }

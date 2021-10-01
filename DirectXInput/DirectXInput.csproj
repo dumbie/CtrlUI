@@ -132,6 +132,7 @@
     <Compile Include="Keyboard\Resources\InputOutput\InputKeyboard.cs" />
     <Compile Include="Keyboard\TextListFunctions.cs" />
     <Compile Include="Keyboard\EmojiListFunctions.cs" />
+    <Compile Include="Keypad\KeypadTasks.cs" />
     <Compile Include="Keypad\KeypadProfile.cs" />
     <Compile Include="Media\ControllerHandlers.cs" />
     <Compile Include="Media\InterfaceFunctions.cs" />

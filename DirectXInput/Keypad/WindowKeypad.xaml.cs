@@ -64,6 +64,9 @@ namespace DirectXInput.KeypadCode
                     //Play window close sound
                     PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
 
+                    //Stop the update tasks
+                    await TasksBackgroundStop();
+
                     //Update the window visibility
                     await UpdateWindowVisibility(false);
 
@@ -79,10 +82,10 @@ namespace DirectXInput.KeypadCode
                     vFakerInputDevice.MouseResetRelative();
 
                     //Delay CtrlUI output
-                    vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
-                    vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayMediumTicks;
+                    vController0.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayTicks250;
+                    vController1.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayTicks250;
+                    vController2.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayTicks250;
+                    vController3.Delay_CtrlUIOutput = GetSystemTicksMs() + vControllerDelayTicks250;
                 }
             }
             catch { }
@@ -100,29 +103,14 @@ namespace DirectXInput.KeypadCode
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
 
+                //Start the update tasks
+                TasksBackgroundStart();
+
                 //Disable hardware capslock
                 DisableHardwareCapsLock();
 
                 //Enable hardware numlock
                 EnableHardwareNumLock();
-
-                //Set the keypad mapping profile
-                await SetKeypadMappingProfile();
-
-                //Update the key names
-                UpdateKeypadNames();
-
-                //Update the keypad opacity
-                UpdatePopupOpacity();
-
-                //Update the keypad style
-                UpdateKeypadStyle();
-
-                //Update the keypad size
-                double keypadHeight = UpdateKeypadSize();
-
-                //Notify - Fps Overlayer keypad size changed
-                await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(keypadHeight));
 
                 //Update the window visibility
                 await UpdateWindowVisibility(true);

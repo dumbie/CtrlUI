@@ -17,13 +17,13 @@ namespace DirectXInput
                 int absHorizontal = Math.Abs(thumbHorizontal);
                 int absVertical = Math.Abs(thumbVertical);
 
-                if (absHorizontal > vControllerThumbOffsetLarge || absVertical > vControllerThumbOffsetLarge)
+                if (absHorizontal > vControllerThumbOffset15000 || absVertical > vControllerThumbOffset15000)
                 {
                     double mouseSensitivity = thumbSensitivity / (double)15000;
                     mouseHorizontal = Convert.ToInt32(thumbHorizontal * mouseSensitivity);
                     mouseVertical = Convert.ToInt32(thumbVertical * mouseSensitivity);
                 }
-                else if (absHorizontal > vControllerThumbOffsetSmall || absVertical > vControllerThumbOffsetSmall)
+                else if (absHorizontal > vControllerThumbOffset2500 || absVertical > vControllerThumbOffset2500)
                 {
                     double mouseSensitivity = thumbSensitivity / (double)25000;
                     mouseHorizontal = Convert.ToInt32(thumbHorizontal * mouseSensitivity);
@@ -62,20 +62,20 @@ namespace DirectXInput
                 //Check the thumb movement
                 if (flipVertical) { thumbVertical = -thumbVertical; }
 
-                if (thumbHorizontal > vControllerThumbOffsetNormal)
+                if (thumbHorizontal > vControllerThumbOffset10000)
                 {
                     scrollHorizontal = thumbSensitivity;
                 }
-                if (thumbVertical > vControllerThumbOffsetNormal)
+                if (thumbVertical > vControllerThumbOffset10000)
                 {
                     scrollVertical = thumbSensitivity;
                 }
 
-                if (thumbHorizontal < -vControllerThumbOffsetNormal)
+                if (thumbHorizontal < -vControllerThumbOffset10000)
                 {
                     scrollHorizontal = -thumbSensitivity;
                 }
-                if (thumbVertical < -vControllerThumbOffsetNormal)
+                if (thumbVertical < -vControllerThumbOffset10000)
                 {
                     scrollVertical = -thumbSensitivity;
                 }
