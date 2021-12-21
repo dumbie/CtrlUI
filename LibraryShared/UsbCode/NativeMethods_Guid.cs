@@ -15,5 +15,6 @@ namespace LibraryUsb
         public static Guid GuidClassScpDS3Driver = new Guid("E2824A09-DBAA-4407-85CA-C8E8FF5F6FFA");
         public static Guid GuidClassHidHideGuardian = new Guid("0C320FF7-BD9B-42B6-BDAF-49FEB9C91649");
         public static Guid GuidClassFakerInputDevice = new Guid("00FFFE0F-0000-0000-0000-504944564944");
+        public static Guid GuidClassTetherScriptDevice = new Guid("00FFFE0F-0000-0000-0000-504944564944");
     }
 }

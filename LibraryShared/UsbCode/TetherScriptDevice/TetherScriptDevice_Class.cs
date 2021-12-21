@@ -3,63 +3,59 @@ using System.Runtime.InteropServices;
 
 namespace LibraryUsb
 {
-    public partial class FakerInputDevice
+    public partial class TetherScriptDevice
     {
-        [StructLayout(LayoutKind.Sequential)]
-        public struct FAKERINPUT_CONTROL_REPORT_HEADER
+        //Driver product identifiers
+        public enum DriverProductIds : ushort
         {
-            public byte ReportID;
-            public byte ReportLength;
+            TTC_PRODUCTID_JOYSTICK = 0x00000001,
+            TTC_PRODUCTID_MOUSEABS = 0x00000002,
+            TTC_PRODUCTID_KEYBOARD = 0x00000003,
+            TTC_PRODUCTID_GAMEPAD = 0x00000004,
+            TTC_PRODUCTID_MOUSEREL = 0x00000005
         }
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct FAKERINPUT_KEYBOARD_REPORT
+        //Virtual Keyboard structure
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct SetFeatureKeyboard
         {
             public byte ReportID;
-            public byte ModifierCodes;
-            public byte Reserved;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = KBD_KEY_CODES)]
-            public byte[] KeyCodes;
+            public byte CommandCode;
+            public uint Timeout;
+            public byte Modifier;
+            public byte Padding;
+            public byte Key0;
+            public byte Key1;
+            public byte Key2;
+            public byte Key3;
+            public byte Key4;
+            public byte Key5;
         }
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct FAKERINPUT_MULTIMEDIA_REPORT
+        //Virtual Mouse Abstract structure
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct SetFeatureMouseAbs
         {
             public byte ReportID;
-            public byte MultimediaKey0;
-            public byte MultimediaKey1;
-            public byte MultimediaKey2;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct FAKERINPUT_RELATIVE_MOUSE_REPORT
-        {
-            public byte ReportID;
-            public byte Button;
-            public short XValue;
-            public short YValue;
+            public byte CommandCode;
+            public byte Buttons;
+            public ushort X;
+            public ushort Y;
             public byte VWheelPosition;
             public byte HWheelPosition;
         }
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct FAKERINPUT_ABSOLUTE_MOUSE_REPORT
+        //Virtual Mouse Relative structure
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct SetFeatureMouseRel
         {
             public byte ReportID;
-            public byte Button;
-            public ushort XValue;
-            public ushort YValue;
+            public byte CommandCode;
+            public byte Buttons;
+            public sbyte X;
+            public sbyte Y;
             public byte VWheelPosition;
             public byte HWheelPosition;
-        }
-
-        public enum FAKERINPUT_REPORT_ID : byte
-        {
-            REPORTID_KEYBOARD = 0x01,
-            REPORTID_MULTIMEDIA = 0x02,
-            REPORTID_RELATIVE_MOUSE = 0x03,
-            REPORTID_ABSOLUTE_MOUSE = 0x04,
-            REPORTID_CONTROL = 0x40
         }
 
         public enum MouseButtons : byte
