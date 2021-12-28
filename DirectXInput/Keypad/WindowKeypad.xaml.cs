@@ -209,8 +209,8 @@ namespace DirectXInput.KeypadCode
             try
             {
                 string processNameLower = vProcessForeground.Name.ToLower();
-                string processTitleLower = vProcessForeground.Title.ToLower();
-                KeypadMapping keypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == processNameLower || processTitleLower.Contains(x.Name.ToLower())).FirstOrDefault();
+                string processTitleLower = vProcessForeground.Title.ToLower().Replace(" ", string.Empty);
+                KeypadMapping keypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name.ToLower() == processNameLower || processTitleLower.Contains(x.Name.ToLower().Replace(" ", string.Empty))).FirstOrDefault();
                 if (keypadMappingProfile == null)
                 {
                     keypadMappingProfile = vDirectKeypadMapping.Where(x => x.Name == "Default").FirstOrDefault();

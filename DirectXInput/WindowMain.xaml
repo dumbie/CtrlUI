@@ -556,15 +556,15 @@
                     <Grid Grid.Row="1">
                         <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
                             <StackPanel>
-                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Profile"/>
-                                <TextBlock Text="Automatically load the keypad mapping for an application process." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keypad Profile"/>
+                                <TextBlock Text="Automatically load a keypad mapping profile for an application." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <StackPanel Orientation="Horizontal">
                                     <ComboBox Name="combobox_KeypadProcessProfile" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="300" Style="{StaticResource ComboBoxBlack}"/>
                                     <Button Name="btn_Settings_KeypadProcessProfile_Remove" Margin="10,0,0,0" Width="155" Content="Remove profile" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                    <TextBox Name="textbox_Settings_KeypadProcessProfile_Name" HorizontalAlignment="Left" Width="300" Style="{StaticResource TextBoxBlack}" Text="Application process name..." styles:TextboxPlaceholder.Placeholder="Application process name..."/>
+                                    <TextBox Name="textbox_Settings_KeypadProcessProfile_Name" HorizontalAlignment="Left" Width="300" Style="{StaticResource TextBoxBlack}" Text="Process name or window title..." styles:TextboxPlaceholder.Placeholder="Process name or window title..."/>
                                     <Button Name="btn_Settings_KeypadProcessProfile_Add" Margin="10,0,0,0" Width="155" Content="Add new profile" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                                 </StackPanel>
 
