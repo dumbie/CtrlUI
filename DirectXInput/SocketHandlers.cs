@@ -173,7 +173,7 @@ namespace DirectXInput
 
                 //Send socket data
                 TcpClient socketClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(deserializedBytes.SourceIp, deserializedBytes.SourcePort, vArnoldVinkSockets.vSocketTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytes(socketClient, SendBytes, vArnoldVinkSockets.vSocketTimeout, false);
+                await vArnoldVinkSockets.TcpClientSendBytesServer(socketClient, SendBytes, vArnoldVinkSockets.vSocketTimeout, false);
             }
             catch { }
         }

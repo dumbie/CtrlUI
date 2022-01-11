@@ -80,7 +80,7 @@ namespace LibraryShared
                     return;
                 }
 
-                //Check for missing application files
+                //Check for missing and corrupt application files
                 if (!skipFileCheck)
                 {
                     ApplicationFiles = ApplicationFiles.Concat(ProfileFiles).Concat(ResourcesFiles).Concat(AssetsDefaultFiles).ToArray();
@@ -88,11 +88,24 @@ namespace LibraryShared
                     {
                         try
                         {
+                            //Check file exists
                             if (!File.Exists(checkFile))
                             {
                                 List<string> messageAnswers = new List<string>();
                                 messageAnswers.Add("Ok");
                                 await new AVMessageBox().Popup(null, "File not found", checkFile + " could not be found, please check your installation.", messageAnswers);
+
+                                //Close the application
+                                Environment.Exit(0);
+                                return;
+                            }
+
+                            //Check file size
+                            if (new FileInfo(checkFile).Length == 0)
+                            {
+                                List<string> messageAnswers = new List<string>();
+                                messageAnswers.Add("Ok");
+                                await new AVMessageBox().Popup(null, "File corrupted", checkFile + " seems to be corrupted, please check your installation.", messageAnswers);
 
                                 //Close the application
                                 Environment.Exit(0);

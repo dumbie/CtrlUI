@@ -67,7 +67,7 @@ namespace DirectXInput
                 sendBytes[11] = checksum[3];
 
                 //Send bytes to dsu client
-                if (!await vArnoldVinkSockets.UdpClientSendBytes(endPoint.IPEndPoint, sendBytes, vArnoldVinkSockets.vSocketTimeout))
+                if (!await vArnoldVinkSockets.UdpClientSendBytesServer(endPoint.IPEndPoint, sendBytes, vArnoldVinkSockets.vSocketTimeout))
                 {
                     Debug.WriteLine("Failed to send information bytes to dsu client.");
                 }
@@ -202,7 +202,7 @@ namespace DirectXInput
                 sendBytes[11] = checksum[3];
 
                 //Send bytes to dsu client
-                if (!await vArnoldVinkSockets.UdpClientSendBytes(controller.GyroDsuClientEndPoint.IPEndPoint, sendBytes, vArnoldVinkSockets.vSocketTimeout))
+                if (!await vArnoldVinkSockets.UdpClientSendBytesServer(controller.GyroDsuClientEndPoint.IPEndPoint, sendBytes, vArnoldVinkSockets.vSocketTimeout))
                 {
                     Debug.WriteLine("Failed to send motion bytes to dsu client.");
                 }
