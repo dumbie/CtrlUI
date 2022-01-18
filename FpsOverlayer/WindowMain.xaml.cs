@@ -42,6 +42,11 @@ namespace FpsOverlayer
                 //Get interop window handle
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
+                //Set render mode to software
+                HwndSource hwndSource = HwndSource.FromHwnd(vInteropWindowHandle);
+                HwndTarget hwndTarget = hwndSource.CompositionTarget;
+                hwndTarget.RenderMode = RenderMode.SoftwareOnly;
+
                 //Update the window style
                 await UpdateWindowStyleVisible();
 
@@ -420,7 +425,8 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
                         double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
-                        marginVertical += vKeypadBottomMargin;
+                        marginVertical += vKeypadAdjustMargin;
+                        marginVertical += vTaskBarAdjustMargin;
                         grid_FpsOverlayer.Margin = new Thickness(0, 0, marginHorizontal, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
@@ -440,7 +446,8 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
                         double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
-                        marginVertical += vKeypadBottomMargin;
+                        marginVertical += vKeypadAdjustMargin;
+                        marginVertical += vTaskBarAdjustMargin;
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
@@ -460,7 +467,8 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
                         double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
-                        marginVertical += vKeypadBottomMargin;
+                        marginVertical += vKeypadAdjustMargin;
+                        marginVertical += vTaskBarAdjustMargin;
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;

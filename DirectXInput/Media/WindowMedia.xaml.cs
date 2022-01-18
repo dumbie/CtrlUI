@@ -36,6 +36,11 @@ namespace DirectXInput.MediaCode
                 //Get interop window handle
                 vInteropWindowHandle = new WindowInteropHelper(this).EnsureHandle();
 
+                //Set render mode to software
+                HwndSource hwndSource = HwndSource.FromHwnd(vInteropWindowHandle);
+                HwndTarget hwndTarget = hwndSource.CompositionTarget;
+                hwndTarget.RenderMode = RenderMode.SoftwareOnly;
+
                 //Update the window style
                 await UpdateWindowStyleVisible();
 
