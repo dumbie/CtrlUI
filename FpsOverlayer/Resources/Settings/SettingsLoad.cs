@@ -28,6 +28,7 @@ namespace FpsOverlayer
 
                 textblock_MarginVertical.Text = textblock_MarginVertical.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "MarginVertical").ToString() + "px";
                 slider_MarginVertical.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                checkbox_CheckTaskbarVisible.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CheckTaskbarVisible"));
 
                 //Select the current font name
                 try

@@ -46,6 +46,9 @@
                     <Slider Minimum="-10" Maximum="600" Height="18" Width="310" Name="slider_MarginVertical" Style="{StaticResource SliderWhite}"/>
                 </StackPanel>
 
+                <CheckBox Margin="0,10,0,0" Name="checkbox_CheckTaskbarVisible" Content="Adjust margin to taskbar visibility" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Automatically adjust the overlay margin to your taskbar visibility when you have auto hide enabled in Windows." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Text Settings"/>
                 <TextBlock Text="Text display font" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                 <TextBlock Text="Change the font in which the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>

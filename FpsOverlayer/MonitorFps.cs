@@ -59,8 +59,6 @@ namespace FpsOverlayer
                                 stackpanel_CurrentFps.Visibility = Visibility.Collapsed;
                             });
 
-                            //Delay the loop task
-                            await TaskDelayLoop(1000, vTask_TraceEventOutput);
                             continue;
                         }
 
@@ -104,9 +102,11 @@ namespace FpsOverlayer
                         }
                     }
                     catch { }
-
-                    //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_TraceEventOutput);
+                    finally
+                    {
+                        //Delay the loop task
+                        await TaskDelayLoop(1000, vTask_TraceEventOutput);
+                    }
                 }
             }
             catch { }

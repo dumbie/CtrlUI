@@ -48,8 +48,6 @@ namespace FpsOverlayer
                             //Hide the application name and frames
                             HideApplicationNameFrames();
 
-                            //Delay the loop task
-                            await TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -66,8 +64,6 @@ namespace FpsOverlayer
                             //Update the application name
                             UpdateApplicationName(foregroundProcess.Title);
 
-                            //Delay the loop task
-                            await TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -87,8 +83,6 @@ namespace FpsOverlayer
                             //Hide the application name and frames
                             HideApplicationNameFrames();
 
-                            //Delay the loop task
-                            await TaskDelayLoop(1000, vTask_MonitorProcess);
                             continue;
                         }
 
@@ -99,9 +93,11 @@ namespace FpsOverlayer
                         vTargetProcess = foregroundProcess;
                     }
                     catch { }
-
-                    //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_MonitorProcess);
+                    finally
+                    {
+                        //Delay the loop task
+                        await TaskDelayLoop(1000, vTask_MonitorProcess);
+                    }
                 }
             }
             catch { }

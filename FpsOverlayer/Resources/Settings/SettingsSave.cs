@@ -50,6 +50,12 @@ namespace FpsOverlayer
                     await App.vWindowMain.UpdateFpsOverlayStyle();
                 };
 
+                checkbox_CheckTaskbarVisible.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationFpsOverlayer, "CheckTaskbarVisible", checkbox_CheckTaskbarVisible.IsChecked.ToString());
+                    await App.vWindowMain.UpdateFpsOverlayStyle();
+                };
+
                 combobox_InterfaceFontStyleName.SelectionChanged += async (sender, e) =>
                 {
                     Setting_Save(vConfigurationFpsOverlayer, "InterfaceFontStyleName", combobox_InterfaceFontStyleName.SelectedItem.ToString());

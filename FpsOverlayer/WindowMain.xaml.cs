@@ -68,6 +68,9 @@ namespace FpsOverlayer
                 //Start process monitoring
                 StartMonitorProcess();
 
+                //Start taskbar monitoring
+                StartMonitorTaskbar();
+
                 //Start fps monitoring
                 StartMonitorFps();
 

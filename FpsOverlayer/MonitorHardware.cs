@@ -66,10 +66,12 @@ namespace FpsOverlayer
                         }
                     }
                     catch { }
-
-                    //Delay the loop task
-                    int hardwareUpdateRate = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "HardwareUpdateRateMs"));
-                    await TaskDelayLoop(hardwareUpdateRate, vTask_MonitorHardware);
+                    finally
+                    {
+                        //Delay the loop task
+                        int hardwareUpdateRate = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "HardwareUpdateRateMs"));
+                        await TaskDelayLoop(hardwareUpdateRate, vTask_MonitorHardware);
+                    }
                 }
             }
             catch { }

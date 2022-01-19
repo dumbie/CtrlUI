@@ -14,8 +14,9 @@ namespace FpsOverlayer
             {
                 if (Setting_Load(vConfigurationFpsOverlayer, "DisplayBackground") == null) { Setting_Save(vConfigurationFpsOverlayer, "DisplayBackground", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "DisplayOpacity") == null) { Setting_Save(vConfigurationFpsOverlayer, "DisplayOpacity", "0,90"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal") == null) { Setting_Save(vConfigurationFpsOverlayer, "MarginHorizontal", "0"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MarginVertical") == null) { Setting_Save(vConfigurationFpsOverlayer, "MarginVertical", "40"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal") == null) { Setting_Save(vConfigurationFpsOverlayer, "MarginHorizontal", "5"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "MarginVertical") == null) { Setting_Save(vConfigurationFpsOverlayer, "MarginVertical", "5"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CheckTaskbarVisible") == null) { Setting_Save(vConfigurationFpsOverlayer, "CheckTaskbarVisible", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "InterfaceFontStyleName") == null) { Setting_Save(vConfigurationFpsOverlayer, "InterfaceFontStyleName", "Segoe UI"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "TextPosition") == null) { Setting_Save(vConfigurationFpsOverlayer, "TextPosition", "0"); } //Shared
                 if (Setting_Load(vConfigurationFpsOverlayer, "TextDirection") == null) { Setting_Save(vConfigurationFpsOverlayer, "TextDirection", "1"); }
@@ -54,7 +55,7 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowTemperature", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerUsage") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPowerUsage", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowFanSpeed", "False"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowFanSpeed", "True"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemId") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemId", "5"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemCategoryTitle", "MEM"); }

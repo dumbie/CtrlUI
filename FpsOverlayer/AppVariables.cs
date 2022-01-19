@@ -24,7 +24,8 @@ namespace FpsOverlayer
         public static Process vProcessCurrent = Process.GetCurrentProcess();
 
         //Margin Variables
-        public static int vKeypadBottomMargin = 0;
+        public static int vKeypadAdjustMargin = 0;
+        public static int vTaskBarAdjustMargin = 0;
 
         //Frames per second
         public static long vLastFrameTimeAdded = 0;
