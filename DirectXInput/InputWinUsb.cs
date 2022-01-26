@@ -19,7 +19,7 @@ namespace DirectXInput
                 Debug.WriteLine("Receive and translate Win DirectInput for: " + Controller.Details.DisplayName);
 
                 //Receive input from the selected controller
-                while (!Controller.InputControllerTask.TaskStopRequest && Controller.Connected())
+                while (TaskCheckLoop(Controller.InputControllerTask) && Controller.Connected())
                 {
                     try
                     {

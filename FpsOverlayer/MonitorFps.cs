@@ -45,7 +45,7 @@ namespace FpsOverlayer
         {
             try
             {
-                while (!vTask_TraceEventOutput.TaskStopRequest)
+                while (TaskCheckLoop(vTask_TraceEventOutput))
                 {
                     try
                     {

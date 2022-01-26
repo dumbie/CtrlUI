@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryUsb.WinUsbDevice;
@@ -21,7 +22,7 @@ namespace DirectXInput
                 Controller.XOutputData.SerialNo = Controller.NumberId + 1;
 
                 //Receive output from the virtual bus
-                while (!Controller.OutputVirtualTask.TaskStopRequest && Controller.Connected())
+                while (TaskCheckLoop(Controller.OutputVirtualTask) && Controller.Connected())
                 {
                     vVirtualBusDevice.VirtualOutput(ref Controller);
                 }

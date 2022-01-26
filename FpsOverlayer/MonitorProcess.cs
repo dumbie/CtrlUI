@@ -29,7 +29,7 @@ namespace FpsOverlayer
         {
             try
             {
-                while (!vTask_MonitorProcess.TaskStopRequest)
+                while (TaskCheckLoop(vTask_MonitorProcess))
                 {
                     try
                     {

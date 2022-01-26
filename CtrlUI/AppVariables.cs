@@ -39,7 +39,7 @@ namespace CtrlUI
 
         //Interaction Variables
         public static long vMouseLastInteraction = GetSystemTicksMs();
-        public static PointWin vMousePreviousPosition = new PointWin();
+        public static WindowPoint vMousePreviousPosition = new WindowPoint();
         public static bool vSingleTappedEvent = true;
         public static bool vMousePressDownLeftClick = false;
         public static bool vMousePressDownRightClick = false;

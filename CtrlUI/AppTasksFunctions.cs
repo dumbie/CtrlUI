@@ -10,7 +10,7 @@ namespace CtrlUI
         {
             try
             {
-                while (!vTask_UpdateClock.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateClock))
                 {
                     UpdateClockTime();
 
@@ -25,7 +25,7 @@ namespace CtrlUI
         {
             try
             {
-                while (!vTask_UpdateWindowStatus.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateWindowStatus))
                 {
                     await UpdateWindowStatus();
 
@@ -40,7 +40,7 @@ namespace CtrlUI
         {
             try
             {
-                while (!vTask_ControllerConnected.TaskStopRequest)
+                while (TaskCheckLoop(vTask_ControllerConnected))
                 {
                     await UpdateControllerConnected();
 
@@ -55,7 +55,7 @@ namespace CtrlUI
         {
             try
             {
-                while (!vTask_UpdateAppRunningTime.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateAppRunningTime))
                 {
                     UpdateAppRunningTime();
 
@@ -70,7 +70,7 @@ namespace CtrlUI
         {
             try
             {
-                while (!vTask_UpdateMediaInformation.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateMediaInformation))
                 {
                     await UpdateCurrentMediaInformation();
 
@@ -85,7 +85,7 @@ namespace CtrlUI
         {
             try
             {
-                while (!vTask_UpdateProcesses.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateProcesses))
                 {
                     if (vAppActivated)
                     {
@@ -108,7 +108,7 @@ namespace CtrlUI
         {
             try
             {
-                while (!vTask_UpdateLaunchers.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateLaunchers))
                 {
                     if (vAppActivated)
                     {
@@ -131,7 +131,7 @@ namespace CtrlUI
         {
             try
             {
-                while (!vTask_UpdateShortcuts.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateShortcuts))
                 {
                     if (vAppActivated)
                     {
@@ -154,7 +154,7 @@ namespace CtrlUI
         {
             try
             {
-                while (!vTask_UpdateListStatus.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateListStatus))
                 {
                     if (vAppActivated)
                     {
@@ -177,7 +177,7 @@ namespace CtrlUI
         {
             try
             {
-                while (!vTask_ShowHideMouse.TaskStopRequest)
+                while (TaskCheckLoop(vTask_ShowHideMouse))
                 {
                     await MouseCursorCheckMovement();
 

@@ -26,7 +26,7 @@ namespace DirectXInput
                 await ControllerOutput(Controller, false, false);
 
                 //Receive output from the virtual bus
-                while (!Controller.OutputControllerTask.TaskStopRequest && Controller.Connected())
+                while (TaskCheckLoop(Controller.OutputControllerTask) && Controller.Connected())
                 {
                     try
                     {

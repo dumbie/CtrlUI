@@ -33,7 +33,7 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                while (!vTask_SwitchProfile.TaskStopRequest)
+                while (TaskCheckLoop(vTask_SwitchProfile))
                 {
                     //Switch keypad profile
                     await SwitchKeypadProfile();

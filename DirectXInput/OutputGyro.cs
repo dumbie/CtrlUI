@@ -15,7 +15,7 @@ namespace DirectXInput
                 Debug.WriteLine("Send gyro for: " + Controller.Details.DisplayName);
 
                 //Send gyro to dsu client
-                while (!Controller.OutputGyroTask.TaskStopRequest && Controller.Connected())
+                while (TaskCheckLoop(Controller.OutputGyroTask) && Controller.Connected())
                 {
                     try
                     {

@@ -32,7 +32,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                while (!vTask_UpdateWindowStyle.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateWindowStyle))
                 {
                     //Update the window style
                     if (vWindowVisible)

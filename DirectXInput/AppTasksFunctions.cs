@@ -10,7 +10,7 @@ namespace DirectXInput
         {
             try
             {
-                while (!vTask_UpdateWindowStatus.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateWindowStatus))
                 {
                     UpdateWindowStatus();
 
@@ -25,7 +25,7 @@ namespace DirectXInput
         {
             try
             {
-                while (!vTask_ControllerMonitor.TaskStopRequest)
+                while (TaskCheckLoop(vTask_ControllerMonitor))
                 {
                     await MonitorController();
                     MonitorVolumeMute();
@@ -41,7 +41,7 @@ namespace DirectXInput
         {
             try
             {
-                while (!vTask_ControllerTimeout.TaskStopRequest)
+                while (TaskCheckLoop(vTask_ControllerTimeout))
                 {
                     CheckControllersTimeout();
 
@@ -56,7 +56,7 @@ namespace DirectXInput
         {
             try
             {
-                while (!vTask_ControllerLedColor.TaskStopRequest)
+                while (TaskCheckLoop(vTask_ControllerLedColor))
                 {
                     ControllerLedColor(vController0);
                     ControllerLedColor(vController1);
@@ -74,7 +74,7 @@ namespace DirectXInput
         {
             try
             {
-                while (!vTask_ControllerBattery.TaskStopRequest)
+                while (TaskCheckLoop(vTask_ControllerBattery))
                 {
                     await CheckAllControllersLowBattery(false);
 
@@ -89,7 +89,7 @@ namespace DirectXInput
         {
             try
             {
-                while (!vTask_ControllerPreview.TaskStopRequest)
+                while (TaskCheckLoop(vTask_ControllerPreview))
                 {
                     UpdateControllerPreview();
 

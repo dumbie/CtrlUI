@@ -39,7 +39,7 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                while (!vTask_UpdateMediaInformation.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateMediaInformation))
                 {
                     await UpdateCurrentMediaInformation();
 
@@ -54,7 +54,7 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                while (!vTask_UpdateTimeBatteryInformation.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateTimeBatteryInformation))
                 {
                     UpdateClockTime();
                     UpdateBatteryStatus();
@@ -71,7 +71,7 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                while (!vTask_UpdateWindowStyle.TaskStopRequest)
+                while (TaskCheckLoop(vTask_UpdateWindowStyle))
                 {
                     //Update the window style
                     if (vWindowVisible)

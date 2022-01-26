@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVInputOutputInterop;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -650,7 +651,7 @@ namespace CtrlUI
             try
             {
                 //Get the current mouse position
-                GetCursorPos(out PointWin MouseCurrentPosition);
+                GetCursorPos(out WindowPoint MouseCurrentPosition);
 
                 //Check if the mouse has moved since the last time
                 bool LastInteraction = (GetSystemTicksMs() - vMouseLastInteraction) >= 5000;

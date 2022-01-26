@@ -162,6 +162,9 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputClass.cs">
       <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputClass.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputInterop.cs">
+      <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputInterop.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputKeyboard.cs">
       <Link>LibraryShared\ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputKeyboard.cs</Link>
     </Compile>
