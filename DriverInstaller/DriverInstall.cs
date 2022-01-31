@@ -49,6 +49,7 @@ namespace DriverInstaller
                 //Start the driver installation
                 ProgressBarUpdate(20, false);
                 TextBoxAppend("Starting the driver installation.");
+                TextBoxAppend("--- There may be manual install popups ---");
 
                 //Remove unused devices and drivers
                 ProgressBarUpdate(30, false);
