@@ -105,13 +105,25 @@ namespace DirectXInput
                         int muteFunction = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction"));
                         if (muteFunction == 0)
                         {
-                            await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Toggling input mute");
-                            AudioMuteSwitch(true);
+                            if (AudioMuteSwitch(true))
+                            {
+                                await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input muted");
+                            }
+                            else
+                            {
+                                await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input unmuted");
+                            }
                         }
                         else
                         {
-                            await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
-                            AudioMuteSwitch(false);
+                            if (AudioMuteSwitch(false))
+                            {
+                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output muted");
+                            }
+                            else
+                            {
+                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output unmuted");
+                            }
                         }
 
                         ControllerUsed = true;

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVAudioDevice;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
@@ -75,7 +76,31 @@ namespace DirectXInput.KeyboardCode
                     {
                         KeyboardMultimedia sendKey = (KeyboardMultimedia)sendButton.Tag;
                         Debug.WriteLine("Sending Multimedia key: " + sendKey);
-                        SendKeyMultimedia(sendKey);
+                        if (sendKey == KeyboardMultimedia.VolumeMute)
+                        {
+                            if (AudioMuteSwitch(false))
+                            {
+                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output muted");
+                            }
+                            else
+                            {
+                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output unmuted");
+                            }
+                        }
+                        else if (sendKey == KeyboardMultimedia.VolumeUp)
+                        {
+                            int newVolume = AudioVolumeUp(2, false);
+                            await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
+                        }
+                        else if (sendKey == KeyboardMultimedia.VolumeDown)
+                        {
+                            int newVolume = AudioVolumeDown(2, false);
+                            await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreased volume to " + newVolume);
+                        }
+                        else
+                        {
+                            SendKeyMultimedia(sendKey);
+                        }
                     }
                 }
             }

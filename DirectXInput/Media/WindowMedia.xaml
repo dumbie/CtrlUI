@@ -111,6 +111,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -172,9 +173,12 @@
                         </Button>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="4" HorizontalAlignment="Center">
+                    <StackPanel Grid.Row="4" Margin="0,0,0,10" HorizontalAlignment="Center">
                         <TextBlock Name="textblock_Volume_Level" Text="System volume" TextAlignment="Center" HorizontalAlignment="Stretch" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeLarge}"/>
-                        <Button Name="button_EnableDisableTriggerRumble" Content="Enable or disable trigger rumble" Margin="0,15,0,0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_EnableDisableTriggerRumble_Click" Visibility="Collapsed"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="5" HorizontalAlignment="Center">
+                        <Button Name="button_EnableDisableTriggerRumble" Content="Enable or disable trigger rumble" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_EnableDisableTriggerRumble_Click" Visibility="Collapsed"/>
                         <Button Name="button_ShowOrHideFpsOverlayer" Content="Show or hide the Fps Overlayer" Margin="0,15,0,0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_ShowOrHideFpsOverlayer_Click"/>
                         <Button Name="button_Close" Content="Close media popup" Margin="0,15,0,0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_Close_Click"/>
                     </StackPanel>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
@@ -180,29 +181,41 @@ namespace DirectXInput.MediaCode
                     //Change the system volume
                     else if (ControllerInput.TriggerLeft > 0 && ControllerInput.TriggerRight > 0)
                     {
-                        await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
-                        vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.VolumeMute);
+                        if (AudioMuteSwitch(false))
+                        {
+                            await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output muted");
+                        }
+                        else
+                        {
+                            await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output unmuted");
+                        }
 
                         ControllerDelay750 = true;
                     }
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
-                        await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
-                        vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.VolumeMute);
+                        if (AudioMuteSwitch(false))
+                        {
+                            await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output muted");
+                        }
+                        else
+                        {
+                            await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output unmuted");
+                        }
 
                         ControllerDelay250 = true;
                     }
                     else if (ControllerInput.TriggerLeft > 0)
                     {
-                        await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreasing volume");
-                        vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.VolumeDown);
+                        int newVolume = AudioVolumeDown(2, false);
+                        await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreased volume to " + newVolume);
 
                         ControllerDelay125 = true;
                     }
                     else if (ControllerInput.TriggerRight > 0)
                     {
-                        await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increasing volume");
-                        vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.VolumeUp);
+                        int newVolume = AudioVolumeUp(2, false);
+                        await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
 
                         ControllerDelay125 = true;
                     }

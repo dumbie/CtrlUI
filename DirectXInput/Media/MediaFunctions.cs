@@ -100,8 +100,14 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Toggling output mute");
-                AudioMuteSwitch(false);
+                if (AudioMuteSwitch(false))
+                {
+                    await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output muted");
+                }
+                else
+                {
+                    await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output unmuted");
+                }
             }
             catch { }
         }
@@ -111,8 +117,14 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Toggling input mute");
-                AudioMuteSwitch(true);
+                if (AudioMuteSwitch(true))
+                {
+                    await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input muted");
+                }
+                else
+                {
+                    await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input unmuted");
+                }
             }
             catch { }
         }
@@ -122,8 +134,8 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreasing volume");
-                vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.VolumeDown);
+                int newVolume = AudioVolumeDown(2, false);
+                await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreased volume to " + newVolume);
             }
             catch { }
         }
@@ -133,8 +145,8 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increasing volume");
-                vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.VolumeUp);
+                int newVolume = AudioVolumeUp(2, false);
+                await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
             }
             catch { }
         }
