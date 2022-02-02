@@ -61,7 +61,6 @@ namespace DirectXInput
                 cb_SettingsShortcutWinTab.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutWinTab"));
                 cb_SettingsShortcutScreenshot.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot"));
                 cb_SettingsShortcutMediaPopup.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup"));
-                combobox_ShortcutMuteFunction.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction"));
 
                 //Load keyboard settings
                 textblock_KeyboardOpacity.Text = textblock_KeyboardOpacity.Tag + ": " + Setting_Load(vConfigurationDirectXInput, "KeyboardOpacity").ToString() + "%";
@@ -75,6 +74,11 @@ namespace DirectXInput
                 slider_SettingsKeyboardMouseMoveSensitivity.Value = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity"));
                 textblock_SettingsKeyboardMouseScrollSensitivity2.Text = textblock_SettingsKeyboardMouseScrollSensitivity2.Tag.ToString() + Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2").ToString();
                 slider_SettingsKeyboardMouseScrollSensitivity2.Value = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2"));
+
+                //Load media settings
+                combobox_ShortcutMuteFunction.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction"));
+                textblock_SettingsMediaVolumeStep.Text = textblock_SettingsMediaVolumeStep.Tag.ToString() + Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep").ToString();
+                slider_SettingsMediaVolumeStep.Value = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
 
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;

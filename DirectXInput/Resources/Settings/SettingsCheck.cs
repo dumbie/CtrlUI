@@ -24,7 +24,6 @@ namespace DirectXInput
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutWinTab") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutWinTab", "False"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshot", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutMediaPopup", "True"); } //Shared
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutMuteFunction", "0"); }
 
                 //Battery settings
                 if (Setting_Load(vConfigurationDirectXInput, "BatteryLowLevel") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryLowLevel", "20"); }
@@ -47,6 +46,10 @@ namespace DirectXInput
                 if (Setting_Load(vConfigurationDirectXInput, "KeyboardCloseNoController") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardCloseNoController", "True"); }
                 if (Setting_Load(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardMouseMoveSensitivity", "8,00"); }
                 if (Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2", "2"); }
+
+                //Media settings
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutMuteFunction", "0"); }
+                if (Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep") == null) { Setting_Save(vConfigurationDirectXInput, "MediaVolumeStep", "2"); }
             }
             catch (Exception ex)
             {

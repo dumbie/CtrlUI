@@ -207,14 +207,16 @@ namespace DirectXInput.MediaCode
                     }
                     else if (ControllerInput.TriggerLeft > 0)
                     {
-                        int newVolume = AudioVolumeDown(2, false);
+                        int volumeStep = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
+                        int newVolume = AudioVolumeDown(volumeStep, false);
                         await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreased volume to " + newVolume);
 
                         ControllerDelay125 = true;
                     }
                     else if (ControllerInput.TriggerRight > 0)
                     {
-                        int newVolume = AudioVolumeUp(2, false);
+                        int volumeStep = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
+                        int newVolume = AudioVolumeUp(volumeStep, false);
                         await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
 
                         ControllerDelay125 = true;

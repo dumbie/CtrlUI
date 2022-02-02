@@ -11,6 +11,7 @@ using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
+using static LibraryShared.Settings;
 using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput.MediaCode
@@ -134,7 +135,8 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                int newVolume = AudioVolumeDown(2, false);
+                int volumeStep = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
+                int newVolume = AudioVolumeDown(volumeStep, false);
                 await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreased volume to " + newVolume);
             }
             catch { }
@@ -145,7 +147,8 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                int newVolume = AudioVolumeUp(2, false);
+                int volumeStep = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
+                int newVolume = AudioVolumeUp(volumeStep, false);
                 await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
             }
             catch { }

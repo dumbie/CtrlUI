@@ -210,11 +210,6 @@ namespace DirectXInput
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
-                combobox_ShortcutMuteFunction.SelectionChanged += (sender, e) =>
-                {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutMuteFunction", combobox_ShortcutMuteFunction.SelectedIndex.ToString());
-                };
-
                 //Keyboard settings
                 slider_KeyboardOpacity.ValueChanged += (sender, e) =>
                 {
@@ -324,6 +319,18 @@ namespace DirectXInput
                     JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping3");
 
                     textblock_SettingsKeypadMouseMoveSensitivity.Text = textblock_SettingsKeypadMouseMoveSensitivity.Tag + ": " + selectedProfile.KeypadMouseMoveSensitivity.ToString("0.00");
+                };
+
+                //Media settings
+                combobox_ShortcutMuteFunction.SelectionChanged += (sender, e) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutMuteFunction", combobox_ShortcutMuteFunction.SelectedIndex.ToString());
+                };
+
+                slider_SettingsMediaVolumeStep.ValueChanged += (sender, e) =>
+                {
+                    textblock_SettingsMediaVolumeStep.Text = textblock_SettingsMediaVolumeStep.Tag.ToString() + slider_SettingsMediaVolumeStep.Value.ToString();
+                    Setting_Save(vConfigurationDirectXInput, "MediaVolumeStep", slider_SettingsMediaVolumeStep.Value.ToString());
                 };
             }
             catch (Exception ex)
