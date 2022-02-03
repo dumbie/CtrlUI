@@ -17,6 +17,7 @@ using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
+using static FpsOverlayer.TaskbarInformation;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.JsonFunctions;
@@ -352,6 +353,8 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
                         double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        if (vTaskBarPosition == AppBarPosition.ABE_LEFT) { marginHorizontal += vTaskBarAdjustMargin; }
+                        else if (vTaskBarPosition == AppBarPosition.ABE_TOP) { marginVertical += vTaskBarAdjustMargin; }
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
@@ -371,6 +374,7 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
                         double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        if (vTaskBarPosition == AppBarPosition.ABE_TOP) { marginVertical += vTaskBarAdjustMargin; }
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
@@ -390,6 +394,8 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
                         double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        if (vTaskBarPosition == AppBarPosition.ABE_RIGHT) { marginHorizontal += vTaskBarAdjustMargin; }
+                        else if (vTaskBarPosition == AppBarPosition.ABE_TOP) { marginVertical += vTaskBarAdjustMargin; }
                         grid_FpsOverlayer.Margin = new Thickness(0, marginVertical, marginHorizontal, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Top;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
@@ -409,6 +415,7 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
                         double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        if (vTaskBarPosition == AppBarPosition.ABE_RIGHT) { marginHorizontal += vTaskBarAdjustMargin; }
                         grid_FpsOverlayer.Margin = new Thickness(0, marginVertical, marginHorizontal, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Center;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
@@ -428,8 +435,9 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
                         double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        if (vTaskBarPosition == AppBarPosition.ABE_RIGHT) { marginHorizontal += vTaskBarAdjustMargin; }
+                        else if (vTaskBarPosition == AppBarPosition.ABE_BOTTOM) { marginVertical += vTaskBarAdjustMargin; }
                         marginVertical += vKeypadAdjustMargin;
-                        marginVertical += vTaskBarAdjustMargin;
                         grid_FpsOverlayer.Margin = new Thickness(0, 0, marginHorizontal, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Right;
@@ -449,8 +457,8 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
                         double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        if (vTaskBarPosition == AppBarPosition.ABE_BOTTOM) { marginVertical += vTaskBarAdjustMargin; }
                         marginVertical += vKeypadAdjustMargin;
-                        marginVertical += vTaskBarAdjustMargin;
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Center;
@@ -470,8 +478,9 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
                         double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        if (vTaskBarPosition == AppBarPosition.ABE_LEFT) { marginHorizontal += vTaskBarAdjustMargin; }
+                        else if (vTaskBarPosition == AppBarPosition.ABE_BOTTOM) { marginVertical += vTaskBarAdjustMargin; }
                         marginVertical += vKeypadAdjustMargin;
-                        marginVertical += vTaskBarAdjustMargin;
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, 0, 0, marginVertical);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Bottom;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;
@@ -491,6 +500,7 @@ namespace FpsOverlayer
                     {
                         double marginHorizontal = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginHorizontal"));
                         double marginVertical = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "MarginVertical"));
+                        if (vTaskBarPosition == AppBarPosition.ABE_LEFT) { marginHorizontal += vTaskBarAdjustMargin; }
                         grid_FpsOverlayer.Margin = new Thickness(marginHorizontal, marginVertical, 0, 0);
                         grid_FpsOverlayer.VerticalAlignment = VerticalAlignment.Center;
                         grid_FpsOverlayer.HorizontalAlignment = HorizontalAlignment.Left;

@@ -85,8 +85,15 @@ namespace FpsOverlayer
                 //Set taskbar result
                 Position = taskBarData.uEdge;
                 Bounds = taskBarData.rc;
-                IsVisible = Bounds.Bottom == windowRectangle.Bottom;
                 IsAutoHide = (taskBarState & (int)AppBarStates.ABS_AUTOHIDE) == (int)AppBarStates.ABS_AUTOHIDE;
+                if (Position == AppBarPosition.ABE_TOP || Position == AppBarPosition.ABE_BOTTOM)
+                {
+                    IsVisible = Bounds.Top == windowRectangle.Top;
+                }
+                else
+                {
+                    IsVisible = Bounds.Left == windowRectangle.Left;
+                }
             }
             catch (Exception ex)
             {

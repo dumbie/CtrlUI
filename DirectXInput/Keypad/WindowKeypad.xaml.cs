@@ -119,6 +119,9 @@ namespace DirectXInput.KeypadCode
 
                 //Update the window visibility
                 await UpdateWindowVisibility(true);
+
+                //Notify - Fps Overlayer keypad size changed
+                await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(vKeypadImageHeight));
             }
             catch { }
         }
@@ -181,10 +184,10 @@ namespace DirectXInput.KeypadCode
         //Update the keypad size
         public double UpdateKeypadSize()
         {
-            double KeypadImageHeight = 0;
+            double keypadImageHeight = 0;
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                ActionDispatcherInvoke(delegate
                 {
                     try
                     {
@@ -192,12 +195,12 @@ namespace DirectXInput.KeypadCode
                         Debug.WriteLine("Changing keypad size to: " + targetPercentage);
 
                         double keypadTextSize = ((double)30 / 100) * targetPercentage;
-                        KeypadImageHeight = ((double)240 / 100) * targetPercentage;
-                        double KeypadPaddingTwo = KeypadImageHeight / 2;
-                        double KeypadPaddingThree = KeypadImageHeight / 3;
+                        keypadImageHeight = ((double)240 / 100) * targetPercentage;
+                        double KeypadPaddingTwo = keypadImageHeight / 2;
+                        double KeypadPaddingThree = keypadImageHeight / 3;
 
                         Application.Current.Resources["KeypadTextSize"] = keypadTextSize;
-                        Application.Current.Resources["KeypadImageHeight"] = KeypadImageHeight;
+                        Application.Current.Resources["KeypadImageHeight"] = keypadImageHeight;
                         Application.Current.Resources["KeypadPaddingTwo"] = KeypadPaddingTwo;
                         Application.Current.Resources["KeypadPaddingThree"] = KeypadPaddingThree;
                     }
@@ -205,7 +208,8 @@ namespace DirectXInput.KeypadCode
                 });
             }
             catch { }
-            return KeypadImageHeight;
+            vKeypadImageHeight = keypadImageHeight;
+            return keypadImageHeight;
         }
 
         //Set the keypad mapping profile

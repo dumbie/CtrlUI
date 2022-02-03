@@ -108,6 +108,7 @@ namespace DirectXInput
         public static KeypadMapping vKeypadMappingProfile = new KeypadMapping();
         public static string vKeypadPreviousProcessName = string.Empty;
         public static string vKeypadPreviousProcessTitle = string.Empty;
+        public static double vKeypadImageHeight = 240;
 
         //Virtual Variables
         public static FakerInputDevice vFakerInputDevice = null;

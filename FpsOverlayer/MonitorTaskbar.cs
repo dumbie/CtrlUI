@@ -6,6 +6,7 @@ using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
+using static FpsOverlayer.TaskbarInformation;
 using static LibraryShared.Settings;
 
 namespace FpsOverlayer
@@ -32,6 +33,7 @@ namespace FpsOverlayer
                     {
                         //Check taskbar visibility
                         TaskbarInformation taskbarInfo = new TaskbarInformation();
+                        vTaskBarPosition = taskbarInfo.Position;
 
                         //Check if auto hide is enabled
                         if (taskbarInfo.IsAutoHide && taskbarInfo.IsVisible)
@@ -41,7 +43,15 @@ namespace FpsOverlayer
                             DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                             //Get the current taskbar size
-                            int taskbarSize = (int)(taskbarInfo.Bounds.Height / displayMonitorSettings.DpiScaleVertical);
+                            int taskbarSize = 0;
+                            if (vTaskBarPosition == AppBarPosition.ABE_TOP || vTaskBarPosition == AppBarPosition.ABE_BOTTOM)
+                            {
+                                taskbarSize = (int)(taskbarInfo.Bounds.Height / displayMonitorSettings.DpiScaleVertical);
+                            }
+                            else
+                            {
+                                taskbarSize = (int)(taskbarInfo.Bounds.Width / displayMonitorSettings.DpiScaleHorizontal);
+                            }
 
                             //Check the taskbar margin
                             if (vTaskBarAdjustMargin != taskbarSize)

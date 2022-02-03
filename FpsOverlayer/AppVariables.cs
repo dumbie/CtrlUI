@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
 using static ArnoldVinkCode.ProcessClasses;
+using static FpsOverlayer.TaskbarInformation;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 
@@ -26,6 +27,7 @@ namespace FpsOverlayer
         //Margin Variables
         public static int vKeypadAdjustMargin = 0;
         public static int vTaskBarAdjustMargin = 0;
+        public static AppBarPosition vTaskBarPosition = AppBarPosition.ABE_BOTTOM;
 
         //Frames per second
         public static long vLastFrameTimeAdded = 0;
