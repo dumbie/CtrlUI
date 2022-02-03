@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
+using static ArnoldVinkCode.AVTaskbarInformation;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
-using static FpsOverlayer.TaskbarInformation;
 using static LibraryShared.Settings;
 
 namespace FpsOverlayer
@@ -32,7 +32,7 @@ namespace FpsOverlayer
                     try
                     {
                         //Check taskbar visibility
-                        TaskbarInformation taskbarInfo = new TaskbarInformation();
+                        AVTaskbarInformation taskbarInfo = new AVTaskbarInformation();
                         vTaskBarPosition = taskbarInfo.Position;
 
                         //Check if auto hide is enabled

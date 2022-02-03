@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
+using static ArnoldVinkCode.AVTaskbarInformation;
 using static ArnoldVinkCode.ProcessClasses;
-using static FpsOverlayer.TaskbarInformation;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
 

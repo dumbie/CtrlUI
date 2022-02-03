@@ -8,13 +8,15 @@ namespace DirectXInput.KeypadCode
     {
         //Task variables
         private static AVTaskDetails vTask_SwitchProfile = new AVTaskDetails();
+        private static AVTaskDetails vTask_MonitorTaskbar = new AVTaskDetails();
 
         //Start all the background tasks
         void TasksBackgroundStart()
         {
             try
             {
-                AVActions.TaskStartLoop(vTaskLoop_SwitchProfile, vTask_SwitchProfile);
+                TaskStartLoop(vTaskLoop_SwitchProfile, vTask_SwitchProfile);
+                TaskStartLoop(vTaskLoop_MonitorTaskbar, vTask_MonitorTaskbar);
             }
             catch { }
         }
@@ -24,23 +26,8 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                await AVActions.TaskStopLoop(vTask_SwitchProfile);
-            }
-            catch { }
-        }
-
-        async Task vTaskLoop_SwitchProfile()
-        {
-            try
-            {
-                while (TaskCheckLoop(vTask_SwitchProfile))
-                {
-                    //Switch keypad profile
-                    await SwitchKeypadProfile();
-
-                    //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_SwitchProfile);
-                }
+                await TaskStopLoop(vTask_SwitchProfile);
+                await TaskStopLoop(vTask_MonitorTaskbar);
             }
             catch { }
         }

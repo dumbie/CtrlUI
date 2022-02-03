@@ -117,7 +117,6 @@
     <Compile Include="Resources\Settings\SettingsLoad.cs" />
     <Compile Include="Resources\Settings\SettingsNotify.cs" />
     <Compile Include="Resources\Settings\SettingsSave.cs" />
-    <Compile Include="Resources\TaskbarInformation.cs" />
     <Compile Include="SocketHandlers.cs" />
     <Compile Include="Styles\DataTemplates\ListBoxItemAppPosition.xaml.cs">
       <DependentUpon>ListBoxItemAppPosition.xaml</DependentUpon>

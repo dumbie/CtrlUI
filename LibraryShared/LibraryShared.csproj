@@ -251,6 +251,9 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Interop\IconResource.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\Interop\IconResource.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVTaskbarInformation.cs">
+      <Link>ArnoldVinkCode\Functions\AVTaskbarInformation.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
     </Compile>

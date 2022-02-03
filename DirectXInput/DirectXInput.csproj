@@ -134,6 +134,8 @@
     <Compile Include="Keyboard\EmojiListFunctions.cs" />
     <Compile Include="Keypad\KeypadTasks.cs" />
     <Compile Include="Keypad\KeypadProfile.cs" />
+    <Compile Include="Keypad\MonitorProfile.cs" />
+    <Compile Include="Keypad\MonitorTaskbar.cs" />
     <Compile Include="Media\ControllerHandlers.cs" />
     <Compile Include="Media\InterfaceFunctions.cs" />
     <Compile Include="Media\MouseFunctions.cs" />
