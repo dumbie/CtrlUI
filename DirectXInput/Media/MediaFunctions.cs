@@ -43,6 +43,16 @@ namespace DirectXInput.MediaCode
             catch { }
         }
 
+        //Disconnect the active controller
+        void button_DisconnectController_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                App.vWindowMain.StopControllerTask(vActiveController(), "manually", string.Empty);
+            }
+            catch { }
+        }
+
         //Show or hide the fps overlayer
         async void button_ShowOrHideFpsOverlayer_Click(object sender, RoutedEventArgs e)
         {

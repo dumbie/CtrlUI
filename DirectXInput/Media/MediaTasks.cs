@@ -8,7 +8,7 @@ namespace DirectXInput.MediaCode
     {
         //Task variables
         private static AVTaskDetails vTask_UpdateMediaInformation = new AVTaskDetails();
-        private static AVTaskDetails vTask_UpdateTimeBatteryInformation = new AVTaskDetails();
+        private static AVTaskDetails vTask_UpdateInterfaceInformation = new AVTaskDetails();
         private static AVTaskDetails vTask_UpdateWindowStyle = new AVTaskDetails();
 
         //Start all the background tasks
@@ -17,7 +17,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 AVActions.TaskStartLoop(vTaskLoop_UpdateMediaInformation, vTask_UpdateMediaInformation);
-                AVActions.TaskStartLoop(vTaskLoop_UpdateTimeBatteryInformation, vTask_UpdateTimeBatteryInformation);
+                AVActions.TaskStartLoop(vTaskLoop_UpdateInterfaceInformation, vTask_UpdateInterfaceInformation);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateWindowStyle, vTask_UpdateWindowStyle);
             }
             catch { }
@@ -29,7 +29,7 @@ namespace DirectXInput.MediaCode
             try
             {
                 await AVActions.TaskStopLoop(vTask_UpdateMediaInformation);
-                await AVActions.TaskStopLoop(vTask_UpdateTimeBatteryInformation);
+                await AVActions.TaskStopLoop(vTask_UpdateInterfaceInformation);
                 await AVActions.TaskStopLoop(vTask_UpdateWindowStyle);
             }
             catch { }
@@ -50,18 +50,20 @@ namespace DirectXInput.MediaCode
             catch { }
         }
 
-        async Task vTaskLoop_UpdateTimeBatteryInformation()
+        async Task vTaskLoop_UpdateInterfaceInformation()
         {
             try
             {
-                while (TaskCheckLoop(vTask_UpdateTimeBatteryInformation))
+                while (TaskCheckLoop(vTask_UpdateInterfaceInformation))
                 {
                     UpdateClockTime();
                     UpdateBatteryStatus();
+                    UpdateActiveController();
                     UpdateTriggerRumbleButton();
+                    UpdateDisconnectButton();
 
                     //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_UpdateTimeBatteryInformation);
+                    await TaskDelayLoop(1000, vTask_UpdateInterfaceInformation);
                 }
             }
             catch { }

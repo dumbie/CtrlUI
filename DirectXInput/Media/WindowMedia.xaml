@@ -92,6 +92,12 @@
                 <StackPanel Orientation="Horizontal" MinHeight="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,15,0">
                     <Image Name="img_Main_MicrophoneMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png" Height="38"/>
                     <Image Name="img_Main_VolumeMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png" Height="38"/>
+
+                    <StackPanel Name="stackpanel_ControllerActive" Margin="0,0,5,0">
+                        <Image Name="img_ControllerActive" Width="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
+                        <Border Name="border_ControllerActive" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="4" SnapsToDevicePixels="True"/>
+                    </StackPanel>
+
                     <Image Name="img_Main_Battery" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerDis100.png" Height="38"/>
                     <TextBlock Name="txt_Main_Battery" Visibility="Collapsed" Margin="0,0,5,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="0%"/>
 
@@ -173,12 +179,13 @@
                         </Button>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="4" Margin="0,0,0,10" HorizontalAlignment="Center">
+                    <StackPanel Grid.Row="4" HorizontalAlignment="Center">
                         <TextBlock Name="textblock_Volume_Level" Text="System volume" TextAlignment="Center" HorizontalAlignment="Stretch" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeLarge}"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="5" HorizontalAlignment="Center">
-                        <Button Name="button_EnableDisableTriggerRumble" Content="Enable or disable trigger rumble" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_EnableDisableTriggerRumble_Click" Visibility="Collapsed"/>
+                        <Button Name="button_EnableDisableTriggerRumble" Content="Enable or disable trigger rumble" Margin="0,15,0,0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_EnableDisableTriggerRumble_Click" Visibility="Collapsed"/>
+                        <Button Name="button_DisconnectController" Content="Disconnect the active controller" Margin="0,15,0,0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_DisconnectController_Click" Visibility="Collapsed"/>
                         <Button Name="button_ShowOrHideFpsOverlayer" Content="Show or hide the Fps Overlayer" Margin="0,15,0,0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_ShowOrHideFpsOverlayer_Click"/>
                         <Button Name="button_Close" Content="Close media popup" Margin="0,15,0,0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonAccentWhite}" Click="button_Close_Click"/>
                     </StackPanel>

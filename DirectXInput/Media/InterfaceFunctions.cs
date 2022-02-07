@@ -56,6 +56,31 @@ namespace DirectXInput.MediaCode
             catch { }
         }
 
+        //Update the active controller
+        void UpdateActiveController()
+        {
+            try
+            {
+                //Debug.WriteLine("Updating active controller.");
+                ControllerStatus activeController = AppVariables.vActiveController();
+                if (activeController == null)
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        stackpanel_ControllerActive.Visibility = Visibility.Collapsed;
+                    });
+                    return;
+                }
+
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    stackpanel_ControllerActive.Visibility = Visibility.Visible;
+                    border_ControllerActive.Background = new SolidColorBrush((Color)activeController.Color);
+                });
+            }
+            catch { }
+        }
+
         //Update the battery icons and level
         void UpdateBatteryStatus()
         {
@@ -148,7 +173,7 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                //Debug.WriteLine("Updating trigger rumble button.");
+                //Debug.WriteLine("Updating trigger rumble button visibility.");
                 ControllerStatus activeController = AppVariables.vActiveController();
                 if (activeController == null)
                 {
@@ -172,6 +197,41 @@ namespace DirectXInput.MediaCode
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         button_EnableDisableTriggerRumble.Visibility = Visibility.Collapsed;
+                    });
+                }
+            }
+            catch { }
+        }
+
+        //Update the disconnect button
+        void UpdateDisconnectButton()
+        {
+            try
+            {
+                //Debug.WriteLine("Updating disconnect button visibility.");
+                ControllerStatus activeController = AppVariables.vActiveController();
+                if (activeController == null)
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        button_DisconnectController.Visibility = Visibility.Collapsed;
+                    });
+                    return;
+                }
+
+                //Check if controller is wireless connected
+                if (activeController.Details.Wireless)
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        button_DisconnectController.Visibility = Visibility.Visible;
+                    });
+                }
+                else
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        button_DisconnectController.Visibility = Visibility.Collapsed;
                     });
                 }
             }

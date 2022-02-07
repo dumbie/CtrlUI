@@ -226,7 +226,7 @@ namespace DirectXInput
         }
 
         //Stop the desired controller in task
-        void StopControllerTask(ControllerStatus Controller, string disconnectInfo, string controllerInfo)
+        public void StopControllerTask(ControllerStatus Controller, string disconnectInfo, string controllerInfo)
         {
             try
             {
