@@ -39,7 +39,7 @@ namespace DirectXInput
                 if (!await OpenController(Controller))
                 {
                     Debug.WriteLine("Failed to initialize direct input for: " + Controller.Details.DisplayName);
-                    await StopControllerAsync(Controller, "unsupported", "Controller " + controllerNumberDisplay + " is no longer connected or supported.");
+                    StopControllerTask(Controller, "unsupported", "Controller " + controllerNumberDisplay + " is no longer connected or supported.");
                     return false;
                 }
 
@@ -412,14 +412,14 @@ namespace DirectXInput
         }
 
         //Stop all the controllers
-        async Task StopAllControllers(bool disconnectVirtualBus)
+        void StopAllControllers(bool disconnectVirtualBus)
         {
             try
             {
-                await StopControllerAsync(vController0, "all", "Disconnected all the connected controllers.");
-                await StopControllerAsync(vController1, "all", "Disconnected all the connected controllers.");
-                await StopControllerAsync(vController2, "all", "Disconnected all the connected controllers.");
-                await StopControllerAsync(vController3, "all", "Disconnected all the connected controllers.");
+                StopControllerTask(vController0, "all", "Disconnected all the connected controllers.");
+                StopControllerTask(vController1, "all", "Disconnected all the connected controllers.");
+                StopControllerTask(vController2, "all", "Disconnected all the connected controllers.");
+                StopControllerTask(vController3, "all", "Disconnected all the connected controllers.");
 
                 if (disconnectVirtualBus)
                 {
