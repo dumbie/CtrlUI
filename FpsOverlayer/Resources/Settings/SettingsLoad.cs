@@ -62,7 +62,8 @@ namespace FpsOverlayer
                 checkbox_CpuShowPercentage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPercentage"));
                 checkbox_CpuShowTemperature.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature"));
                 checkbox_CpuShowCoreFrequency.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency"));
-                checkbox_CpuShowPowerUsage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerUsage"));
+                checkbox_CpuShowPowerWatt.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerWatt"));
+                checkbox_CpuShowPowerVolt.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerVolt"));
                 checkbox_CpuShowFanSpeed.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed"));
 
                 textbox_MemCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "MemCategoryTitle"));

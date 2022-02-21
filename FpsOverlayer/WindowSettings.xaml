@@ -193,7 +193,10 @@
                 <CheckBox Name="checkbox_CpuShowCoreFrequency" Content="Show the core frequency" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the processors current core frequency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                <CheckBox Name="checkbox_CpuShowPowerUsage" Content="Show the power wattage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                <CheckBox Name="checkbox_CpuShowPowerWatt" Content="Show the power wattage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will show the processors current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                <CheckBox Name="checkbox_CpuShowPowerVolt" Content="Show the power voltage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the processors current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <CheckBox Name="checkbox_CpuShowFanSpeed" Content="Show the fan speed" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>

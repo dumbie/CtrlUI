@@ -44,7 +44,7 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowTemperature") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowTemperature", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowCoreFrequency") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowCoreFrequency", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowFanSpeed") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowFanSpeed", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerWatt") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowPowerWatt", "False"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerWatt") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowPowerWatt", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuShowPowerVolt") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuShowPowerVolt", "False"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuId") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuId", "3"); }
@@ -54,7 +54,8 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowPercentage") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPercentage", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowTemperature", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerUsage") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPowerUsage", "True"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerWatt") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPowerWatt", "True"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerVolt") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPowerVolt", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowFanSpeed", "True"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemId") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemId", "5"); }

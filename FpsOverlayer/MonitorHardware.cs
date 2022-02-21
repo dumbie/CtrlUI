@@ -440,9 +440,10 @@ namespace FpsOverlayer
                 bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPercentage"));
                 bool showTemperature = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature"));
                 bool showCoreFrequency = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency"));
-                bool showPowerUsage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerUsage"));
+                bool showPowerWatt = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerWatt"));
+                bool showPowerVolt = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerVolt"));
                 bool showFanSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed"));
-                if (!showName && !showPercentage && !showTemperature && !showCoreFrequency && !showPowerUsage && !showFanSpeed)
+                if (!showName && !showPercentage && !showTemperature && !showCoreFrequency && !showPowerWatt && !showPowerVolt && !showFanSpeed)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -458,7 +459,8 @@ namespace FpsOverlayer
                     string CpuPercentage = string.Empty;
                     string CpuTemperature = string.Empty;
                     string CpuFrequency = string.Empty;
-                    string CpuPower = string.Empty;
+                    string CpuPowerWattage = string.Empty;
+                    string CpuPowerVoltage = string.Empty;
                     string CpuFanSpeed = string.Empty;
 
                     //Set the cpu name
@@ -510,12 +512,25 @@ namespace FpsOverlayer
                                     }
                                 }
                             }
-                            else if (showPowerUsage && sensor.SensorType == SensorType.Power)
+                            else if (showPowerWatt && sensor.SensorType == SensorType.Power)
                             {
                                 //Debug.WriteLine("CPU Wattage: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
                                 if (sensor.Identifier.ToString().EndsWith("power/0"))
                                 {
-                                    CpuPower = " " + Convert.ToInt32(sensor.Value) + "W";
+                                    CpuPowerWattage = " " + Convert.ToInt32(sensor.Value) + "W";
+                                }
+                            }
+                            else if (showPowerVolt && sensor.SensorType == SensorType.Voltage)
+                            {
+                                //Debug.WriteLine("CPU Voltage: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
+                                float RawPowerVoltage = (float)sensor.Value;
+                                if (RawPowerVoltage <= 0)
+                                {
+                                    CpuPowerVoltage = " 0V";
+                                }
+                                else
+                                {
+                                    CpuPowerVoltage = " " + RawPowerVoltage.ToString("0.000") + "V";
                                 }
                             }
                         }
@@ -523,10 +538,10 @@ namespace FpsOverlayer
                     }
 
                     bool cpuNameNullOrWhiteSpace = string.IsNullOrWhiteSpace(CpuName);
-                    if (!cpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(CpuPercentage) || !string.IsNullOrWhiteSpace(CpuTemperature) || !string.IsNullOrWhiteSpace(CpuFrequency) || !string.IsNullOrWhiteSpace(CpuPower) || !string.IsNullOrWhiteSpace(CpuFanSpeed))
+                    if (!cpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(CpuPercentage) || !string.IsNullOrWhiteSpace(CpuTemperature) || !string.IsNullOrWhiteSpace(CpuFrequency) || !string.IsNullOrWhiteSpace(CpuPowerWattage) || !string.IsNullOrWhiteSpace(CpuPowerVoltage) || !string.IsNullOrWhiteSpace(CpuFanSpeed))
                     {
                         string stringDisplay = string.Empty;
-                        string stringStats = AVFunctions.StringRemoveStart(vTitleCPU + CpuPercentage + CpuTemperature + CpuFrequency + CpuFanSpeed + CpuPower, " ");
+                        string stringStats = AVFunctions.StringRemoveStart(vTitleCPU + CpuPercentage + CpuTemperature + CpuFrequency + CpuFanSpeed + CpuPowerWattage + CpuPowerVoltage, " ");
                         if (string.IsNullOrWhiteSpace(stringStats))
                         {
                             stringDisplay = CpuName;

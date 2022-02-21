@@ -125,7 +125,8 @@ namespace FpsOverlayer
                 checkbox_CpuShowPercentage.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPercentage", checkbox_CpuShowPercentage.IsChecked.ToString()); };
                 checkbox_CpuShowTemperature.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "CpuShowTemperature", checkbox_CpuShowTemperature.IsChecked.ToString()); };
                 checkbox_CpuShowCoreFrequency.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", checkbox_CpuShowCoreFrequency.IsChecked.ToString()); };
-                checkbox_CpuShowPowerUsage.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPowerUsage", checkbox_CpuShowPowerUsage.IsChecked.ToString()); };
+                checkbox_CpuShowPowerWatt.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPowerWatt", checkbox_CpuShowPowerWatt.IsChecked.ToString()); };
+                checkbox_CpuShowPowerVolt.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPowerVolt", checkbox_CpuShowPowerVolt.IsChecked.ToString()); };
                 checkbox_CpuShowFanSpeed.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "CpuShowFanSpeed", checkbox_CpuShowFanSpeed.IsChecked.ToString()); };
 
                 textbox_MemCategoryTitle.TextChanged += async (sender, e) =>
