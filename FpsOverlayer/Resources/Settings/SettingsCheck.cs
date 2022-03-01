@@ -30,8 +30,9 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorCpu") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorCpu", "#00EAFF"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorMem") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorMem", "#FFA200"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorFps") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorFps", "#FF0505"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorNet") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorNet", "#FF05F0"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorApp") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorApp", "#FFE115"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "ColorNet") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorNet", "#FF00A8"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "ColorApp") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorApp", "#C000FF"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "ColorBat") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorBat", "#FFE115"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorTime") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorTime", "#21AFFF"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorMon") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorMon", "#21A000"); }
 
@@ -76,13 +77,18 @@ namespace FpsOverlayer
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "MonId") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonId", "6"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MonCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonCategoryTitle", "MON"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MonShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonShowCategoryTitle", "False"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "MonShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonShowCategoryTitle", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MonShowResolution") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonShowResolution", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MonShowDpiResolution") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonShowDpiResolution", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MonShowColorBitDepth") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonShowColorBitDepth", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MonShowRefreshRate") == null) { Setting_Save(vConfigurationFpsOverlayer, "MonShowRefreshRate", "False"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "TimeId") == null) { Setting_Save(vConfigurationFpsOverlayer, "TimeId", "7"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "BatId") == null) { Setting_Save(vConfigurationFpsOverlayer, "BatId", "7"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "BatCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "BatCategoryTitle", "BAT"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "BatShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "BatShowCategoryTitle", "True"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "BatShowPercentage") == null) { Setting_Save(vConfigurationFpsOverlayer, "BatShowPercentage", "True"); }
+
+                if (Setting_Load(vConfigurationFpsOverlayer, "TimeId") == null) { Setting_Save(vConfigurationFpsOverlayer, "TimeId", "8"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "TimeShowCurrentTime") == null) { Setting_Save(vConfigurationFpsOverlayer, "TimeShowCurrentTime", "True"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "FpsId") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsId", "1"); }

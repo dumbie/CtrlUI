@@ -26,8 +26,10 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -86,16 +88,24 @@
             </TextBlock>
         </Grid>
 
-        <Grid Visibility="Collapsed" Name="stackpanel_CurrentTime">
-            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentTime" Padding="2" Margin="0" Text="Time" VerticalAlignment="Center">
+        <Grid Visibility="Collapsed" Name="stackpanel_CurrentMon">
+            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentMon" Padding="2" Margin="0" Text="MON" VerticalAlignment="Center">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
                 </TextBlock.Effect>
             </TextBlock>
         </Grid>
 
-        <Grid Visibility="Collapsed" Name="stackpanel_CurrentMon">
-            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentMon" Padding="2" Margin="0" Text="MON" VerticalAlignment="Center">
+        <Grid Visibility="Collapsed" Name="stackpanel_CurrentBat">
+            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentBat" Padding="2" Margin="0" Text="BAT" VerticalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+
+        <Grid Visibility="Collapsed" Name="stackpanel_CurrentTime">
+            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentTime" Padding="2" Margin="0" Text="Time" VerticalAlignment="Center">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
                 </TextBlock.Effect>

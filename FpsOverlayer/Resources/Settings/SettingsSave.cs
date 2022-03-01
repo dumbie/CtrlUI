@@ -161,6 +161,21 @@ namespace FpsOverlayer
                 checkbox_NetShowCurrentUsage.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "NetShowCurrentUsage", checkbox_NetShowCurrentUsage.IsChecked.ToString()); };
 
                 checkbox_AppShowName.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "AppShowName", checkbox_AppShowName.IsChecked.ToString()); };
+
+                textbox_BatCategoryTitle.TextChanged += async (sender, e) =>
+                {
+                    TextBox senderTextbox = (TextBox)sender;
+                    Setting_Save(vConfigurationFpsOverlayer, "BatCategoryTitle", senderTextbox.Text);
+                    await App.vWindowMain.UpdateFpsOverlayStyle();
+                };
+                checkbox_BatShowCategoryTitle.Click += async (sender, e) =>
+                {
+                    CheckBox senderCheckBox = (CheckBox)sender;
+                    Setting_Save(vConfigurationFpsOverlayer, "BatShowCategoryTitle", senderCheckBox.IsChecked.ToString());
+                    await App.vWindowMain.UpdateFpsOverlayStyle();
+                };
+                checkbox_BatShowPercentage.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "BatShowPercentage", checkbox_BatShowPercentage.IsChecked.ToString()); };
+
                 checkbox_TimeShowCurrentTime.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "TimeShowCurrentTime", checkbox_TimeShowCurrentTime.IsChecked.ToString()); };
 
                 textbox_MonCategoryTitle.TextChanged += async (sender, e) =>
@@ -276,6 +291,18 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorApp.Background = newBrush;
                         Setting_Save(vConfigurationFpsOverlayer, "ColorApp", newColor.ToString());
+                        await App.vWindowMain.UpdateFpsOverlayStyle();
+                    }
+                };
+
+                colorpicker_ColorBat.Click += async (sender, e) =>
+                {
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorBat.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorBat", newColor.ToString());
                         await App.vWindowMain.UpdateFpsOverlayStyle();
                     }
                 };

@@ -41,6 +41,7 @@ namespace FpsOverlayer
         public static string vTitleNET = "NET";
         public static string vTitleMON = "MON";
         public static string vTitleFPS = "FPS";
+        public static string vTitleBAT = "BAT";
 
         //Hardware
         public static Computer vHardwareComputer = null;

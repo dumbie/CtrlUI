@@ -78,6 +78,11 @@ namespace FpsOverlayer
                 checkbox_NetShowCurrentUsage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "NetShowCurrentUsage"));
 
                 checkbox_AppShowName.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "AppShowName"));
+
+                textbox_BatCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "BatCategoryTitle"));
+                checkbox_BatShowCategoryTitle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BatShowCategoryTitle"));
+                checkbox_BatShowPercentage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BatShowPercentage"));
+
                 checkbox_TimeShowCurrentTime.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "TimeShowCurrentTime"));
 
                 textbox_MonCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "MonCategoryTitle"));
@@ -113,6 +118,9 @@ namespace FpsOverlayer
 
                 string ColorApp = Setting_Load(vConfigurationFpsOverlayer, "ColorApp").ToString();
                 colorpicker_ColorApp.Background = new BrushConverter().ConvertFrom(ColorApp) as SolidColorBrush;
+
+                string ColorBat = Setting_Load(vConfigurationFpsOverlayer, "ColorBat").ToString();
+                colorpicker_ColorBat.Background = new BrushConverter().ConvertFrom(ColorBat) as SolidColorBrush;
 
                 string ColorTime = Setting_Load(vConfigurationFpsOverlayer, "ColorTime").ToString();
                 colorpicker_ColorTime.Background = new BrushConverter().ConvertFrom(ColorTime) as SolidColorBrush;

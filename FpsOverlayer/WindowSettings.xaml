@@ -47,7 +47,7 @@
                 </StackPanel>
 
                 <CheckBox Margin="0,10,0,0" Name="checkbox_CheckTaskbarVisible" Content="Adjust margin to taskbar visibility" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Automatically adjust the overlay margin to your taskbar visibility when you have auto hide enabled in Windows." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                <TextBlock Text="Automatically adjust the overlay margin to your taskbar visibility when you have taskbar auto hide enabled in Windows." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Text Settings"/>
                 <TextBlock Text="Text display font" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
@@ -119,9 +119,15 @@
                     <Button Name="colorpicker_ColorApp" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the application name color"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <TextBlock Text="Display color for battery level:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                    <Button Name="colorpicker_ColorBat" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the battery level color"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <TextBlock Text="Display color for current time:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                     <Button Name="colorpicker_ColorTime" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the current time color"/>
                 </StackPanel>
+
+                <TextBlock Margin="0,10,0,0" Text="* Some settings below may not work with your hardware." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Videocard Settings"/>
@@ -305,6 +311,26 @@
 
                 <CheckBox Name="checkbox_MonShowRefreshRate" Content="Show the current refresh rate" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                 <TextBlock Text="Enabling this will show the current monitor refresh rate." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Battery Settings"/>
+                    <Button Name="button_BatUp" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                    </Button>
+                    <Button Name="button_BatDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                    </Button>
+                    <TextBlock Name="textblock_BatPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="checkbox_BatShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                    <TextBox Name="textbox_BatCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                </StackPanel>
+                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                <CheckBox Name="checkbox_BatShowPercentage" Content="Show battery level" Style="{StaticResource CheckBoxBlack}"/>
+                <TextBlock Text="Enabling this will show the current battery level and status." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Settings"/>
