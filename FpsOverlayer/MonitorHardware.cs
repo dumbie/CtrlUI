@@ -486,9 +486,10 @@ namespace FpsOverlayer
                             subHardware.Update();
                             foreach (ISensor sensor in subHardware.Sensors)
                             {
+                                //Debug.WriteLine("Fan: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
                                 try
                                 {
-                                    if (sensor.Identifier.ToString().EndsWith("fan/0"))
+                                    if (sensor.Name.Contains("CPU") && sensor.Identifier.ToString().EndsWith("fan/0"))
                                     {
                                         cpuFanSpeedFloat = (float)sensor.Value;
                                         break;
