@@ -36,8 +36,11 @@ namespace CtrlUI
                 cb_SettingsHideBatteryLevel.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideBatteryLevel"));
                 cb_SettingsHideMouseCursor.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideMouseCursor"));
                 cb_SettingsHideControllerHelp.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideControllerHelp"));
+
                 cb_SettingsShowHiddenFilesFolders.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders"));
                 cb_SettingsHideNetworkDrives.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideNetworkDrives"));
+                cb_SettingsNotReadyNetworkDrives.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "NotReadyNetworkDrives"));
+
                 cb_SettingsInterfaceSound.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "InterfaceSound"));
                 cb_SettingsShowMediaMain.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowMediaMain"));
                 cb_SettingsMinimizeAppOnShow.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow"));

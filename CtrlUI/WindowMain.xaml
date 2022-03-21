@@ -744,6 +744,9 @@
                             <CheckBox Name="cb_SettingsHideNetworkDrives" Content="Hide network drives in file browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will hide mounted network drives in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
+                            <CheckBox Name="cb_SettingsNotReadyNetworkDrives" Content="Show unconnected network drives in file browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Enabling this will show network drives that are not yet connected in the file browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
                             <TextBlock Text="* You can add new file locations to open in the profile manager." Margin="0,20,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                         </StackPanel>
 

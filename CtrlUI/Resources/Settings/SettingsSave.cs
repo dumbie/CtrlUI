@@ -160,6 +160,8 @@ namespace CtrlUI
 
                 cb_SettingsShowHiddenFilesFolders.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "ShowHiddenFilesFolders", cb_SettingsShowHiddenFilesFolders.IsChecked.ToString()); };
                 cb_SettingsHideNetworkDrives.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "HideNetworkDrives", cb_SettingsHideNetworkDrives.IsChecked.ToString()); };
+                cb_SettingsNotReadyNetworkDrives.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "NotReadyNetworkDrives", cb_SettingsNotReadyNetworkDrives.IsChecked.ToString()); };
+
                 cb_SettingsInterfaceSound.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "InterfaceSound", cb_SettingsInterfaceSound.IsChecked.ToString()); };
                 cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };
 
