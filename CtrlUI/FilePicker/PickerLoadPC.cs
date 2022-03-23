@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -97,7 +96,7 @@ namespace CtrlUI
                 DataBindFile dataBindFileVideos = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Videos", ImageBitmap = imageFolderVideos, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) };
                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileVideos, false, false);
 
-                //Load browser settings
+                //Load file browser settings
                 bool hideNetworkDrives = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideNetworkDrives"));
                 bool notReadyNetworkDrives = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "NotReadyNetworkDrives"));
 
@@ -112,9 +111,6 @@ namespace CtrlUI
                         {
                             continue;
                         }
-
-                        Debug.WriteLine(disk.IsReady);
-                        Debug.WriteLine(disk.DriveType);
 
                         //Check if the disk is currently connected
                         if (disk.IsReady || (disk.DriveType == DriveType.Network && notReadyNetworkDrives))

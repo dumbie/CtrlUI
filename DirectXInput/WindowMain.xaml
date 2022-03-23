@@ -300,8 +300,12 @@
                                 <TextBlock Text="Enable or disable controller rumble" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>
 
+                            <TextBlock Name="textblock_ControllerRumbleLimit" Margin="0,5,0,0" Style="{StaticResource TextBlockBlack}" Text="Controller limit rumble" Tag="Controller limit rumble: "/>
+                            <TextBlock Text="Changes the controller maximum rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerRumbleLimit" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
                             <TextBlock Name="textblock_ControllerRumbleStrength" Margin="0,5,0,0" Style="{StaticResource TextBlockBlack}" Text="Controller rumble strength" Tag="Controller rumble strength: "/>
-                            <TextBlock Text="Changes the controller rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <TextBlock Text="Changes the controller overall rumble strength." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                             <Slider Name="slider_ControllerRumbleStrength" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                             <StackPanel Name="stackpanel_TriggerRumbleSettings">

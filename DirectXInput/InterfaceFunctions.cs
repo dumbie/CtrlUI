@@ -241,11 +241,24 @@ namespace DirectXInput
                         if (activeController.Details.Profile.ControllerRumbleEnabled)
                         {
                             slider_ControllerRumbleStrength.IsEnabled = true;
+                            slider_ControllerRumbleLimit.IsEnabled = true;
                         }
                         else
                         {
                             slider_ControllerRumbleStrength.IsEnabled = false;
+                            slider_ControllerRumbleLimit.IsEnabled = false;
                         }
+                    }
+                };
+
+                slider_ControllerRumbleLimit.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_ControllerRumbleLimit.Text = textblock_ControllerRumbleLimit.Tag.ToString() + Convert.ToInt32(slider_ControllerRumbleLimit.Value) + "%";
+                        activeController.Details.Profile.ControllerRumbleLimit = Convert.ToInt32(slider_ControllerRumbleLimit.Value);
+                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
                     }
                 };
 

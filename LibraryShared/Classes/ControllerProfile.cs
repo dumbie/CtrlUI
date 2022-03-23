@@ -588,7 +588,21 @@ namespace LibraryShared
                 }
             }
 
-            private int PrivControllerRumbleStrength = 80;
+            private int PrivControllerRumbleLimit = 80;
+            public int ControllerRumbleLimit
+            {
+                get { return this.PrivControllerRumbleLimit; }
+                set
+                {
+                    if (this.PrivControllerRumbleLimit != value)
+                    {
+                        this.PrivControllerRumbleLimit = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private int PrivControllerRumbleStrength = 100;
             public int ControllerRumbleStrength
             {
                 get { return this.PrivControllerRumbleStrength; }

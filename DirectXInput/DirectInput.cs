@@ -193,11 +193,17 @@ namespace DirectXInput
                     if (Controller.Details.Profile.ControllerRumbleEnabled)
                     {
                         slider_ControllerRumbleStrength.IsEnabled = true;
+                        slider_ControllerRumbleLimit.IsEnabled = true;
                     }
                     else
                     {
                         slider_ControllerRumbleStrength.IsEnabled = false;
+                        slider_ControllerRumbleLimit.IsEnabled = false;
                     }
+
+                    textblock_ControllerRumbleLimit.Text = textblock_ControllerRumbleLimit.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.ControllerRumbleLimit) + "%";
+                    slider_ControllerRumbleLimit.Value = Controller.Details.Profile.ControllerRumbleLimit;
+
                     textblock_ControllerRumbleStrength.Text = textblock_ControllerRumbleStrength.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.ControllerRumbleStrength) + "%";
                     slider_ControllerRumbleStrength.Value = Controller.Details.Profile.ControllerRumbleStrength;
 
