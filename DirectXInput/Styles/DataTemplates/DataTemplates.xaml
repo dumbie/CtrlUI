@@ -5,6 +5,22 @@
     xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
     xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf">
 
+    <!-- ListboxItemDebugBox -->
+    <DataTemplate x:Key="ListboxItemDebugBox">
+        <Grid Width="30" Height="40" Margin="0,0,2,2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" CornerRadius="5,5,0,0" Background="{StaticResource ApplicationAccentLightBrush}">
+                <TextBlock Text="{Binding String1}" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <Border Grid.Row="1" CornerRadius="0,0,5,5" Background="{StaticResource ApplicationGrayBrush}">
+                <TextBlock Text="{Binding String2}" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
     <!-- ListboxItemIgnore -->
     <DataTemplate x:Key="ListboxItemIgnore">
         <Grid Margin="5" ToolTip="Allow ignored controller">

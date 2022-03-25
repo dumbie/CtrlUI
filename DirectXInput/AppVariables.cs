@@ -47,6 +47,7 @@ namespace DirectXInput
         public static bool vSingleTappedEvent = true;
         public static string[] vVerticalLoopTargetLists = { "listbox_TextList" };
         public static bool vShowDebugInformation = false;
+        public static long vShowDebugDelay = 0;
 
         //Dispatcher Timers
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();

@@ -311,6 +311,7 @@ namespace DirectXInput
                         textblock_Controller0.Text = "No controller connected";
                         textblock_Controller0CodeName.Text = string.Empty;
                         textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
+                        listbox_LiveDebugInput.Items.Clear();
                     }
                     else if (Controller.NumberId == 1)
                     {
@@ -318,6 +319,7 @@ namespace DirectXInput
                         textblock_Controller1.Text = "No controller connected";
                         textblock_Controller1CodeName.Text = string.Empty;
                         textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
+                        listbox_LiveDebugInput.Items.Clear();
                     }
                     else if (Controller.NumberId == 2)
                     {
@@ -325,6 +327,7 @@ namespace DirectXInput
                         textblock_Controller2.Text = "No controller connected";
                         textblock_Controller2CodeName.Text = string.Empty;
                         textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
+                        listbox_LiveDebugInput.Items.Clear();
                     }
                     else if (Controller.NumberId == 3)
                     {
@@ -332,6 +335,7 @@ namespace DirectXInput
                         textblock_Controller3.Text = "No controller connected";
                         textblock_Controller3CodeName.Text = string.Empty;
                         textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
+                        listbox_LiveDebugInput.Items.Clear();
                     }
                 });
 

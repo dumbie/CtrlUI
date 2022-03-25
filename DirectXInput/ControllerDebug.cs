@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Windows;
+using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -12,9 +14,26 @@ namespace DirectXInput
         {
             try
             {
-                if (vShowDebugInformation)
+                if (vShowDebugInformation && (GetSystemTicksMs() - vShowDebugDelay) > 0)
                 {
-                    textblock_LiveDebugInformation.Text = GenerateControllerDebugInformation();
+                    //Set basic information
+                    textblock_LiveDebugInformation.Text = GenerateControllerDebugString(false);
+
+                    //Clear previous input
+                    listbox_LiveDebugInput.Items.Clear();
+
+                    //Get controller input
+                    byte[] controllerRawInput = GetControllerRawInput();
+                    if (controllerRawInput.Length > 200) { controllerRawInput = controllerRawInput.Take(200).ToArray(); }
+                    for (int packetId = 0; packetId < controllerRawInput.Length; packetId++) 
+                    {
+                        ProfileShared profileShared = new ProfileShared();
+                        profileShared.String1 = packetId.ToString();
+                        profileShared.String2 = controllerRawInput[packetId].ToString();
+                        listbox_LiveDebugInput.Items.Add(profileShared);
+                    }
+
+                    vShowDebugDelay = GetSystemTicksMs() + 100;
                 }
             }
             catch { }
@@ -28,7 +47,7 @@ namespace DirectXInput
                 ControllerStatus activeController = vActiveController();
                 if (activeController != null && activeController.InputReport != null)
                 {
-                    Clipboard.SetText(GenerateControllerDebugInformation());
+                    Clipboard.SetText(GenerateControllerDebugString(true));
 
                     Debug.WriteLine("Controller debug information copied to clipboard.");
                     NotificationDetails notificationDetails = new NotificationDetails();
@@ -48,20 +67,27 @@ namespace DirectXInput
             catch { }
         }
 
-        //Generate controller debug information
-        string GenerateControllerDebugInformation()
+        //Generate controller debug information string
+        string GenerateControllerDebugString(bool includeRawData)
         {
             try
             {
                 ControllerStatus activeController = vActiveController();
                 if (activeController != null && activeController.InputReport != null)
                 {
-                    string RawPackets = "(Out" + activeController.OutputReport.Length + "/In" + activeController.InputReport.Length + ")";
-                    RawPackets += "(OffHd" + activeController.InputHeaderOffsetByte + ")";
-                    RawPackets += "(OffBt" + activeController.InputButtonOffsetByte + ")";
-                    RawPackets += "(ProductId" + activeController.Details.Profile.ProductID + "/VendorId" + activeController.Details.Profile.VendorID + ")";
-                    for (int Packet = 0; Packet < activeController.InputReport.Length; Packet++) { RawPackets = RawPackets + " " + activeController.InputReport[Packet]; }
-                    return RawPackets;
+                    string rawPackets = "(Out" + activeController.OutputReport.Length + "/In" + activeController.InputReport.Length + ")";
+                    rawPackets += "(OffHd" + activeController.InputHeaderOffsetByte + ")";
+                    rawPackets += "(OffBtn" + activeController.InputButtonOffsetByte + ")";
+                    rawPackets += "(ProductId" + activeController.Details.Profile.ProductID + "/VendorId" + activeController.Details.Profile.VendorID + ")";
+
+                    //Controller raw input
+                    if (includeRawData)
+                    {
+                        rawPackets += "\n";
+                        for (int Packet = 0; Packet < activeController.InputReport.Length; Packet++) { rawPackets = rawPackets + " " + activeController.InputReport[Packet]; }
+                    }
+
+                    return rawPackets;
                 }
                 else
                 {
@@ -70,6 +96,36 @@ namespace DirectXInput
             }
             catch { }
             return "Failed to generate debug information.";
+        }
+
+        //Get controller raw input
+        byte[] GetControllerRawInput()
+        {
+            try
+            {
+                ControllerStatus activeController = vActiveController();
+                if (activeController != null && activeController.InputReport != null)
+                {
+                    return activeController.InputReport;
+                }
+            }
+            catch { }
+            return null;
+        }
+
+        //Get controller raw output
+        byte[] GetControllerRawOutput()
+        {
+            try
+            {
+                ControllerStatus activeController = vActiveController();
+                if (activeController != null && activeController.InputReport != null)
+                {
+                    return activeController.OutputReport;
+                }
+            }
+            catch { }
+            return null;
         }
     }
 }
