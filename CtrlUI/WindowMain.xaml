@@ -568,6 +568,10 @@
                             <CheckBox Name="cb_SettingsMonitorPreventSleep" Content="Prevent monitor from sleeping" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will prevent your monitor from sleeping when CtrlUI is active." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
+                            <TextBlock Name="textblock_AdjustChromiumDpi" Text="Adjust Chromium browsers DPI" Tag="Adjust Chromium browsers DPI" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                            <TextBlock Text="Adjust the DPI of Chromium based browsers like Edge and Chrome on launch." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                            <Slider Name="slider_AdjustChromiumDpi" Height="18" Width="400" Minimum="0" Maximum="3.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
                             <TextBlock Name="textblock_SettingsDisplayMonitor" Text="Monitor to display the applications on" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Monitor that CtrlUI, DirectXInput, Keyboard and Fps Overlayer appears on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
                             <Slider Name="slider_SettingsDisplayMonitor" Width="400" Minimum="1" Maximum="12" HorizontalAlignment="Left" Style="{StaticResource SliderBlack}"/>

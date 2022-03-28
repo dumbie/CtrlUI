@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -39,6 +41,25 @@ namespace CtrlUI
                     {
                         appTitle += " with file";
                     }
+                }
+
+                //Chromium DPI launch argument
+                string processName = Path.GetFileNameWithoutExtension(dataBindApp.PathExe);
+                if (vCtrlChromiumBrowsers.Any(x => x.String1 == processName))
+                {
+                    //Get the current active screen
+                    int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
+                    DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
+
+                    //Get the current screen dpi
+                    double screenDPI = displayMonitorSettings.DpiScaleHorizontal;
+                    double chromiumDPI = Convert.ToDouble(Setting_Load(vConfigurationCtrlUI, "AdjustChromiumDpi"));
+
+                    //Update the launch argument
+                    string stringDPI = (screenDPI + chromiumDPI).ToString(vAppCultureInfo);
+                    launchArgument += " -force-device-scale-factor=" + stringDPI;
+
+                    Debug.WriteLine("Chromium dpi scale factor: " + stringDPI);
                 }
 
                 //Launch the application

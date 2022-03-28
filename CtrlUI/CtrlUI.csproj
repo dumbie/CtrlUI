@@ -911,6 +911,9 @@
     <Content Include="Profiles\Default\Profiles in this folder will get overwritten when updating">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Profiles\Default\CtrlChromiumBrowsers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\App.manifest" />
     <None Include="Properties\App.config" />
   </ItemGroup>

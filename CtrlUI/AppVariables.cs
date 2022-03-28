@@ -26,7 +26,7 @@ namespace CtrlUI
     {
         //Application Variables
         readonly public static bool vAdministratorPermission = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        public static CultureInfo vAppCultureInfo = new CultureInfo("en-US");
+        public static CultureInfo vAppCultureInfo = CultureInfo.InvariantCulture;
         public static Assembly vAppAssembly = Assembly.GetExecutingAssembly();
         public static Configuration vConfigurationCtrlUI = Settings_Load_CtrlUI();
         public static Configuration vConfigurationDirectXInput = Settings_Load_DirectXInput();
@@ -198,6 +198,7 @@ namespace CtrlUI
         public static ObservableCollection<ProfileShared> vCtrlIgnoreShortcutUri = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlKeyboardExtensionName = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlKeyboardProcessName = new ObservableCollection<ProfileShared>();
+        public static ObservableCollection<ProfileShared> vCtrlChromiumBrowsers = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlCloseLaunchers = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlLocationsFile = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vCtrlLocationsShortcut = new ObservableCollection<ProfileShared>();

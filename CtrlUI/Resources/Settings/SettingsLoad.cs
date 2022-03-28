@@ -61,8 +61,11 @@ namespace CtrlUI
                 slider_SettingsDisplayMonitor.Value = monitorNumber;
                 slider_SettingsDisplayMonitor.Maximum = Screen.AllScreens.Count();
 
-                //Load prevent monitor sleep
+                //Load display settings
                 cb_SettingsMonitorPreventSleep.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MonitorPreventSleep"));
+
+                textblock_AdjustChromiumDpi.Text = textblock_AdjustChromiumDpi.Tag + ": +" + Setting_Load(vConfigurationCtrlUI, "AdjustChromiumDpi").ToString() + "%";
+                slider_AdjustChromiumDpi.Value = Convert.ToDouble(Setting_Load(vConfigurationCtrlUI, "AdjustChromiumDpi"));
 
                 //Load the sound volume
                 textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "InterfaceSoundVolume")) + "%";

@@ -114,6 +114,7 @@ namespace CtrlUI
 
                 //Load Json profiles
                 JsonLoadProfile(ref vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
+                JsonLoadProfile(ref vCtrlChromiumBrowsers, @"Default\CtrlChromiumBrowsers");
                 JsonLoadProfile(ref vCtrlCloseLaunchers, @"Default\CtrlCloseLaunchers");
                 JsonLoadProfile(ref vCtrlLocationsFile, @"User\CtrlLocationsFile");
                 JsonLoadProfile(ref vCtrlLocationsShortcut, @"User\CtrlLocationsShortcut");

@@ -186,6 +186,12 @@ namespace CtrlUI
                     UpdateMonitorSleepAuto();
                 };
 
+                slider_AdjustChromiumDpi.ValueChanged += (sender, e) =>
+                {
+                    textblock_AdjustChromiumDpi.Text = textblock_AdjustChromiumDpi.Tag + ": +" + slider_AdjustChromiumDpi.Value.ToString("0.00") + "%";
+                    Setting_Save(vConfigurationCtrlUI, "AdjustChromiumDpi", slider_AdjustChromiumDpi.Value.ToString("0.00"));
+                };
+
                 slider_SettingsSoundVolume.ValueChanged += (sender, e) =>
                 {
                     textblock_SettingsSoundVolume.Text = "User interface sound volume: " + Convert.ToInt32(slider_SettingsSoundVolume.Value) + "%";
