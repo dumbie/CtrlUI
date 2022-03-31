@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 
 namespace DirectXInput
@@ -19,7 +20,7 @@ namespace DirectXInput
                 UpdateCheckButtonPressTimes(Controller.InputCurrent.ButtonGuide);
 
                 //Check if the controller is currently idle
-                if (Controller.Details.Wireless)
+                if (Controller.Details.Wireless && Controller.BatteryCurrent.BatteryStatus != BatteryStatus.Charging)
                 {
                     if (CheckControllerIdle(Controller))
                     {

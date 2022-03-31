@@ -25,7 +25,7 @@ namespace DirectXInput
                     //Get controller input
                     byte[] controllerRawInput = GetControllerRawInput();
                     if (controllerRawInput.Length > 200) { controllerRawInput = controllerRawInput.Take(200).ToArray(); }
-                    for (int packetId = 0; packetId < controllerRawInput.Length; packetId++) 
+                    for (int packetId = 0; packetId < controllerRawInput.Length; packetId++)
                     {
                         ProfileShared profileShared = new ProfileShared();
                         profileShared.String1 = packetId.ToString();
