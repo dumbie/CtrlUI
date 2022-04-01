@@ -161,7 +161,7 @@ namespace CtrlUI
                     if (selectAppCurrent != null)
                     {
                         currentCharacter = selectAppCurrent.Name.ToUpper()[0];
-                        selectAppCurrent = dataBindApplist.Where(filterCharacterMatch).FirstOrDefault();
+                        selectAppCurrent = dataBindApplist.OrderByDescending(x => x.FileType == selectAppCurrent.FileType).Where(filterCharacterMatch).FirstOrDefault();
                     }
                 }
 
