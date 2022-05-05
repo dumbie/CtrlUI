@@ -289,12 +289,20 @@ namespace DirectXInput
                             if (Controller.Details.Profile.ButtonThumbRight == null) { Controller.InputCurrent.ButtonThumbRight.PressedRaw = Controller.InputCurrent.ButtonPressStatus[2]; }
                             else if (Controller.Details.Profile.ButtonThumbRight != -1) { Controller.InputCurrent.ButtonThumbRight.PressedRaw = Controller.InputCurrent.ButtonPressStatus[Controller.Details.Profile.ButtonThumbRight.Value]; }
 
-                            //Fake Guide button press with Start and Back
-                            if (Controller.Details.Profile.FakeGuideButton && Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonBack.PressedRaw)
+                            //Fake Guide button press with LB and Back
+                            if (Controller.Details.Profile.FakeGuideButton && Controller.InputCurrent.ButtonShoulderLeft.PressedRaw && Controller.InputCurrent.ButtonBack.PressedRaw)
                             {
-                                Controller.InputCurrent.ButtonStart.PressedRaw = false;
+                                Controller.InputCurrent.ButtonShoulderLeft.PressedRaw = false;
                                 Controller.InputCurrent.ButtonBack.PressedRaw = false;
                                 Controller.InputCurrent.ButtonGuide.PressedRaw = true;
+                            }
+
+                            //Fake Touchpad button press with RB and Back
+                            if (Controller.Details.Profile.FakeTouchpadButton && Controller.InputCurrent.ButtonShoulderRight.PressedRaw && Controller.InputCurrent.ButtonBack.PressedRaw)
+                            {
+                                Controller.InputCurrent.ButtonShoulderRight.PressedRaw = false;
+                                Controller.InputCurrent.ButtonBack.PressedRaw = false;
+                                Controller.InputCurrent.ButtonTouchpad.PressedRaw = true;
                             }
 
                             //Update the controller battery level

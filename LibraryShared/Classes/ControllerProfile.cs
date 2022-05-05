@@ -345,6 +345,20 @@ namespace LibraryShared
                 }
             }
 
+            private bool PrivFakeTouchpadButton;
+            public bool FakeTouchpadButton
+            {
+                get { return this.PrivFakeTouchpadButton; }
+                set
+                {
+                    if (this.PrivFakeTouchpadButton != value)
+                    {
+                        this.PrivFakeTouchpadButton = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             //Controller Trigger
             private bool PrivUseButtonTriggers;
             public bool UseButtonTriggers

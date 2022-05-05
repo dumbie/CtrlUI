@@ -17,11 +17,9 @@ namespace DirectXInput
                 if (Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide") == null) { Setting_Save(vConfigurationDirectXInput, "ExclusiveGuide", "True"); }
 
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", "True"); }
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController", "True"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutKeyboardPopup", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltEnter", "True"); } //Shared
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltF4") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltF4", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", "True"); } //Shared
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutWinTab") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutWinTab", "False"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshot", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutMediaPopup", "True"); } //Shared
 

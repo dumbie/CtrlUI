@@ -45,10 +45,10 @@ namespace CtrlUI
                 if (Setting_Load(vConfigurationCtrlUI, "HideNetworkDrives") == null) { Setting_Save(vConfigurationCtrlUI, "HideNetworkDrives", "False"); }
                 if (Setting_Load(vConfigurationCtrlUI, "NotReadyNetworkDrives") == null) { Setting_Save(vConfigurationCtrlUI, "NotReadyNetworkDrives", "True"); }
 
-                if (Setting_Load(vConfigurationCtrlUI, "InterfaceSound") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceSound", "True"); }
-                if (Setting_Load(vConfigurationCtrlUI, "InterfaceSoundVolume") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceSoundVolume", "70"); }
+                if (Setting_Load(vConfigurationCtrlUI, "InterfaceSound") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceSound", "True"); } //Shared
+                if (Setting_Load(vConfigurationCtrlUI, "InterfaceSoundVolume") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceSoundVolume", "70"); } //Shared
                 if (Setting_Load(vConfigurationCtrlUI, "InterfaceSoundPackName") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceSoundPackName", "ArcticZephyr"); } //Shared
-                if (Setting_Load(vConfigurationCtrlUI, "InterfaceClockStyleName") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceClockStyleName", "Cortana"); }
+                if (Setting_Load(vConfigurationCtrlUI, "InterfaceClockStyleName") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceClockStyleName", "Cortana"); } //Shared
                 if (Setting_Load(vConfigurationCtrlUI, "InterfaceFontStyleName") == null) { Setting_Save(vConfigurationCtrlUI, "InterfaceFontStyleName", "Segoe UI"); }
 
                 if (Setting_Load(vConfigurationCtrlUI, "ShowMediaMain") == null) { Setting_Save(vConfigurationCtrlUI, "ShowMediaMain", "True"); }

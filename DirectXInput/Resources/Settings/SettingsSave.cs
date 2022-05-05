@@ -158,9 +158,15 @@ namespace DirectXInput
                     Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", cb_SettingsShortcutLaunchCtrlUI.IsChecked.ToString());
                 };
 
-                cb_SettingsShortcutLaunchKeyboardController.Click += async (sender, e) =>
+                cb_SettingsShortcutKeyboardPopup.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController", cb_SettingsShortcutLaunchKeyboardController.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutKeyboardPopup", cb_SettingsShortcutKeyboardPopup.IsChecked.ToString());
+                    await NotifyCtrlUISettingChanged("Shortcut");
+                };
+
+                cb_SettingsShortcutMediaPopup.Click += async (sender, e) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutMediaPopup", cb_SettingsShortcutMediaPopup.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
@@ -170,43 +176,15 @@ namespace DirectXInput
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
-                cb_SettingsShortcutAltF4.Click += async (sender, e) =>
-                {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutAltF4", cb_SettingsShortcutAltF4.IsChecked.ToString());
-                    await NotifyCtrlUISettingChanged("Shortcut");
-                };
-
                 cb_SettingsShortcutAltTab.Click += async (sender, e) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", cb_SettingsShortcutAltTab.IsChecked.ToString());
-                    if (cb_SettingsShortcutAltTab.IsChecked == true)
-                    {
-                        Setting_Save(vConfigurationDirectXInput, "ShortcutWinTab", "False");
-                        cb_SettingsShortcutWinTab.IsChecked = false;
-                    }
-                    await NotifyCtrlUISettingChanged("Shortcut");
-                };
-
-                cb_SettingsShortcutWinTab.Click += async (sender, e) =>
-                {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutWinTab", cb_SettingsShortcutWinTab.IsChecked.ToString());
-                    if (cb_SettingsShortcutWinTab.IsChecked == true)
-                    {
-                        Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", "False");
-                        cb_SettingsShortcutAltTab.IsChecked = false;
-                    }
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
                 cb_SettingsShortcutScreenshot.Click += async (sender, e) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshot", cb_SettingsShortcutScreenshot.IsChecked.ToString());
-                    await NotifyCtrlUISettingChanged("Shortcut");
-                };
-
-                cb_SettingsShortcutMediaPopup.Click += async (sender, e) =>
-                {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutMediaPopup", cb_SettingsShortcutMediaPopup.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 

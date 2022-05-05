@@ -153,35 +153,27 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/GuideHoldOff.png" Height="25" Opacity="0.80"/>
                         <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Keyboard"/>
                     </StackPanel>
-                    <StackPanel Name="sp_ControllerHelpTouchpad" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/TouchpadOff.png" Height="25" Opacity="0.80"/>
-                        <TextBlock Name="txt_ControllerHelpTouchpad" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Media"/>
-                    </StackPanel>
                     <StackPanel Name="sp_ControllerHelpScreenshot" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="25" Opacity="0.80"/>
-                        <TextBlock VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="+"/>
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Height="25" Opacity="0.80"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/TouchpadOff.png" Height="25" Opacity="0.80"/>
                         <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Screenshot"/>
+                    </StackPanel>
+                    <StackPanel Name="sp_ControllerHelpMedia" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/TouchpadHoldOff.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Media"/>
                     </StackPanel>
                     <StackPanel Name="sp_ControllerHelpLb" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="25" Opacity="0.80"/>
                         <TextBlock Name="txt_ControllerHelpLb" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Start"/>
-                    </StackPanel>
-                    <StackPanel Name="sp_ControllerHelpAltF4" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="25" Opacity="0.80"/>
-                        <TextBlock VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="+"/>
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/StartOff.png" Height="25" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Alt+F4"/>
                     </StackPanel>
                     <StackPanel Name="sp_ControllerHelpRb" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Height="25" Opacity="0.80"/>
                         <TextBlock Name="txt_ControllerHelpRb" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Start"/>
                     </StackPanel>
                     <StackPanel Name="sp_ControllerHelpAltTab" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Height="25" Opacity="0.80"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="25" Opacity="0.80"/>
                         <TextBlock VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="+"/>
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Height="25" Opacity="0.80"/>
-                        <TextBlock Name="tb_ControllerHelpAltTab" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Win+Tab"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/StartOff.png" Height="25" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Alt+Tab"/>
                     </StackPanel>
                     <StackPanel Name="sp_ControllerHelpAltEnter" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Height="25" Opacity="0.80"/>

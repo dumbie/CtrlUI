@@ -12,7 +12,6 @@ using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
-using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput
@@ -41,8 +40,16 @@ namespace DirectXInput
                         if (controllerActivated) { return ControllerUsed; }
                     }
 
-                    //Hide the keyboard, keypad or media controller controller
+                    //Hide popups with guide button
                     if (Controller.InputCurrent.ButtonGuide.PressedShort && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible || App.vWindowMedia.vWindowVisible))
+                    {
+                        await HideOpenPopups();
+
+                        ControllerUsed = true;
+                        ControllerDelay750 = true;
+                    }
+                    //Hide popups with touchpad button
+                    else if (Controller.InputCurrent.ButtonTouchpad.PressedShort && App.vWindowMedia.vWindowVisible)
                     {
                         await HideOpenPopups();
 
@@ -89,7 +96,7 @@ namespace DirectXInput
                         ControllerDelay750 = true;
                     }
                     //Show or hide the media controller
-                    else if (Controller.InputCurrent.ButtonTouchpad.PressedRaw)
+                    else if (Controller.InputCurrent.ButtonTouchpad.PressedLong)
                     {
                         if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup")))
                         {
@@ -147,42 +154,10 @@ namespace DirectXInput
                             ControllerDelay750 = true;
                         }
                     }
-                    //Press Alt+F4
+                    //Press Alt+Tab
                     else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonShoulderLeft.PressedRaw)
                     {
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltF4")))
-                        {
-                            Debug.WriteLine("Button Global - Alt+F4");
-
-                            NotificationDetails notificationDetails = new NotificationDetails();
-                            notificationDetails.Icon = "AppClose";
-                            notificationDetails.Text = "Pressing Alt+F4";
-                            await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.F4, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-
-                            ControllerUsed = true;
-                            ControllerDelay750 = true;
-                        }
-                    }
-                    //Press Alt+Tab or Win+Tab
-                    else if (Controller.InputCurrent.ButtonBack.PressedRaw && Controller.InputCurrent.ButtonShoulderRight.PressedRaw)
-                    {
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutWinTab")))
-                        {
-                            Debug.WriteLine("Button Global - Win+Tab");
-
-                            NotificationDetails notificationDetails = new NotificationDetails();
-                            notificationDetails.Icon = "AppMiniMaxi";
-                            notificationDetails.Text = "Pressing Win+Tab";
-                            await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.WindowsLeft, KeyboardModifiers.None, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-
-                            ControllerUsed = true;
-                            ControllerDelay750 = true;
-                        }
-                        else if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab")))
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab")))
                         {
                             Debug.WriteLine("Button Global - Alt+Tab");
 
@@ -198,14 +173,12 @@ namespace DirectXInput
                         }
                     }
                     //Make screenshot
-                    else if (Controller.InputCurrent.ButtonBack.PressedRaw && Controller.InputCurrent.ButtonShoulderLeft.PressedRaw)
+                    else if (Controller.InputCurrent.ButtonTouchpad.PressedShort)
                     {
                         if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot")))
                         {
                             Debug.WriteLine("Button Global - Screenshot");
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Screenshot", true);
-
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.WindowsLeft, KeyboardModifiers.None, KeyboardKeys.PrintScreen, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            await CaptureScreen.CaptureScreenToFile();
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;

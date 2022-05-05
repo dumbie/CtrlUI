@@ -783,7 +783,7 @@ namespace CtrlUI
                 AnswerMinimize.Name = "Minimize CtrlUI";
                 Answers.Add(AnswerMinimize);
 
-                DataBindString messageResult = await Popup_Show_MessageBox("Return to previous application or minimize?", "", "You can always return to " + vPrevFocusedProcess.Title + " later on.", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("Return to previous application?", "", "You can always return to " + vPrevFocusedProcess.Title + " later on.", Answers);
                 if (messageResult != null)
                 {
                     if (messageResult == AnswerSwitch)

@@ -92,6 +92,16 @@ namespace DirectXInput
                     }
                 };
 
+                cb_ControllerFakeTouchpadButton.Click += (sender, e) =>
+                {
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
+                    {
+                        activeController.Details.Profile.FakeTouchpadButton = cb_ControllerFakeTouchpadButton.IsChecked.Value;
+                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+                    }
+                };
+
                 //Controller Trigger
                 cb_ControllerUseButtonTriggers.Click += (sender, e) =>
                 {

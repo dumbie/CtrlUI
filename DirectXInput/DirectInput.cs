@@ -166,6 +166,7 @@ namespace DirectXInput
                     }
 
                     cb_ControllerFakeGuideButton.IsChecked = Controller.Details.Profile.FakeGuideButton;
+                    cb_ControllerFakeTouchpadButton.IsChecked = Controller.Details.Profile.FakeTouchpadButton;
 
                     cb_ControllerUseButtonTriggers.IsChecked = Controller.Details.Profile.UseButtonTriggers;
                     textblock_ControllerDeadzoneTriggerLeft.Text = textblock_ControllerDeadzoneTriggerLeft.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.DeadzoneTriggerLeft) + "%";

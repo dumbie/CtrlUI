@@ -41,6 +41,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,6 +54,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>DirectXInput.App</StartupObject>
@@ -108,6 +110,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\..\ScreenCaptureDLL\ScreenCaptureShared\CaptureBitmap.cs">
+      <Link>ScreenCapture\CaptureBitmap.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ScreenCaptureDLL\ScreenCaptureShared\CaptureClasses.cs">
+      <Link>ScreenCapture\CaptureClasses.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ScreenCaptureDLL\ScreenCaptureShared\CaptureImport.cs">
+      <Link>ScreenCapture\CaptureImport.cs</Link>
+    </Compile>
     <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
@@ -183,6 +194,7 @@
     <Compile Include="InputController.cs" />
     <Compile Include="ConnectionFunctions.cs" />
     <Compile Include="Resources\Settings\SettingsFunctions.cs" />
+    <Compile Include="ScreenCapture\CaptureScreen.cs" />
     <Compile Include="SocketHandlers.cs" />
     <Page Include="Media\WindowMedia.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -507,6 +519,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DirectXInput.exe.csettings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PixelShader.hlsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ScreenCapture.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\VertexShader.hlsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

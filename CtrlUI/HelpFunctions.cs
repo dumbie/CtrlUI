@@ -21,8 +21,8 @@ namespace CtrlUI
                 vConfigurationDirectXInput = Settings_Load_DirectXInput();
 
                 bool processDirectXInputRunning = CheckRunningProcessByNameOrTitle("DirectXInput", false);
-                bool ShortcutLaunchKeyboardController = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController"));
-                if (ShortcutLaunchKeyboardController && processDirectXInputRunning)
+                bool ShortcutKeyboardPopup = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup"));
+                if (ShortcutKeyboardPopup && processDirectXInputRunning)
                 {
                     return true;
                 }
@@ -59,8 +59,8 @@ namespace CtrlUI
                     }
 
                     //Check DirectXInput settings
-                    bool ShortcutLaunchKeyboardController = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchKeyboardController"));
-                    if (processDirectXInputRunning && ShortcutLaunchKeyboardController)
+                    bool ShortcutKeyboardPopup = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup"));
+                    if (processDirectXInputRunning && ShortcutKeyboardPopup)
                     {
                         sp_ControllerHelpGuideHold.Visibility = Visibility.Visible;
                     }
@@ -82,11 +82,11 @@ namespace CtrlUI
                     bool ShortcutMediaPopup = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup"));
                     if (processDirectXInputRunning && ShortcutMediaPopup)
                     {
-                        sp_ControllerHelpTouchpad.Visibility = Visibility.Visible;
+                        sp_ControllerHelpMedia.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        sp_ControllerHelpTouchpad.Visibility = Visibility.Collapsed;
+                        sp_ControllerHelpMedia.Visibility = Visibility.Collapsed;
                     }
 
                     bool ShortcutAltEnter = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter"));
@@ -102,30 +102,11 @@ namespace CtrlUI
                     bool ShortcutAltTab = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab"));
                     if (processDirectXInputRunning && ShortcutAltTab)
                     {
-                        tb_ControllerHelpAltTab.Text = "Alt+Tab";
                         sp_ControllerHelpAltTab.Visibility = Visibility.Visible;
-                    }
-
-                    bool ShortcutWinTab = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutWinTab"));
-                    if (processDirectXInputRunning && ShortcutWinTab)
-                    {
-                        tb_ControllerHelpAltTab.Text = "Win+Tab";
-                        sp_ControllerHelpAltTab.Visibility = Visibility.Visible;
-                    }
-
-                    if (!ShortcutAltTab && !ShortcutWinTab)
-                    {
-                        sp_ControllerHelpAltTab.Visibility = Visibility.Collapsed;
-                    }
-
-                    bool ShortcutAltF4 = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltF4"));
-                    if (processDirectXInputRunning && ShortcutAltF4)
-                    {
-                        sp_ControllerHelpAltF4.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        sp_ControllerHelpAltF4.Visibility = Visibility.Collapsed;
+                        sp_ControllerHelpAltTab.Visibility = Visibility.Collapsed;
                     }
 
                     //Update controller help text
