@@ -61,12 +61,15 @@ Nefarius, RyoTravis, IGDB, SteamKit2 and LibreHardwareMonitor.
 When you are walking into any problems or a bug you can go to my help page at https://help.arnoldvink.com so I can try to help you out and get everything working.
 
 ## Developer donation
-If you appreciate my project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
+If you appreciate my project and want to support me you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v1.65.0.0 (12-May-2022)
+- Added new screencapturer with HDR support.
+* Miscellaneous application improvements and fixes.
+
 v1.57.0.0 (9-June-2021)
 - DirectXInput: You can now also move the mouse with the keypad.
-* Miscellaneous application improvements and fixes.
 
 v1.53.0.0 (15-April-2021)
 - DirectXInput: Changed HidGuardian to HidHide.
