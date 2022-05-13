@@ -54,7 +54,7 @@ namespace DirectXInput
                 }
 
                 //Set file name
-                string imageSaveName = "\\Screenshot " + DateTime.Now.ToString("HH.mm.ss.ffff") + " (" + DateTime.Now.ToShortDateString() + ")";
+                string imageSaveName = DateTime.Now.ToString("HH.mm.ss.ffff") + " (" + DateTime.Now.ToShortDateString() + ")";
                 if (vCaptureDetails.HDREnabled)
                 {
                     if (vCaptureSettings.HDRtoSDR)
@@ -70,6 +70,7 @@ namespace DirectXInput
                 {
                     imageSaveName += " (SDR)";
                 }
+                imageSaveName = "\\Screenshot " + CaptureFunctions.FileNameReplaceInvalidChars(imageSaveName);
 
                 //Create screenshots folder in app directory
                 if (!Directory.Exists("Screenshots"))

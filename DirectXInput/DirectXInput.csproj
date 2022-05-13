@@ -116,6 +116,9 @@
     <Compile Include="..\..\ScreenCaptureDLL\ScreenCaptureShared\CaptureClasses.cs">
       <Link>ScreenCapture\CaptureClasses.cs</Link>
     </Compile>
+    <Compile Include="..\..\ScreenCaptureDLL\ScreenCaptureShared\CaptureFunctions.cs">
+      <Link>ScreenCapture\CaptureFunctions.cs</Link>
+    </Compile>
     <Compile Include="..\..\ScreenCaptureDLL\ScreenCaptureShared\CaptureImport.cs">
       <Link>ScreenCapture\CaptureImport.cs</Link>
     </Compile>
