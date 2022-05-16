@@ -71,7 +71,7 @@ namespace DirectXInput
                     catch { }
                 }
 
-                //Add Hib Usb Devices
+                //Add Hid Usb Devices
                 IEnumerable<EnumerateInfo> SelectedHidDevice = EnumerateDevicesDi(GuidClassHidDevice, true);
                 foreach (EnumerateInfo EnumDevice in SelectedHidDevice)
                 {

@@ -18,12 +18,12 @@ namespace DirectXInput
             try
             {
                 //Check which controller is connected
-                if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
+                if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && Controller.Details.Wireless)
                 {
                     //Bluetooth - DualSense 5
-                    int batteryLevelOffset = 52 + Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
+                    int batteryLevelOffset = Controller.SupportedCurrent.OffsetWireless + (int)Controller.SupportedCurrent.OffsetHeader.BatteryLevel;
                     byte batteryLevelReport = Controller.InputReport[batteryLevelOffset];
-                    int batteryStatusOffset = 53 + Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
+                    int batteryStatusOffset = Controller.SupportedCurrent.OffsetWireless + (int)Controller.SupportedCurrent.OffsetHeader.BatteryStatus;
                     byte batteryStatusReport = Controller.InputReport[batteryStatusOffset];
 
                     bool batteryCharging = batteryStatusReport != 0;
@@ -40,15 +40,15 @@ namespace DirectXInput
                         Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Normal;
                     }
                 }
-                else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && !Controller.Details.Wireless)
+                else if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && !Controller.Details.Wireless)
                 {
                     //Wired USB - DualSense 5
                     Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Charging;
                 }
-                else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && Controller.Details.Wireless)
+                else if (Controller.SupportedCurrent.CodeName == "SonyPS4DualShock" && Controller.Details.Wireless)
                 {
                     //Bluetooth - DualShock 4
-                    int batteryOffset = 29 + Controller.InputHeaderOffsetByte + Controller.InputButtonOffsetByte;
+                    int batteryOffset = Controller.SupportedCurrent.OffsetWireless + (int)Controller.SupportedCurrent.OffsetHeader.BatteryLevel;
                     byte batteryReport = Controller.InputReport[batteryOffset];
 
                     bool batteryCharging = TranslateByte_0x10(0, batteryReport) != 0;
@@ -65,12 +65,12 @@ namespace DirectXInput
                         Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Normal;
                     }
                 }
-                else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && !Controller.Details.Wireless)
+                else if (Controller.SupportedCurrent.CodeName == "SonyPS4DualShock" && !Controller.Details.Wireless)
                 {
                     //Wired USB - DualShock 4
                     Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Charging;
                 }
-                else if (Controller.SupportedCurrent.CodeName == "SonyDualShock3" && !Controller.Details.Wireless)
+                else if (Controller.SupportedCurrent.CodeName == "SonyPS3DualShock" && !Controller.Details.Wireless)
                 {
                     //Wired USB - DualShock 3
                     Controller.BatteryCurrent.BatteryStatus = BatteryStatus.Charging;

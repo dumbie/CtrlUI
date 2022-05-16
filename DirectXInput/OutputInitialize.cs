@@ -11,7 +11,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.SupportedCurrent.CodeName == "SonyDualShock3" || Controller.SupportedCurrent.CodeName == "SonyMoveNavigation3")
+                if (Controller.SupportedCurrent.CodeName == "SonyPS3DualShock" || Controller.SupportedCurrent.CodeName == "SonyPS3MoveNavigation")
                 {
                     //Wired USB Output - DualShock 3 or Move Navigation 3
                     byte[] outputReport = new byte[2];
@@ -19,9 +19,9 @@ namespace DirectXInput
                     outputReport[1] = 0x0C;
 
                     bool bytesWritten = Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x3F4, outputReport);
-                    Debug.WriteLine("Initialized USB controller: SonyDualShock3 or SonyMoveNavigation3: " + bytesWritten);
+                    Debug.WriteLine("Initialized USB controller: SonyPS3DualShock or SonyPS3MoveNavigation: " + bytesWritten);
                 }
-                else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
+                else if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - DualSense 5
                     byte[] outputReport = new byte[75];
@@ -36,7 +36,7 @@ namespace DirectXInput
 
                     //Send data to the controller
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReportCRC32);
-                    Debug.WriteLine("Initialized Bluetooth controller: SonyDualSense5: " + bytesWritten);
+                    Debug.WriteLine("Initialized Bluetooth controller: SonyPS5DualSense: " + bytesWritten);
                 }
             }
             catch (Exception ex)

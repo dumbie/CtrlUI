@@ -112,13 +112,33 @@ namespace DirectXInput
                         //Triggers
                         if (!Controller.Details.Profile.UseButtonTriggers)
                         {
+                            textblock_Trigger_Left.Text = Controller.InputCurrent.TriggerLeft.ToString();
+                            textblock_Trigger_Right.Text = Controller.InputCurrent.TriggerRight.ToString();
                             img_ControllerPreview_TriggerLeft.Opacity = (double)(Controller.InputCurrent.TriggerLeft * 257) / 65535;
                             img_ControllerPreview_TriggerRight.Opacity = (double)(Controller.InputCurrent.TriggerRight * 257) / 65535;
                         }
                         else
                         {
-                            if (Controller.InputCurrent.ButtonTriggerLeft.PressedRaw) { img_ControllerPreview_TriggerLeft.Opacity = 1.00; } else { img_ControllerPreview_TriggerLeft.Opacity = 0.00; }
-                            if (Controller.InputCurrent.ButtonTriggerRight.PressedRaw) { img_ControllerPreview_TriggerRight.Opacity = 1.00; } else { img_ControllerPreview_TriggerRight.Opacity = 0.00; }
+                            if (Controller.InputCurrent.ButtonTriggerLeft.PressedRaw)
+                            {
+                                textblock_Trigger_Left.Text = "255";
+                                img_ControllerPreview_TriggerLeft.Opacity = 1.00;
+                            }
+                            else
+                            {
+                                textblock_Trigger_Left.Text = "0";
+                                img_ControllerPreview_TriggerLeft.Opacity = 0.00;
+                            }
+                            if (Controller.InputCurrent.ButtonTriggerRight.PressedRaw)
+                            {
+                                textblock_Trigger_Right.Text = "255";
+                                img_ControllerPreview_TriggerRight.Opacity = 1.00;
+                            }
+                            else
+                            {
+                                textblock_Trigger_Right.Text = "0";
+                                img_ControllerPreview_TriggerRight.Opacity = 0.00;
+                            }
                         }
 
                         //Thumb Left and Right Image

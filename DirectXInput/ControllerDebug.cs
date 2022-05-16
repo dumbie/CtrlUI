@@ -76,8 +76,14 @@ namespace DirectXInput
                 if (activeController != null && activeController.InputReport != null)
                 {
                     string rawPackets = "(Out" + activeController.OutputReport.Length + "/In" + activeController.InputReport.Length + ")";
-                    rawPackets += "(OffHd" + activeController.InputHeaderOffsetByte + ")";
-                    rawPackets += "(OffBtn" + activeController.InputButtonOffsetByte + ")";
+                    if (activeController.Details.Wireless)
+                    {
+                        rawPackets += "(OffHdWs" + activeController.SupportedCurrent.OffsetWireless + ")";
+                    }
+                    else
+                    {
+                        rawPackets += "(OffHdWd" + activeController.SupportedCurrent.OffsetWired + ")";
+                    }
                     rawPackets += "(ProductId" + activeController.Details.Profile.ProductID + "/VendorId" + activeController.Details.Profile.VendorID + ")";
 
                     //Controller raw input

@@ -1,0 +1,84 @@
+{
+  "CodeName": "SonyPS12DualShock",
+  "ProductIDs": [ "0x0001" ],
+  "VendorID": "0x0810",
+  "HasTouchpad": false,
+  "HasGyroscope": false,
+  "HasAccelerometer": false,
+  "HasRumbleTrigger": false,
+  "OffsetWired": 1,
+  "OffsetHeader": {
+    "ThumbLeftX": 2,
+    "ThumbLeftY": 3,
+    "ThumbRightX": 1,
+    "ThumbRightY": 0,
+    "ButtonsGroup1": 4,
+    "ButtonsGroup2": 5
+  },
+  "OffsetButton": {
+    "A": {
+      "Group": 1,
+      "Offset": 6
+    },
+    "B": {
+      "Group": 1,
+      "Offset": 5
+    },
+    "X": {
+      "Group": 1,
+      "Offset": 7
+    },
+    "Y": {
+      "Group": 1,
+      "Offset": 4
+    },
+    "DPadLeft": {
+      "Group": 1,
+      "Offset": 0
+    },
+    "DPadRight": {
+      "Group": 1,
+      "Offset": 1
+    },
+    "DPadUp": {
+      "Group": 1,
+      "Offset": 2
+    },
+    "DPadDown": {
+      "Group": 1,
+      "Offset": 3
+    },
+    "ShoulderLeft": {
+      "Group": 2,
+      "Offset": 2
+    },
+    "ShoulderRight": {
+      "Group": 2,
+      "Offset": 3
+    },
+    "TriggerLeft": {
+      "Group": 2,
+      "Offset": 0
+    },
+    "TriggerRight": {
+      "Group": 2,
+      "Offset": 1
+    },
+    "ThumbLeft": {
+      "Group": 2,
+      "Offset": 6
+    },
+    "ThumbRight": {
+      "Group": 2,
+      "Offset": 7
+    },
+    "Start": {
+      "Group": 2,
+      "Offset": 5
+    },
+    "Back": {
+      "Group": 2,
+      "Offset": 4
+    }
+  }
+}

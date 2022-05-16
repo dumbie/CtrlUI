@@ -63,12 +63,11 @@ namespace DirectXInput
                 string vendorHexIdLower = vendorHexId.ToLower();
                 string productHexIdLower = productHexId.ToLower();
 
-                //Check if the controller is in temp block list
-                if (vControllerTempBlockPaths.Contains(controllerPath))
-                {
-                    Debug.WriteLine("Controller is on temp block list: " + controllerPath);
-                    return false;
-                }
+                //Check if controller is already connected by serialnumber
+                //if (!string.IsNullOrWhiteSpace(serialNumber))
+                //{
+                //    //Fix add code that reads serial number from devices
+                //}
 
                 //Check if the controller is on user ignore list
                 foreach (ControllerIgnored ignoreCheck in vDirectControllersIgnoredUser)
@@ -82,26 +81,20 @@ namespace DirectXInput
                     }
                 }
 
-                //Check if the controller is on default ignore list
-                foreach (ControllerIgnored ignoreCheck in vDirectControllersIgnoredDefault)
+                //Check if the controller is on supported list
+                foreach (ControllerSupported supportedCheck in vDirectControllersSupported)
                 {
-                    string filterVendor = ignoreCheck.VendorID.ToLower();
-                    string[] filterProducts = ignoreCheck.ProductIDs.Select(x => x.ToLower()).ToArray();
+                    string filterVendor = supportedCheck.VendorID.ToLower();
+                    string[] filterProducts = supportedCheck.ProductIDs.Select(x => x.ToLower()).ToArray();
                     if (filterVendor == vendorHexIdLower && filterProducts.Any(productHexIdLower.Contains))
                     {
-                        //Debug.WriteLine("Controller is on default ignore list: " + controllerPath);
-                        return false;
+                        //Debug.WriteLine("Controller is on supported list: " + controllerPath);
+                        return true;
                     }
                 }
-
-                //Check if controller is already connected by serialnumber
-                //if (!string.IsNullOrWhiteSpace(serialNumber))
-                //{
-                //    //Fix add code that reads serial number from devices
-                //}
             }
             catch { }
-            return true;
+            return false;
         }
 
         //Connect with the controller

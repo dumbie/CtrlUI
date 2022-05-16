@@ -185,8 +185,7 @@
     <Compile Include="InterfaceMenu.cs" />
     <Compile Include="ControllerList.cs" />
     <Compile Include="ControllerManage.cs" />
-    <Compile Include="InputWinUsb.cs" />
-    <Compile Include="InputHidDevice.cs" />
+    <Compile Include="InputDirectInput.cs" />
     <Compile Include="Resources\Settings\SettingsCheck.cs" />
     <Compile Include="Resources\Settings\SettingsLoad.cs" />
     <Compile Include="Resources\Settings\SettingsSave.cs" />
@@ -564,10 +563,19 @@
     <Content Include="Profiles\Default\DirectKeyboardEmojiListActivity.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\Default\DirectControllersIgnored.json">
+    <Content Include="Profiles\User\DirectKeypadMapping3.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\User\DirectKeypadMapping3.json">
+    <Content Include="Profiles\Default\DirectControllersSupported\SonyPS12DualShock.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\Default\DirectControllersSupported\SonyPS3DualShock.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\Default\DirectControllersSupported\SonyPS3MoveNavigation.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Profiles\Default\DirectControllersSupported\SonyPS4DualShock.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\App.manifest" />
@@ -584,7 +592,7 @@
     <Content Include="Profiles\User\DirectControllersProfile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\Default\DirectControllersSupported.json">
+    <Content Include="Profiles\Default\DirectControllersSupported\SonyPS5DualSense.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\App.config" />

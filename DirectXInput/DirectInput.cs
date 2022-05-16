@@ -36,10 +36,10 @@ namespace DirectXInput
                 string controllerNumberDisplay = (Controller.NumberId + 1).ToString();
 
                 //Open the selected controller
-                if (!await OpenController(Controller))
+                if (!OpenController(Controller))
                 {
                     Debug.WriteLine("Failed to initialize direct input for: " + Controller.Details.DisplayName);
-                    StopControllerTask(Controller, "unsupported", "Controller " + controllerNumberDisplay + " is no longer connected or supported.");
+                    StopControllerTask(Controller, "failed", "Controller " + controllerNumberDisplay + " is no longer connected or failed.");
                     return false;
                 }
 
@@ -78,30 +78,15 @@ namespace DirectXInput
                 }
 
                 //Start controller input task loop
-                if (Controller.Details.Type == "Win")
+                async Task TaskActionInput()
                 {
-                    async Task TaskActionInput()
+                    try
                     {
-                        try
-                        {
-                            await LoopInputWinUsb(Controller);
-                        }
-                        catch { }
+                        await LoopInputDirectInput(Controller, Controller.Details.Type);
                     }
-                    AVActions.TaskStartLoop(TaskActionInput, Controller.InputControllerTask);
+                    catch { }
                 }
-                else
-                {
-                    async Task TaskActionInput()
-                    {
-                        try
-                        {
-                            await LoopInputHidDevice(Controller);
-                        }
-                        catch { }
-                    }
-                    AVActions.TaskStartLoop(TaskActionInput, Controller.InputControllerTask);
-                }
+                AVActions.TaskStartLoop(TaskActionInput, Controller.InputControllerTask);
 
                 //Start virtual output task loop
                 void TaskActionOutputVirtual()
@@ -166,6 +151,7 @@ namespace DirectXInput
                     }
 
                     cb_ControllerFakeGuideButton.IsChecked = Controller.Details.Profile.FakeGuideButton;
+                    cb_ControllerFakeMediaButton.IsChecked = Controller.Details.Profile.FakeMediaButton;
                     cb_ControllerFakeTouchpadButton.IsChecked = Controller.Details.Profile.FakeTouchpadButton;
 
                     cb_ControllerUseButtonTriggers.IsChecked = Controller.Details.Profile.UseButtonTriggers;
@@ -252,7 +238,7 @@ namespace DirectXInput
         }
 
         //Stop the desired controller as async
-        async Task<bool> StopControllerAsync(ControllerStatus Controller, string disconnectInfo, string controllerInfo)
+        private async Task<bool> StopControllerAsync(ControllerStatus Controller, string disconnectInfo, string controllerInfo)
         {
             try
             {
@@ -447,7 +433,7 @@ namespace DirectXInput
         }
 
         //Open the desired controller
-        async Task<bool> OpenController(ControllerStatus Controller)
+        bool OpenController(ControllerStatus Controller)
         {
             try
             {
@@ -457,20 +443,16 @@ namespace DirectXInput
                     Controller.WinUsbDevice = new WinUsbDevice(Guid.Empty, Controller.Details.Path, true, false);
                     if (!Controller.WinUsbDevice.Connected)
                     {
-                        Debug.WriteLine("Invalid winusb open device, blocking: " + Controller.Details.DisplayName);
-                        vControllerTempBlockPaths.Add(Controller.Details.Path);
+                        Debug.WriteLine("Invalid winusb open device: " + Controller.Details.DisplayName);
                         return false;
                     }
                     else
                     {
                         //Set default controller variables
-                        Controller.InputHeaderOffsetByte = 0;
-                        Controller.InputButtonOffsetByte = 0;
                         Controller.InputReport = new byte[Controller.WinUsbDevice.IntIn];
                         Controller.OutputReport = new byte[Controller.WinUsbDevice.IntOut];
 
                         Debug.WriteLine("Opened the winusb controller: " + Controller.Details.DisplayName);
-                        vControllerTempBlockPaths.Remove(Controller.Details.Path);
                         return true;
                     }
                 }
@@ -480,8 +462,7 @@ namespace DirectXInput
                     Controller.HidDevice = new HidDevice(Controller.Details.Path, Controller.Details.ModelId, true, false);
                     if (!Controller.HidDevice.Connected)
                     {
-                        Debug.WriteLine("Invalid hid open device, blocking: " + Controller.Details.DisplayName);
-                        vControllerTempBlockPaths.Add(Controller.Details.Path);
+                        Debug.WriteLine("Invalid hid open device: " + Controller.Details.DisplayName);
                         return false;
                     }
                     else
@@ -490,31 +471,11 @@ namespace DirectXInput
                         Controller.HidDevice.GetFeature(0x05);
 
                         //Set default controller variables
-                        Controller.InputHeaderOffsetByte = 0;
-                        Controller.InputButtonOffsetByte = 0;
                         Controller.InputReport = new byte[Controller.HidDevice.Capabilities.InputReportByteLength];
                         Controller.OutputReport = new byte[Controller.HidDevice.Capabilities.OutputReportByteLength];
 
-                        //Read data from the controller
-                        bool Readed = await Controller.HidDevice.ReadBytesFileTimeOut(Controller.InputReport, Controller.MilliSecondsAllowReadWrite);
-                        if (!Readed)
-                        {
-                            Debug.WriteLine("Invalid hid read device, blocking: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + Readed);
-                            vControllerTempBlockPaths.Add(Controller.Details.Path);
-                            return false;
-                        }
-                        else if (!Controller.InputReport.Take(5).Any(x => x != 0))
-                        {
-                            Debug.WriteLine("Invalid hid data: " + Controller.Details.DisplayName + " Len" + Controller.InputReport.Length + " Read" + Readed);
-                            vControllerTempBlockPaths.Add(Controller.Details.Path);
-                            return false;
-                        }
-                        else
-                        {
-                            Debug.WriteLine("Opened the hid controller: " + Controller.Details.DisplayName + ", exclusive: " + Controller.HidDevice.Exclusive);
-                            vControllerTempBlockPaths.Remove(Controller.Details.Path);
-                            return true;
-                        }
+                        Debug.WriteLine("Opened the hid controller: " + Controller.Details.DisplayName + ", exclusive: " + Controller.HidDevice.Exclusive);
+                        return true;
                     }
                 }
             }

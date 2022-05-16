@@ -124,7 +124,7 @@ namespace DirectXInput
                 }
 
                 //Check which controller is connected
-                if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && Controller.Details.Wireless)
+                if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - DualSense 5
                     byte[] outputReport = new byte[75];
@@ -186,7 +186,7 @@ namespace DirectXInput
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReportCRC32);
                     Debug.WriteLine("BlueRumb DS5: " + bytesWritten);
                 }
-                else if (Controller.SupportedCurrent.CodeName == "SonyDualSense5" && !Controller.Details.Wireless)
+                else if (Controller.SupportedCurrent.CodeName == "SonyPS5DualSense" && !Controller.Details.Wireless)
                 {
                     //Wired USB Output - DualSense 5
                     byte[] outputReport = new byte[Controller.OutputReport.Length];
@@ -243,7 +243,7 @@ namespace DirectXInput
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
                     Debug.WriteLine("UsbRumb DS5: " + bytesWritten);
                 }
-                else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && Controller.Details.Wireless)
+                else if (Controller.SupportedCurrent.CodeName == "SonyPS4DualShock" && Controller.Details.Wireless)
                 {
                     //Bluetooth Output - DualShock 4
                     byte[] outputReport = new byte[Controller.OutputReport.Length];
@@ -262,7 +262,7 @@ namespace DirectXInput
                     bool bytesWritten = Controller.HidDevice.WriteBytesOutputReport(outputReport);
                     Debug.WriteLine("BlueRumb DS4: " + bytesWritten);
                 }
-                else if (Controller.SupportedCurrent.CodeName == "SonyDualShock4" && !Controller.Details.Wireless)
+                else if (Controller.SupportedCurrent.CodeName == "SonyPS4DualShock" && !Controller.Details.Wireless)
                 {
                     //Wired USB Output - DualShock 4
                     byte[] outputReport = new byte[Controller.OutputReport.Length];
@@ -280,7 +280,7 @@ namespace DirectXInput
                     bool bytesWritten = Controller.HidDevice.WriteBytesFile(outputReport);
                     Debug.WriteLine("UsbRumb DS4: " + bytesWritten);
                 }
-                else if (Controller.SupportedCurrent.CodeName == "SonyDualShock3")
+                else if (Controller.SupportedCurrent.CodeName == "SonyPS3DualShock")
                 {
                     //Wired USB Output - DualShock 3
                     byte[] outputReport = new byte[30];
@@ -318,7 +318,7 @@ namespace DirectXInput
                     bool bytesWritten = Controller.WinUsbDevice.WriteBytesTransfer(0x21, 0x09, 0x0201, outputReport);
                     Debug.WriteLine("UsbRumb DS3: " + bytesWritten);
                 }
-                else if (Controller.SupportedCurrent.CodeName == "SonyDualShock12")
+                else if (Controller.SupportedCurrent.CodeName == "SonyPS12DualShock")
                 {
                     //Wired USB Output - DualShock 1 and 2
                     byte[] outputReport = new byte[Controller.OutputReport.Length];

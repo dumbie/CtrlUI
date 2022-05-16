@@ -1,0 +1,61 @@
+{
+  "CodeName": "SonyPS3MoveNavigation",
+  "ProductIDs": [ "0x042f" ],
+  "VendorID": "0x054c",
+  "HasTouchpad": false,
+  "HasGyroscope": false,
+  "HasAccelerometer": false,
+  "HasRumbleTrigger": false,
+  "OffsetWired": 2,
+  "OffsetHeader": {
+    "ThumbLeftX": 4,
+    "ThumbLeftY": 5,
+    "TriggerLeft": 16,
+    "ButtonsGroup1": 0,
+    "ButtonsGroup2": 1,
+    "ButtonsGroup3": 2
+  },
+  "OffsetButton": {
+    "A": {
+      "Group": 2,
+      "Offset": 6
+    },
+    "B": {
+      "Group": 2,
+      "Offset": 5
+    },
+    "DPadDirect": true,
+    "DPadLeft": {
+      "Group": 1,
+      "Offset": 4
+    },
+    "DPadRight": {
+      "Group": 1,
+      "Offset": 5
+    },
+    "DPadUp": {
+      "Group": 1,
+      "Offset": 6
+    },
+    "DPadDown": {
+      "Group": 1,
+      "Offset": 7
+    },
+    "ShoulderLeft": {
+      "Group": 2,
+      "Offset": 2
+    },
+    "TriggerLeft": {
+      "Group": 2,
+      "Offset": 0
+    },
+    "ThumbLeft": {
+      "Group": 1,
+      "Offset": 1
+    },
+    "Guide": {
+      "Group": 3,
+      "Offset": 0
+    }
+  }
+}

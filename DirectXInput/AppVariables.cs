@@ -137,7 +137,6 @@ namespace DirectXInput
         public static long vControllerDelay_Mouse = 0;
         public static bool vControllerRumbleTest = false;
         public static DateTime vControllerLastDisconnect = new DateTime();
-        public static List<string> vControllerTempBlockPaths = new List<string>();
         public static ControllerStatus vController0 = new ControllerStatus(0);
         public static ControllerStatus vController1 = new ControllerStatus(1);
         public static ControllerStatus vController2 = new ControllerStatus(2);
@@ -170,7 +169,6 @@ namespace DirectXInput
         public static List<ProfileShared> vDirectCloseTools = new List<ProfileShared>();
         public static List<ControllerSupported> vDirectControllersSupported = new List<ControllerSupported>();
         public static List<ControllerIgnored> vDirectControllersIgnoredUser = new List<ControllerIgnored>();
-        public static List<ControllerIgnored> vDirectControllersIgnoredDefault = new List<ControllerIgnored>();
         public static List<ProfileShared> vDirectKeyboardEmojiListActivity = new List<ProfileShared>();
         public static List<ProfileShared> vDirectKeyboardEmojiListNature = new List<ProfileShared>();
         public static List<ProfileShared> vDirectKeyboardEmojiListFood = new List<ProfileShared>();

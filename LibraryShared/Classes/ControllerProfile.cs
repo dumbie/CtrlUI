@@ -345,6 +345,20 @@ namespace LibraryShared
                 }
             }
 
+            private bool PrivFakeMediaButton;
+            public bool FakeMediaButton
+            {
+                get { return this.PrivFakeMediaButton; }
+                set
+                {
+                    if (this.PrivFakeMediaButton != value)
+                    {
+                        this.PrivFakeMediaButton = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private bool PrivFakeTouchpadButton;
             public bool FakeTouchpadButton
             {

@@ -128,7 +128,6 @@
                                 <TextBlock Margin="0,10,0,0" Name="txt_Controller_Information" Text="Please connect a direct input controller to your device to get started." Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="To activate a controller press on the 'Guide' button on the controller." Style="{StaticResource TextBlockGray}"/>
 
-                                <Button Margin="0,10,0,0" Name="btn_SearchNewControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Search for recently connected controllers"/>
                                 <Button Margin="0,10,0,0" Name="btn_CheckControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Manage the Windows game controllers"/>
                                 <Button Margin="0,10,0,0" Name="btn_CheckDeviceManager" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Open the Windows device manager"/>
                                 <Button Margin="0,20,0,0" Name="btn_RemoveController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Remove and reset active controller profile"/>
@@ -201,9 +200,9 @@
                                 <Image Name="img_ControllerPreview_DPadDown" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="106,123,369,107"/>
 
                                 <Image Name="img_ControllerPreview_ButtonShoulderLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="16,7,459,223"/>
-                                <Image Name="img_ControllerPreview_TriggerLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="11,47,464,183"/>
+                                <Image Name="img_ControllerPreview_TriggerLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="-450,-125,0,0"/>
                                 <Image Name="img_ControllerPreview_ButtonShoulderRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="460,7,15,223"/>
-                                <Image Name="img_ControllerPreview_TriggerRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="465,47,10,183"/>
+                                <Image Name="img_ControllerPreview_TriggerRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="455,-125,0,0"/>
 
                                 <!-- Mapping -->
                                 <Button Name="btn_SetA" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="24" Width="24" Margin="371,109,105,122" ToolTipService.ToolTip="Button A"/>
@@ -227,7 +226,11 @@
                                 <Button Name="btn_SetTouchpad" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,0,200" Width="120" Height="20" ToolTipService.ToolTip="Button Touchpad"/>
                                 <Button Name="btn_SetMedia" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="230,0,230,30" Height="20" Width="40" ToolTipService.ToolTip="Button Media"/>
 
-                                <!-- Thumb Axes -->
+                                <!-- Trigger Details -->
+                                <TextBlock Name="textblock_Trigger_Left" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-455,-163,0,0"/>
+                                <TextBlock Name="textblock_Trigger_Right" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="455,-163,0,0"/>
+
+                                <!-- Thumb Details -->
                                 <TextBlock Name="textblock_Thumb_Left_Y_Up" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-100,-38,0,0"/>
                                 <TextBlock Name="textblock_Thumb_Left_Y_Down" Text="0" Width="50" TextAlignment="Center" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-100,75,0,0"/>
                                 <TextBlock Name="textblock_Thumb_Left_X_Left" Text="0" Width="50" TextAlignment="Right" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-200,20,0,0"/>
@@ -239,17 +242,7 @@
                                 <TextBlock Name="textblock_Thumb_Right_X_Right" Text="0" Width="50" TextAlignment="Left" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,20,0,0"/>
                             </Grid>
 
-                            <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Button Settings"/>
-                            <CheckBox Name="cb_ControllerFakeGuideButton" Style="{StaticResource CheckBoxBlack}" Content="Fake LB and Back combined press as Guide button"/>
-                            <TextBlock Text="Enabling this will fake the LB and Back button combined as Guide button on a controller without the Guide button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                            <CheckBox Margin="0,10,0,0" Name="cb_ControllerFakeTouchpadButton" Style="{StaticResource CheckBoxBlack}" Content="Fake RB and Back combined press as Touchpad button"/>
-                            <TextBlock Text="Enabling this will fake the RB and Back button combined as Touchpad button on a controller without the Touchpad available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                            <CheckBox Margin="0,10,0,0" Name="cb_SettingsExclusiveGuide" Content="Make the Guide button exclusive for CtrlUI apps usage" Style="{StaticResource CheckBoxBlack}"/>
-                            <TextBlock Text="Enabling this will block the Guide button for all other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Trigger Settings"/>
+                            <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Trigger Settings"/>
                             <CheckBox Name="cb_ControllerUseButtonTriggers" Style="{StaticResource CheckBoxBlack}" Content="Change the controller triggers to press buttons"/>
                             <TextBlock Text="Enabling this will change your triggers into buttons." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
@@ -359,6 +352,19 @@
                                 <TextBlock Text="Fourth controller led color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <Button Name="colorpicker_Controller3" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Set fourth controller led color"/>
                             </StackPanel>
+
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Button Settings"/>
+                            <CheckBox Name="cb_ControllerFakeGuideButton" Style="{StaticResource CheckBoxBlack}" Content="Fake LB and Back combined press as Guide button"/>
+                            <TextBlock Text="Enabling this will fake the LB and Back button combined as Guide button on a controller without the Guide button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <CheckBox Name="cb_ControllerFakeMediaButton" Style="{StaticResource CheckBoxBlack}" Content="Fake LB and Back combined press as Media button"/>
+                            <TextBlock Text="Enabling this will fake the LB and Back button combined as Media button on a controller without the Media button available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <CheckBox Margin="0,10,0,0" Name="cb_ControllerFakeTouchpadButton" Style="{StaticResource CheckBoxBlack}" Content="Fake RB and Back combined press as Touchpad button"/>
+                            <TextBlock Text="Enabling this will fake the RB and Back button combined as Touchpad button on a controller without the Touchpad available." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                            <CheckBox Margin="0,10,0,0" Name="cb_SettingsExclusiveGuide" Content="Make the Guide button exclusive for CtrlUI apps usage" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will block the Guide button for all other applications." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>

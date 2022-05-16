@@ -132,16 +132,15 @@ namespace DirectXInput
                 JsonLoadProfile(ref vDirectKeyboardEmojiListTravel, @"Default\DirectKeyboardEmojiListTravel");
                 JsonLoadProfile(ref vDirectKeyboardTextList, @"User\DirectKeyboardTextList");
 
-                //Load controllers supported
-                JsonLoadProfile(ref vDirectControllersSupported, @"Default\DirectControllersSupported");
-
-                //Load controllers ignored
-                JsonLoadProfile(ref vDirectControllersIgnoredUser, @"User\DirectControllersIgnored");
-                JsonLoadProfile(ref vDirectControllersIgnoredDefault, @"Default\DirectControllersIgnored");
-
                 //Load keypad mapping
                 JsonLoadProfile(ref vDirectKeypadMapping, @"User\DirectKeypadMapping3");
                 JsonLoadList_KeypadProfile();
+
+                //Load controllers ignored
+                JsonLoadProfile(ref vDirectControllersIgnoredUser, @"User\DirectControllersIgnored");
+
+                //Load controllers supported
+                JsonLoadList_ControllerSupported();
 
                 //Load controllers profile
                 JsonLoadList_ControllerProfile();

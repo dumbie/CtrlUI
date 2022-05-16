@@ -64,7 +64,6 @@ namespace DirectXInput
                 button_Controller1.Click += Button_Controller1_Click;
                 button_Controller2.Click += Button_Controller2_Click;
                 button_Controller3.Click += Button_Controller3_Click;
-                btn_SearchNewControllers.Click += Btn_SearchNewControllers_Click;
                 btn_IgnoreController.Click += btn_IgnoreController_Click;
                 btn_DisconnectController.Click += Btn_DisconnectController_Click;
                 btn_DisconnectControllerAll.Click += Btn_DisconnectControllerAll_Click;
@@ -81,13 +80,33 @@ namespace DirectXInput
                 btn_RumbleTestLight.Click += Btn_TestRumble_Click;
                 btn_RumbleTestHeavy.Click += Btn_TestRumble_Click;
 
-                //Save controller settings
+                //Save button settings
                 cb_ControllerFakeGuideButton.Click += (sender, e) =>
                 {
                     ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
                         activeController.Details.Profile.FakeGuideButton = cb_ControllerFakeGuideButton.IsChecked.Value;
+                        if (cb_ControllerFakeGuideButton.IsChecked.Value)
+                        {
+                            cb_ControllerFakeMediaButton.IsChecked = false;
+                            activeController.Details.Profile.FakeMediaButton = false;
+                        }
+                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+                    }
+                };
+
+                cb_ControllerFakeMediaButton.Click += (sender, e) =>
+                {
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
+                    {
+                        activeController.Details.Profile.FakeMediaButton = cb_ControllerFakeMediaButton.IsChecked.Value;
+                        if (cb_ControllerFakeMediaButton.IsChecked.Value)
+                        {
+                            cb_ControllerFakeGuideButton.IsChecked = false;
+                            activeController.Details.Profile.FakeGuideButton = false;
+                        }
                         JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
                     }
                 };

@@ -1,0 +1,105 @@
+{
+  "CodeName": "SonyPS5DualSense",
+  "ProductIDs": [ "0x0ce6" ],
+  "VendorID": "0x054c",
+  "HasTouchpad": true,
+  "HasGyroscope": true,
+  "HasAccelerometer": true,
+  "HasRumbleTrigger": true,
+  "OffsetWired": 1,
+  "OffsetWireless": 2,
+  "OffsetHeader": {
+    "ThumbLeftX": 0,
+    "ThumbLeftY": 1,
+    "ThumbRightX": 2,
+    "ThumbRightY": 3,
+    "TriggerLeft": 4,
+    "TriggerRight": 5,
+    "ButtonsGroup1": 7,
+    "ButtonsGroup2": 8,
+    "ButtonsGroup3": 9,
+    "Touchpad": 32,
+    "Gyroscope": 15,
+    "Accelerometer": 21,
+    "BatteryLevel": 52,
+    "BatteryStatus": 53
+  },
+  "OffsetButton": {
+    "A": {
+      "Group": 1,
+      "Offset": 5
+    },
+    "B": {
+      "Group": 1,
+      "Offset": 6
+    },
+    "X": {
+      "Group": 1,
+      "Offset": 4
+    },
+    "Y": {
+      "Group": 1,
+      "Offset": 7
+    },
+    "DPadLeft": {
+      "Group": 1,
+      "Offset": 0
+    },
+    "DPadRight": {
+      "Group": 1,
+      "Offset": 1
+    },
+    "DPadUp": {
+      "Group": 1,
+      "Offset": 2
+    },
+    "DPadDown": {
+      "Group": 1,
+      "Offset": 3
+    },
+    "ShoulderLeft": {
+      "Group": 2,
+      "Offset": 0
+    },
+    "ShoulderRight": {
+      "Group": 2,
+      "Offset": 1
+    },
+    "TriggerLeft": {
+      "Group": 2,
+      "Offset": 2
+    },
+    "TriggerRight": {
+      "Group": 2,
+      "Offset": 3
+    },
+    "ThumbLeft": {
+      "Group": 2,
+      "Offset": 6
+    },
+    "ThumbRight": {
+      "Group": 2,
+      "Offset": 7
+    },
+    "Start": {
+      "Group": 2,
+      "Offset": 5
+    },
+    "Back": {
+      "Group": 2,
+      "Offset": 4
+    },
+    "Touchpad": {
+      "Group": 3,
+      "Offset": 1
+    },
+    "Guide": {
+      "Group": 3,
+      "Offset": 0
+    },
+    "Media": {
+      "Group": 3,
+      "Offset": 2
+    }
+  }
+}

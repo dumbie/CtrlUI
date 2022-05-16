@@ -10,23 +10,6 @@ namespace DirectXInput
 {
     partial class WindowMain
     {
-        //Reset temp blocked controller path list
-        async void Btn_SearchNewControllers_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //Reset temp blocked controller path list
-                vControllerTempBlockPaths.Clear();
-
-                NotificationDetails notificationDetails = new NotificationDetails();
-                notificationDetails.Icon = "Controller";
-                notificationDetails.Text = "Searching for controllers";
-                await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-                Debug.WriteLine("Reset temp blocked controller path list.");
-            }
-            catch { }
-        }
-
         //Disconnect and stop the controller
         async void Btn_DisconnectController_Click(object sender, RoutedEventArgs args)
         {
