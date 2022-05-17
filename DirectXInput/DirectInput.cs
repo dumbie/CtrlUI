@@ -159,8 +159,10 @@ namespace DirectXInput
                     slider_ControllerDeadzoneTriggerLeft.Value = Controller.Details.Profile.DeadzoneTriggerLeft;
                     textblock_ControllerDeadzoneTriggerRight.Text = textblock_ControllerDeadzoneTriggerRight.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.DeadzoneTriggerRight) + "%";
                     slider_ControllerDeadzoneTriggerRight.Value = Controller.Details.Profile.DeadzoneTriggerRight;
-                    textblock_ControllerSensitivityTrigger.Text = textblock_ControllerSensitivityTrigger.Tag.ToString() + Controller.Details.Profile.SensitivityTrigger.ToString("0.00");
-                    slider_ControllerSensitivityTrigger.Value = Controller.Details.Profile.SensitivityTrigger;
+                    textblock_ControllerSensitivityTriggerLeft.Text = textblock_ControllerSensitivityTriggerLeft.Tag.ToString() + Controller.Details.Profile.SensitivityTriggerLeft.ToString("0.00");
+                    slider_ControllerSensitivityTriggerLeft.Value = Controller.Details.Profile.SensitivityTriggerLeft;
+                    textblock_ControllerSensitivityTriggerRight.Text = textblock_ControllerSensitivityTriggerRight.Tag.ToString() + Controller.Details.Profile.SensitivityTriggerRight.ToString("0.00");
+                    slider_ControllerSensitivityTriggerRight.Value = Controller.Details.Profile.SensitivityTriggerRight;
 
                     cb_ControllerDPadFourWayMovement.IsChecked = Controller.Details.Profile.DPadFourWayMovement;
 

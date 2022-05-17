@@ -154,13 +154,24 @@ namespace DirectXInput
                     }
                 };
 
-                slider_ControllerSensitivityTrigger.ValueChanged += (sender, e) =>
+                slider_ControllerSensitivityTriggerLeft.ValueChanged += (sender, e) =>
                 {
                     ControllerStatus activeController = vActiveController();
                     if (activeController != null)
                     {
-                        textblock_ControllerSensitivityTrigger.Text = textblock_ControllerSensitivityTrigger.Tag.ToString() + slider_ControllerSensitivityTrigger.Value.ToString("0.00");
-                        activeController.Details.Profile.SensitivityTrigger = slider_ControllerSensitivityTrigger.Value;
+                        textblock_ControllerSensitivityTriggerLeft.Text = textblock_ControllerSensitivityTriggerLeft.Tag.ToString() + slider_ControllerSensitivityTriggerLeft.Value.ToString("0.00");
+                        activeController.Details.Profile.SensitivityTriggerLeft = slider_ControllerSensitivityTriggerLeft.Value;
+                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+                    }
+                };
+
+                slider_ControllerSensitivityTriggerRight.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_ControllerSensitivityTriggerRight.Text = textblock_ControllerSensitivityTriggerRight.Tag.ToString() + slider_ControllerSensitivityTriggerRight.Value.ToString("0.00");
+                        activeController.Details.Profile.SensitivityTriggerRight = slider_ControllerSensitivityTriggerRight.Value;
                         JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
                     }
                 };

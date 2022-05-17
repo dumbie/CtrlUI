@@ -254,9 +254,13 @@
                             <TextBlock Text="Changes the range when right trigger starts to register press." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                             <Slider Name="slider_ControllerDeadzoneTriggerRight" Minimum="0" Maximum="95" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
-                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityTrigger" Style="{StaticResource TextBlockBlack}" Text="Triggers sensitivity" Tag="Triggers sensitivity: "/>
-                            <TextBlock Text="Changes the press sensitivity on both triggers." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                            <Slider Name="slider_ControllerSensitivityTrigger" Minimum="0.10" Maximum="5.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityTriggerLeft" Style="{StaticResource TextBlockBlack}" Text="Left trigger sensitivity" Tag="Left trigger sensitivity: "/>
+                            <TextBlock Text="Changes the press sensitivity on the left trigger." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerSensitivityTriggerLeft" Minimum="0.10" Maximum="5.00" TickFrequency="0.02" SmallChange="0.02" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+
+                            <TextBlock Margin="0,10,0,0" Name="textblock_ControllerSensitivityTriggerRight" Style="{StaticResource TextBlockBlack}" Text="Right trigger sensitivity" Tag="Right trigger sensitivity: "/>
+                            <TextBlock Text="Changes the press sensitivity on the right trigger." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Name="slider_ControllerSensitivityTriggerRight" Minimum="0.10" Maximum="5.00" TickFrequency="0.02" SmallChange="0.02" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="D-Pad Settings"/>
                             <CheckBox Name="cb_ControllerDPadFourWayMovement" Content="Change your D-Pad into four way only presses" Style="{StaticResource CheckBoxBlack}"/>

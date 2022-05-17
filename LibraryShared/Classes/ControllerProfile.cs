@@ -416,15 +416,29 @@ namespace LibraryShared
                 }
             }
 
-            private double PrivSensitivityTrigger = 1;
-            public double SensitivityTrigger
+            private double PrivSensitivityTriggerLeft = 1;
+            public double SensitivityTriggerLeft
             {
-                get { return this.PrivSensitivityTrigger; }
+                get { return this.PrivSensitivityTriggerLeft; }
                 set
                 {
-                    if (this.PrivSensitivityTrigger != value)
+                    if (this.PrivSensitivityTriggerLeft != value)
                     {
-                        this.PrivSensitivityTrigger = value;
+                        this.PrivSensitivityTriggerLeft = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private double PrivSensitivityTriggerRight = 1;
+            public double SensitivityTriggerRight
+            {
+                get { return this.PrivSensitivityTriggerRight; }
+                set
+                {
+                    if (this.PrivSensitivityTriggerRight != value)
+                    {
+                        this.PrivSensitivityTriggerRight = value;
                         NotifyPropertyChanged();
                     }
                 }

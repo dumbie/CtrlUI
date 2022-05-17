@@ -163,9 +163,9 @@ namespace DirectXInput
                                 }
 
                                 //Calculate trigger sensitivity
-                                if (controller.Details.Profile.SensitivityTrigger != 1)
+                                if (controller.Details.Profile.SensitivityTriggerLeft != 1)
                                 {
-                                    triggerLeftBytes = Convert.ToInt32(triggerLeftBytes * controller.Details.Profile.SensitivityTrigger);
+                                    triggerLeftBytes = Convert.ToInt32(triggerLeftBytes * controller.Details.Profile.SensitivityTriggerLeft);
                                 }
 
                                 //Check the triggers range
@@ -187,9 +187,9 @@ namespace DirectXInput
                                 }
 
                                 //Calculate trigger sensitivity
-                                if (controller.Details.Profile.SensitivityTrigger != 1)
+                                if (controller.Details.Profile.SensitivityTriggerRight != 1)
                                 {
-                                    triggerRightBytes = Convert.ToInt32(triggerRightBytes * controller.Details.Profile.SensitivityTrigger);
+                                    triggerRightBytes = Convert.ToInt32(triggerRightBytes * controller.Details.Profile.SensitivityTriggerRight);
                                 }
 
                                 //Check the triggers range
