@@ -116,34 +116,34 @@ namespace DirectXInput
                 ComboBox_MapKeypad_Load();
 
                 //Load application close tools
-                JsonLoadProfile(ref vDirectCloseTools, @"Default\DirectCloseTools");
+                JsonLoadSingle(ref vDirectCloseTools, @"Default\DirectCloseTools");
 
                 //Close running controller tools
                 CloseControllerTools();
 
                 //Load keyboard emoji and text list
-                JsonLoadProfile(ref vDirectKeyboardEmojiListActivity, @"Default\DirectKeyboardEmojiListActivity");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListNature, @"Default\DirectKeyboardEmojiListNature");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListFood, @"Default\DirectKeyboardEmojiListFood");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListOther, @"Default\DirectKeyboardEmojiListOther");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListPeople, @"Default\DirectKeyboardEmojiListPeople");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListSmiley, @"Default\DirectKeyboardEmojiListSmiley");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListSymbol, @"Default\DirectKeyboardEmojiListSymbol");
-                JsonLoadProfile(ref vDirectKeyboardEmojiListTravel, @"Default\DirectKeyboardEmojiListTravel");
-                JsonLoadProfile(ref vDirectKeyboardTextList, @"User\DirectKeyboardTextList");
+                JsonLoadSingle(ref vDirectKeyboardEmojiListActivity, @"Default\DirectKeyboardEmojiListActivity");
+                JsonLoadSingle(ref vDirectKeyboardEmojiListNature, @"Default\DirectKeyboardEmojiListNature");
+                JsonLoadSingle(ref vDirectKeyboardEmojiListFood, @"Default\DirectKeyboardEmojiListFood");
+                JsonLoadSingle(ref vDirectKeyboardEmojiListOther, @"Default\DirectKeyboardEmojiListOther");
+                JsonLoadSingle(ref vDirectKeyboardEmojiListPeople, @"Default\DirectKeyboardEmojiListPeople");
+                JsonLoadSingle(ref vDirectKeyboardEmojiListSmiley, @"Default\DirectKeyboardEmojiListSmiley");
+                JsonLoadSingle(ref vDirectKeyboardEmojiListSymbol, @"Default\DirectKeyboardEmojiListSymbol");
+                JsonLoadSingle(ref vDirectKeyboardEmojiListTravel, @"Default\DirectKeyboardEmojiListTravel");
+                JsonLoadSingle(ref vDirectKeyboardTextList, @"User\DirectKeyboardTextList");
 
                 //Load keypad mapping
-                JsonLoadProfile(ref vDirectKeypadMapping, @"User\DirectKeypadMapping3");
-                JsonLoadList_KeypadProfile();
-
-                //Load controllers ignored
-                JsonLoadProfile(ref vDirectControllersIgnoredUser, @"User\DirectControllersIgnored");
+                JsonLoadMulti(vDirectKeypadMapping, @"User\DirectKeypadMapping");
+                UpdateKeypadInterface();
 
                 //Load controllers supported
-                JsonLoadList_ControllerSupported();
+                JsonLoadMulti(vDirectControllersSupported, @"Default\DirectControllersSupported");
 
                 //Load controllers profile
-                JsonLoadList_ControllerProfile();
+                JsonLoadMulti(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                //Load controllers ignored
+                JsonLoadSingle(ref vDirectControllersIgnored, @"User\DirectControllersIgnored");
 
                 //Bind all the lists to ListBox
                 ListBoxBindLists();

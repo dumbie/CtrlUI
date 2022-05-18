@@ -9,6 +9,7 @@ using Windows.Storage.Streams;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
+using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
@@ -36,8 +37,12 @@ namespace DirectXInput.MediaCode
                         await App.vWindowOverlay.Notification_Show_Status("Rumble", "Enabled trigger rumble");
                         activeController.Details.Profile.TriggerRumbleEnabled = true;
                     }
-                    JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                    //Update settings interface
                     App.vWindowMain.ControllerUpdateSettingsInterface(activeController);
+
+                    //Save changes to Json file
+                    JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                 }
             }
             catch { }

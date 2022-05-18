@@ -113,17 +113,17 @@ namespace CtrlUI
                 await JsonLoadList_Applications();
 
                 //Load Json profiles
-                JsonLoadProfile(ref vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
-                JsonLoadProfile(ref vCtrlChromiumBrowsers, @"Default\CtrlChromiumBrowsers");
-                JsonLoadProfile(ref vCtrlCloseLaunchers, @"Default\CtrlCloseLaunchers");
-                JsonLoadProfile(ref vCtrlLocationsFile, @"User\CtrlLocationsFile");
-                JsonLoadProfile(ref vCtrlLocationsShortcut, @"User\CtrlLocationsShortcut");
-                JsonLoadProfile(ref vCtrlIgnoreLauncherName, @"User\CtrlIgnoreLauncherName");
-                JsonLoadProfile(ref vCtrlIgnoreShortcutName, @"User\CtrlIgnoreShortcutName");
-                JsonLoadProfile(ref vCtrlIgnoreShortcutUri, @"User\CtrlIgnoreShortcutUri");
-                JsonLoadProfile(ref vCtrlIgnoreProcessName, @"User\CtrlIgnoreProcessName");
-                JsonLoadProfile(ref vCtrlKeyboardExtensionName, @"User\CtrlKeyboardExtensionName");
-                JsonLoadProfile(ref vCtrlKeyboardProcessName, @"User\CtrlKeyboardProcessName");
+                JsonLoadSingle(ref vCtrlHDRProcessName, @"User\CtrlHDRProcessName");
+                JsonLoadSingle(ref vCtrlChromiumBrowsers, @"Default\CtrlChromiumBrowsers");
+                JsonLoadSingle(ref vCtrlCloseLaunchers, @"Default\CtrlCloseLaunchers");
+                JsonLoadSingle(ref vCtrlLocationsFile, @"User\CtrlLocationsFile");
+                JsonLoadSingle(ref vCtrlLocationsShortcut, @"User\CtrlLocationsShortcut");
+                JsonLoadSingle(ref vCtrlIgnoreLauncherName, @"User\CtrlIgnoreLauncherName");
+                JsonLoadSingle(ref vCtrlIgnoreShortcutName, @"User\CtrlIgnoreShortcutName");
+                JsonLoadSingle(ref vCtrlIgnoreShortcutUri, @"User\CtrlIgnoreShortcutUri");
+                JsonLoadSingle(ref vCtrlIgnoreProcessName, @"User\CtrlIgnoreProcessName");
+                JsonLoadSingle(ref vCtrlKeyboardExtensionName, @"User\CtrlKeyboardExtensionName");
+                JsonLoadSingle(ref vCtrlKeyboardProcessName, @"User\CtrlKeyboardProcessName");
 
                 //Load Json lists
                 JsonLoadEmbedded(vAppAssembly, ref vApiIGDBGenres, "CtrlUI.Resources.ApiIGDB.Genres.json");

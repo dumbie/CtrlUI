@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using static DirectXInput.AppVariables;
+using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
 using static LibraryUsb.FakerInputDevice;
@@ -35,19 +36,22 @@ namespace DirectXInput
                 {
                     NotificationDetails notificationDetailsExists = new NotificationDetails();
                     notificationDetailsExists.Icon = "Close";
-                    notificationDetailsExists.Text = "Application already exists";
+                    notificationDetailsExists.Text = "Keypad profile already exists";
                     await App.vWindowOverlay.Notification_Show_Status(notificationDetailsExists);
                     return;
                 }
 
                 //Add empty mapping to list
-                KeypadMapping newProfile = new KeypadMapping();
-                newProfile.Name = profileNameString;
-                vDirectKeypadMapping.Add(newProfile);
+                KeypadMapping keypadMapping = new KeypadMapping();
+                keypadMapping.Name = profileNameString;
 
-                //Save changes to Json file
-                JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping3");
+                //Add profile to list
+                vDirectKeypadMapping.Add(keypadMapping);
 
+                //Save profile to Json file
+                JsonSaveObject(keypadMapping, GenerateJsonNameKeypadMapping(keypadMapping));
+
+                //Show notification
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Plus";
                 notificationDetails.Text = "Added keypad profile";
@@ -68,15 +72,16 @@ namespace DirectXInput
                     //Remove mapping from list
                     vDirectKeypadMapping.Remove(selectedProfile);
 
-                    //Save changes to Json file
-                    JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping3");
+                    //Remove Json file
+                    JsonRemoveFile(GenerateJsonNameKeypadMapping(selectedProfile));
 
                     //Select the default profile
                     combobox_KeypadProcessProfile.SelectedIndex = 0;
 
+                    //Show notification
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "RemoveCross";
-                    notificationDetails.Text = "Application removed";
+                    notificationDetails.Text = "Removed keypad profile";
                     await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     Debug.WriteLine("Removed the keypad profile.");
                 }
@@ -84,7 +89,7 @@ namespace DirectXInput
                 {
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Close";
-                    notificationDetails.Text = "Cannot remove default";
+                    notificationDetails.Text = "Cannot remove default profile";
                     await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     Debug.WriteLine("Default profile cannot be removed.");
                 }
@@ -97,18 +102,16 @@ namespace DirectXInput
         {
             try
             {
-                JsonLoadList_KeypadProfile();
+                UpdateKeypadInterface();
             }
             catch { }
         }
 
-        //Load keypad profile
-        void JsonLoadList_KeypadProfile()
+        //Update keypad interface
+        void UpdateKeypadInterface()
         {
             try
             {
-                Debug.WriteLine("Loading keypad profile.");
-
                 //Get current selected profile
                 KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
 
@@ -134,8 +137,10 @@ namespace DirectXInput
                 textblock_SettingsKeypadMouseMoveSensitivity.Text = textblock_SettingsKeypadMouseMoveSensitivity.Tag + ": " + selectedProfile.KeypadMouseMoveSensitivity.ToString("0.00");
                 slider_SettingsKeypadMouseMoveSensitivity.Value = selectedProfile.KeypadMouseMoveSensitivity;
 
-                //Update all keypad key tool tips
+                //Update all keypad tooltips
                 UpdateKeypadToolTips();
+
+                Debug.WriteLine("Updated keypad interface.");
             }
             catch { }
         }

@@ -8,6 +8,7 @@ using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
+using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
 
@@ -92,7 +93,9 @@ namespace DirectXInput
                             cb_ControllerFakeMediaButton.IsChecked = false;
                             activeController.Details.Profile.FakeMediaButton = false;
                         }
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -107,7 +110,9 @@ namespace DirectXInput
                             cb_ControllerFakeGuideButton.IsChecked = false;
                             activeController.Details.Profile.FakeGuideButton = false;
                         }
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -117,7 +122,9 @@ namespace DirectXInput
                     if (activeController != null)
                     {
                         activeController.Details.Profile.FakeTouchpadButton = cb_ControllerFakeTouchpadButton.IsChecked.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -128,7 +135,9 @@ namespace DirectXInput
                     if (activeController != null)
                     {
                         activeController.Details.Profile.UseButtonTriggers = cb_ControllerUseButtonTriggers.IsChecked.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -139,7 +148,9 @@ namespace DirectXInput
                     {
                         textblock_ControllerDeadzoneTriggerLeft.Text = textblock_ControllerDeadzoneTriggerLeft.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneTriggerLeft.Value) + "%";
                         activeController.Details.Profile.DeadzoneTriggerLeft = Convert.ToInt32(slider_ControllerDeadzoneTriggerLeft.Value);
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -150,7 +161,9 @@ namespace DirectXInput
                     {
                         textblock_ControllerDeadzoneTriggerRight.Text = textblock_ControllerDeadzoneTriggerRight.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneTriggerRight.Value) + "%";
                         activeController.Details.Profile.DeadzoneTriggerRight = Convert.ToInt32(slider_ControllerDeadzoneTriggerRight.Value);
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -161,7 +174,9 @@ namespace DirectXInput
                     {
                         textblock_ControllerSensitivityTriggerLeft.Text = textblock_ControllerSensitivityTriggerLeft.Tag.ToString() + slider_ControllerSensitivityTriggerLeft.Value.ToString("0.00");
                         activeController.Details.Profile.SensitivityTriggerLeft = slider_ControllerSensitivityTriggerLeft.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -172,7 +187,9 @@ namespace DirectXInput
                     {
                         textblock_ControllerSensitivityTriggerRight.Text = textblock_ControllerSensitivityTriggerRight.Tag.ToString() + slider_ControllerSensitivityTriggerRight.Value.ToString("0.00");
                         activeController.Details.Profile.SensitivityTriggerRight = slider_ControllerSensitivityTriggerRight.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -183,7 +200,9 @@ namespace DirectXInput
                     if (activeController != null)
                     {
                         activeController.Details.Profile.DPadFourWayMovement = cb_ControllerDPadFourWayMovement.IsChecked.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -194,7 +213,9 @@ namespace DirectXInput
                     if (activeController != null)
                     {
                         activeController.Details.Profile.ThumbFlipMovement = cb_ControllerThumbFlipMovement.IsChecked.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -204,7 +225,9 @@ namespace DirectXInput
                     if (activeController != null)
                     {
                         activeController.Details.Profile.ThumbFlipAxesLeft = cb_ControllerThumbFlipAxesLeft.IsChecked.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -214,7 +237,9 @@ namespace DirectXInput
                     if (activeController != null)
                     {
                         activeController.Details.Profile.ThumbFlipAxesRight = cb_ControllerThumbFlipAxesRight.IsChecked.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -224,7 +249,9 @@ namespace DirectXInput
                     if (activeController != null)
                     {
                         activeController.Details.Profile.ThumbReverseAxesLeft = cb_ControllerThumbReverseAxesLeft.IsChecked.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -234,7 +261,9 @@ namespace DirectXInput
                     if (activeController != null)
                     {
                         activeController.Details.Profile.ThumbReverseAxesRight = cb_ControllerThumbReverseAxesRight.IsChecked.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -245,7 +274,9 @@ namespace DirectXInput
                     {
                         textblock_ControllerDeadzoneThumbLeft.Text = textblock_ControllerDeadzoneThumbLeft.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneThumbLeft.Value) + "%";
                         activeController.Details.Profile.DeadzoneThumbLeft = Convert.ToInt32(slider_ControllerDeadzoneThumbLeft.Value);
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -256,7 +287,9 @@ namespace DirectXInput
                     {
                         textblock_ControllerDeadzoneThumbRight.Text = textblock_ControllerDeadzoneThumbRight.Tag.ToString() + Convert.ToInt32(slider_ControllerDeadzoneThumbRight.Value) + "%";
                         activeController.Details.Profile.DeadzoneThumbRight = Convert.ToInt32(slider_ControllerDeadzoneThumbRight.Value);
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -267,7 +300,9 @@ namespace DirectXInput
                     {
                         textblock_ControllerSensitivityThumb.Text = textblock_ControllerSensitivityThumb.Tag.ToString() + slider_ControllerSensitivityThumb.Value.ToString("0.00");
                         activeController.Details.Profile.SensitivityThumb = slider_ControllerSensitivityThumb.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -277,7 +312,11 @@ namespace DirectXInput
                     if (activeController != null)
                     {
                         activeController.Details.Profile.ControllerRumbleEnabled = cb_ControllerRumbleEnabled.IsChecked.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
+
+                        //Update settings interface
                         if (activeController.Details.Profile.ControllerRumbleEnabled)
                         {
                             slider_ControllerRumbleStrength.IsEnabled = true;
@@ -298,7 +337,9 @@ namespace DirectXInput
                     {
                         textblock_ControllerRumbleLimit.Text = textblock_ControllerRumbleLimit.Tag.ToString() + Convert.ToInt32(slider_ControllerRumbleLimit.Value) + "%";
                         activeController.Details.Profile.ControllerRumbleLimit = Convert.ToInt32(slider_ControllerRumbleLimit.Value);
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -309,7 +350,9 @@ namespace DirectXInput
                     {
                         textblock_ControllerRumbleStrength.Text = textblock_ControllerRumbleStrength.Tag.ToString() + Convert.ToInt32(slider_ControllerRumbleStrength.Value) + "%";
                         activeController.Details.Profile.ControllerRumbleStrength = Convert.ToInt32(slider_ControllerRumbleStrength.Value);
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -319,7 +362,11 @@ namespace DirectXInput
                     if (activeController != null)
                     {
                         activeController.Details.Profile.TriggerRumbleEnabled = cb_TriggerRumbleEnabled.IsChecked.Value;
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
+
+                        //Update settings interface
                         if (activeController.Details.Profile.TriggerRumbleEnabled)
                         {
                             slider_TriggerRumbleStrengthLeft.IsEnabled = true;
@@ -340,7 +387,9 @@ namespace DirectXInput
                     {
                         textblock_TriggerRumbleStrengthLeft.Text = textblock_TriggerRumbleStrengthLeft.Tag.ToString() + Convert.ToInt32(slider_TriggerRumbleStrengthLeft.Value) + "%";
                         activeController.Details.Profile.TriggerRumbleStrengthLeft = Convert.ToInt32(slider_TriggerRumbleStrengthLeft.Value);
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -351,7 +400,9 @@ namespace DirectXInput
                     {
                         textblock_TriggerRumbleStrengthRight.Text = textblock_TriggerRumbleStrengthRight.Tag.ToString() + Convert.ToInt32(slider_TriggerRumbleStrengthRight.Value) + "%";
                         activeController.Details.Profile.TriggerRumbleStrengthRight = Convert.ToInt32(slider_TriggerRumbleStrengthRight.Value);
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 };
 
@@ -362,7 +413,9 @@ namespace DirectXInput
                     {
                         textblock_ControllerLedBrightness.Text = textblock_ControllerLedBrightness.Tag.ToString() + Convert.ToInt32(slider_ControllerLedBrightness.Value) + "%";
                         activeController.Details.Profile.LedBrightness = Convert.ToInt32(slider_ControllerLedBrightness.Value);
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
 
                         //Controller update led color
                         ControllerLedColor(activeController);

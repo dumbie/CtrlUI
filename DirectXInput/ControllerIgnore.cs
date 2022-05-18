@@ -22,7 +22,7 @@ namespace DirectXInput
                 listbox_ControllerIgnore.Items.Clear();
 
                 //Check ignored controllers
-                if (vDirectControllersIgnoredUser.Any())
+                if (vDirectControllersIgnored.Any())
                 {
                     listbox_ControllerIgnore.Visibility = Visibility.Visible;
                     textblock_ControllerIgnore.Visibility = Visibility.Collapsed;
@@ -35,7 +35,7 @@ namespace DirectXInput
                 }
 
                 //Load ignored controllers
-                foreach (ControllerIgnored controllerIgnored in vDirectControllersIgnoredUser)
+                foreach (ControllerIgnored controllerIgnored in vDirectControllersIgnored)
                 {
                     foreach (string productId in controllerIgnored.ProductIDs)
                     {
@@ -76,7 +76,7 @@ namespace DirectXInput
                         string lowerProductId = activeController.Details.Profile.ProductID.ToLower();
 
                         //Update json profile
-                        ControllerIgnored existingVendor = vDirectControllersIgnoredUser.Where(x => x.VendorID.ToLower() == lowerVendorId).FirstOrDefault();
+                        ControllerIgnored existingVendor = vDirectControllersIgnored.Where(x => x.VendorID.ToLower() == lowerVendorId).FirstOrDefault();
                         if (existingVendor != null)
                         {
                             List<string> existingProducts = existingVendor.ProductIDs.ToList();
@@ -91,13 +91,13 @@ namespace DirectXInput
                             newController.CodeName = activeController.Details.DisplayName;
                             newController.VendorID = lowerVendorId;
                             newController.ProductIDs = new string[] { lowerProductId };
-                            vDirectControllersIgnoredUser.Add(newController);
+                            vDirectControllersIgnored.Add(newController);
 
                             Debug.WriteLine("Added new controller to ignore list: " + lowerVendorId + "/" + lowerProductId);
                         }
 
                         //Save json profile
-                        JsonSaveObject(vDirectControllersIgnoredUser, @"User\DirectControllersIgnored");
+                        JsonSaveObject(vDirectControllersIgnored, @"User\DirectControllersIgnored");
 
                         //Load ignored controllers to list
                         ListboxLoadIgnoredController();
@@ -136,13 +136,13 @@ namespace DirectXInput
                 }
                 else
                 {
-                    vDirectControllersIgnoredUser.Remove(allowController);
+                    vDirectControllersIgnored.Remove(allowController);
                 }
 
                 Debug.WriteLine("Allowed controller in ignore list: " + selectedItem.String2 + "/" + selectedItem.String3);
 
                 //Save json profile
-                JsonSaveObject(vDirectControllersIgnoredUser, @"User\DirectControllersIgnored");
+                JsonSaveObject(vDirectControllersIgnored, @"User\DirectControllersIgnored");
 
                 //Load ignored controllers to list
                 ListboxLoadIgnoredController();

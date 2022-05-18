@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
-using static DirectXInput.AppVariables;
+using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
 
@@ -208,7 +208,7 @@ namespace DirectXInput
                             controller.Details.Profile.UseButtonTriggers = true;
 
                             //Save changes to Json file
-                            JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+                            JsonSaveObject(controller.Details.Profile, GenerateJsonNameControllerProfile(controller.Details.Profile));
                         }
 
                         //Raw Buttons (DPad)

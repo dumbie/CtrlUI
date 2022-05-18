@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using static DirectXInput.AppVariables;
+using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.JsonFunctions;
@@ -75,7 +76,7 @@ namespace DirectXInput
                 else if (vMappingControllerButton == btn_SetMedia) { activeController.Details.Profile.ButtonMedia = -1; }
 
                 //Save changes to Json file
-                JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+                JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
             }
             catch { }
         }
@@ -189,11 +190,11 @@ namespace DirectXInput
                             catch { }
                         });
 
+                        //Save changes to Json file
+                        JsonSaveObject(Controller.Details.Profile, GenerateJsonNameControllerProfile(Controller.Details.Profile));
+
                         //Reset controller button mapping
                         vMappingControllerStatus = MappingStatus.Done;
-
-                        //Save changes to Json file
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
                     }
                     return true;
                 }

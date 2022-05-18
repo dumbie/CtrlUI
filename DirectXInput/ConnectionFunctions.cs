@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using static DirectXInput.AppVariables;
+using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
 
@@ -68,11 +69,14 @@ namespace DirectXInput
                         notificationDetails.Text = "Removed controller";
                         await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
-                        vDirectControllersProfile.Remove(activeController.Details.Profile);
+                        //Stop the controller task
                         StopControllerTask(activeController, "removed", "Controller " + activeController.Details.DisplayName + " removed and disconnected.");
 
-                        //Save changes to Json file
-                        JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+                        //Remove Json in list
+                        vDirectControllersProfile.Remove(activeController.Details.Profile);
+
+                        //Remove Json file
+                        JsonRemoveFile(GenerateJsonNameControllerProfile(activeController.Details.Profile));
                     }
                 }
                 else

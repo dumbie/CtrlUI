@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
+using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
 using static LibraryUsb.Enumerate;
@@ -38,16 +39,20 @@ namespace DirectXInput
                         IEnumerable<ControllerProfile> profileList = vDirectControllersProfile.Where(x => x.ProductID.ToLower() == ProductHexId && x.VendorID.ToLower() == VendorHexId);
                         if (!profileList.Any())
                         {
-                            vDirectControllersProfile.Add(new ControllerProfile()
+                            //Create controller profile
+                            ControllerProfile controllerProfile = new ControllerProfile()
                             {
                                 ProductID = ProductHexId,
                                 VendorID = VendorHexId,
                                 ProductName = EnumDevice.Description,
                                 VendorName = "Unknown"
-                            });
+                            };
 
-                            //Save changes to Json file
-                            JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+                            //Add profile to list
+                            vDirectControllersProfile.Add(controllerProfile);
+
+                            //Save profile to Json file
+                            JsonSaveObject(controllerProfile, GenerateJsonNameControllerProfile(controllerProfile));
 
                             Debug.WriteLine("Added win profile: " + EnumDevice.Description);
                         }
@@ -100,7 +105,8 @@ namespace DirectXInput
                         IEnumerable<ControllerProfile> profileList = vDirectControllersProfile.Where(x => x.ProductID.ToLower() == ProductHexId && x.VendorID.ToLower() == VendorHexId);
                         if (!profileList.Any())
                         {
-                            ControllerProfile NewController = new ControllerProfile()
+                            //Create controller profile
+                            ControllerProfile controllerProfile = new ControllerProfile()
                             {
                                 ProductID = ProductHexId,
                                 VendorID = VendorHexId,
@@ -108,10 +114,11 @@ namespace DirectXInput
                                 VendorName = VendorNameString
                             };
 
-                            vDirectControllersProfile.Add(NewController);
+                            //Add profile to list
+                            vDirectControllersProfile.Add(controllerProfile);
 
-                            //Save changes to Json file
-                            JsonSaveObject(vDirectControllersProfile, @"User\DirectControllersProfile");
+                            //Save profile to Json file
+                            JsonSaveObject(controllerProfile, GenerateJsonNameControllerProfile(controllerProfile));
 
                             Debug.WriteLine("Added hid profile: " + ProductNameString + " (" + VendorNameString + ")");
                         }

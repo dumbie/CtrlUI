@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using static DirectXInput.AppVariables;
+using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
 using static LibraryUsb.FakerInputDevice;
@@ -349,7 +350,7 @@ namespace DirectXInput
                 }
 
                 //Save changes to Json file
-                JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping3");
+                JsonSaveObject(keypadMappingProfile, GenerateJsonNameKeypadMapping(keypadMappingProfile));
 
                 //Update the keypad names
                 App.vWindowKeypad.UpdateKeypadNames();
@@ -527,7 +528,7 @@ namespace DirectXInput
                 }
 
                 //Save changes to Json file
-                JsonSaveObject(vDirectKeypadMapping, @"User\DirectKeypadMapping3");
+                JsonSaveObject(keypadMappingProfile, GenerateJsonNameKeypadMapping(keypadMappingProfile));
 
                 //Update the keypad names
                 App.vWindowKeypad.UpdateKeypadNames();

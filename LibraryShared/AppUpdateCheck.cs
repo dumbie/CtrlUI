@@ -26,8 +26,6 @@ namespace LibraryShared
                 File_Move("Profiles/CtrlLocationsFile.json", "Profiles/User/CtrlLocationsFile.json", true);
                 File_Move("Profiles/CtrlLocationsShortcut.json", "Profiles/User/CtrlLocationsShortcut.json", true);
                 File_Move("Profiles/FpsPositionProcessName.json", "Profiles/User/FpsPositionProcessName.json", true);
-                File_Move("Profiles/DirectControllersProfile.json", "Profiles/User/DirectControllersProfile.json", true);
-                File_Move("Profiles/DirectKeypadMapping.json", "Profiles/User/DirectKeypadMapping.json", true);
                 File_Move("Profiles/DirectKeyboardTextList.json", "Profiles/User/DirectKeyboardTextList.json", true);
                 File_Move("Profiles/DirectControllersIgnored.json", "Profiles/User/DirectControllersIgnored.json", true);
 

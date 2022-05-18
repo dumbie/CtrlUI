@@ -64,7 +64,7 @@ namespace FpsOverlayer
                 Application_CreateTrayMenu();
 
                 //Load Json profiles
-                JsonLoadProfile(ref vFpsPositionProcessName, @"User\FpsPositionProcessName");
+                JsonLoadSingle(ref vFpsPositionProcessName, @"User\FpsPositionProcessName");
 
                 //Start process monitoring
                 StartMonitorProcess();

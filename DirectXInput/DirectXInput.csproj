@@ -227,7 +227,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="DirectInput.cs" />
-    <Compile Include="JsonFunctions.cs" />
+    <Compile Include="ProfileFunctions.cs" />
     <Compile Include="WindowMain.xaml.cs" />
     <Page Include="Overlay\WindowOverlay.xaml">
       <SubType>Designer</SubType>
@@ -563,7 +563,7 @@
     <Content Include="Profiles\Default\DirectKeyboardEmojiListActivity.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Profiles\User\DirectKeypadMapping3.json">
+    <Content Include="Profiles\User\DirectKeypadMapping\default.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Profiles\Default\DirectControllersSupported\SonyPS12DualShock.json">
@@ -589,9 +589,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Assets\AppIcon.ico" />
-    <Content Include="Profiles\User\DirectControllersProfile.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Profiles\Default\DirectControllersSupported\SonyPS5DualSense.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -616,6 +613,8 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Profiles\User\DirectControllersProfile\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

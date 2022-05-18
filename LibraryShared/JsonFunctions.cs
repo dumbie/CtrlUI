@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -9,17 +10,40 @@ namespace LibraryShared
     public class JsonFunctions
     {
         //Read Json from profile (Deserialize)
-        public static void JsonLoadProfile<T>(ref T deserializeTarget, string profileName)
+        public static void JsonLoadSingle<T>(ref T deserializeTarget, string profileName)
         {
             try
             {
-                string JsonFile = File.ReadAllText(@"Profiles\" + profileName + ".json");
-                deserializeTarget = JsonConvert.DeserializeObject<T>(JsonFile);
-                Debug.WriteLine("Reading Json file completed: " + profileName);
+                string jsonFile = File.ReadAllText(@"Profiles\" + profileName + ".json");
+                deserializeTarget = JsonConvert.DeserializeObject<T>(jsonFile);
+                Debug.WriteLine("Completed reading json file: " + profileName);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Reading Json file failed: " + profileName + "/" + ex.Message);
+                Debug.WriteLine("Failed reading json file: " + profileName + "/" + ex.Message);
+            }
+        }
+
+        //Read Json from profile (Deserialize)
+        public static void JsonLoadMulti<T>(ICollection<T> targetList, string loadDirectory)
+        {
+            try
+            {
+                //Clear loaded json
+                targetList.Clear();
+
+                //Add all the supported controllers
+                string[] jsonFiles = Directory.GetFiles(@"Profiles\" + loadDirectory, "*.json");
+                foreach (string jsonFile in jsonFiles)
+                {
+                    string jsonFileText = File.ReadAllText(jsonFile);
+                    targetList.Add(JsonConvert.DeserializeObject<T>(jsonFileText));
+                }
+                Debug.WriteLine("Completed reading json files from: " + loadDirectory);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed reading json files: " + loadDirectory + "/" + ex.Message);
             }
         }
 
@@ -58,13 +82,41 @@ namespace LibraryShared
                 //Json serialize
                 string serializedObject = JsonConvert.SerializeObject(serializeObject, jsonSettings);
 
+                //Check directory
+                string filePath = @"Profiles\" + profileName + ".json";
+                string directoryName = Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directoryName))
+                {
+                    Directory.CreateDirectory(directoryName);
+                    Debug.WriteLine("Created Json directory: " + directoryName);
+                }
+
                 //Save to file
-                File.WriteAllText(@"Profiles\" + profileName + ".json", serializedObject);
+                File.WriteAllText(filePath, serializedObject);
                 Debug.WriteLine("Saving Json " + profileName + " completed.");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed saving Json " + profileName + ": " + ex.Message);
+            }
+        }
+
+        //Remove Json file
+        public static void JsonRemoveFile(string profileName)
+        {
+            try
+            {
+                string filePath = @"Profiles\" + profileName + ".json";
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                Debug.WriteLine("Removed Json file: " + profileName);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed removing json file: " + ex.Message);
             }
         }
     }

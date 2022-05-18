@@ -70,7 +70,7 @@ namespace DirectXInput
                 //}
 
                 //Check if the controller is on user ignore list
-                foreach (ControllerIgnored ignoreCheck in vDirectControllersIgnoredUser)
+                foreach (ControllerIgnored ignoreCheck in vDirectControllersIgnored)
                 {
                     string filterVendor = ignoreCheck.VendorID.ToLower();
                     string[] filterProducts = ignoreCheck.ProductIDs.Select(x => x.ToLower()).ToArray();
