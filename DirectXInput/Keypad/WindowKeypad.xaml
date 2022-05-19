@@ -28,7 +28,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <!-- Controller D-Pad -->
+            <!-- Controller DPad -->
             <Grid Grid.Column="0">
                 <Image Name="image_DPad" Height="{DynamicResource KeypadImageHeight}" Stretch="Uniform" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/KeypadDpad.png"/>
 

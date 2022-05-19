@@ -200,9 +200,9 @@
                                 <Image Name="img_ControllerPreview_DPadDown" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="106,123,369,107"/>
 
                                 <Image Name="img_ControllerPreview_ButtonShoulderLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="16,7,459,223"/>
-                                <Image Name="img_ControllerPreview_TriggerLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="-450,-125,0,0"/>
+                                <Image Name="img_ControllerPreview_TriggerLeft" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="-450,-122,0,0"/>
                                 <Image Name="img_ControllerPreview_ButtonShoulderRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="460,7,15,223"/>
-                                <Image Name="img_ControllerPreview_TriggerRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="455,-125,0,0"/>
+                                <Image Name="img_ControllerPreview_TriggerRight" Source="pack://siteoforigin:,,,/Assets/Default/Controller/ButtonPress.png" Width="25" Height="25" Margin="455,-122,0,0"/>
 
                                 <!-- Mapping -->
                                 <Button Name="btn_SetA" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonImageTransparentNoBorder}" Height="24" Width="24" Margin="371,109,105,122" ToolTipService.ToolTip="Button A"/>
@@ -262,9 +262,9 @@
                             <TextBlock Text="Changes the press sensitivity on the right trigger." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                             <Slider Name="slider_ControllerSensitivityTriggerRight" Minimum="0.10" Maximum="5.00" TickFrequency="0.02" SmallChange="0.02" LargeChange="0.05" Width="400" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
-                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="D-Pad Settings"/>
-                            <CheckBox Name="cb_ControllerDPadFourWayMovement" Content="Change your D-Pad into four way only presses" Style="{StaticResource CheckBoxBlack}"/>
-                            <TextBlock Text="Enabling this will disable the half way D-Pad button press directions." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="DPad Settings"/>
+                            <CheckBox Name="cb_ControllerDPadFourWayMovement" Content="Change your DPad into four way only presses" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBlock Text="Enabling this will disable the half way DPad button press directions." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                             <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Thumb Stick Settings"/>
                             <CheckBox Name="cb_ControllerThumbFlipMovement" Content="Flip the left and right thumb sticks movement" Style="{StaticResource CheckBoxBlack}"/>

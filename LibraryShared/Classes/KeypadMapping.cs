@@ -44,7 +44,7 @@ namespace LibraryShared
             public KeyboardModifiers ThumbRightRightMod1 { get; set; } = KeyboardModifiers.None;
             public KeyboardKeys ThumbRightRight { get; set; } = KeyboardKeys.None;
 
-            //Raw D-Pad
+            //Raw DPad
             public KeyboardModifiers DPadUpMod0 { get; set; } = KeyboardModifiers.None;
             public KeyboardModifiers DPadUpMod1 { get; set; } = KeyboardModifiers.None;
             public KeyboardKeys DPadUp { get; set; } = KeyboardKeys.None;

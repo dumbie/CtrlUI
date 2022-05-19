@@ -72,7 +72,7 @@ namespace DirectXInput
                     if (Controller.InputCurrent.ButtonTriggerRight.PressedRaw) { usbReport.bRightTrigger = 255; }
                 }
 
-                //D-Pad
+                //DPad
                 if (Controller.InputCurrent.DPadLeft.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_DPAD_LEFT; }
                 if (Controller.InputCurrent.DPadUp.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_DPAD_UP; }
                 if (Controller.InputCurrent.DPadRight.PressedRaw) { usbReport.wButtons |= XUSB_BUTTON.XUSB_GAMEPAD_DPAD_RIGHT; }

@@ -90,7 +90,7 @@ namespace LibraryShared
                 }
             }
 
-            //Controller Mapping D-Pad
+            //Controller Mapping DPad
             private int? PrivDPadLeft;
             public int? DPadLeft
             {
@@ -444,7 +444,7 @@ namespace LibraryShared
                 }
             }
 
-            //Controller D-Pad
+            //Controller DPad
             private bool PrivDPadFourWayMovement;
             public bool DPadFourWayMovement
             {

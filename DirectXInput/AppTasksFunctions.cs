@@ -85,16 +85,16 @@ namespace DirectXInput
             catch { }
         }
 
-        async Task vTaskLoop_ControllerPreview()
+        async Task vTaskLoop_ControllerInformation()
         {
             try
             {
-                while (TaskCheckLoop(vTask_ControllerPreview))
+                while (TaskCheckLoop(vTask_ControllerInformation))
                 {
-                    UpdateControllerPreview();
+                    UpdateControllerInformation();
 
                     //Delay the loop task
-                    await TaskDelayLoop(50, vTask_ControllerPreview);
+                    await TaskDelayLoop(50, vTask_ControllerInformation);
                 }
             }
             catch { }

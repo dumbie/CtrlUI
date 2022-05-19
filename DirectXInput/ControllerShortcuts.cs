@@ -80,11 +80,11 @@ namespace DirectXInput
                         {
                             if (vKeyboardKeypadLastActive == "Keyboard")
                             {
-                                await KeyboardPopupHideShow(true);
+                                await KeyboardPopupHideShow(false);
                             }
                             else
                             {
-                                await KeypadPopupHideShow(true);
+                                await KeypadPopupHideShow(false);
                             }
                         }
                         else
@@ -98,13 +98,10 @@ namespace DirectXInput
                     //Show or hide the media controller
                     else if (Controller.InputCurrent.ButtonTouchpad.PressedLong)
                     {
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup")))
-                        {
-                            await MediaPopupHideShow(false);
+                        await MediaPopupHideShow(false);
 
-                            ControllerUsed = true;
-                            ControllerDelay750 = true;
-                        }
+                        ControllerUsed = true;
+                        ControllerDelay750 = true;
                     }
                     //Mute or unmute the input/microphone
                     else if (Controller.InputCurrent.ButtonMedia.PressedRaw)
@@ -244,7 +241,10 @@ namespace DirectXInput
                 {
                     if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
                     {
-                        await App.vWindowKeypad.Show();
+                        if (forceShow || Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup")))
+                        {
+                            await App.vWindowKeypad.Show();
+                        }
                     }
                     else if (!forceShow)
                     {
@@ -266,7 +266,10 @@ namespace DirectXInput
                 {
                     if (!App.vWindowKeyboard.vWindowVisible && !App.vWindowKeypad.vWindowVisible)
                     {
-                        await App.vWindowKeyboard.Show();
+                        if (forceShow || Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup")))
+                        {
+                            await App.vWindowKeyboard.Show();
+                        }
                     }
                     else if (!forceShow)
                     {
@@ -303,7 +306,10 @@ namespace DirectXInput
                 {
                     if (!App.vWindowMedia.vWindowVisible)
                     {
-                        await App.vWindowMedia.Show();
+                        if (forceShow || Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup")))
+                        {
+                            await App.vWindowMedia.Show();
+                        }
                     }
                     else if (!forceShow)
                     {

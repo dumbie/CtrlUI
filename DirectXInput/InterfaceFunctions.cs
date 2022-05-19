@@ -193,7 +193,7 @@ namespace DirectXInput
                     }
                 };
 
-                //Controller D-Pad
+                //Controller DPad
                 cb_ControllerDPadFourWayMovement.Click += (sender, e) =>
                 {
                     ControllerStatus activeController = vActiveController();

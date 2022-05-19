@@ -33,7 +33,7 @@ namespace LibraryShared
             public float AccelY = 0;
             public float AccelZ = 0;
 
-            //Raw D-Pad
+            //Raw DPad
             public ControllerButtonDetails DPadUp = new ControllerButtonDetails();
             public ControllerButtonDetails DPadDown = new ControllerButtonDetails();
             public ControllerButtonDetails DPadLeft = new ControllerButtonDetails();

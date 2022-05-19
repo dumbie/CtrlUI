@@ -13,7 +13,7 @@ namespace DirectXInput
             if (sp_Help.Children.Count == 0)
             {
                 sp_Help.Children.Add(new TextBlock() { Text = "Why is my controller not working properly?", Style = (Style)Application.Current.Resources["TextBlockBlack"] });
-                sp_Help.Children.Add(new TextBlock() { Text = "Make sure that your connected controller is a DirectInput controller that has two thumb sticks and a D-Pad, if you are using a DualShock 1 or 2 controller enable the analog mode.", Style = (Style)Application.Current.Resources["TextBlockGray"], TextWrapping = TextWrapping.Wrap });
+                sp_Help.Children.Add(new TextBlock() { Text = "Make sure that your connected controller is a supported DirectInput controller, if you are using a DualShock 1 or 2 controller enable the analog mode.", Style = (Style)Application.Current.Resources["TextBlockGray"], TextWrapping = TextWrapping.Wrap });
 
                 sp_Help.Children.Add(new TextBlock() { Text = "\r\nWhy is my controller rumble not working at all?", Style = (Style)Application.Current.Resources["TextBlockBlack"] });
                 sp_Help.Children.Add(new TextBlock() { Text = "Only a few controllers like the DualShock 1, 2, 3 and 4 currently have rumble support because rumble support needs to be manually added for each controller.", Style = (Style)Application.Current.Resources["TextBlockGray"], TextWrapping = TextWrapping.Wrap });

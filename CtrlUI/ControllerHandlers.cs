@@ -223,7 +223,7 @@ namespace CtrlUI
             return ControllerUsed;
         }
 
-        //Process XInput controller D-Pad
+        //Process XInput controller DPad
         bool Controller_DPadPress(ControllerInput ControllerInput)
         {
             bool ControllerUsed = false;

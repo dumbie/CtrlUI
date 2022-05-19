@@ -11,7 +11,7 @@ namespace DirectXInput
         {
             try
             {
-                //D-Pad
+                //DPad
                 if (controllerStatus.InputCurrent.DPadLeft.PressedRaw || controllerStatus.InputCurrent.DPadUp.PressedRaw || controllerStatus.InputCurrent.DPadRight.PressedRaw || controllerStatus.InputCurrent.DPadDown.PressedRaw)
                 {
                     return false;

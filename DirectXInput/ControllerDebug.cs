@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
+﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 
@@ -10,11 +10,11 @@ namespace DirectXInput
     partial class WindowMain
     {
         //Update controller debug information
-        void UpdateDebugInformation()
+        void UpdateControllerDebugInformation(ControllerStatus Controller)
         {
             try
             {
-                if (vShowDebugInformation && (GetSystemTicksMs() - vShowDebugDelay) > 0)
+                AVActions.ActionDispatcherInvoke(delegate
                 {
                     //Set basic information
                     textblock_LiveDebugInformation.Text = GenerateControllerDebugString(false);
@@ -23,7 +23,7 @@ namespace DirectXInput
                     listbox_LiveDebugInput.Items.Clear();
 
                     //Get controller input
-                    byte[] controllerRawInput = GetControllerRawInput();
+                    byte[] controllerRawInput = Controller.InputReport;
                     if (controllerRawInput.Length > 200) { controllerRawInput = controllerRawInput.Take(200).ToArray(); }
                     for (int packetId = 0; packetId < controllerRawInput.Length; packetId++)
                     {
@@ -32,9 +32,7 @@ namespace DirectXInput
                         profileShared.String2 = controllerRawInput[packetId].ToString();
                         listbox_LiveDebugInput.Items.Add(profileShared);
                     }
-
-                    vShowDebugDelay = GetSystemTicksMs() + 100;
-                }
+                });
             }
             catch { }
         }
@@ -102,36 +100,6 @@ namespace DirectXInput
             }
             catch { }
             return "Failed to generate debug information.";
-        }
-
-        //Get controller raw input
-        byte[] GetControllerRawInput()
-        {
-            try
-            {
-                ControllerStatus activeController = vActiveController();
-                if (activeController != null && activeController.InputReport != null)
-                {
-                    return activeController.InputReport;
-                }
-            }
-            catch { }
-            return null;
-        }
-
-        //Get controller raw output
-        byte[] GetControllerRawOutput()
-        {
-            try
-            {
-                ControllerStatus activeController = vActiveController();
-                if (activeController != null && activeController.InputReport != null)
-                {
-                    return activeController.OutputReport;
-                }
-            }
-            catch { }
-            return null;
         }
     }
 }

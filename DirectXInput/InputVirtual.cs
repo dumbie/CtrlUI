@@ -41,36 +41,35 @@ namespace DirectXInput
                     }
                 }
 
-                //Check if debug view is activated
-                if (!vShowDebugInformation)
+                //Check if controller output needs to be blocked
+                if (vAppActivated && !vAppMinimized && vShowDebugInformation) { return; }
+
+                //Check if controller shortcut is pressed
+                bool blockOutputShortcut = await ControllerShortcut(Controller);
+
+                //Check if controller output needs to be forwarded
+                bool blockOutputApplication = await ControllerOutputApps(Controller);
+
+                //Check if output or guide button needs to be blocked
+                if (blockOutputApplication || blockOutputShortcut || Controller.BlockInteraction)
                 {
-                    //Check if controller shortcut is pressed
-                    bool blockOutputShortcut = await ControllerShortcut(Controller);
-
-                    //Check if controller output needs to be forwarded
-                    bool blockOutputApplication = await ControllerOutputApps(Controller);
-
-                    //Check if output or guide button needs to be blocked
-                    if (blockOutputApplication || blockOutputShortcut || Controller.BlockInteraction)
-                    {
-                        //Prepare empty xinput data
-                        PrepareXInputDataEmpty(Controller);
-                    }
-                    else
-                    {
-                        //Check if guide button is CtrlUI exclusive
-                        if (Controller.InputCurrent.ButtonGuide.PressedRaw && Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide")))
-                        {
-                            Controller.InputCurrent.ButtonGuide.PressedRaw = false;
-                        }
-
-                        //Prepare current xinput data
-                        PrepareXInputDataCurrent(Controller);
-                    }
-
-                    //Send input to the virtual bus
-                    vVirtualBusDevice.VirtualInput(ref Controller);
+                    //Prepare empty xinput data
+                    PrepareXInputDataEmpty(Controller);
                 }
+                else
+                {
+                    //Check if guide button is CtrlUI exclusive
+                    if (Controller.InputCurrent.ButtonGuide.PressedRaw && Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide")))
+                    {
+                        Controller.InputCurrent.ButtonGuide.PressedRaw = false;
+                    }
+
+                    //Prepare current xinput data
+                    PrepareXInputDataCurrent(Controller);
+                }
+
+                //Send input to the virtual bus
+                vVirtualBusDevice.VirtualInput(ref Controller);
             }
             catch { }
         }
