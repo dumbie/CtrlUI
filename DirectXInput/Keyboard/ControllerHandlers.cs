@@ -106,7 +106,7 @@ namespace DirectXInput.KeyboardCode
                     //Send internal arrow left key
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                         KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
 
                         ControllerDelay125 = true;
@@ -114,7 +114,7 @@ namespace DirectXInput.KeyboardCode
                     //Send internal arrow right key
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                         KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
 
                         ControllerDelay125 = true;
@@ -122,7 +122,7 @@ namespace DirectXInput.KeyboardCode
                     //Send internal arrow up key
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                         KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
 
                         ControllerDelay125 = true;
@@ -130,7 +130,7 @@ namespace DirectXInput.KeyboardCode
                     //Send internal arrow down key
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                         KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
 
                         ControllerDelay125 = true;
@@ -146,7 +146,7 @@ namespace DirectXInput.KeyboardCode
                     //Send external enter key
                     else if (ControllerInput.ButtonB.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                         ControllerDelay125 = true;
@@ -154,7 +154,7 @@ namespace DirectXInput.KeyboardCode
                     //Send external space key
                     else if (ControllerInput.ButtonY.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Space, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                         ControllerDelay125 = true;
@@ -162,7 +162,7 @@ namespace DirectXInput.KeyboardCode
                     //Send external backspace or delete key
                     else if (ControllerInput.ButtonX.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         if (vCapsEnabled)
                         {
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Delete, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
@@ -178,7 +178,7 @@ namespace DirectXInput.KeyboardCode
                     //Send external arrow left key
                     else if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                         ControllerDelay125 = true;
@@ -186,7 +186,7 @@ namespace DirectXInput.KeyboardCode
                     //Send external arrow right key
                     else if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                         ControllerDelay125 = true;
@@ -200,7 +200,7 @@ namespace DirectXInput.KeyboardCode
                         if (border_EmojiListPopup.Visibility == Visibility.Visible)
                         {
                             await SwitchEmojiTypeListTrigger(true);
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         }
                         else
                         {
@@ -217,17 +217,17 @@ namespace DirectXInput.KeyboardCode
                         if (vCapsEnabled)
                         {
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ShiftLeft, KeyboardModifiers.None, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         }
                         else if (border_EmojiListPopup.Visibility == Visibility.Visible)
                         {
                             await SwitchEmojiTypeListTrigger(false);
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         }
                         else
                         {
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         }
 
                         ControllerDelay250 = true;

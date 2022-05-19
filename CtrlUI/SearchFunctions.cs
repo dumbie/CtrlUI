@@ -42,7 +42,7 @@ namespace CtrlUI
                 //Show the search popup
                 if (!vControllerAnyConnected() || (vControllerAnyConnected() && keyboardWindowHandle != IntPtr.Zero))
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
                 }
 
                 //Save the previous focus element
@@ -120,7 +120,7 @@ namespace CtrlUI
             {
                 if (vSearchOpen)
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
 
                     //Reset popup variables
                     vSearchOpen = false;

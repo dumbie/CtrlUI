@@ -33,7 +33,7 @@ namespace DirectXInput.KeyboardCode
         async Task ShowEmojiPopup()
         {
             //Play window open sound
-            PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
+            PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
             //Show the emoji menu
             border_EmojiListPopup.Visibility = Visibility.Visible;
@@ -67,7 +67,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 //Play window close sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
 
                 //Store open focus button
                 FrameworkElementFocusSave(vEmojiFocusedButtonOpen, null);

@@ -92,6 +92,8 @@ namespace DirectXInput
                         return true;
                     }
                 }
+
+                //Debug.WriteLine("Unknown controller found: " + vendorHexIdLower + "/" + productHexIdLower);
             }
             catch { }
             return false;

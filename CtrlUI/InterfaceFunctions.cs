@@ -679,7 +679,7 @@ namespace CtrlUI
 
                 if (vAppMinimized || !vAppActivated)
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                     //Check previous focused application
                     try

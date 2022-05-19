@@ -46,7 +46,7 @@ namespace CtrlUI
                 if (!vFilePickerOpen)
                 {
                     //Play the popup opening sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                     //Save the previous focus element
                     FrameworkElementFocusSave(vFilePickerElementFocus, previousFocus);
@@ -356,7 +356,7 @@ namespace CtrlUI
         {
             try
             {
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
 
                 //Cancel file picker load
                 while (vFilePickerLoadBusy)

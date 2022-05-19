@@ -14,16 +14,16 @@ namespace LibraryShared
         private static MediaPlayer windowsMediaPlayer = new MediaPlayer();
 
         //Play interface sound
-        public static void PlayInterfaceSound(Configuration sourceConfig, string soundName, bool forceSound)
+        public static void PlayInterfaceSound(Configuration sourceConfig, string soundName, bool forceSound, bool forceMaxVolume)
         {
             try
             {
                 if (forceSound || Convert.ToBoolean(Setting_Load(sourceConfig, "InterfaceSound")))
                 {
                     double soundVolume = (double)Convert.ToInt32(Setting_Load(sourceConfig, "InterfaceSoundVolume")) / 100;
-                    if (forceSound && soundVolume <= 0.20) { soundVolume = 0.70; }
-                    string soundPackName = Setting_Load(sourceConfig, "InterfaceSoundPackName").ToString();
+                    if (forceMaxVolume) { soundVolume = 1.00; } else if (forceSound && soundVolume <= 0.20) { soundVolume = 0.75; }
 
+                    string soundPackName = Setting_Load(sourceConfig, "InterfaceSoundPackName").ToString();
                     string soundFileName = "Assets/Default/Sounds/" + soundPackName + "/" + soundName + ".mp3";
                     if (Directory.Exists("Assets/User/Sounds/" + soundPackName))
                     {

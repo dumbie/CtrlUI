@@ -189,7 +189,7 @@ namespace CtrlUI
                 }
 
                 //Play interface sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
             }
             catch { }
         }
@@ -252,7 +252,7 @@ namespace CtrlUI
                 }
 
                 //Play interface sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
             }
             catch { }
         }

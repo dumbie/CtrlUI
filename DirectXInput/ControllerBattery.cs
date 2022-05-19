@@ -129,7 +129,7 @@ namespace DirectXInput
                         //Battery level sound
                         if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "BatteryLowPlaySound")))
                         {
-                            PlayInterfaceSound(vConfigurationCtrlUI, "BatteryLow", true);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "BatteryLow", true, false);
                         }
                     }
                 }

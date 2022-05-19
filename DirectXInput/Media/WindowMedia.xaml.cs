@@ -71,7 +71,7 @@ namespace DirectXInput.MediaCode
                 if (vWindowVisible)
                 {
                     //Play window close sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
 
                     //Stop the update tasks
                     await TasksBackgroundStop();
@@ -107,7 +107,7 @@ namespace DirectXInput.MediaCode
                 vControllerDelay_Media = GetSystemTicksMs() + vControllerDelayTicks250;
 
                 //Play window open sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                 //Start the update tasks
                 TasksBackgroundStart();

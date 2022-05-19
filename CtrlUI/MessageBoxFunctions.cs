@@ -21,7 +21,7 @@ namespace CtrlUI
                 if (!vMessageBoxOpen)
                 {
                     //Play the opening sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "PromptOpen", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "PromptOpen", false, false);
 
                     //Save the previous focus element
                     FrameworkElementFocusSave(vMessageBoxElementFocus, null);
@@ -99,7 +99,7 @@ namespace CtrlUI
             try
             {
                 //Play the closing sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PromptClose", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "PromptClose", false, false);
 
                 //Reset the popup variables
                 vMessageBoxCancelled = true;

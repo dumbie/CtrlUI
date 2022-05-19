@@ -25,7 +25,7 @@ namespace DirectXInput
                     Debug.WriteLine("Failed to initialize screen capture.");
 
                     //Play capture sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "ScreenshotFail", true);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "ScreenshotFail", true, true);
 
                     return;
                 }
@@ -48,7 +48,7 @@ namespace DirectXInput
                     Debug.WriteLine("Screenshot capture is corrupted.");
 
                     //Play capture sound
-                    PlayInterfaceSound(vConfigurationCtrlUI, "ScreenshotFail", true);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "ScreenshotFail", true, true);
 
                     return;
                 }
@@ -86,11 +86,11 @@ namespace DirectXInput
                 //Play capture sound
                 if (screenshotExport)
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "Screenshot", true);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Screenshot", true, true);
                 }
                 else
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "ScreenshotFail", true);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "ScreenshotFail", true, true);
                 }
             }
             catch (Exception ex)

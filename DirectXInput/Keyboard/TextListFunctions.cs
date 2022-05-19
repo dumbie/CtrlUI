@@ -36,7 +36,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 //Play window open sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);
 
                 //Show the textlist menu
                 border_TextListPopup.Visibility = Visibility.Visible;
@@ -75,7 +75,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 //Play window close sound
-                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false);
+                PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
 
                 //Store open focus button
                 FrameworkElementFocusSave(vTextFocusedButtonOpen, null);
@@ -167,7 +167,7 @@ namespace DirectXInput.KeyboardCode
                 ListBox ListboxSender = (ListBox)sender;
                 if (ListboxSender.SelectedItems.Count > 0 && ListboxSender.SelectedIndex != -1)
                 {
-                    PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                     ProfileShared SelectedItem = (ProfileShared)ListboxSender.SelectedItem;
                     KeyTypeStringSend(SelectedItem.String1);
                 }

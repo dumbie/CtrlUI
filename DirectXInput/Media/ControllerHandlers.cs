@@ -84,7 +84,7 @@ namespace DirectXInput.MediaCode
                     //Send internal arrow left key
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                         KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
 
                         ControllerDelay125 = true;
@@ -92,7 +92,7 @@ namespace DirectXInput.MediaCode
                     //Send internal arrow right key
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                         KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
 
                         ControllerDelay125 = true;
@@ -100,7 +100,7 @@ namespace DirectXInput.MediaCode
                     //Send internal arrow up key
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                         KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
 
                         ControllerDelay125 = true;
@@ -108,7 +108,7 @@ namespace DirectXInput.MediaCode
                     //Send internal arrow down key
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
                         KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
 
                         ControllerDelay125 = true;
@@ -117,7 +117,7 @@ namespace DirectXInput.MediaCode
                     //Send internal space key
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
 
                         ControllerDelay250 = true;
@@ -125,7 +125,7 @@ namespace DirectXInput.MediaCode
                     //Send external media next key
                     else if (ControllerInput.ButtonB.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         await App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
                         vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.Next);
 
@@ -134,7 +134,7 @@ namespace DirectXInput.MediaCode
                     //Send external media playpause key
                     else if (ControllerInput.ButtonY.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         await App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
                         vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.PlayPause);
 
@@ -143,7 +143,7 @@ namespace DirectXInput.MediaCode
                     //Send external media previous key
                     else if (ControllerInput.ButtonX.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         await App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
                         vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.Previous);
 
@@ -153,7 +153,7 @@ namespace DirectXInput.MediaCode
                     //Send external arrow keys
                     else if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         await App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
@@ -161,7 +161,7 @@ namespace DirectXInput.MediaCode
                     }
                     else if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         await App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
@@ -171,7 +171,7 @@ namespace DirectXInput.MediaCode
                     //Send external alt+enter keys
                     else if (ControllerInput.ButtonBack.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false);
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         await App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
                         vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
