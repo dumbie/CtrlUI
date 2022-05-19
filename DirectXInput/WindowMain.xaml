@@ -640,11 +640,6 @@
                                 <TextBlock Text="Change the keypad display size." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_KeypadDisplaySize" Height="18" Width="460" Minimum="30" Maximum="200" TickFrequency="5" SmallChange="5" LargeChange="5" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Keyboard Settings"/>
-                                <TextBlock Name="textblock_KeypadRepeatIntervalMs" Text="Key press repeat interval" Tag="Key press repeat interval" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                                <TextBlock Text="Change the key press repeat interval in milliseconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                                <Slider Name="slider_KeypadRepeatIntervalMs" Height="18" Width="460" Minimum="0" Maximum="200" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
-
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Mouse Settings"/>
                                 <CheckBox Name="cb_SettingsKeypadMouseMoveEnabled" Content="Move mouse with right thumb" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to move the mouse with the right thumb stick, so for example you can look around in first person shooters." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>

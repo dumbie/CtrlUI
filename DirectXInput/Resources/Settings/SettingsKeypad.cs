@@ -126,10 +126,6 @@ namespace DirectXInput
                 textblock_KeypadDisplaySize.Text = textblock_KeypadDisplaySize.Tag + ": " + selectedProfile.KeypadDisplaySize + "%";
                 slider_KeypadDisplaySize.Value = selectedProfile.KeypadDisplaySize;
 
-                //Load keypad repeat interval
-                textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + selectedProfile.ButtonDelayRepeatMs + "ms";
-                slider_KeypadRepeatIntervalMs.Value = selectedProfile.ButtonDelayRepeatMs;
-
                 //Load keypad mouse enabled
                 cb_SettingsKeypadMouseMoveEnabled.IsChecked = selectedProfile.KeypadMouseMoveEnabled;
 

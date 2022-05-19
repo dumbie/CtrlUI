@@ -266,17 +266,6 @@ namespace DirectXInput
                     await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(keypadHeight));
                 };
 
-                slider_KeypadRepeatIntervalMs.ValueChanged += (sender, e) =>
-                {
-                    KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;
-                    selectedProfile.ButtonDelayRepeatMs = Convert.ToInt32(slider_KeypadRepeatIntervalMs.Value);
-
-                    //Save changes to Json file
-                    JsonSaveObject(selectedProfile, GenerateJsonNameKeypadMapping(selectedProfile));
-
-                    textblock_KeypadRepeatIntervalMs.Text = textblock_KeypadRepeatIntervalMs.Tag + ": " + selectedProfile.ButtonDelayRepeatMs + "ms";
-                };
-
                 cb_SettingsKeypadMouseMoveEnabled.Click += (sender, e) =>
                 {
                     KeypadMapping selectedProfile = (KeypadMapping)combobox_KeypadProcessProfile.SelectedItem;

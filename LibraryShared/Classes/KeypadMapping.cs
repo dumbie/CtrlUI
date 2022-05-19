@@ -10,8 +10,6 @@ namespace LibraryShared
         {
             //Mapping Details
             public string Name { get; set; } = string.Empty;
-            public int ButtonDelayFirstMs { get; set; } = 400;
-            public int ButtonDelayRepeatMs { get; set; } = 30;
             public double KeypadOpacity { get; set; } = 0.70;
             public int KeypadDisplayStyle { get; set; } = 0;
             public int KeypadDisplaySize { get; set; } = 60;

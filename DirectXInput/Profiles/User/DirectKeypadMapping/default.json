@@ -1,7 +1,5 @@
 {
   "Name": "Default",
-  "ButtonDelayFirstMs": 400,
-  "ButtonDelayRepeatMs": 30,
   "KeypadOpacity": 0.70,
   "KeypadDisplayStyle": 0,
   "KeypadDisplaySize": 60,
