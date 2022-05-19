@@ -36,7 +36,7 @@ namespace LibraryShared
             public long PrevInputTicks = 0;
             public long LastInputTicks = 0;
             public long LastActiveTicks = 0;
-            public int MilliSecondsTimeout = 4000;
+            public int MilliSecondsTimeout = 3000;
             public int MilliSecondsAllowReadWrite = 2000;
 
             //Controller Details

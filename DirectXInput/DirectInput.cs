@@ -63,7 +63,7 @@ namespace DirectXInput
                 ControllerUpdateSettingsInterface(Controller);
 
                 //Update the controller last read time
-                Controller.PrevInputTicks = Controller.LastInputTicks;
+                Controller.PrevInputTicks = GetSystemTicksMs();
                 Controller.LastInputTicks = GetSystemTicksMs();
 
                 //Update the controller last active time
@@ -367,16 +367,30 @@ namespace DirectXInput
                 if (Controller.HidDevice != null)
                 {
                     //Disconnect controller from bluetooth
-                    try
+                    if (Controller.Details.Wireless)
                     {
-                        if (Controller.Details.Wireless)
+                        try
                         {
                             Controller.HidDevice.BluetoothDisconnect();
                         }
+                        catch
+                        {
+                            Debug.WriteLine("Failed disconnecting device from bluetooth.");
+                        }
                     }
-                    catch
+
+                    //Signal Windows disconnection to prevent ghost controller
+                    if (Controller.Details.Wireless)
                     {
-                        Debug.WriteLine("Failed disconnecting device from bluetooth.");
+                        try
+                        {
+                            Controller.HidDevice.GetFeature(0x02);
+                            Controller.HidDevice.GetFeature(0x05);
+                        }
+                        catch
+                        {
+                            Debug.WriteLine("Failed signaling controller disconnection to Windows.");
+                        }
                     }
 
                     //Dispose and stop connection with the controller
@@ -469,9 +483,6 @@ namespace DirectXInput
                     }
                     else
                     {
-                        //Get feature to make sure correct data is read
-                        Controller.HidDevice.GetFeature(0x05);
-
                         //Set default controller variables
                         Controller.InputReport = new byte[Controller.HidDevice.Capabilities.InputReportByteLength];
                         Controller.OutputReport = new byte[Controller.HidDevice.Capabilities.OutputReportByteLength];
