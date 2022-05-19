@@ -51,8 +51,9 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 - Alt+Enter controller shortcut may not work for all Windows Store applications.
 
 ## Requirements
-- Windows operating system 10 64bit or higher is required.
-- A DirectInput game controller connected through DirectXInput.
+- Microsoft Visual C++ Redistributable installed.
+- Windows operating system 10 64-bit or higher is required.
+- Supported game controller connected through DirectXInput.
 
 ## Special thanks
 Nefarius, RyoTravis, IGDB, SteamKit2 and LibreHardwareMonitor.
