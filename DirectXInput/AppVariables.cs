@@ -135,7 +135,6 @@ namespace DirectXInput
         public static long vControllerDelay_Media = 0;
         public static long vControllerDelay_Mouse = 0;
         public static bool vControllerRumbleTest = false;
-        public static DateTime vControllerLastDisconnect = new DateTime();
         public static ControllerStatus vController0 = new ControllerStatus(0);
         public static ControllerStatus vController1 = new ControllerStatus(1);
         public static ControllerStatus vController2 = new ControllerStatus(2);
@@ -145,6 +144,12 @@ namespace DirectXInput
         public static bool vControllerAnyConnected()
         {
             return vController0.Connected() || vController1.Connected() || vController2.Connected() || vController3.Connected();
+        }
+
+        //Returns if a controller is disconnecting
+        public static bool vControllerAnyDisconnecting()
+        {
+            return vController0.Disconnecting || vController1.Disconnecting || vController2.Disconnecting || vController3.Disconnecting;
         }
 
         //Returns the active controllerstatus

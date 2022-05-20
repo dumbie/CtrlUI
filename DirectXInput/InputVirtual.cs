@@ -11,8 +11,22 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        //Send input to the virtual device
-        async Task SendInputVirtual(ControllerStatus Controller)
+        //Send empty input to the virtual device
+        void SendInputVirtualEmpty(ControllerStatus Controller)
+        {
+            try
+            {
+                //Prepare empty xinput data
+                PrepareXInputDataEmpty(Controller);
+
+                //Send input to the virtual bus
+                vVirtualBusDevice.VirtualInput(ref Controller);
+            }
+            catch { }
+        }
+
+        //Send controller input to the virtual device
+        async Task SendInputVirtualController(ControllerStatus Controller)
         {
             try
             {
@@ -51,7 +65,7 @@ namespace DirectXInput
                 bool blockOutputApplication = await ControllerOutputApps(Controller);
 
                 //Check if output or guide button needs to be blocked
-                if (blockOutputApplication || blockOutputShortcut || Controller.BlockDisconnecting)
+                if (blockOutputApplication || blockOutputShortcut || Controller.Disconnecting)
                 {
                     //Prepare empty xinput data
                     PrepareXInputDataEmpty(Controller);

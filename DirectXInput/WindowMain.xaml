@@ -742,7 +742,7 @@
                         <TextBlock Name="textblock_LiveDebugInformation" HorizontalAlignment="Left" Margin="0,10,0,0" Style="{StaticResource TextBlockBlack}" Text="Connect a controller to show debug information." TextWrapping="Wrap"/>
                     </StackPanel>
 
-                    <ListBox Grid.Row="2" Name="listbox_LiveDebugInput" Margin="0,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoneBlack}" ItemTemplate="{StaticResource ListboxItemDebugBox}" Style="{StaticResource ListBoxWrapPanelVertical}"/>
+                    <ListBox Grid.Row="2" Name="listbox_LiveDebugInput" Margin="0,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoneBlack}" ItemTemplate="{StaticResource ListboxItemDebugBox}" Style="{StaticResource ListBoxWrapPanelVertical}" Visibility="Collapsed"/>
                 </Grid>
             </Grid>
 

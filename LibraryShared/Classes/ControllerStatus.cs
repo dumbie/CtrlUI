@@ -41,7 +41,7 @@ namespace LibraryShared
 
             //Controller Details
             public ControllerDetails Details = null;
-            public bool BlockDisconnecting = false;
+            public bool Disconnecting = false;
             public bool Connected()
             {
                 try
@@ -49,6 +49,7 @@ namespace LibraryShared
                     if (HidDevice != null && !HidDevice.Connected) { return false; }
                     else if (WinUsbDevice != null && !WinUsbDevice.Connected) { return false; }
                     else if (Details == null) { return false; }
+                    else if (Disconnecting) { return false; }
                 }
                 catch { }
                 return true;
@@ -115,7 +116,7 @@ namespace LibraryShared
 
                     //Controller Details
                     Details = null;
-                    BlockDisconnecting = false;
+                    Disconnecting = false;
 
                     //Controller Tasks
                     InputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };

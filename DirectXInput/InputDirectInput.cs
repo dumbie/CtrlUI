@@ -502,7 +502,7 @@ namespace DirectXInput
                             ControllerReadBatteryLevel(controller);
 
                             //Send input to the virtual device
-                            await SendInputVirtual(controller);
+                            await SendInputVirtualController(controller);
                         }
                     }
                     catch

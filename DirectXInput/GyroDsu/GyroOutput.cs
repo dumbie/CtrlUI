@@ -10,7 +10,8 @@ namespace DirectXInput
 {
     public partial class WindowMain
     {
-        async Task SendGyroInformation(UdpEndPointDetails endPoint, int numberId, bool connected)
+        //Send information to gyro dsu
+        async Task SendGyroInformation(UdpEndPointDetails endPoint, ControllerStatus controller)
         {
             try
             {
@@ -43,8 +44,8 @@ namespace DirectXInput
                 sendBytes[19] = typeBytes[3];
 
                 //Set controller status
-                sendBytes[20] = (byte)numberId;
-                sendBytes[21] = connected ? (byte)DsuState.Connected : (byte)DsuState.Disconnected;
+                sendBytes[20] = (byte)controller.NumberId;
+                sendBytes[21] = controller.Connected() ? (byte)DsuState.Connected : (byte)DsuState.Disconnected;
                 sendBytes[22] = (byte)DsuModel.DualShock4;
                 sendBytes[23] = (byte)DsuConnectionType.None;
 
@@ -54,7 +55,7 @@ namespace DirectXInput
                 sendBytes[26] = 0;
                 sendBytes[27] = 0;
                 sendBytes[28] = 0;
-                sendBytes[29] = (byte)numberId;
+                sendBytes[29] = (byte)controller.NumberId;
 
                 //Set battery status
                 sendBytes[30] = (byte)DsuBattery.None;
@@ -75,7 +76,8 @@ namespace DirectXInput
             catch { }
         }
 
-        async Task SendGyroMotion(ControllerStatus controller)
+        //Send empty input to gyro dsu
+        async Task SendGyroMotionEmpty(ControllerStatus controller)
         {
             try
             {
@@ -109,7 +111,73 @@ namespace DirectXInput
 
                 //Set controller status
                 sendBytes[20] = (byte)controller.NumberId;
-                sendBytes[21] = (byte)DsuState.Connected;
+                sendBytes[21] = controller.Connected() ? (byte)DsuState.Connected : (byte)DsuState.Disconnected;
+                sendBytes[22] = (byte)DsuModel.DualShock4;
+                sendBytes[23] = (byte)DsuConnectionType.None;
+
+                //Set mac address
+                sendBytes[24] = 0;
+                sendBytes[25] = 0;
+                sendBytes[26] = 0;
+                sendBytes[27] = 0;
+                sendBytes[28] = 0;
+                sendBytes[29] = (byte)controller.NumberId;
+
+                //Set battery status
+                sendBytes[30] = (byte)DsuBattery.None;
+
+                //Compute and set CRC32 hash
+                byte[] checksum = ComputeHashCRC32(sendBytes, false);
+                sendBytes[8] = checksum[0];
+                sendBytes[9] = checksum[1];
+                sendBytes[10] = checksum[2];
+                sendBytes[11] = checksum[3];
+
+                //Send bytes to dsu client
+                if (!await vArnoldVinkSockets.UdpClientSendBytesServer(controller.GyroDsuClientEndPoint.IPEndPoint, sendBytes, vArnoldVinkSockets.vSocketTimeout))
+                {
+                    Debug.WriteLine("Failed to send motion bytes to dsu client.");
+                }
+            }
+            catch { }
+        }
+
+        //Send controller input to gyro dsu
+        async Task SendGyroMotionController(ControllerStatus controller)
+        {
+            try
+            {
+                //Check if client endpoint is set
+                if (controller.GyroDsuClientEndPoint == null || !controller.GyroDsuClientEndPoint.Active) { return; }
+                //Debug.WriteLine("Sending gyro motion " + controller.NumberId + " to dsu client.");
+
+                //Set message header
+                byte[] sendBytes = new byte[100];
+                sendBytes[0] = (byte)'D';
+                sendBytes[1] = (byte)'S';
+                sendBytes[2] = (byte)'U';
+                sendBytes[3] = (byte)'S';
+
+                //Set message protocol
+                byte[] protocolBytes = BitConverter.GetBytes(1001);
+                sendBytes[4] = protocolBytes[0];
+                sendBytes[5] = protocolBytes[1];
+
+                //Set message length
+                byte[] lengthBytes = BitConverter.GetBytes(sendBytes.Length - 16);
+                sendBytes[6] = lengthBytes[0];
+                sendBytes[7] = lengthBytes[1];
+
+                //Set message type
+                byte[] typeBytes = BitConverter.GetBytes((uint)DsuMessageType.DSUS_PadDataRsp);
+                sendBytes[16] = typeBytes[0];
+                sendBytes[17] = typeBytes[1];
+                sendBytes[18] = typeBytes[2];
+                sendBytes[19] = typeBytes[3];
+
+                //Set controller status
+                sendBytes[20] = (byte)controller.NumberId;
+                sendBytes[21] = controller.Connected() ? (byte)DsuState.Connected : (byte)DsuState.Disconnected;
                 sendBytes[22] = (byte)DsuModel.DualShock4;
                 sendBytes[23] = (byte)DsuConnectionType.None;
 

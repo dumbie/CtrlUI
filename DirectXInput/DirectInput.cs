@@ -253,17 +253,14 @@ namespace DirectXInput
                 }
 
                 //Check if the controller is disconnecting
-                if (Controller.BlockDisconnecting)
+                if (Controller.Disconnecting)
                 {
                     Debug.WriteLine("Controller " + Controller.NumberId + " is currently disconnecting.");
                     return false;
                 }
 
-                //Update controller disconnecting block status
-                Controller.BlockDisconnecting = true;
-
-                //Update last disconnect time
-                vControllerLastDisconnect = DateTime.Now;
+                //Update controller disconnecting status
+                Controller.Disconnecting = true;
 
                 //Get controller display number
                 Debug.WriteLine("Disconnecting the controller " + Controller.NumberId + ": " + Controller.Details.DisplayName);
@@ -325,44 +322,53 @@ namespace DirectXInput
                     }
                 });
 
+                //Disconnect gyro dsu
+                if (Controller.SupportedCurrent.HasGyroscope)
+                {
+                    //Stop gyro controller loop task
+                    await TaskStopLoop(Controller.OutputGyroTask, 1000);
+
+                    //Send empty input to gyro dsu
+                    await SendGyroMotionEmpty(Controller);
+                }
+
                 //Disconnect virtual controller
                 if (vVirtualBusDevice != null)
                 {
-                    //Prepare empty xinput data
-                    PrepareXInputDataEmpty(Controller);
+                    //Stop virtual controller loop task
+                    await TaskStopLoop(Controller.OutputVirtualTask, 1000);
 
-                    //Send empty input to the virtual bus
-                    vVirtualBusDevice.VirtualInput(ref Controller);
+                    //Send empty input to virtual device
+                    SendInputVirtualEmpty(Controller);
 
                     //Close the controller virtual events
                     SetAndCloseEvent(Controller.InputVirtualOverlapped.EventHandle);
                     SetAndCloseEvent(Controller.OutputVirtualOverlapped.EventHandle);
 
-                    //Stop the controller loop tasks
-                    await TaskStopLoop(Controller.InputControllerTask, 1000);
-                    await TaskStopLoop(Controller.OutputControllerTask, 1000);
-                    await TaskStopLoop(Controller.OutputVirtualTask, 1000);
-                    await TaskStopLoop(Controller.OutputGyroTask, 1000);
-
                     //Disconnect the virtual controller
                     vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
-                    await Task.Delay(500);
                 }
 
-                //Stop and Close the Win Usb Device
+                //Disconnect Hid or WinUsb Device
                 if (Controller.WinUsbDevice != null)
                 {
+                    //Stop controller device loop tasks
+                    await TaskStopLoop(Controller.InputControllerTask, 1000);
+                    await TaskStopLoop(Controller.OutputControllerTask, 1000);
+
+                    //Dispose and stop connection with the controller
                     try
                     {
-                        //Dispose and stop connection with the controller
                         Controller.WinUsbDevice.CloseDevice();
                     }
                     catch { }
                 }
-
-                //Close and dispose the Hid Usb Device
-                if (Controller.HidDevice != null)
+                else if (Controller.HidDevice != null)
                 {
+                    //Stop controller device loop tasks
+                    await TaskStopLoop(Controller.InputControllerTask, 1000);
+                    await TaskStopLoop(Controller.OutputControllerTask, 1000);
+
                     //Disconnect controller from bluetooth
                     if (Controller.Details.Wireless)
                     {

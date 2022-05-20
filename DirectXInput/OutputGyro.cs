@@ -23,7 +23,7 @@ namespace DirectXInput
                         TaskDelayMs(1);
 
                         //Send gyro motion to the dsu client
-                        await SendGyroMotion(Controller);
+                        await SendGyroMotionController(Controller);
                     }
                     catch { }
                 }

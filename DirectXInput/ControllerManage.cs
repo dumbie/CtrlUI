@@ -20,11 +20,10 @@ namespace DirectXInput
         {
             try
             {
-                //Check last controller disconnect time
-                double lastDisconnectSeconds = (DateTime.Now - vControllerLastDisconnect).TotalMilliseconds;
-                if (lastDisconnectSeconds <= 3000)
+                //Check if a controller is disconnecting
+                if (vControllerAnyDisconnecting())
                 {
-                    Debug.WriteLine("A controller disconnected recently, delaying monitor.");
+                    Debug.WriteLine("A controller is disconnecting, delaying monitor.");
                     return;
                 }
 

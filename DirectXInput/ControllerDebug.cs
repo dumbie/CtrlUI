@@ -20,6 +20,7 @@ namespace DirectXInput
                     textblock_LiveDebugInformation.Text = GenerateControllerDebugString(false);
 
                     //Set controller input
+                    listbox_LiveDebugInput.Visibility = Visibility.Visible;
                     byte[] controllerRawInput = Controller.InputReport;
                     if (controllerRawInput.Length > 180) { controllerRawInput = controllerRawInput.Take(180).ToArray(); }
                     for (int packetId = 0; packetId < controllerRawInput.Length; packetId++)
@@ -44,14 +45,8 @@ namespace DirectXInput
                     //Set basic information
                     textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
 
-                    //Clear controller input
-                    for (int packetId = 0; packetId < vControllerDebugInput.Count; packetId++)
-                    {
-                        ProfileShared profileShared = new ProfileShared();
-                        profileShared.String1 = packetId.ToString();
-                        profileShared.String2 = "0";
-                        vControllerDebugInput[packetId] = profileShared;
-                    }
+                    //Hide controller input
+                    listbox_LiveDebugInput.Visibility = Visibility.Collapsed;
                 });
             }
             catch { }

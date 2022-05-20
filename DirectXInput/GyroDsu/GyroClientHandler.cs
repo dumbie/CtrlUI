@@ -38,10 +38,10 @@ namespace DirectXInput
                 else if (messageType == DsuMessageType.DSUC_ListPorts)
                 {
                     //Send controller information to dsu client
-                    await SendGyroInformation(endPoint, 0, vController0.Connected());
-                    await SendGyroInformation(endPoint, 1, vController1.Connected());
-                    await SendGyroInformation(endPoint, 2, vController2.Connected());
-                    await SendGyroInformation(endPoint, 3, vController3.Connected());
+                    await SendGyroInformation(endPoint, vController0);
+                    await SendGyroInformation(endPoint, vController1);
+                    await SendGyroInformation(endPoint, vController2);
+                    await SendGyroInformation(endPoint, vController3);
                 }
 
                 return true;
