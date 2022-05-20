@@ -31,7 +31,10 @@ namespace DirectXInput
                 Debug.WriteLine("Initializing direct input for: " + Controller.Details.DisplayName);
 
                 //Allow controller in HidHide
-                await vHidHideDevice.ListDeviceAdd(Controller.Details.ModelId);
+                if (Controller.Details.Type == ControllerType.HidDevice)
+                {
+                    await vHidHideDevice.ListDeviceAdd(Controller.Details.ModelId);
+                }
 
                 //Set controller interface information
                 string controllerNumberDisplay = (Controller.NumberId + 1).ToString();

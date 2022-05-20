@@ -182,7 +182,7 @@ namespace DirectXInput
                         }
                     }
                     //Disconnect controller from Bluetooth
-                    else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonGuide.PressedRaw)
+                    else if (Controller.InputCurrent.ButtonStart.PressedRaw && Controller.InputCurrent.ButtonGuide.PressedRaw && Controller.Details.Wireless)
                     {
                         if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth")))
                         {
