@@ -28,9 +28,9 @@ namespace DirectXInput.MediaCode
         {
             try
             {
-                await AVActions.TaskStopLoop(vTask_UpdateMediaInformation);
-                await AVActions.TaskStopLoop(vTask_UpdateInterfaceInformation);
-                await AVActions.TaskStopLoop(vTask_UpdateWindowStyle);
+                await AVActions.TaskStopLoop(vTask_UpdateMediaInformation, 5000);
+                await AVActions.TaskStopLoop(vTask_UpdateInterfaceInformation, 5000);
+                await AVActions.TaskStopLoop(vTask_UpdateWindowStyle, 5000);
             }
             catch { }
         }

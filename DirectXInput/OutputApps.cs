@@ -16,7 +16,7 @@ namespace DirectXInput
         {
             try
             {
-                if (Controller.Activated && !Controller.BlockInteraction)
+                if (Controller.Activated && !Controller.BlockDisconnecting)
                 {
                     //Check if a popup is visible
                     if (App.vWindowKeyboard.vWindowVisible)

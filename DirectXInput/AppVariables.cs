@@ -179,5 +179,6 @@ namespace DirectXInput
         public static ObservableCollection<ProfileShared> vDirectKeyboardTextList = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<KeypadMapping> vDirectKeypadMapping = new ObservableCollection<KeypadMapping>();
         public static ObservableCollection<ControllerProfile> vDirectControllersProfile = new ObservableCollection<ControllerProfile>();
+        public static ObservableCollection<ProfileShared> vControllerDebugInput = new ObservableCollection<ProfileShared>(new ProfileShared[180]);
     }
 }

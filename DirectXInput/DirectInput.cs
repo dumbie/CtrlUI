@@ -8,6 +8,7 @@ using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 using static LibraryUsb.Events;
 
@@ -252,14 +253,14 @@ namespace DirectXInput
                 }
 
                 //Check if the controller is disconnecting
-                if (Controller.BlockInteraction)
+                if (Controller.BlockDisconnecting)
                 {
                     Debug.WriteLine("Controller " + Controller.NumberId + " is currently disconnecting.");
                     return false;
                 }
 
-                //Update controller block status
-                Controller.BlockInteraction = true;
+                //Update controller disconnecting block status
+                Controller.BlockDisconnecting = true;
 
                 //Update last disconnect time
                 vControllerLastDisconnect = DateTime.Now;
@@ -299,32 +300,28 @@ namespace DirectXInput
                         image_Controller0.Source = vImagePreloadIconControllerDark;
                         textblock_Controller0.Text = "No controller connected";
                         textblock_Controller0CodeName.Text = string.Empty;
-                        textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
-                        listbox_LiveDebugInput.Items.Clear();
+                        ResetControllerDebugInformation();
                     }
                     else if (Controller.NumberId == 1)
                     {
                         image_Controller1.Source = vImagePreloadIconControllerDark;
                         textblock_Controller1.Text = "No controller connected";
                         textblock_Controller1CodeName.Text = string.Empty;
-                        textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
-                        listbox_LiveDebugInput.Items.Clear();
+                        ResetControllerDebugInformation();
                     }
                     else if (Controller.NumberId == 2)
                     {
                         image_Controller2.Source = vImagePreloadIconControllerDark;
                         textblock_Controller2.Text = "No controller connected";
                         textblock_Controller2CodeName.Text = string.Empty;
-                        textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
-                        listbox_LiveDebugInput.Items.Clear();
+                        ResetControllerDebugInformation();
                     }
                     else if (Controller.NumberId == 3)
                     {
                         image_Controller3.Source = vImagePreloadIconControllerDark;
                         textblock_Controller3.Text = "No controller connected";
                         textblock_Controller3CodeName.Text = string.Empty;
-                        textblock_LiveDebugInformation.Text = "Connect a controller to show debug information.";
-                        listbox_LiveDebugInput.Items.Clear();
+                        ResetControllerDebugInformation();
                     }
                 });
 
@@ -342,10 +339,10 @@ namespace DirectXInput
                     SetAndCloseEvent(Controller.OutputVirtualOverlapped.EventHandle);
 
                     //Stop the controller loop tasks
-                    await TaskStopLoop(Controller.InputControllerTask);
-                    await TaskStopLoop(Controller.OutputControllerTask);
-                    await TaskStopLoop(Controller.OutputVirtualTask);
-                    await TaskStopLoop(Controller.OutputGyroTask);
+                    await TaskStopLoop(Controller.InputControllerTask, 1000);
+                    await TaskStopLoop(Controller.OutputControllerTask, 1000);
+                    await TaskStopLoop(Controller.OutputVirtualTask, 1000);
+                    await TaskStopLoop(Controller.OutputGyroTask, 1000);
 
                     //Disconnect the virtual controller
                     vVirtualBusDevice.VirtualUnplug(Controller.NumberId);
@@ -454,7 +451,7 @@ namespace DirectXInput
             try
             {
                 //Find and connect to win controller
-                if (Controller.Details.Type == "Win")
+                if (Controller.Details.Type == ControllerType.WinUsbDevice)
                 {
                     Controller.WinUsbDevice = new WinUsbDevice(Guid.Empty, Controller.Details.Path, true, false);
                     if (!Controller.WinUsbDevice.Connected)

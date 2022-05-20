@@ -37,6 +37,25 @@ namespace LibraryUsb
             }
         }
 
+        public async Task<bool> WriteBytesFileTimeOut(byte[] outputBuffer, int writeTimeOut)
+        {
+            try
+            {
+                if (!Connected) { return false; }
+                using (CancellationTokenSource cancellationTokenSource = new CancellationTokenSource())
+                {
+                    cancellationTokenSource.CancelAfter(writeTimeOut);
+                    await FileStream.WriteAsync(outputBuffer, 0, outputBuffer.Length, cancellationTokenSource.Token);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to write file bytes: " + ex.Message);
+                return false;
+            }
+        }
+
         public bool ReadBytesFile(byte[] inputBuffer)
         {
             try
@@ -53,31 +72,19 @@ namespace LibraryUsb
 
         public async Task<bool> ReadBytesFileTimeOut(byte[] inputBuffer, int readTimeOut)
         {
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             try
             {
                 if (!Connected) { return false; }
-
-                Task<int> readTask = FileStream.ReadAsync(inputBuffer, 0, inputBuffer.Length, cancellationTokenSource.Token);
-                Task delayTask = Task.Delay(readTimeOut);
-                Task timeoutTask = await Task.WhenAny(readTask, delayTask);
-                if (timeoutTask == readTask)
+                using (CancellationTokenSource cancellationTokenSource = new CancellationTokenSource())
                 {
-                    return readTask.Result > 0;
+                    cancellationTokenSource.CancelAfter(readTimeOut);
+                    return await FileStream.ReadAsync(inputBuffer, 0, inputBuffer.Length, cancellationTokenSource.Token) > 0;
                 }
-
-                Debug.WriteLine("Failed to read file bytes, timeout.");
-                return false;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to read file bytes: " + ex.Message);
                 return false;
-            }
-            finally
-            {
-                if (cancellationTokenSource.Token.CanBeCanceled) { cancellationTokenSource.Cancel(); }
-                cancellationTokenSource.Dispose();
             }
         }
     }

@@ -25,8 +25,8 @@ namespace DirectXInput.KeypadCode
         {
             try
             {
-                await TaskStopLoop(vTask_SwitchProfile);
-                await TaskStopLoop(vTask_MonitorTaskbar);
+                await TaskStopLoop(vTask_SwitchProfile, 5000);
+                await TaskStopLoop(vTask_MonitorTaskbar, 5000);
             }
             catch { }
         }

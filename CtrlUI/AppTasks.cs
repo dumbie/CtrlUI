@@ -44,15 +44,15 @@ namespace CtrlUI
         {
             try
             {
-                await AVActions.TaskStopLoop(vTask_UpdateClock);
-                await AVActions.TaskStopLoop(vTask_UpdateWindowStatus);
-                await AVActions.TaskStopLoop(vTask_ControllerConnected);
-                await AVActions.TaskStopLoop(vTask_UpdateProcesses);
-                await AVActions.TaskStopLoop(vTask_UpdateShortcuts);
-                await AVActions.TaskStopLoop(vTask_UpdateListStatus);
-                await AVActions.TaskStopLoop(vTask_UpdateAppRunningTime);
-                await AVActions.TaskStopLoop(vTask_UpdateMediaInformation);
-                await AVActions.TaskStopLoop(vTask_ShowHideMouse);
+                await AVActions.TaskStopLoop(vTask_UpdateClock, 5000);
+                await AVActions.TaskStopLoop(vTask_UpdateWindowStatus, 5000);
+                await AVActions.TaskStopLoop(vTask_ControllerConnected, 5000);
+                await AVActions.TaskStopLoop(vTask_UpdateProcesses, 5000);
+                await AVActions.TaskStopLoop(vTask_UpdateShortcuts, 5000);
+                await AVActions.TaskStopLoop(vTask_UpdateListStatus, 5000);
+                await AVActions.TaskStopLoop(vTask_UpdateAppRunningTime, 5000);
+                await AVActions.TaskStopLoop(vTask_UpdateMediaInformation, 5000);
+                await AVActions.TaskStopLoop(vTask_ShowHideMouse, 5000);
             }
             catch { }
         }

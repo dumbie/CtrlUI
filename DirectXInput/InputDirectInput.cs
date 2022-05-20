@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.JsonFunctions;
 
 namespace DirectXInput
@@ -12,7 +13,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Receive and translate DirectInput
-        async Task LoopInputDirectInput(ControllerStatus controller, string controllerType)
+        async Task LoopInputDirectInput(ControllerStatus controller, ControllerType controllerType)
         {
             try
             {
@@ -24,7 +25,7 @@ namespace DirectXInput
                     try
                     {
                         //Read data from the controller
-                        if (controllerType == "Hid")
+                        if (controllerType == ControllerType.HidDevice)
                         {
                             if (!controller.HidDevice.ReadBytesFile(controller.InputReport))
                             {

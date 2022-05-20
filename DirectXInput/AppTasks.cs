@@ -32,12 +32,12 @@ namespace DirectXInput
         {
             try
             {
-                await TaskStopLoop(vTask_UpdateWindowStatus);
-                await TaskStopLoop(vTask_ControllerMonitor);
-                await TaskStopLoop(vTask_ControllerTimeout);
-                await TaskStopLoop(vTask_ControllerLedColor);
-                await TaskStopLoop(vTask_ControllerBattery);
-                await TaskStopLoop(vTask_ControllerInformation);
+                await TaskStopLoop(vTask_UpdateWindowStatus, 5000);
+                await TaskStopLoop(vTask_ControllerMonitor, 5000);
+                await TaskStopLoop(vTask_ControllerTimeout, 5000);
+                await TaskStopLoop(vTask_ControllerLedColor, 5000);
+                await TaskStopLoop(vTask_ControllerBattery, 5000);
+                await TaskStopLoop(vTask_ControllerInformation, 5000);
             }
             catch { }
         }

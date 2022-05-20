@@ -24,7 +24,7 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                await AVActions.TaskStopLoop(vTask_UpdateWindowStyle);
+                await AVActions.TaskStopLoop(vTask_UpdateWindowStyle, 5000);
             }
             catch { }
         }

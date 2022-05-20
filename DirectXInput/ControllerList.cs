@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
 using static DirectXInput.ProfileFunctions;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.JsonFunctions;
 using static LibraryUsb.Enumerate;
 using static LibraryUsb.NativeMethods_Guid;
@@ -63,7 +64,7 @@ namespace DirectXInput
 
                         ControllerDetails newController = new ControllerDetails()
                         {
-                            Type = "Win",
+                            Type = ControllerType.WinUsbDevice,
                             Profile = profileController,
                             DisplayName = EnumDevice.Description,
                             Path = EnumDevice.DevicePath,
@@ -129,7 +130,7 @@ namespace DirectXInput
 
                         ControllerDetails newController = new ControllerDetails()
                         {
-                            Type = "Hid",
+                            Type = ControllerType.HidDevice,
                             Profile = profileController,
                             DisplayName = ProductNameString,
                             ModelId = foundHidDevice.ModelId,

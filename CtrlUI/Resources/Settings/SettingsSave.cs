@@ -147,7 +147,7 @@ namespace CtrlUI
                     }
                     else
                     {
-                        await AVActions.TaskStopLoop(vTask_ShowHideMouse);
+                        await AVActions.TaskStopLoop(vTask_ShowHideMouse, 5000);
                         MouseCursorShow();
                     }
                 };

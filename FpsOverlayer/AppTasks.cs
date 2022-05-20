@@ -15,10 +15,10 @@ namespace FpsOverlayer
         {
             try
             {
-                await TaskStopLoop(vTask_TraceEventOutput);
-                await TaskStopLoop(vTask_MonitorHardware);
-                await TaskStopLoop(vTask_MonitorProcess);
-                await TaskStopLoop(vTask_MonitorTaskbar);
+                await TaskStopLoop(vTask_TraceEventOutput, 5000);
+                await TaskStopLoop(vTask_MonitorHardware, 5000);
+                await TaskStopLoop(vTask_MonitorProcess, 5000);
+                await TaskStopLoop(vTask_MonitorTaskbar, 5000);
             }
             catch { }
         }

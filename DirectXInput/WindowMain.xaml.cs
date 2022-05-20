@@ -184,7 +184,12 @@ namespace DirectXInput
                 combobox_KeypadProcessProfile.DisplayMemberPath = "Name";
                 combobox_KeypadProcessProfile.SelectedIndex = 0;
 
+                listbox_LiveDebugInput.ItemsSource = vControllerDebugInput;
+                ResetControllerDebugInformation();
+
                 ListboxLoadIgnoredController();
+
+                Debug.WriteLine("Lists bound to interface.");
             }
             catch { }
         }

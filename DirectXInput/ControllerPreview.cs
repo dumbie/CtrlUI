@@ -18,7 +18,7 @@ namespace DirectXInput
                 if (vAppActivated && !vAppMinimized)
                 {
                     ControllerStatus activeController = vActiveController();
-                    if (activeController != null)
+                    if (activeController != null && !activeController.BlockDisconnecting)
                     {
                         //Update controller button preview
                         UpdateControllerPreviewButtons(activeController);
