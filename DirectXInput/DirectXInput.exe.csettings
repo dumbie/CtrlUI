@@ -2,7 +2,6 @@
 <configuration>
 	<appSettings>
 		<add key="ShortcutKeyboardPopup" value="True"/>
-		<add key="ShortcutMediaPopup" value="True"/>
 		<add key="ShortcutAltEnter" value="True"/>
 		<add key="ShortcutAltTab" value="True"/>
 		<add key="ShortcutScreenshot" value="True"/>

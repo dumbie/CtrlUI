@@ -54,7 +54,7 @@ namespace DirectXInput
                 }
 
                 //Set file name
-                string imageSaveName = DateTime.Now.ToString("HH.mm.ss.ffff") + " (" + DateTime.Now.ToShortDateString() + ")";
+                string imageSaveName = "(" + DateTime.Now.ToShortDateString() + ") " + DateTime.Now.ToString("HH.mm.ss.ffff");
                 if (vCaptureDetails.HDREnabled)
                 {
                     if (vCaptureSettings.HDRtoSDR)

@@ -9,6 +9,7 @@ using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
@@ -35,7 +36,8 @@ namespace DirectXInput.KeyboardCode
                     GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbLeftX, ControllerInput.ThumbLeftY, true, out int moveHorizontalLeft, out int moveVerticalLeft);
 
                     //Check the keyboard mode
-                    if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode")) == 0)
+                    KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
+                    if (keyboardMode == KeyboardMode.Move)
                     {
                         //Get the mouse move amount
                         GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
@@ -43,7 +45,7 @@ namespace DirectXInput.KeyboardCode
                         //Move the keyboard window
                         MoveKeyboardWindow(moveHorizontalRight, moveVerticalRight);
                     }
-                    else
+                    else if (keyboardMode == KeyboardMode.Scroll)
                     {
                         //Get the mouse scroll amount
                         int scrollSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2"));
@@ -99,10 +101,14 @@ namespace DirectXInput.KeyboardCode
         {
             bool ControllerDelay125 = false;
             bool ControllerDelay250 = false;
+            bool ControllerDelay500 = false;
             try
             {
                 if (GetSystemTicksMs() >= vControllerDelay_Keyboard)
                 {
+                    //Check the keyboard mode
+                    KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
+
                     //Send internal arrow left key
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
@@ -147,7 +153,22 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonB.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+
+                        await AVActions.ActionDispatcherInvokeAsync(async delegate
+                        {
+                            if (border_EmojiListPopup.Visibility == Visibility.Visible || border_TextListPopup.Visibility == Visibility.Visible)
+                            {
+                                await HideTextEmojiPopup();
+                            }
+                            else if (keyboardMode == KeyboardMode.Media)
+                            {
+                                await MediaNext();
+                            }
+                            else
+                            {
+                                vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            }
+                        });
 
                         ControllerDelay125 = true;
                     }
@@ -155,7 +176,15 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonY.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Space, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+
+                        if (keyboardMode == KeyboardMode.Media)
+                        {
+                            await MediaPlayPause();
+                        }
+                        else
+                        {
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Space, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        }
 
                         ControllerDelay125 = true;
                     }
@@ -163,7 +192,12 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonX.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                        if (vCapsEnabled)
+
+                        if (keyboardMode == KeyboardMode.Media)
+                        {
+                            await MediaPrevious();
+                        }
+                        else if (vCapsEnabled)
                         {
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Delete, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                         }
@@ -179,7 +213,15 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonThumbLeft.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+
+                        if (keyboardMode == KeyboardMode.Media)
+                        {
+                            await VolumeInputMute();
+                        }
+                        else
+                        {
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        }
 
                         ControllerDelay125 = true;
                     }
@@ -187,13 +229,33 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonThumbRight.PressedRaw)
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                        vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+
+                        if (keyboardMode == KeyboardMode.Media)
+                        {
+                            await VolumeOutputMute();
+                        }
+                        else
+                        {
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                        }
 
                         ControllerDelay125 = true;
                     }
 
+                    //Mute volume
+                    else if (ControllerInput.TriggerLeft > 0 && ControllerInput.TriggerRight > 0)
+                    {
+                        Debug.WriteLine("Button: TriggerLeft and TriggerRight / Mute");
+
+                        if (keyboardMode == KeyboardMode.Media)
+                        {
+                            await VolumeOutputMute();
+                        }
+
+                        ControllerDelay500 = true;
+                    }
                     //Switch caps lock
-                    else if (ControllerInput.TriggerLeft > 0)
+                    else if (ControllerInput.TriggerLeft > 80)
                     {
                         Debug.WriteLine("Button: TriggerLeft / Caps lock");
 
@@ -201,6 +263,10 @@ namespace DirectXInput.KeyboardCode
                         {
                             await SwitchEmojiTypeListTrigger(true);
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
+                        }
+                        else if (keyboardMode == KeyboardMode.Media)
+                        {
+                            await VolumeDown();
                         }
                         else
                         {
@@ -210,18 +276,22 @@ namespace DirectXInput.KeyboardCode
                         ControllerDelay250 = true;
                     }
                     //Send external tab
-                    else if (ControllerInput.TriggerRight > 0)
+                    else if (ControllerInput.TriggerRight > 80)
                     {
                         Debug.WriteLine("Button: TriggerRight / Press Tab");
 
-                        if (vCapsEnabled)
-                        {
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ShiftLeft, KeyboardModifiers.None, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                        }
-                        else if (border_EmojiListPopup.Visibility == Visibility.Visible)
+                        if (border_EmojiListPopup.Visibility == Visibility.Visible)
                         {
                             await SwitchEmojiTypeListTrigger(false);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
+                        }
+                        else if (keyboardMode == KeyboardMode.Media)
+                        {
+                            await VolumeUp();
+                        }
+                        else if (vCapsEnabled)
+                        {
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ShiftLeft, KeyboardModifiers.None, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                             PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                         }
                         else
@@ -237,27 +307,76 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonBack.PressedRaw)
                     {
                         Debug.WriteLine("Button: BackPressed / Show hide text emoji popup");
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate
+
+                        if (keyboardMode == KeyboardMode.Media)
                         {
-                            if (vLastPopupListType == "Text")
+                            await MediaFullscreen();
+                        }
+                        else
+                        {
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate
                             {
-                                await ShowHideTextListPopup();
-                            }
-                            else
-                            {
-                                await ShowHideEmojiListPopup();
-                            }
-                        });
+                                if (vLastPopupListType == "Text")
+                                {
+                                    await ShowHideTextListPopup();
+                                }
+                                else
+                                {
+                                    await ShowHideEmojiListPopup();
+                                }
+                            });
+                        }
 
                         ControllerDelay250 = true;
                     }
-                    //Switch scroll and move
+                    //Switch keyboard mode
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
-                        Debug.WriteLine("Button: StartPressed / Scroll and Move");
+                        Debug.WriteLine("Button: StartPressed / Switch keyboard mode");
                         SwitchKeyboardMode();
 
                         ControllerDelay250 = true;
+                    }
+
+                    //Right stick movement
+                    else if (ControllerInput.ThumbRightX < -10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
+                    {
+                        if (keyboardMode == KeyboardMode.Media)
+                        {
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
+                        }
+
+                        ControllerDelay125 = true;
+                    }
+                    else if (ControllerInput.ThumbRightY > 10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
+                    {
+                        if (keyboardMode == KeyboardMode.Media)
+                        {
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowUp, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
+                        }
+
+                        ControllerDelay125 = true;
+                    }
+                    else if (ControllerInput.ThumbRightX > 10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
+                    {
+                        if (keyboardMode == KeyboardMode.Media)
+                        {
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
+                        }
+                        ControllerDelay125 = true;
+                    }
+                    else if (ControllerInput.ThumbRightY < -10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
+                    {
+                        if (keyboardMode == KeyboardMode.Media)
+                        {
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowDown, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
+                        }
+
+                        ControllerDelay125 = true;
                     }
 
                     //Delay input to prevent repeat
@@ -268,6 +387,10 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerDelay250)
                     {
                         vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayTicks250;
+                    }
+                    else if (ControllerDelay500)
+                    {
+                        vControllerDelay_Keyboard = GetSystemTicksMs() + vControllerDelayTicks500;
                     }
                 }
             }

@@ -8,9 +8,9 @@ using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 
-namespace DirectXInput.MediaCode
+namespace DirectXInput.KeyboardCode
 {
-    partial class WindowMedia
+    partial class WindowKeyboard
     {
         //Update the user interface clock style
         public void UpdateClockStyle()
@@ -166,76 +166,6 @@ namespace DirectXInput.MediaCode
                     grid_Main_Time.Visibility = Visibility.Collapsed;
                 });
             }
-        }
-
-        //Update the trigger rumble button
-        void UpdateTriggerRumbleButton()
-        {
-            try
-            {
-                //Debug.WriteLine("Updating trigger rumble button visibility.");
-                ControllerStatus activeController = AppVariables.vActiveController();
-                if (activeController == null)
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        button_EnableDisableTriggerRumble.Visibility = Visibility.Collapsed;
-                    });
-                    return;
-                }
-
-                //Check if controller supports trigger rumble
-                if (activeController.SupportedCurrent.HasRumbleTrigger)
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        button_EnableDisableTriggerRumble.Visibility = Visibility.Visible;
-                    });
-                }
-                else
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        button_EnableDisableTriggerRumble.Visibility = Visibility.Collapsed;
-                    });
-                }
-            }
-            catch { }
-        }
-
-        //Update the disconnect button
-        void UpdateDisconnectButton()
-        {
-            try
-            {
-                //Debug.WriteLine("Updating disconnect button visibility.");
-                ControllerStatus activeController = AppVariables.vActiveController();
-                if (activeController == null)
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        button_DisconnectController.Visibility = Visibility.Collapsed;
-                    });
-                    return;
-                }
-
-                //Check if controller is wireless connected
-                if (activeController.Details.Wireless)
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        button_DisconnectController.Visibility = Visibility.Visible;
-                    });
-                }
-                else
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        button_DisconnectController.Visibility = Visibility.Collapsed;
-                    });
-                }
-            }
-            catch { }
         }
     }
 }

@@ -2,10 +2,11 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static ArnoldVinkCode.AVAudioDevice;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
@@ -78,26 +79,15 @@ namespace DirectXInput.KeyboardCode
                         Debug.WriteLine("Sending Multimedia key: " + sendKey);
                         if (sendKey == KeyboardMultimedia.VolumeMute)
                         {
-                            if (AudioMuteSwitch(false))
-                            {
-                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output muted");
-                            }
-                            else
-                            {
-                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output unmuted");
-                            }
+                            await VolumeOutputMute();
                         }
                         else if (sendKey == KeyboardMultimedia.VolumeUp)
                         {
-                            int volumeStep = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
-                            int newVolume = AudioVolumeUp(volumeStep, false);
-                            await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
+                            await VolumeUp();
                         }
                         else if (sendKey == KeyboardMultimedia.VolumeDown)
                         {
-                            int volumeStep = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
-                            int newVolume = AudioVolumeDown(volumeStep, false);
-                            await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreased volume to " + newVolume);
+                            await VolumeDown();
                         }
                         else
                         {
@@ -203,8 +193,8 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Handle ScrollMove
-        void ButtonScrollMove_PreviewKeyUp(object sender, KeyEventArgs e)
+        //Handle Mode Switch
+        void ButtonMode_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             try
             {
@@ -215,11 +205,52 @@ namespace DirectXInput.KeyboardCode
             }
             catch { }
         }
-        void ButtonScrollMove_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        void ButtonMode_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
                 SwitchKeyboardMode();
+            }
+            catch { }
+        }
+
+        //Handle CtrlUI and Fps Overlayer
+        async void ButtonCtrlUI_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                await ProcessFunctions.LaunchShowCtrlUI();
+            }
+            catch { }
+        }
+        async void ButtonCtrlUI_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Space)
+                {
+                    await ProcessFunctions.LaunchShowCtrlUI();
+                }
+            }
+            catch { }
+        }
+
+        async void ButtonFpsOverlayer_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                await ProcessFunctions.LaunchCloseFpsOverlayer();
+            }
+            catch { }
+        }
+        async void ButtonFpsOverlayer_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Space)
+                {
+                    await ProcessFunctions.LaunchCloseFpsOverlayer();
+                }
             }
             catch { }
         }
@@ -229,26 +260,47 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode")) == 0)
+                AVActions.ActionDispatcherInvoke(delegate
                 {
-                    AVActions.ActionDispatcherInvoke(delegate
+                    //Check keyboard mode
+                    KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
+                    if (keyboardMode == KeyboardMode.Move)
                     {
+                        textblock_ButtonLeft.Text = "Backspace";
+                        textblock_ButtonRight.Text = "Enter";
+                        textblock_ButtonUp.Text = "Space";
                         textblock_ThumbRightOff.Text = "Move";
-                        image_ScrollMove.Source = vImagePreloadIconKeyboardScroll;
-                        //ToolTip newTooltip = new ToolTip() { Content = "Switch to mouse wheel mode" };
-                        //key_ScrollMove.ToolTip = newTooltip;
-                    });
-                }
-                else
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
+                        textblock_LeftTriggerOff.Text = "Caps";
+                        textblock_RightTriggerOff.Text = "Tab";
+                        textblock_ThumbPress.Text = "Left/Right arrow";
+                        textblock_BackOff.Text = "Emoji/Text";
+                        image_Mode.Source = vImagePreloadIconKeyboardMove;
+                    }
+                    else if (keyboardMode == KeyboardMode.Scroll)
                     {
+                        textblock_ButtonLeft.Text = "Backspace";
+                        textblock_ButtonRight.Text = "Enter";
+                        textblock_ButtonUp.Text = "Space";
                         textblock_ThumbRightOff.Text = "Scroll";
-                        image_ScrollMove.Source = vImagePreloadIconKeyboardMove;
-                        //ToolTip newTooltip = new ToolTip() { Content = "Switch to window move mode" };
-                        //key_ScrollMove.ToolTip = newTooltip;
-                    });
-                }
+                        textblock_LeftTriggerOff.Text = "Caps";
+                        textblock_RightTriggerOff.Text = "Tab";
+                        textblock_ThumbPress.Text = "Left/Right arrow";
+                        textblock_BackOff.Text = "Emoji/Text";
+                        image_Mode.Source = vImagePreloadIconKeyboardScroll;
+                    }
+                    else if (keyboardMode == KeyboardMode.Media)
+                    {
+                        textblock_ButtonLeft.Text = "Media Prev";
+                        textblock_ButtonRight.Text = "Media Next";
+                        textblock_ButtonUp.Text = "Play/Pause";
+                        textblock_ThumbRightOff.Text = "Arrows";
+                        textblock_LeftTriggerOff.Text = "VolDown";
+                        textblock_RightTriggerOff.Text = "VolUp";
+                        textblock_ThumbPress.Text = "Mute";
+                        textblock_BackOff.Text = "Fullscreen";
+                        image_Mode.Source = vImagePreloadIconKeyboardMedia;
+                    }
+                });
             }
             catch { }
         }
@@ -258,14 +310,21 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                if (Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode")) == 0)
+                //Check keyboard mode
+                KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
+                if (keyboardMode == KeyboardMode.Move)
                 {
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", "1");
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Scroll).ToString());
                     UpdateKeyboardMode();
                 }
-                else
+                else if (keyboardMode == KeyboardMode.Scroll)
                 {
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", "0");
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Media).ToString());
+                    UpdateKeyboardMode();
+                }
+                else if (keyboardMode == KeyboardMode.Media)
+                {
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Move).ToString());
                     UpdateKeyboardMode();
                 }
             }

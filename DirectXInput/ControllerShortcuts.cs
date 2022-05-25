@@ -1,14 +1,9 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
-using System.Net.Sockets;
 using System.Threading.Tasks;
-using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
-using static ArnoldVinkCode.AVClassConverters;
-using static ArnoldVinkCode.ProcessFunctions;
-using static ArnoldVinkCode.ProcessWin32Functions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
@@ -41,37 +36,25 @@ namespace DirectXInput
                     }
 
                     //Hide popups with guide button
-                    if (Controller.InputCurrent.ButtonGuide.PressedShort && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible || App.vWindowMedia.vWindowVisible))
+                    if (Controller.InputCurrent.ButtonGuide.PressedShort && (App.vWindowKeyboard.vWindowVisible || App.vWindowKeypad.vWindowVisible))
                     {
                         await HideOpenPopups();
 
                         ControllerUsed = true;
                         ControllerDelay750 = true;
                     }
-                    //Hide popups with touchpad button
-                    else if (Controller.InputCurrent.ButtonTouchpad.PressedShort && App.vWindowMedia.vWindowVisible)
+                    //Show or launch CtrlUI application
+                    else if (Controller.InputCurrent.ButtonGuide.PressedShort)
                     {
-                        await HideOpenPopups();
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI")))
+                        {
+                            Debug.WriteLine("Shortcut launch CtrlUI has been pressed.");
+                            Debug.WriteLine("Guide short press showing CtrlUI.");
+                            await ProcessFunctions.LaunchShowCtrlUI();
 
-                        ControllerUsed = true;
-                        ControllerDelay750 = true;
-                    }
-                    //Show CtrlUI application
-                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessCtrlUI != null)
-                    {
-                        Debug.WriteLine("Guide short press showing CtrlUI.");
-                        await ShowCtrlUI();
-
-                        ControllerUsed = true;
-                        ControllerDelay750 = true;
-                    }
-                    //Launch CtrlUI application
-                    else if (Controller.InputCurrent.ButtonGuide.PressedShort && vProcessCtrlUI == null)
-                    {
-                        await LaunchCtrlUI();
-
-                        ControllerUsed = true;
-                        ControllerDelay750 = true;
+                            ControllerUsed = true;
+                            ControllerDelay750 = true;
+                        }
                     }
                     //Show the keyboard or keypad
                     else if (Controller.InputCurrent.ButtonGuide.PressedLong)
@@ -91,14 +74,6 @@ namespace DirectXInput
                         {
                             await KeyboardKeypadPopupSwitch();
                         }
-
-                        ControllerUsed = true;
-                        ControllerDelay750 = true;
-                    }
-                    //Show or hide the media controller
-                    else if (Controller.InputCurrent.ButtonTouchpad.PressedLong)
-                    {
-                        await MediaPopupHideShow(false);
 
                         ControllerUsed = true;
                         ControllerDelay750 = true;
@@ -170,7 +145,7 @@ namespace DirectXInput
                         }
                     }
                     //Make screenshot
-                    else if (Controller.InputCurrent.ButtonTouchpad.PressedShort)
+                    else if (Controller.InputCurrent.ButtonTouchpad.PressedRaw)
                     {
                         if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot")))
                         {
@@ -290,81 +265,7 @@ namespace DirectXInput
                 {
                     await App.vWindowKeyboard.Hide();
                     await App.vWindowKeypad.Hide();
-                    await App.vWindowMedia.Hide();
                 });
-            }
-            catch { }
-        }
-
-        //Hide or show the media controller
-        async Task MediaPopupHideShow(bool forceShow)
-        {
-            try
-            {
-                Debug.WriteLine("Shortcut media has been pressed.");
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                {
-                    if (!App.vWindowMedia.vWindowVisible)
-                    {
-                        if (forceShow || Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup")))
-                        {
-                            await App.vWindowMedia.Show();
-                        }
-                    }
-                    else if (!forceShow)
-                    {
-                        await App.vWindowMedia.Hide();
-                    }
-                });
-            }
-            catch { }
-        }
-
-        //Launch CtrlUI when not running
-        async Task LaunchCtrlUI()
-        {
-            try
-            {
-                if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI")))
-                {
-                    Debug.WriteLine("Shortcut launch CtrlUI has been pressed.");
-
-                    NotificationDetails notificationDetails = new NotificationDetails();
-                    notificationDetails.Icon = "AppLaunch";
-                    notificationDetails.Text = "Launching CtrlUI";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-
-                    if (!CheckRunningProcessByNameOrTitle("CtrlUI", false))
-                    {
-                        await ProcessLauncherWin32Async("CtrlUI-Admin.exe", "", "", true, false);
-                    }
-                }
-            }
-            catch { }
-        }
-
-        //Show CtrlUI when not focused
-        async Task ShowCtrlUI()
-        {
-            try
-            {
-                //Check if socket server is running
-                if (vArnoldVinkSockets == null)
-                {
-                    Debug.WriteLine("The socket server is not running.");
-                    return;
-                }
-
-                //Prepare socket data
-                SocketSendContainer socketSend = new SocketSendContainer();
-                socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
-                socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
-                socketSend.Object = "AppWindowHideShow";
-                byte[] SerializedData = SerializeObjectToBytes(socketSend);
-
-                //Send socket data
-                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vSocketServerIp, vArnoldVinkSockets.vSocketServerPort - 1, vArnoldVinkSockets.vSocketTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytesServer(tcpClient, SerializedData, vArnoldVinkSockets.vSocketTimeout, false);
             }
             catch { }
         }

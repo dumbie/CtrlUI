@@ -49,6 +49,9 @@ namespace DirectXInput.KeyboardCode
                 //Update the window style
                 await UpdateWindowStyleVisible();
 
+                //Update the user interface clock style
+                UpdateClockStyle();
+
                 //Update keyboard keys
                 UpdateKeyboardKeys();
 
@@ -122,7 +125,6 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 //Close other popups
-                await App.vWindowMedia.Hide();
                 await App.vWindowKeypad.Hide();
 
                 //Delay keyboard input
@@ -565,8 +567,6 @@ namespace DirectXInput.KeyboardCode
                 key_Enter.Tag = KeyboardKeys.Enter;
                 key_Escape.Content = "Escape";
                 key_Escape.Tag = KeyboardKeys.Escape;
-                key_VolumeDown.Tag = KeyboardMultimedia.VolumeDown;
-                key_VolumeUp.Tag = KeyboardMultimedia.VolumeUp;
                 key_EmojiList.Tag = "EmojiPopup";
                 key_TextList.Tag = "TextListPopup";
             }
@@ -761,10 +761,6 @@ namespace DirectXInput.KeyboardCode
 
                         key_Escape.Content = "Escape";
                         key_Escape.Tag = KeyboardKeys.Escape;
-
-                        //Update the volume down button
-                        key_VolumeDown.Tag = KeyboardMultimedia.VolumeDown;
-                        image_VolumeDown.Source = vImagePreloadIconVolumeDown;
                     });
                 }
                 else
@@ -882,10 +878,6 @@ namespace DirectXInput.KeyboardCode
 
                         key_Escape.Content = "Menu";
                         key_Escape.Tag = KeyboardKeys.Menu;
-
-                        //Update the volume mute button
-                        key_VolumeDown.Tag = KeyboardMultimedia.VolumeMute;
-                        image_VolumeDown.Source = vImagePreloadIconVolumeMute;
                     });
                 }
             }

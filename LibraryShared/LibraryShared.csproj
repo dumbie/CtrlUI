@@ -319,6 +319,7 @@
     <Compile Include="Cryptography\CRC32.cs" />
     <Compile Include="Enums\AppCategory.cs" />
     <Compile Include="Enums\AppLauncher.cs" />
+    <Compile Include="Enums\KeyboardMode.cs" />
     <Compile Include="Enums\ControllerType.cs" />
     <Compile Include="Enums\BatteryStatus.cs" />
     <Compile Include="Enums\ClipboardType.cs" />

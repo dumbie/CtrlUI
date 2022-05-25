@@ -552,40 +552,5 @@ namespace CtrlUI
             }
             catch { }
         }
-
-        //Hide or show the media controller
-        async Task MediaControllerHideShow(bool forceShow)
-        {
-            try
-            {
-                //Check if socket server is running
-                if (vArnoldVinkSockets == null)
-                {
-                    Debug.WriteLine("The socket server is not running.");
-                    return;
-                }
-
-                //Prepare socket data
-                SocketSendContainer socketSend = new SocketSendContainer();
-                socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
-                socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
-                if (forceShow)
-                {
-                    socketSend.Object = "MediaShow";
-                }
-                else
-                {
-                    socketSend.Object = "MediaHideShow";
-                }
-
-                //Request controller status
-                byte[] SerializedData = SerializeObjectToBytes(socketSend);
-
-                //Send socket data
-                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vSocketServerIp, vArnoldVinkSockets.vSocketServerPort + 1, vArnoldVinkSockets.vSocketTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytesServer(tcpClient, SerializedData, vArnoldVinkSockets.vSocketTimeout, false);
-            }
-            catch { }
-        }
     }
 }

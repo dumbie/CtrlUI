@@ -20,78 +20,148 @@
             Background="Transparent">
 
     <!-- Grid Application -->
-    <Grid Name="grid_Application">
-        <Border CornerRadius="4">
+    <Grid Name="grid_Application" Width="790">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Grid Help -->
+        <Border Name="grid_HelpBar" CornerRadius="5" Margin="0,0,0,2" Grid.Row="0">
             <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationAccentLightColor}" Opacity="0.50"/>
+                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}"/>
             </Border.Background>
+            <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="50" Style="{StaticResource ScrollViewerHidden}">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="26" Opacity="0.80"/>
+                        <TextBlock Name="textblock_ButtonLeft" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Backspace"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="26" Opacity="0.80"/>
+                        <TextBlock Name="textblock_ButtonUp" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Space"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="26" Opacity="0.80"/>
+                        <TextBlock Name="textblock_ButtonRight" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Enter"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="26" Opacity="0.80"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Left/Right Mouse"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LtOff.png" Height="26" Opacity="0.80"/>
+                        <TextBlock Name="textblock_LeftTriggerOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Caps"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RtOff.png" Height="26" Opacity="0.80"/>
+                        <TextBlock Name="textblock_RightTriggerOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Tab"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbLeftClickOff.png" Height="26" Opacity="0.80"/>
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbRightClickOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
+                        <TextBlock Name="textblock_ThumbPress" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Left/Right Arrow"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbLeftOff.png" Height="26" Opacity="0.80"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Mouse"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbRightOff.png" Height="26" Opacity="0.80"/>
+                        <TextBlock Name="textblock_ThumbRightOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Move"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Height="26" Opacity="0.80"/>
+                        <TextBlock Name="textblock_BackOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Emoji/Text"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/StartOff.png" Height="26" Opacity="0.80"/>
+                        <TextBlock Name="textblock_StartOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Mode"/>
+                    </StackPanel>
+                </StackPanel>
+            </styles:ScrollViewerLoopHorizontal>
+        </Border>
+
+        <!-- Grid Media -->
+        <Border Name="grid_Media" CornerRadius="5" Margin="0,0,0,2" Grid.Row="1">
+            <Border.Background>
+                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}"/>
+            </Border.Background>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Media -->
+                <Grid Grid.Column="0" Name="stackpanel_MediaPlaying" Height="90" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="0" Name="button_Information_Thumbnail" Margin="0,0,10,0" Width="90" Height="90"/>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
+                            <TextBlock Name="button_Information_Artist" Style="{StaticResource TextBlockAccent}" FontSize="{DynamicResource TextSizeMedium}" Text="Artist"/>
+                        </styles:ScrollViewerLoopHorizontal>
+                        <ProgressBar MinWidth="220" Name="button_Information_Progress" Margin="0,5,0,0" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch"/>
+                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
+                            <TextBlock Name="button_Information_Title" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}" Text="Title"/>
+                        </styles:ScrollViewerLoopHorizontal>
+                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
+                            <TextBlock Name="button_Information_Album" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Text="Album"/>
+                        </styles:ScrollViewerLoopHorizontal>
+                    </StackPanel>
+                </Grid>
+                <StackPanel Grid.Column="0" Name="stackpanel_MediaNone" Height="90" Margin="5" VerticalAlignment="Top">
+                    <TextBlock Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeLarge}" Text="No media playing"/>
+                </StackPanel>
+
+                <!-- Information -->
+                <Grid Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Image Name="img_Main_MicrophoneMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png" Height="38"/>
+                        <Image Name="img_Main_VolumeMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png" Height="38"/>
+
+                        <StackPanel Name="stackpanel_ControllerActive" Margin="0,0,5,0">
+                            <Image Name="img_ControllerActive" Width="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
+                            <Border Name="border_ControllerActive" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="4" SnapsToDevicePixels="True"/>
+                        </StackPanel>
+
+                        <Image Name="img_Main_Battery" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerDis100.png" Height="38"/>
+                        <TextBlock Name="txt_Main_Battery" Visibility="Collapsed" Margin="0,0,5,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="0%"/>
+
+                        <Grid Name="grid_Main_Time" Margin="0,0,5,0" Visibility="Collapsed" Height="40" Width="40">
+                            <Image Name="img_Main_Time_Face" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                            <Image Name="img_Main_Time_Hour" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                            <Image Name="img_Main_Time_Minute" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                            <Image Name="img_Main_Time_Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                        </Grid>
+
+                        <TextBlock Name="txt_Main_Time" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Right">
+                        <TextBlock Name="textblock_Volume_Level" Text="Volume" FontSize="{DynamicResource TextSizeLarge}" Style="{StaticResource TextBlockGrayLight}"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
         </Border>
 
         <!-- Grid Keyboard -->
-        <Grid Margin="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <!-- Help Bar -->
-            <Grid Name="grid_HelpBar" Grid.Row="0">
-                <Border CornerRadius="4,4,0,0">
-                    <Border.Background>
-                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.80"/>
-                    </Border.Background>
-                </Border>
-                <styles:ScrollViewerLoopHorizontal MaxWidth="787" ScrollLoopSpeed="100" Style="{StaticResource ScrollViewerHidden}">
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="26" Opacity="0.80"/>
-                            <TextBlock Name="textblock_ButtonLeft" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Backspace"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="26" Opacity="0.80"/>
-                            <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Space"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="26" Opacity="0.80"/>
-                            <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Enter"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="26" Opacity="0.80"/>
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
-                            <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Left/Right Mouse"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LtOff.png" Height="26" Opacity="0.80"/>
-                            <TextBlock Name="textblock_LeftTriggerOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Caps"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RtOff.png" Height="26" Opacity="0.80"/>
-                            <TextBlock Name="textblock_RightTriggerOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Tab"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbLeftClickOff.png" Height="26" Opacity="0.80"/>
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbRightClickOff.png" Margin="5,0,0,0" Height="26" Opacity="0.80"/>
-                            <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Left/Right Arrow"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbLeftOff.png" Height="26" Opacity="0.80"/>
-                            <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Mouse"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ThumbRightOff.png" Height="26" Opacity="0.80"/>
-                            <TextBlock Name="textblock_ThumbRightOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Move"/>
-                        </StackPanel>
-                    </StackPanel>
-                </styles:ScrollViewerLoopHorizontal>
-            </Grid>
-
-            <!-- Keyboard -->
-            <Grid Name="grid_Keyboard" Grid.Row="1">
-                <Border CornerRadius="0,0,4,4">
-                    <Border.Background>
-                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}"/>
-                    </Border.Background>
-                </Border>
+        <Grid Grid.Row="2">
+            <Border Name="grid_Keyboard" CornerRadius="5">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}"/>
+                </Border.Background>
                 <StackPanel Margin="1,5,5,5">
                     <!-- Key Row 0 -->
                     <StackPanel Name="sp_Row0" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -296,97 +366,101 @@
                         <Button Name="key_TextList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/List.png" Height="30"/>
                         </Button>
-                        <Button Name="key_VolumeDown" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
-                            <Image Name="image_VolumeDown" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeDown.png" Height="30"/>
+                        <Button Name="key_CtrlUI" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCtrlUI_PreviewKeyUp" PreviewMouseUp="ButtonCtrlUI_PreviewMouseUp">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png" Height="30"/>
                         </Button>
-                        <Button Name="key_VolumeUp" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeUp.png" Height="30"/>
+                        <Button Name="key_FpsOverlayer" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonFpsOverlayer_PreviewKeyUp" PreviewMouseUp="ButtonFpsOverlayer_PreviewMouseUp">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Fps.png" Height="30"/>
                         </Button>
-                        <Button Name="key_ScrollMove" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonScrollMove_PreviewKeyUp" PreviewMouseUp="ButtonScrollMove_PreviewMouseUp">
-                            <Image Name="image_ScrollMove" Source="pack://siteoforigin:,,,/Assets/Default/Icons/KeyboardMove.png" Height="30"/>
+                        <Button Name="key_Mode" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonMode_PreviewKeyUp" PreviewMouseUp="ButtonMode_PreviewMouseUp">
+                            <Image Name="image_Mode" Source="pack://siteoforigin:,,,/Assets/Default/Icons/KeyboardMove.png" Height="30"/>
                         </Button>
                         <Button Name="key_Close" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonClose_PreviewKeyUp" PreviewMouseUp="ButtonClose_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
                         </Button>
                     </StackPanel>
                 </StackPanel>
-            </Grid>
-        </Grid>
+            </Border>
 
-        <!-- TextList Popup -->
-        <Border Name="border_TextListPopup" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-            <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
-            </Border.Background>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <!-- No texts set -->
-                <TextBlock Name="textblock_TextListNoTextSet" Visibility="Collapsed" Margin="4" FontSize="{StaticResource TextSizeLarge}" Text="No texts are set, you can add texts in the DirectXInput settings." Style="{StaticResource TextBlockWhite}"/>
+            <!-- TextList Popup -->
+            <Border Name="border_TextListPopup" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
+                </Border.Background>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!-- No texts set -->
+                    <TextBlock Name="textblock_TextListNoTextSet" Visibility="Collapsed" Margin="4" FontSize="{StaticResource TextSizeLarge}" Text="No texts are set, you can add texts in the DirectXInput settings." Style="{StaticResource TextBlockWhite}"/>
 
-                <!-- Text ListBox -->
-                <ListBox Name="listbox_TextList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="210" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemTextList}" Style="{StaticResource ListBoxVertical}" PreviewKeyUp="listbox_TextList_PreviewKeyUp" PreviewMouseUp="listbox_TextList_PreviewMouseUp"/>
-
-                <!-- Popup Close Button -->
-                <Button Name="key_TextListClose" Margin="6,2,6,6" HorizontalAlignment="Stretch" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseTextList_PreviewKeyUp" PreviewMouseUp="ButtonCloseTextList_PreviewMouseUp">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Margin="10,0,0,0" Height="26"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-        </Border>
-
-        <!-- Emoji Popup -->
-        <Border Name="border_EmojiListPopup" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-            <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
-            </Border.Background>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <!-- Emoji ListBox -->
-                <ListBox Name="listbox_EmojiList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="220" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemEmojiList}" Style="{StaticResource ListBoxWrapPanelHorizontal}" PreviewKeyUp="listbox_EmojiList_PreviewKeyUp" PreviewMouseUp="listbox_EmojiList_PreviewMouseUp"/>
-
-                <Grid Margin="2,4,4,6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <!-- Emoji Switch Buttons -->
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <Button Name="key_EmojiSmiley" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
-                            <emoji:TextBlock Name="key_EmojiSmileyText" Text="😀" FontSize="{StaticResource TextSizeLarge}"/>
-                        </Button>
-                        <Button Name="key_EmojiActivity" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
-                            <emoji:TextBlock Name="key_EmojiActivityText" Text="🏀" FontSize="{StaticResource TextSizeLarge}"/>
-                        </Button>
-                        <Button Name="key_EmojiFood" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
-                            <emoji:TextBlock Name="key_EmojiFoodText" Text="🍓" FontSize="{StaticResource TextSizeLarge}"/>
-                        </Button>
-                        <Button Name="key_EmojiNature" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
-                            <emoji:TextBlock Name="key_EmojiNatureText" Text="🐱" FontSize="{StaticResource TextSizeLarge}"/>
-                        </Button>
-                        <Button Name="key_EmojiOther" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
-                            <emoji:TextBlock Name="key_EmojiOtherText" Text="⏱" FontSize="{StaticResource TextSizeLarge}"/>
-                        </Button>
-                        <Button Name="key_EmojiPeople" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
-                            <emoji:TextBlock Name="key_EmojiPeopleText" Text="🧑" FontSize="{StaticResource TextSizeLarge}"/>
-                        </Button>
-                        <Button Name="key_EmojiSymbol" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
-                            <emoji:TextBlock Name="key_EmojiSymbolText" Text="❤️" FontSize="{StaticResource TextSizeLarge}"/>
-                        </Button>
-                        <Button Name="key_EmojiTravel" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
-                            <emoji:TextBlock Name="key_EmojiTravelText" Text="🚌" FontSize="{StaticResource TextSizeLarge}"/>
-                        </Button>
-                    </StackPanel>
+                    <!-- Text ListBox -->
+                    <ListBox Name="listbox_TextList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="210" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemTextList}" Style="{StaticResource ListBoxVertical}" PreviewKeyUp="Listbox_TextList_PreviewKeyUp" PreviewMouseUp="Listbox_TextList_PreviewMouseUp"/>
 
                     <!-- Popup Close Button -->
-                    <Button Grid.Column="1" Name="key_EmojiClose" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseEmoji_PreviewKeyUp" PreviewMouseUp="ButtonCloseEmoji_PreviewMouseUp">
+                    <Button Name="key_TextListClose" Margin="6,2,6,6" HorizontalAlignment="Stretch" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseTextList_PreviewKeyUp" PreviewMouseUp="ButtonCloseTextList_PreviewMouseUp">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
-                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Margin="10,0,0,0" Height="26"/>
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30" Margin="0,0,10,0"/>
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Height="26"/>
+                            <TextBlock Margin="5,0,5,0" FontSize="{DynamicResource TextSizeMedium}" Text="or"/>
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="26"/>
                         </StackPanel>
                     </Button>
-                </Grid>
-            </StackPanel>
-        </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Emoji Popup -->
+            <Border Name="border_EmojiListPopup" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
+                </Border.Background>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!-- Emoji ListBox -->
+                    <ListBox Name="listbox_EmojiList" Background="{DynamicResource ApplicationAccentLightBrush}" Margin="4" MaxHeight="220" MinWidth="400" MaxWidth="640" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemColor}" ItemTemplate="{StaticResource ListboxItemEmojiList}" Style="{StaticResource ListBoxWrapPanelHorizontal}" PreviewKeyUp="listbox_EmojiList_PreviewKeyUp" PreviewMouseUp="listbox_EmojiList_PreviewMouseUp"/>
+
+                    <Grid Margin="2,4,4,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Emoji Switch Buttons -->
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <Button Name="key_EmojiSmiley" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                                <emoji:TextBlock Name="key_EmojiSmileyText" Text="😀" FontSize="{StaticResource TextSizeLarge}"/>
+                            </Button>
+                            <Button Name="key_EmojiActivity" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                                <emoji:TextBlock Name="key_EmojiActivityText" Text="🏀" FontSize="{StaticResource TextSizeLarge}"/>
+                            </Button>
+                            <Button Name="key_EmojiFood" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                                <emoji:TextBlock Name="key_EmojiFoodText" Text="🍓" FontSize="{StaticResource TextSizeLarge}"/>
+                            </Button>
+                            <Button Name="key_EmojiNature" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                                <emoji:TextBlock Name="key_EmojiNatureText" Text="🐱" FontSize="{StaticResource TextSizeLarge}"/>
+                            </Button>
+                            <Button Name="key_EmojiOther" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                                <emoji:TextBlock Name="key_EmojiOtherText" Text="⏱" FontSize="{StaticResource TextSizeLarge}"/>
+                            </Button>
+                            <Button Name="key_EmojiPeople" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                                <emoji:TextBlock Name="key_EmojiPeopleText" Text="🧑" FontSize="{StaticResource TextSizeLarge}"/>
+                            </Button>
+                            <Button Name="key_EmojiSymbol" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                                <emoji:TextBlock Name="key_EmojiSymbolText" Text="❤️" FontSize="{StaticResource TextSizeLarge}"/>
+                            </Button>
+                            <Button Name="key_EmojiTravel" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonSwitchEmoji_PreviewKeyUp" PreviewMouseUp="ButtonSwitchEmoji_PreviewMouseUp">
+                                <emoji:TextBlock Name="key_EmojiTravelText" Text="🚌" FontSize="{StaticResource TextSizeLarge}"/>
+                            </Button>
+                        </StackPanel>
+
+                        <!-- Popup Close Button -->
+                        <Button Grid.Column="1" Name="key_EmojiClose" Height="40" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonCloseEmoji_PreviewKeyUp" PreviewMouseUp="ButtonCloseEmoji_PreviewMouseUp">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30" Margin="0,0,10,0"/>
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/BackOff.png" Height="26"/>
+                                <TextBlock Margin="5,0,5,0" FontSize="{DynamicResource TextSizeMedium}" Text="or"/>
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="26"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

@@ -9,77 +9,15 @@ using Windows.Storage.Streams;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
-using static DirectXInput.ProfileFunctions;
-using static LibraryShared.Classes;
-using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 using static LibraryUsb.FakerInputDevice;
 
-namespace DirectXInput.MediaCode
+namespace DirectXInput.KeyboardCode
 {
-    partial class WindowMedia
+    partial class WindowKeyboard
     {
-        //Enable or disable trigger rumble
-        async void button_EnableDisableTriggerRumble_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ControllerStatus activeController = vActiveController();
-                if (activeController != null)
-                {
-                    if (activeController.Details.Profile.TriggerRumbleEnabled)
-                    {
-                        await App.vWindowOverlay.Notification_Show_Status("Rumble", "Disabled trigger rumble");
-                        activeController.Details.Profile.TriggerRumbleEnabled = false;
-                    }
-                    else
-                    {
-                        await App.vWindowOverlay.Notification_Show_Status("Rumble", "Enabled trigger rumble");
-                        activeController.Details.Profile.TriggerRumbleEnabled = true;
-                    }
-
-                    //Update settings interface
-                    App.vWindowMain.ControllerUpdateSettingsInterface(activeController);
-
-                    //Save changes to Json file
-                    JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
-                }
-            }
-            catch { }
-        }
-
-        //Disconnect the active controller
-        void button_DisconnectController_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                App.vWindowMain.StopControllerTask(vActiveController(), "manually", string.Empty);
-            }
-            catch { }
-        }
-
-        //Show or hide the fps overlayer
-        async void button_ShowOrHideFpsOverlayer_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await LaunchCloseFpsOverlayer();
-            }
-            catch { }
-        }
-
-        //Close the media control window
-        async void button_Close_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await Hide();
-            }
-            catch { }
-        }
-
         //Play or pause the media
-        async void button_PlayPause_Click(object sender, RoutedEventArgs e)
+        async Task MediaPlayPause()
         {
             try
             {
@@ -89,8 +27,8 @@ namespace DirectXInput.MediaCode
             catch { }
         }
 
-        //Next item the media
-        async void button_Next_Click(object sender, RoutedEventArgs e)
+        //Next media
+        async Task MediaNext()
         {
             try
             {
@@ -100,8 +38,8 @@ namespace DirectXInput.MediaCode
             catch { }
         }
 
-        //Previous item the media
-        async void button_Previous_Click(object sender, RoutedEventArgs e)
+        //Previous media
+        async Task MediaPrevious()
         {
             try
             {
@@ -111,8 +49,19 @@ namespace DirectXInput.MediaCode
             catch { }
         }
 
+        //Fullscreen media
+        async Task MediaFullscreen()
+        {
+            try
+            {
+                await App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
+                vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+            }
+            catch { }
+        }
+
         //Volume Output Mute
-        async void button_OutputMute_Click(object sender, RoutedEventArgs e)
+        async Task VolumeOutputMute()
         {
             try
             {
@@ -129,7 +78,7 @@ namespace DirectXInput.MediaCode
         }
 
         //Volume Input Mute
-        async void button_InputMute_Click(object sender, RoutedEventArgs e)
+        async Task VolumeInputMute()
         {
             try
             {
@@ -146,7 +95,7 @@ namespace DirectXInput.MediaCode
         }
 
         //Volume Down
-        async void button_VolumeDown_Click(object sender, RoutedEventArgs e)
+        async Task VolumeDown()
         {
             try
             {
@@ -158,46 +107,13 @@ namespace DirectXInput.MediaCode
         }
 
         //Volume Up
-        async void button_VolumeUp_Click(object sender, RoutedEventArgs e)
+        async Task VolumeUp()
         {
             try
             {
                 int volumeStep = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
                 int newVolume = AudioVolumeUp(volumeStep, false);
                 await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
-            }
-            catch { }
-        }
-
-        //Fullscreen media
-        async void button_Fullscreen_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
-                vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-            }
-            catch { }
-        }
-
-        //Move left
-        async void button_ArrowLeft_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await App.vWindowOverlay.Notification_Show_Status("ArrowLeft", "Moving left");
-                vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-            }
-            catch { }
-        }
-
-        //Move right
-        async void button_ArrowRight_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await App.vWindowOverlay.Notification_Show_Status("ArrowRight", "Moving right");
-                vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
             }
             catch { }
         }
@@ -221,7 +137,7 @@ namespace DirectXInput.MediaCode
                 int currentVolumeInt = AudioVolumeGet(false);
                 if (currentVolumeInt >= 0)
                 {
-                    currentVolumeString = "System volume " + currentVolumeInt + "%";
+                    currentVolumeString = "Volume " + currentVolumeInt + "%";
                     if (currentOutputVolumeMuted)
                     {
                         currentVolumeString += " (Muted)";
@@ -268,11 +184,31 @@ namespace DirectXInput.MediaCode
                     }
                 }
 
+                //Load the track number
+                string mediaTrackNumber = string.Empty;
+                int currentTrackNumber = mediaProperties.TrackNumber;
+                if (currentTrackNumber > 0)
+                {
+                    int totalTrackNumber = mediaProperties.AlbumTrackCount;
+                    if (totalTrackNumber > 0)
+                    {
+                        mediaTrackNumber = "(" + currentTrackNumber + "/" + totalTrackNumber + ") ";
+                    }
+                    else
+                    {
+                        mediaTrackNumber = "(" + currentTrackNumber + ") ";
+                    }
+                }
+
                 //Load the media title
                 string mediaTitle = mediaProperties.Title;
                 if (string.IsNullOrWhiteSpace(mediaTitle))
                 {
-                    mediaTitle = "Unknown title";
+                    mediaTitle = mediaTrackNumber + "Unknown title";
+                }
+                else
+                {
+                    mediaTitle = mediaTrackNumber + mediaTitle;
                 }
 
                 //Load the media album title
@@ -289,33 +225,6 @@ namespace DirectXInput.MediaCode
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         button_Information_Album.Visibility = Visibility.Visible;
-                    });
-                }
-
-                //Load the track number
-                string mediaTrack = "Track ";
-                int currentTrackNumber = mediaProperties.TrackNumber;
-                if (currentTrackNumber > 0)
-                {
-                    int totalTrackNumber = mediaProperties.AlbumTrackCount;
-                    if (totalTrackNumber > 0)
-                    {
-                        mediaTrack += currentTrackNumber + "/" + totalTrackNumber;
-                    }
-                    else
-                    {
-                        mediaTrack += currentTrackNumber.ToString();
-                    }
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        button_Information_Track.Visibility = Visibility.Visible;
-                    });
-                }
-                else
-                {
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        button_Information_Track.Visibility = Visibility.Collapsed;
                     });
                 }
 
@@ -346,7 +255,6 @@ namespace DirectXInput.MediaCode
                     button_Information_Artist.Text = mediaArtist;
                     button_Information_Title.Text = mediaTitle;
                     button_Information_Album.Text = mediaAlbum;
-                    button_Information_Track.Text = mediaTrack;
                     button_Information_Progress.Value = mediaProgress;
                     if (thumbnailBitmap != null)
                     {
@@ -356,26 +264,8 @@ namespace DirectXInput.MediaCode
                     {
                         button_Information_Thumbnail.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     }
-                    button_Information.Visibility = Visibility.Visible;
-
-                    if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
-                    {
-                        string currentImage = button_PlayPause_Image.Source.ToString();
-                        string updatedImage = "Assets/Default/Icons/Pause.png";
-                        if (currentImage.ToLower() != updatedImage.ToLower())
-                        {
-                            button_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        }
-                    }
-                    else
-                    {
-                        string currentImage = button_PlayPause_Image.Source.ToString();
-                        string updatedImage = "Assets/Default/Icons/Play.png";
-                        if (currentImage.ToLower() != updatedImage.ToLower())
-                        {
-                            button_PlayPause_Image.Source = FileToBitmapImage(new string[] { updatedImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        }
-                    }
+                    stackpanel_MediaPlaying.Visibility = Visibility.Visible;
+                    stackpanel_MediaNone.Visibility = Visibility.Collapsed;
                 });
             }
             catch
@@ -392,7 +282,8 @@ namespace DirectXInput.MediaCode
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    button_Information.Visibility = Visibility.Collapsed;
+                    stackpanel_MediaPlaying.Visibility = Visibility.Collapsed;
+                    stackpanel_MediaNone.Visibility = Visibility.Visible;
                 });
             }
             catch { }

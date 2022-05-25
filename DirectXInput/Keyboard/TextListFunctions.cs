@@ -139,7 +139,7 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Handle textlist click
-        void listbox_TextList_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        void Listbox_TextList_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -148,7 +148,7 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        void listbox_TextList_PreviewKeyUp(object sender, KeyEventArgs e)
+        void Listbox_TextList_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             try
             {

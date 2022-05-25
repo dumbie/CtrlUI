@@ -3,7 +3,7 @@
 	<appSettings>
 		<add key="ServerPort" value="26759"/>
 		<add key="DisplayMonitor" value="1"/>
-		<add key="ColorAccentLight" value="#00C7FF"/>
+		<add key="ColorAccentLight" value="#1E90FF"/>
 		<add key="InterfaceSound" value="True"/>
 		<add key="InterfaceSoundVolume" value="70"/>
 		<add key="InterfaceSoundPackName" value="Default"/>

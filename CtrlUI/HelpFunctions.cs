@@ -79,16 +79,6 @@ namespace CtrlUI
                         sp_ControllerHelpScreenshot.Visibility = Visibility.Collapsed;
                     }
 
-                    bool ShortcutMediaPopup = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutMediaPopup"));
-                    if (processDirectXInputRunning && ShortcutMediaPopup)
-                    {
-                        sp_ControllerHelpMedia.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        sp_ControllerHelpMedia.Visibility = Visibility.Collapsed;
-                    }
-
                     bool ShortcutAltEnter = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter"));
                     if (processDirectXInputRunning && ShortcutAltEnter)
                     {

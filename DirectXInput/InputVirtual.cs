@@ -32,7 +32,6 @@ namespace DirectXInput
             {
                 //Update and check button press times
                 UpdateCheckButtonPressTimes(Controller.InputCurrent.ButtonGuide);
-                UpdateCheckButtonPressTimes(Controller.InputCurrent.ButtonTouchpad);
 
                 //Check if the controller is currently idle
                 if (Controller.Details.Wireless && Controller.BatteryCurrent.BatteryStatus != BatteryStatus.Charging)

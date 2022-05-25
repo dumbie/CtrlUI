@@ -73,7 +73,7 @@ namespace DirectXInput
                     else if (receivedString == "SettingChangedInterfaceClockStyleName")
                     {
                         vConfigurationCtrlUI = Settings_Load_CtrlUI();
-                        App.vWindowMedia.UpdateClockStyle();
+                        App.vWindowKeyboard.UpdateClockStyle();
                     }
                     else if (receivedString == "SettingChangedDisplayMonitor")
                     {
@@ -98,14 +98,6 @@ namespace DirectXInput
                     else if (receivedString == "KeyboardShow")
                     {
                         await KeyboardPopupHideShow(true);
-                    }
-                    else if (receivedString == "MediaHideShow")
-                    {
-                        await MediaPopupHideShow(false);
-                    }
-                    else if (receivedString == "MediaShow")
-                    {
-                        await MediaPopupHideShow(true);
                     }
                 }
             }

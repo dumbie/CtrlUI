@@ -103,7 +103,6 @@ namespace DirectXInput.KeypadCode
             {
                 //Close other popups
                 await App.vWindowKeyboard.Hide();
-                await App.vWindowMedia.Hide();
 
                 //Play window open sound
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupOpen", false, false);

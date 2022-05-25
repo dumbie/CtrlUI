@@ -142,7 +142,10 @@
     <Compile Include="GyroDsu\GyroDsuEnum.cs" />
     <Compile Include="GyroDsu\GyroClientHandler.cs" />
     <Compile Include="Keyboard\AppMessageFilter.cs" />
+    <Compile Include="Keyboard\InformationFunctions.cs" />
+    <Compile Include="ProcessFunctions.cs" />
     <Compile Include="Keyboard\KeyboardTasks.cs" />
+    <Compile Include="Keyboard\MediaFunctions.cs" />
     <Compile Include="Keyboard\Resources\InputOutput\InputKeyboard.cs" />
     <Compile Include="Keyboard\TextListFunctions.cs" />
     <Compile Include="Keyboard\EmojiListFunctions.cs" />
@@ -150,13 +153,6 @@
     <Compile Include="Keypad\KeypadProfile.cs" />
     <Compile Include="Keypad\MonitorProfile.cs" />
     <Compile Include="Keypad\MonitorTaskbar.cs" />
-    <Compile Include="Media\ControllerHandlers.cs" />
-    <Compile Include="Media\InterfaceFunctions.cs" />
-    <Compile Include="Media\MouseFunctions.cs" />
-    <Compile Include="Media\ProcessFunctions.cs" />
-    <Compile Include="Media\MediaTasks.cs" />
-    <Compile Include="Media\MediaFunctions.cs" />
-    <Compile Include="Media\WindowMedia.xaml.cs" />
     <Compile Include="Keypad\ControllerHandlers.cs" />
     <Compile Include="KeypadMapping.cs" />
     <Compile Include="Keypad\KeypadPreview.cs" />
@@ -198,10 +194,6 @@
     <Compile Include="Resources\Settings\SettingsFunctions.cs" />
     <Compile Include="ScreenCapture\CaptureScreen.cs" />
     <Compile Include="SocketHandlers.cs" />
-    <Page Include="Media\WindowMedia.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Keypad\WindowKeypad.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

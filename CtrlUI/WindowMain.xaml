@@ -157,10 +157,6 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/TouchpadOff.png" Height="25" Opacity="0.80"/>
                         <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Screenshot"/>
                     </StackPanel>
-                    <StackPanel Name="sp_ControllerHelpMedia" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/TouchpadHoldOff.png" Height="25" Opacity="0.80"/>
-                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Media"/>
-                    </StackPanel>
                     <StackPanel Name="sp_ControllerHelpLb" Orientation="Horizontal" Margin="0,5,10,5" Visibility="Collapsed">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="25" Opacity="0.80"/>
                         <TextBlock Name="txt_ControllerHelpLb" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Start"/>
