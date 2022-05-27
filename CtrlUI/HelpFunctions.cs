@@ -69,8 +69,8 @@ namespace CtrlUI
                         sp_ControllerHelpGuideHold.Visibility = Visibility.Collapsed;
                     }
 
-                    bool ShortcutScreenshot = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot"));
-                    if (processDirectXInputRunning && ShortcutScreenshot)
+                    bool ShortcutScreenshotController = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotController"));
+                    if (processDirectXInputRunning && ShortcutScreenshotController)
                     {
                         sp_ControllerHelpScreenshot.Visibility = Visibility.Visible;
                     }

@@ -147,7 +147,7 @@ namespace DirectXInput
                     //Make screenshot
                     else if (Controller.InputCurrent.ButtonTouchpad.PressedRaw)
                     {
-                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot")))
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotController")))
                         {
                             Debug.WriteLine("Button Global - Screenshot");
                             await CaptureScreen.CaptureScreenToFile();

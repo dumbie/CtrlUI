@@ -99,6 +99,7 @@ namespace DirectXInput
         public static SolidColorBrush vApplicationAccentLightBrush = null;
 
         //Keyboard Variables
+        public static AVInputOutputHotKey vAVInputOutputHotKey = new AVInputOutputHotKey();
         public static string vKeyboardKeypadLastActive = "Keyboard";
         public static bool vCapsEnabled = false;
         public static bool vKeysEnabled = true;

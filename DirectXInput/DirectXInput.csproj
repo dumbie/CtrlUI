@@ -141,6 +141,7 @@
     <Compile Include="ControllerMapping.cs" />
     <Compile Include="GyroDsu\GyroDsuEnum.cs" />
     <Compile Include="GyroDsu\GyroClientHandler.cs" />
+    <Compile Include="InputKeyboard.cs" />
     <Compile Include="Keyboard\AppMessageFilter.cs" />
     <Compile Include="Keyboard\InformationFunctions.cs" />
     <Compile Include="ProcessFunctions.cs" />

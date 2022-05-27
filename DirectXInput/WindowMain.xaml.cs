@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.ProcessFunctions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -161,6 +162,10 @@ namespace DirectXInput
 
                 //Start the background tasks
                 TasksBackgroundStart();
+
+                //Register keyboard hotkeys
+                vAVInputOutputHotKey.EventHotKeyPressed += EventHotKeyPressed;
+                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F12);
 
                 //Set application first launch to false
                 Setting_Save(vConfigurationDirectXInput, "AppFirstLaunch", "False");

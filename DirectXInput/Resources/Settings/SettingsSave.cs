@@ -177,10 +177,15 @@ namespace DirectXInput
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
-                cb_SettingsShortcutScreenshot.Click += async (sender, e) =>
+                cb_SettingsShortcutScreenshotController.Click += async (sender, e) =>
                 {
-                    Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshot", cb_SettingsShortcutScreenshot.IsChecked.ToString());
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshotController", cb_SettingsShortcutScreenshotController.IsChecked.ToString());
                     await NotifyCtrlUISettingChanged("Shortcut");
+                };
+
+                cb_SettingsShortcutScreenshotKeyboard.Click += (sender, e) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", cb_SettingsShortcutScreenshotKeyboard.IsChecked.ToString());
                 };
 
                 //Keyboard settings

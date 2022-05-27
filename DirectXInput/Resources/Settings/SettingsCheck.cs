@@ -20,7 +20,8 @@ namespace DirectXInput
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutKeyboardPopup", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltEnter", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", "True"); } //Shared
-                if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshot") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshot", "True"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotController") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshotController", "True"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", "True"); }
 
                 //Battery settings
                 if (Setting_Load(vConfigurationDirectXInput, "BatteryLowLevel") == null) { Setting_Save(vConfigurationDirectXInput, "BatteryLowLevel", "20"); }
