@@ -73,6 +73,10 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Help.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Help" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
+                    <StackPanel Name="menuButtonClose" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Close the window">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Width="55" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Close" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                    </StackPanel>
                 </ListBox>
             </Grid>
 

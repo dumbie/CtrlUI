@@ -43,7 +43,7 @@ namespace DirectXInput
             catch { }
         }
 
-        //Show and hide the application window
+        //Show or hide the application window
         void Application_ShowHideWindow()
         {
             try
@@ -62,6 +62,19 @@ namespace DirectXInput
                     Visibility = Visibility.Visible;
                     WindowState = WindowState.Normal;
                 }
+            }
+            catch { }
+        }
+
+        //Hide the application window
+        void Application_HideWindow()
+        {
+            try
+            {
+                Debug.WriteLine("Minimizing application to tray.");
+                ShowInTaskbar = false;
+                Visibility = Visibility.Collapsed;
+                WindowState = WindowState.Normal;
             }
             catch { }
         }

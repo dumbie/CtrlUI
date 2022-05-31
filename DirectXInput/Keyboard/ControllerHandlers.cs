@@ -112,32 +112,60 @@ namespace DirectXInput.KeyboardCode
                     //Send internal arrow left key
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                        KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
+                        //Update the window style to activate window
+                        await UpdateWindowStyleVisible();
+
+                        //Check the foreground window
+                        if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                        {
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                            KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
+                        }
 
                         ControllerDelay125 = true;
                     }
                     //Send internal arrow right key
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                        KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
+                        //Update the window style to activate window
+                        await UpdateWindowStyleVisible();
+
+                        //Check the foreground window
+                        if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                        {
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                            KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
+                        }
 
                         ControllerDelay125 = true;
                     }
                     //Send internal arrow up key
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                        KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
+                        //Update the window style to activate window
+                        await UpdateWindowStyleVisible();
+
+                        //Check the foreground window
+                        if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                        {
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                            KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
+                        }
 
                         ControllerDelay125 = true;
                     }
                     //Send internal arrow down key
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                        KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
+                        //Update the window style to activate window
+                        await UpdateWindowStyleVisible();
+
+                        //Check the foreground window
+                        if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                        {
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                            KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
+                        }
 
                         ControllerDelay125 = true;
                     }
@@ -145,7 +173,14 @@ namespace DirectXInput.KeyboardCode
                     //Send internal space key
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
-                        KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
+                        //Update the window style to activate window
+                        await UpdateWindowStyleVisible();
+
+                        //Check the foreground window
+                        if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                        {
+                            KeySendSingle(KeysVirtual.Space, vInteropWindowHandle);
+                        }
 
                         ControllerDelay125 = true;
                     }

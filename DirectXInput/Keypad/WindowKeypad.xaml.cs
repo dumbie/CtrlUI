@@ -260,24 +260,30 @@ namespace DirectXInput.KeypadCode
             {
                 if (visible)
                 {
-                    //Create and show the window
-                    base.Show();
+                    if (!vWindowVisible)
+                    {
+                        //Create and show the window
+                        base.Show();
 
-                    //Update the window style
-                    await UpdateWindowStyleVisible();
+                        //Update the window style
+                        await UpdateWindowStyleVisible();
 
-                    this.Title = "DirectXInput Keypad (Visible)";
-                    vWindowVisible = true;
-                    Debug.WriteLine("Showing the window.");
+                        this.Title = "DirectXInput Keypad (Visible)";
+                        vWindowVisible = true;
+                        Debug.WriteLine("Showing the window.");
+                    }
                 }
                 else
                 {
-                    //Update the window style
-                    await UpdateWindowStyleHidden();
+                    if (vWindowVisible)
+                    {
+                        //Update the window style
+                        await UpdateWindowStyleHidden();
 
-                    this.Title = "DirectXInput Keypad (Hidden)";
-                    vWindowVisible = false;
-                    Debug.WriteLine("Hiding the window.");
+                        this.Title = "DirectXInput Keypad (Hidden)";
+                        vWindowVisible = false;
+                        Debug.WriteLine("Hiding the window.");
+                    }
                 }
             }
             catch { }

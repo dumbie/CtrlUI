@@ -57,6 +57,7 @@ namespace DirectXInput
                     else if (SelStackPanel.Name == "menuButtonSettings") { ShowGridPage(grid_Settings); }
                     else if (SelStackPanel.Name == "menuButtonDebug") { ShowGridPage(grid_Debug); }
                     else if (SelStackPanel.Name == "menuButtonHelp") { ShowGridPage(grid_Help); }
+                    else if (SelStackPanel.Name == "menuButtonClose") { Application_HideWindow(); }
                 }
             }
             catch { }

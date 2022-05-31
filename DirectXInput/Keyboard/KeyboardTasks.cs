@@ -9,7 +9,6 @@ namespace DirectXInput.KeyboardCode
         //Task variables
         private static AVTaskDetails vTask_UpdateMediaInformation = new AVTaskDetails();
         private static AVTaskDetails vTask_UpdateInterfaceInformation = new AVTaskDetails();
-        private static AVTaskDetails vTask_UpdateWindowStyle = new AVTaskDetails();
 
         //Start all the background tasks
         void TasksBackgroundStart()
@@ -18,7 +17,6 @@ namespace DirectXInput.KeyboardCode
             {
                 AVActions.TaskStartLoop(vTaskLoop_UpdateMediaInformation, vTask_UpdateMediaInformation);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateInterfaceInformation, vTask_UpdateInterfaceInformation);
-                AVActions.TaskStartLoop(vTaskLoop_UpdateWindowStyle, vTask_UpdateWindowStyle);
             }
             catch { }
         }
@@ -30,7 +28,6 @@ namespace DirectXInput.KeyboardCode
             {
                 await AVActions.TaskStopLoop(vTask_UpdateMediaInformation, 5000);
                 await AVActions.TaskStopLoop(vTask_UpdateInterfaceInformation, 5000);
-                await AVActions.TaskStopLoop(vTask_UpdateWindowStyle, 5000);
             }
             catch { }
         }
@@ -62,25 +59,6 @@ namespace DirectXInput.KeyboardCode
 
                     //Delay the loop task
                     await TaskDelayLoop(1000, vTask_UpdateInterfaceInformation);
-                }
-            }
-            catch { }
-        }
-
-        async Task vTaskLoop_UpdateWindowStyle()
-        {
-            try
-            {
-                while (TaskCheckLoop(vTask_UpdateWindowStyle))
-                {
-                    //Update the window style
-                    if (vWindowVisible)
-                    {
-                        await UpdateWindowStyleVisible();
-                    }
-
-                    //Delay the loop task
-                    await TaskDelayLoop(100, vTask_UpdateWindowStyle);
                 }
             }
             catch { }
