@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static DirectXInput.AppVariables;
@@ -263,41 +264,31 @@ namespace DirectXInput.KeyboardCode
                 {
                     //Check keyboard mode
                     KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
-                    if (keyboardMode == KeyboardMode.Move)
+                    if (keyboardMode == KeyboardMode.Media)
                     {
-                        textblock_ButtonLeft.Text = "Backspace";
-                        textblock_ButtonRight.Text = "Enter";
-                        textblock_ButtonUp.Text = "Space";
+                        stackpanel_DPad.Visibility = Visibility.Visible;
+                        textblock_ButtonLeft.Text = "Media Prev";
+                        textblock_ButtonRight.Text = "Media Next";
+                        textblock_ButtonUp.Text = "Play/Pause";
                         textblock_ThumbRightOff.Text = "Move";
-                        textblock_LeftTriggerOff.Text = "Caps";
-                        textblock_RightTriggerOff.Text = "Tab";
-                        textblock_ThumbPress.Text = "Left/Right arrow";
-                        textblock_BackOff.Text = "Emoji/Text";
-                        image_Mode.Source = vImagePreloadIconKeyboardMove;
+                        textblock_LeftTriggerOff.Text = string.Empty;
+                        textblock_RightTriggerOff.Text = "Volume";
+                        textblock_ThumbPress.Text = "Mute";
+                        textblock_BackOff.Text = "Fullscreen";
+                        image_Mode.Source = vImagePreloadIconKeyboardMedia;
                     }
                     else if (keyboardMode == KeyboardMode.Scroll)
                     {
+                        stackpanel_DPad.Visibility = Visibility.Collapsed;
                         textblock_ButtonLeft.Text = "Backspace";
                         textblock_ButtonRight.Text = "Enter";
                         textblock_ButtonUp.Text = "Space";
                         textblock_ThumbRightOff.Text = "Scroll";
                         textblock_LeftTriggerOff.Text = "Caps";
                         textblock_RightTriggerOff.Text = "Tab";
-                        textblock_ThumbPress.Text = "Left/Right arrow";
+                        textblock_ThumbPress.Text = "Arrows";
                         textblock_BackOff.Text = "Emoji/Text";
                         image_Mode.Source = vImagePreloadIconKeyboardScroll;
-                    }
-                    else if (keyboardMode == KeyboardMode.Media)
-                    {
-                        textblock_ButtonLeft.Text = "Media Prev";
-                        textblock_ButtonRight.Text = "Media Next";
-                        textblock_ButtonUp.Text = "Play/Pause";
-                        textblock_ThumbRightOff.Text = "Arrows";
-                        textblock_LeftTriggerOff.Text = "VolDown";
-                        textblock_RightTriggerOff.Text = "VolUp";
-                        textblock_ThumbPress.Text = "Mute";
-                        textblock_BackOff.Text = "Fullscreen";
-                        image_Mode.Source = vImagePreloadIconKeyboardMedia;
                     }
                 });
             }
@@ -311,7 +302,7 @@ namespace DirectXInput.KeyboardCode
             {
                 //Check keyboard mode
                 KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
-                if (keyboardMode == KeyboardMode.Move)
+                if (keyboardMode == KeyboardMode.Media)
                 {
                     Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Scroll).ToString());
                     UpdateKeyboardMode();
@@ -319,11 +310,6 @@ namespace DirectXInput.KeyboardCode
                 else if (keyboardMode == KeyboardMode.Scroll)
                 {
                     Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Media).ToString());
-                    UpdateKeyboardMode();
-                }
-                else if (keyboardMode == KeyboardMode.Media)
-                {
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Move).ToString());
                     UpdateKeyboardMode();
                 }
             }

@@ -297,6 +297,14 @@
       <Link>Assets\Default\Icons\Battery\BatteryVerNoBattery.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\DPad-Dark.png">
+      <Link>Assets\Default\Icons\Buttons\DPad-Dark.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\DPad.png">
+      <Link>Assets\Default\Icons\Buttons\DPad.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\CtrlUI\Assets\Default\Icons\Buttons\ThumbLeftClickOff.png">
       <Link>Assets\Default\Icons\Buttons\ThumbLeftClickOff.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -37,7 +37,7 @@ namespace DirectXInput.KeyboardCode
 
                     //Check the keyboard mode
                     KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
-                    if (keyboardMode == KeyboardMode.Move)
+                    if (keyboardMode == KeyboardMode.Media)
                     {
                         //Get the mouse move amount
                         GetMouseMovementAmountFromThumbDesktop(moveSensitivity, ControllerInput.ThumbRightX, ControllerInput.ThumbRightY, true, out int moveHorizontalRight, out int moveVerticalRight);
@@ -112,61 +112,85 @@ namespace DirectXInput.KeyboardCode
                     //Send internal arrow left key
                     if (ControllerInput.DPadLeft.PressedRaw)
                     {
-                        //Update the window style to activate window
-                        await UpdateWindowStyleVisible();
-
-                        //Check the foreground window
-                        if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                        if (keyboardMode == KeyboardMode.Media)
                         {
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                            KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                         }
+                        else
+                        {
+                            //Update the window style to activate window
+                            await UpdateWindowStyleVisible();
 
+                            //Check the foreground window
+                            if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                            {
+                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                                KeySendSingle(KeysVirtual.Left, vInteropWindowHandle);
+                            }
+                        }
                         ControllerDelay125 = true;
                     }
                     //Send internal arrow right key
                     else if (ControllerInput.DPadRight.PressedRaw)
                     {
-                        //Update the window style to activate window
-                        await UpdateWindowStyleVisible();
-
-                        //Check the foreground window
-                        if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                        if (keyboardMode == KeyboardMode.Media)
                         {
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                            KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                         }
+                        else
+                        {
+                            //Update the window style to activate window
+                            await UpdateWindowStyleVisible();
 
+                            //Check the foreground window
+                            if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                            {
+                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                                KeySendSingle(KeysVirtual.Right, vInteropWindowHandle);
+                            }
+                        }
                         ControllerDelay125 = true;
                     }
                     //Send internal arrow up key
                     else if (ControllerInput.DPadUp.PressedRaw)
                     {
-                        //Update the window style to activate window
-                        await UpdateWindowStyleVisible();
-
-                        //Check the foreground window
-                        if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                        if (keyboardMode == KeyboardMode.Media)
                         {
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                            KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowUp, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                         }
+                        else
+                        {
+                            //Update the window style to activate window
+                            await UpdateWindowStyleVisible();
 
+                            //Check the foreground window
+                            if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                            {
+                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                                KeySendSingle(KeysVirtual.Up, vInteropWindowHandle);
+                            }
+                        }
                         ControllerDelay125 = true;
                     }
                     //Send internal arrow down key
                     else if (ControllerInput.DPadDown.PressedRaw)
                     {
-                        //Update the window style to activate window
-                        await UpdateWindowStyleVisible();
-
-                        //Check the foreground window
-                        if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                        if (keyboardMode == KeyboardMode.Media)
                         {
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
-                            KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowDown, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                         }
+                        else
+                        {
+                            //Update the window style to activate window
+                            await UpdateWindowStyleVisible();
 
+                            //Check the foreground window
+                            if (vInteropWindowHandle != vProcessForeground.WindowHandle)
+                            {
+                                PlayInterfaceSound(vConfigurationCtrlUI, "Move", false, false);
+                                KeySendSingle(KeysVirtual.Down, vInteropWindowHandle);
+                            }
+                        }
                         ControllerDelay125 = true;
                     }
 
@@ -371,47 +395,6 @@ namespace DirectXInput.KeyboardCode
                         SwitchKeyboardMode();
 
                         ControllerDelay250 = true;
-                    }
-
-                    //Right stick movement
-                    else if (ControllerInput.ThumbRightX < -10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
-                    {
-                        if (keyboardMode == KeyboardMode.Media)
-                        {
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                        }
-
-                        ControllerDelay125 = true;
-                    }
-                    else if (ControllerInput.ThumbRightY > 10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
-                    {
-                        if (keyboardMode == KeyboardMode.Media)
-                        {
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowUp, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                        }
-
-                        ControllerDelay125 = true;
-                    }
-                    else if (ControllerInput.ThumbRightX > 10000 && Math.Abs(ControllerInput.ThumbRightY) < 13000)
-                    {
-                        if (keyboardMode == KeyboardMode.Media)
-                        {
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                        }
-                        ControllerDelay125 = true;
-                    }
-                    else if (ControllerInput.ThumbRightY < -10000 && Math.Abs(ControllerInput.ThumbRightX) < 13000)
-                    {
-                        if (keyboardMode == KeyboardMode.Media)
-                        {
-                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowDown, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-                        }
-
-                        ControllerDelay125 = true;
                     }
 
                     //Delay input to prevent repeat

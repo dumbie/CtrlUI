@@ -4,9 +4,8 @@
     {
         public enum KeyboardMode : int
         {
-            Move = 0,
-            Scroll = 1,
-            Media = 2
+            Media = 0,
+            Scroll = 1
         }
     }
 }
