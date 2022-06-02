@@ -59,7 +59,7 @@ namespace DirectXInput.KeyboardCode
                 UpdateKeyboardLayout();
 
                 //Update the keyboard mode
-                UpdateKeyboardMode();
+                await UpdateKeyboardMode();
 
                 //Update the window position
                 UpdateWindowPosition();

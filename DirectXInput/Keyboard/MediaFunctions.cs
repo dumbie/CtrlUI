@@ -10,6 +10,7 @@ using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Settings;
+using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
 
 namespace DirectXInput.KeyboardCode
@@ -22,6 +23,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 await App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
+                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.PlayPause);
             }
             catch { }
@@ -33,6 +35,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 await App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
+                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.Next);
             }
             catch { }
@@ -44,6 +47,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 await App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
+                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.Previous);
             }
             catch { }
@@ -55,6 +59,7 @@ namespace DirectXInput.KeyboardCode
             try
             {
                 await App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
+                PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
             }
             catch { }

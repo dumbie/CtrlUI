@@ -166,7 +166,7 @@
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}"/>
                 </Border.Background>
-                <StackPanel Margin="1,5,5,5">
+                <StackPanel Margin="0,5,5,5">
                     <!-- Key Row 0 -->
                     <StackPanel Name="sp_Row0" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Name="key_Escape" Width="69" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>

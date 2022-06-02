@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
@@ -194,22 +195,22 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Handle Mode Switch
-        void ButtonMode_PreviewKeyUp(object sender, KeyEventArgs e)
+        async void ButtonMode_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             try
             {
                 if (e.Key == Key.Space)
                 {
-                    SwitchKeyboardMode();
+                    await SwitchKeyboardMode();
                 }
             }
             catch { }
         }
-        void ButtonMode_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        async void ButtonMode_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                SwitchKeyboardMode();
+                await SwitchKeyboardMode();
             }
             catch { }
         }
@@ -256,16 +257,17 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Update the keyboard mode
-        void UpdateKeyboardMode()
+        async Task UpdateKeyboardMode()
         {
             try
             {
-                AVActions.ActionDispatcherInvoke(delegate
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
                     //Check keyboard mode
                     KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
                     if (keyboardMode == KeyboardMode.Media)
                     {
+                        //Update help bar
                         stackpanel_DPad.Visibility = Visibility.Visible;
                         textblock_ButtonLeft.Text = "Media Prev";
                         textblock_ButtonRight.Text = "Media Next";
@@ -276,9 +278,19 @@ namespace DirectXInput.KeyboardCode
                         textblock_ThumbPress.Text = "Mute";
                         textblock_BackOff.Text = "Fullscreen";
                         image_Mode.Source = vImagePreloadIconKeyboardMedia;
+
+                        //Play sound
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
+
+                        //Show notification
+                        NotificationDetails notificationDetails = new NotificationDetails();
+                        notificationDetails.Icon = "Keyboard";
+                        notificationDetails.Text = "Switched to media mode";
+                        await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     }
                     else if (keyboardMode == KeyboardMode.Scroll)
                     {
+                        //Update help bar
                         stackpanel_DPad.Visibility = Visibility.Collapsed;
                         textblock_ButtonLeft.Text = "Backspace";
                         textblock_ButtonRight.Text = "Enter";
@@ -289,6 +301,15 @@ namespace DirectXInput.KeyboardCode
                         textblock_ThumbPress.Text = "Arrows";
                         textblock_BackOff.Text = "Emoji/Text";
                         image_Mode.Source = vImagePreloadIconKeyboardScroll;
+
+                        //Play sound
+                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
+
+                        //Show notification
+                        NotificationDetails notificationDetails = new NotificationDetails();
+                        notificationDetails.Icon = "Keyboard";
+                        notificationDetails.Text = "Switched to scroll mode";
+                        await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     }
                 });
             }
@@ -296,7 +317,7 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Switch between keyboard modes
-        void SwitchKeyboardMode()
+        async Task SwitchKeyboardMode()
         {
             try
             {
@@ -305,12 +326,12 @@ namespace DirectXInput.KeyboardCode
                 if (keyboardMode == KeyboardMode.Media)
                 {
                     Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Scroll).ToString());
-                    UpdateKeyboardMode();
+                    await UpdateKeyboardMode();
                 }
                 else if (keyboardMode == KeyboardMode.Scroll)
                 {
                     Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Media).ToString());
-                    UpdateKeyboardMode();
+                    await UpdateKeyboardMode();
                 }
             }
             catch { }

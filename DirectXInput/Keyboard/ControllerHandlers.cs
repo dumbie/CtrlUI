@@ -114,6 +114,7 @@ namespace DirectXInput.KeyboardCode
                     {
                         if (keyboardMode == KeyboardMode.Media)
                         {
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                         }
                         else
@@ -135,6 +136,7 @@ namespace DirectXInput.KeyboardCode
                     {
                         if (keyboardMode == KeyboardMode.Media)
                         {
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                         }
                         else
@@ -156,6 +158,7 @@ namespace DirectXInput.KeyboardCode
                     {
                         if (keyboardMode == KeyboardMode.Media)
                         {
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowUp, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                         }
                         else
@@ -177,6 +180,7 @@ namespace DirectXInput.KeyboardCode
                     {
                         if (keyboardMode == KeyboardMode.Media)
                         {
+                            PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowDown, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
                         }
                         else
@@ -276,13 +280,13 @@ namespace DirectXInput.KeyboardCode
                         if (keyboardMode == KeyboardMode.Media)
                         {
                             await VolumeInputMute();
+                            ControllerDelay500 = true;
                         }
                         else
                         {
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowLeft, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            ControllerDelay125 = true;
                         }
-
-                        ControllerDelay125 = true;
                     }
                     //Send external arrow right key
                     else if (ControllerInput.ButtonThumbRight.PressedRaw)
@@ -292,13 +296,13 @@ namespace DirectXInput.KeyboardCode
                         if (keyboardMode == KeyboardMode.Media)
                         {
                             await VolumeOutputMute();
+                            ControllerDelay500 = true;
                         }
                         else
                         {
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.ArrowRight, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            ControllerDelay125 = true;
                         }
-
-                        ControllerDelay125 = true;
                     }
 
                     //Mute volume
@@ -392,7 +396,7 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
                         Debug.WriteLine("Button: StartPressed / Switch keyboard mode");
-                        SwitchKeyboardMode();
+                        await SwitchKeyboardMode();
 
                         ControllerDelay250 = true;
                     }
