@@ -38,7 +38,7 @@ namespace DirectXInput
 
                 //Keyboard settings
                 if (Setting_Load(vConfigurationDirectXInput, "KeyboardLayout") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardLayout", "0"); }
-                if (Setting_Load(vConfigurationDirectXInput, "KeyboardMode") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardMode", "0"); }
+                if (Setting_Load(vConfigurationDirectXInput, "KeyboardMode") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardMode", "1"); }
                 if (Setting_Load(vConfigurationDirectXInput, "KeyboardOpacity") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardOpacity", "0,95"); }
                 if (Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardResetPosition", "False"); }
                 if (Setting_Load(vConfigurationDirectXInput, "KeyboardCloseNoController") == null) { Setting_Save(vConfigurationDirectXInput, "KeyboardCloseNoController", "True"); }
