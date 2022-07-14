@@ -58,7 +58,7 @@ namespace FpsOverlayer
                             try
                             {
                                 UpdateFanInformation(hardwareItem, ref cpuFanSpeedFloat);
-                                UpdateCpuInformation(hardwareItem, cpuFanSpeedFloat);
+                                await UpdateCpuInformation(hardwareItem, cpuFanSpeedFloat);
                                 UpdateGpuInformation(hardwareItem);
                                 UpdateMemoryInformation(hardwareItem);
                                 UpdateBatteryInformation(hardwareItem);
@@ -506,7 +506,7 @@ namespace FpsOverlayer
         }
 
         //Update the cpu information
-        void UpdateCpuInformation(IHardware hardwareItem, float fanSpeedFloat)
+        async Task UpdateCpuInformation(IHardware hardwareItem, float fanSpeedFloat)
         {
             try
             {
@@ -556,11 +556,18 @@ namespace FpsOverlayer
                         {
                             if (showPercentage && sensor.SensorType == SensorType.Load)
                             {
-                                //Debug.WriteLine("CPU Load: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
-                                if (sensor.Identifier.ToString().EndsWith("load/0"))
+                                using (PerformanceCounter perfCounter = new PerformanceCounter("Processor Information", "% Processor Utility", "_Total", true))
                                 {
-                                    CpuPercentage = " " + Convert.ToInt32(sensor.Value) + "%";
+                                    CounterSample firstSample = perfCounter.NextSample();
+                                    await Task.Delay(100);
+                                    CounterSample secondSample = perfCounter.NextSample();
+                                    CpuPercentage = " " + CounterSample.Calculate(firstSample, secondSample).ToString("0") + "%";
                                 }
+                                ////Debug.WriteLine("CPU Load: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
+                                //if (sensor.Identifier.ToString().EndsWith("load/0"))
+                                //{
+                                //    CpuPercentage = " " + Convert.ToInt32(sensor.Value) + "%";
+                                //}
                             }
                             else if (showTemperature && sensor.SensorType == SensorType.Temperature)
                             {
