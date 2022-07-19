@@ -352,17 +352,29 @@ namespace DirectXInput
                         if (controller.SupportedCurrent.OffsetButton.Touchpad != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Touchpad.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[200] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Touchpad.Offset)) != 0;
+                            byte ButtonInputByte = controller.InputReport[HeaderOffset + ButtonGroupOffset];
+                            if (ButtonInputByte < 32)
+                            {
+                                controller.InputCurrent.ButtonPressStatus[200] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Touchpad.Offset)) != 0;
+                            }
                         }
                         if (controller.SupportedCurrent.OffsetButton.Guide != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Guide.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[201] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Guide.Offset)) != 0;
+                            byte ButtonInputByte = controller.InputReport[HeaderOffset + ButtonGroupOffset];
+                            if (ButtonInputByte < 32)
+                            {
+                                controller.InputCurrent.ButtonPressStatus[201] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Guide.Offset)) != 0;
+                            }
                         }
                         if (controller.SupportedCurrent.OffsetButton.Media != null)
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Media.Group, controller.SupportedCurrent);
-                            controller.InputCurrent.ButtonPressStatus[202] = (controller.InputReport[HeaderOffset + ButtonGroupOffset] & (1 << controller.SupportedCurrent.OffsetButton.Media.Offset)) != 0;
+                            byte ButtonInputByte = controller.InputReport[HeaderOffset + ButtonGroupOffset];
+                            if (ButtonInputByte < 32)
+                            {
+                                controller.InputCurrent.ButtonPressStatus[202] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Media.Offset)) != 0;
+                            }
                         }
 
                         //Raw Touchpad
@@ -476,7 +488,7 @@ namespace DirectXInput
                             if (controller.Details.Profile.ButtonMedia == null) { controller.InputCurrent.ButtonMedia.PressedRaw = controller.InputCurrent.ButtonPressStatus[202]; }
                             else if (controller.Details.Profile.ButtonMedia != -1) { controller.InputCurrent.ButtonMedia.PressedRaw = controller.InputCurrent.ButtonPressStatus[controller.Details.Profile.ButtonMedia.Value]; }
 
-                            //Fake Guide or Mute button press with LB and Back
+                            //Fake Guide or Media button press with LB and Back
                             if (controller.Details.Profile.FakeGuideButton && controller.InputCurrent.ButtonShoulderLeft.PressedRaw && controller.InputCurrent.ButtonBack.PressedRaw)
                             {
                                 controller.InputCurrent.ButtonShoulderLeft.PressedRaw = false;
