@@ -876,10 +876,6 @@
     <Content Include="Profiles\User\CtrlIgnoreShortcutName.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="..\..\ArnoldVinkCertificate\ArnoldVinkCertificate.cer">
-      <Link>Resources\ArnoldVinkCertificate.cer</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="Profiles\User\CtrlIgnoreShortcutUri.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -931,6 +927,9 @@
     </Content>
     <None Include="Properties\App.manifest" />
     <None Include="Properties\App.config" />
+    <Content Include="Resources\Updater.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Default\Icons\Battery\BatteryVerDis10.png">

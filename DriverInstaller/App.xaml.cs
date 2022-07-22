@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
-using static LibraryShared.AppStartupCheck;
+using static LibraryShared.AppCheck;
+using static LibraryShared.AppUpdate;
 
 namespace DriverInstaller
 {
@@ -14,11 +15,11 @@ namespace DriverInstaller
         {
             try
             {
-                //Check the application status
-                await Application_LaunchCheck("Driver Installer", ProcessPriorityClass.Normal, false, true);
+                //Application startup checks
+                await StartupCheck("Driver Installer", ProcessPriorityClass.Normal);
 
-                //Check the application update
-                Application_UpdateCheck();
+                //Application update checks
+                await UpdateCheck();
 
                 //Open the application window
                 vWindowMain.Show();

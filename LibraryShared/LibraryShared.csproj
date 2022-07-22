@@ -291,8 +291,8 @@
     <Compile Include="..\CtrlUI\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="AppUpdateCheck.cs" />
-    <Compile Include="AppLaunchCheck.cs" />
+    <Compile Include="AppUpdate.cs" />
+    <Compile Include="AppCheck.cs" />
     <Compile Include="Classes\ApiIGDB.cs" />
     <Compile Include="Classes\ApiTwitch.cs" />
     <Compile Include="Classes\ControllerIgnored.cs" />

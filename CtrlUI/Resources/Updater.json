@@ -1,0 +1,38 @@
+﻿{
+  "UserName": "Dumbie",
+  "RepoName": "CtrlUI",
+  "FileName": "CtrlUI.zip",
+  "ExtractName": "CtrlUI",
+  "ProcessLaunch": [
+    "DirectXInput Launcher"
+  ],
+  "ProcessClose": [
+    "CtrlUI",
+    "CtrlUI-Admin",
+    "CtrlUI-Launcher",
+    "DirectXInput",
+    "DirectXInput-Admin",
+    "DirectXInput-Launcher",
+    "FpsOverlayer",
+    "FpsOverlayer-Admin",
+    "FpsOverlayer-Launcher",
+    "DriverInstaller"
+  ],
+  "FilesIgnore": [
+    ".csettings"
+  ],
+  "FilesDelete": [
+    "CtrlUI-Admin.exe.config",
+    "DirectXInput-Admin.exe.config",
+    "DirectXInput-Launcher.exe.config",
+    "FpsOverlayer-Admin.exe.config",
+    "FpsOverlayer-Launcher.exe.config",
+    "Updater.exe.config"
+  ],
+  "FoldersIgnore": [
+    "Profiles/User"
+  ],
+  "FoldersDelete": [
+    "Resources/Drivers"
+  ]
+}

@@ -7,7 +7,8 @@ using static ArnoldVinkCode.AVFirewall;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessFunctions;
 using static CtrlUI.AppVariables;
-using static LibraryShared.AppStartupCheck;
+using static LibraryShared.AppCheck;
+using static LibraryShared.AppUpdate;
 
 namespace CtrlUI
 {
@@ -27,11 +28,11 @@ namespace CtrlUI
                 //Get previous focused application
                 vPrevFocusedProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
 
-                //Check the application status
-                await Application_LaunchCheck("CtrlUI", ProcessPriorityClass.High, false, true);
+                //Application startup checks
+                await StartupCheck("CtrlUI", ProcessPriorityClass.High);
 
-                //Check the application update
-                Application_UpdateCheck();
+                //Application update checks
+                await UpdateCheck();
 
                 //Allow application in firewall
                 string appFilePath = Assembly.GetEntryAssembly().Location;
