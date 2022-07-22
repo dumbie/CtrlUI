@@ -37,7 +37,7 @@ namespace DirectXInput
             {
                 foreach (FileInfo infNames in EnumerateDevicesStore("ViGEmBus.inf"))
                 {
-                    string availableVersion = File.ReadAllLines("Resources\\Drivers\\ViGEmBus\\x64\\ViGEmBus.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string availableVersion = File.ReadAllLines(@"Drivers\ViGEmBus\x64\ViGEmBus.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
                     string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
                     //Debug.WriteLine("ViGEmBus: " + installedVersion + " / " + availableVersion);
                     if (availableVersion != installedVersion) { return false; } else { break; }
@@ -45,7 +45,7 @@ namespace DirectXInput
 
                 foreach (FileInfo infNames in EnumerateDevicesStore("HidHide.inf"))
                 {
-                    string availableVersion = File.ReadAllLines("Resources\\Drivers\\HidHide\\x64\\HidHide.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string availableVersion = File.ReadAllLines(@"Drivers\HidHide\x64\HidHide.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
                     string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
                     //Debug.WriteLine("HidHide: " + installedVersion + " / " + availableVersion);
                     if (availableVersion != installedVersion) { return false; } else { break; }
@@ -53,7 +53,7 @@ namespace DirectXInput
 
                 foreach (FileInfo infNames in EnumerateDevicesStore("Ds3Controller.inf"))
                 {
-                    string availableVersion = File.ReadAllLines("Resources\\Drivers\\Ds3Controller\\Ds3Controller.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string availableVersion = File.ReadAllLines(@"Drivers\Ds3Controller\Ds3Controller.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
                     string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
                     //Debug.WriteLine("Ds3Controller: " + installedVersion + " / " + availableVersion);
                     if (availableVersion != installedVersion) { return false; } else { break; }
@@ -61,7 +61,7 @@ namespace DirectXInput
 
                 foreach (FileInfo infNames in EnumerateDevicesStore("FakerInput.inf"))
                 {
-                    string availableVersion = File.ReadAllLines("Resources\\Drivers\\FakerInput\\x64\\FakerInput.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
+                    string availableVersion = File.ReadAllLines(@"Drivers\FakerInput\x64\FakerInput.inf").FirstOrDefault(x => x.StartsWith("DriverVer"));
                     string installedVersion = File.ReadAllLines(infNames.FullName).FirstOrDefault(x => x.StartsWith("DriverVer"));
                     //Debug.WriteLine("FakerInput: " + installedVersion + " / " + availableVersion);
                     if (availableVersion != installedVersion) { return false; } else { break; }

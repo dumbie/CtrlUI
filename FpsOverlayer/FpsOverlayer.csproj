@@ -113,7 +113,6 @@
     <Compile Include="AppVariables.cs" />
     <Compile Include="MonitorTaskbar.cs" />
     <Compile Include="Resources\Settings\SettingsCheck.cs" />
-    <Compile Include="Resources\Settings\SettingsFunctions.cs" />
     <Compile Include="Resources\Settings\SettingsLoad.cs" />
     <Compile Include="Resources\Settings\SettingsNotify.cs" />
     <Compile Include="Resources\Settings\SettingsSave.cs" />

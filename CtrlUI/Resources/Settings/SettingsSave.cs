@@ -163,7 +163,11 @@ namespace CtrlUI
                 cb_SettingsNotReadyNetworkDrives.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "NotReadyNetworkDrives", cb_SettingsNotReadyNetworkDrives.IsChecked.ToString()); };
 
                 cb_SettingsInterfaceSound.Click += (sender, e) => { Setting_Save(vConfigurationCtrlUI, "InterfaceSound", cb_SettingsInterfaceSound.IsChecked.ToString()); };
-                cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };
+
+                cb_SettingsWindowsStartup.Click += (sender, e) =>
+                {
+                    AVSettings.ManageStartupShortcut("CtrlUI-Launcher.exe");
+                };
 
                 slider_SettingsFontSize.ValueChanged += (sender, e) =>
                 {

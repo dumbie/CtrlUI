@@ -95,7 +95,7 @@ namespace DriverInstaller
                     TextBoxAppend("FakerInput Node created.");
                 }
 
-                if (DriverInstallInf(@"Resources\Drivers\FakerInput\x64\FakerInput.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstallInf(@"Drivers\FakerInput\x64\FakerInput.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("FakerInput Driver installed.");
                 }
@@ -117,7 +117,7 @@ namespace DriverInstaller
                 }
 
                 string osSystem = Environment.Is64BitOperatingSystem ? "x64" : "x86";
-                if (DriverInstallInf(@"Resources\Drivers\ViGEmBus\" + osSystem + @"\ViGEmBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstallInf(@"Drivers\ViGEmBus\" + osSystem + @"\ViGEmBus.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("Virtual Bus Driver installed.");
                 }
@@ -133,7 +133,7 @@ namespace DriverInstaller
         {
             try
             {
-                if (DriverInstallInf(@"Resources\Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstallInf(@"Drivers\Ds3Controller\Ds3Controller.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("DualShock 3 USB Driver installed.");
                 }
@@ -154,7 +154,7 @@ namespace DriverInstaller
                     TextBoxAppend("HidHide Node created.");
                 }
 
-                if (DriverInstallInf(@"Resources\Drivers\HidHide\x64\HidHide.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
+                if (DriverInstallInf(@"Drivers\HidHide\x64\HidHide.inf", DIIRFLAG.DIIRFLAG_FORCE_INF, ref vRebootRequired))
                 {
                     TextBoxAppend("HidHide Driver installed.");
                 }

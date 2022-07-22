@@ -4,7 +4,7 @@
   "FileName": "CtrlUI.zip",
   "ExtractName": "CtrlUI",
   "ProcessLaunch": [
-    "DirectXInput Launcher"
+    "DirectXInput-Launcher"
   ],
   "ProcessClose": [
     "CtrlUI",
@@ -27,12 +27,13 @@
     "DirectXInput-Launcher.exe.config",
     "FpsOverlayer-Admin.exe.config",
     "FpsOverlayer-Launcher.exe.config",
-    "Updater.exe.config"
+    "Updater.exe.config",
+    "Resources/ArnoldVinkCertificate.cer"
   ],
   "FoldersIgnore": [
     "Profiles/User"
   ],
   "FoldersDelete": [
-    "Resources/Drivers"
+    "Drivers"
   ]
 }

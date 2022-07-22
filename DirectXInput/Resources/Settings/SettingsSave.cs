@@ -28,7 +28,10 @@ namespace DirectXInput
                     Setting_Save(vConfigurationDirectXInput, "ExclusiveGuide", cb_SettingsExclusiveGuide.IsChecked.ToString());
                 };
 
-                cb_SettingsWindowsStartup.Click += (sender, e) => { ManageShortcutStartup(); };
+                cb_SettingsWindowsStartup.Click += (sender, e) =>
+                {
+                    AVSettings.ManageStartupShortcut("DirectXInput-Launcher.exe");
+                };
 
                 //Battery settings
                 slider_BatteryLowLevel.ValueChanged += async (sender, e) =>

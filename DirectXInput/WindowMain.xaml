@@ -132,7 +132,7 @@
                                 <TextBlock Margin="0,10,0,0" Name="txt_Controller_Information" Text="Please connect a direct input controller to your device to get started." Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="To activate a controller press on the 'Guide' button on the controller." Style="{StaticResource TextBlockGray}"/>
 
-                                <Button Margin="0,10,0,0" Name="btn_CheckControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Manage the Windows game controllers"/>
+                                <Button Margin="0,10,0,0" Name="btn_CheckControllers" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Manage Windows game controllers"/>
                                 <Button Margin="0,10,0,0" Name="btn_CheckDeviceManager" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Open the Windows device manager"/>
                                 <Button Margin="0,20,0,0" Name="btn_RemoveController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Remove and reset active controller profile"/>
                                 <Button Margin="0,10,0,0" Name="btn_IgnoreController" Style="{StaticResource ButtonAccentBlack}" HorizontalAlignment="Left" Content="Ignore and disconnect active controller"/>
