@@ -23,6 +23,8 @@ namespace DirectXInput
                 //Create a context menu for systray.
                 TrayContextMenu.MenuItems.Add("Open Settings", NotifyIcon_Settings);
                 TrayContextMenu.MenuItems.Add("Open Keyboard", NotifyIcon_Keyboard);
+                TrayContextMenu.MenuItems.Add("Open CtrlUI", NotifyIcon_CtrlUI);
+                TrayContextMenu.MenuItems.Add("Open Fps Overlayer", NotifyIcon_FpsOverlayer);
                 TrayContextMenu.MenuItems.Add("Website", NotifyIcon_Website);
                 TrayContextMenu.MenuItems.Add("Exit", NotifyIcon_Exit);
 
@@ -102,6 +104,24 @@ namespace DirectXInput
             try
             {
                 await KeyboardPopupHideShow(true);
+            }
+            catch { }
+        }
+
+        async void NotifyIcon_CtrlUI(object sender, EventArgs args)
+        {
+            try
+            {
+                await ProcessFunctions.LaunchShowCtrlUI();
+            }
+            catch { }
+        }
+
+        async void NotifyIcon_FpsOverlayer(object sender, EventArgs args)
+        {
+            try
+            {
+                await ProcessFunctions.LaunchFpsOverlayer(true);
             }
             catch { }
         }

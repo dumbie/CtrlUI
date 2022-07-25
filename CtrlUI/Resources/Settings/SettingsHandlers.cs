@@ -465,7 +465,7 @@ namespace CtrlUI
             try
             {
                 //Set application shortcut paths
-                string TargetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Admin.exe").Replace("file:///", string.Empty);
+                string TargetFilePath = Assembly.GetEntryAssembly().CodeBase.Replace(".exe", "-Launcher.exe").Replace("file:///", string.Empty);
                 string TargetName = Assembly.GetEntryAssembly().GetName().Name;
                 string TargetFileShortcut = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/" + TargetName + ".url";
                 string TargetFileBoxArtFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "/NVIDIA Corporation/Shield Apps/StreamingAssets/Default/" + TargetName + "/box-art.png";

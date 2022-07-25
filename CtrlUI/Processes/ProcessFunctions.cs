@@ -442,7 +442,7 @@ namespace CtrlUI
                         await Notification_Send_Status("DirectXInput", "Launching DirectXInput");
                     }
 
-                    await ProcessLauncherWin32Async("DirectXInput-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("DirectXInput-Launcher.exe", "", "", true, false);
                 }
                 else
                 {
@@ -512,7 +512,7 @@ namespace CtrlUI
                 {
                     await Notification_Send_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");
-                    await ProcessLauncherWin32Async("FpsOverlayer-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("FpsOverlayer-Launcher.exe", "", "", true, false);
                 }
             }
             catch { }

@@ -44,7 +44,7 @@ namespace DirectXInput
                     await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Launch CtrlUI
-                    await ProcessLauncherWin32Async("CtrlUI-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("CtrlUI-Launcher.exe", "", "", true, false);
                 }
             }
             catch { }
@@ -135,7 +135,7 @@ namespace DirectXInput
         }
 
         //Launch the Fps Overlayer
-        private static async Task LaunchFpsOverlayer(bool forceLaunch)
+        public static async Task LaunchFpsOverlayer(bool forceLaunch)
         {
             try
             {
@@ -150,7 +150,7 @@ namespace DirectXInput
                     await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Launch Fps Overlayer
-                    await ProcessLauncherWin32Async("FpsOverlayer-Admin.exe", "", "", true, false);
+                    await ProcessLauncherWin32Async("FpsOverlayer-Launcher.exe", "", "", true, false);
                 }
             }
             catch { }
