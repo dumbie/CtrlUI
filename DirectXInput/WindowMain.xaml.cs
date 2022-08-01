@@ -264,7 +264,7 @@ namespace DirectXInput
                 {
                     try
                     {
-                        CloseProcessesByNameOrTitle(closeTool.String1, false);
+                        CloseProcessesByNameOrTitle(closeTool.String1, false, true);
                     }
                     catch { }
                 }

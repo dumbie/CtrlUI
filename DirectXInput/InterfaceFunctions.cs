@@ -492,8 +492,8 @@ namespace DirectXInput
         {
             try
             {
-                vProcessCtrlUI = GetProcessByNameOrTitle("CtrlUI", false);
-                vProcessFpsOverlayer = GetProcessByNameOrTitle("FpsOverlayer", false);
+                vProcessCtrlUI = GetProcessByNameOrTitle("CtrlUI", false, true);
+                vProcessFpsOverlayer = GetProcessByNameOrTitle("FpsOverlayer", false, true);
                 vProcessForeground = GetProcessMultiFromWindowHandle(GetForegroundWindow());
 
                 //Check if CtrlUI is currently activated
@@ -597,7 +597,7 @@ namespace DirectXInput
                 string messageResult = await new AVMessageBox().Popup(this, "Install drivers", "Welcome to DirectXInput, it seems like you have not yet installed the required drivers to use this application, please make sure that you have installed the required drivers.\n\nDirectXInput will be closed during the installation of the required drivers.\n\nIf you just installed the drivers and this message shows up restart your PC.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", messageAnswers);
                 if (messageResult == "Install the drivers")
                 {
-                    if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false))
+                    if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false, true))
                     {
                         await ProcessLauncherWin32Async("DriverInstaller.exe", "", "", false, false);
                         await Application_Exit();
@@ -623,7 +623,7 @@ namespace DirectXInput
                 string messageResult = await new AVMessageBox().Popup(this, "Update drivers", "There seem to be newer drivers available to install, DirectXInput will be closed during the installation of the required drivers.\n\nAfter some Windows updates you may need to reinstall the drivers to work.", messageAnswers);
                 if (messageResult == "Update the drivers")
                 {
-                    if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false))
+                    if (!CheckRunningProcessByNameOrTitle("DriverInstaller", false, true))
                     {
                         await ProcessLauncherWin32Async("DriverInstaller.exe", "", "", false, false);
                         await Application_Exit();

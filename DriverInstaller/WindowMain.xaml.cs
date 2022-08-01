@@ -120,7 +120,7 @@ namespace DriverInstaller
                 //Close DirectXInput
                 try
                 {
-                    CloseProcessesByNameOrTitle("DirectXInput", false);
+                    CloseProcessesByNameOrTitle("DirectXInput", false, true);
                 }
                 catch { }
 
@@ -129,7 +129,7 @@ namespace DriverInstaller
                 {
                     try
                     {
-                        CloseProcessesByNameOrTitle(closeLauncher.String1, false);
+                        CloseProcessesByNameOrTitle(closeLauncher.String1, false, true);
                     }
                     catch { }
                 }
@@ -139,7 +139,7 @@ namespace DriverInstaller
                 {
                     try
                     {
-                        CloseProcessesByNameOrTitle(closeTool.String1, false);
+                        CloseProcessesByNameOrTitle(closeTool.String1, false, true);
                     }
                     catch { }
                 }

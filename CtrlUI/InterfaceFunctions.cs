@@ -325,7 +325,7 @@ namespace CtrlUI
         {
             try
             {
-                vProcessDirectXInput = GetProcessByNameOrTitle("DirectXInput", false);
+                vProcessDirectXInput = GetProcessByNameOrTitle("DirectXInput", false, true);
                 int focusedAppId = GetProcessMultiFromWindowHandle(GetForegroundWindow()).Identifier;
 
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
@@ -744,7 +744,7 @@ namespace CtrlUI
                     }
 
                     //Check if application process is still running
-                    if (!CheckRunningProcessByNameOrTitle(vPrevFocusedProcess.Name, false))
+                    if (!CheckRunningProcessByNameOrTitle(vPrevFocusedProcess.Name, false, true))
                     {
                         Debug.WriteLine("Previous process is no longer running.");
                         await ApplicationPopupMinimize("Previous app is no longer running");

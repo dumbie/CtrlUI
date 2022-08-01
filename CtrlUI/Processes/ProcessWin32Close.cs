@@ -26,11 +26,11 @@ namespace CtrlUI
                 }
                 else if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
                 {
-                    closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.NameExe), false);
+                    closedProcess = CloseProcessesByNameOrTitle(dataBindApp.NameExe, false, true);
                 }
                 else
                 {
-                    closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.PathExe), false);
+                    closedProcess = CloseProcessesByNameOrTitle(dataBindApp.PathExe, false, true);
                 }
 
                 //Check if process closed
@@ -86,11 +86,11 @@ namespace CtrlUI
                     }
                     else if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
                     {
-                        closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.NameExe), false);
+                        closedProcess = CloseProcessesByNameOrTitle(dataBindApp.NameExe, false, true);
                     }
                     else
                     {
-                        closedProcess = CloseProcessesByNameOrTitle(Path.GetFileNameWithoutExtension(dataBindApp.PathExe), false);
+                        closedProcess = CloseProcessesByNameOrTitle(dataBindApp.PathExe, false, true);
                     }
                 }
 

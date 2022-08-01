@@ -387,7 +387,7 @@ namespace CtrlUI
                     {
                         try
                         {
-                            CloseProcessesByNameOrTitle(closeLauncher.String1, false);
+                            CloseProcessesByNameOrTitle(closeLauncher.String1, false, true);
                         }
                         catch { }
                     }
@@ -414,10 +414,10 @@ namespace CtrlUI
                     await Notification_Send_Status("Stream", "Disconnecting remote streams");
 
                     //Disconnect Steam Streaming
-                    CloseProcessesByNameOrTitle("steam", false);
+                    CloseProcessesByNameOrTitle("steam", false, true);
 
                     //Disconnect GeForce Experience
-                    CloseProcessesByNameOrTitle("nvstreamer", false);
+                    CloseProcessesByNameOrTitle("nvstreamer", false, true);
 
                     //Disconnect Parsec Streaming
                     KeyPressReleaseCombo(KeysVirtual.Control, KeysVirtual.F3);
@@ -434,7 +434,7 @@ namespace CtrlUI
         {
             try
             {
-                if (!CheckRunningProcessByNameOrTitle("DirectXInput", false))
+                if (!CheckRunningProcessByNameOrTitle("DirectXInput", false, true))
                 {
                     Debug.WriteLine("Launching DirectXInput");
                     if (!silentLaunch)
@@ -460,7 +460,7 @@ namespace CtrlUI
         {
             try
             {
-                if (CheckRunningProcessByNameOrTitle("FpsOverlayer", false))
+                if (CheckRunningProcessByNameOrTitle("FpsOverlayer", false, true))
                 {
                     //Close the Fps Overlayer
                     await CloseFpsOverlayer();
@@ -508,7 +508,7 @@ namespace CtrlUI
         {
             try
             {
-                if (forceLaunch || !CheckRunningProcessByNameOrTitle("FpsOverlayer", false))
+                if (forceLaunch || !CheckRunningProcessByNameOrTitle("FpsOverlayer", false, true))
                 {
                     await Notification_Send_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");

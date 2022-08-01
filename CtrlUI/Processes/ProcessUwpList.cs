@@ -28,7 +28,7 @@ namespace CtrlUI
             try
             {
                 //Check if there are active processes
-                Process frameHostProcess = GetProcessByNameOrTitle("ApplicationFrameHost", false);
+                Process frameHostProcess = GetProcessByNameOrTitle("ApplicationFrameHost", false, true);
                 if (frameHostProcess != null)
                 {
                     //Show refresh status message
