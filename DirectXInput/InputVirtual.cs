@@ -34,23 +34,24 @@ namespace DirectXInput
                 UpdateCheckButtonPressTimes(Controller.InputCurrent.ButtonGuide);
 
                 //Check if the controller is currently idle
-                if (Controller.Details.Wireless && Controller.BatteryCurrent.BatteryStatus != BatteryStatus.Charging)
+                if (Controller.Details.Wireless)
                 {
-                    if (CheckControllerIdle(Controller))
+                    long currentTimeMs = GetSystemTicksMs();
+                    if (Controller.BatteryCurrent.BatteryStatus != BatteryStatus.Charging && CheckControllerIdle(Controller))
                     {
-                        long idleTimeMs = GetSystemTicksMs() - Controller.LastActiveTicks;
+                        long idleTimeMs = currentTimeMs - Controller.LastActiveTicks;
                         int targetTimeMs = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "ControllerIdleDisconnectMin")) * 60000;
                         if (targetTimeMs > 0 && idleTimeMs > targetTimeMs)
                         {
                             Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTimeMs + "/" + targetTimeMs + "ms");
-                            Controller.LastActiveTicks = GetSystemTicksMs();
+                            Controller.LastActiveTicks = currentTimeMs;
                             StopControllerTask(Controller, "idle", "Disconnected idle controller " + Controller.NumberId + ".");
                             return;
                         }
                     }
                     else
                     {
-                        Controller.LastActiveTicks = GetSystemTicksMs();
+                        Controller.LastActiveTicks = currentTimeMs;
                     }
                 }
 
