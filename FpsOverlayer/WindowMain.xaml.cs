@@ -14,6 +14,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
+using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVTaskbarInformation;
 using static FpsOverlayer.AppTasks;
@@ -77,6 +78,12 @@ namespace FpsOverlayer
 
                 //Start hardware monitoring
                 StartMonitorHardware();
+
+                //Register keyboard hotkeys
+                vAVInputOutputHotKey.EventHotKeyPressed += EventHotKeyPressed;
+                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F9);
+                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F10);
+                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F11);
 
                 //Enable the socket server
                 await EnableSocketServer();
