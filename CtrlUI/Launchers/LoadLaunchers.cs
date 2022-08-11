@@ -75,12 +75,6 @@ namespace CtrlUI
                     await BattleNetScanAddLibrary();
                 }
 
-                //Scan and add library from Bethesda
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryBethesda")))
-                {
-                    await BethesdaScanAddLibrary();
-                }
-
                 //Scan and add library from Rockstar
                 if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryRockstar")))
                 {

@@ -314,10 +314,6 @@ namespace CtrlUI
                     {
                         launcherImage = vImagePreloadBattleNet;
                     }
-                    else if (targetPathLower.Contains("bethesdanet://"))
-                    {
-                        launcherImage = vImagePreloadBethesda;
-                    }
                     else if (targetPathLower.Contains("origin://"))
                     {
                         launcherImage = vImagePreloadEADesktop;

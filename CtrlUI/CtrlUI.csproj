@@ -247,7 +247,6 @@
     <Compile Include="Launchers\AmazonListApps.cs" />
     <Compile Include="Launchers\UwpListApps.cs" />
     <Compile Include="Launchers\RockstarListApps.cs" />
-    <Compile Include="Launchers\BethesdaListApps.cs" />
     <Compile Include="Launchers\GoGListApps.cs" />
     <Compile Include="Launchers\UbisoftListApps.cs" />
     <Compile Include="Launchers\EpicListApps.cs" />
@@ -350,9 +349,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Default\Apps\Battle.net.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Default\Apps\Bethesda.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Apps\DirectXInput.png">

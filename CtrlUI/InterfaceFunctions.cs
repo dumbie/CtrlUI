@@ -468,7 +468,6 @@ namespace CtrlUI
                 bool runningEADesktop = processesList.Any(x => x.ProcessName.ToLower() == "eadesktop" || x.ProcessName.ToLower() == "origin");
                 bool runningGog = processesList.Any(x => x.ProcessName.ToLower() == "galaxyclient");
                 bool runningUbisoft = processesList.Any(x => x.ProcessName.ToLower() == "ubisoftconnect" || x.ProcessName.ToLower() == "upc");
-                bool runningBethesda = processesList.Any(x => x.ProcessName.ToLower() == "bethesdanetlauncher");
                 bool runningEpic = processesList.Any(x => x.ProcessName.ToLower() == "epicgameslauncher");
                 bool runningBlizzard = processesList.Any(x => x.ProcessName.ToLower() == "battle.net");
                 bool runningRockstar = processesList.Any(x => x.ProcessName.ToLower() == "rockstarservice");
@@ -512,15 +511,6 @@ namespace CtrlUI
                     else
                     {
                         img_Menu_UbisoftStatus.Opacity = 0.40;
-                    }
-
-                    if (runningBethesda)
-                    {
-                        img_Menu_BethesdaStatus.Opacity = 1.00;
-                    }
-                    else
-                    {
-                        img_Menu_BethesdaStatus.Opacity = 0.40;
                     }
 
                     if (runningEpic)
@@ -966,7 +956,6 @@ namespace CtrlUI
                 img_Menu_UbisoftStatus.Source = vImagePreloadUbisoft;
                 img_Menu_EADesktopStatus.Source = vImagePreloadEADesktop;
                 img_Menu_GoGStatus.Source = vImagePreloadGoG;
-                img_Menu_BethesdaStatus.Source = vImagePreloadBethesda;
                 img_Menu_EpicStatus.Source = vImagePreloadEpic;
                 img_Menu_BattleNetStatus.Source = vImagePreloadBattleNet;
                 img_Menu_RockstarStatus.Source = vImagePreloadRockstar;

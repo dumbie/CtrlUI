@@ -100,13 +100,6 @@ namespace CtrlUI
                     await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
                 };
 
-                cb_SettingsShowLibraryBethesda.Click += async (sender, e) =>
-                {
-                    Setting_Save(vConfigurationCtrlUI, "ShowLibraryBethesda", cb_SettingsShowLibraryBethesda.IsChecked.ToString());
-                    Func<DataBindApp, bool> filterLauncherApp = x => x.Category == AppCategory.Launcher && x.Launcher == AppLauncher.Bethesda;
-                    await ListBoxRemoveAll(lb_Launchers, List_Launchers, filterLauncherApp);
-                };
-
                 cb_SettingsShowLibraryRockstar.Click += async (sender, e) =>
                 {
                     Setting_Save(vConfigurationCtrlUI, "ShowLibraryRockstar", cb_SettingsShowLibraryRockstar.IsChecked.ToString());

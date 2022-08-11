@@ -213,7 +213,6 @@
                         <Image Name="img_Menu_EADesktopStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_GoGStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_EpicStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                        <Image Name="img_Menu_BethesdaStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_BattleNetStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_RockstarStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
                         <Image Name="img_Menu_DiscordStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
@@ -594,9 +593,6 @@
 
                             <CheckBox Name="cb_SettingsShowLibraryBattleNet" Content="Shows games from Battle.net library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will show all the installed games from your Battle.net library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                            <CheckBox Name="cb_SettingsShowLibraryBethesda" Content="Shows games from Bethesda library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                            <TextBlock Text="Enabling this will show all the installed games from your Bethesda library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
                             <CheckBox Name="cb_SettingsShowLibraryRockstar" Content="Shows games from Rockstar library" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                             <TextBlock Text="Enabling this will show all the installed games from your Rockstar library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
