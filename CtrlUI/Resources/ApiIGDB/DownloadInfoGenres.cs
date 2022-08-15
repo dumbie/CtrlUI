@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Download igdb genres
-        public async Task ApiIGDBDownloadGenres()
+        public async Task<bool> ApiIGDBDownloadGenres()
         {
             try
             {
@@ -21,7 +22,7 @@ namespace CtrlUI
                 string authAccessToken = await ApiTwitch_Authenticate();
                 if (string.IsNullOrWhiteSpace(authAccessToken))
                 {
-                    return;
+                    return false;
                 }
 
                 //Set request headers
@@ -34,7 +35,7 @@ namespace CtrlUI
                 Uri requestUri = new Uri("https://api.igdb.com/v4/genres");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 500; sort id asc;";
+                string requestBodyString = "fields *; sort id asc;";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
                 //Download igdb genres
@@ -42,13 +43,17 @@ namespace CtrlUI
                 if (string.IsNullOrWhiteSpace(resultSearch))
                 {
                     Debug.WriteLine("Failed downloading IGDB genres.");
-                    return;
+                    return false;
                 }
+
+                //Save igdb genres
+                File.WriteAllText("Resources/ApiIGDB/Genres.json", resultSearch);
+                return true;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed downloading IGDB genres: " + ex.Message);
-                return;
+                return false;
             }
         }
     }

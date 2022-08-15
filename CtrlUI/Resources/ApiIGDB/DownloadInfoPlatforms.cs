@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Download igdb platforms
-        public async Task ApiIGDBDownloadPlatforms()
+        public async Task<bool> ApiIGDBDownloadPlatforms()
         {
             try
             {
@@ -21,7 +22,7 @@ namespace CtrlUI
                 string authAccessToken = await ApiTwitch_Authenticate();
                 if (string.IsNullOrWhiteSpace(authAccessToken))
                 {
-                    return;
+                    return false;
                 }
 
                 //Set request headers
@@ -34,21 +35,25 @@ namespace CtrlUI
                 Uri requestUri = new Uri("https://api.igdb.com/v4/platforms");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 500; sort id asc;";
+                string requestBodyString = "fields *; sort id asc;";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
-                //Download igdb genres
+                //Download igdb platforms
                 string resultSearch = await AVDownloader.SendPostRequestAsync(5000, "CtrlUI", requestHeaders, requestUri, requestBodyStringContent);
                 if (string.IsNullOrWhiteSpace(resultSearch))
                 {
                     Debug.WriteLine("Failed downloading IGDB platforms.");
-                    return;
+                    return false;
                 }
+
+                //Save igdb platforms
+                File.WriteAllText("Resources/ApiIGDB/Platforms.json", resultSearch);
+                return true;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed downloading IGDB platforms: " + ex.Message);
-                return;
+                return false;
             }
         }
     }

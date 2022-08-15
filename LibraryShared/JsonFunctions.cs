@@ -9,6 +9,21 @@ namespace LibraryShared
 {
     public class JsonFunctions
     {
+        //Read Json from path (Deserialize)
+        public static void JsonLoadPath<T>(ref T deserializeTarget, string filePath)
+        {
+            try
+            {
+                string jsonFile = File.ReadAllText(filePath);
+                deserializeTarget = JsonConvert.DeserializeObject<T>(jsonFile);
+                Debug.WriteLine("Completed reading json file: " + filePath);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed reading json file: " + filePath + "/" + ex.Message);
+            }
+        }
+
         //Read Json from profile (Deserialize)
         public static void JsonLoadSingle<T>(ref T deserializeTarget, string profileName)
         {

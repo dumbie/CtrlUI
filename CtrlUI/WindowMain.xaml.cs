@@ -109,6 +109,9 @@ namespace CtrlUI
                 //Select the first ListBox item
                 ListBoxResetIndexes();
 
+                //Update IGDB api files
+                await ApiIGDB_UpdateFiles();
+
                 //Load Json stored apps
                 await JsonLoadList_Applications();
 
@@ -126,8 +129,8 @@ namespace CtrlUI
                 JsonLoadSingle(ref vCtrlKeyboardProcessName, @"User\CtrlKeyboardProcessName");
 
                 //Load Json lists
-                JsonLoadEmbedded(vAppAssembly, ref vApiIGDBGenres, "CtrlUI.Resources.ApiIGDB.Genres.json");
-                JsonLoadEmbedded(vAppAssembly, ref vApiIGDBPlatforms, "CtrlUI.Resources.ApiIGDB.Platforms.json");
+                JsonLoadPath(ref vApiIGDBGenres, @"Resources\ApiIGDB\Genres.json");
+                JsonLoadPath(ref vApiIGDBPlatforms, @"Resources\ApiIGDB\Platforms.json");
 
                 //Update uwp application images
                 UpdateUwpApplicationImages();

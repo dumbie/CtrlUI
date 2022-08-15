@@ -14,6 +14,7 @@ namespace CtrlUI
             {
                 if (Setting_Load(vConfigurationCtrlUI, "AppFirstLaunch") == null) { Setting_Save(vConfigurationCtrlUI, "AppFirstLaunch", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "AppFontSize") == null) { Setting_Save(vConfigurationCtrlUI, "AppFontSize", "0"); }
+                if (Setting_Load(vConfigurationCtrlUI, "ApiIGDBUpdate") == null) { Setting_Save(vConfigurationCtrlUI, "ApiIGDBUpdate", "01/01/1970 00:00:00"); }                    
 
                 if (Setting_Load(vConfigurationCtrlUI, "DisplayMonitor") == null) { Setting_Save(vConfigurationCtrlUI, "DisplayMonitor", "1"); } //Shared
                 if (Setting_Load(vConfigurationCtrlUI, "MonitorPreventSleep") == null) { Setting_Save(vConfigurationCtrlUI, "MonitorPreventSleep", "True"); }
