@@ -19,7 +19,13 @@ namespace FpsOverlayer
         public static Configuration vConfigurationCtrlUI = Settings_Load_CtrlUI();
         public static Configuration vConfigurationFpsOverlayer = Settings_Load_FpsOverlayer();
         public static ProcessMulti vTargetProcess = new ProcessMulti();
-        public static bool vManualHidden = false;
+
+        //Application Windows
+        public static WindowMain vWindowMain = new WindowMain();
+        public static WindowSettings vWindowSettings = new WindowSettings();
+
+        //Interaction Variables
+        public static bool vSingleTappedEvent = true;
 
         //Process Variables
         public static Process vProcessCurrent = Process.GetCurrentProcess();

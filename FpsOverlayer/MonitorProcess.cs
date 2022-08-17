@@ -73,7 +73,7 @@ namespace FpsOverlayer
                         ResetFpsCounter();
 
                         //Update the fps overlayer position
-                        await UpdateFpsOverlayPosition(foregroundProcess.Name);
+                        UpdateFpsOverlayPosition(foregroundProcess.Name);
 
                         //Check if the foreground window is fps overlayer
                         if (vProcessCurrent.Id == foregroundProcess.Identifier)

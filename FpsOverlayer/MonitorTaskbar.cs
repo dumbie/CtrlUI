@@ -59,7 +59,7 @@ namespace FpsOverlayer
                                 vTaskBarAdjustMargin = taskbarSize;
 
                                 //Update the fps overlay position
-                                await UpdateFpsOverlayPosition(vTargetProcess.Name);
+                                UpdateFpsOverlayPosition(vTargetProcess.Name);
                             }
                         }
                         else
@@ -70,7 +70,7 @@ namespace FpsOverlayer
                                 vTaskBarAdjustMargin = 0;
 
                                 //Update the fps overlay position
-                                await UpdateFpsOverlayPosition(vTargetProcess.Name);
+                                UpdateFpsOverlayPosition(vTargetProcess.Name);
                             }
                         }
                     }

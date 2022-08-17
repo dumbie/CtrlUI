@@ -8,358 +8,486 @@
         RenderOptions.BitmapScalingMode="HighQuality"
         SnapsToDevicePixels="True"
         mc:Ignorable="d"
-        Title="Settings"
+        Title="Fps Overlayer"
         MinHeight="620"
         Height="620"
-        MinWidth="500"
-        MaxWidth="500"
+        MinWidth="585"
+        MaxWidth="585"
         Background="{DynamicResource ApplicationWhiteBrush}">
 
-    <!-- Grid Settings -->
-    <Grid Margin="10">
-        <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
-            <StackPanel>
-                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Launch Settings"/>
-                <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will launch Fps Overlayer when you start Windows automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Display Settings"/>
-                <CheckBox Name="checkbox_DisplayBackground" Content="Display background behind text" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will display a background behind the stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <TextBlock Name="textblock_HardwareUpdateRateMs" Text="Hardware update rate" Tag="Hardware update rate" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                <TextBlock Text="Change the hardware information update rate in milliseconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <Slider Minimum="500" Maximum="3000" TickFrequency="100" SmallChange="100" LargeChange="100" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_HardwareUpdateRateMs" Style="{StaticResource SliderWhite}"/>
-
-                <TextBlock Name="textblock_DisplayOpacity" Text="Stats display transparency" Tag="Stats display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                <TextBlock Text="Change the transparency of the shown fps overlay stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_DisplayOpacity" Style="{StaticResource SliderWhite}"/>
-
-                <TextBlock Text="Stats display screen margins" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                <TextBlock Text="Change the stats overlay margin from the screen border." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="130" Name="textblock_MarginHorizontal" Text="Horizontal" Tag="Horizontal" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                    <Slider Minimum="-10" Maximum="600" Height="18" Width="310" Name="slider_MarginHorizontal" Style="{StaticResource SliderWhite}"/>
+        <!-- Grid Menu -->
+        <Grid Name="grid_Menu" Grid.Column="0" Width="105" Background="{DynamicResource ApplicationBlackBrush}">
+            <ListBox Name="lb_Menu" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" Style="{StaticResource ListBoxVertical}">
+                <StackPanel Name="menuButtonText" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage text settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Font.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Text" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="130" Name="textblock_MarginVertical" Text="Vertical" Tag="Vertical" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                    <Slider Minimum="-10" Maximum="600" Height="18" Width="310" Name="slider_MarginVertical" Style="{StaticResource SliderWhite}"/>
+                <StackPanel Name="menuButtonDisplay" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage display settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Opacity.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Display" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-
-                <CheckBox Margin="0,10,0,0" Name="checkbox_CheckTaskbarVisible" Content="Adjust margin to taskbar visibility" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Automatically adjust the overlay margin to your taskbar visibility when you have taskbar auto hide enabled in Windows." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Text Settings"/>
-                <TextBlock Text="Text display font" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                <TextBlock Text="Change the font in which the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <ComboBox Name="combobox_InterfaceFontStyleName" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}"/>
-
-                <TextBlock Margin="0,10,0,0" Text="Text display position" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                <TextBlock Text="Change the position of where the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <ComboBox Name="combobox_TextPosition" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
-                    <ComboBoxItem>Top left</ComboBoxItem>
-                    <ComboBoxItem>Top center</ComboBoxItem>
-                    <ComboBoxItem>Top right</ComboBoxItem>
-                    <ComboBoxItem>Middle right</ComboBoxItem>
-                    <ComboBoxItem>Bottom right</ComboBoxItem>
-                    <ComboBoxItem>Bottom center</ComboBoxItem>
-                    <ComboBoxItem>Bottom left</ComboBoxItem>
-                    <ComboBoxItem>Middle left</ComboBoxItem>
-                </ComboBox>
-
-                <TextBlock Text="Text display direction" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                <TextBlock Text="Change the direction the stats are displayed in." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <ComboBox Name="combobox_TextDirection" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
-                    <ComboBoxItem>Horizontal</ComboBoxItem>
-                    <ComboBoxItem>Vertical</ComboBoxItem>
-                </ComboBox>
-
-                <TextBlock Name="textblock_TextSize" Tag="Text display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                <TextBlock Text="Change the font size of the displayed stats text." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                <Slider Minimum="8" Maximum="120" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_TextSize" Style="{StaticResource SliderWhite}"/>
-
-                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Color Settings"/>
-                <CheckBox Name="checkbox_TextColorSingle" Content="Show text in single color" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the text only in one single color." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <TextBlock Text="Display color for single text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <Button Name="colorpicker_ColorSingle" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the single text color"/>
+                <StackPanel Name="menuButtonCrosshair" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage crosshair settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Crosshair.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Crosshair" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <TextBlock Text="Display color for the background:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <Button Name="colorpicker_ColorBackground" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the stats background color"/>
+                <StackPanel Name="menuButtonFps" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage frames settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Fps.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Frames" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <TextBlock Text="Display color for videocard text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <Button Name="colorpicker_ColorGpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the videocard text color"/>
+                <StackPanel Name="menuButtonTime" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage time settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Clock.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Time" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <TextBlock Text="Display color for memory text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <Button Name="colorpicker_ColorMem" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the memory text color"/>
+                <StackPanel Name="menuButtonProcessor" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage processor settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Processor.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Processor" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <TextBlock Text="Display color for processor text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <Button Name="colorpicker_ColorCpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the processor text color"/>
+                <StackPanel Name="menuButtonVideocard" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage videocard settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Videocard.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Videocard" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <TextBlock Text="Display color for network text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <Button Name="colorpicker_ColorNet" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the network text color"/>
+                <StackPanel Name="menuButtonMemory" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage memory settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Memory.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Memory" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <TextBlock Text="Display color for frames text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <Button Name="colorpicker_ColorFps" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the frames per second text color"/>
+                <StackPanel Name="menuButtonNetwork" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage network settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Network.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Network" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <TextBlock Text="Display color for monitor text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <Button Name="colorpicker_ColorMon" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the monitor text color"/>
+                <StackPanel Name="menuButtonMonitor" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage monitor settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Monitor.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Monitor" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <TextBlock Text="Display color for application name:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <Button Name="colorpicker_ColorApp" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the application name color"/>
+                <StackPanel Name="menuButtonBattery" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage battery settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerDis100.png" Margin="0,5,0,0" Height="50" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Battery" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <TextBlock Text="Display color for battery level:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <Button Name="colorpicker_ColorBat" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the battery level color"/>
+                <StackPanel Name="menuButtonApplications" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage application settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Applications.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Applications" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <TextBlock Text="Display color for current time:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                    <Button Name="colorpicker_ColorTime" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the current time color"/>
+                <StackPanel Name="menuButtonSettings" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage general settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Settings.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Settings" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-
-                <TextBlock Margin="0,10,0,0" Text="* Some settings below may not work with your hardware." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Videocard Settings"/>
-                    <Button Name="button_GpuUp" Margin="8,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                    </Button>
-                    <Button Name="button_GpuDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                    </Button>
-                    <TextBlock Name="textblock_GpuPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                <StackPanel Name="menuButtonClose" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Close the window">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Close" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox Name="checkbox_GpuShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_GpuCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                <StackPanel Name="menuButtonExit" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Exit application">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shutdown.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Exit" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+            </ListBox>
+        </Grid>
 
-                <CheckBox Name="checkbox_GpuShowName" Content="Show the videocard name" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the videocard name in the overlay." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+        <!-- Grid Settings -->
+        <Grid Grid.Column="1" Margin="10,0,0,0">
+            <ScrollViewer  Style="{StaticResource ScrollViewerVertical}">
+                <StackPanel>
+                    <StackPanel Name="stackpanel_Text" Visibility="Visible">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Text Settings"/>
+                        <CheckBox Name="checkbox_DisplayBackground" Content="Display background behind text" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will display a background behind the stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                <CheckBox Name="checkbox_GpuShowPercentage" Content="Show load in percentage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the videocards load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Margin="0,10,0,0" Text="Text display position" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the position of where the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <ComboBox Name="combobox_TextPosition" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
+                            <ComboBoxItem>Top left</ComboBoxItem>
+                            <ComboBoxItem>Top center</ComboBoxItem>
+                            <ComboBoxItem>Top right</ComboBoxItem>
+                            <ComboBoxItem>Middle right</ComboBoxItem>
+                            <ComboBoxItem>Bottom right</ComboBoxItem>
+                            <ComboBoxItem>Bottom center</ComboBoxItem>
+                            <ComboBoxItem>Bottom left</ComboBoxItem>
+                            <ComboBoxItem>Middle left</ComboBoxItem>
+                        </ComboBox>
 
-                <CheckBox Name="checkbox_GpuShowTemperature" Content="Show the temperature" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the videocards current temperature." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Text="Text display direction" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the direction the stats are displayed in." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <ComboBox Name="combobox_TextDirection" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
+                            <ComboBoxItem>Horizontal</ComboBoxItem>
+                            <ComboBoxItem>Vertical</ComboBoxItem>
+                        </ComboBox>
 
-                <CheckBox Name="checkbox_GpuShowCoreFrequency" Content="Show the core frequency" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the videocards current core frequency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Name="textblock_TextSize" Tag="Text display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the font size of the displayed stats text." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <Slider Minimum="8" Maximum="120" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_TextSize" Style="{StaticResource SliderWhite}"/>
 
-                <CheckBox Name="checkbox_GpuShowMemoryUsed" Margin="0,10,0,0" Content="Show the used memory" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the videocards used memory in bytes." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Margin="0,10,0,0" Text="Text display font" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the font in which the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <ComboBox Name="combobox_InterfaceFontStyleName" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}"/>
 
-                <CheckBox Name="checkbox_GpuShowFanSpeed" Content="Show the fan speed" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the videocards current fan speed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Color Settings"/>
+                        <CheckBox Name="checkbox_TextColorSingle" Content="Show text in single color" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the text only in one single color." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                <CheckBox Name="checkbox_GpuShowPowerWatt" Content="Show the power wattage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the videocards current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="Display color for single text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorSingle" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the single text color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for the background:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorBackground" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the stats background color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for videocard text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorGpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the videocard text color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for memory text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorMem" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the memory text color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for processor text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorCpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the processor text color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for network text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorNet" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the network text color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for frames text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorFps" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the frames per second text color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for monitor text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorMon" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the monitor text color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for application name:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorApp" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the application name color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for battery level:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorBat" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the battery level color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for current time:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorTime" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the current time color"/>
+                        </StackPanel>
+                    </StackPanel>
 
-                <CheckBox Name="checkbox_GpuShowPowerVolt" Content="Show the power voltage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the videocards current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    <StackPanel Name="stackpanel_Display" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Display Settings"/>
+                        <TextBlock Name="textblock_HardwareUpdateRateMs" Text="Hardware update rate" Tag="Hardware update rate" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the hardware information update rate in milliseconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <Slider Minimum="500" Maximum="3000" TickFrequency="100" SmallChange="100" LargeChange="100" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_HardwareUpdateRateMs" Style="{StaticResource SliderWhite}"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Processor Settings"/>
-                    <Button Name="button_CpuUp" Margin="8,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                    </Button>
-                    <Button Name="button_CpuDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                    </Button>
-                    <TextBlock Name="textblock_CpuPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        <TextBlock Name="textblock_DisplayOpacity" Text="Stats display transparency" Tag="Stats display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the transparency of the shown fps overlay stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_DisplayOpacity" Style="{StaticResource SliderWhite}"/>
+
+                        <TextBlock Text="Stats display screen margins" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the stats overlay margin from the screen border." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="130" Name="textblock_MarginHorizontal" Text="Horizontal" Tag="Horizontal" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Minimum="-10" Maximum="600" Height="18" Width="310" Name="slider_MarginHorizontal" Style="{StaticResource SliderWhite}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="130" Name="textblock_MarginVertical" Text="Vertical" Tag="Vertical" TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                            <Slider Minimum="-10" Maximum="600" Height="18" Width="310" Name="slider_MarginVertical" Style="{StaticResource SliderWhite}"/>
+                        </StackPanel>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_CheckTaskbarVisible" Content="Adjust margin to taskbar visibility" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Automatically adjust the overlay margin to your taskbar visibility when you have taskbar auto hide enabled in Windows." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Crosshair" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Crosshair Settings"/>
+
+                        <CheckBox Name="checkbox_CrosshairLaunch" Content="Show crosshair on launch" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the crosshair on launch." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="Crosshair display color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorCrosshair" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the crosshair color"/>
+                        </StackPanel>
+                        
+                        <TextBlock Name="textblock_CrosshairSize" Text="Crosshair display size" Tag="Crosshair display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the crosshair displayed size in pixels." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairSize" Style="{StaticResource SliderWhite}"/>
+
+                        <TextBlock Name="textblock_CrosshairTransparency" Text="Crosshair display transparency" Tag="Crosshair display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the crosshair displayed transparency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairTransparency" Style="{StaticResource SliderWhite}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Fps" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Frames Settings"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="button_FpsUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_FpsDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_FpsPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                            <CheckBox Name="checkbox_FpsShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBox Name="textbox_FpsCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                        </StackPanel>
+                        <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_FpsShowCurrentFps" Content="Show the current fps" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the current frames per second." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_FpsShowCurrentLatency" Content="Show the current latency" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the current frame times latency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_FpsShowAverageFps" Content="Show the average fps" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the average fps from the last 10 seconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Time" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Time Settings"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="button_TimeUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_TimeDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_TimePosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_TimeShowCurrentTime" Content="Show the current time" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the current time." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Processor" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Processor Settings"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="button_CpuUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_CpuDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_CpuPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
+
+                        <TextBlock Margin="0,10,0,0" Text="* Some settings below may not work with your hardware." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                            <CheckBox Name="checkbox_CpuShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBox Name="textbox_CpuCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                        </StackPanel>
+                        <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_CpuShowName" Content="Show the processor name" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the processor name in the overlay." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_CpuShowPercentage" Content="Show load in percentage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the processors load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_CpuShowTemperature" Content="Show the temperature" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the processors current temperature." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_CpuShowCoreFrequency" Content="Show the core frequency" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the processors current core frequency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_CpuShowPowerWatt" Content="Show the power wattage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the processors current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_CpuShowPowerVolt" Content="Show the power voltage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the processors current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_CpuShowFanSpeed" Content="Show the fan speed" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the processors current fan speed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Videocard" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Videocard Settings"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="button_GpuUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_GpuDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_GpuPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
+
+                        <TextBlock Margin="0,10,0,0" Text="* Some settings below may not work with your hardware." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                            <CheckBox Name="checkbox_GpuShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBox Name="textbox_GpuCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                        </StackPanel>
+                        <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_GpuShowName" Content="Show the videocard name" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the videocard name in the overlay." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_GpuShowPercentage" Content="Show load in percentage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the videocards load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_GpuShowTemperature" Content="Show the temperature" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the videocards current temperature." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_GpuShowCoreFrequency" Content="Show the core frequency" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the videocards current core frequency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_GpuShowMemoryUsed" Margin="0,10,0,0" Content="Show the used memory" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the videocards used memory in bytes." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_GpuShowFanSpeed" Content="Show the fan speed" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the videocards current fan speed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_GpuShowPowerWatt" Content="Show the power wattage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the videocards current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_GpuShowPowerVolt" Content="Show the power voltage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the videocards current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Memory" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Memory Settings"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="button_MemUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_MemDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_MemPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                            <CheckBox Name="checkbox_MemShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBox Name="textbox_MemCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                        </StackPanel>
+                        <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowPercentage" Content="Show load in percentage" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the memory load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowUsed" Content="Show the used memory" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the used memory in bytes." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowFree" Content="Show the free memory" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the free memory in bytes." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowTotal" Content="Show the total memory" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the total memory in bytes." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Network" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Network Settings"/>
+                        <StackPanel Orientation="Horizontal" >
+                            <Button Name="button_NetUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_NetDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_NetPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                            <CheckBox Name="checkbox_NetShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBox Name="textbox_NetCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                        </StackPanel>
+                        <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_NetShowCurrentUsage" Content="Show current network usage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the current network usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Monitor" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Monitor Settings"/>
+                        <StackPanel Orientation="Horizontal" >
+                            <Button Name="button_MonUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_MonDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_MonPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                            <CheckBox Name="checkbox_MonShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBox Name="textbox_MonCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                        </StackPanel>
+                        <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_MonShowResolution" Content="Show the current resolution" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the current monitor resolution." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_MonShowDpiResolution" Content="Show the effective dpi resolution" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the dpi resolution instead of native." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_MonShowColorBitDepth" Content="Show the current color bit depth" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the current monitor color bit depth." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_MonShowRefreshRate" Content="Show the current refresh rate" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the current monitor refresh rate." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Battery" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Battery Settings"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="button_BatUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_BatDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_BatPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                            <CheckBox Name="checkbox_BatShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
+                            <TextBox Name="textbox_BatCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                        </StackPanel>
+                        <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_BatShowPercentage" Content="Show battery level" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the current battery level and status." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Applications" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Settings"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="button_AppUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_AppDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_AppPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_AppShowName" Content="Show focused application name" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the currently focused application name." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Styles"/>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <TextBox Name="textbox_AddApp" Width="300" Text="Process name..." styles:TextboxPlaceholder.Placeholder="Process name..." Style="{StaticResource TextBoxBlack}"/>
+                            <Button Name="button_AddApp" Margin="10,0,0,0" Content="Add process" Style="{StaticResource ButtonAccentBlack}"/>
+                        </StackPanel>
+
+                        <ListBox Name="listbox_Apps" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemBlack}" ItemTemplate="{StaticResource ListBoxItemAppPosition}" Style="{StaticResource ListBoxVerticalNoScroll}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Settings" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Launch Settings"/>
+                        <CheckBox Name="cb_SettingsWindowsStartup" Content="Launch application on Windows startup" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will launch Fps Overlayer when you start Windows automatically." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                    </StackPanel>
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox Name="checkbox_CpuShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_CpuCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
-                </StackPanel>
-                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_CpuShowName" Content="Show the processor name" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the processor name in the overlay." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_CpuShowPercentage" Content="Show load in percentage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the processors load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_CpuShowTemperature" Content="Show the temperature" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the processors current temperature." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_CpuShowCoreFrequency" Content="Show the core frequency" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the processors current core frequency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_CpuShowPowerWatt" Content="Show the power wattage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the processors current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_CpuShowPowerVolt" Content="Show the power voltage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the processors current power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_CpuShowFanSpeed" Content="Show the fan speed" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the processors current fan speed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Memory Settings"/>
-                    <Button Name="button_MemUp" Margin="8,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                    </Button>
-                    <Button Name="button_MemDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                    </Button>
-                    <TextBlock Name="textblock_MemPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox Name="checkbox_MemShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_MemCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
-                </StackPanel>
-                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowPercentage" Content="Show load in percentage" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the memory load in percentage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowUsed" Content="Show the used memory" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the used memory in bytes." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowFree" Content="Show the free memory" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the free memory in bytes." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowTotal" Content="Show the total memory" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the total memory in bytes." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Network Settings"/>
-                    <Button Name="button_NetUp" Margin="8,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                    </Button>
-                    <Button Name="button_NetDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                    </Button>
-                    <TextBlock Name="textblock_NetPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox Name="checkbox_NetShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_NetCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
-                </StackPanel>
-                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_NetShowCurrentUsage" Content="Show current network usage" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the current network usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Frames Settings"/>
-                    <Button Name="button_FpsUp" Margin="8,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                    </Button>
-                    <Button Name="button_FpsDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                    </Button>
-                    <TextBlock Name="textblock_FpsPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox Name="checkbox_FpsShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_FpsCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
-                </StackPanel>
-                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_FpsShowCurrentFps" Content="Show the current fps" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the current frames per second." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_FpsShowCurrentLatency" Content="Show the current latency" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the current frame times latency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_FpsShowAverageFps" Content="Show the average fps" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the average fps from last 10 seconds." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Monitor Settings"/>
-                    <Button Name="button_MonUp" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                    </Button>
-                    <Button Name="button_MonDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                    </Button>
-                    <TextBlock Name="textblock_MonPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox Name="checkbox_MonShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_MonCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
-                </StackPanel>
-                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_MonShowResolution" Content="Show the current resolution" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the current monitor resolution." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_MonShowDpiResolution" Content="Show the effective dpi resolution" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the dpi resolution instead of native." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_MonShowColorBitDepth" Content="Show the current color bit depth" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the current monitor color bit depth." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_MonShowRefreshRate" Content="Show the current refresh rate" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the current monitor refresh rate." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Battery Settings"/>
-                    <Button Name="button_BatUp" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                    </Button>
-                    <Button Name="button_BatDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                    </Button>
-                    <TextBlock Name="textblock_BatPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox Name="checkbox_BatShowCategoryTitle" Content="Show category title" Style="{StaticResource CheckBoxBlack}"/>
-                    <TextBox Name="textbox_BatCategoryTitle" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
-                </StackPanel>
-                <TextBlock Text="Enabling this will show the set category title in front." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <CheckBox Name="checkbox_BatShowPercentage" Content="Show battery level" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the current battery level and status." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Settings"/>
-                    <Button Name="button_AppUp" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                    </Button>
-                    <Button Name="button_AppDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                    </Button>
-                    <TextBlock Name="textblock_AppPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                </StackPanel>
-
-                <CheckBox Name="checkbox_AppShowName" Content="Show focused application name" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the currently focused application name." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Time Settings"/>
-                    <Button Name="button_TimeUp" Margin="10,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
-                    </Button>
-                    <Button Name="button_TimeDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
-                    </Button>
-                    <TextBlock Name="textblock_TimePosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
-                </StackPanel>
-
-                <CheckBox Name="checkbox_TimeShowCurrentTime" Content="Show the current time" Style="{StaticResource CheckBoxBlack}"/>
-                <TextBlock Text="Enabling this will show the current time." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-            </StackPanel>
-        </ScrollViewer>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

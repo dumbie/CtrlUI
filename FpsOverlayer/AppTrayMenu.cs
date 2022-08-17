@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
+using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer
 {
@@ -21,7 +22,6 @@ namespace FpsOverlayer
 
                 //Create a context menu for systray.
                 TrayContextMenu.MenuItems.Add("Settings", NotifyIcon_Settings);
-                TrayContextMenu.MenuItems.Add("Applications", NotifyIcon_Applications);
                 TrayContextMenu.MenuItems.Add("Website", NotifyIcon_Website);
                 TrayContextMenu.MenuItems.Add("Exit", NotifyIcon_Exit);
 
@@ -44,17 +44,7 @@ namespace FpsOverlayer
         {
             try
             {
-                App.vWindowSettings.Show();
-            }
-            catch { }
-        }
-
-        //Show and hide applications
-        void Application_ShowHideApplications()
-        {
-            try
-            {
-                App.vWindowApplications.Show();
+                vWindowSettings.Show();
             }
             catch { }
         }
@@ -65,11 +55,11 @@ namespace FpsOverlayer
             {
                 if (args.Button == MouseButtons.Left)
                 {
-                    await SwitchWindowVisibilityManual();
+                    SwitchFpsOverlayVisibility();
                 }
                 else if (args.Button == MouseButtons.Middle)
                 {
-                    await ChangeWindowPosition();
+                    await ChangeFpsOverlayPosition();
                 }
             }
             catch { }
@@ -77,7 +67,6 @@ namespace FpsOverlayer
 
         void NotifyIcon_MouseUp(object sender, MouseEventArgs args) { Mouse_Single_Click(args); }
         void NotifyIcon_Settings(object sender, EventArgs args) { Application_ShowHideSettings(); }
-        void NotifyIcon_Applications(object sender, EventArgs args) { Application_ShowHideApplications(); }
         void NotifyIcon_Website(object sender, EventArgs args) { Process.Start("https://projects.arnoldvink.com"); }
         async void NotifyIcon_Exit(object sender, EventArgs args) { await Application_Exit(); }
     }

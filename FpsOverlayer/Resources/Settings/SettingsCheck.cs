@@ -35,6 +35,7 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorBat") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorBat", "#FFE115"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorTime") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorTime", "#21AFFF"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorMon") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorMon", "#21A000"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "ColorCrosshair") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorCrosshair", "#FFFFFF"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuId") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuId", "4"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuCategoryTitle", "GPU"); }
@@ -64,7 +65,7 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowCategoryTitle", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowPercentage") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowPercentage", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowUsed") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowUsed", "True"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowFree") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowFree", "True"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowFree") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowFree", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowTotal") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowTotal", "True"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "NetId") == null) { Setting_Save(vConfigurationFpsOverlayer, "NetId", "2"); }

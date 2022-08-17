@@ -12,16 +12,17 @@ namespace FpsOverlayer
                 if (keysModifier == KeysModifier.Alt && keysVirtual == KeysVirtual.F9)
                 {
                     Debug.WriteLine("Button Global - F9");
+                    SwitchCrosshairVisibility();
                 }
                 else if (keysModifier == KeysModifier.Alt && keysVirtual == KeysVirtual.F10)
                 {
                     Debug.WriteLine("Button Global - F10");
-                    await ChangeWindowPosition();
+                    await ChangeFpsOverlayPosition();
                 }
                 else if (keysModifier == KeysModifier.Alt && keysVirtual == KeysVirtual.F11)
                 {
                     Debug.WriteLine("Button Global - F11");
-                    await SwitchWindowVisibilityManual();
+                    SwitchFpsOverlayVisibility();
                 }
             }
             catch { }

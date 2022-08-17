@@ -1,6 +1,4 @@
 ﻿using ArnoldVinkCode.Styles;
-using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -11,36 +9,8 @@ using static LibraryShared.JsonFunctions;
 
 namespace FpsOverlayer
 {
-    public partial class WindowApplications : Window
+    public partial class WindowSettings
     {
-        //Window Initialize
-        public WindowApplications() { InitializeComponent(); }
-
-        //Window Initialized
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            try
-            {
-                //Register Interface Handlers
-                RegisterInterfaceHandlers();
-
-                //Load position processes
-                LoadPositionProcesses();
-            }
-            catch { }
-        }
-
-        //Register Interface Handlers
-        void RegisterInterfaceHandlers()
-        {
-            try
-            {
-                button_AddApp.Click += Button_AddApp_Click;
-                textbox_AddApp.PreviewKeyDown += Textbox_AddApp_PreviewKeyDown;
-            }
-            catch { }
-        }
-
         //Add application to the list
         void Textbox_AddApp_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -123,17 +93,6 @@ namespace FpsOverlayer
             try
             {
                 listbox_Apps.ItemsSource = AppVariables.vFpsPositionProcessName;
-            }
-            catch { }
-        }
-
-        //Application Close Handler
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            try
-            {
-                e.Cancel = true;
-                this.Hide();
             }
             catch { }
         }

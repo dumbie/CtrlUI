@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using static FpsOverlayer.AppVariables;
@@ -27,6 +26,9 @@ namespace FpsOverlayer
                 //Check application settings
                 Settings_Load();
                 Settings_Save();
+
+                //Load position processes
+                LoadPositionProcesses();
 
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
@@ -68,6 +70,13 @@ namespace FpsOverlayer
         {
             try
             {
+                //Main menu functions
+                lb_Menu.PreviewKeyUp += lb_Menu_KeyPressUp;
+                lb_Menu.PreviewMouseUp += lb_Menu_MousePressUp;
+
+                button_AddApp.Click += Button_AddApp_Click;
+                textbox_AddApp.PreviewKeyDown += Textbox_AddApp_PreviewKeyDown;
+
                 button_GpuUp.Click += Button_MoveUp_Click;
                 button_GpuDown.Click += Button_MoveDown_Click;
 
@@ -98,38 +107,38 @@ namespace FpsOverlayer
             catch { }
         }
 
-        async void Button_MoveUp_Click(object sender, RoutedEventArgs e)
+        void Button_MoveUp_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 Button buttonsend = (Button)sender;
-                if (buttonsend.Name == "button_GpuUp") { await MoveStatsPosition(true, "GpuId"); }
-                else if (buttonsend.Name == "button_CpuUp") { await MoveStatsPosition(true, "CpuId"); }
-                else if (buttonsend.Name == "button_MemUp") { await MoveStatsPosition(true, "MemId"); }
-                else if (buttonsend.Name == "button_NetUp") { await MoveStatsPosition(true, "NetId"); }
-                else if (buttonsend.Name == "button_FpsUp") { await MoveStatsPosition(true, "FpsId"); }
-                else if (buttonsend.Name == "button_AppUp") { await MoveStatsPosition(true, "AppId"); }
-                else if (buttonsend.Name == "button_BatUp") { await MoveStatsPosition(true, "BatId"); }
-                else if (buttonsend.Name == "button_TimeUp") { await MoveStatsPosition(true, "TimeId"); }
-                else if (buttonsend.Name == "button_MonUp") { await MoveStatsPosition(true, "MonId"); }
+                if (buttonsend.Name == "button_GpuUp") { MoveStatsPosition(true, "GpuId"); }
+                else if (buttonsend.Name == "button_CpuUp") { MoveStatsPosition(true, "CpuId"); }
+                else if (buttonsend.Name == "button_MemUp") { MoveStatsPosition(true, "MemId"); }
+                else if (buttonsend.Name == "button_NetUp") { MoveStatsPosition(true, "NetId"); }
+                else if (buttonsend.Name == "button_FpsUp") { MoveStatsPosition(true, "FpsId"); }
+                else if (buttonsend.Name == "button_AppUp") { MoveStatsPosition(true, "AppId"); }
+                else if (buttonsend.Name == "button_BatUp") { MoveStatsPosition(true, "BatId"); }
+                else if (buttonsend.Name == "button_TimeUp") { MoveStatsPosition(true, "TimeId"); }
+                else if (buttonsend.Name == "button_MonUp") { MoveStatsPosition(true, "MonId"); }
             }
             catch { }
         }
 
-        async void Button_MoveDown_Click(object sender, RoutedEventArgs e)
+        void Button_MoveDown_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 Button buttonsend = (Button)sender;
-                if (buttonsend.Name == "button_GpuDown") { await MoveStatsPosition(false, "GpuId"); }
-                else if (buttonsend.Name == "button_CpuDown") { await MoveStatsPosition(false, "CpuId"); }
-                else if (buttonsend.Name == "button_MemDown") { await MoveStatsPosition(false, "MemId"); }
-                else if (buttonsend.Name == "button_NetDown") { await MoveStatsPosition(false, "NetId"); }
-                else if (buttonsend.Name == "button_FpsDown") { await MoveStatsPosition(false, "FpsId"); }
-                else if (buttonsend.Name == "button_AppDown") { await MoveStatsPosition(false, "AppId"); }
-                else if (buttonsend.Name == "button_BatDown") { await MoveStatsPosition(false, "BatId"); }
-                else if (buttonsend.Name == "button_TimeDown") { await MoveStatsPosition(false, "TimeId"); }
-                else if (buttonsend.Name == "button_MonDown") { await MoveStatsPosition(false, "MonId"); }
+                if (buttonsend.Name == "button_GpuDown") { MoveStatsPosition(false, "GpuId"); }
+                else if (buttonsend.Name == "button_CpuDown") { MoveStatsPosition(false, "CpuId"); }
+                else if (buttonsend.Name == "button_MemDown") { MoveStatsPosition(false, "MemId"); }
+                else if (buttonsend.Name == "button_NetDown") { MoveStatsPosition(false, "NetId"); }
+                else if (buttonsend.Name == "button_FpsDown") { MoveStatsPosition(false, "FpsId"); }
+                else if (buttonsend.Name == "button_AppDown") { MoveStatsPosition(false, "AppId"); }
+                else if (buttonsend.Name == "button_BatDown") { MoveStatsPosition(false, "BatId"); }
+                else if (buttonsend.Name == "button_TimeDown") { MoveStatsPosition(false, "TimeId"); }
+                else if (buttonsend.Name == "button_MonDown") { MoveStatsPosition(false, "MonId"); }
             }
             catch { }
         }
@@ -162,7 +171,7 @@ namespace FpsOverlayer
             catch { }
         }
 
-        async Task MoveStatsPosition(bool moveUp, string targetName)
+        void MoveStatsPosition(bool moveUp, string targetName)
         {
             try
             {
@@ -246,7 +255,7 @@ namespace FpsOverlayer
 
                     //Save new id
                     Setting_Save(vConfigurationFpsOverlayer, targetName, newId.ToString());
-                    await App.vWindowMain.UpdateFpsOverlayStyle();
+                    vWindowMain.UpdateFpsOverlayStyle();
 
                     //Update stats position text
                     UpdateStatsPositionText();

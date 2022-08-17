@@ -131,6 +131,9 @@ namespace FpsOverlayer
                 string ColorFps = Setting_Load(vConfigurationFpsOverlayer, "ColorFps").ToString();
                 colorpicker_ColorFps.Background = new BrushConverter().ConvertFrom(ColorFps) as SolidColorBrush;
 
+                string ColorCrosshair = Setting_Load(vConfigurationFpsOverlayer, "ColorCrosshair").ToString();
+                colorpicker_ColorCrosshair.Background = new BrushConverter().ConvertFrom(ColorCrosshair) as SolidColorBrush;
+
                 //Update stats position text
                 UpdateStatsPositionText();
 

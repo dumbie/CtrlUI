@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Windows;
 using static ArnoldVinkCode.AVFirewall;
+using static FpsOverlayer.AppVariables;
 using static LibraryShared.AppCheck;
 using static LibraryShared.AppUpdate;
 
@@ -9,11 +10,6 @@ namespace FpsOverlayer
 {
     public partial class App : Application
     {
-        //Application Windows
-        public static WindowMain vWindowMain = new WindowMain();
-        public static WindowSettings vWindowSettings = new WindowSettings();
-        public static WindowApplications vWindowApplications = new WindowApplications();
-
         //Application Startup
         protected override async void OnStartup(StartupEventArgs e)
         {

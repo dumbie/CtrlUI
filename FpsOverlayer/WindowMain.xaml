@@ -16,100 +16,106 @@
         ResizeMode="NoResize"
         Background="Transparent">
 
-    <Grid Name="grid_FpsOverlayer" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <Grid Visibility="Collapsed" Name="stackpanel_CurrentGpu">
-            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentGpu" Padding="2" Margin="0" Text="GPU" VerticalAlignment="Center">
-                <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
-                </TextBlock.Effect>
-            </TextBlock>
+    <Grid>
+        <Grid Name="grid_CrosshairOverlayer" Width="3" Height="3">
+            <Border x:Name="border_Crosshair" Background="White" CornerRadius="10" Opacity="0.80"/>
         </Grid>
 
-        <Grid Visibility="Collapsed" Name="stackpanel_CurrentMem">
-            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentMem" Padding="2" Margin="0" Text="MEM" VerticalAlignment="Center">
-                <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
-                </TextBlock.Effect>
-            </TextBlock>
-        </Grid>
+        <Grid Name="grid_FpsOverlayer" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <Grid Visibility="Collapsed" Name="stackpanel_CurrentCpu">
-            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentCpu" Padding="2" Margin="0" Text="CPU" VerticalAlignment="Center">
-                <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
-                </TextBlock.Effect>
-            </TextBlock>
-        </Grid>
+            <Grid Visibility="Collapsed" Name="stackpanel_CurrentGpu">
+                <TextBlock FontWeight="SemiBold" Name="textblock_CurrentGpu" Padding="2" Margin="0" Text="GPU" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
 
-        <Grid Visibility="Collapsed" Name="stackpanel_CurrentNet">
-            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentNet" Padding="2" Margin="0" Text="NET" VerticalAlignment="Center">
-                <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
-                </TextBlock.Effect>
-            </TextBlock>
-        </Grid>
+            <Grid Visibility="Collapsed" Name="stackpanel_CurrentMem">
+                <TextBlock FontWeight="SemiBold" Name="textblock_CurrentMem" Padding="2" Margin="0" Text="MEM" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
 
-        <Grid Visibility="Collapsed" Name="stackpanel_CurrentFps">
-            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentFps" Padding="2" Margin="0" Text="FPS" VerticalAlignment="Center">
-                <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
-                </TextBlock.Effect>
-            </TextBlock>
-        </Grid>
+            <Grid Visibility="Collapsed" Name="stackpanel_CurrentCpu">
+                <TextBlock FontWeight="SemiBold" Name="textblock_CurrentCpu" Padding="2" Margin="0" Text="CPU" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
 
-        <Grid Visibility="Collapsed" Name="stackpanel_CurrentApp">
-            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentApp" Padding="2" Margin="0" Text="Name" VerticalAlignment="Center">
-                <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
-                </TextBlock.Effect>
-            </TextBlock>
-        </Grid>
+            <Grid Visibility="Collapsed" Name="stackpanel_CurrentNet">
+                <TextBlock FontWeight="SemiBold" Name="textblock_CurrentNet" Padding="2" Margin="0" Text="NET" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
 
-        <Grid Visibility="Collapsed" Name="stackpanel_CurrentMon">
-            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentMon" Padding="2" Margin="0" Text="MON" VerticalAlignment="Center">
-                <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
-                </TextBlock.Effect>
-            </TextBlock>
-        </Grid>
+            <Grid Visibility="Collapsed" Name="stackpanel_CurrentFps">
+                <TextBlock FontWeight="SemiBold" Name="textblock_CurrentFps" Padding="2" Margin="0" Text="FPS" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
 
-        <Grid Visibility="Collapsed" Name="stackpanel_CurrentBat">
-            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentBat" Padding="2" Margin="0" Text="BAT" VerticalAlignment="Center">
-                <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
-                </TextBlock.Effect>
-            </TextBlock>
-        </Grid>
+            <Grid Visibility="Collapsed" Name="stackpanel_CurrentApp">
+                <TextBlock FontWeight="SemiBold" Name="textblock_CurrentApp" Padding="2" Margin="0" Text="Name" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
 
-        <Grid Visibility="Collapsed" Name="stackpanel_CurrentTime">
-            <TextBlock FontWeight="SemiBold" Name="textblock_CurrentTime" Padding="2" Margin="0" Text="Time" VerticalAlignment="Center">
-                <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
-                </TextBlock.Effect>
-            </TextBlock>
+            <Grid Visibility="Collapsed" Name="stackpanel_CurrentMon">
+                <TextBlock FontWeight="SemiBold" Name="textblock_CurrentMon" Padding="2" Margin="0" Text="MON" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
+
+            <Grid Visibility="Collapsed" Name="stackpanel_CurrentBat">
+                <TextBlock FontWeight="SemiBold" Name="textblock_CurrentBat" Padding="2" Margin="0" Text="BAT" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
+
+            <Grid Visibility="Collapsed" Name="stackpanel_CurrentTime">
+                <TextBlock FontWeight="SemiBold" Name="textblock_CurrentTime" Padding="2" Margin="0" Text="Time" VerticalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="2" Direction="320" Color="Black" Opacity="0.90" BlurRadius="2"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
