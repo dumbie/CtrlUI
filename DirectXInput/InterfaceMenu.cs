@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,24 +23,24 @@ namespace DirectXInput
                 {
                     vSingleTappedEvent = true;
                     await Task.Delay(500);
-                    if (vSingleTappedEvent) { lb_Menu_SingleTap(); }
+                    if (vSingleTappedEvent) { await lb_Menu_SingleTap(); }
                 }
             }
             catch { }
         }
 
         //Handle main menu keyboard/controller tapped
-        void lb_Menu_KeyPressUp(object sender, KeyEventArgs e)
+        async void lb_Menu_KeyPressUp(object sender, KeyEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Space) { lb_Menu_SingleTap(); }
+                if (e.Key == Key.Space) { await lb_Menu_SingleTap(); }
             }
             catch { }
         }
 
         //Handle main menu single tap
-        void lb_Menu_SingleTap()
+        async Task lb_Menu_SingleTap()
         {
             try
             {
@@ -58,7 +59,40 @@ namespace DirectXInput
                     else if (SelStackPanel.Name == "menuButtonDebug") { ShowGridPage(grid_Debug); }
                     else if (SelStackPanel.Name == "menuButtonHelp") { ShowGridPage(grid_Help); }
                     else if (SelStackPanel.Name == "menuButtonClose") { Application_HideWindow(); }
+                    else if (SelStackPanel.Name == "menuButtonExit") { await Application_Exit_Prompt(); }
                 }
+            }
+            catch { }
+        }
+
+        //Display a certain grid page
+        void ShowGridPage(FrameworkElement elementTarget)
+        {
+            try
+            {
+                if (elementTarget == grid_Debug)
+                {
+                    Debug.WriteLine("Enabling controller debug mode.");
+                    vShowDebugInformation = true;
+                }
+                else
+                {
+                    Debug.WriteLine("Disabling controller debug mode.");
+                    vShowDebugInformation = false;
+                }
+
+                grid_Connection.Visibility = Visibility.Collapsed;
+                grid_Controller.Visibility = Visibility.Collapsed;
+                grid_Battery.Visibility = Visibility.Collapsed;
+                grid_Ignore.Visibility = Visibility.Collapsed;
+                grid_Keyboard.Visibility = Visibility.Collapsed;
+                grid_Keypad.Visibility = Visibility.Collapsed;
+                grid_Media.Visibility = Visibility.Collapsed;
+                grid_Settings.Visibility = Visibility.Collapsed;
+                grid_Shortcuts.Visibility = Visibility.Collapsed;
+                grid_Debug.Visibility = Visibility.Collapsed;
+                grid_Help.Visibility = Visibility.Collapsed;
+                elementTarget.Visibility = Visibility.Visible;
             }
             catch { }
         }

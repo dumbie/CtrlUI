@@ -16,38 +16,6 @@ namespace DirectXInput
 {
     partial class WindowMain
     {
-        //Display a certain grid page
-        void ShowGridPage(FrameworkElement elementTarget)
-        {
-            try
-            {
-                if (elementTarget == grid_Debug)
-                {
-                    Debug.WriteLine("Enabling controller debug mode.");
-                    vShowDebugInformation = true;
-                }
-                else
-                {
-                    Debug.WriteLine("Disabling controller debug mode.");
-                    vShowDebugInformation = false;
-                }
-
-                grid_Connection.Visibility = Visibility.Collapsed;
-                grid_Controller.Visibility = Visibility.Collapsed;
-                grid_Battery.Visibility = Visibility.Collapsed;
-                grid_Ignore.Visibility = Visibility.Collapsed;
-                grid_Keyboard.Visibility = Visibility.Collapsed;
-                grid_Keypad.Visibility = Visibility.Collapsed;
-                grid_Media.Visibility = Visibility.Collapsed;
-                grid_Settings.Visibility = Visibility.Collapsed;
-                grid_Shortcuts.Visibility = Visibility.Collapsed;
-                grid_Debug.Visibility = Visibility.Collapsed;
-                grid_Help.Visibility = Visibility.Collapsed;
-                elementTarget.Visibility = Visibility.Visible;
-            }
-            catch { }
-        }
-
         //Register Interface Handlers
         void RegisterInterfaceHandlers()
         {
