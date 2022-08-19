@@ -78,6 +78,12 @@ namespace FpsOverlayer
                 //Start hardware monitoring
                 StartMonitorHardware();
 
+                //Show crosshair when enabled
+                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CrosshairLaunch")))
+                {
+                    ShowCrosshairVisibility();
+                }
+
                 //Register keyboard hotkeys
                 vAVInputOutputHotKey.EventHotKeyPressed += EventHotKeyPressed;
                 vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F9);

@@ -21,6 +21,10 @@ namespace FpsOverlayer
                 Debug.WriteLine("Creating application tray menu.");
 
                 //Create a context menu for systray.
+                TrayContextMenu.MenuItems.Add("Show or hide stats", NotifyIcon_ShowHide_Stats);
+                TrayContextMenu.MenuItems.Add("Show or hide crosshair", NotifyIcon_ShowHide_Crosshair);
+                TrayContextMenu.MenuItems.Add("Change stats position", NotifyIcon_Position_Stats);
+                TrayContextMenu.MenuItems.Add("-");
                 TrayContextMenu.MenuItems.Add("Settings", NotifyIcon_Settings);
                 TrayContextMenu.MenuItems.Add("Website", NotifyIcon_Website);
                 TrayContextMenu.MenuItems.Add("Exit", NotifyIcon_Exit);
@@ -49,23 +53,26 @@ namespace FpsOverlayer
             catch { }
         }
 
-        async void Mouse_Single_Click(MouseEventArgs args)
+        void Mouse_Single_Click(MouseEventArgs args)
         {
             try
             {
                 if (args.Button == MouseButtons.Left)
                 {
-                    SwitchFpsOverlayVisibility();
+                    SwitchFpsOverlayVisibilityManual();
                 }
                 else if (args.Button == MouseButtons.Middle)
                 {
-                    await ChangeFpsOverlayPosition();
+                    ChangeFpsOverlayPosition();
                 }
             }
             catch { }
         }
 
         void NotifyIcon_MouseUp(object sender, MouseEventArgs args) { Mouse_Single_Click(args); }
+        void NotifyIcon_ShowHide_Stats(object sender, EventArgs args) { SwitchFpsOverlayVisibilityManual(); }
+        void NotifyIcon_ShowHide_Crosshair(object sender, EventArgs args) { SwitchCrosshairVisibility(); }
+        void NotifyIcon_Position_Stats(object sender, EventArgs args) { ChangeFpsOverlayPosition(); }
         void NotifyIcon_Settings(object sender, EventArgs args) { Application_ShowHideSettings(); }
         void NotifyIcon_Website(object sender, EventArgs args) { Process.Start("https://projects.arnoldvink.com"); }
         async void NotifyIcon_Exit(object sender, EventArgs args) { await Application_Exit(); }

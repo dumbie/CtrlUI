@@ -31,6 +31,13 @@ namespace FpsOverlayer
                 {
                     try
                     {
+                        //Check taskbar setting
+                        if (!Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CheckTaskbarVisible")))
+                        {
+                            vTaskBarAdjustMargin = 0;
+                            continue;
+                        }
+
                         //Check taskbar visibility
                         AVTaskbarInformation taskbarInfo = new AVTaskbarInformation();
                         vTaskBarPosition = taskbarInfo.Position;

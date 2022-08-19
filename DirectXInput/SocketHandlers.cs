@@ -82,11 +82,6 @@ namespace DirectXInput
                         App.vWindowKeyboard.UpdateWindowPosition();
                         App.vWindowKeypad.UpdateWindowPosition();
                     }
-                    else if (receivedString == "SettingChangedTextPosition")
-                    {
-                        vConfigurationFpsOverlayer = Settings_Load_FpsOverlayer();
-                        App.vWindowOverlay.UpdateNotificationPosition();
-                    }
                     else if (receivedString == "ControllerStatusSummaryList")
                     {
                         await SendControllerStatusDetailsList(deserializedBytes);

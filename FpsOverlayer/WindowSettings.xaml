@@ -197,6 +197,10 @@
 
                         <CheckBox Margin="0,10,0,0" Name="checkbox_CheckTaskbarVisible" Content="Adjust margin to taskbar visibility" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Automatically adjust the overlay margin to your taskbar visibility when you have taskbar auto hide enabled in Windows." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <TextBlock Margin="0,10,0,0" Text="* You can toggle the stats visibility with ALT+F9." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Text="* You can toggle the crosshair visibility with ALT+F10." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Text="* You can change the stats position with ALT+F11." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Crosshair" Visibility="Collapsed">
@@ -207,16 +211,17 @@
 
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <TextBlock Text="Crosshair display color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorCrosshair" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the crosshair color"/>
+                            <Button Name="colorpicker_CrosshairColor" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the crosshair color"/>
                         </StackPanel>
-                        
+                        <TextBlock Text="Change the crosshair displayed foreground color." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                         <TextBlock Name="textblock_CrosshairSize" Text="Crosshair display size" Tag="Crosshair display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the crosshair displayed size in pixels." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairSize" Style="{StaticResource SliderWhite}"/>
+                        <Slider Minimum="1" Maximum="20" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairSize" Style="{StaticResource SliderWhite}"/>
 
-                        <TextBlock Name="textblock_CrosshairTransparency" Text="Crosshair display transparency" Tag="Crosshair display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Name="textblock_CrosshairOpacity" Text="Crosshair display transparency" Tag="Crosshair display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the crosshair displayed transparency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairTransparency" Style="{StaticResource SliderWhite}"/>
+                        <Slider Minimum="0.20" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairOpacity" Style="{StaticResource SliderWhite}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Fps" Visibility="Collapsed">

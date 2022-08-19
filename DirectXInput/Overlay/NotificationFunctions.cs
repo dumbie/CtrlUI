@@ -29,9 +29,6 @@ namespace DirectXInput.OverlayCode
         {
             try
             {
-                //Update notification position
-                UpdateNotificationPosition();
-
                 //Update the notification
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {

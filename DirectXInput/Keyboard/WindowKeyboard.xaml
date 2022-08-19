@@ -30,7 +30,7 @@
         <!-- Grid Help -->
         <Border Name="grid_HelpBar" CornerRadius="5" Margin="0,0,0,2" Grid.Row="0">
             <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}"/>
+                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
             </Border.Background>
             <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="50" Style="{StaticResource ScrollViewerHidden}">
                 <StackPanel Orientation="Horizontal">
@@ -91,7 +91,7 @@
         <!-- Grid Media -->
         <Border Name="grid_Media" CornerRadius="5" Margin="0,0,0,2" Grid.Row="1">
             <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}"/>
+                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
             </Border.Background>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -164,7 +164,7 @@
         <Grid Grid.Row="2">
             <Border Name="grid_Keyboard" CornerRadius="5">
                 <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}"/>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
                 </Border.Background>
                 <StackPanel Margin="0,5,5,5">
                     <!-- Key Row 0 -->

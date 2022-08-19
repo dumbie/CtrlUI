@@ -35,7 +35,6 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorBat") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorBat", "#FFE115"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorTime") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorTime", "#21AFFF"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorMon") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorMon", "#21A000"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "ColorCrosshair") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorCrosshair", "#FFFFFF"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuId") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuId", "4"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuCategoryTitle", "GPU"); }
@@ -98,6 +97,12 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "FpsShowCurrentFps") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsShowCurrentFps", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "FpsShowCurrentLatency") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsShowCurrentLatency", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "FpsShowAverageFps") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsShowAverageFps", "True"); }
+
+                //Crosshair
+                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairLaunch") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairLaunch", "False"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairColor") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairColor", "#FFFFFF"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairOpacity") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairOpacity", "0,80"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairSize") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairSize", "4"); }
 
                 Debug.WriteLine("Checked the application settings.");
             }

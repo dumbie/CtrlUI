@@ -250,8 +250,11 @@ namespace FpsOverlayer
                         {
                             if (showPercentage && sensor.SensorType == SensorType.Load)
                             {
-                                //Debug.WriteLine("Mem Load Perc: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
-                                MemoryPercentage = " " + Convert.ToInt32(sensor.Value) + "%";
+                                //Debug.WriteLine("Mem Load Percentage: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
+                                if (sensor.Identifier.ToString().EndsWith("load/0"))
+                                {
+                                    MemoryPercentage = " " + Convert.ToInt32(sensor.Value) + "%";
+                                }
                             }
                             else if (sensor.SensorType == SensorType.Data)
                             {

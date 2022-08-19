@@ -65,11 +65,10 @@ namespace FpsOverlayer
                     vWindowMain.UpdateFpsOverlayStyle();
                 };
 
-                combobox_TextPosition.SelectionChanged += async (sender, e) =>
+                combobox_TextPosition.SelectionChanged += (sender, e) =>
                 {
                     Setting_Save(vConfigurationFpsOverlayer, "TextPosition", combobox_TextPosition.SelectedIndex.ToString());
                     vWindowMain.UpdateFpsOverlayStyle();
-                    await NotifyDirectXInputSettingChanged("TextPosition");
                 };
 
                 combobox_TextDirection.SelectionChanged += (sender, e) =>
@@ -346,16 +345,37 @@ namespace FpsOverlayer
                     }
                 };
 
-                colorpicker_ColorCrosshair.Click += async (sender, e) =>
+                //Crosshair
+                checkbox_CrosshairLaunch.Click += (sender, e) =>
+                {
+                    CheckBox senderCheckBox = (CheckBox)sender;
+                    Setting_Save(vConfigurationFpsOverlayer, "CrosshairLaunch", senderCheckBox.IsChecked.ToString());
+                };
+
+                colorpicker_CrosshairColor.Click += async (sender, e) =>
                 {
                     Color? newColor = await new AVColorPicker().Popup(null);
                     if (newColor != null)
                     {
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
-                        colorpicker_ColorCrosshair.Background = newBrush;
-                        Setting_Save(vConfigurationFpsOverlayer, "ColorCrosshair", newColor.ToString());
+                        colorpicker_CrosshairColor.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "CrosshairColor", newColor.ToString());
                         vWindowMain.UpdateCrosshairOverlayStyle();
                     }
+                };
+
+                slider_CrosshairOpacity.ValueChanged += (sender, e) =>
+                {
+                    textblock_CrosshairOpacity.Text = textblock_CrosshairOpacity.Tag + ": " + slider_CrosshairOpacity.Value.ToString("0.00") + "%";
+                    Setting_Save(vConfigurationFpsOverlayer, "CrosshairOpacity", slider_CrosshairOpacity.Value.ToString("0.00"));
+                    vWindowMain.UpdateCrosshairOverlayStyle();
+                };
+
+                slider_CrosshairSize.ValueChanged += (sender, e) =>
+                {
+                    textblock_CrosshairSize.Text = textblock_CrosshairSize.Tag + ": " + slider_CrosshairSize.Value.ToString("0") + "px";
+                    Setting_Save(vConfigurationFpsOverlayer, "CrosshairSize", slider_CrosshairSize.Value.ToString("0"));
+                    vWindowMain.UpdateCrosshairOverlayStyle();
                 };
             }
             catch (Exception ex)

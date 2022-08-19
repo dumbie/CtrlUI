@@ -435,10 +435,10 @@ namespace DirectXInput
         {
             try
             {
-                StopControllerTask(vController0, "all", "Disconnected all the connected controllers.");
-                StopControllerTask(vController1, "all", "Disconnected all the connected controllers.");
-                StopControllerTask(vController2, "all", "Disconnected all the connected controllers.");
-                StopControllerTask(vController3, "all", "Disconnected all the connected controllers.");
+                StopControllerTask(vController0, "all", "Disconnected all connected controllers.");
+                StopControllerTask(vController1, "all", "Disconnected all connected controllers.");
+                StopControllerTask(vController2, "all", "Disconnected all connected controllers.");
+                StopControllerTask(vController3, "all", "Disconnected all connected controllers.");
 
                 if (disconnectVirtualBus)
                 {

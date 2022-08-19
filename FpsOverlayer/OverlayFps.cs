@@ -43,7 +43,7 @@ namespace FpsOverlayer
         }
 
         //Switch the stats visibility
-        public void SwitchFpsOverlayVisibility()
+        public void SwitchFpsOverlayVisibilityManual()
         {
             try
             {
@@ -51,11 +51,15 @@ namespace FpsOverlayer
                 {
                     if (grid_FpsOverlayer.Visibility == Visibility.Visible)
                     {
-                        grid_FpsOverlayer.Visibility = Visibility.Collapsed;
+                        vManualHidden = true;
+                        //Update the fps overlay position
+                        UpdateFpsOverlayPosition(vTargetProcess.Name);
                     }
                     else
                     {
-                        grid_FpsOverlayer.Visibility = Visibility.Visible;
+                        vManualHidden = false;
+                        //Update the fps overlay position
+                        UpdateFpsOverlayPosition(vTargetProcess.Name);
                     }
                 });
             }
@@ -63,7 +67,7 @@ namespace FpsOverlayer
         }
 
         //Move the fps overlayer to the next position
-        public async Task ChangeFpsOverlayPosition()
+        public void ChangeFpsOverlayPosition()
         {
             try
             {
@@ -76,7 +80,6 @@ namespace FpsOverlayer
                 Debug.WriteLine("Changing text postion to: " + nextPosition);
                 Setting_Save(vConfigurationFpsOverlayer, "TextPosition", nextPosition.ToString());
                 UpdateFpsOverlayStyle();
-                await vWindowSettings.NotifyDirectXInputSettingChanged("TextPosition");
             }
             catch { }
         }
@@ -99,7 +102,7 @@ namespace FpsOverlayer
                 }
 
                 //Hide or show the fps overlayer
-                if (targetTextPosition == OverlayPosition.Hidden)
+                if (vManualHidden || targetTextPosition == OverlayPosition.Hidden)
                 {
                     HideFpsOverlayVisibility();
                     return;

@@ -17,7 +17,7 @@
         Background="Transparent">
 
     <Grid>
-        <Grid Name="grid_CrosshairOverlayer" Width="3" Height="3">
+        <Grid Name="grid_CrosshairOverlayer" Width="4" Height="4" Visibility="Collapsed">
             <Border x:Name="border_Crosshair" Background="White" CornerRadius="10" Opacity="0.80"/>
         </Grid>
 

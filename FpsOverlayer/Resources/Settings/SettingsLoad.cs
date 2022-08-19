@@ -131,8 +131,17 @@ namespace FpsOverlayer
                 string ColorFps = Setting_Load(vConfigurationFpsOverlayer, "ColorFps").ToString();
                 colorpicker_ColorFps.Background = new BrushConverter().ConvertFrom(ColorFps) as SolidColorBrush;
 
-                string ColorCrosshair = Setting_Load(vConfigurationFpsOverlayer, "ColorCrosshair").ToString();
-                colorpicker_ColorCrosshair.Background = new BrushConverter().ConvertFrom(ColorCrosshair) as SolidColorBrush;
+                //Crosshair
+                checkbox_CrosshairLaunch.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CrosshairLaunch"));
+
+                string CrosshairColor = Setting_Load(vConfigurationFpsOverlayer, "CrosshairColor").ToString();
+                colorpicker_CrosshairColor.Background = new BrushConverter().ConvertFrom(CrosshairColor) as SolidColorBrush;
+
+                textblock_CrosshairOpacity.Text = textblock_CrosshairOpacity.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "CrosshairOpacity").ToString() + "%";
+                slider_CrosshairOpacity.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "CrosshairOpacity"));
+
+                textblock_CrosshairSize.Text = textblock_CrosshairSize.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "CrosshairSize").ToString() + "px";
+                slider_CrosshairSize.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "CrosshairSize"));
 
                 //Update stats position text
                 UpdateStatsPositionText();
