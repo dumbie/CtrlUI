@@ -162,7 +162,7 @@ namespace DirectXInput
                         if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutDisconnectBluetooth")))
                         {
                             Debug.WriteLine("Shortcut disconnect Bluetooth has been pressed.");
-                            StopControllerTask(Controller, "manually", string.Empty);
+                            await StopController(Controller, "manually", string.Empty);
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;

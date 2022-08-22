@@ -19,7 +19,7 @@ namespace DirectXInput
                 ControllerStatus activeController = vActiveController();
                 if (activeController != null)
                 {
-                    StopControllerTask(activeController, "manually", string.Empty);
+                    await StopController(activeController, "manually", string.Empty);
                 }
                 else
                 {
@@ -37,7 +37,7 @@ namespace DirectXInput
         {
             try
             {
-                StopAllControllers(false);
+                await StopAllControllers(false);
 
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Controller";
@@ -70,7 +70,7 @@ namespace DirectXInput
                         await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                         //Stop the controller task
-                        StopControllerTask(activeController, "removed", "Controller " + activeController.Details.DisplayName + " removed and disconnected.");
+                        await StopController(activeController, "removed", "Controller " + activeController.Details.DisplayName + " removed and disconnected.");
 
                         //Remove Json in list
                         vDirectControllersProfile.Remove(activeController.Details.Profile);

@@ -325,7 +325,7 @@ namespace DirectXInput
                 await TasksBackgroundStop();
 
                 //Disconnect all the controllers
-                StopAllControllers(true);
+                await StopAllControllers(true);
 
                 //Check if HidHide is connected
                 if (vHidHideDevice != null)

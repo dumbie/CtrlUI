@@ -43,7 +43,7 @@ namespace DirectXInput
             {
                 while (TaskCheckLoop(vTask_ControllerTimeout))
                 {
-                    CheckControllersTimeout();
+                    await CheckControllersTimeout();
 
                     //Delay the loop task
                     await TaskDelayLoop(1000, vTask_ControllerTimeout);

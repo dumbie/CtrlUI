@@ -45,7 +45,7 @@ namespace DirectXInput
                         {
                             Debug.WriteLine("Controller " + Controller.NumberId + " is idle for: " + idleTimeMs + "/" + targetTimeMs + "ms");
                             Controller.LastActiveTicks = currentTimeMs;
-                            StopControllerTask(Controller, "idle", "Disconnected idle controller " + Controller.NumberId + ".");
+                            await StopController(Controller, "idle", "Disconnected idle controller " + Controller.NumberId + ".");
                             return;
                         }
                     }
@@ -56,7 +56,18 @@ namespace DirectXInput
                 }
 
                 //Check if controller output needs to be blocked
-                if (vAppActivated && !vAppMinimized && vShowDebugInformation) { return; }
+                if (vAppActivated && !vAppMinimized && vShowDebugInformation)
+                {
+                    //Send empty input to the virtual device
+                    SendInputVirtualEmpty(Controller);
+                    return;
+                }
+                else if (Controller.Disconnecting)
+                {
+                    //Send empty input to the virtual device
+                    SendInputVirtualEmpty(Controller);
+                    return;
+                }
 
                 //Check if controller shortcut is pressed
                 bool blockOutputShortcut = await ControllerShortcut(Controller);
@@ -64,23 +75,22 @@ namespace DirectXInput
                 //Check if controller output needs to be forwarded
                 bool blockOutputApplication = await ControllerOutputApps(Controller);
 
-                //Check if output or guide button needs to be blocked
-                if (blockOutputApplication || blockOutputShortcut || Controller.Disconnecting)
+                //Check if controller output needs to be blocked
+                if (blockOutputShortcut || blockOutputApplication)
                 {
-                    //Prepare empty xinput data
-                    PrepareXInputDataEmpty(Controller);
+                    //Send empty input to the virtual device
+                    SendInputVirtualEmpty(Controller);
+                    return;
                 }
-                else
-                {
-                    //Check if guide button is CtrlUI exclusive
-                    if (Controller.InputCurrent.ButtonGuide.PressedRaw && Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide")))
-                    {
-                        Controller.InputCurrent.ButtonGuide.PressedRaw = false;
-                    }
 
-                    //Prepare current xinput data
-                    PrepareXInputDataCurrent(Controller);
+                //Check if guide button needs to be blocked
+                if (Controller.InputCurrent.ButtonGuide.PressedRaw && Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide")))
+                {
+                    Controller.InputCurrent.ButtonGuide.PressedRaw = false;
                 }
+
+                //Prepare current xinput data
+                PrepareXInputDataCurrent(Controller);
 
                 //Send input to the virtual bus
                 vVirtualBusDevice.VirtualInput(ref Controller);

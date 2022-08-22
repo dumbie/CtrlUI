@@ -4,13 +4,11 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
-using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 
 namespace DirectXInput.OverlayCode

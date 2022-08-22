@@ -137,13 +137,13 @@ namespace DirectXInput
             catch { }
         }
 
-        void NotifyIcon_MouseUp(object sender, MouseEventArgs args)
+        async void NotifyIcon_MouseUp(object sender, MouseEventArgs args)
         {
             try
             {
                 if (args.Button == MouseButtons.Middle)
                 {
-                    StopAllControllers(false);
+                    await StopAllControllers(false);
                 }
             }
             catch { }

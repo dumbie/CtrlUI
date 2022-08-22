@@ -353,7 +353,7 @@ namespace DirectXInput
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Touchpad.Group, controller.SupportedCurrent);
                             byte ButtonInputByte = controller.InputReport[HeaderOffset + ButtonGroupOffset];
-                            if (ButtonInputByte < 32)
+                            if (ButtonInputByte < 10)
                             {
                                 controller.InputCurrent.ButtonPressStatus[200] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Touchpad.Offset)) != 0;
                             }
@@ -362,7 +362,7 @@ namespace DirectXInput
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Guide.Group, controller.SupportedCurrent);
                             byte ButtonInputByte = controller.InputReport[HeaderOffset + ButtonGroupOffset];
-                            if (ButtonInputByte < 32)
+                            if (ButtonInputByte < 10)
                             {
                                 controller.InputCurrent.ButtonPressStatus[201] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Guide.Offset)) != 0;
                             }
@@ -371,7 +371,7 @@ namespace DirectXInput
                         {
                             int ButtonGroupOffset = LookupButtonGroupOffset(controller.SupportedCurrent.OffsetButton.Media.Group, controller.SupportedCurrent);
                             byte ButtonInputByte = controller.InputReport[HeaderOffset + ButtonGroupOffset];
-                            if (ButtonInputByte < 32)
+                            if (ButtonInputByte < 10)
                             {
                                 controller.InputCurrent.ButtonPressStatus[202] = (ButtonInputByte & (1 << controller.SupportedCurrent.OffsetButton.Media.Offset)) != 0;
                             }

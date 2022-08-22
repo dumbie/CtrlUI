@@ -43,7 +43,7 @@ namespace DirectXInput
                 if (!OpenController(Controller))
                 {
                     Debug.WriteLine("Failed to initialize direct input for: " + Controller.Details.DisplayName);
-                    StopControllerTask(Controller, "failed", "Controller " + controllerNumberDisplay + " is no longer connected or failed.");
+                    await StopController(Controller, "failed", "Controller " + controllerNumberDisplay + " is no longer connected or failed.");
                     return false;
                 }
 
@@ -224,27 +224,8 @@ namespace DirectXInput
             catch { }
         }
 
-        //Stop the desired controller in task
-        public void StopControllerTask(ControllerStatus Controller, string disconnectInfo, string controllerInfo)
-        {
-            try
-            {
-                //Start the controller stop task
-                async void TaskAction()
-                {
-                    try
-                    {
-                        await StopControllerAsync(Controller, disconnectInfo, controllerInfo);
-                    }
-                    catch { }
-                }
-                AVActions.TaskStart(TaskAction);
-            }
-            catch { }
-        }
-
-        //Stop the desired controller as async
-        private async Task<bool> StopControllerAsync(ControllerStatus Controller, string disconnectInfo, string controllerInfo)
+        //Stop the desired controller
+        private async Task<bool> StopController(ControllerStatus Controller, string disconnectInfo, string controllerInfo)
         {
             try
             {
@@ -431,14 +412,14 @@ namespace DirectXInput
         }
 
         //Stop all the controllers
-        void StopAllControllers(bool disconnectVirtualBus)
+        async Task StopAllControllers(bool disconnectVirtualBus)
         {
             try
             {
-                StopControllerTask(vController0, "all", "Disconnected all connected controllers.");
-                StopControllerTask(vController1, "all", "Disconnected all connected controllers.");
-                StopControllerTask(vController2, "all", "Disconnected all connected controllers.");
-                StopControllerTask(vController3, "all", "Disconnected all connected controllers.");
+                await StopController(vController0, "all", "Disconnected all controllers.");
+                await StopController(vController1, "all", "Disconnected all controllers.");
+                await StopController(vController2, "all", "Disconnected all controllers.");
+                await StopController(vController3, "all", "Disconnected all controllers.");
 
                 if (disconnectVirtualBus)
                 {

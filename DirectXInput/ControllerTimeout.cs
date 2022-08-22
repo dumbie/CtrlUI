@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
@@ -8,7 +9,7 @@ namespace DirectXInput
     public partial class WindowMain
     {
         //Check if a controller has timed out
-        void ControllerTimeout(ControllerStatus Controller)
+        async Task ControllerTimeout(ControllerStatus Controller)
         {
             try
             {
@@ -19,7 +20,7 @@ namespace DirectXInput
                     if (latencyMs > Controller.MilliSecondsTimeout)
                     {
                         Debug.WriteLine("Controller " + Controller.NumberId + " has timed out, stopping and removing the controller.");
-                        StopControllerTask(Controller, "timeout", "Controller " + Controller.NumberId + " has timed out.");
+                        await StopController(Controller, "timeout", "Controller " + Controller.NumberId + " has timed out.");
                     }
                 }
             }
@@ -27,14 +28,14 @@ namespace DirectXInput
         }
 
         //Check for timed out controllers
-        void CheckControllersTimeout()
+        async Task CheckControllersTimeout()
         {
             try
             {
-                ControllerTimeout(vController0);
-                ControllerTimeout(vController1);
-                ControllerTimeout(vController2);
-                ControllerTimeout(vController3);
+                await ControllerTimeout(vController0);
+                await ControllerTimeout(vController1);
+                await ControllerTimeout(vController2);
+                await ControllerTimeout(vController3);
             }
             catch { }
         }
