@@ -61,6 +61,10 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Music.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Media" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                     </StackPanel>
+                    <StackPanel Name="menuButtonScreenshot" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open screenshot settings">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Screenshot.png" Width="55" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Screenshot" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                    </StackPanel>
                     <StackPanel Name="menuButtonSettings" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open application settings">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Settings.png" Width="55" HorizontalAlignment="Center"/>
                         <TextBlock Text="Settings" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -477,13 +481,11 @@
                                 <TextBlock Text="Enabling this will allow you to press Alt and Enter with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Screenshot Shortcuts"/>
-                                <CheckBox Name="cb_SettingsShortcutScreenshotController" Content="Create screenshot by pressing the Touchpad button*" Style="{StaticResource CheckBoxBlack}"/>
+                                <CheckBox Name="cb_SettingsShortcutScreenshotController" Content="Create screenshot by pressing the Touchpad button" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to take a screenshot with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                                <CheckBox Name="cb_SettingsShortcutScreenshotKeyboard" Content="Create screenshot by pressing Alt and F12 combined*" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <CheckBox Name="cb_SettingsShortcutScreenshotKeyboard" Content="Create screenshot by pressing Alt and F12 combined" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to take a screenshot with your keyboard." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                                <TextBlock Margin="0,10,0,0" Text="* Screenshots will be saved to the CtrlUI 'Screenshots' directory." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
@@ -681,7 +683,7 @@
                     <Grid Grid.Row="1">
                         <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
                             <StackPanel>
-                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Controller Settings"/>
+                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Controller Settings"/>
                                 <TextBlock Text="Controller media button functionality" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the media button to mute the input or output." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <ComboBox Name="combobox_ShortcutMuteFunction" HorizontalAlignment="Left" Width="400" Style="{StaticResource ComboBoxBlack}">
@@ -693,6 +695,39 @@
                                 <TextBlock Name="textblock_SettingsMediaVolumeStep" Text="Volume change step" Tag="Volume change step: " Style="{StaticResource TextBlockBlack}"/>
                                 <TextBlock Text="Change the used step when changing your system volume." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                                 <Slider Name="slider_SettingsMediaVolumeStep" Height="18" Width="400" Minimum="1" Maximum="20" TickFrequency="1" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!-- Grid Screenshot -->
+            <Grid Name="grid_Screenshot" Grid.Column="1" Background="{DynamicResource ApplicationWhiteBrush}" Visibility="Collapsed">
+                <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource TextBlockBlackLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Screenshot"/>
+                            <Border Margin="0,30,0,0" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <ScrollViewer Style="{StaticResource ScrollViewerVertical}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Screenshot Location"/>
+                                <TextBlock Text="Screenshot save location" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBlock Name="textblock_Settings_ScreenshotLocation" Text="Current save location: Unknown" Tag="Current save location: " TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <Button Name="btn_Settings_ScreenshotLocationChange" Content="Change screenshot save location" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                                <Button Margin="0,10,0,0" Name="btn_Settings_ScreenshotLocationOpen" Content="Open screenshot save location" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+
+                                <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Screenshot Format"/>
+                                <CheckBox Name="cb_Settings_ScreenshotHDRtoSDR" Content="Convert screenshot HDR to SDR" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Disabling this will save HDR screenshots as raw JXR files." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>

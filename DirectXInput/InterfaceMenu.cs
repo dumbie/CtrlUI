@@ -55,6 +55,7 @@ namespace DirectXInput
                     else if (SelStackPanel.Name == "menuButtonKeyboard") { ShowGridPage(grid_Keyboard); }
                     else if (SelStackPanel.Name == "menuButtonKeypad") { ShowGridPage(grid_Keypad); }
                     else if (SelStackPanel.Name == "menuButtonMedia") { ShowGridPage(grid_Media); }
+                    else if (SelStackPanel.Name == "menuButtonScreenshot") { ShowGridPage(grid_Screenshot); }
                     else if (SelStackPanel.Name == "menuButtonSettings") { ShowGridPage(grid_Settings); }
                     else if (SelStackPanel.Name == "menuButtonDebug") { ShowGridPage(grid_Debug); }
                     else if (SelStackPanel.Name == "menuButtonHelp") { ShowGridPage(grid_Help); }
@@ -88,6 +89,7 @@ namespace DirectXInput
                 grid_Keyboard.Visibility = Visibility.Collapsed;
                 grid_Keypad.Visibility = Visibility.Collapsed;
                 grid_Media.Visibility = Visibility.Collapsed;
+                grid_Screenshot.Visibility = Visibility.Collapsed;
                 grid_Settings.Visibility = Visibility.Collapsed;
                 grid_Shortcuts.Visibility = Visibility.Collapsed;
                 grid_Debug.Visibility = Visibility.Collapsed;

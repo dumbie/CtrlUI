@@ -78,6 +78,10 @@ namespace DirectXInput
                 textblock_SettingsMediaVolumeStep.Text = textblock_SettingsMediaVolumeStep.Tag.ToString() + Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep").ToString();
                 slider_SettingsMediaVolumeStep.Value = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
 
+                //Load screenshot settings
+                textblock_Settings_ScreenshotLocation.Text = textblock_Settings_ScreenshotLocation.Tag + Setting_Load(vConfigurationDirectXInput, "ScreenshotLocation").ToString();
+                cb_Settings_ScreenshotHDRtoSDR.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ScreenshotHDRtoSDR"));
+
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;
 

@@ -86,22 +86,22 @@ namespace DirectXInput
                         {
                             if (AudioMuteSwitch(true))
                             {
-                                await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input muted");
+                                await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume muted");
                             }
                             else
                             {
-                                await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input unmuted");
+                                await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume unmuted");
                             }
                         }
                         else
                         {
                             if (AudioMuteSwitch(false))
                             {
-                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output muted");
+                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume muted");
                             }
                             else
                             {
-                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output unmuted");
+                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume unmuted");
                             }
                         }
 

@@ -48,6 +48,10 @@ namespace DirectXInput
                 //Media settings
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutMuteFunction") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutMuteFunction", "0"); }
                 if (Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep") == null) { Setting_Save(vConfigurationDirectXInput, "MediaVolumeStep", "2"); }
+
+                //Screenshot settings
+                if (Setting_Load(vConfigurationDirectXInput, "ScreenshotLocation") == null) { Setting_Save(vConfigurationDirectXInput, "ScreenshotLocation", "Screenshots"); }
+                if (Setting_Load(vConfigurationDirectXInput, "ScreenshotHDRtoSDR") == null) { Setting_Save(vConfigurationDirectXInput, "ScreenshotHDRtoSDR", "False"); }
             }
             catch (Exception ex)
             {

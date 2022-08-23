@@ -302,6 +302,12 @@ namespace DirectXInput
                     textblock_SettingsMediaVolumeStep.Text = textblock_SettingsMediaVolumeStep.Tag.ToString() + slider_SettingsMediaVolumeStep.Value.ToString();
                     Setting_Save(vConfigurationDirectXInput, "MediaVolumeStep", slider_SettingsMediaVolumeStep.Value.ToString());
                 };
+
+                //Screenshot settings
+                cb_Settings_ScreenshotHDRtoSDR.Click += (sender, e) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ScreenshotHDRtoSDR", cb_Settings_ScreenshotHDRtoSDR.IsChecked.ToString());
+                };
             }
             catch (Exception ex)
             {

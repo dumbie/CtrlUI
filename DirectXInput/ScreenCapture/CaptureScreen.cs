@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace DirectXInput
@@ -18,6 +19,7 @@ namespace DirectXInput
             {
                 //Screen capture settings
                 CaptureSettings vCaptureSettings = new CaptureSettings();
+                vCaptureSettings.HDRtoSDR = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ScreenshotHDRtoSDR"));
 
                 //Initialize screen capture
                 if (!CaptureImport.CaptureInitialize(vCaptureSettings, out CaptureDetails vCaptureDetails))
@@ -72,16 +74,30 @@ namespace DirectXInput
                 }
                 imageSaveName = "\\Screenshot " + CaptureFunctions.FileNameReplaceInvalidChars(imageSaveName);
 
-                //Create screenshots folder in app directory
-                if (!Directory.Exists("Screenshots"))
+                //Check screenshot location
+                string screenshotSaveFolder = Setting_Load(vConfigurationDirectXInput, "ScreenshotLocation").ToString();
+                if (!Directory.Exists(screenshotSaveFolder))
                 {
-                    Directory.CreateDirectory("Screenshots");
+                    //Check screenshots folder in app directory
+                    if (!Directory.Exists("Screenshots"))
+                    {
+                        Directory.CreateDirectory("Screenshots");
+                    }
+                    screenshotSaveFolder = "Screenshots";
                 }
-                string imageSaveFolder = "Screenshots";
 
                 //Save screenshot to file
-                bool screenshotExport = CaptureImport.CaptureSaveFilePng(bitmapIntPtr, imageSaveFolder + imageSaveName + ".png");
-                Debug.WriteLine("Screenshot png export succeeded: " + screenshotExport);
+                bool screenshotExport = false;
+                if (vCaptureDetails.HDREnabled && !vCaptureSettings.HDRtoSDR)
+                {
+                    screenshotExport = CaptureImport.CaptureSaveFileJxr(bitmapIntPtr, screenshotSaveFolder + imageSaveName + ".jxr");
+                    Debug.WriteLine("Screenshot jxr export succeeded: " + screenshotExport);
+                }
+                else
+                {
+                    screenshotExport = CaptureImport.CaptureSaveFilePng(bitmapIntPtr, screenshotSaveFolder + imageSaveName + ".png");
+                    Debug.WriteLine("Screenshot png export succeeded: " + screenshotExport);
+                }
 
                 //Play capture sound
                 if (screenshotExport)
