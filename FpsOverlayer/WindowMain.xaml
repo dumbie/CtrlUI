@@ -17,8 +17,12 @@
         Background="Transparent">
 
     <Grid>
-        <Grid Name="grid_CrosshairOverlayer" Width="4" Height="4" Visibility="Collapsed">
-            <Border x:Name="border_Crosshair" Background="White" CornerRadius="10" Opacity="0.80"/>
+        <Grid Name="grid_CrosshairOverlayer" Visibility="Collapsed">
+            <Border x:Name="crosshair_Dot" Width="4" Height="4" CornerRadius="4" Background="White"/>
+            <Grid Name="crosshair_Cross">
+                <Rectangle Name="crosshair_Cross_Vertical" Fill="White" Width="2" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Rectangle Name="crosshair_Cross_Horizontal" Fill="White" Width="10" Height="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
         </Grid>
 
         <Grid Name="grid_FpsOverlayer" HorizontalAlignment="Left" VerticalAlignment="Top">

@@ -102,7 +102,9 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairLaunch") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairLaunch", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairColor") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairColor", "#FFFFFF"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairOpacity") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairOpacity", "0,80"); }
-                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairSize") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairSize", "4"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairSize") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairSize", "10"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairStyle") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairStyle", "0"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CrosshairThickness") == null) { Setting_Save(vConfigurationFpsOverlayer, "CrosshairThickness", "1"); }
 
                 Debug.WriteLine("Checked the application settings.");
             }

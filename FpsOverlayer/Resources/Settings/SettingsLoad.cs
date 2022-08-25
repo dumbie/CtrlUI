@@ -143,6 +143,11 @@ namespace FpsOverlayer
                 textblock_CrosshairSize.Text = textblock_CrosshairSize.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "CrosshairSize").ToString() + "px";
                 slider_CrosshairSize.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "CrosshairSize"));
 
+                textblock_CrosshairThickness.Text = textblock_CrosshairThickness.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "CrosshairThickness").ToString() + "px";
+                slider_CrosshairThickness.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "CrosshairThickness"));
+
+                combobox_CrosshairStyle.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "CrosshairStyle"));
+
                 //Update stats position text
                 UpdateStatsPositionText();
 

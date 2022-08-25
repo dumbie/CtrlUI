@@ -377,6 +377,19 @@ namespace FpsOverlayer
                     Setting_Save(vConfigurationFpsOverlayer, "CrosshairSize", slider_CrosshairSize.Value.ToString("0"));
                     vWindowMain.UpdateCrosshairOverlayStyle();
                 };
+
+                slider_CrosshairThickness.ValueChanged += (sender, e) =>
+                {
+                    textblock_CrosshairThickness.Text = textblock_CrosshairThickness.Tag + ": " + slider_CrosshairThickness.Value.ToString("0") + "px";
+                    Setting_Save(vConfigurationFpsOverlayer, "CrosshairThickness", slider_CrosshairThickness.Value.ToString("0"));
+                    vWindowMain.UpdateCrosshairOverlayStyle();
+                };
+
+                combobox_CrosshairStyle.SelectionChanged += (sender, e) =>
+                {
+                    Setting_Save(vConfigurationFpsOverlayer, "CrosshairStyle", combobox_CrosshairStyle.SelectedIndex.ToString());
+                    vWindowMain.UpdateCrosshairOverlayStyle();
+                };
             }
             catch (Exception ex)
             {
