@@ -205,12 +205,18 @@ namespace DirectXInput
                     {
                         slider_TriggerRumbleStrengthLeft.IsEnabled = true;
                         slider_TriggerRumbleStrengthRight.IsEnabled = true;
+                        slider_TriggerRumbleLimit.IsEnabled = true;
                     }
                     else
                     {
                         slider_TriggerRumbleStrengthLeft.IsEnabled = false;
                         slider_TriggerRumbleStrengthRight.IsEnabled = false;
+                        slider_TriggerRumbleLimit.IsEnabled = false;
                     }
+
+                    textblock_TriggerRumbleLimit.Text = textblock_TriggerRumbleLimit.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.TriggerRumbleLimit) + "%";
+                    slider_TriggerRumbleLimit.Value = Controller.Details.Profile.TriggerRumbleLimit;
+
                     textblock_TriggerRumbleStrengthLeft.Text = textblock_TriggerRumbleStrengthLeft.Tag.ToString() + Convert.ToInt32(Controller.Details.Profile.TriggerRumbleStrengthLeft) + "%";
                     slider_TriggerRumbleStrengthLeft.Value = Controller.Details.Profile.TriggerRumbleStrengthLeft;
 

@@ -348,6 +348,19 @@ namespace DirectXInput
                     }
                 };
 
+                slider_TriggerRumbleLimit.ValueChanged += (sender, e) =>
+                {
+                    ControllerStatus activeController = vActiveController();
+                    if (activeController != null)
+                    {
+                        textblock_TriggerRumbleLimit.Text = textblock_TriggerRumbleLimit.Tag.ToString() + Convert.ToInt32(slider_TriggerRumbleLimit.Value) + "%";
+                        activeController.Details.Profile.TriggerRumbleLimit = Convert.ToInt32(slider_TriggerRumbleLimit.Value);
+
+                        //Save changes to Json file
+                        JsonSaveObject(activeController.Details.Profile, GenerateJsonNameControllerProfile(activeController.Details.Profile));
+                    }
+                };
+
                 slider_TriggerRumbleStrengthLeft.ValueChanged += (sender, e) =>
                 {
                     ControllerStatus activeController = vActiveController();

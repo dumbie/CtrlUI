@@ -89,18 +89,19 @@ namespace DirectXInput
                 }
 
                 //Adjust the trigger rumble strength
-                byte triggerRumbleLimit = 150;
                 byte triggerRumbleMinimum = 5;
                 byte triggerRumbleLeft = 0;
                 byte triggerRumbleRight = 0;
                 if (Controller.Details.Profile.TriggerRumbleEnabled)
                 {
                     double triggerRumbleStrengthLeft = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrengthLeft) / 100;
+                    double triggerRumbleStrengthRight = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrengthRight) / 100;
+                    byte triggerRumbleLimit = Convert.ToByte(Convert.ToDouble(Controller.Details.Profile.TriggerRumbleLimit) / 100 * 255);
+
                     triggerRumbleLeft = Convert.ToByte(Math.Max(controllerRumbleLight, controllerRumbleHeavy) * triggerRumbleStrengthLeft);
                     if (triggerRumbleLeft > triggerRumbleLimit) { triggerRumbleLeft = triggerRumbleLimit; }
                     Debug.WriteLine("Trigger rumble left: " + triggerRumbleLeft + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
 
-                    double triggerRumbleStrengthRight = Convert.ToDouble(Controller.Details.Profile.TriggerRumbleStrengthRight) / 100;
                     triggerRumbleRight = Convert.ToByte(Math.Max(controllerRumbleLight, controllerRumbleHeavy) * triggerRumbleStrengthRight);
                     if (triggerRumbleRight > triggerRumbleLimit) { triggerRumbleRight = triggerRumbleLimit; }
                     Debug.WriteLine("Trigger rumble right: " + triggerRumbleRight + " / Limit: " + triggerRumbleLimit + " / Minimum: " + triggerRumbleMinimum);
@@ -111,11 +112,14 @@ namespace DirectXInput
                 {
                     double controllerRumbleStrength = Convert.ToDouble(Controller.Details.Profile.ControllerRumbleStrength) / 100;
                     byte controllerRumbleLimit = Convert.ToByte(Convert.ToDouble(Controller.Details.Profile.ControllerRumbleLimit) / 100 * 255);
+
                     controllerRumbleHeavy = Convert.ToByte(controllerRumbleHeavy * controllerRumbleStrength);
-                    controllerRumbleLight = Convert.ToByte(controllerRumbleLight * controllerRumbleStrength);
                     if (controllerRumbleHeavy > controllerRumbleLimit) { controllerRumbleHeavy = controllerRumbleLimit; }
+                    Debug.WriteLine("Controller rumble Heavy: " + controllerRumbleHeavy + " / Limit: " + controllerRumbleLimit);
+
+                    controllerRumbleLight = Convert.ToByte(controllerRumbleLight * controllerRumbleStrength);
                     if (controllerRumbleLight > controllerRumbleLimit) { controllerRumbleLight = controllerRumbleLimit; }
-                    Debug.WriteLine("Controller rumble Heavy: " + controllerRumbleHeavy + " / Light: " + controllerRumbleLight + " / Limit: " + controllerRumbleLimit);
+                    Debug.WriteLine("Controller rumble Light: " + controllerRumbleLight + " / Limit: " + controllerRumbleLimit);
                 }
                 else
                 {
