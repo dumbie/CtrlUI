@@ -209,18 +209,19 @@
                         <CheckBox Name="checkbox_CrosshairLaunch" Content="Show crosshair on launch" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the crosshair on launch." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                        <TextBlock Margin="0,10,0,0" Text="Crosshair display style" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <TextBlock Text="Change the displayed crosshair style." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <ComboBox Name="combobox_CrosshairStyle" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
-                            <ComboBoxItem>Dot</ComboBoxItem>
-                            <ComboBoxItem>Cross</ComboBoxItem>
-                        </ComboBox>
-
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <TextBlock Text="Crosshair display color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             <Button Name="colorpicker_CrosshairColor" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the crosshair color"/>
                         </StackPanel>
                         <TextBlock Text="Change the crosshair displayed foreground color." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <TextBlock Margin="0,10,0,0" Text="Crosshair display style" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the displayed crosshair style." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <ComboBox Name="combobox_CrosshairStyle" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}">
+                            <ComboBoxItem>Dot</ComboBoxItem>
+                            <ComboBoxItem>Cross</ComboBoxItem>
+                            <ComboBoxItem>Line</ComboBoxItem>
+                        </ComboBox>
 
                         <TextBlock Name="textblock_CrosshairSize" Text="Crosshair display size" Tag="Crosshair display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the crosshair displayed size in pixels." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
@@ -230,9 +231,13 @@
                         <TextBlock Text="Change the crosshair displayed line thickness." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="1" Maximum="20" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairThickness" Style="{StaticResource SliderWhite}"/>
 
-                        <TextBlock Name="textblock_CrosshairOpacity" Text="Crosshair display transparency" Tag="Crosshair display size" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Name="textblock_CrosshairOpacity" Text="Crosshair display transparency" Tag="Crosshair display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the crosshair displayed transparency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="0.05" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairOpacity" Style="{StaticResource SliderWhite}"/>
+
+                        <TextBlock Name="textblock_CrosshairVerticalPosition" Text="Crosshair vertical position" Tag="Crosshair vertical position" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the crosshair vertical offset position." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <Slider Minimum="-50" Maximum="50" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairVerticalPosition" Style="{StaticResource SliderWhite}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Fps" Visibility="Collapsed">

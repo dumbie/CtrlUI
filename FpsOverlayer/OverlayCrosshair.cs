@@ -45,17 +45,26 @@ namespace FpsOverlayer
                 if (crosshairStyle == 0)
                 {
                     crosshair_Dot.Visibility = Visibility.Visible;
+                    crosshair_Line.Visibility = Visibility.Collapsed;
                     crosshair_Cross.Visibility = Visibility.Collapsed;
+                }
+                else if (crosshairStyle == 1)
+                {
+                    crosshair_Dot.Visibility = Visibility.Collapsed;
+                    crosshair_Line.Visibility = Visibility.Collapsed;
+                    crosshair_Cross.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     crosshair_Dot.Visibility = Visibility.Collapsed;
-                    crosshair_Cross.Visibility = Visibility.Visible;
+                    crosshair_Line.Visibility = Visibility.Visible;
+                    crosshair_Cross.Visibility = Visibility.Collapsed;
                 }
 
                 //Change the crosshair color
                 string crosshairColor = Setting_Load(vConfigurationFpsOverlayer, "CrosshairColor").ToString();
                 crosshair_Dot.Background = new BrushConverter().ConvertFrom(crosshairColor) as SolidColorBrush;
+                crosshair_Line.Fill = new BrushConverter().ConvertFrom(crosshairColor) as SolidColorBrush;
                 crosshair_Cross_Vertical.Fill = new BrushConverter().ConvertFrom(crosshairColor) as SolidColorBrush;
                 crosshair_Cross_Horizontal.Fill = new BrushConverter().ConvertFrom(crosshairColor) as SolidColorBrush;
 
@@ -73,8 +82,16 @@ namespace FpsOverlayer
                 crosshair_Cross_Horizontal.Width = crosshairSize;
                 crosshair_Cross_Horizontal.Height = crosshairThickness;
 
+                //Change the crosshair size - line
+                crosshair_Line.Width = crosshairSize;
+                crosshair_Line.Height = crosshairThickness;
+
                 //Change the crosshair opacity
                 grid_CrosshairOverlayer.Opacity = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "CrosshairOpacity"));
+
+                //Change the vertical position
+                int crosshairVerticalPosition = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "CrosshairVerticalPosition"));
+                grid_CrosshairOverlayer.Margin = new Thickness(0, 0, 0, crosshairVerticalPosition);
             }
             catch { }
         }
