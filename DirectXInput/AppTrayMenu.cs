@@ -21,12 +21,11 @@ namespace DirectXInput
                 Debug.WriteLine("Creating application tray menu.");
 
                 //Create a context menu for systray.
-                TrayContextMenu.MenuItems.Add("Settings", NotifyIcon_Settings);
-                TrayContextMenu.MenuItems.Add("-");
                 TrayContextMenu.MenuItems.Add("Open CtrlUI", NotifyIcon_CtrlUI);
                 TrayContextMenu.MenuItems.Add("Open Keyboard", NotifyIcon_Keyboard);
                 TrayContextMenu.MenuItems.Add("Open Fps Overlayer", NotifyIcon_FpsOverlayer);
                 TrayContextMenu.MenuItems.Add("-");
+                TrayContextMenu.MenuItems.Add("Settings", NotifyIcon_Settings);
                 TrayContextMenu.MenuItems.Add("Website", NotifyIcon_Website);
                 TrayContextMenu.MenuItems.Add("Exit", NotifyIcon_Exit);
 

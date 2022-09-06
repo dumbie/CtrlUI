@@ -190,7 +190,7 @@ namespace FpsOverlayer
                             else if (sensor.SensorType == SensorType.TimeSpan)
                             {
                                 //Debug.WriteLine("Bat Estimated Time: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
-                                BatteryStatus = " (" + AVFunctions.SecondsToHms(Convert.ToInt32(sensor.Value), true) + ")";
+                                BatteryStatus = " (" + AVFunctions.SecondsToHms(Convert.ToInt32(sensor.Value), true, false) + ")";
                             }
                         }
                         catch { }

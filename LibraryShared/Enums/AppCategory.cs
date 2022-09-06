@@ -10,7 +10,8 @@
             Emulator = 2,
             Shortcut = 3,
             Process = 4,
-            Launcher = 5
+            Launcher = 5,
+            Search = 6
         }
     }
 }
