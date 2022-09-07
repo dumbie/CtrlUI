@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -52,7 +51,10 @@ namespace CtrlUI
                 }
 
                 //Minimize the CtrlUI window
-                if (allowMinimize && Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow"))) { await AppMinimize(true); }
+                if (allowMinimize)
+                {
+                    await AppMinimize(true);
+                }
 
                 //Launch the UWP or Win32Store application
                 Process launchProcess = await ProcessLauncherUwpAndWin32StoreAsync(pathExe, argument);

@@ -1,10 +1,8 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Threading.Tasks;
 using System.Windows;
 using static CtrlUI.AppVariables;
 using static LibraryShared.FocusFunctions;
-using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 
 namespace CtrlUI
@@ -23,7 +21,6 @@ namespace CtrlUI
                     elementTarget.IsEnabled = true;
 
                     //Hide the background
-                    grid_Video_Background.Opacity = 0.08;
                     grid_Main.Opacity = 0.08;
                     grid_Main.IsEnabled = false;
 
@@ -53,11 +50,6 @@ namespace CtrlUI
                         grid_Popup_ColorPicker.Opacity = 0.02;
                         grid_Popup_ColorPicker.IsEnabled = false;
                     }
-                    if (elementTarget != grid_Popup_Search && vSearchOpen)
-                    {
-                        grid_Popup_Search.Opacity = 0.02;
-                        grid_Popup_Search.IsEnabled = false;
-                    }
                     if (elementTarget != grid_Popup_MainMenu && vMainMenuOpen)
                     {
                         grid_Popup_MainMenu.Opacity = 0.02;
@@ -82,8 +74,6 @@ namespace CtrlUI
                     //Show the background
                     if (!Popup_Any_Open())
                     {
-                        double backgroundBrightness = (double)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundBrightness")) / 100;
-                        grid_Video_Background.Opacity = backgroundBrightness;
                         grid_Main.Opacity = 1.00;
                         grid_Main.IsEnabled = true;
                         return;
@@ -114,11 +104,6 @@ namespace CtrlUI
                     {
                         grid_Popup_ColorPicker.Opacity = 1.00;
                         grid_Popup_ColorPicker.IsEnabled = true;
-                    }
-                    else if (vSearchOpen)
-                    {
-                        grid_Popup_Search.Opacity = 1.00;
-                        grid_Popup_Search.IsEnabled = true;
                     }
                     else if (vMainMenuOpen)
                     {
@@ -260,7 +245,6 @@ namespace CtrlUI
                 else if (vFilePickerOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_FilePicker(false, false); }); }
                 else if (vColorPickerOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_ColorPicker(); }); }
                 else if (vPopupOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close(); }); }
-                else if (vSearchOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_Search(); }); }
                 else if (vMainMenuOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_MainMenu(); }); }
             }
             catch { }
@@ -276,7 +260,6 @@ namespace CtrlUI
                 if (vFilePickerOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_FilePicker(false, false); }); }
                 if (vColorPickerOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_ColorPicker(); }); }
                 if (vPopupOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close(); }); }
-                if (vSearchOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_Search(); }); }
                 if (vMainMenuOpen) { await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Close_MainMenu(); }); }
             }
             catch { }
@@ -287,7 +270,7 @@ namespace CtrlUI
         {
             try
             {
-                if (vPopupOpen || vColorPickerOpen || vSearchOpen || vMainMenuOpen || vFilePickerOpen || vMessageBoxOpen || vTextInputOpen)
+                if (vPopupOpen || vColorPickerOpen || vMainMenuOpen || vFilePickerOpen || vMessageBoxOpen || vTextInputOpen)
                 {
                     return true;
                 }

@@ -30,7 +30,7 @@ namespace CtrlUI
                 //Show the loading gif
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    gif_Launchers_Loading.Show();
+                    gif_List_Loading.Show();
                 });
 
                 //Check if sorting is required
@@ -118,7 +118,7 @@ namespace CtrlUI
                 //Hide the loading gif
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    gif_Launchers_Loading.Hide();
+                    gif_List_Loading.Hide();
                 });
             }
             catch (Exception ex)

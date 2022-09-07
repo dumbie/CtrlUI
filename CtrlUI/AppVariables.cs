@@ -12,9 +12,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -38,15 +36,16 @@ namespace CtrlUI
         public static DateTime? vApiIGDBTokenExpire = null;
 
         //Interaction Variables
-        public static long vMouseLastInteraction = GetSystemTicksMs();
-        public static WindowPoint vMousePreviousPosition = new WindowPoint();
         public static bool vSingleTappedEvent = true;
         public static bool vMousePressDownLeftClick = false;
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
-        public static string[] vLoopTargetListsColumn = { "listbox_MainMenu", "lb_MessageBox" };
-        public static string[] vSelectTargetLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_FilePicker" };
-        public static string[] vTabTargetListsSingleColumn = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Manage_AddAppCategory" };
+        public static string[] vSelectNearCharacterLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Search", "lb_FilePicker" };
+
+        public static string[] vLoopTargetListsFirstLastColumn = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes" };
+        public static string[] vLoopTargetListsFirstLastItem = { "listbox_MainMenu", "lb_MessageBox" };
+
+        public static string[] vTabTargetListsSingle = { "lb_Manage_AddAppCategory" };
         public static string[] vTabTargetListsFirstLastColumn = { "lb_Search" };
         public static string[] vTabTargetListsFirstLastItem = { "lb_FilePicker", "lb_ProfileManager" };
         public static string[] vTabTargetButtonsDown = { "btn_Monitor_Switch_Primary", "grid_Popup_TextInput_button_ConfirmText" };
@@ -88,7 +87,6 @@ namespace CtrlUI
         //App Status Variables
         public static ProcessMulti vPrevFocusedProcess = null;
         public static bool vChangingWindow = false;
-        public static bool vAppMaximized = false;
         public static bool vAppMinimized = false;
         public static bool vAppActivated = true;
 
@@ -100,10 +98,6 @@ namespace CtrlUI
         //ColorPicker Variables
         public static bool vColorPickerOpen = false;
         public static FrameworkElementFocus vColorPickerElementFocus = new FrameworkElementFocus();
-
-        //Search Variables
-        public static bool vSearchOpen = false;
-        public static FrameworkElementFocus vSearchElementFocus = new FrameworkElementFocus();
 
         //Text Input Variables
         public static bool vTextInputOpen = false;

@@ -1,9 +1,6 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
-using static CtrlUI.AppVariables;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -18,7 +15,6 @@ namespace CtrlUI
         public static AVTaskDetails vTask_UpdateListStatus = new AVTaskDetails();
         public static AVTaskDetails vTask_UpdateAppRunningTime = new AVTaskDetails();
         public static AVTaskDetails vTask_UpdateMediaInformation = new AVTaskDetails();
-        public static AVTaskDetails vTask_ShowHideMouse = new AVTaskDetails();
 
         //Start all the background tasks
         void TasksBackgroundStart()
@@ -34,7 +30,6 @@ namespace CtrlUI
                 AVActions.TaskStartLoop(vTaskLoop_UpdateListStatus, vTask_UpdateListStatus);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateAppRunningTime, vTask_UpdateAppRunningTime);
                 AVActions.TaskStartLoop(vTaskLoop_UpdateMediaInformation, vTask_UpdateMediaInformation);
-                TaskStart_ShowHideMouseCursor();
             }
             catch { }
         }
@@ -52,19 +47,6 @@ namespace CtrlUI
                 await AVActions.TaskStopLoop(vTask_UpdateListStatus, 5000);
                 await AVActions.TaskStopLoop(vTask_UpdateAppRunningTime, 5000);
                 await AVActions.TaskStopLoop(vTask_UpdateMediaInformation, 5000);
-                await AVActions.TaskStopLoop(vTask_ShowHideMouse, 5000);
-            }
-            catch { }
-        }
-
-        void TaskStart_ShowHideMouseCursor()
-        {
-            try
-            {
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideMouseCursor")))
-                {
-                    AVActions.TaskStartLoop(vTaskLoop_ShowHideMouse, vTask_ShowHideMouse);
-                }
             }
             catch { }
         }

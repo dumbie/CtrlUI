@@ -16,16 +16,6 @@ namespace CtrlUI
             catch { }
         }
 
-        //Handle search mouse presses
-        async void Button_MenuSearch_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await Popup_ShowHide_Search(false);
-            }
-            catch { }
-        }
-
         //Handle sorting mouse presses
         async void Button_MenuSorting_Click(object sender, RoutedEventArgs e)
         {
@@ -36,12 +26,12 @@ namespace CtrlUI
             catch { }
         }
 
-        //Monitor application mouse movement
-        void WindowMain_MouseMove(object sender, MouseEventArgs e)
+        //Handle minimize mouse presses
+        private async void Button_MenuMinimize_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                MouseCursorShow();
+                await AppMinimize(false);
             }
             catch { }
         }

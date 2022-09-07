@@ -44,18 +44,29 @@ namespace CtrlUI
                     //Check if there is any controller connected
                     if (!vControllerAnyConnected())
                     {
-                        sp_ControllerHelp.Visibility = Visibility.Collapsed;
+                        grid_Help.Visibility = Visibility.Collapsed;
+                        image_Category_Menu_LB.Visibility = Visibility.Collapsed;
+                        image_Category_Menu_RB.Visibility = Visibility.Collapsed;
+                        image_Settings_LB.Visibility = Visibility.Collapsed;
+                        image_Settings_RB.Visibility = Visibility.Collapsed;
                         return;
+                    }
+                    else
+                    {
+                        image_Category_Menu_LB.Visibility = Visibility.Visible;
+                        image_Category_Menu_RB.Visibility = Visibility.Visible;
+                        image_Settings_LB.Visibility = Visibility.Visible;
+                        image_Settings_RB.Visibility = Visibility.Visible;
                     }
 
                     //Check if the help setting is enabled or disabled
                     if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideControllerHelp")))
                     {
-                        sp_ControllerHelp.Visibility = Visibility.Collapsed;
+                        grid_Help.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
-                        sp_ControllerHelp.Visibility = Visibility.Visible;
+                        grid_Help.Visibility = Visibility.Visible;
                     }
 
                     //Check DirectXInput settings

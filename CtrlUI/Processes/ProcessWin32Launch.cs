@@ -107,7 +107,7 @@ namespace CtrlUI
                 }
 
                 //Minimize the CtrlUI window
-                if (allowMinimize && Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow")))
+                if (allowMinimize)
                 {
                     await AppMinimize(true);
                 }

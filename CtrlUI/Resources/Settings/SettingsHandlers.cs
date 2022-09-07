@@ -69,7 +69,6 @@ namespace CtrlUI
                     settingsStackpanelDisplay.Visibility = Visibility.Collapsed;
                     settingsStackpanelApps.Visibility = Visibility.Collapsed;
                     settingsStackpanelInterface.Visibility = Visibility.Collapsed;
-                    settingsStackpanelBackground.Visibility = Visibility.Collapsed;
                     settingsStackpanelSound.Visibility = Visibility.Collapsed;
                     settingsStackpanelBrowser.Visibility = Visibility.Collapsed;
                     settingsStackpanelNetwork.Visibility = Visibility.Collapsed;
@@ -85,22 +84,17 @@ namespace CtrlUI
                     else if (SelStackPanel.Name == "settingsButtonDisplay")
                     {
                         settingsStackpanelDisplay.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsLaunchFullscreen, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsLaunchMinimized, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonApps")
                     {
                         settingsStackpanelApps.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsShowOtherShortcuts, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsHideAppProcesses, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonInterface")
                     {
                         settingsStackpanelInterface.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsShowMediaMain, false, vProcessCurrent.MainWindowHandle);
-                    }
-                    else if (SelStackPanel.Name == "settingsButtonBackground")
-                    {
-                        settingsStackpanelBackground.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsVideoBackground, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsHideBatteryLevel, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonSound")
                     {
@@ -184,98 +178,6 @@ namespace CtrlUI
                     //Save changes to Json file
                     JsonSaveApplications();
                 }
-            }
-            catch { }
-        }
-
-        //Change the interface background image
-        async void Button_Settings_ChangeBackgroundImage_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                vFilePickerFilterIn = new List<string> { "jpg", "png" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Background Image";
-                vFilePickerDescription = "Please select a new background image:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PC", -1, false, btn_Settings_ChangeBackgroundImage);
-
-                while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
-                if (vFilePickerCancelled) { return; }
-
-                //Unload the current background media
-                UnloadBackgroundMedia();
-
-                //Copy new background file
-                File_Copy(vFilePickerResult.PathFile, "Assets/User/Background.png", true);
-
-                //Disable video background
-                cb_SettingsVideoBackground.IsChecked = false;
-                Setting_Save(vConfigurationCtrlUI, "VideoBackground", "False");
-
-                //Disable desktop background
-                cb_SettingsDesktopBackground.IsChecked = false;
-                Setting_Save(vConfigurationCtrlUI, "DesktopBackground", "False");
-
-                //Update the background media
-                UpdateBackgroundMedia(false);
-            }
-            catch { }
-        }
-
-        //Change the interface background video
-        async void Button_Settings_ChangeBackgroundVideo_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                vFilePickerFilterIn = new List<string> { "mp4" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Background Video";
-                vFilePickerDescription = "Please select a new background video:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PC", -1, false, btn_Settings_ChangeBackgroundVideo);
-
-                while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
-                if (vFilePickerCancelled) { return; }
-
-                //Unload the current background media
-                UnloadBackgroundMedia();
-
-                //Copy new background file
-                File_Copy(vFilePickerResult.PathFile, "Assets/User/BackgroundLive.mp4", true);
-
-                //Enable video background
-                cb_SettingsVideoBackground.IsChecked = true;
-                Setting_Save(vConfigurationCtrlUI, "VideoBackground", "True");
-
-                //Update the background media
-                UpdateBackgroundMedia(false);
-            }
-            catch { }
-        }
-
-        //Reset the interface background
-        void Button_Settings_ResetBackground_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //Unload the current background media
-                UnloadBackgroundMedia();
-
-                //Remove background files
-                File_Delete("Assets/User/Background.png");
-                File_Delete("Assets/User/BackgroundLive.mp4");
-
-                //Update the background media
-                UpdateBackgroundMedia(false);
             }
             catch { }
         }

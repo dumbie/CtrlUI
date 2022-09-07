@@ -6,29 +6,17 @@ using System.Windows;
 using System.Windows.Controls;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {
     partial class WindowMain
     {
         //Reset the popup to defaults
-        async void Grid_Popup_Search_button_Reset_Click(object sender, RoutedEventArgs e)
+        async void grid_Search_button_Reset_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await Popup_Reset_Search(true);
-            }
-            catch { }
-        }
-
-        //Open the keyboard controller
-        async void Button_SearchKeyboardController_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await KeyboardControllerHideShow(false);
-                await FrameworkElementFocus(grid_Popup_Search_textbox, false, vProcessCurrent.MainWindowHandle);
+                await Search_Reset(true);
             }
             catch { }
         }
@@ -42,12 +30,12 @@ namespace CtrlUI
             catch { }
         }
 
-        async void Grid_Popup_Search_textbox_TextChanged(object sender, TextChangedEventArgs e)
+        async void grid_Search_textbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
-                string searchString = grid_Popup_Search_textbox.Text;
-                string placeholderString = (string)grid_Popup_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                string searchString = grid_Search_textbox.Text;
+                string placeholderString = (string)grid_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
                 if (!string.IsNullOrWhiteSpace(searchString) && searchString != placeholderString)
                 {
                     //Clear the current popup list
@@ -78,9 +66,8 @@ namespace CtrlUI
                     List_Search.Clear();
 
                     //Reset the search text
-                    grid_Popup_Search_Count_TextBlock.Text = string.Empty;
-                    grid_Popup_Search_textblock_Result.Text = "Please enter a search term above.";
-                    grid_Popup_Search_textblock_Result.Visibility = Visibility.Visible;
+                    grid_Search_textblock_Result.Text = "Please enter a search term.";
+                    grid_Search_textblock_Result.Visibility = Visibility.Visible;
                 }
             }
             catch { }

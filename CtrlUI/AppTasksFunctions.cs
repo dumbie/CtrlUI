@@ -27,7 +27,7 @@ namespace CtrlUI
             {
                 while (TaskCheckLoop(vTask_UpdateWindowStatus))
                 {
-                    await UpdateWindowStatus();
+                    UpdateWindowStatus();
 
                     //Delay the loop task
                     await TaskDelayLoop(500, vTask_UpdateWindowStatus);
@@ -72,7 +72,7 @@ namespace CtrlUI
             {
                 while (TaskCheckLoop(vTask_UpdateMediaInformation))
                 {
-                    await UpdateCurrentMediaInformation();
+                    await UpdateCurrentVolumeInformation();
 
                     //Delay the loop task
                     await TaskDelayLoop(1000, vTask_UpdateMediaInformation);
@@ -168,21 +168,6 @@ namespace CtrlUI
                         //Delay the loop task
                         await TaskDelayLoop(1000, vTask_UpdateListStatus);
                     }
-                }
-            }
-            catch { }
-        }
-
-        async Task vTaskLoop_ShowHideMouse()
-        {
-            try
-            {
-                while (TaskCheckLoop(vTask_ShowHideMouse))
-                {
-                    await MouseCursorCheckMovement();
-
-                    //Delay the loop task
-                    await TaskDelayLoop(3000, vTask_ShowHideMouse);
                 }
             }
             catch { }

@@ -17,7 +17,6 @@ using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -129,13 +128,6 @@ namespace CtrlUI
         {
             try
             {
-                //Check if shortcuts need to be updated
-                if (!Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherShortcuts")))
-                {
-                    //Debug.WriteLine("Shortcuts don't need to be updated, cancelling.");
-                    return;
-                }
-
                 //Check if already refreshing
                 if (vBusyRefreshingShortcuts)
                 {
@@ -149,7 +141,7 @@ namespace CtrlUI
                 //Show the loading gif
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    gif_Shortcuts_Loading.Show();
+                    gif_List_Loading.Show();
                 });
 
                 //Show refresh status message
@@ -239,7 +231,7 @@ namespace CtrlUI
                 //Hide the loading gif
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    gif_Shortcuts_Loading.Hide();
+                    gif_List_Loading.Hide();
                 });
             }
             catch (Exception ex)

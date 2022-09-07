@@ -103,7 +103,7 @@ namespace CtrlUI
                     if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                     {
                         ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                        if (vSelectTargetLists.Contains(parentListbox.Name))
+                        if (vSelectNearCharacterLists.Contains(parentListbox.Name))
                         {
                             if (parentListbox.Name == "lb_FilePicker")
                             {

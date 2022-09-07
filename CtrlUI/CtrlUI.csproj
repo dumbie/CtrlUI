@@ -132,7 +132,6 @@
     <Compile Include="AppBusyWait.cs" />
     <Compile Include="ColorHandlers.cs" />
     <Compile Include="ColorFunctions.cs" />
-    <Compile Include="BackgroundFunctions.cs" />
     <Compile Include="FilePicker\CreateTextFile.cs" />
     <Compile Include="FilePicker\CreateFolder.cs" />
     <Compile Include="FilePicker\EjectDrive.cs" />
@@ -144,6 +143,7 @@
     <Compile Include="FilePicker\PickerLoadFiles.cs" />
     <Compile Include="FilePicker\PickerLoadPC.cs" />
     <Compile Include="FilePicker\PickerLoadUwp.cs" />
+    <Compile Include="InterfaceMenuMain.cs" />
     <Compile Include="Launchers\BattleNetListApps.cs" />
     <Compile Include="Launchers\AmazonListApps.cs" />
     <Compile Include="Launchers\UwpListApps.cs" />
@@ -216,7 +216,7 @@
     <Compile Include="Processes\ProcessUwpLaunch.cs" />
     <Compile Include="SearchFunctions.cs" />
     <Compile Include="InterfaceHandlers.cs" />
-    <Compile Include="InterfaceMenu.cs" />
+    <Compile Include="InterfaceMenuCategory.cs" />
     <Compile Include="InterfaceFunctions.cs" />
     <Compile Include="JsonFunctions.cs" />
     <Compile Include="ListHandlers.cs" />

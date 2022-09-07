@@ -74,8 +74,8 @@ namespace CtrlUI
             try
             {
                 ShowHideEmptyList();
-                ListsUpdateCount();
                 UpdateSearchResults();
+                ListsUpdateCount();
             }
             catch { }
         }
@@ -160,17 +160,16 @@ namespace CtrlUI
                 Visibility visibilityApps = List_Apps.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityEmulators = List_Emulators.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityLaunchers = List_Launchers.Any() ? Visibility.Visible : Visibility.Collapsed;
-                Visibility visibilityShortcuts = List_Shortcuts.Any() && Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherShortcuts")) ? Visibility.Visible : Visibility.Collapsed;
-                Visibility visibilityProcesses = List_Processes.Any() && Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherProcesses")) ? Visibility.Visible : Visibility.Collapsed;
-
+                Visibility visibilityShortcuts = List_Shortcuts.Any() ? Visibility.Visible : Visibility.Collapsed;
+                Visibility visibilityProcesses = List_Processes.Any() ? Visibility.Visible : Visibility.Collapsed;
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    sp_Games.Visibility = visibilityGames;
-                    sp_Apps.Visibility = visibilityApps;
-                    sp_Emulators.Visibility = visibilityEmulators;
-                    sp_Launchers.Visibility = visibilityLaunchers;
-                    sp_Shortcuts.Visibility = visibilityShortcuts;
-                    sp_Processes.Visibility = visibilityProcesses;
+                    button_Category_Menu_Games.Visibility = visibilityGames;
+                    button_Category_Menu_Apps.Visibility = visibilityApps;
+                    button_Category_Menu_Emulators.Visibility = visibilityEmulators;
+                    button_Category_Menu_Launchers.Visibility = visibilityLaunchers;
+                    button_Category_Menu_Shortcuts.Visibility = visibilityShortcuts;
+                    button_Category_Menu_Processes.Visibility = visibilityProcesses;
                 });
             }
             catch { }
@@ -212,24 +211,23 @@ namespace CtrlUI
         {
             try
             {
-                //Debug.WriteLine("Updating the lists count.");
+                //Check list category setting
+                string listCountString = string.Empty;
+                ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                listCountString = CategoryListCount(listAppCategory).ToString();
 
-                string List_Games_Count = List_Games.Count.ToString();
-                string List_Apps_Count = List_Apps.Count.ToString();
-                string List_Emulators_Count = List_Emulators.Count.ToString();
-                string List_Launchers_Count = List_Launchers.Count.ToString();
-                string List_Shortcuts_Count = List_Shortcuts.Count.ToString();
-                string List_Processes_Count = List_Processes.Count.ToString();
+                //Check the list count
+                if (listCountString == "0")
+                {
+                    listCountString = string.Empty;
+                }
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    tb_Games_Count.Text = List_Games_Count;
-                    tb_Apps_Count.Text = List_Apps_Count;
-                    tb_Emulators_Count.Text = List_Emulators_Count;
-                    tb_Launchers_Count.Text = List_Launchers_Count;
-                    tb_Shortcuts_Count.Text = List_Shortcuts_Count;
-                    tb_Processes_Count.Text = List_Processes_Count;
+                    textblock_Category_Count.Text = listCountString;
                 });
+
+                //Debug.WriteLine("Updating the lists count to: " + listCountString);
             }
             catch { }
         }

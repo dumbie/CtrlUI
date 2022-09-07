@@ -10,6 +10,8 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -86,20 +88,20 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonY.PressedRaw)
                     {
                         Debug.WriteLine("Button: YPressed");
+                        ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
 
                         if (vTextInputOpen)
                         {
                             Debug.WriteLine("Resetting the text input popup.");
                             await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Reset_TextInput(true, string.Empty); });
                         }
-                        else if (vSearchOpen)
-                        {
-                            Debug.WriteLine("Resetting the search popup.");
-                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await Popup_Reset_Search(true); });
-                        }
                         else if (vFilePickerOpen)
                         {
                             KeySendSingle(KeysVirtual.BackSpace, vProcessCurrent.MainWindowHandle);
+                        }
+                        else if (listAppCategory == ListCategory.Search)
+                        {
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await Search_Reset(true); });
                         }
                         else
                         {
@@ -128,9 +130,11 @@ namespace CtrlUI
                                  await SettingsChangeTab(true);
                                  KeySendSingle(KeysVirtual.F13, vProcessCurrent.MainWindowHandle);
                              }
-                             else
+                             else if (!Popup_Any_Open())
                              {
-                                 KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
+                                 ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "listCategory"));
+                                 ListCategory listCategorySwitch = (ListCategory)PreviousCategoryWithItems(listCategorySetting, true);
+                                 await ChangeCategoryListBox(listCategorySwitch);
                              }
                          });
 
@@ -147,29 +151,20 @@ namespace CtrlUI
                                 await SettingsChangeTab(false);
                                 KeySendSingle(KeysVirtual.F13, vProcessCurrent.MainWindowHandle);
                             }
-                            else
+                            else if (!Popup_Any_Open())
                             {
-                                KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
+                                ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "listCategory"));
+                                ListCategory listCategorySwitch = (ListCategory)NextCategoryWithItems(listCategorySetting, true);
+                                await ChangeCategoryListBox(listCategorySwitch);
                             }
                         });
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
                     }
-                    else if (ControllerInput.ButtonBack.PressedRaw)
-                    {
-                        Debug.WriteLine("Button: BackPressed / Show hide menu");
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate
-                        {
-                            await Popup_ShowHide_Search(false);
-                        });
-
-                        ControllerUsed = true;
-                        ControllerDelay750 = true;
-                    }
                     else if (ControllerInput.ButtonStart.PressedRaw)
                     {
-                        Debug.WriteLine("Button: StartPressed / Show hide search");
+                        Debug.WriteLine("Button: StartPressed / Show hide menu");
                         if (vFilePickerOpen)
                         {
                             AVActions.ActionDispatcherInvoke(delegate

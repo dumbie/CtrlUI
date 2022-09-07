@@ -16,11 +16,8 @@ namespace CtrlUI
         {
             try
             {
-                cb_SettingsLaunchFullscreen.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFullscreen"));
                 cb_SettingsLaunchMinimized.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized"));
 
-                cb_SettingsShowOtherShortcuts.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherShortcuts"));
-                cb_SettingsShowOtherProcesses.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowOtherProcesses"));
                 cb_SettingsHideAppProcesses.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideAppProcesses"));
                 cb_SettingsShowLibrarySteam.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibrarySteam"));
                 cb_SettingsShowLibraryEADesktop.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEADesktop"));
@@ -33,7 +30,6 @@ namespace CtrlUI
                 cb_SettingsShowLibraryUwp.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryUwp"));
 
                 cb_SettingsHideBatteryLevel.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideBatteryLevel"));
-                cb_SettingsHideMouseCursor.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideMouseCursor"));
                 cb_SettingsHideControllerHelp.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideControllerHelp"));
 
                 cb_SettingsShowHiddenFilesFolders.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders"));
@@ -41,8 +37,6 @@ namespace CtrlUI
                 cb_SettingsNotReadyNetworkDrives.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "NotReadyNetworkDrives"));
 
                 cb_SettingsInterfaceSound.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "InterfaceSound"));
-                cb_SettingsShowMediaMain.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowMediaMain"));
-                cb_SettingsMinimizeAppOnShow.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow"));
                 cb_SettingsLaunchFpsOverlayer.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFpsOverlayer"));
                 cb_SettingsLaunchDirectXInput.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchDirectXInput"));
 
@@ -93,19 +87,6 @@ namespace CtrlUI
                 {
                     btn_Settings_AddRemoteDesktop_TextBlock.Text = "Remove Remote Desktop from GeForce Experience";
                 }
-
-                //Background settings
-                cb_SettingsVideoBackground.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "VideoBackground"));
-                cb_SettingsDesktopBackground.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "DesktopBackground"));
-
-                textblock_SettingsBackgroundBrightness.Text = "Background brightness: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundBrightness")) + "%";
-                slider_SettingsBackgroundBrightness.Value = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundBrightness"));
-
-                textblock_SettingsBackgroundPlayVolume.Text = "Video playback volume: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundPlayVolume")) + "%";
-                slider_SettingsBackgroundPlayVolume.Value = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundPlayVolume"));
-
-                textblock_SettingsBackgroundPlaySpeed.Text = "Video playback speed: " + Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundPlaySpeed")) + "%";
-                slider_SettingsBackgroundPlaySpeed.Value = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "BackgroundPlaySpeed"));
 
                 return true;
             }

@@ -32,7 +32,6 @@ namespace CtrlUI
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
-                        grid_Main_Time.Visibility = Visibility.Collapsed;
                     });
                     return;
                 }
@@ -99,7 +98,7 @@ namespace CtrlUI
         }
 
         //Update the controller status from DirectXInput
-        async Task UpdateControllerStatus(List<ControllerStatusDetails> controllerStatusSummaryList)
+        void UpdateControllerStatus(List<ControllerStatusDetails> controllerStatusSummaryList)
         {
             try
             {
@@ -174,9 +173,6 @@ namespace CtrlUI
                             string ControllerIdDisplay = Convert.ToString(controllerStatusNew.NumberId + 1);
                             //await Notification_Send_Status("Controller", "Connected (" + ControllerIdDisplay + ")");
 
-                            //Hide the mouse cursor
-                            await MouseCursorHide();
-
                             //Update the controller help
                             UpdateControllerHelp();
                         }
@@ -212,7 +208,6 @@ namespace CtrlUI
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
-                        grid_Main_Time.Visibility = Visibility.Collapsed;
                     });
                     return true;
                 }
@@ -237,7 +232,6 @@ namespace CtrlUI
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Visibility = Visibility.Collapsed;
-                        grid_Main_Time.Visibility = Visibility.Collapsed;
                     });
                     return;
                 }
@@ -250,7 +244,6 @@ namespace CtrlUI
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
                         img_Main_Battery.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Battery/BatteryVerCharge.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         img_Main_Battery.Visibility = Visibility.Visible;
-                        grid_Main_Time.Visibility = Visibility.Visible;
                     });
                     return;
                 }
@@ -284,7 +277,6 @@ namespace CtrlUI
                     //Show the battery image and clock
                     txt_Main_Battery.Visibility = Visibility.Visible;
                     img_Main_Battery.Visibility = Visibility.Visible;
-                    grid_Main_Time.Visibility = Visibility.Visible;
                 });
             }
             catch
@@ -293,7 +285,6 @@ namespace CtrlUI
                 {
                     txt_Main_Battery.Visibility = Visibility.Collapsed;
                     img_Main_Battery.Visibility = Visibility.Collapsed;
-                    grid_Main_Time.Visibility = Visibility.Collapsed;
                 });
             }
         }

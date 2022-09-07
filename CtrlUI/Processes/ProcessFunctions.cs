@@ -18,7 +18,6 @@ using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
-using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -209,10 +208,7 @@ namespace CtrlUI
                 else if (processWindowHandle != IntPtr.Zero)
                 {
                     //Minimize the CtrlUI window
-                    if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "MinimizeAppOnShow")))
-                    {
-                        await AppMinimize(true);
-                    }
+                    await AppMinimize(true);
 
                     //Check keyboard controller launch
                     string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);

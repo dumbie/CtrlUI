@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
@@ -17,7 +16,6 @@ using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
-using static LibraryShared.FocusFunctions;
 using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 
@@ -54,9 +52,6 @@ namespace CtrlUI
                 //Change application accent color
                 Settings_Load_AccentColor(vConfigurationCtrlUI);
 
-                //Set the application background media
-                UpdateBackgroundMedia(true);
-
                 //Set the application clock style
                 UpdateClockStyle();
 
@@ -75,12 +70,8 @@ namespace CtrlUI
                     this.Title += " (Admin)";
                 }
 
-                //Check settings if need to start in fullscreen of minimized
-                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchFullscreen")))
-                {
-                    await AppSwitchScreenMode(true, false);
-                }
-                else if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized")))
+                //Check settings if need to start minimized
+                if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized")))
                 {
                     await AppMinimize(false);
                 }
@@ -154,7 +145,7 @@ namespace CtrlUI
                 if (!Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized")))
                 {
                     //Focus on CtrlUI window
-                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, false, true, false);
 
                     //Prevent or allow monitor sleep
                     UpdateMonitorSleepAuto();
@@ -166,12 +157,8 @@ namespace CtrlUI
                     await AddFirstLaunchApps();
                 }
 
-                //Focus on the first available listbox
-                if (vMainMenuElementFocus.FocusElement == null || Keyboard.FocusedElement == null || Keyboard.FocusedElement == this)
-                {
-                    Debug.WriteLine("Focusing on the first available listbox.");
-                    await ListboxFocusIndex(TopVisibleListBoxWithItems(), true, false, -1, vProcessCurrent.MainWindowHandle);
-                }
+                //Switch to last used list category
+                await SwitchToListCategorySetting();
 
                 //Update the controller help
                 UpdateControllerHelp();
@@ -228,39 +215,19 @@ namespace CtrlUI
         {
             try
             {
-                //Check if the application is maximized
-                bool isMaximized = vAppMaximized;
-                if (isMaximized)
-                {
-                    await AppSwitchScreenMode(false, true);
-                }
-
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
-                //Get the current window size
-                int windowWidth = (int)(this.ActualWidth * displayMonitorSettings.DpiScaleHorizontal);
-                int windowHeight = (int)(this.ActualHeight * displayMonitorSettings.DpiScaleVertical);
-
-                //Check and resize the target window size
-                if (windowWidth > displayMonitorSettings.WidthNative || windowHeight > displayMonitorSettings.HeightNative)
-                {
-                    windowWidth = displayMonitorSettings.WidthNative;
-                    windowHeight = displayMonitorSettings.HeightNative;
-                    WindowResize(vInteropWindowHandle, windowWidth, windowHeight);
-                }
+                //Resize the window size
+                int windowWidth = Convert.ToInt32(displayMonitorSettings.WidthNative * 0.60);
+                int windowHeight = Convert.ToInt32(displayMonitorSettings.HeightNative * 0.60);
+                WindowResize(vInteropWindowHandle, windowWidth, windowHeight);
 
                 //Center the window on target screen
                 int horizontalLeft = (int)(displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthNative - windowWidth) / 2);
                 int verticalTop = (int)(displayMonitorSettings.BoundsTop + (displayMonitorSettings.HeightNative - windowHeight) / 2);
                 WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
-
-                //Restore the previous screen mode
-                if (isMaximized)
-                {
-                    await AppSwitchScreenMode(true, false);
-                }
 
                 //Notify apps the monitor changed
                 if (notifyApps)

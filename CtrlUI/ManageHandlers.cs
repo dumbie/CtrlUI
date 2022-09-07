@@ -15,6 +15,7 @@ using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.FocusFunctions;
 using static LibraryShared.JsonFunctions;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -483,7 +484,8 @@ namespace CtrlUI
                             }
 
                             //Focus on the edited item listbox
-                            if (vSearchOpen)
+                            ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                            if (listAppCategory == ListCategory.Search)
                             {
                                 await ListboxFocusIndex(lb_Search, false, false, -1, vProcessCurrent.MainWindowHandle);
                             }
@@ -506,7 +508,8 @@ namespace CtrlUI
                         else
                         {
                             //Focus on the item listbox
-                            if (vSearchOpen)
+                            ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                            if (listAppCategory == ListCategory.Search)
                             {
                                 await ListboxFocusIndex(lb_Search, false, false, -1, vProcessCurrent.MainWindowHandle);
                             }

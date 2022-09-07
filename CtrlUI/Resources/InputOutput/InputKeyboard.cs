@@ -7,6 +7,7 @@ using System.Windows.Interop;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static CtrlUI.AppVariables;
+using static LibraryShared.Enums;
 using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
 
@@ -125,7 +126,9 @@ namespace CtrlUI
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
+
+                    //Tab target
+                    if (vTabTargetListsSingle.Contains(parentListbox.Name))
                     {
                         KeySendSingle(KeysVirtual.Tab, vProcessCurrent.MainWindowHandle);
                         Handled = true;
@@ -150,12 +153,23 @@ namespace CtrlUI
                             return;
                         }
                     }
-                    else if (vLoopTargetListsColumn.Contains(parentListbox.Name))
+
+                    //Loop target
+                    else if (vLoopTargetListsFirstLastItem.Contains(parentListbox.Name))
                     {
                         int itemsCount = parentListbox.Items.Count;
                         if ((parentListbox.SelectedIndex + 1) == itemsCount)
                         {
-                            ListboxFocusIndex(parentListbox, false, false, 0, vProcessCurrent.MainWindowHandle);
+                            ListboxFocusIndex(parentListbox, false, false, 0, vProcessCurrent.MainWindowHandle).Start();
+                            Handled = true;
+                            return;
+                        }
+                    }
+                    else if (vLoopTargetListsFirstLastColumn.Contains(parentListbox.Name))
+                    {
+                        if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, false))
+                        {
+                            ListboxFocusIndex(parentListbox, false, false, 0, vProcessCurrent.MainWindowHandle).Start();
                             Handled = true;
                             return;
                         }
@@ -195,7 +209,9 @@ namespace CtrlUI
                 if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
                 {
                     ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
-                    if (vTabTargetListsSingleColumn.Contains(parentListbox.Name))
+
+                    //Tab target
+                    if (vTabTargetListsSingle.Contains(parentListbox.Name))
                     {
                         KeyPressReleaseCombo(KeysVirtual.Shift, KeysVirtual.Tab);
                         Handled = true;
@@ -219,12 +235,24 @@ namespace CtrlUI
                             return;
                         }
                     }
-                    else if (vLoopTargetListsColumn.Contains(parentListbox.Name))
+
+                    //Loop target
+                    else if (vLoopTargetListsFirstLastItem.Contains(parentListbox.Name))
                     {
                         if (parentListbox.SelectedIndex == 0)
                         {
                             int itemsCount = parentListbox.Items.Count;
-                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vProcessCurrent.MainWindowHandle);
+                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vProcessCurrent.MainWindowHandle).Start();
+                            Handled = true;
+                            return;
+                        }
+                    }
+                    else if (vLoopTargetListsFirstLastColumn.Contains(parentListbox.Name))
+                    {
+                        if (ListBoxItemColumnPosition(parentListbox, (ListBoxItem)frameworkElement, true))
+                        {
+                            int itemsCount = parentListbox.Items.Count;
+                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vProcessCurrent.MainWindowHandle).Start();
                             Handled = true;
                             return;
                         }
@@ -269,10 +297,6 @@ namespace CtrlUI
                 //Handle Alt + Key press
                 if (e.KeyboardDevice.Modifiers == ModifierKeys.Alt)
                 {
-                    if (e.SystemKey == Key.Enter)
-                    {
-                        await AppSwitchScreenMode(false, false);
-                    }
                 }
                 //Handle Ctrl + Key press
                 else if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
@@ -284,7 +308,7 @@ namespace CtrlUI
                     if (e.Key == Key.Escape) { await Popup_Close_Top(); }
                     else if (e.Key == Key.F1) { await Popup_Show(grid_Popup_Help, grid_Popup_Help_button_Close); }
                     else if (e.Key == Key.F2) { await QuickLaunchPrompt(); }
-                    else if (e.Key == Key.F3) { await Popup_ShowHide_Search(false); }
+                    else if (e.Key == Key.F3) { await ChangeCategoryListBox(ListCategory.Search); }
                     else if (e.Key == Key.F4) { await SortAppListsSwitch(false); }
                     else if (e.Key == Key.F6) { await Popup_ShowHide_MainMenu(false); }
                 }
