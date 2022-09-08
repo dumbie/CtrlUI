@@ -31,7 +31,7 @@ namespace CtrlUI
         {
             try
             {
-                await AppMinimize(false);
+                await AppWindowMinimize(false, true);
             }
             catch { }
         }

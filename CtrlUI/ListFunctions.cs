@@ -212,9 +212,8 @@ namespace CtrlUI
             try
             {
                 //Check list category setting
-                string listCountString = string.Empty;
                 ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
-                listCountString = CategoryListCount(listAppCategory).ToString();
+                string listCountString = CategoryListCount(listAppCategory).ToString();
 
                 //Check the list count
                 if (listCountString == "0")

@@ -53,7 +53,7 @@ namespace CtrlUI
                 //Minimize the CtrlUI window
                 if (allowMinimize)
                 {
-                    await AppMinimize(true);
+                    await AppWindowMinimize(true, true);
                 }
 
                 //Launch the UWP or Win32Store application

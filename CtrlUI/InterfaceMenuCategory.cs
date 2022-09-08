@@ -84,7 +84,7 @@ namespace CtrlUI
 
                 if (loopCategory)
                 {
-                    return (ListCategory)0;
+                    return FirstCategoryWithItems();
                 }
                 else
                 {
@@ -133,7 +133,7 @@ namespace CtrlUI
         {
             try
             {
-                ListCategory listCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "listCategory"));
+                ListCategory listCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
                 await ChangeCategoryListBox(listCategory);
             }
             catch { }

@@ -56,7 +56,7 @@ namespace CtrlUI
 
                 DataBindString AnswerHide = new DataBindString();
                 AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Hide.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerHide.Name = "Hide the shortcut file";
+                AnswerHide.Name = "Hide this shortcut";
                 Answers.Add(AnswerHide);
 
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);

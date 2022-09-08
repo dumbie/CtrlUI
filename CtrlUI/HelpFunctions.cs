@@ -44,7 +44,7 @@ namespace CtrlUI
                     //Check if there is any controller connected
                     if (!vControllerAnyConnected())
                     {
-                        grid_Help.Visibility = Visibility.Collapsed;
+                        grid_ControllerHelp.Visibility = Visibility.Collapsed;
                         image_Category_Menu_LB.Visibility = Visibility.Collapsed;
                         image_Category_Menu_RB.Visibility = Visibility.Collapsed;
                         image_Settings_LB.Visibility = Visibility.Collapsed;
@@ -62,11 +62,11 @@ namespace CtrlUI
                     //Check if the help setting is enabled or disabled
                     if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideControllerHelp")))
                     {
-                        grid_Help.Visibility = Visibility.Collapsed;
+                        grid_ControllerHelp.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
-                        grid_Help.Visibility = Visibility.Visible;
+                        grid_ControllerHelp.Visibility = Visibility.Visible;
                     }
 
                     //Check DirectXInput settings
@@ -111,7 +111,7 @@ namespace CtrlUI
                     }
 
                     //Update controller help text
-                    UpdateControllerHelpText("Quick launch", "Sort", string.Empty, "Interact", "Switch app", "Search", "Menu", string.Empty, string.Empty);
+                    UpdateControllerHelpText("Quick launch", "Sort", string.Empty, "Interact", "Hide", "Search", "Menu", string.Empty, string.Empty);
                 });
             }
             catch { }

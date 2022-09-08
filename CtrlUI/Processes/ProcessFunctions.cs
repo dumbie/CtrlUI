@@ -28,16 +28,15 @@ namespace CtrlUI
         {
             try
             {
-                if (!vChangingWindow)
+                if (!vBusyChangingWindow)
                 {
-                    vChangingWindow = true;
+                    vBusyChangingWindow = true;
 
                     //Check if process is available
                     if (windowHandleTarget == null)
                     {
                         if (!silentFocus) { await Notification_Send_Status("Close", "App no longer running"); }
                         Debug.WriteLine("Show application no longer seems to be running.");
-                        vChangingWindow = false;
                         return;
                     }
 
@@ -46,7 +45,6 @@ namespace CtrlUI
                     {
                         if (!silentFocus) { await Notification_Send_Status("Close", "App can't be shown"); }
                         Debug.WriteLine("Application can't be shown, window handle is empty.");
-                        vChangingWindow = false;
                         return;
                     }
 
@@ -66,7 +64,6 @@ namespace CtrlUI
                     {
                         await Notification_Send_Status("Close", "Failed showing the app");
                         Debug.WriteLine("Failed showing the application, no longer running?");
-                        vChangingWindow = false;
                         return;
                     }
 
@@ -75,15 +72,16 @@ namespace CtrlUI
                     {
                         await KeyboardControllerHideShow(true);
                     }
-
-                    vChangingWindow = false;
                 }
             }
             catch (Exception ex)
             {
                 await Notification_Send_Status("Close", "Failed showing the app");
                 Debug.WriteLine("Failed showing the application, no longer running? " + ex.Message);
-                vChangingWindow = false;
+            }
+            finally
+            {
+                vBusyChangingWindow = false;
             }
         }
 
@@ -208,7 +206,7 @@ namespace CtrlUI
                 else if (processWindowHandle != IntPtr.Zero)
                 {
                     //Minimize the CtrlUI window
-                    await AppMinimize(true);
+                    await AppWindowMinimize(true, true);
 
                     //Check keyboard controller launch
                     string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);

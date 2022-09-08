@@ -109,7 +109,7 @@ namespace CtrlUI
                 //Minimize the CtrlUI window
                 if (allowMinimize)
                 {
-                    await AppMinimize(true);
+                    await AppWindowMinimize(true, true);
                 }
 
                 //Launch the keyboard controller

@@ -132,7 +132,7 @@ namespace CtrlUI
                              }
                              else if (!Popup_Any_Open())
                              {
-                                 ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "listCategory"));
+                                 ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
                                  ListCategory listCategorySwitch = (ListCategory)PreviousCategoryWithItems(listCategorySetting, true);
                                  await ChangeCategoryListBox(listCategorySwitch);
                              }
@@ -153,7 +153,7 @@ namespace CtrlUI
                             }
                             else if (!Popup_Any_Open())
                             {
-                                ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "listCategory"));
+                                ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
                                 ListCategory listCategorySwitch = (ListCategory)NextCategoryWithItems(listCategorySetting, true);
                                 await ChangeCategoryListBox(listCategorySwitch);
                             }
@@ -177,6 +177,20 @@ namespace CtrlUI
                             await AVActions.ActionDispatcherInvokeAsync(async delegate
                             {
                                 await Popup_ShowHide_MainMenu(false);
+                            });
+                        }
+
+                        ControllerUsed = true;
+                        ControllerDelay750 = true;
+                    }
+                    else if (ControllerInput.ButtonBack.PressedRaw)
+                    {
+                        Debug.WriteLine("Button: BackPressed / Showing search");
+                        if (!Popup_Any_Open())
+                        {
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate
+                            {
+                                await ChangeCategoryListBox(ListCategory.Search);
                             });
                         }
 

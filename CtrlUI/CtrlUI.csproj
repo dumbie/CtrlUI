@@ -143,6 +143,8 @@
     <Compile Include="FilePicker\PickerLoadFiles.cs" />
     <Compile Include="FilePicker\PickerLoadPC.cs" />
     <Compile Include="FilePicker\PickerLoadUwp.cs" />
+    <Compile Include="MouseFunctions.cs" />
+    <Compile Include="WindowFunctions.cs" />
     <Compile Include="InterfaceMenuMain.cs" />
     <Compile Include="Launchers\BattleNetListApps.cs" />
     <Compile Include="Launchers\AmazonListApps.cs" />

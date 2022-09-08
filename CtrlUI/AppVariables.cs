@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.Settings;
@@ -41,10 +40,8 @@ namespace CtrlUI
         public static bool vMousePressDownRightClick = false;
         public static bool vMousePressDownXButton1 = false;
         public static string[] vSelectNearCharacterLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Search", "lb_FilePicker" };
-
         public static string[] vLoopTargetListsFirstLastColumn = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes" };
         public static string[] vLoopTargetListsFirstLastItem = { "listbox_MainMenu", "lb_MessageBox" };
-
         public static string[] vTabTargetListsSingle = { "lb_Manage_AddAppCategory" };
         public static string[] vTabTargetListsFirstLastColumn = { "lb_Search" };
         public static string[] vTabTargetListsFirstLastItem = { "lb_FilePicker", "lb_ProfileManager" };
@@ -75,6 +72,7 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadAmazon = FileToBitmapImage(new string[] { "Amazon" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
 
         //Busy Variables
+        public static bool vBusyChangingWindow = false;
         public static bool vBusyCheckingForUpdate = false;
         public static bool vBusyRefreshingProcesses = false;
         public static bool vBusyRefreshingShortcuts = false;
@@ -85,8 +83,6 @@ namespace CtrlUI
         public static Process vProcessDirectXInput = null;
 
         //App Status Variables
-        public static ProcessMulti vPrevFocusedProcess = null;
-        public static bool vChangingWindow = false;
         public static bool vAppMinimized = false;
         public static bool vAppActivated = true;
 

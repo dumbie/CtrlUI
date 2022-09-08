@@ -73,7 +73,7 @@ namespace CtrlUI
                 //Check settings if need to start minimized
                 if (Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized")))
                 {
-                    await AppMinimize(false);
+                    await AppWindowMinimize(false, true);
                 }
 
                 //Workaround for 64bit Windows problems with System32
@@ -144,8 +144,8 @@ namespace CtrlUI
                 //Force window focus on CtrlUI
                 if (!Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized")))
                 {
-                    //Focus on CtrlUI window
-                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, false, true, false);
+                    //Show the CtrlUI window
+                    await AppWindowShow(true);
 
                     //Prevent or allow monitor sleep
                     UpdateMonitorSleepAuto();
@@ -229,6 +229,9 @@ namespace CtrlUI
                 int verticalTop = (int)(displayMonitorSettings.BoundsTop + (displayMonitorSettings.HeightNative - windowHeight) / 2);
                 WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
 
+                //Set the window as top most
+                SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
+
                 //Notify apps the monitor changed
                 if (notifyApps)
                 {
@@ -243,23 +246,6 @@ namespace CtrlUI
                 }
 
                 Debug.WriteLine("Moved the application to monitor: " + monitorNumber);
-            }
-            catch { }
-        }
-
-        //Make sure the correct window style is set
-        void CheckWindowStateAndStyle(object sender, EventArgs e)
-        {
-            try
-            {
-                if (WindowState == WindowState.Maximized)
-                {
-                    WindowStyle = WindowStyle.None;
-                }
-                else if (WindowState == WindowState.Normal)
-                {
-                    WindowStyle = WindowStyle.SingleBorderWindow;
-                }
             }
             catch { }
         }
@@ -294,7 +280,7 @@ namespace CtrlUI
                 //Force focus on CtrlUI
                 if (!vAppActivated)
                 {
-                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, true, true, false);
+                    await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, false, true, false);
                 }
 
                 //Show the closing messagebox
