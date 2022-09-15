@@ -69,11 +69,12 @@ namespace CtrlUI
         }
 
         //Refresh the list status
-        void RefreshListStatus()
+        async Task RefreshListStatus()
         {
             try
             {
                 ShowHideEmptyList();
+                await CheckActiveCategoryList();
                 UpdateSearchResults();
                 ListsUpdateCount();
             }
@@ -162,6 +163,7 @@ namespace CtrlUI
                 Visibility visibilityLaunchers = List_Launchers.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityShortcuts = List_Shortcuts.Any() ? Visibility.Visible : Visibility.Collapsed;
                 Visibility visibilityProcesses = List_Processes.Any() ? Visibility.Visible : Visibility.Collapsed;
+
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     button_Category_Menu_Games.Visibility = visibilityGames;
@@ -171,6 +173,28 @@ namespace CtrlUI
                     button_Category_Menu_Shortcuts.Visibility = visibilityShortcuts;
                     button_Category_Menu_Processes.Visibility = visibilityProcesses;
                 });
+            }
+            catch { }
+        }
+
+        //Check active category list
+        async Task CheckActiveCategoryList()
+        {
+            try
+            {
+                ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                if (CategoryListCount(listAppCategory) == 0 && listAppCategory != ListCategory.Search)
+                {
+                    await AVActions.ActionDispatcherInvokeAsync(async delegate
+                    {
+                        ListCategory? listCategorySwitch = PreviousCategoryWithItems(listAppCategory, false);
+                        if (listCategorySwitch == null)
+                        {
+                            listCategorySwitch = NextCategoryWithItems(listAppCategory, false);
+                        }
+                        await ChangeCategoryListBox((ListCategory)listCategorySwitch);
+                    });
+                }
             }
             catch { }
         }

@@ -97,7 +97,7 @@ namespace CtrlUI
                     ImageBitmap = iconBitmapImage,
                     PathExe = appExe,
                     PathLaunch = installDir,
-                    StatusLauncher = vImagePreloadRockstar
+                    StatusLauncherImage = vImagePreloadRockstar
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);

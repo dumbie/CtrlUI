@@ -4,17 +4,49 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared">
 
+    <!-- ListBoxItemAppCategory -->
+    <DataTemplate x:Key="ListBoxItemAppCategory">
+        <Grid Margin="5" Width="130">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="{Binding ImageBitmap}" Width="50" Height="50"/>
+            <TextBlock Grid.Row="1" Text="{Binding Name}" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" TextAlignment="Center"/>
+        </Grid>
+    </DataTemplate>
+
     <!-- ListboxItemApp -->
     <DataTemplate x:Key="ListBoxItemApp">
-        <StackPanel Width="110" MinHeight="115" Margin="2">
-            <Image Source="{Binding ImageBitmap}" Height="90" MaxWidth="70"/>
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Height="10" Margin="0,-2,0,-2">
-                <Ellipse VerticalAlignment="Center" Margin="2,0,2,0" Fill="{DynamicResource ApplicationAccentLightBrush}" Height="8" Width="8" Opacity="0.80" Visibility="{Binding StatusRunning}"/>
-                <Ellipse VerticalAlignment="Center" Margin="2,0,2,0" Fill="#FFB900" Height="8" Width="8" Opacity="0.80" Visibility="{Binding StatusSuspended}"/>
-                <Path VerticalAlignment="Center" Margin="2,0,2,0" Data="M0,0 L1,1 M0,1 L1,0" Stretch="Fill" Stroke="#CD192A" StrokeThickness="3" Width="10" Height="10" Opacity="0.80" Visibility="{Binding StatusAvailable}"/>
-                <Image VerticalAlignment="Center" Margin="2,0,2,0" Source="pack://siteoforigin:,,,/Assets/Default/Apps/Microsoft.png" Height="8" Width="8" Opacity="0.80" Visibility="{Binding StatusStore}"/>
-                <Polygon VerticalAlignment="Center" Margin="2,0,2,0" Fill="#1DBB55" Points="0,0 8,4, 0,8" Opacity="0.80" Visibility="{Binding StatusUrlProtocol}"/>
-                <Image VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncher}" Opacity="0.80"/>
+        <StackPanel Width="110" MinHeight="110" Margin="2">
+            <Image Source="{Binding ImageBitmap}" Height="90" MaxWidth="75"/>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Height="12" Margin="0,-5,0,0">
+                <Ellipse Height="12" Width="12" VerticalAlignment="Center" Margin="2,0,2,0" Fill="{DynamicResource ApplicationAccentLightBrush}" Opacity="0.80" Visibility="{Binding StatusRunning}"/>
+                <Ellipse Height="12" Width="12" VerticalAlignment="Center" Margin="2,0,2,0" Fill="#FFB900" Opacity="0.80" Visibility="{Binding StatusSuspended}"/>
+                <Path Height="12" Width="12" VerticalAlignment="Center" Margin="2,0,2,0" Data="M0,0 L1,1 M0,1 L1,0" Stretch="Fill" Stroke="#CD192A" StrokeThickness="3" Opacity="0.80" Visibility="{Binding StatusAvailable}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="pack://siteoforigin:,,,/Assets/Default/Apps/Microsoft.png" Opacity="0.80" Visibility="{Binding StatusStore}"/>
+                <Polygon VerticalAlignment="Center" Margin="2,0,2,0" Fill="#1DBB55" Points="0,0 12,6, 0,12" Opacity="0.80" Visibility="{Binding StatusUrlProtocol}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncherImage}" Opacity="0.80"/>
+                <TextBlock VerticalAlignment="Center" Margin="2,0,2,0" Text="{Binding RunningProcessCount}" FontSize="{DynamicResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
+            </StackPanel>
+            <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
+                <TextBlock Text="{Binding Name}" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+            </styles:ScrollViewerLoopHorizontal>
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- ListBoxItemAppSearch -->
+    <DataTemplate x:Key="ListBoxItemAppSearch">
+        <StackPanel Width="110" MinHeight="110" Margin="2">
+            <Image Source="{Binding ImageBitmap}" Height="90" MaxWidth="75"/>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Height="12" Margin="0,-5,0,0">
+                <Ellipse Height="12" Width="12" VerticalAlignment="Center" Margin="2,0,2,0" Fill="{DynamicResource ApplicationAccentLightBrush}" Opacity="0.80" Visibility="{Binding StatusRunning}"/>
+                <Ellipse Height="12" Width="12" VerticalAlignment="Center" Margin="2,0,2,0" Fill="#FFB900" Opacity="0.80" Visibility="{Binding StatusSuspended}"/>
+                <Path Height="12" Width="12" VerticalAlignment="Center" Margin="2,0,2,0" Data="M0,0 L1,1 M0,1 L1,0" Stretch="Fill" Stroke="#CD192A" StrokeThickness="3" Opacity="0.80" Visibility="{Binding StatusAvailable}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="pack://siteoforigin:,,,/Assets/Default/Apps/Microsoft.png" Opacity="0.80" Visibility="{Binding StatusStore}"/>
+                <Polygon VerticalAlignment="Center" Margin="2,0,2,0" Fill="#1DBB55" Points="0,0 12,6, 0,12" Opacity="0.80" Visibility="{Binding StatusUrlProtocol}"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncherImage}" Opacity="0.80"/>
+                <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusCategoryImage}" Opacity="0.80"/>
                 <TextBlock VerticalAlignment="Center" Margin="2,0,2,0" Text="{Binding RunningProcessCount}" FontSize="{DynamicResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
             </StackPanel>
             <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
@@ -165,18 +197,6 @@
                     <Run Text="{Binding NameSub}" Style="{StaticResource RunGray}" FontSize="{StaticResource TextSizeMedium}"/>
                 </TextBlock>
             </styles:ScrollViewerLoopVertical>
-        </Grid>
-    </DataTemplate>
-
-    <!-- ListBoxItemAppCategory -->
-    <DataTemplate x:Key="ListBoxItemAppCategory">
-        <Grid Margin="5" Width="130">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="{Binding ImageBitmap}" Width="50" Height="50"/>
-            <TextBlock Grid.Row="1" Text="{Binding Name}" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}" TextAlignment="Center"/>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

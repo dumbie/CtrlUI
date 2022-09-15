@@ -34,7 +34,7 @@ namespace CtrlUI
                                 }
 
                                 DataBindString AnswerApp = new DataBindString();
-                                AnswerApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                                AnswerApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Process.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                                 AnswerApp.Name = ProcessTitle;
                                 AnswerApp.NameSub = multiProcess.Identifier.ToString();
                                 multiAnswers.Add(AnswerApp);

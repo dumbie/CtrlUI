@@ -145,7 +145,7 @@ namespace CtrlUI
                     ImageBitmap = iconBitmapImage,
                     PathExe = launcherExePath,
                     Argument = launchArgument,
-                    StatusLauncher = vImagePreloadBattleNet,
+                    StatusLauncherImage = vImagePreloadBattleNet,
                     LaunchKeyboard = true
                 };
 

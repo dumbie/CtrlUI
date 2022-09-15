@@ -47,6 +47,10 @@ namespace CtrlUI
                     {
                         try
                         {
+                            //Set search category image to databind app
+                            SearchAppSetCategoryImage(dataBindApp);
+
+                            //Add search result to listbox
                             await ListBoxAddItem(lb_Search, List_Search, dataBindApp, false, false);
                         }
                         catch { }

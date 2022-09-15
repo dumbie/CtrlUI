@@ -185,7 +185,7 @@ namespace CtrlUI
                 List<DataBindString> listAppCategories = new List<DataBindString>();
 
                 DataBindString categoryApp = new DataBindString();
-                categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 categoryApp.Name = "App & Media";
                 listAppCategories.Add(categoryApp);
 
@@ -289,7 +289,7 @@ namespace CtrlUI
                 List<DataBindString> listAppCategories = new List<DataBindString>();
 
                 DataBindString categoryApp = new DataBindString();
-                categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                categoryApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 categoryApp.Name = "App & Media";
                 listAppCategories.Add(categoryApp);
 
@@ -342,13 +342,13 @@ namespace CtrlUI
                 //Add application type categories
                 List<DataBindString> answersCategory = new List<DataBindString>();
 
+                BitmapImage imageApp = FileToBitmapImage(new string[] { "Assets/Default/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                DataBindString stringApp = new DataBindString() { Name = "App & Media", Data1 = "App", ImageBitmap = imageApp };
+                answersCategory.Add(stringApp);
+
                 BitmapImage imageGame = FileToBitmapImage(new string[] { "Assets/Default/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 DataBindString stringGame = new DataBindString() { Name = "Game", Data1 = "Game", ImageBitmap = imageGame };
                 answersCategory.Add(stringGame);
-
-                BitmapImage imageApp = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                DataBindString stringApp = new DataBindString() { Name = "App & Media", Data1 = "App", ImageBitmap = imageApp };
-                answersCategory.Add(stringApp);
 
                 BitmapImage imageEmulator = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 DataBindString stringEmulator = new DataBindString() { Name = "Emulator", Data1 = "Emulator", ImageBitmap = imageEmulator };

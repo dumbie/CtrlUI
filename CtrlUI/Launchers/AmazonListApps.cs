@@ -98,7 +98,7 @@ namespace CtrlUI
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
                     PathLaunch = installDir,
-                    StatusLauncher = vImagePreloadAmazon
+                    StatusLauncherImage = vImagePreloadAmazon
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);

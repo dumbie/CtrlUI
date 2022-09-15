@@ -158,7 +158,7 @@ namespace CtrlUI
                 {
                     if (vAppActivated)
                     {
-                        RefreshListStatus();
+                        await RefreshListStatus();
 
                         //Delay the loop task
                         await TaskDelayLoop(2000, vTask_UpdateListStatus);

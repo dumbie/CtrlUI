@@ -52,8 +52,6 @@ namespace CtrlUI
                     string selectedItemString = selectedItem.Data1.ToString();
                     if (selectedItemString == "menuButtonUpdateRestart") { await AppUpdateRestart(); }
                     else if (selectedItemString == "menuButtonMonitor") { await Popup_Show(grid_Popup_Monitor, btn_Monitor_Switch_Primary); }
-                    else if (selectedItemString == "menuButtonWindowsStart") { await ShowWindowStartMenu(); }
-                    else if (selectedItemString == "menuButtonSorting") { await SortAppListsSwitch(false); }
                     else if (selectedItemString == "menuButtonAudioDevice") { await SwitchAudioDevice(); }
                     else if (selectedItemString == "menuButtonRunExe") { await RunExecutableFile(); }
                     else if (selectedItemString == "menuButtonRunStore") { await RunStoreApplication(); }
@@ -78,22 +76,6 @@ namespace CtrlUI
         {
             try
             {
-                DataBindString menuButtonWindowsStart = new DataBindString
-                {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Windows.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Show the Windows start menu",
-                    Data1 = "menuButtonWindowsStart"
-                };
-                List_MainMenu.Add(menuButtonWindowsStart);
-
-                DataBindString menuButtonSorting = new DataBindString
-                {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Sorting.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Sort applications by name",
-                    Data1 = "menuButtonSorting"
-                };
-                List_MainMenu.Add(menuButtonSorting);
-
                 DataBindString menuButtonMonitor = new DataBindString
                 {
                     ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Monitor.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
@@ -137,7 +119,7 @@ namespace CtrlUI
                 DataBindString menuButtonAddExe = new DataBindString
                 {
                     ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddExe.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Add an executable file to the list",
+                    Name = "Add an executable file to application list",
                     Data1 = "menuButtonAddExe"
                 };
                 List_MainMenu.Add(menuButtonAddExe);

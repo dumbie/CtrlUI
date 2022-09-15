@@ -142,7 +142,7 @@ namespace CtrlUI
                             ImageBitmap = iconBitmapImage,
                             PathExe = runCommand,
                             Argument = launchArgument,
-                            StatusLauncher = vImagePreloadGoG,
+                            StatusLauncherImage = vImagePreloadGoG,
                             StatusUrlProtocol = categoryLauncher
                         };
 

@@ -110,7 +110,7 @@ namespace CtrlUI
                     Name = appName,
                     ImageBitmap = iconBitmapImage,
                     PathExe = runCommand,
-                    StatusLauncher = vImagePreloadMicrosoft
+                    StatusLauncherImage = vImagePreloadMicrosoft
                 };
 
                 await ListBoxAddItem(lb_Launchers, List_Launchers, dataBindApp, false, false);

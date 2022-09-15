@@ -124,19 +124,19 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: ShoulderLeftPressed");
                         await AVActions.ActionDispatcherInvokeAsync(async delegate
-                         {
-                             if (grid_Popup_Settings.Visibility == Visibility.Visible)
-                             {
-                                 await SettingsChangeTab(true);
-                                 KeySendSingle(KeysVirtual.F13, vProcessCurrent.MainWindowHandle);
-                             }
-                             else if (!Popup_Any_Open())
-                             {
-                                 ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
-                                 ListCategory listCategorySwitch = (ListCategory)PreviousCategoryWithItems(listCategorySetting, true);
-                                 await ChangeCategoryListBox(listCategorySwitch);
-                             }
-                         });
+                        {
+                            if (grid_Popup_Settings.Visibility == Visibility.Visible)
+                            {
+                                await SettingsChangeTab(true);
+                                KeySendSingle(KeysVirtual.F13, vProcessCurrent.MainWindowHandle);
+                            }
+                            else if (!Popup_Any_Open())
+                            {
+                                ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                                ListCategory listCategorySwitch = (ListCategory)PreviousCategoryWithItems(listCategorySetting, true);
+                                await ChangeCategoryListBox(listCategorySwitch);
+                            }
+                        });
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;

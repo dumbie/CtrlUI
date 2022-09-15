@@ -406,15 +406,29 @@ namespace LibraryShared
                 }
             }
 
-            private BitmapImage PrivStatusLauncher = null;
-            public BitmapImage StatusLauncher
+            private BitmapImage PrivStatusCategoryImage = null;
+            public BitmapImage StatusCategoryImage
             {
-                get { return this.PrivStatusLauncher; }
+                get { return this.PrivStatusCategoryImage; }
                 set
                 {
-                    if (this.PrivStatusLauncher != value)
+                    if (this.PrivStatusCategoryImage != value)
                     {
-                        this.PrivStatusLauncher = value;
+                        this.PrivStatusCategoryImage = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private BitmapImage PrivStatusLauncherImage = null;
+            public BitmapImage StatusLauncherImage
+            {
+                get { return this.PrivStatusLauncherImage; }
+                set
+                {
+                    if (this.PrivStatusLauncherImage != value)
+                    {
+                        this.PrivStatusLauncherImage = value;
                         NotifyPropertyChanged();
                     }
                 }

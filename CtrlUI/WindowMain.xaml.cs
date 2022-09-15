@@ -6,12 +6,9 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
-using static ArnoldVinkCode.AVDisplayMonitor;
-using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputInterop;
-using static ArnoldVinkCode.AVInputOutputKeyboard;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
@@ -189,63 +186,6 @@ namespace CtrlUI
                 vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
                 await vArnoldVinkSockets.SocketServerEnable();
-            }
-            catch { }
-        }
-
-        //Show the Windows start menu
-        async Task ShowWindowStartMenu()
-        {
-            try
-            {
-                await Notification_Send_Status("Windows", "Showing start menu");
-                KeyPressReleaseSingle(KeysVirtual.WindowsLeft);
-
-                //Launch the keyboard controller
-                if (vAppActivated && vControllerAnyConnected())
-                {
-                    await KeyboardControllerHideShow(true);
-                }
-            }
-            catch { }
-        }
-
-        //Update the window position
-        async Task UpdateWindowPosition(bool notifyApps, bool silent)
-        {
-            try
-            {
-                //Get the current active screen
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
-                DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
-
-                //Resize the window size
-                int windowWidth = Convert.ToInt32(displayMonitorSettings.WidthNative * 0.60);
-                int windowHeight = Convert.ToInt32(displayMonitorSettings.HeightNative * 0.60);
-                WindowResize(vInteropWindowHandle, windowWidth, windowHeight);
-
-                //Center the window on target screen
-                int horizontalLeft = (int)(displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthNative - windowWidth) / 2);
-                int verticalTop = (int)(displayMonitorSettings.BoundsTop + (displayMonitorSettings.HeightNative - windowHeight) / 2);
-                WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
-
-                //Set the window as top most
-                SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
-
-                //Notify apps the monitor changed
-                if (notifyApps)
-                {
-                    await NotifyDirectXInputSettingChanged("DisplayMonitor");
-                    await NotifyFpsOverlayerSettingChanged("DisplayMonitor");
-                }
-
-                //Show monitor change notification
-                if (!silent)
-                {
-                    await Notification_Send_Status("MonitorNext", "Moved to monitor " + monitorNumber);
-                }
-
-                Debug.WriteLine("Moved the application to monitor: " + monitorNumber);
             }
             catch { }
         }

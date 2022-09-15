@@ -29,7 +29,7 @@
         <!-- Grid Help -->
         <Border Name="grid_ControllerHelp" Grid.Row="0" Margin="0,0,0,5" Height="45" CornerRadius="5" Visibility="Collapsed">
             <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
+                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>
             <Grid>
                 <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="50" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,20,0" Style="{StaticResource ScrollViewerHorizontal}">
@@ -96,7 +96,7 @@
                 <!-- Status - Disable -->
                 <Border Name="grid_DisableHelp" CornerRadius="10" Visibility="Collapsed">
                     <Border.Background>
-                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.90"/>
+                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
                     </Border.Background>
                 </Border>
             </Grid>
@@ -105,7 +105,7 @@
         <!-- Grid Header -->
         <Border Name="grid_Header" Grid.Row="1" Margin="0,0,0,5" Height="45" CornerRadius="5">
             <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
+                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>
             <Grid>
                 <!-- Header - Buttons -->
@@ -174,7 +174,7 @@
                 <!-- Status - Disable -->
                 <Border Name="grid_DisableHeader" CornerRadius="10" Visibility="Collapsed">
                     <Border.Background>
-                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.90"/>
+                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
                     </Border.Background>
                 </Border>
             </Grid>
@@ -183,7 +183,7 @@
         <!-- Grid Main -->
         <Border Grid.Row="2" CornerRadius="5">
             <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
+                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>
             <Grid>
                 <Grid Name="grid_Main">
@@ -256,7 +256,7 @@
                         <ListBox Name="lb_Launchers" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
                         <ListBox Name="lb_Shortcuts" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
                         <ListBox Name="lb_Processes" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
-                        <ListBox Name="lb_Search" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
+                        <ListBox Name="lb_Search" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemAppSearch}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
                     </Grid>
                 </Grid>
 
@@ -1113,7 +1113,7 @@
                 <!-- Status - Select Character -->
                 <Grid Name="grid_SelectCharacter" VerticalAlignment="Center" Visibility="Collapsed">
                     <Grid.Background>
-                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.60"/>
+                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
                     </Grid.Background>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0">
                         <TextBlock Name="grid_SelectCharacterPreviousText" Style="{StaticResource TextBlockGray}" FontSize="35" LineStackingStrategy="BlockLineHeight" LineHeight="100" Text="A"/>
@@ -1125,7 +1125,7 @@
                 <!-- Status - Disable -->
                 <Border Name="grid_DisableMain" CornerRadius="10" Visibility="Collapsed">
                     <Border.Background>
-                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.90"/>
+                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
                     </Border.Background>
                     <TextBlock Name="textblock_DisableMain" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="45" TextAlignment="Center" TextWrapping="Wrap" Text="Application window is not activated."/>
                 </Border>

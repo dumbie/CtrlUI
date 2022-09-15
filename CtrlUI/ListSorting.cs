@@ -160,12 +160,6 @@ namespace CtrlUI
                 orderListProcesses.Add(sortFuncRunningTime);
                 SortObservableCollection(lb_Processes, List_Processes, orderListProcesses, null);
 
-                DataBindString menuSortItem = List_MainMenu.Where(x => x.Data1.ToString() == "menuButtonSorting").FirstOrDefault();
-                if (menuSortItem != null)
-                {
-                    menuSortItem.Name = "Sort applications by name";
-                }
-
                 ToolTip newTooltip = new ToolTip() { Content = "Sort by name" };
                 button_MenuSorting.ToolTip = newTooltip;
             }
@@ -206,12 +200,6 @@ namespace CtrlUI
                 List<SortFunction<DataBindApp>> orderListProcesses = new List<SortFunction<DataBindApp>>();
                 orderListProcesses.Add(sortFuncName);
                 SortObservableCollection(lb_Processes, List_Processes, orderListProcesses, null);
-
-                DataBindString menuSortItem = List_MainMenu.Where(x => x.Data1.ToString() == "menuButtonSorting").FirstOrDefault();
-                if (menuSortItem != null)
-                {
-                    menuSortItem.Name = "Sort applications by number or date";
-                }
 
                 ToolTip newTooltip = new ToolTip() { Content = "Sort by number or date" };
                 button_MenuSorting.ToolTip = newTooltip;

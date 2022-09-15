@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
+using static LibraryShared.Enums;
 using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
@@ -53,7 +54,10 @@ namespace CtrlUI
                     string placeholderString = (string)grid_Search_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
                     if (!string.IsNullOrWhiteSpace(searchString) && searchString != placeholderString && dataBindApp.Name.ToLower().Contains(searchString.ToLower()))
                     {
-                        //Add search process
+                        //Set search category image to databind app
+                        SearchAppSetCategoryImage(dataBindApp);
+
+                        //Add search result to listbox
                         await ListBoxAddItem(lb_Search, List_Search, dataBindApp, false, false);
 
                         //Update the search results count
@@ -62,6 +66,35 @@ namespace CtrlUI
                         Debug.WriteLine("Added search process: " + searchString);
                     }
                 });
+            }
+            catch { }
+        }
+
+        //Set search category image to databind app
+        private static void SearchAppSetCategoryImage(DataBindApp dataBindApp)
+        {
+            try
+            {
+                if (dataBindApp.Category == AppCategory.App)
+                {
+                    dataBindApp.StatusCategoryImage = vImagePreloadApp;
+                }
+                else if (dataBindApp.Category == AppCategory.Game)
+                {
+                    dataBindApp.StatusCategoryImage = vImagePreloadGame;
+                }
+                else if (dataBindApp.Category == AppCategory.Emulator)
+                {
+                    dataBindApp.StatusCategoryImage = vImagePreloadEmulator;
+                }
+                else if (dataBindApp.Category == AppCategory.Process)
+                {
+                    dataBindApp.StatusCategoryImage = vImagePreloadProcess;
+                }
+                else if (dataBindApp.Category == AppCategory.Shortcut)
+                {
+                    dataBindApp.StatusCategoryImage = vImagePreloadShortcut;
+                }
             }
             catch { }
         }
