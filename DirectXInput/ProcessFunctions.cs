@@ -66,7 +66,7 @@ namespace DirectXInput
                 //Show notification
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "AppLaunch";
-                notificationDetails.Text = "Showing CtrlUI";
+                notificationDetails.Text = "Showing or hiding CtrlUI";
                 await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Prepare socket data

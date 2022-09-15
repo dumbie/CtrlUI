@@ -12,7 +12,6 @@ using System.Windows.Media;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
-using static ArnoldVinkCode.AVInputOutputInterop;
 using static ArnoldVinkCode.AVInteropDll;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
@@ -239,7 +238,7 @@ namespace DirectXInput.KeyboardCode
                     await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
 
                     //Set the window as top most (focus workaround)
-                    SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE | WindowSWP.FRAMECHANGED | WindowSWP.NOCOPYBITS));
+                    SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
                 });
             }
             catch { }
@@ -291,43 +290,6 @@ namespace DirectXInput.KeyboardCode
                 int horizontalLeft = (int)(displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthNative - windowWidth) / 2);
                 int verticalTop = (int)(displayMonitorSettings.BoundsTop + displayMonitorSettings.HeightNative - windowHeight);
                 WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
-            }
-            catch { }
-        }
-
-        //Move mouse cursor to target
-        void MoveMousePosition()
-        {
-            try
-            {
-                //Get the current active screen
-                int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
-                DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
-
-                //Calculate target mouse position
-                int windowTop = (int)(this.Top * displayMonitorSettings.DpiScaleVertical);
-                int windowLeft = (int)(this.Left * displayMonitorSettings.DpiScaleHorizontal);
-                int windowWidth = (int)(this.ActualWidth * displayMonitorSettings.DpiScaleHorizontal);
-                int windowHeight = (int)(this.ActualHeight * displayMonitorSettings.DpiScaleVertical);
-                int targetWidth = windowLeft + (windowWidth / 2);
-                int targetHeight = windowTop - 30;
-
-                //Check if target is outside screen
-                if (targetHeight < 0)
-                {
-                    targetHeight = windowTop + windowHeight + 30;
-                }
-                if (targetWidth < 0)
-                {
-                    targetWidth = 30;
-                }
-                else if (targetWidth > displayMonitorSettings.WidthNative)
-                {
-                    targetWidth = displayMonitorSettings.WidthNative - 30;
-                }
-
-                //Move mouse cursor to target
-                SetCursorPos(targetWidth, targetHeight);
             }
             catch { }
         }

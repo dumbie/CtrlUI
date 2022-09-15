@@ -20,7 +20,7 @@
     <StackPanel Name="grid_Message_Status" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,120,0,0">
         <Border Name="grid_Message_Status_Grid" CornerRadius="4,4,0,0">
             <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
+                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>
             <StackPanel Margin="10" Orientation="Horizontal">
                 <Image Name="grid_Message_Status_Image" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Help.png" Height="40"/>
