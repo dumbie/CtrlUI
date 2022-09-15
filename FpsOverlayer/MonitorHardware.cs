@@ -274,15 +274,15 @@ namespace FpsOverlayer
 
                     if (showUsed)
                     {
-                        MemoryBytes += " " + RawMemoryUsed.ToString("0.0") + "GB";
+                        MemoryBytes += " " + RawMemoryUsed.ToString("0.0") + "GB(U)";
                     }
                     if (showFree)
                     {
-                        MemoryBytes += " " + RawMemoryFree.ToString("0.0") + "GB";
+                        MemoryBytes += " " + RawMemoryFree.ToString("0.0") + "GB(F)";
                     }
                     if (showTotal)
                     {
-                        MemoryBytes += " " + Convert.ToInt32(RawMemoryUsed + RawMemoryFree) + "GB";
+                        MemoryBytes += " " + Convert.ToInt32(RawMemoryUsed + RawMemoryFree) + "GB(T)";
                     }
 
                     if (!string.IsNullOrWhiteSpace(MemoryPercentage) || !string.IsNullOrWhiteSpace(MemoryBytes))
@@ -370,16 +370,16 @@ namespace FpsOverlayer
                             else if (showMemoryUsed && sensor.SensorType == SensorType.SmallData)
                             {
                                 //Debug.WriteLine("GPU Mem: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
-                                if (sensor.Name == "GPU Memory Used")
+                                if (sensor.Name == "GPU Memory Used" || sensor.Name.Contains("Dedicated Memory Used"))
                                 {
                                     float RawMemoryUsage = (float)sensor.Value;
-                                    if (RawMemoryUsage < 1024)
+                                    if (RawMemoryUsage < 1000)
                                     {
                                         GpuMemory = " " + RawMemoryUsage.ToString("0") + "MB";
                                     }
                                     else
                                     {
-                                        GpuMemory = " " + (RawMemoryUsage / 1024).ToString("0.0") + "GB";
+                                        GpuMemory = " " + (RawMemoryUsage / 1000).ToString("0.0") + "GB";
                                     }
                                 }
                             }

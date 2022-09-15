@@ -198,8 +198,8 @@
                         <CheckBox Margin="0,10,0,0" Name="checkbox_CheckTaskbarVisible" Content="Adjust margin to taskbar visibility" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Automatically adjust the overlay margin to your taskbar visibility when you have taskbar auto hide enabled in Windows." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                        <TextBlock Margin="0,10,0,0" Text="* You can toggle the stats visibility with ALT+F9." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <TextBlock Text="* You can toggle the crosshair visibility with ALT+F10." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Margin="0,10,0,0" Text="* You can toggle the crosshair visibility with ALT+F9." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Text="* You can toggle the stats visibility with ALT+F10." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <TextBlock Text="* You can change the stats position with ALT+F11." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
 
