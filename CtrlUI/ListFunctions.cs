@@ -59,6 +59,9 @@ namespace CtrlUI
 
                 //Check app running status
                 CheckAppRunningStatus(processesList);
+
+                //Update list load status
+                vListLoadedProcesses = true;
             }
             catch (Exception ex)
             {
@@ -73,6 +76,13 @@ namespace CtrlUI
         {
             try
             {
+                //Check if all categories loaded
+                if (!vAppsLoaded())
+                {
+                    Debug.WriteLine("All applications not yet loaded, skipping list status update.");
+                    return;
+                }
+
                 ShowHideEmptyList();
                 await CheckActiveCategoryList();
                 UpdateSearchResults();

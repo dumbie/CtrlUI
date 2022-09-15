@@ -49,6 +49,7 @@ namespace CtrlUI
                         image_Category_Menu_RB.Visibility = Visibility.Collapsed;
                         image_Settings_LB.Visibility = Visibility.Collapsed;
                         image_Settings_RB.Visibility = Visibility.Collapsed;
+                        image_Search_ResetController.Visibility = Visibility.Collapsed;
                         return;
                     }
                     else
@@ -57,6 +58,7 @@ namespace CtrlUI
                         image_Category_Menu_RB.Visibility = Visibility.Visible;
                         image_Settings_LB.Visibility = Visibility.Visible;
                         image_Settings_RB.Visibility = Visibility.Visible;
+                        image_Search_ResetController.Visibility = Visibility.Visible;
                     }
 
                     //Check if the help setting is enabled or disabled

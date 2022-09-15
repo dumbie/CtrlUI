@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,6 +46,9 @@ namespace CtrlUI
 
                 //Update the window position
                 await UpdateWindowPosition(false, true);
+
+                //Check if resolution has changed
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
                 //Change application accent color
                 Settings_Load_AccentColor(vConfigurationCtrlUI);

@@ -120,6 +120,9 @@ namespace CtrlUI
                 {
                     gif_List_Loading.Hide();
                 });
+
+                //Update list load status
+                vListLoadedLaunchers = true;
             }
             catch (Exception ex)
             {

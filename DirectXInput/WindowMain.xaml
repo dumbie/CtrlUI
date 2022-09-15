@@ -471,8 +471,11 @@
                                 <TextBlock Text="Enabling this will allow you to unplug the virtual Xbox controller and disconnect your controller from bluetooth with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Application Shortcuts"/>
-                                <CheckBox Name="cb_SettingsShortcutLaunchCtrlUI" Content="Show or launch CtrlUI by pressing the Guide button" Style="{StaticResource CheckBoxBlack}"/>
-                                <TextBlock Text="Enabling this will allow you to show or launch CtrlUI with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                                <CheckBox Name="cb_SettingsShortcutLaunchCtrlUI" Content="Show or hide CtrlUI by pressing the Guide button" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will allow you to show or hide CtrlUI with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                                <CheckBox Name="cb_SettingsShortcutLaunchCtrlUIKeyboard" Margin="0,10,0,0" Content="Show or hide CtrlUI by pressing Win and Caps Lock combined" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will allow you to show or hide CtrlUI with your keyboard." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                                 <CheckBox Name="cb_SettingsShortcutKeyboardPopup" Margin="0,10,0,0" Content="Show keyboard or keypad popup by holding the Guide button" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to show the keyboard popup with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>

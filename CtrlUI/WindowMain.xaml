@@ -231,19 +231,23 @@
                                 <Image Name="image_Category_Menu_RB" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Height="25" Opacity="0.80" Margin="10,0,0,0"/>
                             </StackPanel>
                         </Grid>
-                        <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
 
-                        <StackPanel Name="stackpanel_Search_Interface" Visibility="Collapsed">
+                        <Border Margin="0,5,0,0" Height="3" CornerRadius="1" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}"/>
+
+                        <StackPanel Name="stackpanel_Search_Interface" Margin="0,5,0,0" Visibility="Collapsed">
                             <Grid>
-                                <TextBox Name="grid_Search_textbox" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparentWhite}" Text="Search application..." styles:TextboxPlaceholder.Placeholder="Search application..."/>
-                                <Button Name="grid_Search_button_Reset" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the search term">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Name="grid_Search_textbox" Margin="0,0,5,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}" Text="Search application..." styles:TextboxPlaceholder.Placeholder="Search application..."/>
+                                <Button Grid.Column="1" Name="grid_Search_button_Reset" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the search term">
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="30" Margin="0,0,10,0"/>
+                                        <Image Name="image_Search_ResetController" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="30" Margin="0,0,10,0"/>
                                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/TextClear.png" Height="30"/>
                                     </StackPanel>
                                 </Button>
                             </Grid>
-                            <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                             <TextBlock Name="grid_Search_textblock_Result" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>

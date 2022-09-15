@@ -19,11 +19,6 @@ namespace CtrlUI
                 {
                     HandleKeyboardDown(windowMessage, ref messageHandled);
                 }
-                else if (windowMessage.message == (int)WindowMessages.WM_HOTKEY || windowMessage.message == (int)WindowMessages.WM_SYSKEYUP)
-                {
-                    HandleHotkey(windowMessage);
-                    messageHandled = true;
-                }
             }
             catch { }
         }

@@ -21,6 +21,14 @@ namespace DirectXInput
                         await CaptureScreen.CaptureScreenToFile();
                     }
                 }
+                else if (keysModifier == KeysModifier.Win && keysVirtual == KeysVirtual.CapsLock)
+                {
+                    if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard")))
+                    {
+                        Debug.WriteLine("Button Global - Show or hide CtrlUI");
+                        await ProcessFunctions.LaunchShowCtrlUI();
+                    }
+                }
             }
             catch { }
         }

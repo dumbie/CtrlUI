@@ -163,6 +163,10 @@ namespace CtrlUI
                 await Notification_Send_Status("AppLaunch", "Launching " + dataBindApp.Name);
                 Debug.WriteLine("Launching url protocol: " + dataBindApp.PathExe + " / " + dataBindApp.PathLaunch);
 
+                //Minimize the CtrlUI window
+                await AppWindowMinimize(true, true);
+
+                //Launch url protocol process
                 Process LaunchProcess = new Process();
                 LaunchProcess.StartInfo.FileName = dataBindApp.PathExe;
                 LaunchProcess.StartInfo.WorkingDirectory = dataBindApp.PathLaunch;
@@ -321,7 +325,7 @@ namespace CtrlUI
                 bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
 
                 //Launch the Win32 application
-                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, true, false, false, keyboardLaunch, false);
+                await PrepareProcessLauncherWin32Async(fileNameNoExtension, vFilePickerResult.PathFile, "", "", false, false, false, keyboardLaunch, false);
             }
             catch { }
         }
@@ -350,7 +354,7 @@ namespace CtrlUI
                 bool keyboardLaunch = keyboardProcess && vControllerAnyConnected();
 
                 //Launch the UWP or Win32Store application
-                await PrepareProcessLauncherUwpAndWin32StoreAsync(vFilePickerResult.Name, vFilePickerResult.PathFile, string.Empty, false, true, keyboardLaunch);
+                await PrepareProcessLauncherUwpAndWin32StoreAsync(vFilePickerResult.Name, vFilePickerResult.PathFile, string.Empty, false, keyboardLaunch);
             }
             catch { }
         }

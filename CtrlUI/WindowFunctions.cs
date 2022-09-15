@@ -16,6 +16,17 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        //Update window on resolution change
+        async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //Update the window position
+                await UpdateWindowPosition(false, true);
+            }
+            catch { }
+        }
+
         //Update the window position
         async Task UpdateWindowPosition(bool notifyApps, bool silent)
         {
@@ -137,6 +148,9 @@ namespace CtrlUI
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
+                    //Update window status message
+                    textblock_DisableMain.Text = string.Empty;
+
                     //Enable the application window
                     grid_DisableHeader.Visibility = Visibility.Collapsed;
                     grid_DisableHelp.Visibility = Visibility.Collapsed;
@@ -206,6 +220,9 @@ namespace CtrlUI
                 //Force focus on CtrlUI
                 await PrepareFocusProcessWindow("CtrlUI", vProcessCurrent.Id, vProcessCurrent.MainWindowHandle, 0, false, false, silentShow, false);
 
+                //Update the window position
+                await UpdateWindowPosition(false, true);
+
                 //Move mouse cursor to target
                 MoveMousePosition();
             }
@@ -220,7 +237,6 @@ namespace CtrlUI
                 Debug.WriteLine("Minimizing the CtrlUI window.");
 
                 //Save the CtrlUI window state
-                vAppActivated = false;
                 vAppMinimized = true;
 
                 //Minimize the CtrlUI application

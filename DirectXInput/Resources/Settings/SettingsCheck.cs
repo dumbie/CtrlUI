@@ -17,6 +17,7 @@ namespace DirectXInput
                 if (Setting_Load(vConfigurationDirectXInput, "ExclusiveGuide") == null) { Setting_Save(vConfigurationDirectXInput, "ExclusiveGuide", "True"); }
 
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI", "True"); }
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutLaunchCtrlUIKeyboard", "True"); }
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutKeyboardPopup", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltEnter", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", "True"); } //Shared

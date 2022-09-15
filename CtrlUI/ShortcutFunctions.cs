@@ -233,6 +233,9 @@ namespace CtrlUI
                 {
                     gif_List_Loading.Hide();
                 });
+
+                //Update list load status
+                vListLoadedShortcuts = true;
             }
             catch (Exception ex)
             {

@@ -166,6 +166,7 @@ namespace DirectXInput
                 //Register keyboard hotkeys
                 vAVInputOutputHotKey.EventHotKeyPressed += EventHotKeyPressed;
                 vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F12);
+                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Win, KeysVirtual.CapsLock);
 
                 //Set application first launch to false
                 Setting_Save(vConfigurationDirectXInput, "AppFirstLaunch", "False");

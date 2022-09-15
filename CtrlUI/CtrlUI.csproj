@@ -195,7 +195,6 @@
     <Compile Include="Processes\ProcessWin32List.cs" />
     <Compile Include="RegistryFunctions.cs" />
     <Compile Include="QuickActionFunctions.cs" />
-    <Compile Include="Resources\InputOutput\InputHotkey.cs" />
     <Compile Include="AppMessageFilter.cs" />
     <Compile Include="Resources\InputOutput\InputKeyboard.cs" />
     <Compile Include="AppTasksFunctions.cs" />

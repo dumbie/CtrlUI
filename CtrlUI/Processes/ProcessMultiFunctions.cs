@@ -115,26 +115,26 @@ namespace CtrlUI
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp, false, true, keyboardLaunch);
+                    await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp, false, keyboardLaunch);
                 }
                 else if (dataBindApp.LaunchFilePicker)
                 {
                     string launchArgument = await GetLaunchArgumentFilePicker(dataBindApp);
                     if (launchArgument == "Cancel") { return; }
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, true, false, false, keyboardLaunch);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, false, false, keyboardLaunch);
                 }
                 else if (dataBindApp.Category == AppCategory.Emulator && !dataBindApp.LaunchSkipRom)
                 {
                     string launchArgument = await GetLaunchArgumentEmulator(dataBindApp);
                     if (launchArgument == "Cancel") { return; }
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, true, false, false, keyboardLaunch);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, launchArgument, false, false, false, keyboardLaunch);
                 }
                 else
                 {
                     await EnableHDRDatabindAuto(dataBindApp);
-                    await PrepareProcessLauncherWin32Async(dataBindApp, string.Empty, false, true, false, false, keyboardLaunch);
+                    await PrepareProcessLauncherWin32Async(dataBindApp, string.Empty, false, false, false, keyboardLaunch);
                 }
             }
             catch { }
@@ -186,6 +186,9 @@ namespace CtrlUI
                 string fileNameNoExtension = Path.GetFileNameWithoutExtension(dataBindApp.NameExe);
                 bool keyboardProcess = vCtrlKeyboardProcessName.Any(x => x.String1.ToLower() == fileNameNoExtension.ToLower() || x.String1.ToLower() == dataBindApp.PathExe.ToLower());
                 bool keyboardLaunch = (keyboardProcess || dataBindApp.LaunchKeyboard) && vControllerAnyConnected();
+
+                //Minimize the CtrlUI window
+                await AppWindowMinimize(true, true);
 
                 //Restart the process
                 if (processMulti.Type == ProcessType.UWP)

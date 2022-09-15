@@ -45,7 +45,7 @@ namespace CtrlUI
         public static string[] vTabTargetListsSingle = { "lb_Manage_AddAppCategory" };
         public static string[] vTabTargetListsFirstLastColumn = { "lb_Search" };
         public static string[] vTabTargetListsFirstLastItem = { "lb_FilePicker", "lb_ProfileManager" };
-        public static string[] vTabTargetButtonsDown = { "btn_Monitor_Switch_Primary", "grid_Popup_TextInput_button_ConfirmText" };
+        public static string[] vTabTargetButtonsDown = { "btn_Monitor_Switch_Primary", "grid_Popup_TextInput_button_ConfirmText", "btn_Manage_SaveEditApp" };
         public static string[] vTabTargetButtonsUp = { };
 
         //Dispatcher Timers
@@ -183,6 +183,16 @@ namespace CtrlUI
         //Json Lists
         public static List<ApiIGDBGenres> vApiIGDBGenres = new List<ApiIGDBGenres>();
         public static List<ApiIGDBPlatforms> vApiIGDBPlatforms = new List<ApiIGDBPlatforms>();
+
+        //Load Status
+        public static bool vListLoadedJson = false;
+        public static bool vListLoadedLaunchers = false;
+        public static bool vListLoadedShortcuts = false;
+        public static bool vListLoadedProcesses = false;
+        public static bool vAppsLoaded()
+        {
+            return vListLoadedJson && vListLoadedLaunchers && vListLoadedShortcuts && vListLoadedProcesses;
+        }
 
         //Application Lists
         public static ObservableCollection<ProfileShared> vCtrlHDRProcessName = new ObservableCollection<ProfileShared>();

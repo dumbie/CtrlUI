@@ -33,6 +33,9 @@ namespace CtrlUI
                     catch { }
                 }
 
+                //Update list load status
+                vListLoadedJson = true;
+
                 Debug.WriteLine("Reading Json applications completed.");
             }
             catch (Exception ex)

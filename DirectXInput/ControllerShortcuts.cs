@@ -48,8 +48,7 @@ namespace DirectXInput
                     {
                         if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutLaunchCtrlUI")))
                         {
-                            Debug.WriteLine("Shortcut launch CtrlUI has been pressed.");
-                            Debug.WriteLine("Guide short press showing CtrlUI.");
+                            Debug.WriteLine("Shortcut show or hide CtrlUI has been pressed.");
                             await ProcessFunctions.LaunchShowCtrlUI();
 
                             ControllerUsed = true;

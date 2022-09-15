@@ -17,7 +17,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Launch a Win32 application from databindapp
-        async Task<bool> PrepareProcessLauncherWin32Async(DataBindApp dataBindApp, string launchArgument, bool silent, bool allowMinimize, bool runAsAdmin, bool createNoWindow, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherWin32Async(DataBindApp dataBindApp, string launchArgument, bool silent, bool runAsAdmin, bool createNoWindow, bool launchKeyboard)
         {
             bool appLaunched = false;
             try
@@ -63,7 +63,7 @@ namespace CtrlUI
                 }
 
                 //Launch the application
-                appLaunched = await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, allowMinimize, runAsAdmin, createNoWindow, launchKeyboard, false);
+                appLaunched = await PrepareProcessLauncherWin32Async(appTitle, dataBindApp.PathExe, dataBindApp.PathLaunch, launchArgument, silent, runAsAdmin, createNoWindow, launchKeyboard, false);
 
                 //Update last launch date
                 if (appLaunched)
@@ -78,7 +78,7 @@ namespace CtrlUI
         }
 
         //Launch a Win32 application manually
-        async Task<bool> PrepareProcessLauncherWin32Async(string appTitle, string pathExe, string pathLaunch, string launchArgument, bool silent, bool allowMinimize, bool runAsAdmin, bool createNoWindow, bool launchKeyboard, bool ignoreFailed)
+        async Task<bool> PrepareProcessLauncherWin32Async(string appTitle, string pathExe, string pathLaunch, string launchArgument, bool silent, bool runAsAdmin, bool createNoWindow, bool launchKeyboard, bool ignoreFailed)
         {
             try
             {
@@ -107,10 +107,7 @@ namespace CtrlUI
                 }
 
                 //Minimize the CtrlUI window
-                if (allowMinimize)
-                {
-                    await AppWindowMinimize(true, true);
-                }
+                await AppWindowMinimize(true, true);
 
                 //Launch the keyboard controller
                 if (launchKeyboard)

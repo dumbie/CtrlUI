@@ -10,13 +10,13 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Launch an UWP or Win32Store application from databindapp
-        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(DataBindApp dataBindApp, bool silent, bool allowMinimize, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(DataBindApp dataBindApp, bool silent, bool launchKeyboard)
         {
             bool appLaunched = false;
             try
             {
                 //Launch the application
-                appLaunched = await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, silent, allowMinimize, launchKeyboard);
+                appLaunched = await PrepareProcessLauncherUwpAndWin32StoreAsync(dataBindApp.Name, dataBindApp.PathExe, dataBindApp.Argument, silent, launchKeyboard);
 
                 //Update last launch date
                 if (appLaunched)
@@ -31,7 +31,7 @@ namespace CtrlUI
         }
 
         //Launch an UWP or Win32Store application manually
-        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(string appTitle, string pathExe, string argument, bool silent, bool allowMinimize, bool launchKeyboard)
+        async Task<bool> PrepareProcessLauncherUwpAndWin32StoreAsync(string appTitle, string pathExe, string argument, bool silent, bool launchKeyboard)
         {
             try
             {
@@ -51,10 +51,7 @@ namespace CtrlUI
                 }
 
                 //Minimize the CtrlUI window
-                if (allowMinimize)
-                {
-                    await AppWindowMinimize(true, true);
-                }
+                await AppWindowMinimize(true, true);
 
                 //Launch the UWP or Win32Store application
                 Process launchProcess = await ProcessLauncherUwpAndWin32StoreAsync(pathExe, argument);
