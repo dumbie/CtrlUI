@@ -45,7 +45,7 @@ namespace DirectXInput.KeyboardCode
                         //Move the keyboard window
                         MoveKeyboardWindow(moveHorizontalRight, moveVerticalRight);
                     }
-                    else if (keyboardMode == KeyboardMode.Scroll)
+                    else if (keyboardMode == KeyboardMode.Keyboard)
                     {
                         //Get the mouse scroll amount
                         int scrollSensitivity = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMouseScrollSensitivity2"));
@@ -217,23 +217,24 @@ namespace DirectXInput.KeyboardCode
                     {
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
 
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate
+                        if (border_EmojiListPopup.Visibility == Visibility.Visible || border_TextListPopup.Visibility == Visibility.Visible)
                         {
-                            if (border_EmojiListPopup.Visibility == Visibility.Visible || border_TextListPopup.Visibility == Visibility.Visible)
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate
                             {
                                 await HideTextEmojiPopup();
-                            }
-                            else if (keyboardMode == KeyboardMode.Media)
-                            {
-                                await MediaNext();
-                            }
-                            else
-                            {
-                                vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
-                            }
-                        });
-
-                        ControllerDelay125 = true;
+                            });
+                            ControllerDelay250 = true;
+                        }
+                        else if (keyboardMode == KeyboardMode.Media)
+                        {
+                            await MediaNext();
+                            ControllerDelay250 = true;
+                        }
+                        else
+                        {
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            ControllerDelay125 = true;
+                        }
                     }
                     //Send external space key
                     else if (ControllerInput.ButtonY.PressedRaw)
@@ -243,13 +244,13 @@ namespace DirectXInput.KeyboardCode
                         if (keyboardMode == KeyboardMode.Media)
                         {
                             await MediaPlayPause();
+                            ControllerDelay250 = true;
                         }
                         else
                         {
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Space, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            ControllerDelay125 = true;
                         }
-
-                        ControllerDelay125 = true;
                     }
                     //Send external backspace or delete key
                     else if (ControllerInput.ButtonX.PressedRaw)
@@ -259,17 +260,18 @@ namespace DirectXInput.KeyboardCode
                         if (keyboardMode == KeyboardMode.Media)
                         {
                             await MediaPrevious();
+                            ControllerDelay250 = true;
                         }
                         else if (vCapsEnabled)
                         {
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Delete, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            ControllerDelay125 = true;
                         }
                         else
                         {
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.None, KeyboardModifiers.None, KeyboardKeys.Backspace, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+                            ControllerDelay125 = true;
                         }
-
-                        ControllerDelay125 = true;
                     }
 
                     //Send external arrow left key
@@ -279,7 +281,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (keyboardMode == KeyboardMode.Media)
                         {
-                            await VolumeInputMute();
+                            await VolumeOutputMute();
                             ControllerDelay500 = true;
                         }
                         else
@@ -295,7 +297,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (keyboardMode == KeyboardMode.Media)
                         {
-                            await VolumeOutputMute();
+                            await VolumeInputMute();
                             ControllerDelay500 = true;
                         }
                         else

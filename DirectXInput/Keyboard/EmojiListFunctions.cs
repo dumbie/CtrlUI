@@ -37,27 +37,27 @@ namespace DirectXInput.KeyboardCode
 
             //Show the emoji menu
             border_EmojiListPopup.Visibility = Visibility.Visible;
-            grid_Keyboard.Opacity = 0.60;
-            grid_Keyboard.IsEnabled = false;
+            border_Keyboard.Opacity = 0.80;
+            border_Keyboard.IsEnabled = false;
 
             //Update the help bar
             textblock_LeftTriggerOff.Text = string.Empty;
             textblock_RightTriggerOff.Text = "Switch emoji";
 
             //Store close focus button
-            FrameworkElementFocusSave(vEmojiFocusedButtonClose, null);
+            FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
 
             //Focus on popup button
-            if (vEmojiFocusedButtonOpen.FocusListBox == null)
+            if (vFocusedButtonEmoji.FocusListBox == null)
             {
                 FrameworkElementFocus focusListbox = new FrameworkElementFocus();
                 focusListbox.FocusListBox = listbox_EmojiList;
                 focusListbox.FocusIndex = vLastPopupListEmojiIndex;
-                await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
+                await FrameworkElementFocusFocus(focusListbox, vInteropWindowHandle);
             }
             else
             {
-                await FrameworkElementFocusFocus(vEmojiFocusedButtonOpen, vProcessCurrent.MainWindowHandle);
+                await FrameworkElementFocusFocus(vFocusedButtonEmoji, vInteropWindowHandle);
             }
         }
 
@@ -70,12 +70,12 @@ namespace DirectXInput.KeyboardCode
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
 
                 //Store open focus button
-                FrameworkElementFocusSave(vEmojiFocusedButtonOpen, null);
+                FrameworkElementFocusSave(vFocusedButtonEmoji, null);
 
                 //Hide the emoji menu
                 border_EmojiListPopup.Visibility = Visibility.Collapsed;
-                grid_Keyboard.Opacity = 1;
-                grid_Keyboard.IsEnabled = true;
+                border_Keyboard.Opacity = 1;
+                border_Keyboard.IsEnabled = true;
                 vLastPopupListType = "Emoji";
                 vLastPopupListEmojiIndex = listbox_EmojiList.SelectedIndex;
 
@@ -84,13 +84,13 @@ namespace DirectXInput.KeyboardCode
                 textblock_RightTriggerOff.Text = "Tab";
 
                 //Focus on keyboard button
-                if (vEmojiFocusedButtonClose.FocusElement == null)
+                if (vFocusedButtonKeyboard.FocusElement == null)
                 {
                     await FrameworkElementFocus(key_EmojiList, false, vInteropWindowHandle);
                 }
                 else
                 {
-                    await FrameworkElementFocusFocus(vEmojiFocusedButtonClose, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocusFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -189,7 +189,7 @@ namespace DirectXInput.KeyboardCode
                 FrameworkElementFocus focusListbox = new FrameworkElementFocus();
                 focusListbox.FocusListBox = listbox_EmojiList;
                 focusListbox.FocusIndex = selectIndex;
-                await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
+                await FrameworkElementFocusFocus(focusListbox, vInteropWindowHandle);
             }
             catch { }
         }
@@ -393,7 +393,7 @@ namespace DirectXInput.KeyboardCode
                 FrameworkElementFocus focusListbox = new FrameworkElementFocus();
                 focusListbox.FocusListBox = listbox_EmojiList;
                 focusListbox.FocusIndex = selectIndex;
-                await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
+                await FrameworkElementFocusFocus(focusListbox, vInteropWindowHandle);
             }
             catch { }
         }

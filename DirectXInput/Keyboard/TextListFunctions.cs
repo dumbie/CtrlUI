@@ -40,21 +40,21 @@ namespace DirectXInput.KeyboardCode
 
                 //Show the textlist menu
                 border_TextListPopup.Visibility = Visibility.Visible;
-                grid_Keyboard.Opacity = 0.60;
-                grid_Keyboard.IsEnabled = false;
+                border_Keyboard.Opacity = 0.80;
+                border_Keyboard.IsEnabled = false;
 
                 //Store close focus button
-                FrameworkElementFocusSave(vTextFocusedButtonClose, null);
+                FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
 
                 //Focus on popup button
-                if (vTextFocusedButtonOpen.FocusListBox == null)
+                if (vFocusedButtonText.FocusListBox == null)
                 {
                     if (vDirectKeyboardTextList.Any())
                     {
                         FrameworkElementFocus focusListbox = new FrameworkElementFocus();
                         focusListbox.FocusListBox = listbox_TextList;
                         focusListbox.FocusIndex = vLastPopupListTextIndex;
-                        await FrameworkElementFocusFocus(focusListbox, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocusFocus(focusListbox, vInteropWindowHandle);
                     }
                     else
                     {
@@ -63,7 +63,7 @@ namespace DirectXInput.KeyboardCode
                 }
                 else
                 {
-                    await FrameworkElementFocusFocus(vTextFocusedButtonOpen, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocusFocus(vFocusedButtonText, vInteropWindowHandle);
                 }
             }
             catch { }
@@ -78,23 +78,23 @@ namespace DirectXInput.KeyboardCode
                 PlayInterfaceSound(vConfigurationCtrlUI, "PopupClose", false, false);
 
                 //Store open focus button
-                FrameworkElementFocusSave(vTextFocusedButtonOpen, null);
+                FrameworkElementFocusSave(vFocusedButtonText, null);
 
                 //Hide the textlist menu
                 border_TextListPopup.Visibility = Visibility.Collapsed;
-                grid_Keyboard.Opacity = 1;
-                grid_Keyboard.IsEnabled = true;
+                border_Keyboard.Opacity = 1;
+                border_Keyboard.IsEnabled = true;
                 vLastPopupListType = "Text";
                 vLastPopupListTextIndex = listbox_TextList.SelectedIndex;
 
                 //Focus on keyboard button
-                if (vTextFocusedButtonClose.FocusElement == null)
+                if (vFocusedButtonKeyboard.FocusElement == null)
                 {
                     await FrameworkElementFocus(key_TextList, false, vInteropWindowHandle);
                 }
                 else
                 {
-                    await FrameworkElementFocusFocus(vTextFocusedButtonClose, vProcessCurrent.MainWindowHandle);
+                    await FrameworkElementFocusFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
                 }
             }
             catch { }

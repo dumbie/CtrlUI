@@ -269,8 +269,8 @@ namespace DirectXInput.KeyboardCode
                     {
                         button_Information_Thumbnail.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     }
-                    stackpanel_MediaPlaying.Visibility = Visibility.Visible;
-                    stackpanel_MediaNone.Visibility = Visibility.Collapsed;
+                    grid_MediaPlaying.Visibility = Visibility.Visible;
+                    textblock_MediaNone.Visibility = Visibility.Collapsed;
                 });
             }
             catch
@@ -287,8 +287,8 @@ namespace DirectXInput.KeyboardCode
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    stackpanel_MediaPlaying.Visibility = Visibility.Collapsed;
-                    stackpanel_MediaNone.Visibility = Visibility.Visible;
+                    grid_MediaPlaying.Visibility = Visibility.Collapsed;
+                    textblock_MediaNone.Visibility = Visibility.Visible;
                 });
             }
             catch { }

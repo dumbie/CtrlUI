@@ -62,8 +62,6 @@ namespace DirectXInput
                 cb_SettingsShortcutScreenshotKeyboard.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard"));
 
                 //Load keyboard settings
-                textblock_KeyboardOpacity.Text = textblock_KeyboardOpacity.Tag + ": " + Setting_Load(vConfigurationDirectXInput, "KeyboardOpacity").ToString() + "%";
-                slider_KeyboardOpacity.Value = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardOpacity"));
                 cb_SettingsKeyboardCloseNoController.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardCloseNoController"));
                 cb_SettingsKeyboardResetPosition.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition"));
                 combobox_KeyboardLayout.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardLayout"));

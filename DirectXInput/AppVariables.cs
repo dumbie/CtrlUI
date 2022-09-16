@@ -37,8 +37,6 @@ namespace DirectXInput
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
         public static BitmapImage vImagePreloadIconVolumeDown = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeDown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadIconVolumeMute = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeMute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadIconKeyboardMedia = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadIconKeyboardScroll = FileToBitmapImage(new string[] { "Assets/Default/Icons/KeyboardScroll.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadIconControllerAccent = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadIconControllerDark = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
 
@@ -79,10 +77,9 @@ namespace DirectXInput
         public static int vLastPopupListTextIndex = 0;
         public static int vLastPopupListEmojiIndex = 0;
         public static string vLastPopupListType = "Emoji";
-        public static FrameworkElementFocus vEmojiFocusedButtonOpen = new FrameworkElementFocus();
-        public static FrameworkElementFocus vEmojiFocusedButtonClose = new FrameworkElementFocus();
-        public static FrameworkElementFocus vTextFocusedButtonOpen = new FrameworkElementFocus();
-        public static FrameworkElementFocus vTextFocusedButtonClose = new FrameworkElementFocus();
+        public static FrameworkElementFocus vFocusedButtonKeyboard = new FrameworkElementFocus();
+        public static FrameworkElementFocus vFocusedButtonEmoji = new FrameworkElementFocus();
+        public static FrameworkElementFocus vFocusedButtonText = new FrameworkElementFocus();
         public static int vDirectKeyboardEmojiIndexActivity = 0;
         public static int vDirectKeyboardEmojiIndexNature = 0;
         public static int vDirectKeyboardEmojiIndexFood = 0;

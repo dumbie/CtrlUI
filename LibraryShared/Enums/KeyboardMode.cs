@@ -5,7 +5,7 @@
         public enum KeyboardMode : int
         {
             Media = 0,
-            Scroll = 1
+            Keyboard = 1
         }
     }
 }

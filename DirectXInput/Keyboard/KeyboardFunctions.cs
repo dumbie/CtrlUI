@@ -8,6 +8,7 @@ using System.Windows.Input;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.FocusFunctions;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
@@ -277,7 +278,14 @@ namespace DirectXInput.KeyboardCode
                         textblock_RightTriggerOff.Text = "Volume";
                         textblock_ThumbPress.Text = "Mute";
                         textblock_BackOff.Text = "Fullscreen";
-                        image_Mode.Source = vImagePreloadIconKeyboardMedia;
+                        textblock_StartOff.Text = "Keyboard";
+
+                        //Save the previous focus element
+                        FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
+
+                        //Show media interface
+                        grid_Keyboard.Visibility = Visibility.Collapsed;
+                        grid_Media.Visibility = Visibility.Visible;
 
                         //Play sound
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
@@ -288,7 +296,7 @@ namespace DirectXInput.KeyboardCode
                         notificationDetails.Text = "Switched to media mode";
                         await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     }
-                    else if (keyboardMode == KeyboardMode.Scroll)
+                    else if (keyboardMode == KeyboardMode.Keyboard)
                     {
                         //Update help bar
                         stackpanel_DPad.Visibility = Visibility.Collapsed;
@@ -300,7 +308,21 @@ namespace DirectXInput.KeyboardCode
                         textblock_RightTriggerOff.Text = "Tab";
                         textblock_ThumbPress.Text = "Arrows";
                         textblock_BackOff.Text = "Emoji/Text";
-                        image_Mode.Source = vImagePreloadIconKeyboardScroll;
+                        textblock_StartOff.Text = "Media";
+
+                        //Show keyboard interface
+                        grid_Keyboard.Visibility = Visibility.Visible;
+                        grid_Media.Visibility = Visibility.Collapsed;
+
+                        //Focus on keyboard button
+                        if (vFocusedButtonKeyboard.FocusElement == null)
+                        {
+                            await FrameworkElementFocus(key_h, false, vInteropWindowHandle);
+                        }
+                        else
+                        {
+                            await FrameworkElementFocusFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
+                        }
 
                         //Play sound
                         PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
@@ -308,7 +330,7 @@ namespace DirectXInput.KeyboardCode
                         //Show notification
                         NotificationDetails notificationDetails = new NotificationDetails();
                         notificationDetails.Icon = "Keyboard";
-                        notificationDetails.Text = "Switched to scroll mode";
+                        notificationDetails.Text = "Switched to keyboard mode";
                         await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     }
                 });
@@ -325,10 +347,10 @@ namespace DirectXInput.KeyboardCode
                 KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
                 if (keyboardMode == KeyboardMode.Media)
                 {
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Scroll).ToString());
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Keyboard).ToString());
                     await UpdateKeyboardMode();
                 }
-                else if (keyboardMode == KeyboardMode.Scroll)
+                else if (keyboardMode == KeyboardMode.Keyboard)
                 {
                     Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Media).ToString());
                     await UpdateKeyboardMode();

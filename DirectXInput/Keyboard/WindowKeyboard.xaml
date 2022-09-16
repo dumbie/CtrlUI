@@ -28,11 +28,11 @@
         </Grid.RowDefinitions>
 
         <!-- Grid Help -->
-        <Border Name="grid_HelpBar" CornerRadius="5" Margin="0,0,0,5" Height="45" Grid.Row="0">
+        <Border Name="grid_ControllerHelp" CornerRadius="5" Margin="0,0,0,5" Height="45" Grid.Row="0">
             <Border.Background>
                 <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>
-            <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="50" Style="{StaticResource ScrollViewerHidden}">
+            <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="40" Style="{StaticResource ScrollViewerHidden}">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Name="stackpanel_DPad" Orientation="Horizontal" Margin="5,5,5,5">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/DPad.png" Height="26" Opacity="0.80"/>
@@ -84,12 +84,16 @@
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/StartOff.png" Height="26" Opacity="0.80"/>
                         <TextBlock Name="textblock_StartOff" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Mode"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/GuideOff.png" Height="26" Opacity="0.80"/>
+                        <TextBlock Name="textblock_Guide" Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Text="Close"/>
+                    </StackPanel>
                 </StackPanel>
             </styles:ScrollViewerLoopHorizontal>
         </Border>
 
-        <!-- Grid Media -->
-        <Border Name="grid_Media" CornerRadius="5" Margin="0,0,0,5" Grid.Row="1">
+        <!-- Grid Header -->
+        <Border Name="grid_Header" Grid.Row="1" Margin="0,0,0,5" Height="45" CornerRadius="5">
             <Border.Background>
                 <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>
@@ -99,74 +103,71 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Media -->
-                <Grid Grid.Column="0" Name="stackpanel_MediaPlaying" Height="90" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed">
+                <!-- Volume -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <Image Name="img_Main_MicrophoneMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png" Height="38"/>
+                    <Image Name="img_Main_VolumeMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png" Height="38"/>
+                    <TextBlock Name="textblock_Volume_Level" Text="Volume" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeLarge}" Margin="0,0,5,0" Style="{StaticResource TextBlockGrayLight}"/>
+                </StackPanel>
+
+                <!-- Information -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <StackPanel Name="stackpanel_ControllerActive" Margin="0,0,5,0" VerticalAlignment="Center">
+                        <Image Name="img_ControllerActive" Width="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
+                        <Border Name="border_ControllerActive" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="4" SnapsToDevicePixels="True"/>
+                    </StackPanel>
+
+                    <Image Name="img_Main_Battery" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerDis100.png" Height="38"/>
+                    <TextBlock Name="txt_Main_Battery" Visibility="Collapsed" Margin="0,0,5,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="0%"/>
+
+                    <Grid Name="grid_Main_Time" Margin="0,0,5,0" Visibility="Collapsed" Height="40" Width="40" VerticalAlignment="Center">
+                        <Image Name="img_Main_Time_Face" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                        <Image Name="img_Main_Time_Hour" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                        <Image Name="img_Main_Time_Minute" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                        <Image Name="img_Main_Time_Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                    </Grid>
+
+                    <TextBlock Name="txt_Main_Time" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Grid Media -->
+        <Border Name="grid_Media" Grid.Row="2" Height="320" Visibility="Collapsed" CornerRadius="5">
+            <Border.Background>
+                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
+            </Border.Background>
+            <StackPanel Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid Name="grid_MediaPlaying">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-
-                    <Image Grid.Column="0" Name="button_Information_Thumbnail" Margin="0,0,10,0" Width="90" Height="90"/>
+                    <Image Grid.Column="0" Name="button_Information_Thumbnail" Margin="0,0,20,0" Width="200" Height="200"/>
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
-                            <TextBlock Name="button_Information_Artist" Style="{StaticResource TextBlockAccent}" FontSize="{DynamicResource TextSizeMedium}" Text="Artist"/>
+                        <styles:ScrollViewerLoopHorizontal Style="{StaticResource ScrollViewerHidden}">
+                            <TextBlock Name="button_Information_Artist" Margin="0,0,0,5" Style="{StaticResource TextBlockAccent}" FontSize="{DynamicResource TextSizeMedium}" Text="Artist"/>
                         </styles:ScrollViewerLoopHorizontal>
-                        <ProgressBar MinWidth="220" Name="button_Information_Progress" Margin="0,5,0,0" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch"/>
-                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
-                            <TextBlock Name="button_Information_Title" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}" Text="Title"/>
+                        <ProgressBar MinWidth="220" Name="button_Information_Progress" Margin="0,2,0,5" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch"/>
+                        <styles:ScrollViewerLoopHorizontal Style="{StaticResource ScrollViewerHidden}">
+                            <TextBlock Name="button_Information_Title" Margin="0,0,0,5" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}" Text="Title"/>
                         </styles:ScrollViewerLoopHorizontal>
-                        <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
-                            <TextBlock Name="button_Information_Album" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Text="Album"/>
+                        <styles:ScrollViewerLoopHorizontal Style="{StaticResource ScrollViewerHidden}">
+                            <TextBlock Name="button_Information_Album" Margin="0,0,0,5" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Text="Album"/>
                         </styles:ScrollViewerLoopHorizontal>
                     </StackPanel>
                 </Grid>
-                <StackPanel Grid.Column="0" Name="stackpanel_MediaNone" Height="90" Margin="5" VerticalAlignment="Top">
-                    <TextBlock Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeLarge}" Text="No media playing"/>
-                </StackPanel>
-
-                <!-- Information -->
-                <Grid Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Image Name="img_Main_MicrophoneMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png" Height="38"/>
-                        <Image Name="img_Main_VolumeMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png" Height="38"/>
-
-                        <StackPanel Name="stackpanel_ControllerActive" Margin="0,0,5,0">
-                            <Image Name="img_ControllerActive" Width="35" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
-                            <Border Name="border_ControllerActive" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="4" SnapsToDevicePixels="True"/>
-                        </StackPanel>
-
-                        <Image Name="img_Main_Battery" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerDis100.png" Height="38"/>
-                        <TextBlock Name="txt_Main_Battery" Visibility="Collapsed" Margin="0,0,5,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="0%"/>
-
-                        <Grid Name="grid_Main_Time" Margin="0,0,5,0" Visibility="Collapsed" Height="40" Width="40">
-                            <Image Name="img_Main_Time_Face" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
-                            <Image Name="img_Main_Time_Hour" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
-                            <Image Name="img_Main_Time_Minute" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
-                            <Image Name="img_Main_Time_Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
-                        </Grid>
-
-                        <TextBlock Name="txt_Main_Time" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="1" HorizontalAlignment="Right">
-                        <TextBlock Name="textblock_Volume_Level" Text="Volume" FontSize="{DynamicResource TextSizeLarge}" Style="{StaticResource TextBlockGrayLight}"/>
-                    </StackPanel>
-                </Grid>
-            </Grid>
+                <TextBlock Name="textblock_MediaNone" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Center" Text="No media is currently playing"/>
+            </StackPanel>
         </Border>
 
         <!-- Grid Keyboard -->
-        <Grid Grid.Row="2">
-            <Border Name="grid_Keyboard" CornerRadius="5">
+        <Grid Name="grid_Keyboard" Grid.Row="2" Height="320" Visibility="Visible">
+            <Border Name="border_Keyboard" CornerRadius="5">
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
                 </Border.Background>
-                <StackPanel Margin="0,5,5,5">
+                <StackPanel Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <!-- Key Row 0 -->
                     <StackPanel Name="sp_Row0" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Name="key_Escape" Width="69" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
@@ -364,7 +365,7 @@
                         <Button Name="key_LeftWindows" Width="100" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_Space" Width="139" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
                         <Button Name="key_End" Width="70" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp"/>
-                        <Button Name="key_EmojiList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
+                        <Button Name="key_EmojiList" Style="{StaticResource ButtonEmoji}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
                             <emoji:TextBlock Text="😄"/>
                         </Button>
                         <Button Name="key_TextList" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonKey_PreviewKeyUp" PreviewMouseUp="ButtonKey_PreviewMouseUp">
@@ -376,8 +377,8 @@
                         <Button Name="key_FpsOverlayer" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonFpsOverlayer_PreviewKeyUp" PreviewMouseUp="ButtonFpsOverlayer_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Fps.png" Height="30"/>
                         </Button>
-                        <Button Name="key_Mode" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonMode_PreviewKeyUp" PreviewMouseUp="ButtonMode_PreviewMouseUp">
-                            <Image Name="image_Mode" Height="30"/>
+                        <Button Name="key_ModeKeyboard" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonMode_PreviewKeyUp" PreviewMouseUp="ButtonMode_PreviewMouseUp">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Music.png" Height="30"/>
                         </Button>
                         <Button Name="key_Close" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonClose_PreviewKeyUp" PreviewMouseUp="ButtonClose_PreviewMouseUp">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
@@ -387,7 +388,7 @@
             </Border>
 
             <!-- TextList Popup -->
-            <Border Name="border_TextListPopup" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+            <Border Name="border_TextListPopup" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
                 </Border.Background>
@@ -411,7 +412,7 @@
             </Border>
 
             <!-- Emoji Popup -->
-            <Border Name="border_EmojiListPopup" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+            <Border Name="border_EmojiListPopup" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
                 </Border.Background>

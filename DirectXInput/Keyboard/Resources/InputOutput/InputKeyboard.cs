@@ -61,7 +61,7 @@ namespace DirectXInput.KeyboardCode
                         int itemsCount = parentListbox.Items.Count;
                         if ((parentListbox.SelectedIndex + 1) == itemsCount)
                         {
-                            ListboxFocusIndex(parentListbox, false, false, 0, vProcessCurrent.MainWindowHandle);
+                            ListboxFocusIndex(parentListbox, false, false, 0, vInteropWindowHandle);
                             Handled = true;
                             return;
                         }
@@ -85,7 +85,7 @@ namespace DirectXInput.KeyboardCode
                         if (parentListbox.SelectedIndex == 0)
                         {
                             int itemsCount = parentListbox.Items.Count;
-                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vProcessCurrent.MainWindowHandle);
+                            ListboxFocusIndex(parentListbox, false, false, itemsCount - 1, vInteropWindowHandle);
                             Handled = true;
                             return;
                         }

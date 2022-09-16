@@ -32,7 +32,7 @@
                 <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>
             <Grid>
-                <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="50" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,20,0" Style="{StaticResource ScrollViewerHorizontal}">
+                <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,20,0" Style="{StaticResource ScrollViewerHidden}">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Name="sp_ControllerHelpLeft" Orientation="Horizontal" Margin="5,5,10,5" Visibility="Collapsed">
                             <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonLeft.png" Height="25" Opacity="0.80"/>
@@ -108,68 +108,78 @@
                 <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>
             <Grid>
-                <!-- Header - Buttons -->
-                <StackPanel Name="stackpanel_TopButtons" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0">
-                    <Button Name="button_MenuHamburger" Margin="0,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Open the main menu">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Hamburger.png"/>
-                    </Button>
-                    <Button Name="button_MenuSorting" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Sort by name">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Sorting.png"/>
-                    </Button>
-                    <Button Name="button_MenuMinimize" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Minimize application">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/AppMinimize.png"/>
-                    </Button>
-                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Header - Icons -->
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,10,0">
-                    <StackPanel Name="stackpanel_Menu_Controller0" Opacity="0.40">
-                        <Image Name="img_Menu_Controller0" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Accent.png"/>
-                        <Border Name="border_Menu_Controller0" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
-                    </StackPanel>
-                    <StackPanel Name="stackpanel_Menu_Controller1" Opacity="0.40">
-                        <Image Name="img_Menu_Controller1" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
-                        <Border Name="border_Menu_Controller1" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
-                    </StackPanel>
-                    <StackPanel Name="stackpanel_Menu_Controller2" Opacity="0.40">
-                        <Image Name="img_Menu_Controller2" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
-                        <Border Name="border_Menu_Controller2" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
-                    </StackPanel>
-                    <StackPanel Name="stackpanel_Menu_Controller3" Opacity="0.40">
-                        <Image Name="img_Menu_Controller3" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
-                        <Border Name="border_Menu_Controller3" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                    <!-- Header - Buttons -->
+                    <StackPanel Grid.Column="0" Name="stackpanel_TopButtons" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0">
+                        <Button Name="button_MenuHamburger" Margin="0,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Open the main menu">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Hamburger.png"/>
+                        </Button>
+                        <Button Name="button_MenuSorting" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Sort by name">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Sorting.png"/>
+                        </Button>
+                        <Button Name="button_MenuMinimize" Margin="10,0,0,0" Focusable="False" Height="40" Style="{StaticResource ButtonImageTransparentWhiteBorder}" HorizontalAlignment="Left" ToolTipService.ToolTip="Minimize application">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/AppMinimize.png"/>
+                        </Button>
                     </StackPanel>
 
-                    <Image Name="img_Menu_SteamStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
-                    <Image Name="img_Menu_UbisoftStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                    <Image Name="img_Menu_EADesktopStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                    <Image Name="img_Menu_GoGStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                    <Image Name="img_Menu_EpicStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                    <Image Name="img_Menu_BattleNetStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                    <Image Name="img_Menu_RockstarStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                    <Image Name="img_Menu_DiscordStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                    <!-- Header - Icons -->
+                    <styles:ScrollViewerLoopHorizontal Grid.Column="1" ScrollLoopSpeed="40" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,10,0" Style="{StaticResource ScrollViewerHidden}">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Name="stackpanel_Menu_Controller0" Opacity="0.40">
+                                <Image Name="img_Menu_Controller0" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller-Accent.png"/>
+                                <Border Name="border_Menu_Controller0" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                            </StackPanel>
+                            <StackPanel Name="stackpanel_Menu_Controller1" Opacity="0.40">
+                                <Image Name="img_Menu_Controller1" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
+                                <Border Name="border_Menu_Controller1" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                            </StackPanel>
+                            <StackPanel Name="stackpanel_Menu_Controller2" Opacity="0.40">
+                                <Image Name="img_Menu_Controller2" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
+                                <Border Name="border_Menu_Controller2" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                            </StackPanel>
+                            <StackPanel Name="stackpanel_Menu_Controller3" Opacity="0.40">
+                                <Image Name="img_Menu_Controller3" Width="30" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Controller.png"/>
+                                <Border Name="border_Menu_Controller3" CornerRadius="2" HorizontalAlignment="Center" Width="15" Height="3" SnapsToDevicePixels="True"/>
+                            </StackPanel>
 
-                    <Image Name="img_Menu_FpsOverlayerStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
-                    <Image Name="img_Menu_DirectXInputStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
-                </StackPanel>
+                            <Image Name="img_Menu_SteamStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
+                            <Image Name="img_Menu_UbisoftStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_EADesktopStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_GoGStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_EpicStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_BattleNetStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_RockstarStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                            <Image Name="img_Menu_DiscordStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
 
-                <!-- Header - Clock -->
-                <StackPanel Name="grid_ClockBattery" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">
-                    <Image Name="img_Main_MicrophoneMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png" Height="38"/>
-                    <Image Name="img_Main_VolumeMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png" Height="38"/>
-                    <Image Name="img_Main_Battery" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerDis100.png" Height="38"/>
-                    <TextBlock Name="txt_Main_Battery" Visibility="Collapsed" Margin="0,0,5,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="0%"/>
+                            <Image Name="img_Menu_FpsOverlayerStatus" Opacity="0.40" Width="30" Margin="25,0,0,0"/>
+                            <Image Name="img_Menu_DirectXInputStatus" Opacity="0.40" Width="30" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </styles:ScrollViewerLoopHorizontal>
 
-                    <Grid Margin="0,0,5,0" Height="40" Width="40">
-                        <Image Name="img_Main_Time_Face" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
-                        <Image Name="img_Main_Time_Hour" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
-                        <Image Name="img_Main_Time_Minute" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
-                        <Image Name="img_Main_Time_Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
-                    </Grid>
+                    <!-- Header - Clock -->
+                    <StackPanel Grid.Column="2" Name="grid_ClockBattery" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">
+                        <Image Name="img_Main_MicrophoneMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png" Height="38"/>
+                        <Image Name="img_Main_VolumeMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png" Height="38"/>
+                        <Image Name="img_Main_Battery" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Battery/BatteryVerDis100.png" Height="38"/>
+                        <TextBlock Name="txt_Main_Battery" Visibility="Collapsed" Margin="0,0,5,0" VerticalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="0%"/>
 
-                    <TextBlock Name="txt_Main_Date" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
-                    <TextBlock Name="txt_Main_Time" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
-                </StackPanel>
+                        <Grid Margin="0,0,5,0" Height="40" Width="40">
+                            <Image Name="img_Main_Time_Face" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                            <Image Name="img_Main_Time_Hour" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                            <Image Name="img_Main_Time_Minute" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                            <Image Name="img_Main_Time_Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="40"/>
+                        </Grid>
+
+                        <TextBlock Name="txt_Main_Date" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
+                        <TextBlock Name="txt_Main_Time" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
+                    </StackPanel>
+                </Grid>
 
                 <!-- Status - Disable -->
                 <Border Name="grid_DisableHeader" CornerRadius="10" Visibility="Collapsed">
@@ -198,34 +208,40 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                                 <Image Name="image_Category_Menu_LB" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/LbOff.png" Height="25" Opacity="0.80" Margin="0,0,10,0"/>
-                                <Button Name="button_Category_Menu_Games" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
-                                    <TextBlock Name="textblock_Category_Menu_Games" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Games"/>
-                                </Button>
-                                <Button Name="button_Category_Menu_Apps" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
-                                    <TextBlock Name="textblock_Category_Menu_Apps" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Apps &amp; Media"/>
-                                </Button>
-                                <Button Name="button_Category_Menu_Emulators" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
-                                    <TextBlock Name="textblock_Category_Menu_Emulators" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Emulators"/>
-                                </Button>
-                                <Button Name="button_Category_Menu_Launchers" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
-                                    <TextBlock Name="textblock_Category_Menu_Launchers" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Launchers"/>
-                                </Button>
-                                <Button Name="button_Category_Menu_Shortcuts" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
-                                    <TextBlock Name="textblock_Category_Menu_Shortcuts" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcuts"/>
-                                </Button>
-                                <Button Name="button_Category_Menu_Processes" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
-                                    <TextBlock Name="textblock_Category_Menu_Processes" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Processes"/>
-                                </Button>
-                                <Button Name="button_Category_Menu_Search" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
-                                    <TextBlock Name="textblock_Category_Menu_Search" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Search"/>
-                                </Button>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <styles:ScrollViewerLoopHorizontal Grid.Column="1" ScrollLoopSpeed="40" VerticalAlignment="Center" Style="{StaticResource ScrollViewerHidden}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Name="button_Category_Menu_Games" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
+                                        <TextBlock Name="textblock_Category_Menu_Games" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Games"/>
+                                    </Button>
+                                    <Button Name="button_Category_Menu_Apps" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
+                                        <TextBlock Name="textblock_Category_Menu_Apps" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Apps &amp; Media"/>
+                                    </Button>
+                                    <Button Name="button_Category_Menu_Emulators" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
+                                        <TextBlock Name="textblock_Category_Menu_Emulators" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Emulators"/>
+                                    </Button>
+                                    <Button Name="button_Category_Menu_Launchers" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
+                                        <TextBlock Name="textblock_Category_Menu_Launchers" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Launchers"/>
+                                    </Button>
+                                    <Button Name="button_Category_Menu_Shortcuts" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
+                                        <TextBlock Name="textblock_Category_Menu_Shortcuts" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcuts"/>
+                                    </Button>
+                                    <Button Name="button_Category_Menu_Processes" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
+                                        <TextBlock Name="textblock_Category_Menu_Processes" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Processes"/>
+                                    </Button>
+                                    <Button Name="button_Category_Menu_Search" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
+                                        <TextBlock Name="textblock_Category_Menu_Search" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Search"/>
+                                    </Button>
+                                </StackPanel>
+                            </styles:ScrollViewerLoopHorizontal>
+
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
                                 <styles:AVGifPlayer Name="gif_List_Loading" GifSource="pack://siteoforigin:,,,/Assets/Default/Icons/Loading.gif" Height="25" SpeedRatio="5" HorizontalAlignment="Right" Margin="10,0,0,0"/>
                                 <TextBlock Name="textblock_Category_Count" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Margin="10,0,0,0"/>
                                 <Image Name="image_Category_Menu_RB" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/RbOff.png" Height="25" Opacity="0.80" Margin="10,0,0,0"/>
@@ -273,7 +289,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Main Menu"/>
+                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Main Menu"/>
                             <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                         </StackPanel>
 
@@ -300,7 +316,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Welcome to Controller User Interface"/>
+                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Welcome to Controller User Interface"/>
                             <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                         </StackPanel>
 
@@ -373,7 +389,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock Name="grid_Popup_Manage_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Manage"/>
+                            <TextBlock Name="grid_Popup_Manage_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Manage"/>
                             <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                         </StackPanel>
 
@@ -452,7 +468,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Settings"/>
+                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Settings"/>
                             <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                         </StackPanel>
 
@@ -734,7 +750,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Monitor Settings"/>
+                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Monitor Settings"/>
                             <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                         </StackPanel>
 
@@ -826,7 +842,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Help"/>
+                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Help"/>
                             <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                         </StackPanel>
 
@@ -860,7 +876,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock Name="grid_Popup_ColorPicker_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Accent Color"/>
+                            <TextBlock Name="grid_Popup_ColorPicker_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Accent Color"/>
                             <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                             <TextBlock Name="grid_Popup_ColorPicker_txt_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Please select a new accent color:"/>
                         </StackPanel>
@@ -888,7 +904,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock Name="grid_Popup_FilePicker_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="File Browser"/>
+                            <TextBlock Name="grid_Popup_FilePicker_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="File Browser"/>
                             <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
                             <TextBlock Name="grid_Popup_FilePicker_txt_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Description"/>
                         </StackPanel>
@@ -964,7 +980,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock Name="grid_Popup_ProfileManager_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Profile Manager"/>
+                            <TextBlock Name="grid_Popup_ProfileManager_txt_Title" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Profile Manager"/>
                             <TextBlock Name="grid_Popup_ProfileManager_txt_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Profile"/>
                             <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,0"/>
                         </StackPanel>
@@ -1080,7 +1096,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock Name="grid_Popup_TextInput_textblock_Title" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="Text Input" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeSubTitle}"/>
+                            <TextBlock Name="grid_Popup_TextInput_textblock_Title" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="Text Input" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}"/>
 
                             <Grid>
                                 <TextBox Name="grid_Popup_TextInput_textbox" VerticalContentAlignment="Center" Margin="0,0,65,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxTransparentWhite}" Text="Enter text..." styles:TextboxPlaceholder.Placeholder="Enter text..."/>

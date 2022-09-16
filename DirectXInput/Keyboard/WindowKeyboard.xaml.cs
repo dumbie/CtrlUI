@@ -63,12 +63,6 @@ namespace DirectXInput.KeyboardCode
                 //Update the window position
                 UpdateWindowPosition();
 
-                //Focus on popup button
-                await FocusPopupButton(true, key_h);
-
-                //Update the popup opacity
-                UpdatePopupOpacity();
-
                 //Update the listbox sources
                 UpdateListBoxSources();
 
@@ -303,23 +297,6 @@ namespace DirectXInput.KeyboardCode
                 {
                     await FrameworkElementFocus(targetButton, false, vInteropWindowHandle);
                 }
-            }
-            catch { }
-        }
-
-        //Update popup opacity
-        public void UpdatePopupOpacity()
-        {
-            try
-            {
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    try
-                    {
-                        this.Opacity = Convert.ToDouble(Setting_Load(vConfigurationDirectXInput, "KeyboardOpacity"));
-                    }
-                    catch { }
-                });
             }
             catch { }
         }

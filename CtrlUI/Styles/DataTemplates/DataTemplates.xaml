@@ -29,7 +29,7 @@
                 <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusLauncherImage}" Opacity="0.80"/>
                 <TextBlock VerticalAlignment="Center" Margin="2,0,2,0" Text="{Binding RunningProcessCount}" FontSize="{DynamicResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
             </StackPanel>
-            <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
+            <styles:ScrollViewerLoopHorizontal Style="{StaticResource ScrollViewerHidden}">
                 <TextBlock Text="{Binding Name}" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </styles:ScrollViewerLoopHorizontal>
         </StackPanel>
@@ -49,7 +49,7 @@
                 <Image Height="12" VerticalAlignment="Center" Margin="2,0,2,0" Source="{Binding StatusCategoryImage}" Opacity="0.80"/>
                 <TextBlock VerticalAlignment="Center" Margin="2,0,2,0" Text="{Binding RunningProcessCount}" FontSize="{DynamicResource TextSizeTiny}" FontWeight="SemiBold" Style="{StaticResource TextBlockWhite}"/>
             </StackPanel>
-            <styles:ScrollViewerLoopHorizontal ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsHitTestVisible="False" Style="{StaticResource ScrollViewerHorizontal}">
+            <styles:ScrollViewerLoopHorizontal Style="{StaticResource ScrollViewerHidden}">
                 <TextBlock Text="{Binding Name}" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
             </styles:ScrollViewerLoopHorizontal>
         </StackPanel>
