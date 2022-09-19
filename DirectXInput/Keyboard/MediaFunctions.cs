@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,6 +10,7 @@ using Windows.Storage.Streams;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
+using static LibraryShared.Enums;
 using static LibraryShared.Settings;
 using static LibraryShared.SoundPlayer;
 using static LibraryUsb.FakerInputDevice;
@@ -154,6 +156,14 @@ namespace DirectXInput.KeyboardCode
                 {
                     textblock_Volume_Level.Text = currentVolumeString;
                 });
+
+                //Check the current keyboard mode
+                KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
+                if (keyboardMode != KeyboardMode.Media)
+                {
+                    //Debug.WriteLine("Keyboard is not in media mode, no update needed.");
+                    return;
+                }
 
                 //Get the media session manager
                 GlobalSystemMediaTransportControlsSessionManager smtcSessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();

@@ -39,16 +39,5 @@ namespace CtrlUI
             }
             catch { }
         }
-
-        //Open the keyboard controller
-        async void Button_TextInputKeyboardController_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await KeyboardControllerHideShow(false);
-                await FrameworkElementFocus(grid_Popup_TextInput_textbox, false, vProcessCurrent.MainWindowHandle);
-            }
-            catch { }
-        }
     }
 }

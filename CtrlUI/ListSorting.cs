@@ -14,6 +14,23 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
+        //Sort list based on visibility
+        async Task SortListsAuto()
+        {
+            try
+            {
+                if (vFilePickerOpen)
+                {
+                    await FilePicker_SortFilesFoldersSwitch(false);
+                }
+                else
+                {
+                    await SortAppListsSwitch(false);
+                }
+            }
+            catch { }
+        }
+
         //Check and return the highest app number
         int GetHighestAppNumber()
         {
@@ -159,9 +176,6 @@ namespace CtrlUI
                 List<SortFunction<DataBindApp>> orderListProcesses = new List<SortFunction<DataBindApp>>();
                 orderListProcesses.Add(sortFuncRunningTime);
                 SortObservableCollection(lb_Processes, List_Processes, orderListProcesses, null);
-
-                ToolTip newTooltip = new ToolTip() { Content = "Sort by name" };
-                button_MenuSorting.ToolTip = newTooltip;
             }
             catch { }
         }
@@ -200,9 +214,6 @@ namespace CtrlUI
                 List<SortFunction<DataBindApp>> orderListProcesses = new List<SortFunction<DataBindApp>>();
                 orderListProcesses.Add(sortFuncName);
                 SortObservableCollection(lb_Processes, List_Processes, orderListProcesses, null);
-
-                ToolTip newTooltip = new ToolTip() { Content = "Sort by number or date" };
-                button_MenuSorting.ToolTip = newTooltip;
             }
             catch { }
         }

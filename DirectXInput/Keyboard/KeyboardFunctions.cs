@@ -257,83 +257,20 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Update the keyboard mode
-        async Task UpdateKeyboardMode()
+        //Set current keyboard mode
+        async Task SetKeyboardMode()
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
+                if (keyboardMode == KeyboardMode.Media)
                 {
-                    //Check keyboard mode
-                    KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
-                    if (keyboardMode == KeyboardMode.Media)
-                    {
-                        //Update help bar
-                        stackpanel_DPad.Visibility = Visibility.Visible;
-                        textblock_ButtonLeft.Text = "Media Prev";
-                        textblock_ButtonRight.Text = "Media Next";
-                        textblock_ButtonUp.Text = "Play/Pause";
-                        textblock_ThumbRightOff.Text = "Move";
-                        textblock_LeftTriggerOff.Text = string.Empty;
-                        textblock_RightTriggerOff.Text = "Volume";
-                        textblock_ThumbPress.Text = "Mute";
-                        textblock_BackOff.Text = "Fullscreen";
-                        textblock_StartOff.Text = "Keyboard";
-
-                        //Save the previous focus element
-                        FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
-
-                        //Show media interface
-                        grid_Keyboard.Visibility = Visibility.Collapsed;
-                        grid_Media.Visibility = Visibility.Visible;
-
-                        //Play sound
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-
-                        //Show notification
-                        NotificationDetails notificationDetails = new NotificationDetails();
-                        notificationDetails.Icon = "Keyboard";
-                        notificationDetails.Text = "Switched to media mode";
-                        await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-                    }
-                    else if (keyboardMode == KeyboardMode.Keyboard)
-                    {
-                        //Update help bar
-                        stackpanel_DPad.Visibility = Visibility.Collapsed;
-                        textblock_ButtonLeft.Text = "Backspace";
-                        textblock_ButtonRight.Text = "Enter";
-                        textblock_ButtonUp.Text = "Space";
-                        textblock_ThumbRightOff.Text = "Scroll";
-                        textblock_LeftTriggerOff.Text = "Caps";
-                        textblock_RightTriggerOff.Text = "Tab";
-                        textblock_ThumbPress.Text = "Arrows";
-                        textblock_BackOff.Text = "Emoji/Text";
-                        textblock_StartOff.Text = "Media";
-
-                        //Show keyboard interface
-                        grid_Keyboard.Visibility = Visibility.Visible;
-                        grid_Media.Visibility = Visibility.Collapsed;
-
-                        //Focus on keyboard button
-                        if (vFocusedButtonKeyboard.FocusElement == null)
-                        {
-                            await FrameworkElementFocus(key_h, false, vInteropWindowHandle);
-                        }
-                        else
-                        {
-                            await FrameworkElementFocusFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
-                        }
-
-                        //Play sound
-                        PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
-
-                        //Show notification
-                        NotificationDetails notificationDetails = new NotificationDetails();
-                        notificationDetails.Icon = "Keyboard";
-                        notificationDetails.Text = "Switched to keyboard mode";
-                        await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
-                    }
-                });
+                    await SetModeMedia();
+                }
+                else if (keyboardMode == KeyboardMode.Keyboard)
+                {
+                    await SetModeKeyboard();
+                }
             }
             catch { }
         }
@@ -343,18 +280,119 @@ namespace DirectXInput.KeyboardCode
         {
             try
             {
-                //Check keyboard mode
                 KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
                 if (keyboardMode == KeyboardMode.Media)
                 {
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Keyboard).ToString());
-                    await UpdateKeyboardMode();
+                    await SetModeKeyboard();
                 }
                 else if (keyboardMode == KeyboardMode.Keyboard)
                 {
-                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Media).ToString());
-                    await UpdateKeyboardMode();
+                    await SetModeMedia();
                 }
+            }
+            catch { }
+        }
+
+        private async Task SetModeKeyboard()
+        {
+            try
+            {
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                {
+                    //Check current mode
+                    if (grid_Keyboard.Visibility == Visibility.Visible)
+                    {
+                        return;
+                    }
+
+                    //Update help bar
+                    stackpanel_DPad.Visibility = Visibility.Collapsed;
+                    textblock_ButtonLeft.Text = "Backspace";
+                    textblock_ButtonRight.Text = "Enter";
+                    textblock_ButtonUp.Text = "Space";
+                    textblock_ThumbRightOff.Text = "Scroll";
+                    textblock_LeftTriggerOff.Text = "Caps";
+                    textblock_RightTriggerOff.Text = "Tab";
+                    textblock_ThumbPress.Text = "Arrows";
+                    textblock_BackOff.Text = "Emoji/Text";
+                    textblock_StartOff.Text = "Media";
+
+                    //Show keyboard interface
+                    grid_Keyboard.Visibility = Visibility.Visible;
+                    grid_Media.Visibility = Visibility.Collapsed;
+
+                    //Focus on keyboard button
+                    if (vFocusedButtonKeyboard.FocusElement == null)
+                    {
+                        await FrameworkElementFocus(key_h, false, vInteropWindowHandle);
+                    }
+                    else
+                    {
+                        await FrameworkElementFocusFocus(vFocusedButtonKeyboard, vInteropWindowHandle);
+                    }
+
+                    //Play sound
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
+
+                    //Show notification
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "Keyboard";
+                    notificationDetails.Text = "Switched to keyboard mode";
+                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
+                    //Update settings
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Keyboard).ToString());
+                });
+            }
+            catch { }
+        }
+
+        private async Task SetModeMedia()
+        {
+            try
+            {
+                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                {
+                    //Check current mode
+                    if (grid_Media.Visibility == Visibility.Visible)
+                    {
+                        return;
+                    }
+
+                    //Update help bar
+                    stackpanel_DPad.Visibility = Visibility.Visible;
+                    textblock_ButtonLeft.Text = "Media Prev";
+                    textblock_ButtonRight.Text = "Media Next";
+                    textblock_ButtonUp.Text = "Play/Pause";
+                    textblock_ThumbRightOff.Text = "Move";
+                    textblock_LeftTriggerOff.Text = string.Empty;
+                    textblock_RightTriggerOff.Text = "Volume";
+                    textblock_ThumbPress.Text = "Mute";
+                    textblock_BackOff.Text = "Fullscreen";
+                    textblock_StartOff.Text = "Keyboard";
+
+                    //Save the previous focus element
+                    FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
+
+                    //Show media interface
+                    grid_Keyboard.Visibility = Visibility.Collapsed;
+                    grid_Media.Visibility = Visibility.Visible;
+
+                    //Focus on media button
+                    await FrameworkElementFocus(key_ModeMedia, false, vInteropWindowHandle);
+
+                    //Play sound
+                    PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
+
+                    //Show notification
+                    NotificationDetails notificationDetails = new NotificationDetails();
+                    notificationDetails.Icon = "Keyboard";
+                    notificationDetails.Text = "Switched to media mode";
+                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+
+                    //Update settings
+                    Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Media).ToString());
+                });
             }
             catch { }
         }

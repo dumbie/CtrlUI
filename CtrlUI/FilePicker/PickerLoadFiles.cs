@@ -71,6 +71,7 @@ namespace CtrlUI
                 {
                     grid_Popup_FilePicker_button_ControllerLeft.Visibility = Visibility.Visible;
                     grid_Popup_FilePicker_button_ControllerUp.Visibility = Visibility.Visible;
+                    grid_Popup_FilePicker_button_ControllerBack.Visibility = Visibility.Visible;
                     grid_Popup_FilePicker_button_ControllerStart.Visibility = Visibility.Visible;
                 });
 

@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -309,7 +310,7 @@ namespace CtrlUI
                     else if (e.Key == Key.F1) { await Popup_Show(grid_Popup_Help, grid_Popup_Help_button_Close); }
                     else if (e.Key == Key.F2) { await QuickLaunchPrompt(); }
                     else if (e.Key == Key.F3) { await ChangeCategoryListBox(ListCategory.Search); }
-                    else if (e.Key == Key.F4) { await SortAppListsSwitch(false); }
+                    else if (e.Key == Key.F4) { await SortListsAuto(); }
                     else if (e.Key == Key.F6) { await Popup_ShowHide_MainMenu(false); }
                 }
             }

@@ -104,7 +104,7 @@ namespace DirectXInput
         {
             try
             {
-                await KeyboardPopupHideShow(true);
+                await KeyboardPopupHideShow(true, false);
             }
             catch { }
         }

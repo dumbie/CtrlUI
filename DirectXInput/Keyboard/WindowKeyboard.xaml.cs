@@ -57,8 +57,8 @@ namespace DirectXInput.KeyboardCode
                 //Update the keyboard layout
                 UpdateKeyboardLayout();
 
-                //Update the keyboard mode
-                await UpdateKeyboardMode();
+                //Set current keyboard mode
+                await SetKeyboardMode();
 
                 //Update the window position
                 UpdateWindowPosition();
@@ -113,7 +113,7 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Show the window
-        public new async Task Show()
+        public async Task Show(bool forceKeyboardMode)
         {
             try
             {
@@ -138,14 +138,26 @@ namespace DirectXInput.KeyboardCode
                 //Focus on keyboard button
                 await FocusPopupButton(false, key_h);
 
-                //Update the window position
-                if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition")))
-                {
-                    UpdateWindowPosition();
-                }
-
                 //Update the window visibility
                 await UpdateWindowVisibility(true);
+
+                //Force keyboard mode and reset position
+                if (forceKeyboardMode)
+                {
+                    //Set keyboard mode
+                    await SetModeKeyboard();
+
+                    //Update the window position
+                    UpdateWindowPosition();
+                }
+                else
+                {
+                    //Update the window position
+                    if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "KeyboardResetPosition")))
+                    {
+                        UpdateWindowPosition();
+                    }
+                }
 
                 //Move mouse cursor to target
                 MoveMousePosition();

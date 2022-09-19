@@ -17,7 +17,6 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("FolderAdd", "Creating new folder");
                 Debug.WriteLine("Creating new folder in: " + vFilePickerCurrentPath);
 
                 //Show the text input popup

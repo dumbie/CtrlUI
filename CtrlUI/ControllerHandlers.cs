@@ -186,7 +186,14 @@ namespace CtrlUI
                     else if (ControllerInput.ButtonBack.PressedRaw)
                     {
                         Debug.WriteLine("Button: BackPressed / Showing search");
-                        if (!Popup_Any_Open())
+                        if (vFilePickerOpen)
+                        {
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate
+                            {
+                                await FilePicker_SortFilesFoldersSwitch(false);
+                            });
+                        }
+                        else if (!Popup_Any_Open())
                         {
                             await AVActions.ActionDispatcherInvokeAsync(async delegate
                             {

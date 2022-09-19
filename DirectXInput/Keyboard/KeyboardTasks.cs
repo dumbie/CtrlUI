@@ -41,7 +41,7 @@ namespace DirectXInput.KeyboardCode
                     await UpdateCurrentMediaInformation();
 
                     //Delay the loop task
-                    await TaskDelayLoop(250, vTask_UpdateMediaInformation);
+                    await TaskDelayLoop(500, vTask_UpdateMediaInformation);
                 }
             }
             catch { }

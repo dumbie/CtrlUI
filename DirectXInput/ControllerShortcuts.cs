@@ -62,7 +62,7 @@ namespace DirectXInput
                         {
                             if (vKeyboardKeypadLastActive == "Keyboard")
                             {
-                                await KeyboardPopupHideShow(false);
+                                await KeyboardPopupHideShow(false, false);
                             }
                             else
                             {
@@ -198,7 +198,7 @@ namespace DirectXInput
                     else
                     {
                         await App.vWindowKeypad.Hide();
-                        await App.vWindowKeyboard.Show();
+                        await App.vWindowKeyboard.Show(false);
                     }
                 });
             }
@@ -231,7 +231,7 @@ namespace DirectXInput
         }
 
         //Hide or show the keyboard
-        async Task KeyboardPopupHideShow(bool forceShow)
+        async Task KeyboardPopupHideShow(bool forceShow, bool forceKeyboardMode)
         {
             try
             {
@@ -242,7 +242,7 @@ namespace DirectXInput
                     {
                         if (forceShow || Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup")))
                         {
-                            await App.vWindowKeyboard.Show();
+                            await App.vWindowKeyboard.Show(forceKeyboardMode);
                         }
                     }
                     else if (!forceShow)

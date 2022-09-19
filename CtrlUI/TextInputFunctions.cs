@@ -115,16 +115,6 @@ namespace CtrlUI
                     string placeholderString = (string)grid_Popup_TextInput_textbox.GetValue(TextboxPlaceholder.PlaceholderProperty);
                     grid_Popup_TextInput_textbox.Text = placeholderString;
                 }
-
-                //Show or hide the keyboard icon
-                if (CheckKeyboardEnabled())
-                {
-                    grid_Popup_TextInput_button_KeyboardControllerIcon.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    grid_Popup_TextInput_button_KeyboardControllerIcon.Visibility = Visibility.Collapsed;
-                }
             }
             catch { }
         }

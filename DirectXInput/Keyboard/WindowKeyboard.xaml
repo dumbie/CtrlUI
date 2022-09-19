@@ -105,8 +105,8 @@
 
                 <!-- Volume -->
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Image Name="img_Main_MicrophoneMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png" Height="38"/>
                     <Image Name="img_Main_VolumeMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png" Height="38"/>
+                    <Image Name="img_Main_MicrophoneMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png" Height="38"/>
                     <TextBlock Name="textblock_Volume_Level" Text="Volume" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeLarge}" Margin="0,0,5,0" Style="{StaticResource TextBlockGrayLight}"/>
                 </StackPanel>
 
@@ -158,6 +158,9 @@
                     </StackPanel>
                 </Grid>
                 <TextBlock Name="textblock_MediaNone" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Center" Text="No media is currently playing"/>
+                <Button Margin="0,20,0,0" Name="key_ModeMedia" HorizontalAlignment="Center" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonMode_PreviewKeyUp" PreviewMouseUp="ButtonMode_PreviewMouseUp">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keyboard.png" Height="30"/>
+                </Button>
             </StackPanel>
         </Border>
 

@@ -79,6 +79,7 @@ namespace CtrlUI
                 grid_Popup_FilePicker_button_ControllerRight.Click += Button_FilePicker_button_ControllerRight_Click;
                 grid_Popup_FilePicker_button_ControllerLeft.Click += Button_FilePicker_button_ControllerLeft_Click;
                 grid_Popup_FilePicker_button_ControllerUp.Click += Button_FilePicker_button_ControllerUp_Click;
+                grid_Popup_FilePicker_button_ControllerBack.Click += Grid_Popup_FilePicker_button_ControllerBack_Click;
                 grid_Popup_FilePicker_button_ControllerStart.Click += Button_FilePicker_button_ControllerStart_Click;
                 grid_Popup_Manage_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Monitor_button_Close.Click += Button_Popup_Close_Click;
@@ -94,7 +95,6 @@ namespace CtrlUI
                 //Text Input functions
                 grid_Popup_TextInput_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_TextInput_textbox.PreviewKeyUp += Grid_Popup_TextInput_textbox_PreviewKeyUp;
-                grid_Popup_TextInput_button_KeyboardControllerIcon.Click += Button_TextInputKeyboardController_Click;
                 grid_Popup_TextInput_button_Reset.Click += Grid_Popup_TextInput_button_Reset_Click;
                 grid_Popup_TextInput_button_ConfirmText.Click += Button_TextInputConfirmText_Click;
 

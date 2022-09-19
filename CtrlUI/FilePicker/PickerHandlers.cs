@@ -46,6 +46,15 @@ namespace CtrlUI
             catch { }
         }
 
+        async void Grid_Popup_FilePicker_button_ControllerBack_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await FilePicker_SortFilesFoldersSwitch(false);
+            }
+            catch { }
+        }
+
         void Button_FilePicker_button_ControllerStart_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -254,12 +263,12 @@ namespace CtrlUI
 
                     DataBindString answerCreateFolder = new DataBindString();
                     answerCreateFolder.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/FolderAdd.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    answerCreateFolder.Name = "Create a new folder here";
+                    answerCreateFolder.Name = "Create new folder here";
                     Answers.Add(answerCreateFolder);
 
                     DataBindString answerCreateTextFile = new DataBindString();
                     answerCreateTextFile.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Extensions/Txt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    answerCreateTextFile.Name = "Create a new text file here";
+                    answerCreateTextFile.Name = "Create new text file here";
                     Answers.Add(answerCreateTextFile);
 
                     //Show the messagebox prompt
@@ -307,12 +316,12 @@ namespace CtrlUI
                         {
                             await FilePicker_FileRename(selectedItem);
                         }
-                        //Create a new folder
+                        //Create new folder
                         else if (messageResult == answerCreateFolder)
                         {
                             await FilePicker_CreateFolder();
                         }
-                        //Create a new text file
+                        //Create new text file
                         else if (messageResult == answerCreateTextFile)
                         {
                             await FilePicker_CreateTextFile();
@@ -382,6 +391,7 @@ namespace CtrlUI
                 if (vFilePickerCurrentPath == "PC")
                 {
                     Debug.WriteLine("Invalid sorting path, returning.");
+                    await Notification_Send_Status("Sorting", "Invalid sort path");
                     return;
                 }
 
@@ -415,6 +425,7 @@ namespace CtrlUI
                 if (vFilePickerCurrentPath == "PC")
                 {
                     Debug.WriteLine("Invalid sorting path, returning.");
+                    await Notification_Send_Status("Sorting", "Invalid sort path");
                     return;
                 }
 

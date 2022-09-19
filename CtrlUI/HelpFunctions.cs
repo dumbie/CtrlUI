@@ -45,20 +45,54 @@ namespace CtrlUI
                     if (!vControllerAnyConnected())
                     {
                         grid_ControllerHelp.Visibility = Visibility.Collapsed;
-                        image_Category_Menu_LB.Visibility = Visibility.Collapsed;
-                        image_Category_Menu_RB.Visibility = Visibility.Collapsed;
+                        image_MainMenu_Close.Visibility = Visibility.Collapsed;
+                        image_Welcome_Close.Visibility = Visibility.Collapsed;
+                        image_Manage_Close.Visibility = Visibility.Collapsed;
+                        image_Settings_Close.Visibility = Visibility.Collapsed;
+                        image_Monitor_Close.Visibility = Visibility.Collapsed;
+                        image_Help_Close.Visibility = Visibility.Collapsed;
+                        image_ColorPicker_Close.Visibility = Visibility.Collapsed;
+                        image_FilePicker_Close.Visibility = Visibility.Collapsed;
+                        image_FilePicker_Up.Visibility = Visibility.Collapsed;
+                        image_FilePicker_Left.Visibility = Visibility.Collapsed;
+                        image_FilePicker_Back.Visibility = Visibility.Collapsed;
+                        image_FilePicker_Start.Visibility = Visibility.Collapsed;
+                        image_ProfileManager_Close.Visibility = Visibility.Collapsed;
+                        image_MoveApplication_Close.Visibility = Visibility.Collapsed;
+                        image_MessageBox_Close.Visibility = Visibility.Collapsed;
+                        image_TextInput_Close.Visibility = Visibility.Collapsed;
+                        image_TextInput_Reset.Visibility = Visibility.Collapsed;
+                        image_Category_LB.Visibility = Visibility.Collapsed;
+                        image_Category_RB.Visibility = Visibility.Collapsed;
                         image_Settings_LB.Visibility = Visibility.Collapsed;
                         image_Settings_RB.Visibility = Visibility.Collapsed;
-                        image_Search_ResetController.Visibility = Visibility.Collapsed;
+                        image_Search_Reset.Visibility = Visibility.Collapsed;
                         return;
                     }
                     else
                     {
-                        image_Category_Menu_LB.Visibility = Visibility.Visible;
-                        image_Category_Menu_RB.Visibility = Visibility.Visible;
+                        image_MainMenu_Close.Visibility = Visibility.Visible;
+                        image_Welcome_Close.Visibility = Visibility.Visible;
+                        image_Manage_Close.Visibility = Visibility.Visible;
+                        image_Settings_Close.Visibility = Visibility.Visible;
+                        image_Monitor_Close.Visibility = Visibility.Visible;
+                        image_Help_Close.Visibility = Visibility.Visible;
+                        image_ColorPicker_Close.Visibility = Visibility.Visible;
+                        image_FilePicker_Close.Visibility = Visibility.Visible;
+                        image_FilePicker_Up.Visibility = Visibility.Visible;
+                        image_FilePicker_Left.Visibility = Visibility.Visible;
+                        image_FilePicker_Back.Visibility = Visibility.Visible;
+                        image_FilePicker_Start.Visibility = Visibility.Visible;
+                        image_ProfileManager_Close.Visibility = Visibility.Visible;
+                        image_MoveApplication_Close.Visibility = Visibility.Visible;
+                        image_MessageBox_Close.Visibility = Visibility.Visible;
+                        image_TextInput_Close.Visibility = Visibility.Visible;
+                        image_TextInput_Reset.Visibility = Visibility.Visible;
+                        image_Category_LB.Visibility = Visibility.Visible;
+                        image_Category_RB.Visibility = Visibility.Visible;
                         image_Settings_LB.Visibility = Visibility.Visible;
                         image_Settings_RB.Visibility = Visibility.Visible;
-                        image_Search_ResetController.Visibility = Visibility.Visible;
+                        image_Search_Reset.Visibility = Visibility.Visible;
                     }
 
                     //Check if the help setting is enabled or disabled

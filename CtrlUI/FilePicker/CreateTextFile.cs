@@ -18,7 +18,6 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("Font", "Creating text file");
                 Debug.WriteLine("Creating new text file in: " + vFilePickerCurrentPath);
 
                 //Show the text input popup

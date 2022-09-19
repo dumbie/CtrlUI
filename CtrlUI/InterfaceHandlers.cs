@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using static CtrlUI.AppVariables;
 
@@ -21,7 +23,7 @@ namespace CtrlUI
         {
             try
             {
-                await SortAppListsSwitch(false);
+                await SortListsAuto();
             }
             catch { }
         }

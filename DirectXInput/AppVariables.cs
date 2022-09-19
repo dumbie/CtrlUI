@@ -35,8 +35,6 @@ namespace DirectXInput
             new ImageSourceFolders() { SourcePath = "Assets/Default/Games", SearchOption = SearchOption.AllDirectories }
         };
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
-        public static BitmapImage vImagePreloadIconVolumeDown = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeDown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadIconVolumeMute = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeMute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadIconControllerAccent = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
         public static BitmapImage vImagePreloadIconControllerDark = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
 
