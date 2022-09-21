@@ -296,6 +296,7 @@
     </Compile>
     <Compile Include="AppUpdate.cs" />
     <Compile Include="AppCheck.cs" />
+    <Compile Include="Classes\ApiHltb.cs" />
     <Compile Include="Classes\ApiIGDB.cs" />
     <Compile Include="Classes\ApiTwitch.cs" />
     <Compile Include="Classes\ControllerIgnored.cs" />
