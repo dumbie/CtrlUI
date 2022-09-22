@@ -121,6 +121,22 @@
         </Grid>
     </DataTemplate>
 
+    <!-- ListBoxItemHowLongToBeat -->
+    <DataTemplate x:Key="ListBoxItemHowLongToBeat">
+        <Grid Margin="0,10,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="SharedSizeGroup"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" MinWidth="450" MaxWidth="650" Margin="0,0,20,0" Text="{Binding Data1}" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}"/>
+            <TextBlock Grid.Column="1" Margin="0,0,20,0" Text="{Binding Data2}" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeLarge}"/>
+            <TextBlock Grid.Column="2" Margin="0,0,20,0" Text="{Binding Data3}" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}"/>
+            <TextBlock Grid.Column="3" Margin="0,0,20,0" Text="{Binding Data4}" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeLarge}"/>
+        </Grid>
+    </DataTemplate>
+
     <!-- ListboxItemProfile -->
     <DataTemplate x:Key="ListboxItemProfile">
         <Grid Margin="5" ToolTip="Remove the profile value">

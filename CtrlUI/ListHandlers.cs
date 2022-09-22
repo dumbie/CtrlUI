@@ -99,6 +99,15 @@ namespace CtrlUI
 
                 //Show the messagebox popup with options
                 List<DataBindString> Answers = new List<DataBindString>();
+
+                DataBindString AnswerHowLongToBeat = new DataBindString();
+                if (dataBindApp.Category == AppCategory.Game)
+                {
+                    AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerHowLongToBeat.Name = "How long to beat information";
+                    Answers.Add(AnswerHowLongToBeat);
+                }
+
                 DataBindString AnswerEdit = new DataBindString();
                 AnswerEdit.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Edit.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerEdit.Name = "Edit this application details";
@@ -144,7 +153,11 @@ namespace CtrlUI
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", processRunningTimeString, "", Answers);
                 if (messageResult != null)
                 {
-                    if (messageResult == AnswerEdit)
+                    if (messageResult == AnswerHowLongToBeat)
+                    {
+                        await Popup_Show_HowLongToBeat(dataBindApp.Name);
+                    }
+                    else if (messageResult == AnswerEdit)
                     {
                         //Show application edit popup
                         await Popup_Show_AppEdit(dataBindApp);

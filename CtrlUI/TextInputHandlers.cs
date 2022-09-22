@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using static CtrlUI.AppVariables;
-using static LibraryShared.FocusFunctions;
 
 namespace CtrlUI
 {

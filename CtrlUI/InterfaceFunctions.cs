@@ -86,6 +86,7 @@ namespace CtrlUI
                 grid_Popup_Help_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_MoveApplication_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_MessageBox_button_Close.Click += Button_Popup_Close_Click;
+                grid_Popup_HowLongToBeat_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Welcome_button_Close.Click += Button_Popup_Close_Click;
 
                 //Search functions

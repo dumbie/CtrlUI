@@ -245,12 +245,20 @@ namespace CtrlUI
                         Answers.Add(answerRemoveChecked);
                     }
 
-                    DataBindString answerDownloadRomInfo = new DataBindString();
+                    DataBindString answerHowLongToBeat = new DataBindString();
                     if (!preFile && vFilePickerShowRoms)
                     {
-                        answerDownloadRomInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerDownloadRomInfo.Name = "Download game information";
-                        Answers.Add(answerDownloadRomInfo);
+                        answerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerHowLongToBeat.Name = "How long to beat information";
+                        Answers.Add(answerHowLongToBeat);
+                    }
+
+                    DataBindString answerDownloadGameInfo = new DataBindString();
+                    if (!preFile && vFilePickerShowRoms)
+                    {
+                        answerDownloadGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerDownloadGameInfo.Name = "Download game information";
+                        Answers.Add(answerDownloadGameInfo);
                     }
 
                     DataBindString answerDownloadConsoleInfo = new DataBindString();
@@ -335,8 +343,13 @@ namespace CtrlUI
                         {
                             await FilePicker_FileRemove_Checked();
                         }
+                        //How long to beat information
+                        else if (messageResult == answerHowLongToBeat)
+                        {
+                            await Popup_Show_HowLongToBeat(selectedItem.Name);
+                        }
                         //Download game information
-                        else if (messageResult == answerDownloadRomInfo)
+                        else if (messageResult == answerDownloadGameInfo)
                         {
                             DownloadInfoGame informationDownloaded = await DownloadInfoGame(selectedItem.Name, 210, false);
                             if (informationDownloaded != null)

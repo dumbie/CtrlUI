@@ -92,6 +92,48 @@ namespace LibraryShared
                 }
             }
 
+            private object PrivData3;
+            public object Data3
+            {
+                get { return this.PrivData3; }
+                set
+                {
+                    if (this.PrivData3 != value)
+                    {
+                        this.PrivData3 = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private object PrivData4;
+            public object Data4
+            {
+                get { return this.PrivData4; }
+                set
+                {
+                    if (this.PrivData4 != value)
+                    {
+                        this.PrivData4 = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private object PrivData5;
+            public object Data5
+            {
+                get { return this.PrivData5; }
+                set
+                {
+                    if (this.PrivData5 != value)
+                    {
+                        this.PrivData5 = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             public event PropertyChangedEventHandler PropertyChanged;
             private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
             {

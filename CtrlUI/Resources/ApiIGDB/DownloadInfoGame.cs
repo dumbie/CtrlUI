@@ -27,7 +27,7 @@ namespace CtrlUI
                 string nameRomSaveFilter = FilterNameRom(nameRom, true, false, true, 0);
 
                 //Show the text input popup
-                string nameRomDownload = await Popup_ShowHide_TextInput("Game search", nameRomSaveFilter, "Search information for the game", true);
+                string nameRomDownload = await Popup_ShowHide_TextInput("Game information search", nameRomSaveFilter, "Search information for the game", true);
                 if (string.IsNullOrWhiteSpace(nameRomDownload))
                 {
                     Debug.WriteLine("No search term entered.");

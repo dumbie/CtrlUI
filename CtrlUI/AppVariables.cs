@@ -113,6 +113,10 @@ namespace CtrlUI
         //Sort Variables
         public static SortingType vSortType = SortingType.Number;
 
+        //HowLongToBeat Variables
+        public static bool vHowLongToBeatOpen = false;
+        public static FrameworkElementFocus vHowLongToBeatElementFocus = new FrameworkElementFocus();
+
         //MessageBox Variables
         public static bool vMessageBoxOpen = false;
         public static bool vMessageBoxCancelled = false;

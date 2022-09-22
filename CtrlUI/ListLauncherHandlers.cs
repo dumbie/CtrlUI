@@ -19,6 +19,11 @@ namespace CtrlUI
             {
                 List<DataBindString> Answers = new List<DataBindString>();
 
+                DataBindString AnswerHowLongToBeat = new DataBindString();
+                AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerHowLongToBeat.Name = "How long to beat information";
+                Answers.Add(AnswerHowLongToBeat);
+
                 DataBindString AnswerDownload = new DataBindString();
                 AnswerDownload.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerDownload.Name = "Download game information";
@@ -39,7 +44,11 @@ namespace CtrlUI
                 DataBindString messageResult = await Popup_Show_MessageBox("What would you like to do with " + dataBindApp.Name + "?", launcherInfoString, "", Answers);
                 if (messageResult != null)
                 {
-                    if (messageResult == AnswerDownload)
+                    if (messageResult == AnswerHowLongToBeat)
+                    {
+                        await Popup_Show_HowLongToBeat(dataBindApp.Name);
+                    }
+                    else if (messageResult == AnswerDownload)
                     {
                         DownloadInfoGame informationDownloaded = await DownloadInfoGame(dataBindApp.Name, 100, true);
                         if (informationDownloaded != null)

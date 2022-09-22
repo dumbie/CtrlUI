@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static LibraryShared.Classes;
 
@@ -28,19 +29,20 @@ namespace CtrlUI
                 //Xbox string apiUrl = "https://howlongtobeat.com/___api/games?xbox_id=9WZDNCRFHWD2";
                 string apiUrl = "https://www.howlongtobeat.com/api/search";
 
+                //Split name and remove characters
+                string searchFilter = Regex.Replace(gameName, @"[^a-zA-Z0-9 ]", " ");
+                string[] searchFilterTerms = searchFilter.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
                 //Create json request
                 ApiHltbSearchQuery jsonSearchQuery = new ApiHltbSearchQuery();
-                jsonSearchQuery.searchTerms = new[] { gameName };
+                jsonSearchQuery.searchTerms = searchFilterTerms;
                 string jsonRequest = JsonConvert.SerializeObject(jsonSearchQuery);
 
                 //Create request body
                 StringContent requestBodyStringContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 
-                //Create request uri
-                Uri requestUri = new Uri(apiUrl);
-
-                //Authenticate with Twitch
-                string resultSearch = await AVDownloader.SendPostRequestAsync(5000, "CtrlUI", requestHeaders, requestUri, requestBodyStringContent);
+                //Download howlongtobeat results
+                string resultSearch = await AVDownloader.SendPostRequestAsync(5000, "CtrlUI", requestHeaders, new Uri(apiUrl), requestBodyStringContent);
                 if (string.IsNullOrWhiteSpace(resultSearch))
                 {
                     Debug.WriteLine("Failed downloading how long to beat, no connection.");
@@ -48,31 +50,7 @@ namespace CtrlUI
                 }
 
                 //Deserialize json string
-                ApiHltbSearchResult jsonSearchResult = JsonConvert.DeserializeObject<ApiHltbSearchResult>(resultSearch);
-                foreach (ApiHltbSearchResult.Data hltbData in jsonSearchResult.data)
-                {
-                    Debug.WriteLine(hltbData.game_name);
-                    if (hltbData.comp_all_count <= 0)
-                    {
-                        Debug.WriteLine("Unknown gameplay time");
-                    }
-                    else
-                    {
-                        if (hltbData.comp_main > 0)
-                        {
-                            Debug.WriteLine("Maingame" + AVFunctions.SecondsToHms(hltbData.comp_main, true, false));
-                        }
-                        else
-                        {
-                            Debug.WriteLine("MaingameUnknown");
-                        }
-                        Debug.WriteLine("Main + Side" + AVFunctions.SecondsToHms(hltbData.comp_plus, true, false));
-                        Debug.WriteLine("100% done" + AVFunctions.SecondsToHms(hltbData.comp_100, true, false));
-                        Debug.WriteLine("Completed " + hltbData.comp_all_count + " times");
-                    }
-                }
-
-                return jsonSearchResult;
+                return JsonConvert.DeserializeObject<ApiHltbSearchResult>(resultSearch);
             }
             catch (Exception ex)
             {

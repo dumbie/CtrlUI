@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode.Styles;
 using System.Threading.Tasks;
-using System.Windows;
 using static CtrlUI.AppVariables;
 using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;

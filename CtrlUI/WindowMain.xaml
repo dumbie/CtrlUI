@@ -1063,6 +1063,56 @@
                     </StackPanel>
                 </Grid>
 
+                <!-- Popup - HowLongToBeat -->
+                <Grid Name="grid_Popup_HowLongToBeat" Visibility="Collapsed">
+                    <Grid Margin="140,0,140,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="0.80*"/>
+                            <RowDefinition Height="0.20*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Name="grid_HowLongToBeat_Header" HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="How Long To Beat"/>
+                            <Border Name="grid_HowLongToBeat_Border" HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1" Name="grid_HowLongToBeat" Grid.IsSharedSizeScope="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--  Header  -->
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="SharedSizeGroup"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Game" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeHuge}"/>
+                                <TextBlock Grid.Column="1" Text="Main Story" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeHuge}"/>
+                                <TextBlock Grid.Column="2" Text="Main + Extra" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeHuge}"/>
+                                <TextBlock Grid.Column="3" Text="Completionist" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeHuge}"/>
+                            </Grid>
+
+                            <ListBox Grid.Row="1" Name="lb_HowLongToBeat" VerticalAlignment="Top" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemHowLongToBeat}" Style="{StaticResource ListBoxVertical}"/>
+                        </Grid>
+                        <TextBlock Grid.Row="1" Visibility="Collapsed" Name="textblock_HowLongToBeat_Unknown" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Unknown gameplay time"/>
+                    </Grid>
+
+                    <!-- Shortcuts -->
+                    <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
+                        <Button Name="grid_Popup_HowLongToBeat_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="image_HowLongToBeat_Close" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
                 <!-- Popup - MessageBox -->
                 <Grid Name="grid_Popup_MessageBox" Visibility="Collapsed">
                     <Grid Margin="140,0,140,0">

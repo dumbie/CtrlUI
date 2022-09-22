@@ -7,7 +7,7 @@
             public string searchType { get; set; } = "games";
             public string[] searchTerms { get; set; }
             public int searchPage { get; set; } = 1;
-            public int size { get; set; } = 20;
+            public int size { get; set; } = 30;
             public SearchOptions searchOptions { get; set; } = new SearchOptions();
 
             public class SearchOptions
@@ -56,7 +56,7 @@
             public string category { get; set; }
             public int count { get; set; }
             public int pageCurrent { get; set; }
-            public int pageTotal { get; set; }
+            public int? pageTotal { get; set; }
             public int pageSize { get; set; }
             public Data[] data { get; set; }
 
