@@ -487,6 +487,9 @@
                                 <CheckBox Name="cb_SettingsShortcutAltEnter" Content="Press Alt and Enter by pressing RB and Start combined" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to press Alt and Enter with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
+                                <CheckBox Name="cb_SettingsShortcutCtrlAltDelete" Content="Press Ctrl + Alt + Delete by pressing Guide and Back combined" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                                <TextBlock Text="Enabling this will allow you to press Ctrl + Alt + Delete with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
                                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Screenshot Shortcuts"/>
                                 <CheckBox Name="cb_SettingsShortcutScreenshotController" Content="Create screenshot by pressing the Touchpad button" Style="{StaticResource CheckBoxBlack}"/>
                                 <TextBlock Text="Enabling this will allow you to take a screenshot with your controller." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>

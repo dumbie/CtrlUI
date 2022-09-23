@@ -143,18 +143,29 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Name="button_Information_Thumbnail" Margin="0,0,20,0" Width="200" Height="200"/>
-                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <Image Grid.Column="0" Name="image_Information_Thumbnail" Margin="20,0,20,0" Width="200" Height="200"/>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0">
                         <styles:ScrollViewerLoopHorizontal Style="{StaticResource ScrollViewerHidden}">
-                            <TextBlock Name="button_Information_Artist" Margin="0,0,0,5" Style="{StaticResource TextBlockAccent}" FontSize="{DynamicResource TextSizeMedium}" Text="Artist"/>
-                        </styles:ScrollViewerLoopHorizontal>
-                        <ProgressBar MinWidth="220" Name="button_Information_Progress" Margin="0,2,0,5" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch"/>
-                        <styles:ScrollViewerLoopHorizontal Style="{StaticResource ScrollViewerHidden}">
-                            <TextBlock Name="button_Information_Title" Margin="0,0,0,5" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}" Text="Title"/>
+                            <TextBlock Name="text_Information_Artist" Margin="0,0,0,5" Style="{StaticResource TextBlockAccent}" FontSize="{DynamicResource TextSizeMedium}" Text="Artist"/>
                         </styles:ScrollViewerLoopHorizontal>
                         <styles:ScrollViewerLoopHorizontal Style="{StaticResource ScrollViewerHidden}">
-                            <TextBlock Name="button_Information_Album" Margin="0,0,0,5" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Text="Album"/>
+                            <TextBlock Name="text_Information_Title" Margin="0,0,0,5" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeMedium}" Text="Title"/>
                         </styles:ScrollViewerLoopHorizontal>
+                        <styles:ScrollViewerLoopHorizontal Style="{StaticResource ScrollViewerHidden}">
+                            <TextBlock Name="text_Information_Album" Margin="0,0,0,5" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Text="Album"/>
+                        </styles:ScrollViewerLoopHorizontal>
+
+                        <Grid Name="grid_Information_Progress" Width="250" Margin="0,5,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ProgressBar Grid.Row="0" Name="progress_Information_Progress" Style="{StaticResource ProgressBarAccent}" HorizontalAlignment="Stretch"/>
+                            <Grid Grid.Row="1">
+                                <TextBlock Name="text_Information_Progress_Current" Margin="0,-2,0,0" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeSmall}" Text="0:00"/>
+                                <TextBlock Name="text_Information_Progress_Total" HorizontalAlignment="Right" Margin="0,-2,0,0" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeSmall}" Text="0:00"/>
+                            </Grid>
+                        </Grid>
                     </StackPanel>
                 </Grid>
                 <TextBlock Name="textblock_MediaNone" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Center" Text="No media is currently playing"/>

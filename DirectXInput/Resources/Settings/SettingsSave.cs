@@ -179,6 +179,11 @@ namespace DirectXInput
                     await NotifyCtrlUISettingChanged("Shortcut");
                 };
 
+                cb_SettingsShortcutCtrlAltDelete.Click += (sender, e) =>
+                {
+                    Setting_Save(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", cb_SettingsShortcutCtrlAltDelete.IsChecked.ToString());
+                };
+
                 cb_SettingsShortcutAltTab.Click += async (sender, e) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", cb_SettingsShortcutAltTab.IsChecked.ToString());

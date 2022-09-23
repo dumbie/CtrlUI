@@ -58,6 +58,7 @@ namespace DirectXInput
                 cb_SettingsShortcutKeyboardPopup.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup"));
                 cb_SettingsShortcutAltEnter.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter"));
                 cb_SettingsShortcutAltTab.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab"));
+                cb_SettingsShortcutCtrlAltDelete.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutCtrlAltDelete"));
                 cb_SettingsShortcutScreenshotController.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotController"));
                 cb_SettingsShortcutScreenshotKeyboard.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard"));
 

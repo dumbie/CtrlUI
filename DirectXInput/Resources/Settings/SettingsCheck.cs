@@ -21,6 +21,7 @@ namespace DirectXInput
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutKeyboardPopup", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltEnter") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltEnter", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutAltTab") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutAltTab", "True"); } //Shared
+                if (Setting_Load(vConfigurationDirectXInput, "ShortcutCtrlAltDelete") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutCtrlAltDelete", "True"); }
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotController") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshotController", "True"); } //Shared
                 if (Setting_Load(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard") == null) { Setting_Save(vConfigurationDirectXInput, "ShortcutScreenshotKeyboard", "True"); }
 

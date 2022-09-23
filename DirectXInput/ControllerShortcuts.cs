@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
+using static ArnoldVinkCode.ProcessFunctions;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
@@ -162,6 +163,26 @@ namespace DirectXInput
                         {
                             Debug.WriteLine("Shortcut disconnect Bluetooth has been pressed.");
                             await StopController(Controller, "manually", string.Empty);
+
+                            ControllerUsed = true;
+                            ControllerDelay750 = true;
+                        }
+                    }
+                    //Press ctrl + alt + delete
+                    else if (Controller.InputCurrent.ButtonBack.PressedRaw && Controller.InputCurrent.ButtonGuide.PressedRaw)
+                    {
+                        if (Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutCtrlAltDelete")))
+                        {
+                            Debug.WriteLine("Shortcut ctrl + alt + delete pressed.");
+
+                            //Press ctrl + alt + delete
+                            vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.AltLeft, KeyboardKeys.Delete, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
+
+                            //Show the keyboard
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate
+                            {
+                                await KeyboardPopupHideShow(true, true);
+                            });
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;

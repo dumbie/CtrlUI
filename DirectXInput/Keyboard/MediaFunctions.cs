@@ -231,32 +231,36 @@ namespace DirectXInput.KeyboardCode
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        button_Information_Album.Visibility = Visibility.Collapsed;
+                        text_Information_Album.Visibility = Visibility.Collapsed;
                     });
                 }
                 else
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        button_Information_Album.Visibility = Visibility.Visible;
+                        text_Information_Album.Visibility = Visibility.Visible;
                     });
                 }
 
                 //Calculate the media progression
                 double mediaProgress = 0;
+                string mediaCurrent = string.Empty;
+                string mediaTotal = string.Empty;
                 if (mediaTimeline.Position != new TimeSpan() && mediaTimeline.EndTime != new TimeSpan())
                 {
                     mediaProgress = mediaTimeline.Position.TotalSeconds * 100 / mediaTimeline.EndTime.TotalSeconds;
+                    mediaCurrent = AVFunctions.SecondsToHms((int)mediaTimeline.Position.TotalSeconds, false, true);
+                    mediaTotal = AVFunctions.SecondsToHms((int)mediaTimeline.EndTime.TotalSeconds, false, true);
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        button_Information_Progress.Visibility = Visibility.Visible;
+                        grid_Information_Progress.Visibility = Visibility.Visible;
                     });
                 }
                 else
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
-                        button_Information_Progress.Visibility = Visibility.Collapsed;
+                        grid_Information_Progress.Visibility = Visibility.Collapsed;
                     });
                 }
 
@@ -266,17 +270,20 @@ namespace DirectXInput.KeyboardCode
                 //Update the media and volume information
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    button_Information_Artist.Text = mediaArtist;
-                    button_Information_Title.Text = mediaTitle;
-                    button_Information_Album.Text = mediaAlbum;
-                    button_Information_Progress.Value = mediaProgress;
+                    text_Information_Artist.Text = mediaArtist;
+                    text_Information_Title.Text = mediaTitle;
+                    text_Information_Album.Text = mediaAlbum;
+                    progress_Information_Progress.Value = mediaProgress;
+                    text_Information_Progress_Current.Text = mediaCurrent;
+                    text_Information_Progress_Total.Text = mediaTotal;
+
                     if (thumbnailBitmap != null)
                     {
-                        button_Information_Thumbnail.Source = thumbnailBitmap;
+                        image_Information_Thumbnail.Source = thumbnailBitmap;
                     }
                     else
                     {
-                        button_Information_Thumbnail.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_Information_Thumbnail.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     }
                     grid_MediaPlaying.Visibility = Visibility.Visible;
                     textblock_MediaNone.Visibility = Visibility.Collapsed;
