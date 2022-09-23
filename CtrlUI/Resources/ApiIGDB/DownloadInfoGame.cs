@@ -24,7 +24,7 @@ namespace CtrlUI
             {
                 //Filter the game name
                 string nameRomSaveOriginal = FilterNameFile(nameRom);
-                string nameRomSaveFilter = FilterNameRom(nameRom, true, false, true, 0);
+                string nameRomSaveFilter = FilterNameGame(nameRom, true, false, true, 0);
 
                 //Show the text input popup
                 string nameRomDownload = await Popup_ShowHide_TextInput("Game information search", nameRomSaveFilter, "Search information for the game", true);
@@ -93,10 +93,16 @@ namespace CtrlUI
                 if (downloadImageId != "0")
                 {
                     ApiIGDBImage[] iGDBImages = await ApiIGDB_DownloadImage(downloadImageId, "covers");
-                    if (iGDBImages == null || !iGDBImages.Any())
+                    if (iGDBImages == null)
                     {
-                        Debug.WriteLine("No images found");
-                        await Notification_Send_Status("Close", "No images found");
+                        Debug.WriteLine("Failed to download images.");
+                        await Notification_Send_Status("Close", "Failed downloading images");
+                        return null;
+                    }
+                    else if (!iGDBImages.Any())
+                    {
+                        Debug.WriteLine("No game images found.");
+                        await Notification_Send_Status("Close", "No game images found");
                         return null;
                     }
 

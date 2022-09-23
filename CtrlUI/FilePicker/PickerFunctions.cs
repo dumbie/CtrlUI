@@ -264,14 +264,14 @@ namespace CtrlUI
                 string subPathDescription = string.Empty;
                 if (!string.IsNullOrWhiteSpace(listPath))
                 {
-                    romNameFiltered = FilterNameRom(listName, false, true, false, 0);
+                    romNameFiltered = FilterNameGame(listName, false, true, false, 0);
                     subPathImagePng = Path.Combine(listPath, listName + ".png");
                     subPathImageJpg = Path.Combine(listPath, listName + ".jpg");
                     subPathDescription = Path.Combine(listPath, listName + ".txt");
                 }
                 else
                 {
-                    romNameFiltered = FilterNameRom(listName, true, true, false, 0);
+                    romNameFiltered = FilterNameGame(listName, true, true, false, 0);
                 }
 
                 //Check if rom directory has image
@@ -279,7 +279,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        string imageNameFiltered = FilterNameRom(foundImage.Name, true, true, false, 0);
+                        string imageNameFiltered = FilterNameGame(foundImage.Name, true, true, false, 0);
                         //Debug.WriteLine(imageNameFiltered + " / " + romNameFiltered);
                         if (romNameFiltered.Contains(imageNameFiltered))
                         {
@@ -295,7 +295,7 @@ namespace CtrlUI
                 {
                     try
                     {
-                        string descNameFiltered = FilterNameRom(foundDesc.Name, true, true, false, 0);
+                        string descNameFiltered = FilterNameGame(foundDesc.Name, true, true, false, 0);
                         //Debug.WriteLine(descNameFiltered + " / " + romNameFiltered);
                         if (romNameFiltered.Contains(descNameFiltered))
                         {

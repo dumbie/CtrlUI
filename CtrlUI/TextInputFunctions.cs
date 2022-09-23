@@ -58,7 +58,7 @@ namespace CtrlUI
                 Popup_Show_Element(grid_Popup_TextInput);
 
                 //Force focus on element
-                if (focusButton)
+                if (focusButton && !string.IsNullOrWhiteSpace(textDefault))
                 {
                     //Focus on the confirm button
                     await FrameworkElementFocus(grid_Popup_TextInput_button_ConfirmText, false, vProcessCurrent.MainWindowHandle);

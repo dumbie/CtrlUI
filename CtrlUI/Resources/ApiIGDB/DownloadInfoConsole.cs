@@ -23,7 +23,7 @@ namespace CtrlUI
             try
             {
                 //Filter the name
-                string nameConsoleSave = FilterNameRom(nameConsole, true, false, false, 0);
+                string nameConsoleSave = FilterNameGame(nameConsole, true, false, false, 0);
 
                 //Show the text input popup
                 string nameConsoleDownload = await Popup_ShowHide_TextInput("Console search", nameConsoleSave, "Search information for the console", true);
@@ -32,10 +32,10 @@ namespace CtrlUI
                     Debug.WriteLine("No search term entered.");
                     return null;
                 }
-                nameConsoleDownload = FilterNameRom(nameConsoleDownload, false, true, false, 0);
+                nameConsoleDownload = FilterNameGame(nameConsoleDownload, false, true, false, 0);
 
                 //Search for consoles
-                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => FilterNameRom(x.name, false, true, false, 0).Contains(nameConsoleDownload) || (x.alternative_name != null && FilterNameRom(x.alternative_name, false, true, false, 0).Contains(nameConsoleDownload)));
+                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => FilterNameGame(x.name, false, true, false, 0).Contains(nameConsoleDownload) || (x.alternative_name != null && FilterNameGame(x.alternative_name, false, true, false, 0).Contains(nameConsoleDownload)));
                 if (iGDBPlatforms == null || !iGDBPlatforms.Any())
                 {
                     Debug.WriteLine("No consoles found");
@@ -94,10 +94,16 @@ namespace CtrlUI
                 if (downloadImageId != "0")
                 {
                     ApiIGDBImage[] iGDBImages = await ApiIGDB_DownloadImage(downloadImageId, "platform_logos");
-                    if (iGDBImages == null || !iGDBImages.Any())
+                    if (iGDBImages == null)
                     {
-                        Debug.WriteLine("No images found");
-                        await Notification_Send_Status("Close", "No images found");
+                        Debug.WriteLine("Failed to download images.");
+                        await Notification_Send_Status("Close", "Failed downloading images");
+                        return null;
+                    }
+                    else if (!iGDBImages.Any())
+                    {
+                        Debug.WriteLine("No console images found.");
+                        await Notification_Send_Status("Close", "No console images found");
                         return null;
                     }
 

@@ -149,6 +149,30 @@ namespace CtrlUI
                     //Count checked items
                     int checkedItems = List_FilePicker.Count(x => x.Checked == Visibility.Visible);
 
+                    DataBindString answerHowLongToBeat = new DataBindString();
+                    if (!preFile && vFilePickerShowRoms)
+                    {
+                        answerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerHowLongToBeat.Name = "How long to beat information";
+                        Answers.Add(answerHowLongToBeat);
+                    }
+
+                    DataBindString answerDownloadGameInfo = new DataBindString();
+                    if (!preFile && vFilePickerShowRoms)
+                    {
+                        answerDownloadGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerDownloadGameInfo.Name = "Download game information";
+                        Answers.Add(answerDownloadGameInfo);
+                    }
+
+                    DataBindString answerDownloadConsoleInfo = new DataBindString();
+                    if (!preFile && vFilePickerShowRoms)
+                    {
+                        answerDownloadConsoleInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerDownloadConsoleInfo.Name = "Download console information";
+                        Answers.Add(answerDownloadConsoleInfo);
+                    }
+
                     //Check the sorting type
                     string sortType = string.Empty;
                     if (vFilePickerSortType == SortingType.Name)
@@ -159,7 +183,6 @@ namespace CtrlUI
                     {
                         sortType = "Sort files and folders by name";
                     }
-
                     DataBindString answerSort = new DataBindString();
                     answerSort.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Sorting.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                     answerSort.Name = sortType;
@@ -243,30 +266,6 @@ namespace CtrlUI
                         answerRemoveChecked.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerRemoveChecked.Name = "Remove selected files and folders";
                         Answers.Add(answerRemoveChecked);
-                    }
-
-                    DataBindString answerHowLongToBeat = new DataBindString();
-                    if (!preFile && vFilePickerShowRoms)
-                    {
-                        answerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerHowLongToBeat.Name = "How long to beat information";
-                        Answers.Add(answerHowLongToBeat);
-                    }
-
-                    DataBindString answerDownloadGameInfo = new DataBindString();
-                    if (!preFile && vFilePickerShowRoms)
-                    {
-                        answerDownloadGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerDownloadGameInfo.Name = "Download game information";
-                        Answers.Add(answerDownloadGameInfo);
-                    }
-
-                    DataBindString answerDownloadConsoleInfo = new DataBindString();
-                    if (!preFile && vFilePickerShowRoms)
-                    {
-                        answerDownloadConsoleInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                        answerDownloadConsoleInfo.Name = "Download console information";
-                        Answers.Add(answerDownloadConsoleInfo);
                     }
 
                     DataBindString answerCreateFolder = new DataBindString();

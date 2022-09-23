@@ -27,13 +27,13 @@ namespace CtrlUI
             return nameFile;
         }
 
-        //Filter rom name
-        public string FilterNameRom(string nameFile, bool removeExtension, bool removeSpaces, bool removeConsole, int takeWords)
+        //Filter game name
+        public string FilterNameGame(string nameFile, bool removeExtension, bool removeSpaces, bool removeConsole, int takeWords)
         {
             try
             {
                 //Remove invalid characters
-                nameFile = FilterNameFile(nameFile);
+                nameFile = string.Join(string.Empty, nameFile.Split(Path.GetInvalidFileNameChars()));
 
                 //Remove unicode characters
                 nameFile = StringRemoveUnicode(nameFile);
@@ -41,7 +41,7 @@ namespace CtrlUI
                 //Remove file extension
                 if (removeExtension)
                 {
-                    nameFile = Path.GetFileNameWithoutExtension(nameFile);
+                    nameFile = AVFunctions.GetFileNameNoExtension(nameFile);
                 }
 
                 //Lowercase the rom name
@@ -52,8 +52,8 @@ namespace CtrlUI
                 nameFile = Regex.Replace(nameFile, @"\{(.*?)\}+", string.Empty);
                 nameFile = Regex.Replace(nameFile, @"\[(.*?)\]+", string.Empty);
 
-                //Replace characters
-                nameFile = nameFile.Replace("'", " ").Replace(".", " ").Replace(",", " ").Replace("-", " ").Replace("_", " ");
+                //Replace all characters
+                nameFile = Regex.Replace(nameFile, @"[^a-zA-Z0-9 ]", " ");
 
                 //Remove disc and number
                 nameFile = Regex.Replace(nameFile, @"disc\s?\d+", string.Empty);

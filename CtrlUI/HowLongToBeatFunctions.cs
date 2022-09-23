@@ -17,6 +17,17 @@ namespace CtrlUI
         {
             try
             {
+                //Filter game name
+                string filterSearchGame = FilterNameGame(searchGame, true, false, true, 0);
+
+                //Show the text input popup
+                filterSearchGame = await Popup_ShowHide_TextInput("How long to beat search", filterSearchGame, "Search how long to beat for the game", true);
+                if (string.IsNullOrWhiteSpace(filterSearchGame))
+                {
+                    Debug.WriteLine("No search term entered.");
+                    return;
+                }
+
                 //Check if the popup is already open
                 if (!vHowLongToBeatOpen)
                 {
@@ -27,17 +38,19 @@ namespace CtrlUI
                     FrameworkElementFocusSave(vHowLongToBeatElementFocus, null);
                 }
 
-                //Reset HowLongToBeat variables
-                vHowLongToBeatOpen = true;
-
                 //Clear current search results
                 lb_HowLongToBeat.Items.Clear();
 
-                //Fix add loading progress
-                //Fix filter game name
+                //Reset HowLongToBeat variables
+                vHowLongToBeatOpen = true;
+
+                //Show the popup
+                Popup_Show_Element(grid_Popup_HowLongToBeat);
+
+                //Fix Show loading progress
 
                 //Search for game
-                ApiHltbSearchResult searchResult = await ApiHowLongToBeat_Search(searchGame);
+                ApiHltbSearchResult searchResult = await ApiHowLongToBeat_Search(filterSearchGame);
 
                 //Read games from result
                 if (searchResult != null && searchResult.data != null)
@@ -104,12 +117,9 @@ namespace CtrlUI
                 else
                 {
                     grid_HowLongToBeat.Visibility = Visibility.Collapsed;
-                    textblock_HowLongToBeat_Unknown.Text = "Unknown gameplay time: " + searchGame;
+                    textblock_HowLongToBeat_Unknown.Text = "Unknown gameplay time for " + searchGame;
                     textblock_HowLongToBeat_Unknown.Visibility = Visibility.Visible;
                 }
-
-                //Show the popup
-                Popup_Show_Element(grid_Popup_HowLongToBeat);
 
                 //Focus on first listbox answer
                 await ListboxFocusIndex(lb_HowLongToBeat, true, false, -1, vProcessCurrent.MainWindowHandle);

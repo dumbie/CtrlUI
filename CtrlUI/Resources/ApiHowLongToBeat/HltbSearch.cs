@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static LibraryShared.Classes;
 
@@ -30,8 +29,7 @@ namespace CtrlUI
                 string apiUrl = "https://www.howlongtobeat.com/api/search";
 
                 //Split name and remove characters
-                string searchFilter = Regex.Replace(gameName, @"[^a-zA-Z0-9 ]", " ");
-                string[] searchFilterTerms = searchFilter.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] searchFilterTerms = gameName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                 //Create json request
                 ApiHltbSearchQuery jsonSearchQuery = new ApiHltbSearchQuery();
