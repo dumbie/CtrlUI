@@ -41,13 +41,17 @@ namespace CtrlUI
                 //Clear current search results
                 lb_HowLongToBeat.Items.Clear();
 
+                //Show loading progress
+                textblock_HowLongToBeat_Unknown.Text = "Downloading gameplay time for " + searchGame;
+                gif_HowLongToBeat_Loading.Show();
+                grid_HowLongToBeat.Visibility = Visibility.Collapsed;
+                stackpanel_HowLongToBeat_Status.Visibility = Visibility.Visible;
+
                 //Reset HowLongToBeat variables
                 vHowLongToBeatOpen = true;
 
                 //Show the popup
                 Popup_Show_Element(grid_Popup_HowLongToBeat);
-
-                //Fix Show loading progress
 
                 //Search for game
                 ApiHltbSearchResult searchResult = await ApiHowLongToBeat_Search(filterSearchGame);
@@ -67,8 +71,12 @@ namespace CtrlUI
                             {
                                 DataBindString dataBindString = new DataBindString();
 
-                                //Set name and completed times
-                                dataBindString.Data1 = hltbData.game_name + " (" + hltbData.comp_all_count + "x)";
+                                //Set name and year
+                                dataBindString.Data1 = hltbData.game_name;
+                                if (hltbData.release_world > 0)
+                                {
+                                    dataBindString.Data1 += " (" + hltbData.release_world + ")";
+                                }
 
                                 //Check main story time
                                 if (hltbData.comp_main > 0)
@@ -100,6 +108,16 @@ namespace CtrlUI
                                     dataBindString.Data4 = "Unknown";
                                 }
 
+                                //Check completed times
+                                if (hltbData.comp_all_count > 0)
+                                {
+                                    dataBindString.Data5 = hltbData.comp_all_count + "x";
+                                }
+                                else
+                                {
+                                    dataBindString.Data5 = "None";
+                                }
+
                                 //Add result to the list
                                 lb_HowLongToBeat.Items.Add(dataBindString);
                             }
@@ -109,16 +127,17 @@ namespace CtrlUI
                 }
 
                 //Check if there are any results
+                gif_HowLongToBeat_Loading.Hide();
                 if (lb_HowLongToBeat.Items.Count > 0)
                 {
                     grid_HowLongToBeat.Visibility = Visibility.Visible;
-                    textblock_HowLongToBeat_Unknown.Visibility = Visibility.Collapsed;
+                    stackpanel_HowLongToBeat_Status.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    grid_HowLongToBeat.Visibility = Visibility.Collapsed;
                     textblock_HowLongToBeat_Unknown.Text = "Unknown gameplay time for " + searchGame;
-                    textblock_HowLongToBeat_Unknown.Visibility = Visibility.Visible;
+                    grid_HowLongToBeat.Visibility = Visibility.Collapsed;
+                    stackpanel_HowLongToBeat_Status.Visibility = Visibility.Visible;
                 }
 
                 //Focus on first listbox answer
