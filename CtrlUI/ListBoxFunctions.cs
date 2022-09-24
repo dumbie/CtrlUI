@@ -100,9 +100,18 @@ namespace CtrlUI
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
                     FrameworkElement frameworkElement = (FrameworkElement)Keyboard.FocusedElement;
-                    if (frameworkElement != null && frameworkElement.GetType() == typeof(ListBoxItem))
+                    if (frameworkElement != null && (frameworkElement.GetType() == typeof(ListBox) || frameworkElement.GetType() == typeof(ListBoxItem)))
                     {
-                        ListBox parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
+                        ListBox parentListbox = null;
+                        if (frameworkElement.GetType() == typeof(ListBoxItem))
+                        {
+                            parentListbox = AVFunctions.FindVisualParent<ListBox>(frameworkElement);
+                        }
+                        else
+                        {
+                            parentListbox = (ListBox)frameworkElement;
+                        }
+
                         if (vSelectNearCharacterLists.Contains(parentListbox.Name))
                         {
                             if (parentListbox.Name == "lb_FilePicker")

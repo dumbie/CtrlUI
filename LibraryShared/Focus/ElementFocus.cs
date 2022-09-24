@@ -110,6 +110,11 @@ namespace LibraryShared
                             saveElement.FocusListBox = AVFunctions.FindVisualParent<ListBox>(saveElement.FocusElement);
                             saveElement.FocusIndex = saveElement.FocusListBox.SelectedIndex;
                         }
+                        else if (focusType == typeof(ListBox))
+                        {
+                            saveElement.FocusListBox = (ListBox)saveElement.FocusElement;
+                            saveElement.FocusIndex = saveElement.FocusListBox.SelectedIndex;
+                        }
 
                         Debug.WriteLine("Saved element focus: " + focusedElement + " / index: " + saveElement.FocusIndex);
                     }
