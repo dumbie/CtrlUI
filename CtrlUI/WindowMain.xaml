@@ -259,8 +259,8 @@
                                 <TextBox Grid.Column="0" Name="grid_Search_textbox" Margin="0,0,5,0" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}" Text="Search application..." styles:TextboxPlaceholder.Placeholder="Search application..."/>
                                 <Button Grid.Column="1" Name="grid_Search_button_Reset" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Reset the search term">
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Name="image_Search_Reset" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="30" Margin="0,0,10,0"/>
-                                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/TextClear.png" Height="30"/>
+                                        <Image Name="image_Search_Reset" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonUp.png" Height="30" Width="30" Margin="0,0,10,0"/>
+                                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/TextClear.png" Height="35" Width="35"/>
                                     </StackPanel>
                                 </Button>
                             </Grid>
@@ -559,9 +559,9 @@
                                     <CheckBox Name="cb_SettingsMonitorPreventSleep" Content="Prevent monitor from sleeping" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will prevent your monitor from sleeping when CtrlUI is active." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 
-                                    <TextBlock Name="textblock_AdjustChromiumDpi" Text="Adjust Chromium browsers DPI" Tag="Adjust Chromium browsers DPI" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                    <TextBlock Name="textblock_SettingsAdjustChromiumDpi" Text="Adjust Chromium browsers DPI" Tag="Adjust Chromium browsers DPI" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Adjust the DPI of Chromium based browsers like Edge and Chrome on launch." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-                                    <Slider Name="slider_AdjustChromiumDpi" Height="18" Width="400" Minimum="0" Maximum="3.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
+                                    <Slider Name="slider_SettingsAdjustChromiumDpi" Height="18" Width="400" Minimum="0" Maximum="3.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                                     <TextBlock Name="textblock_SettingsDisplayMonitor" Text="Monitor to display the applications on" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Monitor that CtrlUI, DirectXInput, Keyboard and Fps Overlayer appears on." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
@@ -610,6 +610,10 @@
 
                                     <CheckBox Name="cb_SettingsHideControllerHelp" Content="Hide the controller help buttons" Margin="0,10,0,0" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will hide the controller help buttons on the screen bottom." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+
+                                    <TextBlock Name="textblock_SettingsAppWindowSize" Text="Adjust window size" Tag="Adjust window size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                                    <TextBlock Text="Select the window size that you want to use for this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
+                                    <Slider Name="slider_SettingsAppWindowSize" Height="18" Width="400" Minimum="50" Maximum="95" TickFrequency="5" HorizontalAlignment="Left" Style="{StaticResource SliderWhite}"/>
 
                                     <TextBlock Name="textblock_SettingsFontSize" Text="Adjust the application font size" Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Select the font size that you want to use in this application." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>

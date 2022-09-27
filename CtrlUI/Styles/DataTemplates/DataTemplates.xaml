@@ -131,7 +131,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" MinWidth="300" MaxWidth="500" Margin="0,0,20,0" Text="{Binding Data1}" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}"/>
+            <TextBlock Grid.Column="0" MinWidth="300" Margin="0,0,20,0" Text="{Binding Data1}" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}"/>
             <TextBlock Grid.Column="1" Margin="0,0,20,0" Text="{Binding Data2}" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeLarge}"/>
             <TextBlock Grid.Column="2" Margin="0,0,20,0" Text="{Binding Data3}" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}"/>
             <TextBlock Grid.Column="3" Margin="0,0,20,0" Text="{Binding Data4}" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeLarge}"/>

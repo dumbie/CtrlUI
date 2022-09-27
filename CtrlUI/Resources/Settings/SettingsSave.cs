@@ -133,6 +133,13 @@ namespace CtrlUI
                     AdjustApplicationFontSize();
                 };
 
+                slider_SettingsAppWindowSize.ValueChanged += async (sender, e) =>
+                {
+                    textblock_SettingsAppWindowSize.Text = textblock_SettingsAppWindowSize.Tag + ": " + slider_SettingsAppWindowSize.Value.ToString() + "%";
+                    Setting_Save(vConfigurationCtrlUI, "AppWindowSize", slider_SettingsAppWindowSize.Value.ToString());
+                    await UpdateWindowPosition(false, true);
+                };
+
                 slider_SettingsDisplayMonitor.ValueChanged += async (sender, e) =>
                 {
                     textblock_SettingsDisplayMonitor.Text = "Monitor to display the applications on: " + Convert.ToInt32(slider_SettingsDisplayMonitor.Value);
@@ -147,10 +154,10 @@ namespace CtrlUI
                     UpdateMonitorSleepAuto();
                 };
 
-                slider_AdjustChromiumDpi.ValueChanged += (sender, e) =>
+                slider_SettingsAdjustChromiumDpi.ValueChanged += (sender, e) =>
                 {
-                    textblock_AdjustChromiumDpi.Text = textblock_AdjustChromiumDpi.Tag + ": +" + slider_AdjustChromiumDpi.Value.ToString("0.00") + "%";
-                    Setting_Save(vConfigurationCtrlUI, "AdjustChromiumDpi", slider_AdjustChromiumDpi.Value.ToString("0.00"));
+                    textblock_SettingsAdjustChromiumDpi.Text = textblock_SettingsAdjustChromiumDpi.Tag + ": +" + slider_SettingsAdjustChromiumDpi.Value.ToString("0.00") + "%";
+                    Setting_Save(vConfigurationCtrlUI, "AdjustChromiumDpi", slider_SettingsAdjustChromiumDpi.Value.ToString("0.00"));
                 };
 
                 slider_SettingsSoundVolume.ValueChanged += (sender, e) =>

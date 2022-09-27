@@ -37,8 +37,10 @@ namespace CtrlUI
                 DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
                 //Resize the window size
-                int windowWidth = Convert.ToInt32(displayMonitorSettings.WidthNative * 0.60);
-                int windowHeight = Convert.ToInt32(displayMonitorSettings.HeightNative * 0.60);
+                double appWindowSize = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "AppWindowSize"));
+                appWindowSize /= 100;
+                int windowWidth = Convert.ToInt32(displayMonitorSettings.WidthNative * appWindowSize);
+                int windowHeight = Convert.ToInt32(displayMonitorSettings.HeightNative * appWindowSize);
                 WindowResize(vInteropWindowHandle, windowWidth, windowHeight);
 
                 //Center the window on target screen
