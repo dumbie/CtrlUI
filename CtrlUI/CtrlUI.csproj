@@ -1187,6 +1187,9 @@
     <Content Include="Profiles\User\Profiles in this folder will not get overwritten when updating">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Backups\Profile backups will be placed here">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\App.manifest" />
     <None Include="Properties\App.config" />
     <Content Include="Resources\Updater.json">
