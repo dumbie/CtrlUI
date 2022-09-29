@@ -279,7 +279,7 @@ namespace CtrlUI
                         grid_SelectCharacterNextText.Text = nextChar;
                         grid_SelectCharacterCurrentText.Text = currentChar;
                         grid_SelectCharacterPreviousText.Text = prevChar;
-                        grid_SelectCharacter.Visibility = Visibility.Visible;
+                        grid_Popup_SelectCharacter.Visibility = Visibility.Visible;
                     }
                     catch { }
                 });
@@ -291,7 +291,7 @@ namespace CtrlUI
                     try
                     {
                         //Hide the overlay
-                        grid_SelectCharacter.Visibility = Visibility.Collapsed;
+                        grid_Popup_SelectCharacter.Visibility = Visibility.Collapsed;
 
                         //Renew the timer
                         AVFunctions.TimerRenew(ref vDispatcherTimerOverlay);

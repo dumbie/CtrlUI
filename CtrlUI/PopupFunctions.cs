@@ -10,7 +10,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Show the popup
-        void Popup_Show_Element(FrameworkElement elementTarget)
+        void Popup_Show_Element(FrameworkElement elementTarget, double mainOpacity=0.08)
         {
             try
             {
@@ -21,7 +21,7 @@ namespace CtrlUI
                     elementTarget.IsEnabled = true;
 
                     //Hide the background
-                    grid_Main.Opacity = 0.08;
+                    grid_Main.Opacity = mainOpacity;
                     grid_Main.IsEnabled = false;
 
                     //Hide other popups
@@ -194,7 +194,7 @@ namespace CtrlUI
         }
 
         //Show specific popup
-        async Task Popup_Show(FrameworkElement ShowPopup, FrameworkElement FocusElement)
+        async Task Popup_Show(FrameworkElement ShowPopup, FrameworkElement FocusElement, double mainOpacity=0.08)
         {
             try
             {
@@ -209,7 +209,7 @@ namespace CtrlUI
                     FrameworkElementFocusSave(vPopupElementFocus, null);
 
                     //Show the popup
-                    Popup_Show_Element(ShowPopup);
+                    Popup_Show_Element(ShowPopup, mainOpacity);
 
                     vPopupOpen = true;
 

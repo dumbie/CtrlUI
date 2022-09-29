@@ -137,14 +137,18 @@ namespace CtrlUI
         {
             try
             {
-                if (!silentSort) { await Notification_Send_Status("Sorting", "Sorting by number or date"); }
+                if (!silentSort) { await Notification_Send_Status("Sorting", "Sorting by number, date or category"); }
                 vSortType = SortingType.Number;
 
+                //Sort function
                 SortFunction<DataBindApp> sortFuncNumber = new SortFunction<DataBindApp>();
                 sortFuncNumber.function = x => x.Number;
 
                 SortFunction<DataBindApp> sortFuncLauncher = new SortFunction<DataBindApp>();
                 sortFuncLauncher.function = x => x.Launcher;
+
+                SortFunction<DataBindApp> sortFuncCategory = new SortFunction<DataBindApp>();
+                sortFuncCategory.function = x => x.Category;
 
                 SortFunction<DataBindApp> sortFuncTimeCreation = new SortFunction<DataBindApp>();
                 sortFuncTimeCreation.function = x => x.TimeCreation;
@@ -153,6 +157,7 @@ namespace CtrlUI
                 SortFunction<DataBindApp> sortFuncRunningTime = new SortFunction<DataBindApp>();
                 sortFuncRunningTime.function = x => x.RunningTime;
 
+                //Sort lists
                 List<SortFunction<DataBindApp>> orderListGames = new List<SortFunction<DataBindApp>>();
                 orderListGames.Add(sortFuncNumber);
                 SortObservableCollection(lb_Games, List_Games, orderListGames, null);
@@ -176,6 +181,11 @@ namespace CtrlUI
                 List<SortFunction<DataBindApp>> orderListProcesses = new List<SortFunction<DataBindApp>>();
                 orderListProcesses.Add(sortFuncRunningTime);
                 SortObservableCollection(lb_Processes, List_Processes, orderListProcesses, null);
+
+                List<SortFunction<DataBindApp>> orderListSearch = new List<SortFunction<DataBindApp>>();
+                orderListSearch.Add(sortFuncCategory);
+                orderListSearch.Add(sortFuncNumber);
+                SortObservableCollection(lb_Search, List_Search, orderListSearch, null);
             }
             catch { }
         }
@@ -188,9 +198,11 @@ namespace CtrlUI
                 if (!silentSort) { await Notification_Send_Status("Sorting", "Sorting by name"); }
                 vSortType = SortingType.Name;
 
+                //Sort function
                 SortFunction<DataBindApp> sortFuncName = new SortFunction<DataBindApp>();
                 sortFuncName.function = x => x.Name;
 
+                //Sort lists
                 List<SortFunction<DataBindApp>> orderListGames = new List<SortFunction<DataBindApp>>();
                 orderListGames.Add(sortFuncName);
                 SortObservableCollection(lb_Games, List_Games, orderListGames, null);
@@ -214,6 +226,10 @@ namespace CtrlUI
                 List<SortFunction<DataBindApp>> orderListProcesses = new List<SortFunction<DataBindApp>>();
                 orderListProcesses.Add(sortFuncName);
                 SortObservableCollection(lb_Processes, List_Processes, orderListProcesses, null);
+
+                List<SortFunction<DataBindApp>> orderListSearch = new List<SortFunction<DataBindApp>>();
+                orderListSearch.Add(sortFuncName);
+                SortObservableCollection(lb_Search, List_Search, orderListSearch, null);
             }
             catch { }
         }

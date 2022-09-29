@@ -293,7 +293,7 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        private async Task SetModeKeyboard()
+        public async Task SetModeKeyboard()
         {
             try
             {
@@ -347,7 +347,7 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        private async Task SetModeMedia()
+        public async Task SetModeMedia()
         {
             try
             {

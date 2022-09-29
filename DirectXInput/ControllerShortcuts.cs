@@ -179,10 +179,7 @@ namespace DirectXInput
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.ControlLeft, KeyboardModifiers.AltLeft, KeyboardKeys.Delete, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
                             //Show the keyboard
-                            await AVActions.ActionDispatcherInvokeAsync(async delegate
-                            {
-                                await KeyboardPopupHideShow(true, true);
-                            });
+                            await KeyboardPopupHideShow(true, true);
 
                             ControllerUsed = true;
                             ControllerDelay750 = true;
@@ -219,7 +216,7 @@ namespace DirectXInput
                     else
                     {
                         await App.vWindowKeypad.Hide();
-                        await App.vWindowKeyboard.Show(false);
+                        await App.vWindowKeyboard.Show(false, false);
                     }
                 });
             }
@@ -263,13 +260,17 @@ namespace DirectXInput
                     {
                         if (forceShow || Convert.ToBoolean(Setting_Load(vConfigurationDirectXInput, "ShortcutKeyboardPopup")))
                         {
-                            await App.vWindowKeyboard.Show(forceKeyboardMode);
+                            await App.vWindowKeyboard.Show(forceKeyboardMode, forceKeyboardMode);
                         }
                     }
                     else if (!forceShow)
                     {
                         await App.vWindowKeyboard.Hide();
                         await App.vWindowKeypad.Hide();
+                    }
+                    else if (forceKeyboardMode)
+                    {
+                        await App.vWindowKeyboard.SetModeKeyboard();
                     }
                 });
             }

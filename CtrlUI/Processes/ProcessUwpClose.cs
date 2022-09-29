@@ -67,7 +67,7 @@ namespace CtrlUI
                 Debug.WriteLine("Closing all UWP processes: " + dataBindApp.Name + " / " + processMulti.Identifier);
 
                 //Close the process
-                bool closedProcess = CloseProcessById(processMulti.Identifier);
+                bool closedProcess = KillProcessTreeById(processMulti.Identifier, true);
                 if (closedProcess)
                 {
                     await Notification_Send_Status("AppClose", "Closed " + dataBindApp.Name);

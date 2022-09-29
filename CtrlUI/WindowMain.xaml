@@ -1032,41 +1032,6 @@
                     </StackPanel>
                 </Grid>
 
-                <!-- Popup - Move Application -->
-                <Grid Name="grid_Popup_MoveApplication" Visibility="Collapsed">
-                    <Grid Margin="140,0,140,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <StackPanel Grid.Row="0">
-                            <TextBlock HorizontalAlignment="Center" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizePreTitle}" TextAlignment="Center" TextWrapping="Wrap" Text="Move application"/>
-                            <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,5,0,5"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                            <Button Name="btn_MoveAppLeft" Width="80" Height="80" VerticalAlignment="Top" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MoveLeft.png"/>
-                            </Button>
-                            <Image Name="image_MoveAppIcon" Width="80" Height="80" VerticalAlignment="Top" Margin="10,0,10,0"/>
-                            <Button Name="btn_MoveAppRight" Width="80" Height="80" VerticalAlignment="Top" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MoveRight.png"/>
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-
-                    <!-- Shortcuts -->
-                    <StackPanel Margin="0,70,20,0" HorizontalAlignment="Right">
-                        <Button Name="grid_Popup_MoveApplication_button_Close" Focusable="False" HorizontalAlignment="Right" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Name="image_MoveApplication_Close" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
-                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-
                 <!-- Popup - HowLongToBeat -->
                 <Grid Name="grid_Popup_HowLongToBeat" Visibility="Collapsed">
                     <Grid Margin="140,0,140,0">
@@ -1184,17 +1149,45 @@
                     </StackPanel>
                 </Grid>
 
-                <!-- Status - Select Character -->
-                <Grid Name="grid_SelectCharacter" VerticalAlignment="Center" Visibility="Collapsed">
-                    <Grid.Background>
+                <!-- Popup - Move Application -->
+                <Border Name="grid_Popup_MoveApplication" CornerRadius="10" BorderBrush="{DynamicResource ApplicationAccentLightBrush}" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                    <Border.Background>
                         <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
-                    </Grid.Background>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    </Border.Background>
+
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="btn_MoveAppLeft" Width="80" Height="80" VerticalAlignment="Top" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MoveLeft.png"/>
+                            </Button>
+                            <Image Name="image_MoveAppIcon" Width="80" Height="80" VerticalAlignment="Top" Margin="10,0,10,0"/>
+                            <Button Name="btn_MoveAppRight" Width="80" Height="80" VerticalAlignment="Top" Style="{StaticResource ButtonImageTransparentWhiteBorder}">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MoveRight.png"/>
+                            </Button>
+                        </StackPanel>
+
+                        <!-- Shortcuts -->
+                        <Button Name="grid_Popup_MoveApplication_button_Close" Margin="0,10,0,0" Focusable="False" HorizontalAlignment="Center" Style="{StaticResource ButtonImageTransparentWhiteBorder}" ToolTipService.ToolTip="Close the popup">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="image_MoveApplication_Close" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Buttons/ButtonRight.png" Height="30" Width="30" Margin="0,0,5,0"/>
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35" Width="35"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+                <!-- Popup - Select Character -->
+                <Border Name="grid_Popup_SelectCharacter" CornerRadius="10" BorderBrush="{DynamicResource ApplicationAccentLightBrush}" BorderThickness="3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                    <Border.Background>
+                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
+                    </Border.Background>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,10,30,10">
                         <TextBlock Name="grid_SelectCharacterPreviousText" Style="{StaticResource TextBlockGray}" FontSize="35" LineStackingStrategy="BlockLineHeight" LineHeight="100" Text="A"/>
                         <TextBlock Name="grid_SelectCharacterCurrentText" Margin="10,0,10,0" Style="{StaticResource TextBlockWhite}" FontSize="100" LineStackingStrategy="BlockLineHeight" LineHeight="100" Text="B"/>
                         <TextBlock Name="grid_SelectCharacterNextText" Style="{StaticResource TextBlockGray}" FontSize="35" LineStackingStrategy="BlockLineHeight" LineHeight="100" Text="C"/>
                     </StackPanel>
-                </Grid>
+                </Border>
 
                 <!-- Status - Disable -->
                 <Border Name="grid_DisableMain" CornerRadius="10" Visibility="Collapsed">

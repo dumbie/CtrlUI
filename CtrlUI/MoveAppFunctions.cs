@@ -21,7 +21,7 @@ namespace CtrlUI
                 image_MoveAppIcon.Source = dataBindApp.ImageBitmap;
 
                 //Show the move popup
-                await Popup_Show(grid_Popup_MoveApplication, btn_MoveAppLeft);
+                await Popup_Show(grid_Popup_MoveApplication, btn_MoveAppLeft, 0.80);
             }
             catch { }
         }

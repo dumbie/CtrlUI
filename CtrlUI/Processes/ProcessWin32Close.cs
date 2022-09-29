@@ -21,7 +21,7 @@ namespace CtrlUI
                 bool closedProcess = false;
                 if (processMulti.Identifier > 0)
                 {
-                    closedProcess = CloseProcessById(processMulti.Identifier);
+                    closedProcess = KillProcessTreeById(processMulti.Identifier, true);
                 }
                 else if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
                 {
@@ -81,7 +81,7 @@ namespace CtrlUI
                 {
                     if (processMulti.Identifier > 0)
                     {
-                        closedProcess = CloseProcessById(processMulti.Identifier);
+                        closedProcess = KillProcessTreeById(processMulti.Identifier, true);
                     }
                     else if (!string.IsNullOrWhiteSpace(dataBindApp.NameExe))
                     {
