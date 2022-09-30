@@ -46,7 +46,6 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 * You can run it as administrator by using the "CtrlUI-Admin" executable.
 
 ## Known issues
-- Visible overlays may cause washed out colors when HDR is enabled.
 - Overlays may not always show up when you are in a fullscreen application.
 - Alt+Enter controller shortcut may not work for all Windows Store applications.
 
@@ -58,6 +57,7 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 ## Special thanks
 - Benjamin Höglinger-Stelzer (Nefarius)
 - Travis Nickles (Ryochan7)
+- How Long To Beat (HLTB)
 - Internet Game Database (IGDB)
 - LibreHardwareMonitor community.
 - SteamKit community.
@@ -69,9 +69,14 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v1.80.0.0 (30-September-2022)
+- CtrlUI: Interface redesigned to overlay window.
+- CtrlUI: Added How Long To Beat gametime support.
+- DirectXInput: Added media duration and progress.
+* Miscellaneous application improvements and fixes.
+
 v1.65.0.0 (12-May-2022)
 - Added new screencapturer with HDR support.
-* Miscellaneous application improvements and fixes.
 
 v1.57.0.0 (9-June-2021)
 - DirectXInput: You can now also move the mouse with the keypad.
