@@ -59,6 +59,7 @@ namespace CtrlUI
 
                     //Notify applications setting changed
                     await NotifyDirectXInputSettingChanged("ColorAccentLight");
+                    await NotifyFpsOverlayerSettingChanged("ColorAccentLight");
 
                     //Close the color picker
                     await Popup_Close_ColorPicker();

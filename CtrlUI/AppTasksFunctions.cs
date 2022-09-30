@@ -42,10 +42,18 @@ namespace CtrlUI
             {
                 while (TaskCheckLoop(vTask_ControllerConnected))
                 {
-                    await UpdateControllerConnected();
+                    if (vAppActivated)
+                    {
+                        await UpdateControllerConnected();
 
-                    //Delay the loop task
-                    await TaskDelayLoop(2000, vTask_ControllerConnected);
+                        //Delay the loop task
+                        await TaskDelayLoop(2000, vTask_ControllerConnected);
+                    }
+                    else
+                    {
+                        //Delay the loop task
+                        await TaskDelayLoop(1000, vTask_ControllerConnected);
+                    }
                 }
             }
             catch { }
@@ -72,10 +80,18 @@ namespace CtrlUI
             {
                 while (TaskCheckLoop(vTask_UpdateMediaInformation))
                 {
-                    await UpdateCurrentVolumeInformation();
+                    if (vAppActivated)
+                    {
+                        await UpdateCurrentVolumeInformation();
 
-                    //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_UpdateMediaInformation);
+                        //Delay the loop task
+                        await TaskDelayLoop(2000, vTask_UpdateMediaInformation);
+                    }
+                    else
+                    {
+                        //Delay the loop task
+                        await TaskDelayLoop(1000, vTask_UpdateMediaInformation);
+                    }
                 }
             }
             catch { }

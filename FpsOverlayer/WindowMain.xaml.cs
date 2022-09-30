@@ -51,6 +51,9 @@ namespace FpsOverlayer
                 //Check application settings
                 vWindowSettings.Settings_Check();
 
+                //Change application accent color
+                Settings_Load_AccentColor(vConfigurationCtrlUI);
+
                 //Update the window position
                 UpdateWindowPosition();
 
@@ -128,7 +131,7 @@ namespace FpsOverlayer
             {
                 int SocketServerPort = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort")) + 2;
 
-                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, true, false);
+                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, false, true);
                 vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
                 await vArnoldVinkSockets.SocketServerEnable();

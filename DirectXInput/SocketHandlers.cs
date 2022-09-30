@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,7 +27,7 @@ namespace DirectXInput
                     {
                         if (tcpClient != null)
                         {
-                            await ReceivedTcpSocketHandlerThread(tcpClient, receivedBytes);
+                            //await ReceivedTcpSocketHandlerThread(tcpClient, receivedBytes);
                         }
                         else
                         {
@@ -40,65 +41,6 @@ namespace DirectXInput
             catch { }
         }
 
-        async Task ReceivedTcpSocketHandlerThread(TcpClient tcpClient, byte[] receivedBytes)
-        {
-            try
-            {
-                //Deserialize the received bytes
-                if (!DeserializeBytesToObject(receivedBytes, out SocketSendContainer deserializedBytes)) { return; }
-
-                //Get the source server ip and port
-                //Debug.WriteLine("Received tcp socket from: " + DeserializedBytes.SourceIp + ":" + DeserializedBytes.SourcePort);
-
-                //Check what kind of object was received
-                if (deserializedBytes.Object is NotificationDetails)
-                {
-                    NotificationDetails receivedNotificationDetails = (NotificationDetails)deserializedBytes.Object;
-                    await App.vWindowOverlay.Notification_Show_Status(receivedNotificationDetails);
-                }
-                else if (deserializedBytes.Object is string)
-                {
-                    string receivedString = (string)deserializedBytes.Object;
-                    //Debug.WriteLine("Received string: " + receivedString);
-                    if (receivedString == "SettingChangedColorAccentLight")
-                    {
-                        vConfigurationCtrlUI = Settings_Load_CtrlUI();
-                        Settings_Load_AccentColor(vConfigurationCtrlUI);
-                        vApplicationAccentLightBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
-                    }
-                    else if (receivedString == "SettingChangedInterfaceSoundPackName")
-                    {
-                        vConfigurationCtrlUI = Settings_Load_CtrlUI();
-                    }
-                    else if (receivedString == "SettingChangedInterfaceClockStyleName")
-                    {
-                        vConfigurationCtrlUI = Settings_Load_CtrlUI();
-                        App.vWindowKeyboard.UpdateClockStyle();
-                    }
-                    else if (receivedString == "SettingChangedDisplayMonitor")
-                    {
-                        vConfigurationCtrlUI = Settings_Load_CtrlUI();
-                        App.vWindowOverlay.UpdateWindowPosition();
-                        App.vWindowKeyboard.UpdateWindowPosition();
-                        App.vWindowKeypad.UpdateWindowPosition();
-                    }
-                    else if (receivedString == "ControllerStatusSummaryList")
-                    {
-                        await SendControllerStatusDetailsList(deserializedBytes);
-                    }
-                    else if (receivedString == "KeyboardHideShow")
-                    {
-                        await KeyboardPopupHideShow(false, false);
-                    }
-                    else if (receivedString == "KeyboardShow")
-                    {
-                        await KeyboardPopupHideShow(true, true);
-                    }
-                }
-            }
-            catch { }
-        }
-
         async Task ReceivedUdpSocketHandlerThread(UdpEndPointDetails endPoint, byte[] receivedBytes)
         {
             try
@@ -106,8 +48,60 @@ namespace DirectXInput
                 //Get the source server ip and port
                 //Debug.WriteLine("Received udp socket from: " + endPoint.IPEndPoint.Address.ToString() + ":" + endPoint.IPEndPoint.Port);
 
-                //Check incoming gyro dsu bytes
-                if (await GyroDsuClientHandler(endPoint, receivedBytes)) { return; }
+                //Deserialize the received bytes
+                if (DeserializeBytesToObject(receivedBytes, out SocketSendContainer deserializedBytes))
+                {
+                    //Check what kind of object was received
+                    if (deserializedBytes.Object is NotificationDetails)
+                    {
+                        NotificationDetails receivedNotificationDetails = (NotificationDetails)deserializedBytes.Object;
+                        await App.vWindowOverlay.Notification_Show_Status(receivedNotificationDetails);
+                    }
+                    else if (deserializedBytes.Object is string)
+                    {
+                        string receivedString = (string)deserializedBytes.Object;
+                        Debug.WriteLine("Received socket string: " + receivedString);
+                        if (receivedString == "SettingChangedColorAccentLight")
+                        {
+                            vConfigurationCtrlUI = Settings_Load_CtrlUI();
+                            Settings_Load_AccentColor(vConfigurationCtrlUI);
+                            vApplicationAccentLightBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
+                        }
+                        else if (receivedString == "SettingChangedInterfaceSoundPackName")
+                        {
+                            vConfigurationCtrlUI = Settings_Load_CtrlUI();
+                        }
+                        else if (receivedString == "SettingChangedInterfaceClockStyleName")
+                        {
+                            vConfigurationCtrlUI = Settings_Load_CtrlUI();
+                            App.vWindowKeyboard.UpdateClockStyle();
+                        }
+                        else if (receivedString == "SettingChangedDisplayMonitor")
+                        {
+                            vConfigurationCtrlUI = Settings_Load_CtrlUI();
+                            App.vWindowOverlay.UpdateWindowPosition();
+                            App.vWindowKeyboard.UpdateWindowPosition();
+                            App.vWindowKeypad.UpdateWindowPosition();
+                        }
+                        else if (receivedString == "ControllerStatusSummaryList")
+                        {
+                            await SendControllerStatusDetailsList(deserializedBytes);
+                        }
+                        else if (receivedString == "KeyboardHideShow")
+                        {
+                            await KeyboardPopupHideShow(false, false);
+                        }
+                        else if (receivedString == "KeyboardShow")
+                        {
+                            await KeyboardPopupHideShow(true, true);
+                        }
+                    }
+                }
+                else
+                {
+                    //Check incoming gyro dsu bytes
+                    await GyroDsuClientHandler(endPoint, receivedBytes);
+                }
             }
             catch { }
         }
@@ -156,11 +150,11 @@ namespace DirectXInput
                 socketSend.SourceIp = vArnoldVinkSockets.vSocketServerIp;
                 socketSend.SourcePort = vArnoldVinkSockets.vSocketServerPort;
                 socketSend.Object = controllerStatusDetailsList;
-                byte[] SendBytes = SerializeObjectToBytes(socketSend);
+                byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                TcpClient socketClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(deserializedBytes.SourceIp, deserializedBytes.SourcePort, vArnoldVinkSockets.vSocketTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytesServer(socketClient, SendBytes, vArnoldVinkSockets.vSocketTimeout, false);
+                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(deserializedBytes.SourceIp), deserializedBytes.SourcePort);
+                await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
             }
             catch { }
         }

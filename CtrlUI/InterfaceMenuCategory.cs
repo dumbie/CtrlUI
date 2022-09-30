@@ -18,13 +18,13 @@ namespace CtrlUI
             try
             {
                 Button senderFramework = (Button)sender;
-                if (senderFramework.Name == "button_Category_Menu_Games") { await ChangeCategoryListBox(ListCategory.Game); }
-                else if (senderFramework.Name == "button_Category_Menu_Apps") { await ChangeCategoryListBox(ListCategory.App); }
-                else if (senderFramework.Name == "button_Category_Menu_Emulators") { await ChangeCategoryListBox(ListCategory.Emulator); }
-                else if (senderFramework.Name == "button_Category_Menu_Launchers") { await ChangeCategoryListBox(ListCategory.Launcher); }
-                else if (senderFramework.Name == "button_Category_Menu_Shortcuts") { await ChangeCategoryListBox(ListCategory.Shortcut); }
-                else if (senderFramework.Name == "button_Category_Menu_Processes") { await ChangeCategoryListBox(ListCategory.Process); }
-                else if (senderFramework.Name == "button_Category_Menu_Search") { await ChangeCategoryListBox(ListCategory.Search); }
+                if (senderFramework.Name == "button_Category_Menu_Games") { await ChangeCategoryListBox(ListCategory.Game, false); }
+                else if (senderFramework.Name == "button_Category_Menu_Apps") { await ChangeCategoryListBox(ListCategory.App, false); }
+                else if (senderFramework.Name == "button_Category_Menu_Emulators") { await ChangeCategoryListBox(ListCategory.Emulator, false); }
+                else if (senderFramework.Name == "button_Category_Menu_Launchers") { await ChangeCategoryListBox(ListCategory.Launcher, false); }
+                else if (senderFramework.Name == "button_Category_Menu_Shortcuts") { await ChangeCategoryListBox(ListCategory.Shortcut, false); }
+                else if (senderFramework.Name == "button_Category_Menu_Processes") { await ChangeCategoryListBox(ListCategory.Process, false); }
+                else if (senderFramework.Name == "button_Category_Menu_Search") { await ChangeCategoryListBox(ListCategory.Search, false); }
             }
             catch { }
         }
@@ -129,23 +129,23 @@ namespace CtrlUI
         }
 
         //Change listbox category visibility
-        public async Task SwitchToListCategorySetting()
+        public async Task SwitchToListCategorySetting(bool forceSwitch)
         {
             try
             {
                 ListCategory listCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
-                await ChangeCategoryListBox(listCategory);
+                await ChangeCategoryListBox(listCategory, forceSwitch);
             }
             catch { }
         }
 
         //Change listbox category visibility
-        async Task ChangeCategoryListBox(ListCategory listCategory)
+        async Task ChangeCategoryListBox(ListCategory listCategory, bool forceSwitch)
         {
             try
             {
                 //Check if category has items
-                if (listCategory != ListCategory.Search && CategoryListCount(listCategory) == 0)
+                if (!forceSwitch && listCategory != ListCategory.Search && CategoryListCount(listCategory) == 0)
                 {
                     Debug.WriteLine("Category " + listCategory + " has no items, falling back to first.");
                     listCategory = (ListCategory)FirstCategoryWithItems();

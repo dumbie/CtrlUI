@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows;
@@ -477,15 +478,17 @@ namespace CtrlUI
         {
             try
             {
-                await Notification_Send_Status("Fps", "Hiding Fps Overlayer");
-                Debug.WriteLine("Closing Fps Overlayer");
-
                 //Check if socket server is running
                 if (vArnoldVinkSockets == null)
                 {
                     Debug.WriteLine("The socket server is not running.");
                     return;
                 }
+
+                Debug.WriteLine("Hiding Fps Overlayer");
+
+                //Show notification
+                await Notification_Send_Status("Fps", "Hiding Fps Overlayer");
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
@@ -495,8 +498,8 @@ namespace CtrlUI
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vSocketServerIp, vArnoldVinkSockets.vSocketServerPort + 2, vArnoldVinkSockets.vSocketTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytesServer(tcpClient, SerializedData, vArnoldVinkSockets.vSocketTimeout, false);
+                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), vArnoldVinkSockets.vSocketServerPort + 2);
+                await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
             }
             catch { }
         }
@@ -508,8 +511,12 @@ namespace CtrlUI
             {
                 if (forceLaunch || !CheckRunningProcessByNameOrTitle("FpsOverlayer", false, true))
                 {
-                    await Notification_Send_Status("Fps", "Showing Fps Overlayer");
                     Debug.WriteLine("Showing Fps Overlayer");
+
+                    //Show notification
+                    await Notification_Send_Status("Fps", "Showing Fps Overlayer");
+
+                    //Launch Fps Overlayer
                     await ProcessLauncherWin32Async("FpsOverlayer-Launcher.exe", "", "", true, false);
                 }
             }
@@ -545,8 +552,8 @@ namespace CtrlUI
                 byte[] SerializedData = SerializeObjectToBytes(socketSend);
 
                 //Send socket data
-                TcpClient tcpClient = await vArnoldVinkSockets.TcpClientCheckCreateConnect(vArnoldVinkSockets.vSocketServerIp, vArnoldVinkSockets.vSocketServerPort + 1, vArnoldVinkSockets.vSocketTimeout);
-                await vArnoldVinkSockets.TcpClientSendBytesServer(tcpClient, SerializedData, vArnoldVinkSockets.vSocketTimeout, false);
+                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(vArnoldVinkSockets.vSocketServerIp), vArnoldVinkSockets.vSocketServerPort + 1);
+                await vArnoldVinkSockets.UdpClientSendBytesServer(ipEndPoint, SerializedData, vArnoldVinkSockets.vSocketTimeout);
             }
             catch { }
         }

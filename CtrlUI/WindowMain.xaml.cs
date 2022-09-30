@@ -162,7 +162,7 @@ namespace CtrlUI
                 }
 
                 //Switch to last used list category
-                await SwitchToListCategorySetting();
+                await SwitchToListCategorySetting(true);
 
                 //Update the controller help
                 UpdateControllerHelp();
@@ -189,7 +189,7 @@ namespace CtrlUI
             {
                 int SocketServerPort = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ServerPort"));
 
-                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, true, false);
+                vArnoldVinkSockets = new ArnoldVinkSockets("127.0.0.1", SocketServerPort, false, true);
                 vArnoldVinkSockets.vSocketTimeout = 250;
                 vArnoldVinkSockets.EventBytesReceived += ReceivedSocketHandler;
                 await vArnoldVinkSockets.SocketServerEnable();

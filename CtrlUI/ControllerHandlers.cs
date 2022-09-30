@@ -134,7 +134,7 @@ namespace CtrlUI
                             {
                                 ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
                                 ListCategory listCategorySwitch = (ListCategory)PreviousCategoryWithItems(listCategorySetting, true);
-                                await ChangeCategoryListBox(listCategorySwitch);
+                                await ChangeCategoryListBox(listCategorySwitch, false);
                             }
                         });
 
@@ -155,7 +155,7 @@ namespace CtrlUI
                             {
                                 ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
                                 ListCategory listCategorySwitch = (ListCategory)NextCategoryWithItems(listCategorySetting, true);
-                                await ChangeCategoryListBox(listCategorySwitch);
+                                await ChangeCategoryListBox(listCategorySwitch, false);
                             }
                         });
 
@@ -197,7 +197,7 @@ namespace CtrlUI
                         {
                             await AVActions.ActionDispatcherInvokeAsync(async delegate
                             {
-                                await ChangeCategoryListBox(ListCategory.Search);
+                                await ChangeCategoryListBox(ListCategory.Search, false);
                             });
                         }
 

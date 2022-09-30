@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
@@ -21,7 +22,14 @@ namespace CtrlUI
                 {
                     try
                     {
-                        await ReceivedSocketHandlerThread(tcpClient, receivedBytes);
+                        if (tcpClient != null)
+                        {
+                            //await ReceivedTcpSocketHandlerThread(tcpClient, receivedBytes);
+                        }
+                        else
+                        {
+                            await ReceivedUdpSocketHandlerThread(endPoint, receivedBytes);
+                        }
                     }
                     catch { }
                 }
@@ -30,51 +38,51 @@ namespace CtrlUI
             catch { }
         }
 
-        async Task ReceivedSocketHandlerThread(TcpClient tcpClient, byte[] receivedBytes)
+        async Task ReceivedUdpSocketHandlerThread(UdpEndPointDetails endPoint, byte[] receivedBytes)
         {
             try
             {
-                //Deserialize the received bytes
-                if (!DeserializeBytesToObject(receivedBytes, out SocketSendContainer deserializedBytes)) { return; }
-
                 //Get the source server ip and port
-                //Debug.WriteLine("Received socket from (C): " + DeserializedBytes.SourceIp + ":" + DeserializedBytes.SourcePort + "/" + DeserializedBytes.Object);
+                //Debug.WriteLine("Received udp socket from: " + endPoint.IPEndPoint.Address.ToString() + ":" + endPoint.IPEndPoint.Port);
 
-                //Check what kind of object was received
-                if (deserializedBytes.Object is ControllerInput)
+                //Deserialize the received bytes
+                if (DeserializeBytesToObject(receivedBytes, out SocketSendContainer deserializedBytes))
                 {
-                    if (!vControllerBusy)
+                    if (deserializedBytes.Object is ControllerInput)
                     {
-                        vControllerBusy = true;
+                        if (!vControllerBusy)
+                        {
+                            vControllerBusy = true;
 
-                        ControllerInput receivedControllerInput = (ControllerInput)deserializedBytes.Object;
-                        await ControllerInteraction(receivedControllerInput);
+                            ControllerInput receivedControllerInput = (ControllerInput)deserializedBytes.Object;
+                            await ControllerInteraction(receivedControllerInput);
 
-                        vControllerBusy = false;
+                            vControllerBusy = false;
+                        }
                     }
-                }
-                else if (deserializedBytes.Object is List<ControllerStatusDetails>)
-                {
-                    List<ControllerStatusDetails> controllerStatusSummaryList = (List<ControllerStatusDetails>)deserializedBytes.Object;
-                    UpdateControllerStatus(controllerStatusSummaryList);
-                }
-                else if (deserializedBytes.Object is string)
-                {
-                    string receivedString = (string)deserializedBytes.Object;
-                    //Debug.WriteLine("Received string: " + receivedString);
-                    if (receivedString == "SettingChangedShortcut")
+                    else if (deserializedBytes.Object is List<ControllerStatusDetails>)
                     {
-                        vConfigurationDirectXInput = Settings_Load_DirectXInput();
-                        UpdateControllerHelp();
+                        List<ControllerStatusDetails> controllerStatusSummaryList = (List<ControllerStatusDetails>)deserializedBytes.Object;
+                        UpdateControllerStatus(controllerStatusSummaryList);
                     }
-                    else if (receivedString == "SettingChangedControllerColor")
+                    else if (deserializedBytes.Object is string)
                     {
-                        vConfigurationDirectXInput = Settings_Load_DirectXInput();
-                        UpdateControllerColor();
-                    }
-                    else if (receivedString == "AppWindowHideShow")
-                    {
-                        await AVActions.ActionDispatcherInvokeAsync(async delegate { await AppWindow_HideShow(); });
+                        string receivedString = (string)deserializedBytes.Object;
+                        Debug.WriteLine("Received socket string: " + receivedString);
+                        if (receivedString == "SettingChangedShortcut")
+                        {
+                            vConfigurationDirectXInput = Settings_Load_DirectXInput();
+                            UpdateControllerHelp();
+                        }
+                        else if (receivedString == "SettingChangedControllerColor")
+                        {
+                            vConfigurationDirectXInput = Settings_Load_DirectXInput();
+                            UpdateControllerColor();
+                        }
+                        else if (receivedString == "AppWindowHideShow")
+                        {
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate { await AppWindow_HideShow(); });
+                        }
                     }
                 }
             }

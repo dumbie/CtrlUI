@@ -202,7 +202,7 @@ namespace CtrlUI
                         {
                             listCategorySwitch = NextCategoryWithItems(listAppCategory, false);
                         }
-                        await ChangeCategoryListBox((ListCategory)listCategorySwitch);
+                        await ChangeCategoryListBox((ListCategory)listCategorySwitch, false);
                     });
                 }
             }

@@ -218,7 +218,7 @@
                             <styles:ScrollViewerLoopHorizontal Grid.Column="1" ScrollLoopSpeed="40" VerticalAlignment="Center" IsHitTestVisible="True" Style="{StaticResource ScrollViewerHidden}">
                                 <StackPanel Orientation="Horizontal">
                                     <Button Name="button_Category_Menu_Games" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
-                                        <TextBlock Name="textblock_Category_Menu_Games" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Games"/>
+                                        <TextBlock Name="textblock_Category_Menu_Games" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Games"/>
                                     </Button>
                                     <Button Name="button_Category_Menu_Apps" Focusable="False" HorizontalAlignment="Left" Style="{StaticResource ButtonImageTransparentNoBorder}" Margin="0,0,10,0">
                                         <TextBlock Name="textblock_Category_Menu_Apps" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Apps &amp; Media"/>
