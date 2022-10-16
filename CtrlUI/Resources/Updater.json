@@ -31,7 +31,9 @@
     "FpsOverlayer-Admin.exe.config",
     "FpsOverlayer-Launcher.exe.config",
     "Updater.exe.config",
-    "Resources/ArnoldVinkCertificate.cer"
+    "Resources/ArnoldVinkCertificate.cer",
+    "Assets/Default/Background.png",
+    "Assets/Default/BackgroundLive.mp4"
   ],
   "FoldersIgnore": [
     "Profiles/User"
