@@ -38,9 +38,12 @@ namespace CtrlUI
                         dataBindApp.StatusAvailable = Visibility.Visible;
                     }
                     //Check if the rom folder is available
-                    else if (dataBindApp.Category == AppCategory.Emulator && !Directory.Exists(dataBindApp.PathRoms))
+                    else if (dataBindApp.Category == AppCategory.Emulator)
                     {
-                        dataBindApp.StatusAvailable = Visibility.Visible;
+                        if (!string.IsNullOrWhiteSpace(dataBindApp.PathRoms) && !Directory.Exists(dataBindApp.PathRoms))
+                        {
+                            dataBindApp.StatusAvailable = Visibility.Visible;
+                        }
                     }
                 }
 
