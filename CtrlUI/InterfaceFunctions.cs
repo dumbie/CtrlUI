@@ -30,6 +30,7 @@ namespace CtrlUI
                 button_MenuHamburger.Click += Button_MenuHamburger_Click;
                 button_MenuSorting.Click += Button_MenuSorting_Click;
                 button_MenuMinimize.Click += Button_MenuMinimize_Click;
+                button_MenuClose.Click += Button_MenuClose_Click;
 
                 //Category menu functions
                 button_Category_Menu_Games.Click += Button_Category_Menu_Click;

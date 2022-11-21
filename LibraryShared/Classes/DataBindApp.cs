@@ -251,6 +251,35 @@ namespace LibraryShared
                 }
             }
 
+            //Emulator variables
+            private string PrivEmulatorPlatform = string.Empty;
+            public string EmulatorPlatform
+            {
+                get { return this.PrivEmulatorPlatform; }
+                set
+                {
+                    if (this.PrivEmulatorPlatform != value)
+                    {
+                        this.PrivEmulatorPlatform = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private EmulatorCategory PrivEmulatorCategory = EmulatorCategory.Unknown;
+            public EmulatorCategory EmulatorCategory
+            {
+                get { return this.PrivEmulatorCategory; }
+                set
+                {
+                    if (this.PrivEmulatorCategory != value)
+                    {
+                        this.PrivEmulatorCategory = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             //Status variables (no saving needed)
             private List<ProcessMulti> PrivProcessMulti = new List<ProcessMulti>();
             public List<ProcessMulti> ProcessMulti

@@ -42,7 +42,7 @@ namespace CtrlUI
             finally
             {
                 //Update list load status
-                vListLoadedJson = true;
+                vListLoadedApplications = true;
             }
         }
 

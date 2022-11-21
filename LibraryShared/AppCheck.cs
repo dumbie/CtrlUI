@@ -61,6 +61,7 @@ namespace LibraryShared
                 AVFiles.Directory_Create(@"Assets\User\Fonts", false);
                 AVFiles.Directory_Create(@"Assets\User\Games", false);
                 AVFiles.Directory_Create(@"Assets\User\Sounds", false);
+                AVFiles.Directory_Create(@"Assets\User\Emulators", false);
             }
             catch { }
         }

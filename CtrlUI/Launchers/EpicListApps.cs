@@ -95,7 +95,7 @@ namespace CtrlUI
                 }
 
                 //Get application image
-                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Epic" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+                BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, "Epic" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vListBoxImageSize, 0);
 
                 //Add the application to the list
                 DataBindApp dataBindApp = new DataBindApp()

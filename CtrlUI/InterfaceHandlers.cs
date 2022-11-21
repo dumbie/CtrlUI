@@ -36,6 +36,16 @@ namespace CtrlUI
             catch { }
         }
 
+        //Handle close mouse presses
+        private async void Button_MenuClose_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await Application_Exit_Prompt();
+            }
+            catch { }
+        }
+
         //Monitor application mouse down
         void WindowMain_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {

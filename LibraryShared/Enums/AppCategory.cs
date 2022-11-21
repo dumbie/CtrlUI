@@ -15,6 +15,7 @@
 
         public enum ListCategory
         {
+            Unknown = -1,
             Game = 0,
             App = 1,
             Emulator = 2,
@@ -22,6 +23,18 @@
             Shortcut = 4,
             Process = 5,
             Search = 6
+        }
+
+        public enum EmulatorCategory
+        {
+            Unknown = -1,
+            Console = 0,
+            Handheld = 1,
+            Arcade = 2,
+            Pinball = 3,
+            Chess = 4,
+            Pong = 5,
+            VirtualReality = 6
         }
     }
 }

@@ -10,7 +10,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Show the popup
-        void Popup_Show_Element(FrameworkElement elementTarget, double mainOpacity=0.08)
+        void Popup_Show_Element(FrameworkElement elementTarget, double mainOpacity = 0.08)
         {
             try
             {
@@ -194,7 +194,7 @@ namespace CtrlUI
         }
 
         //Show specific popup
-        async Task Popup_Show(FrameworkElement ShowPopup, FrameworkElement FocusElement, double mainOpacity=0.08)
+        async Task Popup_Show(FrameworkElement ShowPopup, FrameworkElement FocusElement, double mainOpacity = 0.08)
         {
             try
             {

@@ -69,7 +69,7 @@ namespace CtrlUI
 
                             //Update the application icons
                             dataBindApp.PathImage = appxDetails.SquareLargestLogoPath;
-                            dataBindApp.ImageBitmap = FileToBitmapImage(new string[] { dataBindApp.Name, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+                            dataBindApp.ImageBitmap = FileToBitmapImage(new string[] { dataBindApp.Name, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vListBoxImageSize, 0);
                             UpdatedImages = true;
                         }
                     }

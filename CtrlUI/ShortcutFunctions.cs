@@ -358,11 +358,11 @@ namespace CtrlUI
                 BitmapImage iconBitmapImage = null;
                 if (shortcutAvailable == Visibility.Visible)
                 {
-                    iconBitmapImage = FileToBitmapImage(new string[] { "Unknown" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, 0);
+                    iconBitmapImage = FileToBitmapImage(new string[] { "Unknown" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vListBoxImageSize, 0);
                 }
                 else
                 {
-                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, targetPathLower, "Assets/Default/Extensions/" + targetExtensionLower + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 90, shortcutDetails.IconIndex);
+                    iconBitmapImage = FileToBitmapImage(new string[] { shortcutDetails.Title, shortcutDetails.IconPath, targetPathLower, "Assets/Default/Extensions/" + targetExtensionLower + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vListBoxImageSize, shortcutDetails.IconIndex);
                 }
 
                 //Add the shortcut to the list

@@ -154,7 +154,9 @@ namespace CtrlUI
                     textblock_DisableMain.Text = string.Empty;
 
                     //Enable the application window
-                    grid_DisableHeader.Visibility = Visibility.Collapsed;
+                    button_MenuHamburger.IsEnabled = true;
+                    button_MenuClose.IsEnabled = true;
+                    button_MenuSorting.IsEnabled = true;
                     grid_DisableHelp.Visibility = Visibility.Collapsed;
                     grid_DisableMain.Visibility = Visibility.Collapsed;
                 });
@@ -173,7 +175,9 @@ namespace CtrlUI
                     textblock_DisableMain.Text = windowText;
 
                     //Disable the application window
-                    grid_DisableHeader.Visibility = Visibility.Visible;
+                    button_MenuHamburger.IsEnabled = false;
+                    button_MenuClose.IsEnabled = false;
+                    button_MenuSorting.IsEnabled = false;
                     grid_DisableHelp.Visibility = Visibility.Visible;
                     grid_DisableMain.Visibility = Visibility.Visible;
                 });
