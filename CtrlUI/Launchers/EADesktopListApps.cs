@@ -123,7 +123,7 @@ namespace CtrlUI
                     }
 
                     //Get application image
-                    BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appIcon, "EA Desktop" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vListBoxImageSize, 0);
+                    BitmapImage iconBitmapImage = FileToBitmapImage(new string[] { appName, appIcon, "EA Desktop" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
 
                     //Add the application to the list
                     DataBindApp dataBindApp = new DataBindApp()

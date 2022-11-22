@@ -218,7 +218,7 @@ namespace CtrlUI
                                 if (appUpdatedContinueLoop) { continue; }
 
                                 //Load the application image
-                                BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processTitle, processNameExeNoExt, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, processWindowHandle, vListBoxImageSize, 0);
+                                BitmapImage processImageBitmap = FileToBitmapImage(new string[] { processTitle, processNameExeNoExt, appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, vImageSourceFolders, vImageBackupSource, processWindowHandle, vImageLoadSize, 0);
 
                                 //Create new ProcessMulti list
                                 List<ProcessMulti> listProcessMulti = new List<ProcessMulti>();

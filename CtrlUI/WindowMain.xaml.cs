@@ -92,6 +92,9 @@ namespace CtrlUI
                 //Add main menu items
                 MainMenuAddItems();
 
+                //Add categories to edit interface
+                ManageInterace_AddCategories();
+
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
 

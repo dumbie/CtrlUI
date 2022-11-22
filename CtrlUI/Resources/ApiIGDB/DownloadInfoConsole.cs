@@ -45,11 +45,10 @@ namespace CtrlUI
 
                 //Ask user which console to download
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 foreach (ApiIGDBPlatforms infoPlatforms in iGDBPlatforms)
                 {
                     DataBindString answerDownload = new DataBindString();
-                    answerDownload.ImageBitmap = imageAnswer;
+                    answerDownload.ImageBitmap = vImagePreloadEmulator;
                     answerDownload.Name = infoPlatforms.name;
                     answerDownload.NameSub = infoPlatforms.alternative_name;
                     answerDownload.Data1 = infoPlatforms;

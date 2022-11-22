@@ -49,7 +49,6 @@ namespace CtrlUI
 
                 //Ask user which game to download
                 List<DataBindString> Answers = new List<DataBindString>();
-                BitmapImage imageAnswer = FileToBitmapImage(new string[] { "Assets/Default/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
                 foreach (ApiIGDBGames infoGames in iGDBGames)
                 {
                     //Check if cover and summary is available
@@ -62,7 +61,7 @@ namespace CtrlUI
                     ApiIGDB_PlatformsToString(infoGames, out string gamePlatforms);
 
                     DataBindString answerDownload = new DataBindString();
-                    answerDownload.ImageBitmap = imageAnswer;
+                    answerDownload.ImageBitmap = vImagePreloadGame;
                     answerDownload.Name = infoGames.name;
                     answerDownload.NameSub = gamePlatforms;
                     answerDownload.NameDetail = gameReleaseYear;

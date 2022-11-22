@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -266,7 +267,7 @@ namespace LibraryShared
                 }
             }
 
-            private EmulatorCategory PrivEmulatorCategory = EmulatorCategory.Unknown;
+            private EmulatorCategory PrivEmulatorCategory = EmulatorCategory.Other;
             public EmulatorCategory EmulatorCategory
             {
                 get { return this.PrivEmulatorCategory; }
@@ -460,6 +461,24 @@ namespace LibraryShared
                         this.PrivStatusLauncherImage = value;
                         NotifyPropertyChanged();
                     }
+                }
+            }
+
+            //Reset application status
+            public void ResetStatus()
+            {
+                try
+                {
+                    StatusAvailable = Visibility.Collapsed;
+                    StatusRunning = Visibility.Collapsed;
+                    StatusSuspended = Visibility.Collapsed;
+                    RunningProcessCount = string.Empty;
+                    RunningTimeLastUpdate = 0;
+                    ProcessMulti.Clear();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Failed to reset application status: " + ex.Message);
                 }
             }
 

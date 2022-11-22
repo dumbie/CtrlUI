@@ -56,13 +56,11 @@ namespace CtrlUI
                 if (vFilePickerShowRoms)
                 {
                     string fileDescription = "Launch the emulator without a rom loaded";
-                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    DataBindFile dataBindFileWithoutRom = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
+                    DataBindFile dataBindFileWithoutRom = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = vImagePreloadEmulator, PathFile = string.Empty };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutRom, false, false);
 
                     string romDescription = "Launch the emulator with this folder as rom";
-                    BitmapImage romImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                    DataBindFile dataBindFileFolderRom = new DataBindFile() { FileType = FileType.FilePre, Name = romDescription, Description = romDescription + ".", ImageBitmap = romImage, PathFile = targetPath };
+                    DataBindFile dataBindFileFolderRom = new DataBindFile() { FileType = FileType.FilePre, Name = romDescription, Description = romDescription + ".", ImageBitmap = vImagePreloadEmulator, PathFile = targetPath };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolderRom, false, false);
                 }
 

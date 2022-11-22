@@ -59,26 +59,31 @@ namespace CtrlUI
             new ImageSourceFolders() { SourcePath = "Assets/User/Games", SearchOption = SearchOption.AllDirectories },
             new ImageSourceFolders() { SourcePath = "Assets/Default/Games", SearchOption = SearchOption.AllDirectories }
         };
+        public static int vImageLoadSize = 150;
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
-        public static BitmapImage vImagePreloadSteam = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadUbisoft = FileToBitmapImage(new string[] { "Ubisoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadEADesktop = FileToBitmapImage(new string[] { "EA Desktop" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadGoG = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadEpic = FileToBitmapImage(new string[] { "Epic" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadBattleNet = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadRockstar = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadDiscord = FileToBitmapImage(new string[] { "Discord" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadMicrosoft = FileToBitmapImage(new string[] { "Microsoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadAmazon = FileToBitmapImage(new string[] { "Amazon" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadArcade = FileToBitmapImage(new string[] { "Assets/Default/Icons/Arcade.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadPinball = FileToBitmapImage(new string[] { "Assets/Default/Icons/Pinball.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadChess = FileToBitmapImage(new string[] { "Assets/Default/Icons/Chess.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadApp = FileToBitmapImage(new string[] { "Assets/Default/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadGame = FileToBitmapImage(new string[] { "Assets/Default/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadEmulator = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadProcess = FileToBitmapImage(new string[] { "Assets/Default/Icons/Process.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadShortcut = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shortcut.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static int vListBoxImageSize = 100;
+        public static BitmapImage vImagePreloadSteam = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadUbisoft = FileToBitmapImage(new string[] { "Ubisoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadEADesktop = FileToBitmapImage(new string[] { "EA Desktop" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadGoG = FileToBitmapImage(new string[] { "GoG" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadEpic = FileToBitmapImage(new string[] { "Epic" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadBattleNet = FileToBitmapImage(new string[] { "Battle.net" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadRockstar = FileToBitmapImage(new string[] { "Rockstar" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadDiscord = FileToBitmapImage(new string[] { "Discord" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadMicrosoft = FileToBitmapImage(new string[] { "Microsoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadAmazon = FileToBitmapImage(new string[] { "Amazon" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadConsole = FileToBitmapImage(new string[] { "Assets/Default/Icons/Console.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadHandheld = FileToBitmapImage(new string[] { "Assets/Default/Icons/Handheld.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadPong = FileToBitmapImage(new string[] { "Assets/Default/Icons/Pong.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadVirtualReality = FileToBitmapImage(new string[] { "Assets/Default/Icons/VirtualReality.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadArcade = FileToBitmapImage(new string[] { "Assets/Default/Icons/Arcade.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadPinball = FileToBitmapImage(new string[] { "Assets/Default/Icons/Pinball.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadChess = FileToBitmapImage(new string[] { "Assets/Default/Icons/Chess.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadApp = FileToBitmapImage(new string[] { "Assets/Default/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadGame = FileToBitmapImage(new string[] { "Assets/Default/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadEmulator = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadProcess = FileToBitmapImage(new string[] { "Assets/Default/Icons/Process.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadShortcut = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shortcut.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadUnknownApp = FileToBitmapImage(new string[] { "Assets/Default/Apps/Unknown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
 
         //Busy Variables
         public static bool vBusyChangingWindow = false;
@@ -159,7 +164,7 @@ namespace CtrlUI
         //Manage Variables
         public static DataBindApp vEditAppDataBind = null;
         public static DataBindApp vMoveAppDataBind = null;
-        public static AppCategory vEditAppCategoryPrevious = AppCategory.App;
+        public static AppCategory vEditAppDataBindCategory = AppCategory.App;
 
         //Controller Variables
         public static int vControllerActiveId = 0;

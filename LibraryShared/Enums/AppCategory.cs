@@ -15,7 +15,6 @@
 
         public enum ListCategory
         {
-            Unknown = -1,
             Game = 0,
             App = 1,
             Emulator = 2,
@@ -27,14 +26,14 @@
 
         public enum EmulatorCategory
         {
-            Unknown = -1,
-            Console = 0,
-            Handheld = 1,
-            Arcade = 2,
-            Pinball = 3,
-            Chess = 4,
+            Other = 0,
+            Console = 1,
+            Handheld = 2,
+            Arcade = 3,
+            Pinball = 4,
             Pong = 5,
-            VirtualReality = 6
+            Chess = 6,
+            VirtualReality = 7
         }
     }
 }
