@@ -17,7 +17,7 @@ namespace CtrlUI
         {
             try
             {
-                Debug.WriteLine("Downloading image for: " + imageId);
+                Debug.WriteLine("Downloading IGDB image for: " + imageId);
 
                 //Authenticate with Twitch
                 string authAccessToken = await ApiTwitch_Authenticate();

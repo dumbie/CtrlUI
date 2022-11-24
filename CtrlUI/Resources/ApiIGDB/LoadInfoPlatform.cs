@@ -6,37 +6,37 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Generate summary string from ApiIGDBPlatformVersions
-        string ApiIGDB_ConsoleSummaryString(ApiIGDBPlatformVersions infoConsole)
+        string ApiIGDB_PlatformSummaryString(ApiIGDBPlatformVersions infoPlatform)
         {
             string summaryString = string.Empty;
             try
             {
                 //Cpu
-                if (!string.IsNullOrWhiteSpace(infoConsole.cpu))
+                if (!string.IsNullOrWhiteSpace(infoPlatform.cpu))
                 {
-                    summaryString += "\nCpu: " + infoConsole.cpu;
+                    summaryString += "\nCpu: " + infoPlatform.cpu;
                 }
 
                 //Memory
-                if (!string.IsNullOrWhiteSpace(infoConsole.memory))
+                if (!string.IsNullOrWhiteSpace(infoPlatform.memory))
                 {
-                    summaryString += "\nMem: " + infoConsole.memory;
+                    summaryString += "\nMem: " + infoPlatform.memory;
                 }
 
                 //Graphics
-                if (!string.IsNullOrWhiteSpace(infoConsole.graphics))
+                if (!string.IsNullOrWhiteSpace(infoPlatform.graphics))
                 {
-                    summaryString += "\nGpu: " + infoConsole.graphics;
+                    summaryString += "\nGpu: " + infoPlatform.graphics;
                 }
 
                 //Summary
-                if (string.IsNullOrWhiteSpace(infoConsole.summary))
+                if (string.IsNullOrWhiteSpace(infoPlatform.summary))
                 {
                     summaryString += "\n\nThere is no description available.";
                 }
                 else
                 {
-                    summaryString += "\n\n" + infoConsole.summary;
+                    summaryString += "\n\n" + infoPlatform.summary;
                 }
 
                 //Remove first linebreak

@@ -51,7 +51,7 @@ namespace CtrlUI
                     string fileDetailed = fileSize + " (" + fileDate + ")";
 
                     //Create new file databindfile
-                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Default/Extensions/Txt.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Default/Extensions/Txt.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     DataBindFile dataBindFileFile = new DataBindFile() { FileType = FileType.File, Name = fileName, NameDetail = fileDetailed, DateModified = dateCreated, ImageBitmap = fileImage, PathFile = newFilePath };
 
                     //Add the new listbox item

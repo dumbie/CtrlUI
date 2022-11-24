@@ -253,15 +253,15 @@ namespace LibraryShared
             }
 
             //Emulator variables
-            private string PrivEmulatorPlatform = string.Empty;
-            public string EmulatorPlatform
+            private string PrivEmulatorName = string.Empty;
+            public string EmulatorName
             {
-                get { return this.PrivEmulatorPlatform; }
+                get { return this.PrivEmulatorName; }
                 set
                 {
-                    if (this.PrivEmulatorPlatform != value)
+                    if (this.PrivEmulatorName != value)
                     {
-                        this.PrivEmulatorPlatform = value;
+                        this.PrivEmulatorName = value;
                         NotifyPropertyChanged();
                     }
                 }

@@ -167,13 +167,13 @@
     <Compile Include="NotificationFunctions.cs" />
     <Compile Include="Resources\ApiIGDB\UpdateApiFiles.cs" />
     <Compile Include="Resources\ApiIGDB\DownloadImage.cs" />
-    <Compile Include="Resources\ApiIGDB\DownloadInfoPlatforms.cs" />
-    <Compile Include="Resources\ApiIGDB\DownloadInfoGenres.cs" />
-    <Compile Include="Resources\ApiIGDB\LoadInfoConsole.cs" />
+    <Compile Include="Resources\ApiIGDB\DownloadPlatforms.cs" />
+    <Compile Include="Resources\ApiIGDB\DownloadGenres.cs" />
+    <Compile Include="Resources\ApiIGDB\LoadInfoPlatform.cs" />
     <Compile Include="Resources\ApiIGDB\LoadInfoGame.cs" />
     <Compile Include="Resources\ApiTwitch\TwitchAuth.cs" />
     <Compile Include="Resources\Settings\SettingsNotify.cs" />
-    <Compile Include="Resources\ApiIGDB\DownloadInfoConsole.cs" />
+    <Compile Include="Resources\ApiIGDB\DownloadInfoPlatform.cs" />
     <Compile Include="Resources\ApiIGDB\DownloadInfoGame.cs" />
     <Compile Include="WelcomeHandlers.cs" />
     <Compile Include="WelcomeFunctions.cs" />
@@ -265,7 +265,7 @@
     <Content Include="Assets\Default\Emulators\Nintendo 64\Super Mario 64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Emulators\Nintendo 64.png">
+    <Content Include="Assets\Default\Emulators\_Amiibo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Emulators\_Bios.png">
@@ -284,6 +284,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Emulators\_Update.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Default\Icons\Computer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Default\Icons\OperatingSystem.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Icons\Other.png">
@@ -343,7 +349,7 @@
     <Content Include="Assets\User\Assets in this folder will not get overwritten when updating">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Default\Emulators\Nintendo 64.json">
+    <Content Include="Assets\Default\Emulators\Nintendo 64\Platform.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Default\Emulators\Nintendo 64\Mario Kart 64.json">

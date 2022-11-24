@@ -20,17 +20,17 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerHowLongToBeat = new DataBindString();
-                AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerHowLongToBeat.Name = "How long to beat information";
                 Answers.Add(AnswerHowLongToBeat);
 
                 DataBindString AnswerDownload = new DataBindString();
-                AnswerDownload.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerDownload.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerDownload.Name = "Download game information";
                 Answers.Add(AnswerDownload);
 
                 DataBindString AnswerHide = new DataBindString();
-                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Hide.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerHide.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Hide.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerHide.Name = "Hide the launcher application";
                 Answers.Add(AnswerHide);
 
@@ -50,7 +50,7 @@ namespace CtrlUI
                     }
                     else if (messageResult == AnswerDownload)
                     {
-                        DownloadInfoGame informationDownloaded = await DownloadInfoGame(dataBindApp.Name, 100, true);
+                        DownloadInfoGame informationDownloaded = await DownloadInfoGame(dataBindApp.Name, string.Empty, 100, true, false);
                         if (informationDownloaded != null)
                         {
                             if (informationDownloaded.ImageBitmap != null)

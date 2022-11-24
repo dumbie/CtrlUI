@@ -48,7 +48,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                         Answer1.Name = "Update and restart CtrlUI";
                         Answers.Add(Answer1);
 
@@ -65,7 +65,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> Answers = new List<DataBindString>();
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                         Answer1.Name = "Ok";
                         Answers.Add(Answer1);
 
@@ -91,7 +91,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> Answers = new List<DataBindString>();
                     DataBindString Answer1 = new DataBindString();
-                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     Answer1.Name = "Ok";
                     Answers.Add(Answer1);
 

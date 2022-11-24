@@ -8,12 +8,14 @@ namespace LibraryShared
         {
             public BitmapImage ImageBitmap { get; set; }
             public ApiIGDBGames Details { get; set; }
+            public string Summary { get; set; }
         }
 
-        public class DownloadInfoConsole
+        public class DownloadInfoPlatform
         {
             public BitmapImage ImageBitmap { get; set; }
             public ApiIGDBPlatformVersions Details { get; set; }
+            public string Summary { get; set; }
         }
     }
 }

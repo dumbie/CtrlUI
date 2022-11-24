@@ -17,7 +17,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Get and list all the disk drives
-        async Task PickerLoadPC()
+        async Task PickerLoadPC(bool emuImages)
         {
             try
             {
@@ -46,22 +46,22 @@ namespace CtrlUI
                 });
 
                 //Load folder images
-                BitmapImage imageFolder = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                BitmapImage imageFolderDisc = FileToBitmapImage(new string[] { "Assets/Default/Icons/FolderDisc.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                BitmapImage imageFolderNetwork = FileToBitmapImage(new string[] { "Assets/Default/Icons/FolderNetwork.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                BitmapImage imageFolderPrevious = FileToBitmapImage(new string[] { "Assets/Default/Icons/Restart.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                BitmapImage imageFolderDocuments = FileToBitmapImage(new string[] { "Assets/Default/Icons/Copy.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                BitmapImage imageFolderDesktop = FileToBitmapImage(new string[] { "Assets/Default/Icons/Desktop.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                BitmapImage imageFolderDownload = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                BitmapImage imageFolderPictures = FileToBitmapImage(new string[] { "Assets/Default/Icons/Background.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                BitmapImage imageFolderVideos = FileToBitmapImage(new string[] { "Assets/Default/Icons/BackgroundVideo.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
-                BitmapImage imageFolderMusic = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFolder = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFolderDisc = FileToBitmapImage(new string[] { "Assets/Default/Icons/FolderDisc.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFolderNetwork = FileToBitmapImage(new string[] { "Assets/Default/Icons/FolderNetwork.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFolderPrevious = FileToBitmapImage(new string[] { "Assets/Default/Icons/Restart.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFolderDocuments = FileToBitmapImage(new string[] { "Assets/Default/Icons/Copy.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFolderDesktop = FileToBitmapImage(new string[] { "Assets/Default/Icons/Desktop.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFolderDownload = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFolderPictures = FileToBitmapImage(new string[] { "Assets/Default/Icons/Background.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFolderVideos = FileToBitmapImage(new string[] { "Assets/Default/Icons/BackgroundVideo.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageFolderMusic = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
 
                 //Add launch without a file option
                 if (vFilePickerShowNoFile)
                 {
                     string fileDescription = "Launch application without a file";
-                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     DataBindFile dataBindFileWithoutFile = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = fileImage, PathFile = string.Empty };
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutFile, false, false);
                 }
@@ -96,6 +96,12 @@ namespace CtrlUI
                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
                 DataBindFile dataBindFileVideos = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Videos", ImageBitmap = imageFolderVideos, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) };
                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileVideos, false, false);
+
+                if (emuImages)
+                {
+                    DataBindFile dataBindEmuImages = new DataBindFile() { FileType = FileType.FolderPre, Name = "Emulator images", ImageBitmap = vImagePreloadEmulator, PathFile = "Assets\\Default\\Emulators" };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindEmuImages, false, false);
+                }
 
                 //Load file browser settings
                 bool hideNetworkDrives = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideNetworkDrives"));

@@ -80,13 +80,11 @@ namespace CtrlUI
                     {
                         lb_FilePicker.Style = Application.Current.Resources["ListBoxWrapPanelVertical"] as Style;
                         lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemRom"] as DataTemplate;
-                        grid_Popup_Filepicker_Row1.HorizontalAlignment = HorizontalAlignment.Center;
                     }
                     else
                     {
                         lb_FilePicker.Style = Application.Current.Resources["ListBoxVertical"] as Style;
                         lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemFile"] as DataTemplate;
-                        grid_Popup_Filepicker_Row1.HorizontalAlignment = HorizontalAlignment.Stretch;
                     }
 
                     //Update the navigation history index
@@ -110,7 +108,12 @@ namespace CtrlUI
                 if (targetPath == "PC")
                 {
                     //Get and list all the disk drives
-                    await PickerLoadPC();
+                    await PickerLoadPC(false);
+                }
+                else if (targetPath == "PCEMU")
+                {
+                    //Get and list all the disk drives
+                    await PickerLoadPC(true);
                 }
                 else if (targetPath == "UWP")
                 {
@@ -120,7 +123,7 @@ namespace CtrlUI
                 else
                 {
                     //Get and list all files and folders
-                    await PickerLoadFilesFolders(targetPath, targetIndex);
+                    await PickerLoadFilesFolders(targetPath);
                 }
 
                 //Update file picker loading status
@@ -267,7 +270,7 @@ namespace CtrlUI
                     romNameFiltered = FilterNameGame(listName, false, true, false, 0);
                     subPathImagePng = Path.Combine(listPath, listName + ".png");
                     subPathImageJpg = Path.Combine(listPath, listName + ".jpg");
-                    subPathDescription = Path.Combine(listPath, listName + ".txt");
+                    subPathDescription = Path.Combine(listPath, listName + ".json");
                 }
                 else
                 {
@@ -307,12 +310,12 @@ namespace CtrlUI
                 }
 
                 //Update description and image
-                listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "Rom" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 210, 0);
+                listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "_Rom" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 210, 0);
                 string jsonFile = FileToString(new string[] { romPathDescription, subPathDescription });
                 if (jsonFile.Contains("platform_logo"))
                 {
                     ApiIGDBPlatformVersions platformVersionsJson = JsonConvert.DeserializeObject<ApiIGDBPlatformVersions>(jsonFile);
-                    listDescription = ApiIGDB_ConsoleSummaryString(platformVersionsJson);
+                    listDescription = ApiIGDB_PlatformSummaryString(platformVersionsJson);
                 }
                 else
                 {

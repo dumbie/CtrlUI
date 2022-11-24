@@ -11,12 +11,12 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Download igdb platforms
-        public async Task<bool> ApiIGDBDownloadPlatforms()
+        //Download igdb genres
+        public async Task<bool> ApiIGDB_DownloadGenres()
         {
             try
             {
-                Debug.WriteLine("Downloading IGDB platforms.");
+                Debug.WriteLine("Downloading IGDB genres.");
 
                 //Authenticate with Twitch
                 string authAccessToken = await ApiTwitch_Authenticate();
@@ -32,27 +32,27 @@ namespace CtrlUI
                 string[][] requestHeaders = new string[][] { requestAccept, requestClientID, requestAuthorization };
 
                 //Create request uri
-                Uri requestUri = new Uri("https://api.igdb.com/v4/platforms");
+                Uri requestUri = new Uri("https://api.igdb.com/v4/genres");
 
                 //Create request body
-                string requestBodyString = "fields *; sort id asc;";
+                string requestBodyString = "fields *; limit 500; sort id asc;";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
-                //Download igdb platforms
+                //Download igdb genres
                 string resultSearch = await AVDownloader.SendPostRequestAsync(5000, "CtrlUI", requestHeaders, requestUri, requestBodyStringContent);
                 if (string.IsNullOrWhiteSpace(resultSearch))
                 {
-                    Debug.WriteLine("Failed downloading IGDB platforms.");
+                    Debug.WriteLine("Failed downloading IGDB genres.");
                     return false;
                 }
 
-                //Save igdb platforms
-                File.WriteAllText("Resources/ApiIGDB/Platforms.json", resultSearch);
+                //Save igdb genres
+                File.WriteAllText("Resources/ApiIGDB/Genres.json", resultSearch);
                 return true;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed downloading IGDB platforms: " + ex.Message);
+                Debug.WriteLine("Failed downloading IGDB genres: " + ex.Message);
                 return false;
             }
         }

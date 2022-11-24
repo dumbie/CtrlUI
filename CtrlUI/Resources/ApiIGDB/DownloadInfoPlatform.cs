@@ -18,40 +18,28 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Download game information
-        public async Task<DownloadInfoGame> DownloadInfoGame(string nameGame, string nameEmulatorPlatform, int imageWidth, bool downloadImage, bool useCache)
+        //Download platform information
+        public async Task<DownloadInfoPlatform> DownloadInfoPlatform(string namePlatform, int imageWidth, bool downloadImage, bool useCache)
         {
             try
             {
                 //Filter the name
-                string namePlatformSave = FilterNameFile(nameEmulatorPlatform);
-                string nameGameSave = FilterNameFile(nameGame);
-                string nameGameSearch = FilterNameGame(nameGame, true, false, true, 0);
-                string userSaveDirectory = string.Empty;
-                string defaultDirectory = string.Empty;
-                if (!string.IsNullOrWhiteSpace(nameEmulatorPlatform))
-                {
-                    userSaveDirectory = "Assets/User/Emulators/" + namePlatformSave + "/";
-                    defaultDirectory = "Assets/Default/Emulators/" + namePlatformSave + "/";
-                }
-                else
-                {
-                    userSaveDirectory = "Assets/User/Games/";
-                    defaultDirectory = "Assets/Default/Games/";
-                }
+                string namePlatformSave = FilterNameFile(namePlatform);
+                string userSaveDirectory = "Assets/User/Emulators/" + namePlatformSave + "/";
+                string defaultDirectory = "Assets/Default/Emulators/" + namePlatformSave + "/";
 
                 //Load and return cached
                 if (useCache)
                 {
                     //Create return object
-                    DownloadInfoGame cacheInfo = new DownloadInfoGame();
+                    DownloadInfoPlatform cacheInfo = new DownloadInfoPlatform();
 
                     //Load details and summary
-                    string jsonFile = FileToString(new string[] { userSaveDirectory + nameGameSave + ".json", defaultDirectory + nameGameSave + ".json" });
+                    string jsonFile = FileToString(new string[] { userSaveDirectory + "Platform.json", defaultDirectory + "Platform.json" });
                     if (!string.IsNullOrWhiteSpace(jsonFile))
                     {
-                        cacheInfo.Details = JsonConvert.DeserializeObject<ApiIGDBGames>(jsonFile);
-                        cacheInfo.Summary = ApiIGDB_GameSummaryString(cacheInfo.Details);
+                        cacheInfo.Details = JsonConvert.DeserializeObject<ApiIGDBPlatformVersions>(jsonFile);
+                        cacheInfo.Summary = ApiIGDB_PlatformSummaryString(cacheInfo.Details);
                     }
                     else
                     {
@@ -66,7 +54,7 @@ namespace CtrlUI
                 }
 
                 //Show the text input popup
-                string nameDownload = await Popup_ShowHide_TextInput("Game search", nameGameSearch, "Search information for the game", true);
+                string nameDownload = await Popup_ShowHide_TextInput("Platform search", namePlatformSave, "Search information for the platform", true);
                 if (string.IsNullOrWhiteSpace(nameDownload))
                 {
                     Debug.WriteLine("No search term entered.");
@@ -74,45 +62,32 @@ namespace CtrlUI
                 }
                 nameDownload = nameDownload.ToLower();
 
-                await Notification_Send_Status("Download", "Downloading information");
-                Debug.WriteLine("Downloading information for: " + nameGame);
-
-                //Download available games
-                ApiIGDBGames[] iGDBGames = await ApiIGDB_DownloadGames(nameDownload);
-                if (iGDBGames == null || !iGDBGames.Any())
+                //Search for platforms
+                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => FilterNameGame(x.name, false, true, false, 0).Contains(nameDownload) || (x.alternative_name != null && FilterNameGame(x.alternative_name, false, true, false, 0).Contains(nameDownload)));
+                if (iGDBPlatforms == null || !iGDBPlatforms.Any())
                 {
-                    Debug.WriteLine("No games found for: " + nameGame);
-                    await Notification_Send_Status("Close", "No games found");
+                    Debug.WriteLine("No platforms found for: " + namePlatform);
+                    await Notification_Send_Status("Close", "No platforms found");
                     return null;
                 }
 
-                //Ask user which game to download
+                //Ask user which platform to download
                 List<DataBindString> Answers = new List<DataBindString>();
-                foreach (ApiIGDBGames infoGames in iGDBGames)
+                foreach (ApiIGDBPlatforms infoPlatforms in iGDBPlatforms)
                 {
-                    //Check if cover and summary is available
-                    if (infoGames.cover == 0 && string.IsNullOrWhiteSpace(infoGames.summary)) { continue; }
-
-                    //Release date
-                    ApiIGDB_ReleaseDateToString(infoGames, out string gameReleaseDate, out string gameReleaseYear);
-
-                    //Game platforms
-                    ApiIGDB_PlatformsToString(infoGames, out string gamePlatforms);
-
                     DataBindString answerDownload = new DataBindString();
-                    answerDownload.ImageBitmap = vImagePreloadGame;
-                    answerDownload.Name = infoGames.name;
-                    answerDownload.NameSub = gamePlatforms;
-                    answerDownload.NameDetail = gameReleaseYear;
-                    answerDownload.Data1 = infoGames;
+                    answerDownload.ImageBitmap = vImagePreloadEmulator;
+                    answerDownload.Name = infoPlatforms.name;
+                    answerDownload.NameSub = infoPlatforms.alternative_name;
+                    answerDownload.Data1 = infoPlatforms;
                     Answers.Add(answerDownload);
                 }
 
                 //Get selected result
-                DataBindString messageResult = await Popup_Show_MessageBox("Select a found game (" + Answers.Count() + ")", "* Information will be saved in the '" + userSaveDirectory + "' folder as:\n" + nameGameSave, "Download image and description for the game:", Answers);
+                DataBindString messageResult = await Popup_Show_MessageBox("Select a found platform (" + Answers.Count() + ")", "* Information will be saved in the '" + userSaveDirectory + "' folder", "Download image and description for the platform:", Answers);
                 if (messageResult == null)
                 {
-                    Debug.WriteLine("No game selected");
+                    Debug.WriteLine("No platform selected");
                     return null;
                 }
 
@@ -120,20 +95,34 @@ namespace CtrlUI
                 AVFiles.Directory_Create(userSaveDirectory, false);
 
                 //Convert result back to json
-                ApiIGDBGames selectedGame = (ApiIGDBGames)messageResult.Data1;
+                ApiIGDBPlatforms selectedPlatform = (ApiIGDBPlatforms)messageResult.Data1;
+
+                await Notification_Send_Status("Download", "Downloading information");
+                Debug.WriteLine("Downloading information for: " + namePlatform);
+
+                //Get the platform versions id
+                string firstPlatformId = selectedPlatform.versions.FirstOrDefault().ToString();
+                ApiIGDBPlatformVersions[] iGDBPlatformVersions = await ApiIGDB_DownloadPlatformVersions(firstPlatformId);
+                if (iGDBPlatformVersions == null || !iGDBPlatformVersions.Any())
+                {
+                    Debug.WriteLine("No information found");
+                    await Notification_Send_Status("Close", "No information found");
+                    return null;
+                }
+                ApiIGDBPlatformVersions targetPlatformVersions = iGDBPlatformVersions.FirstOrDefault();
 
                 //Download and save image
                 BitmapImage downloadedBitmapImage = null;
                 if (downloadImage)
                 {
                     await Notification_Send_Status("Download", "Downloading image");
-                    Debug.WriteLine("Downloading image for: " + nameGame);
+                    Debug.WriteLine("Downloading image for: " + namePlatform);
 
                     //Get the image url
-                    string downloadImageId = selectedGame.cover.ToString();
+                    string downloadImageId = targetPlatformVersions.platform_logo.ToString();
                     if (downloadImageId != "0")
                     {
-                        ApiIGDBImage[] iGDBImages = await ApiIGDB_DownloadImage(downloadImageId, "covers");
+                        ApiIGDBImage[] iGDBImages = await ApiIGDB_DownloadImage(downloadImageId, "platform_logos");
                         if (iGDBImages == null)
                         {
                             Debug.WriteLine("Failed to download images.");
@@ -142,8 +131,8 @@ namespace CtrlUI
                         }
                         else if (!iGDBImages.Any())
                         {
-                            Debug.WriteLine("No game images found.");
-                            await Notification_Send_Status("Close", "No game images found");
+                            Debug.WriteLine("No platform images found.");
+                            await Notification_Send_Status("Close", "No platform images found");
                             return null;
                         }
 
@@ -159,7 +148,7 @@ namespace CtrlUI
                                 downloadedBitmapImage = BytesToBitmapImage(imageBytes, imageWidth);
 
                                 //Save bytes to image file
-                                File.WriteAllBytes(userSaveDirectory + nameGameSave + ".png", imageBytes);
+                                File.WriteAllBytes(userSaveDirectory + "Platform.png", imageBytes);
 
                                 Debug.WriteLine("Saved image: " + imageBytes.Length + "bytes/" + imageUri);
                             }
@@ -168,8 +157,8 @@ namespace CtrlUI
                     }
                     else
                     {
-                        Debug.WriteLine("No game images found.");
-                        await Notification_Send_Status("Close", "No game images found");
+                        Debug.WriteLine("No platform images found.");
+                        await Notification_Send_Status("Close", "No platform images found");
                         return null;
                     }
                 }
@@ -179,35 +168,35 @@ namespace CtrlUI
                 jsonSettings.NullValueHandling = NullValueHandling.Ignore;
 
                 //Json serialize
-                string serializedObject = JsonConvert.SerializeObject(selectedGame, jsonSettings);
+                string serializedObject = JsonConvert.SerializeObject(targetPlatformVersions, jsonSettings);
 
                 //Save json information
-                File.WriteAllText(userSaveDirectory + nameGameSave + ".json", serializedObject);
+                File.WriteAllText(userSaveDirectory + "Platform.json", serializedObject);
 
                 await Notification_Send_Status("Download", "Downloaded information");
-                Debug.WriteLine("Downloaded and saved information for: " + nameGame);
+                Debug.WriteLine("Downloaded and saved information for: " + namePlatform);
 
                 //Return the information
-                DownloadInfoGame downloadInfo = new DownloadInfoGame();
+                DownloadInfoPlatform downloadInfo = new DownloadInfoPlatform();
                 downloadInfo.ImageBitmap = downloadedBitmapImage;
-                downloadInfo.Details = selectedGame;
-                downloadInfo.Summary = ApiIGDB_GameSummaryString(downloadInfo.Details);
+                downloadInfo.Details = targetPlatformVersions;
+                downloadInfo.Summary = ApiIGDB_PlatformSummaryString(downloadInfo.Details);
                 return downloadInfo;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed downloading game information: " + ex.Message);
-                await Notification_Send_Status("Close", "Failed downloading game");
+                Debug.WriteLine("Failed downloading platform information: " + ex.Message);
+                await Notification_Send_Status("Close", "Failed downloading platform");
                 return null;
             }
         }
 
-        //Download all available games
-        public async Task<ApiIGDBGames[]> ApiIGDB_DownloadGames(string gameName)
+        //Download platform version id information
+        public async Task<ApiIGDBPlatformVersions[]> ApiIGDB_DownloadPlatformVersions(string platformId)
         {
             try
             {
-                Debug.WriteLine("Downloading games for: " + gameName);
+                Debug.WriteLine("Downloading platform versions for: " + platformId);
 
                 //Authenticate with Twitch
                 string authAccessToken = await ApiTwitch_Authenticate();
@@ -223,33 +212,33 @@ namespace CtrlUI
                 string[][] requestHeaders = new string[][] { requestAccept, requestClientID, requestAuthorization };
 
                 //Create request uri
-                Uri requestUri = new Uri("https://api.igdb.com/v4/games");
+                Uri requestUri = new Uri("https://api.igdb.com/v4/platform_versions");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 100; search \"" + gameName + "\";";
+                string requestBodyString = "fields *; limit 100; where id = " + platformId + ";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
-                //Download available games
+                //Download available platform versions
                 string resultSearch = await AVDownloader.SendPostRequestAsync(5000, "CtrlUI", requestHeaders, requestUri, requestBodyStringContent);
                 if (string.IsNullOrWhiteSpace(resultSearch))
                 {
-                    Debug.WriteLine("Failed downloading games.");
+                    Debug.WriteLine("Failed downloading platform versions.");
                     return null;
                 }
 
                 //Check if status is set
                 if (resultSearch.Contains("\"status\"") && resultSearch.Contains("\"type\""))
                 {
-                    Debug.WriteLine("Received invalid games data.");
+                    Debug.WriteLine("Received invalid platform versions data.");
                     return null;
                 }
 
-                //Return games sorted
-                return JsonConvert.DeserializeObject<ApiIGDBGames[]>(resultSearch).OrderBy(x => x.name).ToArray();
+                //Return platform versions
+                return JsonConvert.DeserializeObject<ApiIGDBPlatformVersions[]>(resultSearch);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed downloading games: " + ex.Message);
+                Debug.WriteLine("Failed downloading platform versions: " + ex.Message);
                 return null;
             }
         }

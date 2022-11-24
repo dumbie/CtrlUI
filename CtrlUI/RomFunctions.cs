@@ -28,7 +28,7 @@ namespace CtrlUI
         }
 
         //Filter game name
-        public string FilterNameGame(string nameFile, bool removeExtension, bool removeSpaces, bool removeConsole, int takeWords)
+        public string FilterNameGame(string nameFile, bool removeExtension, bool removeSpaces, bool removePlatform, int takeWords)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace CtrlUI
                     nameFile = Regex.Replace(nameFile, @"\b" + replaceString + @"\b", string.Empty);
                 }
 
-                if (removeConsole)
+                if (removePlatform)
                 {
                     IEnumerable<string> consoleSlugNames = vApiIGDBPlatforms.Select(x => x.slug).Where(x => !string.IsNullOrWhiteSpace(x));
                     foreach (string replaceString in consoleSlugNames)

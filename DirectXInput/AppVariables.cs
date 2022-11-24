@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
-using System.IO;
 using System.Security.Principal;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -27,16 +26,9 @@ namespace DirectXInput
         public static Configuration vConfigurationDirectXInput = Settings_Load_DirectXInput();
 
         //Image Variables
-        public static ImageSourceFolders[] vImageSourceFolders =
-        {
-            new ImageSourceFolders() { SourcePath = "Assets/User/Apps", SearchOption = SearchOption.AllDirectories },
-            new ImageSourceFolders() { SourcePath = "Assets/Default/Apps", SearchOption = SearchOption.AllDirectories },
-            new ImageSourceFolders() { SourcePath = "Assets/User/Games", SearchOption = SearchOption.AllDirectories },
-            new ImageSourceFolders() { SourcePath = "Assets/Default/Games", SearchOption = SearchOption.AllDirectories }
-        };
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
-        public static BitmapImage vImagePreloadIconControllerAccent = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
-        public static BitmapImage vImagePreloadIconControllerDark = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadIconControllerAccent = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Accent.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
+        public static BitmapImage vImagePreloadIconControllerDark = FileToBitmapImage(new string[] { "Assets/Default/Icons/Controller-Dark.png" }, null, vImageBackupSource, IntPtr.Zero, 100, 0);
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;

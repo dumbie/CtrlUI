@@ -78,7 +78,7 @@ namespace CtrlUI
             {
                 DataBindString menuButtonMonitor = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Monitor.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Monitor.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Change display monitor settings",
                     Data1 = "menuButtonMonitor"
                 };
@@ -86,7 +86,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonAudioDevice = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeUp.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/VolumeUp.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Switch audio playback device",
                     Data1 = "menuButtonAudioDevice"
                 };
@@ -94,7 +94,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonFps = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Fps.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Fps.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Show or hide the fps overlayer",
                     Data1 = "menuButtonFps"
                 };
@@ -102,7 +102,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonRunExe = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRunExe.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRunExe.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Launch an executable file from disk",
                     Data1 = "menuButtonRunExe"
                 };
@@ -110,7 +110,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonRunStore = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRunStore.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppRunStore.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Launch Windows store application",
                     Data1 = "menuButtonRunStore"
                 };
@@ -118,7 +118,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonAddExe = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddExe.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddExe.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Add an executable file to application list",
                     Data1 = "menuButtonAddExe"
                 };
@@ -126,7 +126,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonAddStore = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddStore.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddStore.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Add Windows store application to the list",
                     Data1 = "menuButtonAddStore"
                 };
@@ -134,7 +134,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonDisconnect = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Stream.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Stream.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Disconnect active remote streams",
                     Data1 = "menuButtonDisconnect"
                 };
@@ -142,7 +142,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonCloseLaunchers = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Close other running app launchers",
                     Data1 = "menuButtonCloseLaunchers"
                 };
@@ -150,7 +150,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonShutdown = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shutdown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shutdown.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Close CtrlUI or shutdown the PC",
                     Data1 = "menuButtonShutdown"
                 };
@@ -158,7 +158,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonShowFileManager = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Show file browser and manager",
                     Data1 = "menuButtonShowFileManager"
                 };
@@ -166,7 +166,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonRecycleBin = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Manage Windows recycle bin",
                     Data1 = "menuButtonRecycleBin"
                 };
@@ -174,7 +174,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonProfileManager = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Profile.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Profile.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Open the profile manager",
                     Data1 = "menuButtonProfileManager"
                 };
@@ -182,7 +182,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonSettings = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Settings.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Settings.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Open application settings",
                     Data1 = "menuButtonSettings"
                 };
@@ -190,7 +190,7 @@ namespace CtrlUI
 
                 DataBindString menuButtonHelp = new DataBindString
                 {
-                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Help.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                    ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Help.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                     Name = "Show application help",
                     Data1 = "menuButtonHelp"
                 };
@@ -211,7 +211,7 @@ namespace CtrlUI
                 {
                     DataBindString menuButtonUpdateRestart = new DataBindString
                     {
-                        ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0),
+                        ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Refresh.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
                         Name = "Update and restart CtrlUI",
                         Data1 = "menuButtonUpdateRestart"
                     };

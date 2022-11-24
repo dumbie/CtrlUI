@@ -26,10 +26,10 @@ namespace DirectXInput.KeyboardCode
                         clockPath = "Assets/User/Clocks/" + clockStyle;
                     }
 
-                    img_Main_Time_Face.Source = FileToBitmapImage(new string[] { clockPath + "/Face.png" }, AppVariables.vImageSourceFolders, AppVariables.vImageBackupSource, IntPtr.Zero, 40, 0);
-                    img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { clockPath + "/Hour.png" }, AppVariables.vImageSourceFolders, AppVariables.vImageBackupSource, IntPtr.Zero, 40, 0);
-                    img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { clockPath + "/Minute.png" }, AppVariables.vImageSourceFolders, AppVariables.vImageBackupSource, IntPtr.Zero, 40, 0);
-                    img_Main_Time_Center.Source = FileToBitmapImage(new string[] { clockPath + "/Center.png" }, AppVariables.vImageSourceFolders, AppVariables.vImageBackupSource, IntPtr.Zero, 40, 0);
+                    img_Main_Time_Face.Source = FileToBitmapImage(new string[] { clockPath + "/Face.png" }, null, AppVariables.vImageBackupSource, IntPtr.Zero, 40, 0);
+                    img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { clockPath + "/Hour.png" }, null, AppVariables.vImageBackupSource, IntPtr.Zero, 40, 0);
+                    img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { clockPath + "/Minute.png" }, null, AppVariables.vImageBackupSource, IntPtr.Zero, 40, 0);
+                    img_Main_Time_Center.Source = FileToBitmapImage(new string[] { clockPath + "/Center.png" }, null, AppVariables.vImageBackupSource, IntPtr.Zero, 40, 0);
                 });
             }
             catch { }
@@ -118,7 +118,7 @@ namespace DirectXInput.KeyboardCode
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         txt_Main_Battery.Visibility = Visibility.Collapsed;
-                        img_Main_Battery.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Battery/BatteryVerCharge.png" }, AppVariables.vImageSourceFolders, AppVariables.vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Main_Battery.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Battery/BatteryVerCharge.png" }, null, AppVariables.vImageBackupSource, IntPtr.Zero, -1, 0);
                         img_Main_Battery.Visibility = Visibility.Visible;
                         grid_Main_Time.Visibility = Visibility.Visible;
                     });
@@ -148,7 +148,7 @@ namespace DirectXInput.KeyboardCode
                     string updatedImage = "Assets/Default/Icons/Battery/BatteryVerDis" + percentageNumber + ".png";
                     if (currentImage.ToLower() != updatedImage.ToLower())
                     {
-                        img_Main_Battery.Source = FileToBitmapImage(new string[] { updatedImage }, AppVariables.vImageSourceFolders, AppVariables.vImageBackupSource, IntPtr.Zero, -1, 0);
+                        img_Main_Battery.Source = FileToBitmapImage(new string[] { updatedImage }, null, AppVariables.vImageBackupSource, IntPtr.Zero, -1, 0);
                     }
 
                     //Show the battery image and clock

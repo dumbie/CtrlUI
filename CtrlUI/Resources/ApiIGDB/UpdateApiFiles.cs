@@ -23,8 +23,8 @@ namespace CtrlUI
                 double daysPassed = DateTime.Now.Subtract(lastUpdateDateTime).TotalDays;
                 if (daysPassed > 7)
                 {
-                    bool genresUpdated = await ApiIGDBDownloadGenres();
-                    bool platformsUpdated = await ApiIGDBDownloadPlatforms();
+                    bool genresUpdated = await ApiIGDB_DownloadGenres();
+                    bool platformsUpdated = await ApiIGDB_DownloadPlatforms();
                     if (genresUpdated && platformsUpdated)
                     {
                         Setting_Save(vConfigurationCtrlUI, "ApiIGDBUpdate", DateTime.Now.ToString(vAppCultureInfo));

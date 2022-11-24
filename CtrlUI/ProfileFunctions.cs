@@ -235,7 +235,7 @@ namespace CtrlUI
                 //Add profile categories
                 List<DataBindString> Answers = new List<DataBindString>();
 
-                BitmapImage imageProfile = FileToBitmapImage(new string[] { "Assets/Default/Icons/Profile.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                BitmapImage imageProfile = FileToBitmapImage(new string[] { "Assets/Default/Icons/Profile.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
 
                 DataBindString stringCtrlLocationsShortcut = new DataBindString() { Name = "Shortcut locations", Data1 = "CtrlLocationsShortcut", ImageBitmap = imageProfile };
                 Answers.Add(stringCtrlLocationsShortcut);

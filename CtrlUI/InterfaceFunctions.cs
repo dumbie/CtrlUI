@@ -215,10 +215,10 @@ namespace CtrlUI
                     clockPath = "Assets/User/Clocks/" + clockStyle;
                 }
 
-                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { clockPath + "/Face.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
-                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { clockPath + "/Hour.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
-                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { clockPath + "/Minute.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
-                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { clockPath + "/Center.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 40, 0);
+                img_Main_Time_Face.Source = FileToBitmapImage(new string[] { clockPath + "/Face.png" }, null, vImageBackupSource, IntPtr.Zero, 40, 0);
+                img_Main_Time_Hour.Source = FileToBitmapImage(new string[] { clockPath + "/Hour.png" }, null, vImageBackupSource, IntPtr.Zero, 40, 0);
+                img_Main_Time_Minute.Source = FileToBitmapImage(new string[] { clockPath + "/Minute.png" }, null, vImageBackupSource, IntPtr.Zero, 40, 0);
+                img_Main_Time_Center.Source = FileToBitmapImage(new string[] { clockPath + "/Center.png" }, null, vImageBackupSource, IntPtr.Zero, 40, 0);
             }
             catch { }
         }

@@ -89,12 +89,12 @@ namespace CtrlUI
                 //Confirm file remove prompt
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerRecycle = new DataBindString();
-                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 answerRecycle.Name = "Move file or folder to recycle bin*";
                 messageAnswers.Add(answerRecycle);
 
                 DataBindString answerPerma = new DataBindString();
-                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 answerPerma.Name = "Remove file or folder permanently";
                 messageAnswers.Add(answerPerma);
 
@@ -130,12 +130,12 @@ namespace CtrlUI
                 //Confirm file remove prompt
                 List<DataBindString> messageAnswers = new List<DataBindString>();
                 DataBindString answerRecycle = new DataBindString();
-                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerRecycle.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 answerRecycle.Name = "Move files or folders to recycle bin*";
                 messageAnswers.Add(answerRecycle);
 
                 DataBindString answerPerma = new DataBindString();
-                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                answerPerma.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/RemoveCross.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 answerPerma.Name = "Remove files or folders permanently";
                 messageAnswers.Add(answerPerma);
 

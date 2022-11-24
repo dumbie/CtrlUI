@@ -283,7 +283,7 @@ namespace DirectXInput.KeyboardCode
                     }
                     else
                     {
-                        image_Information_Thumbnail.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        image_Information_Thumbnail.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     }
                     grid_MediaPlaying.Visibility = Visibility.Visible;
                     textblock_MediaNone.Visibility = Visibility.Collapsed;

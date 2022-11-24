@@ -42,7 +42,7 @@ namespace CtrlUI
         public static string[] vSelectNearCharacterLists = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes", "lb_Search", "lb_FilePicker" };
         public static string[] vLoopTargetListsFirstLastColumn = { "lb_Games", "lb_Apps", "lb_Emulators", "lb_Launchers", "lb_Shortcuts", "lb_Processes" };
         public static string[] vLoopTargetListsFirstLastItem = { "listbox_MainMenu", "lb_MessageBox" };
-        public static string[] vTabTargetListsSingle = { "lb_Manage_AddAppCategory" };
+        public static string[] vTabTargetListsSingle = { "lb_Manage_AddAppCategory", "lb_Manage_AddEmulatorCategory" };
         public static string[] vTabTargetListsFirstLastColumn = { "lb_Search" };
         public static string[] vTabTargetListsFirstLastItem = { "lb_FilePicker", "lb_ProfileManager" };
         public static string[] vTabTargetButtonsDown = { "btn_Monitor_Switch_Primary", "grid_Popup_TextInput_button_ConfirmText", "btn_Manage_SaveEditApp" };
@@ -57,7 +57,9 @@ namespace CtrlUI
             new ImageSourceFolders() { SourcePath = "Assets/User/Apps", SearchOption = SearchOption.AllDirectories },
             new ImageSourceFolders() { SourcePath = "Assets/Default/Apps", SearchOption = SearchOption.AllDirectories },
             new ImageSourceFolders() { SourcePath = "Assets/User/Games", SearchOption = SearchOption.AllDirectories },
-            new ImageSourceFolders() { SourcePath = "Assets/Default/Games", SearchOption = SearchOption.AllDirectories }
+            new ImageSourceFolders() { SourcePath = "Assets/Default/Games", SearchOption = SearchOption.AllDirectories },
+            new ImageSourceFolders() { SourcePath = "Assets/User/Emulators", SearchOption = SearchOption.AllDirectories },
+            new ImageSourceFolders() { SourcePath = "Assets/Default/Emulators", SearchOption = SearchOption.AllDirectories }
         };
         public static int vImageLoadSize = 150;
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
@@ -71,19 +73,22 @@ namespace CtrlUI
         public static BitmapImage vImagePreloadDiscord = FileToBitmapImage(new string[] { "Discord" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
         public static BitmapImage vImagePreloadMicrosoft = FileToBitmapImage(new string[] { "Microsoft" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
         public static BitmapImage vImagePreloadAmazon = FileToBitmapImage(new string[] { "Amazon" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadConsole = FileToBitmapImage(new string[] { "Assets/Default/Icons/Console.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadHandheld = FileToBitmapImage(new string[] { "Assets/Default/Icons/Handheld.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadPong = FileToBitmapImage(new string[] { "Assets/Default/Icons/Pong.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadVirtualReality = FileToBitmapImage(new string[] { "Assets/Default/Icons/VirtualReality.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadArcade = FileToBitmapImage(new string[] { "Assets/Default/Icons/Arcade.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadPinball = FileToBitmapImage(new string[] { "Assets/Default/Icons/Pinball.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadChess = FileToBitmapImage(new string[] { "Assets/Default/Icons/Chess.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadApp = FileToBitmapImage(new string[] { "Assets/Default/Icons/App.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadGame = FileToBitmapImage(new string[] { "Assets/Default/Icons/Game.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadEmulator = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadProcess = FileToBitmapImage(new string[] { "Assets/Default/Icons/Process.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadShortcut = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shortcut.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-        public static BitmapImage vImagePreloadUnknownApp = FileToBitmapImage(new string[] { "Assets/Default/Apps/Unknown.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadConsole = FileToBitmapImage(new string[] { "Assets/Default/Icons/Console.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadHandheld = FileToBitmapImage(new string[] { "Assets/Default/Icons/Handheld.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadComputer = FileToBitmapImage(new string[] { "Assets/Default/Icons/Computer.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadPong = FileToBitmapImage(new string[] { "Assets/Default/Icons/Pong.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadVirtualReality = FileToBitmapImage(new string[] { "Assets/Default/Icons/VirtualReality.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadOperatingSystem = FileToBitmapImage(new string[] { "Assets/Default/Icons/OperatingSystem.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadArcade = FileToBitmapImage(new string[] { "Assets/Default/Icons/Arcade.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadPinball = FileToBitmapImage(new string[] { "Assets/Default/Icons/Pinball.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadChess = FileToBitmapImage(new string[] { "Assets/Default/Icons/Chess.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadApp = FileToBitmapImage(new string[] { "Assets/Default/Icons/App.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadGame = FileToBitmapImage(new string[] { "Assets/Default/Icons/Game.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadEmulator = FileToBitmapImage(new string[] { "Assets/Default/Icons/Emulator.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadProcess = FileToBitmapImage(new string[] { "Assets/Default/Icons/Process.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadShortcut = FileToBitmapImage(new string[] { "Assets/Default/Icons/Shortcut.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadUnknownApp = FileToBitmapImage(new string[] { "Assets/Default/Apps/Unknown.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+        public static BitmapImage vImagePreloadHelp = FileToBitmapImage(new string[] { "Assets/Default/Icons/Help.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
 
         //Busy Variables
         public static bool vBusyChangingWindow = false;
@@ -139,11 +144,13 @@ namespace CtrlUI
         public static bool vFilePickerLoadBusy = false;
         public static bool vFilePickerLoadCancel = false;
         public static DataBindFile vFilePickerResult = null;
+        public static DataBindApp vFilePickerSourceDataBindApp = null;
         public static FrameworkElementFocus vFilePickerElementFocus = new FrameworkElementFocus();
         public static List<PickerNavigation> vFilePickerNavigationHistory = new List<PickerNavigation>();
         public static string vFilePickerSourcePath = string.Empty;
         public static string vFilePickerCurrentPath = string.Empty;
         public static string vFilePickerPreviousPath = string.Empty;
+        public static string vFilePickerBlockGoUpPath = string.Empty;
         public static List<string> vFilePickerFilterIn = new List<string>();
         public static List<string> vFilePickerFilterOut = new List<string>();
         public static string vFilePickerTitle = "File Browser";

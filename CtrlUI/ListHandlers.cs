@@ -103,23 +103,23 @@ namespace CtrlUI
                 DataBindString AnswerHowLongToBeat = new DataBindString();
                 if (dataBindApp.Category == AppCategory.Game)
                 {
-                    AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     AnswerHowLongToBeat.Name = "How long to beat information";
                     Answers.Add(AnswerHowLongToBeat);
                 }
 
                 DataBindString AnswerEdit = new DataBindString();
-                AnswerEdit.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Edit.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerEdit.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Edit.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerEdit.Name = "Edit this application details";
                 Answers.Add(AnswerEdit);
 
                 DataBindString AnswerRemove = new DataBindString();
-                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerRemove.Name = "Remove application from list";
                 Answers.Add(AnswerRemove);
 
                 DataBindString AnswerMove = new DataBindString();
-                AnswerMove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Move.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerMove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Move.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerMove.Name = "Move application position in list";
                 Answers.Add(AnswerMove);
 

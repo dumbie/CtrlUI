@@ -35,7 +35,7 @@ namespace DirectXInput.OverlayCode
                     try
                     {
                         //Set notification text
-                        grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/" + notificationDetails.Icon + ".png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        grid_Message_Status_Image.Source = FileToBitmapImage(new string[] { "Assets/Default/Icons/" + notificationDetails.Icon + ".png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                         grid_Message_Status_Text.Text = notificationDetails.Text;
                         if (notificationDetails.Color != null)
                         {

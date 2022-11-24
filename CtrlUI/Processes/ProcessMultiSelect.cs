@@ -34,7 +34,7 @@ namespace CtrlUI
                                 }
 
                                 DataBindString AnswerApp = new DataBindString();
-                                AnswerApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Process.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                                AnswerApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Process.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                                 AnswerApp.Name = ProcessTitle;
                                 AnswerApp.NameSub = multiProcess.Identifier.ToString();
                                 multiAnswers.Add(AnswerApp);
@@ -43,12 +43,12 @@ namespace CtrlUI
                         }
 
                         DataBindString Answer1 = new DataBindString();
-                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                         Answer1.Name = "Launch new instance";
                         multiAnswers.Add(Answer1);
 
                         DataBindString Answer2 = new DataBindString();
-                        Answer2.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer2.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppClose.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                         Answer2.Name = "Close all the instances";
                         multiAnswers.Add(Answer2);
 

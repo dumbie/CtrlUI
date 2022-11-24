@@ -79,11 +79,13 @@ namespace CtrlUI
                     //Set emulator category image
                     if (dataBindApp.EmulatorCategory == EmulatorCategory.Console) { dataBindApp.StatusCategoryImage = vImagePreloadConsole; }
                     else if (dataBindApp.EmulatorCategory == EmulatorCategory.Handheld) { dataBindApp.StatusCategoryImage = vImagePreloadHandheld; }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Computer) { dataBindApp.StatusCategoryImage = vImagePreloadComputer; }
                     else if (dataBindApp.EmulatorCategory == EmulatorCategory.Arcade) { dataBindApp.StatusCategoryImage = vImagePreloadArcade; }
                     else if (dataBindApp.EmulatorCategory == EmulatorCategory.Pinball) { dataBindApp.StatusCategoryImage = vImagePreloadPinball; }
                     else if (dataBindApp.EmulatorCategory == EmulatorCategory.Pong) { dataBindApp.StatusCategoryImage = vImagePreloadPong; }
                     else if (dataBindApp.EmulatorCategory == EmulatorCategory.Chess) { dataBindApp.StatusCategoryImage = vImagePreloadChess; }
                     else if (dataBindApp.EmulatorCategory == EmulatorCategory.VirtualReality) { dataBindApp.StatusCategoryImage = vImagePreloadVirtualReality; }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.OperatingSystem) { dataBindApp.StatusCategoryImage = vImagePreloadOperatingSystem; }
                     else if (dataBindApp.EmulatorCategory == EmulatorCategory.Other) { dataBindApp.StatusCategoryImage = null; }
 
                     await ListBoxAddItem(lb_Emulators, List_Emulators, dataBindApp, false, false);
@@ -108,7 +110,7 @@ namespace CtrlUI
                 {
                     List<DataBindString> messageAnswers = new List<DataBindString>();
                     DataBindString answerYes = new DataBindString();
-                    answerYes.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    answerYes.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                     answerYes.Name = "Remove application from list";
                     messageAnswers.Add(answerYes);
 
@@ -176,7 +178,7 @@ namespace CtrlUI
         }
 
         //Add categories to manage interface
-        private void ManageInterace_AddCategories()
+        private void ManageInterface_AddCategories()
         {
             try
             {
@@ -202,7 +204,7 @@ namespace CtrlUI
                 List<DataBindString> listEmulatorCategories = new List<DataBindString>();
 
                 DataBindString categoryOther = new DataBindString();
-                categoryOther.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Other.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                categoryOther.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Other.png" }, null, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
                 categoryOther.Name = "Other";
                 listEmulatorCategories.Add(categoryOther);
 
@@ -215,6 +217,11 @@ namespace CtrlUI
                 categoryHandheld.ImageBitmap = vImagePreloadHandheld;
                 categoryHandheld.Name = "Handheld";
                 listEmulatorCategories.Add(categoryHandheld);
+
+                DataBindString categoryComputer = new DataBindString();
+                categoryComputer.ImageBitmap = vImagePreloadComputer;
+                categoryComputer.Name = "Computer";
+                listEmulatorCategories.Add(categoryComputer);
 
                 DataBindString categoryArcade = new DataBindString();
                 categoryArcade.ImageBitmap = vImagePreloadArcade;
@@ -238,8 +245,13 @@ namespace CtrlUI
 
                 DataBindString categoryVirtualReality = new DataBindString();
                 categoryVirtualReality.ImageBitmap = vImagePreloadVirtualReality;
-                categoryVirtualReality.Name = "Virtual Reality";
+                categoryVirtualReality.Name = "VR";
                 listEmulatorCategories.Add(categoryVirtualReality);
+
+                DataBindString categoryOperatingSystem = new DataBindString();
+                categoryOperatingSystem.ImageBitmap = vImagePreloadOperatingSystem;
+                categoryOperatingSystem.Name = "OS";
+                listEmulatorCategories.Add(categoryOperatingSystem);
 
                 //Set lists itemsource
                 lb_Manage_AddAppCategory.ItemsSource = listAppCategories;
@@ -252,7 +264,7 @@ namespace CtrlUI
         }
 
         //Update manage interface based on category
-        void ManageInterace_UpdateCategory(AppCategory appCategory, bool disableInterface)
+        void ManageInterface_UpdateCategory(AppCategory appCategory, bool disableInterface)
         {
             try
             {
@@ -270,7 +282,7 @@ namespace CtrlUI
                     btn_AddAppLogo.IsEnabled = true;
                     btn_Manage_ResetAppLogo.IsEnabled = true;
                     tb_AddAppName.IsEnabled = true;
-                    tb_AddAppEmulatorPlatform.IsEnabled = true;
+                    tb_AddAppEmulatorName.IsEnabled = true;
                     tb_AddAppExePath.IsEnabled = true;
                     tb_AddAppPathLaunch.IsEnabled = true;
                     btn_AddAppPathLaunch.IsEnabled = true;
@@ -285,7 +297,7 @@ namespace CtrlUI
                         btn_AddAppLogo.IsEnabled = false;
                         btn_Manage_ResetAppLogo.IsEnabled = false;
                         tb_AddAppName.IsEnabled = false;
-                        tb_AddAppEmulatorPlatform.IsEnabled = false;
+                        tb_AddAppEmulatorName.IsEnabled = false;
                         tb_AddAppExePath.IsEnabled = false;
                         tb_AddAppPathLaunch.IsEnabled = false;
                         btn_AddAppPathLaunch.IsEnabled = false;
@@ -300,7 +312,7 @@ namespace CtrlUI
                     sp_AddAppExePath.Visibility = Visibility.Visible;
                     sp_AddAppPathLaunch.Visibility = Visibility.Visible;
                     sp_AddEmulatorPathRoms.Visibility = Visibility.Visible;
-                    sp_AddEmulatorPlatform.Visibility = Visibility.Visible;
+                    sp_AddEmulatorName.Visibility = Visibility.Visible;
                     sp_AddEmulatorCategory.Visibility = Visibility.Visible;
                     sp_AddAppArgument.Visibility = Visibility.Visible;
                     sp_AddAppNameExe.Visibility = Visibility.Visible;
@@ -312,7 +324,7 @@ namespace CtrlUI
                     sp_AddAppExePath.Visibility = Visibility.Visible;
                     sp_AddAppPathLaunch.Visibility = Visibility.Visible;
                     sp_AddEmulatorPathRoms.Visibility = Visibility.Collapsed;
-                    sp_AddEmulatorPlatform.Visibility = Visibility.Collapsed;
+                    sp_AddEmulatorName.Visibility = Visibility.Collapsed;
                     sp_AddEmulatorCategory.Visibility = Visibility.Collapsed;
                     sp_AddAppArgument.Visibility = Visibility.Visible;
                     sp_AddAppNameExe.Visibility = Visibility.Visible;
@@ -350,14 +362,14 @@ namespace CtrlUI
                 lb_Manage_AddEmulatorCategory.SelectedIndex = (int)dataBindApp.EmulatorCategory;
 
                 //Update application manage interface
-                ManageInterace_UpdateCategory(dataBindApp.Category, true);
+                ManageInterface_UpdateCategory(dataBindApp.Category, true);
 
                 //Load application image
-                img_AddAppLogo.Source = FileToBitmapImage(new string[] { dataBindApp.Name, dataBindApp.PathExe, dataBindApp.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 120, 0);
+                img_AddAppLogo.Source = FileToBitmapImage(new string[] { dataBindApp.Name, dataBindApp.PathExe, dataBindApp.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
 
                 //Fill the text boxes with application details
                 tb_AddAppName.Text = dataBindApp.Name;
-                tb_AddAppEmulatorPlatform.Text = dataBindApp.EmulatorPlatform;
+                tb_AddAppEmulatorName.Text = dataBindApp.EmulatorName;
                 tb_AddAppExePath.Text = dataBindApp.PathExe;
                 tb_AddAppPathLaunch.Text = dataBindApp.PathLaunch;
                 tb_AddAppPathRoms.Text = dataBindApp.PathRoms;
@@ -406,14 +418,14 @@ namespace CtrlUI
                 lb_Manage_AddEmulatorCategory.SelectedIndex = (int)EmulatorCategory.Other;
 
                 //Update application manage interface
-                ManageInterace_UpdateCategory(AppCategory.Game, true);
+                ManageInterface_UpdateCategory(AppCategory.Game, true);
 
                 //Load application image
                 img_AddAppLogo.Source = vImagePreloadUnknownApp;
 
                 //Fill the text boxes with application details
                 tb_AddAppName.Text = "Select application executable file first";
-                tb_AddAppEmulatorPlatform.Text = "Select application executable file first";
+                tb_AddAppEmulatorName.Text = "Select application executable file first";
                 tb_AddAppExePath.Text = string.Empty;
                 tb_AddAppPathLaunch.Text = string.Empty;
                 tb_AddAppPathRoms.Text = string.Empty;
@@ -465,6 +477,8 @@ namespace CtrlUI
                     vFilePickerShowRoms = false;
                     vFilePickerShowFiles = false;
                     vFilePickerShowDirectories = false;
+                    vFilePickerBlockGoUpPath = string.Empty;
+                    vFilePickerSourceDataBindApp = null;
                     grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                     await Popup_Show_FilePicker("UWP", 0, false, null);
 
@@ -476,7 +490,7 @@ namespace CtrlUI
                     {
                         List<DataBindString> answersConfirm = new List<DataBindString>();
                         DataBindString answerAlright = new DataBindString();
-                        answerAlright.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        answerAlright.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerAlright.Name = "Ok";
                         answersConfirm.Add(answerAlright);
 

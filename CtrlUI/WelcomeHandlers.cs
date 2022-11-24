@@ -26,6 +26,8 @@ namespace CtrlUI
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
+                vFilePickerBlockGoUpPath = string.Empty;
+                vFilePickerSourceDataBindApp = null;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
@@ -57,6 +59,8 @@ namespace CtrlUI
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
+                vFilePickerBlockGoUpPath = string.Empty;
+                vFilePickerSourceDataBindApp = null;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
@@ -88,6 +92,8 @@ namespace CtrlUI
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
+                vFilePickerBlockGoUpPath = string.Empty;
+                vFilePickerSourceDataBindApp = null;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
@@ -119,6 +125,8 @@ namespace CtrlUI
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
+                vFilePickerBlockGoUpPath = string.Empty;
+                vFilePickerSourceDataBindApp = null;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
@@ -150,6 +158,8 @@ namespace CtrlUI
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
+                vFilePickerBlockGoUpPath = string.Empty;
+                vFilePickerSourceDataBindApp = null;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
@@ -181,6 +191,8 @@ namespace CtrlUI
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
+                vFilePickerBlockGoUpPath = string.Empty;
+                vFilePickerSourceDataBindApp = null;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
@@ -212,6 +224,8 @@ namespace CtrlUI
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
+                vFilePickerBlockGoUpPath = string.Empty;
+                vFilePickerSourceDataBindApp = null;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
@@ -243,6 +257,8 @@ namespace CtrlUI
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
+                vFilePickerBlockGoUpPath = string.Empty;
+                vFilePickerSourceDataBindApp = null;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
@@ -274,6 +290,8 @@ namespace CtrlUI
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
+                vFilePickerBlockGoUpPath = string.Empty;
+                vFilePickerSourceDataBindApp = null;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
@@ -305,6 +323,8 @@ namespace CtrlUI
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
+                vFilePickerBlockGoUpPath = string.Empty;
+                vFilePickerSourceDataBindApp = null;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
@@ -336,6 +356,8 @@ namespace CtrlUI
                 vFilePickerShowRoms = false;
                 vFilePickerShowFiles = true;
                 vFilePickerShowDirectories = true;
+                vFilePickerBlockGoUpPath = string.Empty;
+                vFilePickerSourceDataBindApp = null;
                 grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 

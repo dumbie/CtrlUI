@@ -33,7 +33,7 @@
             <styles:ScrollViewerLoopHorizontal Style="{StaticResource ScrollViewerHidden}">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding EmulatorPlatform}" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding EmulatorName}" Style="{StaticResource TextBlockGray}" HorizontalAlignment="Center"/>
                 </StackPanel>
             </styles:ScrollViewerLoopHorizontal>
         </StackPanel>

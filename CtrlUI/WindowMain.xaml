@@ -390,7 +390,7 @@
                         </StackPanel>
 
                         <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerVertical}">
-                            <StackPanel>
+                            <StackPanel Margin="0,0,0,10">
                                 <StackPanel Name="sp_AddAppImage">
                                     <TextBlock HorizontalAlignment="Left" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application image:"/>
                                     <Button Name="btn_AddAppLogo" Style="{StaticResource ButtonImageTransparentWhiteBorder}" BorderBrush="{DynamicResource ApplicationAccentLightBrush}" ToolTipService.ToolTip="Change application image">
@@ -404,9 +404,9 @@
                                     <TextBox Name="tb_AddAppName" Text="Select application executable file first" VerticalContentAlignment="Center" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}"/>
                                 </StackPanel>
 
-                                <StackPanel Name="sp_AddEmulatorPlatform">
+                                <StackPanel Name="sp_AddEmulatorName">
                                     <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Emulator name:"/>
-                                    <TextBox Name="tb_AddAppEmulatorPlatform" Text="Select application executable file first" VerticalContentAlignment="Center" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}"/>
+                                    <TextBox Name="tb_AddAppEmulatorName" Text="Select application executable file first" VerticalContentAlignment="Center" FontSize="{DynamicResource TextSizeMedium}" Style="{StaticResource TextBoxWhite}"/>
                                 </StackPanel>
 
                                 <StackPanel Name="sp_AddEmulatorCategory">
@@ -923,18 +923,18 @@
                             <TextBlock Name="grid_Popup_FilePicker_txt_Description" HorizontalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeHuge}" TextAlignment="Center" TextWrapping="Wrap" Text="Description"/>
                         </StackPanel>
 
-                        <Grid Name="grid_Popup_Filepicker_Row1" Grid.Row="1">
+                        <Grid Grid.Row="1" HorizontalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Column="0">
+                            <Grid Grid.Column="0" HorizontalAlignment="Stretch">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <ListBox Grid.Row="0" Name="lb_FilePicker" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemFile}" Style="{StaticResource ListBoxVertical}"/>
+                                <ListBox Grid.Row="0" Name="lb_FilePicker" HorizontalAlignment="Stretch" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemFile}" Style="{StaticResource ListBoxVertical}"/>
                                 <StackPanel Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Stretch">
                                     <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_NoFilesAvailable" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed" Text="No files or folders available in this directory."/>
                                     <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_ClipboardStatus" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
@@ -943,8 +943,8 @@
                                 </StackPanel>
                             </Grid>
 
-                            <styles:ScrollViewerLoopVertical ScrollLoopStep="2" Grid.Column="1" Style="{StaticResource ScrollViewerVertical}" Width="320" x:Name="grid_Popup_FilePicker_stackpanel_Description" Visibility="Collapsed">
-                                <StackPanel Margin="5,0,5,0">
+                            <styles:ScrollViewerLoopVertical ScrollLoopStep="2" Grid.Column="1" Style="{StaticResource ScrollViewerVertical}" Width="380" x:Name="grid_Popup_FilePicker_stackpanel_Description" Visibility="Collapsed">
+                                <StackPanel Margin="10,0,5,0">
                                     <Image Name="grid_Popup_FilePicker_image_Description" Height="210" HorizontalAlignment="Center"/>
                                     <TextBlock Margin="0,5,0,0" Name="grid_Popup_FilePicker_textblock_Description" TextWrapping="Wrap" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeMedium}"/>
                                 </StackPanel>

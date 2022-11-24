@@ -256,10 +256,10 @@
     "id": 16,
     "abbreviation": "Amiga",
     "category": 6,
-    "created_at": 1297814400,
+    "created_at": 1297880654,
     "name": "Amiga",
     "slug": "amiga",
-    "updated_at": 1417392000,
+    "updated_at": 1660327462,
     "url": "https://www.igdb.com/platforms/amiga",
     "versions": [
       19,
@@ -267,9 +267,10 @@
       110,
       111,
       112,
-      113
+      113,
+      522
     ],
-    "checksum": "5f67821e-ed83-7d0a-5870-5b2233de8e9a"
+    "checksum": "1c4178c0-d6dc-1802-2554-080bbd8b4a1f"
   },
   {
     "id": 18,
@@ -2041,16 +2042,16 @@
     "id": 133,
     "alternative_name": "Magnavox Odyssey²",
     "category": 6,
-    "created_at": 1477267200,
-    "name": "Philips Videopac G7000",
+    "created_at": 1477304835,
+    "name": "Odyssey 2 / Videopac G7000",
     "platform_logo": 112,
-    "slug": "philips-videopac-g7000",
-    "updated_at": 1477267200,
-    "url": "https://www.igdb.com/platforms/philips-videopac-g7000",
+    "slug": "odyssey-2-slash-videopac-g7000",
+    "updated_at": 1664890233,
+    "url": "https://www.igdb.com/platforms/odyssey-2-slash-videopac-g7000",
     "versions": [
       183
     ],
-    "checksum": "854e7971-1e3d-0534-ad7a-03ca8ca2cd69"
+    "checksum": "2f5934ae-8aa4-e849-64c9-932a59d9c30d"
   },
   {
     "id": 134,
@@ -3064,7 +3065,7 @@
     "created_at": 1632258796,
     "name": "Oculus Quest 2",
     "slug": "oculus-quest-2",
-    "updated_at": 1632258801,
+    "updated_at": 1660328061,
     "url": "https://www.igdb.com/platforms/oculus-quest-2",
     "versions": [
       507
@@ -3072,7 +3073,7 @@
     "websites": [
       284
     ],
-    "checksum": "2d8668ff-407e-c061-0545-e11ef35585a2"
+    "checksum": "3a578938-c6ac-e272-b18c-9d696736e98e"
   },
   {
     "id": 387,
@@ -3180,8 +3181,9 @@
     "created_at": 1660147544,
     "generation": 7,
     "name": "HyperScan",
+    "platform_logo": 686,
     "slug": "hyperscan",
-    "updated_at": 1660147574,
+    "updated_at": 1660326205,
     "url": "https://www.igdb.com/platforms/hyperscan",
     "versions": [
       547
@@ -3189,7 +3191,7 @@
     "websites": [
       306
     ],
-    "checksum": "ade2104b-e4fe-2b09-409a-72fbb17c2f90"
+    "checksum": "e9990379-85ca-9401-9f1e-003ee0f0da99"
   },
   {
     "id": 408,
@@ -3198,8 +3200,9 @@
     "created_at": 1660155539,
     "generation": 4,
     "name": "Mega Duck/Cougar Boy",
+    "platform_logo": 687,
     "slug": "mega-duck-slash-cougar-boy",
-    "updated_at": 1660155606,
+    "updated_at": 1660326569,
     "url": "https://www.igdb.com/platforms/mega-duck-slash-cougar-boy",
     "versions": [
       548
@@ -3207,7 +3210,7 @@
     "websites": [
       307
     ],
-    "checksum": "a6f39d7c-9729-e614-a86a-6f008fba7672"
+    "checksum": "4bd967b3-9dff-84ab-809a-fdf191e5e0f5"
   },
   {
     "id": 409,
@@ -3229,8 +3232,9 @@
     "created_at": 1660245561,
     "generation": 5,
     "name": "Atari Jaguar CD",
+    "platform_logo": 688,
     "slug": "atari-jaguar-cd",
-    "updated_at": 1660245568,
+    "updated_at": 1660326828,
     "url": "https://www.igdb.com/platforms/atari-jaguar-cd",
     "versions": [
       550
@@ -3238,7 +3242,7 @@
     "websites": [
       310
     ],
-    "checksum": "49babd9a-a1ef-79cc-721c-5714c9f686ae"
+    "checksum": "704539d3-9f54-2d0f-220c-986c484c76b0"
   },
   {
     "id": 411,
@@ -3261,8 +3265,9 @@
     "created_at": 1660246910,
     "generation": 6,
     "name": "Leapster",
+    "platform_logo": 689,
     "slug": "leapster",
-    "updated_at": 1660246917,
+    "updated_at": 1660327194,
     "url": "https://www.igdb.com/platforms/leapster",
     "versions": [
       552
@@ -3270,6 +3275,170 @@
     "websites": [
       311
     ],
-    "checksum": "05385237-6bfd-91b6-5fcc-050cdaa27f68"
+    "checksum": "2a4b5882-ce1b-2ba6-f4c2-0f3e55fda0b9"
+  },
+  {
+    "id": 413,
+    "category": 5,
+    "created_at": 1660313623,
+    "generation": 7,
+    "name": "Leapster Explorer/LeadPad Explorer",
+    "slug": "leapster-explorer-slash-leadpad-explorer",
+    "updated_at": 1660313634,
+    "url": "https://www.igdb.com/platforms/leapster-explorer-slash-leadpad-explorer",
+    "versions": [
+      553
+    ],
+    "websites": [
+      312
+    ],
+    "checksum": "50379fe8-a410-a261-ec58-5a435232e8a0"
+  },
+  {
+    "id": 414,
+    "alternative_name": "LeapTV VCD",
+    "category": 1,
+    "created_at": 1660314942,
+    "generation": 8,
+    "name": "LeapTV",
+    "platform_logo": 690,
+    "slug": "leaptv",
+    "updated_at": 1660326997,
+    "url": "https://www.igdb.com/platforms/leaptv",
+    "versions": [
+      554
+    ],
+    "websites": [
+      313
+    ],
+    "checksum": "74a35c87-865a-52ee-29f0-70c03039ff84"
+  },
+  {
+    "id": 415,
+    "category": 5,
+    "created_at": 1660319701,
+    "generation": 4,
+    "name": "Watara/QuickShot Supervision",
+    "platform_logo": 691,
+    "slug": "watara-slash-quickshot-supervision",
+    "updated_at": 1660326748,
+    "url": "https://www.igdb.com/platforms/watara-slash-quickshot-supervision",
+    "versions": [
+      555
+    ],
+    "websites": [
+      314
+    ],
+    "checksum": "4ed0c0ee-3103-4d53-c0dc-612a391de28d"
+  },
+  {
+    "id": 416,
+    "alternative_name": "64DD",
+    "category": 1,
+    "created_at": 1660320790,
+    "generation": 5,
+    "name": "Nintendo 64DD",
+    "platform_family": 5,
+    "slug": "nintendo-64dd",
+    "updated_at": 1660320798,
+    "url": "https://www.igdb.com/platforms/nintendo-64dd",
+    "versions": [
+      556
+    ],
+    "websites": [
+      315
+    ],
+    "checksum": "a6dc277b-22ff-1ce7-cadf-0bf1501c45e6"
+  },
+  {
+    "id": 417,
+    "alternative_name": "Garnet OS",
+    "category": 4,
+    "created_at": 1660322541,
+    "name": "Palm OS",
+    "platform_logo": 693,
+    "slug": "palm-os",
+    "updated_at": 1660326463,
+    "url": "https://www.igdb.com/platforms/palm-os",
+    "versions": [
+      557
+    ],
+    "websites": [
+      316
+    ],
+    "checksum": "7c475b92-12a3-b2a1-e302-dd13f4ebfdc3"
+  },
+  {
+    "id": 438,
+    "category": 5,
+    "created_at": 1663685343,
+    "generation": 8,
+    "name": "Arduboy",
+    "slug": "arduboy",
+    "updated_at": 1663685354,
+    "url": "https://www.igdb.com/platforms/arduboy",
+    "versions": [
+      588
+    ],
+    "websites": [
+      337
+    ],
+    "checksum": "54e5a3b8-49fa-e0b3-c5e7-b7dce5ef22ba"
+  },
+  {
+    "id": 439,
+    "alternative_name": "V.SMILE TV LEARNING SYSTEM",
+    "category": 1,
+    "created_at": 1663688323,
+    "generation": 6,
+    "name": "V.Smile",
+    "slug": "vsmile",
+    "updated_at": 1663688329,
+    "url": "https://www.igdb.com/platforms/vsmile",
+    "versions": [
+      589
+    ],
+    "websites": [
+      338
+    ],
+    "checksum": "2a426d76-7d50-e3af-3d83-0deb2677bb9a"
+  },
+  {
+    "id": 440,
+    "alternative_name": "VMU / VMS",
+    "category": 5,
+    "created_at": 1666800981,
+    "generation": 6,
+    "name": "Visual Memory Unit / Visual Memory System",
+    "platform_logo": 728,
+    "platform_family": 3,
+    "slug": "visual-memory-unit-slash-visual-memory-system",
+    "updated_at": 1666802311,
+    "url": "https://www.igdb.com/platforms/visual-memory-unit-slash-visual-memory-system",
+    "versions": [
+      590
+    ],
+    "websites": [
+      339
+    ],
+    "checksum": "76344cf9-0604-8d4d-7171-121dde0e6f4b"
+  },
+  {
+    "id": 441,
+    "category": 5,
+    "created_at": 1666808653,
+    "generation": 5,
+    "name": "PocketStation",
+    "platform_family": 1,
+    "slug": "pocketstation",
+    "updated_at": 1666808660,
+    "url": "https://www.igdb.com/platforms/pocketstation",
+    "versions": [
+      591
+    ],
+    "websites": [
+      340
+    ],
+    "checksum": "3a2dde48-46e5-5856-5d38-612d95a4d2e5"
   }
 ]

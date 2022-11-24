@@ -29,11 +29,13 @@
             Other = 0,
             Console = 1,
             Handheld = 2,
-            Arcade = 3,
-            Pinball = 4,
-            Pong = 5,
-            Chess = 6,
-            VirtualReality = 7
+            Computer = 3,
+            Arcade = 4,
+            Pinball = 5,
+            Pong = 6,
+            Chess = 7,
+            VirtualReality = 8,
+            OperatingSystem = 9
         }
     }
 }

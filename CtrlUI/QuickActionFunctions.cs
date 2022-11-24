@@ -23,7 +23,7 @@ namespace CtrlUI
                 List<DataBindString> Answers = new List<DataBindString>();
 
                 DataBindString AnswerLaunch = new DataBindString();
-                AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerLaunch.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerLaunch.Name = "Launch application";
                 Answers.Add(AnswerLaunch);
 
