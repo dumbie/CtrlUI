@@ -123,6 +123,20 @@ namespace LibraryShared
                 }
             }
 
+            private string PrivPathRoot;
+            public string PathRoot
+            {
+                get { return this.PrivPathRoot; }
+                set
+                {
+                    if (this.PrivPathRoot != value)
+                    {
+                        this.PrivPathRoot = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
             private string PrivName;
             public string Name
             {

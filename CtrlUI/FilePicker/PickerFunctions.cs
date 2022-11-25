@@ -1,14 +1,10 @@
 ﻿using ArnoldVinkCode;
-using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVFiles;
-using static ArnoldVinkCode.AVImage;
+using Windows.UI.Xaml.Controls.Primitives;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -72,19 +68,27 @@ namespace CtrlUI
                     gif_FilePicker_Loading.Show();
 
                     //Set file picker header texts
-                    grid_Popup_FilePicker_txt_Title.Text = vFilePickerTitle;
-                    grid_Popup_FilePicker_txt_Description.Text = vFilePickerDescription;
+                    grid_Popup_FilePicker_txt_Title.Text = vFilePickerSettings.Title;
+                    grid_Popup_FilePicker_txt_Description.Text = vFilePickerSettings.Description;
 
-                    //Change the list picker item style
-                    if (vFilePickerShowRoms)
+                    //Change the file picker interface
+                    if (vFilePickerSettings.ShowEmulatorInterface)
                     {
+                        //Change list picker style
                         lb_FilePicker.Style = Application.Current.Resources["ListBoxWrapPanelVertical"] as Style;
                         lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemRom"] as DataTemplate;
+
+                        //Show rom information
+                        grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Visible;
                     }
                     else
                     {
+                        //Change list picker style
                         lb_FilePicker.Style = Application.Current.Resources["ListBoxVertical"] as Style;
                         lb_FilePicker.ItemTemplate = Application.Current.Resources["ListBoxItemFile"] as DataTemplate;
+
+                        //Hide rom information
+                        grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
                     }
 
                     //Update the navigation history index
@@ -108,42 +112,48 @@ namespace CtrlUI
                 if (targetPath == "PC")
                 {
                     //Get and list all the disk drives
-                    await PickerLoadPC(false);
-                }
-                else if (targetPath == "PCEMU")
-                {
-                    //Get and list all the disk drives
-                    await PickerLoadPC(true);
+                    await FilePicker_LoadPC();
+
+                    //File Picker focus on item
+                    await FilePicker_Focus(targetIndex, targetPath);
                 }
                 else if (targetPath == "UWP")
                 {
                     //Get and list all uwp applications
-                    await PickerLoadUwpApps();
+                    await FilePicker_LoadUwpApps();
+
+                    //File Picker focus on item
+                    await FilePicker_Focus(targetIndex, targetPath);
                 }
                 else
                 {
                     //Get and list all files and folders
-                    await PickerLoadFilesFolders(targetPath);
-                }
+                    await FilePicker_LoadFilesFolders(targetPath);
 
-                //Update file picker loading status
-                vFilePickerLoadCancel = false;
-                vFilePickerLoadBusy = false;
+                    //File Picker focus on item
+                    await FilePicker_Focus(targetIndex, targetPath);
+
+                    //Load image and descriptions
+                    await FilePicker_LoadDetails();
+                }
 
                 //Hide file picker loading animation
                 AVActions.ActionDispatcherInvoke(delegate
                 {
                     gif_FilePicker_Loading.Hide();
                 });
-
-                //File Picker focus on item
-                await FilePicker_Focus(targetIndex, targetPath);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed loading filepicker: " + ex.Message);
                 await Notification_Send_Status("Close", "Picker loading failed");
                 await FilePicker_GoFolderUp();
+            }
+            finally
+            {
+                //Update file picker loading status
+                vFilePickerLoadCancel = false;
+                vFilePickerLoadBusy = false;
             }
         }
 
@@ -251,81 +261,6 @@ namespace CtrlUI
             return -1;
         }
 
-        //Get rom details image and description
-        void GetRomDetails(string listName, string listPath, FileInfo[] directoryRomImages, FileInfo[] directoryRomDescription, ref BitmapImage listImage, ref string listDescription)
-        {
-            try
-            {
-                //Set rom file names
-                string romPathImage = string.Empty;
-                string romPathDescription = string.Empty;
-                string romNameFiltered = string.Empty;
-
-                //Create sub directory image paths
-                string subPathImagePng = string.Empty;
-                string subPathImageJpg = string.Empty;
-                string subPathDescription = string.Empty;
-                if (!string.IsNullOrWhiteSpace(listPath))
-                {
-                    romNameFiltered = FilterNameGame(listName, false, true, false, 0);
-                    subPathImagePng = Path.Combine(listPath, listName + ".png");
-                    subPathImageJpg = Path.Combine(listPath, listName + ".jpg");
-                    subPathDescription = Path.Combine(listPath, listName + ".json");
-                }
-                else
-                {
-                    romNameFiltered = FilterNameGame(listName, true, true, false, 0);
-                }
-
-                //Check if rom directory has image
-                foreach (FileInfo foundImage in directoryRomImages)
-                {
-                    try
-                    {
-                        string imageNameFiltered = FilterNameGame(foundImage.Name, true, true, false, 0);
-                        //Debug.WriteLine(imageNameFiltered + " / " + romNameFiltered);
-                        if (romNameFiltered.Contains(imageNameFiltered))
-                        {
-                            romPathImage = foundImage.FullName;
-                            break;
-                        }
-                    }
-                    catch { }
-                }
-
-                //Check if rom directory has description
-                foreach (FileInfo foundDesc in directoryRomDescription)
-                {
-                    try
-                    {
-                        string descNameFiltered = FilterNameGame(foundDesc.Name, true, true, false, 0);
-                        //Debug.WriteLine(descNameFiltered + " / " + romNameFiltered);
-                        if (romNameFiltered.Contains(descNameFiltered))
-                        {
-                            romPathDescription = foundDesc.FullName;
-                            break;
-                        }
-                    }
-                    catch { }
-                }
-
-                //Update description and image
-                listImage = FileToBitmapImage(new string[] { romPathImage, subPathImagePng, subPathImageJpg, "_Rom" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, 210, 0);
-                string jsonFile = FileToString(new string[] { romPathDescription, subPathDescription });
-                if (jsonFile.Contains("platform_logo"))
-                {
-                    ApiIGDBPlatformVersions platformVersionsJson = JsonConvert.DeserializeObject<ApiIGDBPlatformVersions>(jsonFile);
-                    listDescription = ApiIGDB_PlatformSummaryString(platformVersionsJson);
-                }
-                else
-                {
-                    ApiIGDBGames gamesJson = JsonConvert.DeserializeObject<ApiIGDBGames>(jsonFile);
-                    listDescription = ApiIGDB_GameSummaryString(gamesJson);
-                }
-            }
-            catch { }
-        }
-
         //Check if there are files or folders
         void FilePicker_CheckFilesAndFoldersCount()
         {
@@ -338,6 +273,7 @@ namespace CtrlUI
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;
+                        grid_Popup_FilePicker_textblock_CurrentPath.Text = "Current path: " + vFilePickerCurrentPath + " (" + totalFileCount + " items)";
                     });
                     Debug.WriteLine("There are files and folders in the list.");
                 }

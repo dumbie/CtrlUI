@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.ProcessWin32Functions;
 using static CtrlUI.AppVariables;
@@ -131,17 +130,10 @@ namespace CtrlUI
             try
             {
                 //Select a file from list to launch
-                vFilePickerFilterIn = new List<string>();
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "File Selection";
-                vFilePickerDescription = "Please select a file to load in " + dataBindApp.Name + ":";
-                vFilePickerShowNoFile = true;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.Title = "File Selection";
+                vFilePickerSettings.Description = "Please select a file to load in " + dataBindApp.Name + ":";
+                vFilePickerSettings.ShowLaunchWithoutFile = true;
                 await Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -166,17 +158,13 @@ namespace CtrlUI
             try
             {
                 //Select a file from list to launch
-                vFilePickerFilterIn = new List<string>();
-                vFilePickerFilterOut = new List<string> { "jpg", "png" };
-                vFilePickerTitle = "Rom Selection";
-                vFilePickerDescription = "Please select a rom file to load in " + dataBindApp.Name + ":";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = true;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerSourceDataBindApp = dataBindApp;
-                vFilePickerBlockGoUpPath = dataBindApp.PathRoms;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterOut = new List<string> { "jpg", "png", "json" };
+                vFilePickerSettings.Title = "Rom Selection";
+                vFilePickerSettings.Description = "Please select a rom to load in " + dataBindApp.Name + ":";
+                vFilePickerSettings.ShowEmulatorInterface = true;
+                vFilePickerSettings.SourceDataBindApp = dataBindApp;
+                vFilePickerSettings.RootPath = dataBindApp.PathRoms;
                 await Popup_Show_FilePicker(dataBindApp.PathRoms, -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }

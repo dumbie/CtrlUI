@@ -79,7 +79,9 @@ namespace CtrlUI
                     //Update file name in listbox
                     dataBindFile.Name = newFileName + newFileExtension;
                     dataBindFile.PathFile = newFilePath;
-                    //Fix reload image
+
+                    //Update image and description
+                    await FilePicker_LoadDetails(dataBindFile);
 
                     //Update the clipboard status text
                     Clipboard_UpdateStatusText();

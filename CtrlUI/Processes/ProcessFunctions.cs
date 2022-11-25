@@ -305,17 +305,10 @@ namespace CtrlUI
         {
             try
             {
-                vFilePickerFilterIn = new List<string> { "exe", "bat" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Launch Executable";
-                vFilePickerDescription = "Please select an executable file to run:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "exe", "bat", "cmd" };
+                vFilePickerSettings.Title = "Launch Executable";
+                vFilePickerSettings.Description = "Please select an executable file to run:";
                 await Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -337,17 +330,9 @@ namespace CtrlUI
         {
             try
             {
-                vFilePickerFilterIn = new List<string>();
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Windows Store Applications";
-                vFilePickerDescription = "Please select a Windows store application to run:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = false;
-                vFilePickerShowDirectories = false;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.Title = "Windows Store Applications";
+                vFilePickerSettings.Description = "Please select a Windows store application to run:";
                 await Popup_Show_FilePicker("UWP", 0, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }

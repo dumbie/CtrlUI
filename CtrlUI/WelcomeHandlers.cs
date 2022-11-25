@@ -18,17 +18,10 @@ namespace CtrlUI
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "RemotePlay.exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "PS Remote Play";
-                vFilePickerDescription = "Please select the PS Remote Play executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "RemotePlay.exe" };
+                vFilePickerSettings.Title = "PS Remote Play";
+                vFilePickerSettings.Description = "Please select the PS Remote Play executable:";
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -51,17 +44,10 @@ namespace CtrlUI
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "Update.exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Discord";
-                vFilePickerDescription = "Please select the Discord update executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "Discord.exe", "Update.exe" };
+                vFilePickerSettings.Title = "Discord";
+                vFilePickerSettings.Description = "Please select the Discord executable:";
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -84,17 +70,10 @@ namespace CtrlUI
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "battle.net.exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Battle.net";
-                vFilePickerDescription = "Please select the Battle.net executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "battle.net.exe" };
+                vFilePickerSettings.Title = "Battle.net";
+                vFilePickerSettings.Description = "Please select the Battle.net executable:";
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -117,17 +96,10 @@ namespace CtrlUI
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "galaxyclient.exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "GoG";
-                vFilePickerDescription = "Please select the GoG executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "galaxyclient.exe" };
+                vFilePickerSettings.Title = "GoG";
+                vFilePickerSettings.Description = "Please select the GoG executable:";
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -150,17 +122,10 @@ namespace CtrlUI
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "EpicGamesLauncher.exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Epic";
-                vFilePickerDescription = "Please select the Epic Games executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "EpicGamesLauncher.exe" };
+                vFilePickerSettings.Title = "Epic";
+                vFilePickerSettings.Description = "Please select the Epic Games executable:";
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -183,17 +148,10 @@ namespace CtrlUI
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "upc.exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Ubisoft";
-                vFilePickerDescription = "Please select the Ubisoft Connect executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "upc.exe" };
+                vFilePickerSettings.Title = "Ubisoft";
+                vFilePickerSettings.Description = "Please select the Ubisoft Connect executable:";
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -216,17 +174,10 @@ namespace CtrlUI
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "eadesktop.exe", "origin.exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "EA";
-                vFilePickerDescription = "Please select the EA Desktop executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "eadesktop.exe", "origin.exe" };
+                vFilePickerSettings.Title = "EA";
+                vFilePickerSettings.Description = "Please select the EA Desktop executable:";
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -249,17 +200,10 @@ namespace CtrlUI
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "steam.exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Steam";
-                vFilePickerDescription = "Please select the Steam executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "steam.exe" };
+                vFilePickerSettings.Title = "Steam";
+                vFilePickerSettings.Description = "Please select the Steam executable:";
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -282,17 +226,10 @@ namespace CtrlUI
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "spotify.exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Spotify";
-                vFilePickerDescription = "Please select the Spotify executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "spotify.exe" };
+                vFilePickerSettings.Title = "Spotify";
+                vFilePickerSettings.Description = "Please select the Spotify executable:";
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -315,17 +252,10 @@ namespace CtrlUI
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "kodi.exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Kodi";
-                vFilePickerDescription = "Please select the Kodi executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "kodi.exe" };
+                vFilePickerSettings.Title = "Kodi";
+                vFilePickerSettings.Description = "Please select the Kodi executable:";
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -348,17 +278,10 @@ namespace CtrlUI
             {
                 Button ButtonSender = (sender as Button);
 
-                vFilePickerFilterIn = new List<string> { "msedge.exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Microsoft Edge";
-                vFilePickerDescription = "Please select the Microsoft Edge executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "msedge.exe" };
+                vFilePickerSettings.Title = "Microsoft Edge";
+                vFilePickerSettings.Description = "Please select the Microsoft Edge executable:";
                 await Popup_Show_FilePicker("PC", -1, false, grid_Popup_Welcome_button_Start);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }

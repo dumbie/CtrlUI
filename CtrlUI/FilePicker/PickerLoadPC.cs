@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Get and list all the disk drives
-        async Task PickerLoadPC(bool emuImages)
+        async Task FilePicker_LoadPC()
         {
             try
             {
@@ -57,8 +58,15 @@ namespace CtrlUI
                 BitmapImage imageFolderVideos = FileToBitmapImage(new string[] { "Assets/Default/Icons/BackgroundVideo.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 BitmapImage imageFolderMusic = FileToBitmapImage(new string[] { "Assets/Default/Icons/Music.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
 
+                //Add the previous used path
+                if (!string.IsNullOrWhiteSpace(vFilePickerPreviousPath))
+                {
+                    DataBindFile dataBindFilePreviousPath = new DataBindFile() { FileType = FileType.FolderPre, Name = "Previous", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolderPrevious, PathFile = vFilePickerPreviousPath };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePreviousPath, false, false);
+                }
+
                 //Add launch without a file option
-                if (vFilePickerShowNoFile)
+                if (vFilePickerSettings.ShowLaunchWithoutFile)
                 {
                     string fileDescription = "Launch application without a file";
                     BitmapImage fileImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppLaunch.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
@@ -66,11 +74,11 @@ namespace CtrlUI
                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileWithoutFile, false, false);
                 }
 
-                //Check and add the previous path
-                if (!string.IsNullOrWhiteSpace(vFilePickerPreviousPath))
+                //Add emulator images folder
+                if (vFilePickerSettings.ShowEmulatorImages)
                 {
-                    DataBindFile dataBindFilePreviousPath = new DataBindFile() { FileType = FileType.FolderPre, Name = "Previous", NameSub = "(" + vFilePickerPreviousPath + ")", ImageBitmap = imageFolderPrevious, PathFile = vFilePickerPreviousPath };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePreviousPath, false, false);
+                    DataBindFile dataBindEmuImages = new DataBindFile() { FileType = FileType.FolderPre, Name = "Emulator images", ImageBitmap = vImagePreloadEmulator, PathFile = "Assets\\Default\\Emulators" };
+                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindEmuImages, false, false);
                 }
 
                 //Add special folders
@@ -96,12 +104,6 @@ namespace CtrlUI
                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFilePictures, false, false);
                 DataBindFile dataBindFileVideos = new DataBindFile() { FileType = FileType.FolderPre, Name = "My Videos", ImageBitmap = imageFolderVideos, PathFile = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) };
                 await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileVideos, false, false);
-
-                if (emuImages)
-                {
-                    DataBindFile dataBindEmuImages = new DataBindFile() { FileType = FileType.FolderPre, Name = "Emulator images", ImageBitmap = vImagePreloadEmulator, PathFile = "Assets\\Default\\Emulators" };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindEmuImages, false, false);
-                }
 
                 //Load file browser settings
                 bool hideNetworkDrives = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideNetworkDrives"));

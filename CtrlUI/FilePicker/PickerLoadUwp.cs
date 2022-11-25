@@ -21,7 +21,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Get and list all uwp applications
-        async Task PickerLoadUwpApps()
+        async Task FilePicker_LoadUwpApps()
         {
             try
             {
@@ -61,9 +61,7 @@ namespace CtrlUI
                         //Cancel loading
                         if (vFilePickerLoadCancel)
                         {
-                            Debug.WriteLine("File picker uwp load cancelled.");
-                            vFilePickerLoadCancel = false;
-                            vFilePickerLoadBusy = false;
+                            Debug.WriteLine("File picker uwp apps load cancelled.");
                             return;
                         }
 

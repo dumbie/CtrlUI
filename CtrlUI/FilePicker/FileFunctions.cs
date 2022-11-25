@@ -1,5 +1,4 @@
 ﻿using ArnoldVinkCode;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -18,17 +17,9 @@ namespace CtrlUI
         {
             try
             {
-                vFilePickerFilterIn = new List<string>();
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "File manager";
-                vFilePickerDescription = "Please select a file to run or interact with:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.Title = "File Manager";
+                vFilePickerSettings.Description = "Please select a file to run or interact with:";
                 await Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }

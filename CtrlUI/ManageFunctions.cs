@@ -469,17 +469,9 @@ namespace CtrlUI
                     Enum.TryParse(messageResult.Data1.ToString(), out AppCategory selectedAddCategory);
 
                     //Select Window Store application
-                    vFilePickerFilterIn = new List<string>();
-                    vFilePickerFilterOut = new List<string>();
-                    vFilePickerTitle = "Window Store Applications";
-                    vFilePickerDescription = "Please select a Windows store application to add as " + messageResult.Name + ":";
-                    vFilePickerShowNoFile = false;
-                    vFilePickerShowRoms = false;
-                    vFilePickerShowFiles = false;
-                    vFilePickerShowDirectories = false;
-                    vFilePickerBlockGoUpPath = string.Empty;
-                    vFilePickerSourceDataBindApp = null;
-                    grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                    vFilePickerSettings = new FilePickerSettings();
+                    vFilePickerSettings.Title = "Window Store Applications";
+                    vFilePickerSettings.Description = "Please select a Windows store application to add as " + messageResult.Name + ":";
                     await Popup_Show_FilePicker("UWP", 0, false, null);
 
                     while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }

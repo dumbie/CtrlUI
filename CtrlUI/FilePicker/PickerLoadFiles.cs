@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -18,7 +17,7 @@ namespace CtrlUI
     partial class WindowMain
     {
         //Get and list all files and folders
-        async Task PickerLoadFilesFolders(string targetPath)
+        async Task FilePicker_LoadFilesFolders(string targetPath)
         {
             try
             {
@@ -26,7 +25,7 @@ namespace CtrlUI
                 targetPath = Path.GetFullPath(targetPath);
 
                 //Add the Go up directory to the list
-                if (vFilePickerBlockGoUpPath != targetPath)
+                if (vFilePickerSettings.RootPath != targetPath)
                 {
                     if (Path.GetPathRoot(targetPath) != targetPath)
                     {
@@ -56,24 +55,15 @@ namespace CtrlUI
                 });
 
                 //Add launch emulator options
-                if (vFilePickerShowRoms)
+                if (vFilePickerSettings.ShowEmulatorInterface)
                 {
-                    //Fix Load platform description
-                    BitmapImage platformImage = vImagePreloadHelp;
-                    string platformDescription = "Download " + vFilePickerSourceDataBindApp.Name + " platform information.";
-                    DownloadInfoPlatform informationDownloaded = await DownloadInfoPlatform(vFilePickerSourceDataBindApp.Name, 0, false, true);
-                    if (informationDownloaded != null)
+                    if (vFilePickerSettings.RootPath == targetPath)
                     {
-                        platformDescription = informationDownloaded.Summary;
-                        if (informationDownloaded.ImageBitmap != null)
-                        {
-                            platformImage = informationDownloaded.ImageBitmap;
-                        }
+                        string platformName = "Emulator platform information";
+                        string platformDescription = "Download " + vFilePickerSettings.SourceDataBindApp.Name + " platform information.";
+                        DataBindFile dataBindFileplatform = new DataBindFile() { FileType = FileType.PlatformDesc, Name = platformName, Description = platformDescription, ImageBitmap = vImagePreloadHelp, PathFile = vFilePickerSettings.SourceDataBindApp.Name };
+                        await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileplatform, false, false);
                     }
-
-                    string platformName = "Emulator platform information";
-                    DataBindFile dataBindFileplatform = new DataBindFile() { FileType = FileType.PlatformDesc, Name = platformName, Description = platformDescription, ImageBitmap = platformImage, PathFile = vFilePickerSourceDataBindApp.Name };
-                    await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileplatform, false, false);
 
                     string fileDescription = "Launch the emulator without a rom loaded";
                     DataBindFile dataBindFileWithoutRom = new DataBindFile() { FileType = FileType.FilePre, Name = fileDescription, Description = fileDescription + ".", ImageBitmap = vImagePreloadEmulator, PathFile = string.Empty };
@@ -97,7 +87,7 @@ namespace CtrlUI
                 DirectoryInfo directoryInfo = new DirectoryInfo(targetPath);
                 DirectoryInfo[] directoryFolders = null;
                 FileInfo[] directoryFiles = null;
-                if (vFilePickerSortType == SortingType.Name)
+                if (vFilePickerSortingType == SortingType.Name)
                 {
                     directoryFolders = directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
                     directoryFiles = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.Name).ToArray();
@@ -108,31 +98,8 @@ namespace CtrlUI
                     directoryFiles = directoryInfo.GetFiles("*", SearchOption.TopDirectoryOnly).OrderByDescending(x => x.LastWriteTime).ToArray();
                 }
 
-                //Get all rom images and descriptions
-                FileInfo[] directoryRomImages = new FileInfo[] { };
-                FileInfo[] directoryRomDescriptions = new FileInfo[] { };
-                if (vFilePickerShowRoms)
-                {
-                    string[] imageFilter = { "jpg", "png" };
-                    string[] descriptionFilter = { "json" };
-
-                    DirectoryInfo directoryInfoRomsUser = new DirectoryInfo("Assets/User/Emulators");
-                    FileInfo[] directoryPathsRomsUser = directoryInfoRomsUser.GetFiles("*", SearchOption.AllDirectories);
-                    DirectoryInfo directoryInfoRomsDefault = new DirectoryInfo("Assets/Default/Emulators");
-                    FileInfo[] directoryPathsRomsDefault = directoryInfoRomsDefault.GetFiles("*", SearchOption.AllDirectories);
-                    IEnumerable<FileInfo> directoryPathsRoms = directoryPathsRomsUser.Concat(directoryPathsRomsDefault);
-
-                    FileInfo[] romsImages = directoryPathsRoms.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                    FileInfo[] filesImages = directoryFiles.Where(file => imageFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                    directoryRomImages = filesImages.Concat(romsImages).OrderByDescending(x => x.Name.Length).ToArray();
-
-                    FileInfo[] romsDescriptions = directoryPathsRoms.Where(file => descriptionFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                    FileInfo[] filesDescriptions = directoryFiles.Where(file => descriptionFilter.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
-                    directoryRomDescriptions = filesDescriptions.Concat(romsDescriptions).OrderByDescending(x => x.Name.Length).ToArray();
-                }
-
                 //Get all the directories from target directory
-                if (vFilePickerShowDirectories)
+                if (vFilePickerSettings.ShowDirectories)
                 {
                     try
                     {
@@ -144,23 +111,8 @@ namespace CtrlUI
                                 //Cancel loading
                                 if (vFilePickerLoadCancel)
                                 {
-                                    Debug.WriteLine("File picker folder load cancelled.");
-                                    vFilePickerLoadCancel = false;
-                                    vFilePickerLoadBusy = false;
+                                    Debug.WriteLine("File picker folders load cancelled.");
                                     return;
-                                }
-
-                                BitmapImage listImage = null;
-                                string listDescription = string.Empty;
-
-                                //Load image files for the list
-                                if (vFilePickerShowRoms)
-                                {
-                                    GetRomDetails(listFolder.Name, listFolder.FullName, directoryRomImages, directoryRomDescriptions, ref listImage, ref listDescription);
-                                }
-                                else
-                                {
-                                    listImage = FileToBitmapImage(new string[] { "Assets/Default/Icons/Folder.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                                 }
 
                                 //Get the folder size
@@ -185,7 +137,7 @@ namespace CtrlUI
                                 bool hiddenFileFolder = listFolder.Attributes.HasFlag(FileAttributes.Hidden);
                                 if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders"))))
                                 {
-                                    DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, ClipboardType = clipboardType, Name = listFolder.Name, NameDetail = folderDetailed, Description = listDescription, DateModified = listFolder.LastWriteTime, ImageBitmap = listImage, PathFile = listFolder.FullName };
+                                    DataBindFile dataBindFileFolder = new DataBindFile() { FileType = FileType.Folder, ClipboardType = clipboardType, Name = listFolder.Name, NameDetail = folderDetailed, DateModified = listFolder.LastWriteTime, PathFile = listFolder.FullName, PathRoot = targetPath };
                                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFolder, false, false);
                                 }
                             }
@@ -196,7 +148,7 @@ namespace CtrlUI
                 }
 
                 //Get all the files from target directory
-                if (vFilePickerShowFiles)
+                if (vFilePickerSettings.ShowFiles)
                 {
                     try
                     {
@@ -207,13 +159,13 @@ namespace CtrlUI
                         });
 
                         //Filter files in and out
-                        if (vFilePickerFilterIn.Any())
+                        if (vFilePickerSettings.FilterIn.Any())
                         {
-                            directoryFiles = directoryFiles.Where(file => vFilePickerFilterIn.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                            directoryFiles = directoryFiles.Where(file => vFilePickerSettings.FilterIn.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
                         }
-                        if (vFilePickerFilterOut.Any())
+                        if (vFilePickerSettings.FilterOut.Any())
                         {
-                            directoryFiles = directoryFiles.Where(file => !vFilePickerFilterOut.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
+                            directoryFiles = directoryFiles.Where(file => !vFilePickerSettings.FilterOut.Any(filter => file.Name.EndsWith(filter, StringComparison.InvariantCultureIgnoreCase))).ToArray();
                         }
 
                         //Fill the file picker listbox with files
@@ -224,32 +176,8 @@ namespace CtrlUI
                                 //Cancel loading
                                 if (vFilePickerLoadCancel)
                                 {
-                                    Debug.WriteLine("File picker file load cancelled.");
-                                    vFilePickerLoadCancel = false;
-                                    vFilePickerLoadBusy = false;
+                                    Debug.WriteLine("File picker files load cancelled.");
                                     return;
-                                }
-
-                                BitmapImage listImage = null;
-                                string listDescription = string.Empty;
-
-                                //Load image files for the list
-                                if (vFilePickerShowRoms)
-                                {
-                                    GetRomDetails(listFile.Name, string.Empty, directoryRomImages, directoryRomDescriptions, ref listImage, ref listDescription);
-                                }
-                                else
-                                {
-                                    string listFileFullNameLower = listFile.FullName.ToLower();
-                                    string listFileExtensionLower = listFile.Extension.ToLower().Replace(".", string.Empty);
-                                    if (listFileFullNameLower.EndsWith(".jpg") || listFileFullNameLower.EndsWith(".png") || listFileFullNameLower.EndsWith(".gif"))
-                                    {
-                                        listImage = FileToBitmapImage(new string[] { listFile.FullName }, null, vImageBackupSource, IntPtr.Zero, 50, 0);
-                                    }
-                                    else
-                                    {
-                                        listImage = FileToBitmapImage(new string[] { "Assets/Default/Extensions/" + listFileExtensionLower + ".png", "Assets/Default/Icons/File.png" }, null, vImageBackupSource, IntPtr.Zero, 50, 0);
-                                    }
                                 }
 
                                 //Get the file size
@@ -275,12 +203,12 @@ namespace CtrlUI
                                 if (!systemFileFolder && (!hiddenFileFolder || Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowHiddenFilesFolders"))))
                                 {
                                     FileType fileType = FileType.File;
-                                    string fileExtension = Path.GetExtension(listFile.Name);
+                                    string fileExtension = listFile.Extension;
                                     if (fileExtension == ".url" || fileExtension == ".lnk")
                                     {
                                         fileType = FileType.Link;
                                     }
-                                    DataBindFile dataBindFileFile = new DataBindFile() { FileType = fileType, ClipboardType = clipboardType, Name = listFile.Name, NameDetail = fileDetailed, Description = listDescription, DateModified = listFile.LastWriteTime, ImageBitmap = listImage, PathFile = listFile.FullName };
+                                    DataBindFile dataBindFileFile = new DataBindFile() { FileType = fileType, ClipboardType = clipboardType, Name = listFile.Name, NameDetail = fileDetailed, DateModified = listFile.LastWriteTime, PathFile = listFile.FullName, PathRoot = targetPath };
                                     await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFileFile, false, false);
                                 }
                             }

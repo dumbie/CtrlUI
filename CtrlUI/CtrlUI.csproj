@@ -140,6 +140,7 @@
     <Compile Include="FilePicker\FilePaste.cs" />
     <Compile Include="FilePicker\FileCut.cs" />
     <Compile Include="FilePicker\FileCopy.cs" />
+    <Compile Include="FilePicker\PickerLoadDetails.cs" />
     <Compile Include="FilePicker\PickerLoadFiles.cs" />
     <Compile Include="FilePicker\PickerLoadPC.cs" />
     <Compile Include="FilePicker\PickerLoadUwp.cs" />

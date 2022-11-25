@@ -144,22 +144,13 @@ namespace CtrlUI
         public static bool vFilePickerLoadBusy = false;
         public static bool vFilePickerLoadCancel = false;
         public static DataBindFile vFilePickerResult = null;
-        public static DataBindApp vFilePickerSourceDataBindApp = null;
+        public static FilePickerSettings vFilePickerSettings = new FilePickerSettings();
         public static FrameworkElementFocus vFilePickerElementFocus = new FrameworkElementFocus();
         public static List<PickerNavigation> vFilePickerNavigationHistory = new List<PickerNavigation>();
+        public static SortingType vFilePickerSortingType = SortingType.Name;
         public static string vFilePickerSourcePath = string.Empty;
         public static string vFilePickerCurrentPath = string.Empty;
         public static string vFilePickerPreviousPath = string.Empty;
-        public static string vFilePickerBlockGoUpPath = string.Empty;
-        public static List<string> vFilePickerFilterIn = new List<string>();
-        public static List<string> vFilePickerFilterOut = new List<string>();
-        public static string vFilePickerTitle = "File Browser";
-        public static string vFilePickerDescription = "Please select a file, folder or disk:";
-        public static bool vFilePickerShowNoFile = false;
-        public static bool vFilePickerShowRoms = false;
-        public static bool vFilePickerShowFiles = true;
-        public static bool vFilePickerShowDirectories = true;
-        public static SortingType vFilePickerSortType = SortingType.Name;
 
         //Profile Manager Variables
         public static string vProfileManagerName = "CtrlIgnoreProcessName";

@@ -51,18 +51,12 @@ namespace CtrlUI
                     return;
                 }
 
-                vFilePickerFilterIn = new List<string> { "jpg", "png" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Application Image";
-                vFilePickerDescription = "Please select a new application image:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
-                await Popup_Show_FilePicker("PCEMU", -1, false, null);
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "jpg", "png" };
+                vFilePickerSettings.Title = "Application Image";
+                vFilePickerSettings.Description = "Please select a new application image:";
+                vFilePickerSettings.ShowEmulatorImages = true;
+                await Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
                 if (vFilePickerCancelled) { return; }
@@ -87,17 +81,10 @@ namespace CtrlUI
         {
             try
             {
-                vFilePickerFilterIn = new List<string> { "exe" };
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Application Executable";
-                vFilePickerDescription = "Please select an application executable:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = true;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.FilterIn = new List<string> { "exe" };
+                vFilePickerSettings.Title = "Application Executable";
+                vFilePickerSettings.Description = "Please select an application executable:";
                 await Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -139,17 +126,10 @@ namespace CtrlUI
         {
             try
             {
-                vFilePickerFilterIn = new List<string>();
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Launch Folder";
-                vFilePickerDescription = "Please select the launch folder:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = false;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.Title = "Launch Folder";
+                vFilePickerSettings.Description = "Please select the launch folder:";
+                vFilePickerSettings.ShowFiles = false;
                 await Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }
@@ -166,17 +146,10 @@ namespace CtrlUI
         {
             try
             {
-                vFilePickerFilterIn = new List<string>();
-                vFilePickerFilterOut = new List<string>();
-                vFilePickerTitle = "Rom Folder";
-                vFilePickerDescription = "Please select the rom folder:";
-                vFilePickerShowNoFile = false;
-                vFilePickerShowRoms = false;
-                vFilePickerShowFiles = false;
-                vFilePickerShowDirectories = true;
-                vFilePickerBlockGoUpPath = string.Empty;
-                vFilePickerSourceDataBindApp = null;
-                grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Collapsed;
+                vFilePickerSettings = new FilePickerSettings();
+                vFilePickerSettings.Title = "Rom Folder";
+                vFilePickerSettings.Description = "Please select the rom folder:";
+                vFilePickerSettings.ShowFiles = false;
                 await Popup_Show_FilePicker("PC", -1, false, null);
 
                 while (vFilePickerResult == null && !vFilePickerCancelled && !vFilePickerCompleted) { await Task.Delay(500); }

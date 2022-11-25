@@ -150,7 +150,7 @@ namespace CtrlUI
                     int checkedItems = List_FilePicker.Count(x => x.Checked == Visibility.Visible);
 
                     DataBindString answerHowLongToBeat = new DataBindString();
-                    if (!preFile && vFilePickerShowRoms)
+                    if (!preFile && vFilePickerSettings.ShowEmulatorInterface)
                     {
                         answerHowLongToBeat.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Timer.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerHowLongToBeat.Name = "How long to beat information";
@@ -158,7 +158,7 @@ namespace CtrlUI
                     }
 
                     DataBindString answerDownloadGameInfo = new DataBindString();
-                    if (!preFile && vFilePickerShowRoms)
+                    if (!preFile && vFilePickerSettings.ShowEmulatorInterface)
                     {
                         answerDownloadGameInfo.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Download.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                         answerDownloadGameInfo.Name = "Download game information";
@@ -167,7 +167,7 @@ namespace CtrlUI
 
                     //Check the sorting type
                     string sortType = string.Empty;
-                    if (vFilePickerSortType == SortingType.Name)
+                    if (vFilePickerSortingType == SortingType.Name)
                     {
                         sortType = "Sort files and folders by date";
                     }
@@ -342,7 +342,7 @@ namespace CtrlUI
                         //Download game information
                         else if (messageResult == answerDownloadGameInfo)
                         {
-                            DownloadInfoGame informationDownloaded = await DownloadInfoGame(selectedItem.Name, vFilePickerSourceDataBindApp.Name, 210, true, false);
+                            DownloadInfoGame informationDownloaded = await DownloadInfoGame(selectedItem.Name, vFilePickerSettings.SourceDataBindApp.Name, 210, true, false);
                             if (informationDownloaded != null)
                             {
                                 selectedItem.Description = informationDownloaded.Summary;
@@ -363,7 +363,7 @@ namespace CtrlUI
         {
             try
             {
-                if (vFilePickerSortType == SortingType.Name)
+                if (vFilePickerSortingType == SortingType.Name)
                 {
                     await FilePicker_SortFilesFoldersByDate(silent);
                 }
@@ -392,7 +392,7 @@ namespace CtrlUI
                     await Notification_Send_Status("Sorting", "Sorting by name");
                 }
 
-                vFilePickerSortType = SortingType.Name;
+                vFilePickerSortingType = SortingType.Name;
 
                 SortFunction<DataBindFile> sortFuncFileType = new SortFunction<DataBindFile>();
                 sortFuncFileType.function = x => x.FileType;
@@ -426,7 +426,7 @@ namespace CtrlUI
                     await Notification_Send_Status("Sorting", "Sorting by date");
                 }
 
-                vFilePickerSortType = SortingType.Date;
+                vFilePickerSortingType = SortingType.Date;
 
                 SortFunction<DataBindFile> sortFuncFileType = new SortFunction<DataBindFile>();
                 sortFuncFileType.function = x => x.FileType;
@@ -477,14 +477,11 @@ namespace CtrlUI
         {
             try
             {
-                if (vFilePickerShowRoms)
+                if (vFilePickerSettings.ShowEmulatorInterface)
                 {
                     ListBox ListboxSender = (ListBox)sender;
                     DataBindFile SelectedItem = (DataBindFile)ListboxSender.SelectedItem;
                     //Debug.WriteLine("File picker selection has changed to: " + selectedItem.Name);
-
-                    //Show the rom information
-                    grid_Popup_FilePicker_stackpanel_Description.Visibility = Visibility.Visible;
 
                     //Set image binding
                     Binding imageBinding = new Binding();
