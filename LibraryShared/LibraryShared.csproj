@@ -38,7 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -227,9 +227,6 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Classes\IconPackage.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\Classes\IconPackage.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Classes\ImageSourceFolders.cs">
-      <Link>ArnoldVinkCode\Functions\AVImage\Classes\ImageSourceFolders.cs</Link>
-    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Enums\IconResourceFlags.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\Enums\IconResourceFlags.cs</Link>
     </Compile>
@@ -253,6 +250,12 @@
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVImage\Interop\IconResource.cs">
       <Link>ArnoldVinkCode\Functions\AVImage\Interop\IconResource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSearch\AVSearch.cs">
+      <Link>ArnoldVinkCode\Functions\AVSearch\AVSearch.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSearch\Classes\SearchSource.cs">
+      <Link>ArnoldVinkCode\Functions\AVSearch\Classes\SearchSource.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVSettings.cs">
       <Link>ArnoldVinkCode\Functions\AVSettings.cs</Link>
@@ -460,5 +463,6 @@
       <Link>ArnoldVinkCode\Styles\Readme.txt</Link>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

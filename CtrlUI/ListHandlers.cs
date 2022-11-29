@@ -113,15 +113,31 @@ namespace CtrlUI
                 AnswerEdit.Name = "Edit this application details";
                 Answers.Add(AnswerEdit);
 
+                DataBindString AnswerMove = new DataBindString();
+                AnswerMove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Move.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                AnswerMove.Name = "Move application position in list";
+                Answers.Add(AnswerMove);
+
                 DataBindString AnswerRemove = new DataBindString();
                 AnswerRemove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Remove.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
                 AnswerRemove.Name = "Remove application from list";
                 Answers.Add(AnswerRemove);
 
-                DataBindString AnswerMove = new DataBindString();
-                AnswerMove.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Move.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                AnswerMove.Name = "Move application position in list";
-                Answers.Add(AnswerMove);
+                DataBindString AnswerAddExe = new DataBindString();
+                if (dataBindApp.Category == AppCategory.App || dataBindApp.Category == AppCategory.Game || dataBindApp.Category == AppCategory.Emulator)
+                {
+                    AnswerAddExe.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddExe.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerAddExe.Name = "Add executable application to list";
+                    Answers.Add(AnswerAddExe);
+                }
+
+                DataBindString AnswerAddStore = new DataBindString();
+                if (dataBindApp.Category == AppCategory.App || dataBindApp.Category == AppCategory.Game || dataBindApp.Category == AppCategory.Emulator)
+                {
+                    AnswerAddStore.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddStore.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    AnswerAddStore.Name = "Add Windows store application to list";
+                    Answers.Add(AnswerAddStore);
+                }
 
                 //Get process details
                 string processDetails = dataBindApp.PathExe;
@@ -174,6 +190,16 @@ namespace CtrlUI
                     {
                         //Show application move popup
                         await Popup_Show_AppMove(dataBindApp);
+                    }
+                    else if (messageResult == AnswerAddExe)
+                    {
+                        //Show application add popup
+                        await Popup_Show_AddExe();
+                    }
+                    else if (messageResult == AnswerAddStore)
+                    {
+                        //Show application add popup
+                        await Popup_Show_AddStore();
                     }
                 }
             }

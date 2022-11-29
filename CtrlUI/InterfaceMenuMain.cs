@@ -119,7 +119,7 @@ namespace CtrlUI
                 DataBindString menuButtonAddExe = new DataBindString
                 {
                     ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/AppAddExe.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0),
-                    Name = "Add an executable file to application list",
+                    Name = "Add new executable application to the list",
                     Data1 = "menuButtonAddExe"
                 };
                 List_MainMenu.Add(menuButtonAddExe);

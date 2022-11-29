@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVSearch;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
 using static LibraryShared.Settings;
@@ -51,16 +52,24 @@ namespace CtrlUI
         //Dispatcher Timers
         public static DispatcherTimer vDispatcherTimerOverlay = new DispatcherTimer();
 
-        //Image Variables
-        public static ImageSourceFolders[] vImageSourceFolders =
+        //Search Variables
+        public static SearchSource[] vImageSourceFolders =
         {
-            new ImageSourceFolders() { SourcePath = "Assets/User/Apps", SearchOption = SearchOption.AllDirectories },
-            new ImageSourceFolders() { SourcePath = "Assets/Default/Apps", SearchOption = SearchOption.AllDirectories },
-            new ImageSourceFolders() { SourcePath = "Assets/User/Games", SearchOption = SearchOption.AllDirectories },
-            new ImageSourceFolders() { SourcePath = "Assets/Default/Games", SearchOption = SearchOption.AllDirectories },
-            new ImageSourceFolders() { SourcePath = "Assets/User/Emulators", SearchOption = SearchOption.AllDirectories },
-            new ImageSourceFolders() { SourcePath = "Assets/Default/Emulators", SearchOption = SearchOption.AllDirectories }
+            new SearchSource() { SearchPath = "Assets/User/Apps", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
+            new SearchSource() { SearchPath = "Assets/Default/Apps", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
+            new SearchSource() { SearchPath = "Assets/User/Games", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
+            new SearchSource() { SearchPath = "Assets/Default/Games", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
+            new SearchSource() { SearchPath = "Assets/User/Emulators", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
+            new SearchSource() { SearchPath = "Assets/Default/Emulators", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories }
         };
+        public static SearchSource[] vImageSourceFoldersUser =
+        {
+            new SearchSource() { SearchPath = "Assets/User/Apps", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
+            new SearchSource() { SearchPath = "Assets/User/Games", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
+            new SearchSource() { SearchPath = "Assets/User/Emulators", SearchPatterns = new [] {"*.png", "*.jpg"}, SearchOption = SearchOption.AllDirectories },
+        };
+
+        //Image Variables
         public static int vImageLoadSize = 150;
         public static string vImageBackupSource = "Assets/Default/Apps/Unknown.png";
         public static BitmapImage vImagePreloadSteam = FileToBitmapImage(new string[] { "Steam" }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);

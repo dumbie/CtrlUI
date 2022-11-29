@@ -76,7 +76,7 @@ namespace DirectXInput.OverlayCode
             try
             {
                 //Wait for change to complete
-                await Task.Delay(500);
+                await Task.Delay(1000);
 
                 //Update the window position
                 UpdateWindowPosition();

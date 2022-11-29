@@ -179,34 +179,7 @@ namespace CtrlUI
         {
             try
             {
-                if (vEditAppDataBind != null)
-                {
-                    //Remove application image files
-                    string imageFileTitle = "Assets/User/Apps/" + vEditAppDataBind.Name + ".png";
-                    string imageFileExe = "Assets/User/Apps/" + Path.GetFileNameWithoutExtension(vEditAppDataBind.PathExe) + ".png";
-                    File_Delete(imageFileTitle);
-                    File_Delete(imageFileExe);
-
-                    //Reload the application image
-                    BitmapImage applicationImage = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-                    img_AddAppLogo.Source = applicationImage;
-                    vEditAppDataBind.ImageBitmap = applicationImage;
-
-                    await Notification_Send_Status("Restart", "App image reset");
-                    Debug.WriteLine("App image reset: " + vEditAppDataBind.Name);
-                }
-                else
-                {
-                    //Remove application image files
-                    string imageFileTitle = "Assets/User/Apps/" + tb_AddAppName.Text + ".png";
-                    string imageFileExe = "Assets/User/Apps/" + Path.GetFileNameWithoutExtension(tb_AddAppExePath.Text) + ".png";
-                    File_Delete(imageFileTitle);
-                    File_Delete(imageFileExe);
-
-                    //Reload the application image
-                    BitmapImage applicationImage = FileToBitmapImage(new string[] { tb_AddAppName.Text, tb_AddAppExePath.Text }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-                    img_AddAppLogo.Source = applicationImage;
-                }
+                await Image_Application_Reset();
             }
             catch { }
         }

@@ -21,6 +21,9 @@ namespace CtrlUI
         {
             try
             {
+                //Wait for change to complete
+                await Task.Delay(1000);
+
                 //Update the window position
                 await UpdateWindowPosition(false, true);
             }
