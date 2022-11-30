@@ -26,10 +26,42 @@ namespace FpsOverlayer
                 vHardwareComputer.IsMotherboardEnabled = true;
                 vHardwareComputer.IsBatteryEnabled = true;
                 vHardwareComputer.Open();
+                UpdateSMBiosInformation(vHardwareComputer.SMBios);
 
                 AVActions.TaskStartLoop(LoopMonitorHardware, vTask_MonitorHardware);
 
                 Debug.WriteLine("Started monitoring hardware.");
+            }
+            catch { }
+        }
+
+        //Update SMBios information
+        void UpdateSMBiosInformation(SMBios smBios)
+        {
+            try
+            {
+                //Set motherboard name
+                vHardwareMotherboardName = smBios.Board.ManufacturerName + " " + smBios.Board.ProductName;
+
+                //Filter motherboard manufacturer
+                vHardwareMotherboardName = vHardwareMotherboardName.Replace("To be filled by O.E.M.", "O.E.M.");
+                vHardwareMotherboardName = vHardwareMotherboardName.Replace(" Technology", string.Empty);
+                vHardwareMotherboardName = vHardwareMotherboardName.Replace(" Ltd.", string.Empty);
+                vHardwareMotherboardName = vHardwareMotherboardName.Replace(" Ltd", string.Empty);
+                vHardwareMotherboardName = vHardwareMotherboardName.Replace(" Co.,", string.Empty);
+                vHardwareMotherboardName = vHardwareMotherboardName.Replace(" Co.", string.Empty);
+
+                //Set memory details
+                int memoryCount = 0;
+                foreach (MemoryDevice memoryDevice in smBios.MemoryDevices)
+                {
+                    if (memoryDevice.Size > 0)
+                    {
+                        memoryCount++;
+                        vHardwareMemoryName = memoryDevice.ManufacturerName + " " + memoryDevice.PartNumber + " (" + memoryCount + "X) " + memoryDevice.Type;
+                        vHardwareMemorySpeed = memoryDevice.Speed + "MT/s";
+                    }
+                }
             }
             catch { }
         }
@@ -223,11 +255,13 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
+                bool showName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowName"));
+                bool showSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowSpeed"));
                 bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowPercentage"));
                 bool showUsed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowUsed"));
                 bool showFree = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowFree"));
                 bool showTotal = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowTotal"));
-                if (!showPercentage && !showUsed && !showFree && !showTotal)
+                if (!showName && !showSpeed && !showPercentage && !showUsed && !showFree && !showTotal)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -239,10 +273,24 @@ namespace FpsOverlayer
                 if (hardwareItem.HardwareType == HardwareType.Memory)
                 {
                     hardwareItem.Update();
+                    string MemoryName = string.Empty;
+                    string MemorySpeed = string.Empty;
                     string MemoryPercentage = string.Empty;
                     string MemoryBytes = string.Empty;
                     float RawMemoryUsed = 0;
                     float RawMemoryFree = 0;
+
+                    //Set the memory name
+                    if (showName)
+                    {
+                        MemoryName = vHardwareMemoryName;
+                    }
+
+                    //Set the memory speed
+                    if (showSpeed)
+                    {
+                        MemorySpeed = " " + vHardwareMemorySpeed;
+                    }
 
                     foreach (ISensor sensor in hardwareItem.Sensors)
                     {
@@ -285,9 +333,28 @@ namespace FpsOverlayer
                         MemoryBytes += " " + Convert.ToInt32(RawMemoryUsed + RawMemoryFree) + "GB(T)";
                     }
 
-                    if (!string.IsNullOrWhiteSpace(MemoryPercentage) || !string.IsNullOrWhiteSpace(MemoryBytes))
+                    bool memoryNameNullOrWhiteSpace = string.IsNullOrWhiteSpace(MemoryName);
+                    if (!memoryNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(MemorySpeed) || !string.IsNullOrWhiteSpace(MemoryPercentage) || !string.IsNullOrWhiteSpace(MemoryBytes))
                     {
-                        string stringDisplay = AVFunctions.StringRemoveStart(vTitleMEM + MemoryPercentage + MemoryBytes, " ");
+                        string stringDisplay = string.Empty;
+                        string stringStats = AVFunctions.StringRemoveStart(vTitleMEM + MemoryPercentage + MemorySpeed + MemoryBytes, " ");
+
+                        if (string.IsNullOrWhiteSpace(stringStats))
+                        {
+                            stringDisplay = MemoryName;
+                        }
+                        else
+                        {
+                            if (memoryNameNullOrWhiteSpace)
+                            {
+                                stringDisplay = stringStats;
+                            }
+                            else
+                            {
+                                stringDisplay = MemoryName + "\n" + stringStats;
+                            }
+                        }
+
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             textblock_CurrentMem.Text = stringDisplay;
@@ -514,14 +581,15 @@ namespace FpsOverlayer
             try
             {
                 //Check if the information is visible
-                bool showName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowName"));
+                bool showCpuName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowName"));
+                bool showBoardName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BoardShowName"));
                 bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPercentage"));
                 bool showTemperature = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature"));
                 bool showCoreFrequency = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency"));
                 bool showPowerWatt = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerWatt"));
                 bool showPowerVolt = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPowerVolt"));
                 bool showFanSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowFanSpeed"));
-                if (!showName && !showPercentage && !showTemperature && !showCoreFrequency && !showPowerWatt && !showPowerVolt && !showFanSpeed)
+                if (!showCpuName && !showBoardName && !showPercentage && !showTemperature && !showCoreFrequency && !showPowerWatt && !showPowerVolt && !showFanSpeed)
                 {
                     AVActions.ActionDispatcherInvoke(delegate
                     {
@@ -534,6 +602,7 @@ namespace FpsOverlayer
                 {
                     hardwareItem.Update();
                     string CpuName = string.Empty;
+                    string BoardName = string.Empty;
                     string CpuPercentage = string.Empty;
                     string CpuTemperature = string.Empty;
                     string CpuFrequency = string.Empty;
@@ -541,10 +610,16 @@ namespace FpsOverlayer
                     string CpuPowerVoltage = string.Empty;
                     string CpuFanSpeed = string.Empty;
 
-                    //Set the cpu name
-                    if (showName)
+                    //Set the processor name
+                    if (showCpuName)
                     {
                         CpuName = hardwareItem.Name;
+                    }
+
+                    //Set the motherboard name
+                    if (showBoardName)
+                    {
+                        BoardName = vHardwareMotherboardName;
                     }
 
                     //Set the cpu fan speed
@@ -616,23 +691,46 @@ namespace FpsOverlayer
                     }
 
                     bool cpuNameNullOrWhiteSpace = string.IsNullOrWhiteSpace(CpuName);
-                    if (!cpuNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(CpuPercentage) || !string.IsNullOrWhiteSpace(CpuTemperature) || !string.IsNullOrWhiteSpace(CpuFrequency) || !string.IsNullOrWhiteSpace(CpuPowerWattage) || !string.IsNullOrWhiteSpace(CpuPowerVoltage) || !string.IsNullOrWhiteSpace(CpuFanSpeed))
+                    bool boardNameNullOrWhiteSpace = string.IsNullOrWhiteSpace(BoardName);
+                    if (!cpuNameNullOrWhiteSpace || !boardNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(CpuPercentage) || !string.IsNullOrWhiteSpace(CpuTemperature) || !string.IsNullOrWhiteSpace(CpuFrequency) || !string.IsNullOrWhiteSpace(CpuPowerWattage) || !string.IsNullOrWhiteSpace(CpuPowerVoltage) || !string.IsNullOrWhiteSpace(CpuFanSpeed))
                     {
                         string stringDisplay = string.Empty;
                         string stringStats = AVFunctions.StringRemoveStart(vTitleCPU + CpuPercentage + CpuTemperature + CpuFrequency + CpuFanSpeed + CpuPowerWattage + CpuPowerVoltage, " ");
                         if (string.IsNullOrWhiteSpace(stringStats))
                         {
-                            stringDisplay = CpuName;
+                            if (!cpuNameNullOrWhiteSpace && !boardNameNullOrWhiteSpace)
+                            {
+                                stringDisplay = CpuName + "\n" + BoardName;
+                            }
+                            else if (!cpuNameNullOrWhiteSpace)
+                            {
+                                stringDisplay = CpuName;
+                            }
+                            else if (!boardNameNullOrWhiteSpace)
+                            {
+                                stringDisplay = BoardName;
+                            }
                         }
                         else
                         {
-                            if (cpuNameNullOrWhiteSpace)
+                            if (cpuNameNullOrWhiteSpace && boardNameNullOrWhiteSpace)
                             {
                                 stringDisplay = stringStats;
                             }
                             else
                             {
-                                stringDisplay = CpuName + "\n" + stringStats;
+                                if (!cpuNameNullOrWhiteSpace && !boardNameNullOrWhiteSpace)
+                                {
+                                    stringDisplay = CpuName + "\n" + BoardName + "\n" + stringStats;
+                                }
+                                else if (!cpuNameNullOrWhiteSpace)
+                                {
+                                    stringDisplay = CpuName + "\n" + stringStats;
+                                }
+                                else if (!boardNameNullOrWhiteSpace)
+                                {
+                                    stringDisplay = BoardName + "\n" + stringStats;
+                                }
                             }
                         }
 

@@ -55,6 +55,9 @@ namespace FpsOverlayer
 
         //Hardware
         public static Computer vHardwareComputer = null;
+        public static string vHardwareMotherboardName = string.Empty;
+        public static string vHardwareMemoryName = string.Empty;
+        public static string vHardwareMemorySpeed = string.Empty;
 
         //Trace Events
         public static TraceEventSession vTraceEventSession;

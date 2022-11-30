@@ -52,6 +52,7 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuCategoryTitle", "CPU"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowCategoryTitle", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowName") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowName", "False"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "BoardShowName") == null) { Setting_Save(vConfigurationFpsOverlayer, "BoardShowName", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowPercentage") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPercentage", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowTemperature", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency") == null) { Setting_Save(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", "True"); }
@@ -62,6 +63,8 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemId") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemId", "5"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemCategoryTitle", "MEM"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowCategoryTitle", "True"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowName") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowName", "False"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowSpeed") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowSpeed", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowPercentage") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowPercentage", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowUsed") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowUsed", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowFree") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowFree", "False"); }

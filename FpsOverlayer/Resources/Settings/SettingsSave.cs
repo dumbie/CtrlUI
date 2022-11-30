@@ -124,6 +124,7 @@ namespace FpsOverlayer
                     vWindowMain.UpdateFpsOverlayStyle();
                 };
                 checkbox_CpuShowName.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "CpuShowName", checkbox_CpuShowName.IsChecked.ToString()); };
+                checkbox_BoardShowName.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "BoardShowName", checkbox_BoardShowName.IsChecked.ToString()); };
                 checkbox_CpuShowPercentage.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "CpuShowPercentage", checkbox_CpuShowPercentage.IsChecked.ToString()); };
                 checkbox_CpuShowTemperature.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "CpuShowTemperature", checkbox_CpuShowTemperature.IsChecked.ToString()); };
                 checkbox_CpuShowCoreFrequency.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "CpuShowCoreFrequency", checkbox_CpuShowCoreFrequency.IsChecked.ToString()); };
@@ -143,6 +144,8 @@ namespace FpsOverlayer
                     Setting_Save(vConfigurationFpsOverlayer, "MemShowCategoryTitle", senderCheckBox.IsChecked.ToString());
                     vWindowMain.UpdateFpsOverlayStyle();
                 };
+                checkbox_MemShowName.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "MemShowName", checkbox_MemShowName.IsChecked.ToString()); };
+                checkbox_MemShowSpeed.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "MemShowSpeed", checkbox_MemShowSpeed.IsChecked.ToString()); };
                 checkbox_MemShowPercentage.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "MemShowPercentage", checkbox_MemShowPercentage.IsChecked.ToString()); };
                 checkbox_MemShowUsed.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "MemShowUsed", checkbox_MemShowUsed.IsChecked.ToString()); };
                 checkbox_MemShowFree.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "MemShowFree", checkbox_MemShowFree.IsChecked.ToString()); };

@@ -59,6 +59,7 @@ namespace FpsOverlayer
                 textbox_CpuCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "CpuCategoryTitle"));
                 checkbox_CpuShowCategoryTitle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCategoryTitle"));
                 checkbox_CpuShowName.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowName"));
+                checkbox_BoardShowName.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BoardShowName"));
                 checkbox_CpuShowPercentage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowPercentage"));
                 checkbox_CpuShowTemperature.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowTemperature"));
                 checkbox_CpuShowCoreFrequency.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowCoreFrequency"));
@@ -68,6 +69,8 @@ namespace FpsOverlayer
 
                 textbox_MemCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "MemCategoryTitle"));
                 checkbox_MemShowCategoryTitle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowCategoryTitle"));
+                checkbox_MemShowName.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowName"));
+                checkbox_MemShowSpeed.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowSpeed"));
                 checkbox_MemShowPercentage.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowPercentage"));
                 checkbox_MemShowUsed.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowUsed"));
                 checkbox_MemShowFree.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowFree"));
