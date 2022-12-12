@@ -2,8 +2,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -90,7 +90,7 @@ namespace CtrlUI
                 }
 
                 //Add Xbox uwp application to the list
-                if (UwpGetAppPackageByAppUserModelId("Microsoft.GamingApp_8wekyb3d8bbwe!Microsoft.Xbox.App") != null)
+                if (GetUwpAppPackageByAppUserModelId("Microsoft.GamingApp_8wekyb3d8bbwe!Microsoft.Xbox.App") != null)
                 {
                     DataBindApp dataBindAppXbox = new DataBindApp() { Type = ProcessType.UWP, Category = AppCategory.App, Name = "Xbox", NameExe = "XboxPcApp.exe", PathExe = "Microsoft.GamingApp_8wekyb3d8bbwe!Microsoft.Xbox.App" };
                     await AddAppToList(dataBindAppXbox, true, true);

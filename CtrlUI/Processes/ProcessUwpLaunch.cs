@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -36,7 +37,7 @@ namespace CtrlUI
             try
             {
                 //Check if the application exists
-                if (UwpGetAppPackageByAppUserModelId(pathExe) == null)
+                if (GetUwpAppPackageByAppUserModelId(pathExe) == null)
                 {
                     await Notification_Send_Status("Close", "Application not found");
                     Debug.WriteLine("Launch application not found.");

@@ -8,8 +8,8 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -53,7 +53,7 @@ namespace CtrlUI
                     dataBindApp.StatusStore = Visibility.Visible;
 
                     //Check if application still exists
-                    if (UwpGetAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
+                    if (GetUwpAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
                     {
                         dataBindApp.StatusAvailable = Visibility.Visible;
                     }

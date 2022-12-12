@@ -9,9 +9,9 @@ using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
-using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -222,8 +222,8 @@ namespace CtrlUI
                             string storeImageWide = string.Empty;
                             if (processType == ProcessType.Win32Store)
                             {
-                                Package appPackage = UwpGetAppPackageByAppUserModelId(processPathExe);
-                                AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
+                                Package appPackage = GetUwpAppPackageByAppUserModelId(processPathExe);
+                                AppxDetails appxDetails = GetUwpAppxDetailsFromAppPackage(appPackage);
                                 storeImageSquare = appxDetails.SquareLargestLogoPath;
                                 storeImageWide = appxDetails.WideLargestLogoPath;
                             }

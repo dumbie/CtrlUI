@@ -7,8 +7,8 @@ using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using Windows.Gaming.Preview.GamesEnumeration;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -42,10 +42,10 @@ namespace CtrlUI
                         }
 
                         //Get uwp application package
-                        Package appPackage = UwpGetAppPackageByFamilyName(appFamilyName);
+                        Package appPackage = GetUwpAppPackageByFamilyName(appFamilyName);
 
                         //Get detailed application information
-                        AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
+                        AppxDetails appxDetails = GetUwpAppxDetailsFromAppPackage(appPackage);
 
                         //Check if executable name is valid
                         if (string.IsNullOrWhiteSpace(appxDetails.ExecutableName))

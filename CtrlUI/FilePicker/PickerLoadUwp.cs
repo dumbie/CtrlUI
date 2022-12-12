@@ -10,8 +10,7 @@ using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using Windows.Management.Deployment;
 using static ArnoldVinkCode.AVImage;
-using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessUwpFunctions;
+using static ArnoldVinkCode.AVUwpAppx;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -48,7 +47,7 @@ namespace CtrlUI
 
                 //Set uwp application filters
                 string[] whiteListFamilyName = { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe" };
-                string[] blackListFamilyNameId = { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!PdfReader" };
+                string[] blackListAppUserModelId = { "Microsoft.MicrosoftEdge_8wekyb3d8bbwe!PdfReader" };
 
                 //Get all the installed uwp apps
                 PackageManager deployPackageManager = new PackageManager();
@@ -80,7 +79,7 @@ namespace CtrlUI
                         }
 
                         //Get detailed application information
-                        AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
+                        AppxDetails appxDetails = GetUwpAppxDetailsFromAppPackage(appPackage);
 
                         //Check if executable name is valid
                         if (string.IsNullOrWhiteSpace(appxDetails.ExecutableName))
@@ -95,7 +94,7 @@ namespace CtrlUI
                         }
 
                         //Check if the application is in blacklist
-                        if (blackListFamilyNameId.Contains(appxDetails.FamilyNameId))
+                        if (blackListAppUserModelId.Contains(appxDetails.AppUserModelId))
                         {
                             continue;
                         }
@@ -104,7 +103,7 @@ namespace CtrlUI
                         BitmapImage uwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, null, vImageBackupSource, IntPtr.Zero, 50, 0);
 
                         //Add the application to the list
-                        DataBindFile dataBindFile = new DataBindFile() { FileType = FileType.UwpApp, Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.FamilyNameId, PathFull = appxDetails.FullPackageName, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };
+                        DataBindFile dataBindFile = new DataBindFile() { FileType = FileType.UwpApp, Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.AppUserModelId, PathFull = appxDetails.FullPackageName, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
                     }
                     catch { }

@@ -12,8 +12,8 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.ApplicationModel;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -329,7 +329,7 @@ namespace CtrlUI
                     shortcutWindowStore = Visibility.Visible;
 
                     //Get basic application information
-                    Package appPackage = UwpGetAppPackageByAppUserModelId(shortcutDetails.TargetPath);
+                    Package appPackage = GetUwpAppPackageByAppUserModelId(shortcutDetails.TargetPath);
 
                     //Check if the app still exists
                     if (appPackage == null)
@@ -339,7 +339,7 @@ namespace CtrlUI
                     else
                     {
                         //Get detailed application information
-                        AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
+                        AppxDetails appxDetails = GetUwpAppxDetailsFromAppPackage(appPackage);
 
                         //Set the application icon path
                         shortcutDetails.IconPath = appxDetails.SquareLargestLogoPath;

@@ -116,12 +116,6 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputMouse.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputMouse.cs</Link>
     </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ClassAppxDetails.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ClassAppxDetails.cs</Link>
-    </Compile>
-    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ClassAppxFactory.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ClassAppxFactory.cs</Link>
-    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessClasses.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessClasses.cs</Link>
     </Compile>
@@ -262,6 +256,15 @@
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVTaskbarInformation.cs">
       <Link>ArnoldVinkCode\Functions\AVTaskbarInformation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVUwpAppx\AVUwpAppx.cs">
+      <Link>ArnoldVinkCode\Functions\AVUwpAppx\AVUwpAppx.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVUwpAppx\ClassAppxDetails.cs">
+      <Link>ArnoldVinkCode\Functions\AVUwpAppx\ClassAppxDetails.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVUwpAppx\ClassAppxManifest.cs">
+      <Link>ArnoldVinkCode\Functions\AVUwpAppx\ClassAppxManifest.cs</Link>
     </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>

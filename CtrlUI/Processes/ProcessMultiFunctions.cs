@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -40,7 +40,7 @@ namespace CtrlUI
                 if (dataBindApp.Type == ProcessType.UWP || dataBindApp.Type == ProcessType.Win32Store)
                 {
                     //Check if the application exists
-                    if (UwpGetAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
+                    if (GetUwpAppPackageByAppUserModelId(dataBindApp.PathExe) == null)
                     {
                         await Notification_Send_Status("Close", "Application not found");
                         Debug.WriteLine("Launch application not found.");

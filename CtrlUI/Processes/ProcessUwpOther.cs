@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using static ArnoldVinkCode.AVImage;
+using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessUwpFunctions;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 
@@ -64,8 +64,8 @@ namespace CtrlUI
                             Debug.WriteLine("Uwp application image not found: " + dataBindApp.PathImage);
 
                             //Get detailed application information
-                            Package appPackage = UwpGetAppPackageByAppUserModelId(dataBindApp.PathExe);
-                            AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
+                            Package appPackage = GetUwpAppPackageByAppUserModelId(dataBindApp.PathExe);
+                            AppxDetails appxDetails = GetUwpAppxDetailsFromAppPackage(appPackage);
 
                             //Update the application icons
                             dataBindApp.PathImage = appxDetails.SquareLargestLogoPath;

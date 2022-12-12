@@ -10,6 +10,7 @@ using Windows.ApplicationModel;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVUwpAppx;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessUwpFunctions;
@@ -100,15 +101,15 @@ namespace CtrlUI
 
                                 //Get the application user model id
                                 string processPathExe = GetAppUserModelIdFromWindowHandle(processWindowHandle);
-                                if (string.IsNullOrWhiteSpace(processPathExe))
+                                if (processApp != null && string.IsNullOrWhiteSpace(processPathExe))
                                 {
                                     processPathExe = GetAppUserModelIdFromProcess(processApp);
                                 }
                                 string processPathExeLower = processPathExe.ToLower();
 
                                 //Get detailed application information
-                                Package appPackage = UwpGetAppPackageByAppUserModelId(processPathExe);
-                                AppxDetails appxDetails = UwpGetAppxDetailsFromAppPackage(appPackage);
+                                Package appPackage = GetUwpAppPackageByAppUserModelId(processPathExe);
+                                AppxDetails appxDetails = GetUwpAppxDetailsFromAppPackage(appPackage);
                                 string processNameExe = appxDetails.ExecutableName;
                                 string processNameExeLower = processNameExe.ToLower();
                                 string processNameExeNoExt = Path.GetFileNameWithoutExtension(processNameExe);
@@ -120,10 +121,18 @@ namespace CtrlUI
                                     continue;
                                 }
 
-                                //Check if the process has been found
+                                //Check if UWP process has been found
                                 if (processApp == null)
                                 {
                                     processApp = GetUwpProcessByProcessNameAndAppUserModelId(processNameExeNoExt, processPathExe);
+                                }
+                                if (processApp == null)
+                                {
+                                    Debug.WriteLine("No UWP process has been found for window: " + processNameExe);
+                                    continue;
+                                }
+                                else
+                                {
                                     processIdentifier = processApp.Id;
                                 }
 
