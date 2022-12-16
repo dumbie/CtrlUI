@@ -15,7 +15,7 @@ namespace DirectXInput.KeypadCode
             {
                 //Check if the keypad process changed
                 string processNameLower = vProcessForeground.Name.ToLower();
-                string processTitleLower = vProcessForeground.Title.ToLower().Replace(" ", string.Empty);
+                string processTitleLower = vProcessForeground.WindowTitle.ToLower().Replace(" ", string.Empty);
                 if (processNameLower != vKeypadPreviousProcessName || processTitleLower != vKeypadPreviousProcessTitle)
                 {
                     Debug.WriteLine("Keypad process changed to: " + processNameLower + "/" + processTitleLower);

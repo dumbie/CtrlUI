@@ -18,7 +18,6 @@ namespace CtrlUI
             {
                 cb_SettingsLaunchMinimized.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "LaunchMinimized"));
 
-                cb_SettingsHideAppProcesses.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "HideAppProcesses"));
                 cb_SettingsShowLibrarySteam.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibrarySteam"));
                 cb_SettingsShowLibraryEADesktop.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEADesktop"));
                 cb_SettingsShowLibraryEpic.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationCtrlUI, "ShowLibraryEpic"));

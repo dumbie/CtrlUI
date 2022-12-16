@@ -31,7 +31,7 @@ namespace CtrlUI
                 }
 
                 //Restart the process
-                Process restartProcess = await RestartProcessUwp(dataBindApp.Name, dataBindApp.PathExe, processMulti.Identifier, processMulti.WindowHandle, launchArgument);
+                Process restartProcess = await RestartProcessUwp(dataBindApp.Name, processMulti.Path, processMulti.Identifier, processMulti.WindowHandle, launchArgument);
                 if (restartProcess == null)
                 {
                     await Notification_Send_Status("Close", "Failed restarting " + dataBindApp.Name);

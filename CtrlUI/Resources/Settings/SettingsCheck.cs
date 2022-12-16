@@ -26,7 +26,7 @@ namespace CtrlUI
                 if (Setting_Load(vConfigurationCtrlUI, "ListAppCategory") == null) { Setting_Save(vConfigurationCtrlUI, "ListAppCategory", "1"); }
 
                 if (Setting_Load(vConfigurationCtrlUI, "LaunchMinimized") == null) { Setting_Save(vConfigurationCtrlUI, "LaunchMinimized", "False"); }
-                if (Setting_Load(vConfigurationCtrlUI, "HideAppProcesses") == null) { Setting_Save(vConfigurationCtrlUI, "HideAppProcesses", "False"); }
+
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibrarySteam") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibrarySteam", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryEADesktop") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryEADesktop", "True"); }
                 if (Setting_Load(vConfigurationCtrlUI, "ShowLibraryEpic") == null) { Setting_Save(vConfigurationCtrlUI, "ShowLibraryEpic", "True"); }

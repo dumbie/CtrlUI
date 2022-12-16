@@ -32,11 +32,6 @@ namespace CtrlUI
                     Setting_Save(vConfigurationCtrlUI, "LaunchDirectXInput", cb_SettingsLaunchDirectXInput.IsChecked.ToString());
                 };
 
-                cb_SettingsHideAppProcesses.Click += (sender, e) =>
-                {
-                    Setting_Save(vConfigurationCtrlUI, "HideAppProcesses", cb_SettingsHideAppProcesses.IsChecked.ToString());
-                };
-
                 cb_SettingsShowLibrarySteam.Click += async (sender, e) =>
                 {
                     Setting_Save(vConfigurationCtrlUI, "ShowLibrarySteam", cb_SettingsShowLibrarySteam.IsChecked.ToString());

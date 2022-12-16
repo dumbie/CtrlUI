@@ -89,7 +89,7 @@ namespace CtrlUI
                     else if (SelStackPanel.Name == "settingsButtonApps")
                     {
                         settingsStackpanelApps.Visibility = Visibility.Visible;
-                        await FrameworkElementFocus(cb_SettingsHideAppProcesses, false, vProcessCurrent.MainWindowHandle);
+                        await FrameworkElementFocus(cb_SettingsShowLibrarySteam, false, vProcessCurrent.MainWindowHandle);
                     }
                     else if (SelStackPanel.Name == "settingsButtonInterface")
                     {

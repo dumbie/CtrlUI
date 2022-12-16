@@ -243,17 +243,5 @@ namespace CtrlUI
                 return string.Empty;
             }
         }
-
-        int ProcessRuntimeMinutes(Process targetProcess)
-        {
-            try
-            {
-                return Convert.ToInt32(DateTime.Now.Subtract(targetProcess.StartTime).TotalMinutes);
-            }
-            catch
-            {
-                return -1;
-            }
-        }
     }
 }

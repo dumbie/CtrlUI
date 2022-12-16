@@ -345,7 +345,7 @@ namespace CtrlUI
                         shortcutDetails.IconPath = appxDetails.SquareLargestLogoPath;
 
                         //Set the applicaton exe name
-                        shortcutDetails.NameExe = appxDetails.ExecutableName;
+                        shortcutDetails.NameExe = appxDetails.ExecutableAliasName;
                     }
                 }
                 else

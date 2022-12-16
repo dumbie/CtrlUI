@@ -82,7 +82,7 @@ namespace CtrlUI
                         AppxDetails appxDetails = GetUwpAppxDetailsFromAppPackage(appPackage);
 
                         //Check if executable name is valid
-                        if (string.IsNullOrWhiteSpace(appxDetails.ExecutableName))
+                        if (string.IsNullOrWhiteSpace(appxDetails.ExecutableAliasName))
                         {
                             continue;
                         }
@@ -103,7 +103,7 @@ namespace CtrlUI
                         BitmapImage uwpListImage = FileToBitmapImage(new string[] { appxDetails.SquareLargestLogoPath, appxDetails.WideLargestLogoPath }, null, vImageBackupSource, IntPtr.Zero, 50, 0);
 
                         //Add the application to the list
-                        DataBindFile dataBindFile = new DataBindFile() { FileType = FileType.UwpApp, Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableName, PathFile = appxDetails.AppUserModelId, PathFull = appxDetails.FullPackageName, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };
+                        DataBindFile dataBindFile = new DataBindFile() { FileType = FileType.UwpApp, Name = appxDetails.DisplayName, NameExe = appxDetails.ExecutableAliasName, PathFile = appxDetails.AppUserModelId, PathFull = appxDetails.FullPackageName, PathImage = appxDetails.SquareLargestLogoPath, ImageBitmap = uwpListImage };
                         await ListBoxAddItem(lb_FilePicker, List_FilePicker, dataBindFile, false, false);
                     }
                     catch { }

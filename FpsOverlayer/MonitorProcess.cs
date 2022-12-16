@@ -62,7 +62,7 @@ namespace FpsOverlayer
                             vTargetProcess = foregroundProcess;
 
                             //Update the application name
-                            UpdateApplicationName(foregroundProcess.Title);
+                            UpdateApplicationName(foregroundProcess.WindowTitle);
 
                             continue;
                         }
@@ -87,7 +87,7 @@ namespace FpsOverlayer
                         }
 
                         //Update the application name
-                        UpdateApplicationName(foregroundProcess.Title);
+                        UpdateApplicationName(foregroundProcess.WindowTitle);
 
                         //Update the current target process
                         vTargetProcess = foregroundProcess;

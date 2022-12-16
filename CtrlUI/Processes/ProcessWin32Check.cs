@@ -21,7 +21,7 @@ namespace CtrlUI
             try
             {
                 //Get threads from process
-                ProcessThreadCollection processThreads = GetProcessThreads(processMulti);
+                ProcessThreadCollection processThreads = processMulti.ProcessThreads();
 
                 //Check threads from process
                 int processThreadCount = processThreads.Count;

@@ -579,11 +579,6 @@
                                 </StackPanel>
 
                                 <StackPanel Name="settingsStackpanelApps" Visibility="Collapsed">
-                                    <CheckBox Name="cb_SettingsHideAppProcesses" Content="Hide added apps from the processes" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
-                                    <TextBlock Text="Enabling this will hide all the added applications from the processes list to prevent double apps." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
-
-                                    <Border HorizontalAlignment="Stretch" Style="{StaticResource BorderHorizontalAccentLight}" Margin="0,20,0,20"/>
-
                                     <CheckBox Name="cb_SettingsShowLibrarySteam" Content="Shows games from Steam library" Style="{StaticResource CheckBoxWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                                     <TextBlock Text="Enabling this will show all the installed games from your Steam library." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}"/>
 

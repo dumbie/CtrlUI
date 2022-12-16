@@ -27,15 +27,15 @@ namespace CtrlUI
                             try
                             {
                                 //Get the process title
-                                string ProcessTitle = GetWindowTitleFromWindowHandle(multiProcess.WindowHandle);
-                                if (ProcessTitle == "Unknown")
+                                string processTitle = multiProcess.WindowTitle;
+                                if (processTitle == "Unknown")
                                 {
-                                    ProcessTitle += " (Hidden)";
+                                    processTitle += " (Hidden)";
                                 }
 
                                 DataBindString AnswerApp = new DataBindString();
                                 AnswerApp.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Process.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
-                                AnswerApp.Name = ProcessTitle;
+                                AnswerApp.Name = processTitle;
                                 AnswerApp.NameSub = multiProcess.Identifier.ToString();
                                 multiAnswers.Add(AnswerApp);
                             }
