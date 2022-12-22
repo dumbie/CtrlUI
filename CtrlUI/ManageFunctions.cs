@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
 using static ArnoldVinkCode.AVImage;
@@ -13,6 +14,8 @@ using static ArnoldVinkCode.ProcessClasses;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
+using static LibraryShared.FocusFunctions;
+using static LibraryShared.Settings;
 
 namespace CtrlUI
 {
@@ -177,6 +180,334 @@ namespace CtrlUI
             catch { }
         }
 
+        //Add or edit application to list apps and Json file
+        async Task SaveEditManageApplication()
+        {
+            try
+            {
+                //Check the selected categories
+                AppCategory selectedAppCategory = (AppCategory)lb_Manage_AddAppCategory.SelectedIndex;
+                EmulatorCategory selectedEmulatorCategory = (EmulatorCategory)lb_Manage_AddEmulatorCategory.SelectedIndex;
+
+                //Check if there is an application name set
+                if (string.IsNullOrWhiteSpace(tb_AddAppName.Text))
+                {
+                    List<DataBindString> Answers = new List<DataBindString>();
+                    DataBindString Answer1 = new DataBindString();
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.Name = "Ok";
+                    Answers.Add(Answer1);
+
+                    await Popup_Show_MessageBox("Please enter an application name first", "", "", Answers);
+                    return;
+                }
+
+                //Check if there is an application name set
+                if (tb_AddAppName.Text == "Select application executable file first" || tb_AddAppEmulatorName.Text == "Select application executable file first")
+                {
+                    List<DataBindString> Answers = new List<DataBindString>();
+                    DataBindString Answer1 = new DataBindString();
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.Name = "Ok";
+                    Answers.Add(Answer1);
+
+                    await Popup_Show_MessageBox("Please select an application executable file first", "", "", Answers);
+                    return;
+                }
+
+                //Check if there is an application exe set
+                if (string.IsNullOrWhiteSpace(tb_AddAppExePath.Text))
+                {
+                    List<DataBindString> Answers = new List<DataBindString>();
+                    DataBindString Answer1 = new DataBindString();
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.Name = "Ok";
+                    Answers.Add(Answer1);
+
+                    await Popup_Show_MessageBox("Please select an application executable file first", "", "", Answers);
+                    return;
+                }
+
+                //Prevent CtrlUI from been added to the list
+                if (tb_AddAppExePath.Text.Contains("CtrlUI.exe") || tb_AddAppExePath.Text.Contains("CtrlUI-Launcher.exe"))
+                {
+                    List<DataBindString> Answers = new List<DataBindString>();
+                    DataBindString Answer1 = new DataBindString();
+                    Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                    Answer1.Name = "Ok";
+                    Answers.Add(Answer1);
+
+                    await Popup_Show_MessageBox("Sorry, you can't add CtrlUI as an application", "", "", Answers);
+                    return;
+                }
+
+                //Check if the application paths exist for Win32 apps
+                if (vEditAppDataBind != null && vEditAppDataBind.Type == ProcessType.Win32)
+                {
+                    //Validate the launch target
+                    if (!File.Exists(tb_AddAppExePath.Text))
+                    {
+                        List<DataBindString> Answers = new List<DataBindString>();
+                        DataBindString Answer1 = new DataBindString();
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.Name = "Ok";
+                        Answers.Add(Answer1);
+
+                        await Popup_Show_MessageBox("Application executable not found, please select another one", "", "", Answers);
+                        return;
+                    }
+
+                    //Validate the launch path
+                    if (!string.IsNullOrWhiteSpace(tb_AddAppPathLaunch.Text) && !Directory.Exists(tb_AddAppPathLaunch.Text))
+                    {
+                        List<DataBindString> Answers = new List<DataBindString>();
+                        DataBindString Answer1 = new DataBindString();
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.Name = "Ok";
+                        Answers.Add(Answer1);
+
+                        await Popup_Show_MessageBox("Launch folder not found, please select another one", "", "", Answers);
+                        return;
+                    }
+
+                    //Check if application is emulator and validate the rom path
+                    if (selectedAppCategory == AppCategory.Emulator && !(bool)checkbox_AddLaunchSkipRom.IsChecked)
+                    {
+                        if (string.IsNullOrWhiteSpace(tb_AddAppPathRoms.Text))
+                        {
+                            List<DataBindString> Answers = new List<DataBindString>();
+                            DataBindString Answer1 = new DataBindString();
+                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            Answer1.Name = "Ok";
+                            Answers.Add(Answer1);
+
+                            await Popup_Show_MessageBox("Please select an emulator rom folder first", "", "", Answers);
+                            return;
+                        }
+                        if (!Directory.Exists(tb_AddAppPathRoms.Text))
+                        {
+                            List<DataBindString> Answers = new List<DataBindString>();
+                            DataBindString Answer1 = new DataBindString();
+                            Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                            Answer1.Name = "Ok";
+                            Answers.Add(Answer1);
+
+                            await Popup_Show_MessageBox("Rom folder not found, please select another one", "", "", Answers);
+                            return;
+                        }
+                    }
+                }
+
+                //Check if application needs to be edited or added
+                if (vEditAppDataBind == null)
+                {
+                    //Check if new application already exists
+                    if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower() || x.PathExe.ToLower() == tb_AddAppExePath.Text.ToLower()))
+                    {
+                        List<DataBindString> Answers = new List<DataBindString>();
+                        DataBindString Answer1 = new DataBindString();
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.Name = "Ok";
+                        Answers.Add(Answer1);
+
+                        await Popup_Show_MessageBox("This application already exists", "", "", Answers);
+                        return;
+                    }
+
+                    await Notification_Send_Status("Plus", "Added " + tb_AddAppName.Text);
+                    Debug.WriteLine("Adding Win32 app: " + tb_AddAppName.Text + " to the list.");
+                    DataBindApp dataBindApp = new DataBindApp() { Type = ProcessType.Win32, Category = selectedAppCategory, EmulatorCategory = selectedEmulatorCategory, Name = tb_AddAppName.Text, EmulatorName = tb_AddAppEmulatorName.Text, PathExe = tb_AddAppExePath.Text, PathLaunch = tb_AddAppPathLaunch.Text, PathRoms = tb_AddAppPathRoms.Text, Argument = tb_AddAppArgument.Text, NameExe = tb_AddAppNameExe.Text, LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked, LaunchSkipRom = (bool)checkbox_AddLaunchSkipRom.IsChecked, LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked };
+                    await AddAppToList(dataBindApp, true, true);
+
+                    //Close the open popup
+                    await Popup_Close_Top();
+
+                    //Focus on the application list
+                    if (selectedAppCategory == AppCategory.Game)
+                    {
+                        await ListboxFocusIndex(lb_Games, false, true, -1, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (selectedAppCategory == AppCategory.App)
+                    {
+                        await ListboxFocusIndex(lb_Apps, false, true, -1, vProcessCurrent.MainWindowHandle);
+                    }
+                    else if (selectedAppCategory == AppCategory.Emulator)
+                    {
+                        await ListboxFocusIndex(lb_Emulators, false, true, -1, vProcessCurrent.MainWindowHandle);
+                    }
+                }
+                else
+                {
+                    //Check if application name already exists
+                    if (vEditAppDataBind.Name.ToLower() == tb_AddAppName.Text.ToLower())
+                    {
+                        Debug.WriteLine("Application name has not changed or just caps.");
+                    }
+                    else if (CombineAppLists(false, false, false).Any(x => x.Name.ToLower() == tb_AddAppName.Text.ToLower()))
+                    {
+                        List<DataBindString> Answers = new List<DataBindString>();
+                        DataBindString Answer1 = new DataBindString();
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.Name = "Ok";
+                        Answers.Add(Answer1);
+
+                        await Popup_Show_MessageBox("This application name already exists, please use another one", "", "", Answers);
+                        return;
+                    }
+
+                    //Check if application executable already exists
+                    if (vEditAppDataBind.PathExe == tb_AddAppExePath.Text)
+                    {
+                        Debug.WriteLine("Application executable has not changed.");
+                    }
+                    else if (CombineAppLists(false, false, false).Any(x => x.PathExe.ToLower() == tb_AddAppExePath.Text.ToLower()))
+                    {
+                        List<DataBindString> Answers = new List<DataBindString>();
+                        DataBindString Answer1 = new DataBindString();
+                        Answer1.ImageBitmap = FileToBitmapImage(new string[] { "Assets/Default/Icons/Check.png" }, null, vImageBackupSource, IntPtr.Zero, -1, 0);
+                        Answer1.Name = "Ok";
+                        Answers.Add(Answer1);
+
+                        await Popup_Show_MessageBox("This application executable already exists, please select another one", "", "", Answers);
+                        return;
+                    }
+
+                    //Rename application logo based on name and reload it
+                    string imageFileNameOld = "Assets/User/Apps/" + vEditAppDataBind.Name + ".png";
+                    if (vEditAppDataBind.Name != tb_AddAppName.Text && File.Exists(imageFileNameOld))
+                    {
+                        Debug.WriteLine("App name changed and application logo file exists.");
+                        string imageFileNameNew = "Assets/User/Apps/" + tb_AddAppName.Text + ".png";
+                        File_Move(imageFileNameOld, imageFileNameNew, true);
+                    }
+
+                    //Edit application in the list
+                    vEditAppDataBind.Category = selectedAppCategory;
+                    vEditAppDataBind.EmulatorCategory = selectedEmulatorCategory;
+                    vEditAppDataBind.Name = tb_AddAppName.Text;
+                    vEditAppDataBind.EmulatorName = tb_AddAppEmulatorName.Text;
+                    vEditAppDataBind.PathExe = tb_AddAppExePath.Text;
+                    vEditAppDataBind.PathLaunch = tb_AddAppPathLaunch.Text;
+                    vEditAppDataBind.PathRoms = tb_AddAppPathRoms.Text;
+                    vEditAppDataBind.Argument = tb_AddAppArgument.Text;
+                    vEditAppDataBind.NameExe = tb_AddAppNameExe.Text;
+                    vEditAppDataBind.LaunchFilePicker = (bool)checkbox_AddLaunchFilePicker.IsChecked;
+                    vEditAppDataBind.LaunchSkipRom = (bool)checkbox_AddLaunchSkipRom.IsChecked;
+                    vEditAppDataBind.LaunchKeyboard = (bool)checkbox_AddLaunchKeyboard.IsChecked;
+
+                    //Edit images in the list
+                    vEditAppDataBind.ImageBitmap = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
+                    if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Console) { vEditAppDataBind.StatusCategoryImage = vImagePreloadConsole; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Handheld) { vEditAppDataBind.StatusCategoryImage = vImagePreloadHandheld; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Computer) { vEditAppDataBind.StatusCategoryImage = vImagePreloadComputer; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Arcade) { vEditAppDataBind.StatusCategoryImage = vImagePreloadArcade; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Pinball) { vEditAppDataBind.StatusCategoryImage = vImagePreloadPinball; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Pong) { vEditAppDataBind.StatusCategoryImage = vImagePreloadPong; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Chess) { vEditAppDataBind.StatusCategoryImage = vImagePreloadChess; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.VirtualReality) { vEditAppDataBind.StatusCategoryImage = vImagePreloadVirtualReality; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.OperatingSystem) { vEditAppDataBind.StatusCategoryImage = vImagePreloadOperatingSystem; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Other) { vEditAppDataBind.StatusCategoryImage = null; }
+
+                    //Reset application status
+                    vEditAppDataBind.ResetStatus();
+
+                    await Notification_Send_Status("Edit", "Edited " + vEditAppDataBind.Name);
+                    Debug.WriteLine("Editing application: " + vEditAppDataBind.Name + " in the list.");
+
+                    //Save changes to Json file
+                    JsonSaveApplications();
+
+                    //Close the open popup
+                    await Popup_Close_Top();
+                    await Task.Delay(500);
+
+                    //Focus on the application list
+                    if (vEditAppDataBindCategory != vEditAppDataBind.Category)
+                    {
+                        Debug.WriteLine("App category changed to: " + vEditAppDataBind.Category);
+
+                        //Remove app from previous category
+                        if (vEditAppDataBindCategory == AppCategory.Game)
+                        {
+                            await ListBoxRemoveItem(lb_Games, List_Games, vEditAppDataBind, false);
+                        }
+                        else if (vEditAppDataBindCategory == AppCategory.App)
+                        {
+                            await ListBoxRemoveItem(lb_Apps, List_Apps, vEditAppDataBind, false);
+                        }
+                        else if (vEditAppDataBindCategory == AppCategory.Emulator)
+                        {
+                            await ListBoxRemoveItem(lb_Emulators, List_Emulators, vEditAppDataBind, false);
+                        }
+
+                        //Add application to new category
+                        if (vEditAppDataBind.Category == AppCategory.Game)
+                        {
+                            await ListBoxAddItem(lb_Games, List_Games, vEditAppDataBind, false, false);
+                        }
+                        else if (vEditAppDataBind.Category == AppCategory.App)
+                        {
+                            await ListBoxAddItem(lb_Apps, List_Apps, vEditAppDataBind, false, false);
+                        }
+                        else if (vEditAppDataBind.Category == AppCategory.Emulator)
+                        {
+                            await ListBoxAddItem(lb_Emulators, List_Emulators, vEditAppDataBind, false, false);
+                        }
+
+                        //Focus on the edited item listbox
+                        ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                        if (listAppCategory == ListCategory.Search)
+                        {
+                            await ListboxFocusIndex(lb_Search, false, false, -1, vProcessCurrent.MainWindowHandle);
+                        }
+                        else
+                        {
+                            if (vEditAppDataBind.Category == AppCategory.Game)
+                            {
+                                await ListboxFocusIndex(lb_Games, false, true, -1, vProcessCurrent.MainWindowHandle);
+                            }
+                            else if (vEditAppDataBind.Category == AppCategory.App)
+                            {
+                                await ListboxFocusIndex(lb_Apps, false, true, -1, vProcessCurrent.MainWindowHandle);
+                            }
+                            else if (vEditAppDataBind.Category == AppCategory.Emulator)
+                            {
+                                await ListboxFocusIndex(lb_Emulators, false, true, -1, vProcessCurrent.MainWindowHandle);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //Focus on the item listbox
+                        ListCategory listAppCategory = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
+                        if (listAppCategory == ListCategory.Search)
+                        {
+                            await ListboxFocusIndex(lb_Search, false, false, -1, vProcessCurrent.MainWindowHandle);
+                        }
+                        else
+                        {
+                            if (vEditAppDataBind.Category == AppCategory.Game)
+                            {
+                                await ListboxFocusIndex(lb_Games, false, false, -1, vProcessCurrent.MainWindowHandle);
+                            }
+                            else if (vEditAppDataBind.Category == AppCategory.App)
+                            {
+                                await ListboxFocusIndex(lb_Apps, false, false, -1, vProcessCurrent.MainWindowHandle);
+                            }
+                            else if (vEditAppDataBind.Category == AppCategory.Emulator)
+                            {
+                                await ListboxFocusIndex(lb_Emulators, false, false, -1, vProcessCurrent.MainWindowHandle);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Application edit or add failed: " + ex.Message);
+            }
+        }
+
         //Add categories to manage interface
         private void ManageInterface_AddCategories()
         {
@@ -279,6 +610,7 @@ namespace CtrlUI
                 {
                     grid_Popup_Manage_txt_Title.Text = "Edit application";
                     btn_Manage_SaveEditApp.Content = "Edit the application as filled in above";
+                    grid_Popup_Manage_button_Save.ToolTip = new ToolTip() { Content = "Edit the application" };
                     btn_AddAppLogo.IsEnabled = true;
                     btn_Manage_ResetAppLogo.IsEnabled = true;
                     tb_AddAppName.IsEnabled = true;
@@ -292,6 +624,7 @@ namespace CtrlUI
                 {
                     grid_Popup_Manage_txt_Title.Text = "Add application";
                     btn_Manage_SaveEditApp.Content = "Add the application as filled in above";
+                    grid_Popup_Manage_button_Save.ToolTip = new ToolTip() { Content = "Save the application" };
                     if (disableInterface)
                     {
                         btn_AddAppLogo.IsEnabled = false;

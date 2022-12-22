@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode.Styles;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using static CtrlUI.AppVariables;
 using static LibraryShared.FocusFunctions;
 using static LibraryShared.SoundPlayer;
@@ -39,10 +40,12 @@ namespace CtrlUI
                 if (!string.IsNullOrWhiteSpace(buttonTitle))
                 {
                     grid_Popup_TextInput_button_ConfirmText.Content = buttonTitle;
+                    grid_Popup_TextInput_button_Set.ToolTip = new ToolTip() { Content = buttonTitle };
                 }
                 else
                 {
                     grid_Popup_TextInput_button_ConfirmText.Content = "Return and use the entered text";
+                    grid_Popup_TextInput_button_Set.ToolTip = new ToolTip() { Content = "Return and use the entered text" };
                 }
 
                 //Reset the popup to defaults

@@ -71,6 +71,8 @@ namespace CtrlUI
                 btn_AddAppPathRoms.Click += Button_AddAppPathRoms_Click;
                 checkbox_AddLaunchEnableHDR.Click += Checkbox_AddLaunchEnableHDR_Click;
                 checkbox_AddLaunchSkipRom.Click += Checkbox_AddLaunchSkipRom_Click;
+                grid_Popup_Manage_button_Close.Click += Button_Popup_Close_Click;
+                grid_Popup_Manage_button_Save.Click += Grid_Popup_Manage_button_Save_Click;
 
                 //Move app functions
                 btn_MoveAppLeft.Click += Btn_MoveAppLeft_Click;
@@ -82,7 +84,6 @@ namespace CtrlUI
                 grid_Popup_FilePicker_button_ControllerUp.Click += Button_FilePicker_button_ControllerUp_Click;
                 grid_Popup_FilePicker_button_ControllerBack.Click += Grid_Popup_FilePicker_button_ControllerBack_Click;
                 grid_Popup_FilePicker_button_ControllerStart.Click += Button_FilePicker_button_ControllerStart_Click;
-                grid_Popup_Manage_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Monitor_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_Help_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_MoveApplication_button_Close.Click += Button_Popup_Close_Click;
@@ -98,6 +99,7 @@ namespace CtrlUI
                 grid_Popup_TextInput_button_Close.Click += Button_Popup_Close_Click;
                 grid_Popup_TextInput_textbox.PreviewKeyUp += Grid_Popup_TextInput_textbox_PreviewKeyUp;
                 grid_Popup_TextInput_button_Reset.Click += Grid_Popup_TextInput_button_Reset_Click;
+                grid_Popup_TextInput_button_Set.Click += Button_TextInputConfirmText_Click;
                 grid_Popup_TextInput_button_ConfirmText.Click += Button_TextInputConfirmText_Click;
 
                 //File Picker functions

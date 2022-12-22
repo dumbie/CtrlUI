@@ -65,7 +65,7 @@ namespace CtrlUI
                         {
                             if (hltbData.comp_all_count <= 0)
                             {
-                                Debug.WriteLine("Unknown gameplay time: " + searchGame);
+                                Debug.WriteLine("Unknown gameplay time: " + hltbData.game_name);
                             }
                             else
                             {

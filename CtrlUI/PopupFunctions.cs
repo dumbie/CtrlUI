@@ -77,7 +77,7 @@ namespace CtrlUI
                     elementTarget.IsEnabled = false;
 
                     //Show the background
-                    if (!Popup_Any_Open())
+                    if (!Popup_Open_Any())
                     {
                         grid_Main.Opacity = 1.00;
                         grid_Main.IsEnabled = true;
@@ -141,7 +141,7 @@ namespace CtrlUI
                     await Popup_Close_All();
                 }
 
-                if (Popup_Any_Open())
+                if (Popup_Open_Any())
                 {
                     return;
                 }
@@ -211,6 +211,7 @@ namespace CtrlUI
                     //Show the popup
                     Popup_Show_Element(ShowPopup, mainOpacity);
 
+                    //Update popup variables
                     vPopupOpen = true;
 
                     //Force focus on element
@@ -278,7 +279,7 @@ namespace CtrlUI
         }
 
         //Check if there is any popup open
-        bool Popup_Any_Open()
+        bool Popup_Open_Any()
         {
             try
             {
@@ -289,6 +290,21 @@ namespace CtrlUI
             }
             catch { }
             return false;
+        }
+
+        //Check if specific popup is open
+        bool Popup_Open_Check(FrameworkElement popupGrid)
+        {
+            bool popupOpen = false;
+            try
+            {
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    popupOpen = vPopupOpen && vPopupElementTarget == popupGrid;
+                });
+            }
+            catch { }
+            return popupOpen;
         }
     }
 }

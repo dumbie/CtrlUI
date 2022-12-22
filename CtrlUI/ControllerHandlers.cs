@@ -73,7 +73,7 @@ namespace CtrlUI
                     {
                         Debug.WriteLine("Button: BPressed");
 
-                        if (Popup_Any_Open())
+                        if (Popup_Open_Any())
                         {
                             KeySendSingle(KeysVirtual.Escape, vProcessCurrent.MainWindowHandle);
                         }
@@ -130,7 +130,7 @@ namespace CtrlUI
                                 await SettingsChangeTab(true);
                                 KeySendSingle(KeysVirtual.F13, vProcessCurrent.MainWindowHandle);
                             }
-                            else if (!Popup_Any_Open())
+                            else if (!Popup_Open_Any())
                             {
                                 ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
                                 ListCategory listCategorySwitch = (ListCategory)PreviousCategoryWithItems(listCategorySetting, true);
@@ -151,7 +151,7 @@ namespace CtrlUI
                                 await SettingsChangeTab(false);
                                 KeySendSingle(KeysVirtual.F13, vProcessCurrent.MainWindowHandle);
                             }
-                            else if (!Popup_Any_Open())
+                            else if (!Popup_Open_Any())
                             {
                                 ListCategory listCategorySetting = (ListCategory)Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "ListAppCategory"));
                                 ListCategory listCategorySwitch = (ListCategory)NextCategoryWithItems(listCategorySetting, true);
@@ -170,6 +170,20 @@ namespace CtrlUI
                             AVActions.ActionDispatcherInvoke(delegate
                             {
                                 FilePicker_CheckItem();
+                            });
+                        }
+                        else if (vTextInputOpen)
+                        {
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate
+                            {
+                                await ValidateSetTextInput();
+                            });
+                        }
+                        else if (Popup_Open_Check(grid_Popup_Manage))
+                        {
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate
+                            {
+                                await SaveEditManageApplication();
                             });
                         }
                         else
@@ -193,7 +207,7 @@ namespace CtrlUI
                                 await FilePicker_SortFilesFoldersSwitch(false);
                             });
                         }
-                        else if (!Popup_Any_Open())
+                        else if (!Popup_Open_Any())
                         {
                             await AVActions.ActionDispatcherInvokeAsync(async delegate
                             {

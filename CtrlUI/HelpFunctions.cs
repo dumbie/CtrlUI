@@ -48,6 +48,7 @@ namespace CtrlUI
                         image_MainMenu_Close.Visibility = Visibility.Collapsed;
                         image_Welcome_Close.Visibility = Visibility.Collapsed;
                         image_Manage_Close.Visibility = Visibility.Collapsed;
+                        image_Manage_Save.Visibility = Visibility.Collapsed;
                         image_Settings_Close.Visibility = Visibility.Collapsed;
                         image_Monitor_Close.Visibility = Visibility.Collapsed;
                         image_Help_Close.Visibility = Visibility.Collapsed;
@@ -62,6 +63,7 @@ namespace CtrlUI
                         image_MessageBox_Close.Visibility = Visibility.Collapsed;
                         image_TextInput_Close.Visibility = Visibility.Collapsed;
                         image_TextInput_Reset.Visibility = Visibility.Collapsed;
+                        image_TextInput_Set.Visibility = Visibility.Collapsed;
                         image_HowLongToBeat_Close.Visibility = Visibility.Collapsed;
                         image_Category_LB.Visibility = Visibility.Collapsed;
                         image_Category_RB.Visibility = Visibility.Collapsed;
@@ -75,6 +77,7 @@ namespace CtrlUI
                         image_MainMenu_Close.Visibility = Visibility.Visible;
                         image_Welcome_Close.Visibility = Visibility.Visible;
                         image_Manage_Close.Visibility = Visibility.Visible;
+                        image_Manage_Save.Visibility = Visibility.Visible;
                         image_Settings_Close.Visibility = Visibility.Visible;
                         image_Monitor_Close.Visibility = Visibility.Visible;
                         image_Help_Close.Visibility = Visibility.Visible;
@@ -89,6 +92,7 @@ namespace CtrlUI
                         image_MessageBox_Close.Visibility = Visibility.Visible;
                         image_TextInput_Close.Visibility = Visibility.Visible;
                         image_TextInput_Reset.Visibility = Visibility.Visible;
+                        image_TextInput_Set.Visibility = Visibility.Visible;
                         image_HowLongToBeat_Close.Visibility = Visibility.Visible;
                         image_Category_LB.Visibility = Visibility.Visible;
                         image_Category_RB.Visibility = Visibility.Visible;
