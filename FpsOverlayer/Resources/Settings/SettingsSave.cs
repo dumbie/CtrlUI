@@ -146,6 +146,7 @@ namespace FpsOverlayer
                 };
                 checkbox_MemShowName.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "MemShowName", checkbox_MemShowName.IsChecked.ToString()); };
                 checkbox_MemShowSpeed.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "MemShowSpeed", checkbox_MemShowSpeed.IsChecked.ToString()); };
+                checkbox_MemShowPowerVolt.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "MemShowPowerVolt", checkbox_MemShowPowerVolt.IsChecked.ToString()); };
                 checkbox_MemShowPercentage.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "MemShowPercentage", checkbox_MemShowPercentage.IsChecked.ToString()); };
                 checkbox_MemShowUsed.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "MemShowUsed", checkbox_MemShowUsed.IsChecked.ToString()); };
                 checkbox_MemShowFree.Click += (sender, e) => { Setting_Save(vConfigurationFpsOverlayer, "MemShowFree", checkbox_MemShowFree.IsChecked.ToString()); };

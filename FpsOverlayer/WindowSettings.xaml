@@ -410,6 +410,9 @@
 
                         <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowTotal" Content="Show the total memory" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the total memory in bytes." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_MemShowPowerVolt" Content="Show the power voltage" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the memory configured power usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Network" Visibility="Collapsed">

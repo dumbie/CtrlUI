@@ -65,6 +65,7 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowCategoryTitle", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowName") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowName", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowSpeed") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowSpeed", "True"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "MemShowPowerVolt") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowPowerVolt", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowPercentage") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowPercentage", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowUsed") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowUsed", "True"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "MemShowFree") == null) { Setting_Save(vConfigurationFpsOverlayer, "MemShowFree", "False"); }

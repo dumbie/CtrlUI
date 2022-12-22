@@ -1,11 +1,14 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVImage;
 using static DirectXInput.AppVariables;
@@ -165,9 +168,11 @@ namespace DirectXInput.KeyboardCode
                 }
 
                 //Get the media session manager
-                GlobalSystemMediaTransportControlsSessionManager smtcSessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
+                var smtcManagerTask = GlobalSystemMediaTransportControlsSessionManager.RequestAsync().AsTask();
+                GlobalSystemMediaTransportControlsSessionManager smtcSessionManager = await TaskStartReturnTimeout(smtcManagerTask, 3000);
                 if (smtcSessionManager == null)
                 {
+                    Debug.WriteLine("Failed to get smtc session manager.");
                     HideMediaInformation();
                     return;
                 }
@@ -176,6 +181,7 @@ namespace DirectXInput.KeyboardCode
                 GlobalSystemMediaTransportControlsSession smtcSession = smtcSessionManager.GetCurrentSession();
                 if (smtcSession == null)
                 {
+                    Debug.WriteLine("Failed to get smtc sessions.");
                     HideMediaInformation();
                     return;
                 }

@@ -59,7 +59,8 @@ namespace FpsOverlayer
                     {
                         memoryCount++;
                         vHardwareMemoryName = memoryDevice.ManufacturerName + " " + memoryDevice.PartNumber + " (" + memoryCount + "X) " + memoryDevice.Type;
-                        vHardwareMemorySpeed = memoryDevice.Speed + "MT/s";
+                        vHardwareMemorySpeed = memoryDevice.ConfiguredSpeed + "MT/s";
+                        vHardwareMemoryVoltage = (memoryDevice.ConfiguredVoltage / 1000F).ToString("0.000") + "V";
                     }
                 }
             }
@@ -257,6 +258,7 @@ namespace FpsOverlayer
                 //Check if the information is visible
                 bool showName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowName"));
                 bool showSpeed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowSpeed"));
+                bool showPowerVolt = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowPowerVolt"));
                 bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowPercentage"));
                 bool showUsed = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowUsed"));
                 bool showFree = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "MemShowFree"));
@@ -275,6 +277,7 @@ namespace FpsOverlayer
                     hardwareItem.Update();
                     string MemoryName = string.Empty;
                     string MemorySpeed = string.Empty;
+                    string MemoryPowerVolt = string.Empty;
                     string MemoryPercentage = string.Empty;
                     string MemoryBytes = string.Empty;
                     float RawMemoryUsed = 0;
@@ -290,6 +293,12 @@ namespace FpsOverlayer
                     if (showSpeed)
                     {
                         MemorySpeed = " " + vHardwareMemorySpeed;
+                    }
+
+                    //Set the memory voltage
+                    if (showPowerVolt)
+                    {
+                        MemoryPowerVolt = " " + vHardwareMemoryVoltage;
                     }
 
                     foreach (ISensor sensor in hardwareItem.Sensors)
@@ -334,10 +343,10 @@ namespace FpsOverlayer
                     }
 
                     bool memoryNameNullOrWhiteSpace = string.IsNullOrWhiteSpace(MemoryName);
-                    if (!memoryNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(MemorySpeed) || !string.IsNullOrWhiteSpace(MemoryPercentage) || !string.IsNullOrWhiteSpace(MemoryBytes))
+                    if (!memoryNameNullOrWhiteSpace || !string.IsNullOrWhiteSpace(MemorySpeed) || !string.IsNullOrWhiteSpace(MemoryPowerVolt) || !string.IsNullOrWhiteSpace(MemoryPercentage) || !string.IsNullOrWhiteSpace(MemoryBytes))
                     {
                         string stringDisplay = string.Empty;
-                        string stringStats = AVFunctions.StringRemoveStart(vTitleMEM + MemoryPercentage + MemorySpeed + MemoryBytes, " ");
+                        string stringStats = AVFunctions.StringRemoveStart(vTitleMEM + MemoryPercentage + MemorySpeed + MemoryBytes + MemoryPowerVolt, " ");
 
                         if (string.IsNullOrWhiteSpace(stringStats))
                         {
@@ -482,14 +491,7 @@ namespace FpsOverlayer
                             {
                                 //Debug.WriteLine("GPU Voltage: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
                                 float RawPowerVoltage = (float)sensor.Value;
-                                if (RawPowerVoltage <= 0)
-                                {
-                                    GpuPowerVoltage = " 0V";
-                                }
-                                else
-                                {
-                                    GpuPowerVoltage = " " + RawPowerVoltage.ToString("0.000") + "V";
-                                }
+                                GpuPowerVoltage = " " + RawPowerVoltage.ToString("0.000") + "V";
                             }
                         }
                         catch { }
