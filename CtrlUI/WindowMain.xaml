@@ -272,7 +272,7 @@
                         <ListBox Name="lb_Launchers" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
                         <ListBox Name="lb_Shortcuts" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
                         <ListBox Name="lb_Processes" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
-                        <ListBox Name="lb_Search" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemApp}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
+                        <ListBox Name="lb_Search" Visibility="Collapsed" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemSearch}" Style="{StaticResource ListBoxWrapPanelVertical}" HorizontalAlignment="Stretch"/>
                     </Grid>
                 </Grid>
 
@@ -426,7 +426,10 @@
                                 </StackPanel>
 
                                 <StackPanel Name="sp_AddAppPathLaunch">
-                                    <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application launch folder:"/>
+                                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application launch folder:"/>
+                                        <TextBlock Margin="10,0,0,0" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeHuge}" Text="(Optional)"/>
+                                    </StackPanel>
                                     <TextBox Name="tb_AddAppPathLaunch" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                                     <Button Name="btn_AddAppPathLaunch" Margin="0,5,0,0" Content="Select application launch folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                                 </StackPanel>
@@ -439,12 +442,18 @@
                                 </StackPanel>
 
                                 <StackPanel Name="sp_AddAppArgument">
-                                    <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application launch argument:"/>
+                                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Application launch argument:"/>
+                                        <TextBlock Margin="10,0,0,0" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeHuge}" Text="(Optional)"/>
+                                    </StackPanel>
                                     <TextBox Name="tb_AddAppArgument" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                                 </StackPanel>
 
                                 <StackPanel Name="sp_AddAppNameExe">
-                                    <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Process executable name:"/>
+                                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource TextBlockWhite}" FontSize="{StaticResource TextSizeHuge}" Text="Process executable name:"/>
+                                        <TextBlock Margin="10,0,0,0" Style="{StaticResource TextBlockGray}" FontSize="{StaticResource TextSizeHuge}" Text="(Optional)"/>
+                                    </StackPanel>
                                     <TextBox Name="tb_AddAppNameExe" VerticalContentAlignment="Center" Style="{StaticResource TextBoxWhite}" FontSize="{DynamicResource TextSizeMedium}"/>
                                 </StackPanel>
 
@@ -940,7 +949,7 @@
                                     <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_NoFilesAvailable" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed" Text="No files or folders available in this directory."/>
                                     <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_ClipboardStatus" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
                                     <TextBlock Margin="0,0,0,10" Name="grid_Popup_FilePicker_textblock_CurrentPath" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
-                                    <Button Margin="0,0,0,10" Name="grid_Popup_FilePicker_button_SelectFolder" Content="Select the currently opened folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
+                                    <Button Margin="0,0,0,10" Name="grid_Popup_FilePicker_button_SelectFolder" Content="Use the currently opened folder" Style="{StaticResource ButtonAccentWhite}" FontSize="{DynamicResource TextSizeMedium}" Visibility="Collapsed"/>
                                 </StackPanel>
                             </Grid>
 

@@ -80,16 +80,16 @@ namespace CtrlUI
                 else if (dataBindApp.Category == AppCategory.Emulator)
                 {
                     //Set emulator category image
-                    if (dataBindApp.EmulatorCategory == EmulatorCategory.Console) { dataBindApp.StatusCategoryImage = vImagePreloadConsole; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Handheld) { dataBindApp.StatusCategoryImage = vImagePreloadHandheld; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Computer) { dataBindApp.StatusCategoryImage = vImagePreloadComputer; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Arcade) { dataBindApp.StatusCategoryImage = vImagePreloadArcade; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Pinball) { dataBindApp.StatusCategoryImage = vImagePreloadPinball; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Pong) { dataBindApp.StatusCategoryImage = vImagePreloadPong; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Chess) { dataBindApp.StatusCategoryImage = vImagePreloadChess; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.VirtualReality) { dataBindApp.StatusCategoryImage = vImagePreloadVirtualReality; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.OperatingSystem) { dataBindApp.StatusCategoryImage = vImagePreloadOperatingSystem; }
-                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Other) { dataBindApp.StatusCategoryImage = null; }
+                    if (dataBindApp.EmulatorCategory == EmulatorCategory.Console) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadConsole; }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Handheld) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadHandheld; }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Computer) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadComputer; }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Arcade) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadArcade; }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Pinball) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadPinball; }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Pong) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadPong; }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Chess) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadChess; }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.VirtualReality) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadVirtualReality; }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.OperatingSystem) { dataBindApp.StatusEmulatorCategoryImage = vImagePreloadOperatingSystem; }
+                    else if (dataBindApp.EmulatorCategory == EmulatorCategory.Other) { dataBindApp.StatusEmulatorCategoryImage = null; }
 
                     await ListBoxAddItem(lb_Emulators, List_Emulators, dataBindApp, false, false);
                 }
@@ -397,16 +397,16 @@ namespace CtrlUI
 
                     //Edit images in the list
                     vEditAppDataBind.ImageBitmap = FileToBitmapImage(new string[] { vEditAppDataBind.Name, vEditAppDataBind.PathExe, vEditAppDataBind.PathImage }, vImageSourceFolders, vImageBackupSource, IntPtr.Zero, vImageLoadSize, 0);
-                    if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Console) { vEditAppDataBind.StatusCategoryImage = vImagePreloadConsole; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Handheld) { vEditAppDataBind.StatusCategoryImage = vImagePreloadHandheld; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Computer) { vEditAppDataBind.StatusCategoryImage = vImagePreloadComputer; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Arcade) { vEditAppDataBind.StatusCategoryImage = vImagePreloadArcade; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Pinball) { vEditAppDataBind.StatusCategoryImage = vImagePreloadPinball; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Pong) { vEditAppDataBind.StatusCategoryImage = vImagePreloadPong; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Chess) { vEditAppDataBind.StatusCategoryImage = vImagePreloadChess; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.VirtualReality) { vEditAppDataBind.StatusCategoryImage = vImagePreloadVirtualReality; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.OperatingSystem) { vEditAppDataBind.StatusCategoryImage = vImagePreloadOperatingSystem; }
-                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Other) { vEditAppDataBind.StatusCategoryImage = null; }
+                    if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Console) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadConsole; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Handheld) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadHandheld; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Computer) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadComputer; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Arcade) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadArcade; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Pinball) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadPinball; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Pong) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadPong; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Chess) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadChess; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.VirtualReality) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadVirtualReality; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.OperatingSystem) { vEditAppDataBind.StatusEmulatorCategoryImage = vImagePreloadOperatingSystem; }
+                    else if (vEditAppDataBind.EmulatorCategory == EmulatorCategory.Other) { vEditAppDataBind.StatusEmulatorCategoryImage = null; }
 
                     //Reset application status
                     vEditAppDataBind.ResetStatus();

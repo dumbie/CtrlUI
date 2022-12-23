@@ -18,7 +18,7 @@ namespace CtrlUI
 {
     partial class WindowMain
     {
-        //Handle the selection button
+        //Handle the folder select button
         async void Grid_Popup_FilePicker_button_SelectFolder_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -55,11 +55,18 @@ namespace CtrlUI
             catch { }
         }
 
-        void Button_FilePicker_button_ControllerStart_Click(object sender, RoutedEventArgs e)
+        async void Button_FilePicker_button_ControllerStart_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                FilePicker_CheckItem();
+                if (vFilePickerFolderSelectMode)
+                {
+                    await Popup_Close_FilePicker(true, true);
+                }
+                else
+                {
+                    FilePicker_CheckItem();
+                }
             }
             catch { }
         }

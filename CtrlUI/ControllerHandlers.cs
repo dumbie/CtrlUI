@@ -167,9 +167,16 @@ namespace CtrlUI
                         Debug.WriteLine("Button: StartPressed / Show hide menu");
                         if (vFilePickerOpen)
                         {
-                            AVActions.ActionDispatcherInvoke(delegate
+                            await AVActions.ActionDispatcherInvokeAsync(async delegate
                             {
-                                FilePicker_CheckItem();
+                                if (vFilePickerFolderSelectMode)
+                                {
+                                    await Popup_Close_FilePicker(true, true);
+                                }
+                                else
+                                {
+                                    FilePicker_CheckItem();
+                                }
                             });
                         }
                         else if (vTextInputOpen)

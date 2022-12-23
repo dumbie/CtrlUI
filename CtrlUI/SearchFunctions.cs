@@ -77,23 +77,23 @@ namespace CtrlUI
             {
                 if (dataBindApp.Category == AppCategory.App)
                 {
-                    dataBindApp.StatusCategoryImage = vImagePreloadApp;
+                    dataBindApp.StatusSearchCategoryImage = vImagePreloadApp;
                 }
                 else if (dataBindApp.Category == AppCategory.Game)
                 {
-                    dataBindApp.StatusCategoryImage = vImagePreloadGame;
+                    dataBindApp.StatusSearchCategoryImage = vImagePreloadGame;
                 }
                 else if (dataBindApp.Category == AppCategory.Emulator)
                 {
-                    dataBindApp.StatusCategoryImage = vImagePreloadEmulator;
+                    dataBindApp.StatusSearchCategoryImage = vImagePreloadEmulator;
                 }
                 else if (dataBindApp.Category == AppCategory.Process)
                 {
-                    dataBindApp.StatusCategoryImage = vImagePreloadProcess;
+                    dataBindApp.StatusSearchCategoryImage = vImagePreloadProcess;
                 }
                 else if (dataBindApp.Category == AppCategory.Shortcut)
                 {
-                    dataBindApp.StatusCategoryImage = vImagePreloadShortcut;
+                    dataBindApp.StatusSearchCategoryImage = vImagePreloadShortcut;
                 }
             }
             catch { }

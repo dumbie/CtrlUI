@@ -10,7 +10,8 @@ namespace LibraryShared
             game,
             tool,
             launcher,
-            document
+            document,
+            other
         }
 
         public class GoGConfig

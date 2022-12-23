@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -187,6 +188,33 @@ namespace CtrlUI
             }
             catch { }
             return false;
+        }
+
+        //File Picker change select mode
+        void FilePicker_ChangeSelectMode(bool folderMode)
+        {
+            try
+            {
+                if (folderMode)
+                {
+                    vFilePickerFolderSelectMode = true;
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Visible;
+                        grid_Popup_FilePicker_button_ControllerStart.ToolTip = new ToolTip() { Content = "Use the currently opened folder" };
+                    });
+                }
+                else
+                {
+                    vFilePickerFolderSelectMode = false;
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Collapsed;
+                        grid_Popup_FilePicker_button_ControllerStart.ToolTip = new ToolTip() { Content = "Select file or folder" };
+                    });
+                }
+            }
+            catch { }
         }
 
         //File Picker check item

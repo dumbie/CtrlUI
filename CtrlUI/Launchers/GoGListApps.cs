@@ -46,9 +46,9 @@ namespace CtrlUI
                                 GoGGameInfo gogGameInfo = JsonConvert.DeserializeObject<GoGGameInfo>(infoFileString);
                                 await GoGAddApplication(gogGamePath, icoFilePath, gogGameInfo);
                             }
-                            catch
+                            catch (Exception ex)
                             {
-                                Debug.WriteLine("Failed to deserialize GoG game.");
+                                Debug.WriteLine("Failed to deserialize GoG game: " + infoFile + " / " + ex.Message);
                             }
                         }
                     }

@@ -26,8 +26,8 @@ namespace CtrlUI
             {
                 AVActions.ActionDispatcherInvoke(delegate
                 {
-                    //Enable or disable selection button in the list
-                    grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Collapsed;
+                    //File Picker change select mode
+                    FilePicker_ChangeSelectMode(false);
 
                     //Enable or disable file and folder availability
                     grid_Popup_FilePicker_textblock_NoFilesAvailable.Visibility = Visibility.Collapsed;

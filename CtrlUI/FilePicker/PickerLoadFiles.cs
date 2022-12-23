@@ -152,11 +152,8 @@ namespace CtrlUI
                 {
                     try
                     {
-                        //Enable or disable selection button in the list
-                        AVActions.ActionDispatcherInvoke(delegate
-                        {
-                            grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Collapsed;
-                        });
+                        //File Picker change select mode
+                        FilePicker_ChangeSelectMode(false);
 
                         //Filter files in and out
                         if (vFilePickerSettings.FilterIn.Any())
@@ -219,11 +216,8 @@ namespace CtrlUI
                 }
                 else
                 {
-                    //Enable or disable selection button in the list
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        grid_Popup_FilePicker_button_SelectFolder.Visibility = Visibility.Visible;
-                    });
+                    //File Picker change select mode
+                    FilePicker_ChangeSelectMode(true);
                 }
 
                 //Check if there are files or folders
