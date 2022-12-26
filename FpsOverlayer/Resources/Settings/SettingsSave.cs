@@ -84,6 +84,12 @@ namespace FpsOverlayer
                     vWindowMain.UpdateFpsOverlayStyle();
                 };
 
+                textbox_CustomText.TextChanged += (sender, e) =>
+                {
+                    TextBox senderTextbox = (TextBox)sender;
+                    Setting_Save(vConfigurationFpsOverlayer, "CustomTextString", senderTextbox.Text);
+                };
+
                 checkbox_TextColorSingle.Click += (sender, e) =>
                 {
                     Setting_Save(vConfigurationFpsOverlayer, "TextColorSingle", checkbox_TextColorSingle.IsChecked.ToString());
@@ -321,6 +327,18 @@ namespace FpsOverlayer
                         SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
                         colorpicker_ColorTime.Background = newBrush;
                         Setting_Save(vConfigurationFpsOverlayer, "ColorTime", newColor.ToString());
+                        vWindowMain.UpdateFpsOverlayStyle();
+                    }
+                };
+
+                colorpicker_ColorCustomText.Click += async (sender, e) =>
+                {
+                    Color? newColor = await new AVColorPicker().Popup(null);
+                    if (newColor != null)
+                    {
+                        SolidColorBrush newBrush = new SolidColorBrush((Color)newColor);
+                        colorpicker_ColorCustomText.Background = newBrush;
+                        Setting_Save(vConfigurationFpsOverlayer, "ColorCustomText", newColor.ToString());
                         vWindowMain.UpdateFpsOverlayStyle();
                     }
                 };

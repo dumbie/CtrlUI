@@ -43,6 +43,8 @@ namespace FpsOverlayer
                 textblock_TextSize.Text = textblock_TextSize.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "TextSize").ToString() + "px";
                 slider_TextSize.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "TextSize"));
 
+                textbox_CustomText.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "CustomTextString"));
+
                 checkbox_TextColorSingle.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "TextColorSingle"));
 
                 textbox_GpuCategoryTitle.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "GpuCategoryTitle"));
@@ -128,6 +130,9 @@ namespace FpsOverlayer
 
                 string ColorTime = Setting_Load(vConfigurationFpsOverlayer, "ColorTime").ToString();
                 colorpicker_ColorTime.Background = new BrushConverter().ConvertFrom(ColorTime) as SolidColorBrush;
+
+                string ColorCustomText = Setting_Load(vConfigurationFpsOverlayer, "ColorCustomText").ToString();
+                colorpicker_ColorCustomText.Background = new BrushConverter().ConvertFrom(ColorCustomText) as SolidColorBrush;
 
                 string ColorMon = Setting_Load(vConfigurationFpsOverlayer, "ColorMon").ToString();
                 colorpicker_ColorMon.Background = new BrushConverter().ConvertFrom(ColorMon) as SolidColorBrush;

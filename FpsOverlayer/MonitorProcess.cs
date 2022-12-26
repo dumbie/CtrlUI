@@ -36,6 +36,9 @@ namespace FpsOverlayer
                         //Update the current time
                         UpdateCurrentTime();
 
+                        //Update custom text
+                        UpdateCustomText();
+
                         //Get and check the focused process
                         ProcessMulti foregroundProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
                         if (foregroundProcess == null)
@@ -75,9 +78,6 @@ namespace FpsOverlayer
                         //Update the fps overlayer position
                         UpdateFpsOverlayPosition(foregroundProcess.Name);
 
-                        //Update the window style
-                        await UpdateWindowStyleVisible();
-
                         //Check if the foreground window is fps overlayer
                         if (vProcessCurrent.Id == foregroundProcess.Identifier)
                         {
@@ -85,12 +85,15 @@ namespace FpsOverlayer
 
                             //Hide the application name and frames
                             HideApplicationNameFrames();
-
-                            continue;
                         }
+                        else
+                        {
+                            //Update the application name
+                            UpdateApplicationName(foregroundProcess.WindowTitle);
 
-                        //Update the application name
-                        UpdateApplicationName(foregroundProcess.WindowTitle);
+                            //Update the window style
+                            await UpdateWindowStyleVisible();
+                        }
 
                         //Update the current target process
                         vTargetProcess = foregroundProcess;
@@ -138,6 +141,33 @@ namespace FpsOverlayer
                     AVActions.ActionDispatcherInvoke(delegate
                     {
                         stackpanel_CurrentTime.Visibility = Visibility.Collapsed;
+                    });
+                }
+            }
+            catch { }
+        }
+
+        //Update custom text
+        void UpdateCustomText()
+        {
+            try
+            {
+                string customText = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "CustomTextString"));
+                //Debug.WriteLine("Setting custom text: " + customText);
+
+                if (!string.IsNullOrWhiteSpace(customText))
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        textblock_CustomText.Text = customText;
+                        stackpanel_CustomText.Visibility = Visibility.Visible;
+                    });
+                }
+                else
+                {
+                    AVActions.ActionDispatcherInvoke(delegate
+                    {
+                        stackpanel_CustomText.Visibility = Visibility.Collapsed;
                     });
                 }
             }

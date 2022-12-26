@@ -28,6 +28,10 @@
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Font.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Text" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
+                <StackPanel Name="menuButtonColors" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage color settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Colors.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Colors" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
                 <StackPanel Name="menuButtonDisplay" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage display settings">
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Opacity.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Display" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -93,7 +97,20 @@
                 <StackPanel>
                     <StackPanel Name="stackpanel_Text" Visibility="Visible">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Text Settings"/>
-                        <CheckBox Name="checkbox_DisplayBackground" Content="Display background behind text" Style="{StaticResource CheckBoxBlack}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="button_CustomTextUp" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move up in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsUp.png" Height="30"/>
+                            </Button>
+                            <Button Name="button_CustomTextDown" Margin="5,0,0,0" Style="{StaticResource ButtonImageTransparentNoBorder}" ToolTipService.ToolTip="Move down in stats">
+                                <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/FpsDown.png" Height="30"/>
+                            </Button>
+                            <TextBlock Name="textblock_CustomTextPosition" Margin="10,0,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}"/>
+                        </StackPanel>
+
+                        <TextBlock Margin="0,10,0,0" Text="Custom text line" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBox Name="textbox_CustomText" Width="440" HorizontalAlignment="Left" Style="{StaticResource TextBoxBlack}"/>
+
+                        <CheckBox Margin="0,10,0,0" Name="checkbox_DisplayBackground" Content="Display background behind text" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will display a background behind the stats." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <TextBlock Margin="0,10,0,0" Text="Text display position" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
@@ -123,12 +140,15 @@
                         <TextBlock Margin="0,10,0,0" Text="Text display font" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the font in which the stats are displayed." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <ComboBox Name="combobox_InterfaceFontStyleName" HorizontalAlignment="Left" Width="440" Style="{StaticResource ComboBoxBlack}"/>
+                    </StackPanel>
 
-                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Color Settings"/>
+                    <StackPanel Name="stackpanel_Colors" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Color Settings"/>
                         <CheckBox Name="checkbox_TextColorSingle" Content="Show text in single color" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will show the text only in one single color." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="General Colors"/>
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Display color for single text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             <Button Name="colorpicker_ColorSingle" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the single text color"/>
                         </StackPanel>
@@ -136,7 +156,9 @@
                             <TextBlock Text="Display color for the background:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             <Button Name="colorpicker_ColorBackground" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the stats background color"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Category Colors"/>
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Display color for videocard text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             <Button Name="colorpicker_ColorGpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the videocard text color"/>
                         </StackPanel>
@@ -171,6 +193,10 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for current time:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                             <Button Name="colorpicker_ColorTime" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the current time color"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Display color for custom text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                            <Button Name="colorpicker_ColorCustomText" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the custom text color"/>
                         </StackPanel>
                     </StackPanel>
 

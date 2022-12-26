@@ -34,6 +34,7 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorApp") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorApp", "#C000FF"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorBat") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorBat", "#FFE115"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorTime") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorTime", "#21AFFF"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "ColorCustomText") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorCustomText", "#F1F1F1"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorMon") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorMon", "#21A000"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "GpuId") == null) { Setting_Save(vConfigurationFpsOverlayer, "GpuId", "4"); }
@@ -94,6 +95,9 @@ namespace FpsOverlayer
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "TimeId") == null) { Setting_Save(vConfigurationFpsOverlayer, "TimeId", "8"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "TimeShowCurrentTime") == null) { Setting_Save(vConfigurationFpsOverlayer, "TimeShowCurrentTime", "True"); }
+
+                if (Setting_Load(vConfigurationFpsOverlayer, "CustomTextId") == null) { Setting_Save(vConfigurationFpsOverlayer, "CustomTextId", "9"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "CustomTextString") == null) { Setting_Save(vConfigurationFpsOverlayer, "CustomTextString", ""); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "FpsId") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsId", "1"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "FpsCategoryTitle") == null) { Setting_Save(vConfigurationFpsOverlayer, "FpsCategoryTitle", "FPS"); }

@@ -47,6 +47,7 @@ namespace FpsOverlayer
                 {
                     StackPanel SelStackPanel = (StackPanel)lb_Menu.SelectedItem;
                     if (SelStackPanel.Name == "menuButtonText") { ShowGridPage(stackpanel_Text); }
+                    else if (SelStackPanel.Name == "menuButtonColors") { ShowGridPage(stackpanel_Colors); }
                     else if (SelStackPanel.Name == "menuButtonDisplay") { ShowGridPage(stackpanel_Display); }
                     else if (SelStackPanel.Name == "menuButtonCrosshair") { ShowGridPage(stackpanel_Crosshair); }
                     else if (SelStackPanel.Name == "menuButtonFps") { ShowGridPage(stackpanel_Fps); }
@@ -72,6 +73,7 @@ namespace FpsOverlayer
             try
             {
                 stackpanel_Text.Visibility = Visibility.Collapsed;
+                stackpanel_Colors.Visibility = Visibility.Collapsed;
                 stackpanel_Display.Visibility = Visibility.Collapsed;
                 stackpanel_Crosshair.Visibility = Visibility.Collapsed;
                 stackpanel_Fps.Visibility = Visibility.Collapsed;
