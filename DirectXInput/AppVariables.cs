@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Windows.Media.Control;
 using static ArnoldVinkCode.AVImage;
 using static ArnoldVinkCode.ProcessClasses;
 using static LibraryShared.Classes;
@@ -84,6 +85,7 @@ namespace DirectXInput
         public static SolidColorBrush vApplicationAccentLightBrush = null;
 
         //Keyboard Variables
+        public static GlobalSystemMediaTransportControlsSessionManager vSmtcSessionManager = null;
         public static AVInputOutputHotKey vAVInputOutputHotKey = new AVInputOutputHotKey();
         public static string vKeyboardKeypadLastActive = "Keyboard";
         public static bool vCapsEnabled = false;

@@ -38,6 +38,7 @@ namespace DirectXInput.KeyboardCode
             {
                 while (TaskCheckLoop(vTask_UpdateMediaInformation))
                 {
+                    UpdateCurrentVolumeInformation();
                     await UpdateCurrentMediaInformation();
 
                     //Delay the loop task

@@ -127,38 +127,29 @@ namespace DirectXInput.KeyboardCode
             catch { }
         }
 
-        //Update the currently playing media
+        //Request media player access
+        async Task RequestMediaPlayerAccess()
+        {
+            try
+            {
+                Debug.WriteLine("Requesting SMTC access.");
+
+                //Might cause Windows Explorer issue when looping.
+                var smtcSessionManagerTask = GlobalSystemMediaTransportControlsSessionManager.RequestAsync().AsTask();
+                vSmtcSessionManager = await TaskStartReturnTimeout(smtcSessionManagerTask, 2000);
+                if (vSmtcSessionManager == null)
+                {
+                    HideMediaInformation();
+                }
+            }
+            catch { }
+        }
+
+        //Update currently playing media information
         async Task UpdateCurrentMediaInformation()
         {
             try
             {
-                //Check if volume is currently muted
-                bool currentOutputVolumeMuted = AudioMuteGetStatus(false);
-                bool currentInputVolumeMuted = AudioMuteGetStatus(true);
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    img_Main_VolumeMute.Visibility = currentOutputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;
-                    img_Main_MicrophoneMute.Visibility = currentInputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;
-                });
-
-                //Get the current audio volume and mute status
-                string currentVolumeString = string.Empty;
-                int currentVolumeInt = AudioVolumeGet(false);
-                if (currentVolumeInt >= 0)
-                {
-                    currentVolumeString = "Volume " + currentVolumeInt + "%";
-                    if (currentOutputVolumeMuted)
-                    {
-                        currentVolumeString += " (Muted)";
-                    }
-                }
-
-                //Update the media and volume information
-                AVActions.ActionDispatcherInvoke(delegate
-                {
-                    textblock_Volume_Level.Text = currentVolumeString;
-                });
-
                 //Check the current keyboard mode
                 KeyboardMode keyboardMode = (KeyboardMode)Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "KeyboardMode"));
                 if (keyboardMode != KeyboardMode.Media)
@@ -167,22 +158,22 @@ namespace DirectXInput.KeyboardCode
                     return;
                 }
 
-                //Get the media session manager
-                var smtcManagerTask = GlobalSystemMediaTransportControlsSessionManager.RequestAsync().AsTask();
-                GlobalSystemMediaTransportControlsSessionManager smtcSessionManager = await TaskStartReturnTimeout(smtcManagerTask, 3000);
-                if (smtcSessionManager == null)
+                //Get active media player session
+                GlobalSystemMediaTransportControlsSession smtcSession = null;
+                try
                 {
-                    Debug.WriteLine("Failed to get smtc session manager.");
-                    HideMediaInformation();
-                    return;
+                    smtcSession = vSmtcSessionManager.GetCurrentSession();
+                    if (smtcSession == null)
+                    {
+                        HideMediaInformation();
+                        return;
+                    }
                 }
-
-                //Get the current media session
-                GlobalSystemMediaTransportControlsSession smtcSession = smtcSessionManager.GetCurrentSession();
-                if (smtcSession == null)
+                catch (Exception ex)
                 {
-                    Debug.WriteLine("Failed to get smtc sessions.");
+                    Debug.WriteLine("Failed getting SMTC session: " + ex.Message);
                     HideMediaInformation();
+                    await RequestMediaPlayerAccess();
                     return;
                 }
 
@@ -299,6 +290,44 @@ namespace DirectXInput.KeyboardCode
             {
                 //Debug.WriteLine("Failed updating playing media.");
                 HideMediaInformation();
+            }
+        }
+
+        //Update current system volume information
+        private void UpdateCurrentVolumeInformation()
+        {
+            try
+            {
+                //Check if volume is currently muted
+                bool currentOutputVolumeMuted = AudioMuteGetStatus(false);
+                bool currentInputVolumeMuted = AudioMuteGetStatus(true);
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    img_Main_VolumeMute.Visibility = currentOutputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;
+                    img_Main_MicrophoneMute.Visibility = currentInputVolumeMuted ? Visibility.Visible : Visibility.Collapsed;
+                });
+
+                //Get the current audio volume and mute status
+                string currentVolumeString = string.Empty;
+                int currentVolumeInt = AudioVolumeGet(false);
+                if (currentVolumeInt >= 0)
+                {
+                    currentVolumeString = "Volume " + currentVolumeInt + "%";
+                    if (currentOutputVolumeMuted)
+                    {
+                        currentVolumeString += " (Muted)";
+                    }
+                }
+
+                //Update volume information
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    textblock_Volume_Level.Text = currentVolumeString;
+                });
+            }
+            catch
+            {
+                //Debug.WriteLine("Failed updating volume.");
             }
         }
 
