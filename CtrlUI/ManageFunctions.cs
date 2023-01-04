@@ -164,10 +164,7 @@ namespace CtrlUI
                 //Remove application image files
                 if (removeImageFile)
                 {
-                    string imageFileTitle = "Assets/User/Apps/" + dataBindApp.Name + ".png";
-                    string imageFileExe = "Assets/User/Apps/" + Path.GetFileNameWithoutExtension(dataBindApp.PathExe) + ".png";
-                    File_Delete(imageFileTitle);
-                    File_Delete(imageFileExe);
+                    Image_Application_Remove(dataBindApp);
                 }
 
                 //Show removed notification

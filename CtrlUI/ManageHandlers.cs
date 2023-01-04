@@ -176,7 +176,7 @@ namespace CtrlUI
         {
             try
             {
-                await Image_Application_Reset();
+                await Image_Application_Reset(vEditAppDataBind);
             }
             catch { }
         }
