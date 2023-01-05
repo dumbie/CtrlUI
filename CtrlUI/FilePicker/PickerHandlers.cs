@@ -598,10 +598,6 @@ namespace CtrlUI
                         if (informationDownloaded != null)
                         {
                             selectedItem.Description = ApiIGDB_PlatformSummaryString(informationDownloaded.Details);
-                            if (informationDownloaded.ImageBitmap != null)
-                            {
-                                selectedItem.ImageBitmap = informationDownloaded.ImageBitmap;
-                            }
                         }
                     }
                     else

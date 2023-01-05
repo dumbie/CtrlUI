@@ -78,7 +78,7 @@ namespace CtrlUI
                 Debug.WriteLine("Downloading information for: " + nameGame);
 
                 //Download available games
-                ApiIGDBGames[] iGDBGames = await ApiIGDB_DownloadGames(nameDownload);
+                ApiIGDBGames[] iGDBGames = await ApiIGDB_DownloadGamesSearch(nameDownload);
                 if (iGDBGames == null || !iGDBGames.Any())
                 {
                     Debug.WriteLine("No games found for: " + nameGame);
@@ -202,12 +202,12 @@ namespace CtrlUI
             }
         }
 
-        //Download all available games
-        public async Task<ApiIGDBGames[]> ApiIGDB_DownloadGames(string gameName)
+        //Download games by search
+        public async Task<ApiIGDBGames[]> ApiIGDB_DownloadGamesSearch(string searchName)
         {
             try
             {
-                Debug.WriteLine("Downloading games for: " + gameName);
+                Debug.WriteLine("Downloading games for: " + searchName);
 
                 //Authenticate with Twitch
                 string authAccessToken = await ApiTwitch_Authenticate();
@@ -226,7 +226,7 @@ namespace CtrlUI
                 Uri requestUri = new Uri("https://api.igdb.com/v4/games");
 
                 //Create request body
-                string requestBodyString = "fields *; limit 100; search \"" + gameName + "\";";
+                string requestBodyString = "fields *; limit 100; search \"" + searchName + "\";";
                 StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
 
                 //Download available games

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVFiles;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVImage;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
@@ -63,7 +64,7 @@ namespace CtrlUI
                 nameDownload = nameDownload.ToLower();
 
                 //Search for platforms
-                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => FilterNameGame(x.name, false, true, false, 0).Contains(nameDownload) || (x.alternative_name != null && FilterNameGame(x.alternative_name, false, true, false, 0).Contains(nameDownload)));
+                IEnumerable<ApiIGDBPlatforms> iGDBPlatforms = vApiIGDBPlatforms.Where(x => StringMatch(x.name, nameDownload, true) || StringMatch(x.alternative_name, nameDownload, true));
                 if (iGDBPlatforms == null || !iGDBPlatforms.Any())
                 {
                     Debug.WriteLine("No platforms found for: " + namePlatform);
@@ -187,6 +188,58 @@ namespace CtrlUI
             {
                 Debug.WriteLine("Failed downloading platform information: " + ex.Message);
                 await Notification_Send_Status("Close", "Failed downloading platform");
+                return null;
+            }
+        }
+
+        //Download platforms by search
+        public async Task<ApiIGDBPlatforms[]> ApiIGDB_DownloadPlatformsSearch(string searchName)
+        {
+            try
+            {
+                Debug.WriteLine("Downloading platforms for: " + searchName);
+
+                //Authenticate with Twitch
+                string authAccessToken = await ApiTwitch_Authenticate();
+                if (string.IsNullOrWhiteSpace(authAccessToken))
+                {
+                    return null;
+                }
+
+                //Set request headers
+                string[] requestAccept = new[] { "Accept", "application/json" };
+                string[] requestClientID = new[] { "Client-ID", vApiIGDBClientID };
+                string[] requestAuthorization = new[] { "Authorization", "Bearer " + authAccessToken };
+                string[][] requestHeaders = new string[][] { requestAccept, requestClientID, requestAuthorization };
+
+                //Create request uri
+                Uri requestUri = new Uri("https://api.igdb.com/v4/platforms");
+
+                //Create request body
+                string requestBodyString = "fields *; limit 100; search \"" + searchName + "\";";
+                StringContent requestBodyStringContent = new StringContent(requestBodyString, Encoding.UTF8, "application/text");
+
+                //Download available platforms
+                string resultSearch = await AVDownloader.SendPostRequestAsync(5000, "CtrlUI", requestHeaders, requestUri, requestBodyStringContent);
+                if (string.IsNullOrWhiteSpace(resultSearch))
+                {
+                    Debug.WriteLine("Failed downloading platforms.");
+                    return null;
+                }
+
+                //Check if status is set
+                if (resultSearch.Contains("\"status\"") && resultSearch.Contains("\"type\""))
+                {
+                    Debug.WriteLine("Received invalid platforms data.");
+                    return null;
+                }
+
+                //Return platforms sorted
+                return JsonConvert.DeserializeObject<ApiIGDBPlatforms[]>(resultSearch).OrderBy(x => x.name).ToArray();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed downloading platforms: " + ex.Message);
                 return null;
             }
         }
