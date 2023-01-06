@@ -40,8 +40,7 @@ namespace DirectXInput.KeyboardCode
 
                 //Show the textlist menu
                 border_TextListPopup.Visibility = Visibility.Visible;
-                border_Keyboard.Opacity = 0.80;
-                border_Keyboard.IsEnabled = false;
+                grid_Keyboard_Keys.IsEnabled = false;
 
                 //Store close focus button
                 FrameworkElementFocusSave(vFocusedButtonKeyboard, null);
@@ -82,8 +81,7 @@ namespace DirectXInput.KeyboardCode
 
                 //Hide the textlist menu
                 border_TextListPopup.Visibility = Visibility.Collapsed;
-                border_Keyboard.Opacity = 1;
-                border_Keyboard.IsEnabled = true;
+                grid_Keyboard_Keys.IsEnabled = true;
                 vLastPopupListType = "Text";
                 vLastPopupListTextIndex = listbox_TextList.SelectedIndex;
 

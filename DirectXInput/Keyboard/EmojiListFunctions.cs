@@ -37,8 +37,7 @@ namespace DirectXInput.KeyboardCode
 
             //Show the emoji menu
             border_EmojiListPopup.Visibility = Visibility.Visible;
-            border_Keyboard.Opacity = 0.80;
-            border_Keyboard.IsEnabled = false;
+            grid_Keyboard_Keys.IsEnabled = false;
 
             //Update the help bar
             textblock_LeftTriggerOff.Text = string.Empty;
@@ -74,8 +73,7 @@ namespace DirectXInput.KeyboardCode
 
                 //Hide the emoji menu
                 border_EmojiListPopup.Visibility = Visibility.Collapsed;
-                border_Keyboard.Opacity = 1;
-                border_Keyboard.IsEnabled = true;
+                grid_Keyboard_Keys.IsEnabled = true;
                 vLastPopupListType = "Emoji";
                 vLastPopupListEmojiIndex = listbox_EmojiList.SelectedIndex;
 

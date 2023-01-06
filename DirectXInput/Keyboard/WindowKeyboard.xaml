@@ -28,10 +28,17 @@
         </Grid.RowDefinitions>
 
         <!-- Grid Help -->
-        <Border Name="grid_ControllerHelp" CornerRadius="5" Margin="0,0,0,5" Height="45" Grid.Row="0">
-            <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
-            </Border.Background>
+        <Grid Name="grid_ControllerHelp" Margin="0,0,0,5" Height="45" Grid.Row="0">
+            <Border CornerRadius="5">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
+                </Border.Background>
+            </Border>
+            <Border Name="border_ControllerHelp_Accent" CornerRadius="5">
+                <Border.Background>
+                    <SolidColorBrush Color="Transparent"/>
+                </Border.Background>
+            </Border>
             <styles:ScrollViewerLoopHorizontal ScrollLoopSpeed="40" Style="{StaticResource ScrollViewerHidden}">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Name="stackpanel_DPad" Orientation="Horizontal" Margin="5,5,5,5">
@@ -90,13 +97,20 @@
                     </StackPanel>
                 </StackPanel>
             </styles:ScrollViewerLoopHorizontal>
-        </Border>
+        </Grid>
 
         <!-- Grid Header -->
-        <Border Name="grid_Header" Grid.Row="1" Margin="0,0,0,5" Height="45" CornerRadius="5">
-            <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
-            </Border.Background>
+        <Grid Name="grid_Header" Grid.Row="1" Margin="0,0,0,5" Height="45">
+            <Border CornerRadius="5">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
+                </Border.Background>
+            </Border>
+            <Border Name="border_Header_Accent" CornerRadius="5">
+                <Border.Background>
+                    <SolidColorBrush Color="Transparent"/>
+                </Border.Background>
+            </Border>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -107,7 +121,7 @@
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <Image Name="img_Main_VolumeMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/VolumeMute.png" Height="38"/>
                     <Image Name="img_Main_MicrophoneMute" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Assets/Default/Icons/MicrophoneMute.png" Height="38"/>
-                    <TextBlock Name="textblock_Volume_Level" Text="Volume" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeLarge}" Margin="0,0,5,0" Style="{StaticResource TextBlockGrayLight}"/>
+                    <TextBlock Name="textblock_Volume_Level" Text="Volume" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeLarge}" Margin="0,0,5,0" Style="{StaticResource TextBlockWhiteLight}"/>
                 </StackPanel>
 
                 <!-- Information -->
@@ -130,15 +144,22 @@
                     <TextBlock Name="txt_Main_Time" VerticalAlignment="Center" FontSize="{DynamicResource TextSizeHuge}" Style="{StaticResource TextBlockWhiteLight}"/>
                 </StackPanel>
             </Grid>
-        </Border>
+        </Grid>
 
         <!-- Grid Media -->
-        <Border Name="grid_Media" Grid.Row="2" Height="320" Visibility="Collapsed" CornerRadius="5">
-            <Border.Background>
-                <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
-            </Border.Background>
+        <Grid Name="grid_Media" Grid.Row="2" Height="320" Visibility="Collapsed">
+            <Border CornerRadius="5">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
+                </Border.Background>
+            </Border>
+            <Border Name="border_Media_Accent" CornerRadius="5">
+                <Border.Background>
+                    <SolidColorBrush Color="Transparent"/>
+                </Border.Background>
+            </Border>
             <StackPanel Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Grid Name="grid_MediaPlaying">
+                <Grid Name="grid_MediaPlaying" Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -168,19 +189,31 @@
                         </Grid>
                     </StackPanel>
                 </Grid>
-                <TextBlock Name="textblock_MediaNone" Style="{StaticResource TextBlockGrayLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Center" Text="No media is currently playing"/>
-                <Button Margin="0,20,0,0" Name="key_ModeMedia" HorizontalAlignment="Center" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonMode_PreviewKeyUp" PreviewMouseUp="ButtonMode_PreviewMouseUp">
-                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keyboard.png" Height="30"/>
-                </Button>
+                <TextBlock Name="textblock_MediaNone" Style="{StaticResource TextBlockWhiteLight}" FontSize="{DynamicResource TextSizeLarge}" HorizontalAlignment="Center" Text="No media is currently playing"/>
+                <StackPanel Margin="0,20,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button Name="key_ModeMedia" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonMode_PreviewKeyUp" PreviewMouseUp="ButtonMode_PreviewMouseUp">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Keyboard.png" Height="30"/>
+                    </Button>
+                    <Button Name="key_CloseMedia" Style="{StaticResource ButtonKeyboard}" PreviewKeyUp="ButtonClose_PreviewKeyUp" PreviewMouseUp="ButtonClose_PreviewMouseUp">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="30"/>
+                    </Button>
+                </StackPanel>
             </StackPanel>
-        </Border>
+        </Grid>
 
         <!-- Grid Keyboard -->
         <Grid Name="grid_Keyboard" Grid.Row="2" Height="320" Visibility="Visible">
-            <Border Name="border_Keyboard" CornerRadius="5">
-                <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
-                </Border.Background>
+            <Grid Name="grid_Keyboard_Keys">
+                <Border CornerRadius="5">
+                    <Border.Background>
+                        <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
+                    </Border.Background>
+                </Border>
+                <Border Name="border_Keyboard_Accent" CornerRadius="5">
+                    <Border.Background>
+                        <SolidColorBrush Color="Transparent"/>
+                    </Border.Background>
+                </Border>
                 <StackPanel Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <!-- Key Row 0 -->
                     <StackPanel Name="sp_Row0" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -399,7 +432,7 @@
                         </Button>
                     </StackPanel>
                 </StackPanel>
-            </Border>
+            </Grid>
 
             <!-- TextList Popup -->
             <Border Name="border_TextListPopup" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">

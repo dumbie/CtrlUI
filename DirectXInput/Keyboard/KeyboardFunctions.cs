@@ -1,10 +1,12 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
+using System.IO.Ports;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -299,12 +301,6 @@ namespace DirectXInput.KeyboardCode
             {
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    //Check current mode
-                    if (grid_Keyboard.Visibility == Visibility.Visible)
-                    {
-                        return;
-                    }
-
                     //Update help bar
                     stackpanel_DPad.Visibility = Visibility.Collapsed;
                     textblock_ButtonLeft.Text = "Backspace";
@@ -320,6 +316,12 @@ namespace DirectXInput.KeyboardCode
                     //Show keyboard interface
                     grid_Keyboard.Visibility = Visibility.Visible;
                     grid_Media.Visibility = Visibility.Collapsed;
+
+                    //Update border color
+                    SolidColorBrush backgroundColor = new SolidColorBrush(Colors.Transparent);
+                    border_ControllerHelp_Accent.Background = backgroundColor;
+                    border_Header_Accent.Background = backgroundColor;
+                    border_Media_Accent.Background = backgroundColor;
 
                     //Focus on keyboard button
                     if (vFocusedButtonKeyboard.FocusElement == null)
@@ -353,12 +355,6 @@ namespace DirectXInput.KeyboardCode
             {
                 await AVActions.ActionDispatcherInvokeAsync(async delegate
                 {
-                    //Check current mode
-                    if (grid_Media.Visibility == Visibility.Visible)
-                    {
-                        return;
-                    }
-
                     //Update help bar
                     stackpanel_DPad.Visibility = Visibility.Visible;
                     textblock_ButtonLeft.Text = "Media Prev";
@@ -377,6 +373,13 @@ namespace DirectXInput.KeyboardCode
                     //Show media interface
                     grid_Keyboard.Visibility = Visibility.Collapsed;
                     grid_Media.Visibility = Visibility.Visible;
+
+                    //Update border color
+                    SolidColorBrush backgroundBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
+                    SolidColorBrush backgroundBrushOpacity = AdjustColorOpacity(backgroundBrush, 0.20);
+                    border_ControllerHelp_Accent.Background = backgroundBrushOpacity;
+                    border_Header_Accent.Background = backgroundBrushOpacity;
+                    border_Media_Accent.Background = backgroundBrushOpacity;
 
                     //Focus on media button
                     await FrameworkElementFocus(key_ModeMedia, false, vInteropWindowHandle);
