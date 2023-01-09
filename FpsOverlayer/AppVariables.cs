@@ -1,6 +1,8 @@
 ﻿using ArnoldVinkCode;
+using FpsOverlayer.OverlayCode;
 using LibreHardwareMonitor.Hardware;
 using Microsoft.Diagnostics.Tracing.Session;
+using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +26,7 @@ namespace FpsOverlayer
         //Application Windows
         public static WindowMain vWindowMain = new WindowMain();
         public static WindowSettings vWindowSettings = new WindowSettings();
+        public static WindowBrowser vWindowBrowser = new WindowBrowser();
 
         //Interaction Variables
         public static bool vSingleTappedEvent = true;
@@ -52,6 +55,10 @@ namespace FpsOverlayer
 
         //Keyboard Variables
         public static AVInputOutputHotKey vAVInputOutputHotKey = new AVInputOutputHotKey();
+
+        //Browser Variables
+        public static WebView2 vWebViewer = null;
+        public static bool vBrowserClickThrough = false;
 
         //Hardware
         public static Computer vHardwareComputer = null;

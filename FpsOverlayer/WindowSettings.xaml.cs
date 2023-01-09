@@ -106,6 +106,17 @@ namespace FpsOverlayer
 
                 button_MonUp.Click += Button_MoveUp_Click;
                 button_MonDown.Click += Button_MoveDown_Click;
+
+                button_BrowserShowHide.Click += Button_BrowserShowHide_Click;
+            }
+            catch { }
+        }
+
+        async void Button_BrowserShowHide_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await vWindowBrowser.SwitchBrowserVisibility();
             }
             catch { }
         }

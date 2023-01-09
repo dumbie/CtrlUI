@@ -23,6 +23,7 @@ namespace FpsOverlayer
                 //Create a context menu for systray.
                 TrayContextMenu.MenuItems.Add("Show or hide stats", NotifyIcon_ShowHide_Stats);
                 TrayContextMenu.MenuItems.Add("Show or hide crosshair", NotifyIcon_ShowHide_Crosshair);
+                TrayContextMenu.MenuItems.Add("Show or hide browser", NotifyIcon_ShowHide_Browser);
                 TrayContextMenu.MenuItems.Add("Change stats position", NotifyIcon_Position_Stats);
                 TrayContextMenu.MenuItems.Add("-");
                 TrayContextMenu.MenuItems.Add("Settings", NotifyIcon_Settings);
@@ -72,6 +73,7 @@ namespace FpsOverlayer
         void NotifyIcon_MouseUp(object sender, MouseEventArgs args) { Mouse_Single_Click(args); }
         void NotifyIcon_ShowHide_Stats(object sender, EventArgs args) { SwitchFpsOverlayVisibilityManual(); }
         void NotifyIcon_ShowHide_Crosshair(object sender, EventArgs args) { SwitchCrosshairVisibility(); }
+        async void NotifyIcon_ShowHide_Browser(object sender, EventArgs args) { await vWindowBrowser.SwitchBrowserVisibility(); }
         void NotifyIcon_Position_Stats(object sender, EventArgs args) { ChangeFpsOverlayPosition(); }
         void NotifyIcon_Settings(object sender, EventArgs args) { Application_ShowHideSettings(); }
         void NotifyIcon_Website(object sender, EventArgs args) { Process.Start("https://projects.arnoldvink.com"); }

@@ -23,6 +23,10 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "TextSize") == null) { Setting_Save(vConfigurationFpsOverlayer, "TextSize", "18"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "HardwareUpdateRateMs") == null) { Setting_Save(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", "1000"); }
 
+                if (Setting_Load(vConfigurationFpsOverlayer, "BrowserDefaultLink") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserDefaultLink", "https://google.com"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "BrowserShowStartup") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserShowStartup", "False"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "BrowserUnload") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserUnload", "True"); }
+
                 if (Setting_Load(vConfigurationFpsOverlayer, "TextColorSingle") == null) { Setting_Save(vConfigurationFpsOverlayer, "TextColorSingle", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorBackground") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorBackground", "#1D1D1D"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorSingle") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorSingle", "#F1F1F1"); }

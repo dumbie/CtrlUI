@@ -87,8 +87,15 @@ namespace FpsOverlayer
                     ShowCrosshairVisibility();
                 }
 
+                //Show browser when enabled
+                if (Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BrowserShowStartup")))
+                {
+                    await vWindowBrowser.Show();
+                }
+
                 //Register keyboard hotkeys
                 vAVInputOutputHotKey.EventHotKeyPressed += EventHotKeyPressed;
+                vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F8);
                 vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F9);
                 vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F10);
                 vAVInputOutputHotKey.RegisterHotKey(KeysModifier.Alt, KeysVirtual.F11);

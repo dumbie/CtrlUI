@@ -24,6 +24,14 @@
         <!-- Grid Menu -->
         <Grid Name="grid_Menu" Grid.Column="0" Width="105" Background="{DynamicResource ApplicationBlackBrush}">
             <ListBox Name="lb_Menu" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" Style="{StaticResource ListBoxVertical}">
+                <StackPanel Name="menuButtonCrosshair" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage crosshair settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Crosshair.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Crosshair" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Name="menuButtonBrowser" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage browser settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Browser.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Browser" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
                 <StackPanel Name="menuButtonText" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage text settings">
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Font.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Text" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -35,10 +43,6 @@
                 <StackPanel Name="menuButtonDisplay" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage display settings">
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Opacity.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Display" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Name="menuButtonCrosshair" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage crosshair settings">
-                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Crosshair.png" Width="55" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Crosshair" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Name="menuButtonFps" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage frames settings">
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Fps.png" Width="55" HorizontalAlignment="Center"/>
@@ -224,7 +228,8 @@
                         <CheckBox Margin="0,10,0,0" Name="checkbox_CheckTaskbarVisible" Content="Adjust margin to taskbar visibility" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Automatically adjust the overlay margin to your taskbar visibility when you have taskbar auto hide enabled in Windows." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
-                        <TextBlock Margin="0,10,0,0" Text="* You can toggle the crosshair visibility with ALT+F9." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Margin="0,10,0,0" Text="* You can show or hide browser with ALT+F8." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <TextBlock Text="* You can toggle the crosshair visibility with ALT+F9." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <TextBlock Text="* You can toggle the stats visibility with ALT+F10." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <TextBlock Text="* You can change the stats position with ALT+F11." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
@@ -264,6 +269,45 @@
                         <TextBlock Name="textblock_CrosshairVerticalPosition" Text="Crosshair vertical position" Tag="Crosshair vertical position" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the crosshair vertical offset position." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="-50" Maximum="50" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairVerticalPosition" Style="{StaticResource SliderWhite}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Browser" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Browser Settings"/>
+
+                        <TextBlock Margin="0,10,0,0" Text="Default browser link" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBox Name="textbox_BrowserDefaultLink" Width="440" HorizontalAlignment="Left" Style="{StaticResource TextBoxBlack}"/>
+
+                        <CheckBox Name="checkbox_BrowserShowStartup" Content="Show browser on app startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will open the browser on application startup." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <CheckBox Name="checkbox_BrowserUnload" Content="Unload website on close" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will unload the website to reduce memory usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <!--<CheckBox Name="checkbox_BrowserClickThrough" Content="Mouse click through the browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will allow you to click through the browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>-->
+
+                        <!--<CheckBox Name="checkbox_BrowserCustomSize" Content="Use custom browser size" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will set a custom browser size." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Width" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBox Name="textbox_BrowserWidth" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                <TextBlock Text="Height" Style="{StaticResource TextBlockBlack}"/>
+                                <TextBox Name="textbox_BrowserHeight" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
+                            </StackPanel>
+
+                            <TextBlock Margin="10,0,0,0" Text="pixels" Style="{StaticResource TextBlockBlack}"/>
+                        </StackPanel>-->
+
+                        <!--<TextBlock Name="textblock_BrowserOpacity" Text="Browser display transparency" Tag="Browser display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="Change the browser displayed transparency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <Slider Minimum="0.05" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_BrowserOpacity" Style="{StaticResource SliderWhite}"/>-->
+
+                        <Button Name="button_BrowserShowHide" Margin="0,10,10,0" Content="Hide or show browser" Style="{StaticResource ButtonAccentBlack}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Fps" Visibility="Collapsed">

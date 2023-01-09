@@ -419,6 +419,25 @@ namespace FpsOverlayer
                     Setting_Save(vConfigurationFpsOverlayer, "CrosshairStyle", combobox_CrosshairStyle.SelectedIndex.ToString());
                     vWindowMain.UpdateCrosshairOverlayStyle();
                 };
+
+                //Browser
+                textbox_BrowserDefaultLink.TextChanged += (sender, e) =>
+                {
+                    TextBox senderTextbox = (TextBox)sender;
+                    Setting_Save(vConfigurationFpsOverlayer, "BrowserDefaultLink", senderTextbox.Text);
+                };
+
+                checkbox_BrowserShowStartup.Click += (sender, e) =>
+                {
+                    CheckBox senderCheckBox = (CheckBox)sender;
+                    Setting_Save(vConfigurationFpsOverlayer, "BrowserShowStartup", senderCheckBox.IsChecked.ToString());
+                };
+
+                checkbox_BrowserUnload.Click += (sender, e) =>
+                {
+                    CheckBox senderCheckBox = (CheckBox)sender;
+                    Setting_Save(vConfigurationFpsOverlayer, "BrowserUnload", senderCheckBox.IsChecked.ToString());
+                };
             }
             catch (Exception ex)
             {

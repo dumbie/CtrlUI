@@ -95,6 +95,8 @@ namespace FpsOverlayer
                             await UpdateWindowStyleVisible();
                         }
 
+                        //Fix update browser style visible
+
                         //Update the current target process
                         vTargetProcess = foregroundProcess;
                     }
