@@ -32,6 +32,10 @@
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Browser.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Browser" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
+                <StackPanel Name="menuButtonShortcuts" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage browser settings">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Shortcut.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Shortcuts" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
                 <StackPanel Name="menuButtonText" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage text settings">
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Font.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Text" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -227,18 +231,13 @@
 
                         <CheckBox Margin="0,10,0,0" Name="checkbox_CheckTaskbarVisible" Content="Adjust margin to taskbar visibility" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Automatically adjust the overlay margin to your taskbar visibility when you have taskbar auto hide enabled in Windows." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                        <TextBlock Margin="0,10,0,0" Text="* You can show or hide browser with ALT+F8." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <TextBlock Text="* You can toggle the crosshair visibility with ALT+F9." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <TextBlock Text="* You can toggle the stats visibility with ALT+F10." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <TextBlock Text="* You can change the stats position with ALT+F11." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Crosshair" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Crosshair Settings"/>
 
-                        <CheckBox Name="checkbox_CrosshairLaunch" Content="Show crosshair on launch" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this will show the crosshair on launch." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+                        <CheckBox Name="checkbox_CrosshairLaunch" Content="Show crosshair on app startup" Style="{StaticResource CheckBoxBlack}"/>
+                        <TextBlock Text="Enabling this will show the crosshair on application startup." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <TextBlock Text="Crosshair display color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
@@ -269,6 +268,8 @@
                         <TextBlock Name="textblock_CrosshairVerticalPosition" Text="Crosshair vertical position" Tag="Crosshair vertical position" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the crosshair vertical offset position." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="-50" Maximum="50" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairVerticalPosition" Style="{StaticResource SliderWhite}"/>
+
+                        <Button Name="button_CrosshairShowHide" Margin="0,10,10,0" Content="Hide or show crosshair" Style="{StaticResource ButtonAccentBlack}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Browser" Visibility="Collapsed">
@@ -308,6 +309,15 @@
                         <Slider Minimum="0.05" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_BrowserOpacity" Style="{StaticResource SliderWhite}"/>-->
 
                         <Button Name="button_BrowserShowHide" Margin="0,10,10,0" Content="Hide or show browser" Style="{StaticResource ButtonAccentBlack}"/>
+                    </StackPanel>
+
+                    <StackPanel Name="stackpanel_Shortcuts" Visibility="Collapsed">
+                        <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Shortcuts Settings"/>
+
+                        <TextBlock Text="* You can show, hide or unpin the browser with ALT+F8." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="* You can toggle the crosshair visibility with ALT+F9." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="* You can toggle the stats visibility with ALT+F10." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Text="* You can change the stats position with ALT+F11." TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Fps" Visibility="Collapsed">

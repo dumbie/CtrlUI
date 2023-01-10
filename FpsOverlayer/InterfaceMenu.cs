@@ -51,6 +51,7 @@ namespace FpsOverlayer
                     else if (SelStackPanel.Name == "menuButtonDisplay") { ShowGridPage(stackpanel_Display); }
                     else if (SelStackPanel.Name == "menuButtonCrosshair") { ShowGridPage(stackpanel_Crosshair); }
                     else if (SelStackPanel.Name == "menuButtonBrowser") { ShowGridPage(stackpanel_Browser); }
+                    else if (SelStackPanel.Name == "menuButtonShortcuts") { ShowGridPage(stackpanel_Shortcuts); }
                     else if (SelStackPanel.Name == "menuButtonFps") { ShowGridPage(stackpanel_Fps); }
                     else if (SelStackPanel.Name == "menuButtonTime") { ShowGridPage(stackpanel_Time); }
                     else if (SelStackPanel.Name == "menuButtonProcessor") { ShowGridPage(stackpanel_Processor); }
@@ -78,6 +79,7 @@ namespace FpsOverlayer
                 stackpanel_Display.Visibility = Visibility.Collapsed;
                 stackpanel_Crosshair.Visibility = Visibility.Collapsed;
                 stackpanel_Browser.Visibility = Visibility.Collapsed;
+                stackpanel_Shortcuts.Visibility = Visibility.Collapsed;
                 stackpanel_Fps.Visibility = Visibility.Collapsed;
                 stackpanel_Time.Visibility = Visibility.Collapsed;
                 stackpanel_Processor.Visibility = Visibility.Collapsed;

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:local="clr-namespace:FpsOverlayer.OverlayCode"
         RenderOptions.BitmapScalingMode="HighQuality"
         SnapsToDevicePixels="True"
@@ -27,27 +28,65 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Name="grid_Browser" Margin="5"/>
-            <Grid Grid.Row="1" Name="grid_Bottom" Margin="5,0,5,5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Name="textbox_WebUrl" Style="{StaticResource TextBoxWhite}" KeyUp="textbox_WebUrl_KeyUp"/>
-                <StackPanel Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button Name="button_Check" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Check_Click" ToolTip="Open link in browser">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Check.png" Height="35"/>
+            <Grid Grid.Row="0">
+                <TextBlock Text="Please select a link to open." HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                <wv2:WebView2 Name="webview_Browser" Margin="5,5,5,0" DefaultBackgroundColor="Transparent" Source="about:blank">
+                    <wv2:WebView2.CreationProperties>
+                        <wv2:CoreWebView2CreationProperties UserDataFolder="BrowserCache" AdditionalBrowserArguments="--disable-gpu"/>
+                    </wv2:WebView2.CreationProperties>
+                </wv2:WebView2>
+            </Grid>
+
+            <Grid Grid.Row="1" Height="5" Margin="5,0,5,0">
+                <ProgressBar Name="progressbar_Browser" Height="5" IsIndeterminate="True" Style="{StaticResource ProgressBarAccent}"/>
+            </Grid>
+
+            <Grid Grid.Row="2" Name="grid_Link" Margin="5,0,5,5" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Name="textbox_WebUrl" Style="{StaticResource TextBoxWhite}" KeyUp="textbox_WebUrl_KeyUp"/>
+                    <StackPanel Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button Name="button_Check" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Check_Click" ToolTip="Open link in browser">
+                            <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Check.png" Height="35"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                <!--<Grid Grid.Row="1">
+                    <TextBlock Text="Link history"  Style="{StaticResource TextBlockWhite}"/>
+                </Grid>-->
+            </Grid>
+
+            <Grid Grid.Row="3" Name="grid_Menu" Margin="5,0,5,5">
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                    <Button Name="button_Link" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Link_Click" ToolTip="Open browser link menu">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Link.png" Height="35"/>
                     </Button>
                     <Button Name="button_Back" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Back_Click" ToolTip="Go back to previous page">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/MoveLeft.png" Height="35"/>
                     </Button>
+                    <Button Name="button_Refresh" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Refresh_Click" ToolTip="Refresh the page">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Refresh.png" Height="35"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Name="button_Pin" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Pin_Click" ToolTip="Browser click through mode (Alt+F8)">
+                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Pin.png" Height="35"/>
+                    </Button>
                     <Button Name="button_Close" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Close_Click" ToolTip="Close the browser">
                         <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Close.png" Height="35"/>
-                    </Button>
-                    <Button Name="button_Pin" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_Pin_Click" ToolTip="Browser click through mode">
-                        <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Pin.png" Height="35"/>
                     </Button>
                     <Image Name="button_Move" Cursor="SizeAll" Source="pack://siteoforigin:,,,/Assets/Default/Icons/Move.png" Height="38" MouseDown="button_Move_MouseDown"/>
                     <Thumb Style="{StaticResource ThumbGripWhite}" Width="35" Height="35" DragDelta="ResizeGripper_DragDelta"/>

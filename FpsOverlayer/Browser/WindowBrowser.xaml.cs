@@ -1,10 +1,9 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
-using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static FpsOverlayer.AppVariables;
 
 namespace FpsOverlayer.OverlayCode
@@ -15,12 +14,11 @@ namespace FpsOverlayer.OverlayCode
         public WindowBrowser() { InitializeComponent(); }
 
         //Window Variables
-        private IntPtr vInteropWindowHandle = IntPtr.Zero;
+        public IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
-        public bool vHideAdded = false;
 
         //Window Initialized
-        protected override async void OnSourceInitialized(EventArgs e)
+        protected override void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -31,9 +29,6 @@ namespace FpsOverlayer.OverlayCode
                 HwndSource hwndSource = HwndSource.FromHwnd(vInteropWindowHandle);
                 HwndTarget hwndTarget = hwndSource.CompositionTarget;
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
-
-                //Add browser to grid
-                await Browser_Add_Grid();
             }
             catch { }
         }
@@ -45,6 +40,9 @@ namespace FpsOverlayer.OverlayCode
             {
                 //Update the window visibility
                 await UpdateWindowVisibility(false);
+
+                //Reset browser default values
+                Browser_Unload();
             }
             catch { }
         }
@@ -56,6 +54,9 @@ namespace FpsOverlayer.OverlayCode
             {
                 //Update the window visibility
                 await UpdateWindowVisibility(true);
+
+                //Set default browser values
+                await Browser_Setup();
             }
             catch { }
         }
@@ -67,78 +68,31 @@ namespace FpsOverlayer.OverlayCode
             {
                 if (visible)
                 {
-                    //Create and show the window
-                    base.Show();
+                    if (!vWindowVisible)
+                    {
+                        //Create and show the window
+                        base.Show();
 
-                    //Update the window style
-                    await UpdateWindowStyleVisible(vBrowserClickThrough);
+                        //Update the window style
+                        await UpdateWindowStyleVisible(vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
 
-                    this.Title = "FpsOverlayer Browser (Visible)";
-                    vWindowVisible = true;
-                    Debug.WriteLine("Showing the window.");
+                        this.Title = "FpsOverlayer Browser (Visible)";
+                        vWindowVisible = true;
+                        Debug.WriteLine("Showing the window.");
+                    }
                 }
                 else
                 {
-                    //Hide the window
-                    base.Hide();
+                    if (vWindowVisible)
+                    {
+                        //Update the window style
+                        await UpdateWindowStyleHidden(vInteropWindowHandle);
 
-                    //Update the window style
-                    await UpdateWindowStyleHidden();
-
-                    this.Title = "FpsOverlayer Browser (Hidden)";
-                    vWindowVisible = false;
-                    Debug.WriteLine("Hiding the window.");
+                        this.Title = "FpsOverlayer Browser (Hidden)";
+                        vWindowVisible = false;
+                        Debug.WriteLine("Hiding the window.");
+                    }
                 }
-            }
-            catch { }
-        }
-
-        //Update the window style
-        public async Task UpdateWindowStyleVisible(bool clickThrough)
-        {
-            try
-            {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                {
-                    //Set the window alpha
-                    //SetLayeredWindowAttributes(vInteropWindowHandle, 0, 250, LayeredWindowAttributes.LWA_ALPHA);
-
-                    //Set the window style
-                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
-
-                    //Set the window style ex
-                    IntPtr updatedExStyle = IntPtr.Zero;
-                    if (clickThrough)
-                    {
-                        updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_TRANSPARENT));
-                    }
-                    else
-                    {
-                        updatedExStyle = new IntPtr((uint)WindowStylesEx.WS_EX_TOPMOST);
-                    }
-
-                    //IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
-                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
-
-                    //Set the window as top most (focus workaround)
-                    SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
-                });
-            }
-            catch { }
-        }
-
-        //Update the window style
-        async Task UpdateWindowStyleHidden()
-        {
-            try
-            {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                {
-                    //Set the window style
-                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_NONE);
-                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
-                });
             }
             catch { }
         }

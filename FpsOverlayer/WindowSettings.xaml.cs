@@ -108,6 +108,16 @@ namespace FpsOverlayer
                 button_MonDown.Click += Button_MoveDown_Click;
 
                 button_BrowserShowHide.Click += Button_BrowserShowHide_Click;
+                button_CrosshairShowHide.Click += Button_CrosshairShowHide_Click;
+            }
+            catch { }
+        }
+
+        void Button_CrosshairShowHide_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                vWindowMain.SwitchCrosshairVisibility();
             }
             catch { }
         }

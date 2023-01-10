@@ -3,7 +3,9 @@ using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static FpsOverlayer.AppVariables;
+using static LibraryShared.FocusFunctions;
 
 namespace FpsOverlayer.OverlayCode
 {
@@ -14,7 +16,7 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                await Browser_Close();
+                await Hide();
             }
             catch { }
         }
@@ -48,7 +50,7 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                await Browser_Switch_Clickthrough();
+                await Browser_Switch_Clickthrough(false);
             }
             catch { }
         }
@@ -58,7 +60,17 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                vWebViewer.GoBack();
+                webview_Browser.GoBack();
+            }
+            catch { }
+        }
+
+        //Refresh the page
+        private void button_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                webview_Browser.Reload();
             }
             catch { }
         }
@@ -68,7 +80,35 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                textbox_WebUrl.Text = vWebViewer.Source.ToString();
+                textbox_WebUrl.Text = webview_Browser.Source.ToString();
+            }
+            catch { }
+        }
+
+        //Open link popup
+        private async void button_Link_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (grid_Link.Visibility == Visibility.Visible)
+                {
+                    grid_Link.Visibility = Visibility.Collapsed;
+
+                    //Update the window style
+                    vBrowserWindowNoActivate = true;
+                    await UpdateWindowStyleVisible(vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
+                }
+                else
+                {
+                    grid_Link.Visibility = Visibility.Visible;
+
+                    //Update the window style
+                    vBrowserWindowNoActivate = false;
+                    await UpdateWindowStyleVisible(vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
+
+                    //Focus on the textbox
+                    await FrameworkElementFocus(textbox_WebUrl, false, vInteropWindowHandle);
+                }
             }
             catch { }
         }
@@ -78,7 +118,7 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                vWebViewer.Source = new UriBuilder(textbox_WebUrl.Text).Uri;
+                Browser_Open_Link(textbox_WebUrl.Text);
             }
             catch { }
         }
@@ -90,7 +130,7 @@ namespace FpsOverlayer.OverlayCode
             {
                 if (e.Key == Key.Enter)
                 {
-                    vWebViewer.Source = new UriBuilder(textbox_WebUrl.Text).Uri;
+                    Browser_Open_Link(textbox_WebUrl.Text);
                 }
             }
             catch { }
@@ -102,7 +142,37 @@ namespace FpsOverlayer.OverlayCode
             try
             {
                 e.Handled = true;
-                vWebViewer.Source = new UriBuilder(e.Uri).Uri;
+                webview_Browser.Source = new UriBuilder(e.Uri).Uri;
+            }
+            catch { }
+        }
+
+        //Cancel downloads
+        private void WebView2_DownloadStarting(object sender, CoreWebView2DownloadStartingEventArgs e)
+        {
+            try
+            {
+                e.Cancel = true;
+            }
+            catch { }
+        }
+
+        //Update progressbar
+        private void WebView2_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
+        {
+            try
+            {
+                progressbar_Browser.Visibility = Visibility.Collapsed;
+            }
+            catch { }
+        }
+
+        //Update progressbar
+        private void WebView2_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
+        {
+            try
+            {
+                progressbar_Browser.Visibility = Visibility.Visible;
             }
             catch { }
         }

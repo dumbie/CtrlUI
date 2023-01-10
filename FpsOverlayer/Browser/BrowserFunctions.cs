@@ -1,9 +1,8 @@
-﻿using Microsoft.Web.WebView2.Core;
-using Microsoft.Web.WebView2.Wpf;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Settings;
 
@@ -11,70 +10,84 @@ namespace FpsOverlayer.OverlayCode
 {
     public partial class WindowBrowser : Window
     {
-        //Add browser to grid
-        private async Task Browser_Add_Grid()
+        //Set default browser values
+        private async Task Browser_Setup()
         {
             try
             {
-                //Dispose webviewer
-                if (vWebViewer != null)
+                //Register webviewer events
+                if (!vBrowserInitialized)
                 {
-                    vWebViewer.Dispose();
+                    await webview_Browser.EnsureCoreWebView2Async();
+                    webview_Browser.CoreWebView2.SourceChanged += WebView2_SourceChanged;
+                    webview_Browser.CoreWebView2.NewWindowRequested += WebView2_NewWindowRequested;
+                    webview_Browser.CoreWebView2.DownloadStarting += WebView2_DownloadStarting;
+                    webview_Browser.CoreWebView2.NavigationStarting += WebView2_NavigationStarting;
+                    webview_Browser.CoreWebView2.NavigationCompleted += WebView2_NavigationCompleted;
+                    vBrowserInitialized = true;
                 }
 
-                //Create webviewer
-                vWebViewer = new WebView2();
-
-                //Add webviewer to grid
-                grid_Browser.Children.Clear();
-                grid_Browser.Children.Add(vWebViewer);
-
-                //Set software render mode
-                string userDataFolder = "BrowserCache";
-                CoreWebView2EnvironmentOptions environmentOptions = new CoreWebView2EnvironmentOptions { AdditionalBrowserArguments = "--disable-gpu" };
-                CoreWebView2Environment environment = await CoreWebView2Environment.CreateAsync(null, userDataFolder, environmentOptions);
-
-                //Register webviewer events
-                await vWebViewer.EnsureCoreWebView2Async(environment);
-                vWebViewer.SourceChanged += WebView2_SourceChanged;
-                vWebViewer.CoreWebView2.NewWindowRequested += WebView2_NewWindowRequested;
-
                 //Set default link source
-                string defaultLink = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "BrowserDefaultLink"));
-                vWebViewer.Source = new Uri(defaultLink);
+                string currentLink = webview_Browser.Source.ToString();
+                if (currentLink == "about:blank")
+                {
+                    string defaultLink = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "BrowserDefaultLink"));
+                    //Browser_Open_Link(defaultLink);
+                }
 
-                Debug.WriteLine("Added browser to grid.");
+                Debug.WriteLine("Set default browser values.");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to add browser: " + ex.Message);
+                Debug.WriteLine("Failed to default browser: " + ex.Message);
+            }
+        }
+
+        //Reset browser default values
+        private void Browser_Unload()
+        {
+            try
+            {
+                //Check unload setting
+                if (!Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BrowserUnload")))
+                {
+                    return;
+                }
+
+                //Set blank page
+                Browser_Open_Link("about:blank");
+
+                Debug.WriteLine("Reset browser default values.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to reset browser: " + ex.Message);
             }
         }
 
         //Switch clickthrough mode
-        public async Task Browser_Switch_Clickthrough()
+        public async Task Browser_Switch_Clickthrough(bool forceVisible)
         {
             try
             {
-                if (vBrowserClickThrough)
+                if (forceVisible || vBrowserWindowClickThrough)
                 {
-                    //Hide bottom bar
-                    grid_Bottom.Visibility = Visibility.Visible;
+                    //Show menu bar
+                    grid_Menu.Visibility = Visibility.Visible;
 
                     //Update the window style
-                    await UpdateWindowStyleVisible(false);
-
-                    vBrowserClickThrough = false;
+                    vBrowserWindowClickThrough = false;
+                    await UpdateWindowStyleVisible(vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
                 }
                 else
                 {
-                    //Show bottom bar
-                    grid_Bottom.Visibility = Visibility.Collapsed;
+                    //Hide menu bar
+                    grid_Menu.Visibility = Visibility.Collapsed;
+                    grid_Link.Visibility = Visibility.Collapsed;
 
                     //Update the window style
-                    await UpdateWindowStyleVisible(true);
-
-                    vBrowserClickThrough = true;
+                    vBrowserWindowClickThrough = true;
+                    await UpdateWindowStyleVisible(vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
                 }
             }
             catch { }
@@ -85,13 +98,13 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                if (vWindowVisible && vBrowserClickThrough)
+                if (vWindowVisible && vBrowserWindowClickThrough)
                 {
-                    await Browser_Switch_Clickthrough();
+                    await Browser_Switch_Clickthrough(false);
                 }
                 else if (vWindowVisible)
                 {
-                    await Browser_Close();
+                    await Hide();
                 }
                 else
                 {
@@ -101,18 +114,26 @@ namespace FpsOverlayer.OverlayCode
             catch { }
         }
 
-        //Close the browser
-        public async Task Browser_Close()
+        //Open link in browser
+        private void Browser_Open_Link(string linkString)
         {
             try
             {
-                //Fix Setting unload
-                //Unload loaded website
-                //vWebViewer.Source = new Uri("about:blank");
-                vWebViewer.Dispose();
-
-                //Close the browser overlay
-                await Hide();
+                string currentLink = webview_Browser.Source.ToString();
+                if (currentLink == linkString)
+                {
+                    Debug.WriteLine("Same link, reloading page.");
+                    webview_Browser.Reload();
+                }
+                else
+                {
+                    if (!linkString.Contains(":"))
+                    {
+                        linkString = "https://" + linkString;
+                    }
+                    linkString = linkString.Replace(",", ".");
+                    webview_Browser.CoreWebView2.Navigate(linkString);
+                }
             }
             catch { }
         }

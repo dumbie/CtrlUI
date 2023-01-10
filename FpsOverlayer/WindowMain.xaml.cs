@@ -14,7 +14,7 @@ using System.Windows.Media;
 using static ArnoldVinkCode.AVDisplayMonitor;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInputOutputClass;
-using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.JsonFunctions;
@@ -30,7 +30,6 @@ namespace FpsOverlayer
         //Window Variables
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
-        public bool vHideAdded = false;
 
         //Window Initialized
         protected override async void OnSourceInitialized(EventArgs e)
@@ -46,7 +45,7 @@ namespace FpsOverlayer
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
                 //Update the window style
-                await UpdateWindowStyleVisible();
+                await UpdateWindowStyleVisible(vInteropWindowHandle, true, true, true);
 
                 //Check application settings
                 vWindowSettings.Settings_Check();
@@ -175,7 +174,7 @@ namespace FpsOverlayer
                             base.Show();
 
                             //Update the window style
-                            await UpdateWindowStyleVisible();
+                            await UpdateWindowStyleVisible(vInteropWindowHandle, true, true, true);
 
                             this.Title = "Fps Overlayer (Visible)";
                             vWindowVisible = true;
@@ -187,7 +186,7 @@ namespace FpsOverlayer
                         if (vWindowVisible)
                         {
                             //Update the window style
-                            await UpdateWindowStyleHidden();
+                            await UpdateWindowStyleHidden(vInteropWindowHandle);
 
                             this.Title = "Fps Overlayer (Hidden)";
                             vWindowVisible = false;
@@ -199,65 +198,11 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Update the window style
-        async Task UpdateWindowStyleVisible()
-        {
-            try
-            {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                {
-                    //Set the window style
-                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
-
-                    //Set the window style ex
-                    IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE | WindowStylesEx.WS_EX_TRANSPARENT));
-                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
-
-                    //Set the window as top most (focus workaround)
-                    SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
-                });
-            }
-            catch { }
-        }
-
-        //Update the window style
-        async Task UpdateWindowStyleHidden()
-        {
-            try
-            {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                {
-                    //Set the window style
-                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_NONE);
-                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
-
-                    //Move window to force style
-                    WindowRectangle positionRect = new WindowRectangle();
-                    GetWindowRect(vInteropWindowHandle, ref positionRect);
-                    if (vHideAdded)
-                    {
-                        WindowMove(vInteropWindowHandle, positionRect.Left + 1, positionRect.Top + 1);
-                        vHideAdded = false;
-                    }
-                    else
-                    {
-                        WindowMove(vInteropWindowHandle, positionRect.Left - 1, positionRect.Top - 1);
-                        vHideAdded = true;
-                    }
-                });
-            }
-            catch { }
-        }
-
         //Update the window position
         public void UpdateWindowPosition()
         {
             try
             {
-                //Load current CtrlUI settings
-                vConfigurationCtrlUI = Settings_Load_CtrlUI();
-
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
                 DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);

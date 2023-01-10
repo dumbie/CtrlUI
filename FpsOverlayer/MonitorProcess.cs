@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static FpsOverlayer.AppTasks;
@@ -91,11 +92,18 @@ namespace FpsOverlayer
                             //Update the application name
                             UpdateApplicationName(foregroundProcess.WindowTitle);
 
-                            //Update the window style
-                            await UpdateWindowStyleVisible();
-                        }
+                            //Update fps window style
+                            if (vWindowVisible)
+                            {
+                                await UpdateWindowStyleVisible(vInteropWindowHandle, true, true, true);
+                            }
 
-                        //Fix update browser style visible
+                            //Update browser window style
+                            if (vWindowBrowser.vWindowVisible)
+                            {
+                                await UpdateWindowStyleVisible(vWindowBrowser.vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
+                            }
+                        }
 
                         //Update the current target process
                         vTargetProcess = foregroundProcess;
