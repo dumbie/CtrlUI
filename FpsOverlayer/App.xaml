@@ -15,7 +15,7 @@
                 <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/Slider.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/TextBox.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/MainStyles.xaml"/>
-                <ResourceDictionary Source="Styles/DataTemplates/ListBoxItemAppPosition.xaml"/>
+                <ResourceDictionary Source="Styles/DataTemplates/DataTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

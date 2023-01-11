@@ -95,13 +95,13 @@ namespace FpsOverlayer
                             //Update fps window style
                             if (vWindowVisible)
                             {
-                                await UpdateWindowStyleVisible(vInteropWindowHandle, true, true, true);
+                                await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
                             }
 
                             //Update browser window style
                             if (vWindowBrowser.vWindowVisible)
                             {
-                                await UpdateWindowStyleVisible(vWindowBrowser.vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
+                                await WindowUpdateStyleVisible(vWindowBrowser.vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
                             }
                         }
 

@@ -23,7 +23,6 @@ namespace FpsOverlayer
                 if (Setting_Load(vConfigurationFpsOverlayer, "TextSize") == null) { Setting_Save(vConfigurationFpsOverlayer, "TextSize", "18"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "HardwareUpdateRateMs") == null) { Setting_Save(vConfigurationFpsOverlayer, "HardwareUpdateRateMs", "1000"); }
 
-                if (Setting_Load(vConfigurationFpsOverlayer, "BrowserDefaultLink") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserDefaultLink", "https://google.com"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "BrowserShowStartup") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserShowStartup", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "BrowserUnload") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserUnload", "True"); }
 

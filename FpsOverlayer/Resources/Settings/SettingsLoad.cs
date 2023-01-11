@@ -161,7 +161,6 @@ namespace FpsOverlayer
                 combobox_CrosshairStyle.SelectedIndex = Convert.ToInt32(Setting_Load(vConfigurationFpsOverlayer, "CrosshairStyle"));
 
                 //Browser
-                textbox_BrowserDefaultLink.Text = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "BrowserDefaultLink"));
                 checkbox_BrowserShowStartup.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BrowserShowStartup"));
                 checkbox_BrowserUnload.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BrowserUnload"));
 

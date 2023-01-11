@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,6 +30,12 @@ namespace FpsOverlayer.OverlayCode
                 HwndSource hwndSource = HwndSource.FromHwnd(vInteropWindowHandle);
                 HwndTarget hwndTarget = hwndSource.CompositionTarget;
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
+
+                //Bind lists to the listbox elements
+                ListBoxBindLists();
+
+                //Check if resolution has changed
+                SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             }
             catch { }
         }
@@ -74,7 +81,7 @@ namespace FpsOverlayer.OverlayCode
                         base.Show();
 
                         //Update the window style
-                        await UpdateWindowStyleVisible(vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
+                        await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
 
                         this.Title = "FpsOverlayer Browser (Visible)";
                         vWindowVisible = true;
@@ -86,13 +93,39 @@ namespace FpsOverlayer.OverlayCode
                     if (vWindowVisible)
                     {
                         //Update the window style
-                        await UpdateWindowStyleHidden(vInteropWindowHandle);
+                        await WindowUpdateStyleHidden(vInteropWindowHandle);
 
                         this.Title = "FpsOverlayer Browser (Hidden)";
                         vWindowVisible = false;
                         Debug.WriteLine("Hiding the window.");
                     }
                 }
+            }
+            catch { }
+        }
+
+        //Update the window position on resolution change
+        public async void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //Wait for change to complete
+                await Task.Delay(1000);
+
+                //Check if window is out of screen
+                WindowCheckScreenBounds(null, vInteropWindowHandle, 0);
+            }
+            catch { }
+        }
+
+        //Bind the lists to the listbox elements
+        void ListBoxBindLists()
+        {
+            try
+            {
+                listbox_Link.ItemsSource = vFpsBrowserLinks;
+
+                Debug.WriteLine("Lists bound to interface.");
             }
             catch { }
         }

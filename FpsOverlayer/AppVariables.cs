@@ -57,7 +57,6 @@ namespace FpsOverlayer
 
         //Browser Variables
         public static bool vBrowserInitialized = false;
-        public static bool vBrowserWindowNoActivate = true;
         public static bool vBrowserWindowClickThrough = false;
 
         //Hardware
@@ -80,6 +79,7 @@ namespace FpsOverlayer
         public static ArnoldVinkSockets vArnoldVinkSockets = null;
 
         //Application Lists
+        public static ObservableCollection<ProfileShared> vFpsBrowserLinks = new ObservableCollection<ProfileShared>();
         public static ObservableCollection<ProfileShared> vFpsPositionProcessName = new ObservableCollection<ProfileShared>();
     }
 }

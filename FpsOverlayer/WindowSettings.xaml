@@ -269,20 +269,28 @@
                         <TextBlock Text="Change the crosshair vertical offset position." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="-50" Maximum="50" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_CrosshairVerticalPosition" Style="{StaticResource SliderWhite}"/>
 
-                        <Button Name="button_CrosshairShowHide" Margin="0,10,10,0" Content="Hide or show crosshair" Style="{StaticResource ButtonAccentBlack}"/>
+                        <Button Name="button_CrosshairShowHide" Margin="0,15,15,0" Content="Hide or show crosshair" Style="{StaticResource ButtonAccentBlack}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Browser" Visibility="Collapsed">
                         <TextBlock Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Browser Settings"/>
-
-                        <TextBlock Margin="0,10,0,0" Text="Default browser link" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                        <TextBox Name="textbox_BrowserDefaultLink" Width="440" HorizontalAlignment="Left" Style="{StaticResource TextBoxBlack}"/>
 
                         <CheckBox Name="checkbox_BrowserShowStartup" Content="Show browser on app startup" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will open the browser on application startup." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 
                         <CheckBox Name="checkbox_BrowserUnload" Content="Unload website on close" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will unload the website to reduce memory usage." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
+
+                        <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Browser Links"/>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Name="combobox_LinkString" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="300" Style="{StaticResource ComboBoxBlack}"/>
+                            <Button Name="button_Link_Remove" Margin="10,0,0,0" Width="135" Content="Remove link" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBox Name="textbox_LinkString" HorizontalAlignment="Left" Width="300" Style="{StaticResource TextBoxBlack}" Text="Link..." styles:TextboxPlaceholder.Placeholder="Link..."/>
+                            <Button Name="button_Link_Add" Margin="10,0,0,0" Width="135" Content="Add link" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
+                        </StackPanel>
 
                         <!--<CheckBox Name="checkbox_BrowserClickThrough" Content="Mouse click through the browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
                         <TextBlock Text="Enabling this will allow you to click through the browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>-->
@@ -308,7 +316,7 @@
                         <TextBlock Text="Change the browser displayed transparency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
                         <Slider Minimum="0.05" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_BrowserOpacity" Style="{StaticResource SliderWhite}"/>-->
 
-                        <Button Name="button_BrowserShowHide" Margin="0,10,10,0" Content="Hide or show browser" Style="{StaticResource ButtonAccentBlack}"/>
+                        <Button Name="button_BrowserShowHide" Margin="0,15,10,0" Content="Hide or show browser" Style="{StaticResource ButtonAccentBlack}"/>
                     </StackPanel>
 
                     <StackPanel Name="stackpanel_Shortcuts" Visibility="Collapsed">

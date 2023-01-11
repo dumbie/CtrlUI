@@ -11,8 +11,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using static ArnoldVinkCode.AVDisplayMonitor;
-using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static FpsOverlayer.AppTasks;
@@ -45,7 +43,7 @@ namespace FpsOverlayer
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
                 //Update the window style
-                await UpdateWindowStyleVisible(vInteropWindowHandle, true, true, true);
+                await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                 //Check application settings
                 vWindowSettings.Settings_Check();
@@ -67,6 +65,7 @@ namespace FpsOverlayer
 
                 //Load Json profiles
                 JsonLoadSingle(ref vFpsPositionProcessName, @"User\FpsPositionProcessName");
+                JsonLoadSingle(ref vFpsBrowserLinks, @"User\FpsBrowserLinks");
 
                 //Start process monitoring
                 StartMonitorProcess();
@@ -174,7 +173,7 @@ namespace FpsOverlayer
                             base.Show();
 
                             //Update the window style
-                            await UpdateWindowStyleVisible(vInteropWindowHandle, true, true, true);
+                            await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                             this.Title = "Fps Overlayer (Visible)";
                             vWindowVisible = true;
@@ -186,7 +185,7 @@ namespace FpsOverlayer
                         if (vWindowVisible)
                         {
                             //Update the window style
-                            await UpdateWindowStyleHidden(vInteropWindowHandle);
+                            await WindowUpdateStyleHidden(vInteropWindowHandle);
 
                             this.Title = "Fps Overlayer (Hidden)";
                             vWindowVisible = false;
@@ -205,11 +204,9 @@ namespace FpsOverlayer
             {
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
-                DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
-                //Move and resize the window
-                WindowMove(vInteropWindowHandle, displayMonitorSettings.BoundsLeft, displayMonitorSettings.BoundsTop);
-                WindowResize(vInteropWindowHandle, displayMonitorSettings.WidthNative, displayMonitorSettings.HeightNative);
+                //Move the window position
+                WindowUpdatePosition(monitorNumber, vInteropWindowHandle, AVWindowPosition.FullScreen);
             }
             catch { }
         }

@@ -1,11 +1,17 @@
-﻿using System;
+﻿using ArnoldVinkCode.Styles;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using static ArnoldVinkCode.AVFunctions;
 using static FpsOverlayer.AppVariables;
+using static LibraryShared.Classes;
+using static LibraryShared.JsonFunctions;
 using static LibraryShared.Settings;
 
 namespace FpsOverlayer
@@ -27,8 +33,8 @@ namespace FpsOverlayer
                 Settings_Load();
                 Settings_Save();
 
-                //Load position processes
-                LoadPositionProcesses();
+                //Bind the lists to the listbox elements
+                ListBoxBindLists();
 
                 //Register Interface Handlers
                 RegisterInterfaceHandlers();
@@ -109,6 +115,9 @@ namespace FpsOverlayer
 
                 button_BrowserShowHide.Click += Button_BrowserShowHide_Click;
                 button_CrosshairShowHide.Click += Button_CrosshairShowHide_Click;
+
+                button_Link_Add.Click += Button_Link_Add_Click;
+                button_Link_Remove.Click += Button_Link_Remove_Click;
             }
             catch { }
         }
@@ -295,6 +304,87 @@ namespace FpsOverlayer
                     //Update stats position text
                     UpdateStatsPositionText();
                 }
+            }
+            catch { }
+        }
+
+        //Add link to list
+        void Button_Link_Add_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string textString = textbox_LinkString.Text;
+                string placeholderString = (string)textbox_LinkString.GetValue(TextboxPlaceholder.PlaceholderProperty);
+                Debug.WriteLine("Adding new link: " + textString);
+
+                //Color brushes
+                BrushConverter BrushConvert = new BrushConverter();
+                Brush BrushInvalid = BrushConvert.ConvertFromString("#CD1A2B") as Brush;
+                Brush BrushValid = BrushConvert.ConvertFromString("#1DB954") as Brush;
+
+                //Check if the text is empty
+                if (string.IsNullOrWhiteSpace(textString))
+                {
+                    textbox_LinkString.BorderBrush = BrushInvalid;
+                    Debug.WriteLine("Please enter a link.");
+                    return;
+                }
+
+                //Check if the text is place holder
+                if (textString == placeholderString)
+                {
+                    textbox_LinkString.BorderBrush = BrushInvalid;
+                    Debug.WriteLine("Please enter a link.");
+                    return;
+                }
+
+                //Check if string is valid link
+                textString = StringLinkFixup(textString);
+                if (!StringLinkValidate(textString))
+                {
+                    textbox_LinkString.BorderBrush = BrushInvalid;
+                    Debug.WriteLine("Please enter proper link.");
+                    return;
+                }
+
+                //Check if text already exists
+                if (vFpsBrowserLinks.Any(x => x.String1.ToLower() == textString.ToLower()))
+                {
+                    textbox_LinkString.BorderBrush = BrushInvalid;
+                    Debug.WriteLine("Link already exists.");
+                    return;
+                }
+
+                //Clear text from the textbox
+                textbox_LinkString.Text = placeholderString;
+                textbox_LinkString.BorderBrush = BrushValid;
+
+                //Add text string to the list
+                ProfileShared profileShared = new ProfileShared();
+                profileShared.String1 = textString;
+
+                vFpsBrowserLinks.Add(profileShared);
+                JsonSaveObject(vFpsBrowserLinks, @"User\FpsBrowserLinks");
+            }
+            catch { }
+        }
+
+        //Remove link from list
+        void Button_Link_Remove_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ProfileShared selectedProfile = (ProfileShared)combobox_LinkString.SelectedItem;
+                Debug.WriteLine("Removing link: " + selectedProfile.String1);
+
+                //Remove mapping from list
+                vFpsBrowserLinks.Remove(selectedProfile);
+
+                //Save changes to Json file
+                JsonSaveObject(vFpsBrowserLinks, @"User\FpsBrowserLinks");
+
+                //Select the default profile
+                combobox_LinkString.SelectedIndex = 0;
             }
             catch { }
         }

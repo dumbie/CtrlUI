@@ -87,12 +87,18 @@ namespace FpsOverlayer
             catch { }
         }
 
-        //Load position processes
-        void LoadPositionProcesses()
+        //Bind the lists to the listbox elements
+        void ListBoxBindLists()
         {
             try
             {
+                combobox_LinkString.ItemsSource = AppVariables.vFpsBrowserLinks;
+                combobox_LinkString.DisplayMemberPath = "String1";
+                combobox_LinkString.SelectedIndex = 0;
+
                 listbox_Apps.ItemsSource = AppVariables.vFpsPositionProcessName;
+
+                Debug.WriteLine("Lists bound to interface.");
             }
             catch { }
         }

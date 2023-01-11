@@ -1,11 +1,10 @@
 ﻿using Microsoft.Web.WebView2.Core;
-using System;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using static ArnoldVinkCode.AVWindowFunctions;
-using static FpsOverlayer.AppVariables;
-using static LibraryShared.FocusFunctions;
+using static LibraryShared.Classes;
 
 namespace FpsOverlayer.OverlayCode
 {
@@ -22,7 +21,7 @@ namespace FpsOverlayer.OverlayCode
         }
 
         //Resize the window
-        private void ResizeGripper_DragDelta(object sender, DragDeltaEventArgs e)
+        private void Thumb_ResizeGrip_DragDelta(object sender, DragDeltaEventArgs e)
         {
             try
             {
@@ -75,63 +74,42 @@ namespace FpsOverlayer.OverlayCode
             catch { }
         }
 
-        //Update the current link
+        //Update current link text
         private void WebView2_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
         {
             try
             {
-                textbox_WebUrl.Text = webview_Browser.Source.ToString();
+                textblock_Link.Text = webview_Browser.Source.ToString();
             }
             catch { }
         }
 
-        //Open link popup
-        private async void button_Link_Click(object sender, RoutedEventArgs e)
+        //Show or hide link menu
+        private void button_Link_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (grid_Link.Visibility == Visibility.Visible)
                 {
                     grid_Link.Visibility = Visibility.Collapsed;
-
-                    //Update the window style
-                    vBrowserWindowNoActivate = true;
-                    await UpdateWindowStyleVisible(vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
                 }
                 else
                 {
                     grid_Link.Visibility = Visibility.Visible;
-
-                    //Update the window style
-                    vBrowserWindowNoActivate = false;
-                    await UpdateWindowStyleVisible(vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
-
-                    //Focus on the textbox
-                    await FrameworkElementFocus(textbox_WebUrl, false, vInteropWindowHandle);
                 }
             }
             catch { }
         }
 
-        //Open the entered link
-        private void button_Check_Click(object sender, RoutedEventArgs e)
+        //Open link from list
+        private void listbox_Link_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
-                Browser_Open_Link(textbox_WebUrl.Text);
-            }
-            catch { }
-        }
-
-        //Open the entered link
-        private void textbox_WebUrl_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Enter)
-                {
-                    Browser_Open_Link(textbox_WebUrl.Text);
-                }
+                ListBox listboxSender = (ListBox)sender;
+                ProfileShared selectedItem = (ProfileShared)listboxSender.SelectedItem;
+                Debug.WriteLine("Clicked on link: " + selectedItem.String1);
+                Browser_Open_Link(selectedItem.String1, true);
             }
             catch { }
         }
@@ -142,7 +120,7 @@ namespace FpsOverlayer.OverlayCode
             try
             {
                 e.Handled = true;
-                webview_Browser.Source = new UriBuilder(e.Uri).Uri;
+                webview_Browser.CoreWebView2.Navigate(e.Uri);
             }
             catch { }
         }

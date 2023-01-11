@@ -421,12 +421,6 @@ namespace FpsOverlayer
                 };
 
                 //Browser
-                textbox_BrowserDefaultLink.TextChanged += (sender, e) =>
-                {
-                    TextBox senderTextbox = (TextBox)sender;
-                    Setting_Save(vConfigurationFpsOverlayer, "BrowserDefaultLink", senderTextbox.Text);
-                };
-
                 checkbox_BrowserShowStartup.Click += (sender, e) =>
                 {
                     CheckBox senderCheckBox = (CheckBox)sender;

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Settings;
@@ -27,14 +28,6 @@ namespace FpsOverlayer.OverlayCode
                     vBrowserInitialized = true;
                 }
 
-                //Set default link source
-                string currentLink = webview_Browser.Source.ToString();
-                if (currentLink == "about:blank")
-                {
-                    string defaultLink = Convert.ToString(Setting_Load(vConfigurationFpsOverlayer, "BrowserDefaultLink"));
-                    //Browser_Open_Link(defaultLink);
-                }
-
                 Debug.WriteLine("Set default browser values.");
             }
             catch (Exception ex)
@@ -55,7 +48,7 @@ namespace FpsOverlayer.OverlayCode
                 }
 
                 //Set blank page
-                Browser_Open_Link("about:blank");
+                Browser_Open_Link("about:blank", false);
 
                 Debug.WriteLine("Reset browser default values.");
             }
@@ -77,7 +70,7 @@ namespace FpsOverlayer.OverlayCode
 
                     //Update the window style
                     vBrowserWindowClickThrough = false;
-                    await UpdateWindowStyleVisible(vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
+                    await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
                 }
                 else
                 {
@@ -87,7 +80,7 @@ namespace FpsOverlayer.OverlayCode
 
                     //Update the window style
                     vBrowserWindowClickThrough = true;
-                    await UpdateWindowStyleVisible(vInteropWindowHandle, true, vBrowserWindowNoActivate, vBrowserWindowClickThrough);
+                    await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
                 }
             }
             catch { }
@@ -115,7 +108,7 @@ namespace FpsOverlayer.OverlayCode
         }
 
         //Open link in browser
-        private void Browser_Open_Link(string linkString)
+        private void Browser_Open_Link(string linkString, bool closeLinkMenu)
         {
             try
             {
@@ -127,12 +120,13 @@ namespace FpsOverlayer.OverlayCode
                 }
                 else
                 {
-                    if (!linkString.Contains(":"))
-                    {
-                        linkString = "https://" + linkString;
-                    }
-                    linkString = linkString.Replace(",", ".");
+                    linkString = StringLinkFixup(linkString);
                     webview_Browser.CoreWebView2.Navigate(linkString);
+                }
+
+                if (closeLinkMenu)
+                {
+                    grid_Link.Visibility = Visibility.Collapsed;
                 }
             }
             catch { }
