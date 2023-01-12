@@ -52,7 +52,7 @@ namespace CtrlUI
                 WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
 
                 //Set the window as top most
-                SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
+                SetWindowPos(vInteropWindowHandle, (IntPtr)SWP_WindowPosition.TopMost, 0, 0, 0, 0, (int)(SWP_WindowFlags.NOMOVE | SWP_WindowFlags.NOSIZE));
 
                 //Notify apps the monitor changed
                 if (notifyApps)

@@ -113,7 +113,7 @@ namespace FpsOverlayer.OverlayCode
                 await Task.Delay(1000);
 
                 //Check if window is out of screen
-                WindowCheckScreenBounds(null, vInteropWindowHandle, 0);
+                WindowCheckScreenBounds(null, vInteropWindowHandle, 10);
             }
             catch { }
         }

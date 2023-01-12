@@ -56,7 +56,7 @@ namespace CtrlUI
 
                     //Update the launch argument
                     string stringDPI = (screenDPI + chromiumDPI).ToString(vAppCultureInfo);
-                    launchArgument += " -force-device-scale-factor=" + stringDPI;
+                    launchArgument += " --force-device-scale-factor=" + stringDPI;
 
                     Debug.WriteLine("Chromium dpi scale factor: " + stringDPI);
                 }

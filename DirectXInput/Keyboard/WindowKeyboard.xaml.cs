@@ -10,9 +10,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVActions;
-using static ArnoldVinkCode.AVDisplayMonitor;
-using static ArnoldVinkCode.AVFunctions;
-using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
 using static LibraryShared.FocusFunctions;
@@ -30,7 +28,6 @@ namespace DirectXInput.KeyboardCode
         //Window Variables
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
         public bool vWindowVisible = false;
-        public bool vHideAdded = false;
 
         //Window Initialized
         protected override async void OnSourceInitialized(EventArgs e)
@@ -46,7 +43,7 @@ namespace DirectXInput.KeyboardCode
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
                 //Update the window style
-                await UpdateWindowStyleVisible();
+                await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                 //Update the user interface clock style
                 UpdateClockStyle();
@@ -199,7 +196,7 @@ namespace DirectXInput.KeyboardCode
                         base.Show();
 
                         //Update the window style
-                        await UpdateWindowStyleVisible();
+                        await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                         this.Title = "DirectXInput Keyboard (Visible)";
                         vWindowVisible = true;
@@ -211,64 +208,13 @@ namespace DirectXInput.KeyboardCode
                     if (vWindowVisible)
                     {
                         //Update the window style
-                        await UpdateWindowStyleHidden();
+                        await WindowUpdateStyleHidden(vInteropWindowHandle);
 
                         this.Title = "DirectXInput Keyboard (Hidden)";
                         vWindowVisible = false;
                         Debug.WriteLine("Hiding the window.");
                     }
                 }
-            }
-            catch { }
-        }
-
-        //Update the window style
-        async Task UpdateWindowStyleVisible()
-        {
-            try
-            {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                {
-                    //Set the window style
-                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
-
-                    //Set the window style ex
-                    IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
-                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
-
-                    //Set the window as top most (focus workaround)
-                    SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
-                });
-            }
-            catch { }
-        }
-
-        //Update the window style
-        async Task UpdateWindowStyleHidden()
-        {
-            try
-            {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
-                {
-                    //Set the window style
-                    IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_NONE);
-                    await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
-
-                    //Move window to force style
-                    WindowRectangle positionRect = new WindowRectangle();
-                    GetWindowRect(vInteropWindowHandle, ref positionRect);
-                    if (vHideAdded)
-                    {
-                        WindowMove(vInteropWindowHandle, positionRect.Left + 1, positionRect.Top + 1);
-                        vHideAdded = false;
-                    }
-                    else
-                    {
-                        WindowMove(vInteropWindowHandle, positionRect.Left - 1, positionRect.Top - 1);
-                        vHideAdded = true;
-                    }
-                });
             }
             catch { }
         }
@@ -280,16 +226,9 @@ namespace DirectXInput.KeyboardCode
             {
                 //Get the current active screen
                 int monitorNumber = Convert.ToInt32(Setting_Load(vConfigurationCtrlUI, "DisplayMonitor"));
-                DisplayMonitor displayMonitorSettings = GetSingleMonitorEnumDisplay(monitorNumber);
 
-                //Get the current window size
-                int windowWidth = (int)(this.ActualWidth * displayMonitorSettings.DpiScaleHorizontal);
-                int windowHeight = (int)(this.ActualHeight * displayMonitorSettings.DpiScaleVertical);
-
-                //Move the window to bottom center
-                int horizontalLeft = (int)(displayMonitorSettings.BoundsLeft + (displayMonitorSettings.WidthNative - windowWidth) / 2);
-                int verticalTop = (int)(displayMonitorSettings.BoundsTop + displayMonitorSettings.HeightNative - windowHeight);
-                WindowMove(vInteropWindowHandle, horizontalLeft, verticalTop);
+                //Move the window position
+                WindowUpdatePosition(monitorNumber, vInteropWindowHandle, AVWindowPosition.BottomCenter);
             }
             catch { }
         }

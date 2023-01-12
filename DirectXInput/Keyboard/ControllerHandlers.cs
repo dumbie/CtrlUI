@@ -6,6 +6,7 @@ using System.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputKeyboard;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static DirectXInput.AppVariables;
 using static DirectXInput.WindowMain;
 using static LibraryShared.Classes;
@@ -119,8 +120,8 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            //Update the window style to activate window
-                            await UpdateWindowStyleVisible();
+                            //Update the window style
+                            await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandle)
@@ -141,8 +142,8 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            //Update the window style to activate window
-                            await UpdateWindowStyleVisible();
+                            //Update the window style
+                            await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandle)
@@ -163,8 +164,8 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            //Update the window style to activate window
-                            await UpdateWindowStyleVisible();
+                            //Update the window style
+                            await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandle)
@@ -185,8 +186,8 @@ namespace DirectXInput.KeyboardCode
                         }
                         else
                         {
-                            //Update the window style to activate window
-                            await UpdateWindowStyleVisible();
+                            //Update the window style
+                            await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandle)
@@ -201,8 +202,8 @@ namespace DirectXInput.KeyboardCode
                     //Send internal space key
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
-                        //Update the window style to activate window
-                        await UpdateWindowStyleVisible();
+                        //Update the window style
+                        await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                         //Check the foreground window
                         if (vInteropWindowHandle != vProcessForeground.WindowHandle)

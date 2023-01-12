@@ -5,10 +5,10 @@ namespace FpsOverlayer
 {
     public class AppTasks
     {
-        public static AVTaskDetails vTask_TraceEventOutput = new AVTaskDetails();
-        public static AVTaskDetails vTask_MonitorHardware = new AVTaskDetails();
-        public static AVTaskDetails vTask_MonitorProcess = new AVTaskDetails();
-        public static AVTaskDetails vTask_MonitorTaskbar = new AVTaskDetails();
+        public static AVTaskDetails vTask_TraceEventOutput = new AVTaskDetails("vTask_TraceEventOutput");
+        public static AVTaskDetails vTask_MonitorHardware = new AVTaskDetails("vTask_MonitorHardware");
+        public static AVTaskDetails vTask_MonitorProcess = new AVTaskDetails("vTask_MonitorProcess");
+        public static AVTaskDetails vTask_MonitorTaskbar = new AVTaskDetails("vTask_MonitorTaskbar");
 
         //Stop all the background tasks
         public static async Task TasksBackgroundStop()

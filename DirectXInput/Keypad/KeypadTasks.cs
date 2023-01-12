@@ -6,8 +6,8 @@ namespace DirectXInput.KeypadCode
     partial class WindowKeypad
     {
         //Task variables
-        private static AVTaskDetails vTask_SwitchProfile = new AVTaskDetails();
-        private static AVTaskDetails vTask_MonitorTaskbar = new AVTaskDetails();
+        private static AVTaskDetails vTask_SwitchProfile = new AVTaskDetails("vTask_SwitchProfile");
+        private static AVTaskDetails vTask_MonitorTaskbar = new AVTaskDetails("vTask_MonitorTaskbar");
 
         //Start all the background tasks
         void TasksBackgroundStart()

@@ -74,16 +74,6 @@ namespace FpsOverlayer.OverlayCode
             catch { }
         }
 
-        //Update current link text
-        private void WebView2_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
-        {
-            try
-            {
-                textblock_Link.Text = webview_Browser.Source.ToString();
-            }
-            catch { }
-        }
-
         //Show or hide link menu
         private void button_Link_Click(object sender, RoutedEventArgs e)
         {
@@ -110,6 +100,16 @@ namespace FpsOverlayer.OverlayCode
                 ProfileShared selectedItem = (ProfileShared)listboxSender.SelectedItem;
                 Debug.WriteLine("Clicked on link: " + selectedItem.String1);
                 Browser_Open_Link(selectedItem.String1, true);
+            }
+            catch { }
+        }
+
+        //Update current link text
+        private void WebView2_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
+        {
+            try
+            {
+                textblock_Link.Text = webview_Browser.Source.ToString();
             }
             catch { }
         }

@@ -58,10 +58,10 @@ namespace LibraryShared
             //Controller Tasks
             public NativeOverlapped InputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
             public NativeOverlapped OutputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
-            public AVTaskDetails InputControllerTask = new AVTaskDetails();
-            public AVTaskDetails OutputControllerTask = new AVTaskDetails();
-            public AVTaskDetails OutputVirtualTask = new AVTaskDetails();
-            public AVTaskDetails OutputGyroTask = new AVTaskDetails();
+            public AVTaskDetails InputControllerTask = new AVTaskDetails("InputControllerTask");
+            public AVTaskDetails OutputControllerTask = new AVTaskDetails("OutputControllerTask");
+            public AVTaskDetails OutputVirtualTask = new AVTaskDetails("OutputVirtualTask");
+            public AVTaskDetails OutputGyroTask = new AVTaskDetails("OutputGyroTask");
 
             //WinUsb Device Variables
             public WinUsbDevice WinUsbDevice = null;
@@ -121,10 +121,10 @@ namespace LibraryShared
                     //Controller Tasks
                     InputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
                     OutputVirtualOverlapped = new NativeOverlapped() { EventHandle = CreateEvent(IntPtr.Zero, true, false, null) };
-                    InputControllerTask = new AVTaskDetails();
-                    OutputControllerTask = new AVTaskDetails();
-                    OutputVirtualTask = new AVTaskDetails();
-                    OutputGyroTask = new AVTaskDetails();
+                    InputControllerTask = new AVTaskDetails("InputControllerTask");
+                    OutputControllerTask = new AVTaskDetails("OutputControllerTask");
+                    OutputVirtualTask = new AVTaskDetails("OutputVirtualTask");
+                    OutputGyroTask = new AVTaskDetails("OutputGyroTask");
 
                     //WinUsb Device Variables
                     WinUsbDevice = null;

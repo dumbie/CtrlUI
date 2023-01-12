@@ -19,8 +19,7 @@ namespace DirectXInput.KeyboardCode
                 if (mouseHorizontal == 0 && mouseVertical == 0) { return; }
 
                 //Get the current window position
-                WindowRectangle positionRect = new WindowRectangle();
-                GetWindowRect(vInteropWindowHandle, ref positionRect);
+                GetWindowRect(vInteropWindowHandle, out WindowRectangle positionRect);
                 int moveLeft = positionRect.Left + mouseHorizontal;
                 int moveTop = positionRect.Top + mouseVertical;
                 int moveRight = positionRect.Right + mouseHorizontal;

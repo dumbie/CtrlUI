@@ -6,15 +6,15 @@ namespace CtrlUI
 {
     public partial class WindowMain
     {
-        public static AVTaskDetails vTask_UpdateClock = new AVTaskDetails();
-        public static AVTaskDetails vTask_UpdateWindowStatus = new AVTaskDetails();
-        public static AVTaskDetails vTask_ControllerConnected = new AVTaskDetails();
-        public static AVTaskDetails vTask_UpdateProcesses = new AVTaskDetails();
-        public static AVTaskDetails vTask_UpdateLaunchers = new AVTaskDetails();
-        public static AVTaskDetails vTask_UpdateShortcuts = new AVTaskDetails();
-        public static AVTaskDetails vTask_UpdateListStatus = new AVTaskDetails();
-        public static AVTaskDetails vTask_UpdateAppRunningTime = new AVTaskDetails();
-        public static AVTaskDetails vTask_UpdateMediaInformation = new AVTaskDetails();
+        public static AVTaskDetails vTask_UpdateClock = new AVTaskDetails("vTask_UpdateClock");
+        public static AVTaskDetails vTask_UpdateWindowStatus = new AVTaskDetails("vTask_UpdateWindowStatus");
+        public static AVTaskDetails vTask_ControllerConnected = new AVTaskDetails("vTask_ControllerConnected");
+        public static AVTaskDetails vTask_UpdateProcesses = new AVTaskDetails("vTask_UpdateProcesses");
+        public static AVTaskDetails vTask_UpdateLaunchers = new AVTaskDetails("vTask_UpdateLaunchers");
+        public static AVTaskDetails vTask_UpdateShortcuts = new AVTaskDetails("vTask_UpdateShortcuts");
+        public static AVTaskDetails vTask_UpdateListStatus = new AVTaskDetails("vTask_UpdateListStatus");
+        public static AVTaskDetails vTask_UpdateAppRunningTime = new AVTaskDetails("vTask_UpdateAppRunningTime");
+        public static AVTaskDetails vTask_UpdateMediaInformation = new AVTaskDetails("vTask_UpdateMediaInformation");
 
         //Start all the background tasks
         void TasksBackgroundStart()
@@ -43,6 +43,7 @@ namespace CtrlUI
                 await AVActions.TaskStopLoop(vTask_UpdateWindowStatus, 5000);
                 await AVActions.TaskStopLoop(vTask_ControllerConnected, 5000);
                 await AVActions.TaskStopLoop(vTask_UpdateProcesses, 5000);
+                await AVActions.TaskStopLoop(vTask_UpdateLaunchers, 5000);
                 await AVActions.TaskStopLoop(vTask_UpdateShortcuts, 5000);
                 await AVActions.TaskStopLoop(vTask_UpdateListStatus, 5000);
                 await AVActions.TaskStopLoop(vTask_UpdateAppRunningTime, 5000);

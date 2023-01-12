@@ -266,6 +266,9 @@
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVUwpAppx\ClassAppxManifest.cs">
       <Link>ArnoldVinkCode\Functions\AVUwpAppx\ClassAppxManifest.cs</Link>
     </Compile>
+    <Compile Include="..\..\ArnoldVinkCode\Desktop\Functions\AVWindowFunctions.cs">
+      <Link>ArnoldVinkCode\Functions\AVWindowFunctions.cs</Link>
+    </Compile>
     <Compile Include="..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
     </Compile>

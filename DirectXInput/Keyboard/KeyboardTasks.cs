@@ -7,8 +7,8 @@ namespace DirectXInput.KeyboardCode
     partial class WindowKeyboard
     {
         //Task variables
-        private static AVTaskDetails vTask_UpdateMediaInformation = new AVTaskDetails();
-        private static AVTaskDetails vTask_UpdateInterfaceInformation = new AVTaskDetails();
+        private static AVTaskDetails vTask_UpdateMediaInformation = new AVTaskDetails("vTask_UpdateMediaInformation");
+        private static AVTaskDetails vTask_UpdateInterfaceInformation = new AVTaskDetails("vTask_UpdateInterfaceInformation");
 
         //Start all the background tasks
         void TasksBackgroundStart()

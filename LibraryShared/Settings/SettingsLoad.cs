@@ -34,12 +34,12 @@ namespace LibraryShared
                 Application.Current.Resources["ApplicationAccentLightBrush"] = targetSolidColorBrushLight;
                 //Debug.WriteLine("Light color: " + targetSolidColorBrushLight.Color);
 
-                SolidColorBrush targetSolidColorBrushDim = AdjustColorLightness(targetSolidColorBrushLight, 0.80);
+                SolidColorBrush targetSolidColorBrushDim = AdjustColorBrightness(targetSolidColorBrushLight, 0.80);
                 Application.Current.Resources["ApplicationAccentDimColor"] = targetSolidColorBrushDim.Color;
                 Application.Current.Resources["ApplicationAccentDimBrush"] = targetSolidColorBrushDim;
                 //Debug.WriteLine("Dim color: " + targetSolidColorBrushDim.Color);
 
-                SolidColorBrush targetSolidColorBrushDark = AdjustColorLightness(targetSolidColorBrushLight, 0.50);
+                SolidColorBrush targetSolidColorBrushDark = AdjustColorBrightness(targetSolidColorBrushLight, 0.50);
                 Application.Current.Resources["ApplicationAccentDarkColor"] = targetSolidColorBrushDark.Color;
                 Application.Current.Resources["ApplicationAccentDarkBrush"] = targetSolidColorBrushDark;
                 //Debug.WriteLine("Dark color: " + targetSolidColorBrushDark.Color);
@@ -48,11 +48,23 @@ namespace LibraryShared
         }
 
         //Adjust the color brightness
-        public static SolidColorBrush AdjustColorLightness(SolidColorBrush solidColorBrush, double brightness)
+        public static SolidColorBrush AdjustColorBrightness(SolidColorBrush solidColorBrush, double brightness)
         {
             try
             {
                 Color adjustedColor = Color.FromRgb((byte)(solidColorBrush.Color.R * brightness), (byte)(solidColorBrush.Color.G * brightness), (byte)(solidColorBrush.Color.B * brightness));
+                return new SolidColorBrush(adjustedColor);
+            }
+            catch { }
+            return solidColorBrush;
+        }
+
+        //Adjust the color opacity
+        public static SolidColorBrush AdjustColorOpacity(SolidColorBrush solidColorBrush, double opacity)
+        {
+            try
+            {
+                Color adjustedColor = Color.FromArgb((byte)(solidColorBrush.Color.A * opacity), solidColorBrush.Color.R, solidColorBrush.Color.G, solidColorBrush.Color.B);
                 return new SolidColorBrush(adjustedColor);
             }
             catch { }

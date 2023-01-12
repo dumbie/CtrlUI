@@ -46,7 +46,7 @@ namespace DirectXInput
                 //Triggers
                 if (!controllerStatus.Details.Profile.UseButtonTriggers)
                 {
-                    if (controllerStatus.InputCurrent.TriggerLeft >= 10 || controllerStatus.InputCurrent.TriggerRight >= 10)
+                    if (controllerStatus.InputCurrent.TriggerLeft >= 50 || controllerStatus.InputCurrent.TriggerRight >= 50)
                     {
                         return false;
                     }
@@ -60,18 +60,18 @@ namespace DirectXInput
                 }
 
                 //Left stick movement
-                if (Math.Abs(controllerStatus.InputCurrent.ThumbLeftY) > vControllerThumbOffset2500 || Math.Abs(controllerStatus.InputCurrent.ThumbLeftX) > vControllerThumbOffset2500)
+                if (Math.Abs(controllerStatus.InputCurrent.ThumbLeftY) > vControllerThumbOffset7500 || Math.Abs(controllerStatus.InputCurrent.ThumbLeftX) > vControllerThumbOffset7500)
                 {
                     return false;
                 }
 
                 //Right stick movement
-                if (Math.Abs(controllerStatus.InputCurrent.ThumbRightY) > vControllerThumbOffset2500 || Math.Abs(controllerStatus.InputCurrent.ThumbRightX) > vControllerThumbOffset2500)
+                if (Math.Abs(controllerStatus.InputCurrent.ThumbRightY) > vControllerThumbOffset7500 || Math.Abs(controllerStatus.InputCurrent.ThumbRightX) > vControllerThumbOffset7500)
                 {
                     return false;
                 }
 
-                //Debug.WriteLine("Controller " + Controller.NumberId + " is currently idle.");
+                //Debug.WriteLine("Controller " + controllerStatus.NumberId + " is currently idle.");
             }
             catch { }
             return true;
