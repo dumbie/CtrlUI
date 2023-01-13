@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
 
 namespace FpsOverlayer.OverlayCode
@@ -59,7 +60,7 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                webview_Browser.GoBack();
+                vBrowserWebView.GoBack();
             }
             catch { }
         }
@@ -69,7 +70,7 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                webview_Browser.Reload();
+                vBrowserWebView.Reload();
             }
             catch { }
         }
@@ -92,7 +93,7 @@ namespace FpsOverlayer.OverlayCode
         }
 
         //Open link from list
-        private void listbox_Link_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listbox_Link_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -109,7 +110,7 @@ namespace FpsOverlayer.OverlayCode
         {
             try
             {
-                textblock_Link.Text = webview_Browser.Source.ToString();
+                textblock_Link.Text = vBrowserWebView.Source.ToString();
             }
             catch { }
         }
@@ -120,7 +121,7 @@ namespace FpsOverlayer.OverlayCode
             try
             {
                 e.Handled = true;
-                webview_Browser.CoreWebView2.Navigate(e.Uri);
+                vBrowserWebView.CoreWebView2.Navigate(e.Uri);
             }
             catch { }
         }

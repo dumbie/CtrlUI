@@ -73,7 +73,7 @@ namespace FpsOverlayer
         void NotifyIcon_MouseUp(object sender, MouseEventArgs args) { Mouse_Single_Click(args); }
         void NotifyIcon_ShowHide_Stats(object sender, EventArgs args) { SwitchFpsOverlayVisibilityManual(); }
         void NotifyIcon_ShowHide_Crosshair(object sender, EventArgs args) { SwitchCrosshairVisibility(); }
-        async void NotifyIcon_ShowHide_Browser(object sender, EventArgs args) { await vWindowBrowser.SwitchBrowserVisibility(); }
+        void NotifyIcon_ShowHide_Browser(object sender, EventArgs args) { vWindowBrowser.Browser_Switch_Visibility(); }
         void NotifyIcon_Position_Stats(object sender, EventArgs args) { ChangeFpsOverlayPosition(); }
         void NotifyIcon_Settings(object sender, EventArgs args) { Application_ShowHideSettings(); }
         void NotifyIcon_Website(object sender, EventArgs args) { Process.Start("https://projects.arnoldvink.com"); }

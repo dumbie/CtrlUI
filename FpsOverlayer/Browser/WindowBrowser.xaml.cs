@@ -34,6 +34,9 @@ namespace FpsOverlayer.OverlayCode
                 //Bind lists to the listbox elements
                 ListBoxBindLists();
 
+                //Reset browser interface to defaults
+                Browser_Reset_Interface();
+
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             }
@@ -48,22 +51,19 @@ namespace FpsOverlayer.OverlayCode
                 //Update the window visibility
                 UpdateWindowVisibility(false);
 
-                //Reset browser default values
-                Browser_Unload();
+                //Remove browser from grid
+                Browser_Remove_Grid();
             }
             catch { }
         }
 
         //Show the window
-        public new async Task Show()
+        public new void Show()
         {
             try
             {
                 //Update the window visibility
                 UpdateWindowVisibility(true);
-
-                //Set default browser values
-                await Browser_Setup();
             }
             catch { }
         }

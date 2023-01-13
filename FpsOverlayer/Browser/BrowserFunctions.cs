@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Web.WebView2.Wpf;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,33 +12,59 @@ namespace FpsOverlayer.OverlayCode
 {
     public partial class WindowBrowser : Window
     {
-        //Set default browser values
-        private async Task Browser_Setup()
+        //Add browser to grid
+        private async Task Browser_Add_Grid()
         {
             try
             {
-                //Register webviewer events
-                if (!vBrowserInitialized)
+                //Check webviewer
+                if (vBrowserWebView != null)
                 {
-                    await webview_Browser.EnsureCoreWebView2Async();
-                    webview_Browser.CoreWebView2.SourceChanged += WebView2_SourceChanged;
-                    webview_Browser.CoreWebView2.NewWindowRequested += WebView2_NewWindowRequested;
-                    webview_Browser.CoreWebView2.DownloadStarting += WebView2_DownloadStarting;
-                    webview_Browser.CoreWebView2.NavigationStarting += WebView2_NavigationStarting;
-                    webview_Browser.CoreWebView2.NavigationCompleted += WebView2_NavigationCompleted;
-                    vBrowserInitialized = true;
+                    return;
                 }
 
-                Debug.WriteLine("Set default browser values.");
+                //Update the window style (UIAccess render workaround)
+                this.Topmost = false;
+                await Task.Delay(500);
+
+                //Set creation properties 
+                CoreWebView2CreationProperties creationProperties = new CoreWebView2CreationProperties();
+                creationProperties.UserDataFolder = "BrowserCache";
+                creationProperties.AdditionalBrowserArguments = "--disable-gpu";
+
+                //Create webviewer
+                vBrowserWebView = new WebView2();
+                vBrowserWebView.CreationProperties = creationProperties;
+
+                //Add webviewer to grid
+                grid_Browser.Children.Clear();
+                grid_Browser.Children.Add(vBrowserWebView);
+
+                //Hide link hint grid
+                grid_Link_Hint.Visibility = Visibility.Collapsed;
+
+                //Register webviewer events
+                await vBrowserWebView.EnsureCoreWebView2Async();
+                vBrowserWebView.CoreWebView2.SourceChanged += WebView2_SourceChanged;
+                vBrowserWebView.CoreWebView2.NewWindowRequested += WebView2_NewWindowRequested;
+                vBrowserWebView.CoreWebView2.DownloadStarting += WebView2_DownloadStarting;
+                vBrowserWebView.CoreWebView2.NavigationStarting += WebView2_NavigationStarting;
+                vBrowserWebView.CoreWebView2.NavigationCompleted += WebView2_NavigationCompleted;
+
+                //Update the window style (UIAccess render workaround)
+                await Task.Delay(500);
+                this.Topmost = true;
+
+                Debug.WriteLine("Added browser to grid.");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to default browser: " + ex.Message);
+                Debug.WriteLine("Failed to add browser: " + ex.Message);
             }
         }
 
-        //Reset browser default values
-        private void Browser_Unload()
+        //Remove browser from grid
+        private void Browser_Remove_Grid()
         {
             try
             {
@@ -47,14 +74,21 @@ namespace FpsOverlayer.OverlayCode
                     return;
                 }
 
-                //Set blank page
-                Browser_Open_Link("about:blank", false);
+                //Dispose webviewer
+                if (vBrowserWebView != null)
+                {
+                    vBrowserWebView.Dispose();
+                    vBrowserWebView = null;
+                }
 
-                Debug.WriteLine("Reset browser default values.");
+                //Reset browser interface
+                Browser_Reset_Interface();
+
+                Debug.WriteLine("Removed browser from grid.");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to reset browser: " + ex.Message);
+                Debug.WriteLine("Failed to remove browser: " + ex.Message);
             }
         }
 
@@ -87,7 +121,7 @@ namespace FpsOverlayer.OverlayCode
         }
 
         //Switch browser visibility
-        public async Task SwitchBrowserVisibility()
+        public void Browser_Switch_Visibility()
         {
             try
             {
@@ -101,33 +135,54 @@ namespace FpsOverlayer.OverlayCode
                 }
                 else
                 {
-                    await Show();
+                    Show();
                 }
             }
             catch { }
         }
 
         //Open link in browser
-        private void Browser_Open_Link(string linkString, bool closeLinkMenu)
+        private async void Browser_Open_Link(string linkString, bool closeLinkMenu)
         {
             try
             {
-                string currentLink = webview_Browser.Source.ToString();
+                //Add browser to grid
+                await Browser_Add_Grid();
+
+                //Check current link
+                string currentLink = vBrowserWebView == null ? string.Empty : vBrowserWebView.Source.ToString();
                 if (currentLink == linkString)
                 {
                     Debug.WriteLine("Same link, reloading page.");
-                    webview_Browser.Reload();
+                    vBrowserWebView.Reload();
                 }
                 else
                 {
                     linkString = StringLinkFixup(linkString);
-                    webview_Browser.CoreWebView2.Navigate(linkString);
+                    vBrowserWebView.CoreWebView2.Navigate(linkString);
                 }
 
                 if (closeLinkMenu)
                 {
                     grid_Link.Visibility = Visibility.Collapsed;
                 }
+            }
+            catch { }
+        }
+
+        //Reset browser interface
+        public void Browser_Reset_Interface()
+        {
+            try
+            {
+                //Clear browser grid
+                grid_Browser.Children.Clear();
+
+                //Show link hint grid
+                grid_Link_Hint.Visibility = Visibility.Visible;
+
+                //Reset current link
+                textblock_Link.Text = "Current website link";
             }
             catch { }
         }

@@ -131,11 +131,11 @@ namespace FpsOverlayer
             catch { }
         }
 
-        async void Button_BrowserShowHide_Click(object sender, RoutedEventArgs e)
+        void Button_BrowserShowHide_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await vWindowBrowser.SwitchBrowserVisibility();
+                vWindowBrowser.Browser_Switch_Visibility();
             }
             catch { }
         }

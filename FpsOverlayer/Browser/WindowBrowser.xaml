@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:local="clr-namespace:FpsOverlayer.OverlayCode"
         RenderOptions.BitmapScalingMode="HighQuality"
         SnapsToDevicePixels="True"
@@ -31,11 +30,15 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <wv2:WebView2 Grid.Row="0" Name="webview_Browser" Margin="5,5,5,0" Source="about:blank">
-                <wv2:WebView2.CreationProperties>
-                    <wv2:CoreWebView2CreationProperties UserDataFolder="BrowserCache" AdditionalBrowserArguments="--disable-gpu"/>
-                </wv2:WebView2.CreationProperties>
-            </wv2:WebView2>
+            <Grid Grid.Row="0" Name="grid_Link_Hint" Margin="5,5,5,0">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Link.png" Height="60"/>
+                    <TextBlock Text="Select link to open below." HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
+                    <TextBlock Text="You can add new links in the settings." HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeInterface}"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="0" Name="grid_Browser" Margin="5,5,5,0"/>
 
             <Grid Grid.Row="1" Height="5" Margin="5,0,5,0">
                 <ProgressBar Name="progressbar_Browser" Height="5" IsIndeterminate="True" Style="{StaticResource ProgressBarAccent}" Visibility="Collapsed"/>
@@ -47,8 +50,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <ListBox Grid.Row="0" MaxHeight="210" Name="listbox_Link" Style="{StaticResource ListBoxVertical}" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemLink}" SelectionChanged="listbox_Link_SelectionChanged"/>
-                <TextBlock Grid.Row="1" Name="textblock_Link" Style="{StaticResource TextBlockGray}" Text="about:blank"/>
+                <ListBox Grid.Row="0" MaxHeight="210" Name="listbox_Link" Style="{StaticResource ListBoxVertical}" ItemContainerStyle="{StaticResource ListBoxItemWhite}" ItemTemplate="{StaticResource ListBoxItemLink}" SelectionMode="Single" PreviewMouseUp="listbox_Link_PreviewMouseUp"/>
+                <TextBlock Grid.Row="1" Name="textblock_Link" Style="{StaticResource TextBlockGray}" Text="Current website link"/>
             </Grid>
 
             <Grid Grid.Row="3" Name="grid_Menu" Margin="5,0,5,5">

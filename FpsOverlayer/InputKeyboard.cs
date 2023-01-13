@@ -6,14 +6,14 @@ namespace FpsOverlayer
 {
     public partial class WindowMain
     {
-        private async void EventHotKeyPressed(KeysModifier keysModifier, KeysVirtual keysVirtual)
+        private void EventHotKeyPressed(KeysModifier keysModifier, KeysVirtual keysVirtual)
         {
             try
             {
                 if (keysModifier == KeysModifier.Alt && keysVirtual == KeysVirtual.F8)
                 {
                     Debug.WriteLine("Button Global - F8");
-                    await vWindowBrowser.SwitchBrowserVisibility();
+                    vWindowBrowser.Browser_Switch_Visibility();
                 }
                 else if (keysModifier == KeysModifier.Alt && keysVirtual == KeysVirtual.F9)
                 {

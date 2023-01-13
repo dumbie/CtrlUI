@@ -2,6 +2,7 @@
 using FpsOverlayer.OverlayCode;
 using LibreHardwareMonitor.Hardware;
 using Microsoft.Diagnostics.Tracing.Session;
+using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -56,7 +57,7 @@ namespace FpsOverlayer
         public static AVInputOutputHotKey vAVInputOutputHotKey = new AVInputOutputHotKey();
 
         //Browser Variables
-        public static bool vBrowserInitialized = false;
+        public static WebView2 vBrowserWebView = null;
         public static bool vBrowserWindowClickThrough = false;
 
         //Hardware
