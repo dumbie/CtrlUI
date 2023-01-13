@@ -14,7 +14,7 @@ namespace DirectXInput
     partial class WindowMain
     {
         //Profile - Keypad add profile
-        async void Btn_Settings_KeypadProcessProfile_Add_Click(object sender, RoutedEventArgs e)
+        void Btn_Settings_KeypadProcessProfile_Add_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetailsNameSet = new NotificationDetails();
                     notificationDetailsNameSet.Icon = "Close";
                     notificationDetailsNameSet.Text = "No application name set";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetailsNameSet);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetailsNameSet);
                     return;
                 }
 
@@ -37,7 +37,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetailsExists = new NotificationDetails();
                     notificationDetailsExists.Icon = "Close";
                     notificationDetailsExists.Text = "Keypad profile already exists";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetailsExists);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetailsExists);
                     return;
                 }
 
@@ -55,14 +55,14 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Plus";
                 notificationDetails.Text = "Added keypad profile";
-                await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 Debug.WriteLine("Added keypad profile.");
             }
             catch { }
         }
 
         //Profile - Keypad remove profile
-        async void Btn_Settings_KeypadProcessProfile_Remove_Click(object sender, RoutedEventArgs e)
+        void Btn_Settings_KeypadProcessProfile_Remove_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "RemoveCross";
                     notificationDetails.Text = "Removed keypad profile";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     Debug.WriteLine("Removed the keypad profile.");
                 }
                 else
@@ -90,7 +90,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Close";
                     notificationDetails.Text = "Cannot remove default profile";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     Debug.WriteLine("Default profile cannot be removed.");
                 }
             }

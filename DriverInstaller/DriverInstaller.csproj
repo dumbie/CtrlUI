@@ -114,6 +114,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ArnoldVinkCode\Desktop\ArnoldVinkCode.csproj">
+      <Project>{478ed5d3-38af-47fc-ae14-b67976ab952c}</Project>
+      <Name>ArnoldVinkCode</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LibraryShared\LibraryShared.csproj">
       <Project>{318363b3-3252-438d-8f71-7a271a276da6}</Project>
       <Name>LibraryShared</Name>

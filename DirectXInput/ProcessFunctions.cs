@@ -41,7 +41,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "AppLaunch";
                     notificationDetails.Text = "Launching CtrlUI";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Launch CtrlUI
                     await ProcessLauncherWin32Async("CtrlUI-Launcher.exe", "", "", true, false);
@@ -67,7 +67,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "AppLaunch";
                 notificationDetails.Text = "Showing or hiding CtrlUI";
-                await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
@@ -118,7 +118,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Fps";
                 notificationDetails.Text = "Hiding Fps Overlayer";
-                await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Prepare socket data
                 SocketSendContainer socketSend = new SocketSendContainer();
@@ -147,7 +147,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Fps";
                     notificationDetails.Text = "Showing Fps Overlayer";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Launch Fps Overlayer
                     await ProcessLauncherWin32Async("FpsOverlayer-Launcher.exe", "", "", true, false);

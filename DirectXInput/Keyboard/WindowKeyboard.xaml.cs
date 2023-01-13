@@ -43,7 +43,7 @@ namespace DirectXInput.KeyboardCode
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
                 //Update the window style
-                await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                 //Update the user interface clock style
                 UpdateClockStyle();
@@ -89,7 +89,7 @@ namespace DirectXInput.KeyboardCode
                     await TasksBackgroundStop();
 
                     //Update the window visibility
-                    await UpdateWindowVisibility(false);
+                    UpdateWindowVisibility(false);
 
                     //Update last active status
                     vKeyboardKeypadLastActive = "Keyboard";
@@ -136,7 +136,7 @@ namespace DirectXInput.KeyboardCode
                 await FocusPopupButton(false, key_h);
 
                 //Update the window visibility
-                await UpdateWindowVisibility(true);
+                UpdateWindowVisibility(true);
 
                 //Force keyboard mode
                 if (forceKeyboardMode)
@@ -184,7 +184,7 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Update the window visibility
-        async Task UpdateWindowVisibility(bool visible)
+        void UpdateWindowVisibility(bool visible)
         {
             try
             {
@@ -196,7 +196,7 @@ namespace DirectXInput.KeyboardCode
                         base.Show();
 
                         //Update the window style
-                        await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+                        WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                         this.Title = "DirectXInput Keyboard (Visible)";
                         vWindowVisible = true;
@@ -208,7 +208,7 @@ namespace DirectXInput.KeyboardCode
                     if (vWindowVisible)
                     {
                         //Update the window style
-                        await WindowUpdateStyleHidden(vInteropWindowHandle);
+                        WindowUpdateStyleHidden(vInteropWindowHandle);
 
                         this.Title = "DirectXInput Keyboard (Hidden)";
                         vWindowVisible = false;

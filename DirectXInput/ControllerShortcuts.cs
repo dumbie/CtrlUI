@@ -27,7 +27,7 @@ namespace DirectXInput
                     if (Controller.InputCurrent.ButtonGuide.PressedShort)
                     {
                         Debug.WriteLine("Shortcut activate controller has been pressed.");
-                        bool controllerActivated = await ControllerActivate(Controller);
+                        bool controllerActivated = ControllerActivate(Controller);
 
                         ControllerUsed = true;
                         ControllerDelay125 = true;
@@ -85,22 +85,22 @@ namespace DirectXInput
                         {
                             if (AudioMuteSwitch(true))
                             {
-                                await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume muted");
+                                App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume muted");
                             }
                             else
                             {
-                                await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume unmuted");
+                                App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume unmuted");
                             }
                         }
                         else
                         {
                             if (AudioMuteSwitch(false))
                             {
-                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume muted");
+                                App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume muted");
                             }
                             else
                             {
-                                await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume unmuted");
+                                App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume unmuted");
                             }
                         }
 
@@ -117,7 +117,7 @@ namespace DirectXInput
                             NotificationDetails notificationDetails = new NotificationDetails();
                             notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Pressing Alt+Enter";
-                            await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 
@@ -135,7 +135,7 @@ namespace DirectXInput
                             NotificationDetails notificationDetails = new NotificationDetails();
                             notificationDetails.Icon = "AppMiniMaxi";
                             notificationDetails.Text = "Pressing Alt+Tab";
-                            await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                            App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                             vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Tab, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
 

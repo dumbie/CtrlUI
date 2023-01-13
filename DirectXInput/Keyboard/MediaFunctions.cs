@@ -22,11 +22,11 @@ namespace DirectXInput.KeyboardCode
     partial class WindowKeyboard
     {
         //Play or pause the media
-        async Task MediaPlayPause()
+        void MediaPlayPause()
         {
             try
             {
-                await App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
+                App.vWindowOverlay.Notification_Show_Status("MediaPlayPause", "Resuming or pausing media");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.PlayPause);
             }
@@ -34,11 +34,11 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Next media
-        async Task MediaNext()
+        void MediaNext()
         {
             try
             {
-                await App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
+                App.vWindowOverlay.Notification_Show_Status("MediaNext", "Going to next media item");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.Next);
             }
@@ -46,11 +46,11 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Previous media
-        async Task MediaPrevious()
+        void MediaPrevious()
         {
             try
             {
-                await App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
+                App.vWindowOverlay.Notification_Show_Status("MediaPrevious", "Going to previous media item");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 vFakerInputDevice.MultimediaPressRelease(KeyboardMultimedia.Previous);
             }
@@ -58,11 +58,11 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Fullscreen media
-        async Task MediaFullscreen()
+        void MediaFullscreen()
         {
             try
             {
-                await App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
+                App.vWindowOverlay.Notification_Show_Status("MediaFullscreen", "Toggling fullscreen");
                 PlayInterfaceSound(vConfigurationCtrlUI, "Click", false, false);
                 vFakerInputDevice.KeyboardPressRelease(KeyboardModifiers.AltLeft, KeyboardModifiers.None, KeyboardKeys.Enter, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None, KeyboardKeys.None);
             }
@@ -70,59 +70,59 @@ namespace DirectXInput.KeyboardCode
         }
 
         //Volume Output Mute
-        async Task VolumeOutputMute()
+        void VolumeOutputMute()
         {
             try
             {
                 if (AudioMuteSwitch(false))
                 {
-                    await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume muted");
+                    App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume muted");
                 }
                 else
                 {
-                    await App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume unmuted");
+                    App.vWindowOverlay.Notification_Show_Status("VolumeMute", "Output volume unmuted");
                 }
             }
             catch { }
         }
 
         //Volume Input Mute
-        async Task VolumeInputMute()
+        void VolumeInputMute()
         {
             try
             {
                 if (AudioMuteSwitch(true))
                 {
-                    await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume muted");
+                    App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume muted");
                 }
                 else
                 {
-                    await App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume unmuted");
+                    App.vWindowOverlay.Notification_Show_Status("MicrophoneMute", "Input volume unmuted");
                 }
             }
             catch { }
         }
 
         //Volume Down
-        async Task VolumeDown()
+        void VolumeDown()
         {
             try
             {
                 int volumeStep = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
                 int newVolume = AudioVolumeDown(volumeStep, false);
-                await App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreased volume to " + newVolume);
+                App.vWindowOverlay.Notification_Show_Status("VolumeDown", "Decreased volume to " + newVolume);
             }
             catch { }
         }
 
         //Volume Up
-        async Task VolumeUp()
+        void VolumeUp()
         {
             try
             {
                 int volumeStep = Convert.ToInt32(Setting_Load(vConfigurationDirectXInput, "MediaVolumeStep"));
                 int newVolume = AudioVolumeUp(volumeStep, false);
-                await App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
+                App.vWindowOverlay.Notification_Show_Status("VolumeUp", "Increased volume to " + newVolume);
             }
             catch { }
         }

@@ -31,7 +31,7 @@ namespace DirectXInput
                 await ControllerReceiveAllConnected();
 
                 //Check if there is an active controller
-                await ControllerCheckActivated();
+                ControllerCheckActivated();
             }
             catch { }
         }
@@ -175,16 +175,16 @@ namespace DirectXInput
         }
 
         //Check if there is an actived controller
-        async Task ControllerCheckActivated()
+        void ControllerCheckActivated()
         {
             try
             {
                 //Debug.WriteLine("There is currently no actived controller.");
                 ControllerStatus activeController = vActiveController();
-                if (vController0.Connected() && activeController == null) { await ControllerActivate(vController0); }
-                else if (vController1.Connected() && activeController == null) { await ControllerActivate(vController1); }
-                else if (vController2.Connected() && activeController == null) { await ControllerActivate(vController2); }
-                else if (vController3.Connected() && activeController == null) { await ControllerActivate(vController3); }
+                if (vController0.Connected() && activeController == null) { ControllerActivate(vController0); }
+                else if (vController1.Connected() && activeController == null) { ControllerActivate(vController1); }
+                else if (vController2.Connected() && activeController == null) { ControllerActivate(vController2); }
+                else if (vController3.Connected() && activeController == null) { ControllerActivate(vController3); }
                 else if (activeController == null)
                 {
                     //Clear the current controller information
@@ -202,7 +202,7 @@ namespace DirectXInput
         }
 
         //Activate controller
-        async Task<bool> ControllerActivate(ControllerStatus Controller)
+        bool ControllerActivate(ControllerStatus Controller)
         {
             try
             {
@@ -222,7 +222,7 @@ namespace DirectXInput
                         notificationDetails.Icon = "Controller";
                         notificationDetails.Text = "Activated (" + controllerNumberDisplay + ")";
                         notificationDetails.Color = Controller.Color;
-                        await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                     }
 
                     //Activate current controller
@@ -238,41 +238,41 @@ namespace DirectXInput
         }
 
         //Change the active controller to 0
-        async void Button_Controller0_Click(object sender, RoutedEventArgs e)
+        void Button_Controller0_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await ControllerActivate(vController0);
+                ControllerActivate(vController0);
             }
             catch { }
         }
 
         //Change the active controller to 1
-        async void Button_Controller1_Click(object sender, RoutedEventArgs e)
+        void Button_Controller1_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await ControllerActivate(vController1);
+                ControllerActivate(vController1);
             }
             catch { }
         }
 
         //Change the active controller to 2
-        async void Button_Controller2_Click(object sender, RoutedEventArgs e)
+        void Button_Controller2_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await ControllerActivate(vController2);
+                ControllerActivate(vController2);
             }
             catch { }
         }
 
         //Change the active controller to 3
-        async void Button_Controller3_Click(object sender, RoutedEventArgs e)
+        void Button_Controller3_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await ControllerActivate(vController3);
+                ControllerActivate(vController3);
             }
             catch { }
         }

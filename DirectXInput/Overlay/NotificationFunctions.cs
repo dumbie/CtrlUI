@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVImage;
@@ -12,25 +11,25 @@ namespace DirectXInput.OverlayCode
     public partial class WindowOverlay : Window
     {
         //Show the notification overlay
-        public async Task Notification_Show_Status(string icon, string text)
+        public void Notification_Show_Status(string icon, string text)
         {
             try
             {
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = icon;
                 notificationDetails.Text = text;
-                await Notification_Show_Status(notificationDetails);
+                Notification_Show_Status(notificationDetails);
             }
             catch { }
         }
 
         //Show the notification overlay
-        public async Task Notification_Show_Status(NotificationDetails notificationDetails)
+        public void Notification_Show_Status(NotificationDetails notificationDetails)
         {
             try
             {
                 //Update the notification
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                AVActions.ActionDispatcherInvoke(delegate
                 {
                     try
                     {
@@ -47,19 +46,19 @@ namespace DirectXInput.OverlayCode
                         }
 
                         //Show the notification
-                        await this.Show();
+                        Show();
                     }
                     catch { }
                 });
 
                 //Start notification timer
                 vDispatcherTimerOverlay.Interval = TimeSpan.FromMilliseconds(3000);
-                vDispatcherTimerOverlay.Tick += async delegate
+                vDispatcherTimerOverlay.Tick += delegate
                 {
                     try
                     {
                         //Hide the notification
-                        await this.Hide();
+                        Hide();
 
                         //Renew the timer
                         AVFunctions.TimerRenew(ref vDispatcherTimerOverlay);

@@ -20,7 +20,7 @@ namespace DirectXInput.OverlayCode
         public bool vWindowVisible = false;
 
         //Window Initialized
-        protected override async void OnSourceInitialized(EventArgs e)
+        protected override void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace DirectXInput.OverlayCode
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
                 //Update the window style
-                await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                 //Update the window and text position
                 UpdateWindowPosition();
@@ -45,23 +45,23 @@ namespace DirectXInput.OverlayCode
         }
 
         //Hide the window
-        public new async Task Hide()
+        public new void Hide()
         {
             try
             {
                 //Update the window visibility
-                await UpdateWindowVisibility(false);
+                UpdateWindowVisibility(false);
             }
             catch { }
         }
 
         //Show the window
-        public new async Task Show()
+        public new void Show()
         {
             try
             {
                 //Update the window visibility
-                await UpdateWindowVisibility(true);
+                UpdateWindowVisibility(true);
             }
             catch { }
         }
@@ -81,7 +81,7 @@ namespace DirectXInput.OverlayCode
         }
 
         //Update the window visibility
-        async Task UpdateWindowVisibility(bool visible)
+        void UpdateWindowVisibility(bool visible)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace DirectXInput.OverlayCode
                         base.Show();
 
                         //Update the window style
-                        await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                        WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                         this.Title = "DirectXInput Overlay (Visible)";
                         vWindowVisible = true;
@@ -105,7 +105,7 @@ namespace DirectXInput.OverlayCode
                     if (vWindowVisible)
                     {
                         //Update the window style
-                        await WindowUpdateStyleHidden(vInteropWindowHandle);
+                        WindowUpdateStyleHidden(vInteropWindowHandle);
 
                         this.Title = "DirectXInput Overlay (Hidden)";
                         vWindowVisible = false;

@@ -121,7 +121,7 @@ namespace DirectXInput.KeyboardCode
                         else
                         {
                             //Update the window style
-                            await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                            WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandle)
@@ -143,7 +143,7 @@ namespace DirectXInput.KeyboardCode
                         else
                         {
                             //Update the window style
-                            await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                            WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandle)
@@ -165,7 +165,7 @@ namespace DirectXInput.KeyboardCode
                         else
                         {
                             //Update the window style
-                            await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                            WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandle)
@@ -187,7 +187,7 @@ namespace DirectXInput.KeyboardCode
                         else
                         {
                             //Update the window style
-                            await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                            WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                             //Check the foreground window
                             if (vInteropWindowHandle != vProcessForeground.WindowHandle)
@@ -203,7 +203,7 @@ namespace DirectXInput.KeyboardCode
                     else if (ControllerInput.ButtonA.PressedRaw)
                     {
                         //Update the window style
-                        await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                        WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
 
                         //Check the foreground window
                         if (vInteropWindowHandle != vProcessForeground.WindowHandle)
@@ -228,7 +228,7 @@ namespace DirectXInput.KeyboardCode
                         }
                         else if (keyboardMode == KeyboardMode.Media)
                         {
-                            await MediaNext();
+                            MediaNext();
                             ControllerDelay250 = true;
                         }
                         else
@@ -244,7 +244,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (keyboardMode == KeyboardMode.Media)
                         {
-                            await MediaPlayPause();
+                            MediaPlayPause();
                             ControllerDelay250 = true;
                         }
                         else
@@ -260,7 +260,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (keyboardMode == KeyboardMode.Media)
                         {
-                            await MediaPrevious();
+                            MediaPrevious();
                             ControllerDelay250 = true;
                         }
                         else if (vCapsEnabled)
@@ -282,7 +282,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (keyboardMode == KeyboardMode.Media)
                         {
-                            await VolumeOutputMute();
+                            VolumeOutputMute();
                             ControllerDelay500 = true;
                         }
                         else
@@ -298,7 +298,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (keyboardMode == KeyboardMode.Media)
                         {
-                            await VolumeInputMute();
+                            VolumeInputMute();
                             ControllerDelay500 = true;
                         }
                         else
@@ -315,7 +315,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (keyboardMode == KeyboardMode.Media)
                         {
-                            await VolumeOutputMute();
+                            VolumeOutputMute();
                         }
 
                         ControllerDelay500 = true;
@@ -332,7 +332,7 @@ namespace DirectXInput.KeyboardCode
                         }
                         else if (keyboardMode == KeyboardMode.Media)
                         {
-                            await VolumeDown();
+                            VolumeDown();
                         }
                         else
                         {
@@ -353,7 +353,7 @@ namespace DirectXInput.KeyboardCode
                         }
                         else if (keyboardMode == KeyboardMode.Media)
                         {
-                            await VolumeUp();
+                            VolumeUp();
                         }
                         else if (vCapsEnabled)
                         {
@@ -376,7 +376,7 @@ namespace DirectXInput.KeyboardCode
 
                         if (keyboardMode == KeyboardMode.Media)
                         {
-                            await MediaFullscreen();
+                            MediaFullscreen();
                         }
                         else
                         {

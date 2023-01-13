@@ -1,9 +1,11 @@
 ﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
+using static ArnoldVinkCode.Styles.MainColors;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
@@ -58,7 +60,8 @@ namespace FpsOverlayer
                         else if (receivedString == "SettingChangedColorAccentLight")
                         {
                             vConfigurationCtrlUI = Settings_Load_CtrlUI();
-                            Settings_Load_AccentColor(vConfigurationCtrlUI);
+                            string colorLightHex = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ColorAccentLight"));
+                            ChangeApplicationAccentColor(colorLightHex);
                         }
                         else if (receivedString == "SettingChangedDisplayMonitor")
                         {

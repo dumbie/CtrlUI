@@ -203,7 +203,7 @@ namespace DirectXInput
                         else if (!controller.Details.Profile.UseButtonTriggers)
                         {
                             Debug.WriteLine("Controller without triggers detected.");
-                            await App.vWindowOverlay.Notification_Show_Status("Controller", "Controller has no triggers");
+                            App.vWindowOverlay.Notification_Show_Status("Controller", "Controller has no triggers");
 
                             AVActions.ActionDispatcherInvoke(delegate { cb_ControllerUseButtonTriggers.IsChecked = true; });
                             controller.Details.Profile.UseButtonTriggers = true;

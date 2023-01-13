@@ -6,15 +6,16 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/MainColors.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/Button.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/CheckBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/ComboBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/ListBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/Scrollbar.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/Slider.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/ControlTemplates/TextBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/LibraryShared;component/ArnoldVinkCode/Styles/MainStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/MainColors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/Button.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/CheckBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/ComboBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/ListBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/Scrollbar.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/Thumb.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/Slider.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/TextBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/MainStyles.xaml"/>
                 <ResourceDictionary Source="Styles/DataTemplates/DataTemplates.xaml"/>
                 <ResourceDictionary Source="Styles/KeyboardStyles.xaml"/>
                 <ResourceDictionary Source="Styles/KeypadStyles.xaml"/>

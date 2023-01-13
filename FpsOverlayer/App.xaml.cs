@@ -26,7 +26,7 @@ namespace FpsOverlayer
                 Firewall_ExecutableAllow("Fps Overlayer", appFilePath, true);
 
                 //Open the application window
-                await vWindowMain.Show();
+                vWindowMain.Show();
             }
             catch { }
         }

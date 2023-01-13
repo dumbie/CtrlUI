@@ -56,7 +56,7 @@ namespace DirectXInput
                 notificationDetailsConnected.Icon = "Controller";
                 notificationDetailsConnected.Text = "Connected (" + controllerNumberDisplay + ")";
                 notificationDetailsConnected.Color = Controller.Color;
-                await App.vWindowOverlay.Notification_Show_Status(notificationDetailsConnected);
+                App.vWindowOverlay.Notification_Show_Status(notificationDetailsConnected);
 
                 AVActions.ActionDispatcherInvoke(delegate
                 {
@@ -104,11 +104,11 @@ namespace DirectXInput
                 AVActions.TaskStartLoop(TaskActionOutputVirtual, Controller.OutputVirtualTask);
 
                 //Start controller output task loop
-                async void TaskActionOutputController()
+                void TaskActionOutputController()
                 {
                     try
                     {
-                        await LoopOutputController(Controller);
+                        LoopOutputController(Controller);
                     }
                     catch { }
                 }
@@ -268,7 +268,7 @@ namespace DirectXInput
                     notificationDetails.Text = "Disconnected " + disconnectInfo + " (" + controllerNumberDisplay + ")";
                 }
                 notificationDetails.Color = Controller.Color;
-                await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                 //Update user interface controller status
                 AVActions.ActionDispatcherInvoke(delegate

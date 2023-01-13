@@ -13,6 +13,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVWindowFunctions;
+using static ArnoldVinkCode.Styles.MainColors;
 using static FpsOverlayer.AppTasks;
 using static FpsOverlayer.AppVariables;
 using static LibraryShared.JsonFunctions;
@@ -43,13 +44,14 @@ namespace FpsOverlayer
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
                 //Update the window style
-                await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                 //Check application settings
                 vWindowSettings.Settings_Check();
 
                 //Change application accent color
-                Settings_Load_AccentColor(vConfigurationCtrlUI);
+                string colorLightHex = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ColorAccentLight"));
+                ChangeApplicationAccentColor(colorLightHex);
 
                 //Update the window position
                 UpdateWindowPosition();
@@ -108,23 +110,23 @@ namespace FpsOverlayer
         }
 
         //Hide the window
-        public new async Task Hide()
+        public new void Hide()
         {
             try
             {
                 //Update the window visibility
-                await UpdateWindowVisibility(false);
+                UpdateWindowVisibility(false);
             }
             catch { }
         }
 
         //Show the window
-        public new async Task Show()
+        public new void Show()
         {
             try
             {
                 //Update the window visibility
-                await UpdateWindowVisibility(true);
+                UpdateWindowVisibility(true);
             }
             catch { }
         }
@@ -159,40 +161,37 @@ namespace FpsOverlayer
         }
 
         //Update the window visibility
-        public async Task UpdateWindowVisibility(bool visible)
+        public void UpdateWindowVisibility(bool visible)
         {
             try
             {
-                await AVActions.ActionDispatcherInvokeAsync(async delegate
+                if (visible)
                 {
-                    if (visible)
+                    if (!vWindowVisible)
                     {
-                        if (!vWindowVisible)
-                        {
-                            //Create and show the window
-                            base.Show();
+                        //Create and show the window
+                        base.Show();
 
-                            //Update the window style
-                            await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                        //Update the window style
+                        WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
-                            this.Title = "Fps Overlayer (Visible)";
-                            vWindowVisible = true;
-                            Debug.WriteLine("Showing the window.");
-                        }
+                        this.Title = "Fps Overlayer (Visible)";
+                        vWindowVisible = true;
+                        Debug.WriteLine("Showing the window.");
                     }
-                    else
+                }
+                else
+                {
+                    if (vWindowVisible)
                     {
-                        if (vWindowVisible)
-                        {
-                            //Update the window style
-                            await WindowUpdateStyleHidden(vInteropWindowHandle);
+                        //Update the window style
+                        WindowUpdateStyleHidden(vInteropWindowHandle);
 
-                            this.Title = "Fps Overlayer (Hidden)";
-                            vWindowVisible = false;
-                            Debug.WriteLine("Hiding the window.");
-                        }
+                        this.Title = "Fps Overlayer (Hidden)";
+                        vWindowVisible = false;
+                        Debug.WriteLine("Hiding the window.");
                     }
-                });
+                }
             }
             catch { }
         }

@@ -34,38 +34,38 @@ namespace DirectXInput
                 };
 
                 //Battery settings
-                slider_BatteryLowLevel.ValueChanged += async (sender, e) =>
+                slider_BatteryLowLevel.ValueChanged += (sender, e) =>
                 {
                     string batteryLevelLowString = slider_BatteryLowLevel.Value.ToString();
                     Setting_Save(vConfigurationDirectXInput, "BatteryLowLevel", batteryLevelLowString);
                     textblock_BatteryLowLevel.Text = textblock_BatteryLowLevel.Tag + ": " + batteryLevelLowString + "%";
 
                     //Check all controllers for low battery level
-                    await CheckAllControllersLowBattery(true);
+                    CheckAllControllersLowBattery(true);
                 };
 
-                cb_SettingsBatteryLowBlinkLed.Click += async (sender, e) =>
+                cb_SettingsBatteryLowBlinkLed.Click += (sender, e) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "BatteryLowBlinkLed", cb_SettingsBatteryLowBlinkLed.IsChecked.ToString());
 
                     //Check all controllers for low battery level
-                    await CheckAllControllersLowBattery(true);
+                    CheckAllControllersLowBattery(true);
                 };
 
-                cb_SettingsBatteryLowShowNotification.Click += async (sender, e) =>
+                cb_SettingsBatteryLowShowNotification.Click += (sender, e) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "BatteryLowShowNotification", cb_SettingsBatteryLowShowNotification.IsChecked.ToString());
 
                     //Check all controllers for low battery level
-                    await CheckAllControllersLowBattery(true);
+                    CheckAllControllersLowBattery(true);
                 };
 
-                cb_SettingsBatteryLowPlaySound.Click += async (sender, e) =>
+                cb_SettingsBatteryLowPlaySound.Click += (sender, e) =>
                 {
                     Setting_Save(vConfigurationDirectXInput, "BatteryLowPlaySound", cb_SettingsBatteryLowPlaySound.IsChecked.ToString());
 
                     //Check all controllers for low battery level
-                    await CheckAllControllersLowBattery(true);
+                    CheckAllControllersLowBattery(true);
                 };
 
                 //Controller settings

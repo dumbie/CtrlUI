@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using static ArnoldVinkCode.Styles.AVColors;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Enums;
@@ -82,15 +83,15 @@ namespace DirectXInput.KeyboardCode
                         Debug.WriteLine("Sending Multimedia key: " + sendKey);
                         if (sendKey == KeyboardMultimedia.VolumeMute)
                         {
-                            await VolumeOutputMute();
+                            VolumeOutputMute();
                         }
                         else if (sendKey == KeyboardMultimedia.VolumeUp)
                         {
-                            await VolumeUp();
+                            VolumeUp();
                         }
                         else if (sendKey == KeyboardMultimedia.VolumeDown)
                         {
-                            await VolumeDown();
+                            VolumeDown();
                         }
                         else
                         {
@@ -339,7 +340,7 @@ namespace DirectXInput.KeyboardCode
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Keyboard";
                     notificationDetails.Text = "Switched to keyboard mode";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Update settings
                     Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Keyboard).ToString());
@@ -390,7 +391,7 @@ namespace DirectXInput.KeyboardCode
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Keyboard";
                     notificationDetails.Text = "Switched to media mode";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                     //Update settings
                     Setting_Save(vConfigurationDirectXInput, "KeyboardMode", Convert.ToInt32(KeyboardMode.Media).ToString());

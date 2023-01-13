@@ -26,7 +26,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "No controller connected";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }
@@ -42,7 +42,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetails = new NotificationDetails();
                 notificationDetails.Icon = "Controller";
                 notificationDetails.Text = "Disconnected all controllers";
-                await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                App.vWindowOverlay.Notification_Show_Status(notificationDetails);
             }
             catch { }
         }
@@ -67,7 +67,7 @@ namespace DirectXInput
                         NotificationDetails notificationDetails = new NotificationDetails();
                         notificationDetails.Icon = "Controller";
                         notificationDetails.Text = "Removed controller";
-                        await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                        App.vWindowOverlay.Notification_Show_Status(notificationDetails);
 
                         //Stop the controller task
                         await StopController(activeController, "removed", "Controller " + activeController.Details.DisplayName + " removed and disconnected.");
@@ -84,7 +84,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "No controller connected";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }

@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Media;
 using static ArnoldVinkCode.ArnoldVinkSockets;
 using static ArnoldVinkCode.AVClassConverters;
+using static ArnoldVinkCode.Styles.MainColors;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.Settings;
@@ -55,7 +57,7 @@ namespace DirectXInput
                     if (deserializedBytes.Object is NotificationDetails)
                     {
                         NotificationDetails receivedNotificationDetails = (NotificationDetails)deserializedBytes.Object;
-                        await App.vWindowOverlay.Notification_Show_Status(receivedNotificationDetails);
+                        App.vWindowOverlay.Notification_Show_Status(receivedNotificationDetails);
                     }
                     else if (deserializedBytes.Object is string)
                     {
@@ -64,7 +66,10 @@ namespace DirectXInput
                         if (receivedString == "SettingChangedColorAccentLight")
                         {
                             vConfigurationCtrlUI = Settings_Load_CtrlUI();
-                            Settings_Load_AccentColor(vConfigurationCtrlUI);
+
+                            //Change application accent color
+                            string colorLightHex = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ColorAccentLight"));
+                            ChangeApplicationAccentColor(colorLightHex);
                             vApplicationAccentLightBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
                         }
                         else if (receivedString == "SettingChangedInterfaceSoundPackName")

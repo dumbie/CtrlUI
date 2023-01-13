@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FpsOverlayer"
-        xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
+        xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=ArnoldVinkCode"
         RenderOptions.BitmapScalingMode="HighQuality"
         SnapsToDevicePixels="True"
         mc:Ignorable="d"
@@ -158,53 +158,53 @@
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="General Colors"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Display color for single text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorSingle" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the single text color"/>
+                            <Button Name="colorpicker_ColorSingle" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the single text color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for the background:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorBackground" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the stats background color"/>
+                            <Button Name="colorpicker_ColorBackground" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the stats background color"/>
                         </StackPanel>
 
                         <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockAccentLight}" FontSize="{DynamicResource TextSizeHuge}" Text="Category Colors"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Display color for videocard text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorGpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the videocard text color"/>
+                            <Button Name="colorpicker_ColorGpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the videocard text color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for memory text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorMem" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the memory text color"/>
+                            <Button Name="colorpicker_ColorMem" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the memory text color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for processor text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorCpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the processor text color"/>
+                            <Button Name="colorpicker_ColorCpu" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the processor text color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for network text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorNet" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the network text color"/>
+                            <Button Name="colorpicker_ColorNet" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the network text color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for frames text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorFps" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the frames per second text color"/>
+                            <Button Name="colorpicker_ColorFps" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the frames per second text color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for monitor text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorMon" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the monitor text color"/>
+                            <Button Name="colorpicker_ColorMon" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the monitor text color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for application name:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorApp" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the application name color"/>
+                            <Button Name="colorpicker_ColorApp" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the application name color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for battery level:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorBat" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the battery level color"/>
+                            <Button Name="colorpicker_ColorBat" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the battery level color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for current time:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorTime" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the current time color"/>
+                            <Button Name="colorpicker_ColorTime" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the current time color"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                             <TextBlock Text="Display color for custom text:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_ColorCustomText" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the custom text color"/>
+                            <Button Name="colorpicker_ColorCustomText" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the custom text color"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -241,7 +241,7 @@
 
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <TextBlock Text="Crosshair display color:" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
-                            <Button Name="colorpicker_CrosshairColor" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the crosshair color"/>
+                            <Button Name="colorpicker_CrosshairColor" Height="25" Width="50" Margin="5,0,0,0" BorderBrush="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource ButtonImageTransparentBlackBorder}" ToolTipService.ToolTip="Change the crosshair color"/>
                         </StackPanel>
                         <TextBlock Text="Change the crosshair displayed foreground color." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
 

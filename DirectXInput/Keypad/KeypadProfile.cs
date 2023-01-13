@@ -23,7 +23,7 @@ namespace DirectXInput.KeypadCode
                     vKeypadPreviousProcessTitle = processTitleLower;
 
                     //Set the keypad mapping profile
-                    await SetKeypadMappingProfile();
+                    SetKeypadMappingProfile();
 
                     //Update the key names
                     UpdateKeypadNames();

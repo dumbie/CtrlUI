@@ -32,7 +32,7 @@ namespace DirectXInput.KeypadCode
         public bool vWindowVisible = false;
 
         //Window Initialized
-        protected override async void OnSourceInitialized(EventArgs e)
+        protected override void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace DirectXInput.KeypadCode
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
                 //Update the window style
-                await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                 //Update the window position
                 UpdateWindowPosition();
@@ -70,7 +70,7 @@ namespace DirectXInput.KeypadCode
                     await TasksBackgroundStop();
 
                     //Update the window visibility
-                    await UpdateWindowVisibility(false);
+                    UpdateWindowVisibility(false);
 
                     //Notify - Fps Overlayer keypad size changed
                     await NotifyFpsOverlayerKeypadSizeChanged(0);
@@ -114,7 +114,7 @@ namespace DirectXInput.KeypadCode
                 EnableHardwareNumLock();
 
                 //Update the window visibility
-                await UpdateWindowVisibility(true);
+                UpdateWindowVisibility(true);
 
                 //Notify - Fps Overlayer keypad size changed
                 await NotifyFpsOverlayerKeypadSizeChanged(Convert.ToInt32(vKeypadImageHeight));
@@ -209,7 +209,7 @@ namespace DirectXInput.KeypadCode
         }
 
         //Set the keypad mapping profile
-        async Task SetKeypadMappingProfile()
+        void SetKeypadMappingProfile()
         {
             try
             {
@@ -227,7 +227,7 @@ namespace DirectXInput.KeypadCode
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Keypad";
                     notificationDetails.Text = "Profile set to " + keypadMappingProfile.Name;
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
 
                 //Update the keypad mapping profile
@@ -251,7 +251,7 @@ namespace DirectXInput.KeypadCode
         }
 
         //Update the window visibility
-        async Task UpdateWindowVisibility(bool visible)
+        void UpdateWindowVisibility(bool visible)
         {
             try
             {
@@ -263,7 +263,7 @@ namespace DirectXInput.KeypadCode
                         base.Show();
 
                         //Update the window style
-                        await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
+                        WindowUpdateStyleVisible(vInteropWindowHandle, true, true, true);
 
                         this.Title = "DirectXInput Keypad (Visible)";
                         vWindowVisible = true;
@@ -275,7 +275,7 @@ namespace DirectXInput.KeypadCode
                     if (vWindowVisible)
                     {
                         //Update the window style
-                        await WindowUpdateStyleHidden(vInteropWindowHandle);
+                        WindowUpdateStyleHidden(vInteropWindowHandle);
 
                         this.Title = "DirectXInput Keypad (Hidden)";
                         vWindowVisible = false;

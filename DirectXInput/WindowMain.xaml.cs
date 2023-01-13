@@ -11,6 +11,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.Styles.MainColors;
 using static DirectXInput.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
@@ -48,7 +49,8 @@ namespace DirectXInput
                 Settings_Save();
 
                 //Change application accent color
-                Settings_Load_AccentColor(vConfigurationCtrlUI);
+                string colorLightHex = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ColorAccentLight"));
+                ChangeApplicationAccentColor(colorLightHex);
                 vApplicationAccentLightBrush = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
 
                 //Create the tray menu
@@ -231,15 +233,15 @@ namespace DirectXInput
                         UpdateControllerPreviewRumble(true);
                         if (SendButton.Name == "btn_RumbleTestLight")
                         {
-                            await ControllerOutput(activeController, true, false);
+                            ControllerOutput(activeController, true, false);
                         }
                         else
                         {
-                            await ControllerOutput(activeController, false, true);
+                            ControllerOutput(activeController, false, true);
                         }
                         await Task.Delay(1000);
                         UpdateControllerPreviewRumble(false);
-                        await ControllerOutput(activeController, false, false);
+                        ControllerOutput(activeController, false, false);
 
                         vControllerRumbleTest = false;
                     }
@@ -249,7 +251,7 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "No controller connected";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }

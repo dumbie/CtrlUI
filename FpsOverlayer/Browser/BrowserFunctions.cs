@@ -59,7 +59,7 @@ namespace FpsOverlayer.OverlayCode
         }
 
         //Switch clickthrough mode
-        public async Task Browser_Switch_Clickthrough(bool forceVisible)
+        public void Browser_Switch_Clickthrough(bool forceVisible)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace FpsOverlayer.OverlayCode
 
                     //Update the window style
                     vBrowserWindowClickThrough = false;
-                    await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
+                    WindowUpdateStyleVisible(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
                 }
                 else
                 {
@@ -80,7 +80,7 @@ namespace FpsOverlayer.OverlayCode
 
                     //Update the window style
                     vBrowserWindowClickThrough = true;
-                    await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
+                    WindowUpdateStyleVisible(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
                 }
             }
             catch { }
@@ -93,11 +93,11 @@ namespace FpsOverlayer.OverlayCode
             {
                 if (vWindowVisible && vBrowserWindowClickThrough)
                 {
-                    await Browser_Switch_Clickthrough(false);
+                    Browser_Switch_Clickthrough(false);
                 }
                 else if (vWindowVisible)
                 {
-                    await Hide();
+                    Hide();
                 }
                 else
                 {

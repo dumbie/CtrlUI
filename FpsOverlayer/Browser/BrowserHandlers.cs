@@ -11,11 +11,11 @@ namespace FpsOverlayer.OverlayCode
     public partial class WindowBrowser : Window
     {
         //Close the browser
-        private async void button_Close_Click(object sender, RoutedEventArgs e)
+        private void button_Close_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await Hide();
+                Hide();
             }
             catch { }
         }
@@ -45,11 +45,11 @@ namespace FpsOverlayer.OverlayCode
         }
 
         //Switch click through mode
-        private async void button_Pin_Click(object sender, RoutedEventArgs e)
+        private void button_Pin_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await Browser_Switch_Clickthrough(false);
+                Browser_Switch_Clickthrough(false);
             }
             catch { }
         }

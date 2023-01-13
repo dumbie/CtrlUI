@@ -41,12 +41,12 @@ namespace FpsOverlayer.OverlayCode
         }
 
         //Hide the window
-        public new async Task Hide()
+        public new void Hide()
         {
             try
             {
                 //Update the window visibility
-                await UpdateWindowVisibility(false);
+                UpdateWindowVisibility(false);
 
                 //Reset browser default values
                 Browser_Unload();
@@ -60,7 +60,7 @@ namespace FpsOverlayer.OverlayCode
             try
             {
                 //Update the window visibility
-                await UpdateWindowVisibility(true);
+                UpdateWindowVisibility(true);
 
                 //Set default browser values
                 await Browser_Setup();
@@ -69,7 +69,7 @@ namespace FpsOverlayer.OverlayCode
         }
 
         //Update the window visibility
-        async Task UpdateWindowVisibility(bool visible)
+        void UpdateWindowVisibility(bool visible)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace FpsOverlayer.OverlayCode
                         base.Show();
 
                         //Update the window style
-                        await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
+                        WindowUpdateStyleVisible(vInteropWindowHandle, true, true, vBrowserWindowClickThrough);
 
                         this.Title = "FpsOverlayer Browser (Visible)";
                         vWindowVisible = true;
@@ -93,7 +93,7 @@ namespace FpsOverlayer.OverlayCode
                     if (vWindowVisible)
                     {
                         //Update the window style
-                        await WindowUpdateStyleHidden(vInteropWindowHandle);
+                        WindowUpdateStyleHidden(vInteropWindowHandle);
 
                         this.Title = "FpsOverlayer Browser (Hidden)";
                         vWindowVisible = false;

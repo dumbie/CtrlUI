@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Windows;
-using System.Windows.Media;
 
 namespace LibraryShared
 {
@@ -19,56 +17,6 @@ namespace LibraryShared
             {
                 return null;
             }
-        }
-
-        //Load - Accent Color settings
-        public static void Settings_Load_AccentColor(Configuration sourceConfig)
-        {
-            try
-            {
-                Debug.WriteLine("Adjusting the application accent color.");
-
-                string colorHexLight = Convert.ToString(Setting_Load(sourceConfig, "ColorAccentLight"));
-                SolidColorBrush targetSolidColorBrushLight = new BrushConverter().ConvertFrom(colorHexLight) as SolidColorBrush;
-                Application.Current.Resources["ApplicationAccentLightColor"] = targetSolidColorBrushLight.Color;
-                Application.Current.Resources["ApplicationAccentLightBrush"] = targetSolidColorBrushLight;
-                //Debug.WriteLine("Light color: " + targetSolidColorBrushLight.Color);
-
-                SolidColorBrush targetSolidColorBrushDim = AdjustColorBrightness(targetSolidColorBrushLight, 0.80);
-                Application.Current.Resources["ApplicationAccentDimColor"] = targetSolidColorBrushDim.Color;
-                Application.Current.Resources["ApplicationAccentDimBrush"] = targetSolidColorBrushDim;
-                //Debug.WriteLine("Dim color: " + targetSolidColorBrushDim.Color);
-
-                SolidColorBrush targetSolidColorBrushDark = AdjustColorBrightness(targetSolidColorBrushLight, 0.50);
-                Application.Current.Resources["ApplicationAccentDarkColor"] = targetSolidColorBrushDark.Color;
-                Application.Current.Resources["ApplicationAccentDarkBrush"] = targetSolidColorBrushDark;
-                //Debug.WriteLine("Dark color: " + targetSolidColorBrushDark.Color);
-            }
-            catch { }
-        }
-
-        //Adjust the color brightness
-        public static SolidColorBrush AdjustColorBrightness(SolidColorBrush solidColorBrush, double brightness)
-        {
-            try
-            {
-                Color adjustedColor = Color.FromRgb((byte)(solidColorBrush.Color.R * brightness), (byte)(solidColorBrush.Color.G * brightness), (byte)(solidColorBrush.Color.B * brightness));
-                return new SolidColorBrush(adjustedColor);
-            }
-            catch { }
-            return solidColorBrush;
-        }
-
-        //Adjust the color opacity
-        public static SolidColorBrush AdjustColorOpacity(SolidColorBrush solidColorBrush, double opacity)
-        {
-            try
-            {
-                Color adjustedColor = Color.FromArgb((byte)(solidColorBrush.Color.A * opacity), solidColorBrush.Color.R, solidColorBrush.Color.G, solidColorBrush.Color.B);
-                return new SolidColorBrush(adjustedColor);
-            }
-            catch { }
-            return solidColorBrush;
         }
 
         //Load - CtrlUI Settings

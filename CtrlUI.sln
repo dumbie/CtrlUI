@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlUI", "CtrlUI\CtrlUI.csp
 	ProjectSection(ProjectDependencies) = postProject
 		{2CB2F760-B0FB-41A4-BCD5-F60D244222C7} = {2CB2F760-B0FB-41A4-BCD5-F60D244222C7}
 		{318363B3-3252-438D-8F71-7A271A276DA6} = {318363B3-3252-438D-8F71-7A271A276DA6}
+		{478ED5D3-38AF-47FC-AE14-B67976AB952C} = {478ED5D3-38AF-47FC-AE14-B67976AB952C}
 		{5A3A03C7-095D-46E6-A588-BFB9A1A2C547} = {5A3A03C7-095D-46E6-A588-BFB9A1A2C547}
 		{C63B431C-B707-4F98-9465-448B1AA35D70} = {C63B431C-B707-4F98-9465-448B1AA35D70}
 	EndProjectSection
@@ -14,10 +15,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectXInput", "DirectXInput\DirectXInput.csproj", "{2CB2F760-B0FB-41A4-BCD5-F60D244222C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FpsOverlayer", "FpsOverlayer\FpsOverlayer.csproj", "{5A3A03C7-095D-46E6-A588-BFB9A1A2C547}"
+	ProjectSection(ProjectDependencies) = postProject
+		{478ED5D3-38AF-47FC-AE14-B67976AB952C} = {478ED5D3-38AF-47FC-AE14-B67976AB952C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverInstaller", "DriverInstaller\DriverInstaller.csproj", "{C63B431C-B707-4F98-9465-448B1AA35D70}"
+	ProjectSection(ProjectDependencies) = postProject
+		{478ED5D3-38AF-47FC-AE14-B67976AB952C} = {478ED5D3-38AF-47FC-AE14-B67976AB952C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryShared", "LibraryShared\LibraryShared.csproj", "{318363B3-3252-438D-8F71-7A271A276DA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArnoldVinkCode", "..\ArnoldVinkCode\Desktop\ArnoldVinkCode.csproj", "{478ED5D3-38AF-47FC-AE14-B67976AB952C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +54,10 @@ Global
 		{318363B3-3252-438D-8F71-7A271A276DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{318363B3-3252-438D-8F71-7A271A276DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{318363B3-3252-438D-8F71-7A271A276DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{478ED5D3-38AF-47FC-AE14-B67976AB952C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{478ED5D3-38AF-47FC-AE14-B67976AB952C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{478ED5D3-38AF-47FC-AE14-B67976AB952C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{478ED5D3-38AF-47FC-AE14-B67976AB952C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -111,14 +111,14 @@ namespace DirectXInput
                     NotificationDetails notificationDetails = new NotificationDetails();
                     notificationDetails.Icon = "Controller";
                     notificationDetails.Text = "No controller connected";
-                    await App.vWindowOverlay.Notification_Show_Status(notificationDetails);
+                    App.vWindowOverlay.Notification_Show_Status(notificationDetails);
                 }
             }
             catch { }
         }
 
         //Allow the ignored controller
-        async Task AllowIgnoredController()
+        void AllowIgnoredController()
         {
             try
             {
@@ -151,7 +151,7 @@ namespace DirectXInput
                 NotificationDetails notificationDetailsAllowed = new NotificationDetails();
                 notificationDetailsAllowed.Icon = "Controller";
                 notificationDetailsAllowed.Text = "Allowed the controller";
-                await App.vWindowOverlay.Notification_Show_Status(notificationDetailsAllowed);
+                App.vWindowOverlay.Notification_Show_Status(notificationDetailsAllowed);
             }
             catch { }
         }
@@ -168,17 +168,17 @@ namespace DirectXInput
                 {
                     vSingleTappedEvent = true;
                     await Task.Delay(500);
-                    if (vSingleTappedEvent) { await AllowIgnoredController(); }
+                    if (vSingleTappedEvent) { AllowIgnoredController(); }
                 }
             }
             catch { }
         }
 
-        async void Listbox_ControllerIgnore_PreviewKeyUp(object sender, KeyEventArgs e)
+        void Listbox_ControllerIgnore_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             try
             {
-                if (e.Key == Key.Space) { await AllowIgnoredController(); }
+                if (e.Key == Key.Space) { AllowIgnoredController(); }
             }
             catch { }
         }

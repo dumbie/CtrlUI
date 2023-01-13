@@ -12,6 +12,7 @@ using static ArnoldVinkCode.AVInputOutputClass;
 using static ArnoldVinkCode.AVInputOutputInterop;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.ProcessWin32Functions;
+using static ArnoldVinkCode.Styles.MainColors;
 using static CtrlUI.AppVariables;
 using static LibraryShared.Classes;
 using static LibraryShared.JsonFunctions;
@@ -51,7 +52,8 @@ namespace CtrlUI
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
                 //Change application accent color
-                Settings_Load_AccentColor(vConfigurationCtrlUI);
+                string colorLightHex = Convert.ToString(Setting_Load(vConfigurationCtrlUI, "ColorAccentLight"));
+                ChangeApplicationAccentColor(colorLightHex);
 
                 //Set the application clock style
                 UpdateClockStyle();

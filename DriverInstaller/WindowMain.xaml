@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DriverInstaller"
-        xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=LibraryShared"
+        xmlns:styles="clr-namespace:ArnoldVinkCode.Styles;assembly=ArnoldVinkCode"
         mc:Ignorable="d"
         Title="Driver Installer"
         Height="450"
@@ -45,7 +45,7 @@
                 </StackPanel>
             </Grid>
 
-            <TextBox Grid.Row="1" Name="textbox_Status" IsReadOnly="True" Foreground="{DynamicResource ApplicationGrayBrush}" Style="{StaticResource TextBoxTransparentBlack}"/>
+            <TextBox Grid.Row="1" Name="textbox_Status" IsReadOnly="True" Foreground="{DynamicResource ApplicationDimGrayBrush}" Style="{StaticResource TextBoxTransparentBlack}"/>
         </Grid>
     </Grid>
 </Window>
