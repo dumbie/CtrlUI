@@ -49,6 +49,7 @@ Fps Overlayer is a tool that shows the frames per second and the cpu, gpu and me
 ## Known issues
 - Overlays may not always show up when you are in a fullscreen application.
 - Alt+Enter controller shortcut may not work for all Windows Store applications.
+- Keyboard cannot be used in the web browser overlay due to window issues.
 
 ## Requirements
 - Microsoft Visual C++ Redistributable installed.
@@ -70,11 +71,14 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate my project and want to support me you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v1.84.0.0 (13-January-2023)
+- FpsOverlayer: Added web browser overlay.
+* Miscellaneous application improvements and fixes.
+
 v1.80.0.0 (30-September-2022)
 - CtrlUI: Interface redesigned to overlay window.
 - CtrlUI: Added How Long To Beat gametime support.
 - DirectXInput: Added media duration and progress.
-* Miscellaneous application improvements and fixes.
 
 v1.65.0.0 (12-May-2022)
 - Added new screencapturer with HDR support.
