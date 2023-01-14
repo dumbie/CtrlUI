@@ -82,8 +82,12 @@ namespace FpsOverlayer
                         float networkUpFloat = 0;
                         float networkDownFloat = 0;
 
-                        //Fan speed variables
+                        //Processor variables
+                        bool cpuDone = false;
                         float cpuFanSpeedFloat = 0;
+
+                        //Videocard variables
+                        bool gpuDone = false;
 
                         //Update the hardware information
                         foreach (IHardware hardwareItem in vHardwareComputer.Hardware)
@@ -91,8 +95,8 @@ namespace FpsOverlayer
                             try
                             {
                                 UpdateFanInformation(hardwareItem, ref cpuFanSpeedFloat);
-                                UpdateCpuInformation(hardwareItem, cpuFanSpeedFloat);
-                                UpdateGpuInformation(hardwareItem);
+                                UpdateCpuInformation(hardwareItem, cpuFanSpeedFloat, ref cpuDone);
+                                UpdateGpuInformation(hardwareItem, ref gpuDone);
                                 UpdateMemoryInformation(hardwareItem);
                                 UpdateBatteryInformation(hardwareItem);
                                 UpdateNetworkInformation(hardwareItem, ref networkUpFloat, ref networkDownFloat);
@@ -383,10 +387,13 @@ namespace FpsOverlayer
         }
 
         //Update the gpu information
-        void UpdateGpuInformation(IHardware hardwareItem)
+        void UpdateGpuInformation(IHardware hardwareItem, ref bool gpuDone)
         {
             try
             {
+                //Check if information is already set
+                if (gpuDone) { return; }
+
                 //Check if the information is visible
                 bool showName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowName"));
                 bool showPercentage = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "GpuShowPercentage"));
@@ -518,6 +525,7 @@ namespace FpsOverlayer
                             }
                         }
 
+                        gpuDone = true;
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             textblock_CurrentGpu.Text = stringDisplay;
@@ -578,10 +586,13 @@ namespace FpsOverlayer
         }
 
         //Update the cpu information
-        void UpdateCpuInformation(IHardware hardwareItem, float fanSpeedFloat)
+        void UpdateCpuInformation(IHardware hardwareItem, float fanSpeedFloat, ref bool cpuDone)
         {
             try
             {
+                //Check if information is already set
+                if (cpuDone) { return; }
+
                 //Check if the information is visible
                 bool showCpuName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "CpuShowName"));
                 bool showBoardName = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BoardShowName"));
@@ -637,7 +648,7 @@ namespace FpsOverlayer
                             if (showPercentage && sensor.SensorType == SensorType.Load)
                             {
                                 //Debug.WriteLine("CPU Load: " + sensor.Name + "/" + sensor.Identifier + "/" + sensor.Value.ToString());
-                                if (sensor.Identifier.ToString().EndsWith("load/0"))
+                                if (sensor.Identifier.ToString().EndsWith("load/0") || sensor.Identifier.ToString().EndsWith("load/1"))
                                 {
                                     CpuPercentage = " " + Convert.ToInt32(sensor.Value) + "%";
                                 }
@@ -736,6 +747,7 @@ namespace FpsOverlayer
                             }
                         }
 
+                        cpuDone = true;
                         AVActions.ActionDispatcherInvoke(delegate
                         {
                             textblock_CurrentCpu.Text = stringDisplay;
