@@ -35,7 +35,7 @@ namespace FpsOverlayer.OverlayCode
                 ListBoxBindLists();
 
                 //Reset browser interface to defaults
-                Browser_Reset_Interface();
+                Browser_Reset_Interface(string.Empty);
 
                 //Check if resolution has changed
                 SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
@@ -52,7 +52,7 @@ namespace FpsOverlayer.OverlayCode
                 UpdateWindowVisibility(false);
 
                 //Remove browser from grid
-                Browser_Remove_Grid();
+                Browser_Remove_Grid(string.Empty);
             }
             catch { }
         }

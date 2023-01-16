@@ -1,6 +1,7 @@
 ﻿using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows;
 using static ArnoldVinkCode.AVFunctions;
@@ -35,6 +36,7 @@ namespace FpsOverlayer.OverlayCode
                 //Create webviewer
                 vBrowserWebView = new WebView2();
                 vBrowserWebView.CreationProperties = creationProperties;
+                vBrowserWebView.DefaultBackgroundColor = Color.Transparent;
 
                 //Add webviewer to grid
                 grid_Browser.Children.Clear();
@@ -59,12 +61,14 @@ namespace FpsOverlayer.OverlayCode
             }
             catch (Exception ex)
             {
+                //Remove browser from grid
+                Browser_Remove_Grid("Error: " + ex.Message);
                 Debug.WriteLine("Failed to add browser: " + ex.Message);
             }
         }
 
         //Remove browser from grid
-        private void Browser_Remove_Grid()
+        private void Browser_Remove_Grid(string errorMessage)
         {
             try
             {
@@ -82,7 +86,7 @@ namespace FpsOverlayer.OverlayCode
                 }
 
                 //Reset browser interface
-                Browser_Reset_Interface();
+                Browser_Reset_Interface(errorMessage);
 
                 Debug.WriteLine("Removed browser from grid.");
             }
@@ -171,7 +175,7 @@ namespace FpsOverlayer.OverlayCode
         }
 
         //Reset browser interface
-        public void Browser_Reset_Interface()
+        public void Browser_Reset_Interface(string browserError)
         {
             try
             {
@@ -183,8 +187,59 @@ namespace FpsOverlayer.OverlayCode
 
                 //Reset current link
                 textblock_Link.Text = "Current website link";
+
+                //Set error text
+                textblock_Browser_Error.Text = browserError;
             }
             catch { }
+        }
+
+        //Update browser opacity
+        public async Task Browser_Update_Opacity()
+        {
+            try
+            {
+                //Get current background color
+                string currentBackground = (await vBrowserWebView.CoreWebView2.ExecuteScriptAsync("window.getComputedStyle(document.body).backgroundColor")).Replace(" ", string.Empty).Trim();
+                //Debug.WriteLine("Original background: " + currentBackground);
+
+                //Convert background
+                string colorRed = "0";
+                string colorGreen = "0";
+                string colorBlue = "0";
+                string colorAlpha = "0";
+                try
+                {
+                    int valueStart = currentBackground.IndexOf('(');
+                    int valueEnd = currentBackground.IndexOf(')');
+                    string[] values = currentBackground.Substring(valueStart + 1, valueEnd - valueStart - 1).Split(',');
+                    colorRed = values[0];
+                    colorGreen = values[1];
+                    colorBlue = values[2];
+                    colorAlpha = values[3];
+                }
+                catch { }
+
+                //Check default background
+                if (colorRed == "0" && colorGreen == "0" && colorBlue == "0" && colorAlpha == "0")
+                {
+                    colorRed = "255";
+                    colorGreen = "255";
+                    colorBlue = "255";
+                    colorAlpha = "1.00";
+                }
+
+                //Update browser opacity
+                string targetOpacity = Setting_Load(vConfigurationFpsOverlayer, "BrowserOpacity").ToString().Replace(",", ".");
+                string rgbaOpacity = "rgba(" + colorRed + "," + colorGreen + "," + colorBlue + "," + targetOpacity + ")";
+                await vBrowserWebView.CoreWebView2.ExecuteScriptAsync("document.documentElement.style.setProperty('opacity', '" + targetOpacity + "', 'important');");
+                await vBrowserWebView.CoreWebView2.ExecuteScriptAsync("document.documentElement.style.setProperty('background', '" + rgbaOpacity + "', 'important');");
+                Debug.WriteLine("Changed browser background: " + rgbaOpacity);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to update browser opacity: " + ex.Message);
+            }
         }
     }
 }

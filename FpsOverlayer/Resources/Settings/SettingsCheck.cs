@@ -25,6 +25,7 @@ namespace FpsOverlayer
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "BrowserShowStartup") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserShowStartup", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "BrowserUnload") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserUnload", "True"); }
+                if (Setting_Load(vConfigurationFpsOverlayer, "BrowserOpacity") == null) { Setting_Save(vConfigurationFpsOverlayer, "BrowserOpacity", "0,70"); }
 
                 if (Setting_Load(vConfigurationFpsOverlayer, "TextColorSingle") == null) { Setting_Save(vConfigurationFpsOverlayer, "TextColorSingle", "False"); }
                 if (Setting_Load(vConfigurationFpsOverlayer, "ColorBackground") == null) { Setting_Save(vConfigurationFpsOverlayer, "ColorBackground", "#1D1D1D"); }

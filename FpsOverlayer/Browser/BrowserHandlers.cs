@@ -136,11 +136,14 @@ namespace FpsOverlayer.OverlayCode
             catch { }
         }
 
-        //Update progressbar
-        private void WebView2_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
+        //Update progressbar and opacity
+        private async void WebView2_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
             try
             {
+                //Update browser opacity
+                await Browser_Update_Opacity();
+
                 progressbar_Browser.Visibility = Visibility.Collapsed;
             }
             catch { }

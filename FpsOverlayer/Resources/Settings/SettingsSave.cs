@@ -432,6 +432,13 @@ namespace FpsOverlayer
                     CheckBox senderCheckBox = (CheckBox)sender;
                     Setting_Save(vConfigurationFpsOverlayer, "BrowserUnload", senderCheckBox.IsChecked.ToString());
                 };
+
+                slider_BrowserOpacity.ValueChanged += async (sender, e) =>
+                {
+                    textblock_BrowserOpacity.Text = textblock_BrowserOpacity.Tag + ": " + slider_BrowserOpacity.Value.ToString("0.00") + "%";
+                    Setting_Save(vConfigurationFpsOverlayer, "BrowserOpacity", slider_BrowserOpacity.Value.ToString("0.00"));
+                    await vWindowBrowser.Browser_Update_Opacity();
+                };
             }
             catch (Exception ex)
             {

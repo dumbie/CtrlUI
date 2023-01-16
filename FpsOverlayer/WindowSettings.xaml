@@ -292,29 +292,9 @@
                             <Button Name="button_Link_Add" Margin="10,0,0,0" Width="135" Content="Add link" HorizontalAlignment="Left" Style="{StaticResource ButtonAccentBlack}"/>
                         </StackPanel>
 
-                        <!--<CheckBox Name="checkbox_BrowserClickThrough" Content="Mouse click through the browser" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this will allow you to click through the browser." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>-->
-
-                        <!--<CheckBox Name="checkbox_BrowserCustomSize" Content="Use custom browser size" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}"/>
-                        <TextBlock Text="Enabling this will set a custom browser size." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-
-                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Width" Style="{StaticResource TextBlockBlack}"/>
-                                <TextBox Name="textbox_BrowserWidth" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
-                            </StackPanel>
-
-                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
-                                <TextBlock Text="Height" Style="{StaticResource TextBlockBlack}"/>
-                                <TextBox Name="textbox_BrowserHeight" MaxLength="20" Width="80" Margin="5,0,0,0" Padding="0" Style="{StaticResource TextBoxBlack}"/>
-                            </StackPanel>
-
-                            <TextBlock Margin="10,0,0,0" Text="pixels" Style="{StaticResource TextBlockBlack}"/>
-                        </StackPanel>-->
-
-                        <!--<TextBlock Name="textblock_BrowserOpacity" Text="Browser display transparency" Tag="Browser display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
+                        <TextBlock Name="textblock_BrowserOpacity" Text="Browser display transparency" Tag="Browser display transparency" Margin="0,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlockBlack}"/>
                         <TextBlock Text="Change the browser displayed transparency." TextWrapping="Wrap" Style="{StaticResource TextBlockGray}"/>
-                        <Slider Minimum="0.05" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_BrowserOpacity" Style="{StaticResource SliderWhite}"/>-->
+                        <Slider Minimum="0.10" Maximum="1.00" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.05" HorizontalAlignment="Left" Height="18" Width="440" Name="slider_BrowserOpacity" Style="{StaticResource SliderWhite}"/>
 
                         <Button Name="button_BrowserShowHide" Margin="0,15,10,0" Content="Hide or show browser" Style="{StaticResource ButtonAccentBlack}"/>
                     </StackPanel>

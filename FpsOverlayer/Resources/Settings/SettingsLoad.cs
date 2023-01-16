@@ -164,6 +164,9 @@ namespace FpsOverlayer
                 checkbox_BrowserShowStartup.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BrowserShowStartup"));
                 checkbox_BrowserUnload.IsChecked = Convert.ToBoolean(Setting_Load(vConfigurationFpsOverlayer, "BrowserUnload"));
 
+                textblock_BrowserOpacity.Text = textblock_BrowserOpacity.Tag + ": " + Setting_Load(vConfigurationFpsOverlayer, "BrowserOpacity").ToString() + "%";
+                slider_BrowserOpacity.Value = Convert.ToDouble(Setting_Load(vConfigurationFpsOverlayer, "BrowserOpacity"));
+
                 //Update stats position text
                 UpdateStatsPositionText();
 

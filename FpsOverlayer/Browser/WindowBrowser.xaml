@@ -20,7 +20,7 @@
 
     <Border CornerRadius="5">
         <Border.Background>
-            <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
+            <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.90"/>
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
@@ -35,6 +35,7 @@
                     <Image Source="pack://siteoforigin:,,,/Assets/Default/Icons/Link.png" Height="60"/>
                     <TextBlock Text="Select link to open below." HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" FontSize="{DynamicResource TextSizeLarge}"/>
                     <TextBlock Text="You can add new links in the settings." HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeInterface}"/>
+                    <TextBlock Name="textblock_Browser_Error" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockGray}" FontSize="{DynamicResource TextSizeInterface}"/>
                 </StackPanel>
             </Grid>
 
